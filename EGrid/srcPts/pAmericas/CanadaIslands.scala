@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Devon Island and Axal Heiberg Island. Depends on nothing. */
-object RingnesIslands extends EarthArea("RingnesIslands", 78.473 ll -100.940, hillyTundra)
+object RingnesIslands extends EarthPoly("RingnesIslands", 78.473 ll -100.940, hillyTundra)
 { val ellefNorth: LatLong = 79.367 ll -103.886
   val amundNorth: LatLong = 78.813 ll -97.866
   val haigThomas: LatLong = 78.184 ll -94.308
@@ -18,7 +18,7 @@ object RingnesIslands extends EarthArea("RingnesIslands", 78.473 ll -100.940, hi
 }
 
 /** [[polygonLL]] graphical representation for Ellesmere Island and Axel Heiberg Island. Depends on nothing. */
-object EllesmereIsland extends EarthArea("Ellsesmere Island", 80.24 ll -79.37, mtainIce)
+object EllesmereIsland extends EarthPoly("Ellsesmere Island", 80.24 ll -79.37, mtainIce)
 { val east: LatLong = 82.27 ll -61.23
   val p10: LatLong = 81.440 ll -64.604
   val p30: LatLong = 79.57 ll -73.19
@@ -44,7 +44,7 @@ object EllesmereIsland extends EarthArea("Ellsesmere Island", 80.24 ll -79.37, m
 }
 
 /** [[polygonLL]] graphical representation for Devon Island. Depends on nothing. */
-object DevonIsland extends EarthArea("Devon Island", 75.15 ll -87.1, tundra)
+object DevonIsland extends EarthPoly("Devon Island", 75.15 ll -87.1, tundra)
 { val p10: LatLong = 75.77 ll -81.09
   val p20: LatLong = 75.46 ll -79.62
   val p30: LatLong = 74.60 ll -80.30
@@ -57,7 +57,7 @@ object DevonIsland extends EarthArea("Devon Island", 75.15 ll -87.1, tundra)
 }
 
 /** [[polygonLL]] graphical representation for Banks Island. Depends on nothing. */
-object BanksIsland extends EarthArea("Banks Island", 73.12 ll -121.13, tundra)
+object BanksIsland extends EarthPoly("Banks Island", 73.12 ll -121.13, tundra)
 { val p0: LatLong = 74.28 ll -118
   val p10: LatLong = 73.54 ll -115.34
   val p18: LatLong = 72.66 ll -119.15
@@ -71,7 +71,7 @@ object BanksIsland extends EarthArea("Banks Island", 73.12 ll -121.13, tundra)
 }
 
 /** [[polygonLL]] graphical representation for Meckenzie Island, Borden Island and Brock Island. Depends on nothing. */
-object MackenzieIslands extends EarthArea("Mackenzie Islands", 75.43 ll -110.86, tundra)
+object MackenzieIslands extends EarthPoly("Mackenzie Islands", 75.43 ll -110.86, tundra)
 { val bordenNorth: LatLong = 78.759 ll -110.423
   val bordenNE: LatLong = 78.559 ll -109.335
   val southEast: LatLong = 77.573 ll -110.077
@@ -81,7 +81,7 @@ object MackenzieIslands extends EarthArea("Mackenzie Islands", 75.43 ll -110.86,
 }
 
 /** [[polygonLL]] graphical representation for Melville Island and Prince Patrick Island. Depends on nothing. */
-object MelvilleIsland extends EarthArea("Melville Island", 75.43 ll -110.86, tundra)
+object MelvilleIsland extends EarthPoly("Melville Island", 75.43 ll -110.86, tundra)
 { val northWest: LatLong = 75.86 ll -105.44
   val southWest: LatLong = 75.06 ll -105.99
   val south: LatLong = 74.41 ll -113.00
@@ -92,7 +92,7 @@ object MelvilleIsland extends EarthArea("Melville Island", 75.43 ll -110.86, tun
 }
 
 /** [[polygonLL]] graphical representation for Victoria Island. Depends on nothing. */
-object VictoriaIsland extends EarthArea("Victoria Island", 70.65 ll -109.36, tundra)
+object VictoriaIsland extends EarthPoly("Victoria Island", 70.65 ll -109.36, tundra)
 { val stefanssonN: LatLong = 73.75 ll -105.29
   val vic5: LatLong = 71.12 ll -104.60
   val vic10: LatLong = 70.21 ll -101.34
@@ -108,7 +108,7 @@ object VictoriaIsland extends EarthArea("Victoria Island", 70.65 ll -109.36, tun
 }
 
 /** [[polygonLL]] graphical representation for Prince Wales Island. Depends on nothing. */
-object PrinceWalesIsland extends EarthArea("Prince of Wales Island", 72.87 ll -99.13, tundra)
+object PrinceWalesIsland extends EarthPoly("Prince of Wales Island", 72.87 ll -99.13, tundra)
 { val northEast: LatLong = 73.86 ll -97.20
   val east: LatLong = 72.43 ll -96.28
   val south: LatLong = 71.30 ll -98.71
@@ -119,7 +119,7 @@ object PrinceWalesIsland extends EarthArea("Prince of Wales Island", 72.87 ll -9
 }
 
 /** [[polygonLL]] graphical representation for Southampton Island. Depends on nothing. */
-object SouthamptonIsland extends EarthArea("Southampton Island", 64.5 ll -84.35, tundra)
+object SouthamptonIsland extends EarthPoly("Southampton Island", 64.5 ll -84.35, tundra)
 { val north: LatLong = 66.02 ll -85.08
   val p20: LatLong = 65.27 ll -84.26
   val east: LatLong = 63.78 ll -80.16
@@ -134,7 +134,7 @@ object SouthamptonIsland extends EarthArea("Southampton Island", 64.5 ll -84.35,
 }
 
 /** [[polygonLL]] graphical representation for Baffin Island. Depends on nothing. */
-object BaffinIsland extends EarthArea("Baffin Island", 69.55 ll -72.64, tundra)
+object BaffinIsland extends EarthPoly("Baffin Island", 69.55 ll -72.64, tundra)
 { val p3: LatLong = 73.75 ll -84.94
   val p4: LatLong = 72.65 ll -86.70
   val p12: LatLong = 73.73 ll -82.82

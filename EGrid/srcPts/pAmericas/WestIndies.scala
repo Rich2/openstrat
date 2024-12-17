@@ -19,7 +19,7 @@ object Cuba extends EarthAreaIsland("Cuba", 21.97 ll -78.96, jungle)
 }
 
 /** [[polygonLL]] graphical representation for the island of Hispaniola. Depends on nothing. */
-object Hispaniola extends EarthArea("Hispaniola", 19.099 ll -70.863, hillyJungle)
+object Hispaniola extends EarthPoly("Hispaniola", 19.099 ll -70.863, hillyJungle)
 { val north: LatLong = 19.931 ll -70.999
   val east: LatLong = 18.609 ll -68.324
   val islaBeata: LatLong = 17.543 ll -71.542
@@ -30,7 +30,7 @@ object Hispaniola extends EarthArea("Hispaniola", 19.099 ll -70.863, hillyJungle
 }
 
 /** [[polygonLL]] graphical representation for Jamaica. Depends on nothing. */
-object Jamaica extends EarthArea("Jamaica", 21.97 ll -78.96, hillyJungle)
+object Jamaica extends EarthPoly("Jamaica", 21.97 ll -78.96, hillyJungle)
 { val north: LatLong = 18.525 ll -77.824
   val galinaPoint: LatLong = 18.407 ll -76.887
   val morantPoint: LatLong = 17.919 ll -76.184

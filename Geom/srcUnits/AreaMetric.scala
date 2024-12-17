@@ -80,3 +80,9 @@ implicit class arraySumEv[A](thisArray: Array[A])
     Kilares(acc)
   }
 }
+
+/** Class has an area property. */
+trait WithKilares
+{ /** The area of the entity this object represents */
+  def area: Kilares
+}

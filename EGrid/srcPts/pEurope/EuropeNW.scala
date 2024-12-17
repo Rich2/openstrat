@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Belgium and Luxembourg. Depends on Alsace. */
-object BelgLux extends EarthArea("BelgLux", 50.6 ll 4.78, oceanic)
+object BelgLux extends EarthPoly("BelgLux", 50.6 ll 4.78, oceanic)
 { val northWest: LatLong = 51.09 ll 2.54
   val zeebrugge: LatLong = 51.339 ll 3.185
   val coastEast: LatLong = 51.36 ll 3.37
@@ -15,7 +15,7 @@ object BelgLux extends EarthArea("BelgLux", 50.6 ll 4.78, oceanic)
 }
 
 /** [[polygonLL]] graphical representation of Brittany. Depends on nothing. */
-object Brittany extends EarthArea("Brittany", 48.178 ll -2.770, hillyOce)
+object Brittany extends EarthPoly("Brittany", 48.178 ll -2.770, hillyOce)
 { val seluneMouth: LatLong = 48.644 ll -1.423
   val loireMouth: LatLong = 47.277 ll -2.173
   val p10: LatLong = 47.292 ll -2.547
@@ -36,7 +36,7 @@ object Brittany extends EarthArea("Brittany", 48.178 ll -2.770, hillyOce)
 }
 
 /** [[polygonLL]] graphical representation of most of France. Depends on [[Brittany]], [[Alsace]] and [[BelgLux]]. */
-object FranceNorth extends EarthArea("France north", 47.28 ll 1.93, oceanic)
+object FranceNorth extends EarthPoly("France north", 47.28 ll 1.93, oceanic)
 { val bourgeEnBresse: LatLong = 46.20 ll 5.22
   val southWest: LatLong = divN45 ll -1.29
   val southEast: LatLong = divN45 ll 5.53
@@ -71,7 +71,7 @@ object FranceNorth extends EarthArea("France north", 47.28 ll 1.93, oceanic)
 }
 
 /** [[polygonLL]] graphical representation of Alsace Lorraine. Depends on nothing. */
-object Alsace extends EarthArea("Alsace", 48.75 ll 7.42, hillyOce)
+object Alsace extends EarthPoly("Alsace", 48.75 ll 7.42, hillyOce)
 { val northWest: LatLong = 49.50 ll 5.89
   val luxSE: LatLong = 49.46 ll 6.37
   val east: LatLong = 48.97 ll 8.23

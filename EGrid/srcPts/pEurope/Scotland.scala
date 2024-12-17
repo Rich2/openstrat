@@ -31,7 +31,7 @@ object Orkneys extends EarthAreaIsland("Orkneys", 59.06 ll -3.15, oceanic)
 }
 
 /** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */
-object ScotlandHigh extends EarthArea("Scotland\n highlands", 56.82 ll -4.07, mtainOce)
+object ScotlandHigh extends EarthPoly("Scotland\n highlands", 56.82 ll -4.07, mtainOce)
 { val johnOGroats: LatLong = 58.62 ll -3.08
   val girnigoe: LatLong = 58.47 ll -3.05
   val sarclet: LatLong = 58.371 ll -3.108
@@ -74,7 +74,7 @@ object ScotlandHigh extends EarthArea("Scotland\n highlands", 56.82 ll -4.07, mt
 }
 
 /** [[polygonLL]] graphical representation of Scottish lowlands. Depends on [[ScotlandHigh]]. */
-object ScotlandLow extends EarthArea("Scotland\nlowlands", 56.82 ll -4.07, hillyOce)
+object ScotlandLow extends EarthPoly("Scotland\nlowlands", 56.82 ll -4.07, hillyOce)
 { val archerfield: LatLong = 56.06 ll -2.81
   val tantallion: LatLong = 56.05 ll -2.65
   val stAbbs: LatLong = 55.91 ll -2.14
@@ -93,7 +93,7 @@ object ScotlandLow extends EarthArea("Scotland\nlowlands", 56.82 ll -4.07, hilly
 }
 
 /** [[polygonLL]] graphical representation of Lewis Island. Depends on nothing. */
-object IsleLewis extends EarthArea("Lewis", 57.83 ll -6.09, hillyTundra)
+object IsleLewis extends EarthPoly("Lewis", 57.83 ll -6.09, hillyTundra)
 { val nLewis: LatLong = 58.51 ll -6.26
   val swLewis: LatLong = 57.94 ll -6.47
   val sHarris: LatLong = 57.73 ll -6.97
@@ -104,7 +104,7 @@ object IsleLewis extends EarthArea("Lewis", 57.83 ll -6.09, hillyTundra)
 }
 
 /** [[polygonLL]] graphical representation of Uist islands. Depends on nothing. */
-object Uist extends EarthArea("Uist", 57.384 ll -7.32, oceanic)
+object Uist extends EarthPoly("Uist", 57.384 ll -7.32, oceanic)
 {
   val pabbay: LatLong = 57.785 ll -7.225
   val northEast: LatLong = 57.660 ll -7.047
@@ -116,7 +116,7 @@ object Uist extends EarthArea("Uist", 57.384 ll -7.32, oceanic)
 }
 
 /** [[polygonLL]] graphical representation of Islay, jura and Colonsay islands. Depends on nothing. */
-object IslayJura extends EarthArea("Islay Jura", 55.879 ll -6.006, oceanic)
+object IslayJura extends EarthPoly("Islay Jura", 55.879 ll -6.006, oceanic)
 { val juraNorth = 56.149 ll -5.709
   val islaySouth = 55.580 ll -6.293
   val portahaven: LatLong = 55.671 ll -6.514

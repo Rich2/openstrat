@@ -3,7 +3,7 @@ package ostrat; package pEarth; package middleEast
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]] and [[AnatoliaSW]]. */
-object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mtainSavannah)
+object AnatoliaNW extends EarthPoly("Anatolia north-west", 39.469 ll 29.380, mtainSavannah)
 { val northEast: LatLong = 41.139 ll 31.342
 
   val p5: LatLong = 38.444 ll 26.950
@@ -20,7 +20,7 @@ object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mta
 }
 
 /** [[PolygonLL]] graphic for south-west Anatolia. depends on nothing. */
-object AnatoliaSW extends EarthArea("Anatolia south-west", 37.468 ll 29.176, mtainOceForest)
+object AnatoliaSW extends EarthPoly("Anatolia south-west", 37.468 ll 29.176, mtainOceForest)
 { val antalya: LatLong = 36.885 ll 30.702
   val p15: LatLong = 36.801 ll 30.576
   val p20: LatLong = 36.23 ll 30.42
@@ -46,7 +46,7 @@ object AnatoliaSW extends EarthArea("Anatolia south-west", 37.468 ll 29.176, mta
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. */
-object LakeEgirdir extends EarthArea("LakeEgirdir", 38.055 ll 30.884, Lake)
+object LakeEgirdir extends EarthPoly("LakeEgirdir", 38.055 ll 30.884, Lake)
 { val north: LatLong = 38.279 ll 30.874
   val east: LatLong = 38.004 ll 30.968
   val southEast: LatLong = 37.845 ll 30.888
@@ -58,7 +58,7 @@ object LakeEgirdir extends EarthArea("LakeEgirdir", 38.055 ll 30.884, Lake)
 }
 
 /** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
-object AnatoliaCentral extends EarthArea("Anatolia central", 39.00 ll 32.50, hillySavannah)
+object AnatoliaCentral extends EarthPoly("Anatolia central", 39.00 ll 32.50, hillySavannah)
 { val northEast: LatLong = 41.27 ll 37.01
   val yukanbumaz: LatLong = 36.94 ll 36.04
   val p10: LatLong = 36.54 ll 35.34
@@ -78,7 +78,7 @@ object AnatoliaCentral extends EarthArea("Anatolia central", 39.00 ll 32.50, hil
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. Sit on top of [[AnatoliaCentral]] */
-object LakeTuz extends EarthArea("LakeTuz", 38.79 ll 33.56, Lake)
+object LakeTuz extends EarthPoly("LakeTuz", 38.79 ll 33.56, Lake)
 { val northEast: LatLong = 39.12 ll 33.34
   val p10: LatLong = 38.99 ll 33.46
   val southEast: LatLong = 38.60 ll 33.49

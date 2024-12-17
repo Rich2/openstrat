@@ -3,7 +3,7 @@ package ostrat; package pEarth; package middleEast
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Kurdistan depends on [[AnatoliaCentral]]. */
-object Kurdistan extends EarthArea("Kurdistan", 39.36 ll 40.00, hillyOce)
+object Kurdistan extends EarthPoly("Kurdistan", 39.36 ll 40.00, hillyOce)
 { val p70: LatLong = 41.10 ll 39.42
   val yorosBurnu: LatLong = 41.107 ll 39.419
   val surmene: LatLong = 40.91 ll 40.12
@@ -15,7 +15,7 @@ object Kurdistan extends EarthArea("Kurdistan", 39.36 ll 40.00, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for the Caucasus, depends on [[Kurdistan]] and [[pEurope.Ukraine]]. */
-object Armenia extends EarthArea("Armenia", 40.0 ll 45.0, hillyOce)
+object Armenia extends EarthPoly("Armenia", 40.0 ll 45.0, hillyOce)
 { val asiaMinorE: Longitude = 50.03.east
   import pEurope.Caspian
   override val polygonLL: PolygonLL = PolygonLL(pEurope.RussiaSouth.blackSeaE, Caspian.sumqayit, Caspian.baku, Caspian.sangachal, Caspian.southWest,
@@ -23,7 +23,7 @@ object Armenia extends EarthArea("Armenia", 40.0 ll 45.0, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. */
-object LakeVan extends EarthArea("LakeVan", 38.62 ll 42.90, Lake)
+object LakeVan extends EarthPoly("LakeVan", 38.62 ll 42.90, Lake)
 { val north: LatLong =  39.00 ll 43.39
   val northEast: LatLong = 38.94 ll 43.65
   val southEast: LatLong = 38.31 ll 43.12
@@ -35,7 +35,7 @@ object LakeVan extends EarthArea("LakeVan", 38.62 ll 42.90, Lake)
 }
 
 /** [[PolygonLL]] graphic for Iraq depends on [[Levant]]. */
-object Iraq extends EarthArea("Iraq", 34.0 ll 44.5, deshot)
+object Iraq extends EarthPoly("Iraq", 34.0 ll 44.5, deshot)
 { override def toString: String = "Iraq"
 
   import pMed.Sinai
@@ -44,7 +44,7 @@ object Iraq extends EarthArea("Iraq", 34.0 ll 44.5, deshot)
 }
 
 /** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
-object Persia extends EarthArea("Persia", 32.4 ll 60, hillyOce)
+object Persia extends EarthPoly("Persia", 32.4 ll 60, hillyOce)
 { val mahshahr: LatLong = 30.22.north * Armenia.asiaMinorE
   val north: LatLong = 38.285 ll 57.209
   val southEast: LatLong = 25.179 ll 61.618

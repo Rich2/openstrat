@@ -28,7 +28,7 @@ object Borneo extends EarthAreaIsland("Borneo", 0.63 ll 114.132, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
-object Sulawesi extends EarthArea("Sulawesi", -2.16 ll 120.58, jungle)
+object Sulawesi extends EarthPoly("Sulawesi", -2.16 ll 120.58, jungle)
 { val seSulawesi: LatLong = -5.41 ll 119.38
   val nwSulawesi: LatLong = 0.72 ll 120.06
   val neSulawesi: LatLong = 1.67 ll 125.15
@@ -42,7 +42,7 @@ object Sulawesi extends EarthArea("Sulawesi", -2.16 ll 120.58, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of New Guinea. Depends on nothing. */
-object GuineaWest extends EarthArea("West Guinea", -5.19 ll 141.03, hillyJungle)
+object GuineaWest extends EarthPoly("West Guinea", -5.19 ll 141.03, hillyJungle)
 { val waigeoWest: LatLong = -0.113 ll 130.295
   val waigeoNorth: LatLong = -0.007 ll 130.814
   val manokwari: LatLong = -0.73 ll 133.98
@@ -65,7 +65,7 @@ object GuineaWest extends EarthArea("West Guinea", -5.19 ll 141.03, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation for Papua New Guinea. Depends on nothing. */
-object PapuaNewGuinea extends EarthArea("Papua New Guinea", -5.448 ll 143.578, hillyJungle)
+object PapuaNewGuinea extends EarthPoly("Papua New Guinea", -5.448 ll 143.578, hillyJungle)
 { val madang: LatLong = -4.85 ll 145.78
   val saidor: LatLong = -5.614 ll 146.473
   val p10: LatLong = -5.918 ll 147.339

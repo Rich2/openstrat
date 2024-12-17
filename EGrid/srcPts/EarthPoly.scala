@@ -3,7 +3,7 @@ package ostrat; package pEarth
 import geom.*, pglobe.*, egrid.*, WTiles.*, collection.mutable.ArrayBuffer
 
 /** A second level area of the Earth. */
-abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
+abstract class EarthPoly(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
 { override def toString = name.oneLine + ", " + terr.strComma
   def aStrs: StrArr = StrArr(name)
   def textScale: Metres = 15000.metres
@@ -14,9 +14,9 @@ abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) ex
 
   def places: LocationLLArr = LocationLLArr()
 
-  /** Returns a pair of this [[EarthArea]] and the [[PolygonM2]] from the given focus and orientation. The polygonM only has points form the side of the
+  /** Returns a pair of this [[EarthPoly]] and the [[PolygonM2]] from the given focus and orientation. The polygonM only has points form the side of the
    *  earth that faces the focus.  */
-  def withPolygonM2(focus: LatLongDirn): (EarthArea, PolygonM2) =
+  def withPolygonM2(focus: LatLongDirn): (EarthPoly, PolygonM2) =
   { val p3s0: PolygonM3 = polygonLL.toMetres3
     val p3s1: PolygonM3 = p3s0.fromLatLongFocus(focus)
     val p3s3: PolygonM2 = p3s1.earthZPosXYModify
@@ -25,24 +25,21 @@ abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) ex
   }
 }
 
-/** Companion object for the [[EarthArea]] class. Contains 2 factory apply methods. */
-object EarthArea
+/** Companion object for the [[EarthPoly]] class. Contains 2 factory apply methods. */
+object EarthPoly
 {
-  def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthArea(symName, cen, terr)
+  def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthPoly(symName, cen, terr)
   { val polygonLL = PolygonLL(latLongArgs*)
   }
 
-  def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EarthArea(symName, cen, terr)
+  def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EarthPoly(symName, cen, terr)
   { val polygonLL = polygonIn
   }
 }
 
-trait EarthIslandLike
+trait EarthIslandLike extends WithKilares
 { 
   def name: String
-  
-  /** The area of this island or island grouping. */
-  def area: Kilares
 
   def oGroup: Option[EarthIslandGroup] = None
 
@@ -57,7 +54,7 @@ trait EarthIslandLike
   }
 }
 
-abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr), EarthIslandLike
+abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), EarthIslandLike
 { override def toString = name.oneLine + (area.str0 + ", " + terr.strComma).enParenth
 
   def strWithGroups: String =
@@ -73,3 +70,5 @@ abstract class EarthIslandGroup(val name: String) extends EarthIslandLike
   lazy val array: Array[EarthIslandLike] = elements.arrayUnsafe
   override def toString: String = name
 }
+
+abstract class EarthLake(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), WithKilares

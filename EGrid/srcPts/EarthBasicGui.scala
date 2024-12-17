@@ -18,14 +18,14 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val scaleMax: LengthMetric = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
-  val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
+  val eas: RArr[EarthPoly] = earthAllAreas.flatMap(_.a2Arr)
 
-  val ps1: PolygonLLPairArr[EarthArea] = eas.map(ea => PolygonLLPair[EarthArea](ea.polygonLL, ea))
+  val ps1: PolygonLLPairArr[EarthPoly] = eas.map(ea => PolygonLLPair[EarthPoly](ea.polygonLL, ea))
   val lc1: LocationLLArr = eas.flatMap(_.places)
   val lc2: PtM3PairArr[Place] = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */
-  val ps2: PolygonM3PairArr[EarthArea] = ps1.polygonMapToPair(_.toMetres3)
+  val ps2: PolygonM3PairArr[EarthPoly] = ps1.polygonMapToPair(_.toMetres3)
 
   import pEurope._
   val london: LatLong = EnglandNorth.london.a1
@@ -36,9 +36,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
 
   def repaint(): Unit =
-  { val ps3: PolygonM3PairArr[EarthArea] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
+  { val ps3: PolygonM3PairArr[EarthPoly] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
 
-    val ps4: PolygonM2PairArr[EarthArea] = ps3.optMapOnA1 {
+    val ps4: PolygonM2PairArr[EarthPoly] = ps3.optMapOnA1 {
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
       case p => {
@@ -49,7 +49,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       }
     }
 
-    val ps5: PolygonGenPairArr[EarthArea] = ps4.polygonMapToPair{ p => p / dirnScale }
+    val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair{ p => p / dirnScale }
 
     val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap{ (p, a2) =>
       val str: String = a2 match {

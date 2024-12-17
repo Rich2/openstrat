@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Mag west Sahara depends on nothing. */
-object MaghrebWest extends EarthArea("Maghreb west", 33 ll 2.32, hillySahel)
+object MaghrebWest extends EarthPoly("Maghreb west", 33 ll 2.32, hillySahel)
 {  val ceuta: LatLong = 35.88 ll -5.31
   val alHoceima: LatLong = 35.15 ll -4.38
   val sidiAmar: LatLong = 35.439 ll -2.973
@@ -24,7 +24,7 @@ object MaghrebWest extends EarthArea("Maghreb west", 33 ll 2.32, hillySahel)
 }
 
 /** [[PolygonLL]] graphic for west Sahara depends on nothing. */
-object MaghrebEast extends EarthArea("Maghreb east", 33 ll 2.32, hillySahel)
+object MaghrebEast extends EarthPoly("Maghreb east", 33 ll 2.32, hillySahel)
 { val neTunis: LatLong = 37.07 ll 11.04
   val p28: LatLong = 36.87 ll 11.14
   val p30: LatLong = 36.46 ll 10.81
@@ -59,7 +59,7 @@ object MaghrebEast extends EarthArea("Maghreb east", 33 ll 2.32, hillySahel)
 }
 
 /** [[PolygonLL]] graphic for Sahara central depends on [[MaghrebEast]]. */
-object SaharaCentral extends EarthArea("SaharaCentral", 26 ll 16, deshot)
+object SaharaCentral extends EarthPoly("SaharaCentral", 26 ll 16, deshot)
 { val southEast: LatLong = 17 ll 16.75
   val southWest: LatLong = 17 ll 10.08
   val p84: LatLong = 33.89 ll 10.75
@@ -78,7 +78,7 @@ object SaharaCentral extends EarthArea("SaharaCentral", 26 ll 16, deshot)
 
 
 /** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
-object Sinai extends EarthArea("Sinai", 29.88 ll 33.75, deshot)
+object Sinai extends EarthPoly("Sinai", 29.88 ll 33.75, deshot)
 { val deadSeaSE: LatLong = 30.97 ll 35.37
   val eilat: LatLong = 29.54 ll 34.98
   val south: LatLong = 27.73 ll 34.25
@@ -91,7 +91,7 @@ object Sinai extends EarthArea("Sinai", 29.88 ll 33.75, deshot)
 }
 
 /** [[PolygonLL]] graphic for north-east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
-object SaharaEast extends EarthArea("SaharaEast", 24 ll 25, deshot)
+object SaharaEast extends EarthPoly("SaharaEast", 24 ll 25, deshot)
 { val p5: LatLong = 29.59 ll 32.34
   val p20: LatLong = 23.95 ll 35.76
   val p30: LatLong = 18.83 ll 37.44

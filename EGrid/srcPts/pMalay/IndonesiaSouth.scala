@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Sumatra. Depends on nothing. */
-object Sumatra extends EarthArea("Sumatra", -0.02 ll 101.63, jungle)
+object Sumatra extends EarthPoly("Sumatra", -0.02 ll 101.63, jungle)
 { val nSumatra: LatLong = 5.65 ll 95.43
   val neSumatra: LatLong = 5.24 ll 97.49
   val tanjungDatuk: LatLong = -0.005 ll 103.812

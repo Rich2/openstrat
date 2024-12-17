@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for the near south of South America. Depends on [[SouthAmericaFS]]. */
-object SouthAmericaNS extends EarthArea("South America\nnear south", -36.495 ll -66.0, savannah)
+object SouthAmericaNS extends EarthPoly("South America\nnear south", -36.495 ll -66.0, savannah)
 { val northEast: LatLong = -34.165 ll -58.232  
   val islaSarandi: LatLong = -34.449 ll -58.505
   val puntaPiedras: LatLong = -35.426 ll -57.131
@@ -21,7 +21,7 @@ object SouthAmericaNS extends EarthArea("South America\nnear south", -36.495 ll 
 }
 
 /** [[polygonLL]] graphical representation for south Argentine and south Chile. Depends on nothing. */
-object SouthAmericaFS extends EarthArea("South America\nfar south", -27.0 ll -70.22, savannah)
+object SouthAmericaFS extends EarthPoly("South America\nfar south", -27.0 ll -70.22, savannah)
 { val northEast: LatLong = -40.76 ll -65.02
   val puntaNorte: LatLong = -42.075 ll -63.759
   val puntaDelgada: LatLong = -42.764 ll -63.634
@@ -50,7 +50,7 @@ object SouthAmericaFS extends EarthArea("South America\nfar south", -27.0 ll -70
 }
 
 /** [[polygonLL]] graphical representation for the Falkland Islands 12173km². Depends on nothing. */
-object DelFuego extends EarthArea("Tierra del Fuego", -51.781 ll -59.211, hillySteppe)
+object DelFuego extends EarthPoly("Tierra del Fuego", -51.781 ll -59.211, hillySteppe)
 { val north: LatLong = -52.451 ll -69.413
   val east: LatLong = -54.657 ll -65.125
   val hornos: LatLong = -55.977 ll -67.273

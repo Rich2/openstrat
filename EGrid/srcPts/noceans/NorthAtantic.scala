@@ -3,7 +3,7 @@ package ostrat; package pEarth; package noceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Iceland. Depends on nothing. */
-object Iceland extends EarthArea("Iceland", 64.78 ll -18.07, taiga)
+object Iceland extends EarthPoly("Iceland", 64.78 ll -18.07, taiga)
 { val reykjavik: LatLong = 64.17 ll -21.75
   val w1: LatLong = 64.75 ll -22.30
   val wIceland: LatLong = 64.87 ll -24.04
@@ -25,7 +25,7 @@ object Iceland extends EarthArea("Iceland", 64.78 ll -18.07, taiga)
 }
 
 /** [[polygonLL]] graphical representation of Jan Mayen island. Depends on nothing. */
-object JanMayen extends EarthArea("JanMayen", 71.02 ll -8.29, taiga)
+object JanMayen extends EarthPoly("JanMayen", 71.02 ll -8.29, taiga)
 { val south: LatLong = 70.82 ll -9.03
   val west: LatLong = 70.86 ll -9.07
   val susabu: LatLong = 71.01 ll -8.46

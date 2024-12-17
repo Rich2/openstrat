@@ -16,7 +16,7 @@ object Canarias extends EarthAreaIsland("Canarias", 27.96 ll -15.60, oceanic)
 }
 
 /** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.MaghrebEast]]. */
-object SaharaWest extends EarthArea("SaharaWest", 22 ll -5.50, deshot)
+object SaharaWest extends EarthPoly("SaharaWest", 22 ll -5.50, deshot)
 { val southWest: LatLong = 17 ll -16.27
   val nouakchott: LatLong = 18.078 ll -16.02
   val nouadhibouBay: LatLong = 21.28 ll -16.90
@@ -31,7 +31,7 @@ object SaharaWest extends EarthArea("SaharaWest", 22 ll -5.50, deshot)
 }
 
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */
-object WestAfricaSouth extends EarthArea("West Africa\nsouth", 11 ll 0, savannah)
+object WestAfricaSouth extends EarthPoly("West Africa\nsouth", 11 ll 0, savannah)
 { val cAfricaN: Latitude = 4.53.north
   val cAfricaNW: LatLong = cAfricaN * 8.89.east
   val walkersIsland: LatLong = 4.881 ll 5.149
@@ -60,7 +60,7 @@ object WestAfricaSouth extends EarthArea("West Africa\nsouth", 11 ll 0, savannah
 }
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
-object AfricaCentral extends EarthArea("Central Africa", 10 ll 32, savannah)
+object AfricaCentral extends EarthPoly("Central Africa", 10 ll 32, savannah)
 {
 
   val cAfricaNE: LatLong = WestAfricaSouth.cAfricaN * 32.east
@@ -70,7 +70,7 @@ object AfricaCentral extends EarthArea("Central Africa", 10 ll 32, savannah)
 }
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
-object AfricaHorn extends EarthArea("Horn of Africa", 10 ll 32, sahel)
+object AfricaHorn extends EarthPoly("Horn of Africa", 10 ll 32, sahel)
 { val p0 = 15.514 ll 39.484
   val dankalia: LatLong = 14 ll 41.66// eAfricaN
   val p33: LatLong = 12.89 ll 42.99

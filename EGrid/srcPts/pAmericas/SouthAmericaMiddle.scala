@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
-object AndesMiddle extends EarthArea("Andes middle", 5.105 ll -75.212, mtainSahel)
+object AndesMiddle extends EarthPoly("Andes middle", 5.105 ll -75.212, mtainSahel)
 {
   val northEast: LatLong = -17.845 ll -63.402
   val lenguaDeVaca : LatLong= -30.24 ll -71.63
@@ -12,7 +12,7 @@ object AndesMiddle extends EarthArea("Andes middle", 5.105 ll -75.212, mtainSahe
 }
 
 /** [[polygonLL]] graphical representation for middle South America. Depends on [[SouthAmericaFS]]. */
-object SouthAmericaMiddle extends EarthArea("South America\nmiddle", -27.0 ll -56.0, subtrop)
+object SouthAmericaMiddle extends EarthPoly("South America\nmiddle", -27.0 ll -56.0, subtrop)
 { val north: Latitude = 21.south
   val nwAmericaE: Longitude = 58.west
 

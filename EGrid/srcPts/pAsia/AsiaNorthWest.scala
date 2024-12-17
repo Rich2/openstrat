@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of north Russoa. Depends on [[pEurope.Baltland]] and [[SiberiaWest]]. */
-object RusNorth extends EarthArea("NRus", 61 ll 54, taiga)
+object RusNorth extends EarthPoly("NRus", 61 ll 54, taiga)
 { /** North Coast */
   val chizhaSouth: LatLong = 66.90 ll 44.52
   val chizhaWest: LatLong = 67.19 ll 43.77
@@ -37,7 +37,7 @@ object SevernyIsland extends EarthAreaIsland("Severny", 74.38 ll 57.29, hillyTun
 }
 
 /** [[polygonLL]] graphical representation of west Siberia. Depends on [[SiberiaNorth]] and [[SiberiaSouth]]. */
-object SiberiaWest extends EarthArea("SiberiaWest", 70 ll 90, taiga)
+object SiberiaWest extends EarthPoly("SiberiaWest", 70 ll 90, taiga)
 { val north: LatLong = 73.478 ll 70.843
   val p55: LatLong = 53.055 ll 78.136
   val p75: LatLong = 53.132 ll 56.307

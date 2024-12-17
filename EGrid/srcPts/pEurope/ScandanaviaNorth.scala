@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of north Sweden and north Norway. Depends on nothing. */
-object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont)
+object SwedenNorth extends EarthPoly("Sweden North", 67.489 ll 20.872, hillyCont)
 { val sorvagen: LatLong = 67.83 ll 12.82
   val andenes: LatLong = 69.32 ll 16.11
   val gapoyholman: LatLong = 68.88 ll 16.06
@@ -34,7 +34,7 @@ object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont
 }
 
 /** [[polygonLL]] graphical representation of north Finland and north-east Karelia. Depends on [[KolaPeninsula]] and [[SwedenNorth]]. */
-object FinlandNorth extends EarthArea("Finland North", 67.614 ll 27.638, hillyTundra)
+object FinlandNorth extends EarthPoly("Finland North", 67.614 ll 27.638, hillyTundra)
 { val svaerholt: LatLong = 70.96 ll 26.67
   val north: LatLong = 71.132 ll 27.647
   val p10: LatLong = 70.979 ll 28.540
@@ -59,7 +59,7 @@ object FinlandNorth extends EarthArea("Finland North", 67.614 ll 27.638, hillyTu
 }
 
 /** [[polygonLL]] graphical representation of Kola Peninsula. Depends on nothing. */
-object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
+object KolaPeninsula extends EarthPoly("KolaPeninsula", 67.80 ll 36.52, tundra)
 { val northWest: LatLong = 69.50 ll 31.81
   val p5: LatLong = 69.95 ll 31.93
   val p7: LatLong = 69.73 ll 33.10
@@ -85,7 +85,7 @@ object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
 }
 
 /** [[polygonLL]] graphical representation of Finland. Depends on [[FinlandNorth]] and [[Baltland]]. */
-object FinlandSouth extends EarthArea("Finland south", 65.56 ll 29.95, taiga)
+object FinlandSouth extends EarthPoly("Finland south", 65.56 ll 29.95, taiga)
 { val lisyNos: LatLong = 60.01 ll 29.96
   val laskovyy: LatLong = 60.15 ll 29.92
   val ozerki: LatLong = 60.18 ll 29.01
@@ -130,7 +130,7 @@ object FinlandSouth extends EarthArea("Finland south", 65.56 ll 29.95, taiga)
 
 
 /** [[polygonLL]] graphical representation of middle (between north and south) Sweden and middle Norway. Depends on [[SwedenNorth]] and [[SwedenSouth]]. */
-object SwedenMid extends EarthArea("Sweden Middle", 64.883 ll 17.125, hillyTaiga)
+object SwedenMid extends EarthPoly("Sweden Middle", 64.883 ll 17.125, hillyTaiga)
 { val hertsonEast: LatLong = 65.53 ll 22.39
   val ostanbackSouth: LatLong = 64.82 ll 21.15
   val eLappviken: LatLong = 64.44 ll 21.60

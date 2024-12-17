@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for far north of the Andes. Dependent on [[ElSalPanama]]. */
-object AndesFarNorth extends EarthArea("Andes far north", 5.105 ll -75.212, mtainJungle)
+object AndesFarNorth extends EarthPoly("Andes far north", 5.105 ll -75.212, mtainJungle)
 { val nColumbia: LatLong = 12.458 ll -71.664
   val zapara: LatLong = 10.955 ll -71.530
   val caboSanRoman: LatLong = 12.196 ll -70.020
@@ -31,7 +31,7 @@ object AndesFarNorth extends EarthArea("Andes far north", 5.105 ll -75.212, mtai
 }
 
 /** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]] and [[Guyana]]. */
-object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropical)
+object ColomVenez extends EarthPoly("Columbia and\nVenezuela", 0 ll -70.0, tropical)
 { val caicara: LatLong = 10.11 ll -64.74
   val margaritaE: LatLong = 10.98 ll -64.41
   val trinidadNE: LatLong = 10.84 ll -60.93
@@ -43,7 +43,7 @@ object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropi
 }
 
 /** [[polygonLL]] graphical representation for Guyana, Suriname and French Guiana. Dependent on nothing. */
-object Guyana extends EarthArea("Guyana", 0 ll -70.0, hillyJungle)
+object Guyana extends EarthPoly("Guyana", 0 ll -70.0, hillyJungle)
 { val northWest: LatLong = 8.364 ll -59.837
   val courantyneMouth: LatLong = 6.01 ll -57.082
   val p30: LatLong = 4.44 ll -51.520
@@ -54,7 +54,7 @@ object Guyana extends EarthArea("Guyana", 0 ll -70.0, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
-object AndesNearNorth extends EarthArea("Andes near north", 5.105 ll -75.212, mtainSahel)
+object AndesNearNorth extends EarthPoly("Andes near north", 5.105 ll -75.212, mtainSahel)
 { val p15: LatLong = -13.550 ll -68.636
   val southEast: LatLong = -14.776 ll -67.164
 
@@ -71,12 +71,12 @@ object AndesNearNorth extends EarthArea("Andes near north", 5.105 ll -75.212, mt
 }
 
 /** [[polygonLL]] graphical representation for the west of Amazon basin. Dependent on [[AndesFarNorth]], [[ColomVenez]] and [[AndesNearNorth]]. */
-object AmazonWest extends EarthArea("Amazon west", -20 ll -70.0, jungle)
+object AmazonWest extends EarthPoly("Amazon west", -20 ll -70.0, jungle)
 { override val polygonLL: PolygonLL = LinePathLL(ColomVenez.p60, ColomVenez.p55, AmazonEast.southWest, AndesNearNorth.p15) |++<| AndesFarNorth.eastEdgeSouth
 }
 
 /** [[polygonLL]] graphical representation for the east of the Amazon basin. Dependent on [[ColomVenez]] [[Guyana]]. */
-object AmazonEast extends EarthArea("Amazon east", -20 ll -70.0, jungle)
+object AmazonEast extends EarthPoly("Amazon east", -20 ll -70.0, jungle)
 { val nAmapa: LatLong = 4.39 ll -51.51
   val amazonMouthS: LatLong = -0.18 ll -49.3
   val marajoMouth: LatLong = -0.430 ll -48.136
@@ -93,14 +93,14 @@ object AmazonEast extends EarthArea("Amazon east", -20 ll -70.0, jungle)
 
 /** [[polygonLL]] graphical representation for the centre of South America. Dependent on [[AmazonEast]], [[SouthAmericaEast]], [[SouthAmericaMiddle]],
  * [[AndesMiddle]], [[AndesNearNorth]] and [[AmazonWest]]. */
-object SouthAmericaCentral extends EarthArea("South America\ncentral", -10.04 ll -45.81, tropical)
+object SouthAmericaCentral extends EarthPoly("South America\ncentral", -10.04 ll -45.81, tropical)
 {
   override val polygonLL: PolygonLL = PolygonLL(AmazonEast.southWest, AmazonEast.ariel, AmazonEast.p50, SouthAmericaMiddle.nwSAmericaES, AndesMiddle.northEast,
     AndesNearNorth.southEast, AndesNearNorth.p15)
 }
 
 /** [[polygonLL]] graphical representation for the east of South America. Dependent on [[AmazonEast]], [[SouthAmericaMiddle]] and [[AmazonWest]]. */
-object SouthAmericaEast extends EarthArea("South America\neast", -10.04 ll -45.81, tropical)
+object SouthAmericaEast extends EarthPoly("South America\neast", -10.04 ll -45.81, tropical)
 { val p10: LatLong = -2.34 ll -43.32
   val pedraFurada: LatLong = -2.784 ll -40.500
   val p25: LatLong = -5.152 ll -35.496

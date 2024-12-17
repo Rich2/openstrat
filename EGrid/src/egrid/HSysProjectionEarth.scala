@@ -125,9 +125,9 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
 
-  val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
-  def irr0: RArr[(EarthArea, PolygonM2)] = eas.map(_.withPolygonM2(focus))
-  def irr1: RArr[(EarthArea, PolygonM2)] = irr0.filter(_._2.vertsMin3)
+  val eas: RArr[EarthPoly] = earthAllAreas.flatMap(_.a2Arr)
+  def irr0: RArr[(EarthPoly, PolygonM2)] = eas.map(_.withPolygonM2(focus))
+  def irr1: RArr[(EarthPoly, PolygonM2)] = irr0.filter(_._2.vertsMin3)
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair

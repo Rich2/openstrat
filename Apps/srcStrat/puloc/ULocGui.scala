@@ -15,22 +15,22 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   val scaleMax: LengthMetric = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
-  val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
+  val eas: RArr[EarthPoly] = earthAllAreas.flatMap(_.a2Arr)
 
-  val ps1: PolygonLLPairArr[EarthArea] = eas.map(ea => PolygonLLPair[EarthArea](ea.polygonLL, ea))
+  val ps1: PolygonLLPairArr[EarthPoly] = eas.map(ea => PolygonLLPair[EarthPoly](ea.polygonLL, ea))
   val lc1: LocationLLArr = eas.flatMap(_.places)
   val lc2: PtM3PairArr[Place] = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */
-  val ps2: PolygonM3PairArr[EarthArea] = ps1.polygonMapToPair(_.toMetres3)
+  val ps2: PolygonM3PairArr[EarthPoly] = ps1.polygonMapToPair(_.toMetres3)
 
   statusText = "Welcome to Unit locations. Click on units to get identity."
   def finds: RArr[LunitState] = unitsAt(date)
 
   def repaint(): Unit =
-  { val ps3: PolygonM3PairArr[EarthArea] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
+  { val ps3: PolygonM3PairArr[EarthPoly] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
 
-    val ps4: PolygonM2PairArr[EarthArea] = ps3.optMapOnA1{
+    val ps4: PolygonM2PairArr[EarthPoly] = ps3.optMapOnA1{
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
       case p =>
