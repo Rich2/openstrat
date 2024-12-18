@@ -5,7 +5,8 @@ import annotation._
 /** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this trait have no type parameters. The primary
  *  motivation of this trait is to allow common extractors. */
 trait ArrNoParam[A] extends Any with Arr[A]
-{ type ThisT <: ArrNoParam[A]
+{ /** The final type of this class many method operands and return values take this type. */
+  type ThisT <: ArrNoParam[A]
 
   def drop(n: Int): ThisT
 
