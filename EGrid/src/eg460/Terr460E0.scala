@@ -78,6 +78,7 @@ object Terr460E0 extends Long460Terrs
     VRow(89, BendIn(520, HVUR, 13), BendOut(522, HVDL, 7)),
     TRow(88, sea * 5, deshot),
     VRow(87, BendIn(522, HVUR, 13), OrigLt(524, HVUL)),
+    VRow(85, OrigLt(522, HVDn, 7)),
     TRow(84, sea * 5, hillySahel),
     VRow(83, BendIn(522, HVUR, 13), BendOut(524, HVDL,7)),
     )

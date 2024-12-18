@@ -9,7 +9,9 @@ object SouthAfrica extends EarthPoly("South Africa", -25 ll 24, sahel)
   val sAfricaNW: LatLong = - 17 ll 11.76
   val beira: LatLong = -19.35 ll 34.3
   val inhambane: LatLong = -23.38 ll 35.2
-  val maputo: LatLong = -25.4 ll 32.2
+  val guinjala: LatLong = -24.106 ll 35.496
+  val maputoMouth: LatLong = -25.996 ll 32.580
+  val inhaca: LatLong = -25.970 ll 32.992
   val richardsBay: LatLong = -29 ll 32
   val portLiz: LatLong = -34 ll 26
   val agulhas: LatLong = -34.83 ll 20.00
@@ -22,8 +24,8 @@ object SouthAfrica extends EarthPoly("South Africa", -25 ll 24, sahel)
   val nNamibia: LatLong = -17.252 ll 11.751
   val p95: LatLong = sAfricaN * 31.east
 
-  override def polygonLL: PolygonLL = PolygonLL(beira, inhambane, maputo, richardsBay, portLiz, agulhas, capeOfGoodHope, capeColumbine, shelleyPoint, p65, p72,
-    swakopmund, nNamibia, sAfricaNW, p95)
+  override def polygonLL: PolygonLL = PolygonLL(beira, inhambane, guinjala, maputoMouth, inhaca, richardsBay, portLiz, agulhas, capeOfGoodHope, capeColumbine,
+    shelleyPoint, p65, p72,  swakopmund, nNamibia, sAfricaNW, p95)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
