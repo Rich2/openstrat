@@ -84,7 +84,7 @@ object AppPage
 
   object AllHtmlExtractor
   {
-    def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp)
+    def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp.drop(1))
   }
 
   val defaultTopPairs: ArrPairStr[DirsFileRel] = allTops.mapPair(_.filesStem)(_.htmlPathName)
