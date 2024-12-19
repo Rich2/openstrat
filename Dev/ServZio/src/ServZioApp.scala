@@ -11,8 +11,6 @@ object ServZioApp extends ZIOAppDefault
   val args: ZIO[ZIOAppArgs, Nothing, Chunk[String]] = getArgs
   val str1: ZIO[ZIOAppArgs, Nothing, String] = args.map{ strs => if (strs.isEmpty) "~" else strs(0) }
 
-  
-
   val routes: Routes[Any, Nothing] = Routes(
     Method.GET / "" -> handHome,
     Method.GET / "index.html" -> handHome,
@@ -22,13 +20,17 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "only.css" -> cssHan(OnlyCss),
     Method.GET / "Documentation/util.html" -> hPage(UtilPage.out),
     Method.GET / "Documentation/geom.html" -> hPage(geom.GeomPage.out),
-    Method.GET / "Documentation/tiling.html" -> hPage(prid.TilingPage.out),
+    Method.GET / "Documentation/tiling.html" -> hPage(pDev.TilingPage.out),
     Method.GET / "Documentation/egrid.html" -> hPage(pDev.EGridPage.out),
     Method.GET / "Documentation/apps.html" -> hPage(pDev.AppsPage.out),
     Method.GET / "Documentation/dev.html" -> hPage(pDev.DevPage.out),
     Method.GET / "Documentation/newdevs.html" -> hPage(pDev.NewDevsPage.out),
-    Method.GET / "earthgames/dicelessapp.html" -> hPage(pDev.AppPage("DicelessApp", "", "DiceLess").out),
-    Method.GET / "earthgames/dicelessapp.js" -> {handler(Response.text(loadTextFile("/CommonSsd/ServerOS/earthgames/dicelessapp.js").get).addHeader(Header.ContentType(MediaType.text.javascript))) },
+    Method.GET / "earthgames/dicelessapp.html" -> hPage(pDev.AppPage.dicelessApp.out),
+    Method.GET / "earthgames/dicelessapp.js" -> {
+      val hand1 = Response.text(loadTextFile("/CommonSsd/ServerOS/earthgames/dicelessapp.js").get)
+      val hand2 = hand1.addHeader(Header.ContentType(MediaType.text.javascript))
+      handler(hand2)
+    },
     //Method.GET / "earthgames/dicelessapp.js" -> str1.flatMap{str0 => handler(Response.text(loadTextFile("/CommonSsd/ServerOS/earthgames/dicelessapp.js").get).addHeader(Header.ContentType(MediaType.text.javascript))) }
   )
 
