@@ -100,8 +100,8 @@ package object utiljvm
   
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
-    jp.exists match{
-      case true => if (jp.isDirectory) Succ(DirExisted(path)) else Fail(new NotDirectoryException("path"))
+    jp.exists match
+    { case true => if (jp.isDirectory) Succ(DirExisted(path)) else Fail(new NotDirectoryException("path"))
       case false =>
       { var oExc: Option[IOExc] = None
         try{ jp.mkdir }

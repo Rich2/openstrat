@@ -28,8 +28,6 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
     new RArr[A](thisArray)
   }
 
-  //def toArr[ArrA <: Arr[A]](implicit build: BuilderArrMap[A, ArrA]): ArrA = build.
-
   /** foreach loop with counter */
   def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
   { var counter = count
@@ -40,6 +38,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
       rem = rem.tail
     }
   }
+
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisArray.isEmpty) vEmpty else vNonEmpty
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
     thisArray.ifEmpty("", thisArray.tail.foldLeft(f(thisArray(0)))(_ + seperator + f(_)))
@@ -59,6 +58,9 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
     iUntilForeach(i + 1, oldLength){j => newArray(j - 1) = thisArray(j)}
     newArray
   }
+
+  /** Returns [[Some]] of the indexed value if the value exists else returns [[None]]. */
+  def applyOpt(index: Int): Option[A] = if(thisArray.length > index) Some(thisArray(index)) else None
 }
 
 /** Extension methods for Array[A <: ValueNElem] class */
@@ -68,8 +70,8 @@ class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extend
   { val length = thisArray.length
     val valProds = factory(length)
     var count = 0
-    while (count < length) {
-      valProds.setElemUnsafe(count, thisArray(count))
+    while (count < length)
+    { valProds.setElemUnsafe(count, thisArray(count))
       count += 1
     }
     valProds

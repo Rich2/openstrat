@@ -1,6 +1,5 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-import utiljvm._
+package ostrat; package utiljvm
 
 /** A class for creating simple one module git projects, with Sbt Mill and hello world files. */
 case class GitProj(path: String, projName: String)
