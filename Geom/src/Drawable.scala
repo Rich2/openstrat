@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black
 
@@ -7,7 +7,7 @@ trait Drawable extends Any with GeomElem
 { /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed.  */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): GraphicElem
 
-  /** If this element is [[Fillable]] applies the fill method, ignoring the line width parameter, else applies the draws method. */
+  /** If this element is [[Fillable]] applies the fill method, ignoring the line width parameter, else applies the draw method. */
   def fillOrDraw(lineWidth: Double = 2, colour: Colour = Black): GraphicElem = this match
   { case fl: Fillable => fl.fill(colour)
     case _ => draw(lineWidth, colour)
@@ -19,46 +19,43 @@ trait Drawable extends Any with GeomElem
   /** Uniform 2D geometric scaling transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): Drawable
 
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating Y, on this Drawable returns a Drawable. The return type will be
-   *  narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating Y, on this Drawable returns a Drawable. The return type will be narrowed in
+   * sub traits / classes. */
   override def negY: Drawable
 
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X, on this Drawable returns a Drawable. The return type will be
-   *  narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X, on this Drawable returns a Drawable. The return type will be narrowed in
+   * sub traits / classes. */
   override def negX: Drawable
 
   /** 2D Transformation using a [[ProlignMatrix]] on this Drawable returns a Drawable. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): Drawable
 
-  /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed
-   *  in sub classes and traits. */
+  /** Rotation positive or anti-clockwise 90 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in
+   * subclasses and traits. */
   override def rotate90: Drawable
 
-  /** Rotation of 180 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in sub classes and
-   *  traits. */
+  /** Rotation of 180 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def rotate180: Drawable
 
-  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed
-   *  in sub classes and traits. */
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in
+   * subclasses and traits. */
   override def rotate270: Drawable
 
-  /** Rotation 2D geometric transformation, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and traits. */
+  /** Rotation 2D geometric transformation, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def rotate(angle: AngleVec): Drawable
 
   /** Reflect 2D geometric transformation across a line, line segment or ray, on this Drawable returns a Drawable. The return type will be narrowed in
-   *  sub classes and traits. */
+   * subclasses and traits. */
   override def reflect(lineLike: LineLike): Drawable
 
-  /** XY scaling 2D geometric transformation, on this Drawable returns a Drawable. This allows different scaling factors across X and Y dimensions.
-   *  The return type will be narrowed in sub classes and traits. */
+  /** XY scaling 2D geometric transformation, on this Drawable returns a Drawable. This allows different scaling factors across X and Y dimensions. The return
+   * type will be narrowed in sub classes and traits. */
   override def scaleXY(xOperand: Double, yOperand: Double): Drawable
 
-  /** Shear 2D geometric transformation along the X Axis, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and
-   *  traits. */
+  /** Shear 2D geometric transformation along the X Axis, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def shearX(operand: Double): Drawable
 
-  /** Shear 2D geometric transformation along the Y Axis, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and
-   *  traits. */
+  /** Shear 2D geometric transformation along the Y Axis, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def shearY(operand: Double): Drawable
 }
 

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** An object with a 2 dimensional scar centre. The centre is a [[Pt2]]. It has the [[Double]] properties cenX and CenY */
@@ -9,8 +9,8 @@ trait WithCentre
   /** The Y component of the centre. */
   def cenY: Double
 
-  /** The centre of this geometric / graphical element. The centre will not change if the object type is capable of being rotated and is rotated. The
-   *  cenDefault on other bounded elements may move relative to points on the object when the object is rotated. */
+  /** The centre of this geometric / graphical element. The centre will not change if the object type is capable of being rotated and is rotated. The cenDefault
+   * on other bounded elements may move relative to points on the object when the object is rotated. */
   def cen: Pt2
 }
 

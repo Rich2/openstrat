@@ -49,8 +49,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
   /** Minus 90, subtract 90 degrees from this Angle, rotate this angle by 90 degrees in a clockwise direction. */
   def m90: Angle = Angle.milliSecs(milliSecs - MilliSecsIn90Degs)
 
-  /** plus 180, adds / subtracts 180 degrees from this Angle. As an Angle's range is 360 > a >= 0, adding or subtracting 180 degrees gives the same
-   *  result. */
+  /** plus 180, adds / subtracts 180 degrees from this Angle. As an Angle's range is 360 > a >= 0, adding or subtracting 180 degrees gives the same result. */
   def p180: Angle = Angle.milliSecs(milliSecs + MilliSecsIn180Degs)
 
   /** Returns the positive [[AngleVec]] from this Angle to the operand Angle. A value from 0 until 360 degrees.  */

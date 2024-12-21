@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A 2D geometric element, that has a defined bounding rectangle, [[BoundingRect]]. This trait is for layout, such as placing Graphic elements in
- *  rows and columns. It includes polygon and shape graphics but not line and curve graphics. */
+/** A 2D geometric element, that has a defined bounding rectangle, [[BoundingRect]]. This trait is for layout, such as placing Graphic elements in rows and
+ * columns. It includes polygon and shape graphics but not line and curve graphics. */
 trait BoundedElem extends Any with GeomElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: Rect
@@ -69,23 +69,22 @@ class BoundingExtensions[A](val thisObj: A, evA: Bounding[A])
 {
   def bounds: Rect = evA.bounds(thisObj)
 
-  /** 2D geometric translation transformation on the type A, returning an object of type A with the centre of its bounding rectangle at the parameter
-   * point. */
+  /** 2D geometric translation transformation on the type A, returning an object of type A with the centre of its bounding rectangle at the parameter point. */
   def boundsCenTo(newCen: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundCen(thisObj) >> newCen)
 
-  /** 2D geometric translation transformation on this type A, returning an object of type A with the top right of its bounding rectangle at the
-   *  parameter point. */
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the top right of its bounding rectangle at the parameter
+   * point. */
   def boundsTRTo(newTopRight: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsTR(thisObj) >> newTopRight)
 
-  /** 2D geometric translation transformation on this type A, returning an object of type A with the bottom right of its bounding rectangle at the
-   *  parameter point. */
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the bottom right of its bounding rectangle at the parameter
+   * point. */
   def boundsBRTo(newBottomRight: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsBR(thisObj) >> newBottomRight)
 
-  /** 2D geometric translation transformation on this type A, returning an object of type A with the bottom left of its bounding rectangle at the
-   *  parameter point. */
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the bottom left of its bounding rectangle at the parameter
+   * point. */
   def boundsBLTo(newBottomLeft: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsBL(thisObj) >> newBottomLeft)
 
-  /** 2D geometric translation transformation on this type A, returning an object of type A with the top left of its bounding rectangle at the
-   * parameter point. */
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the top left of its bounding rectangle at the parameter
+   * point. */
   def boundsTLTo(newTopLeft: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsTL(thisObj) >> newTopLeft)
 }

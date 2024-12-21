@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Angle vector, an angle of rotation. Values may be greater than 360 degrees and less than -360 degrees. Negative values represent clockwise
- *  rotation. So +720 degrees represents 2 complete anti-clockwise rotations, -1080 degrees represents 3 clockwise rotations. */
+/** Angle vector, an angle of rotation. Values may be greater than 360 degrees and less than -360 degrees. Negative values represent clockwise rotation. So
+ * +720 degrees represents 2 complete anti-clockwise rotations, -1080 degrees represents 3 clockwise rotations. */
 class AngleVec private(val milliSecs: Double) extends AngleLike
 { override def typeStr: String = "AngleVec"
 
