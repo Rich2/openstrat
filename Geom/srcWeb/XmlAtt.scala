@@ -72,3 +72,11 @@ case class NameAtt(valueStr: String) extends XmlAtt
 case class ValueAtt(valueStr: String) extends XmlAtt
 { override def name: String = "value"
 }
+
+case class XmlNs(valueStr: String) extends XmlAtt
+{ override def name: String = "xmlns"
+}
+
+case class XmlNsXsi(valueStr: String) extends XmlAtt
+{ override def name: String = "xmlns:xsi"
+}
