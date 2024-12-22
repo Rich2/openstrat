@@ -80,3 +80,7 @@ case class XmlNs(valueStr: String) extends XmlAtt
 case class XmlNsXsi(valueStr: String) extends XmlAtt
 { override def name: String = "xmlns:xsi"
 }
+
+case class XsiSchemaLoc(valueStr: String) extends XmlAtt
+{ override def name: String = "xsi:schemaLocation"
+}

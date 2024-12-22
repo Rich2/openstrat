@@ -8,3 +8,4 @@ trait WebApp extends XmlMulti
 
 object JakartaNs extends XmlNs("https://jakarta.ee/xml/ns/jakartaee")
 object JakartaXsi extends XmlNsXsi("http://www.w3.org/2001/XMLSchema-instance")
+object JakartaLoc6 extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd""".enquote)
