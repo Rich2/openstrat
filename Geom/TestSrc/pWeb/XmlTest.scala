@@ -33,8 +33,8 @@ object XmlTest extends TestSuite
       |</Cities>""".stripMargin
 
   val tests = Tests {
-    test("Test1") {
-      wash.out() ==> "<City>Washington</City>"
+    test("Test1")
+    { wash.out() ==> "<City>Washington</City>"
       cities0.out() ==> cities0Out
       cities1.out().take(14) ==> cities1Out.take(14)
       cities2.out() ==> cities2Out

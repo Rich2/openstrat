@@ -2,18 +2,18 @@
 package ostrat; package utiljvm
 import java.io.*
 
-object ServletUtil
+trait ServletUtil
 {
-  def main(args: Array[String]): Unit =
+  def name: String
+  def procArgs(args: Array[String]): Unit =
   {
     args.length match
-    { case 0 => deb("No args")
-      case 1 => deb("2nd argument servlet name missing.")
-      case _ => dirs(DirsAbs(args(0)), args(1))
+    { case 0 => deb("No args")      
+      case _ => dirs(DirsAbs(args(0)))
     }
   }
 
-  def dirs(dirPath: DirsAbs, name: String): Unit =
+  def dirs(dirPath: DirsAbs): Unit =
   {
     dirPath.doIfDirExists{path =>
       val topPath = dirPath / name
