@@ -1,9 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse.*
-
-import java.io.*
-import java.nio.file.NotDirectoryException
+import pParse.*, java.io.*, java.nio.file.NotDirectoryException
 
 /** This package is for Java byte code targets. */
 package object utiljvm
@@ -78,8 +75,7 @@ package object utiljvm
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
-    { //new File(pathName).mkdir()
-      opw = Some(new FileWriter(new File(pathName)))
+    { opw = Some(new FileWriter(new File(pathName)))
       opw.get.write(content)
     }
 
