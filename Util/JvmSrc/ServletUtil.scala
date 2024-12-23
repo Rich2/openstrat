@@ -20,6 +20,10 @@ trait ServletUtil
       mkDirExist(topPath)
       val wiPath = topPath / "WEB-INF"
       mkDirExist(wiPath)
+      val classesPath = wiPath / "classes"
+      mkDirExist(classesPath)
+      val libPath = wiPath / "lib"
+      mkDirExist(libPath)
     }
     deb("directory path =" -- dirPath.asStr)
   }

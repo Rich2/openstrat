@@ -5,4 +5,6 @@ import utiljvm.*
 object MakeTommy extends ServletUtil
 {
   override def name: String = "Tommy"
+  
+  def main(args: Array[String]): Unit = procArgs(args)
 }
