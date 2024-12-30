@@ -21,8 +21,8 @@ package object pEarth
       AsiaMain, AsiaEast, NorthAtantic, MalayArch)
 
    /** The areas discovered from the late 14th century. */
-   val newWorldAreas: RArr[EarthRegion] = RArr(PolarSouth, Alaska, CanadaIslands, Canada, AmericasNearNorth, AmericasCentral, AmericasSouth, Australasia, PacificTop,
-      AfricaSouth)
+   val newWorldAreas: RArr[EarthRegion] = RArr(PolarSouth, Alaska, CanadaIslands, Canada, AmericasNearNorth, AmericasCentral, AmericasSouth, Australasia,
+      PacificTop, AfricaTropical, AfricaSouth)
 
    def earthAllAreas: RArr[EarthRegion] = oldWorldAreas ++ newWorldAreas
 }

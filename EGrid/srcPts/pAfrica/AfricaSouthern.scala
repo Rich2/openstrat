@@ -2,12 +2,21 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
-object SouthAfricaWest extends EarthPoly("South Africa west", -25 ll 24, sahel)
-{
+/** [[PolygonLL]] graphic object for Zimbabwe depends on nothing. */
+object Zimbabwe extends EarthPoly("Zimbawe", -18.970 ll 29.955, savannah)
+{ val luangwa: LatLong = -15.621 ll 30.428
 
-  val p95: LatLong = -17 ll 31
-  val northEast: LatLong = -25.648 ll 25.568
+  override def polygonLL: PolygonLL = PolygonLL(luangwa, Mozambique.tete, Mozambique.mutare, SouthAfricaEast.luvuvhuMouth, SouthAfricaWest.p12,
+    SouthAfricaWest.kazungula)
+}
+
+/** [[PolygonLL]] graphic object for southern Africa West depends on nothing. */
+object SouthAfricaWest extends EarthPoly("South Africa west", -25 ll 24, sahel)
+{ val p12: LatLong = -22.180 ll 29.371
+  val p20: LatLong = -25.648 ll 25.568
+
+  val kazungula = -17.790 ll 25.261
+  val gaberone: LatLong = -24.754 ll 25.847
   val lesothoWest: LatLong = -29.644 ll 27.019
   val southEast: LatLong = -32.979 ll 27.963
 
@@ -22,21 +31,21 @@ object SouthAfricaWest extends EarthPoly("South Africa west", -25 ll 24, sahel)
   val nNamibia: LatLong = -17.252 ll 11.751
   val northWest: LatLong = - 17 ll 11.76
 
-  override def polygonLL: PolygonLL = PolygonLL(p95, northEast, lesothoWest, southEast, portLiz, agulhas, capeOfGoodHope, capeColumbine, shelleyPoint, p65, p72,
+  override def polygonLL: PolygonLL = PolygonLL(kazungula, p12, p20, lesothoWest, southEast, portLiz, agulhas, capeOfGoodHope, capeColumbine, shelleyPoint, p65, p72,
     swakopmund, nNamibia, northWest)
 }
 
-/** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
+/** [[PolygonLL]] graphic object for southern Africa east depends on [[SouthAfricaWest]]. */
 object SouthAfricaEast extends EarthPoly("South Africa east", -25 ll 24, hillySavannah)
-{ val beira: LatLong = -19.35 ll 34.3
-  val inhambane: LatLong = -23.38 ll 35.2
-  val guinjala: LatLong = -24.106 ll 35.496
+{ val northEast: LatLong = -25.950 ll 31.974
+
   val maputoMouth: LatLong = -25.996 ll 32.580
   val inhaca: LatLong = -25.970 ll 32.992
   val richardsBay: LatLong = -29 ll 32
+  val luvuvhuMouth: LatLong = -22.424 ll 31.307
 
-  override def polygonLL: PolygonLL = PolygonLL(beira, inhambane, guinjala, maputoMouth, inhaca, richardsBay, SouthAfricaWest.southEast,
-    SouthAfricaWest.lesothoWest, SouthAfricaWest.northEast, SouthAfricaWest.p95)
+  override def polygonLL: PolygonLL = PolygonLL(maputoMouth, inhaca, richardsBay, SouthAfricaWest.southEast,
+    SouthAfricaWest.lesothoWest, SouthAfricaWest.p20, SouthAfricaWest.p12, luvuvhuMouth)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */

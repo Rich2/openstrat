@@ -57,11 +57,16 @@ object AfricaNorth extends EarthRegion("AfricaNorth", 18.19 ll 15)
   override val a2Arr: RArr[EarthPoly] = RArr(Canarias, SaharaWest, AfricaCentral, WestAfricaSouth, AfricaHorn)
 }
 
+/** Tropical Africa. */
+object AfricaTropical extends EarthRegion("African tropical", -16.14 ll 24.36)
+{ import pAfrica._
+  override val a2Arr: RArr[EarthPoly] = RArr(FernandoPo, Congo, centralAfricaEast, Zanzibar, AngloaZambia, LakeVictoria, LakeTanganyika, LakeMweru, LakeMalawi)
+}
+
 /** The southern part of Africa below approximately 5° north, roughly triangular. */
 object AfricaSouth extends EarthRegion("AfricanSouth", -16.14 ll 24.36)
 { import pAfrica. _
-  override val a2Arr: RArr[EarthPoly] = RArr(LakeVictoria, LakeTanganyika, LakeMalawi, LakeMweru, SouthAfricaEast, Congo, AngloaZambia, FernandoPo,
-    centralAfricaEast, ZimMoz, Zanzibar, SouthAfricaWest, Madagascar)
+  override val a2Arr: RArr[EarthPoly] = RArr(Zimbabwe, SouthAfricaEast, Mozambique, SouthAfricaWest, Madagascar)
 }
 
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
