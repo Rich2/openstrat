@@ -58,7 +58,7 @@ object LakeMweru extends EarthPoly("Lake\nMweru", -8.952 ll 28.770, Lake)
   override def polygonLL: PolygonLL = PolygonLL(north, northEast, p20, southEast, southWest, west)
 }
 
-/** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
+/** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfricaEast]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
 object centralAfricaEast extends EarthPoly("Central Africa\neast", -2.17 ll 36.64, oceanic)
 {
   val mombassa: LatLong = -4.03 ll 39.28
@@ -73,13 +73,13 @@ object centralAfricaEast extends EarthPoly("Central Africa\neast", -2.17 ll 36.6
     LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa)
 }
 
-/** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
+/** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfricaEast]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
 object ZimMoz extends EarthPoly("Mozambique", -2.17 ll 36.64, savannah)
 {
   val northEast = -14.413 ll 40.805
   val p15: LatLong = -17 ll 39.06
 
-  override def polygonLL: PolygonLL = PolygonLL(northEast, p15, SouthAfrica.beira, SouthAfrica.p95, LakeMalawi.southWest, LakeMalawi.south)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, p15, SouthAfricaEast.beira, SouthAfricaWest.p95, LakeMalawi.southWest, LakeMalawi.south)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */

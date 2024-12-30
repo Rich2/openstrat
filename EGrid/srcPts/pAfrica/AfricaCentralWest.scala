@@ -13,7 +13,7 @@ object FernandoPo extends EarthPoly("Congo", -7 ll 24, jungle)
   override def polygonLL: PolygonLL = PolygonLL(north, northEast,southEast, southWest, p60)
 }
 
-/** [[PolygonLL]] graphic object for the west of cnetral Africa. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
+/** [[PolygonLL]] graphic object for the west of cnetral Africa. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  *  [[LakeVictoria]]. */
 object Congo extends EarthPoly("Congo", -7 ll 24, jungle)
 { val bambou: LatLong = -4.661 ll 11.783
@@ -31,7 +31,7 @@ object Congo extends EarthPoly("Congo", -7 ll 24, jungle)
       wAfricaEquator, caboSanJuan, bouemba, londgi, WestAfricaSouth.cAfricaNW)
 }
 
-/** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
+/** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  *  [[LakeVictoria]]. */
 object AngloaZambia extends EarthPoly("AngolaZambia", -7 ll 24, savannah)
 {
@@ -40,6 +40,7 @@ object AngloaZambia extends EarthPoly("AngolaZambia", -7 ll 24, savannah)
   val p75: LatLong = -9.083 ll 12.992
   val benjoMouth = -8.752 ll 13.393
   override def polygonLL: PolygonLL = PolygonLL(LakeMweru.southWest, LakeMweru.southEast, LakeMweru.p20, LakeMweru.northEast, wantipaNW,
-    LakeTanganyika.southWest, LakeTanganyika.south, LakeMalawi.north, LakeMalawi.west, LakeMalawi.southWest, SouthAfrica.p95, SouthAfrica.sAfricaNW, baiaFarta, p75, benjoMouth,
+    LakeTanganyika.southWest, LakeTanganyika.south, LakeMalawi.north, LakeMalawi.west, LakeMalawi.southWest, SouthAfricaWest.p95, SouthAfricaWest.northWest,
+    baiaFarta, p75, benjoMouth,
   )
 }

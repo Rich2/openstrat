@@ -2,13 +2,13 @@
 package ostrat; package pDev
 import jakarta.servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pWeb._
 
-/** First openstrat Servlet forDev Tomcat. */
-class Tommy extends HttpServlet
+/** First openstrat Servlet for Tomcat and Jetty. */
+class ServCook extends HttpServlet
 { var users: Int = 0
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
   { val ints = IntArr(2, 4, 6)
-    val head = HtmlHead.title("Tommy")
+    val head = HtmlHead.title("First cookies")
     val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
     val body = HtmlBody(s"Hello from Servlet: ${ints.str}".xCon, HtmlP(cookies2.toString))
