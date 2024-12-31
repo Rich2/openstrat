@@ -26,18 +26,31 @@ object Congo extends EarthPoly("Congo", -7 ll 24, jungle)
   override def polygonLL: PolygonLL = LinePathLL(
     WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaNE, AfricaHorn.lakeTurkanaNW, AfricaHorn.lakeTurkanaSouth, LakeVictoria.kisuma,
     LakeVictoria.north, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++ LakeTanganyika.westCoast |++|
-    LinePathLL(AngloaZambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, AngloaZambia.benjoMouth, bambou, gabonSouth,
+    LinePathLL(Zambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, Angola.p10, Angola.katende, Angola.benjoMouth, bambou, gabonSouth,
       wAfricaEquator, caboSanJuan, bouemba, londgi, WestAfricaSouth.cAfricaNW)
 }
 
 /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  * [[LakeVictoria]]. */
-object AngloaZambia extends EarthPoly("AngolaZambia", -7 ll 24, savannah)
-{ val wantipaNW = -8.538 ll 29.670
+object Angola extends EarthPoly("Angola", -11.950 ll 18.220, jungle)
+{
+  val katende: LatLong = -6.316 ll 22.384
+  val p10: LatLong = -10.128 ll 22.217
+  val p30: LatLong = -18.106 ll 11.845
+  val namibiaNW: LatLong = -17.252 ll 11.751
   val baiaFarta: LatLong = -12.81 ll 13.01
   val p75: LatLong = -9.083 ll 12.992
-  val benjoMouth = -8.752 ll 13.393
+  val benjoMouth: LatLong = -8.752 ll 13.393
+
+  override def polygonLL: PolygonLL = PolygonLL(katende, p10, NamibiaBotswana.omatako, NamibiaBotswana.omaruruMouth, p30, namibiaNW, baiaFarta, p75, benjoMouth)
+}
+
+/** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
+ * [[LakeVictoria]]. */
+object Zambia extends EarthPoly("Zambia", -13.629 ll 28.778, savannah)
+{ val wantipaNW = -8.538 ll 29.670
+
   override def polygonLL: PolygonLL = PolygonLL(LakeMweru.southWest, LakeMweru.southEast, LakeMweru.p20, LakeMweru.northEast, wantipaNW,
     LakeTanganyika.southWest, LakeTanganyika.south, LakeMalawi.north, LakeMalawi.west, LakeMalawi.southWest, Mozambique.tete, Zimbabwe.luangwa,
-    SouthAfricaWest.kazungula, SouthAfricaWest.northWest, baiaFarta, p75, benjoMouth)
+    Zimbabwe.kazungula, NamibiaBotswana.omatako, Angola.p10)
 }
