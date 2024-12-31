@@ -41,11 +41,11 @@ trait EarthIslandLike extends WithKilares
 { 
   def name: String
 
-  def oGroup: Option[EarthIslandGroup] = None
+  def oGroup: Option[IslandPolyGroup] = None
 
-  def groupings: RArr[EarthIslandGroup] =
-  { val acc: ArrayBuffer[EarthIslandGroup] = new ArrayBuffer[EarthIslandGroup]()
-    def loop(inp: Option[EarthIslandGroup]): Unit = inp match
+  def groupings: RArr[IslandPolyGroup] =
+  { val acc: ArrayBuffer[IslandPolyGroup] = new ArrayBuffer[IslandPolyGroup]()
+    def loop(inp: Option[IslandPolyGroup]): Unit = inp match
     { case Some(eig) => { acc.append(eig); loop(eig.oGroup) }
       case None =>
     }
@@ -54,7 +54,7 @@ trait EarthIslandLike extends WithKilares
   }
 }
 
-abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), EarthIslandLike
+abstract class EarthPolyIsland(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), EarthIslandLike
 { override def toString = name.oneLine + (area.str0 + ", " + terr.strComma).enParenth
 
   def strWithGroups: String =
@@ -64,7 +64,9 @@ abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends 
   }
 }
 
-abstract class EarthIslandGroup(val name: String) extends EarthIslandLike
+/** Groups [[EarthPolyIsland]]s and sub groups of Islands giving a total area. For tiling purposes this allows an island grouping to be abtracted as a single
+ * island. */
+abstract class IslandPolyGroup(val name: String) extends EarthIslandLike
 { override def area: Kilares = array.sumBy(_.area)
   def elements: RArr[EarthIslandLike]
   lazy val array: Array[EarthIslandLike] = elements.arrayUnsafe

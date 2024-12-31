@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Thasos island. Depends on nothing. */
-object Thasos extends EarthAreaIsland("Thasos", 40.686 ll 24.659, mtainSubForest)
+object Thasos extends EarthPolyIsland("Thasos", 40.686 ll 24.659, mtainSubForest)
 { override def area: Kilares = 380.kilares
 
   val north: LatLong = 40.801 ll 24.650
@@ -15,14 +15,14 @@ object Thasos extends EarthAreaIsland("Thasos", 40.686 ll 24.659, mtainSubForest
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, southWest)
 }
 
-object LesbosChios extends EarthIslandGroup("LesbosChios")
+object LesbosChios extends IslandPolyGroup("LesbosChios")
 { override def elements: RArr[EarthIslandLike] = RArr(Lesbos, Chios)
   val psara = 45.5.kilares
   override val area: Kilares = super.area + psara
 }
 
 /** [[PolygonLL]] graphic for Lesbos. Depends on nothing. */
-object Lesbos extends EarthAreaIsland("Lesbos", 39.19 ll 26.30, hillyOce)
+object Lesbos extends EarthPolyIsland("Lesbos", 39.19 ll 26.30, hillyOce)
 { override val area: Kilares = 1633.kilares
   override def oGroup: Some[LesbosChios.type] = Some(LesbosChios)
 
@@ -38,7 +38,7 @@ object Lesbos extends EarthAreaIsland("Lesbos", 39.19 ll 26.30, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Chios. Depends on nothing. */
-object Chios extends EarthAreaIsland("Chios", 38.19 ll 26.30, mtainSavannah)
+object Chios extends EarthPolyIsland("Chios", 38.19 ll 26.30, mtainSavannah)
 { override val area: Kilares = 842.3.kilares
   override def oGroup: Some[LesbosChios.type] = Some(LesbosChios)
 
@@ -53,16 +53,16 @@ object Chios extends EarthAreaIsland("Chios", 38.19 ll 26.30, mtainSavannah)
 }
 
 /** Island group for [[Samos]] , Ikaria and islands in between. */
-object SamosIkaria extends EarthIslandGroup("SamosIkaria")
+object SamosIkaria extends IslandPolyGroup("SamosIkaria")
 { override def elements: RArr[EarthIslandLike] = RArr(Samos)
   val ikaria: Kilares = 255.3.kilares
   override val area: Kilares = Samos.area + ikaria + 5.kilares
 }
 
 /** [[PolygonLL]] graphic for Samos. Depends on nothing. */
-object Samos extends EarthAreaIsland("Samos", 37.748 ll 26.829, mtainSavannah)
+object Samos extends EarthPolyIsland("Samos", 37.748 ll 26.829, mtainSavannah)
 { override val area: Kilares = 477.4.kilares
-  override def oGroup: Option[EarthIslandGroup] = Some(SamosIkaria)
+  override def oGroup: Option[IslandPolyGroup] = Some(SamosIkaria)
 
   val north: LatLong = 37.813 ll 26.741
   val northEast: LatLong = 37.779 ll 27.066
@@ -75,14 +75,14 @@ object Samos extends EarthAreaIsland("Samos", 37.748 ll 26.829, mtainSavannah)
 }
 
 /** The Cyclades, east of the [[Peloponnese]], north of [[Crete]], one of the six island groups of Greece. */
-object Cyclades extends EarthIslandGroup("Cyclades")
+object Cyclades extends IslandPolyGroup("Cyclades")
 { override val elements: RArr[EarthIslandLike] = RArr(Naxos)
   override val area: Kilares = 2572.kilares
 }
 
 /** [[PolygonLL]] graphic for Greek, Cyclades islands of Andros 380km² + Tinos 194.5km² = km². Depends on nothing. */
-object Andros extends EarthAreaIsland("Andros", 37.852 ll 24.869, mtainSub)
-{ override val oGroup: Some[EarthIslandGroup] = Some(Cyclades)
+object Andros extends EarthPolyIsland("Andros", 37.852 ll 24.869, mtainSub)
+{ override val oGroup: Some[IslandPolyGroup] = Some(Cyclades)
   val andros0: Kilares = 380.kilares
   val tinos: Kilares = 194.5.kilares
   override val area: Kilares = andros0 + tinos
@@ -97,7 +97,7 @@ object Andros extends EarthAreaIsland("Andros", 37.852 ll 24.869, mtainSub)
 }
 
 /** [[PolygonLL]] graphic for Greek, Cyclades islands of Naxos and Paros 526.3km². Depends on nothing. */
-object Naxos extends EarthAreaIsland("Naxos", 37.058 ll 25.493, mtainSub)
+object Naxos extends EarthPolyIsland("Naxos", 37.058 ll 25.493, mtainSub)
 { val naxos0: Kilares = 430.kilares
   val paros: Kilares = 196.3.kilares
   override val area: Kilares = naxos0 + paros
@@ -117,7 +117,7 @@ object Naxos extends EarthAreaIsland("Naxos", 37.058 ll 25.493, mtainSub)
 }
 
 /** [[PolygonLL]] graphic for Greek Island of kythira. Depends on nothing. */
-object Kythira extends EarthAreaIsland("Kythira", 36.243 ll 22.989, mtainSavannah)
+object Kythira extends EarthPolyIsland("Kythira", 36.243 ll 22.989, mtainSavannah)
 { override val area: Kilares = 300.kilares
   val antikythera = 20.43.kilares
   val area2 = area + antikythera
@@ -131,19 +131,19 @@ object Kythira extends EarthAreaIsland("Kythira", 36.243 ll 22.989, mtainSavanna
 }
 
 /** The Dodecanese island group. */
-object Dodecanese extends EarthIslandGroup("Dodecanese")
+object Dodecanese extends IslandPolyGroup("Dodecanese")
 { override val elements: RArr[EarthIslandLike] = RArr(DodecaneseWest, Rhodes)
   override def area: Kilares = 2714.kilares
 }
 
 /** West [[Dodecanese]] 1200km². */
-object DodecaneseWest extends EarthIslandGroup("DodecaneseWest")
+object DodecaneseWest extends IslandPolyGroup("DodecaneseWest")
 { override val elements: RArr[EarthIslandLike] = RArr()
   override def area: Kilares = Dodecanese.area - Rhodes.area - 100.kilares
 }
 
 /** [[PolygonLL]] graphic for Rhodes. Depends on nothing. */
-object Rhodes extends EarthAreaIsland("Rhodes", 36.22 ll 27.95, hillyOce)
+object Rhodes extends EarthPolyIsland("Rhodes", 36.22 ll 27.95, hillyOce)
 { override val area: Kilares = 1400.68.kilares
   override val oGroup: Some[Dodecanese.type] = Some(Dodecanese)
 

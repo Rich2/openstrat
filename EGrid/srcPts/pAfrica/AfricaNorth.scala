@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
-object Canarias extends EarthAreaIsland("Canarias", 27.96 ll -15.60, oceanic)
+object Canarias extends EarthPolyIsland("Canarias", 27.96 ll -15.60, oceanic)
 { override val area: Kilares = 7493.kilares
 
   val elHierro: LatLong = 27.72 ll -18.15

@@ -51,24 +51,24 @@ case object ArticWest extends EarthPoly("Artic west", 85 ll -90, ice)
 }
 
 /** Svalbard island grouping. */
-object SvalBard extends EarthIslandGroup("Svalbard")
+object SvalBard extends IslandPolyGroup("Svalbard")
 { override def elements: RArr[EarthIslandLike] = RArr(SpitsbergenEdge, Nordauslandet)
   override val area: Kilares = 62045.kilares
 }
 
 /** Ilsand grouping for [[Spitsbergen]] and [[EdgeIsland]]. */
-object SpitsbergenEdge extends EarthIslandGroup("Svitsbergen Edge")
+object SpitsbergenEdge extends IslandPolyGroup("Svitsbergen Edge")
 { override def elements: RArr[EarthIslandLike] = RArr(Spitsbergen, EdgeIsland)
-  override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
+  override def oGroup: Option[IslandPolyGroup] = Some(SvalBard)
 }
 
 /** [[polygonLL]] graphical representation of Spitsbergen, Barentsoya and PrinsKarls islands. Depends on nothing. */
-object Spitsbergen extends EarthAreaIsland("Spitsbergen", 78.94 ll 17.78, ice)
+object Spitsbergen extends EarthPolyIsland("Spitsbergen", 78.94 ll 17.78, ice)
 { val spitsbergen0: Kilares = 39044.kilares
   val barentsoya: Kilares = 1288.kilares
   val prinsKarls: Kilares = 615.kilares
   override val area: Kilares = spitsbergen0 + barentsoya + prinsKarls
-  override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
+  override def oGroup: Option[IslandPolyGroup] = Some(SpitsbergenEdge)
 
   val north: LatLong = 80.059 ll 16.224
   val east: LatLong = 78.83 ll 21.51
@@ -85,11 +85,11 @@ object Spitsbergen extends EarthAreaIsland("Spitsbergen", 78.94 ll 17.78, ice)
 }
 
 /** [[polygonLL]] graphical representation of Nordauslandet and kvitoya islands. Depends on nothing. */
-object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ice)
+object Nordauslandet extends EarthPolyIsland("Nordauslandet", 79.85 ll 23.71, ice)
 { val nordauslandet0: Kilares = 14443.kilares
   val kvitoya: Kilares = 682.kilares
   override val area: Kilares = nordauslandet0 + kvitoya
-  override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
+  override def oGroup: Option[IslandPolyGroup] = Some(SvalBard)
 
   val south: LatLong = 79.22 ll 23.61
   val southWest: LatLong = 79.36 ll 20.76
@@ -103,9 +103,9 @@ object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ic
 }
 
 /** [[polygonLL]] graphical representation of Edge island. Depends on nothing. */
-object EdgeIsland extends EarthAreaIsland("Edgeøya", 77.880 ll 22.652, hillyTundra)
+object EdgeIsland extends EarthPolyIsland("Edgeøya", 77.880 ll 22.652, hillyTundra)
 { override val area: Kilares = 5073.kilares
-  override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
+  override def oGroup: Option[IslandPolyGroup] = Some(SpitsbergenEdge)
 
   val north: LatLong = 78.262 ll 22.850
   val east: LatLong = 77.841 ll 24.239

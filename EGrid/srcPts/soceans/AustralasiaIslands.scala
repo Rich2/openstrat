@@ -3,7 +3,7 @@ package ostrat; package pEarth; package soceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Tasmania 68401km². Depends on nothing. */
-object Tasmania extends EarthAreaIsland("Tasmania", -24.45 ll 134.47, mtainOceForest)
+object Tasmania extends EarthPolyIsland("Tasmania", -24.45 ll 134.47, mtainOceForest)
 { override val area: Kilares = 68401.kilares
 
   val capePortland: LatLong = -40.738 ll 147.976
@@ -17,7 +17,7 @@ object Tasmania extends EarthAreaIsland("Tasmania", -24.45 ll 134.47, mtainOceFo
 }
 
 /** [[polygonLL]] graphical representation of Grande Terre, Grande Terr 16372km² + Loyalty Islands 1981km² = New Caledonia 18353km². Depends on nothing. */
-object NewCaldedonia extends EarthAreaIsland("New Caledonia", -21.282 ll 165.369, mtainJungle) {
+object NewCaldedonia extends EarthPolyIsland("New Caledonia", -21.282 ll 165.369, mtainJungle) {
   override val area: Kilares = 18353.kilares
 
   val tiya: LatLong = -19.973 ll 163.932
@@ -30,7 +30,7 @@ object NewCaldedonia extends EarthAreaIsland("New Caledonia", -21.282 ll 165.369
 }
 
 /** [[polygonLL]] graphical representation of the North Island of New Zealand 111583km². Depends on nothing. */
-object NZNorthIsland extends EarthAreaIsland("New Zealand\nNorth Island", -38.66 ll 176, hillyOce)
+object NZNorthIsland extends EarthPolyIsland("New Zealand\nNorth Island", -38.66 ll 176, hillyOce)
 { override val area: Kilares = 111583.kilares
 
   val capeReinga: LatLong = -34.42 ll 172.68
@@ -46,7 +46,7 @@ object NZNorthIsland extends EarthAreaIsland("New Zealand\nNorth Island", -38.66
 }
 
 /** [[polygonLL]] graphical representation of the South Island of New Zealand and Stewart Island 145836km² + 1747.72km². Depends on nothing. */
-object NZSouthIsland extends EarthAreaIsland("New Zealand\nSouth Island", -43.68 ll 171.00, hillyOceForest)
+object NZSouthIsland extends EarthPolyIsland("New Zealand\nSouth Island", -43.68 ll 171.00, hillyOceForest)
 { val southArea: Kilares = 145836.kilares
   val stewartArea: Kilares = 1747.72.kilares
   override val area: Kilares = southArea + stewartArea

@@ -316,7 +316,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendOutBase
 
   object BendOut
-  {
+  { /** Factory apply method to construct a [[BendOut]]. Note the direction of the bend is always given inwards. */
     def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSepSome = Sea): BendOut = apply(c, dirn, magnitude, terr, terr)
 
     def apply(c: Int, dirn: HVDirn, magnitude: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendOut =

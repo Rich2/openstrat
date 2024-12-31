@@ -3,13 +3,13 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** The Ionian islands excluding [[Kythira]] and Antikythira */
-object IonianIs extends EarthIslandGroup("Ionian Islands")
+object IonianIs extends IslandPolyGroup("Ionian Islands")
 { override def elements: RArr[EarthIslandLike] = RArr(Corfu, Cephalonia)
   override def area: Kilares = 2306.94.kilares - Kythira.area2
 }
 
 /** [[PolygonLL]] graphic for Corfu. Depends on nothing. */
-object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
+object Corfu extends EarthPolyIsland("Corfu", 39.63 ll 19.82, hillyOce)
 { override def oGroup: Some[IonianIs.type] = Some(IonianIs)
   override val area: Kilares = 610.9.kilares
 
@@ -26,7 +26,7 @@ object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Greek Island of Cephalonia. Depends on nothing. */
-object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSavannah)
+object Cephalonia extends EarthPolyIsland("Cephalonia", 38.22 ll 20.59, mtainSavannah)
 { override def oGroup: Some[IonianIs.type] = Some(IonianIs)
   override val area: Kilares = 773.kilares
 
@@ -39,7 +39,7 @@ object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSav
 }
 
 /** [[PolygonLL]] graphic for Crete. Depends on nothing. */
-object Crete extends EarthAreaIsland("Crete", 35.23 ll 24.92, mtainSavannah)
+object Crete extends EarthPolyIsland("Crete", 35.23 ll 24.92, mtainSavannah)
 { override val area: Kilares = 8450.kilares
 
   val northEast: LatLong = 35.32 ll 26.31
@@ -54,7 +54,7 @@ object Crete extends EarthAreaIsland("Crete", 35.23 ll 24.92, mtainSavannah)
 }
 
 /** [[PolygonLL]] graphic for Cyprus. Depends on nothing. */
-object Cyprus extends EarthAreaIsland("Cyprus", 34.98 ll 33.15, hillyOce)
+object Cyprus extends EarthPolyIsland("Cyprus", 34.98 ll 33.15, hillyOce)
 { override val area: Kilares = 9251.kilares
 
   val northEast: LatLong = 35.69 ll 34.58

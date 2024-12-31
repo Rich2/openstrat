@@ -2,15 +2,15 @@
 package ostrat; package pEarth; package pMed
 import geom.*, pglobe.*, egrid.*, WTiles.*
 
-object Balearics extends EarthIslandGroup("Balearics")
+object Balearics extends IslandPolyGroup("Balearics")
 { override val elements: RArr[EarthIslandLike] = RArr(Mallorca, Menorca)
   override val area: Kilares = 5040.kilares
 }
 
 /** [[PolygonLL]] graphic for Menorca 695.8.km². Depends on nothing. */
-object Menorca extends EarthAreaIsland("Menorca", 39.977 ll 4.089, hillySavannah)
+object Menorca extends EarthPolyIsland("Menorca", 39.977 ll 4.089, hillySavannah)
 { override val area: Kilares = 695.8.kilares
-  override val oGroup: Some[EarthIslandGroup] = Some(Balearics)
+  override val oGroup: Some[IslandPolyGroup] = Some(Balearics)
 
   val north: LatLong = 40.088 ll 4.091
   val capFavaitx: LatLong = 39.996 ll 4.268
@@ -22,9 +22,9 @@ object Menorca extends EarthAreaIsland("Menorca", 39.977 ll 4.089, hillySavannah
 }
 
 /** [[PolygonLL]] graphic for Majorca 3640.11.km². Depends on nothing. */
-object Mallorca extends EarthAreaIsland("Mallorca", 39.59 ll 3.01, hillySavannah)
+object Mallorca extends EarthPolyIsland("Mallorca", 39.59 ll 3.01, hillySavannah)
 { override val area: Kilares = 3640.11.kilares
-  override val oGroup: Option[EarthIslandGroup] = Some(Balearics)
+  override val oGroup: Option[IslandPolyGroup] = Some(Balearics)
 
   val south: LatLong = 39.26 ll 3.05
   val palma: LatLong = 39.56 ll 2.63
@@ -37,11 +37,11 @@ object Mallorca extends EarthAreaIsland("Mallorca", 39.59 ll 3.01, hillySavannah
 }
 
 /** [[PolygonLL]] graphic for Ibiza 571.6.km². Depends on nothing. */
-object Ibiza extends EarthAreaIsland("Ibiza", 38.990 ll 1.424, hillySavannah)
+object Ibiza extends EarthPolyIsland("Ibiza", 38.990 ll 1.424, hillySavannah)
 { val area0: Kilares = 571.6.kilares
   val formentera: Kilares = 83.24.kilares
   override val area: Kilares = area0 + formentera
-  override val oGroup: Option[EarthIslandGroup] = Some(Balearics)
+  override val oGroup: Option[IslandPolyGroup] = Some(Balearics)
 
   val north: LatLong = 39.118 ll 1.532
   val northEast: LatLong = 39.036 ll 1.620
@@ -53,12 +53,12 @@ object Ibiza extends EarthAreaIsland("Ibiza", 38.990 ll 1.424, hillySavannah)
 }
 
 /** Island grouping of Sardinia and Corsica. */
-object SardinaCorsica extends EarthIslandGroup("Sardinia-Corsica")
+object SardinaCorsica extends IslandPolyGroup("Sardinia-Corsica")
 { override val elements: RArr[EarthIslandLike] = RArr(Sardinia, Corsica)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
+object Corsica extends EarthPolyIsland("Corsica", 42.18 ll 9.17, hillySavannah)
 { override val area: Kilares = 8680.kilares
   override val oGroup = Some(SardinaCorsica)
 
@@ -77,7 +77,7 @@ object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardinia extends EarthAreaIsland("Sardinia", 40.12 ll 9.07, hillySub)
+object Sardinia extends EarthPolyIsland("Sardinia", 40.12 ll 9.07, hillySub)
 { override val area: Kilares = 24090.kilares
   override val oGroup = Some(SardinaCorsica)
 
@@ -101,7 +101,7 @@ object Sardinia extends EarthAreaIsland("Sardinia", 40.12 ll 9.07, hillySub)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EarthAreaIsland("Sicily", cen = 37.58 ll 14.27, hillySub)
+object Sicily extends EarthPolyIsland("Sicily", cen = 37.58 ll 14.27, hillySub)
 { override val area: Kilares = 25832.kilares
 
   val sSicily: LatLong = 36.66 ll 15.08
