@@ -61,7 +61,7 @@ object DelFuego extends EarthPoly("Tierra del Fuego", -51.781 ll -59.211, hillyS
 }
 
 /** [[polygonLL]] graphical representation for the Falkland Islands 12173km². Depends on nothing. */
-object Falklands extends EarthPolyIsland("Falkland\nIslands", -51.781 ll -59.211, hillySteppe)
+object Falklands extends IslandPoly("Falkland\nIslands", -51.781 ll -59.211, hillySteppe)
 { override val area: Kilares = 12173.kilares
 
   val eiNorthWest: LatLong = -51.233 ll -58.970

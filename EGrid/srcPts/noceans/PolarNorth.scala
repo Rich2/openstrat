@@ -52,18 +52,18 @@ case object ArticWest extends EarthPoly("Artic west", 85 ll -90, ice)
 
 /** Svalbard island grouping. */
 object SvalBard extends IslandPolyGroup("Svalbard")
-{ override def elements: RArr[EarthIslandLike] = RArr(SpitsbergenEdge, Nordauslandet)
+{ override def elements: RArr[IslandPolyLike] = RArr(SpitsbergenEdge, Nordauslandet)
   override val area: Kilares = 62045.kilares
 }
 
 /** Ilsand grouping for [[Spitsbergen]] and [[EdgeIsland]]. */
 object SpitsbergenEdge extends IslandPolyGroup("Svitsbergen Edge")
-{ override def elements: RArr[EarthIslandLike] = RArr(Spitsbergen, EdgeIsland)
+{ override def elements: RArr[IslandPolyLike] = RArr(Spitsbergen, EdgeIsland)
   override def oGroup: Option[IslandPolyGroup] = Some(SvalBard)
 }
 
 /** [[polygonLL]] graphical representation of Spitsbergen, Barentsoya and PrinsKarls islands. Depends on nothing. */
-object Spitsbergen extends EarthPolyIsland("Spitsbergen", 78.94 ll 17.78, ice)
+object Spitsbergen extends IslandPoly("Spitsbergen", 78.94 ll 17.78, ice)
 { val spitsbergen0: Kilares = 39044.kilares
   val barentsoya: Kilares = 1288.kilares
   val prinsKarls: Kilares = 615.kilares
@@ -85,7 +85,7 @@ object Spitsbergen extends EarthPolyIsland("Spitsbergen", 78.94 ll 17.78, ice)
 }
 
 /** [[polygonLL]] graphical representation of Nordauslandet and kvitoya islands. Depends on nothing. */
-object Nordauslandet extends EarthPolyIsland("Nordauslandet", 79.85 ll 23.71, ice)
+object Nordauslandet extends IslandPoly("Nordauslandet", 79.85 ll 23.71, ice)
 { val nordauslandet0: Kilares = 14443.kilares
   val kvitoya: Kilares = 682.kilares
   override val area: Kilares = nordauslandet0 + kvitoya
@@ -103,7 +103,7 @@ object Nordauslandet extends EarthPolyIsland("Nordauslandet", 79.85 ll 23.71, ic
 }
 
 /** [[polygonLL]] graphical representation of Edge island. Depends on nothing. */
-object EdgeIsland extends EarthPolyIsland("Edgeøya", 77.880 ll 22.652, hillyTundra)
+object EdgeIsland extends IslandPoly("Edgeøya", 77.880 ll 22.652, hillyTundra)
 { override val area: Kilares = 5073.kilares
   override def oGroup: Option[IslandPolyGroup] = Some(SpitsbergenEdge)
 

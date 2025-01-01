@@ -37,10 +37,12 @@ object EarthPoly
   }
 }
 
-trait EarthIslandLike extends WithKilares
-{ 
+/** Common trait for [[IslandPoly]] and [[IslandPolyGroup]]. */
+trait IslandPolyLike extends WithKilares
+{ /** The name of this geographical entity. */
   def name: String
 
+  /** Optional parent group for this geographical entity. */
   def oGroup: Option[IslandPolyGroup] = None
 
   def groupings: RArr[IslandPolyGroup] =
@@ -54,7 +56,7 @@ trait EarthIslandLike extends WithKilares
   }
 }
 
-abstract class EarthPolyIsland(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), EarthIslandLike
+abstract class IslandPoly(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), IslandPolyLike
 { override def toString = name.oneLine + (area.str0 + ", " + terr.strComma).enParenth
 
   def strWithGroups: String =
@@ -64,12 +66,12 @@ abstract class EarthPolyIsland(name: String, cen: LatLong, terr: WTile) extends 
   }
 }
 
-/** Groups [[EarthPolyIsland]]s and sub groups of Islands giving a total area. For tiling purposes this allows an island grouping to be abtracted as a single
+/** Groups [[IslandPoly]]s and subgroups of Islands giving a total area. For tiling purposes this allows an island grouping to be abstracted as a single
  * island. */
-abstract class IslandPolyGroup(val name: String) extends EarthIslandLike
+abstract class IslandPolyGroup(val name: String) extends IslandPolyLike
 { override def area: Kilares = array.sumBy(_.area)
-  def elements: RArr[EarthIslandLike]
-  lazy val array: Array[EarthIslandLike] = elements.arrayUnsafe
+  def elements: RArr[IslandPolyLike]
+  lazy val array: Array[IslandPolyLike] = elements.arrayUnsafe
   override def toString: String = name
 }
 

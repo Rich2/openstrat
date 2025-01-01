@@ -16,7 +16,7 @@ object Sumatra extends EarthPoly("Sumatra", -0.02 ll 101.63, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object javaIsland extends EarthPolyIsland("Java", -7.39 ll 110.03, hillyJungle)
+object javaIsland extends IslandPoly("Java", -7.39 ll 110.03, hillyJungle)
 { override val area: Kilares =  124413.kilares
 
   val ePulauMadura: LatLong = -6.96 ll 114.11
@@ -41,7 +41,7 @@ object javaIsland extends EarthPolyIsland("Java", -7.39 ll 110.03, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object BaliIsland extends EarthPolyIsland("Bali", -8.358 ll 115.192, hillyJungle)
+object BaliIsland extends IslandPoly("Bali", -8.358 ll 115.192, hillyJungle)
 { override val area: Kilares = 5780.kilares
 
   val baliNorth: LatLong = -8.061 ll 115.184
@@ -54,7 +54,7 @@ object BaliIsland extends EarthPolyIsland("Bali", -8.358 ll 115.192, hillyJungle
 }
 
 /** [[polygonLL]] graphical representation of Lambok island 4607.68km². Depends on nothing. */
-object Lambok extends EarthPolyIsland("Lambok", -8725 ll 117.442, hillyJungle)
+object Lambok extends IslandPoly("Lambok", -8725 ll 117.442, hillyJungle)
 { val area: Kilares = 4607.68.kilares
 
   val north: LatLong = -8.210 ll 116.351
@@ -67,7 +67,7 @@ object Lambok extends EarthPolyIsland("Lambok", -8725 ll 117.442, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation of Sumbawa island 15414km². Depends on nothing. */
-object Sumbawa extends EarthPolyIsland("Sumbawa", -8725 ll 117.442, jungle)
+object Sumbawa extends IslandPoly("Sumbawa", -8725 ll 117.442, jungle)
 { override val area: Kilares = 15414.kilares
 
   val north: LatLong = -8.080 ll 117.925
@@ -82,7 +82,7 @@ object Sumbawa extends EarthPolyIsland("Sumbawa", -8725 ll 117.442, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the islands of Flores 14731.67km², + others 1500km². Depends on nothing. */
-object Flores extends EarthPolyIsland("Flores", -8.671 ll 121.858, mtainJungle)
+object Flores extends IslandPoly("Flores", -8.671 ll 121.858, mtainJungle)
 { val floresArea: Kilares = 14731.67.kilares
   val otherIslandAreas: Kilares = 1500.kilares
   override val area: Kilares = floresArea + otherIslandAreas
@@ -98,7 +98,7 @@ object Flores extends EarthPolyIsland("Flores", -8.671 ll 121.858, mtainJungle)
 }
 
 /** [[polygonLL]] graphical representation of the Alor Island 2124.93km² + others 600km². Depends on nothing. */
-object AlorIsland extends EarthPolyIsland("Alor", -8.671 ll 121.858, mtainJungle)
+object AlorIsland extends IslandPoly("Alor", -8.671 ll 121.858, mtainJungle)
 { val alorArea: Kilares = 2124.93.kilares
   val otherIslandAreas: Kilares = 600.kilares
   override val area: Kilares = alorArea + otherIslandAreas
@@ -113,7 +113,7 @@ object AlorIsland extends EarthPolyIsland("Alor", -8.671 ll 121.858, mtainJungle
 }
 
 /** [[polygonLL]] graphical representation of Wetar Island 2651.8km²  f Lessar Sunda Islands. Depends on nothing. */
-object Wetar extends EarthPolyIsland("Wetar", -7.788 ll 126.363, mtainJungle)
+object Wetar extends IslandPoly("Wetar", -7.788 ll 126.363, mtainJungle)
 { override val area: Kilares = 2651.8.kilares
 
   val north: LatLong = -7.559 ll 126.627
@@ -127,7 +127,7 @@ object Wetar extends EarthPolyIsland("Wetar", -7.788 ll 126.363, mtainJungle)
 
  /** [[polygonLL]] graphical representation 32057.1km² of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends
   *  on nothing. */
-object Timor extends EarthPolyIsland("Timor", -8.538 ll 118.510, jungle)
+object Timor extends IslandPoly("Timor", -8.538 ll 118.510, jungle)
 { val timorArea: Kilares = 30777.kilares
   val roteArea: Kilares = 1280.10.kilares
   override val area: Kilares = timorArea + roteArea
@@ -143,7 +143,7 @@ object Timor extends EarthPolyIsland("Timor", -8.538 ll 118.510, jungle)
 }
 
 /** [[polygonLL]] graphical representation of Sumba Island 11243.78km² in the Lesser Sunda Islands. Depends on nothing. */
-object Sumba extends EarthPolyIsland("Sumba", -9.720 ll 120.031, jungle)
+object Sumba extends IslandPoly("Sumba", -9.720 ll 120.031, jungle)
 { override def area: Kilares = 11243.78.kilares
 
   val north: LatLong = -9.276 ll 119.935

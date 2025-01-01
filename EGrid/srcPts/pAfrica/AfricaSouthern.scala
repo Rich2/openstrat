@@ -57,8 +57,10 @@ object SouthAfricaEast extends EarthPoly("South Africa east", -25 ll 24, hillySa
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
-object Madagascar extends EarthPoly("Madagascar", -19.42 ll 46.57, oceanic)
-{ val north: LatLong = -11.95 ll 49.26
+object Madagascar extends IslandPoly("Madagascar", -19.42 ll 46.57, hillySavannah)
+{ override def area: Kilares = 587000.kilares
+
+  val north: LatLong = -11.95 ll 49.26
   val east: LatLong = -15.33 ll 50.48
   val southEast: LatLong = -25.03 ll 46.99
   val south: LatLong = -25.60 ll 45.16

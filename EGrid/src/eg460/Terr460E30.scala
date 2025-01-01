@@ -21,7 +21,7 @@ object Terr460E30 extends Long460Terrs
     TRow(142, SeaIceWinter),
     VRow(141, BendIn(1534, HVDR, 13), BendIn(1536, HVDn, 13), BendIn(1538, HVDL, 13)),
     TRow(140, fjordCont),
-    VRow(139, OrigRt(1535, HVUp, 1)/*, OrigRt(1535, HVUp)*/, BendOut(1538, HVUR, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
+    VRow(139, OrigRt(1535, HVUp, 1), BendOut(1538, HVUR, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
     TRow(138, hillyTundra, hillyTundra),
     VRow(137, Orig(1534, HVDn, 2, 4, SeaIceWinter), OrigRt(1538, HVUR, 7, SeaIceWinter), BendIn(1540, HVUL, 6, SeaIceWinter)),
     TRow(136, hillyTaiga, Land(PlainLakes, Boreal, Forest), taiga),

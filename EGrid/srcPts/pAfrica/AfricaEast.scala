@@ -79,11 +79,11 @@ object CentralAfricaEast extends EarthPoly("Central Africa\neast", -2.17 ll 36.6
 object UngujaPemba extends IslandPolyGroup("Zanzibar")
 { val pemba: Kilares =988.kilares
   override def area: Kilares = Unguja.area + pemba
-  override def elements: RArr[EarthIslandLike] = RArr(Unguja)
+  override def elements: RArr[IslandPolyLike] = RArr(Unguja)
 }
 
 /** [[PolygonLL]] graphic object for the Unguga island of the Zanzibar archipelago, depends on nothing. */
-object Unguja extends EarthPolyIsland("Unguja", -6.112 ll 39.341, tropical)
+object Unguja extends IslandPoly("Unguja", -6.112 ll 39.341, tropical)
 { override val area: Kilares = 1666.kilares
   override def groupings: RArr[IslandPolyGroup] = RArr(UngujaPemba)
 
