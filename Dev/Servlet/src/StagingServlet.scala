@@ -8,6 +8,8 @@ object StagingServlet
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
         deb("Staging Folder exists.")
+        val cookPath = stagingPath /% "Cookies1"
+        mkDirExist(cookPath).forSucc{ res => fileWrite(cookPath / "web.xml", WebXmlCookies1.out()) }
       }
     }
   }
