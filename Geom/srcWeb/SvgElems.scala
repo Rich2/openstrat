@@ -1,10 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import geom._, Colour.Black
 
 /** An SVG element. */
 trait SvgElem extends Xml1Lineable
 
+/** An HTML element for SVG. */
 case class HtmlSvg(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlMultiLine
 { override def tag: String = "svg"
 }
