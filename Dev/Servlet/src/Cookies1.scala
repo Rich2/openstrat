@@ -3,7 +3,7 @@ package ostrat; package pDev
 import jakarta.servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pWeb._
 
 /** First openstrat Servlet for Tomcat and Jetty. */
-class ServCook extends HttpServlet
+class Cookies1 extends HttpServlet
 { var users: Int = 0
 
   override def doGet(req: HSReq, resp: HSResp): Unit =

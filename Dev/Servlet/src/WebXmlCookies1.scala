@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-object WebXmlTommy extends XmlMulti
+object WebXmlCookies1 extends XmlMulti
 {
   override def tag: String = ???
 

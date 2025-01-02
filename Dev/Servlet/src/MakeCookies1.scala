@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import utiljvm.*
 
-object MakeTommy extends ServletUtil
+object MakeCookies1 extends ServletUtil
 {
   override def name: String = "Tommy"
   

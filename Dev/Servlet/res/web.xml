@@ -4,14 +4,14 @@
                       https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
   version="6.0"
   metadata-complete="true">  
-     <display-name>Tommy</display-name>
+     <display-name>Cookies1</display-name>
     <servlet>  
-    <servlet-name>Tommy</servlet-name>
-    <servlet-class>ostrat.pDev.Tommy</servlet-class>
+    <servlet-name>Cookies1</servlet-name>
+    <servlet-class>ostrat.pDev.Cookies1</servlet-class>
     </servlet>  
       
     <servlet-mapping>  
-    <servlet-name>Tommy</servlet-name>
+    <servlet-name>Cookies1</servlet-name>
     <url-pattern>/</url-pattern>  
     </servlet-mapping>  
       
