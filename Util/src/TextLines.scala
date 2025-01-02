@@ -1,13 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat
 
 sealed trait TextLines
 { def text: String
 }
 
 trait TextInLines extends TextLines
-{ /** The length of the last line of this text. The purpose of this field is to to dertimine if there is space to add further tokens on the same
-   * line. */
+{ /** The length of the last line of this text. The purpose of this field is to determine if there is space to add further tokens on the same line. */
   def lastLineLen: Int
 }
 
