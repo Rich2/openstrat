@@ -171,6 +171,7 @@ lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
 
 lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev).settings(
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided" withSources() withJavadoc(),
+  Compile/mainClass	:= Some("ostrat.pDev.StagingServlet"),
 )
 
 lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
