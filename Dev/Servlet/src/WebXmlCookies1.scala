@@ -2,12 +2,7 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-object WebXmlCookies1 extends XmlMulti
+object WebXmlCookies1 extends WebApp6
 {
-  override def tag: String = ???
-
-  override def attribs: RArr[XmlAtt] = ???
-
-  override def contents: RArr[XCon] = ???
-
+  override def contents: RArr[XCon] = RArr()
 }

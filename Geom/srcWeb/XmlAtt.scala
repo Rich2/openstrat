@@ -65,22 +65,32 @@ case class HttpEquivAtt(valueStr: String) extends XmlAtt
 { override def name: String = "http-equiv"
 }
 
+/** The XML value attribute. */
 case class NameAtt(valueStr: String) extends XmlAtt
 { override def name: String = "name"
 }
 
+/** The XML value attribute. */
 case class ValueAtt(valueStr: String) extends XmlAtt
 { override def name: String = "value"
 }
 
-case class XmlNs(valueStr: String) extends XmlAtt
+/** The XML value attribute. */
+case class VersionAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "version"
+}
+
+/** The XML xmlns namespace attribute. */
+case class Xmlns(valueStr: String) extends XmlAtt
 { override def name: String = "xmlns"
 }
 
+/** The XML xmlns:xsi schema attribute. */
 case class XmlNsXsi(valueStr: String) extends XmlAtt
 { override def name: String = "xmlns:xsi"
 }
 
+/** The XML xmlns:schemaLocation schema attribute. */
 case class XsiSchemaLoc(valueStr: String) extends XmlAtt
 { override def name: String = "xsi:schemaLocation"
 }
