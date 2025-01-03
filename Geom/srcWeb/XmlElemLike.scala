@@ -22,7 +22,13 @@ trait XmlElemLike extends XCon
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  def attribsOut: String = ife(attribs.empty, "", " " + attribs.mkStr(_.str, " "))
+  def attribsOut: String = attribs.length match
+  { case 0 => ""
+    case 1 => " " + attribs(0)
+    case _ if attribs.sumBy(_.str.length) < 80 => " " + attribs.mkStr(_.str, " ")
+    case _ => " " + attribs.mkStr(_.str, "\n" + 2.spaces)
+  }
+
   def openAtts: String = "<" + tag + attribsOut
   def openUnclosed: String = openAtts + ">"
   def openTag: String = openAtts + ">"
