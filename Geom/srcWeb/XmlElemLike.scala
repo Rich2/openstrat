@@ -10,6 +10,11 @@ case class XmlAsString(value: String) extends XCon
 trait XmlElemLike extends XCon
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
+  
+  def tagLen: Int = tag.length
+  
+  /** The length of the < character plus the tag. */
+  def openTagOpenLen: Int = tagLen + 1
 
   /** The attributes of this XML / HTML element. */
   def attribs: RArr[XmlAtt]

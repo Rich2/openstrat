@@ -1,14 +1,14 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.{Pi, sin}
 
 /** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
 {
-  /** Returns the value or 0, if this Int less than 0. */
+  /** Returns 0 if this Int less than 0 else returns this [[Int]]. */
   def max0: Int = ife(thisInt > 0, thisInt, 0)
 
-  /** Returns the value or 0, if this Int more than 0. */
+  /** Returns 0 if this Int more than 0 else returns this [[Int]]. */
   def min0: Int = ife(thisInt > 0, 0, thisInt)
 
   /** Returns true if this Int is even, false if this Int is odd. */

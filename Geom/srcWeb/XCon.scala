@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** Content for XML and HTML elements. */
@@ -20,8 +20,9 @@ trait XConInLineable extends XCon
 
     def line1Len: Int = indent + line1Delta
 
-    def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match {
-      case CharsOff0() => TextIn1Line(currStr, lineLen)
+    def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
+    {
+      case CharsOff0() => TextLines(currStr, 1, lineLen)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
       case s =>
       { val (newRem, newWord) = getWord(s)
@@ -32,18 +33,18 @@ trait XConInLineable extends XCon
     }
 
     def in2Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => TextIn2Line(currStr, lineLen)
+    { case CharsOff0() => TextLines(currStr, 2, lineLen)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in2Loop(tail, currStr, lineLen)
-      case rem => {
-        val (newRem, newWord) = getWord(rem)
+      case rem =>
+      { val (newRem, newWord) = getWord(rem)
         val newLen = lineLen + newWord.length + 1
         if (newLen > maxLineLen) multiLoop(newRem, currStr, "\n" + indent.spaces + newWord)
         else in2Loop(newRem, currStr -- newWord, newLen)
       }
     }
 
-    def multiLoop(rem: CharsOff, lines: String, currLine: String): TextInMultiLines = rem match
-    { case CharsOff0() => TextInMultiLines(lines + currLine, currLine.length)
+    def multiLoop(rem: CharsOff, lines: String, currLine: String): TextLines = rem match
+    { case CharsOff0() => TextLines(lines + currLine, 3, currLine.length)
       case CharsOff1Tail(c, tail) if c.isWhitespace => multiLoop(tail, lines, currLine)
       case s => {
         val (newRem, newWord) = getWord(rem)
@@ -73,12 +74,10 @@ trait XConInLineable extends XCon
 case class XConText(value: String) extends XConInLineable
 { override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = value
   override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
-
 }
 
-/** Not sure about this trait. Its intended for short pieces of text that should be kept on the same line. */
+/** Not sure about this trait. It is intended for short pieces of text that should be kept on the same line. */
 trait XmlConStr extends XmlConInline
 { def str: String
-
   override def contents: RArr[XCon] = RArr(XConText(str))
 }

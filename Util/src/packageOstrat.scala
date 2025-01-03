@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a show and
  * persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length elements, an Either
@@ -104,7 +104,7 @@ package object ostrat
 
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
-  val lineLenDefault: Int = 150
+  val lineLenDefault: Int = 160
 
   /** Repeats the procedure the given number of times. */
   def repeat(n: Int)(proc: => Unit): Unit =

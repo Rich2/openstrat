@@ -4,12 +4,19 @@ package ostrat; package pWeb
 /** HTML element. */
 trait HtmlElem extends XmlElemLike
 { thisHElem: HtmlUnvoid | HtmlVoid =>
+  
+  /** The full length of the opening tag without attributes. */
+  def openTagMinLen: Int = tag.length + 2
+
 }
 
 /** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
 { def openTag1: String = openTag + "\n"
   def openTag2: String = openTag + "\n\n"
+
+  /** The full length of the opening tag without attributes. */
+  def closeTagMinLen: Int = tag.length + 3
 }
 
 /** An HTML element that is not void, but has no content. */

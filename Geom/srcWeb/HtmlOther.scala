@@ -19,18 +19,27 @@ trait HtmlP extends HtmlUnvoid
 
 /** Copied from old needs checking. */
 object HtmlP
-{ /** Factory apply method for for creating HTML paragraphs. */
+{ /** Factory apply method for creating HTML paragraphs. */
   def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP
   { def str: String = strIn
     def con1: XConText = str.xCon
     override val attribs: RArr[XmlAtt] = attsIn.toArr
     override def contents: RArr[XCon] = RArr(con1)
 
-    override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = con1.outLines(indent + 2, openUnclosed.length) match
-    { case TextIn1Line(text, _) => indent.spaces + openUnclosed + text + closeTag
-      case TextIn2Line(text, _) => indent.spaces + openUnclosed + text + closeTag
-      case TextInMultiLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag
-      case a => excep(a.toString + "in out method not implemented.")
+    override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
+    {
+      val subt: TextLines = con1.outLines(indent + 2, openUnclosed.length)
+      val isps = indent.spaces
+      val nli = "\n" + indent.spaces
+      val nli2 = "\n" + (indent + 2).spaces
+      subt.numLines match
+      { case 1 if (indent + openTagMinLen + subt.firstLen + closeTagMinLen) <= maxLineLen => isps + openUnclosed + subt.text + closeTag
+        case 1 if (indent + openTagMinLen + subt.firstLen) <= maxLineLen  => isps + openUnclosed + nli2 + subt.text + closeTag
+        case 1 if (indent + subt.firstLen + 1) <= maxLineLen  => isps + openUnclosed + nli2 + subt.text + closeTag
+        case 1 => isps + openUnclosed + nli2 + subt.text + nli + closeTag
+        case 2 => isps + openUnclosed + subt.text + closeTag
+        case _ => isps + openUnclosed + subt.text + nli + closeTag
+      }
     }
   }
 }
