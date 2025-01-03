@@ -12,16 +12,14 @@ trait XmlAtt
 object XmlAtt
 { /** Factory apply method for [[XmlAtt]] trait. Often you may prefer to use the sub classes of [[XmlAtt]] where the name of the attribute has already
    * been set. */
-  def apply(nameIn: String, valueStrIn: String): XmlAtt = new XmlAtt
-  { override def name: String = nameIn
-    override def valueStr: String = valueStrIn
-  }
+  def apply(name: String, valueStr: String): XmlAtt = XmlAttGen(name, valueStr)
 
   implicit class rArrExtensions(val thisArr: RArr[XmlAtt])
-  {
-    def explicitFill: RArr[XmlAtt] = ife(thisArr.exists(_.name == "fill"), thisArr, thisArr +% FillAttrib.none)
-  }
+  { def explicitFill: RArr[XmlAtt] = ife(thisArr.exists(_.name == "fill"), thisArr, thisArr +% FillAttrib.none)
+  }  
 }
+
+case class XmlAttGen(name: String, valueStr: String) extends XmlAtt
 
 /** Creates for an "id" XML / HTML attribute." */
 case class IdAtt(valueStr: String) extends XmlAtt
