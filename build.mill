@@ -237,6 +237,7 @@ def SiteStage = Task{
 
 object Servlet extends CommonJvm
 { def sources = T.sources(T.workspace / "Dev" / "Servlet" / "src")
+  def ivyDeps = Agg(ivy"jakarta.servlet:jakarta.servlet-api:6.0.0")
   def moduleDeps = Seq(Dev)
 }
 
