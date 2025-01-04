@@ -90,7 +90,7 @@ object Terr460E0 extends Long460Terrs
     str(130, "Ireland", "England north")
     str(128, "England south west", "England south east")
     str(124, "", "Spain north west")
-    str(122, "Portugal")
+    str(122, "Portugal", "", "Balearics", "Sardina")
     str(120, "", "Spain south")
   }
 }

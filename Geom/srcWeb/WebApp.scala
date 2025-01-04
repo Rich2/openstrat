@@ -20,6 +20,12 @@ object ServletElem
 {
   def apply(name: String, servletClass: String, otherElems: XCon*): ServletElem =
     new ServletElem(RArr(ServletName(name), ServletClass(servletClass)) ++ otherElems.toArr)
+
+  def withMapping(name: String, servletClass: String, otherElems: XCon*)(url: String, otherElems2: XCon*): RArr[XmlElem] =
+  { val serv = new ServletElem(RArr(ServletName(name), ServletClass(servletClass)) ++ otherElems.toArr)
+    val mapping = new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems2.toArr)
+    RArr(serv, mapping)
+  }
 }
 
 /** Servlet-name XML element for Jakarta. */
@@ -39,3 +45,17 @@ object JakartaLoc6 extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee h
 
 /** metadata-complete="true" */
 object MetadataCompleted extends XmlAttGen("metadata-complete", "true")
+
+/** Servlet-mapping XML element for Jakarta. */
+case class ServletMapping(contents: RArr[XCon]) extends XmlMultiNoAtts
+{ override def tag: String = "servlet-mapping"
+}
+
+object ServletMapping
+{
+  def apply(name: String, url: String, otherElems: XCon*): ServletMapping =
+    new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems.toArr)
+}
+
+/** url-pattern XML element for Jakarta servlet. */
+class UrlPattern(value: String) extends XmlElemSimple("url-pattern", value)
