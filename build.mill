@@ -234,3 +234,12 @@ def SiteStage = Task{
 
   Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
 }
+
+object Servlet extends CommonJvm
+{ def sources = T.sources(T.workspace / "Dev" / "Servlet" / "src")
+  def moduleDeps = Seq(Dev)
+}
+
+def ServletStage = Task{
+  Servlet.runner().run(mainClass = "ostrat.pDev.MakeCookies1", args = Array[String]())
+}
