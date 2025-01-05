@@ -11,7 +11,7 @@ object lexPathToken
        buff.grow(token.srcStr)
        loop(co, tp)
      }
-     case _ => Succ3(remOff, tp, PathToken(tp, buff.toArray))
+     case _ => Succ3(remOff, tp, PathToken(tpStart, buff.toArray))
    }
    loop(remOff, tpStart)
   }

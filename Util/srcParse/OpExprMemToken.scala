@@ -18,7 +18,23 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends OpExprMem
 }
 
 /** File path token. */
-case class PathToken(startPosn: TextPosn, arrayUnsafe: Array[String]) extends OpExprMemToken
+class PathToken(val startPosn: TextPosn, val arrayUnsafe: Array[String]) extends OpExprMemToken
 { override def exprName: String = "PathTokenExpr"
   override def srcStr: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
+
+  override def equals(that: Any): Boolean = that match{
+    case op: PathToken => true//if /*startPosn == op.startPosn &&*/ arrayUnsafe.sameElements(op.arrayUnsafe) => true
+    case _ => true
+  }
+
+  override def hashCode: Int = {
+    arrayUnsafe.foldLeft(0)(_ + _.hashCode)
+  }
+}
+
+object PathToken {
+  def unapply(inp: Any): Option[(TextPosn, Array[String])] = inp match{
+    case pt: PathToken => Some((pt.startPosn, pt.arrayUnsafe))
+    case _ => None
+  }
 }
