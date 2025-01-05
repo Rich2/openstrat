@@ -173,7 +173,7 @@ lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev).settings(
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided" withSources() withJavadoc(),
 )
 
-lazy val ServletStage = projSub("Dev", "ServletStage").dependsOn(Dev).settings(
+lazy val ServletExtras = projSub("Dev", "ServletExtras").dependsOn(Dev).settings(
   Compile/mainClass	:= Some("ostrat.pDev.StagingServlet"),
 )
 

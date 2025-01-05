@@ -241,6 +241,15 @@ object Servlet extends CommonJvm
   def moduleDeps = Seq(Dev)
 }
 
+object ServletExtras extends CommonJvm
+{ def sources = T.sources(T.workspace / "Dev" / "ServletExtras" / "src")
+  def moduleDeps = Seq(Dev)
+}
+
 def ServletStage = Task{
-  Servlet.runner().run(mainClass = "ostrat.pDev.MakeCookies1", args = Array[String]())
+  Util.jar()
+  Geom.jar()
+  Tiling.jar()
+  EGrid.jar()
+  ServletExtras.runner().run(mainClass = "ostrat.pDev.StagingServlet", args = Array[String]())
 }
