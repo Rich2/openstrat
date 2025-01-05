@@ -7,7 +7,7 @@ object PathTokenTest extends TestSuite
   val tests = Tests {
     test("PathToken")
     {
-      lexSrc.str("/op") ==> Succ(RArr(PathToken(StrPosn(1, 1), Array[String]("op"))))
+      assert(lexSrc.str("/op") === Succ(RArr(PathToken(StrPosn(1, 1), Array[String]("op")))))
     }
   }
 }

@@ -1,9 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.annotation.unchecked.uncheckedVariance
-import pParse.*
-
-import scala.reflect.ClassTag
+import scala.annotation.unchecked.uncheckedVariance, pParse.*, reflect.ClassTag
 
 /** Biased bifunctor for errors. */
 sealed trait ErrBi[+E <: Throwable, +A]
@@ -126,13 +123,12 @@ case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def succOrOther[EE >: Nothing <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = this
   override def forFold(fErr: Nothing => Unit)(fSucc: A => Unit): Unit = fSucc(value)
   override def forFld(fErr: Nothing => Unit, fSucc: A => Unit): Unit = fSucc(value)
+  override def hashCode(): Int = 11 + 13 * value.hashCode()
 
-  override def equals(that: Any): Boolean = that match{
-    case op: Succ[?] if value == op.value => true
+  override def equals(that: Any): Boolean = that match
+  { case op: Succ[?] if value == op.value => true
     case _ => false
   }
-
-  override def hashCode(): Int = 11 + 13 * value.hashCode()
 }
 
 object Succ

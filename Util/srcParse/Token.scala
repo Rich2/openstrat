@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** An RSON token. */
@@ -24,6 +24,8 @@ object Token
   { override def typeStr: String = "Token"
     def strT(obj: Token): String = obj.str
   }
+
+  implicit val eqTEv: EqT[Token] = (tok1, tok2) => tok1 == tok2
 }
 
 /** Token that is member of a block. Includes all tokens except the brace tokens. */

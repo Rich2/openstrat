@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** A [[Token]] that can be a member of a operator expression. A [[Clause]] member that is not an operator. An [[OperatorToken]] can be a component of an
@@ -23,18 +23,20 @@ class PathToken(val startPosn: TextPosn, val arrayUnsafe: Array[String]) extends
   override def srcStr: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
 
   override def equals(that: Any): Boolean = that match{
-    case op: PathToken => true//if /*startPosn == op.startPosn &&*/ arrayUnsafe.sameElements(op.arrayUnsafe) => true
-    case _ => true
+    case op: PathToken if startPosn == op.startPosn && arrayUnsafe.sameElements(op.arrayUnsafe) => true
+    case _ => false
   }
 
-  override def hashCode: Int = {
-    arrayUnsafe.foldLeft(0)(_ + _.hashCode)
-  }
+  override def hashCode: Int = arrayUnsafe.foldLeft(0)(_ + _.hashCode)
 }
 
-object PathToken {
+object PathToken
+{
   def unapply(inp: Any): Option[(TextPosn, Array[String])] = inp match{
     case pt: PathToken => Some((pt.startPosn, pt.arrayUnsafe))
     case _ => None
   }
+
+  /** Implicit [[EqT]] instance / evidence for [[PathToken]]. */
+  implicit val eqTEv: EqT[PathToken] = (pt1, pt2) => pt1.startPosn == pt2.startPosn && pt1.arrayUnsafe.sameElements(pt2.arrayUnsafe)
 }
