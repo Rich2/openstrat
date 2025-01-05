@@ -232,7 +232,7 @@ def SiteStage = Task{
   EG80Europe.fullLinkJS()
   EarthApp.fullLinkJS()
 
-  Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
+  Dev.runner().run(mainClass = "ostrat.pDev.MillStaging", args = Array[String]())
 }
 
 object Servlet extends CommonJvm
@@ -256,5 +256,5 @@ def packAll = Task{
 
 def ServletStage = Task{
   packAll()
-  ServletExtras.runner().run(mainClass = "ostrat.pDev.StagingServlet", args = Array[String]())
+  ServletExtras.runner().run(mainClass = "ostrat.pDev.MillStagingServlet", args = Array[String]())
 }

@@ -2,12 +2,13 @@
 package ostrat; package pDev
 import utiljvm.*
 
-object StagingServlet
+object MillStagingServlet
 {
   def main(args: Array[String]): Unit =
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
         deb("Staging Folder exists.")
+        commonLibs(stagingPath.asStr)
         val cookPath: String = stagingPath /% "Cookies1"
         mkDirExist(cookPath).forSucc { res1 => webInf(cookPath) }
       }
@@ -20,6 +21,17 @@ object StagingServlet
       mkDirExist(libPath)
       val classesPath = webInfPath / "classes"
       mkDirExist(classesPath)
+    }
+
+    def commonLibs(stagingPath: String): Unit =
+    {
+      val commonPath: String = stagingPath / "libCommon"
+      mkDirExist(commonPath).forSucc { res1 =>
+        projPathDo { projPath =>
+          val f1 = fileCopy(projPath.asStr / "out/Util/jar.dest/out.jar", commonPath / "RUtil-0.3.5.snap.jar")
+          debvar(f1)
+        }
+      }
     }
   }
 }
