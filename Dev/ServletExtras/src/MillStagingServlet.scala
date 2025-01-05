@@ -4,6 +4,7 @@ import utiljvm.*
 
 object MillStagingServlet
 {
+  val versionStr: String = "0.3.5snap"
   def main(args: Array[String]): Unit =
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
@@ -28,7 +29,7 @@ object MillStagingServlet
       val commonPath: String = stagingPath / "libCommon"
       mkDirExist(commonPath).forSucc { res1 =>
         projPathDo { projPath =>
-          val f1 = fileCopy(projPath.asStr / "out/Util/jar.dest/out.jar", commonPath / "RUtil-0.3.5.snap.jar")
+          val f1 = fileCopy(projPath.asStr / "out/Util/jar.dest/out.jar", commonPath / "rutil-" + versionStr + ".jar")
           debvar(f1)
         }
       }
