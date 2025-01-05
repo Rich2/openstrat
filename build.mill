@@ -246,10 +246,15 @@ object ServletExtras extends CommonJvm
   def moduleDeps = Seq(Dev)
 }
 
-def ServletStage = Task{
+def packAll = Task{
   Util.jar()
   Geom.jar()
   Tiling.jar()
   EGrid.jar()
+  Dev.jar()
+}
+
+def ServletStage = Task{
+  packAll()
   ServletExtras.runner().run(mainClass = "ostrat.pDev.StagingServlet", args = Array[String]())
 }
