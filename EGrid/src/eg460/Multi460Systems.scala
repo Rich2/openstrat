@@ -15,7 +15,7 @@ object Scen460Europe extends EScenLongMulti
 /** 460km terrain only scenario for China - Japan. 3 460km grid system for 90°E, 120°E and 150°E */
 object Scen460ChinaJapan extends EScenLongMulti
 { override val title: String = "460km China - Japan 90°E - 150°E"
-  implicit override val gridSys: EGrid460LongMulti = EGrid460.multi(3, 3, 86)
+  implicit override val gridSys: EGrid460LongMulti = EGrid460.multi(3, 3, 84)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -45,7 +45,7 @@ object Scen460Africa extends EScenLongMulti
 /** 460km terrain only scenario for India. 3 460km grid system for 90°E, 120°E and 150°E */
 object Scen460India extends EScenLongMulti
 { override val title: String = "460km India 60°E - 90°E"
-  implicit override val gridSys: EGrid460LongMulti = EGrid460.multi(2, 2, 86)
+  implicit override val gridSys: EGrid460LongMulti = EGrid460.multi(2, 2, 80)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
