@@ -17,10 +17,11 @@ case class ServletElem(contents: RArr[XCon]) extends XmlMultiNoAtts
 }
 
 object ServletElem
-{
+{ /** Factory apply method for constructing a servlet XML element. */
   def apply(name: String, servletClass: String, otherElems: XCon*): ServletElem =
     new ServletElem(RArr(ServletName(name), ServletClass(servletClass)) ++ otherElems.toArr)
 
+  /** Constructs the [[ServletElem]] and the [[ServletMapping]] XML elements for a Sevelt. */
   def withMapping(name: String, urlStr: String, otherElems: XCon*)(url: String, otherElems2: XCon*): RArr[XmlElem] =
   { val serv = new ServletElem(RArr(ServletName(name), ServletClass(urlStr)) ++ otherElems.toArr)
     val mapping = new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems2.toArr)

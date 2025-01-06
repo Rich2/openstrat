@@ -2,6 +2,7 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** Trait for the accumulation of successes and errors. */
 trait ErrBiAccBase[+E <: Throwable, +B]
 { /** The number of accumulated errors. */
   def errNum: Int
@@ -23,8 +24,7 @@ trait ErrBiAccBase[+E <: Throwable, +B]
 }
 
 object ErrBiAccBase
-{
-  /** Extension class for [[ErrBiAccBase]]. */
+{ /** Extension class for [[ErrBiAccBase]]. */
   implicit class errBiAccBaseExtensions[+E <: Throwable, +B](thisEBAB: ErrBiAccBase[E, B])
   { /** Extension method to produce a summary line of the successes and failures of this [[ErrBiAccBase]]. */
     def summaryStr(leadStr: String)(implicit ev: ErrBiSummary[E, B] @uncheckedVariance): String = ev.summaryStr(leadStr, thisEBAB)
