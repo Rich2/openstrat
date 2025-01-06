@@ -26,10 +26,12 @@ object MillStagingServlet
 
     def commonLibs(stagingPath: String): Unit =
     {
-      val commonPath: String = stagingPath / "libCommon"
-      mkDirExist(commonPath).forSucc { res1 =>
+      val sharedPath: String = stagingPath / "libShared"
+      mkDirExist(sharedPath).forSucc { res1 =>
         projPathDo { projPath =>
-          val f1 = fileCopy(projPath.asStr / "out/Util/jar.dest/out.jar", commonPath / "rutil-" + versionStr + ".jar")
+          def fc(srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
+            fileCopy(projPath.asStr / "out" / srcStr / "jar.dest/out.jar", sharedPath / destStr + "-" + versionStr + ".jar")
+          val f1 = ErrBiAcc(fc("Util", "rutil"), fc("Geom", "geom"), fc("Tiling", "tiling"), fc("EGrid", "egrid"))
           debvar(f1)
         }
       }
