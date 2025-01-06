@@ -42,3 +42,20 @@ object MillStaging extends StagingBuild
     egridJsFiles.errsPrint
   }
 }
+
+/** Function object to stage the module jars built under Mill. */
+object MillStageJars
+{ val versionStr: String = "0.3.5snap"
+
+  def apply(stagingPath: String): Unit =
+  { val sharedPath: String = stagingPath / "libShared"
+    mkDirExist(sharedPath).forSucc { res1 =>
+      projPathDo { projPath =>
+        def fc(srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
+          fileCopy(projPath.asStr / "out" / srcStr / "jar.dest/out.jar", sharedPath / destStr + "-" + versionStr + ".jar")
+        val f1 = ErrBiAcc(fc("Util", "rutil"), fc("Geom", "geom"), fc("Tiling", "tiling"), fc("EGrid", "egrid"))
+        debvar(f1)
+      }
+    }
+  }
+}
