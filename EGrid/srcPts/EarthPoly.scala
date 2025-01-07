@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom.*, pglobe.*, egrid.*, WTiles.*, collection.mutable.ArrayBuffer
 
@@ -14,8 +14,8 @@ abstract class EarthPoly(val name: String, val cen: LatLong, val terr: WTile) ex
 
   def places: LocationLLArr = LocationLLArr()
 
-  /** Returns a pair of this [[EarthPoly]] and the [[PolygonM2]] from the given focus and orientation. The polygonM only has points form the side of the
-   *  earth that faces the focus.  */
+  /** Returns a pair of this [[EarthPoly]] and the [[PolygonM2]] from the given focus and orientation. The polygonM only has points form the side of the earth
+   * that faces the focus. */
   def withPolygonM2(focus: LatLongDirn): (EarthPoly, PolygonM2) =
   { val p3s0: PolygonM3 = polygonLL.toMetres3
     val p3s1: PolygonM3 = p3s0.fromLatLongFocus(focus)
@@ -75,4 +75,5 @@ abstract class IslandPolyGroup(val name: String) extends IslandPolyLike
   override def toString: String = name
 }
 
+/** A lake representation with name [[PolygonLL]] and terrain. */
 abstract class LakePoly(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), WithKilares

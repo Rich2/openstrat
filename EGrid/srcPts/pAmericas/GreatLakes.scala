@@ -73,8 +73,10 @@ object LakeHuron extends LakePoly("Lake Huron", 44.80 ll -82.4, Lake)
 }
 
 /** [[PolygonLL]] graphical representation for Lake Erie. Depends on nothing. */
-object LakeErie extends EarthPoly("Lake Erie", 42.24 ll -81.03, Lake)
-{ val detroitMouth: LatLong = 42.05 ll -83.15
+object LakeErie extends LakePoly("Lake Erie", 42.24 ll -81.03, Lake)
+{ override val area: Kilares = 25700.kilares
+
+  val detroitMouth: LatLong = 42.05 ll -83.15
   val theTip: LatLong = 41.90 ll -82.50
   val portStanley: LatLong = 42.66 ll -81.24
   val longPoint: LatLong = 42.58 ll -80.44
@@ -92,8 +94,10 @@ object LakeErie extends EarthPoly("Lake Erie", 42.24 ll -81.03, Lake)
 }
 
 /** [[PolygonLL]] graphical representation for Lake Ontario. Depends on nothing. */
-object LakeOntario extends EarthPoly("Lake Ontario", 43.65 ll -77.84, Lake)
-{ val wolfeSW: LatLong = 44.10 ll -76.44
+object LakeOntario extends LakePoly("Lake Ontario", 43.65 ll -77.84, Lake)
+{ override val area: Kilares = 18970.kilares
+
+  val wolfeSW: LatLong = 44.10 ll -76.44
   val tibbettsPoint = 44.10 ll -76.37
   val southEast: LatLong = 43.53 ll -76.22
   val irondequoitMout = 43.236 ll -77.534

@@ -52,8 +52,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair{ p => p / dirnScale }
 
     val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap{ (p, a2) =>
-      val str: String = a2 match {
-        case isle: IslandPoly => isle.strWithGroups
+      val str: String = a2 match
+      { case isle: IslandPoly => isle.strWithGroups
+        case lake: LakePoly => lake.name -- lake.area.str
         case ea => ea.name -- ea.terr.str
       }
       p.fillActiveText(a2.colour, str, a2.name, 10, a2.contrastBW)
