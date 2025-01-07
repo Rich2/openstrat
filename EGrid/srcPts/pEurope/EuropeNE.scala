@@ -47,9 +47,9 @@ object Baltland extends EarthPoly("BaltLand", 56.46 ll 27.83, oceanic)
   val paldiski: LatLong = 59.40 ll 24.04
   val udria: LatLong = 59.40 ll 27.92
   val krasnoselsky = 59.86 ll 30.14
-  val piterland: LatLong = 59.97 ll 30.21
-  val nevaMouth: LatLong = 59.95 ll 31.04
-  val ladogaEast: LatLong = 60.66 ll 32.96
+  //val piterland: LatLong = 59.97 ll 30.21
+  //val nevaMouth: LatLong = 59.95 ll 31.04
+  //val ladogaEast: LatLong = 60.66 ll 32.96
   val svirMouth: LatLong = 61.01 ll 35.49
    
   val onegaSouth: LatLong = 60.88 ll 35.67
@@ -73,8 +73,9 @@ object Baltland extends EarthPoly("BaltLand", 56.46 ll 27.83, oceanic)
   val southEast: LatLong = 52 ll 45
   val voronezh = 51.539 ll 39.147
    
-  override val polygonLL: PolygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, osvalki, ovsi, kolka, meinsils, mersrags, kesterclems, jurmala, saulkrasti, parnu, lao,
-    virtsu, noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,
+  override val polygonLL: PolygonLL = LinePathLL(Polandia.kaliningrad, klaipeda, ziemupe, osvalki, ovsi, kolka, meinsils, mersrags, kesterclems, jurmala, saulkrasti, parnu, lao,
+    virtsu, noarootsi, paldiski, udria, krasnoselsky) |++|/*, piterland*/// nevaMouth,
+    LinePathLL(svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,
     pudozhgorskiy, chelmuzhiEast,
     /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast, voronezh,
     Polandia.cenEast)
