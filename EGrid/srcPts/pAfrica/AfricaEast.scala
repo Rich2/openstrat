@@ -1,10 +1,12 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic object for Lake Victoria. Depends on nothing. */
-object LakeVictoria extends EarthPoly("Lake\nVictoria", -1 ll 32.83, Lake)
-{ val southEast: LatLong = -2.23 ll 33.84
+object LakeVictoria extends LakePoly("Lake\nVictoria", -1 ll 32.83, Lake)
+{ override val area: Kilares = 59947.kilares
+
+  val southEast: LatLong = -2.23 ll 33.84
   val katongaMouth: LatLong =  -0.14 ll 31.94
   val east: LatLong = -0.39 ll 34.26
   val kusa: LatLong = -0.326 ll 34.819
@@ -16,7 +18,7 @@ object LakeVictoria extends EarthPoly("Lake\nVictoria", -1 ll 32.83, Lake)
   override def polygonLL: PolygonLL = southEastAfrica.reverse.toPolygon
 }
 
-/** [[PolygonLL]] graphic object for Lake Tanganyika depends on nothing. */
+/** [[PolygonLL]] graphic object for Lake Tanganyika. Depends on nothing. */
 object LakeTanganyika extends EarthPoly("Lake\nTanganyika", -6.25 ll 29.57, Lake)
 { val northEast: LatLong = -3.36 ll 29.34
   val northWest: LatLong = -3.36 ll 29.16

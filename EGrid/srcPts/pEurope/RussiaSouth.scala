@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -21,8 +21,7 @@ object Crimea extends EarthPoly("Crimea", 45.33 ll 34.15, steppe)
 
 /** [[PolygonLL]] graphic for Ukraine depends on [[AzovSea]], [[Baltland]], [[Crimea]] [[BalkansEast]] and [[Polandia]]. */
 object Ukraine extends EarthPoly("Ukraine", 49 ll 34, continental)
-{
-  val koblev: LatLong = 46.63 ll 31.18
+{ val koblev: LatLong = 46.63 ll 31.18
 
   override val polygonLL: PolygonLL = PolygonLL(Baltland.voronezh, AzovSea.northEast, AzovSea.henichesk, Crimea.northWest, koblev, BalkansEast.odessa,
     Polandia.cenEast)
@@ -67,9 +66,11 @@ object RussiaSouth extends EarthPoly("Russia South", 45.00 ll 42.57, steppe)
     p75, p77) |++<| AzovSea.eastCoast.tail
 }
 
-/** [[PolygonLL]] graphic for Caspian Sea depends on nothing. */
-object Caspian extends EarthPoly("Caspian Sea", 42.10 ll 50.64, lake)
-{ val north: LatLong = 47.05 ll 51.36
+/** [[PolygonLL]] graphic for the Caspian Sea depends on nothing. */
+object Caspian extends LakePoly("Caspian Sea", 42.10 ll 50.64, lake)
+{ override val area: Kilares = 371000.kilares
+
+  val north: LatLong = 47.05 ll 51.36
   val p4: LatLong = 46.782 ll 52.268
   val northEast: LatLong = 46.66 ll 53.03
   val p10: LatLong = 45.860 ll 53.064

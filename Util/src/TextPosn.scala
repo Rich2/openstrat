@@ -1,10 +1,12 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*
 
+/** A location with text, src code or data. */
 case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)
-{ /** moves the value of the TextPosn to the right. */
+{ /** moves the value from this [[TextPosn]] to the right. */
   def right(num: Int): TextPosn = TextPosn(fileName, lineNum, linePosn + num)
+
   def right1: TextPosn = TextPosn(fileName, lineNum, linePosn + 1)
   def right2: TextPosn = TextPosn(fileName, lineNum, linePosn + 2)
   def right3: TextPosn = TextPosn(fileName, lineNum, linePosn + 3)
