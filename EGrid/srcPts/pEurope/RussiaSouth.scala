@@ -23,8 +23,8 @@ object Crimea extends EarthPoly("Crimea", 45.33 ll 34.15, steppe)
 object Ukraine extends EarthPoly("Ukraine", 49 ll 34, continental)
 { val koblev: LatLong = 46.63 ll 31.18
 
-  override val polygonLL: PolygonLL = PolygonLL(Baltland.voronezh, AzovSea.northEast, AzovSea.henichesk, Crimea.northWest, koblev, BalkansEast.odessa,
-    Polandia.cenEast)
+  override val polygonLL: PolygonLL = PolygonLL(RussiaNE.voronezh, AzovSea.northEast, AzovSea.henichesk, Crimea.northWest, koblev, BalkansEast.odessa,
+    Polandia.cenEast, Baltland.southEast)
 }
 
 /** [[PolygonLL]] graphic for the Sea of Azov, depends on nothing. */
@@ -47,8 +47,8 @@ object AzovSea extends EarthPoly("AzovSea", 46.13 ll 36.80, sea)
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */
 object VolgaRegion extends EarthPoly("Volga Region", 45.00 ll 42.57, steppe)
-{ override val polygonLL: PolygonLL = LinePathLL(pAsia.RusNorth.p50) ++< Caspian.volgaCoast |++| LinePathLL(AzovSea.northEast, Baltland.voronezh,
-    Baltland.southEast)
+{ override val polygonLL: PolygonLL = LinePathLL(pAsia.RusNorth.p50) ++< Caspian.volgaCoast |++| LinePathLL(AzovSea.northEast, RussiaNE.voronezh,
+    RussiaNE.southEast)
 }
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */

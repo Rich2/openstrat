@@ -73,19 +73,13 @@ object FinlandSouth extends EarthPoly("Finland south", 65.56 ll 29.95, lakesTaig
   val vasankariWest: LatLong = 64.34 ll 23.93
   val oulu: LatLong = 65.00 ll 25.41
   val olhava: LatLong = 65.46 ll 25.33
-
-  //val pusunsaari: LatLong = 61.55 ll 31.43
-  //val ladogaNorth: LatLong = 61.61 ll 30.92
-  //val ladogaNW: LatLong = 61.17 ll 29.98
+  
   val ladozhskiy: LatLong = 60.02 ll 31.12
 
-
-
+  
   override val polygonLL: PolygonLL = LinePathLL(lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
     /*East Baltic */ p10, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava, FinlandNorth.balticNE) |++|
     LinePathLL(
-     // ladozhskiy,
-//      Baltland.nevaMouth
     )
 }
 
@@ -95,16 +89,15 @@ object Karelia extends EarthPoly("Karelia", 65.56 ll 29.95, ice)
   /** Start of White Sea West. */
   val vygMouth: LatLong = 64.53 ll 34.78
   val kohezmaNorth: LatLong = 64.38 ll 35.61
-  val whiteSeaCoast: LinePathLL = LinePathLL(FinlandNorth.southEast, vygMouth, kohezmaNorth, Baltland.onezhsky)
+  val whiteSeaCoast: LinePathLL = LinePathLL(FinlandNorth.southEast, vygMouth, kohezmaNorth, RussiaNE.onezhsky)
 
   val medvezhyegorskNorth: LatLong = 62.91 ll 34.49
   val medvezhyegorskSouth: LatLong = 62.89 ll 34.44
   val petrozavodsk: LatLong = 61.81 ll 34.55
   val shcheleyki: LatLong = 61.14 ll 35.70
-
-
-  override val polygonLL: PolygonLL =  whiteSeaCoast ++ LinePathLL(Baltland.chelmuzhiEast, medvezhyegorskNorth, medvezhyegorskSouth, petrozavodsk, shcheleyki,
-    Baltland.svirMouth) |++<| LakeLagoda.kareliaCoast
+  
+  override val polygonLL: PolygonLL =  whiteSeaCoast ++ LinePathLL(RussiaNE.chelmuzhiEast, medvezhyegorskNorth, medvezhyegorskSouth, petrozavodsk, shcheleyki,
+    RussiaNE.svirMouth) |++<| LakeLagoda.kareliaCoast
 }
 
 /** [[polygonLL]] graphical representation of Lake Lagoda. Depends on nothing. */

@@ -19,8 +19,8 @@ object RusNorth extends EarthPoly("NRus", 61 ll 54, taiga)
   val amderma: LatLong = 69.76 ll 61.68
   val p50: LatLong = 52 ll 51.25
 
-  override val polygonLL: PolygonLL = PolygonLL(pEurope.Baltland.mezenMouth, chizhaSouth, chizhaWest, shoynaNorth1, shoynaNorth2, shoynaNorth3, shoynaNorth4, shoynaEast1,
-     shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, SiberiaWest.uralsNorthEnd, SiberiaWest.uralsNW, SiberiaWest.p80, SiberiaWest.p75, p50, pEurope.Baltland.southEast)
+  override val polygonLL: PolygonLL = PolygonLL(pEurope.RussiaNE.mezenMouth, chizhaSouth, chizhaWest, shoynaNorth1, shoynaNorth2, shoynaNorth3, shoynaNorth4, shoynaEast1,
+     shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, SiberiaWest.uralsNorthEnd, SiberiaWest.uralsNW, SiberiaWest.p80, SiberiaWest.p75, p50, pEurope.RussiaNE.southEast)
 }
 
 /**  [[polygonLL]] graphical representation of Severny Island north of Russia. Depends on nothing. */
