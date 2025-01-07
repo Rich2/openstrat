@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.
  * [[Isle10]] 64603.127km² => 78919.609km². Hispaniola 76192km². */
 object Terr460W60 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w60(84)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w60(76)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -64,6 +64,14 @@ object Terr460W60 extends Long460Terrs
     TRow(88, hillySahel, hillySavannah, savannah, hillySavannah, savannah, mtainSub),
     VRow(87, BendIn(10740, HVDR, 13), BendOut(10742, HVUL, 7)),
     TRow(86, hillySahel, mtainSahel, savannah, subtrop, mtainSub * 2),
+    VRow(85, BendIn(10740 , HVUR, 13), BendOut(10742, HVDL, 7)),
+    TRow(84, mtainSahel, savannah * 2, subtrop, hillySub),
+    VRow(83, BendIn(10740, HVDR, 13), BendMin(10742, HVUL, 1)),
+    TRow(82, mtainSavannah, savannah * 2, subtrop * 2),
+    VRow(81, BendIn(10740, HVUR, 13), BendOut(10742, HVDL, 7), BendOut(10758, HVDR, 7), BendIn(10760, HVUL, 13)),
+    TRow(80, hillySteppe, steppe, subtrop, hillySub),
+    VRow(79, BendOut(10742, HVUL, 7), BendIn(10758, HVUL, 13)),
+    TRow(78, hillySahel, sahel),
     )
   }
   help.run

@@ -25,7 +25,7 @@ object Scen460ChinaJapan extends EScenLongMulti
 /** 460km terrain only scenario for North America. 4 460km grid system for 150°W, 120°W, 90°W and 60°W */
 object Scen460NorthAmerica extends EScenLongMulti
 { override val title: String = "460km North America 150°W - 60°W"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(4, 7, 86)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(4, 7, 78)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -55,7 +55,7 @@ object Scen460India extends EScenLongMulti
 /** 460km terrain only scenario for Atlantic and South America. 4 460km grid system for 90°W, 60°W, 30°W and 0°E. */
 object Scen460Atlantic extends EScenLongMulti
 { override val title: String = "460km Atlantic 90°W - 0°E"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(4, 9, 86)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(4, 9, 78)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -65,7 +65,7 @@ object Scen460Atlantic extends EScenLongMulti
 /** 460km terrain only scenario for the Date Line. 3 grids across the Dateline for 150°E, 180°E, and 150°W. */
 object Scen460DateLine extends EScenLongMulti
 { override val title: String = "460km Date Line 150°E - 150°W"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 5, 86)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 5, 84)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -75,7 +75,7 @@ object Scen460DateLine extends EScenLongMulti
 /** 460km terrain only scenario for all longitudes grid system. */
 object Scen460All extends EScenLongMulti
 { override val title: String = "460km all longitude terrain only scenario."
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(12, 0, 86)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(12, 0, 84)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

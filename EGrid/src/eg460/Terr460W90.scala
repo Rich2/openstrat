@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** 460km [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile area 183250.975km².
  * [[Isle4]] 8768.845km² => 14495.438km². Jamaica 10,991 km². */
 object Terr460W90 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w90(84)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w90(76)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -82,6 +82,8 @@ object Terr460W90 extends Long460Terrs
     TRow(98, sea * 5, mtainJungle, jungle),
     TRow(96, sea * 6, mtainSavannah),
     TRow(94, sea * 6, mtainSahel),
+    VRow(79, BendIn(9736, HVDR, 13), BendOut(9738, HVUL, 7)),
+    TRow(78, sea * 4, hillyOce),
     )
   }
   help.run
