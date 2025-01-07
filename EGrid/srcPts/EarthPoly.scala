@@ -75,4 +75,4 @@ abstract class IslandPolyGroup(val name: String) extends IslandPolyLike
   override def toString: String = name
 }
 
-abstract class EarthLake(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), WithKilares
+abstract class LakePoly(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), WithKilares

@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle6]] 21653.679km² => 30243.569km². New Caledonia 18353km².
  * [[Isle4]] 8768.845km² => 14495.438km². New Ireland 8990km². */
 object Terr460E150 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e150(84)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e150(80)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()

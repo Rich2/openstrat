@@ -14,8 +14,10 @@ object CanadaCentral extends EarthPoly("Canada\n central", 52.37 ll -86.94, taig
 }
 
 /** [[PolygonLL]] graphical representation for Lake Superior. Depends on nothing. */
-object LakeSuperior extends EarthPoly("Lake Superior", 47.5 ll -88, Lake)
-{ val east: LatLong = 46.52 ll -84.61
+object LakeSuperior extends LakePoly("Lake Superior", 47.5 ll -88, Lake)
+{ override val area: Kilares = 82100.kilares
+
+  val east: LatLong = 46.52 ll -84.61
   val grandMarais = 47.748 ll -90.347
   val michipicoten: LatLong = 47.96 ll -84.86
   val north: LatLong = 48.80 ll -87.31
@@ -42,8 +44,10 @@ object LakeSuperior extends EarthPoly("Lake Superior", 47.5 ll -88, Lake)
 }
 
 /** [[PolygonLL]] graphical representation for Lake Huron. Depends on nothing. */
-object LakeHuron extends EarthPoly("Lake Huron", 44.80 ll -82.4, Lake)
-{ val pineMouth: LatLong = 46.05 ll -84.66
+object LakeHuron extends LakePoly("Lake Huron", 44.80 ll -82.4, Lake)
+{ override val area: Kilares = 59590.kilares
+  
+  val pineMouth: LatLong = 46.05 ll -84.66
   val borderNorth: LatLong = 45.91 ll -83.50
   val fitzwilliam: LatLong = 45.45 ll -81.79
   val killarney: LatLong = 45.99 ll -81.43

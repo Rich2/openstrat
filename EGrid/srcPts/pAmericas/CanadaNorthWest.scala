@@ -117,7 +117,7 @@ object SlaveAthabascaLand extends EarthPoly("Slave Athabasca", 60.552 ll -111.16
     Yukon.southEast, Yukon.camsellBend) |++<| GreatSlaveLake.southCoast
 }
 
-object LakeAthabasaca extends EarthLake("Lake Athabasca", 59.327 ll -109.250, lake)
+object LakeAthabasaca extends LakePoly("Lake Athabasca", 59.327 ll -109.250, lake)
 { override val area: Kilares = 7935.kilares
 
   val east: LatLong = 59.353 ll -107.560
