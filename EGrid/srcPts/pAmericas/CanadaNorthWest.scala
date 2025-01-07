@@ -16,8 +16,10 @@ object Yukon extends EarthPoly("Yukon", 64.051 ll -129.98, hillyTaiga)
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object GreatBearLake extends EarthPoly("Great Bear\nLake", 66.079 ll -120.389, Lake)
-{ val north: LatLong = 67.04 ll -119.80
+object GreatBearLake extends LakePoly("Great Bear\nLake", 66.079 ll -120.389, Lake)
+{ override val area: Kilares = 31153.kilares
+
+  val north: LatLong = 67.04 ll -119.80
   val p20: LatLong = 66.86 ll -119.45
   val p30: LatLong = 66.40 ll -120.51
   val p36: LatLong = 66.29 ll -117.97

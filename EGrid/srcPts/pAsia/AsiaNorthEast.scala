@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -35,8 +35,10 @@ object SiberiaSouth extends EarthPoly("SiberiaSouth", 60 ll 92, taiga)
 }
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
-object LakeBaikal extends EarthPoly("Lake Baikal", 53.463 ll 108.157, lake)
-{ val north: LatLong = 55.872 ll 109.742
+object LakeBaikal extends LakePoly("Lake Baikal", 53.463 ll 108.157, lake)
+{ override val area: Kilares = 31722.kilares
+
+  val north: LatLong = 55.872 ll 109.742
   val northEast: LatLong = 55.670 ll 109.963
   val east: LatLong = 54.157 ll 109.556
   val mamai: LatLong = 51.456 ll 104.768

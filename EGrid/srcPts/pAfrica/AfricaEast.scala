@@ -19,8 +19,10 @@ object LakeVictoria extends LakePoly("Lake\nVictoria", -1 ll 32.83, Lake)
 }
 
 /** [[PolygonLL]] graphic object for Lake Tanganyika. Depends on nothing. */
-object LakeTanganyika extends EarthPoly("Lake\nTanganyika", -6.25 ll 29.57, Lake)
-{ val northEast: LatLong = -3.36 ll 29.34
+object LakeTanganyika extends LakePoly("Lake\nTanganyika", -6.25 ll 29.57, Lake)
+{ override val area: Kilares = 32900.kilares
+
+  val northEast: LatLong = -3.36 ll 29.34
   val northWest: LatLong = -3.36 ll 29.16
   val kalemie: LatLong = -5.91 ll 29.20
   val moba: LatLong = -7.04 ll 29.78
@@ -38,8 +40,10 @@ object LakeTanganyika extends EarthPoly("Lake\nTanganyika", -6.25 ll 29.57, Lake
 }
 
 /** [[PolygonLL]] graphic object for Lake Malawi, depends on nothing. */
-object LakeMalawi extends EarthPoly("Lake\nMalawi", -12.044 ll 34.461, Lake)
-{ val north: LatLong = -9.493 ll 34.039
+object LakeMalawi extends LakePoly("Lake\nMalawi", -12.044 ll 34.461, Lake)
+{ override val area: Kilares = 29600.kilares
+
+  val north: LatLong = -9.493 ll 34.039
   val east: LatLong = -11.572 ll 34.960
   val south: LatLong = -14.418 ll 35.236
   val southWest: LatLong = -14.287 ll 34.688
@@ -49,8 +53,10 @@ object LakeMalawi extends EarthPoly("Lake\nMalawi", -12.044 ll 34.461, Lake)
 }
 
 /** [[PolygonLL]] graphic object for Lake Mweru depends on nothing. */
-object LakeMweru extends EarthPoly("Lake\nMweru", -8.952 ll 28.770, Lake)
-{ val north: LatLong = -8.476 ll 28.890
+object LakeMweru extends LakePoly("Lake\nMweru", -8.952 ll 28.770, Lake)
+{ override val area: Kilares = 5120.kilares
+
+  val north: LatLong = -8.476 ll 28.890
   val northEast: LatLong = -8.651 ll 29.153
   val p20: LatLong = -8.997 ll 29.021
   val southEast: LatLong = -9.509 ll 28.513

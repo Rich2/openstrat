@@ -113,8 +113,10 @@ object LakeOntario extends LakePoly("Lake Ontario", 43.65 ll -77.84, Lake)
 }
 
 /** [[PolygonLL]] graphical representation for Lake Michigan. Depends on nothing. */
-object LakeMichigan extends EarthPoly("Lake Michigan", 43.82 ll -87.1, Lake)
-{ val mouthSouth: LatLong = 45.78 ll -84.75
+object LakeMichigan extends LakePoly("Lake Michigan", 43.82 ll -87.1, Lake)
+{ override val area: Kilares = 58030.kilares
+
+  val mouthSouth: LatLong = 45.78 ll -84.75
   val pointBetsie: LatLong = 44.69 ll -86.26
   val macatawaMouth: LatLong = 42.773 ll -86.212
   val bridgeman: LatLong = 41.946 ll -86.578

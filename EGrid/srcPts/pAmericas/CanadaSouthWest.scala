@@ -27,8 +27,10 @@ object AlbertaSask extends EarthPoly("Alberta\nSaskatchewan", 55.5 ll -111.5, ta
 }
 
 /** [[polygonLL]] graphical representation for Reindeer Lake. Depends on nothing. */
-object ReindeerLake extends EarthPoly("Reindeer\nLake", 66.00 ll -120.25, Lake)
-{ val north: LatLong = 58.136 ll -101.994
+object ReindeerLake extends LakePoly("Reindeer\nLake", 66.00 ll -120.25, Lake)
+{ override val area: Kilares = 6650.kilares
+
+  val north: LatLong = 58.136 ll -101.994
   val beaver: LatLong = 57.437 ll -102.192
   val southEast: LatLong = 56.359 ll -102.954
   val southWest: LatLong = 56.363 ll -103.056
@@ -52,8 +54,10 @@ object Manitoba extends EarthPoly("Manitoba", 56.284 ll -95.559, lakesTaiga)
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object LakeWinnipeg extends EarthPoly("Lake Winnipeg", 52.78 ll -97.83, Lake)
-{ val playGreenMouth: LatLong = 53.70 ll -97.86
+object LakeWinnipeg extends LakePoly("Lake Winnipeg", 52.78 ll -97.83, Lake)
+{ override val area: Kilares = 24514.kilares
+
+  val playGreenMouth: LatLong = 53.70 ll -97.86
   val bloodveinMouth: LatLong = 51.79 ll -96.72
   val winnipegMouth: LatLong = 50.63 ll -96.32
   val redMouth: LatLong = 50.30 ll -96.86
