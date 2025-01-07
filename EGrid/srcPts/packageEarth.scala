@@ -17,12 +17,12 @@ package object pEarth
    val divN45 = 45.27369792435918.north
 
    /** Europe, Asia and North-and central Africa. */
-   val oldWorldAreas: RArr[EarthRegion] = RArr(EuropeNW, EuropeSW, EuropeEast, MiddleEast, PolarNorth, MediterreaneanWest, MediterraneanEast, AfricaNorth,
+   val oldWorldRegions: RArr[EarthRegion] = RArr(EuropeNW, EuropeSW, EuropeEast, MiddleEast, PolarNorth, MediterreaneanWest, MediterraneanEast, AfricaNorth,
       AsiaMain, AsiaEast, NorthAtantic, MalayArch)
 
-   /** The areas discovered from the late 14th century. */
-   val newWorldAreas: RArr[EarthRegion] = RArr(PolarSouth, Alaska, CanadaIslands, Canada, AmericasNearNorth, AmericasCentral, AmericasSouth, Australasia,
+   /** The regions discovered from the late 14th century. */
+   val newWorldRegions: RArr[EarthRegion] = RArr(PolarSouth, Alaska, CanadaIslands, Canada, AmericasNearNorth, AmericasCentral, AmericasSouth, Australasia,
       PacificTop, AfricaTropical, AfricaSouth)
 
-   def earthAllAreas: RArr[EarthRegion] = oldWorldAreas ++ newWorldAreas
+   def earthAllRegions: RArr[EarthRegion] = oldWorldRegions ++ newWorldRegions
 }

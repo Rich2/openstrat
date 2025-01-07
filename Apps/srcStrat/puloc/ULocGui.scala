@@ -15,7 +15,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   val scaleMax: LengthMetric = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
-  val eas: RArr[EarthPoly] = earthAllAreas.flatMap(_.a2Arr)
+  val eas: RArr[EarthPoly] = earthAllRegions.flatMap(_.ePolys)
 
   val ps1: PolygonLLPairArr[EarthPoly] = eas.map(ea => PolygonLLPair[EarthPoly](ea.polygonLL, ea))
   val lc1: LocationLLArr = eas.flatMap(_.places)

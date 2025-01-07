@@ -23,6 +23,8 @@ abstract class EarthPoly(val name: String, val cen: LatLong, val terr: WTile) ex
     val p3s4 = p3s3.rotate180IfNot(focus.dirn.northUp)
     (this, p3s4)
   }
+
+  def isLake: Boolean = this.isInstanceOf[LakePoly]
 }
 
 /** Companion object for the [[EarthPoly]] class. Contains 2 factory apply methods. */
@@ -34,6 +36,11 @@ object EarthPoly
 
   def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EarthPoly(symName, cen, terr)
   { val polygonLL = polygonIn
+  }
+
+  extension (thisArr: RArr[EarthPoly])
+  { /** Extension method, filters the [[LakePoly]]s. */
+    def lakeFilter: RArr[LakePoly] = thisArr.filter(_.isLake).asInstanceOf[RArr[LakePoly]]
   }
 }
 

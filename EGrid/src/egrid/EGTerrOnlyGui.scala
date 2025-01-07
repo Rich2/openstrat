@@ -6,7 +6,7 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean = true) extends EGridBaseGui("Grid World")
 { deb("Starting EGTerrOnlyGui")
   val scen: EScenBasic = scenIn
-  val eas: RArr[EarthPoly] = earthAllAreas.flatMap(_.a2Arr)
+  val eas: RArr[EarthPoly] = earthAllRegions.flatMap(_.ePolys)
   implicit val gridSys: EGridSys = scen.gridSys
 
   var scale: LengthMetric = gridSys.cScale / viewIn.pixelsPerC
