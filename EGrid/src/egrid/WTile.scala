@@ -80,3 +80,9 @@ case object SeaIcePerm extends WTile with Water with TellSimple
   override def colour = White
   override def isLand: Boolean = false
 }
+
+/** Winter lake ice. */
+object LakeIceWinter extends Water with TellSimple
+{ override def str = "SeaIceWinter"
+  override def colour = Lake.colour
+}

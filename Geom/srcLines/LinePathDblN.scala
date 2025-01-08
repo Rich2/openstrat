@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._
 
@@ -68,29 +68,30 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     newArray
   }
 
-
   @targetName("appendTail") override def +-+(operand: ThisT): ThisT = fromArray(appendTailArray(operand.arrayUnsafe))
   @targetName("appendTailToPolygon") final override def |+-+|(operand: ThisT): PolygonT = polygonFromArray(appendTailArray(operand.arrayUnsafe))
   @targetName("initAppendInitToPolygon") final override def |-++-|(operand: ThisT): PolygonT = polygonFromArray(initAppendInitArray(operand.arrayUnsafe))
+  @targetName("appendPt") @inline final override def +%(operandPt: VT): ThisT = fromArray(appendPtToArray(operandPt))
+  @targetName("appendPtToPolygon") final override def |+%|(operandPt: VT): PolygonT = polygonFromArray(appendPtToArray(operandPt))
 
-  @targetName("appendPt") @inline final override def +%[AA >: VT](op: VT): ThisT =
+  def appendPtToArray(pt: VT): Array[Double] =
   { val newArray = new Array[Double](arrayLen + elemProdSize)
     arrayUnsafe.copyToArray(newArray)
     var i = arrayLen
-    op.dblForeach { d =>
+    pt.dblForeach { d =>
       newArray(i) = d
       i += 1
     }
-    fromArray(newArray)
+    newArray
   }
 
   @targetName("appendToPolygon") final override def |++|(operand: ThisT): PolygonT = polygonFromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
-  @targetName("appendVertToPolygon") final override def |+|[AA >: VT](op: VT): PolygonT =
+  @targetName("appendVertToPolygon") final override def |+|[AA >: VT](pt: VT): PolygonT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)
     arrayUnsafe.copyToArray(newArray)
     var i = arrayLen
-    op.dblForeach { d =>
+    pt.dblForeach { d =>
       newArray(i) = d
       i += 1
     }

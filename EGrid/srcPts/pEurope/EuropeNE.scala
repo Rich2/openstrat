@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphical representation for Poland and adjacent territory. */
-object Polandia extends EarthPoly("Polandia", 50.07 ll 20.13, oceanic)
+object Polandia extends EarthPoly("Polandia", 50.07 ll 20.13, continental)
 { val mielno: LatLong = 54.26 ll 16.06
   val jaroslawiec: LatLong = 54.54 ll 16.53
   val jastrzebia: LatLong = 54.83 ll 18.33
@@ -28,8 +28,8 @@ object Polandia extends EarthPoly("Polandia", 50.07 ll 20.13, oceanic)
   val osteroda: LatLong = 53.70 ll 19.96
 }
 
-/** [[PolygonLL]] graphical representation for the Baltic states and adjacent territory. */
-object Baltland extends EarthPoly("BaltLand", 56.46 ll 27.83, oceanic)
+/** [[PolygonLL]] graphical representation for the Baltic states and Belarus. Depends on [[LakePeipus]] and [[Polandia]]. */
+object Baltland extends EarthPoly("BaltLand", 56.46 ll 27.83, continental)
 { val klaipeda: LatLong = 55.73 ll 21.08
   val ziemupe: LatLong = 56.83 ll 21.06
   val osvalki = 57.047 ll 21.408
@@ -49,34 +49,17 @@ object Baltland extends EarthPoly("BaltLand", 56.46 ll 27.83, oceanic)
 
   val southEast: LatLong = 52.113 ll 31.781
 
-   
-  override val polygonLL: PolygonLL = LinePathLL(northEast) ++< LakePeipus.westCoast |++|
-    LinePathLL(southEast, Polandia.cenEast, Polandia.kaliningrad, klaipeda, ziemupe, osvalki, ovsi, kolka, meinsils, mersrags, kesterclems, jurmala, saulkrasti,
-      parnu, lao, virtsu, noarootsi, paldiski,
-    )
+  override val polygonLL: PolygonLL = LinePathLL(northEast) ++< LakePeipus.westCoast |++| LinePathLL(southEast, Polandia.cenEast, Polandia.kaliningrad,
+    klaipeda, ziemupe, osvalki, ovsi, kolka, meinsils, mersrags, kesterclems, jurmala, saulkrasti, parnu, lao, virtsu, noarootsi, paldiski)
 
   val konigsberg: LatLong = 54.71 ll 20.45
   val slutsk = 53.03 ll 27.55
 }
 
-/** [[PolygonLL]] graphical representation for the Baltic states and adjacent territory. */
-object RussiaNE extends EarthPoly("Russia North West", 57.728 ll 35.116, hillyCont)
-{
-  val krasnoselsky: LatLong = 59.86 ll 30.14
-  val p85: LatLong = 59.864 ll 30.146
-  val p88: LatLong = 59.979 ll 30.204
-
-  val svirMouth: LatLong = 61.01 ll 35.49
-  val onegaSouth: LatLong = 60.88 ll 35.67
-  val ustye: LatLong = 61.19 ll 36.43
-  val onegaEast: LatLong = 61.39 ll 36.47
-  val peschanoyeSouth: LatLong = 62.04 ll 35.68
-  val pudozhgorskiy: LatLong = 62.32 ll 35.86
-  val chelmuzhiEast: LatLong = 62.53 ll 35.75
-
-  /** Start of North coast. */
-  val onezhsky: LatLong = 63.79 ll 37.35
-  val onegaRiver: LatLong = 63.93 ll 37.99
+/** [[PolygonLL]] graphical representation for the north-east of Russia. Depends on [[Baltland]], [[LakePeipus]] [[FinlandSouth]], [[LakeLagoda]], [[Karelia]],
+ * and [[LakeOnega]]. */
+object RussiaNE extends EarthPoly("Russia North West", 57.728 ll 35.116, continental)
+{ val onegaRiver: LatLong = 63.93 ll 37.99
   val pushlakhtaNorth: LatLong = 64.92 ll 36.44
   val letniyNavolok: LatLong = 65.16 ll 37.04
   val uyma: LatLong = 64.55 ll 39.71
@@ -85,14 +68,16 @@ object RussiaNE extends EarthPoly("Russia North West", 57.728 ll 35.116, hillyCo
   val koyda: LatLong = 66.51 ll 42.25
   val koydaEast: LatLong = 66.41 ll 43.24
   val mezenMouth: LatLong = 66.07 ll 44.10
+  val whiteCoast = LinePathLL(Karelia.southEast, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth)
 
   val southEast: LatLong = 52 ll 45
   val voronezh = 51.539 ll 39.147
 
-  override val polygonLL: PolygonLL = LinePathLL(krasnoselsky, p85, p88) ++< LakeLagoda.southCoast ++ LinePathLL(svirMouth, onegaSouth, ustye, onegaEast,
-    peschanoyeSouth, pudozhgorskiy, chelmuzhiEast,
-    /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,
-    southEast, voronezh, Baltland.southEast) ++< LakePeipus.eastCoast |++| LinePathLL(Baltland.northEast)
+  val krasnoselsky: LatLong = 59.86 ll 30.14
+  val p85: LatLong = 59.864 ll 30.146
+
+  override val polygonLL: PolygonLL = whiteCoast ++  LinePathLL(southEast, voronezh, Baltland.southEast) ++< LakePeipus.eastCoast ++
+    LinePathLL(Baltland.northEast, krasnoselsky, p85, FinlandSouth.p20) ++< LakeLagoda.southCoast |++<| LakeOnega.eastCoast
 }
 
 /** [[PolygonLL]] graphical representation for the Lake Peipus depends on nothing. */

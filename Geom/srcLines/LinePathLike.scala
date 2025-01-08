@@ -36,7 +36,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   @targetName("appendTail") def +-+(operand: ThisT): ThisT
 
   /** Appends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
-  @targetName("appendPt") def +%[AA >: VT](op: VT): ThisT
+  @targetName("appendPt") def +%(operandPt: VT): ThisT
 
   /** Prepends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
   @targetName("prependPt") def %:(operand: VT): ThisT
@@ -44,6 +44,10 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. The < character after the ++ indicates
    * that is the operand that is being reversed. */
   @targetName("appendReverse") def ++<(operand: ThisT): ThisT
+
+  /** Appends the operand point and closes the path into a [[PolygonLike]] of the matching type. +% indicates to append a point. The enclosing '|' characters
+   * indicate to close the line path into a polygon. */
+  @targetName("appendPtToPolygon") def |+%|(operandPt: VT): PolygonT
 
   /** Appends the operand [[LinePathLike]] of this type and closes the path into a [[PolygonLike]] of the matching type. ++ indicates to append a sequence. The
    * enclosing '|' characters indicate to close the line path into a polygon. */

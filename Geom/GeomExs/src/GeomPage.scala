@@ -1,14 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour._
 
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
-
+{ override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
-
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses, LinePathNames)
 
   def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
@@ -89,6 +86,7 @@ object LinePathNames extends HtmlSection
   HtmlLi("%: prependPt Adds a point to the beginning of a line path, returning a new line path"),
   HtmlLi("+% appendElem Adds an element to the end of this sequence. returning a new sequence."),
   HtmlLi("+% appendPt Adds an point to the end of this line path."),
+  HtmlLi("|+%| appendPt Adds an point to the end of this line path and close it into a Polygon."),  
 
   HtmlLi("""+-+ appendTail Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters indicates to drop
   | the first point of the operand.""".stripMargin),

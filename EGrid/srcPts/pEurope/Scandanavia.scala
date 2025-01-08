@@ -72,7 +72,8 @@ object SwedenMid extends EarthPoly("Sweden Middle", 64.883 ll 17.125, hillyTaiga
 }
 
 /** [[polygonLL]] graphical representation of south Sweden. Depends on nothing. */
-object SwedenSouth extends EarthPoly("SwedenSouth", 58.25 ll 15.14, oceanic) { //South Baltic Coast
+object SwedenSouth extends EarthPoly("SwedenSouth", 58.25 ll 15.14, continental)
+{ //South Baltic Coast
   val gavie: LatLong = 60.68 ll 17.21
   val gardskarE: LatLong = 60.63 ll 17.67
   val klungstenN: LatLong = 60.60 ll 17.99

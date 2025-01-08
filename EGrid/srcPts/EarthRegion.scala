@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._
 
@@ -33,7 +33,7 @@ object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
 /** Top level grouping for north-east European areas. */
 object EuropeEast extends EarthRegion("EuropeEast", 60 ll 60)
 { import pEurope._
-  override val ePolys: RArr[EarthPoly] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, Greece, BalkansWest, BalkansEast, FinlandNorth, FinlandSouth, Karelia,
+  override val ePolys: RArr[EarthPoly] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, Greece, BalkansWest, BalkansEast, FennoNorth, FinlandSouth, Karelia,
     LakePeipus, RussiaNE, LakeLagoda, LakeOnega, KolaPeninsula, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 

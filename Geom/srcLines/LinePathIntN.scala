@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._
 
@@ -74,15 +74,18 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     fromArray(newArray)
   }
 
-  @targetName("appendPt") @inline final override def +%[AA >: VT](op: VT): ThisT =
+  @targetName("appendPt") @inline final override def +%(operandPt: VT): ThisT = fromArray(appendPtToArray(operandPt))
+  @targetName("appendPtToPolygon") final override def |+%|(operandPt: VT): PolygonT = polygonFromArray(appendPtToArray(operandPt))
+  
+  def appendPtToArray(pt: VT): Array[Int] =
   { val newArray = new Array[Int](arrayLen + elemProdSize)
     arrayUnsafe.copyToArray(newArray)
     var i = arrayLen
-    op.intForeach { ii =>
+    pt.intForeach { ii =>
       newArray(i) = ii
       i += 1
     }
-    fromArray(newArray)
+    newArray
   }
 
   @targetName("prependPt") @inline final override def %:(operand: VT): ThisT = {
