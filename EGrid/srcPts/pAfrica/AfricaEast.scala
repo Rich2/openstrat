@@ -23,20 +23,19 @@ object LakeTanganyika extends LakePoly("Lake\nTanganyika", -6.25 ll 29.57, Lake)
 { override val area: Kilares = 32900.kilares
 
   val northEast: LatLong = -3.36 ll 29.34
-  val northWest: LatLong = -3.36 ll 29.16
-  val kalemie: LatLong = -5.91 ll 29.20
-  val moba: LatLong = -7.04 ll 29.78
-  val southWest: LatLong = -8.476 ll 30.450
-  val south: LatLong = -8.81 ll 31.03
-  val westCoast: LinePathLL = LinePathLL(northEast, northWest, kalemie, moba, southWest)
-
-  val mahaleSE: LatLong = -6.45 ll 30.14
-  val muhela: LatLong = -6.24 ll 29.72
   val mahaleNE: LatLong = -5.91 ll 29.95
+  val muhela: LatLong = -6.24 ll 29.72
+  val mahaleSE: LatLong = -6.45 ll 30.14
+  val south: LatLong = -8.81 ll 31.03
+  val eastCoast: LinePathLL = LinePathLL(northEast, mahaleNE, muhela, mahaleSE, south)
 
-  val eastCoast: LinePathLL = LinePathLL(south, mahaleSE, muhela, mahaleNE, northEast)
+  val southWest: LatLong = -8.476 ll 30.450
+  val moba: LatLong = -7.04 ll 29.78
+  val kalemie: LatLong = -5.91 ll 29.20
+  val northWest: LatLong = -3.36 ll 29.16
+  val westCoast: LinePathLL = LinePathLL(southWest, moba, kalemie, northWest)
 
-  override def polygonLL: PolygonLL = south %: westCoast.reverse |++<| eastCoast.inner
+  override def polygonLL: PolygonLL = eastCoast |++| westCoast
 }
 
 /** [[PolygonLL]] graphic object for Lake Malawi, depends on nothing. */
@@ -79,8 +78,8 @@ object CentralAfricaEast extends EarthPoly("Central Africa\neast", -2.17 ll 36.6
   val p52: LatLong = -17.009 ll 39.070
 
   override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, p48, natiquinde, p52, Mozambique.p15,
-    LakeMalawi.south, LakeMalawi.east, LakeMalawi.north) ++
-    LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa)
+    LakeMalawi.south, LakeMalawi.east, LakeMalawi.north) ++< LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest,
+    LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa)
 }
 
 /** Island grouping of Unguja and Pemba, but not Mafia Island of the Zanzibar Archipelago. */

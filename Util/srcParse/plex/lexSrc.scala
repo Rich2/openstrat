@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 import collection.mutable.ArrayBuffer
 
-/** More imperative version of Function object for creating an [[EMonOld]] of Refs of Token from a source. This internally uses a mutable ArrayBuffer,
- *  but the mutability is fully encapsulated. */
+/** More imperative version of Function object for creating an [[ErrBi]] of [[Token]]s. This internally uses a mutable ArrayBuffer, but the mutability is fully
+ * encapsulated. */
 object lexSrc
-{
+{ /** lexes [[String]]. */
   def str(inp: String): ErrBiArr[ExcLexar, Token] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */

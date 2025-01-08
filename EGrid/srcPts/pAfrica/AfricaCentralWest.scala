@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -23,11 +23,10 @@ object Congo extends EarthPoly("Congo", -7 ll 24, jungle)
   val bouemba: LatLong = 2.09 ll 9.76
   val londgi: LatLong = 3.076 ll 9.965
 
-  override def polygonLL: PolygonLL = LinePathLL(
-    WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaNE, AfricaHorn.lakeTurkanaNW, AfricaHorn.lakeTurkanaSouth, LakeVictoria.kisuma,
-    LakeVictoria.north, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++ LakeTanganyika.westCoast |++|
-    LinePathLL(Zambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, Angola.p10, Angola.katende, Angola.benjoMouth, bambou, gabonSouth,
-      wAfricaEquator, caboSanJuan, bouemba, londgi, WestAfricaSouth.cAfricaNW)
+  override def polygonLL: PolygonLL = LinePathLL(WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaNE, AfricaHorn.lakeTurkanaNW, AfricaHorn.lakeTurkanaSouth,
+    LakeVictoria.kisuma, LakeVictoria.north, LakeVictoria.katongaMouth, LakeVictoria.southWest, LakeTanganyika.northEast) ++< LakeTanganyika.westCoast |++|
+    LinePathLL(Zambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, Angola.p10, Angola.katende, Angola.benjoMouth,
+    bambou, gabonSouth, wAfricaEquator, caboSanJuan, bouemba, londgi, WestAfricaSouth.cAfricaNW)
 }
 
 /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
