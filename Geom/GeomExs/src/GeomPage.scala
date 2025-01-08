@@ -83,7 +83,8 @@ object LinePathNames extends HtmlSection
   HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because of left
   | right operator precedence, it makes for better combination with the append element method""".stripMargin),
 
-  HtmlLi("%: prependPt Adds a point to the beginning of a line path, returning a new line path"),
+  HtmlLi("%: prepend Adds a point to the beginning of a line path, returning a new line path"),
+  HtmlLi("%<: prependReverse Adds a point to the beginning of the reverse of a line path, returning a new line path"),
   HtmlLi("+% appendElem Adds an element to the end of this sequence. returning a new sequence."),
   HtmlLi("+% appendPt Adds an point to the end of this line path."),
   HtmlLi("|+%| appendPt Adds an point to the end of this line path and close it into a Polygon."),  

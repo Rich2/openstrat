@@ -88,13 +88,27 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     newArray
   }
 
-  @targetName("prependPt") @inline final override def %:(operand: VT): ThisT = {
-    val newArray = new Array[Int](arrayLen + elemProdSize)
+  @targetName("prepend") @inline final override def %:(operand: VT): ThisT =
+  { val newArray = new Array[Int](arrayLen + elemProdSize)
     Array.copy(arrayUnsafe, 0, newArray, elemProdSize, arrayLen)
     var i = 0
     operand.intForeach { j => newArray(i) = j; i += 1 }
     fromArray(newArray)
   }
+
+  @targetName("prependReverse") @inline final override def %<:(operand: VT): ThisT =
+  { val newArray = new Array[Int](arrayLen + elemProdSize)
+    var i = 0
+    operand.intForeach { d => newArray(i) = d; i += 1 }
+    val res = fromArray(newArray)
+    i = 1
+    ssReverseForeach { vt =>
+      res.setElemUnsafe(i, vt)
+      i += 1
+    }
+    res
+  }
+
 
   @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT = {
     val newArray = new Array[Int](arrayLen + operand.arrayLen)

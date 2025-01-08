@@ -47,6 +47,6 @@ object Kenya extends EarthPoly("Kenya", 10 ll 32, savannah)
 {
   val equatorEast: LatLong = 0.0 ll 42.4
 
-  override val polygonLL: PolygonLL = LinePathLL(AfricaHorn.lakeChamoSouth, AfricaHorn.merca, equatorEast, LakeVictoria.kusa, LakeVictoria.kisuma) |++<|
+  override val polygonLL: PolygonLL = LinePathLL(AfricaHorn.lakeChamoSouth, AfricaHorn.merca, equatorEast) ++< LakeVictoria.eastCoast |++<|
     LakeTurkana.eastCoast
 }

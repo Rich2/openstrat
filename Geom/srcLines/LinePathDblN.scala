@@ -115,12 +115,25 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
     polygonFromArray((this ++< operand).arrayUnsafe)
 
-  @targetName("prependPt") @inline final override def %: (operand: VT): ThisT =
+  @targetName("prepend") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)
     Array.copy(arrayUnsafe, 0, newArray, elemProdSize, arrayLen)
     var i = 0
     operand.dblForeach{d => newArray(i) = d; i += 1 }
     fromArray(newArray)
+  }
+
+  @targetName("prependReverse") @inline final override def %<:(operand: VT): ThisT =
+  { val newArray = new Array[Double](arrayLen + elemProdSize)
+    var i = 0
+    operand.dblForeach { d => newArray(i) = d; i += 1 }
+    val res = fromArray(newArray)
+    i = 1
+    ssReverseForeach { vt =>
+      res.setElemUnsafe(i, vt)
+      i += 1
+    }
+    res
   }
 
   @targetName("reverseAppend") final override def +<+(operand: ThisT): ThisT =

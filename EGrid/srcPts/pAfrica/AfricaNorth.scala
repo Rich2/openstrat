@@ -32,7 +32,7 @@ object SaharaWest extends EarthPoly("SaharaWest", 22 ll -5.50, deshot)
 
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */
 object WestAfricaSouth extends EarthPoly("West Africa\nsouth", 11 ll 0, savannah)
-{ //val congoN: Latitude = .north
+{
   val cAfricaNW: LatLong = 4.53 ll 8.89
   val walkersIsland: LatLong = 4.881 ll 5.149
   val sangana: LatLong = 4.31 ll 5.99
