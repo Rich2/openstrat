@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -32,8 +32,8 @@ object SaharaWest extends EarthPoly("SaharaWest", 22 ll -5.50, deshot)
 
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */
 object WestAfricaSouth extends EarthPoly("West Africa\nsouth", 11 ll 0, savannah)
-{ val cAfricaN: Latitude = 4.53.north
-  val cAfricaNW: LatLong = cAfricaN * 8.89.east
+{ //val congoN: Latitude = .north
+  val cAfricaNW: LatLong = 4.53 ll 8.89
   val walkersIsland: LatLong = 4.881 ll 5.149
   val sangana: LatLong = 4.31 ll 5.99
   val aiyetoro: LatLong = 6.20 ll 4.66
@@ -63,10 +63,10 @@ object WestAfricaSouth extends EarthPoly("West Africa\nsouth", 11 ll 0, savannah
 object AfricaCentral extends EarthPoly("Central Africa", 10 ll 32, savannah)
 {
 
-  val cAfricaNE: LatLong = WestAfricaSouth.cAfricaN * 32.east
+  val cAfricaSE: LatLong = 4.53 ll 32
 
   val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, AfricaHorn.tekeze, AfricaHorn.lakeChamoSouth,
-    AfricaHorn.lakeTurkanaNW, cAfricaNE)
+    AfricaHorn.lakeTurkanaNW, cAfricaSE)
 }
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
@@ -79,7 +79,7 @@ object AfricaHorn extends EarthPoly("Horn of Africa", 10 ll 32, sahel)
   val iskushuban1: LatLong = 10.44 ll 51.41
   val iskushuban2: LatLong = 10.31 ll 50.90
   val rasMacbar: LatLong = 9.47 ll 50.85
-  val p50: LatLong = WestAfricaSouth.cAfricaN * 48.east
+  val p50: LatLong = 4.53 ll 48
   val equatorEast: LatLong = 0.0 ll 42.4
 
   val lakeTurkanaSouth: LatLong = 2.406 ll 36.550
