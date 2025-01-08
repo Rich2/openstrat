@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
 object Canarias extends IslandPoly("Canarias", 27.96 ll -15.60, oceanic)
@@ -62,31 +62,6 @@ object WestAfricaSouth extends EarthPoly("West Africa\nsouth", 11 ll 0, savannah
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
 object AfricaCentral extends EarthPoly("Central Africa", 10 ll 32, savannah)
 {
-
-  val cAfricaSE: LatLong = 4.53 ll 32
-
   val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, AfricaHorn.tekeze, AfricaHorn.lakeChamoSouth,
-    AfricaHorn.lakeTurkanaNW, cAfricaSE)
-}
-
-/** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
-object AfricaHorn extends EarthPoly("Horn of Africa", 10 ll 32, sahel)
-{ val p0 = 15.514 ll 39.484
-  val dankalia: LatLong = 14 ll 41.66// eAfricaN
-  val p33: LatLong = 12.89 ll 42.99
-  val berbera: LatLong = 10 ll 44
-  val hornAfrica: LatLong = 12 ll 51
-  val iskushuban1: LatLong = 10.44 ll 51.41
-  val iskushuban2: LatLong = 10.31 ll 50.90
-  val rasMacbar: LatLong = 9.47 ll 50.85
-  val p50: LatLong = 4.53 ll 48
-  val equatorEast: LatLong = 0.0 ll 42.4
-
-  val lakeTurkanaSouth: LatLong = 2.406 ll 36.550
-  val lakeTurkanaNW: LatLong = 4.483 ll 35.960
-  val lakeChamoSouth: LatLong = 5.708 ll 37.486
-  val tekeze: LatLong = 13.808 ll 38.317
-
-  val polygonLL: PolygonLL = PolygonLL(p0, dankalia, p33, berbera, hornAfrica, iskushuban1, iskushuban2, rasMacbar, p50, equatorEast,
-    LakeVictoria.kusa, LakeVictoria.kisuma, lakeTurkanaSouth, lakeTurkanaNW, lakeChamoSouth, tekeze)
+    LakeTurkana.northEast, LakeTurkana.northWest, Uganda.northWest, CongoWest.northEast)
 }

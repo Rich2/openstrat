@@ -3,6 +3,29 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic object for Lake Victoria. Depends on nothing. */
+object LakeAlbert extends LakePoly("Lake\nAlbert", 1.673 ll 30.933, Lake)
+{ override val area: Kilares = 5590.kilares
+
+  val north: LatLong = 2.46 ll 31.340
+  val east: LatLong = 1.937 ll 31.418
+  val southEast: LatLong = 1.035 ll 30.583
+  val eastCoast: LinePathLL = LinePathLL(north, east, southEast)
+
+  val p60: LatLong = 1.294 ll 30.363
+  val p85: LatLong = 1.944 ll 30.967
+  val westCoast = LinePathLL(southEast, p60, p85, north)
+
+  override def polygonLL: PolygonLL = eastCoast |-++-| westCoast
+}
+
+object Uganda extends EarthPoly("Uganda", 2.024 ll 33.075, ice)
+{
+  val northWest = 3.705 ll 30.977
+  
+  override def polygonLL: PolygonLL = PolygonLL(northWest)
+}
+
+/** [[PolygonLL]] graphic object for Lake Victoria. Depends on nothing. */
 object LakeVictoria extends LakePoly("Lake\nVictoria", -1 ll 32.83, Lake)
 { override val area: Kilares = 59947.kilares
 
@@ -81,7 +104,7 @@ object CentralAfricaEast extends EarthPoly("Central Africa\neast", -2.17 ll 36.6
   val natiquinde: LatLong = -16.406 ll 39.913
   val p52: LatLong = -17.009 ll 39.070
 
-  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, p48, natiquinde, p52,
+  override def polygonLL: PolygonLL = LinePathLL(Kenya.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, p48, natiquinde, p52,
     Mozambique.p15) ++< LakeMalawi.eastCoast ++< LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east,
     LakeVictoria.kusa)
 }

@@ -55,14 +55,14 @@ object MediterraneanEast extends EarthRegion("Mediterranean East", 35.78 ll 18.7
 
 object AfricaNorth extends EarthRegion("AfricaNorth", 18.19 ll 15)
 { import pAfrica._
-  override val ePolys: RArr[EarthPoly] = RArr(Canarias, SaharaWest, AfricaCentral, WestAfricaSouth, AfricaHorn)
+  override val ePolys: RArr[EarthPoly] = RArr(Canarias, SaharaWest, AfricaCentral, WestAfricaSouth, AfricaHorn, LakeTurkana, Kenya)
 }
 
 /** Tropical Africa. */
 object AfricaTropical extends EarthRegion("African tropical", -16.14 ll 24.36)
 { import pAfrica._
-  override val ePolys: RArr[EarthPoly] = RArr(FernandoPo, CongoWest, CongoEast, CentralAfricaEast, Unguja, Angola, Zambia, LakeVictoria, LakeTanganyika,
-    LakeMweru, LakeMalawi)
+  override val ePolys: RArr[EarthPoly] = RArr(FernandoPo, CongoWest, CongoEast, Uganda, CentralAfricaEast, LakeAlbert, Unguja, Angola, Zambia, LakeVictoria,
+    LakeTanganyika, LakeMweru, LakeMalawi)
 }
 
 /** The southern part of Africa below approximately 5° north, roughly triangular. */

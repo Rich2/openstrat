@@ -26,7 +26,7 @@ object CongoWest extends EarthPoly("Congo west", -7 ll 24, jungle)
   val bouemba: LatLong = 2.09 ll 9.76
   val londgi: LatLong = 3.076 ll 9.965
 
-  override def polygonLL: PolygonLL = LinePathLL(WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaSE, northEast) |++|
+  override def polygonLL: PolygonLL = LinePathLL(WestAfricaSouth.westAfricaPtSE, northEast) |++|
     LinePathLL(Angola.katende, Angola.benjoMouth,
     bambou, gabonSouth, wAfricaEquator, caboSanJuan, bouemba, londgi, WestAfricaSouth.cAfricaNW)
 }
@@ -34,8 +34,7 @@ object CongoWest extends EarthPoly("Congo west", -7 ll 24, jungle)
 /** [[PolygonLL]] graphic object for the Congo. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and [[LakeVictoria]]. */
 object CongoEast extends EarthPoly("Congo east", -7 ll 26, jungle)
 {
-  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.lakeTurkanaNW, AfricaHorn.lakeTurkanaSouth,LakeVictoria.kisuma, LakeVictoria.north,
-    LakeVictoria.katongaMouth, LakeVictoria.southWest, LakeTanganyika.northEast) ++< LakeTanganyika.westCoast ++
+  override def polygonLL: PolygonLL = LinePathLL(Uganda.northWest, LakeTanganyika.northEast) ++< LakeTanganyika.westCoast ++
     LinePathLL(Zambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest) |++|
     LinePathLL(Angola.p10, Angola.katende, CongoWest.northEast)
 }
