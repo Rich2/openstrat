@@ -1,5 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pAmericas
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package psoam
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for far north of the Andes. Dependent on [[ElSalPanama]]. */
@@ -26,8 +26,8 @@ object AndesFarNorth extends EarthPoly("Andes far north", 5.105 ll -75.212, mtai
   val p95: LatLong = 4.258 ll -77.524
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
-  override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ eastEdgeNorth +-+ eastEdgeSouth |++|
-    LinePathLL(/*p40, ecuadorSE,*/ peurtoNaranjal, IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, ElSalPanama.sePanama, ElSalPanama.nePanama)
+  override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ eastEdgeNorth +-+ eastEdgeSouth |++|  LinePathLL(peurtoNaranjal,
+    IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, pnAmer.ElSalPanama.sePanama, pnAmer.ElSalPanama.nePanama)
 }
 
 /** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]] and [[Guyana]]. */

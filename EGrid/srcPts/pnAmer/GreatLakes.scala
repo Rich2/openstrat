@@ -1,5 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pAmericas
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pnAmer
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphical representation for central Canada. Depends on [[Quebec]]. */

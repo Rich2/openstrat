@@ -78,38 +78,39 @@ object MiddleEast  extends EarthRegion("MiddleEast", 20.18 ll -0.65)
 }
 
 object Alaska extends EarthRegion("Alaska", 66.276 ll -151.410)
-{ import pAmericas._
+{ import pnAmer.*
   override val ePolys: RArr[EarthPoly] = RArr(StLawrenceIsland, AlaskaNorth, AlaskaSouth, Nunivak, AleutPenisula, KodiakIsland)
 }
 
 object CanadaIslands extends EarthRegion("Canada Islands", 75.16 ll -94.87)
-{ import pAmericas._
+{ import pnAmer.*
   override val ePolys: RArr[EarthPoly] = RArr(EllesmereIsland, RingnesIslands, MackenzieIslands, BanksIsland, MelvilleIsland, VictoriaIsland, PrinceWalesIsland,
     SouthamptonIsland,  DevonIsland, BaffinIsland)
 }
 
 object Canada extends EarthRegion("Canada", 61 ll -109)
-{ import pAmericas._
+{ import pnAmer.*
   val ensenada: LatLong = 31.74 ll -116.73
   val greatLakes: RArr[EarthPoly] = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
 
-  override val ePolys: RArr[EarthPoly] = greatLakes ++ RArr(Yukon, BearSlaveLand, BearSlaveLand, GreatBearLake, GreatSlaveLake, SlaveAthabascaLand, LakeWinnipeg,
-    NunavutNorth, NunavutSouth, LakeAthabasaca, CanadaRockies, AlbertaSask, Manitoba, ReindeerLake, CanadaCentral, CanadaSouthEast, NewBrunswick, NovaScotia,
-    Quebecia, NewFoundland, Ungava)
+  override val ePolys: RArr[EarthPoly] = greatLakes ++ RArr(Yukon, BearSlaveLand, BearSlaveLand, GreatBearLake, GreatSlaveLake, SlaveAthabascaLand,
+    LakeWinnipeg, NunavutNorth, NunavutSouth, LakeAthabasaca, CanadaRockies, AlbertaSask, Manitoba, ReindeerLake, CanadaCentral, CanadaSouthEast, NewBrunswick,
+    NovaScotia, Quebecia, NewFoundland, Ungava)
 }
 
 object AmericasNearNorth extends EarthRegion("North America", 49 ll -100)
-{ import pAmericas._
+{ import pnAmer.*
   override val ePolys: RArr[EarthPoly] = RArr(UsaSouthWest, UsaNorthWest, UsaMidWest, UsaNorthEast, MicheganLower, Delmarva, UsaSouth, UsaPrariesSouth, Florida)
 }
 
 object AmericasCentral extends EarthRegion("Americas Central", 19.563 ll -89.167)
-{ import pAmericas._
+{ import pnAmer.*
   override val ePolys: RArr[EarthPoly] = RArr(Baja, Mexico, MexicoEast, ElSalPanama, Cuba, Hispaniola, Jamaica)
 }
 
-object AmericasSouth extends EarthRegion("SAmericas", -6.52 ll -62.28)
-{ import pAmericas._
+/** South America. */
+object Soam extends EarthRegion("SOAM", -6.52 ll -62.28)
+{ import psoam.*
   override val ePolys: RArr[EarthPoly] = RArr(AndesFarNorth, ColomVenez, Guyana, AndesNearNorth, AmazonWest, AmazonEast, SouthAmericaCentral, SouthAmericaEast,
     AndesMiddle, SouthAmericaMiddle, SouthAmericaNS, SouthAmericaFS, DelFuego, Falklands)
 }

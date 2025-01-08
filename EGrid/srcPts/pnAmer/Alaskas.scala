@@ -1,11 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pAmericas
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pnAmer
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Alaska. Depends on Nothing. */
 object AlaskaNorth extends EarthPoly("Alaska north", 66.33 ll -151.16, hillyTaiga)
-{
-  val south = 64.691.north
+{ val south = 64.691.north
 
   val northEast: LatLong = 69.45 ll -141
   val southEast: LatLong = south ll -141

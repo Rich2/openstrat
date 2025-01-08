@@ -45,9 +45,9 @@ case object ArticFar extends EarthPoly("Artic far", 85 ll 180, ice)
 case object ArticWest extends EarthPoly("Artic west", 85 ll -90, ice)
 { val south255: LatLong = 79 ll 255
 
-  import pAmericas.MackenzieIslands
-  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north315, Greenland.naresNorth) ++< pAmericas.EllesmereIsland.northCoast |++| LinePathLL(south255,
-    pAmericas.RingnesIslands.ellefNorth, MackenzieIslands.bordenNE, MackenzieIslands.bordenNorth, MackenzieIslands.west, ArticFar.south225, ArticNear.north225)
+  import pnAmer.MackenzieIslands
+  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north315, Greenland.naresNorth) ++< pnAmer.EllesmereIsland.northCoast |++| LinePathLL(south255,
+    pnAmer.RingnesIslands.ellefNorth, MackenzieIslands.bordenNE, MackenzieIslands.bordenNorth, MackenzieIslands.west, ArticFar.south225, ArticNear.north225)
 }
 
 /** Svalbard island grouping. */
