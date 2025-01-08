@@ -43,8 +43,7 @@ object CongoEast extends EarthPoly("Congo east", -7 ll 26, jungle)
   /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  * [[LakeVictoria]]. */
 object Angola extends EarthPoly("Angola", -11.950 ll 18.220, jungle)
-{
-  val katende: LatLong = -6.316 ll 22.384
+{ val katende: LatLong = -6.316 ll 22.384
   val p10: LatLong = -10.128 ll 22.217
   val p30: LatLong = -18.106 ll 11.845
   val namibiaNW: LatLong = -17.252 ll 11.751

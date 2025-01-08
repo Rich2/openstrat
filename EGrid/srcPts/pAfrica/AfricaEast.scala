@@ -44,11 +44,15 @@ object LakeMalawi extends LakePoly("Lake\nMalawi", -12.044 ll 34.461, Lake)
 
   val north: LatLong = -9.493 ll 34.039
   val east: LatLong = -11.572 ll 34.960
+  val p35: LatLong = -13.721 ll 34.879
   val south: LatLong = -14.418 ll 35.236
+  val eastCoast: LinePathLL = LinePathLL(north, east, p35, south)
+
   val southWest: LatLong = -14.287 ll 34.688
   val west: LatLong = -12.169 ll 34.025
+  val zambiaCoast = LinePathLL(southWest, west, north)
 
-  override def polygonLL: PolygonLL = PolygonLL(north, east, south, southWest, west)
+  override def polygonLL: PolygonLL = eastCoast |++| zambiaCoast
 }
 
 /** [[PolygonLL]] graphic object for Lake Mweru depends on nothing. */
@@ -77,9 +81,9 @@ object CentralAfricaEast extends EarthPoly("Central Africa\neast", -2.17 ll 36.6
   val natiquinde: LatLong = -16.406 ll 39.913
   val p52: LatLong = -17.009 ll 39.070
 
-  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, p48, natiquinde, p52, Mozambique.p15,
-    LakeMalawi.south, LakeMalawi.east, LakeMalawi.north) ++< LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest,
-    LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa)
+  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, p48, natiquinde, p52,
+    Mozambique.p15) ++< LakeMalawi.eastCoast ++< LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east,
+    LakeVictoria.kusa)
 }
 
 /** Island grouping of Unguja and Pemba, but not Mafia Island of the Zanzibar Archipelago. */
