@@ -62,8 +62,8 @@ object RussiaSouth extends EarthPoly("Russia South", 45.00 ll 42.57, steppe)
   val p75: LatLong = 45.11 ll 36.73
   val p77: LatLong = 45.20 ll 36.60
 
-  override val polygonLL: PolygonLL = LinePathLL(AzovSea.northEast) ++< Caspian.russiaSouthCost ++ LinePathLL(blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72,
-    p75, p77) |++<| AzovSea.eastCoast.tail
+  override val polygonLL: PolygonLL =  Caspian.russiaSouthCost +<+ LinePathLL(blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72, p75, p77) |++<|
+    AzovSea.eastCoast
 }
 
 /** [[PolygonLL]] graphic for the Caspian Sea depends on nothing. */
@@ -106,5 +106,5 @@ object Caspian extends LakePoly("Caspian Sea", 42.10 ll 50.64, lake)
 
   val volgaCoast: LinePathLL = LinePathLL(west, p90, volodarsky, north)
 
-  override val polygonLL: PolygonLL = kazakCoast.init +-+ persianCoast +-+ armeniaCoast +-+ russiaSouthCost |+-+| volgaCoast
+  override val polygonLL: PolygonLL = kazakCoast +-+ persianCoast +-+ armeniaCoast +-+ russiaSouthCost |-++-| volgaCoast
 }

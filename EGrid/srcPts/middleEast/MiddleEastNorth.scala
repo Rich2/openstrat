@@ -23,8 +23,10 @@ object Armenia extends EarthPoly("Armenia", 40.0 ll 45.0, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. */
-object LakeVan extends EarthPoly("LakeVan", 38.62 ll 42.90, Lake)
-{ val north: LatLong =  39.00 ll 43.39
+object LakeVan extends LakePoly("LakeVan", 38.62 ll 42.90, Lake)
+{ override val area: Kilares = 3755.kilares
+  
+  val north: LatLong =  39.00 ll 43.39
   val northEast: LatLong = 38.94 ll 43.65
   val southEast: LatLong = 38.31 ll 43.12
   val west: LatLong = 38.51 ll 42.29
