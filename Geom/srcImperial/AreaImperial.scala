@@ -21,6 +21,7 @@ class Yardares(val yardaresNum: Double) extends AnyVal with AreaImperial
   override def / (operand: Double): Yardares = new Yardares(yardaresNum / operand)
   override def acresNum: Double = yardaresNum * 4840
   override def milearesNum: Double = yardaresNum / (1760 * 1760 * 9)
+  override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
 object Yardares
@@ -46,6 +47,7 @@ class Acres(val acresNum: Double) extends AnyVal with AreaImperial
   override def /(operand: Double): Acres = new Acres(acresNum / operand)
   override def yardaresNum: Double = acresNum * 4840
   override def milearesNum: Double = acresNum / 640
+  override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
 object Acres
@@ -70,6 +72,7 @@ class Mileares(val milearesNum: Double) extends AnyVal with AreaImperial
   def / (operand: Double): Mileares = new Mileares(milearesNum / operand)
   override def yardaresNum: Double = milearesNum * Mileares.yardsSqNum
   override def acresNum: Double = milearesNum / 640
+  override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
 object Mileares

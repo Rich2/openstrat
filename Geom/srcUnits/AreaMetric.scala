@@ -24,6 +24,7 @@ class Metrares(val metraresNum: Double) extends AnyVal with AreaMetric
   def / (operand: Double): Metrares = new Metrares(metraresNum / operand)
   override def kilaresNum: Double = metraresNum / 1000000
   override def hectaresNum: Double = metraresNum / 10000
+  override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
 object Metrares
@@ -42,6 +43,7 @@ class Hectares(val hectaresNum: Double) extends AnyVal with AreaMetric
   override def /(operand: Double): Hectares = new Hectares(hectaresNum / operand)
   override def kilaresNum: Double = hectaresNum / 100
   override def metraresNum: Double = hectaresNum * 10000
+  override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
 /** Square kilometres a measure of [[Area]]. Kilares follows the same naming convention as [[Hectares]]s. */
@@ -55,6 +57,7 @@ class Kilares(val kilaresNum: Double) extends AnyVal with AreaMetric
   override def / (operand: Double): Kilares = new Kilares(kilaresNum / operand)
   override def hectaresNum: Double = kilaresNum / 100
   override def metraresNum: Double = kilaresNum * 10000
+  override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
 object Kilares

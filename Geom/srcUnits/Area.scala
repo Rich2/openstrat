@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Measurement of area. */
-trait Area extends Any
+trait Area extends Any with Ordered[Area]
 { /** the number of metres square in this area. */
   def metraresNum: Double
 

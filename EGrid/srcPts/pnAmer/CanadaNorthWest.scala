@@ -97,8 +97,10 @@ object NunavutSouth extends EarthPoly("Nunavut south", 60.041 ll -97.578, tundra
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object GreatSlaveLake extends EarthPoly("Great Slave\nLake", 61.66 ll -113.83, Lake)
-{  val east: LatLong = 62.77 ll -108.91
+object GreatSlaveLake extends LakePoly("Great Slave\nLake", 61.66 ll -113.83, Lake)
+{ override val area: Kilares = 27200.kilares
+
+  val east: LatLong = 62.77 ll -108.91
   val south: LatLong = 60.83 ll -115.58
   val bigIslandEast: LatLong = 61.13 ll -116.44
   val southCoast: LinePathLL = LinePathLL(east, south, bigIslandEast)

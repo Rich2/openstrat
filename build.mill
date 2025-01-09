@@ -114,7 +114,8 @@ object TilingExs extends CommonJvm
 object EGrid extends CommonJvm
 { def moduleDeps = Seq(Tiling)
   def sources1 = T.sources(Seq("src", "srcPts").map(name => PathRef(millSourcePath / name)))
-  def sources = sources1()
+  def source2 = T.source(T.workspace / "EGrid" / "JvmSrc")
+  def sources = sources1() :+ source2()
   object test extends InnerTests
 }
 
