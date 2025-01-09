@@ -5,14 +5,23 @@ import geom._, pglobe._, egrid._, WTiles._
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
 object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
 { override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, Kyrgyyzstan.issykKulWest, Kyrgyyzstan.north, Kyrgyyzstan.northWest,
-    Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
+  Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
 }
 
 object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
-{
-  override val area: Kilares = 16400.kilares
+{ override val area: Kilares = 16400.kilares
 
-  override def polygonLL: PolygonLL = ???
+  val northEast: LatLong = 46.696 ll 79.288
+  val p5: LatLong = 46.370 ll 78.907
+  val yuzhnyyBereg: LatLong = 46.409 ll 74.903
+  val south: LatLong = 44.817 ll 74.384
+  val southCoast: LinePathLL = LinePathLL(northEast, p5, yuzhnyyBereg, south)
+
+  val p55: LatLong = 45.598 ll 73.419
+  val p70: LatLong = 46.771 ll 74.639
+  val northCoast: LinePathLL = LinePathLL(south, p55, p70, northEast)
+
+  override def polygonLL: PolygonLL = southCoast |-++-| northCoast
 }
 
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
