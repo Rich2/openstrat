@@ -18,11 +18,11 @@ object LakeAlbert extends LakePoly("Lake\nAlbert", 1.673 ll 30.933, Lake)
   override def polygonLL: PolygonLL = eastCoast |-++-| westCoast
 }
 
-object Uganda extends EarthPoly("Uganda", 2.024 ll 33.075, ice)
-{
-  val northWest: LatLong = 3.705 ll 30.977
+/** [[PolygonLL]] graphic object for Uganda. Depends on [[LakeTurkana]], [[LakeVictoria]], [[LakeTanganyika]] and [[LakeAlbert]]. */
+object Uganda extends EarthPoly("Uganda", 2.024 ll 33.075, jungle)
+{ val northWest: LatLong = 3.705 ll 30.977
   val kivuSouth: LatLong = -2.497 ll 28.894
-  override def polygonLL: PolygonLL = PolygonLL(northWest)
+  override def polygonLL: PolygonLL = LakeTurkana.westCoast +<+< LakeVictoria.westCoast +% LakeTanganyika.northEast ++< LakeAlbert.eastCoast |+%| northWest
 }
 
 /** [[PolygonLL]] graphic object for Lake Victoria. Depends on nothing. */
@@ -88,14 +88,17 @@ object LakeMalawi extends LakePoly("Lake\nMalawi", -12.044 ll 34.461, Lake)
 object LakeMweru extends LakePoly("Lake\nMweru", -8.952 ll 28.770, Lake)
 { override val area: Kilares = 5120.kilares
 
-  val north: LatLong = -8.476 ll 28.890
   val northEast: LatLong = -8.651 ll 29.153
   val p20: LatLong = -8.997 ll 29.021
   val southEast: LatLong = -9.509 ll 28.513
   val southWest: LatLong = -9.494 ll 28.344
-  val west: LatLong = -9.090 ll 28.342
+  val southCoast: LinePathLL = LinePathLL(northEast, p20, southEast, southWest)
 
-  override def polygonLL: PolygonLL = PolygonLL(north, northEast, p20, southEast, southWest, west)
+  val west: LatLong = -9.090 ll 28.342
+  val north: LatLong = -8.476 ll 28.890
+  val northCoast: LinePathLL = LinePathLL(southWest, west, north, northEast)
+
+  override def polygonLL: PolygonLL = southCoast |-++-| northCoast
 }
 
 /** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[AfricaHorn]], [[Mozambique]], [[LakeMalawi]], [[LakeTanganyika]] and

@@ -43,8 +43,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     ssInnerForeach{el => res.setElemUnsafe(i, el); i += 1}
     res
   }
-
-  /** Appends the operand [[LinePathDblN]] of the same type, to this line path returning a new line path of the same type. */
+  
   @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
   /** Implementation helper method for implementation of appendTail and appendTailToPolygon methods. End users should rarely need to use this, but it's been
@@ -111,9 +110,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   }
 
   override def toPolygon: PolygonT = polygonFromArray(arrayUnsafe)
-
-  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
-    polygonFromArray((this ++< operand).arrayUnsafe)
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT = polygonFromArray((this ++< operand).arrayUnsafe)
 
   @targetName("prepend") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)

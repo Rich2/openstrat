@@ -34,8 +34,7 @@ object CongoWest extends EarthPoly("Congo west", -7 ll 24, jungle)
 object CongoEast extends EarthPoly("Congo east", -7 ll 26, jungle)
 {
   override def polygonLL: PolygonLL = Uganda.northWest %<: LakeAlbert.westCoast ++ LinePathLL(LakeTanganyika.northEast) ++< LakeTanganyika.westCoast ++
-    LinePathLL(Zambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest) |++|
-    LinePathLL(Angola.p10, Angola.katende, CongoWest.northEast)
+    LinePathLL(Zambia.wantipaNW) ++< LakeMweru.northCoast |++| LinePathLL(Angola.p10, Angola.katende, CongoWest.northEast)
 }
 
   /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfricaEast]], [[WestAfricaSouth]], [[LakeTanganyika]] and
@@ -57,7 +56,6 @@ object Angola extends EarthPoly("Angola", -11.950 ll 18.220, jungle)
 object Zambia extends EarthPoly("Zambia", -13.629 ll 28.778, savannah)
 { val wantipaNW = -8.538 ll 29.670
 
-  override def polygonLL: PolygonLL = PolygonLL(LakeMweru.southWest, LakeMweru.southEast, LakeMweru.p20, LakeMweru.northEast, wantipaNW,
-    LakeTanganyika.southWest, LakeTanganyika.south, LakeMalawi.north, LakeMalawi.west, LakeMalawi.southWest, Mozambique.tete, Zimbabwe.luangwa,
-    Zimbabwe.kazungula, NamibiaBotswana.omatako, Angola.p10)
+  override def polygonLL: PolygonLL = LinePathLL(wantipaNW, LakeTanganyika.southWest, LakeTanganyika.south) ++< LakeMalawi.zambiaCoast ++
+    LinePathLL(Mozambique.tete, Zimbabwe.luangwa, Zimbabwe.kazungula, NamibiaBotswana.omatako, Angola.p10) |++<| LakeMweru.southCoast
 }

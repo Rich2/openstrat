@@ -15,8 +15,6 @@ object AfricaHorn extends EarthPoly("Horn of Africa", 10 ll 32, sahel)
   val p50: LatLong = 4.53 ll 48
   val merca: LatLong = 1.716 ll 44.776
 
-  //val lakeTurkanaSouth: LatLong = 2.406 ll 36.550
-  //val lakeTurkanaNW: LatLong = 4.483 ll 35.960
   val lakeChamoSouth: LatLong = 5.708 ll 37.486
   val tekeze: LatLong = 13.808 ll 38.317
 
@@ -42,10 +40,9 @@ object LakeTurkana extends LakePoly("Lake\nTurkana", 3.725 ll 36.043, Lake)
   override val polygonLL: PolygonLL = eastCoast |++| westCoast
 }
 
-/** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
+/** [[PolygonLL]] graphic for kenya. Depends on [[AfricaHorn]] [[LakeVictoria]] and [[LakeTurkana]]. */
 object Kenya extends EarthPoly("Kenya", 10 ll 32, savannah)
-{
-  val equatorEast: LatLong = 0.0 ll 42.4
+{ val equatorEast: LatLong = 0.0 ll 42.4
 
   override val polygonLL: PolygonLL = LinePathLL(AfricaHorn.lakeChamoSouth, AfricaHorn.merca, equatorEast) ++< LakeVictoria.eastCoast |++<|
     LakeTurkana.eastCoast
