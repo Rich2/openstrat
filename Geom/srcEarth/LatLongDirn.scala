@@ -37,6 +37,8 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn:
 {
   def str: String = latDegStr -- longDegStr
 
+  override def toString: String = latDegStr -- longDegStr
+
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    * moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   override def addLat(delta: AngleVec): LatLongDirn = (latMilliSecs + delta.milliSecs) % MilliSecsIn360Degs match

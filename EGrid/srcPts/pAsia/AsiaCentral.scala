@@ -8,6 +8,13 @@ object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
     Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
 }
 
+object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
+{
+  override val area: Kilares = 16400.kilares
+
+  override def polygonLL: PolygonLL = ???
+}
+
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
 { override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar,
   Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
