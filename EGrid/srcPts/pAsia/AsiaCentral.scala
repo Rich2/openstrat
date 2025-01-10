@@ -49,6 +49,17 @@ object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
   override def polygonLL: PolygonLL = southCoast |-++-| northCoast
 }
 
+object LakeAlakol extends LakePoly("Alakol Lake", 46.165 ll 81.712, lake)
+{
+  override def area: Kilares = 2650.kilares
+
+  val northWest: LatLong = 46.381 ll 81.926
+  val southEast: LatLong = 45.730 ll 82.141
+  val southWest: LatLong = 46.025 ll 81.365
+
+  override def polygonLL: PolygonLL = PolygonLL(northWest, southEast, southWest)
+}
+
 /** [[polygonLL]] graphical representation of historical region of Jetisu in east Kazakhstan. Depends on [[LakeBalkhash]] */
 object Jetisu extends EarthPoly("Jetisu", 45.427 ll 76.859, steppe)
 {
@@ -64,7 +75,10 @@ object Jetisu extends EarthPoly("Jetisu", 45.427 ll 76.859, steppe)
 /** The Tian Shan mountain range. */
 object TianShan extends EarthPoly("Tian Shan", 42.513 ll 79.741, mtainTundra)
 {
-  override def polygonLL: PolygonLL = PolygonLL()
+  val p10: LatLong = 44.644 ll 83.109
+  val northEast: LatLong = 43.787 ll 87.276
+  val east: LatLong = 42.373 ll 88.957
+  override def polygonLL: PolygonLL = LinePathLL(p10, northEast, east) ++< TarimBasin.northBorder |++| LinePathLL(LakeAlakol.southWest, LakeAlakol.southEast)
 }
 
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
