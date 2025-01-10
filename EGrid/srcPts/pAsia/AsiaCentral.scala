@@ -69,8 +69,9 @@ object Jetisu extends EarthPoly("Jetisu", 45.427 ll 76.859, steppe)
   val p25: LatLong = 45.383 ll 77.939
   val southEast: LatLong = 43.530 ll 76.635
   val southWest: LatLong = 43.516 ll 74.040
+  val southBorder = LinePathLL(northEast, sarkland, p25, southEast, southWest)
 
-  override def polygonLL: PolygonLL = LinePathLL(northEast, sarkland, p25, southEast, southWest) |++<| LakeBalkhash.southCoast
+  override def polygonLL: PolygonLL = southBorder |++<| LakeBalkhash.southCoast
 }
 
 /** The Tian Shan mountain range. */
@@ -80,14 +81,21 @@ object TianShan extends EarthPoly("Tian Shan", 42.513 ll 79.741, mtainTundra)
   val northEast: LatLong = 43.787 ll 87.276
   val east: LatLong = 42.373 ll 88.957
 
-  val alayValleyEast: LatLong = 39.635 ll 73.713
-  val dushanbe: LatLong = 38.551 ll 68.756
-  val southWest: LatLong = 37.755 ll 66.162
+  val ferganaEast: LatLong = 40.766 ll 73.260
+  val southWest: LatLong = 40.126 ll 69.249
+  val northWest: LatLong = 42.037 ll 69.756
+  val p90: LatLong = 42.922 ll 71.491
 
-  override def polygonLL: PolygonLL = LinePathLL(p10, northEast, east) ++< TarimBasin.northBorder |++| LinePathLL(alayValleyEast, dushanbe, southWest,
-    LakeAlakol.southWest, LakeAlakol.southEast)
+  override def polygonLL: PolygonLL = LinePathLL(p10, northEast, east) ++< TarimBasin.northBorder ++ LinePathLL(ferganaEast, southWest, northWest, p90) ++<
+    Jetisu.southBorder |++| LinePathLL(LakeAlakol.southWest, LakeAlakol.southEast)
 }
 
+object PamirAlay
+{
+  //val alayValleyEast: LatLong = 39.635 ll 73.713
+  val dushanbe: LatLong = 38.551 ll 68.756
+  val southWest: LatLong = 37.755 ll 66.162
+}
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
 {
   override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Tajikstan.islamabad) |++<|
