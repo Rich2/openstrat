@@ -25,7 +25,7 @@ object Manchuria extends EarthPoly("Manchuria", 58 ll 128, oceanic)
 object Xinjiang extends EarthPoly("Xinjiang", 42 ll 85, hillyDeshot)
 {
   override val polygonLL: PolygonLL = LinePathLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, TarimBasin.southEast) ++<
-    TarimBasin.northBorder |++| LinePathLL(Kyrgyyzstan.issykKulWest, SiberiaWest.p55, SiberiaSouth.southWest)
+    TarimBasin.northBorder |++| LinePathLL(Jetisu.southEast, Jetisu.p25, Jetisu.sarkland, Jetisu.northEast, SiberiaWest.p55, SiberiaSouth.southWest)
 }
 
 object TarimBasin extends EarthPoly("Tarim Basin", 39.183 ll 82.561, descold)

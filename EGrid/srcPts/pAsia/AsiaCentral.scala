@@ -4,8 +4,8 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
 object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
-{ override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, Kyrgyyzstan.issykKulWest, Kyrgyyzstan.north, Kyrgyyzstan.northWest,
-  Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
+{ override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, Jetisu.northEast) ++< LakeBalkhash.northCoast ++ LinePathLL(
+  Jetisu.southWest, Kyrgyyzstan.northWest, Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
 }
 
 object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
@@ -22,6 +22,18 @@ object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
   val northCoast: LinePathLL = LinePathLL(south, p55, p70, northEast)
 
   override def polygonLL: PolygonLL = southCoast |-++-| northCoast
+}
+
+/** [[polygonLL]] graphical representation of historical region of Jetisu in east Kazakhstan. Depends on [[LakeBalkhash]] */
+object Jetisu extends EarthPoly("Jetisu", 45.427 ll 76.859, steppe)
+{
+  val northEast: LatLong = 46.222 ll 80.538
+  val sarkland: LatLong = 45.413 ll 79.911
+  val p25: LatLong = 45.383 ll 77.939
+  val southEast: LatLong = 43.530 ll 76.635
+  val southWest: LatLong = 43.516 ll 74.040
+
+  override def polygonLL: PolygonLL = LinePathLL(northEast, sarkland, p25, southEast, southWest) |++<| LakeBalkhash.southCoast
 }
 
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
@@ -41,10 +53,10 @@ object Kyrgyyzstan extends EarthPoly("Kyrgyzstan", 47 ll 76, mtainSavannah)
   val kandahar: LatLong = 31.607 ll 65.730
   val p65: LatLong = 35.367 ll 62.146
   val northWest: LatLong = 42.802 ll 71.400
-  val north: LatLong = 42.787 ll 74.513
-  val issykKulWest: LatLong = 42.443 ll 76.196
+  //val north: LatLong = 42.787 ll 74.513
+  //val issykKulWest: LatLong = 42.443 ll 76.196
   val southWest: LatLong = 32.244 ll 62.256
 
-  override val polygonLL: PolygonLL = PolygonLL(TarimBasin.p85, TarimBasin.west, TarimBasin.southWest, islamabad, p40, kandahar, southWest, p65, northWest,
-    north, issykKulWest)
+  override val polygonLL: PolygonLL = PolygonLL(Jetisu.southEast, TarimBasin.p85, TarimBasin.west, TarimBasin.southWest, islamabad, p40, kandahar, southWest,
+    p65, northWest, Jetisu.southWest)// /*north,*/ issykKulWest)
 }
