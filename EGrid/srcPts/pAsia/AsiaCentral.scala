@@ -2,31 +2,6 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for the Sayan mountains, includes the kunetsk Alatau and the Tannu-Ola. Depends on nothing. */
-object SayanMtains extends EarthPoly("Sayan Mountains", 50.551 ll 86.503, mtainTaiga)
-{
-  val northWest: LatLong = 55.643 ll 88.105
-  override val polygonLL: PolygonLL = PolygonLL(northWest)
-}
-
-/** [[polygonLL]] graphical representation for the Altai mountains. Depends on nothing. */
-object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainTaiga)
-{
-  val northWest: LatLong = 51.330 ll 82.160
-  val north: LatLong = 52.436 ll 86.375
-  val teletskoyeNorth: LatLong = 51.769 ll 87.631
-  val teletskoyeSouth: LatLong = 51.350 ll 87.791
-  val uvsLakeWest: LatLong = 50.387 ll 92.217
-  val northBorder: LinePathLL = LinePathLL(northWest, north, teletskoyeNorth, teletskoyeSouth, uvsLakeWest)
-
-  val kharUsLakeWest: LatLong = 47.998 ll 91.961
-  val southEast: LatLong = 45.446 ll 94.177
-  val ulungurLakeNE: LatLong = 47.422 ll 87.569
-
-  val southWest: LatLong = 49.146 ll 82.284
-
-  override val polygonLL: PolygonLL = northBorder |++| LinePathLL( kharUsLakeWest, southEast, ulungurLakeNE, southWest)
-}
 
 /** [[polygonLL]] graphical representation of the Tarbagatia mountains and the region between the Atai and the */
 object Tarbagatai extends EarthPoly("Tarbagatai", 47.150 ll 83.015, hillySteppe)
@@ -108,6 +83,29 @@ object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
   override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Tajikstan.islamabad) |++<|
     TarimBasin.southBorder
 }
+
+object TarimBasin extends EarthPoly("Tarim Basin", 39.183 ll 82.561, descold)
+{ val west: LatLong = 39.354 ll 75.729
+  val p85: LatLong = 39.752 ll 76.253
+  val p90: LatLong = 39.954 ll 78.416
+  val aksu: LatLong = 41.219 ll 80.202
+  val north: LatLong = 42.082 ll 85.017
+  val northEast: LatLong = 41.010 ll 88.264
+  val northBorder: LinePathLL = LinePathLL(p85, p90, aksu, north, northEast)
+
+  val southEast: LatLong = 39.010 ll 88.870
+  val south: LatLong = 36.338 ll 81.040
+  val p60: LatLong = 37.416 ll 77.361
+  val southWest: LatLong = 39.097 ll 75.625
+  val southBorder: LinePathLL = LinePathLL(southEast, south, p60, southWest)
+
+
+  /** Former saline lake. Prior to 1950s. */
+  val lopNorNorth: LatLong = 40.610 ll 90.175
+
+  override val polygonLL: PolygonLL = northBorder ++ southBorder |+%| west
+}
+
 
 /** [[polygonLL]] graphical representation of eastern Tibet depends on [[Mongolia]], [[China]], [[Yunnan]]. */
 object TibetEast extends EarthPoly("Tibet east", 32 ll 75, mtainTaiga)
