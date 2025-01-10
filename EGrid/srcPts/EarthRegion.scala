@@ -125,7 +125,7 @@ object AsiaNorth extends EarthRegion("Asia North", 65 ll 105)
 object AsiaCentral extends EarthRegion("Asia Central", 65 ll 120)
 { import pAsia._
   override val ePolys: RArr[EarthPoly] = RArr(Kazak, Jetisu, LakeBalkhash, Tajikstan, TianShan, AltaiMtains, Tarbagatai, Manchuria, Xinjiang, TarimBasin,
-    SayanMtains, LakeAlakol, LakeBaikal, Mongolia, TibetEast)
+    SayanMtains, LakeBaikal, Mongolia, TibetEast)
 }
 
 object AsiaSouth extends EarthRegion("Asia South", 25 ll 80)

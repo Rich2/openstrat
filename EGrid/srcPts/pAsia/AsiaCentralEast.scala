@@ -21,13 +21,6 @@ object Manchuria extends EarthPoly("Manchuria", 58 ll 128, oceanic)
     Korea.northEast, Korea.liaoheMouth,jinzhou, Mongolia.southEast, hulunbir) |++<| LakeBaikal.eastCoast
 }
 
-/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object Xinjiang extends EarthPoly("Xinjiang", 42 ll 85, hillyDeshot)
-{
-  override val polygonLL: PolygonLL = LinePathLL(/*Mongolia.west,*/ Mongolia.southWestOffical, Mongolia.southWest, TarimBasin.southEast)
-    //++<  TarimBasin.northBorder
-    |++| LinePathLL()//, SiberiaSouth.southWest)
-}
 
 /** [[polygonLL]] graphical representation of Mongolia, depends on [[Manchuria]], [[SiberiaSouth]] and [[LakeBaikal]]. */
 object Mongolia extends EarthPoly("Mongolia", 42 ll 115, deshot)
@@ -36,10 +29,9 @@ object Mongolia extends EarthPoly("Mongolia", 42 ll 115, deshot)
   val south: LatLong = 37.310 ll 103.875
   val southWest: LatLong = 40.022 ll 96.864
   val southWestOffical: LatLong = 42.745 ll 96.383
-  //val west: LatLong = 49.170 ll 87.821
 
   override val polygonLL: PolygonLL = LakeBaikal.southCoast.reverse |++| LinePathLL(Manchuria.hulunbir, southEast, p50, south, southWest, southWestOffical,
-    /*west, */)
+    AltaiMtains.southEast, AltaiMtains.kharUsLakeWest, AltaiMtains.uvsLakeWest, SayanMtains.uvsLakeNorth, SayanMtains.southEast)
 }
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */

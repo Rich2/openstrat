@@ -28,8 +28,8 @@ object SiberiaNorth extends EarthPoly("SiberiaNorth", 70 ll 95, tundra)
 object SiberiaSouth extends EarthPoly("SiberiaSouth", 60 ll 92, taiga)
 { val lensk: LatLong = 60.709 ll 114.92
 
-  override val polygonLL = LinePathLL(SiberiaNorth.southEast, lensk) ++< LakeBaikal.westCoast  |++|
-    LinePathLL(SiberiaNorth.yenisei70, SiberiaNorth.p50)
+  override val polygonLL = LinePathLL(SiberiaNorth.southEast, lensk) ++< LakeBaikal.westCoast |++|  LinePathLL(SayanMtains.irkutsk, SayanMtains.northEast,
+    SayanMtains.northWest, SiberiaNorth.yenisei70, SiberiaNorth.p50)
 }
 
 /** [[polygonLL]] graphical representation for the Sayan mountains, includes the kunetsk Alatau and the Tannu-Ola. Depends on nothing. */
@@ -38,8 +38,10 @@ object SayanMtains extends EarthPoly("Sayan Mountains", 50.551 ll 86.503, mtainT
   val northEast: LatLong = 55.829 ll 93.467
   val irkutsk: LatLong = 52.238 ll 104.265
   val southEast: LatLong = 49.602 ll 97.355
+  val uvsLakeNorth: LatLong = 50.690 ll 92.895
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, irkutsk, LakeBaikal.angaraMouth, LakeBaikal.west, southEast, northWest)
+  override val polygonLL: PolygonLL = LinePathLL(northEast, irkutsk, LakeBaikal.angaraMouth, LakeBaikal.west, southEast, uvsLakeNorth) ++<
+    AltaiMtains.northBorder |+%| northWest
 }
 
 /** [[polygonLL]] graphical representation for the Altai mountains. Depends on nothing. */
