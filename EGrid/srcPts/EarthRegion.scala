@@ -118,7 +118,7 @@ object Soam extends EarthRegion("SOAM", -6.52 ll -62.28)
 
 object AsiaMain extends EarthRegion("Asia", 60 ll 65)
 { import pAsia._
-  override val ePolys: RArr[EarthPoly] = RArr(RusNorth, SiberiaWest, SiberiaNorth, SevernyIsland, Pakistan, India, SriLanka, Burma, Himalayas, Kyrgyyzstan,
+  override val ePolys: RArr[EarthPoly] = RArr(RusNorth, SiberiaWest, SiberiaNorth, SevernyIsland, Pakistan, India, SriLanka, Burma, Himalayas, Tajikstan,
     TianShan, SiberiaSouth, LakeBalkhash)
 }
 

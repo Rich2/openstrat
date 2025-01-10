@@ -60,7 +60,7 @@ object Persia extends EarthPoly("Persia", 32.4 ll 60, hillyOce)
   val hendorabi = 26.663 ll 53.639
   val zeydan: LatLong = 27.88 ll 51.50
 
-  import pAsia.Kyrgyyzstan
-  override val polygonLL: PolygonLL = LinePathLL(mahshahr) ++< pEurope.Caspian.persianCoast |++| LinePathLL(north, Kyrgyyzstan.p65, Kyrgyyzstan.southWest,
+  import pAsia.Tajikstan
+  override val polygonLL: PolygonLL = LinePathLL(mahshahr) ++< pEurope.Caspian.persianCoast |++| LinePathLL(north, Tajikstan.p65, Tajikstan.southWest,
     southEast, p40,  kuhmobarak, nwHormuz, hormuzNorth, larak, hengam, queshmSouth, hendorabi, zeydan)
 }

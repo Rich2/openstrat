@@ -31,7 +31,7 @@ object SiberiaSouth extends EarthPoly("SiberiaSouth", 60 ll 92, taiga)
   //val southWest = 49.208 ll 82.144
 
   override val polygonLL = LinePathLL(SiberiaNorth.southEast, lensk) ++ LakeBaikal.westCoast.reverse ++ LinePathLL(khuvsgulLakeN) ++<
-    AltaiMtains.northFront |++| LinePathLL(SiberiaNorth.yenisei70, SiberiaNorth.p50)
+    AltaiMtains.northBorder |++| LinePathLL(SiberiaNorth.yenisei70, SiberiaNorth.p50)
 }
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */

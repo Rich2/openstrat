@@ -2,6 +2,7 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[polygonLL]] graphical representation for the Altai mountains Depends on nothing. */
 object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainTaiga)
 {
   val northWest: LatLong = 51.330 ll 82.160
@@ -9,14 +10,15 @@ object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainT
   val teletskoyeNorth: LatLong = 51.769 ll 87.631
   val teletskoyeSouth: LatLong = 51.350 ll 87.791
   val uvsLakeWest: LatLong = 50.387 ll 92.217
-  val northFront: LinePathLL = LinePathLL(northWest, north, teletskoyeNorth, teletskoyeSouth, uvsLakeWest)
+  val northBorder: LinePathLL = LinePathLL(northWest, north, teletskoyeNorth, teletskoyeSouth, uvsLakeWest)
+
   val kharUsLakeWest: LatLong = 47.998 ll 91.961
   val southEast: LatLong = 45.446 ll 94.177
   val ulungurLakeNE: LatLong = 47.422 ll 87.569
 
   val southWest: LatLong = 49.146 ll 82.284
 
-  override val polygonLL: PolygonLL = northFront |++| LinePathLL( kharUsLakeWest, southEast, ulungurLakeNE, southWest)
+  override val polygonLL: PolygonLL = northBorder |++| LinePathLL( kharUsLakeWest, southEast, ulungurLakeNE, southWest)
 }
 
 /** [[polygonLL]] graphical representation of the Tarbagatia mountains and the region between the Atai and the */
@@ -26,10 +28,10 @@ object Tarbagatai extends EarthPoly("Tarbagatai", 47.150 ll 83.015, hillySteppe)
   override val polygonLL: PolygonLL = PolygonLL(AltaiMtains.ulungurLakeNE, karamay, AltaiMtains.southWest)
 }
 
-/** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
+/** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Tajikstan]]. */
 object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
 { override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, AltaiMtains.northWest, AltaiMtains.southWest, Jetisu.northEast) ++<
-  LakeBalkhash.northCoast ++ LinePathLL(Jetisu.southWest, Kyrgyyzstan.northWest, Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++|
+  LakeBalkhash.northCoast ++ LinePathLL(Jetisu.southWest, Tajikstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++|
   LinePathLL(RusNorth.p50)
 }
 
@@ -49,9 +51,9 @@ object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
   override def polygonLL: PolygonLL = southCoast |-++-| northCoast
 }
 
-object LakeAlakol extends LakePoly("Alakol Lake", 46.165 ll 81.712, lake)
-{
-  override def area: Kilares = 2650.kilares
+/** [[polygonLL]] graphical representation of Lake Alakol north of the Tian Shan. Depends on nothing. */
+object LakeAlakol extends LakePoly("Lake Alakol", 46.165 ll 81.712, lake)
+{ override val area: Kilares = 2650.kilares
 
   val northWest: LatLong = 46.381 ll 81.926
   val southEast: LatLong = 45.730 ll 82.141
@@ -60,10 +62,9 @@ object LakeAlakol extends LakePoly("Alakol Lake", 46.165 ll 81.712, lake)
   override def polygonLL: PolygonLL = PolygonLL(northWest, southEast, southWest)
 }
 
-/** [[polygonLL]] graphical representation of historical region of Jetisu in east Kazakhstan. Depends on [[LakeBalkhash]] */
+/** [[polygonLL]] graphical representation of historical region of Jetisu in east Kazakhstan. Depends on [[LakeBalkhash]]. */
 object Jetisu extends EarthPoly("Jetisu", 45.427 ll 76.859, steppe)
-{
-  val northEast: LatLong = 46.222 ll 80.538
+{ val northEast: LatLong = 46.222 ll 80.538
   val sarkland: LatLong = 45.413 ll 79.911
   val p25: LatLong = 45.383 ll 77.939
   val southEast: LatLong = 43.530 ll 76.635
@@ -78,12 +79,18 @@ object TianShan extends EarthPoly("Tian Shan", 42.513 ll 79.741, mtainTundra)
   val p10: LatLong = 44.644 ll 83.109
   val northEast: LatLong = 43.787 ll 87.276
   val east: LatLong = 42.373 ll 88.957
-  override def polygonLL: PolygonLL = LinePathLL(p10, northEast, east) ++< TarimBasin.northBorder |++| LinePathLL(LakeAlakol.southWest, LakeAlakol.southEast)
+
+  val alayValleyEast: LatLong = 39.635 ll 73.713
+  val dushanbe: LatLong = 38.551 ll 68.756
+  val southWest: LatLong = 37.755 ll 66.162
+
+  override def polygonLL: PolygonLL = LinePathLL(p10, northEast, east) ++< TarimBasin.northBorder |++| LinePathLL(alayValleyEast, dushanbe, southWest,
+    LakeAlakol.southWest, LakeAlakol.southEast)
 }
 
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
 {
-  override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad) |++<|
+  override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Tajikstan.islamabad) |++<|
     TarimBasin.southBorder
 }
 
@@ -92,16 +99,13 @@ object TibetEast extends EarthPoly("Tibet east", 32 ll 75, mtainTaiga)
 { override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWest, Mongolia.south, China.northWest, Yunnan.northEast, Yunnan.northWest)
 }
 
-object Kyrgyyzstan extends EarthPoly("Kyrgyzstan", 47 ll 76, mtainSavannah)
+object Tajikstan extends EarthPoly("Tajikstan", 47 ll 76, mtainSavannah)
 { val islamabad: LatLong = 33.749 ll 73.19
   val p40: LatLong = 33.124 ll 69.584
   val kandahar: LatLong = 31.607 ll 65.730
   val p65: LatLong = 35.367 ll 62.146
-  val northWest: LatLong = 42.802 ll 71.400
-  //val north: LatLong = 42.787 ll 74.513
-  //val issykKulWest: LatLong = 42.443 ll 76.196
+  //val northWest: LatLong = 42.802 ll 71.400
   val southWest: LatLong = 32.244 ll 62.256
 
-  override val polygonLL: PolygonLL = PolygonLL(Jetisu.southEast, TarimBasin.p85, TarimBasin.west, TarimBasin.southWest, islamabad, p40, kandahar, southWest,
-    p65, northWest, Jetisu.southWest)// /*north,*/ issykKulWest)
+  override val polygonLL: PolygonLL = PolygonLL(islamabad, p40, kandahar, southWest, p65)//, northWest)
 }

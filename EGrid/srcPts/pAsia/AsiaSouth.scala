@@ -55,6 +55,6 @@ object SriLanka extends EarthPoly("SriLanka", 7.47 ll 80.78, jungle)
 
 object Pakistan extends EarthPoly("Pakistan", 30 ll 67, hillySahel)
 {
-  override val polygonLL: PolygonLL = PolygonLL(India.kotdwar, India.karachi, middleEast.Persia.southEast, Kyrgyyzstan.southWest,
-    Kyrgyyzstan.kandahar, Kyrgyyzstan.p40, Kyrgyyzstan.islamabad)
+  override val polygonLL: PolygonLL = PolygonLL(India.kotdwar, India.karachi, middleEast.Persia.southEast, Tajikstan.southWest,
+    Tajikstan.kandahar, Tajikstan.p40, Tajikstan.islamabad)
 }
