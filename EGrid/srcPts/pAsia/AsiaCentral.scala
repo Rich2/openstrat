@@ -25,8 +25,9 @@ object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
 }
 
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
-{ override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar,
-  Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
+{
+  override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad) |++<|
+    TarimBasin.southBorder
 }
 
 /** [[polygonLL]] graphical representation of eastern Tibet depends on [[Mongolia]], [[China]], [[Yunnan]]. */
@@ -35,9 +36,7 @@ object TibetEast extends EarthPoly("Tibet east", 32 ll 75, mtainTaiga)
 }
 
 object Kyrgyyzstan extends EarthPoly("Kyrgyzstan", 47 ll 76, mtainSavannah)
-{ val p10: LatLong = 39.377 ll 75.528
-  val p20: LatLong = 37.381 ll 77.418
-  val islamabad: LatLong = 33.749 ll 73.19
+{ val islamabad: LatLong = 33.749 ll 73.19
   val p40: LatLong = 33.124 ll 69.584
   val kandahar: LatLong = 31.607 ll 65.730
   val p65: LatLong = 35.367 ll 62.146
@@ -46,5 +45,6 @@ object Kyrgyyzstan extends EarthPoly("Kyrgyzstan", 47 ll 76, mtainSavannah)
   val issykKulWest: LatLong = 42.443 ll 76.196
   val southWest: LatLong = 32.244 ll 62.256
 
-  override val polygonLL: PolygonLL = PolygonLL(p10, p20, islamabad, p40, kandahar, southWest, p65, northWest, north, issykKulWest)
+  override val polygonLL: PolygonLL = PolygonLL(TarimBasin.p85, TarimBasin.west, TarimBasin.southWest, islamabad, p40, kandahar, southWest, p65, northWest,
+    north, issykKulWest)
 }

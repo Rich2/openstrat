@@ -23,10 +23,31 @@ object Manchuria extends EarthPoly("Manchuria", 58 ll 128, oceanic)
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
 object Xinjiang extends EarthPoly("Xinjiang", 42 ll 85, hillyDeshot)
-{ val south: LatLong = 36.505 ll 80.950
+{
+  override val polygonLL: PolygonLL = LinePathLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, TarimBasin.southEast) ++<
+    TarimBasin.northBorder |++| LinePathLL(Kyrgyyzstan.issykKulWest, SiberiaWest.p55, SiberiaSouth.southWest)
+}
 
-  override val polygonLL: PolygonLL = PolygonLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, south, Kyrgyyzstan.p20, Kyrgyyzstan.p10,
-    Kyrgyyzstan.issykKulWest, SiberiaWest.p55, SiberiaSouth.southWest)
+object TarimBasin extends EarthPoly("Tarim Basin", 39.183 ll 82.561, descold)
+{ val west: LatLong = 39.354 ll 75.729
+  val p85: LatLong = 39.752 ll 76.253
+  val p90: LatLong = 39.954 ll 78.416
+  val aksu: LatLong = 41.219 ll 80.202
+  val north: LatLong = 42.082 ll 85.017
+  val northEast: LatLong = 41.010 ll 88.264
+  val northBorder: LinePathLL = LinePathLL(p85, p90, aksu, north, northEast)
+
+  val southEast: LatLong = 39.010 ll 88.870
+  val south: LatLong = 36.338 ll 81.040
+  val p60: LatLong = 37.416 ll 77.361
+  val southWest: LatLong = 39.097 ll 75.625
+  val southBorder: LinePathLL = LinePathLL(southEast, south, p60, southWest)
+
+
+  /** Former saline lake. Prior to 1950s. */
+  val lopNorNorth: LatLong = 40.610 ll 90.175
+
+  override val polygonLL: PolygonLL = northBorder ++ southBorder |+%| west
 }
 
 /** [[polygonLL]] graphical representation of Mongolia, depends on [[Manchuria]], [[SiberiaSouth]] and [[LakeBaikal]]. */
