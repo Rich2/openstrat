@@ -2,10 +2,26 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
+object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainTaiga)
+{
+  val northWest: LatLong = 51.330 ll 82.160
+  val north: LatLong = 52.436 ll 86.375
+  val teletskoyeNorth: LatLong = 51.769 ll 87.631
+  val teletskoyeSouth: LatLong = 51.350 ll 87.791
+  val uvsLakeWest: LatLong = 50.387 ll 92.217
+  val northFront: LinePathLL = LinePathLL(northWest, north, teletskoyeNorth, teletskoyeSouth, uvsLakeWest)
+  val kharUsLakeWest: LatLong = 47.998 ll 91.961
+  val southEast: LatLong = 45.446 ll 94.177
+  val southWest: LatLong = 49.146 ll 82.284
+
+  override val polygonLL: PolygonLL = northFront |++| LinePathLL( kharUsLakeWest, southEast, southWest)
+}
+
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
 object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
-{ override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, Jetisu.northEast) ++< LakeBalkhash.northCoast ++ LinePathLL(
-  Jetisu.southWest, Kyrgyyzstan.northWest, Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
+{ override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, AltaiMtains.northWest, AltaiMtains.southWest, Jetisu.northEast) ++<
+  LakeBalkhash.northCoast ++ LinePathLL(Jetisu.southWest, Kyrgyyzstan.northWest, Kyrgyyzstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++|
+  LinePathLL(RusNorth.p50)
 }
 
 object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)

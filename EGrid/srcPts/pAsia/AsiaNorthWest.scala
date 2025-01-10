@@ -46,6 +46,6 @@ object SiberiaWest extends EarthPoly("SiberiaWest", 70 ll 90, taiga)
   val uralsNorthEnd: LatLong = 68.829 ll 67.069
   val northWest: LatLong = 72.928 ll 69.396
 
-  override val polygonLL: PolygonLL = PolygonLL(north, SiberiaNorth.yeniseiMouth, SiberiaNorth.yenisei70, SiberiaSouth.southWest, p55, p75, p80,
+  override val polygonLL: PolygonLL = PolygonLL(north, SiberiaNorth.yeniseiMouth, SiberiaNorth.yenisei70, AltaiMtains.northWest, p55, p75, p80,
     uralsNW, uralsNorthEnd,northWest)
 }
