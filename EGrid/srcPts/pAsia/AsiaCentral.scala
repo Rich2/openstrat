@@ -2,7 +2,14 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for the Altai mountains Depends on nothing. */
+/** [[polygonLL]] graphical representation for the Sayan mountains, includes the kunetsk Alatau and the Tannu-Ola. Depends on nothing. */
+object SayanMtains extends EarthPoly("Sayan Mountains", 50.551 ll 86.503, mtainTaiga)
+{
+  val northWest: LatLong = 55.643 ll 88.105
+  override val polygonLL: PolygonLL = PolygonLL(northWest)
+}
+
+/** [[polygonLL]] graphical representation for the Altai mountains. Depends on nothing. */
 object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainTaiga)
 {
   val northWest: LatLong = 51.330 ll 82.160
