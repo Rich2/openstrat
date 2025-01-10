@@ -126,7 +126,7 @@ object AsiaMain extends EarthRegion("Asia", 60 ll 65)
 object AsiaEast extends EarthRegion("Asia", 60 ll 100)
 { import pAsia._
   override val ePolys: RArr[EarthPoly] = RArr(Manchuria, Mongolia, Xinjiang, TarimBasin, ChinaNorth, China, Yunnan, TibetEast, Hainan, IndoChina, Korea,
-    Yakutia, FeAsia, Kamchatka, sakhalin, Hokkaido, Honshu, Kyshu, Taiwan, Kazak, AltaiMtains, Jetisu, MalayPeninsula, LakeBaikal)
+    Yakutia, FeAsia, Kamchatka, sakhalin, Hokkaido, Honshu, Kyshu, Taiwan, Kazak, AltaiMtains, Tarbagatai, Jetisu, MalayPeninsula, LakeBaikal)
 }
 
 /** Australasia. Australia and New Zealand. */
@@ -137,7 +137,7 @@ object Australasia extends EarthRegion("Australasia", -23 ll 130)
 }
 
 /** Malay archipelago. */
-object MalayArch extends EarthRegion("MalayArchAustralasia", 0.762 ll 123.068)
+object MalayArchipelago extends EarthRegion("Malay Archipelago", 0.762 ll 123.068)
 { import pMalay._
   override val ePolys: RArr[EarthPoly] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, BaliIsland, Sumbawa, Lambok, Sumba, Flores, AlorIsland, Wetar, Timor,
     GuineaWest, PapuaNewGuinea, NewBritain, NewIreland, Luzon, Palawan, VisayasWest, SamarLeyte, Mindano)

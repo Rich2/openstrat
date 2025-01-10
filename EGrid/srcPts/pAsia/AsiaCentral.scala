@@ -12,15 +12,18 @@ object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainT
   val northFront: LinePathLL = LinePathLL(northWest, north, teletskoyeNorth, teletskoyeSouth, uvsLakeWest)
   val kharUsLakeWest: LatLong = 47.998 ll 91.961
   val southEast: LatLong = 45.446 ll 94.177
+  val ulungurLakeNE: LatLong = 47.422 ll 87.569
+
   val southWest: LatLong = 49.146 ll 82.284
 
-  override val polygonLL: PolygonLL = northFront |++| LinePathLL( kharUsLakeWest, southEast, southWest)
+  override val polygonLL: PolygonLL = northFront |++| LinePathLL( kharUsLakeWest, southEast, ulungurLakeNE, southWest)
 }
 
 /** [[polygonLL]] graphical representation of the Tarbagatia mountains and the region between the Atai and the */
 object Tarbagatai extends EarthPoly("Tarbagatai", 47.150 ll 83.015, hillySteppe)
 {
-  override val polygonLL: PolygonLL = PolygonLL()
+  val karamay: LatLong = 45.615 ll 84.882
+  override val polygonLL: PolygonLL = PolygonLL(AltaiMtains.ulungurLakeNE, karamay, AltaiMtains.southWest)
 }
 
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
