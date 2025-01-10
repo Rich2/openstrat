@@ -61,6 +61,12 @@ object Jetisu extends EarthPoly("Jetisu", 45.427 ll 76.859, steppe)
   override def polygonLL: PolygonLL = LinePathLL(northEast, sarkland, p25, southEast, southWest) |++<| LakeBalkhash.southCoast
 }
 
+/** The Tian Shan mountain range. */
+object TianShan extends EarthPoly("Tian Shan", 42.513 ll 79.741, mtainTundra)
+{
+  override def polygonLL: PolygonLL = PolygonLL()
+}
+
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
 {
   override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad) |++<|
