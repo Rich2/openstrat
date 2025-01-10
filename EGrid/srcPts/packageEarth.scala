@@ -18,7 +18,7 @@ package object pEarth
 
    /** Europe, Asia and North-and central Africa. */
    val oldWorldRegions: RArr[EarthRegion] = RArr(EuropeNW, EuropeSW, EuropeEast, MiddleEast, PolarNorth, MediterreaneanWest, MediterraneanEast, AfricaNorth,
-      AsiaWest, AsiaNorthEast, AsiaSouthEast, NorthAtantic, MalayArchipelago)
+      AsiaNorth, AsiaCentral, AsiaSouth, AsiaEast, NorthAtantic, MalayArchipelago)
 
    /** The regions discovered from the late 14th century. */
    val newWorldRegions: RArr[EarthRegion] = RArr(PolarSouth, Alaska, CanadaIslands, Canada, AmericasNearNorth, AmericasCentral, Soam, Australasia,

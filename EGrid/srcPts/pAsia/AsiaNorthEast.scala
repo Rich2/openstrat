@@ -71,13 +71,13 @@ object Yakutia extends EarthPoly("Yakutia", 64 ll 115, taiga)
   val sakha40 : LatLong= 71.96 ll 138.71
   val khabarovsk: LatLong = 55 ll 134.73
 
-  override val polygonLL: PolygonLL = PolygonLL(FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, LakeBaikal.north, SiberiaSouth.lensk, SiberiaNorth.southEast, SiberiaNorth.anabarHead, SiberiaNorth.anabarMouth,
+  override val polygonLL: PolygonLL = PolygonLL(AsiaFarEast.ustYansky, AsiaFarEast.okhotsky, khabarovsk, LakeBaikal.north, SiberiaSouth.lensk, SiberiaNorth.southEast, SiberiaNorth.anabarHead, SiberiaNorth.anabarMouth,
     bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40,
   )
 }
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on [[Kamchatka]]. */
-object FeAsia extends EarthPoly("far east\nAsia", 66.22 ll 159.68, hillyTundra)
+object AsiaFarEast extends EarthPoly("far east\nAsia", 66.22 ll 159.68, hillyTundra)
 { val farAsiaW: Longitude = 141.6.east
 
   val ustYansky: LatLong = 72.81.north * farAsiaW

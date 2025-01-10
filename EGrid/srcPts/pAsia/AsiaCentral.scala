@@ -38,8 +38,8 @@ object Tarbagatai extends EarthPoly("Tarbagatai", 47.150 ll 83.015, hillySteppe)
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Tajikstan]]. */
 object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
 { override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, AltaiMtains.northWest, AltaiMtains.southWest, Jetisu.northEast) ++<
-  LakeBalkhash.northCoast ++ LinePathLL(Jetisu.southWest, Tajikstan.p65, middleEast.Persia.north) ++< pEurope.Caspian.kazakCoast |++|
-  LinePathLL(RusNorth.p50)
+  LakeBalkhash.northCoast ++ LinePathLL(Jetisu.southWest, TianShan.p90, TianShan.northWest, TianShan.southWest, Tajikstan.p65, middleEast.Persia.north) ++<
+  pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
 }
 
 object LakeBalkhash extends LakePoly("Lake Balkhash", 46.143 ll 74.255, lake)
@@ -122,5 +122,6 @@ object Tajikstan extends EarthPoly("Tajikstan", 47 ll 76, mtainSavannah)
   //val northWest: LatLong = 42.802 ll 71.400
   val southWest: LatLong = 32.244 ll 62.256
 
-  override val polygonLL: PolygonLL = PolygonLL(islamabad, p40, kandahar, southWest, p65)//, northWest)
+  override val polygonLL: PolygonLL = PolygonLL(islamabad, p40, kandahar, southWest, p65, TianShan.southWest, TianShan.ferganaEast, TarimBasin.p85,
+    TarimBasin.west, TarimBasin.southWest)
 }

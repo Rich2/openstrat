@@ -116,22 +116,27 @@ object Soam extends EarthRegion("SOAM", -6.52 ll -62.28)
     AndesMiddle, SouthAmericaMiddle, SouthAmericaNS, SouthAmericaFS, DelFuego, Falklands)
 }
 
-object AsiaWest extends EarthRegion("Asia", 60 ll 65)
+object AsiaNorth extends EarthRegion("Asia North", 65 ll 105)
 { import pAsia._
-  override val ePolys: RArr[EarthPoly] = RArr(RusNorth, SiberiaWest, SiberiaNorth, SevernyIsland, Pakistan, India, SriLanka, Burma, Himalayas, Tajikstan,
-    TianShan, SiberiaSouth, LakeBalkhash)
+  override val ePolys: RArr[EarthPoly] = RArr(SevernyIsland, RusNorth, SiberiaWest, SiberiaNorth, SiberiaSouth, Yakutia, AsiaFarEast, Kamchatka, sakhalin)
 }
 
 /** Asia East. North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
-object AsiaNorthEast extends EarthRegion("Asia", 65 ll 120)
+object AsiaCentral extends EarthRegion("Asia Central", 65 ll 120)
 { import pAsia._
-  override val ePolys: RArr[EarthPoly] = RArr(Manchuria, Mongolia, Xinjiang, TarimBasin, ChinaNorth, TibetEast, Yakutia, FeAsia, Kamchatka, sakhalin, Kazak,
-    SayanMtains, AltaiMtains, Tarbagatai, LakeAlakol, Jetisu, LakeBaikal)
+  override val ePolys: RArr[EarthPoly] = RArr(Kazak, Jetisu, LakeBalkhash, Tajikstan, TianShan, AltaiMtains, Tarbagatai, Manchuria, Xinjiang, TarimBasin,
+    SayanMtains, LakeAlakol, LakeBaikal, Mongolia, TibetEast)
 }
 
-object AsiaSouthEast extends EarthRegion("Asia south east", 28 ll 108)
+object AsiaSouth extends EarthRegion("Asia South", 25 ll 80)
+{  import pAsia._
+  override val ePolys: RArr[EarthPoly] = RArr(Pakistan, India, SriLanka, Himalayas)
+}
+
+/** East Asia */
+object AsiaEast extends EarthRegion("Asia east", 28 ll 108)
 {import pAsia._
-  override val ePolys: RArr[EarthPoly] = RArr( Korea, Hokkaido, Honshu, Kyshu, China, Yunnan, Hainan,Taiwan, IndoChina, MalayPeninsula,
+  override val ePolys: RArr[EarthPoly] = RArr(ChinaNorth, Korea, Hokkaido, Honshu, Kyshu, China, Yunnan, Hainan, Taiwan, Burma, IndoChina, MalayPeninsula,
   )
 }
 
