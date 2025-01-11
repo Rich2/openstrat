@@ -8,7 +8,8 @@ object AndesMiddle extends EarthPoly("Andes middle", 5.105 ll -75.212, mtainSahe
   val northEast: LatLong = -17.845 ll -63.402
   val lenguaDeVaca : LatLong= -30.24 ll -71.63
 
-  override val polygonLL: PolygonLL = PolygonLL(AndesNearNorth.southEast, northEast, SouthAmericaNS.mendoza, SouthAmericaNS.northWest, lenguaDeVaca, AndesNearNorth.chileNW)
+  override val polygonLL: PolygonLL = LinePathLL(AndesNearNorth.southEast, northEast, SouthAmericaNS.mendoza, SouthAmericaNS.northWest, lenguaDeVaca,
+    AndesNearNorth.chileNW) |++<| LakeTiticaca.seCoast
 }
 
 /** [[polygonLL]] graphical representation for middle South America. Depends on [[SouthAmericaFS]]. */

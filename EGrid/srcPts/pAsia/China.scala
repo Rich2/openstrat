@@ -19,7 +19,7 @@ object ChinaNorth extends EarthPoly("China north", 40.0 ll 105.5, hillySteppe)
     China.haitzhou, China.northWest, Mongolia.south, Mongolia.p50, Mongolia.southEast)
 }
 
-/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
+/** [[PolygonLL]] graphic for south-east China depends on [[IndoChina]] and [[Yunan]]. */
 object China extends EarthPoly("China", 30.0 ll 105.5, hillySub)
 { val haitzhou: LatLong = 34.95 ll 119.20
   val p15: LatLong = 34.30 ll 120.28

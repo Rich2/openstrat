@@ -113,7 +113,7 @@ object AmericasCentral extends EarthRegion("Americas Central", 19.563 ll -89.167
 object Soam extends EarthRegion("SOAM", -6.52 ll -62.28)
 { import psoam.*
   override val ePolys: RArr[EarthPoly] = RArr(AndesFarNorth, ColomVenez, Guyana, AndesNearNorth, AmazonWest, AmazonEast, SouthAmericaCentral, SouthAmericaEast,
-    AndesMiddle, SouthAmericaMiddle, SouthAmericaNS, SouthAmericaFS, DelFuego, Falklands)
+    LakeTiticaca, AndesMiddle, SouthAmericaMiddle, SouthAmericaNS, SouthAmericaFS, DelFuego, Falklands)
 }
 
 object AsiaNorth extends EarthRegion("Asia North", 65 ll 105)

@@ -67,7 +67,8 @@ object AndesNearNorth extends EarthPoly("Andes near north", 5.105 ll -75.212, mt
   val nPeru: LatLong = -5 ll -81
   val west: LatLong = -4.68 ll -81.33
 
-  override val polygonLL: PolygonLL = PolygonLL(AndesFarNorth.ecuadorSE, p15, southEast, chileNW, p60, p61, p68, p70, nPeru, west, AndesFarNorth.peurtoNaranjal)
+  override val polygonLL: PolygonLL = LinePathLL(AndesFarNorth.ecuadorSE, p15, southEast) ++< LakeTiticaca.mainCoast |++| LinePathLL(chileNW, p60, p61, p68,
+    p70, nPeru, west, AndesFarNorth.peurtoNaranjal)
 }
 
 /** [[polygonLL]] graphical representation for the west of Amazon basin. Dependent on [[AndesFarNorth]], [[ColomVenez]] and [[AndesNearNorth]]. */
@@ -89,6 +90,24 @@ object AmazonEast extends EarthPoly("Amazon east", -20 ll -70.0, jungle)
 
   override val polygonLL: PolygonLL = PolygonLL(Guyana.oyaopokMouth, nAmapa, amazonMouthS, marajoMouth, mearimMouth, acailandia, p50, ariel, southWest,
     ColomVenez.p55, Guyana.southWest, Guyana.southEast)
+}
+
+/** [[polygonLL]] graphical representation for Lake Titicaca. Dependent on nothing. */
+object LakeTiticaca extends LakePoly("Lake Titicaca", -15.846 ll -69.338, lake)
+{ override val area: Kilares = 8372.kilares
+
+  val south: LatLong = -16.591 ll -68.863
+  val puno: LatLong = -15.832 ll -70.019
+  val north: LatLong = -15.235 ll -69.693
+  val p30: LatLong = -15.944 ll -68.714
+  val p40: LatLong = -16.250 ll -68.567
+  val mainCoast: LinePathLL = LinePathLL(south, puno, north, p30, p40)
+
+  val p45: LatLong = -16.436 ll -68.934
+  val seCoast: LinePathLL = LinePathLL(p40, p45, south)
+
+
+  override val polygonLL: PolygonLL = mainCoast |-++-| seCoast
 }
 
 /** [[polygonLL]] graphical representation for the centre of South America. Dependent on [[AmazonEast]], [[SouthAmericaEast]], [[SouthAmericaMiddle]],
