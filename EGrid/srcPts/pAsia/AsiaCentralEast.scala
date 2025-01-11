@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for Manchura. */
+/** [[PolygonLL]] graphic for Manchuria. */
 object Manchuria extends EarthPoly("Manchuria", 58 ll 128, oceanic)
 { val udaMouth: LatLong = 54.72 ll 135.28
   val khab10: LatLong = 54.64 ll 136.81

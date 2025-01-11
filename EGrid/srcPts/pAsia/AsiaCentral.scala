@@ -1,18 +1,17 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-
-/** [[polygonLL]] graphical representation of the Tarbagatia mountains and the region between the Atai and the */
+/** [[polygonLL]] graphical representation of the Tarbagatia mountains and the region between the Atai mountains and the Tian Shan. */
 object Tarbagatai extends EarthPoly("Tarbagatai", 47.150 ll 83.015, hillySteppe)
-{
-  val karamay: LatLong = 45.615 ll 84.882
+{ val karamay: LatLong = 45.615 ll 84.882
+
   override val polygonLL: PolygonLL = PolygonLL(AltaiMtains.ulungurLakeNE, karamay, TianShan.p10, TianShan.alakolSE, TianShan.alakolSW, Jetisu.northEast,
     AltaiMtains.southWest)
 }
 
-/** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Tajikstan]]. */
-object Kazak extends EarthPoly("Kazak", 47 ll 60, deshot)
+/** [[polygonLL]] graphical representation of Kazakhstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Tajikstan]]. */
+object Kazakhstan extends EarthPoly("Kazak", 47 ll 60, deshot)
 { override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, AltaiMtains.northWest, AltaiMtains.southWest, Jetisu.northEast) ++<
   LakeBalkhash.northCoast ++ LinePathLL(Jetisu.southWest, TianShan.p90, TianShan.northWest, TianShan.southWest, Tajikstan.p65, middleEast.Persia.north) ++<
   pEurope.Caspian.kazakCoast |++| LinePathLL(RusNorth.p50)
@@ -70,12 +69,14 @@ object PamirAlay
   val dushanbe: LatLong = 38.551 ll 68.756
   val southWest: LatLong = 37.755 ll 66.162
 }
+
 object Himalayas extends EarthPoly("Himalayas", 32 ll 75, mtainTundra)
 {
   override val polygonLL: PolygonLL = LinePathLL(Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar, Tajikstan.islamabad) |++<|
     TarimBasin.southBorder
 }
 
+/** [[PolygonLL]] graphic for the Tarim Basin in eeast Xinjiang depends on nothing. */
 object TarimBasin extends EarthPoly("Tarim Basin", 39.183 ll 82.561, descold)
 { val west: LatLong = 39.354 ll 75.729
   val p85: LatLong = 39.752 ll 76.253
@@ -98,14 +99,14 @@ object TarimBasin extends EarthPoly("Tarim Basin", 39.183 ll 82.561, descold)
   override val polygonLL: PolygonLL = northBorder ++ southBorder |+%| west
 }
 
-/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object Xinjiang extends EarthPoly("Xinjiang", 42 ll 85, hillyDeshot) {
-  override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWestOffical, Mongolia.southWest, TarimBasin.southEast, TarimBasin.northEast, TianShan.east,
+/** [[PolygonLL]] graphic for Xinjiang depends on [[Mongolia]], [[TarimBasin]], [[TianShan]], [[Tarbagatai]] and [[AltaiMtains]]. */
+object Xinjiang extends EarthPoly("Xinjiang", 42 ll 85, hillyDeshot)
+{ override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWestOffical, Mongolia.southWest, TarimBasin.southEast, TarimBasin.northEast, TianShan.east,
     TianShan.northEast, TianShan.p10, Tarbagatai.karamay, AltaiMtains.ulungurLakeNE, AltaiMtains.southEast)
 }
 
 /** [[polygonLL]] graphical representation of eastern Tibet depends on [[Mongolia]], [[China]], [[Yunnan]]. */
-object TibetEast extends EarthPoly("Tibet east", 32 ll 75, mtainTaiga)
+object TibetEast extends EarthPoly("Tibet east", 32 ll 75, mtainSub)
 { override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWest, Mongolia.south, China.northWest, Yunnan.northEast, Yunnan.northWest)
 }
 

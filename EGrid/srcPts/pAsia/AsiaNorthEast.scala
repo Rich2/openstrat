@@ -24,7 +24,7 @@ object SiberiaNorth extends EarthPoly("SiberiaNorth", 70 ll 95, tundra)
   )
 }
 
-/** [[polygonLL]] graphical representation of south Siberia.Depends on [[SiberiaNorth]] and [[LakeBaikal]]. */
+/** [[polygonLL]] graphical representation of south Siberia.Depends on [[SiberiaNorth]], [[LakeBaikal]] and [[SayanMtains]]. */
 object SiberiaSouth extends EarthPoly("SiberiaSouth", 60 ll 92, taiga)
 { val lensk: LatLong = 60.709 ll 114.92
 
@@ -32,9 +32,10 @@ object SiberiaSouth extends EarthPoly("SiberiaSouth", 60 ll 92, taiga)
     SayanMtains.northWest, SiberiaNorth.yenisei70, SiberiaNorth.p50)
 }
 
-/** [[polygonLL]] graphical representation for the Sayan mountains, includes the kunetsk Alatau and the Tannu-Ola. Depends on nothing. */
-object SayanMtains extends EarthPoly("Sayan Mountains", 50.551 ll 86.503, mtainTaiga) {
-  val northWest: LatLong = 55.643 ll 88.105
+/** [[polygonLL]] graphical representation for the Sayan mountains, includes the kunetsk Alatau and the Tannu-Ola. Depends on [[LakeBaikal]] and
+ * [[AltaiMtains]]. */
+object SayanMtains extends EarthPoly("Sayan Mountains", 50.551 ll 86.503, mtainTaiga)
+{ val northWest: LatLong = 55.643 ll 88.105
   val northEast: LatLong = 55.829 ll 93.467
   val irkutsk: LatLong = 52.238 ll 104.265
   val southEast: LatLong = 49.602 ll 97.355
@@ -45,8 +46,8 @@ object SayanMtains extends EarthPoly("Sayan Mountains", 50.551 ll 86.503, mtainT
 }
 
 /** [[polygonLL]] graphical representation for the Altai mountains. Depends on nothing. */
-object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainTaiga) {
-  val northWest: LatLong = 51.330 ll 82.160
+object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainTaiga)
+{ val northWest: LatLong = 51.330 ll 82.160
   val north: LatLong = 52.436 ll 86.375
   val teletskoyeNorth: LatLong = 51.769 ll 87.631
   val teletskoyeSouth: LatLong = 51.350 ll 87.791
@@ -62,7 +63,7 @@ object AltaiMtains extends EarthPoly("Altai Mountains", 50.551 ll 86.503, mtainT
   override val polygonLL: PolygonLL = northBorder |++| LinePathLL(kharUsLakeWest, southEast, ulungurLakeNE, southWest)
 }
 
-/** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
+/** [[polygonLL]] graphical representation of Lake Bailkal. Depends on nothing. */
 object LakeBaikal extends LakePoly("Lake Baikal", 53.463 ll 108.157, lake)
 { override val area: Kilares = 31722.kilares
 

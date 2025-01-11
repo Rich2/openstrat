@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
+/** [[PolygonLL]] graphic for north China depends on [[Manchuria]], [[China]] and [[Mongolia]]. */
 object ChinaNorth extends EarthPoly("China north", 40.0 ll 105.5, hillySteppe)
 { val qinhuangdao: LatLong = 39.92 ll 119.61
   val luanheMouth: LatLong = 39.43 ll 119.30
@@ -45,18 +45,16 @@ object China extends EarthPoly("China", 30.0 ll 105.5, hillySub)
     IndoChina.beilunMouth, IndoChina.north, Yunnan.northEast, northWest)
 }
 
-/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
+/** [[PolygonLL]] graphic for south-west China depends on [[IndoChina]]. */
 object Yunnan extends EarthPoly("Yunnan", 30.0 ll 105.5, mtainSavannah)
-{
-  val northEast: LatLong = 29.546 ll 103.475
+{ val northEast: LatLong = 29.546 ll 103.475
   val northWest: LatLong = 27.499 ll 97.887
   override val polygonLL: PolygonLL = PolygonLL(northEast, IndoChina.north, IndoChina.northWest, northWest)
 }
 
 /** [[PolygonLL]] graphic for Hainan, depends on nothing. */
 object Hainan extends EarthPoly("Hainan", 30.0 ll 105.5, hillySub)
-{
-  val north: LatLong = 20.150 ll 110.685
+{ val north: LatLong = 20.150 ll 110.685
   val east = 19.641 ll 111.046
   val dongzhou: LatLong = 18.182 ll 109.702
   val southWest: LatLong = 18.504 ll 108.691
