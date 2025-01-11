@@ -54,37 +54,33 @@ object HondurasNicaragua extends EarthPoly("CAmerica", 14.219 ll -85.860, jungle
 { val p10 = 15.968 ll -85.040
   val eHonduras: LatLong = 15.0 ll -83.17
 
-  /** The mouth of the San Juuan de Nicaragua river, the Caribbean border between Nicaragua and Costa Rica. */
-  val sanJuanMouth: LatLong = 10.94 ll -83.70
+  val puntaCosiguina: LatLong = 12.912 ll -87.689
+  val tigerIsland: LatLong = 13.251 ll -87.644
+  val p80: LatLong = 13.158 ll -87.896
 
-
-  val puntaCosiguina: LatLong = 12.91 ll -87.69
-
-  override def polygonLL: PolygonLL = PolygonLL(MexicoEast.seBelize, p10, eHonduras, sanJuanMouth,
-
-    puntaCosiguina, MexicoEast.elSalvadoreW)
+  override def polygonLL: PolygonLL = LinePathLL(MexicoEast.seBelize, p10, eHonduras, CostaPanama.northEast) ++ LakeCocibolca.southCoast |++|
+    LinePathLL(CostaPanama.northWest, puntaCosiguina, tigerIsland, p80, MexicoEast.elSalvadoreW)
 }
 
 object LakeCocibolca extends LakePoly("Lake Cocibolca", 11.552 ll -85.390, lake)
 { override def area: Kilares = 8264.kilares
 
-  val sapoz: LatLong = 11.247 ll -85.617
+  val sapoa: LatLong = 11.248 ll -85.624
   val granada: LatLong = 11.940 ll -85.945
   val north: LatLong = 12.122 ll -85.785
   val northEast: LatLong = 12.051 ll -85.585
   val p40: LatLong = 11.109 ll -84.768
-  val mainCoast: LinePathLL = LinePathLL(sapoz, granada, north, northEast, p40)
+  val mainCoast: LinePathLL = LinePathLL(sapoa, granada, north, northEast, p40)
 
   val south: LatLong = 11.027 ll -84.906
-  val southCoast: LinePathLL = LinePathLL(p40, sapoz)
+  val southCoast: LinePathLL = LinePathLL(p40, south, sapoa)
 
   override def polygonLL: PolygonLL = mainCoast |-++-| southCoast
 }
 
 /** [[polygonLL]] graphical representation for central America from El Salvadore to Panama. Depends on [[MexicoEast]]. */
 object CostaPanama extends EarthPoly("Costa Rica\n Panama", 8.445 ll -81.020, jungle)
-{
-  val northEast: LatLong = 11.395 ll -83.872
+{ val northEast: LatLong = 11.120 ll -83.829
   val kusapin: LatLong = 8.79 ll -81.38
   val stIsabel: LatLong = 9.53 ll -79.25
   val stIgnacio: LatLong = 9.26 ll -78.12
@@ -95,6 +91,11 @@ object CostaPanama extends EarthPoly("Costa Rica\n Panama", 8.445 ll -81.020, ju
   val puntaMala: LatLong = 7.466 ll -79.999
   val mariato: LatLong = 7.22 ll -80.88
   val puntaLiorona: LatLong = 8.58 ll -83.72
+  val puntaConejo: LatLong = 9.651 ll -84.680
+  val caboBlanco: LatLong = 9.562 ll -85.112
+  val p90: LatLong = 10.356 ll -85.874
+  val northWest: LatLong = 11.197 ll -85.829
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, kusapin, stIsabel, stIgnacio, panamaNE, panamaSE, rioEsteroSaladoMouth, puntaMala, mariato, puntaLiorona)
+  override val polygonLL: PolygonLL = LinePathLL(northEast, kusapin, stIsabel, stIgnacio, panamaNE, panamaSE, rioEsteroSaladoMouth, puntaMala, mariato,
+    puntaLiorona, puntaConejo, caboBlanco, p90, northWest) |++<| LakeCocibolca.southCoast
 }
