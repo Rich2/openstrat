@@ -30,11 +30,11 @@ object Mongolia extends EarthPoly("Mongolia", 42 ll 115, deshot)
   val southWest: LatLong = 40.022 ll 96.864
   val southWestOffical: LatLong = 42.745 ll 96.383
 
-  override val polygonLL: PolygonLL = LakeBaikal.southCoast.reverse |++| LinePathLL(Manchuria.hulunbir, southEast, p50, south, southWest, southWestOffical,
+  override val polygonLL: PolygonLL = LakeBaikal.southCoast |+<+| LinePathLL(Manchuria.hulunbir, southEast, p50, south, southWest, southWestOffical,
     AltaiMtains.southEast, AltaiMtains.kharUsLakeWest, AltaiMtains.uvsLakeWest, SayanMtains.uvsLakeNorth, SayanMtains.southEast)
 }
 
-/** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
+/** [[polygonLL]] graphical representation of Korea. Depends on nothing. */
 object Korea extends EarthPoly("Korea", 37.77 ll 127.55, hillyOce)
 { val northEast: LatLong = 41.49 ll 129.65
   val kaima: LatLong = 40.84 ll 129.71

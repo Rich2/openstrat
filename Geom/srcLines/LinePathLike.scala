@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._
 
@@ -79,8 +79,8 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Reverses this line path and then appends the operand. The < character between the + characters indicates that it this line path that is reversed. */
   @targetName("reverseAppendReverse") def +<+<(operand: ThisT): ThisT
 
-  /** Reverses this line path, appends the reverse of the operand line path and then closes to a polygon. The < character between the + characters indicates
-   * that this line is reversed. The < character after the 2nd + character indicates that the operand is also reversed. */
+  /** Reverses this line path, appends the operand line path and then closes to a polygon. The < character between the + characters indicates
+   * that this line is reversed. The | characters at the begining and the end indicate to close to a polygon. */
   @targetName("reverseAppendToPolygon") def |+<+|(operand: ThisT): PolygonT
 
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
