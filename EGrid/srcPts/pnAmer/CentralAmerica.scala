@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pnAmer
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[ElSalPanama]]. */
+/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[HondurasNicaragua]]. */
 object Mexico extends EarthPoly("Mexico", 24 ll -102.4, hillyOce)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
@@ -49,25 +49,52 @@ object MexicoEast extends EarthPoly("MexicoEast", 17 ll -91, hillyJungle)
     swGuatemala, tehuantepecMouth, coatzacoalcosMouth, p65, champeton, nwYucatan, p95)
 }
 
-/** [[polygonLL]] graphical representation for central America from El Salvadore to Panama. Depends on [[MexicoEast]]. */
-object ElSalPanama extends EarthPoly("CAmerica", 14.62 ll -86.84, jungle)
+/** [[polygonLL]] graphical representation for Honduras Nicaragua and El Salvador. Depends on [[MexicoEast]]. */
+object HondurasNicaragua extends EarthPoly("CAmerica", 14.219 ll -85.860, jungle)
 { val p10 = 15.968 ll -85.040
   val eHonduras: LatLong = 15.0 ll -83.17
 
   /** The mouth of the San Juuan de Nicaragua river, the Caribbean border between Nicaragua and Costa Rica. */
   val sanJuanMouth: LatLong = 10.94 ll -83.70
 
+
+  val puntaCosiguina: LatLong = 12.91 ll -87.69
+
+  override def polygonLL: PolygonLL = PolygonLL(MexicoEast.seBelize, p10, eHonduras, sanJuanMouth,
+
+    puntaCosiguina, MexicoEast.elSalvadoreW)
+}
+
+object LakeCocibolca extends LakePoly("Lake Cocibolca", 11.552 ll -85.390, lake)
+{ override def area: Kilares = 8264.kilares
+
+  val sapoz: LatLong = 11.247 ll -85.617
+  val granada: LatLong = 11.940 ll -85.945
+  val north: LatLong = 12.122 ll -85.785
+  val northEast: LatLong = 12.051 ll -85.585
+  val p40: LatLong = 11.109 ll -84.768
+  val mainCoast: LinePathLL = LinePathLL(sapoz, granada, north, northEast, p40)
+
+  val south: LatLong = 11.027 ll -84.906
+  val southCoast: LinePathLL = LinePathLL(p40, sapoz)
+
+  override def polygonLL: PolygonLL = mainCoast |-++-| southCoast
+}
+
+/** [[polygonLL]] graphical representation for central America from El Salvadore to Panama. Depends on [[MexicoEast]]. */
+object CostaPanama extends EarthPoly("Costa Rica\n Panama", 8.445 ll -81.020, jungle)
+{
+  val northEast: LatLong = 11.395 ll -83.872
   val kusapin: LatLong = 8.79 ll -81.38
   val stIsabel: LatLong = 9.53 ll -79.25
   val stIgnacio: LatLong = 9.26 ll -78.12
-  val nePanama: LatLong = 8.43 ll -77.26
-  val sePanama: LatLong = 7.26 ll -77.9
-  val rioEsteroSaladoMouth = 8.181 ll -80.486
-  val puntaMala = 7.466 ll -79.999
-  val mariato: LatLong = 7.22 ll -80.88
-  val puntaLiorona = 8.58 ll -83.72
-  val puntaCosiguina: LatLong = 12.91 ll -87.69
+  val panamaNE: LatLong = 8.43 ll -77.26
 
-  override def polygonLL: PolygonLL = PolygonLL(MexicoEast.seBelize, p10, eHonduras, sanJuanMouth, kusapin, stIsabel, stIgnacio, nePanama, sePanama,
-    rioEsteroSaladoMouth, puntaMala, mariato, puntaLiorona, puntaCosiguina, MexicoEast.elSalvadoreW)
+  val panamaSE: LatLong = 7.26 ll -77.9
+  val rioEsteroSaladoMouth: LatLong = 8.181 ll -80.486
+  val puntaMala: LatLong = 7.466 ll -79.999
+  val mariato: LatLong = 7.22 ll -80.88
+  val puntaLiorona: LatLong = 8.58 ll -83.72
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, kusapin, stIsabel, stIgnacio, panamaNE, panamaSE, rioEsteroSaladoMouth, puntaMala, mariato, puntaLiorona)
 }
