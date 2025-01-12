@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pnAmer
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for most of Mexico. Dependent on [[UsaSouthWest]], [[UsaNorthEast]] and [[HondurasNicaragua]]. */
+/** [[polygonLL]] graphical representation for most of Mexico. Dependent on [[UsaSouthWest]], [[UsaNorthEast]] and [[Honduras]]. */
 object Mexico extends EarthPoly("Mexico", 24 ll -102.4, hillySavannah)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
@@ -49,21 +49,33 @@ object MexicoEast extends EarthPoly("MexicoEast", 17 ll -91, hillyJungle)
     swGuatemala, tehuantepecMouth, coatzacoalcosMouth, p65, champeton, nwYucatan, p95)
 }
 
-/** [[polygonLL]] graphical representation for Honduras, Nicaragua and El Salvador. Depends on [[MexicoEast]]. */
-object HondurasNicaragua extends EarthPoly("CAmerica", 14.219 ll -85.860, jungle)
-{ val p15: LatLong = 15.920 ll -87.730
+/** [[polygonLL]] graphical representation for Honduras and El Salvador. Depends on [[MexicoEast]] and [[Nicaragua]]. */
+object Honduras extends EarthPoly("Honduras", 14.219 ll -85.860, mtainJungle)
+{ val p5: LatLong = 15.743 ll -88.594
+  val puntaManabique: LatLong = 15.964 ll -88.622
+  val p10: LatLong = 15.681 ll -88.147
+  val p15: LatLong = 15.920 ll -87.730
   val p20: LatLong = 15.968 ll -85.040
   val peurtoCastilla: LatLong = 16.017 ll -85.942
   val barraPatuca: LatLong = 15.917 ll -84.305
-  val islaSanPio: LatLong = 14.995 ll -83.123
-  val losCordoba: LatLong = 12.392 ll -83.492
 
-  val puntaCosiguina: LatLong = 12.912 ll -87.689
   val tigerIsland: LatLong = 13.251 ll -87.644
   val p80: LatLong = 13.158 ll -87.896
 
-  override def polygonLL: PolygonLL = LinePathLL(MexicoEast.seBelize, p15, p20, peurtoCastilla, barraPatuca, islaSanPio, losCordoba, CostaRico.northEast) ++
-    LakeCocibolca.southCoast |++| LinePathLL(CostaRico.northWest, puntaCosiguina, tigerIsland, p80, MexicoEast.elSalvadoreW)
+  override def polygonLL: PolygonLL = LinePathLL(MexicoEast.seBelize, p5, puntaManabique, p10, p15, p20, peurtoCastilla, barraPatuca, Nicaragua.islaSanPio)|++|
+    LinePathLL(Nicaragua.northWest, tigerIsland, p80, MexicoEast.elSalvadoreW)
+}
+
+/** [[polygonLL]] graphical representation for  Nicaragua. Depends on [[CostaRico]] and [[LakeCocibolca]]. */
+object Nicaragua extends EarthPoly("Nicaragua", 13.050 ll -85.102, hillyJungle)
+{ val islaSanPio: LatLong = 14.995 ll -83.123
+  val losCordoba: LatLong = 12.392 ll -83.492
+
+  val puntaCosiguina: LatLong = 12.912 ll -87.689
+  val northWest = 12.988 ll -87.308
+
+  override def polygonLL: PolygonLL = LinePathLL(islaSanPio, losCordoba, CostaRico.northEast) ++ LakeCocibolca.southCoast |++| LinePathLL(CostaRico.northWest,
+    puntaCosiguina, northWest)
 }
 
 /** [[polygonLL]] graphical representation for Lake Cocibolca. Depends on nothing. */
@@ -84,7 +96,7 @@ object LakeCocibolca extends LakePoly("Lake Cocibolca", 11.552 ll -85.390, lake)
 }
 
 /** [[polygonLL]] graphical representation for Costa Rico. Depends on [[Panama]] and [[LakeCocibolca]]. */
-object CostaRico extends EarthPoly("Costa Rica", 9.837 ll -83.676, jungle)
+object CostaRico extends EarthPoly("Costa Rica", 9.837 ll -83.676, hillyJungle)
 { val northEast: LatLong = 11.120 ll -83.829
 
   val puntaLiorona: LatLong = 8.58 ll -83.72
@@ -99,7 +111,7 @@ object CostaRico extends EarthPoly("Costa Rica", 9.837 ll -83.676, jungle)
 }
 
 /** [[polygonLL]] graphical representation for Panama. Depends on nothing. */
-object Panama extends EarthPoly("Panama", 9.184 ll -79.644, jungle)
+object Panama extends EarthPoly("Panama", 9.184 ll -79.644, mtainJungle)
 { val peutoViejo: LatLong = 9.655 ll -82.764
   val kusapin: LatLong = 8.79 ll -81.38
   val stIsabel: LatLong = 9.53 ll -79.25

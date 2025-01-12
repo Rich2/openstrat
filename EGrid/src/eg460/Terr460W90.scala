@@ -72,7 +72,7 @@ object Terr460W90 extends Long460Terrs
       BendIn(9740, HVUL, 12)), TRow(108, sea * 2, mtainJungle * 2, hillyJungle),
 
     VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), OrigRt(9728, HVUL, 7), BendInLt(9736, HVDR, 13, 7),
-      BendIn(9738, HVDn, 13), ThreeDown(9740, 0, 13, 13), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
+      BendIn(9738, HVDn, 13), ThreeDown(9740, 0, 13, 13), OrigLt(9742, HVDL, 7)),
 
     TRow(106, sea * 4, mtainJungle, hillyJungle, hillyJungle),
     VRow(105, OrigMin(9734, HVDn), Orig(9736, HVUp, 3, 7), OrigMin(9738, HVDn), OrigMin(9740, HVUp)),

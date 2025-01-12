@@ -106,7 +106,7 @@ object AmericasNearNorth extends EarthRegion("North America", 49 ll -100)
 
 object AmericasCentral extends EarthRegion("Americas Central", 19.563 ll -89.167)
 { import pnAmer.*
-  override val ePolys: RArr[EarthPoly] = RArr(Baja, Mexico, MexicoEast, HondurasNicaragua, LakeCocibolca, CostaRico, Panama, Cuba, Hispaniola, Jamaica)
+  override val ePolys: RArr[EarthPoly] = RArr(Baja, Mexico, MexicoEast, Honduras, Nicaragua, LakeCocibolca, CostaRico, Panama, Cuba, Hispaniola, Jamaica)
 }
 
 /** South America. */

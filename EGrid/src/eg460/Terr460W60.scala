@@ -46,7 +46,7 @@ object Terr460W60 extends Long460Terrs
     TRow(110, hillyJungle),
     VRow(109, BendIn(10740, HVUR), BendIn(10742, HVUp), BendIn(10744, HVUL)),
 
-    VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13),
+    VRow(107, OrigRt(10742, HVDR), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13),
       OrigMin(10752, HVUL)),
 
     TRow(106, hillySavannah * 3),
