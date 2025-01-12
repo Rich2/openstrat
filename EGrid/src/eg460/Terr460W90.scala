@@ -63,20 +63,21 @@ object Terr460W90 extends Long460Terrs
 
     TRow(112, hillySavannah, sea, savannah, sea, hillyJungle, jungle),
 
-    VRow(111, BendOut(9716, HVDL), OrigRt(9724, HVUR), BendOut(9726, HVUL, 7), OrigLt(9734, HVDR, 7), ThreeDown(9736, 13, 12, 0), Bend(9738, HVDn, 12, 5),
-      ThreeDown(9740, 6, 6, 12), ThreeUp(9742, 0, 6, 6)),
+    VRow(111, BendOut(9716, HVDL), OrigRt(9724, HVUR), BendOut(9726, HVUL, 7), OrigRt(9732, HVDn, 7), OrigLt(9734, HVDR, 7), ThreeDown(9736, 13, 12, 0),
+      Bend(9738, HVDn, 12, 5), ThreeDown(9740, 6, 6, 12), ThreeUp(9742, 0, 6, 6)),
 
     TRow(110, mtainJungle, hillyJungle, savannah, jungle, sea, hillyJungle),
-    VRow(109, BendIn(9716, HVUR, 10), OrigRt(9718, HVUL, 7), OrigLt(9722, HVDn, 7), BendIn(9736, HVUR, 12), BendIn(9738, HVUp, 12), BendIn(9740, HVUL, 12)),
-    TRow(108, sea * 2, mtainJungle * 2, hillyJungle),
 
-    VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), OrigRt(9728, HVUL, 7), OrigMin(9734, HVDR), BendIn(9736, HVDL, 10),
-      BendIn(9740, HVDR, 10), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
+    VRow(109, BendIn(9716, HVUR, 10), OrigRt(9718, HVUL, 7), OrigLt(9722, HVDn, 7), OrigLt(9732, HVUp, 7), BendIn(9736, HVUR, 12), BendIn(9738, HVUp, 12),
+      BendIn(9740, HVUL, 12)), TRow(108, sea * 2, mtainJungle * 2, hillyJungle),
 
-    TRow(106, sea * 4, mtainJungle, sea, hillyJungle),
-    VRow(105, OrigMin(9734, HVDn), OrigMin(9736, HVUp), OrigMin(9740, HVUp)),
+    VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), OrigRt(9728, HVUL, 7), BendInLt(9736, HVDR, 13, 7),
+      BendIn(9738, HVDn, 13), ThreeDown(9740, 0, 13, 13), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
+
+    TRow(106, sea * 4, mtainJungle, hillyJungle, hillyJungle),
+    VRow(105, OrigMin(9734, HVDn), Orig(9736, HVUp, 3, 7), OrigMin(9738, HVDn), OrigMin(9740, HVUp)),
     TRow(104, sea * 5, mtainJungle, hillyJungle),
-    VRow(103, BendIn(9734, HVUR, 10), BendIn(9736, HVUp, 10), BendOut(9738, HVDn, 7), OrigMin(9740, HVUL)),
+    VRow(103, BendIn(9734, HVUR, 10), BendIn(9736, HVUp, 10), ThreeUp(9738, 13, 0, 9), OrigMin(9740, HVUL)),
     TRow(102, sea * 6, mtainJungle),
     TRow(100, sea * 6, hillyJungle),
     TRow(98, sea * 5, mtainJungle, jungle),
