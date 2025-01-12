@@ -27,7 +27,7 @@ object AndesFarNorth extends EarthPoly("Andes far north", 5.105 ll -75.212, mtai
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
   override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ eastEdgeNorth +-+ eastEdgeSouth |++|  LinePathLL(peurtoNaranjal,
-    IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, pnAmer.CostaPanama.panamaSE, pnAmer.CostaPanama.panamaNE)
+    IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, pnAmer.Panama.southEast, pnAmer.Panama.northEast)
 }
 
 /** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]] and [[Guyana]]. */
