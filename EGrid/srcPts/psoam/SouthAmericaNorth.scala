@@ -4,7 +4,9 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for far north of the Andes. Dependent on [[ElSalPanama]]. */
 object AndesFarNorth extends EarthPoly("Andes far north", 5.105 ll -75.212, mtainJungle)
-{ val nColumbia: LatLong = 12.458 ll -71.664
+{
+  val puntaCanoas: LatLong = 10.571 ll -75.512
+  val nColumbia: LatLong = 12.458 ll -71.664
   val zapara: LatLong = 10.955 ll -71.530
   val caboSanRoman: LatLong = 12.196 ll -70.020
 
@@ -26,8 +28,8 @@ object AndesFarNorth extends EarthPoly("Andes far north", 5.105 ll -75.212, mtai
   val p95: LatLong = 4.258 ll -77.524
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
-  override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ eastEdgeNorth +-+ eastEdgeSouth |++|  LinePathLL(peurtoNaranjal,
-    IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, pnAmer.Panama.southEast, pnAmer.Panama.northEast)
+  override val polygonLL: PolygonLL = LinePathLL(puntaCanoas, nColumbia, zapara, caboSanRoman) ++ eastEdgeNorth +-+ eastEdgeSouth |++|  LinePathLL(
+    peurtoNaranjal, IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, pnAmer.Panama.southEast, pnAmer.Panama.northEast)
 }
 
 /** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]] and [[Guyana]]. */
