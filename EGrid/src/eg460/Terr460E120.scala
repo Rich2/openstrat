@@ -9,7 +9,7 @@ import prid._, phex._, egrid._, WTiles._
  *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km², Sumba 11243km², Bali 5780km² + Lambok 4607km² = 9967km².
  *  [[Isle3]] 4473.900km² => 8768.845km². Alor 2724km² + Wetar 2651km² = 5375km². */
 object Terr460E120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e120(80)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e120(76)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -71,7 +71,10 @@ object Terr460E120 extends Long460Terrs
     TRow(86, sea, sahel, deshot * 3, hillySahel),
     VRow(85, BendIn(4600, HVUR, 13), BendMin(4602, HVDL, 2)),
     TRow(84, sea, savannah * 2, sahel, deshot, sahel),
-    TRow(82, sea * 2, savannah, subtrop, savannah * 2),
+    TRow(82, sea * 2, hillySavannah, subtrop, savannah * 2),
+    VRow(81, OrigLt(4602, HVDn, 7), BendMin(4610, HVDR, 2), BendMin(4612, HVDn, 2), BendIn(4614, HVUp, 13), BendOut(4616, HVDn, 7)),
+    TRow(80, sea, subtrop, savannah),
+    VRow(79, BendIn(4602, HVUR, 13), BendIn(4604, HVUp, 13), BendOut(4606, HVDn, 7), BendIn(4608, HVUp, 13), BendIn(4610, HVUL, 13)),
     )
   }
   help.run
