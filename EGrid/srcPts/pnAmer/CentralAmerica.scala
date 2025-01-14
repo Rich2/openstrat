@@ -116,7 +116,7 @@ object Panama extends EarthPoly("Panama", 9.184 ll -79.644, mtainJungle)
   val kusapin: LatLong = 8.79 ll -81.38
   val stIsabel: LatLong = 9.53 ll -79.25
   val stIgnacio: LatLong = 9.26 ll -78.12
-  val northEast: LatLong = 8.43 ll -77.26
+  val northEast: LatLong = 7.939 ll -76.932
 
   val southEast: LatLong = 7.26 ll -77.9
   val p55: LatLong = 8.083 ll -78.442
