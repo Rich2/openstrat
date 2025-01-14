@@ -102,12 +102,12 @@ object RPairBuff
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 }
 
-class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
+/** Map builder for [[RPairArr]]. */
+class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends
+  BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]
   override def b1ArrBuilder: BuilderArrMap[B1, RArr[B1]] = BuilderArrMap.rMapImplicit
-
-  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.arrayUnsafe, b2s)
 
   override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit =
@@ -125,12 +125,9 @@ class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: Cla
   override def newB1Buff(): RBuff[B1] = new RBuff[B1](new ArrayBuffer[B1](4))
   override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = buff.grow(newElem)
 
-  /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
-  override def arrFromBuffs(b1Buff: RBuff[B1], b2Buffer: ArrayBuffer[B2]): RPairArr[B1, B2] = ???
+  override def arrFromBuffs(b1Buff: RBuff[B1], b2Buffer: ArrayBuffer[B2]): RPairArr[B1, B2] =
+    new RPairArr[B1, B2](b1Buff.unsafeBuffer.toArray, b2Buffer.toArray)
 
-  /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
-  override def newBuff(length: Int): RPairBuff[B1, B2] = ???
-
-  /** converts a the buffer type to the target compound class. */
-  override def buffToSeqLike(buff: RPairBuff[B1, B2]): RPairArr[B1, B2] = ???
+  override def newBuff(length: Int): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](length), new ArrayBuffer[B2](length))
+  override def buffToSeqLike(buff: RPairBuff[B1, B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 }

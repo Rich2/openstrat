@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -11,9 +11,8 @@ trait BuilderColl[BB]
   /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
   def newBuff(length: Int = 4): BuffT
 
-  /** converts a the buffer type to the target compound class. */
+  /** converts a buffer of the given type to the target compound class. */
   def buffToSeqLike(buff: BuffT): BB
-
 }
 
 /** Builder for collection via the map method. */
