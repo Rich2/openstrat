@@ -51,13 +51,22 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair{ p => p / dirnScale }
 
-    val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap{ (p, a2) =>
+    val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap { (p, a2) =>
+      val str: String = a2 match {
+        case isle: IslandPoly => isle.strWithGroups
+        case lake: LakePoly => lake.name -- lake.area.str
+        case ea => ea.name -- ea.terr.str
+      }
+      p.fillActiveText(a2.colour, str, a2.name, 10, a2.contrastBW)
+    }
+    
+    val graphicPairs: RPairArr[GraphicElem, GraphicElem] = ps5.pairMap{ (p, a2) =>
       val str: String = a2 match
       { case isle: IslandPoly => isle.strWithGroups
         case lake: LakePoly => lake.name -- lake.area.str
         case ea => ea.name -- ea.terr.str
       }
-      p.fillActiveText(a2.colour, str, a2.name, 10, a2.contrastBW)
+      RPairElem(p.fillActive(a2.colour, a2), TextFixed(a2.name, 12, p.cenPt, a2.contrastBW))
     }
 
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
@@ -76,7 +85,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 
-    mainRepaint(seas %: fillActiveTexts ++ sideLines.+%(conns6) ++ locTexts)
+    mainRepaint(seas %: graphicPairs.a1Arr ++ sideLines.+%(conns6) ++ graphicPairs.a2Arr ++ locTexts)
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match

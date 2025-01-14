@@ -82,6 +82,8 @@ object RPairArr
 
   def fromBuff[A1, A2](buff: RPairBuff[A1, A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] =
     new RPairArr[A1, A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
+
+  implicit def mapBuilderEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
 /** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[BuffSequ]] for [[RPairElem]]s. Note although they are named as
@@ -100,7 +102,7 @@ object RPairBuff
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 }
 
-class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
+class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]
   override def b1ArrBuilder: BuilderArrMap[B1, RArr[B1]] = BuilderArrMap.rMapImplicit
@@ -112,13 +114,10 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPa
   override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit = ???
 
   /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
-  override def uninitialised(length: Int): RPairArr[B1, B2] = ???
+  override def uninitialised(length: Int): RPairArr[B1, B2] = new RPairArr[B1, B2](new Array[B1](length), new Array[B2](length))
 
   /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
   override def indexSet(seqLike: RPairArr[B1, B2], index: Int, newElem: RPairElem[B1, B2]): Unit = ???
-
-  /** ClassTag for building Arrays and ArrayBuffers of B2s. */
-  override implicit def b2ClassTag: ClassTag[B2] = ???
 
   /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
   override def newB1Buff(): RBuff[B1] = ???
