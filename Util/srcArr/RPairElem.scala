@@ -110,20 +110,20 @@ class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: Cla
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.arrayUnsafe, b2s)
 
-  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-  override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit = ???
+  override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit =
+  { buff.b1Buffer.append(newElem.a1)
+    buff.b2Buffer.append(newElem.a2)
+  }
 
-  /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
   override def uninitialised(length: Int): RPairArr[B1, B2] = new RPairArr[B1, B2](new Array[B1](length), new Array[B2](length))
 
-  /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
-  override def indexSet(seqLike: RPairArr[B1, B2], index: Int, newElem: RPairElem[B1, B2]): Unit = ???
+  override def indexSet(seqLike: RPairArr[B1, B2], index: Int, newElem: RPairElem[B1, B2]): Unit =
+  { seqLike.a1Array(index) = newElem.a1
+    seqLike.a2Array(index) = newElem.a2
+  }
 
-  /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
-  override def newB1Buff(): RBuff[B1] = ???
-
-  /** Expands / appends the B1 [[BuffSequ]] with a songle element of B1. */
-  override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = ???
+  override def newB1Buff(): RBuff[B1] = new RBuff[B1](new ArrayBuffer[B1](4))
+  override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = buff.grow(newElem)
 
   /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
   override def arrFromBuffs(b1Buff: RBuff[B1], b2Buffer: ArrayBuffer[B2]): RPairArr[B1, B2] = ???
