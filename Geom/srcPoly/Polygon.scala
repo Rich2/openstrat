@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour.Black
 
-/** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
- *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
- *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
- *  with then end point of side n sdn at vertex n. */
+/** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of polygons
+ * such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the vertices in a
+ * clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner with then end point of
+ * side n sdn at vertex n. */
 trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with Pt2SeqSpec with PolygonLikeDbl2[Pt2] with SeqSpecDbl2[Pt2]
 {
   override type SideT = LineSeg
@@ -15,20 +15,19 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   final def vLastX: Double = arrayUnsafe(numVerts - 2)
   final def vLastY: Double = arrayUnsafe(numVerts - 1)
 
-  /** The last vertex. The default convention places this just anti clockwise of 12 o'clock. */
+  /** The last vertex. The default convention places this just anti-clockwise of 12 o'clock. */
   def vLast: Pt2 = vLastX pp vLastY
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
   final def side0: LineSeg = LineSeg(v0, vert(1))
 
-  /** The X component of the centre or half way point of side 0 of this polygon. */
+  /** The X component of the centre or halfway point of side 0 of this polygon. */
   final def sd0CenX: Double = v0x \/ vertX(1)
 
-  /** The Y component of the centre or half way point of side 0 of this polygon. */
+  /** The Y component of the centre or halfway point of side 0 of this polygon. */
   final def sd0CenY: Double = v0y \/ vertY(1)
 
-  /** The centre or half way point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as
-   *  vertex 0.5. */
+  /** The centre or halfway point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as vertex 0.5. */
   final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
 
   override def verts: Pt2Arr =
@@ -45,8 +44,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   final override def vertsForeach[U](f: Pt2 => U): Unit = ssForeach(f)
 
-  /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a
-   * new transformed Polygon */
+  /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a* new
+   * transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
@@ -72,8 +71,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   def vertX(index: Int): Double = arrayUnsafe(index * 2)
 
-  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
-   * override the implementation in sub classes. */
+  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency override
+   * the implementation in subclasses. */
   def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 
   @inline override def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
@@ -102,8 +101,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** The Y component of vertex v1, will throw on a 0 vertices polygon.  */
   final def v0y: Double = arrayUnsafe(1)
 
-  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the
-   * polygon or the vertex immediately anti clockwise if there is no vertex in this position. */
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
+   * the vertex immediately anti-clockwise if there is no vertex in this position. */
   final def v0: Pt2 = v0x pp v0y
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
@@ -137,16 +136,16 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     maxY - minY
   }
 
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
-   *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant traits /
+   * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slateXY(xDelta: Double, yDelta: Double): Polygon = map(_.addXY(xDelta, yDelta))
 
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
-   *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant traits /
+   * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   def slate(offset: VecPt2): Polygon = map(_.slate(offset))
 
-  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
-   *  return type of this method will be narrowed further in descendant traits / classes. */
+  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The return
+   * type of this method will be narrowed further in descendant traits / classes. */
   override def scale(operand: Double): Polygon = map(_.scale(operand))
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
@@ -162,24 +161,21 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def rotate180: Polygon = map(_.rotate180)
   override def rotate270: Polygon = map(_.rotate270)
 
-  /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
-   *  be narrowed in some but not all sub traits / classes. */
+  /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will be
+   * narrowed in some but not all sub traits / classes. */
   override def rotate(angle: AngleVec): Polygon = map(_.rotate(angle))
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
-   *  traits / classes. */
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in subclasses. */
   override def reflect(lineLike: LineLike): Polygon = map(_.reflect(lineLike))
 
-  /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
-   *  return type will be narrowed in some, but not all descendant Polygon types. */
+  /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The return type
+   * will be narrowed in some, but not all descendant Polygon types. */
   override def scaleXY(xOperand: Double, yOperand: Double): Polygon = map(_.xyScale(xOperand, yOperand))
 
-  /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
-   *  classes and traits. */
+  /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all subclasses. */
   override def shearX(operand: Double): Polygon = map(_.xShear(operand))
 
-  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
-   *  traits. */
+  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in subclasses and traits. */
   override def shearY(operand: Double): Polygon = map(_.xShear(operand))
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
@@ -218,8 +214,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: Any): PolygonCompound =
     PolygonCompound(this, RArr(DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
-  /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
-   * draw area line width of 2 and a colour of Black. */
+  /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the draw area
+   * line width of 2 and a colour of Black. */
   def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
