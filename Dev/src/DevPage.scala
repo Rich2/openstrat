@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pWeb._
 
@@ -26,7 +26,7 @@ object DevPage extends HtmlPage
     "readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3" --
     "will be the ideal language to explore these questions.")
 
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.6.2. Jdk 11+, 21 preferred. Scala.Js set to 1.16.0. Scala native set to 0.5.6. Sbt currently set to 1.10.7
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.6.2. Jdk 11+, 21 preferred. Scala.Js set to 1.18.1. Scala native set to 0.5.6. Sbt currently set to 1.10.7
   | (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to
   | 0.12.5.""".stripMargin)
 
