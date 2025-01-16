@@ -5,12 +5,12 @@ package ostrat; package pWeb
 trait XmlAtt
 { def name: String
   def valueStr: String
-  def str: String = name + "=" + valueStr.enquote1
+  def out: String = name + "=" + valueStr.enquote1
 }
 
 /** Companion object for the XML attribute [[XmlAtt]] trait. */
 object XmlAtt
-{ /** Factory apply method for [[XmlAtt]] trait. Often you may prefer to use the sub classes of [[XmlAtt]] where the name of the attribute has already
+{ /** Factory apply method for [[XmlAtt]] trait. Often you may prefer to use the subclasses of [[XmlAtt]] where the name of the attribute has already
    * been set. */
   def apply(name: String, valueStr: String): XmlAtt = XmlAttGen(name, valueStr)
 

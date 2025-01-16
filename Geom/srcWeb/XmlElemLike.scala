@@ -24,9 +24,9 @@ trait XmlElemLike extends XCon
 
   def attribsOut: String = attribs.length match
   { case 0 => ""
-    case 1 => " " + attribs(0)
-    case _ if attribs.sumBy(_.str.length) < 80 => " " + attribs.mkStr(_.str, " ")
-    case _ => " " + attribs.mkStr(_.str, "\n" + 2.spaces)
+    case 1 => " " + attribs(0).out
+    case _ if attribs.sumBy(_.out.length) < 80 => " " + attribs.mkStr(_.out, " ")
+    case _ => " " + attribs.mkStr(_.out, "\n" + 2.spaces)
   }
 
   def openAtts: String = "<" + tag + attribsOut

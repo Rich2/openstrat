@@ -37,7 +37,7 @@ object HtmlLi
   def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon))), attribs.toArr)
 
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
-  def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
+  def linkAndText(link: String, label: String, otherText: String, attribs: XmlAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
 
   def boldStart(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
