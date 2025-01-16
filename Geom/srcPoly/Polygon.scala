@@ -135,6 +135,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     }
     maxY - minY
   }
+  
+  //def bounding
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant traits /
    * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -240,6 +242,11 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black,
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle, minSize: Double = 6): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize) ), RArr(PolygonActive(this, pointerEv)))
+
+  def textSized(str: String, colour: Colour = Black): TextFixed =
+  { val fontSize: Double = boundingWidth / (str.longestLineLen + 1)
+    TextFixed(str, fontSize, boundingCen, colour)
+  }
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =

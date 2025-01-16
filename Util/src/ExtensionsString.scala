@@ -246,6 +246,21 @@ class ExtensionsString(val thisString: String) extends AnyVal
       case _ => None
     }
   }
+
+  def longestLineLen: Int =
+  { var res = 0
+    var curr = 0
+    var i = 0
+    val array = thisString.toCharArray
+    while (i < array.length)
+    { array(i) match
+      { case '\n' => { curr = 0 }
+        case _ => { curr += 1; res = res.max(curr)  }
+      }
+      i += 1
+    }
+    res
+  }
 }
 
 /** Extraction object for extracting a sequence of letters followed by an [[Int]]. */

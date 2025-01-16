@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A 2D geometric element, that has a defined bounding rectangle, [[BoundingRect]]. This trait is for layout, such as placing Graphic elements in rows and
@@ -19,7 +19,7 @@ trait BoundedElem extends Any with GeomElem
   def blBounding: Pt2 = boundingRect.bottomLeft
 
   /** The centre of the bounding rectangle. consider also using cenDefault. */
-  @inline final def boundCen: Pt2 = boundingRect.cen
+  @inline final def boundingCen: Pt2 = boundingRect.cen
 
   /** If the geometric element has a defined centre then the cenDefault uses that, else it defaults to the centre of the bounding rectangle. */
   def cenDefault: Pt2 = boundingRect.cen

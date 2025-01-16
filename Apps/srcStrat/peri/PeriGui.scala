@@ -25,7 +25,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
       val poly = pf.tilePolys.a1GetA2(hc)
       val pt2 = poly.inRectFrom(pt, 1).cen
       /** Bounding rectangle centre. */
-      val brc = poly.boundCen
+      val brc = poly.boundingCen
       Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, HCenPair(hc, army), army.num.str, 4, army.contrastBW).slate(pt2)
     }
     //def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
