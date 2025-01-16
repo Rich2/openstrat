@@ -241,8 +241,9 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black,
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle, minSize: Double = 6): PolygonCompound =
-    PolygonCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize) ), RArr(PolygonActive(this, pointerEv)))
+    PolygonCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)), RArr(PolygonActive(this, pointerEv)))
 
+  /** Text centred and sized from the bounding rectangle. */
   def textSized(str: String, colour: Colour = Black): TextFixed =
   { val fontSize: Double = boundingWidth / (str.longestLineLen + 1)
     TextFixed(str, fontSize, boundingCen, colour)
@@ -271,11 +272,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   override def approx(that: Any, precision: Double): Boolean = ???
 
+  /** The SVG points attributes for this polygon. */
   def pointsAttrib: XmlAtt =
   { val vertStr: String = verts.foldLeft((acc, v) => acc -- v.x.str + "," + (-v.y).str)
     XmlAtt("points", vertStr)
   }
 
+  /** The SVG attributes for this polygon. */
   override def attribs: RArr[XmlAtt] = RArr(pointsAttrib)
 
   /** Increase the number of vertices and [[LineSeg]]s by breaking up the [[LineSeg]]s into parts. */
