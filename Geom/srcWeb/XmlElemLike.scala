@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
@@ -6,11 +6,12 @@ case class XmlAsString(value: String) extends XCon
 { override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = value
 }
 
-/** An XML or an HTML element */
+/** An XML or an HTML element. */
 trait XmlElemLike extends XCon
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
   
+  /** The number of characters in the tag. This is useful for calculating new lines in multi line elements. */
   def tagLen: Int = tag.length
   
   /** The length of the < character plus the tag. */
@@ -22,6 +23,7 @@ trait XmlElemLike extends XCon
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
+  /** The XML / HTML output for this elements attributes. */
   def attribsOut: String = attribs.length match
   { case 0 => ""
     case 1 => " " + attribs(0).out
