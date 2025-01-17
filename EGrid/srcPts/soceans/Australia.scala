@@ -74,24 +74,31 @@ object Queensland extends EarthPoly("Queensland", -21.28 ll 144.5, sahel)
   val p95: LatLong = -13.895 ll 141.483
 
   override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p9, p14, coolbie, p18, p25, harveyBay, doubleIslandPoint, brisbane,
-    byronBay, AustraliaSouthEast.northEast, SouthAustralia.cameronPoint, SouthAustralia.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast,
+    byronBay, NewSouthWales.northEast, SouthAustraliaWest.cameronPoint, SouthAustraliaWest.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast,
     bynoeMouth, p95)
 }
 
-/** [[polygonLL]] graphical representation of Australia. Depends on [[AustraliaSouthEast]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
-object SouthAustralia extends EarthPoly("South Austraia", -27.1 ll 146.73, sahel)
+/** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
+object SouthAustraliaWest extends EarthPoly("South-Australia\n west", -27.1 ll 146.73, sahel)
 { val northEast: LatLong = -26 ll 141
   val cameronPoint = -29 ll 141
   val sleaford: LatLong = -34.92 ll 135.64
   val smokyBay: LatLong = -32.52 ll 133.86
   val yalata: LatLong = -31.35 ll 131.21
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, cameronPoint, AustraliaSouthEast.portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast,
+  override val polygonLL: PolygonLL = PolygonLL(northEast, cameronPoint, NewSouthWales.portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast,
     AustraliaNorthTerr.southWest, AustraliaNorthTerr.southEast)
 }
 
+/** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
+object SouthAustraliaEast extends EarthPoly("South-Australia\neast", -30.181 ll 139.195, sahel)
+{
+  val lakeEyreNorth: LatLong = -27.841 ll 137.042
+  override val polygonLL: PolygonLL = PolygonLL(lakeEyreNorth)
+}
+
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object AustraliaSouthEast extends EarthPoly("Australia\nsouth east", -27.1 ll 146.73, savannah)
+object NewSouthWales extends EarthPoly("New-South-Wales", -27.1 ll 146.73, savannah)
 { val northEast: LatLong = -29 ll 153.476
   val sealRocks: LatLong = -32.440 ll 152.538
   val greenCape: LatLong = -37.257 ll 150.047
@@ -109,5 +116,5 @@ object AustraliaSouthEast extends EarthPoly("Australia\nsouth east", -27.1 ll 14
 
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, sealRocks, greenCape, victoriaEast, p40, p45, wilsonsProm, barwonHeads, capeOtway, portMacdonnell,
-    carpenterRocks, p75, hardwicke, portAugusta, SouthAustralia.cameronPoint)
+    carpenterRocks, p75, hardwicke, portAugusta, SouthAustraliaWest.cameronPoint)
 }

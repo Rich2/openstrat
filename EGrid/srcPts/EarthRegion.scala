@@ -143,8 +143,8 @@ object AsiaEast extends EarthRegion("Asia east", 28 ll 108)
 /** Australasia. Australia and New Zealand. */
 object Australasia extends EarthRegion("Australasia", -23 ll 130)
 { import soceans.*
-  override val ePolys: RArr[EarthPoly] = RArr(WesternAustralia, AustraliaNorthTerr, Queensland, SouthAustralia, AustraliaSouthEast, Tasmania, NewCaldedonia,
-    NZNorthIsland, NZSouthIsland)
+  override val ePolys: RArr[EarthPoly] = RArr(WesternAustralia, AustraliaNorthTerr, Queensland, SouthAustraliaWest, SouthAustraliaEast, NewSouthWales, Tasmania,
+    NewCaldedonia, NZNorthIsland, NZSouthIsland)
 }
 
 /** Malay archipelago. */
