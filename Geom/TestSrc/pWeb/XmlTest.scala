@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import utest._
+import utest.*, utiljvm.*
 
 /** Also tests the srcToETokens function object. */
 object XmlTest extends TestSuite
@@ -17,8 +17,7 @@ object XmlTest extends TestSuite
   val cities2 = Cities(RArr(wash, bost))
 
   val cities0 = Cities(RArr())
-  val cities0Out =
-    """<Cities/>""".stripMargin
+  val cities0Out = """<Cities/>"""
 
   val cities1 = Cities(RArr(wash))
   val cities1Out =
@@ -36,7 +35,7 @@ object XmlTest extends TestSuite
     test("Test1")
     { wash.out() ==> "<City>Washington</City>"
       cities0.out() ==> cities0Out
-      cities1.out().take(14) ==> cities1Out.take(14)
+      Succ(cities1.out()) ==>  strFromResource("cities1.xml")
       cities2.out() ==> cities2Out
     }
   }

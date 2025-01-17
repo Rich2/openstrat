@@ -116,6 +116,8 @@ package object utiljvm
   /** Function object apply method to get statements from a Java build resource. */
   def statementsFromResource(fileName: String): ThrowMonRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
+  def strFromResource(fileName: String): ThrowMon[String] = eTry(io.Source.fromResource(fileName).toArray.mkString)
+
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 

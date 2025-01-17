@@ -23,7 +23,7 @@ trait XmlElemLike extends XCon
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  /** The XML / HTML output for this elements attributes. */
+  /** The XML / HTML output for this element's attributes. */
   def attribsOut: String = attribs.length match
   { case 0 => ""
     case 1 => " " + attribs(0).out
