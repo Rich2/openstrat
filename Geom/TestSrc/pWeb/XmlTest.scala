@@ -6,14 +6,17 @@ import utest.*, utiljvm.*
 object XmlTest extends TestSuite
 {
   class City(name: String) extends XmlElemSimple("City", name)
-  class Country(val nameStr: String) extends XmlMulti
-  {
-    override def tag: String = "Country"
 
+  class Country(val nameStr: String, val otherElems: RArr[XmlElem]) extends XmlMulti
+  { override def tag: String = "Country"
     override def attribs: RArr[XmlAtt] = RArr()
+    def nameEl = XmlElemSimple("name", nameStr)
 
-    override def contents: RArr[XCon] = ???
+    override def contents: RArr[XCon] = nameEl %: otherElems
+  }
 
+  object Country
+  { def apply(nameStr: String, otherElems: XmlElem*): Country = new Country(nameStr, otherElems.toRArr)
   }
 
   case class Cities(contents: RArr[XCon]) extends XmlMultiNoAtts
@@ -26,6 +29,9 @@ object XmlTest extends TestSuite
   val cities0Out = """<Cities/>"""
   val cities1 = Cities(RArr(wash))
   val cities2 = Cities(RArr(wash, bost))
+  val country1 = Country("USA", cities2)
+  val country1Out: String = country1.out()
+  projPathDo{path => fileWrite(path /% "target/usa1.xml", country1Out) }
 
   val tests = Tests {
     test("Test1")
