@@ -8,6 +8,11 @@ trait XmlElem extends XmlElemLike
 }
 
 trait XmlMulti extends XmlElem with XmlLikeMulti
+trait XmlMultiNamed extends XmlMulti
+{
+  def nameStr: String
+
+}
 
 trait Xml1Lineable extends XmlElem with XmlLike1Lineable
 
