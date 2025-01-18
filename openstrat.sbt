@@ -77,6 +77,7 @@ def utilSett = List(
 lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
   name := "rutil",
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
+  Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
 )
 
@@ -152,10 +153,8 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
 
 lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) ::: List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
-
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "res", bbDir.value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pDev.SiteHtmlWrite"),
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 

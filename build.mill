@@ -26,6 +26,7 @@ object Util extends CommonJvm
 { def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(millSourcePath / name)))
   def sources2 = T.sources(millSourcePath / "srcRArr", millSourcePath / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
+  def resources = T.sources(millSourcePath / "res", T.workspace / "User")
   object test extends InnerTests
 }
 
@@ -191,7 +192,6 @@ object Dev extends CommonJvm
   def source1 = T.source(millSourcePath / "src")
   def source2 = T.source(millSourcePath / "JvmSrc")
   def sources = T.sources(Seq(source1(), source2()))
-  def resources = T.sources(millSourcePath / "res", millSourcePath / "User")
   def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }
 
