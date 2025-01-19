@@ -74,27 +74,50 @@ object Queensland extends EarthPoly("Queensland", -21.28 ll 144.5, sahel)
   val p95: LatLong = -13.895 ll 141.483
 
   override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p9, p14, coolbie, p18, p25, harveyBay, doubleIslandPoint, brisbane,
-    byronBay, NewSouthWales.northEast, SouthAustraliaWest.cameronPoint, SouthAustraliaWest.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast,
+    byronBay, NewSouthWales.northEast, NewSouthWales.cameronPoint, SouthAustraliaEast.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast,
     bynoeMouth, p95)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
 object SouthAustraliaWest extends EarthPoly("South-Australia\n west", -27.1 ll 146.73, sahel)
-{ val northEast: LatLong = -26 ll 141
-  val cameronPoint = -29 ll 141
-  val sleaford: LatLong = -34.92 ll 135.64
+{ val sleaford: LatLong = -34.92 ll 135.64
   val smokyBay: LatLong = -32.52 ll 133.86
   val yalata: LatLong = -31.35 ll 131.21
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, cameronPoint, NewSouthWales.portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast,
-    AustraliaNorthTerr.southWest, AustraliaNorthTerr.southEast)
+  override val polygonLL: PolygonLL = LinePathLL(SouthAustraliaEast.p95) ++< LakeEyre.westCoast |++| LinePathLL(SouthAustraliaEast.portAugusta, sleaford,
+    smokyBay, yalata, WesternAustralia.southEast, AustraliaNorthTerr.southWest)
+}
+
+object LakeEyre extends LakePoly("Lake Eyre", -28.503 ll 137.292, lake)
+{ override val area: Kilares = 9500.kilares
+
+  val north: LatLong = -27.841 ll 137.042
+  val east: LatLong = -28.500 ll 137.622
+  val southEast: LatLong = -29.087 ll 137.992
+  val south: LatLong = -29.505 ll 137.242
+  val eastCoast: LinePathLL = LinePathLL(north, east, southEast, south)
+
+  val west: LatLong = -28.779 ll 136.878
+  val northWest: LatLong = -27.971 ll 136.832
+  val westCoast = LinePathLL(south, west, northWest, north)
+
+  override def polygonLL: PolygonLL = eastCoast |-++-| westCoast
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
 object SouthAustraliaEast extends EarthPoly("South-Australia\neast", -30.181 ll 139.195, sahel)
-{
-  val lakeEyreNorth: LatLong = -27.841 ll 137.042
-  override val polygonLL: PolygonLL = PolygonLL(lakeEyreNorth)
+{  val northEast: LatLong = -26 ll 141
+
+  val portMacdonnell: LatLong = -38.06 ll 140.66
+  val carpenterRocks: LatLong = -37.89 ll 140.28
+  val p75: LatLong = -36.958 ll 139.672
+  val hardwicke: LatLong = -34.91 ll 137.46
+  val portAugusta: LatLong = -32.53 ll 137.77
+
+  val p95: LatLong = -26 ll 137.042
+
+  override val polygonLL: PolygonLL = LinePathLL(northEast, NewSouthWales.cameronPoint, NewSouthWales.southWest, portMacdonnell, carpenterRocks, p75, hardwicke,
+    portAugusta) ++< LakeEyre.eastCoast |++| LinePathLL(p95, AustraliaNorthTerr.southEast)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
@@ -108,13 +131,11 @@ object NewSouthWales extends EarthPoly("New-South-Wales", -27.1 ll 146.73, savan
   val wilsonsProm: LatLong = -39.12 ll 146.38
   val barwonHeads: LatLong = -38.27 ll 144.53
   val capeOtway: LatLong = -38.85 ll 143.51
-  val portMacdonnell: LatLong = -38.06 ll 140.66
-  val carpenterRocks: LatLong = -37.89 ll 140.28
-  val p75: LatLong = -36.958 ll 139.672
-  val hardwicke: LatLong = -34.91 ll 137.46
-  val portAugusta: LatLong = -32.53 ll 137.77
+  val southWest: LatLong = -38.055 ll 140.965
 
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, sealRocks, greenCape, victoriaEast, p40, p45, wilsonsProm, barwonHeads, capeOtway, portMacdonnell,
-    carpenterRocks, p75, hardwicke, portAugusta, SouthAustraliaWest.cameronPoint)
+  val cameronPoint = -29 ll 141
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, sealRocks, greenCape, victoriaEast, p40, p45, wilsonsProm, barwonHeads, capeOtway, southWest,
+    cameronPoint)
 }
