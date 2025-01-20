@@ -7,10 +7,10 @@ trait XCon
   def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String
 
   /** I don't think this has been properly implemented. I believe the Boolean in the return value indicates if it is a single line output. */
-  def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
+  //def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
 
   /** This should replace the outEither method and possibly the out method as well. */
-  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = ???
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30)
 }
 
 /** XML / HTML content that can be inlined. */
@@ -76,7 +76,7 @@ trait XConInLineable extends XCon
 /** XML / HTML text that can have its line breaks changed. */
 case class XConText(value: String) extends XConInLineable
 { override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = value
-  override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 1, 30)
 }
 
 /** Not sure about this trait. It is intended for short pieces of text that should be kept on the same line. */

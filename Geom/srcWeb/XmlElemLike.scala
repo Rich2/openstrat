@@ -57,14 +57,14 @@ trait XmlLike1Lineable extends XmlElemLike
 
 trait XmlConInline extends XmlElemLike
 {
-  override def outEither(indent: Int, maxLineLen: Int = lineLenDefault): (Boolean, String) = (true, out(indent, maxLineLen))
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = TextLines(out(indent, maxLineLen), 1, 30)
 
   override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
-  { val cons = contents.map(_.outEither(indent, maxLineLen))
+  { val cons = contents.map(_.outLines(indent,  maxLineLen))
     val middle = cons.length match
     { case 0 => ""
-      case 1 if cons.head._1 => cons.head._2
-      case n => cons.foldLeft("") { (acc, el) => acc --- el._2 } + "\n"
+      case 1 if cons.head.numLines == 1 => cons.head.text
+      case n => cons.foldLeft("") { (acc, el) => acc --- el.text } + "\n"
     }
     openTag + middle + closeTag
   }
