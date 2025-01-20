@@ -8,17 +8,20 @@ trait XCon
 
   /** I don't think this has been properly implemented. I believe the Boolean in the return value indicates if it is a single line output. */
   def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
+
+  /** This should replace the outEither method and possibly the out method as well. */
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = ???
 }
 
 /** XML / HTML content that can be inlined. */
 trait XConInLineable extends XCon
-{
-  def value: String
-  def outLines(indent: Int, line1Delta: Int, maxLineLen: Int = lineLenDefault): TextLines =
+{ def value: String
+  
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
   {
     implicit val charArr: CharArr = new CharArr(value.toCharArray)
 
-    def line1Len: Int = indent + line1Delta
+    def line1Len: Int = indent + line1InputLen
 
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
     {
