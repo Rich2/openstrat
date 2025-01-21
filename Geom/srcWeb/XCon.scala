@@ -6,11 +6,8 @@ trait XCon
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
   def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String
 
-  /** I don't think this has been properly implemented. I believe the Boolean in the return value indicates if it is a single line output. */
-  //def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
-
   /** This should replace the outEither method and possibly the out method as well. */
-  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30)
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
 }
 
 /** XML / HTML content that can be inlined. */
@@ -25,7 +22,7 @@ trait XConInLineable extends XCon
 
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
     {
-      case CharsOff0() => TextLines(currStr, 1, lineLen)
+      case CharsOff0() => TextLines(currStr, 1, lineLen, lineLen)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
       case s =>
       { val (newRem, newWord) = getWord(s)
@@ -36,7 +33,7 @@ trait XConInLineable extends XCon
     }
 
     def in2Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => TextLines(currStr, 2, lineLen)
+    { case CharsOff0() => TextLines(currStr, 2, lineLen, lineLen)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in2Loop(tail, currStr, lineLen)
       case rem =>
       { val (newRem, newWord) = getWord(rem)
@@ -47,7 +44,7 @@ trait XConInLineable extends XCon
     }
 
     def multiLoop(rem: CharsOff, lines: String, currLine: String): TextLines = rem match
-    { case CharsOff0() => TextLines(lines + currLine, 3, currLine.length)
+    { case CharsOff0() => TextLines(lines + currLine, 3, currLine.length, currLine.length)
       case CharsOff1Tail(c, tail) if c.isWhitespace => multiLoop(tail, lines, currLine)
       case s => {
         val (newRem, newWord) = getWord(rem)
@@ -76,7 +73,7 @@ trait XConInLineable extends XCon
 /** XML / HTML text that can have its line breaks changed. */
 case class XConText(value: String) extends XConInLineable
 { override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = value
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 1, 30)
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 1, 30, 30)
 }
 
 /** Not sure about this trait. It is intended for short pieces of text that should be kept on the same line. */

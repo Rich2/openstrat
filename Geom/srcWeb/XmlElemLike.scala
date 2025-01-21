@@ -57,7 +57,7 @@ trait XmlLike1Lineable extends XmlElemLike
 
 trait XmlConInline extends XmlElemLike
 {
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = TextLines(out(indent, maxLineLen), 1, 30)
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = TextLines(out(indent, maxLineLen), 1, 30, 30)
 
   override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
   { val cons = contents.map(_.outLines(indent,  maxLineLen))

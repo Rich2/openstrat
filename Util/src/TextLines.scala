@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-case class TextLines(text: String, numLines: Int, firstLen: Int)// extends TextLines
-{ /** The length of the last line of this text. The purpose of this field is to determine if there is space to add further tokens on the same line. */
-  def tailLen: Int = (text.length - firstLen - 1).max0
-}
+/** Class for returning output from a syntax hierarchy such as XML. HTML, CSS, JAvaScript, C ode etc. The class is created with a given max line length and an
+ * indentation line. The second and subsequent lines will be indented to the given level. Indentation for the first line is the responsibility of the calling
+ * object. */
+case class TextLines(text: String, numLines: Int, firstLen: Int, lastLen: Int)
