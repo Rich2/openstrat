@@ -14,7 +14,7 @@ trait XmlMultiNamed extends XmlMulti
 
 }
 
-trait Xml1Lineable extends XmlElem with XmlLike1Lineable
+trait XmlMaybeSingle extends XmlElem with XmlLikeMaybeSingle
 
 trait XmlNoAtts extends XmlElem
 { override def attribs: RArr[XmlAtt] = RArr()
@@ -22,7 +22,7 @@ trait XmlNoAtts extends XmlElem
 
 trait XmlMultiNoAtts extends XmlMulti with XmlNoAtts
 
-class XmlElemSimple(val tag: String, val str: String) extends Xml1Lineable
+class XmlElemSimple(val tag: String, val str: String) extends XmlMaybeSingle
 { override def attribs: RArr[XmlAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str.xCon)
 }

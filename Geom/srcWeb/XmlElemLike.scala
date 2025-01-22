@@ -31,6 +31,16 @@ trait XmlElemLike extends XCon
     case _ => " " + attribs.mkStr(_.out, "\n" + 2.spaces)
   }
 
+  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = attribs.length match{
+    case 0 => TextLines("", 0, 0, 0)
+    case 1 =>
+    { val str = attribs(0).out
+      val len = str.length
+      TextLines(str, 1, len, len)
+    }
+    case n => ???
+  }
+
   def openAtts: String = "<" + tag + attribsOut
   def openUnclosed: String = openAtts + ">"
   def openTag: String = openAtts + ">"
@@ -46,7 +56,8 @@ trait XmlLikeMulti extends XmlElemLike
     else openUnclosed.nli(indent + 2) + contents.mkStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
-trait XmlLike1Lineable extends XmlElemLike
+/** An XML like element that may be output on a single line. */
+trait XmlLikeMaybeSingle extends XmlElemLike
 {
   override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = contents match
   { case RArr0() => openAtts + "/>"

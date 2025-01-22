@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import geom._, Colour.Black
 
 /** An SVG element. */
-trait SvgElem extends Xml1Lineable
+trait SvgElem extends XmlMaybeSingle
 
 /** An HTML element for SVG. */
 case class HtmlSvg(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlMultiLine
