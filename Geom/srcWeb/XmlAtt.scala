@@ -6,6 +6,7 @@ trait XmlAtt
 { def name: String
   def valueStr: String
   def out: String = name + "=" + valueStr.enquote1
+  def outLen: Int = out.length
 }
 
 /** Companion object for the XML attribute [[XmlAtt]] trait. */

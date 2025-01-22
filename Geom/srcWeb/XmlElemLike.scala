@@ -33,12 +33,16 @@ trait XmlElemLike extends XCon
 
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = attribs.length match{
     case 0 => TextLines("", 0, 0, 0)
-    case 1 =>
-    { val str = attribs(0).out
+
+    case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 80 =>
+    { val str = attribs.mkStr(_.out, " ")
       val len = str.length
       TextLines(str, 1, len, len)
     }
-    case n => ???
+
+    case n => {
+      ???
+    }
   }
 
   def openAtts: String = "<" + tag + attribsOut
