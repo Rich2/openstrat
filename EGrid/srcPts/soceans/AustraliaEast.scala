@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package soceans
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+/** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[AustraliaNorthTerr]] and [[SouthAustraliaEast]]. */
 object Queensland extends EarthPoly("Queensland", -21.28 ll 144.5, sahel)
 { val nQueensland: LatLong = -11 ll 142.43
   val p5: LatLong = -12.840 ll 143.531
@@ -43,7 +43,7 @@ object LakeEyre extends LakePoly("Lake Eyre", -28.503 ll 137.292, lake)
   override def polygonLL: PolygonLL = eastCoast |-++-| westCoast
 }
 
-/** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
+/** [[polygonLL]] graphical representation of Australia. Depends on [[NewSouthWales]], [[LakeEyre]] and [[AustraliaNorthTerr]]. */
 object SouthAustraliaEast extends EarthPoly("South-Australia\neast", -30.181 ll 139.195, sahel)
 {  val northEast: LatLong = -26 ll 141
 
@@ -69,7 +69,7 @@ object SouthAustraliaEast extends EarthPoly("South-Australia\neast", -30.181 ll 
     portAugusta) ++< LakeEyre.eastCoast |++| LinePathLL(p95, AustraliaNorthTerr.southEast)
 }
 
-/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+/** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
 object NewSouthWales extends EarthPoly("New-South-Wales", -27.1 ll 146.73, savannah)
 { val northEast: LatLong = -29 ll 153.476
   val sealRocks: LatLong = -32.440 ll 152.538

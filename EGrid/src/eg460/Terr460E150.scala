@@ -3,11 +3,12 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 460km.
+ * [[Isle10]] 64603.127km² => 78919.609km². Tasmania 68401km²
  * [[Isle7]] 30243.569km² => 40265.106km². New Britain 35144km².
  * [[Isle6]] 21653.679km² => 30243.569km². New Caledonia 18353km².
  * [[Isle4]] 8768.845km² => 14495.438km². New Ireland 8990km². */
 object Terr460E150 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e150(80)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e150(76)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -58,7 +59,11 @@ object Terr460E150 extends Long460Terrs
       TRow(86, sahel, savannah * 2, hillySavannah),
       VRow(85, BendOut(5636, HVUR, 7), BendIn(5638, HVDL, 13)),
       TRow(84, sahel, savannah, hillySub * 2),
+      VRow(83, BendOut(5636, HVDR, 7), BendIn(5638, HVUL, 13)),
       TRow(82, hillySavannah, sahel, savannah, hillySub),
+      TRow(80, savannah, hillySavannah, mtainSub),
+      TRow(78, oceanic, hillyOce),
+      TRow(76, sea, Isle10(mtainOceForest)),
     )
   }
   help.run
