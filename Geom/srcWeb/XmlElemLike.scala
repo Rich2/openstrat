@@ -20,6 +20,8 @@ trait XmlElemLike extends XCon
   /** The attributes of this XML / HTML element. */
   def attribs: RArr[XmlAtt]
 
+  def attribsLen = attribs.length
+
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
@@ -40,8 +42,21 @@ trait XmlElemLike extends XCon
       TextLines(str, 1, len, len)
     }
 
-    case n => {
-      ???
+    case n =>
+    { val lines = StringBuff()
+      var i = 0
+      var currLine = ""
+      def currLen = currLine.length
+      attribs.iForeach{ (i, att) =>
+        val newStr = att.out
+        if (currLen == 0 || currLen + newStr.length <= 60) currLine --= newStr
+        else
+        { lines.grow(currLine)
+          currLine = indent.spaces + newStr
+        }
+      }
+      lines.grow(currLine)
+      TextLines(lines.mkStr(), lines.length, lines(0).length, lines.last.length)
     }
   }
 
