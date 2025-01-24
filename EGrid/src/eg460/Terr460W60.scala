@@ -3,7 +3,8 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.
- * [[Isle10]] 64603.127km² => 78919.609km². Hispaniola 76192km². */
+ * [[Isle10]] 64603.127km² => 78919.609km². Hispaniola 76192km².
+ * [[Isle4]] 8768.845km² => 14495.438km². Falkland Islands 12173km². */
 object Terr460W60 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.w60(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -70,8 +71,15 @@ object Terr460W60 extends Long460Terrs
     TRow(82, mtainSavannah, savannah * 2, subtrop * 2),
     VRow(81, BendIn(10740, HVUR, 13), BendOut(10742, HVDL, 7), BendOut(10758, HVDR, 7), BendIn(10760, HVUL, 13)),
     TRow(80, hillySteppe, steppe, subtrop, hillySub),
-    VRow(79, BendOut(10742, HVUL, 7), BendIn(10758, HVUL, 13)),
+    VRow(79, BendOut(10742, HVUL, 7), OrigLt(10756, HVUR, 7), BendIn(10758, HVUL, 13)),
     TRow(78, hillySahel, sahel),
+    VRow(77, BendOut(10750, HVDR), OrigRt(10752, HVDL, 7)),
+    TRow(76, hillyOce, hillySteppe),
+    TRow(74, hillySteppe),
+    TRow(72, hillySteppe, Isle4(hillyBoreal)),
+    VRow(71, BendMin(10744, HVDL, 5)),
+    TRow(70, hillyOce),
+    VRow(69, OrigRt(10744, HVUp, 7)),
     )
   }
   help.run

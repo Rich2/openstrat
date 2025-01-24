@@ -65,7 +65,11 @@ object WTiles
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
 
   /** [[Hilly]] [[Boreal]] [[Forest]] */
+  val hillyBoreal: Land = Land(Hilly, Boreal, LandFree)
+
+  /** [[Hilly]] [[Boreal]] [[Forest]] */
   val hillyTaiga: Land = Land(Hilly, Boreal, Forest)
+
 
   /** [[Hilly]] [[Steppe]] [[CivMix]] */
   val hillySteppe: Land = Land(Hilly, Steppe, CivMix)
