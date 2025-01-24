@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML element. */
@@ -12,8 +12,8 @@ trait HtmlElem extends XmlElemLike
 
 /** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
-{ def openTag1: String = openTag + "\n"
-  def openTag2: String = openTag + "\n\n"
+{ def openTag1(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = openTag(indent, line1InputLen, maxLineLen) + "\n"
+  def openTag2(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = openTag(indent, line1InputLen, maxLineLen) + "\n\n"
 
   /** The full length of the opening tag without attributes. */
   def closeTagMinLen: Int = tag.length + 3
@@ -21,14 +21,14 @@ trait HtmlUnvoid extends HtmlElem
 
 /** An HTML element that is not void, but has no content. */
 trait HtmlEmpty extends HtmlUnvoid
-{ override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = openUnclosed + closeTag
+{ override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = openUnclosed(indent, line1InputLen, maxLineLen) + closeTag
   override def contents: RArr[XCon] = RArr()
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
 trait HtmlMultiLine extends HtmlUnvoid
 {
-  override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String =
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
   { val cons = contents.map(_.outLines(indent + 2, 0, maxLineLen))
     val middle = cons.foldLeft("") { (acc, ol) => acc --- ife(ol.numLines == 1, (indent + 2).spaces, "") + ol._2 } + "\n"
     indent.spaces + openTag + middle + indent.spaces + closeTag

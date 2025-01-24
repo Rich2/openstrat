@@ -31,7 +31,6 @@ object XmlTest extends TestSuite
   val cities2 = Cities(RArr(wash, bost))
   val usa1 = Country("USA", cities2)
   val country1Out: String = usa1.out()
-  //projPathDo{path => fileWrite(path /% "target/usa1.xml", country1Out) }
 
   val tests = Tests {
     test("Test1")
@@ -41,5 +40,17 @@ object XmlTest extends TestSuite
       Succ(cities2.out()) ==> strFromResource("cities2.xml")
       Succ(usa1.out()) ==>  strFromResource("usa1.xml")
     }
+    val paris = City("Paris")
+    val tours = City("Tours")
+    val lyon = City("Lyon")
+    val frCities = Cities(RArr(paris, tours, lyon))
+    val france1 = new Country("France", RArr(frCities))
+    {
+      override val attribs: RArr[XmlAtt] = RArr(VersionAtt("1.0.0"), NameAtt("France"), XmlAtt("VeryLongAttribute", "Very long value!"),
+        XmlAtt("Colour", "violet"))
+    }
+
+    val france1Out = france1.out()
+    projPathDo{path => fileWrite(path /% "target/france1.xml", france1Out) }
   }
 }

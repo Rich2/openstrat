@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 trait HttpContent
@@ -59,12 +59,13 @@ case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
 case class HtmlTitle(str: String, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { override def tag = "title"
   override def contents: RArr[XCon] = RArr(str.xCon)
-  override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = indent.spaces + "<title>" + str + "</title>"
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + "<title>" + str + "</title>"
 }
 
 /** The "html" HTML element */
 case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { def tag: String = "html"
   override def contents: RArr[HtmlUnvoid] = RArr(head, body)
-  def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag2 + head.out() + "\n\n" + body.out(0) + n2CloseTag
+  def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+    openTag2(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n2CloseTag
 }

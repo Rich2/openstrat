@@ -1,10 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML head element. */
 case class HtmlHead(contents : RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { override def tag: String = "head"
-  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
+  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+    openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
 }  
 
 /** Companion object for the [[HtmlHead]] case class. */
@@ -27,7 +28,8 @@ object HtmlHead
 /** The HTML body element. */
 class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlUnvoid
 { override def tag: String = "body"
-  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.mkStr(_.out(0), "\n") + n1CloseTag
+  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+    openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
 }
 
 /** Companion object for the [[HTMLBody]] class contains factory methods.  */

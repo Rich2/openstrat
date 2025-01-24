@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML A anchor element. */
@@ -26,9 +26,9 @@ object HtmlP
     override val attribs: RArr[XmlAtt] = attsIn.toArr
     override def contents: RArr[XCon] = RArr(con1)
 
-    override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
+    override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
     {
-      val subt: TextLines = con1.outLines(indent + 2, openUnclosed.length)
+      val subt: TextLines = con1.outLines(indent + 2, openUnclosed(indent, line1InputLen, maxLineLen).length)
       val isps = indent.spaces
       val nli = "\n" + indent.spaces
       val nli2 = "\n" + (indent + 2).spaces
