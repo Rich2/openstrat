@@ -20,7 +20,7 @@ object Mexico extends EarthPoly("Mexico", 24 ll -102.4, hillySavannah)
   val cAmericaNW: LatLong = 22.8 ll -105.97
   val p90: LatLong = 25.952 ll -109.445
 
-  override def polygonLL: PolygonLL = PolygonLL(UsaPrariesSouth.galveston, brownsville, puntaJerez, caboRojo, p40, puntaRockoPartido,
+  override def polygonLL: PolygonLL = PolygonLL(UsaPrairiesSouth.galveston, brownsville, puntaJerez, caboRojo, p40, puntaRockoPartido,
     MexicoEast.coatzacoalcosMouth, MexicoEast.tehuantepecMouth, pochutala, maldonado, papagayoMouth, p70, manzanillo, puntaDelMario, grandeDeSantiagoMouth,
     cAmericaNW, p90, UsaSouthWest.rockyPoint, UsaSouthWest.southEast)
 }

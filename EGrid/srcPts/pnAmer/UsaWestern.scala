@@ -29,10 +29,10 @@ object UsaNorthWest extends EarthPoly("United States\nnorth west", 45.5 ll -108.
 
 /** [[PolygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[AlbertaSask]], [[LakeWinnipeg]],
  * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
-object UsaMidWest extends EarthPoly("United States\nMid West", 44 ll -97.0, steppe)
+object UsaPrairiesNorth extends EarthPoly("USA Prairies\nnorth", 44 ll -97.0, steppe)
 {
   override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++< LakeMichigan.coastWest |++| LinePathLL(
-    UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE, AlbertaSask.montanaNE,
+    UsaPrairiesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE, AlbertaSask.montanaNE,
     LakeWinnipeg.redMouth)
 }
 
@@ -65,7 +65,7 @@ object UsaSouthWest extends EarthPoly("United States\nsouth west", 40.0 ll -108.
 }
 
 /** [[PolygonLL]] Graphical object for the United States south Praries. Dependant on [[UsaSouthWest]], [[UsaSouth]], and [[UsaNorthEast]]. */
-object UsaPrariesSouth extends EarthPoly("Uunited States Praries\nsouth", 35 ll -97.0, sahel)
+object UsaPrairiesSouth extends EarthPoly("USA Prairies\nsouth", 35 ll -97.0, sahel)
 { val northEast: LatLong = 40 ll -87.532
   val newOrleansSE: LatLong = 29.38 ll -89.57
   val calcasieuMouth: LatLong = 29.76 ll -93.34

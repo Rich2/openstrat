@@ -101,7 +101,7 @@ object Canada extends EarthRegion("Canada", 61 ll -109)
 
 object AmericasNearNorth extends EarthRegion("North America", 49 ll -100)
 { import pnAmer.*
-  override val ePolys: RArr[EarthPoly] = RArr(UsaSouthWest, UsaNorthWest, UsaMidWest, UsaNorthEast, MicheganLower, Delmarva, UsaSouth, UsaPrariesSouth, Florida)
+  override val ePolys: RArr[EarthPoly] = RArr(UsaSouthWest, UsaNorthWest, UsaPrairiesNorth, UsaNorthEast, MicheganLower, Delmarva, UsaSouth, UsaPrairiesSouth, Florida)
 }
 
 object AmericasCentral extends EarthRegion("Americas Central", 19.563 ll -89.167)
