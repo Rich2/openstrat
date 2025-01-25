@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle6]] 21653.679km² => 30243.569km². New Caledonia 18353km².
  * [[Isle4]] 8768.845km² => 14495.438km². New Ireland 8990km². */
 object Terr460E150 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e150(76)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e150(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -61,8 +61,11 @@ object Terr460E150 extends Long460Terrs
       TRow(84, sahel, savannah, hillySub * 2),
       VRow(83, BendOut(5636, HVDR, 7), BendIn(5638, HVUL, 13)),
       TRow(82, hillySavannah, sahel, savannah, hillySub),
+      VRow(81, BendOut(5634, HVDR), BendIn(5636, HVUL, 13)),
       TRow(80, savannah, hillySavannah, mtainSub),
+      VRow(79, BendIn(5622, HVUR, 8), BendOut(5624, HVDL, 7), BendOut(5632, HVDR), BendIn(5634, HVUL, 10)),
       TRow(78, oceanic, hillyOce),
+      VRow(77, BendIn(5624, HVUR, 13), BendIn(5626, HVUp, 13), BendOut(5628, HVDn, 7), BendIn(5630, HVUp, 13), BendIn(5632, HVUL, 13)),
       TRow(76, sea, Isle10(mtainOceForest)),
     )
   }
