@@ -26,18 +26,14 @@ object DevPage extends HtmlPage
     "readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3" --
     "will be the ideal language to explore these questions.")
 
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.6.3. Jdk 11+, 21 preferred. Scala.Js set to 1.18.1. Scala native set to 0.5.6. Sbt currently set to 1.10.7
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.6.3. Jdk 11+, 21 preferred. Scala.Js set to 1.18.2. Scala native set to 0.5.6. Sbt currently set to 1.10.7
   | (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to
   | 0.12.5.""".stripMargin)
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
-  def sbt2: HtmlUl = HtmlUl(
-    HtmlLi.sbtAndText("~ DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
-
-    HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" --
-      "Dev/DevPages/DicelessSbtFast.html".htmlPath),
-
+  def sbt2: HtmlUl = HtmlUl(HtmlLi.sbtAndText("~ DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
+    HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFull.html".htmlPath),
     HtmlLi.sbtAndText("~ Util/test", "Rerun tests on Util module."),
     HtmlLi.sbtAndText("~ Tiling/test", "Rerun tests on Tiling module."),
