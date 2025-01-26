@@ -76,14 +76,14 @@ trait HGridSys extends HexStruct with TGridSys
     case hs: HStep => stepEndFind(startHC, hs)
   }
 
-  /** Gives a flat projection of [[HCoord]]s to [[Pt2]]s. For a simple singular [[HGrid]] system this is all that is required to translate between
-   * grid coordinates and standard 2 dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
-   * more complex projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile
-   * games will require their own specialist projections. */
+  /** Gives a flat projection of [[HCoord]]s to [[Pt2]]s. For a simple singular [[HGrid]] system this is all that is required to translate between grid
+   * coordinates and standard 2-dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a more complex
+   * projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile games will require their
+   * own specialist projections. */
   def flatHCoordToPt2(hCoord: HCoord): Pt2
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
-   *  Array SeqDef data. */
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /  Array
+   * [[SeqSpec]] data. */
   def layerArrayIndex(r: Int, c: Int): Int
 
   /** Gives the index into the unsafe backing [[Array]] of a [[HCornerLayer]]. */
@@ -150,19 +150,18 @@ trait HGridSys extends HexStruct with TGridSys
     found.map(endNode =>  loop(Nil, endNode))
   }
 
-  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
-   *  departure and the tile of arrival. */
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of departure and
+   * the tile of arrival. */
   def getHCost(startCen: HCen, endCen: HCen): Int
 
   /** Creates a new [[HCenBuffLayer]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenBuffLayer[A] = HCenBuffLayer(numTiles)
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
-   *  Arr / Array data. */
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access tile centre and Vertex Arr / Array
+   * data. */
   @inline final def sepLayerArrayIndex(hc: HSep): Int = sepLayerArrayIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of side data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
-   *  Array data. */
+  /** Gives the index into an Arr / Array of side data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr / Array data. */
   def sepLayerArrayIndex(r: Int, c: Int): Int
 
   /** foreach Hex separator's coordinate [[HSep]], calls the effectual function. */
@@ -253,12 +252,12 @@ trait HGridSys extends HexStruct with TGridSys
 
   def defaultView(pxScale: Double = 30): HGView
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side
-   *  Arr / Array data. */
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side Arr / Array
+   * data. */
   @inline final def vertArrIndex(hc: HSep): Int = vertArrIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of side data from its tile [[HVert]]. Use arrIndex and vertIndex methods to access tile centre and side Arr
-   *  / Array data. */
+  /** Gives the index into an Arr / Array of side data from its tile [[HVert]]. Use arrIndex and vertIndex methods to access tile centre and side Arr / Array
+   * data. */
   def vertArrIndex(r: Int, c: Int): Int = 0
 
   def findSepTiles(hs: HSep ): Option[(HCen, HCen)] = ???

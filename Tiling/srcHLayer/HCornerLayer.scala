@@ -288,7 +288,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the [[PolygonHvOffset]] [[PolygonLike]] for the given [[HSep]]. */
   def sidePoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHvOffset = hs.tileLtOpt match
   {
-    case None =>
+    case None => //There is a tile to the right of the separator, but not one to the left
     { val (hcRt, vi) = hs.tileRtAndVert
       val p1 = cornerV1(hcRt, vi)
       val p2 = cornerV1(hcRt, (vi - 1) %% 6)
@@ -299,7 +299,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
     case Some(hcLt) => hs.tileRtOpt match
     {
-      case None =>
+      case None => //There is a tile to the left of the separator, but not one to the right.
       { val (hcLt, vi) = hs.tileLtAndVert
         val p1 = hs.vertUpper.noOffset
         val p2 = hs.vertLower.noOffset
@@ -308,7 +308,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         PolygonHvOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
       }
 
-      case Some(_) =>
+      case Some(_) => //The common case where there is a tile on both sides
       { val (hcRt, vi) = hs.tileRtAndVert
         val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
         val p1 = cornerV1(hcRt, vi)

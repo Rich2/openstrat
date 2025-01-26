@@ -1,11 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** Hex tile corner. A corner encodes 1 or 2 [[HVOffsetDelta]]s. An [[HVert]] is shared between 3 hex tiles and 3 [[HSep]]s. An [[HCorner]] only
- *  applies to a single hex tile. Hence unless it is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This
- *  class encodes a single or two [[HVertoffset]]s. */
+/** Hex tile corner. A corner encodes 1 or 2 [[HVOffsetDelta]]s. An [[HVert]] is shared between 3 hex tiles and 3 [[HSep]]s. An [[HCorner]] only applies to a
+ * single hex tile. Hence, unless it is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This class encodes a single
+ * or two [[HVertoffset]]s. */
 class HCorner(val unsafeInt: Int) extends AnyVal
-{
+{ /** The lowest two bits encode number of vertices in this hex corner. */
   def numVerts: Int = unsafeInt %% 4
 
   override def toString: String = "HCorner " + numVerts
@@ -40,6 +40,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 
+  /** I think special is a specail case of 1 vertice where you have 3 separators meeting. */
   def isSpecial: Boolean = numVerts == 3
 }
 
@@ -50,8 +51,8 @@ object HCorner
   /** Creates a corner with a single vertex. */
   def single(dirn: HVDirnOpt, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.int1 + magnitude * 64)
 
-  /** Creates a corner with 2 vertexs. For example the corner of a sea hex at the mouth of straits or river needs 2 vertexs for the corresponding
-   * corners of the land hexs. */
+  /** Creates a corner with 2 vertices. For example the corner of a sea hex at the mouth of straits or river needs 2 vertices for the corresponding corners of
+   * the land hexs. */
   def double(dirn1: HVDirnOpt, magnitude1 : Int, dirn2: HVDirnOpt, magnitude2 : Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 64
     val v2 = dirn2.int1 + magnitude2 * 16
