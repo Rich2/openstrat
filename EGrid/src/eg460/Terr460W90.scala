@@ -88,7 +88,7 @@ object Terr460W90 extends Long460Terrs
     VRow(77, BendIn(9736, HVUR, 13), OrigRt(9738, HVUL)),
     VRow(73, OrigLt(9734, HVDn, 7)),
     TRow(72, sea * 3, mtainOce),
-    VRow(71, BendIn(9734, HVUR, 13), BendMin(9736, HVDL, 5)),
+    VRow(71, BendIn(9734, HVUR, 13), OrigMin(9736, HVUL, 5)),
     )
   }
   help.run

@@ -33,11 +33,13 @@ object Terr460E180 extends Long460Terrs
     VRow(87, SetSep(6645)),
     VRow(81, OrigRt(6652, HVDR, 7), OrigLt(6654, HVUL, 7)),
     TRow(80, sea, hillySubForest),
+    VRow(79, OrigRt(6656, HVDn, 7)),
     TRow(78, sea, hillySubForest),
-    VRow(77, OrigRt(6652, HVDR), BendInLt(6654, HVDL, 13, 7)),
+    VRow(77, OrigMin(6652, HVDR), ThreeDown(6654, 6, 0, 13), BendIn(6656, HVUL, 13)),
     TRow(76, sea, mtainOceForest),
-    VRow(75, BendIn(6654, HVUL, 13)),
+    VRow(75, OrigLt(6648, HVDn), BendIn(6654, HVUL, 13)),
     TRow(74, hillyOce),
+    VRow(73, BendIn(6648, HVUR, 7), BendIn(6650, HVUp, 13), BendIn(6652, HVUL, 13)),
     )
   }
   help.run

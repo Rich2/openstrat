@@ -35,14 +35,20 @@ object NZNorthIsland extends IslandPoly("New Zealand\nNorth Island", -38.66 ll 1
 
   val capeReinga: LatLong = -34.42 ll 172.68
   val teHapua: LatLong = -34.41 ll 173.05
+  val capeBrett: LatLong = -35.170 ll 174.333
   val aukland: LatLong = -36.83 ll 174.81
+  val sugarLoaf: LatLong = -36.470 ll 175.411
+  val crayfishBay: LatLong = -36.722 ll 175.820
   val eCape: LatLong = -37.69 ll 178.54
+  val tableCape: LatLong = -39.103 ll 178.000
   val capePalliser: LatLong = -41.61 ll 175.29
   val makara: LatLong = -41.29 ll 174.62
   val himtangi: LatLong = -40.36 ll 175.22
   val capeEgmont: LatLong = -39.28 ll 173.75
+  val p88: LatLong = -37.864 ll 174.759
 
-  override val polygonLL: PolygonLL = PolygonLL(capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
+  override val polygonLL: PolygonLL = PolygonLL(capeReinga, teHapua, capeBrett, aukland, sugarLoaf, crayfishBay, eCape, tableCape, capePalliser, makara,
+    himtangi, capeEgmont, p88)
 }
 
 /** [[polygonLL]] graphical representation of the South Island of New Zealand and Stewart Island 145836km² + 1747.72km². Depends on nothing. */
@@ -52,7 +58,11 @@ object NZSouthIsland extends IslandPoly("New Zealand\nSouth Island", -43.68 ll 1
   override val area: Kilares = southArea + stewartArea
 
   val puponga: LatLong = -40.51 ll 172.72
+  val dUrvilleNW: LatLong = -40.729 ll 173.869
+  val arapaoa: LatLong = -41.094 ll 174.391
   val capeCambell: LatLong = -41.73 ll 174.27
+  val p32: LatLong = -43.683 ll 173.086
+  val waitakiMouth: LatLong = -44.937 ll 171.144
   val p40: LatLong = -45.878 ll 170.739
   val southEast: LatLong = -46.576 ll 169.584
   val slopePoint: LatLong = -46.67 ll 169.00
@@ -60,6 +70,8 @@ object NZSouthIsland extends IslandPoly("New Zealand\nSouth Island", -43.68 ll 1
   val p58: LatLong = -46.315 ll 167.688
   val southWest: LatLong = -45.98 ll 166.47
   val p70: LatLong = -44.008 ll 168.368
+  val capeFoulwind: LatLong = -41.751 ll 171.462
 
-  override val polygonLL: PolygonLL = PolygonLL(puponga, capeCambell, p40, southEast, slopePoint, stewartSE, p58, southWest, p70)
+  override val polygonLL: PolygonLL = PolygonLL(puponga, dUrvilleNW, arapaoa, capeCambell, p32, waitakiMouth, p40, southEast, slopePoint, stewartSE, p58,
+    southWest, p70, capeFoulwind)
 }

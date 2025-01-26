@@ -76,10 +76,10 @@ object Terr460W60 extends Long460Terrs
     VRow(77, BendOut(10750, HVDR), OrigRt(10752, HVDL, 7)),
     TRow(76, hillyOce, hillySteppe),
     TRow(74, hillySteppe),
+    VRow(73, BendInLt(10750, HVDR, 13, 7)),
     TRow(72, hillySteppe, Isle4(hillyBoreal)),
-    VRow(71, BendMin(10744, HVDL, 5)),
+    VRow(71, OrigMin(10744, HVUL, 5), OrigLt(10748, HVUR), BendIn(10750, HVUL, 13)),
     TRow(70, hillyOce),
-    VRow(69, OrigRt(10744, HVUp, 7)),
     )
   }
   help.run
