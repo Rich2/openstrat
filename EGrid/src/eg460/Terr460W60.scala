@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle10]] 64603.127km² => 78919.609km². Hispaniola 76192km².
  * [[Isle4]] 8768.845km² => 14495.438km². Falkland Islands 12173km². */
 object Terr460W60 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w60(70)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w60(66)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
