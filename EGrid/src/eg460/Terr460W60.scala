@@ -46,10 +46,7 @@ object Terr460W60 extends Long460Terrs
     VRow(111, ThreeDown(10740, 6, 6, 12), ThreeUp(10742, 0, 6, 6), BendIn(10744, HVDL)),
     TRow(110, hillyJungle),
     VRow(109, BendIn(10740, HVUR), BendIn(10742, HVUp), BendIn(10744, HVUL)),
-
-    VRow(107, OrigRt(10742, HVDR), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13),
-      OrigMin(10752, HVUL)),
-
+    VRow(107, OrigRt(10742, HVDR), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13), OrigMin(10752, HVUL)),
     TRow(106, hillySavannah * 3),
     TRow(104, mtainJungle, savannah, hillyJungle * 2),
     TRow(102, jungle, hillyJungle * 2, jungle, hillyJungle),
@@ -75,8 +72,9 @@ object Terr460W60 extends Long460Terrs
     TRow(78, hillySahel, sahel),
     VRow(77, BendOut(10750, HVDR), OrigRt(10752, HVDL, 7)),
     TRow(76, hillyOce, hillySteppe),
+    VRow(75, OrigLt(10750, HVUp, 7)),
     TRow(74, hillySteppe),
-    VRow(73, BendInLt(10750, HVDR, 13, 7)),
+    VRow(73, BendInLt(10750, HVDR, 12, 7)),
     TRow(72, hillySteppe, Isle4(hillyBoreal)),
     VRow(71, OrigMin(10744, HVUL, 5), OrigLt(10748, HVUR), BendIn(10750, HVUL, 13)),
     TRow(70, hillyOce),
@@ -86,5 +84,6 @@ object Terr460W60 extends Long460Terrs
 
   { import hexNames.{ setRow => str }
     str(110, "Hispaniola")
+    str(72, "", "Falklands")
   }
 }
