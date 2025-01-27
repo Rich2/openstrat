@@ -7,8 +7,7 @@ object Km220Test extends TestSuite
   val tests = Tests {
     val gs = Scen220Europe.gridSys
     test("test1")
-    {
-      gs.hSepExists(194, 1532) ==> true
+    { gs.hSepExists(194, 1532) ==> true
       gs.hSepExists(195, 1535) ==> true
     }
   }

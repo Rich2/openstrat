@@ -30,7 +30,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the last [[HvOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HvOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
 
-  def isSpecial(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).isSpecial
+  /** The separator that shares meets this corner has an extra vertex. */
+  def sepExtra(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).sepExtra
 
   /** Produces an [[HSep]]'s line segment specified in [[HvOffset]] coordinates. */
   def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHvOffset =
@@ -239,7 +240,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int)(implicit grid: HGrid): Unit =
   { val dirn = HVDirn.inFromVertIndex(vertNum)
     if (grid.hCenExists(cenR, cenC))
-    { val corner: HCorner = HCorner.sideSpecial(dirn, magnitude)
+    { val corner: HCorner = HCorner.sepExtra(dirn, magnitude)
       val index: Int = indexUnsafe(cenR, cenC, vertNum)
       unsafeArray(index) = corner.unsafeInt
     }
@@ -260,13 +261,13 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       unsafeArray(index) = corner.unsafeInt
     }
 
-  /** Sets a single [[HCorner]] corner with 1 [[HVOffsetDelta]] for the tile 2 for the [[hSide]]. */
-  def setSideCornerSpecial(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int)(implicit grid: HGrid): Unit =
-    setSideSpecial(HCen(cenR, cenC), vertNum, dirn1, magnitude1)
+  /** Sets a single [[HCorner]] corner with 1 [[HVOffsetDelta]], but allows an adjacent [[HSep]] to have an extra vertex with no offset. */
+  def setCornerSepExtra(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int)(implicit grid: HGrid): Unit =
+    setCornerSepExtra(HCen(cenR, cenC), vertNum, dirn1, magnitude1)
 
-  /** Sets a single [[HCorner]] corner with [[HVOffsetDelta]] for the tile 2 for the HSide. */
-  def setSideSpecial(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int)(implicit grid: HGrid): Unit = if(grid.hCenExists(hCen))
-    { val corner = HCorner.sideSpecial(dirn1, magnitude1)
+  /** Sets a single [[HCorner]] corner with 1 [[HVOffsetDelta]], but allows an adjacent [[HSep]] to have an extra vertex with no offset . */
+  def setCornerSepExtra(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int)(implicit grid: HGrid): Unit = if(grid.hCenExists(hCen))
+    { val corner = HCorner.sepExtra(dirn1, magnitude1)
       val index = indexUnsafe(hCen, vertNum)
       unsafeArray(index) = corner.unsafeInt
     }
@@ -318,8 +319,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val p3: HvOffset = cornerV1(hcLt, vi3)
         val vi4 = lvi %% 6
         val p4: HvOffset = cornerV1(hcLt, vi4)
-        val arr1: HvOffsetArr = ife(isSpecial(hcRt, vi) & isSpecial(hcLt, vi4), HvOffsetArr(hcRt.vExact(vi), p1, p2), HvOffsetArr(p1, p2))
-        val arr2: HvOffsetArr = ife(isSpecial(hcRt, vi2) & isSpecial(hcLt, vi3), HvOffsetArr(hcRt.vExact(vi2), p3, p4), HvOffsetArr(p3, p4))
+        val arr1: HvOffsetArr = ife(sepExtra(hcRt, vi) && sepExtra(hcLt, vi4), HvOffsetArr(hcRt.vExact(vi), p1, p2), HvOffsetArr(p1, p2))
+        val arr2: HvOffsetArr = ife(sepExtra(hcRt, vi2) && sepExtra(hcLt, vi3), HvOffsetArr(hcRt.vExact(vi2), p3, p4), HvOffsetArr(p3, p4))
         (arr1 ++ arr2).toPolygon
       }
     }

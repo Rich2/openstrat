@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package eg320
-import utest.{Show => _, _}, prid.phex._
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package egrid
+import utest.{Show => _, _}, prid.phex.*, eg320.*
 
 object EGridTest extends TestSuite
 {

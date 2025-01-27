@@ -40,8 +40,8 @@ class HCorner(val unsafeInt: Int) extends AnyVal
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 
-  /** I think special is a specail case of 1 vertice where you have 3 separators meeting. */
-  def isSpecial: Boolean = numVerts == 3
+  /** The separator that meets this corner has ane extra vertex. */
+  def sepExtra: Boolean = numVerts == 3
 }
 
 /** Companion object for [[HCorner]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */
@@ -59,7 +59,8 @@ object HCorner
     new HCorner(2 + v1 + v2 * 2048)
   }
 
-  def sideSpecial(dirn1: HVDirnOpt, magnitude1: Int): HCorner =
+  /** The separator can have an extra vertex with no offset. */
+  def sepExtra(dirn1: HVDirnOpt, magnitude1: Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 64
     new HCorner(3 + v1)
   }
