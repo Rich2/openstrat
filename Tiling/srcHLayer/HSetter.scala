@@ -442,14 +442,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
         corners.setCornerSepExtra(row - 1, c - 2, 1, HVUL, OrigMag)
-        //corners.setCorner(row + 1, c, 3, HVUL, OrigMag)//Change
         corners.setCornerPair(row + 1, c, 3, HVUR, 0, HVUL, OrigMag)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
         corners.setCornerPair(row + 1, c + 2, 4, HVExact, 0, HVUp, OrigMag)
-        corners.setCorner(row + 1, c - 2, 2, HVUp, OrigMag)
+        corners.setCornerSepExtra(row + 1, c - 2, 2, HVUp, OrigMag)
       }
 
       case HVDL =>

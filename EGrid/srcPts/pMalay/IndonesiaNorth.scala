@@ -1,16 +1,33 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of the island of Borneo. 743330km². Depends on nothing. */
-object Borneo extends IslandPoly("Borneo", 0.63 ll 114.132, jungle)
-{ override val area: Kilares = 743330.kilares
+/** A reference object for the Island of Borneo,rperesented by multiple [[PolygonLL]] */
+object Borneo extends IslandPolys("Borneo", 743330.kilares)
+
+/** [[PolygonLL]] graphical representation of the island of Borneo. 743330km². Depends on nothing. */
+object BorneoNorth extends IslandPartPoly("Borneo north", 3.152 ll 115.749, hillyJungle)
+{ override val island: IslandPolys = Borneo
 
   val nBorneo: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
   val borderEast: LatLong = 4.165 ll 117.906
   val cenEast: LatLong = 1.022 ll 118.986
-  val p20: LatLong =  -0.761 ll 117.613
+  val p20: LatLong =  -0.757 ll 117.752
+
+  val batangLuparMouth: LatLong = 1.512 ll 110.988
+  val p70: LatLong = 2.798 ll 111.333
+  val p75: LatLong = 3.268 ll 113.058
+  val kulalaBaram: LatLong = 4.598 ll 113.973
+
+  override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, borderEast, cenEast, p20,
+    batangLuparMouth, p70, p75, kulalaBaram)
+}
+
+/** [[PolygonLL]] graphical representation for south of the island of Borneo. Island total = 743330km². Depends on [[BorneoNorth]]. */
+object BorneoSouth extends IslandPartPoly("Borneo south", -0.592 ll 113.541, hillyJungle)
+{ override val island: IslandPolys = Borneo
+
   val p25: LatLong = -2.177 ll 116.589
   val southEast: LatLong = -4.03 ll 116.09
   val p45: LatLong = -4.172 ll 114.650
@@ -18,16 +35,11 @@ object Borneo extends IslandPoly("Borneo", 0.63 ll 114.132, jungle)
   val p55: LatLong = -1.259 ll 109.398
   val p60: LatLong = 0.816 ll 108.841
   val nwSarawak: LatLong = 2.08 ll 109.64
-  val batangLuparMouth: LatLong = 1.512 ll 110.988
-  val p70: LatLong = 2.798 ll 111.333
-  val p75: LatLong = 3.268 ll 113.058
-  val kulalaBaram: LatLong = 4.598 ll 113.973
 
-  override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, borderEast, cenEast, p20, p25, southEast, p45, southWest, p55, p60, nwSarawak,
-    batangLuparMouth, p70, p75, kulalaBaram)
+  override val polygonLL: PolygonLL = PolygonLL(BorneoNorth.p20, p25, southEast, p45, southWest, p55, p60, nwSarawak, BorneoNorth.batangLuparMouth)
 }
 
-/** [[polygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
+/** [[PolygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
 object Sulawesi extends EarthPoly("Sulawesi", -2.16 ll 120.58, jungle)
 { val seSulawesi: LatLong = -5.41 ll 119.38
   val nwSulawesi: LatLong = 0.72 ll 120.06
@@ -41,7 +53,7 @@ object Sulawesi extends EarthPoly("Sulawesi", -2.16 ll 120.58, jungle)
   override val polygonLL: PolygonLL = PolygonLL(seSulawesi, nwSulawesi, neSulawesi, ambesia, poso, teku, swSulawesi, nGulfBoni)
 }
 
-/** [[polygonLL]] graphical representation of the island of New Guinea. Depends on nothing. */
+/** [[PolygonLL]] graphical representation of the island of New Guinea. Depends on nothing. */
 object GuineaWest extends EarthPoly("West Guinea", -5.19 ll 141.03, hillyJungle)
 { val waigeoWest: LatLong = -0.113 ll 130.295
   val waigeoNorth: LatLong = -0.007 ll 130.814
@@ -64,7 +76,7 @@ object GuineaWest extends EarthPoly("West Guinea", -5.19 ll 141.03, hillyJungle)
     heilwigMouth, aindua, p85, wNewGuinea)
 }
 
-/** [[polygonLL]] graphical representation for Papua New Guinea. Depends on nothing. */
+/** [[PolygonLL]] graphical representation for Papua New Guinea. Depends on nothing. */
 object PapuaNewGuinea extends EarthPoly("Papua New Guinea", -5.448 ll 143.578, hillyJungle)
 { val madang: LatLong = -4.85 ll 145.78
   val saidor: LatLong = -5.614 ll 146.473
@@ -86,7 +98,7 @@ object PapuaNewGuinea extends EarthPoly("Papua New Guinea", -5.448 ll 143.578, h
   )
 }
 
-/** [[polygonLL]] graphical representation of New Britain 35144.6km². Depends on nothing. */
+/** [[PolygonLL]] graphical representation of New Britain 35144.6km². Depends on nothing. */
 object NewBritain extends IslandPoly("New Britain", -5.251 ll 151.402, hillyJungle)
 { override val area: Kilares = 35144.6.kilares
 
@@ -100,7 +112,7 @@ object NewBritain extends IslandPoly("New Britain", -5.251 ll 151.402, hillyJung
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, baronga, umbolWest, p75, takis)
 }
 
-/** [[polygonLL]] graphical representation 8990km² of New Ireland 7404km² + 1186km² + 400km². Depends on nothing. */
+/** [[PolygonLL]] graphical representation 8990km² of New Ireland 7404km² + 1186km² + 400km². Depends on nothing. */
 object NewIreland extends IslandPoly("New Ireland", -5.251 ll 151.402, hillyJungle)
 { override val area: Kilares = 8990.kilares
 

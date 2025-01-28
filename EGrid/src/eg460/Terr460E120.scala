@@ -55,8 +55,8 @@ object Terr460E120 extends Long460Terrs
     VRow(99, BendIn(4596, HVDL, 7), OrigRt(4606, HVUp, 7), OrigMin(4622, HVUp)),
     TRow(98, SepB(), sea, jungle, sea, hillyJungle, sea * 2, mtainJungle),
 
-    VRow(97, OrigRt(4594, HVUR), ThreeUp(4596, 0, 6, 6), BendOut(4598, HVUp), BendInRt(4600, HVDn, 10, 7), ThreeDown(4602, 13, 12, 0), OrigLt(4620, HVDR),
-      BendOut(4622, HVDL)),
+    VRow(97, OrigRt(4594, HVUR), ThreeUp(4596, 0, 6, 6), BendOut(4598, HVUp), BendInRt(4600, HVDn, 10, 7), ThreeDown(4602, 13, 12, 0),
+      BendInLt(4604, HVDn, 12, 4), OrigLt(4620, HVDR), BendOut(4622, HVDL)),
 
     TRow(96, hillyJungle * 2, Isle4(hillyJungle), Isle7(mtainJungle), Isle3(mtainJungle)),
     VRow(95, OrigLt(4594, HVDR, 7), BendIn(4596, HVUp, 13), BendMin(4598, HVDn, 4), OrigRt(4600, HVUL, 7), BendIn(4622, HVUR, 13), OrigRt(4624, HVDR)),

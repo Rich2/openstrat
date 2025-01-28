@@ -84,3 +84,14 @@ abstract class IslandPolyGroup(val name: String) extends IslandPolyLike
 
 /** A lake representation with name [[PolygonLL]] and terrain. */
 abstract class LakePoly(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), WithKilares
+
+/** An island made up of multiple [[IslandPartPoly]]s. */
+case class IslandPolys(name: String, area: Kilares)
+
+/** A second level area of part of an island.*/
+abstract class IslandPartPoly(name: String, cen: LatLong, terr: WTile) extends EarthPoly(name, cen, terr), WithKilares
+{ /** The Island this polygon displays part of. */
+  def island: IslandPolys
+  
+  def area: Kilares = island.area
+}

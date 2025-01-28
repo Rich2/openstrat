@@ -43,13 +43,13 @@ object Terr460E150 extends Long460Terrs
       VRow(119, BendIn(5626, HVUL, 10)),
       VRow(117, OrigMin(5620, HVDL), OrigRt(5620, HVDL, 7)),
       VRow(101, BendIn(5618, HVDL, 13)),
-      VRow(99, OrigMin(5618, HVUp)),
+      VRow(99, OrigMin(5618, HVUp), OrigRt(5622, HVDR), BendOut(5624, HVUp), BendIn(5626, HVDn, 13), BendIn(5628, HVDL, 13)),
       TRow(98, hillyJungle * 2, sea, Isle4(mtainJungle)),
-      VRow(97, BendOut(5618, HVDL, 7)),
+      VRow(97, BendOut(5618, HVDL, 7), OrigMin(5628, HVUp, 1)),
       TRow(96, jungle * 2, mtainJungle, Isle6(mtainJungle)),
-      VRow(95, BendIn(5618, HVUR, 13), OrigRt(5620, HVUL)),
+      VRow(95, BendIn(5618, HVUR, 13), OrigRt(5620, HVUL), OrigMin(5626, HVDR, 2), BendOut(5628, HVDL)),
       TRow(94, sea * 2, mtainJungle),
-      VRow(93, OrigMax(5622, HVDn), OrigRt(5626, HVUR), ThreeUp(5628, 13, 13, 0), ThreeDown(5630, 13, 0, 13)),
+      VRow(93, OrigMax(5622, HVDn), OrigRt(5626, HVUR), ThreeUp(5628, 13, 13, 0), ThreeDown(5630, 13, 0, 13), OrigRt(5632, HVDL, 7)),
       TRow(92, savannah, savannah, hillySavannah),
       VRow(91, OrigMax(5622, HVUp), BendOut(5630, HVUR, 7), BendIn(5632, HVDL, 13)),
       TRow(90, sahel, savannah, hillyJungle),
@@ -75,5 +75,6 @@ object Terr460E150 extends Long460Terrs
     str(98, "" * 3, "New Ireland")
     str(96, "" * 3, "New Britain")
     str(88, "" * 5, "New Caldeonia")
+    str(76, "", "Tasmania")
   }
 }
