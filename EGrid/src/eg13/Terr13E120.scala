@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
@@ -32,14 +32,11 @@ object Terr13E120 extends Long13Terrs
     TRow(104, hillyJungle, sea),
     VRow(103, OrigLt(4606, HVDR, 7), ThreeDown(4608, 13, 9, 0), ThreeUp(4610, 0, 9, 13)),
     TRow(102, sea, Isle7(hillyJungle)),
-    VRow(101, BendIn(4604, HVDn), BendIn(4606, HVDL, 7), ThreeDown(4610, 9, 13,3), BendIn(4612, HVDn, 13), BendIn(4614, HVDL, 9)),
+    VRow(101, BendInLt(4604, HVDn, 7, 4), ThreeUp(4606, 0, 7, 9), ThreeDown(4610, 9, 13,3), BendIn(4612, HVDn, 13), BendIn(4614, HVDL, 9)),
     TRow(100, hillyJungle, hillyJungle),
-    VRow(99, ThreeDown(4604, 7, 12, 0), ThreeUp(4606, 1, 12, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2)),
-    TRow(98, hillyJungle * 2),
-
-    VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 12, 7, 0), ThreeUp(4608, 12, 90, 11), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
-      BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
-
+    VRow(99, ThreeDown(4604, 7, 11, 0), ThreeUp(4606, 1, 11, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2)),
+    TRow(98, Isle5(hillyJungle), Isle4(hillyJungle)),
+    VRow(97, ThreeDown(4606, 11, 7, 0), ThreeUp(4608, 12, 9, 11), BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
     TRow(96, SepB(), deshot, sahel),
     VRow(95, BendIn(4604, HVDR, 13), BendOut(4606, HVUL)),
     TRow(94, savannah, deshot),
