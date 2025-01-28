@@ -9,19 +9,24 @@ object Borneo extends IslandPolys("Borneo", 743330.kilares)
 object BorneoNorth extends IslandPartPoly("Borneo north", 3.152 ll 115.749, hillyJungle)
 { override val island: IslandPolys = Borneo
 
-  val nBorneo: LatLong = 6.99 ll 117.12
+  val north: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
+  val lgangLgang: LatLong = 4.456 ll 118.751
   val borderEast: LatLong = 4.165 ll 117.906
+  val tandjoengbatoe: LatLong = 2.282 ll 118.094
   val cenEast: LatLong = 1.022 ll 118.986
-  val p20: LatLong =  -0.757 ll 117.752
+  val p40: LatLong = 1.043 ll 118.981
+  val p42: LatLong = 0.809 ll 118.798
+  val p50: LatLong =  0.757 ll 117.752
 
   val batangLuparMouth: LatLong = 1.512 ll 110.988
   val p70: LatLong = 2.798 ll 111.333
   val p75: LatLong = 3.268 ll 113.058
   val kulalaBaram: LatLong = 4.598 ll 113.973
+  val p90: LatLong = 5.630 ll 115.593
 
-  override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, borderEast, cenEast, p20,
-    batangLuparMouth, p70, p75, kulalaBaram)
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, lgangLgang, borderEast, tandjoengbatoe, p40, p42, p50, batangLuparMouth, p70, p75,
+    kulalaBaram, p90)
 }
 
 /** [[PolygonLL]] graphical representation for south of the island of Borneo. Island total = 743330km². Depends on [[BorneoNorth]]. */
@@ -31,26 +36,29 @@ object BorneoSouth extends IslandPartPoly("Borneo south", -0.592 ll 113.541, hil
   val p25: LatLong = -2.177 ll 116.589
   val southEast: LatLong = -4.03 ll 116.09
   val p45: LatLong = -4.172 ll 114.650
+  val p52: LatLong = -3.525 ll 111.779
   val southWest: LatLong = -2.96 ll 110.29
   val p55: LatLong = -1.259 ll 109.398
   val p60: LatLong = 0.816 ll 108.841
   val nwSarawak: LatLong = 2.08 ll 109.64
 
-  override val polygonLL: PolygonLL = PolygonLL(BorneoNorth.p20, p25, southEast, p45, southWest, p55, p60, nwSarawak, BorneoNorth.batangLuparMouth)
+  override val polygonLL: PolygonLL = PolygonLL(BorneoNorth.p50, p25, southEast, p45, p52, southWest, p55, p60, nwSarawak, BorneoNorth.batangLuparMouth)
 }
 
 /** [[PolygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
-object Sulawesi extends EarthPoly("Sulawesi", -2.16 ll 120.58, jungle)
-{ val seSulawesi: LatLong = -5.41 ll 119.38
-  val nwSulawesi: LatLong = 0.72 ll 120.06
-  val neSulawesi: LatLong = 1.67 ll 125.15
+object Sulawesi extends EarthPoly("Sulawesi", -2.16 ll 120.58, mtainJungle)
+{ val northEast: LatLong = 1.67 ll 125.15
+  val p5: LatLong = 0.479 ll 124.507
   val ambesia: LatLong = 0.52 ll 120.62
   val poso: LatLong = -1.42 ll 120.68
   val teku: LatLong = -0.76 ll 123.45
-  val swSulawesi: LatLong = -5.66 ll 122.78
+  val southWest: LatLong = -5.66 ll 122.78
   val nGulfBoni: LatLong = -2.61 ll 120.81
+  val southEast: LatLong = -5.41 ll 119.38
+  val northWest: LatLong = 0.72 ll 120.06
+  val p92: LatLong = 1.324 ll 120.808
 
-  override val polygonLL: PolygonLL = PolygonLL(seSulawesi, nwSulawesi, neSulawesi, ambesia, poso, teku, swSulawesi, nGulfBoni)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, p5, ambesia, poso, teku, southWest, nGulfBoni, southEast, northWest, p92)
 }
 
 /** [[PolygonLL]] graphical representation of the island of New Guinea. Depends on nothing. */
