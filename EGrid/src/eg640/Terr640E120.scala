@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
@@ -9,9 +9,9 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle8]] 77942.286km² => 100112.536km². Mindanao 97530km².
  * [[Isle7]] 58543.317km² => 77942.286km². VisayasWest 38353.27km² + Samar-Leyte 21332.41km² = 59685.679km²
  * [[Isle6]] 41915.629km² => 58543.317km². Sumbawa 15414km² + Lambok 4607.68km² + Flores 14731.67km², + others 1500km² + Sumba Island 11243.78km²
- * [[Isle5]] 28059.223km² => 41915.629km². Taiwan 36197km².
- * [[Isle5]] 28059.223km² => 41915.629km². Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
- * [[Isle5]] 28059.223km² => 41915.629km².
+ * [[Isle5]] 28059.223km² => 41915.629km². Taiwan 36197km²,
+ *   Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km², Seram Buru 30648km².
+ * [[Isle4]] 16974.097km² => 28059.223km². Halmahera 22835km².
  * [[Isle3]] 8660.254km² => 16974.097km². Palawan-12,188.6km². */
 object Terr640E120 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e120(70)
@@ -52,12 +52,12 @@ object Terr640E120 extends Long640Terrs
     VRow(101, ThreeDown(4598, 0, 13, 8), BendOut(4600, HVUL, 7), BendIn(4606, HVDR, 13), BendIn(4608, HVDn, 12), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13),
       BendIn(4618, HVDL, 9)),
 
-    TRow(100, hillyJungle * 2, hillyJungle, sea, hillyJungle),
+    TRow(100, hillyJungle * 2, hillyJungle, Isle4(mtainJungle), hillyJungle),
 
     VRow(99, BendIn(4598, HVUR, 13), BendOut(4600, HVDL, 7), BendIn(4606, HVUR, 13), OrigMin(4618, HVUp, 2), BendIn(4612, HVDL, 13), BendIn(4614, HVUR, 8),
-      BendMin(4616, HVDL)),
+      Bend(4616, HVDL, 11, 3)),
 
-    TRow(98, jungle, sea, hillyJungle, sea, hillyJungle),
+    TRow(98, jungle, sea, hillyJungle, Isle5(mtainJungle), hillyJungle),
 
     VRow(97, ThreeDown(4598, 13, 6, 0), BendIn(4600, HVUR, 13), BendIn(4602, HVUp, 13), OrigRt(4604, HVDL, 7), OrigLt(4608, HVDR), BendIn(4610, HVUp, 13),
       BendIn(4612, HVUL, 13), BendIn(4616, HVUR, 13), ThreeDown(4618, 13, 13, 0), OrigRt(4620, HVDL, 7)),

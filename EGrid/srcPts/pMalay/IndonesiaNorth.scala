@@ -90,12 +90,13 @@ object Halmahera extends IslandPoly("Halmahera", 0.662 ll 127.976, hillyJungle)
 
 /** Seram and Buru island grouping. */
 object SeramBuru extends IslandPolyGroup("Seram-Buru")
-{ override def elements: RArr[IslandPolyLike] = RArr(SeramIsland, BuruIsland)
+{ override def oGroup: Some[Moluccas.type] = Some(Moluccas)
+  override def elements: RArr[IslandPolyLike] = RArr(SeramIsland, BuruIsland)
 }
 
 /** [[polygonLL]] graphical representation of the island of S Buru. Depends on nothing. */
 object BuruIsland extends IslandPoly("Buru", -3.119 ll 129.348, mtainJungle)
-{ override def oGroup: Some[Moluccas.type] = Some(Moluccas)
+{ override def oGroup: Some[SeramBuru.type] = Some(SeramBuru)
   override def area: Kilares = 12655.58.kilares
 
   val northEast: LatLong = -3.057 ll 126.775
@@ -109,11 +110,12 @@ object BuruIsland extends IslandPoly("Buru", -3.119 ll 129.348, mtainJungle)
 
 /** [[polygonLL]] graphical representation of the islands of Seram and Buru. Depends on nothing. */
 object SeramIsland extends IslandPoly("Seram", -3.119 ll 129.348, mtainJungle)
-{ override def oGroup: Some[Moluccas.type] = Some(Moluccas)
+{ override def oGroup: Some[SeramBuru.type] = Some(SeramBuru)
 
   val seram: Kilares = 17100.kilares
   val ambon: Kilares = 743.37.kilares
-  override def area: Kilares = seram + ambon
+  val haruku: Kilares = 150.kilares
+  override def area: Kilares = seram + ambon + haruku
 
   val p0: LatLong = -2.788 ll 129.379
   val northEast: LatLong = -3.109 ll 130.553

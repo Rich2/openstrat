@@ -480,8 +480,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       }
 
       case HVUp =>
-      { corners.setCornerIn(row + 1, c, 3, magIn)
-        corners.setCorner(row - 1, c + 2, 5, HVDn, OrigMag)
+      { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
+        corners.setCornerSepExtra(row - 1, c + 2, 5, HVDn, OrigMag)
         corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, OrigMag)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
@@ -523,9 +523,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       }
 
       case HVUp =>
-      { corners.setCornerIn(row + 1, c, 3, magIn)
-        corners.setCorner(row - 1, c - 2, 1, HVDn, origMag)
-        corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)
+      { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
+        corners.setCornerSepExtra(row - 1, c - 2, 1, HVDn, origMag)
+        //corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
