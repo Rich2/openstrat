@@ -151,8 +151,8 @@ object Australasia extends EarthRegion("Australasia", -23 ll 130)
 object MalayArchipelago extends EarthRegion("Malay Archipelago", 0.762 ll 123.068)
 { import pMalay.*
   override val ePolys: RArr[EarthPoly] = RArr(Sumatra, BorneoNorth, BorneoSouth, Sulawesi, Halmahera, BuruIsland, SeramIsland, javaIsland, BaliIsland, Sumbawa,
-    Lambok, Sumba, Flores, AlorIsland,  Wetar, Timor, GuineaWest, PapuaNewGuinea, NewBritain, NewIreland, SolomonIslands, Luzon, Palawan, VisayasWest,
-    SamarLeyte, Mindano)
+    Lambok, Sumba, Flores, AlorIsland,  Wetar, Timor, GuineaWest, PapuaNewGuinea, NewBritain, NewIreland, Bougainville, SolomonMiddle, SolomonSE, Luzon,
+    Palawan, VisayasWest, SamarLeyte, Mindano)
 }
 
 object PacificTop extends EarthRegion("Pacific", 0 ll 175)

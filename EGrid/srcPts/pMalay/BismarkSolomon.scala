@@ -36,14 +36,58 @@ object NewIreland extends IslandPoly("New Ireland", -5.251 ll 151.402, mtainJung
   override val polygonLL: PolygonLL = PolygonLL(newHanoverIsland, newIreland20, south, p60)
 }
 
-/** [[PolygonLL]] graphical representation of the Solomon Islands 28896km². Depends on nothing. */
-object SolomonIslands extends IslandPoly("Solomon Islands", -8.220 ll 157.576, mtainJungle)
-{ override val area: Kilares = 28896.kilares
+/** Solomon Islands. */
+object SolomonIslands extends IslandPolyGroup("Solomon Islands")
+{
+  override def elements: RArr[IslandPolyLike] = RArr(Bougainville, SolomonMiddle)
 
-  val bougainvilleNorth: LatLong = -5.003 ll 154.620
+  override def area: Kilares = 28896.kilares
+}
+
+/** [[PolygonLL]] graphical representation of Bougainville, Sotland and Fauro Islands in the Solomon Islands 9518km². Depends on nothing. */
+object Bougainville extends IslandPoly("Bougainvile Island", -6.170 ll 155.289, mtainJungle)
+{ override def oGroup: Some[SolomonIslands.type] = Some(SolomonIslands)
+
+  val bourgainville: Kilares = 9318.kilares
+  override val area: Kilares = bourgainville + 200.kilares
+
+  val north: LatLong = -5.003 ll 154.620
+  val fauroEast: LatLong = -6.925 ll 156.136
+  val shortlandSE: LatLong = -7.119 ll 155.845
+  val p65: LatLong = -6.519 ll 155.159
+
+  override val polygonLL: PolygonLL = PolygonLL(north, fauroEast, shortlandSE, p65)
+}
+
+/** [[PolygonLL]] graphical representation of the Solomon Islands 28896km². Depends on nothing. */
+object SolomonMiddle extends IslandPoly("Solomon Middle", -8.220 ll 157.576, mtainJungle)
+{ override def oGroup: Some[SolomonIslands.type] = Some(SolomonIslands)
+
+  val choiseul: Kilares = 2971.kilares
+  val santaIsabel: Kilares = 2999.kilares
+  override val area: Kilares = SolomonIslands.area - Bougainville.area - SolomonSE.area
+
+  val choiseulNorth: LatLong = -6.587 ll 156.467
+  val santaIsabelNE: LatLong = -8.342 ll 159.853
+  val rendovaSouth: LatLong = -8.681 ll 157.308
+  val vellaLavellaWest: LatLong = -7.638 ll 156.504
+
+  override val polygonLL: PolygonLL = PolygonLL(choiseulNorth, santaIsabelNE, rendovaSouth, vellaLavellaWest)
+}
+
+/** [[PolygonLL]] graphical representation of the Solomon Islands 28896km². Depends on nothing. */
+object SolomonSE extends IslandPoly("Solomon South East", -8.220 ll 157.576, mtainJungle)
+{ override def oGroup: Some[SolomonIslands.type] = Some(SolomonIslands)
+
+  val malaita: Kilares = 4307.kilares
+  val sanCristobal: Kilares = 3190.kilares
+  val guadalcanal: Kilares = 5302.kilares
+
+  override val area: Kilares = malaita + sanCristobal + guadalcanal
+
   val malaitaNorth: LatLong = -8.322 ll 160.743
   val sanCritobolEast: LatLong = -10.840 ll 162.376
-  val rendovaSouth: LatLong = -8.681 ll 157.308
+  val guadalcanalWest: LatLong = -9.522 ll 159.587
 
-  override val polygonLL: PolygonLL = PolygonLL(bougainvilleNorth, malaitaNorth, sanCritobolEast, rendovaSouth)
+  override val polygonLL: PolygonLL = PolygonLL(malaitaNorth, sanCritobolEast, guadalcanalWest)
 }
