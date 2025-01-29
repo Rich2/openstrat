@@ -5,8 +5,9 @@ import prid._, phex._, egrid._, WTiles._
 /** 460km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. A hex tile area of 183250.975km².
  *  Isle 120974.276km² down to 57981.753km²
  *  [[Isle7]] 30243.569km² => 40265.106km². Sumbawa 15414km² + Flores 16231km² = 32645, Timor Island + Rote Island 32057.1km², Taiwan 36197km².
- *  [[Isle5]] 14495.438km² => 21653.679km². Samar 13429km² + Leyte 7367.6km² = 20796.6.
- *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km², Sumba 11243km², Bali 5780km² + Lambok 4607km² = 9967km².
+ *  [[Isle6]] 21653.679km² => 30243.569km². Halmahaera 22835km².
+ *  [[Isle5]] 14495.438km² => 21653.679km². Seram 17843km², Samar 13429km² + Leyte 7367.6km² = 20796.6.
+ *  [[Isle4]] 8768.845km² => 14495.438km². Buru 12655km². Palawan 12189km², Sumba 11243km², Bali 5780km² + Lambok 4607km² = 9967km².
  *  [[Isle3]] 4473.900km² => 8768.845km². Alor 2724km² + Wetar 2651km² = 5375km². */
 object Terr460E120 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e120(70)
@@ -50,13 +51,13 @@ object Terr460E120 extends Long460Terrs
     TRow(106, sea * 2, Isle4(mtainJungle), Isle10(mtainJungle), Isle5(hillyJungle)),
     TRow(104, sea * 2, mtainJungle, sea, hillyJungle),
     TRow(102, sea, hillyJungle * 2),
-    VRow(101, BendIn(4606, HVDR), OrigMin(4608, HVDL), OrigRt(4618, HVUR, 7), BendIn(4620, HVDn, 13), BendIn(4622, HVDL, 13)),
-    TRow(100, sea, hillyJungle, jungle, mtainJungle, sea, sea, hillyJungle),
+    VRow(101, BendIn(4606, HVDR), OrigMin(4608, HVDL), ThreeDown(4618, 0, 8, 10), BendIn(4620, HVDn, 13), BendIn(4622, HVDL, 13)),
+    TRow(100, sea, hillyJungle, jungle, mtainJungle * 2, Isle6(mtainJungle), hillyJungle),
     VRow(99, BendIn(4596, HVDL, 7), OrigRt(4606, HVUp, 7), OrigMin(4622, HVUp)),
-    TRow(98, SepB(), sea, jungle, sea, hillyJungle, sea * 2, mtainJungle),
+    TRow(98, SepB(), sea, jungle, sea, hillyJungle, Isle4(mtainJungle), Isle5(mtainJungle), mtainJungle),
 
     VRow(97, OrigRt(4594, HVUR), ThreeUp(4596, 0, 6, 6), BendOut(4598, HVUp), BendInRt(4600, HVDn, 10, 7), ThreeDown(4602, 13, 12, 0),
-      BendInLt(4604, HVDn, 12, 4), OrigLt(4620, HVDR), BendOut(4622, HVDL)),
+      BendInLt(4604, HVDn, 12, 4), ThreeUp(4620, 6, 0, 11), BendOut(4622, HVDL)),
 
     TRow(96, hillyJungle * 2, Isle4(hillyJungle), Isle7(mtainJungle), Isle3(mtainJungle)),
     VRow(95, OrigLt(4594, HVDR, 7), BendIn(4596, HVUp, 13), BendMin(4598, HVDn, 4), OrigRt(4600, HVUL, 7), BendIn(4622, HVUR, 13), OrigRt(4624, HVDR)),
