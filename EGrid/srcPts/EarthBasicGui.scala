@@ -52,8 +52,8 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair{ p => p / dirnScale }
 
     val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap { (p, a2) =>
-      val str: String = a2 match {
-        case isle: IslandPoly => isle.strWithGroups
+      val str: String = a2 match
+      { case isle: IslandPoly => isle.strWithGroups
         case lake: LakePoly => lake.name -- lake.area.str
         case ea => ea.name -- ea.terr.str
       }
@@ -88,6 +88,12 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     mainRepaint(seas %: graphicPairs.a1Arr ++ sideLines.+%(conns6) ++ polyTexts ++ locTexts)
   }
+
+  /*override def selectedStr: String = selectStack.mkStrSemis {    
+    case eai: IslandPoly => eai.strWithGroups
+    case ipp: IslandPartPoly => ipp.name -- ipp.area.str
+    case obj => obj.toString
+  }*/
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>

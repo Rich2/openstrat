@@ -6,7 +6,8 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle10]] 64603.127km² => 78919.609km². Tasmania 68401km²
  * [[Isle7]] 30243.569km² => 40265.106km². New Britain 35144km².
  * [[Isle6]] 21653.679km² => 30243.569km². New Caledonia 18353km².
- * [[Isle4]] 8768.845km² => 14495.438km². New Ireland 8990km². */
+ * [[Isle4]] 8768.845km² => 14495.438km². Solomon south east 12999km², Bougainville 9518km², New Ireland 8990km².
+ * [[Isle3]] 4473.900km² => 8768.845km². Solomon middle 6379km². */
 object Terr460E150 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e150(66)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -46,9 +47,9 @@ object Terr460E150 extends Long460Terrs
       VRow(99, OrigMin(5618, HVUp), OrigRt(5622, HVDR), BendOut(5624, HVUp), BendIn(5626, HVDn, 13), BendIn(5628, HVDL, 13)),
       TRow(98, hillyJungle * 2, sea, Isle4(mtainJungle)),
       VRow(97, BendOut(5618, HVDL, 7), OrigMin(5628, HVUp, 1)),
-      TRow(96, jungle * 2, mtainJungle, Isle6(mtainJungle)),
+      TRow(96, jungle * 2, mtainJungle, Isle6(mtainJungle), Isle4(hillyJungle), Isle3(mtainJungle)),
       VRow(95, BendIn(5618, HVUR, 13), OrigRt(5620, HVUL), OrigMin(5626, HVDR, 2), BendOut(5628, HVDL)),
-      TRow(94, sea * 2, mtainJungle),
+      TRow(94, sea * 2, mtainJungle, sea * 2, Isle4(mtainJungle)),
       VRow(93, OrigMax(5622, HVDn), OrigRt(5626, HVUR), ThreeUp(5628, 13, 13, 0), ThreeDown(5630, 13, 0, 13), OrigRt(5632, HVDL, 7)),
       TRow(92, savannah, savannah, hillySavannah),
       VRow(91, OrigMax(5622, HVUp), BendOut(5630, HVUR, 7), BendIn(5632, HVDL, 13)),
@@ -73,7 +74,8 @@ object Terr460E150 extends Long460Terrs
 
   { import hexNames.{setRow => str}
     str(98, "" * 3, "New Ireland")
-    str(96, "" * 3, "New Britain")
+    str(96, "" * 3, "New Britain", "Bougainville", "Solomon middle")
+    str(94, "" * 5, "Solomon south-east")
     str(88, "" * 5, "New Caldeonia")
     str(76, "", "Tasmania")
   }

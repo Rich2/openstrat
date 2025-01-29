@@ -45,7 +45,7 @@ object SolomonIslands extends IslandPolyGroup("Solomon Islands")
 }
 
 /** [[PolygonLL]] graphical representation of Bougainville, Sotland and Fauro Islands in the Solomon Islands 9518km². Depends on nothing. */
-object Bougainville extends IslandPoly("Bougainvile Island", -6.170 ll 155.289, mtainJungle)
+object Bougainville extends IslandPoly("Bougainvile Island", -6.170 ll 155.289, hillyJungle)
 { override def oGroup: Some[SolomonIslands.type] = Some(SolomonIslands)
 
   val bourgainville: Kilares = 9318.kilares
@@ -59,7 +59,7 @@ object Bougainville extends IslandPoly("Bougainvile Island", -6.170 ll 155.289, 
   override val polygonLL: PolygonLL = PolygonLL(north, fauroEast, shortlandSE, p65)
 }
 
-/** [[PolygonLL]] graphical representation of the Solomon Islands 28896km². Depends on nothing. */
+/** [[PolygonLL]] graphical representation of the Solomon Islands 6379km². Depends on nothing. */
 object SolomonMiddle extends IslandPoly("Solomon Middle", -8.220 ll 157.576, mtainJungle)
 { override def oGroup: Some[SolomonIslands.type] = Some(SolomonIslands)
 
@@ -75,7 +75,7 @@ object SolomonMiddle extends IslandPoly("Solomon Middle", -8.220 ll 157.576, mta
   override val polygonLL: PolygonLL = PolygonLL(choiseulNorth, santaIsabelNE, rendovaSouth, vellaLavellaWest)
 }
 
-/** [[PolygonLL]] graphical representation of the Solomon Islands 28896km². Depends on nothing. */
+/** [[PolygonLL]] graphical representation of the Solomon Islands 12999km². Depends on nothing. */
 object SolomonSE extends IslandPoly("Solomon South East", -8.220 ll 157.576, mtainJungle)
 { override def oGroup: Some[SolomonIslands.type] = Some(SolomonIslands)
 
@@ -83,7 +83,7 @@ object SolomonSE extends IslandPoly("Solomon South East", -8.220 ll 157.576, mta
   val sanCristobal: Kilares = 3190.kilares
   val guadalcanal: Kilares = 5302.kilares
 
-  override val area: Kilares = malaita + sanCristobal + guadalcanal
+  override val area: Kilares = malaita + sanCristobal + guadalcanal + 200.kilares
 
   val malaitaNorth: LatLong = -8.322 ll 160.743
   val sanCritobolEast: LatLong = -10.840 ll 162.376
