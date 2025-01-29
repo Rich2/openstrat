@@ -46,8 +46,10 @@ object BorneoSouth extends IslandPartPoly("Borneo south", -0.592 ll 113.541, hil
 }
 
 /** [[PolygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
-object Sulawesi extends EarthPoly("Sulawesi", -2.16 ll 120.58, mtainJungle)
-{ val northEast: LatLong = 1.67 ll 125.15
+object Sulawesi extends IslandPoly("Sulawesi", -2.16 ll 120.58, mtainJungle)
+{ override def area: Kilares = 174416.16.kilares
+
+  val northEast: LatLong = 1.67 ll 125.15
   val p5: LatLong = 0.479 ll 124.507
   val ambesia: LatLong = 0.52 ll 120.62
   val poso: LatLong = -1.42 ll 120.68

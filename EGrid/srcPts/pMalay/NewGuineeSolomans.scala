@@ -47,9 +47,16 @@ object PapuaNewGuinea extends EarthPoly("Papua New Guinea", -5.448 ll 143.578, h
   )
 }
 
+/** Bismark archipelago. */
+object BismarkArchipelago extends IslandPolyGroup("Bismark Archipelago")
+{ override def elements: RArr[IslandPolyLike] = RArr(NewBritain, NewIreland)
+  override def area: Kilares = 49700.kilares
+}
+
 /** [[PolygonLL]] graphical representation of New Britain 35144.6km². Depends on nothing. */
 object NewBritain extends IslandPoly("New Britain", -5.251 ll 151.402, hillyJungle)
-{ override val area: Kilares = 35144.6.kilares
+{ override def oGroup: Some[BismarkArchipelago.type] = Some(BismarkArchipelago)
+  override val area: Kilares = 35144.6.kilares
 
   val north: LatLong = -4.133 ll 152.166
   val northEast: LatLong = -4.336 ll 152.404
@@ -63,7 +70,8 @@ object NewBritain extends IslandPoly("New Britain", -5.251 ll 151.402, hillyJung
 
 /** [[PolygonLL]] graphical representation 8990km² of New Ireland 7404km² + 1186km² + 400km². Depends on nothing. */
 object NewIreland extends IslandPoly("New Ireland", -5.251 ll 151.402, hillyJungle)
-{ override val area: Kilares = 8990.kilares
+{ override def oGroup: Some[BismarkArchipelago.type] = Some(BismarkArchipelago)
+  override val area: Kilares = 8990.kilares
 
   val newHanoverIsland: LatLong = -2.360 ll 150.190
   val newIreland20: LatLong = -3.977 ll 152.926

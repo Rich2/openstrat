@@ -30,9 +30,12 @@ object Terr13E120 extends Long13Terrs
     TRow(106, hillySub, hillySubForest),
     VRow(105, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), BendOut(4612, HVDn, 7)),
     TRow(104, hillyJungle, sea),
-    VRow(103, OrigLt(4606, HVDR, 7), ThreeDown(4608, 13, 9, 0), ThreeUp(4610, 0, 9, 13)),
-    TRow(102, sea, Isle7(hillyJungle)),
-    VRow(101, BendInLt(4604, HVDn, 7, 4), ThreeUp(4606, 0, 7, 9), ThreeDown(4610, 9, 13,3), BendIn(4612, HVDn, 13), BendIn(4614, HVDL, 9)),
+    VRow(103, OrigMax(4606, HVDR), ThreeDown(4608, 13, 9, 13), ThreeUp(4610, 0, 9, 13)),
+    TRow(102, hillyJungle, Isle7(hillyJungle)),
+
+    VRow(101, Bend(4604, HVDn, 7, 4), ThreeDown(4606, 13, 0, 9), BendIn(4608, HVUL, 13), ThreeDown(4610, 9, 13, 6), BendIn(4612, HVDn, 13),
+      BendIn(4614, HVDL, 9)),
+
     TRow(100, hillyJungle, hillyJungle),
     VRow(99, ThreeDown(4604, 7, 11, 0), ThreeUp(4606, 1, 11, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2)),
     TRow(98, Isle5(hillyJungle), Isle4(hillyJungle)),
