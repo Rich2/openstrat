@@ -366,9 +366,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is
-   *  specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably
-   *  superfluous for created worlds / terrain. */
+  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is specified
+   * by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably superfluous for
+   * created worlds / terrain. */
   trait BendInOutBase extends BendBase
   { /** The magnitude of the offset for inside of the bend. */
     def magIn: Int
@@ -383,6 +383,22 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       case HVDL => corners.setBend1(row - 1, c - 2, magIn, magOut)
       case HVUL => corners.setBend2(row + 1, c - 2, magIn, magOut)
       case HVUp => corners.setBend3(row + 1, c, magIn, magOut)
+      case HVLt | HVRt => excep("HVLt and HVRt not implemented")
+    }
+  }
+
+  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, with extra separator vertex, Sets the left most of the [[HSep]]s of this vertex. The
+   * orientation of the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features
+   * and is probably superfluous for created worlds / terrain. */
+  trait BendInOutExtraBase extends BendInOutBase
+  {
+    override def setCorners(row: Int): Unit = dirn match
+    { case HVUR => corners.setBendExtra4(row + 1, c + 2, magIn, magOut)
+      case HVDR => corners.setBendExtra5(row - 1, c + 2, magIn, magOut)
+      case HVDn => corners.setBendExtra0(row - 1, c, magIn, magOut)
+      case HVDL => corners.setBendExtra1(row - 1, c - 2, magIn, magOut)
+      case HVUL => corners.setBendExtra2(row + 1, c - 2, magIn, magOut)
+      case HVUp => corners.setBendExtra3(row + 1, c, magIn, magOut)
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
   }

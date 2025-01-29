@@ -11,7 +11,7 @@ object Km13Test extends TestSuite
 
     val sPoly: PolygonHvOffset = corners.sidePoly(HSep(92, 6654))(gs)
     test("SidePoly")
-    { sPoly.numVerts ==> 5
+    { sPoly.numVerts ==> 6
     }
   }
 }

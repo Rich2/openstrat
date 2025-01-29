@@ -112,12 +112,60 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r, c - 4, 2, HVDL, magOut)
   }
 
-  /** Sets all 3 corners of a bend. The inside of the bend is at vertex <b>5</b> of the specified [[HCen]]. Bend direction defined as [[HVDR]]. The  other 2
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>5</b> of the specified [[HCen]]. Bend direction defined as [[HVDR]]. The  other 2
    *  corners are offset in the opposite direction [[HVUL]]. */
   def setBend5(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
   { setCornerIn(r, c, 5, magIn)
     setCorner(r, c - 4, 1, HVUL, magOut)
     setCorner(r + 2, c - 2, 3, HVUL, magOut)
+  }
+
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>0</b> of the specified [[HCen]], Bend direction defined
+   * as [[HVDn]]. The other 2 corners are offset in the opposite direction [[HVUp]]. */
+  def setBendExtra0(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerSepExtra(r, c, 0, HVDn, magIn)
+    setCornerSepExtra(r + 2, c - 2, 2, HVUp, magOut)
+    setCornerSepExtra(r + 2, c + 2, 4, HVUp, magOut)
+  }
+
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>1</b> of the specified [[HCen]]. Bend direction defined
+   * as [[HVDL]]. The other 2 corners are offset in the opposite direction [[HVUR]]. */
+  def setBendExtra1(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerSepExtra(r, c, 1, HVDL, magIn)
+    setCornerSepExtra(r + 2, c + 2, 3, HVUR, magOut)
+    setCornerSepExtra(r, c + 4, 5, HVUR, magOut)
+  }
+
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>2</b> of the specified [[HCen]]. Bend direction defined
+   * as [[HVUL]]. The other 2 corners are offset in the opposite direction [[HVDR]]. */
+  def setBendExtra2(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerSepExtra(r, c, 2, HVUL, magIn)
+    setCornerSepExtra(r, c + 4, 4, HVDR, magOut)
+    setCornerSepExtra(r - 2, c + 2, 0, HVDR, magOut)
+  }
+
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>3</b> of the specified [[HCen]]. Bend direction defined
+   * as [[HVUp]]. The other 2 corners are offset in the opposite direction [[HVDn]]. */
+  def setBendExtra3(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerSepExtra(r, c, 3, HVUp, magIn)
+    setCornerSepExtra(r - 2, c + 2, 5, HVDn, magOut)
+    setCornerSepExtra(r - 2, c - 2, 1, HVDn, magOut)
+  }
+
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>4</b> of the specified [[HCen]]. Bend direction defined
+   * as [[HVUR]] The other 2 corners are offset in the opposite direction [[HVDL]]. */
+  def setBendExtra4(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerSepExtra(r, c, 4, HVUR, magIn)
+    setCornerSepExtra(r - 2, c - 2, 0, HVDL, magOut)
+    setCornerSepExtra(r, c - 4, 2, HVDL, magOut)
+  }
+
+  /** Sets all 3 corners of a bend, with extra separator vertex. The inside of the bend is at vertex <b>5</b> of the specified [[HCen]]. Bend direction defined
+   * as [[HVDR]]. The  other 2 corners are offset in the opposite direction [[HVUL]]. */
+  def setBendExtra5(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerSepExtra(r, c, 5, HVDR, magIn)
+    setCornerSepExtra(r, c - 4, 1, HVUL, magOut)
+    setCornerSepExtra(r + 2, c - 2, 3, HVUL, magOut)
   }
 
   /** Sets the 2 outer corners of a bend The inside of the bend ia at vertex <b>0</b> of the specified [[HCen]]. Bend direction defined as [[HVDn]] although the

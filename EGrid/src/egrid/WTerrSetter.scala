@@ -357,6 +357,23 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
+  /** Bend at junction of 2 [[HSep]]s, with extra separator vertex. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
+  class BendExtra(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+    BendInOutExtraBase
+
+  object BendExtra
+  {
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, terr: WSepSome = Sea): BendExtra = apply(c, dirn, magIn, magOut, terr, terr)
+
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendExtra =
+    { ifExcep(magIn < 0, magIn.str -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magOut < 0, magOut.toString -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magIn > 13, magIn.str -- "magnitude, magnitude values > 13 not allowed.")
+      ifExcep(magOut > 7, magOut.str -- "magnitude, outer bend magnitude values > 7 not allowed.")
+      new BendExtra(c, dirn, magIn, magOut, leftTerr, rightTerr)
+    }
+  }
+
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
   class BendInLt(val c: Int, val dirn: HVDirn, val magIn: Int, val OrigMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
     BendInLtBase
