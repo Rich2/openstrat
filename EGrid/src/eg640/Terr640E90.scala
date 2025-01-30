@@ -18,7 +18,7 @@ object Terr640E90 extends Long640Terrs
     TRow(128, hillyTundra),
     TRow(126, taiga, Land(Mountains, Boreal, LandFree)),
     TRow(124, taiga * 2),
-    TRow(122, oceForest, mtainDepr),
+    TRow(122, contForest, mtainDepr),
     TRow(120, savannah, sahel, sahel),
     TRow(118, sahel, hillyDeshot, hillyDeshot),
     TRow(116, deshot, deshot, hillyDeshot),

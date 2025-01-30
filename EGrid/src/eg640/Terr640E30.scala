@@ -1,9 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid._
-import phex._
-import egrid.{WTerrSetter, _}
-import WTiles._
+import prid.phex.*, egrid.{WTerrSetter, _}, WTiles.*
 
 /** 640km [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile area of 709448.010km² .
  *  [[Isle3]] 8660.254km² => 16974.097km². (Crete 8450km²) + (Rhodes 1401km²) = 9851km²
@@ -21,15 +18,13 @@ object Terr640E30 extends Long640Terrs
     TRow(128, tundra),
     TRow(126, taiga * 2),
     VRow(125, OrigRt(1534, HVDn, 7)),
-    TRow(124, oceanic, taiga),
+    TRow(124, continental, taiga),
     VRow(123, BendOut(1532, HVUp), Bend(1534, HVUL, 4, 2)),
-    TRow(122, oceanic, oceanic),
-    TRow(120, oceanic * 3),
-    TRow(118, oceanic, oceanic, oceanic),
-    VRow(119, OrigMin(1536, HVDn), OrigLt(1544, HVDn, 6, Lake)),
-
-    VRow(117, BendIn(1530, HVDL, 11), Bend(1536, HVUR, 12, 7), BendIn(1538, HVUp, 13), Orig(1540, HVDL, 7, 6),  BendMin(1544, HVUR, 3, Lake)),
-
+    TRow(122, continental * 2),
+    TRow(120, continental * 3),
+    TRow(118, continental * 3),
+    VRow(119, OrigLt(1544, HVDn, 6, Lake)),
+    VRow(117, BendIn(1530, HVDL, 11), OrigMax(1536, HVDR), BendIn(1538, HVUp, 13), Orig(1540, HVDL, 7, 6),  BendMin(1544, HVUR, 3, Lake)),
     TRow(116, hillyOce, hillyOce, hillyOce),
     VRow(115, SetSep(1529), BendIn(1532, HVDR, 13), BendIn(1534, HVDn, 13), BendIn(1536, HVDL, 13)),
     TRow(114, sea, mtainSavannah, hillySavannah * 2),

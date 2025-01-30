@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
@@ -18,8 +18,8 @@ object Terr640E60 extends Long640Terrs
     TRow(128, tundra),
     TRow(126, taiga * 2),
     TRow(124, taiga * 2),
-    TRow(122, oceanic, oceanic),
-    TRow(120, savannah * 3),
+    TRow(122, continental * 2),
+    TRow(120, steppe * 3),
     VRow(119, OrigLt(2556, HVDn, 6, Lake)),
     TRow(118, sahel, sahel * 2),
     VRow(117, BendMin(2556, HVUR, 3, Lake), BendIn(2558, HVDL, 13, lake)),
