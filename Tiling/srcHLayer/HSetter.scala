@@ -531,8 +531,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
-   *  geographic / terrain features and is probably superfluous for created worlds / terrain. */
+  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world  geographic /
+   * terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeUpBase extends VertSetBase
   { /** Separator terrain for the [[HSep]] that is up from the [[HVert]]. */
     def upTerr: SST
@@ -552,8 +552,14 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     /** The magnitude of the [[HVUL]] up-left offset. */
     def magUL: Int
 
+    /** Will throw on incorrect coordinates. */
     def run(row: Int): Unit =
-    { grid.hCenExistsIfDo(row + 1, c + 2){ corners.setCornerIn(row + 1, c + 2, 4, magUR) }
+    { row %% 4 match
+      { case 1 if c.div4Rem0 =>
+        case 3 if c.div4Rem2 =>
+        case _ => excep(s"r = $row, c = $c are invalid coordinates for a ThreeUp")
+      }
+      grid.hCenExistsIfDo(row + 1, c + 2){ corners.setCornerIn(row + 1, c + 2, 4, magUR) }
       grid.hCenExistsIfDo(row - 1, c){ corners.setCornerIn(row - 1, c, 0, magDn) }
       grid.hCenExistsIfDo(row + 1, c - 2){ corners.setCornerIn(row + 1, c - 2, 2, magUL) }
       sTerrs.setExists(grid, row + 1, c, upTerr)
@@ -565,7 +571,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    * geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeDownBase extends VertSetBase
-  {/** Separator terrain for the [[HSep]] that is up-right from the [[HVert]]. */
+  { /** Separator terrain for the [[HSep]] that is up-right from the [[HVert]]. */
     def upRightTerr: SST
 
     /** Separator terrain for the [[HSep]] that is down from the [[HVert]]. */
@@ -583,8 +589,14 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     /** The magnitude of the [[HVDL]] down-left offset. */
     def magDL: Int
 
+    /** Will throw on incorrect coordinates. */
     def run(row: Int): Unit =
-    { grid.hCenExistsIfDo(row + 1, c) { corners.setCornerIn(row + 1, c, 3, magUp) }
+    { row %% 4 match
+      { case 1 if c.div4Rem2 =>
+        case 3 if c.div4Rem0 =>
+        case _ => excep(s"r = $row, c = $c are invalid coordinates for a ThreeDown")
+      }
+      grid.hCenExistsIfDo(row + 1, c) { corners.setCornerIn(row + 1, c, 3, magUp) }
       grid.hCenExistsIfDo(row - 1, c + 2) { corners.setCornerIn(row - 1, c + 2, 5, magDR) }
       grid.hCenExistsIfDo(row - 1, c - 2) { corners.setCornerIn(row - 1, c -2, 1, magDL) }
       sTerrs.setExists(grid, row, c + 1, upRightTerr)

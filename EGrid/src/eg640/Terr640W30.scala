@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
@@ -22,7 +22,7 @@ object Terr640W30 extends Long640Terrs
     VRow(127, Bend(11776, HVDR, 10, 4), ThreeUp(11778, 0, 6, 9)),
     TRow(126, ice, hillyTundra),
     VRow(125, BendOut(11774, HVDR), ThreeUp(11776, 11, 0, 13), BendIn(11778, HVUp, 6), OrigRt(11780, HVDL)),
-    VRow(123, BendIn(11772, HVUp, 13), ThreeDown(11774, 13, 0, 13)),
+    VRow(123, BendIn(11772, HVUp, 13)),
     TRow(122, SepB(siceWin)),
     VRow(121, SetSep(11771)),
     VRow(119, BendIn(11770, HVUL, 13)),
