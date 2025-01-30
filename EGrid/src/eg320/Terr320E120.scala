@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
@@ -32,9 +32,9 @@ object Terr320E120 extends Long320Terrs
     TRow(134, continental * 6, sea),
     VRow(133, OrigRt(4610, HVDn)),
     TRow(132, continental * 3, hillyCont, hillyCont * 2),
-    VRow(131, Orig(4608, HVUR, 7, 6), ThreeUp(4610, 0, 13, 13), Bend(4612, HVDL, 12, 7)),
+    VRow(131, Orig(4608, HVUR, 7, 6), ThreeUp(4610, 0, 13, 13), Bend(4612, HVDL, 12, 7), OrigRt(4618, HVDR, 7), BendIn(4620, HVDL, 13)),
     TRow(130, deshot, continental * 4, hillyCont * 2),
-    VRow(129, BendOut(4610, HVDR), ThreeUp(4612, 13, 0, 8), BendMin(4614, HVDL, 4), BendOut(4624, HVUL, 7)),
+    VRow(129, BendOut(4610, HVDR), ThreeUp(4612, 13, 0, 8), BendMin(4614, HVDL, 4), OrigLt(4620, HVUp, 7), BendOut(4624, HVUL, 7)),
     TRow(128, continental * 3, subtrop, sea, hillySub, sea, hillySub),
     VRow(127, BendOut(4610, HVUR, 7),BendIn(4612, HVDL, 13), BendIn(4614, HVUR, 7), BendIn(4616, HVUp, 13), OrigRt(4618, HVDL, 7)),
     TRow(126, mtainDepr, hillyOce, subtrop * 3, sea * 2, hillySub),
