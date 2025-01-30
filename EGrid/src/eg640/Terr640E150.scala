@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
@@ -36,13 +36,13 @@ object Terr640E150 extends Long640Terrs
     VRow(115, BendOut(5628, HVDR, 7), BendIn(5630, HVUL, 13)),
     TRow(114, hillySub),
     VRow(113, OrigLt(5626, HVUR, 7), BendIn(5628, HVUL, 13)),
-    VRow(99, OrigMin(5622, HVUp)),
+    VRow(99, OrigMin(5622, HVUp), OrigRt(5626, HVDR), BendMin(5628, HVUp, 2), BendIn(5630, HVDn, 13), ThreeDown(5632, 0, 9, 13)),
     TRow(98, hillyJungle * 2, Isle6(mtainJungle)),
-    VRow(97, OrigRt(5624, HVDL, 7), ThreeDown(5622, 13, 13, 0), BendOut(5632, HVUR, 7), BendIn(5634, HVDL, 13)),
+    VRow(97, OrigRt(5624, HVDL, 7), ThreeDown(5622, 13, 13, 0), Bend(5632, HVUR, 9, 7), BendIn(5634, HVDL, 13)),
     TRow(96, jungle, jungle, mtainJungle, Isle3(mtainJungle), Isle3(mtainJungle)),
 
-    VRow(95, BendIn(5622, HVUR, 13), BendIn(5624, HVUp, 13), BendOut(5626, HVDn, 7), BendIn(5628, HVUp, 13), BendMax(5630, HVDn), ThreeDown(5632, 13, 0, 13),
-      BendIn(5634, HVUL, 13)),
+    VRow(95, BendIn(5622, HVUR, 13), BendInLt(5624, HVUp, 13, 7), Bend(5626, HVDn, 3, 7), BendIn(5628, HVUp, 13), BendMax(5630, HVDn),
+      ThreeDown(5632, 13, 0, 13), BendIn(5634, HVUL, 13)),
 
     TRow(94, savannah, hillySavannah),
     VRow(93, Orig(5630, HVUR, 4, 4), ThreeUp(5632, 0, 13, 13), BendIn(5634, HVDL, 13)),

@@ -65,7 +65,7 @@ object Terr640E120 extends Long640Terrs
     TRow(96, hillyJungle * 2, Isle6(mtainJungle), Isle5(mtainJungle)),
 
     VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7), BendIn(4604, HVUp, 13), BendIn(4606, HVUL, 13), BendIn(4608, HVDR, 13),
-      BendIn(4610, HVDn, 13), BendOut(4612, HVUp, 5), OrigLt(4614, HVDL)),
+      BendIn(4610, HVDn, 13), BendOut(4612, HVUp, 5), OrigLt(4614, HVDL), BendInLt(4620, HVUp, 13, 7)),
 
     TRow(94, sea * 2, sahel, savannah * 2),
     VRow(93, OrigRt(4606, HVUR, 7), BendOut(4608, HVUL, 7)),

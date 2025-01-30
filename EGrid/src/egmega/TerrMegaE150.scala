@@ -1,10 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
 /** 1Mm [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile ares of 866025.403 km².
  * [[Isle5]] 68503.962km² => 102333.079km². Salakhin 72,492 km².
  * [[Isle4]] 41440.668km² => 68503.962km². New Britain 35144km² + New Ireland 8990km² = 44134km².
+ * [[Isle3]] 21143.198km² => 41440.668km².
  * Less than 21143.198km². New Caledonia. */
 object TerrMegaE150 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e150(82)
