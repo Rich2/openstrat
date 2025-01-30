@@ -309,9 +309,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets only the inside [[HCorner]] of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of
-   *  the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and
-   *  is probably superfluous for created worlds / terrain. */
+  /** Sets only the inside [[HCorner]] of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is
+   * specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably superfluous
+   * for created worlds / terrain. */
   trait BendBase extends VertSetBase
   { /** The direction of the [[HCen]] at the inside of the bend from the HVert. */
     def dirn: HVDirn
@@ -386,9 +386,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, with extra separator vertex, Sets the left most of the [[HSep]]s of this vertex. The
-   * orientation of the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features
-   * and is probably superfluous for created worlds / terrain. */
+  /** So I think this is only useful on edge of a grid where it meets a second grid. Sets all the corners of Vertex for a bend [[HSep]] terrain, with extra
+   * separator vertex, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is specified by the direction of the inside of the bend.
+   * This trait is provided to model real world geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait BendInOutExtraBase extends BendInOutBase
   {
     override def setCorners(row: Int): Unit = dirn match
@@ -516,12 +516,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
         corners.setCorner(row - 1, c + 2, 5, HVUR, origMag)
         corners.setCorner(row + 1, c, 3, HVUR, origMag)
       }
+
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
         corners.setCorner(row - 1, c, 0, HVDR, origMag)
       }
 
-      case HVUp =>
+      case HVUp => //This seems to be correctly implemented
       { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
         corners.setCornerSepExtra(row - 1, c - 2, 1, HVDn, origMag)
         //corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)
