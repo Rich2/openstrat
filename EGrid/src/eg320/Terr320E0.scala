@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
@@ -21,9 +21,9 @@ object Terr320E0 extends Long320Terrs
     TRow(162, SeaIceWinter * 2),
     TRow(160, SeaIceWinter),
     VRow(157, OrigRt(518, HVUR, 7), OrigLt(520, HVDL, 7)),
-    TRow(156, sea * 3),
-    TRow(154, sea * 4),
-    VRow(153, OrigRt(504, HVDR), BendIn(506, HVDL)),
+    VRow(155, BendIn(516, HVDR, 13), OrigLt(518, HVDL)),
+    TRow(154, sea * 3, mtainCont),
+    VRow(153, OrigRt(504, HVDR), BendIn(506, HVDL), BendIn(516, HVUR, 13), OrigRt(518, HVUL)),
     TRow(152, sea * 3, hillyTaiga),
     VRow(151, BendIn(506, HVUL)),
     TRow(150, sea * 3, hillyTaiga),

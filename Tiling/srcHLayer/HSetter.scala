@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** Helper trait for setting an [[LayerHcRefSys]], [[HSepLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the terrain to be
@@ -234,9 +234,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     /** The terrain of the [[HSep]]s, next to the opposite vertex typically a type of water. */
     def sepTerrs2: SST
 
-    /** Sets the [[HCen]] terrain. Sets the two opposite [[HCorner]]s and sets the four [[HSep]] terrains adjacent to the pulled in vertices. The
-     * [[HSep]] terrains can be different on either [[HSep]] of the isthmus. For eample it could be sea on one [[HSep]] and fresh water lake on the
-     * other. */
+    /** Sets the [[HCen]] terrain. Sets the two opposite [[HCorner]]s and sets the four [[HSep]] terrains adjacent to the pulled in vertices. The [[HSep]]
+     * terrains can be different on either [[HSep]] of the isthmus. For eample it could be sea on one [[HSep]] and fresh water lake on the other. */
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
       corners.setCornerIn(row, c, indentIndex, 7)
@@ -438,9 +437,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets only the inside [[HCorner]] of Vertex for a bend in [[HSep]]s terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation
-  *  of the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features
-  *  and is probably superfluous for created worlds / terrain. */
+  /** Sets only the inside [[HCorner]] of Vertex for a bend in [[HSep]]s terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the
+   * bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably
+   * superfluous for created worlds / terrain. */
   trait BendInLtBase extends BendBase
   { /** The magnitude of the offset on the inside [[HCorner]]. */
     def magIn: Int
