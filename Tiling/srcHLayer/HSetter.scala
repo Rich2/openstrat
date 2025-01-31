@@ -500,10 +500,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
         corners.setCornerSepExtra(row + 1, c - 2, 2, HVDL, origMag)
       }
 
-      case HVDR =>
-      { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setCorner(row + 1, c, 3, HVUL, origMag)
-        corners.setCornerPair(row - 1, c - 2, 1, HVUL, origMag, HVExact, 0)
+      case HVDR => //Corrected and tested
+      { corners.setCornerSepExtra(row - 1, c + 2, 5, HVDR, magIn)
+        corners.setCornerSepExtra(row + 1, c, 3, HVUL, origMag)
+        //corners.setCornerPair(row - 1, c - 2, 1, HVUL, origMag, HVExact, 0)
       }
 
       case HVDn =>//Corrected but untested
