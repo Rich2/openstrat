@@ -69,14 +69,20 @@ object Terr160E30 extends Long160Terrs
     TRow(262, mtainSub, sea, Isle5(mtainSub), mtainSub, hillySavannah, Isle5(mtainSub), hillyOce, hillyOce * 4, hillyOce * 5),
     VRow(261, BendIn(1514, HVDR, 13), BendIn(1516, HVDn), BendIn(1518, HVUp), OrigLt(1520, HVDL, 7)),
     TRow(260, sea * 2, hillySub, mtainSavannah, Isle5(mtainSavannah), Isle3(mtainSavannah), hillyOce * 10),
-    VRow(259, BendIn(1514, HVUR, 13), BendOut(1516, HVDL, 7), OrigMin(1548, HVDn)),
-    TRow(258, sea * 3, hillySavannah, sea, sea, Isle6(mtainSavannah), mtainSavannah, hillySavannah, mtainSavannah, hillySavannah, hillyOce * 5),
+    VRow(259, BendIn(1514, HVUR, 13), BendOut(1516, HVDL, 7), OrigLt(1548, HVDn, 7)),
+    //Correct below this line
+    TRow(258, sea * 3, hillySavannah, sea, sea, Isle6(mtainSavannah), mtainSavannah, hillySavannah, mtainSavannah, hillySavannah, hillySavannah, sahel * 2,
+      deshot, sahel),
 
-    VRow(257, BendIn(1516, HVUR, 13), BendIn(1518, HVUp, 13), OrigRt(1520, HVDL), ThreeUp(1532, 13, 0, 10), BendIn(1534, HVUp, 13), BendOut(1536, HVDn, 7),
-      BendIn(1538, HVUp, 13), BendOut(1540, HVDn, 7), ThreeDown(1542, 13, 6, 0), Bend(1544, HVDn, 6, 7), ThreeDown(1546, 13, 13, 6), BendMax(1548, HVUL)),
+    VRow(257, BendIn(1516, HVUR, 13), BendIn(1518, HVUp, 13), OrigRt(1520, HVDL), OrigRt(1524, HVDR, 7), BendIn(1526, HVUp), BendIn(1528, HVDn, 9),
+      ThreeDown(1530, 10, 0, 13), ThreeUp(1532, 13, 0, 10), BendIn(1534, HVUp, 13), BendOut(1536, HVDn, 7), BendIn(1538, HVUp, 13), BendOut(1540, HVDn, 7),
+      ThreeDown(1542, 13, 6, 0), Bend(1544, HVDn, 6, 7), ThreeDown(1546, 13, 13, 6), BendMax(1548, HVUL)),
 
-    TRow(256, sea * 5, Isle10(mtainSavannah), sea * 4, Isle10(hillySavannah), mtainSavannah, sahel, hillyDeshot, sahel, deshot, sahel),
-    VRow(255, ThreeUp(1546, 13, 0, 6), OrigRt(1548, HVUL ,7)),
+    TRow(256, sea * 5, mtainSavannah * 2, sea * 3, Isle10(hillySavannah), mtainSavannah, sahel, hillyDeshot, sahel, deshot, sahel),
+
+    VRow(255, OrigLt(1522, HVDR, 7), BendIn(1524, HVUp, 13), BendOut(1526, HVDn, 7), BendIn(1528, HVUp, 13), BendIn(1530, HVUL, 13),
+      BendIn(1524, HVUp, 13), ThreeUp(1546, 13, 0, 6), OrigRt(1548, HVUL ,7)),
+
     TRow(254, sea * 11, hillySavannah, sahel, deshot * 2, sahel * 2),
     )
   }
