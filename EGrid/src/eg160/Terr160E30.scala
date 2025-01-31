@@ -65,11 +65,14 @@ object Terr160E30 extends Long160Terrs
     TRow(266, savannah, hillySavannah, hillyOce * 3, hillySavannah, mtainSub, hillyOce * 8),
     VRow(265, Bend(1512, HVUR, 9, 7), BendIn(1514, HVDL, 13), OrigRt(1522, HVDn), OrigRt(1524, HVDR), BendMax(1526, HVDL), OrigMin(1530, HVUR), Orig(1532, HVDL, 4, 5)),
     TRow(264, hillySub, subtrop, mtainSub, hillySavannah, mtainSavannah, mtainSavannah,  hillyOce * 9),
-    VRow(263, BendIn(1512, HVUp, 13), BendIn(1514, HVUL, 13), Bend(1522, HVUR, 5, 5), ThreeDown(1524, 13, 11, 10), ThreeUp(1526, 10, 11, 13)),
+    
+    VRow(263, BendIn(1504, HVDR, 13), OrigLt(1506, HVDL, 7), BendIn(1512, HVUp, 13), BendIn(1514, HVUL, 13), Bend(1522, HVUR, 5, 5),
+      ThreeDown(1524, 13, 11, 10), ThreeUp(1526, 10, 11, 13)),
+    
     TRow(262, mtainSub, sea, Isle5(mtainSub), mtainSub, hillySavannah, Isle5(mtainSub), hillyOce, hillyOce * 4, hillyOce * 5),
-    VRow(261, BendIn(1514, HVDR, 13), BendIn(1516, HVDn), BendIn(1518, HVUp), OrigLt(1520, HVDL, 7)),
+    VRow(261, BendIn(1504, HVUR, 9), BendIn(1506, HVDL, 7), BendIn(1514, HVDR, 13), BendIn(1516, HVDn), BendIn(1518, HVUp), OrigLt(1520, HVDL, 7)),
     TRow(260, sea * 2, hillySub, mtainSavannah, Isle5(mtainSavannah), Isle3(mtainSavannah), hillyOce * 10),
-    VRow(259, BendIn(1514, HVUR, 13), BendOut(1516, HVDL, 7), OrigLt(1548, HVDn, 7)),
+    VRow(259, OrigLt(1506, HVUp, 7), BendIn(1514, HVUR, 13), BendOut(1516, HVDL, 7), OrigLt(1548, HVDn, 7)),
     //Correct below this line
     TRow(258, sea * 3, hillySavannah, sea, sea, Isle6(mtainSavannah), mtainSavannah, hillySavannah, mtainSavannah, hillySavannah, hillySavannah, sahel * 2,
       deshot, sahel),

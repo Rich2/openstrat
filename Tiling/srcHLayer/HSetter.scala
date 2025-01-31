@@ -495,9 +495,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def origMag: Int
 
     override def setCorners(row: Int): Unit = dirn match
-    { case HVUR =>
-      { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        debexc("Not Implemented")
+    { case HVUR => //Corrected and tested
+      { corners.setCornerSepExtra(row + 1, c + 2, 4, HVUR, magIn)
+        corners.setCornerSepExtra(row + 1, c - 2, 2, HVDL, origMag)
       }
 
       case HVDR =>
