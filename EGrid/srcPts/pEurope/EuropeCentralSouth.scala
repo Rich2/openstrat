@@ -1,38 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for Greece depends on [[Peloponnese]]. */
-object Greece extends EarthPoly("Greece", 39.54 ll 21.62, hillyOce)
-{ val northEast: LatLong = 40.46 ll 22.59
-  val p20: LatLong = 39.19 ll 23.35
-  val nEuboea: LatLong = 39.03 ll 23.31
-  val p25: LatLong = 38.65 ll 24.15
-  val capeKafireas: LatLong = 38.16 ll 24.60
-  val sEuboea: LatLong = 37.95 ll 24.51
-  val p30: LatLong = 38.00 ll 24.03
-  val sAttica: LatLong = 37.64 ll 24.02
-  val monstrika: LatLong = 38.40 ll 21.92
-  val oxia: LatLong = 38.31 ll 21.15
-  val p70: LatLong = 38.50 ll 21.03
-
-  val lefkadaSE: LatLong = 38.56 ll 20.54
-  val lefkadaNE = 38.83 ll 20.65
-  val p71 = 38.86 ll 20.79
-  val kanali = 39.07 ll 20.69
-  val p73 = 39.54 ll 20.15
-  val p75: LatLong = 39.69 ll 19.98
-  val p77: LatLong = 39.87 ll 20.01
-  val vlore = 40.30 ll 19.38
-  val northWest: LatLong = 40.67 ll 19.32
-
-  override val polygonLL: PolygonLL = PolygonLL(northEast, p20, nEuboea, p25, capeKafireas, sEuboea, p30, sAttica,Peloponnese.ePeninsular,
-    Peloponnese.nPeninsular, monstrika, oxia, p70, lefkadaSE, lefkadaNE, p71, kanali, p73, p75, p77, vlore, northWest)
-}
-
-/** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */
-object BalkansWest extends EarthPoly("BalkansWest", 44.0 ll 19.65, hillyCont)
-{ val northEast: LatLong = 46.0 ll 22.59
+/** Balkans polygon depends on [[Alpsland]] and [[GreeceNorth]]. */
+object BalkansWest extends EarthPoly("BalkansWest", 44.0 ll 19.65, hillyCont) {
+  val northEast: LatLong = 46.0 ll 22.59
   val shengjin: LatLong = 41.80 ll 19.59
   val dubrovnik: LatLong = 42.65 ll 18.06
   val lastovo: LatLong = 42.733 ll 16.828
@@ -44,14 +16,14 @@ object BalkansWest extends EarthPoly("BalkansWest", 44.0 ll 19.65, hillyCont)
   val basanija = 45.48 ll 13.48
   val trieste = 45.70 ll 13.73
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, Greece.northEast, Greece.northWest, shengjin, dubrovnik, lastovo, vis, movar, lojena, veliRat, pula,
+  override val polygonLL: PolygonLL = PolygonLL(northEast, GreeceNorth.northEast, GreeceNorth.northWest, shengjin, dubrovnik, lastovo, vis, movar, lojena, veliRat, pula,
     basanija, trieste, Alpsland.monfalcone, Alpsland.zagreb,
   )
 }
 
-/** [[PolygonLL]] graphic for east Balkans depends on [[BalkansWest]], [[Alpsland]] and [[Greece]]. */
-object BalkansEast extends EarthPoly("BalkansEast", 44.0 ll 25.5, hillyCont)
-{ val odessa: LatLong = 46.48 ll 30.74
+/** [[PolygonLL]] graphic for east Balkans depends on [[BalkansWest]], [[Alpsland]] and [[GreeceNorth]]. */
+object BalkansEast extends EarthPoly("BalkansEast", 44.0 ll 25.5, hillyCont) {
+  val odessa: LatLong = 46.48 ll 30.74
   val ochakivskeMouth: LatLong = 45.46 ll 29.78
   val p10: LatLong = 44.84 ll 29.59
   val p12: LatLong = 44.76 ll 29.11
@@ -74,8 +46,51 @@ object BalkansEast extends EarthPoly("BalkansEast", 44.0 ll 25.5, hillyCont)
   val thessalonika: LatLong = 40.65 ll 22.9
 
   override val polygonLL: PolygonLL = LinePathLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN) ++<
-    MarmaraSea.northCoast |++| LinePathLL(seddElBahr, p40, p47, p50, p55, p57, p62, p66, p70, p80, p85, thessalonika, Greece.northEast)
+    MarmaraSea.northCoast |++| LinePathLL(seddElBahr, p40, p47, p50, p55, p57, p62, p66, p70, p80, p85, thessalonika, GreeceNorth.northEast)
 }
+
+/** [[PolygonLL]] graphic for Greece depends on [[Peloponnese]]. */
+object GreeceNorth extends EarthPoly("Greece North", 39.54 ll 21.62, hillySub)
+{ val northEast: LatLong = 40.46 ll 22.59
+  val p20: LatLong = 39.19 ll 23.35
+
+  val kanali: LatLong = 39.07 ll 20.69
+  val p73: LatLong = 39.54 ll 20.15
+  val p75: LatLong = 39.69 ll 19.98
+  val p77: LatLong = 39.87 ll 20.01
+  val vlore = 40.30 ll 19.38
+  val northWest: LatLong = 40.67 ll 19.32
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, p20, GreeceCentral.malianNW, GreeceCentral.ambracianWest, GreeceCentral.ambracianMouth,
+    kanali, p73, p75, p77, vlore, northWest)
+}
+
+/** [[PolygonLL]] graphic for Greece depends on [[Peloponnese]]. */
+object GreeceCentral extends EarthPoly("Greece Central", 39.54 ll 21.62, hillySub)
+{ val malianNW = 38.881 ll 22.548
+  val euboeaNorth: LatLong = 39.03 ll 23.31
+  val p25: LatLong = 38.65 ll 24.15
+  val capeKafireas: LatLong = 38.16 ll 24.60
+  val sEuboea: LatLong = 37.95 ll 24.51
+  val p30: LatLong = 38.00 ll 24.03
+  val sAttica: LatLong = 37.64 ll 24.02
+
+  val monstrika: LatLong = 38.40 ll 21.92
+  val oxia: LatLong = 38.31 ll 21.15
+  val p70: LatLong = 38.50 ll 21.03
+  val lefkadaSE: LatLong = 38.56 ll 20.54
+  val lefkadaNE: LatLong = 38.83 ll 20.65
+  val p71: LatLong = 38.86 ll 20.79
+
+  val ambracianMouth: LatLong = 38.947 ll 20.758
+  val ambracianWest: LatLong = 38.980 ll 21.154
+
+  override val polygonLL: PolygonLL = PolygonLL(malianNW, euboeaNorth, p25, capeKafireas, sEuboea, p30, sAttica, Peloponnese.ePeninsular, Peloponnese.nPeninsular,
+    monstrika, oxia, p70, lefkadaSE, lefkadaNE, p71,
+
+    ambracianMouth, ambracianWest)
+}
+
 
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
 object Peloponnese extends EarthPoly("Peloponnese", 37.56 ll 22.10, mtainSavannah)
