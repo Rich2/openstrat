@@ -96,9 +96,14 @@ object Terr80E0 extends Long80Terrs
     TRow(446, sea * 13, oceanic * 2, hillyOce * 4, mtainDepr * 3, oceanic * 2, mtainDepr, oceanic * 2, hillyOce * 2),
     TRow(444, sea * 13, oceForest, oceanic, hillyOce * 5, mtainDepr * 2, hillyOce * 2, oceanic * 3, sea, oceanic),
     TRow(442, sea * 12, oceanic, oceForest, hillyOce * 3, mtainDepr, hillyOce, mtainDepr * 2, hillyOce, mtainDepr * 3, hillyOce, oceanic),
-    TRow(440, sea * 13, oceanic * 3, hillyOce, mtainDepr, hillyOce * 3, mtainDepr * 2, sea, hillyOceForest, hillyOce, mtainDepr, hillyOce, sea * 2),
+    VRow(441, BendIn(478, HVDR, 13)),
 
-    TRow(438, sea * 5, hillyOce * 3, mtainDepr * 3, hillyOce, mtainDepr * 2, hillyOce * 4, sea * 2, hillyOceForest * 2, sea * 3, hillySavannah, mtainSubForest,
+    TRow(440, sea * 6, mtainOceForest * 5, sea * 2, oceanic * 3, hillyOce, mtainDepr, hillyOce * 3, mtainDepr * 2, sea, hillyOceForest, hillyOce, mtainDepr,
+      hillyOce, sea * 2),
+
+    VRow(439, BendIn(472, HVDR, 13), BendIn(474, HVDn, 13), OrigRt(476, HVUL), OrigMin(478, HVUp)),
+
+    TRow(438, sea * 5, mtainOceForest, hillyOce * 2, mtainDepr * 3, hillyOce, mtainDepr * 2, hillyOce * 4, sea * 2, hillyOceForest * 2, sea * 3, hillySavannah, mtainSubForest,
       hillySavannah * 2, sea),
 
     VRow(437, BendIn(546, HVDR, 11), OrigLt(548, HVDL, 7), BendInLt(552, HVUR, 13, 7), BendMax(554, HVDL)),
