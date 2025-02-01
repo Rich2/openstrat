@@ -82,22 +82,25 @@ object Sardinia extends IslandPoly("Sardinia", 40.12 ll 9.07, hillySub)
   override val oGroup = Some(SardinaCorsica)
 
   val north: LatLong = 41.25 ll 9.23
+  val capoFerro: LatLong = 41.156 ll 9.526
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62
   val capoMonteSanto: LatLong = 40.08 ll 9.74
   val calaCaterina: LatLong = 39.10 ll 9.51
   val p45: LatLong = 39.159 ll 9.026
   val p47: LatLong = 39.057 ll 9.045
-  val perdaLonga: LatLong = 38.87 ll 8.84
+  val capoSpartivento: LatLong = 38.877 ll 8.859
   val capoTeulada: LatLong = 38.86 ll 8.64
+  val capoSandalo: LatLong = 39.147 ll 8.219
   val portscuso: LatLong = 39.21 ll 8.36
+  val p82: LatLong = 40.361 ll 8.380
   val alghero: LatLong = 40.56 ll 8.31
   val capoCaccia: LatLong = 40.56 ll 8.16
   val capoFalcone: LatLong = 40.97 ll 8.20
   val platamona: LatLong = 40.81 ll 8.46
 
-  override val polygonLL: PolygonLL = PolygonLL(north, east, p20, capoMonteSanto, calaCaterina, p45, p47, perdaLonga, capoTeulada, portscuso, alghero,
-    capoCaccia, capoFalcone, platamona)
+  override val polygonLL: PolygonLL = PolygonLL(north, capoFerro, east, p20, capoMonteSanto, calaCaterina, p45, p47, capoSpartivento, capoTeulada, capoSandalo,
+    portscuso, p82, alghero, capoCaccia, capoFalcone, platamona)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */

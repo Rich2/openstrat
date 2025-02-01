@@ -2,9 +2,9 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, WTiles._
 
-/** The 80 Km grid centred on 30°E for 15°E to 45°E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current
- * r offset is 300 for the equator.
- *  [[Isle8]] 1217.848km² => 1564.258km².Rhodes 1401km². */
+/** The 80 Km grid centred on 30°E for 15°E to 45°E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current r offset
+ * is 300 for the equator.
+ * [[Isle8]] 1217.848km² => 1564.258km². Rhodes 1401km². */
 object Terr80E30  extends Long80Terrs
 { override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -77,7 +77,6 @@ object Terr80E30  extends Long80Terrs
       TRow(446, hillyOce * 2, oceanic * 4, mtainDepr * 4, hillyOce * 1, oceanic * 3, sea * 3, oceanic * 2, sea * 2, oceanic * 8),
       VRow(445, OrigMin(1562, HVDn)),
       TRow(444, hillyOce * 3, oceanic * 3, hillyOce * 4, oceanic * 4, sea * 4, hillyOce * 2, steppe, steppe, oceanic * 4, hillyOce, oceanic * 2),
-      VRow(433, OrigMin(1478, HVUR)),
       TRow(442, mtainDepr * 3, hillyOce * 5, oceanic * 5, sea * 9, mtainDepr * 2, hillyOce * 2, oceanic * 3),
       TRow(440, hillyOce, mtainDepr * 4, hillyOce, mtainDepr, oceanic * 3, hillyOce * 2, oceanic, sea * 11, mtainDepr * 3, hillyOce, oceanic * 2),
       TRow(438, sea, mtainDepr, mtainDepr * 4, hillyOce, mtainDepr * 2, hillyOce * 4, sea * 13, mtainDepr * 3, oceanic),
@@ -86,9 +85,9 @@ object Terr80E30  extends Long80Terrs
       TRow(434, hillyOce, sea * 3, hillyOce, mtainDepr, hillyOce * 2, mtainDepr, hillyOce * 2, oceanic, hillyOce, sea * 4, hillyOce * 4, sea * 6, hillyOce,
         mtainDepr, hillyOce * 2),
 
-      VRow(433, BendIn(1490, HVDR, 13)),
+      VRow(433, BendOut(1480, HVUR, 7), BendIn(1482, HVDL, 13), BendIn(1490, HVDR, 13)),
       TRow(432, hillyOce, savannah, sea * 2, hillyOce, mtainDepr, hillyOce * 6, oceanic * 2, hillyOce, hillyOce * 7, oceanic, hillyOce * 8),
-      VRow(431, OrigRt(1486, HVDR), ThreeDown(1488, 0, 13, 10), BendOut(1490, HVUL, 7), OrigMin(1512, HVDn)),
+      VRow(431, OrigMin(1482, HVUp, 1), OrigRt(1486, HVDR), ThreeDown(1488, 0, 13, 10), BendOut(1490, HVUL, 7), OrigMin(1512, HVDn)),
 
       TRow(430, hillyOce, savannah * 2, mtainDepr, hillyOce, mtainDepr, hillyOce, oceanic, hillyOce * 2, sea, hillyOce, sea, hillyOce * 2, mtainDepr * 5,
         hillyOce * 3, mtainDepr * 4, hillyOce * 3, mtainDepr),
