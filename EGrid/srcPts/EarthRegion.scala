@@ -33,8 +33,8 @@ object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
 /** Top level grouping for north-east European areas. */
 object EuropeEast extends EarthRegion("EuropeEast", 60 ll 60)
 { import pEurope.*
-  override val ePolys: RArr[EarthPoly] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, GreeceNorth, GreeceCentral, BalkansWest, BalkansEast, FennoNorth,
-    FinlandSouth, Karelia, LakePeipus, RussiaNE, LakeLagoda, LakeOnega, KolaPeninsula, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
+  override val ePolys: RArr[EarthPoly] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, GreeceNorth, GreeceCentral, Euboea, BalkansWest, BalkansEast,
+    FennoNorth, FinlandSouth, Karelia, LakePeipus, RussiaNE, LakeLagoda, LakeOnega, KolaPeninsula, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 
 /** Top level grouping for south-west European areas. */

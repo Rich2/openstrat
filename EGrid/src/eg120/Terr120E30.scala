@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg120
 import prid._, phex._, egrid._, WTiles._
 
@@ -63,7 +63,7 @@ object Terr120E30 extends Long120Terrs
     TRow(282, mtainSavannah, sea * 2, hillySub, mtainSubForest, hillySavannah, sea, hillySavannah * 2, hillySahel, mtainSahel, hillySahel, sahel,
       hillySahel * 2, mtainSahel, mtainSavannah, hillySavannah, mtainSavannah, mtainSahel * 2),
 
-    VRow(281, OrigLt(1498, HVUR, 7), BendIn(1500, HVUL, 13)),
+    VRow(281, OrigLt(1498, HVUR, 7), BendIn(1500, HVUL, 13), OrigLt(1510, HVUR, 7), BendOut(1512, HVDn , 7), BendIn(1514, HVUp, 12), OrigLt(1516, HVDL)),
 
     TRow(280, sea * 4, mtainSub, mtainSavannah, Isle5(mtainSavannah), sea, hillySavannah, mtainSavannah * 3, savannah, hillySahel * 2, mtainSavannah,
       hillySavannah, savannah, mtainDeshot, mtainSahel * 3),
