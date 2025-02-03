@@ -14,7 +14,13 @@ lazy val root = (project in file(".")).aggregate(Util, Geom, Tiling, EGrid).enab
   publish/skip := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util, Geom, GeomFx, Tiling, EGrid),
-  //ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
+)
+
+lazy val JsAgg = (project in file("Dev/JsAgg")).aggregate(UtilJs, GeomJs, TilingJs, EGridJs).enablePlugins(ScalaUnidocPlugin).settings(
+  scalaVersion := scalaVersionStr,
+  publish/skip := true,
+  apiURL := Some(url("https://richstrat.com/api/")),
+  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(UtilJs, GeomJs, TilingJs, EGridJs),
 )
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
@@ -187,47 +193,9 @@ lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.1" withSources() withJavadoc(),
 )
 
-val moduleDirs: List[String] = List("Util", "Geom", "Tiling", "EGrid", "Apps"/*, "Dev"*/)
-
-val specDirs: List[String] =
-  List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcEarth", "Geom/srcGraphic", "Geom/srcGui", "Geom/srcImperial", "Geom/srcLines",
-    "Geom/srcPoly", "Geom/srcShapes", "Geom/srcTrans", "Geom/srcUnits", "Geom/srcWeb", "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq", "Tiling/srcSqLayer",
-    "EGrid/srcPts", "Apps/srcStrat")
-
-val CommonDirs: List[String] = moduleDirs.map(m => m + "/src") ::: specDirs
-
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
-{ val t1 = (DocMain/Compile/doc).value
-  val t2 = (DocJs/Compile/doc).value
+{ val t1 = (Compile/unidoc).value
+  val t2 = (JsAgg/Compile/unidoc).value
   println("Main docs and Js docs built")
 }
-
-lazy val DocMain = projSub("Dev", "DocMain").settings(sett3).settings(
-  name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s => List(s + "/JvmSrc")) :::
-    List("Util/srcRArr", "Geom/JvmFxSrc", "Dev/JvmFxSrc")).map(s => bbDir.value / s),
-  autoAPIMappings := true,
-  apiURL := Some(url("https://richstrat.com/api/")),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
-  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
-  Compile/doc/scalacOptions ++= Seq("-project-version", "0.3.2snap", "-groups"),
-)
-
-lazy val DocJs = projSub("Dev", "DocJs").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
-  name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/JsSrc") ::: List("Apps/JsAppSrc")).map(s => bbDir.value / s),
-
-  Compile / sourceGenerators += Def.task {
-    val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
-    val str2 = str.replaceAll("AnyVal with ", "")
-    val arr = (Compile / sourceManaged).value / "Js" / "RArr.scala"
-    IO.write(arr, str2)
-    Seq(arr)
-  }.taskValue,
-
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0" withSources() withJavadoc(),
-  autoAPIMappings := true,
-  apiURL := Some(url("https://richstrat.com/api/")),
-  Compile/doc/scalacOptions ++= Seq("-groups"),
-)
