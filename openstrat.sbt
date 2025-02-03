@@ -9,10 +9,12 @@ val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).aggregate(Dev).settings(
+lazy val root = (project in file(".")).aggregate(Util, Geom, Tiling, EGrid).enablePlugins(ScalaUnidocPlugin).settings(
+  scalaVersion := scalaVersionStr,
   publish/skip := true,
-  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util),
-  ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
+  apiURL := Some(url("https://richstrat.com/api/")),
+  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util, Geom, GeomFx, Tiling, EGrid),
+  //ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
 )
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
