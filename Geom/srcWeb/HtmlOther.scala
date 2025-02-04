@@ -18,6 +18,9 @@ case class HtmlP(text: String, attribs: RArr[XmlAtt]) extends HtmlUnvoid
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = "<p>" + text + "</p>"
 
   override def contents: RArr[XCon] = RArr(text.xCon)
+  def textLen = text.length
+
+  override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
 /** Copied from old needs checking. */
