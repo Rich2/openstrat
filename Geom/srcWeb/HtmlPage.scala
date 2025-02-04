@@ -23,7 +23,7 @@ trait HtmlPage extends HttpContent
   /** The body of this [[HtmlPage]]. */
   def body: HtmlBody
 
-  override def out: String = "<!doctype html>\n" + htmlElem.out(0, 150)
+  override def out: String = "<!doctype html>" --- htmlElem.out(0, 150)
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 
   override def httpResp(dateStr: String, server: String): HttpRespBodied = HttpFound(dateStr, server, HttpConTypeHtml, out)

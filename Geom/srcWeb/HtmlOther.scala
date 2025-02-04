@@ -13,20 +13,23 @@ object HtmlA
 }
 
 /** HTML P paragraph element. */
-trait HtmlP extends HtmlUnvoid
+case class HtmlP(text: String, attribs: RArr[XmlAtt]) extends HtmlUnvoid
 { def tag = "p"
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = "<p>" + text + "</p>"
+
+  override def contents: RArr[XCon] = RArr(text.xCon)
 }
 
 /** Copied from old needs checking. */
 object HtmlP
 { /** Factory apply method for creating HTML paragraphs. */
-  def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP
-  { def str: String = strIn
+  def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP(strIn, attsIn.toRArr)
+  /*{ def str: String = strIn
     def con1: XConText = str.xCon
     override val attribs: RArr[XmlAtt] = attsIn.toArr
     override def contents: RArr[XCon] = RArr(con1)
 
-    override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
+    override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = str
     {
       val subt: TextLines = con1.outLines(indent + 2, openUnclosed(indent, line1InputLen, maxLineLen).length)
       val isps = indent.spaces
@@ -41,7 +44,7 @@ object HtmlP
         case _ => isps + openUnclosed + subt.text + nli + closeTag
       }
     }
-  }
+  }*/
 }
 
 /** HTML noscript element. */
