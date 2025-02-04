@@ -60,8 +60,8 @@ trait XmlElemLike extends XCon
   }
 
   def openAtts(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String =
-  { val res = attribsOutLines(indent, openTagOpenLen)
-    val text = ife(res.numLines == 0, "", " " + res.text)
+  { val res: TextLines = attribsOutLines(indent, openTagOpenLen)
+    val text: String = ife(res.numLines == 0, "", " " + res.text)
     "<" + tag + text
   }
 

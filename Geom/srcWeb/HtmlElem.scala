@@ -29,9 +29,11 @@ trait HtmlEmpty extends HtmlUnvoid
 trait HtmlMultiLine extends HtmlUnvoid
 {
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-  { val cons = contents.map(_.outLines(indent + 2, 0, maxLineLen))
-    val middle = cons.foldLeft("") { (acc, ol) => acc --- ife(ol.numLines == 1, (indent + 2).spaces, "") + ol._2 } + "\n"
-    indent.spaces + openTag + middle + indent.spaces + closeTag
+  { val newIndent = indent + 2
+    val cons: StrArr = contents.map(_.outLines(indent + 2, 0, maxLineLen).text)
+    val cons2: String = cons.foldLeft("")(_ --- newIndent.spaces + _)
+    //val middle = cons.foldLeft("") { (acc, ol) => acc --- ife(ol.numLines == 1, (indent + 2).spaces, "") + ol._2 } + "\n"
+    indent.spaces + openTag(indent, indent) + cons2 --- indent.spaces + closeTag
   }
 }
 
