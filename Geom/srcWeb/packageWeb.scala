@@ -21,7 +21,7 @@ package object pWeb
   }
 
   implicit class IntWebExtensions(thisInt: Int)
-  { /** Extensiom method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
+  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
     def px: CssPx = CssPx(thisInt)
 
@@ -36,7 +36,7 @@ package object pWeb
   }
 
   implicit class DoubleWebExtensions(thisDouble: Double)
-  { /** Extensiom method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
+  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
     def px: CssPx = CssPx(thisDouble)
 
