@@ -1,5 +1,17 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
+
+/** Http content that can be sent as a body of an Http response. */
+trait HttpContent
+{ /** The output [[String]] in HTML code. */
+  def out: String
+
+  /** Create an [[HtmlResp]] response with this HTML as its body. */
+  def httpResp(dateStr: String, server: String): HttpRespBodied
+
+  /** Create an [[HtmlResp]] response with this HTML as its body in bytes. */
+  def httpRespBytes(dateStr: String, server: String): Array[Byte] = httpResp(dateStr, server).out.getBytes
+}
 
 /** HTTP content type. */
 sealed trait HttpContentType extends HttpHeader

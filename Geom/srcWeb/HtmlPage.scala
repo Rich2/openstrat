@@ -1,18 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-trait HttpContent
-{ /** The output [[String]] in HTML code. */
-  def out: String
-
-  /** Create an [[HtmlResp]] response with this HTML as its body. */
-  def httpResp(dateStr: String, server: String): HttpRespBodied
-
-  /** Create an [[HtmlResp]] response with this HTML as its body in bytes. */
-  def httpRespBytes(dateStr: String, server: String): Array[Byte] = httpResp(dateStr, server).out.getBytes
-}
-
-/** An HTML page, contains a head and a body element */
+/** An HTML page, contains a doctype, a head and a body elements. */
 trait HtmlPage extends HttpContent
 { /** The HTML element of this [[HtmlPage]] consisting of an [[HtmlHead]] and an [[HtmlBody]]. */
   def htmlElem: HtmlHtml = HtmlHtml(head, body)

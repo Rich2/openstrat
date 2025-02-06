@@ -5,6 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** 80 Km tile width grid centred on the Greenwich meridian, 0°E from 15°W to 15°E. Tile aree 5542.562km².
  * [[Isle8]] 1217.848km² => 1564.258km². Faroe Islands 1399km², Shetlands 1466km².
  * [[Isle7]] 914.739km² => 1217.848km². Orkneys 990km².
+ * [[Isle6]] 654.931km² <= 914.739km². Menorca 695km².
  * [[Isle5]] 438.425km² => 654.931km². Isle of Man 572km². */
 object Terr80E0 extends Long80Terrs
 { implicit val grid: EGrid80LongFull = EGrid80.e0(416, 582)
@@ -96,17 +97,23 @@ object Terr80E0 extends Long80Terrs
     TRow(446, sea * 13, oceanic * 2, hillyOce * 4, mtainDepr * 3, oceanic * 2, mtainDepr, oceanic * 2, hillyOce * 2),
     TRow(444, sea * 13, oceForest, oceanic, hillyOce * 5, mtainDepr * 2, hillyOce * 2, oceanic * 3, sea, oceanic),
     TRow(442, sea * 12, oceanic, oceForest, hillyOce * 3, mtainDepr, hillyOce, mtainDepr * 2, hillyOce, mtainDepr * 3, hillyOce, oceanic),
-    VRow(441, BendIn(478, HVDR, 13)),
 
-    TRow(440, sea * 6, mtainOceForest * 5, sea * 2, oceanic * 3, hillyOce, mtainDepr, hillyOce * 3, mtainDepr * 2, sea, hillyOceForest, hillyOce, mtainDepr,
-      hillyOce, sea * 2),
+    //Checked west of map below
+    VRow(441, BendIn(478, HVDR, 13), BendIn(480, HVDn, 13), BendOut(482, HVUp, 7), BendIn(484, HVDn, 13), BendOut(486, HVUp, 7), BendIn(488, HVDn, 13),
+      BendOut(490, HVUp, 7), BendIn(492, HVDn, 13), BendOut(494, HVUp, 7), BendIn(496, HVDn, 13), BendIn(498, HVDL, 13)),
 
-    VRow(439, BendIn(472, HVDR, 13), BendIn(474, HVDn, 13), OrigRt(476, HVUL), OrigMin(478, HVUp)),
+    TRow(440, sea * 6, mtainOceForest * 5, sea * 2, oceanic * 3, hillyOce, mtainOceForest, hillyOce * 3, mtainOceForest * 2, sea, hillyOceForest, hillyOce,
+      mtainDepr, hillyOce, sea * 2),
 
-    TRow(438, sea * 5, mtainOceForest, hillyOce * 2, mtainDepr * 3, hillyOce, mtainDepr * 2, hillyOce * 4, sea * 2, hillyOceForest * 2, sea * 3, hillySavannah, mtainSubForest,
-      hillySavannah * 2, sea),
+    VRow(439, BendIn(472, HVDR, 13), BendIn(474, HVDn, 13), OrigRt(476, HVUL), OrigMin(478, HVUp), OrigMin(498, HVUp, 1), OrigRt(528, HVDn, 7)),
 
-    VRow(437, BendIn(546, HVDR, 11), OrigLt(548, HVDL, 7), BendInLt(552, HVUR, 13, 7), BendMax(554, HVDL)),
+    TRow(438, sea * 5, mtainOceForest, hillyOceForest * 2, mtainOceForest * 3, hillyOceForest, mtainOceForest * 2, hillyOce * 4, hillySavannah, sea,
+      hillyOceForest * 2, sea * 3, hillySavannah, mtainSubForest,  hillySavannah * 2, sea),
+
+    VRow(437, BendIn(472, HVUR, 13), BendMin(474, HVDL, 2), BendOut(526, HVDR, 7), BendIn(528, HVUL, 13), BendIn(546, HVDR, 11), OrigLt(548, HVDL, 7),
+      BendInLt(552, HVUR, 13, 7), BendMax(554, HVDL)),
+    //Checked western map above
+
     //Checked Corsica
     TRow(436, sea * 5, hillyOce * 3, oceanic * 3, deshot * 2, hillyOce, mtainDepr * 4, sea * 5, hillySubForest, hillySub, hillySavannah, hillyOce * 2,
       mtainDepr, sea),
@@ -119,8 +126,17 @@ object Terr80E0 extends Long80Terrs
     VRow(433, OrigRt(550, HVUR, 7), ThreeUp(552, 0, 13, 6), BendIn(554, HVDL, 13)),
     TRow(432, sea * 6, hillyOce * 3, oceanic, deshot, hillyOce * 3, deshot, oceanic, hillyOce * 2, sea * 7, hillySubForest, sea * 3, hillyOce, hillyOce),
     TRow(430, sea * 5, oceanic, hillyOce * 5, deshot, hillyOce, hillyDeshot, mtainDepr, oceanic, sea * 7, hillySavannah * 2, hillySubForest, sea * 4, hillyOce),
-    TRow(428, sea * 6, hillyOce * 2, oceanic * 3, deshot * 2, hillyOce * 3, sea * 8, hillySavannah, mtainSubForest, sea * 5),
-    TRow(426, sea * 6, hillyOce, oceanic * 3, hillyOce * 2, deshot * 2, hillyOce, oceanic, sea * 3, oceanic, sea * 5, hillySavannah, mtainSubForest, sea * 5),
+    VRow(429, BendIn(522, HVDR, 13), BendIn(524, HVDn, 13), ThreeDown(526, 0, 10, 8)),
+
+    TRow(428, sea * 6, hillyOce * 2, oceanic * 3, deshot * 2, hillyOce * 3, sea * 2, mtainSub, Isle6(hillySub), sea * 4, hillySavannah, mtainSubForest,
+      sea * 5),
+
+    VRow(427, OrigRt(522, HVUp, 7), ThreeDown(528, 10, 0, 13)),
+
+    TRow(426, sea * 6, hillyOce, oceanic * 3, hillyOce * 2, deshot * 2, hillyOce, oceanic, sea * 3, hillySavannah, sea * 5, hillySavannah, mtainSubForest,
+      sea * 5),
+
+    VRow(425, OrigLt(524, HVDR, 7), BendIn(526, HVUp, 13), BendIn(528, HVUL, 13)),
     TRow(424, sea * 5, oceanic * 5, hillyOce * 6, sea * 16),
     TRow(422, sea * 6, oceanic * 2, hillyOce * 4, hillyDeshot, hillyOce, hillyDeshot, oceanic, sea * 14, hillyOce, mtainDepr),
     TRow(420, sea * 7, hillyOce, oceanic * 3, hillyDeshot, hillyOce * 4, sea * 14, hillyOce * 3),

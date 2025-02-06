@@ -14,12 +14,13 @@ object FranceSouth extends EarthPoly("FranceSouth", 44.54 ll 2.53, oceanic)
   val laSeyneSurMer: LatLong = 43.04 ll 5.85
   val fosSurMer: LatLong = 43.42 ll 4.94
   val laGrandeMotte: LatLong = 43.55 ll 4.05
+  val capDAgde: LatLong = 43.272 ll 3.506
   val narbonne: LatLong = 43.14 ll 3.08
 
   val capBreton = 43.656 ll -1.446
 
-  override val polygonLL = PolygonLL(FranceNorth.southWest, FranceNorth.southEast, montelimar, orangeCrossing, stRaphael, frejus,
-    laBastideBlanche, capBenat, laSeyneSurMer, fosSurMer, laGrandeMotte, narbonne, IberiaNorth.laMassaneMouth, IberiaNorth.laNivelleMouth, capBreton)
+  override val polygonLL = PolygonLL(FranceNorth.southWest, FranceNorth.southEast, montelimar, orangeCrossing, stRaphael, frejus, laBastideBlanche, capBenat,
+    laSeyneSurMer, fosSurMer, laGrandeMotte, capDAgde, narbonne, IberiaNorth.laMassaneMouth, IberiaNorth.laNivelleMouth, capBreton)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */
