@@ -42,12 +42,12 @@ object Terr220E0 extends Long220Terrs
     VRow(169, BendIn(502, HVDR, 13), BendIn(504, HVDn, 13), ThreeDown(506, 0, 6, 6), ThreeUp(508, 7, 7, 0), ThreeDown(510, 7, 0, 7), BendIn(512, HVUL, 13),
       OrigRt(516, HVUp, 7)),
 
-    TRow(168, sea, hillyTundra, hillyOce, sea * 2, hillyTaiga, taiga),
+    TRow(168, sea, hillyTundra, hillyOce, sea * 2, mtainLakesOceForest, hillyLakesContForest),
 
     VRow(167, BendIn(502, HVUR, 13), ThreeDown(504, 10, 6, 0), BendIn(506, HVUL, 6), BendIn(512, HVDL, 13), OrigLt(518, HVDR, 7), ThreeDown(520, 9, 10, 0),
       Bend(522, HVDn, 3, 7), BendOut(524, HVDL, 7)),
 
-    TRow(166, sea * 2, hillyOce * 2, sea * 2, oceanic, oceanic),
+    TRow(166, sea * 2, hillyOce * 2, sea * 2, oceanic, continental),
 
     VRow(165, OrigRt(502, HVUR), ThreeUp(504, 6, 9, 0), BendIn(506, HVDL, 7), BendOut(512, HVUR, 7), BendIn(514, HVDL, 13), OrigRt(520, HVUp, 7),
       BendIn(524, HVUR, 13), OrigRt(526, HVUL), OrigMax(530, HVUR)),

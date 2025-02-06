@@ -44,9 +44,9 @@ object Terr220E30 extends Long220Terrs
     VRow(169, Bend(1526, HVDR, 10, 7), ThreeUp(1528, 3, 4, 13), ThreeDown(1530, 13, 0, 6), BendOut(1532, HVDn, 7, sea, SeaIceWinter),
       BendIn(1534, HVUp, 13, SeaIceWinter), OrigRt(1536, HVDL, 7, SeaIceWinter)),
 
-    TRow(168, oceanic, oceanic * 2, oceForest * 2, taiga * 2),
+    TRow(168, hillyLakesContForest, continental, continental, contForest * 2, taiga * 2),
     VRow(167, Bend(1524, HVDR, 13, 7), ThreeUp(1526, 6, 13, 13), BendIn(1528, HVUp), BendIn(1530, HVUL)),
-    TRow(166, oceanic * 4, oceForest * 2, oceanic, oceForest),
+    TRow(166, contForest, continental * 3, contForest * 2, continental, contForest),
     VRow(165, OrigMax(1522, HVUR), Bend(1524, HVUL, 13, 7)),
     TRow(164, oceanic, oceanic * 7),
     TRow(162, oceanic * 9),
