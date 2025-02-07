@@ -98,6 +98,7 @@ trait XmlConInline extends XmlElemLike
     val middle = cons.length match
     { case 0 => ""
       case 1 if cons.head.numLines == 1 => cons.head.text
+      case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 => cons.mkStr(_.text, " ")
       case n => cons.foldLeft("") { (acc, el) => acc --- el.text } + "\n"
     }
     openTag(indent, line1InputLen, maxLineLen) + middle + closeTag
