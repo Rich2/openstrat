@@ -92,23 +92,23 @@ object LinePathNames extends HtmlSection
   HtmlLi("""+-+ appendTail Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters indicates to drop
   | the first point of the operand.""".stripMargin),
 
-  HtmlLi("""|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters indicates to
-  | drop the first point of the operand.""".stripMargin),
+  HtmlLi("|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters indicates" --
+    "to drop the first point of the operand."),
 
   HtmlLi("""++< appendReverse Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is the operand
   | that is reversed""".stripMargin),
 
-  HtmlLi("""|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon. The < charcter after the ++ indicates that
-  | it is the operand to be reversed.""".stripMargin),
+  HtmlLi("|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon. The < character after the ++ indicates" --
+    "that it is the operand to be reversed."),
 
   HtmlLi("""+<+ reverseAppend Reverse this line path and append the operand line path, returning a new line path. The < between the + characters indicates that
   | it is this line segement that is reversed""".stripMargin),
 
-  HtmlLi("""|+<+| reverseAppendToPolygon Reverse this line path and then append the operand line path, closing it into a polygon. The < character between the +
-  | characters indicates that it is this the first line path that is reversed.""".stripMargin),
-  )
+  HtmlLi("|+<+| reverseAppendToPolygon Reverse this line path and then append the operand line path, closing it into a polygon. The < character between the" --
+    "+ characters indicates that it is this the first line path that is reversed."),  
 
   HtmlLi("""+<+< reverseAppendReverse Reverse this line path and append the reverse of the operand line path, returning a new line path. The < between the +
   | characters indicates that this line segement is reversed. The < character after the 2nd + charcters indicates that the operand is also
   | reversed""".stripMargin)
+  )
 }
