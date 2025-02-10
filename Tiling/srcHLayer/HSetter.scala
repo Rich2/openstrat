@@ -206,13 +206,14 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, magnitude)
-
-      iUntilForeach(-1, numIndentedVerts) { i0 =>
-        val i: Int = (indentStartIndex + i0) %% 6
-        val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.setExists(grid, sep, sepTerrs)
-      }
+      deb(s"Creating Cape $terr at row $row, c $c")
+//      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, magnitude)
+//
+//      iUntilForeach(-1, numIndentedVerts) { i0 =>
+//        val i: Int = (indentStartIndex + i0) %% 6
+//        val sep: HSep = HCen(row, c).sep(i)
+//        sTerrs.setExists(grid, sep, sepTerrs)
+//      }
     }
   }
 

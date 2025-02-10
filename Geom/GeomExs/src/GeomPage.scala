@@ -42,8 +42,7 @@ object GeomPage extends HtmlPage
   val svgMargin = 50
 
   object Ellipses extends HtmlSection
-  {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
+  { override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
 
     val circ2: Circle = Circle(200)
     val circ1: Circle = circ2.slateX(-200)
@@ -67,11 +66,10 @@ object GeomPage extends HtmlPage
 }
 
 object LinePathNames extends HtmlSection
-{
-  override def contents: RArr[XCon] = RArr(HtmlH2("Line Paths"), p1, list)
-
+{ override def contents: RArr[XCon] = RArr(HtmlH2("Line Paths"), p1, list)
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
+  /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
   val list = HtmlUl(
   HtmlLi("""++ append This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example intArr1 ++
   | intArr2 returns a new IntArr. For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal].""".stripMargin),
