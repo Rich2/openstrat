@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
 import prid._, phex._
 
@@ -11,6 +11,45 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
 
   trait TRowElem extends VTileHelper, TRowElemBase
 
+  case class VRow(row: Int, edits: VRowElem*) extends RowBase
+
+  sealed trait VRowElem
+  {
+    def run(row: Int): Unit
+  }
+
+  case class TRow(row: Int, mutlis: Multiple[VTileHelper]*) extends RowBase
+
+  val rowDatas: RArr[RowBase]
+
+  def run: Unit = rowDatas.foreach {
+    case data: TRow => tRowRun(data)
+    case data: VRow => data.edits.foreach(_.run(data.row))
+  }
+
+  def tRowRun(inp: TRow): Unit =
+    {
+      val row = inp.row
+      var c = grid.rowLeftCenC(row)
+      inp.mutlis.foreach { multi =>
+        multi match {
+          case Multiple(value: TRowElem, _) => value.run(row, c)
+          case multi => multi.foreach { help =>
+            if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
+            help match {
+              case wt: VTile => tileRun(row, c, wt)
+              case il: TRowElem => il.run(row, c)
+              case _ =>
+            }
+            c += 4
+          }
+        }
+      }
+    }
+
+    def tileRun(row: Int, c: Int, tile: VTile): Unit = {
+      terrs.set(row, c, tile)
+    }
   trait Isle10 extends TRowElem with Isle10Base
   case class Isle10Homo(terr: Land, sepTerrs: Water) extends Isle10, IsleNBaseHomo
 
@@ -39,43 +78,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   case class SepB(sTerr: VSepSome = Sea) extends TRowElem, SepBBase
-  case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
-  sealed trait VRowElem
-  { def run(row: Int): Unit
-  }
-
-  case class TRow(row: Int, mutlis: Multiple[VTileHelper]*) extends RowBase
-
-  val rowDatas: RArr[RowBase]
-
-  def run: Unit = rowDatas.foreach{
-    case data: TRow => tRowRun(data)
-    case data: VRow => data.edits.foreach(_.run(data.row))
-  }
-
-  def tRowRun(inp: TRow): Unit =
-  { val row = inp.row
-    var c = grid.rowLeftCenC(row)
-    inp.mutlis.foreach { multi =>
-      multi match {
-        case Multiple(value: TRowElem, _) => value.run(row, c)
-        case multi => multi.foreach { help =>
-          if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-          help match
-          { case wt: VTile => tileRun(row, c, wt)
-            case il: TRowElem => il.run(row, c)
-            case _ =>
-          }
-          c += 4
-        }
-      }
-    }
-  }
-
-  def tileRun(row: Int, c: Int, tile: VTile): Unit =
-  {  terrs.set(row, c, tile)
-  }
 
   case class SetSep(c: Int, terr: VSepSome = Sea) extends VRowElem with SetSepBase
 

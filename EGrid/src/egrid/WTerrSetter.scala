@@ -5,13 +5,55 @@ import prid._, phex._
 /** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSep] and [[HCornerLayer]] at the same time." */
 abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome], val corners: HCornerLayer)
   extends HSetter[WTile, WSep, WSepSome]
-{
-  implicit val grid: HGrid = gridIn
+{ implicit val grid: HGrid = gridIn
 
   sealed trait RowBase
   case class TRow(row: Int, mutlis: Multiple[WTileHelper]*) extends RowBase
 
   trait TRowElem extends WTileHelper with TRowElemBase
+
+  /** Sets terrain along a row of [[HVert]]s and in the [[HSepB]]s in the rows immediately below and above. */
+  case class VRow(row: Int, edits: VRowElem*) extends RowBase
+
+  sealed trait VRowElem
+  {
+    def run(row: Int): Unit
+  }
+
+  /** The [[TRow]] tile rows and [[VRow]] vertex rows data layer setter values. */
+  val rows: RArr[RowBase]
+
+  def run: Unit =
+  {
+    rows.foreach {
+      case data: TRow => tRowRun(data)
+      case _: VRow =>
+    }
+    rows.foreach {
+      case _: TRow =>
+      case data: VRow => data.edits.foreach(_.run(data.row))
+    }
+  }
+
+    def tRowRun(inp: TRow): Unit = {
+      val row = inp.row
+      var c = grid.rowLeftCenC(row)
+      inp.mutlis.foreach { multi =>
+        multi match {
+          case Multiple(value: SepB, _) => value.run(row, c)
+          case multi => multi.foreach { help =>
+            if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
+            help match {
+              case wt: WTile => terrs.set(row, c, wt)
+              case il: TRowElem => il.run(row, c)
+              case _ =>
+            }
+            c += 4
+          }
+        }
+
+      }
+    }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex. */
   trait Isle13 extends TRowElem with Isle13Base
@@ -202,46 +244,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
    * and sources and threeways. */
   case class SepB(sTerr: Water = Sea) extends TRowElem with SepBBase
 
-  /** Sets terrain along a row of [[HVert]]s and in the [[HSepB]]s in the rows immediately below and above. */
-  case class VRow(row: Int, edits: VRowElem*) extends RowBase
-
-  sealed trait VRowElem
-  { def run(row: Int): Unit
-  }
-
-  /** The [[TRow]] tile rows and [[VRow]] vertex rows data layer setter values. */
-  val rows: RArr[RowBase]
-
-  def run: Unit =
-  { rows.foreach{
-      case data: TRow => tRowRun(data)
-      case _: VRow =>
-    }
-    rows.foreach{
-      case _: TRow =>
-      case data: VRow => data.edits.foreach(_.run(data.row))
-    }
-  }
-
-  def tRowRun(inp: TRow): Unit =
-  { val row = inp.row
-    var c = grid.rowLeftCenC(row)
-    inp.mutlis.foreach { multi =>
-      multi match {
-        case Multiple(value : SepB, _) => value.run(row, c)
-        case multi => multi.foreach { help =>
-          if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-          help match {
-            case wt: WTile => terrs.set(row, c, wt)
-            case il: TRowElem => il.run(row, c)
-            case _ =>
-          }
-          c += 4
-        }
-      }
-
-    }
-  }
 
   /** Sets the [[HSep]] separator at the given position. This should only be needed for setting the [[HSep]] on the left hand side of an [[EGrid]] where the
    * join with the grid to the left is not regular. */
