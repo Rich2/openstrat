@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
@@ -23,7 +23,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Accesses the defining sequence element by a 0 based index. */
   @inline def apply(index: Int): A
 
-  /** like the apply method accesses the defining sequence element by a 0 based index, but cycles around for indexes less that 0 and equal or greater than index length. */
+  /** like the apply method accesses the defining sequence element by a 0 based index, but cycles around for indexes less that 0 and equal or greater than index
+   * length. */
   def indexCycle(index: Int): A = apply(index %% length)
 
   /** The first element of this sequence. */
@@ -41,16 +42,19 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Is this sequence empty? */
   @inline def empty: Boolean = length <= 0
 
-  /** Is this sequence non empty? */
+  /** Is this sequence non-empty? */
   @inline def nonEmpty: Boolean = length > 0
 
-  /** Folds over the non existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the head element. */
+  /** Folds over the non-existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a
+   * separate parameter list is a function on the head element. */
   def headFold[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
 
-  /** Folds over the non existence / existence of a head element. If the sequence is nonEmpty applies toString to head element else returns the noHead parameter string. */
+  /** Folds over the non-existence / existence of a head element. If the sequence is nonEmpty applies toString to head element else returns the noHead parameter
+   * string. */
   def headFoldToString[B](noHead: => String): String = ife(length >= 1, apply(0).toString, noHead)
 
-  /** Folds over the non existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the last element. */
+  /** Folds over the non-existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a
+   * separate parameter list is a function on the last element. */
   def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(length >= 1, ifLast(last), noLast)
 
   /** if this [[Sequ]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
@@ -60,8 +64,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * integers as an index value without throwing an exception. */
   @inline def cycleGet(index: Int): A = apply(index %% length)
 
-  /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non Unit value
-   *  it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non-Unit value it is
+   * discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < length)
@@ -73,12 +77,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   inline final override def ssForeach[U](f: A => U): Unit = foreach(f)
 
-  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
-   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
-   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
-   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
-   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
-   *  in fold methods' (accumulator, element) => B signature. */
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The function
+   * may return Unit. If it does return a non-Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can
+   * be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The
+   * second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iForeach[U](f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = 0
@@ -89,12 +92,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
   }
 
-  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
-   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
-   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
-   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
-   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
-   *  in fold methods' (accumulator, element) => B signature. */
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The function
+   * may return Unit. If it does return a non-Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can
+   * be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The
+   * second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iForeach[U](startIndex: Int)(f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = startIndex
@@ -112,7 +114,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Takes a map function from A to Option[B] but only returns the [[Arr] of B if all the elements map to a [[Some]]. Hence the ArrB if returned will be the
+  /** Takes a map function from A to Option[B] but only returns the [[Arr] of B if all the elements map to a [[Some]]. Hence, the ArrB if returned will be the
    * same length as this sequence. */
   def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: BuilderArrMap[B, ArrB]): Option[ArrB] =
   { val res = build.uninitialised(length)
@@ -336,6 +338,12 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       count += 2
     }
     res
+  }
+
+  def partitionTypes2[A1 <: A @uncheckedVariance, Arr1 <: Arr[A1], A2 <: A @uncheckedVariance, Arr2 <: Arr[A2]](implicit build1: BuilderArrMap[A1, Arr1],
+    build2: BuilderArrMap[A2, Arr2]): (Arr1, Arr2) =
+  {
+    ???
   }
 
   def bestOfGet(init: A @uncheckedVariance)(f1: A => Boolean)(f2: (A, A) => Boolean): A =

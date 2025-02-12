@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
 trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderColl[BB]
-{ /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
-   *  BuffProdHomo. */
+{ /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = [[IntArr]], or it can be a compile time wrapped Arraybuffer inheriting from
+   * [[Buff]]. */
   type BuffT <: BuffSequ[?]
 }
 
@@ -27,11 +27,10 @@ trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderCollMap[B, BB] with 
   def indexSet(seqLike: BB, index: Int, newElem: B): Unit
 }
 
-/** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
- * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into
- * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
- * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
- * used directly by end users. */
+/** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in the
+ * companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into the BB
+ * companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a function from A => B or
+ * A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be used directly by end users. */
 trait BuilderArrMap[B, ArrB <: Arr[B]] extends BuilderSeqLikeMap[B, ArrB]
 {
   def buffContains(buff: BuffT, newElem: B): Boolean =
@@ -58,25 +57,23 @@ object BuilderArrMap extends BuilderArrMapPriority2
   implicit val booleansImplicit: BuilderArrMap[Boolean, BoolArr] = BooleanArrBuilder
 }
 
-/** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
- * the implicit instance for [[RArr]]. */
+/** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from the implicit
+ * instance for [[RArr]]. */
 trait SpecialT extends Any
 
 trait BuilderArrMapPriority2
 {
-  /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
-   * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
-   * specialist Arr classes. */
+  /** This is the fallback builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait to give
+   * those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own specialist Arr classes. */
   implicit def rMapImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): BuilderArrMap[B, RArr[B]] = new RArrAllBuilder[B]
 }
 
-/** Builds [[SeqLike]] objects via flatMap methods. Hence the type of the element of the sequence or specifiying sequence is not known at the call
- *  site. */
+/** Builds [[SeqLike]] objects via flatMap methods. Hence the type of the element of the sequence or specifiying sequence is not known at the call site. */
 trait BuilderSeqLikeFlat[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
 
-/** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
- *  you control should go in the companion object of BB. This is different from the related [[BuilderArrMap]][BB] type class where the instance
- *  should go into the B companion object. */
+/** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits you control
+ * should go in the companion object of BB. This is different from the related [[BuilderArrMap]][BB] type class where the instance should go into the B
+ * companion object. */
 trait BuilderArrFlat[ArrB <: Arr[?]] extends BuilderSeqLikeFlat[ArrB] with BuilderSeqLike[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
@@ -91,18 +88,17 @@ object BuilderArrFlat extends BuilderArrFlatPriority2
   implicit val booleansImplicit: BuilderArrFlat[BoolArr] = BooleanArrBuilder
 }
 
-/** if you create your own specialist [[Arr]] class for a type T, make sure that type T extends [[SpecialArrUser]]. This invalidates the
- *  implicit to build an [[RArr]] */
+/** if you create your own specialist [[Arr]] class for a type T, make sure that type T extends [[SpecialArrUser]]. This invalidates the implicit to build an
+ * [[RArr]] */
 trait SpecialArrUser extends Any
 
 trait BuilderArrFlatPriority2
-{ /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait
- * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
- * specialist Arr classes. */
+{ /** This is the fallback builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait to give
+ those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own specialist Arr classes. */
   implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): BuilderArrFlat[RArr[A]] = new RArrAllBuilder[A]
 }
 
-/** Builds [[SeqSpec]] objects via flatMap methods. Hence the type of the element of the specifying sequence is not known at the call site. */
+/** Builds [[SeqSpec]] objects via flatMap methods. Hence, the type of the element of the specifying sequence is not known at the call site. */
 trait BuilderSeqSpecFlat[ArrB <: Arr[?], BB <: SeqSpec[?]] extends BuilderSeqLike[BB]
 {
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
