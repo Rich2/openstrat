@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import prid._, phex._
 
@@ -24,36 +24,29 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   val rows: RArr[RowBase]
 
   def run: Unit =
-  {
-    rows.foreach {
-      case data: TRow => tRowRun(data)
-      case _: VRow =>
-    }
-    rows.foreach {
-      case _: TRow =>
-      case data: VRow => data.edits.foreach(_.run(data.row))
-    }
+  { val (tRows, vRows) = rows.partitionTypes2[TRow, VRow]
+    tRows.foreach(tRowRun(_))
+    vRows.foreach(data => data.edits.foreach(_.run(data.row)))
   }
 
-    def tRowRun(inp: TRow): Unit = {
-      val row = inp.row
-      var c = grid.rowLeftCenC(row)
-      inp.mutlis.foreach { multi =>
-        multi match {
-          case Multiple(value: SepB, _) => value.run(row, c)
-          case multi => multi.foreach { help =>
-            if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-            help match {
-              case wt: WTile => terrs.set(row, c, wt)
-              case il: TRowElem => il.run(row, c)
-              case _ =>
-            }
-            c += 4
+  def tRowRun(inp: TRow): Unit =
+  { val row = inp.row
+    var c = grid.rowLeftCenC(row)
+    inp.mutlis.foreach { multi =>
+      multi match {
+        case Multiple(value: SepB, _) => value.run(row, c)
+        case multi => multi.foreach { help =>
+          if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
+          help match {
+            case wt: WTile => terrs.set(row, c, wt)
+            case il: TRowElem => il.run(row, c)
+            case _ =>
           }
+          c += 4
         }
-
       }
     }
+  }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex. */
   trait Isle13 extends TRowElem with Isle13Base

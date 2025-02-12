@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
+import annotation.*, unchecked.uncheckedVariance, reflect.{ClassTag, TypeTest}, collection.mutable.ArrayBuffer
 
 /** This is a common trait for [[RArr]] and tiling data layer classes in the Tiling module. */
 trait RefsSeqLike[+A] extends Any with SeqLike[A]
@@ -191,6 +191,20 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
     Array.copy(arrayUnsafe, i, array2, 0, length - i)
     (buff.toArr, new RArr[A](array2))
   }
+
+  /** Partitions this [[RArr]] into 2 parts each with a subtype pf this sequence. */
+  def partitionTypes2[A1 <: A @uncheckedVariance, A2 <: A @uncheckedVariance](implicit tt1: TypeTest[A, A1], ct1: ClassTag[A1], tt2: TypeTest[A, A2],
+    ct2: ClassTag[A2]): (RArr[A1], RArr[A2]) =
+  { val buffer1 = new ArrayBuffer[A1]()
+    val buffer2 = new ArrayBuffer[A2]()
+    foreach {
+      case a1: A1 => buffer1.append(a1)
+      case a2: A2 => buffer2.append(a2)
+      case _ =>
+    }
+    (new RArr(buffer1.toArray), new RArr(buffer2.toArray))
+  }
+
 }
 
 /** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A

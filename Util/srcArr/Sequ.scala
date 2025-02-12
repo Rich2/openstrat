@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
+import annotation.unchecked.uncheckedVariance, collection.immutable.*, reflect.*, collection.mutable.ArrayBuffer
 
 /** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time wrap the
  * platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an
@@ -339,13 +339,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
     res
   }
-
-  def partitionTypes2[A1 <: A @uncheckedVariance, Arr1 <: Arr[A1], A2 <: A @uncheckedVariance, Arr2 <: Arr[A2]](implicit build1: BuilderArrMap[A1, Arr1],
-    build2: BuilderArrMap[A2, Arr2]): (Arr1, Arr2) =
-  {
-    ???
-  }
-
+  
   def bestOfGet(init: A @uncheckedVariance)(f1: A => Boolean)(f2: (A, A) => Boolean): A =
   { var res = init
     foreach{a => if (f1(a) && f2(res, a)) res = a}
