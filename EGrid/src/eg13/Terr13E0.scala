@@ -13,30 +13,30 @@ object Terr13E0 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    VRow(115, BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendOut(516, HVUp, 7)),
-    TRow(114, hillyTundra),
-    VRow(113, ThreeDown(510, 0, 13, 12), BendOut(512, HVUL)),
-    TRow(112, hillyTaiga),
-    VRow(111, ThreeUp(510, 5, 12, 12), BendIn(512, HVDL, 12)),
-    TRow(110, oceanic),
-    VRow(109, ThreeDown(510, 12, 6, 0), OrigLt(514, HVDn)),
-    TRow(108, hillyOce),
-    VRow(107, BendIn(508, HVDR, 8), ThreeUp(510, 6, 10, 0), BendIn(512, HVUp, 10), BendIn(514, HVUL)),
-    TRow(106, hillySahel, sahel),
-    VRow(105, Bend(508, HVUL, 4, 2)),
-    TRow(104, deshot * 2),
-    TRow(102, savannah * 2),
-    VRow(101, OrigLt(514, HVDn)),
-    TRow(100, sea, jungle),
-    VRow(99, BendIn(512, HVDR, 13), BendOut(514, HVUL, 7)),
-    TRow(98, sea, hillyJungle),
-    VRow(97, BendIn(512, HVUR, 13), BendOut(514, HVDL, 7)),
-    TRow(96, sea, sahel),
-    VRow(95, BendIn(514, HVUR, 13), BendIn(516, HVDL)),
-    TRow(88, siceWin),
-    VRow(87, BendMax(510, HVDn, siceWin), BendOut(512, HVUp, 6, siceWin), BendIn(514, HVDn, 12, siceWin), BendMin(516, HVUp, 3, siceWin)),
-    TRow(86, ice)
+  { override val rows: RArr[DateRow] = RArr(
+    VertRow(115, BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendOut(516, HVUp, 7)),
+    TileRow(114, hillyTundra),
+    VertRow(113, ThreeDown(510, 0, 13, 12), BendOut(512, HVUL)),
+    TileRow(112, hillyTaiga),
+    VertRow(111, ThreeUp(510, 5, 12, 12), BendIn(512, HVDL, 12)),
+    TileRow(110, oceanic),
+    VertRow(109, ThreeDown(510, 12, 6, 0), OrigLt(514, HVDn)),
+    TileRow(108, hillyOce),
+    VertRow(107, BendIn(508, HVDR, 8), ThreeUp(510, 6, 10, 0), BendIn(512, HVUp, 10), BendIn(514, HVUL)),
+    TileRow(106, hillySahel, sahel),
+    VertRow(105, Bend(508, HVUL, 4, 2)),
+    TileRow(104, deshot * 2),
+    TileRow(102, savannah * 2),
+    VertRow(101, OrigLt(514, HVDn)),
+    TileRow(100, sea, jungle),
+    VertRow(99, BendIn(512, HVDR, 13), BendOut(514, HVUL, 7)),
+    TileRow(98, sea, hillyJungle),
+    VertRow(97, BendIn(512, HVUR, 13), BendOut(514, HVDL, 7)),
+    TileRow(96, sea, sahel),
+    VertRow(95, BendIn(514, HVUR, 13), BendIn(516, HVDL)),
+    TileRow(88, siceWin),
+    VertRow(87, BendMax(510, HVDn, siceWin), BendOut(512, HVUp, 6, siceWin), BendIn(514, HVDn, 12, siceWin), BendMin(516, HVUp, 3, siceWin)),
+    TileRow(86, ice)
     )
   }
   help.run

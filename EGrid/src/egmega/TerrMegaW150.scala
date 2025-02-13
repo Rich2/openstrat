@@ -12,17 +12,17 @@ object TerrMegaW150 extends LongMegaTerrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    VRow(119, BendOut(7680, HVUp, 7, siceWin), BendIn(7682, HVDn, 13, siceWin), BendOut(7684, HVUp, 7, SeaIcePerm, siceWin)),
-    TRow(118, tundra),
-    TRow(116, SepB(siceWin), hillyTaiga),
-    VRow(115, OrigLt(7680, HVDn, 7)),
-    TRow(114, mtainTundra),
-    VRow(113, BendIn(7680, HVUR, 13), OrigRt(7682, HVUL, 7)),
-    VRow(111, BendIn(7684, HVDR, 13), OrigLt(7686, HVDL, 7)),
-    VRow(109, BendIn(7684, HVUR, 13)),
-    TRow(106, Isle3(mtainJungle)),
-    TRow(82, SeaIcePerm)
+  { override val rows: RArr[DateRow] = RArr(
+    VertRow(119, BendOut(7680, HVUp, 7, siceWin), BendIn(7682, HVDn, 13, siceWin), BendOut(7684, HVUp, 7, SeaIcePerm, siceWin)),
+    TileRow(118, tundra),
+    TileRow(116, SepB(siceWin), hillyTaiga),
+    VertRow(115, OrigLt(7680, HVDn, 7)),
+    TileRow(114, mtainTundra),
+    VertRow(113, BendIn(7680, HVUR, 13), OrigRt(7682, HVUL, 7)),
+    VertRow(111, BendIn(7684, HVDR, 13), OrigLt(7686, HVDL, 7)),
+    VertRow(109, BendIn(7684, HVUR, 13)),
+    TileRow(106, Isle3(mtainJungle)),
+    TileRow(82, SeaIcePerm)
     )
   }
   help.run

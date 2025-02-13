@@ -11,27 +11,27 @@ object Terr13E60 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    VRow(115, BendOut(2560, HVUp, 6, SeaIceWinter), OrigLt(2562, HVDL, 7, SeaIceWinter)),
-    TRow(114, tundra),
-    TRow(112, taiga),
-    TRow(110, sahel),
-    VRow(109, OrigLt(2558, HVDn, 7, lake)),
-    TRow(108, sahel),
-    VRow(107, OrigRt(2558, HVUp, 7, lake)),
-    TRow(106, sahel, hillySahel),
-    VRow(105, OrigLt(2556, HVDR), BendIn(2558, HVUp), BendIn(2560, HVDn), BendIn(2562, HVDL, 13)),
-    TRow(104, hillyDeshot, savannah),
-    VRow(103, BendOut(2556, HVUp), BendIn(2558, HVDn, 12), ThreeDown(2560, 13, 0, 13), ThreeUp(2562, 13, 0, 13), OrigLt(2564, HVUL)),
-    TRow(102, deshot),
-    VRow(101, BendOut(2558, HVDR), BendIn(2560, HVUL, 13), OrigLt(2564, HVDR), BendIn(2566, HVUp)),
-    VRow(99, BendOut(2556, HVDR, 7), BendIn(2558, HVUL, 13)),
-    VRow(97, ThreeUp(2556, 0, 6, 6), BendIn(2558, HVDL)),
-    TRow(96, sea * 2),
-    VRow(95, BendIn(2556, HVUp), BendIn(2558, HVUL)),
-    TRow(88, SeaIceWinter),
-    VRow(87, OrigLt(2558, HVDL, 7, siceWin), OrigRt(2562, HVDR, 7, siceWin), BendIn(2564, HVUp, 7, siceWin)),
-    TRow(86, ice)
+  { override val rows: RArr[DateRow] = RArr(
+    VertRow(115, BendOut(2560, HVUp, 6, SeaIceWinter), OrigLt(2562, HVDL, 7, SeaIceWinter)),
+    TileRow(114, tundra),
+    TileRow(112, taiga),
+    TileRow(110, sahel),
+    VertRow(109, OrigLt(2558, HVDn, 7, lake)),
+    TileRow(108, sahel),
+    VertRow(107, OrigRt(2558, HVUp, 7, lake)),
+    TileRow(106, sahel, hillySahel),
+    VertRow(105, OrigLt(2556, HVDR), BendIn(2558, HVUp), BendIn(2560, HVDn), BendIn(2562, HVDL, 13)),
+    TileRow(104, hillyDeshot, savannah),
+    VertRow(103, BendOut(2556, HVUp), BendIn(2558, HVDn, 12), ThreeDown(2560, 13, 0, 13), ThreeUp(2562, 13, 0, 13), OrigLt(2564, HVUL)),
+    TileRow(102, deshot),
+    VertRow(101, BendOut(2558, HVDR), BendIn(2560, HVUL, 13), OrigLt(2564, HVDR), BendIn(2566, HVUp)),
+    VertRow(99, BendOut(2556, HVDR, 7), BendIn(2558, HVUL, 13)),
+    VertRow(97, ThreeUp(2556, 0, 6, 6), BendIn(2558, HVDL)),
+    TileRow(96, sea * 2),
+    VertRow(95, BendIn(2556, HVUp), BendIn(2558, HVUL)),
+    TileRow(88, SeaIceWinter),
+    VertRow(87, OrigLt(2558, HVDL, 7, siceWin), OrigRt(2562, HVDR, 7, siceWin), BendIn(2564, HVUp, 7, siceWin)),
+    TileRow(86, ice)
     )
   }
   help.run

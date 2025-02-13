@@ -11,14 +11,14 @@ object Terr220E60 extends Long220Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    TRow(154, steppe * 2, descold * 8),
-    TRow(152, sea, descold * 3, steppe, descold, steppe, descold * 3),
-    TRow(150, hillySteppe, sea, descold * 2, steppe, descold * 3, hillySteppe * 3),
-    TRow(148, hillySavannah, mtainSavannah, sea, descold * 5, steppe, mtainSteppe, mtainTaiga),
-    TRow(146, hillySavannah, sea, hillyDescold, descold * 3, steppe, hillySteppe, mtainSteppe * 2, mtainTundra),
-    TRow(144, hillyDeshot, mtainSavannah, sea, hillySteppe, hillyDescold, descold * 2, steppe, hillySteppe, mtainSteppe, mtainTundra),
-    TRow(142, hillyDeshot * 2),
+  { override val rows: RArr[DateRow] = RArr(
+    TileRow(154, steppe * 2, descold * 8),
+    TileRow(152, sea, descold * 3, steppe, descold, steppe, descold * 3),
+    TileRow(150, hillySteppe, sea, descold * 2, steppe, descold * 3, hillySteppe * 3),
+    TileRow(148, hillySavannah, mtainSavannah, sea, descold * 5, steppe, mtainSteppe, mtainTaiga),
+    TileRow(146, hillySavannah, sea, hillyDescold, descold * 3, steppe, hillySteppe, mtainSteppe * 2, mtainTundra),
+    TileRow(144, hillyDeshot, mtainSavannah, sea, hillySteppe, hillyDescold, descold * 2, steppe, hillySteppe, mtainSteppe, mtainTundra),
+    TileRow(142, hillyDeshot * 2),
     )
   }
 

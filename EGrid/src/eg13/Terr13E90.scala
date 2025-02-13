@@ -12,21 +12,21 @@ object Terr13E90 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    TRow(114, tundra),
-    TRow(112, taiga),
-    TRow(110, mtainTundra),
-    TRow(108, hillyDeshot),
-    TRow(106, mtainTundra * 2),
-    TRow(104, jungle, hillyJungle),
-    VRow(103, OrigLt(3580, HVUL), OrigMax(3584, HVDn), OrigLt(3590, HVDR, 7)),
-    TRow(102, hillyJungle, jungle),
-    VRow(101, OrigLt(3580, HVDR), BendIn(3582, HVUp), ThreeUp(3584, 13, 0, 13), ThreeDown(3586, 10, 7, 0), Bend(3588, HVDn, 7, 4)),
-    TRow(100, sea, Isle9(hillyJungle)),
-    VRow(99, ThreeDown(3588, 7, 11, 0), ThreeUp(3590, 1, 7, 6)),
-    VRow(95, BendOut(3590, HVUL)),
-    VRow(87, OrigRt(3582, HVDR, 7, siceWin), BendIn(3584, HVUp, 7, siceWin), BendOut(3586, HVDn, 7, siceWin), BendIn(3588, HVUp, 13, siceWin)),
-    TRow(86, ice)
+  { override val rows: RArr[DateRow] = RArr(
+    TileRow(114, tundra),
+    TileRow(112, taiga),
+    TileRow(110, mtainTundra),
+    TileRow(108, hillyDeshot),
+    TileRow(106, mtainTundra * 2),
+    TileRow(104, jungle, hillyJungle),
+    VertRow(103, OrigLt(3580, HVUL), OrigMax(3584, HVDn), OrigLt(3590, HVDR, 7)),
+    TileRow(102, hillyJungle, jungle),
+    VertRow(101, OrigLt(3580, HVDR), BendIn(3582, HVUp), ThreeUp(3584, 13, 0, 13), ThreeDown(3586, 10, 7, 0), Bend(3588, HVDn, 7, 4)),
+    TileRow(100, sea, Isle9(hillyJungle)),
+    VertRow(99, ThreeDown(3588, 7, 11, 0), ThreeUp(3590, 1, 7, 6)),
+    VertRow(95, BendOut(3590, HVUL)),
+    VertRow(87, OrigRt(3582, HVDR, 7, siceWin), BendIn(3584, HVUp, 7, siceWin), BendOut(3586, HVDn, 7, siceWin), BendIn(3588, HVUp, 13, siceWin)),
+    TileRow(86, ice)
     )
   }
   help.run

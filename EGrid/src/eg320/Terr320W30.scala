@@ -13,26 +13,26 @@ object Terr320W30 extends Long320Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
-    override val rows: RArr[RowBase] = RArr(
-      TRow(166, ice),
-      TRow(164, ice),
-      TRow(162, ice * 2),
-      TRow(160, ice, Hilly(IceCap)),
-      TRow(158, ice * 2, SeaIceWinter),
-      TRow(156, ice * 2, SeaIceWinter),
-      TRow(154, ice, tundra, sea * 2),
-      VRow(153, BendOut(11774, HVDR, 7), BendIn(11776, HVUL, 10), OrigLt(11778, HVDn, 7), OrigRt(11784, HVDR), BendIn(11786, HVDL)),
-      TRow(152, Land(Hilly, IceCap, LandFree), sea, hillyTundra, hillyTundra),
-      VRow(151, BendOut(11772, HVDR, 7), BendIn(11774, HVUL, 13), BendIn(11786, HVUL), BendIn(11778, HVUR, 13), OrigRt(11780, HVUL), OrigLt(11784, HVUR, 7)),
-      TRow(150, Land(Hilly, IceCap, LandFree)),
-      VRow(149, BendOut(11770, HVDR, 7), BendIn(11772, HVUL, 13)),
-      TRow(148, tundra),
-      VRow(147, BendIn(11768, HVUp, 13), BendIn(11770, HVUL, 13)),
-      VRow(123, BendIn(11792, HVDR, 11), BendIn(11794, HVDn, 11), ThreeDown(11796, 0, 7, 11)),
-      TRow(122, sea * 8, mtainSavannah),
-      VRow(121, BendIn(11792, HVUR, 11), BendIn(11794, HVUp, 11), BendIn(11796, HVUL, 11)),
-      VRow(119, OrigLt(11792, HVDn, 7)),
-      TRow(118, sea * 8, deshot),
+    override val rows: RArr[DateRow] = RArr(
+      TileRow(166, ice),
+      TileRow(164, ice),
+      TileRow(162, ice * 2),
+      TileRow(160, ice, Hilly(IceCap)),
+      TileRow(158, ice * 2, SeaIceWinter),
+      TileRow(156, ice * 2, SeaIceWinter),
+      TileRow(154, ice, tundra, sea * 2),
+      VertRow(153, BendOut(11774, HVDR, 7), BendIn(11776, HVUL, 10), OrigLt(11778, HVDn, 7), OrigRt(11784, HVDR), BendIn(11786, HVDL)),
+      TileRow(152, Land(Hilly, IceCap, LandFree), sea, hillyTundra, hillyTundra),
+      VertRow(151, BendOut(11772, HVDR, 7), BendIn(11774, HVUL, 13), BendIn(11786, HVUL), BendIn(11778, HVUR, 13), OrigRt(11780, HVUL), OrigLt(11784, HVUR, 7)),
+      TileRow(150, Land(Hilly, IceCap, LandFree)),
+      VertRow(149, BendOut(11770, HVDR, 7), BendIn(11772, HVUL, 13)),
+      TileRow(148, tundra),
+      VertRow(147, BendIn(11768, HVUp, 13), BendIn(11770, HVUL, 13)),
+      VertRow(123, BendIn(11792, HVDR, 11), BendIn(11794, HVDn, 11), ThreeDown(11796, 0, 7, 11)),
+      TileRow(122, sea * 8, mtainSavannah),
+      VertRow(121, BendIn(11792, HVUR, 11), BendIn(11794, HVUp, 11), BendIn(11796, HVUL, 11)),
+      VertRow(119, OrigLt(11792, HVDn, 7)),
+      TileRow(118, sea * 8, deshot),
     )
   }
   help.run

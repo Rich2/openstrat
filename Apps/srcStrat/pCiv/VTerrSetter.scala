@@ -7,49 +7,28 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   HSetter[VTile, VSep, VSepSome]
 { implicit val grid: HGrid = gridIn
 
-  sealed trait RowBase
+  sealed trait DataRow
 
-  trait TRowElem extends VTileHelper, TRowElemBase
+  trait TRowElem extends VTileHelper, TileRowElemBase
 
-  case class VRow(row: Int, edits: VRowElem*) extends RowBase
+  class VertRow(val row: Int, val edits: RArr[VertRowElem]) extends DataRow, VertRowBase
 
-  sealed trait VRowElem
-  {
-    def run(row: Int): Unit
+  object VertRow
+  { def apply(row: Int, edits: VertRowElem*): VertRow = new VertRow(row, edits.toRArr)
   }
 
-  case class TRow(row: Int, mutlis: Multiple[VTileHelper]*) extends RowBase
+  sealed trait VertRowElem extends VertRowElemBase
 
-  val rowDatas: RArr[RowBase]
+  class TileRow(val row: Int, val mutlis: RArr[Multiple[VTileHelper]]) extends DataRow with TileRowBase
 
-  def run: Unit = rowDatas.foreach {
-    case data: TRow => tRowRun(data)
-    case data: VRow => data.edits.foreach(_.run(data.row))
+  object TileRow
+  { def apply(row: Int, mutlis: Multiple[VTileHelper]*): TileRow = new TileRow(row, mutlis.toRArr)
   }
 
-  def tRowRun(inp: TRow): Unit =
-    {
-      val row = inp.row
-      var c = grid.rowLeftCenC(row)
-      inp.mutlis.foreach { multi =>
-        multi match {
-          case Multiple(value: TRowElem, _) => value.run(row, c)
-          case multi => multi.foreach { help =>
-            if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-            help match {
-              case wt: VTile => tileRun(row, c, wt)
-              case il: TRowElem => il.run(row, c)
-              case _ =>
-            }
-            c += 4
-          }
-        }
-      }
-    }
+  val rows: RArr[DataRow]
 
-    def tileRun(row: Int, c: Int, tile: VTile): Unit = {
-      terrs.set(row, c, tile)
-    }
+  def tileRun(row: Int, c: Int, tile: VTile): Unit = terrs.set(row, c, tile)
+
   trait Isle10 extends TRowElem with Isle10Base
   case class Isle10Homo(terr: Land, sepTerrs: Water) extends Isle10, IsleNBaseHomo
 
@@ -80,10 +59,10 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   case class SepB(sTerr: VSepSome = Sea) extends TRowElem, SepBBase
 
 
-  case class SetSep(c: Int, terr: VSepSome = Sea) extends VRowElem with SetSepBase
+  case class SetSep(c: Int, terr: VSepSome = Sea) extends VertRowElem with SetSepBase
 
   class ThreeUp(val c: Int, val upTerr: VSepSome, val downRightTerr: VSepSome, val downLeftTerr: VSepSome, val magUR: Int, val magDn: Int, val magUL: Int)
-    extends VRowElem, ThreeUpBase
+    extends VertRowElem, ThreeUpBase
 
   object ThreeUp
   { def apply(c: Int, sTerr: VSepSome = Sea): ThreeUp = new ThreeUp(c, sTerr, sTerr, sTerr, 3, 3, 3)
@@ -91,7 +70,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   case class ThreeDown(val c: Int, val upRightTerr: VSepSome, val downTerr: VSepSome, val upLeftTerr: VSepSome, val magUp: Int, val magDR: Int, val magDL: Int)
-    extends VRowElem with ThreeDownBase
+    extends VertRowElem with ThreeDownBase
 
   object ThreeDown
   { def apply(c: Int, sTerr: VSepSome = Sea): ThreeDown = new ThreeDown(c, sTerr, sTerr, sTerr, 3, 3, 3)
@@ -101,9 +80,9 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   /** Sets the orign / end poiont of an [[HSep]] tile separator terrain for a river or straits. */
-  case class Orig(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VRowElem with OrigLtRtBase
+  case class Orig(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VertRowElem with OrigLtRtBase
 
-  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendInOutBase
+  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VertRowElem with BendInOutBase
   { override def magIn: Int = 3
     override def magOut: Int = 3
   }

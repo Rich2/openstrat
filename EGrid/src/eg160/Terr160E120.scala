@@ -12,18 +12,18 @@ object Terr160E120 extends Long160Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
-    override val rows: RArr[RowBase] = RArr(
-      TRow(272, deshot * 3, hillyDeshot * 3, hillyOce, deshot, oceanic * 2, hillyOce * 2, oceanic, hillyOceForest),
-      TRow(270, oceanic * 14, sea),
-      TRow(268, oceanic * 13, sea * 2),
-      TRow(266, oceanic * 12, sea * 3),
-      TRow(264, oceanic * 12, sea * 3),
-      TRow(262, oceanic * 7, sea * 4, hillyOce * 2, sea * 3),
-      TRow(260, oceanic * 9, sea, hillyOce * 3, sea * 3),
-      TRow(258, oceanic * 9, sea * 2, hillyOce * 2, sea * 3),
-      TRow(256, oceanic * 8, sea * 4, hillyOce * 2, sea, hillyOce * 2),
-      TRow(254, oceanic * 8, sea * 6, hillyOce * 3),
-      TRow(252, oceanic * 9, sea * 5, hillyOce * 2, sea),
+    override val rows: RArr[DateRow] = RArr(
+      TileRow(272, deshot * 3, hillyDeshot * 3, hillyOce, deshot, oceanic * 2, hillyOce * 2, oceanic, hillyOceForest),
+      TileRow(270, oceanic * 14, sea),
+      TileRow(268, oceanic * 13, sea * 2),
+      TileRow(266, oceanic * 12, sea * 3),
+      TileRow(264, oceanic * 12, sea * 3),
+      TileRow(262, oceanic * 7, sea * 4, hillyOce * 2, sea * 3),
+      TileRow(260, oceanic * 9, sea, hillyOce * 3, sea * 3),
+      TileRow(258, oceanic * 9, sea * 2, hillyOce * 2, sea * 3),
+      TileRow(256, oceanic * 8, sea * 4, hillyOce * 2, sea, hillyOce * 2),
+      TileRow(254, oceanic * 8, sea * 6, hillyOce * 3),
+      TileRow(252, oceanic * 9, sea * 5, hillyOce * 2, sea),
     )
   }
   help.run

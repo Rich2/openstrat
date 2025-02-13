@@ -11,31 +11,31 @@ object Terr640W120 extends Long640Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    VRow(131, OrigRt(8706, HVDR, 7, SeaIcePerm), BendIn(8708, HVDL, 13, SeaIcePerm)),
-    TRow(130, hillyTundra),
+  { override val rows: RArr[DateRow] = RArr(
+    VertRow(131, OrigRt(8706, HVDR, 7, SeaIcePerm), BendIn(8708, HVDL, 13, SeaIcePerm)),
+    TileRow(130, hillyTundra),
 
-    VRow(129, BendOut(8702, HVUp, 7, siceWin), BendOut(8704, HVDn, 7, siceWin), ThreeDown(8706, 13, 6, 0, SeaIcePerm, siceWin, siceWin),
+    VertRow(129, BendOut(8702, HVUp, 7, siceWin), BendOut(8704, HVDn, 7, siceWin), ThreeDown(8706, 13, 6, 0, SeaIcePerm, siceWin, siceWin),
       BendIn(8708, HVUL, 13, SeaIcePerm)),
 
-    TRow(128, tundra),
-    TRow(126, taiga * 2),
-    TRow(124, taiga * 2),
-    VRow(123, BendIn(8700, HVDL)),
-    TRow(122, hillyTaiga, taiga),
-    VRow(121, BendIn(8698, HVDR, 13), BendOut(8700, HVUL, 6)),
-    TRow(120, mtainOceForest, hillyTaiga, savannah),
-    VRow(119, BendIn(8698, HVUR, 13), BendOut(8700, HVDL, 7)),
-    TRow(118, mtainOceForest, mtainSavannah, hillySahel),
-    VRow(117, OrigRt(8700,HVUp, 7)),
-    TRow(116, sea, hillySavannah, hillyDeshot),
-    TRow(114, sea * 2, hillySahel, hillyDeshot),
-    TRow(112, sea * 2, hillySahel, hillySahel),
-    TRow(110, sea * 3, hillyDeshot),
-    VRow(109, OrigLt(8708, HVDR, 7), BendOut(8710, HVDL, 7)),
-    TRow(108, sea * 3, mtainSavannah),
-    VRow(107, BendIn(8710, HVUR, 13), OrigRt(8712, HVUL, 7)),
-    TRow(70, ice)
+    TileRow(128, tundra),
+    TileRow(126, taiga * 2),
+    TileRow(124, taiga * 2),
+    VertRow(123, BendIn(8700, HVDL)),
+    TileRow(122, hillyTaiga, taiga),
+    VertRow(121, BendIn(8698, HVDR, 13), BendOut(8700, HVUL, 6)),
+    TileRow(120, mtainOceForest, hillyTaiga, savannah),
+    VertRow(119, BendIn(8698, HVUR, 13), BendOut(8700, HVDL, 7)),
+    TileRow(118, mtainOceForest, mtainSavannah, hillySahel),
+    VertRow(117, OrigRt(8700,HVUp, 7)),
+    TileRow(116, sea, hillySavannah, hillyDeshot),
+    TileRow(114, sea * 2, hillySahel, hillyDeshot),
+    TileRow(112, sea * 2, hillySahel, hillySahel),
+    TileRow(110, sea * 3, hillyDeshot),
+    VertRow(109, OrigLt(8708, HVDR, 7), BendOut(8710, HVDL, 7)),
+    TileRow(108, sea * 3, mtainSavannah),
+    VertRow(107, BendIn(8710, HVUR, 13), OrigRt(8712, HVUL, 7)),
+    TileRow(70, ice)
     )
   }
   help.run

@@ -1,11 +1,12 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import reflect.TypeTest
 
 /** Helper trait for setting an [[LayerHcRefSys]], [[HSepLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the terrain to be
  *  laid out in systematic row order. There will be tile rows and vertex rows. It is assumed that you will want to specify the values for nearly every tile
  *  [[HCen]]. Therefore, the column of the tile is determined by its position in the row sequence. It is assumed that the majority of the [[HSep]]s, at least
- *  initially will have default empty / none values. Hence, the setters for the vertex rows must specify there column. */
-trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
+ *  initially will have default empty / none values. Hence, the setters for the vertex rows must specify their column. */
+abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: TypeTest[Any, TT])
 { implicit def grid: HGrid
 
   /** The [[LayerHcRefSys]]. The [[HCen]] tile values. */
@@ -17,13 +18,56 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   /** The [[HCorner]] layer to set the vertices of the [[HSep]]s. */
   def corners: HCornerLayer
 
+  def rows: RArr[Any]
+
+  def run: Unit =
+  { val (tRows, vRows) = rows.partitionTypes2[TileRowBase, VertRowBase]
+    tRows.foreach(tileRowRun(_))
+    vRows.foreach(data => data.edits.foreach(_.run(data.row)))
+  }
+
+  def tileRowRun(inp: TileRowBase): Unit = {
+    val row = inp.row
+    var c = grid.rowLeftCenC(row)
+    inp.mutlis.foreach { multi =>
+      multi match
+      { case Multiple(value: SepBBase, _) => value.run(row, c)
+        case multi => multi.foreach { help =>
+          if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
+          help match {
+            case wt: TT => terrs.set(row, c, wt)
+            case il: TileRowElemBase => il.run(row, c)
+            case _ =>
+          }
+          c += 4
+        }
+      }
+    }
+  }
+
+  trait TileRowBase
+  {
+    def row: Int
+    def mutlis: RArr[Multiple[Any]]
+  }
+
+  trait VertRowBase
+  {
+    val row: Int
+    val edits: RArr[VertRowElemBase]
+  }
+
+  trait VertRowElemBase
+  { def run(row: Int): Unit
+  }
+
   /** A tile row element. Your tile rows will include these in addition to straight tile values. */
-  trait TRowElemBase
+  trait TileRowElemBase
   { /** Sets [[HCen]] and [[HSep]] data and HCorner values. */
     def run(row: Int, c: Int): Unit
   }
 
-  trait IsleNBase extends TRowElemBase
+  trait IsleNBase extends TileRowElemBase
   {
     /** The tile terrain. typically land terrain. */
     def terr: TT
@@ -179,7 +223,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   }
 
   /** Sets an [[HSepB]] separator in the tile row. Make sure you do not add 4 to the column coordinate after applying this. */
-  trait SepBBase extends TRowElemBase
+  trait SepBBase extends TileRowElemBase
   { /** The [[HSep]] separator terrain. */
     def sTerr: SST
 

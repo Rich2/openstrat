@@ -7,49 +7,30 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   extends HSetter[WTile, WSep, WSepSome]
 { implicit val grid: HGrid = gridIn
 
-  sealed trait RowBase
-  case class TRow(row: Int, mutlis: Multiple[WTileHelper]*) extends RowBase
+  sealed trait DateRow
 
-  trait TRowElem extends WTileHelper with TRowElemBase
+  class TileRow(val row: Int, val mutlis: RArr[Multiple[WTileHelper]]) extends DateRow, TileRowBase
+
+  object TileRow
+  { def apply(row: Int, mutlis: Multiple[WTileHelper]*): TileRow = new TileRow(row, mutlis.toRArr)
+  }
+
+  trait TileRowElem extends WTileHelper, TileRowElemBase
 
   /** Sets terrain along a row of [[HVert]]s and in the [[HSepB]]s in the rows immediately below and above. */
-  case class VRow(row: Int, edits: VRowElem*) extends RowBase
+  class VertRow(val row: Int, val edits: RArr[VertRowElem]) extends DateRow with VertRowBase
 
-  sealed trait VRowElem
-  {
-    def run(row: Int): Unit
+  object VertRow
+  { def apply(row: Int, edits: VertRowElem*): VertRow = new VertRow(row, edits.toRArr)
   }
 
-  /** The [[TRow]] tile rows and [[VRow]] vertex rows data layer setter values. */
-  val rows: RArr[RowBase]
+  sealed trait VertRowElem extends VertRowElemBase
 
-  def run: Unit =
-  { val (tRows, vRows) = rows.partitionTypes2[TRow, VRow]
-    tRows.foreach(tRowRun(_))
-    vRows.foreach(data => data.edits.foreach(_.run(data.row)))
-  }
-
-  def tRowRun(inp: TRow): Unit =
-  { val row = inp.row
-    var c = grid.rowLeftCenC(row)
-    inp.mutlis.foreach { multi =>
-      multi match {
-        case Multiple(value: SepB, _) => value.run(row, c)
-        case multi => multi.foreach { help =>
-          if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-          help match {
-            case wt: WTile => terrs.set(row, c, wt)
-            case il: TRowElem => il.run(row, c)
-            case _ =>
-          }
-          c += 4
-        }
-      }
-    }
-  }
+  /** The [[TileRow]] tile rows and [[VertRow]] vertex rows data layer setter values. */
+  val rows: RArr[DateRow]
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex. */
-  trait Isle13 extends TRowElem with Isle13Base
+  trait Isle13 extends TileRowElem with Isle13Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle13Homo(terr: Land, sepTerrs: Water) extends Isle13, IsleNBaseHomo
@@ -67,7 +48,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 12/16 of the radius of the hex. */
-  trait Isle12 extends TRowElem with Isle10Base
+  trait Isle12 extends TileRowElem with Isle10Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 12/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle12Homo(terr: Land, sepTerrs: Water = Sea) extends Isle12, IsleNBaseHomo
@@ -85,7 +66,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-  trait Isle11 extends TRowElem, Isle11Base
+  trait Isle11 extends TileRowElem, Isle11Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 11/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle11Homo(terr: Land, sepTerrs: Water = Sea) extends Isle11, IsleNBaseHomo
@@ -103,7 +84,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-  trait Isle10 extends TRowElem with Isle10Base
+  trait Isle10 extends TileRowElem with Isle10Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle10Homo(terr: Land, sepTerrs: Water) extends Isle10 with IsleNBaseHomo
@@ -120,7 +101,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle10 = Isle10Homo(Land(elev, biome, landUse), sTerr)
   }
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
-  trait Isle9 extends TRowElem with Isle9Base
+  trait Isle9 extends TileRowElem with Isle9Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle9Homo(terr: Land, sepTerrs: Water) extends Isle9, IsleNBaseHomo
@@ -142,7 +123,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
-  trait Isle8 extends TRowElem with Isle8Base
+  trait Isle8 extends TileRowElem with Isle8Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle8Homo(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends Isle8, IsleNBaseHomo
@@ -160,7 +141,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 7/16 of the radius of the hex. */
-  trait Isle7 extends TRowElem, Isle7Base
+  trait Isle7 extends TileRowElem, Isle7Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 7/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle7Homo(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends Isle7, IsleNBaseHomo
@@ -174,7 +155,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
-  trait Isle6 extends TRowElem with Isle6Base
+  trait Isle6 extends TileRowElem with Isle6Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle6Homo(terr: Land, sepTerrs: Water = Sea) extends Isle6, IsleNBaseHomo
@@ -188,7 +169,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
-  trait Isle5 extends TRowElem, Isle5Base
+  trait Isle5 extends TileRowElem, Isle5Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle5Homo(terr: Land, sepTerrs: Water = Sea) extends Isle5, IsleNBaseHomo
@@ -202,7 +183,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
-  trait Isle4 extends TRowElem with Isle4Base
+  trait Isle4 extends TileRowElem with Isle4Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle4Homo(terr: Land, sepTerrs: Water) extends Isle4, IsleNBaseHomo
@@ -216,7 +197,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
-  trait Isle3 extends TRowElem with Isle3Base
+  trait Isle3 extends TileRowElem with Isle3Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   class Isle3Homo(val terr: Land, val sepTerrs: Water) extends Isle3, IsleNBaseHomo
@@ -233,26 +214,26 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Make sure you do not add 4 to the column coordinate after applying this. Creates an [[HSepB]], an [[HSep]] of the vertical alignment. The only place this
-   * should be needed is on the left or west edge of an [[EGrid]]. Otherwise, the [[HSep]]s should be set in the [[VRow]]s along with [[HCorner]]s using bends
+   * should be needed is on the left or west edge of an [[EGrid]]. Otherwise, the [[HSep]]s should be set in the [[VertRow]]s along with [[HCorner]]s using bends
    * and sources and threeways. */
-  case class SepB(sTerr: Water = Sea) extends TRowElem with SepBBase
+  case class SepB(sTerr: Water = Sea) extends TileRowElem with SepBBase
 
 
   /** Sets the [[HSep]] separator at the given position. This should only be needed for setting the [[HSep]] on the left hand side of an [[EGrid]] where the
    * join with the grid to the left is not regular. */
-  case class SetSep(c: Int, terr: WSepSome = Sea) extends  VRowElem with SetSepBase
+  case class SetSep(c: Int, terr: WSepSome = Sea) extends  VertRowElem with SetSepBase
 
   /** origin / end point of [[HSep]] hex tile separator. */
-  case class Orig(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with OrigLtRtBase
+  case class Orig(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VertRowElem with OrigLtRtBase
 
   /** Origin / end point of an [[HSep]] hex tile separator, offset to the left as viewed from the [[HVert]] looking down the [[HSep]]. */
-  case class OrigLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigLtBase
+  case class OrigLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VertRowElem with OrigLtBase
 
   /** Origin / end point of an [[HSep]] hex tile separator, offset to the right as viewed from the [[HVert]] looking down the [[HSep]]. */
-  case class OrigRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigRtBase
+  case class OrigRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VertRowElem with OrigRtBase
 
   /** Origin / end point of an [[HSep]] hex tile separator, with a minimum combined offset of 6. */
-  class OrigMin(val c: Int, val dirn: HVDirnPrimary, val magLt: Int, val sTerr: WSepSome) extends VRowElem with OrigLtRtBase
+  class OrigMin(val c: Int, val dirn: HVDirnPrimary, val magLt: Int, val sTerr: WSepSome) extends VertRowElem with OrigLtRtBase
   { override def magRt: Int = 6 - magLt
   }
 
@@ -267,13 +248,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Origin / end point of an [[HSep]] separator with a left and right magnitude of 7. */
-  case class OrigMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with OrigLtRtBase
+  case class OrigMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VertRowElem with OrigLtRtBase
   { override def magLt: Int = 7
     override def magRt: Int = 7
   }
 
   /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. [[BendMin]] just exists for a convenient way of setting values. */
-  class BendMin(val c: Int, val dirn: HVDirn, val magIn: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
+  class BendMin(val c: Int, val dirn: HVDirn, val magIn: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with BendInOutBase
   { override def magOut: Int = 6 - magIn
   }
 
@@ -292,7 +273,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 7/16. */
-  class BendMax(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
+  class BendMax(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with BendInOutBase
   { override def magIn: Int = 13
     override def magOut: Int = 7
   }
@@ -308,7 +289,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
   /** Sets the 2 outer corners of the bend for [[HSep]] terrain with a default offset of 6, max 7, Also sets the left most of the [[HSep]]s of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendOutBase
+  class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with BendOutBase
 
   object BendOut
   { /** Factory apply method to construct a [[BendOut]]. Note the direction of the bend is always given inwards. */
@@ -323,7 +304,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets the 2 outer corners of the bend for [[HSep]] terrain with a default offset of 6, Also sets the left most of the [[HSep]]s of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInBase
+  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with BendInBase
 
   object BendIn
   {
@@ -337,7 +318,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class Bend(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
+  class Bend(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with BendInOutBase
 
   object Bend
   {
@@ -354,7 +335,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** So I think this is only useful on edge of a grid where it meets a second grid. Bend at junction of 2 [[HSep]]s, with extra separator vertex. Sets the
    * [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class BendExtra(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+  class BendExtra(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with
     BendInOutExtraBase
 
   object BendExtra
@@ -372,7 +353,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class BendInLt(val c: Int, val dirn: HVDirn, val magIn: Int, val OrigMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+  class BendInLt(val c: Int, val dirn: HVDirn, val magIn: Int, val OrigMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with
     BendInLtBase
 
   object BendInLt
@@ -389,7 +370,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class BendInRt(val c: Int, val dirn: HVDirn, val magIn: Int, val origMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+  class BendInRt(val c: Int, val dirn: HVDirn, val magIn: Int, val origMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with
     BendInRtBase
 
   object BendInRt
@@ -406,7 +387,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Used for setting a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
-  case class BendLtOut(c: Int, magnitude: Int, leftTerr: WSepSome, rightTerr: WSepSome) extends VRowElem with BendLtOutBase
+  case class BendLtOut(c: Int, magnitude: Int, leftTerr: WSepSome, rightTerr: WSepSome) extends VertRowElem with BendLtOutBase
 
   object BendLtOut
   { /** Factory apply method to sets a bend out in an [[HVLt]] direction. Normally wanted on the right edge of the grid where 4 hexs share a vertex. */
@@ -415,7 +396,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets a vertex where 3 [[HSep]] terrains meet. Sets the three [[HCorner]]s and the 3 [[HSep]]'s terrain. */
   class ThreeDown(val c: Int, val magUp: Int, val magDR: Int, val magDL: Int, val upRightTerr: WSepSome, val downTerr: WSepSome,
-    val upLeftTerr: WSepSome) extends VRowElem with ThreeDownBase
+    val upLeftTerr: WSepSome) extends VertRowElem with ThreeDownBase
 
   object ThreeDown
   {
@@ -431,7 +412,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
   class ThreeUp(val c: Int, val magUR: Int, val magDn: Int, val magUL: Int, val upTerr: WSepSome, val downRightTerr: WSepSome, val downLeftTerr: WSepSome)
-    extends VRowElem, ThreeUpBase
+    extends VertRowElem, ThreeUpBase
 
   object ThreeUp
   {

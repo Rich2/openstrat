@@ -11,16 +11,16 @@ object Terr220E150 extends Long220Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    TRow(152, sea, hillyContForest * 2),
-    TRow(150, sea, hillyContForest * 2, continental),
-    VRow(149, OrigRt(5616, HVUp, 7), OrigRt(5618, HVUR), BendIn(5620, HVDn, 13), BendIn(5622, HVDL, 13)),
-    TRow(148, sea * 2, hillyContForest),
-    VRow(147, OrigLt(5622, HVUp, 7)),
-    TRow(146, sea, mtainContForest),
-    TRow(144, mtainSubForest, mtainContForest),
-    TRow(142, mtainSubForest, hillySubForest, hillySub),
-    TRow(140, mtainSubForest),
+  { override val rows: RArr[DateRow] = RArr(
+    TileRow(152, sea, hillyContForest * 2),
+    TileRow(150, sea, hillyContForest * 2, continental),
+    VertRow(149, OrigRt(5616, HVUp, 7), OrigRt(5618, HVUR), BendIn(5620, HVDn, 13), BendIn(5622, HVDL, 13)),
+    TileRow(148, sea * 2, hillyContForest),
+    VertRow(147, OrigLt(5622, HVUp, 7)),
+    TileRow(146, sea, mtainContForest),
+    TileRow(144, mtainSubForest, mtainContForest),
+    TileRow(142, mtainSubForest, hillySubForest, hillySub),
+    TileRow(140, mtainSubForest),
     )
   }
   help.run

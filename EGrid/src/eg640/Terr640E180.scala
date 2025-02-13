@@ -13,27 +13,27 @@ object Terr640E180 extends Long640Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    TRow(130, siceWin),
-    VRow(129, BendOut(6654, HVUp, 7, siceWin), BendIn(6656, HVDn, 13, siceWin), ThreeDown(6658, 0, 8, 13, siceWin)),
-    TRow(128, tundra),
-    VRow(127, BendOut(6658, HVUR), BendIn(6660, HVDL, 8, siceWin)),
-    TRow(126, hillyTundra, tundra),
-    VRow(125, OrigLt(6656, HVDR, 7, SeaIceWinter), ThreeDown(6658, 13, 13, 0, SeaIceWinter), BendIn(6660, HVUL, 13, SeaIceWinter)),
-    TRow(124, siceWin, hillyTundra),
+  { override val rows: RArr[DateRow] = RArr(
+    TileRow(130, siceWin),
+    VertRow(129, BendOut(6654, HVUp, 7, siceWin), BendIn(6656, HVDn, 13, siceWin), ThreeDown(6658, 0, 8, 13, siceWin)),
+    TileRow(128, tundra),
+    VertRow(127, BendOut(6658, HVUR), BendIn(6660, HVDL, 8, siceWin)),
+    TileRow(126, hillyTundra, tundra),
+    VertRow(125, OrigLt(6656, HVDR, 7, SeaIceWinter), ThreeDown(6658, 13, 13, 0, SeaIceWinter), BendIn(6660, HVUL, 13, SeaIceWinter)),
+    TileRow(124, siceWin, hillyTundra),
 
-    VRow(123, BendMin(6652, HVDR, 3, siceWin), OrigRt(6654, HVDL, 7, siceWin), BendIn(6658, HVUR, 13, siceWin), ThreeDown(6660, 13, 13, 0, siceWin),
+    VertRow(123, BendMin(6652, HVDR, 3, siceWin), OrigRt(6654, HVDL, 7, siceWin), BendIn(6658, HVUR, 13, siceWin), ThreeDown(6660, 13, 13, 0, siceWin),
       Orig(6662, HVDL, 4, 2, siceWin)),
 
-    TRow(122, SepB()),
-    TRow(96, SepB()),
-    TRow(92, SepB()),
-    VRow(91, SetSep(6649)),
-    TRow(84, Isle9(hillySubForest)),
-    TRow(82, Isle10(hillyOce)),
-    TRow(74, sea, SeaIcePerm),
-    TRow(72, SeaIcePerm),
-    TRow(70, SeaIcePerm)
+    TileRow(122, SepB()),
+    TileRow(96, SepB()),
+    TileRow(92, SepB()),
+    VertRow(91, SetSep(6649)),
+    TileRow(84, Isle9(hillySubForest)),
+    TileRow(82, Isle10(hillyOce)),
+    TileRow(74, sea, SeaIcePerm),
+    TileRow(72, SeaIcePerm),
+    TileRow(70, SeaIcePerm)
     )
   }
   help.run

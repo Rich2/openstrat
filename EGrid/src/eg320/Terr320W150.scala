@@ -12,27 +12,27 @@ object Terr320W150 extends Long320Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    TRow(166, SeaIcePerm),
-    TRow(164, SeaIceWinter),
-    TRow(162, SeaIceWinter * 2),
-    TRow(160, SeaIceWinter * 2),
-    TRow(158, SeaIceWinter * 3),
+  { override val rows: RArr[DateRow] = RArr(
+    TileRow(166, SeaIcePerm),
+    TileRow(164, SeaIceWinter),
+    TileRow(162, SeaIceWinter * 2),
+    TileRow(160, SeaIceWinter * 2),
+    TileRow(158, SeaIceWinter * 3),
 
-    VRow(157, Bend(7678, HVUp, 2, 4, siceWin), BendIn(7680, HVDn, 12, siceWin), Bend(7682, HVUp, 1, 5, siceWin), BendIn(7684, HVDn, 13, siceWin),
+    VertRow(157, Bend(7678, HVUp, 2, 4, siceWin), BendIn(7680, HVDn, 12, siceWin), Bend(7682, HVUp, 1, 5, siceWin), BendIn(7684, HVDn, 13, siceWin),
       BendOut(7686, HVUp, 7, siceWin)),
 
-    TRow(156, tundra * 3),
-    TRow(154, hillyTaiga * 3, taiga),
-    TRow(152, taiga * 3, hillyTaiga),
-    VRow(151, ThreeDown(7672, 13, 1, 12, siceWin), Orig(7674, HVDL, 2, 7, siceWin)),
-    TRow(150, hillyTundra, mtainDepr * 2, taiga),
-    VRow(149, SetSep(7671, siceWin)),
-    TRow(148, hillyTaiga * 2, sea * 2, mtainDepr),
-    VRow(147, ThreeUp(7670, 12, 0, 13, siceWin), BendIn(7672, HVDR, 13), Orig(7674, HVDL, 5, 1)),
-    TRow(146, hillyTundra, sea * 3, mtainDepr),
-    TRow(144, hillyTaiga, sea * 4),
-    VRow(143, OrigMin(7670, HVDR)),
+    TileRow(156, tundra * 3),
+    TileRow(154, hillyTaiga * 3, taiga),
+    TileRow(152, taiga * 3, hillyTaiga),
+    VertRow(151, ThreeDown(7672, 13, 1, 12, siceWin), Orig(7674, HVDL, 2, 7, siceWin)),
+    TileRow(150, hillyTundra, mtainDepr * 2, taiga),
+    VertRow(149, SetSep(7671, siceWin)),
+    TileRow(148, hillyTaiga * 2, sea * 2, mtainDepr),
+    VertRow(147, ThreeUp(7670, 12, 0, 13, siceWin), BendIn(7672, HVDR, 13), Orig(7674, HVDL, 5, 1)),
+    TileRow(146, hillyTundra, sea * 3, mtainDepr),
+    TileRow(144, hillyTaiga, sea * 4),
+    VertRow(143, OrigMin(7670, HVDR)),
     )
   }
   help.run

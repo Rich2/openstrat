@@ -12,28 +12,28 @@ object Terr13W90 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    VRow(115, BendIn(9728, HVDR, 6, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVDL, 13, siceWin)),
-    TRow(114, SepB(siceWin), tundra),
-    VRow(113, BendIn(9728, HVUR, 7, siceWin), BendOut(9730, HVUp, 6, siceWin), ThreeUp(9732, 4, 13, 2, siceWin)),
-    TRow(112, taiga),
-    TRow(110, taiga),
-    TRow(108, hillyCont),
-    TRow(106, savannah, subtrop),
-    VRow(105, Orig(9728, HVDR, 6, 7), ThreeDown(9730, 8, 10, 7), BendIn(9732, HVDn, 10), BendIn(9734, HVDL, 10)),
-    TRow(104, hillyJungle, hillyJungle),
-    VRow(103, OrigRt(9724, HVUL, 7), Bend(9730, HVUR, 10, 4), Bend(9732, HVUp, 10, 4), ThreeUp(9734, 0, 10, 8)),
-    TRow(102, sea, hillyJungle),
-    VRow(101, OrigLt(9728, HVDR, 7), BendOut(9730, HVDL, 7)),
-    TRow(100, sea, hillyJungle),
-    VRow(99, BendIn(9728, HVDR, 13), BendOut(9730, HVUL, 6)),
-    TRow(98, sea, mtainSavannah),
-    VRow(97, BendIn(9728, HVUR, 13), OrigRt(9730, HVUL, 7)),
-    VRow(91, BendIn(9728, HVDR, 13), OrigMin(9730, HVDL, 1)),
-    TRow(90, mtainSteppe),
-    VRow(89, BendIn(9728, HVUR, 13), OrigRt(9730, HVUL, 7)),
-    VRow(87, BendIn(9726, HVDn, 13, siceWin), BendOut(9728, HVUp, 7, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVUp, 13, siceWin)),
-    TRow(86, ice)
+  { override val rows: RArr[DateRow] = RArr(
+    VertRow(115, BendIn(9728, HVDR, 6, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVDL, 13, siceWin)),
+    TileRow(114, SepB(siceWin), tundra),
+    VertRow(113, BendIn(9728, HVUR, 7, siceWin), BendOut(9730, HVUp, 6, siceWin), ThreeUp(9732, 4, 13, 2, siceWin)),
+    TileRow(112, taiga),
+    TileRow(110, taiga),
+    TileRow(108, hillyCont),
+    TileRow(106, savannah, subtrop),
+    VertRow(105, Orig(9728, HVDR, 6, 7), ThreeDown(9730, 8, 10, 7), BendIn(9732, HVDn, 10), BendIn(9734, HVDL, 10)),
+    TileRow(104, hillyJungle, hillyJungle),
+    VertRow(103, OrigRt(9724, HVUL, 7), Bend(9730, HVUR, 10, 4), Bend(9732, HVUp, 10, 4), ThreeUp(9734, 0, 10, 8)),
+    TileRow(102, sea, hillyJungle),
+    VertRow(101, OrigLt(9728, HVDR, 7), BendOut(9730, HVDL, 7)),
+    TileRow(100, sea, hillyJungle),
+    VertRow(99, BendIn(9728, HVDR, 13), BendOut(9730, HVUL, 6)),
+    TileRow(98, sea, mtainSavannah),
+    VertRow(97, BendIn(9728, HVUR, 13), OrigRt(9730, HVUL, 7)),
+    VertRow(91, BendIn(9728, HVDR, 13), OrigMin(9730, HVDL, 1)),
+    TileRow(90, mtainSteppe),
+    VertRow(89, BendIn(9728, HVUR, 13), OrigRt(9730, HVUL, 7)),
+    VertRow(87, BendIn(9726, HVDn, 13, siceWin), BendOut(9728, HVUp, 7, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVUp, 13, siceWin)),
+    TileRow(86, ice)
     )
   }
   help.run
