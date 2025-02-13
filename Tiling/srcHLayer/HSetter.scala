@@ -236,9 +236,6 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
   { /** The number of the first vertex to be indented. */
     def indentStartIndex: Int
 
-    /** The number of indented vertices. */
-    def numIndentedVerts: Int
-
     /** The magnitude of the [[HCorner]] indents. */
     def magnitude: Int
 
@@ -250,14 +247,12 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
 
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
-      deb(s"Creating Cape $terr at row $row, c $c")
-//      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, magnitude)
-//
-//      iUntilForeach(-1, numIndentedVerts) { i0 =>
-//        val i: Int = (indentStartIndex + i0) %% 6
-//        val sep: HSep = HCen(row, c).sep(i)
-//        sTerrs.setExists(grid, sep, sepTerrs)
-//      }
+      corners.setNCornersIn(row, c, 4, indentStartIndex, magnitude)
+      iUntilForeach(-1, 4) { i0 =>
+        val i: Int = (indentStartIndex + i0) %% 6
+        val sep: HSep = HCen(row, c).sep(i)
+        sTerrs.setExists(grid, sep, sepTerrs)
+      }
     }
   }
 

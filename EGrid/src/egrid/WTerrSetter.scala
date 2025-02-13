@@ -307,9 +307,12 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with BendInBase
 
   object BendIn
-  {
+  { /** Factory apply method to create [[BendIn]], default magnitude is 6. The default [[HSep]] terrain is [[Sea]]. There is a name overload to apply different
+     * terrain types to the 2 [[HSep]]s. */
     def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSepSome = Sea): BendIn = apply(c, dirn, magnitude, terr, terr)
 
+    /** Factory apply method to create [[BendIn]],with different [[HSep]] terrains.. There is a name overload for when the [[HSep]]s have the same terrain type
+     * which defaults to [[Sea]]. */
     def apply(c: Int, dirn: HVDirn, magnitude: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendIn =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 13, magnitude.toString -- "magnitude, magnitude values > 13 not allowed.")

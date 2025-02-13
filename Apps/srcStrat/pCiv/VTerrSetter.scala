@@ -37,14 +37,12 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   /** Needs removing. */
-  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land, val sepTerrs: Water) extends TRowElem with CapeBase
+  class Cape private(val indentStartIndex: Int, val terr: Land, val sepTerrs: Water) extends TRowElem with CapeBase
   { override def magnitude: Int = 7
   }
 
   object Cape
-  {
-    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Plain, sideTerrs: Water = Sea): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
+  { def apply(indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea): Cape =  new Cape(indentStartIndex, terr, sideTerrs)
   }
 
   /** Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
@@ -92,5 +90,21 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
     def apply(c: Int, dirn: HVDirn, sTerr: VSepSome = Sea): BendAll = new BendAll(c, dirn, sTerr, sTerr)
 
     def apply(c: Int, dirn: HVDirn, leftTerr: VSepSome, rightTerr: VSepSome): BendAll = new BendAll(c, dirn, leftTerr, rightTerr)
+  }
+
+  /** Sets the inner corner of the bend for [[HSep]] terrain with a magnitude of 6, Sets the 2 [[HSep]] terrains of the bend vertex, with a default terrain of
+   * [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
+  class BendIn(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VertRowElem with BendInBase
+  { override def magnitude: Int = 6
+  }
+
+  object BendIn
+  { /** Factory apply method to create [[BendIn]], default [[HSep]] terrain is [[Sea]]. There is a name overload to apply different terrain types to the 2
+     * [[HSep]]s. */
+    def apply(c: Int, dirn: HVDirn, terr: VSepSome = Sea): BendIn = apply(c, dirn, terr, terr)
+
+    /** Factory apply method to create [[BendIn]],with different [[HSep]] terrains.. There is a name overload for when the [[HSep]]s have the same terrain type
+     * which defaults to [[Sea]]. */
+    def apply(c: Int, dirn: HVDirn, leftTerr: VSepSome, rightTerr: VSepSome): BendIn = new BendIn(c, dirn, leftTerr, rightTerr)
   }
 }

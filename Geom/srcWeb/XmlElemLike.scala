@@ -25,14 +25,6 @@ trait XmlElemLike extends XCon
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  /** The XML / HTML output for this element's attributes. */
-  /*def attribsOut: String = attribs.length match
-  { case 0 => ""
-    case 1 => " " + attribs(0).out
-    case _ if attribs.sumBy(_.out.length) < 80 => " " + attribs.mkStr(_.out, " ")
-    case _ => " " + attribs.mkStr(_.out, "\n" + 2.spaces)
-  }*/
-
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = attribs.length match{
     case 0 => TextLines("", 0, 0, 0)
 
