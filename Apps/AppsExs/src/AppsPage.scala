@@ -34,8 +34,9 @@ object AppsPage extends OSDocumentationPage
     HtmlLi.linkAndText(otDir / "unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText(otDir / "zugapp.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),
     HtmlLi.linkAndText(otDir / "dungeonapp.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale."),
-    HtmlLi.linkAndText(otDir / "civriseapp.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
-      "generalised side terrain")
+    HtmlLi.linkAndText(otDir / "civriseapp.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a generalised" --
+      "side terrain. The terrain can be designed for the game, so can be neater than terrain to model prexsisting terrain, whether from the real world or a" --
+      "pre exsting fantasy world.")
   )
 
   def otherApps: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Apps"),

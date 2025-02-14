@@ -80,6 +80,16 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   /** Sets the orign / end poiont of an [[HSep]] tile separator terrain for a river or straits. */
   case class Orig(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VertRowElem with OrigLtRtBase
 
+  /** Origin / end point of an [[HSep]] hex tile separator, offset to the left as viewed from the [[HVert]] looking down the [[HSep]]. */
+  case class OrigLt(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea) extends VertRowElem with OrigLtBase
+  { override def magLt: Int = 6
+  }
+
+  /** Origin / end point of an [[HSep]] hex tile separator, offset to the right as viewed from the [[HVert]] looking down the [[HSep]]. */
+  case class OrigRt(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea) extends VertRowElem with OrigRtBase
+  { override def magRt: Int = 6
+  }
+
   class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VertRowElem with BendInOutBase
   { override def magIn: Int = 3
     override def magOut: Int = 3

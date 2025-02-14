@@ -151,6 +151,7 @@ lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanage
 
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
 lazy val Apps = jvmMainProj("Apps").dependsOn(EGrid).settings(appsSett)
+lazy val AppsExs = projSubName("Apps", "Exs").dependsOn(Apps, GeomExs)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat", bbDir.value / "Apps/AppsJs/src"),
@@ -159,7 +160,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/scalaJSUseMainModuleInitializer := true,
 )
 
-lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).settings(
+lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps, AppsExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) ::: List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
