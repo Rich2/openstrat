@@ -18,16 +18,20 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
   /** The [[HCorner]] layer to set the vertices of the [[HSep]]s. */
   def corners: HCornerLayer
 
-  def rows: RArr[Any]
+  /** The Data to be encoded in the layers. */
+  def rows: RArr[DataRowBase]
 
+  /** This has to be run to after all the data rows have been assembled. This runs the tile rows first setting the values in the [[LayerHcRef]]. In the case of
+   * [[IsleNBase]]s, [[CapeBase]]s and [[HSepBBase]]s sets values in the [[LayerHSOptSys]] and the [[HCornerLayer]]. It then runs the then the vert rows,
+   * setting the bulk of the values in the [[LayerHSOptSys]] and the [[HCornerLayer]]. It can override values set by the tile row data. */
   def run: Unit =
   { val (tRows, vRows) = rows.partitionTypes2[TileRowBase, VertRowBase]
     tRows.foreach(tileRowRun(_))
     vRows.foreach(data => data.edits.foreach(_.run(data.row)))
   }
 
-  def tileRowRun(inp: TileRowBase): Unit = {
-    val row = inp.row
+  def tileRowRun(inp: TileRowBase): Unit =
+  { val row = inp.row
     var c = grid.rowLeftCenC(row)
     inp.mutlis.foreach { multi =>
       multi match
@@ -45,15 +49,20 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     }
   }
 
-  trait TileRowBase
-  {
+  trait DataRowBase
+  { /** The row number. */
     def row: Int
+  }
+
+  /** A row of tile data and [[HSepB]] */
+  trait TileRowBase extends DataRowBase
+  { /** The Data elements do not have columns. Their column number is determined by their postion in the sequence. */
     def mutlis: RArr[Multiple[Any]]
   }
 
-  trait VertRowBase
+  trait VertRowBase extends DataRowBase
   {
-    val row: Int
+
     val edits: RArr[VertRowElemBase]
   }
 
@@ -67,9 +76,16 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     def run(row: Int, c: Int): Unit
   }
 
+  /** Sets an [[HSepB]] separator in the tile row. Make sure you do not add 4 to the column coordinate after applying this. */
+  trait SepBBase extends TileRowElemBase
+  { /** The [[HSep]] separator terrain. */
+    def sTerr: SST
+
+    override def run(row: Int, c: Int): Unit = sTerrs.setExists(grid, row, c - 2, sTerr)
+  }
+
   trait IsleNBase extends TileRowElemBase
-  {
-    /** The tile terrain. typically land terrain. */
+  { /** The tile terrain. typically land terrain. */
     def terr: TT
 
     /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
@@ -220,14 +236,6 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
    *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle3Base extends IsleNSmallBase
   { override def magnitude: Int = 13
-  }
-
-  /** Sets an [[HSepB]] separator in the tile row. Make sure you do not add 4 to the column coordinate after applying this. */
-  trait SepBBase extends TileRowElemBase
-  { /** The [[HSep]] separator terrain. */
-    def sTerr: SST
-
-    override def run(row: Int, c: Int): Unit = sTerrs.setExists(grid, row, c - 2, sTerr)
   }
 
   /** Base trait for capes / headlands / peninsulas. Only use these classes for [[HVert]]s where there is no offset for any of the adjacent hex's [[HCorner]]s

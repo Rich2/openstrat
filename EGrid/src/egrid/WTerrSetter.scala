@@ -7,7 +7,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   extends HSetter[WTile, WSep, WSepSome]
 { implicit val grid: HGrid = gridIn
 
-  sealed trait DateRow
+  sealed trait DateRow extends DataRowBase
 
   class TileRow(val row: Int, val mutlis: RArr[Multiple[WTileHelper]]) extends DateRow, TileRowBase
 

@@ -7,11 +7,11 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   HSetter[VTile, VSep, VSepSome]
 { implicit val grid: HGrid = gridIn
 
-  sealed trait DataRow
+  sealed trait DataRow extends DataRowBase
 
   trait TRowElem extends VTileHelper, TileRowElemBase
 
-  class VertRow(val row: Int, val edits: RArr[VertRowElem]) extends DataRow, VertRowBase
+  class VertRow(val row: Int, val edits: RArr[VertRowElem]) extends VertRowBase, DataRow
 
   object VertRow
   { def apply(row: Int, edits: VertRowElem*): VertRow = new VertRow(row, edits.toRArr)
@@ -19,13 +19,13 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
 
   sealed trait VertRowElem extends VertRowElemBase
 
-  class TileRow(val row: Int, val mutlis: RArr[Multiple[VTileHelper]]) extends DataRow with TileRowBase
+  class TileRow(val row: Int, val mutlis: RArr[Multiple[VTileHelper]]) extends TileRowBase, DataRow
 
   object TileRow
   { def apply(row: Int, mutlis: Multiple[VTileHelper]*): TileRow = new TileRow(row, mutlis.toRArr)
   }
 
-  val rows: RArr[DataRow]
+  override val rows: RArr[DataRow]
 
   def tileRun(row: Int, c: Int, tile: VTile): Unit = terrs.set(row, c, tile)
 
