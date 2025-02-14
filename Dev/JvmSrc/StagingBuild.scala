@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*
+import utiljvm.*, pDoc.*
 
 trait StagingBuild
 {
@@ -33,7 +33,7 @@ trait StagingBuild
       fileWrite(docPath / "apps.html", AppsPage.out),
       fileWrite(docPath / "util.html", UtilPage.out),
       fileWrite(docPath / "geom.html", geom.GeomPage.out),
-      fileWrite(docPath / "tiling.html", pDev.TilingPage.out),
+      fileWrite(docPath / "tiling.html", prid.TilingPage.out),
       fileWrite(docPath / "earth.html", pEarth.EarthPage.out),
       fileWrite(docPath / "egrid.html", EGridPage.out),
       fileWrite(docPath / "dev.html", pDev.DevPage.out),

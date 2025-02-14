@@ -2,7 +2,7 @@
 package ostrat; package pCiv
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcRefSys]][VTile], [[HSepLayer]][VSep] and [[HCornerLayer]] at the same time." */
+/** Helper class for setting  [[LayerHcRefSys]][VTile], [[HSepLayer]][VSep] and [[HCornerLayer]] at the same time. */
 abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSep, VSepSome], val corners: HCornerLayer) extends
   HSetter[VTile, VSep, VSepSome]
 { implicit val grid: HGrid = gridIn
@@ -55,8 +55,6 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   case class SepB(sTerr: VSepSome = Sea) extends TRowElem, SepBBase
-
-
   case class SetSep(c: Int, terr: VSepSome = Sea) extends VertRowElem with SetSepBase
 
   class ThreeUp(val c: Int, val upTerr: VSepSome, val downRightTerr: VSepSome, val downLeftTerr: VSepSome, val magUR: Int, val magDn: Int, val magUL: Int)
@@ -77,7 +75,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
       new ThreeDown(c, upRightTerr, downTerr, upLeftTerr, 3, 3, 3)
   }
 
-  /** Sets the orign / end poiont of an [[HSep]] tile separator terrain for a river or straits. */
+  /** Sets the origin / end point of an [[HSep]] tile separator terrain for a river or straits. */
   case class Orig(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VertRowElem with OrigLtRtBase
 
   /** Origin / end point of an [[HSep]] hex tile separator, offset to the left as viewed from the [[HVert]] looking down the [[HSep]]. */
@@ -113,7 +111,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
      * [[HSep]]s. */
     def apply(c: Int, dirn: HVDirn, terr: VSepSome = Sea): BendIn = apply(c, dirn, terr, terr)
 
-    /** Factory apply method to create [[BendIn]],with different [[HSep]] terrains.. There is a name overload for when the [[HSep]]s have the same terrain type
+    /** Factory apply method to create [[BendIn]],with different [[HSep]] terrains. There is a name overload for when the [[HSep]]s have the same terrain type
      * which defaults to [[Sea]]. */
     def apply(c: Int, dirn: HVDirn, leftTerr: VSepSome, rightTerr: VSepSome): BendIn = new BendIn(c, dirn, leftTerr, rightTerr)
   }

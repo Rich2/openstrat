@@ -129,11 +129,11 @@ def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
 )
 lazy val Tiling = jvmMainProj("Tiling").dependsOn(Geom).settings(tilingSett)
-lazy val TilingExs = projSubName("Tiling", "Exs").dependsOn(Tiling)
+lazy val TilingExs = projSubName("Tiling", "Exs").dependsOn(Tiling, GeomExs)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 
 lazy val EGrid = jvmMainProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
-
+lazy val EGridExs = projSubName("EGrid", "Exs").dependsOn(EGrid, TilingExs)
 lazy val EarthIrr = config("EarthIrr") extend(Compile)
 lazy val EG1300 = config("EG1300") extend(Compile)
 
@@ -151,7 +151,7 @@ lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanage
 
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
 lazy val Apps = jvmMainProj("Apps").dependsOn(EGrid).settings(appsSett)
-lazy val AppsExs = projSubName("Apps", "Exs").dependsOn(Apps, GeomExs)
+lazy val AppsExs = projSubName("Apps", "Exs").dependsOn(Apps, EGridExs)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat", bbDir.value / "Apps/AppsJs/src"),
@@ -160,7 +160,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/scalaJSUseMainModuleInitializer := true,
 )
 
-lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps, AppsExs).settings(
+lazy val Dev = jvmMainProj("Dev").dependsOn(AppsExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) ::: List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),

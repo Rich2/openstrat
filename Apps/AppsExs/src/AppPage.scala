@@ -1,5 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pDev
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pDoc
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */

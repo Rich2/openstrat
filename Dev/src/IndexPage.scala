@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb._
+import pWeb.*, pDoc.*
 
 /** The home page for the project, currently displayed at richstrat.com. */
 object IndexPage extends HtmlPage
