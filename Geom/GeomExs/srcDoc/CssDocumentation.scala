@@ -1,5 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pDoc
 import pWeb._, Colour._
 
 object CssDocumentation extends CssOpenstrat

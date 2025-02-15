@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb._
+import pWeb.*
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = ""/*, jsFileStemIn: String = ""*/) extends
+class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "") extends
   HtmlPage
 { /** The [[String]] for the HTML title element. */
   val pageTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)

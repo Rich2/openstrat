@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-import pWeb._
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pDoc
+import pWeb.*
 
 trait OSDocumentationPage extends HtmlPage
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HtmlHead]]. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pWeb.*, utiljvm.*, pDoc.*
 
@@ -29,8 +29,8 @@ object ServRawOS extends ServRaw
 
         case "/test" => TestPage.httpResp(httpNow, "localhost")
         case "/Documentation/ut il.html" => UtilPage.httpResp(httpNow, "localhost")
-        case "/Documentation/geom.html" => geom.GeomPage.httpResp(httpNow, "localhost")
-        case "/Documentation/tiling.html" => prid.TilingPage.httpResp(httpNow, "localhost")
+        case "/Documentation/geom.html" => GeomPage.httpResp(httpNow, "localhost")
+        case "/Documentation/tiling.html" => TilingPage.httpResp(httpNow, "localhost")
         case "/Documentation/egrid.html" => EGridPage.httpResp(httpNow, "localhost")
         case "/Documentation/apps.html" => AppsPage.httpResp(httpNow, "localhost")
         case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")

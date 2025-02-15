@@ -32,12 +32,12 @@ trait StagingBuild
     mkDirExist(docPath).flatMapAcc { res => ErrBiAcc(
       fileWrite(docPath / "apps.html", AppsPage.out),
       fileWrite(docPath / "util.html", UtilPage.out),
-      fileWrite(docPath / "geom.html", geom.GeomPage.out),
-      fileWrite(docPath / "tiling.html", prid.TilingPage.out),
+      fileWrite(docPath / "geom.html", GeomPage.out),
+      fileWrite(docPath / "tiling.html", TilingPage.out),
       fileWrite(docPath / "earth.html", pEarth.EarthPage.out),
       fileWrite(docPath / "egrid.html", EGridPage.out),
-      fileWrite(docPath / "dev.html", pDoc.DevPage.out),
-      fileWrite(docPath / "newdevs.html", pDoc.NewDevsPage.out),
+      fileWrite(docPath / "dev.html", DevPage.out),
+      fileWrite(docPath / "newdevs.html", NewDevsPage.out),
       fileWrite(docPath / "documentation.css", CssDocumentation())
     )
     }

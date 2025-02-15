@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
-import ostrat.geom._, prid.phex._, pWeb._, Colour._
+package ostrat; package pDoc
+import geom.*, prid.phex.*, pWeb.*, Colour.*
 
 /** Html documentation page for Tiling Module. */
 object TilingPage extends OSDocumentationPage

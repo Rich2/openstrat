@@ -24,7 +24,6 @@ lazy val JsAgg = (project in file("Dev/JsAgg")).aggregate(UtilJs, GeomJs, Tiling
 )
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
-lazy val baseDir = SettingKey[File]("baseDir")
 lazy val bbDir = SettingKey[File]("bbDir")
 ThisBuild/bbDir := (ThisBuild/baseDirectory).value
 lazy val tarDir = SettingKey[File]("tarDir")
@@ -117,7 +116,7 @@ lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
 )
 
 lazy val GeomExs = projSubName("Geom", "Exs").dependsOn(Geom).settings(
-  Compile/unmanagedSourceDirectories ++= Seq(baseDirectory.value / "srcLessons", baseDirectory.value / "JvmSrc"),
+  Compile/unmanagedSourceDirectories ++= Seq("srcLessons", "srcDoc", "JvmSrc").map(baseDirectory.value / _),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
@@ -129,7 +128,11 @@ def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
 )
 lazy val Tiling = jvmMainProj("Tiling").dependsOn(Geom).settings(tilingSett)
-lazy val TilingExs = projSubName("Tiling", "Exs").dependsOn(Tiling, GeomExs)
+
+lazy val TilingExs = projSubName("Tiling", "Exs").dependsOn(Tiling, GeomExs).settings(
+  Compile/unmanagedSourceDirectories += baseDirectory.value / "srcDoc"
+)
+
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 
 lazy val EGrid = jvmMainProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
