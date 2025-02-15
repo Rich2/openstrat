@@ -161,7 +161,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
 )
 
 lazy val Dev = jvmMainProj("Dev").dependsOn(AppsExs).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) ::: List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
+  Compile/unmanagedSourceDirectories += moduleDir.value / "srcDoc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   Compile/mainClass	:= Some("ostrat.pDev.SiteHtmlWrite"),

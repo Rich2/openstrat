@@ -21,7 +21,6 @@ object UtilTokenSection extends HtmlSection
       "tokens, and a subset of these will also be considered valid raw Hexadecimals, however all the alphabetic characters must be lower case.")
   )
 
-
   def lits: HtmlOlWithLH = HtmlOlWithLH("Numerical literals come in 4 types.",
     HtmlLi("Floating point numbers <span class= lexical>6.02e23 6.02e-23 6.02e-23d</span>.Note this is the only case where a negative or dash" --
       "character is included as part of a token. Can have optional trailing lower case alphabetic characters at the end of the token."),

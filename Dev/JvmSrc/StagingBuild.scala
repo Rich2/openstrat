@@ -36,8 +36,8 @@ trait StagingBuild
       fileWrite(docPath / "tiling.html", prid.TilingPage.out),
       fileWrite(docPath / "earth.html", pEarth.EarthPage.out),
       fileWrite(docPath / "egrid.html", EGridPage.out),
-      fileWrite(docPath / "dev.html", pDev.DevPage.out),
-      fileWrite(docPath / "newdevs.html", pDev.NewDevsPage.out),
+      fileWrite(docPath / "dev.html", pDoc.DevPage.out),
+      fileWrite(docPath / "newdevs.html", pDoc.NewDevsPage.out),
       fileWrite(docPath / "documentation.css", CssDocumentation())
     )
     }

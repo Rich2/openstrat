@@ -1,5 +1,5 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pDev
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pDoc
 import pWeb._
 
 object NewDevsPage extends HtmlPage
