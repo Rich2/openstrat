@@ -1,4 +1,4 @@
- // build.sc
+//build.sc Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
@@ -28,6 +28,11 @@ object Util extends CommonJvm
   def sources = T.sources{ sources1() ++ sources2() }
   def resources = T.sources(millSourcePath / "res", T.workspace / "User")
   object test extends InnerTests
+}
+
+ object UtilExs extends CommonJvm
+{ def moduleDeps = Seq(Geom)
+  def sources = T.sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "Util" / "UtilExs" / name)) }
 }
 
 object UtilJs extends CommonJs
@@ -79,8 +84,8 @@ object GeomJs extends CommonJs
 }
 
 object GeomExs extends CommonJvm
-{ def moduleDeps = Seq(Geom)
-  def sources1 = T.sources{ Seq("src", "srcLessons").map(name => PathRef(T.workspace / "Geom" / "GeomExs" / name)) }
+{ def moduleDeps = Seq(Geom, UtilExs)
+  def sources1 = T.sources{ Seq("src", "srcDoc", "srcLessons").map(name => PathRef(T.workspace / "Geom" / "GeomExs" / name)) }
   def source2 = T.source(T.workspace / "Geom" / "GeomExs" / "JvmSrc")
   def sources = T.sources { sources1() :+ source2() }
   def mainClass = Some("learn.LsE1App")
@@ -106,8 +111,8 @@ object TilingJs extends CommonJs
 }
 
 object TilingExs extends CommonJvm
-{ def moduleDeps = Seq(Tiling)
-  def sources = T.sources(T.workspace / "Tiling" / "TilingExs" / "src")
+{ def moduleDeps = Seq(Tiling, GeomExs)
+  def sources = T.sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "Tiling" / "TilingExs" / name)) }
   object test extends InnerTests
   def mainClass = Some("ostrat.pZero.TilingTryApp")
 }
@@ -118,6 +123,11 @@ object EGrid extends CommonJvm
   def source2 = T.source(T.workspace / "EGrid" / "JvmSrc")
   def sources = sources1() :+ source2()
   object test extends InnerTests
+}
+
+object EGridExs extends CommonJvm
+{ def moduleDeps = Seq(EGrid, TilingExs)
+  def sources = T.sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "EGrid" / "EGridExs" / name)) }
 }
 
 object EGridJs extends CommonJs
@@ -150,6 +160,11 @@ object Apps extends CommonJvm
   def sources1 = T.sources(Seq("src", "srcStrat").map(name => PathRef(millSourcePath / name)))
   def sources = sources1()
   object test extends InnerTests
+}
+
+object AppsExs extends CommonJvm
+{ def moduleDeps = Seq(Apps, EGridExs)
+  def sources = T.sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "Apps" / "AppsExs" / name)) }
 }
 
 object AppsJs extends CommonJs
@@ -188,10 +203,8 @@ object AppJs extends Module
 }
 
 object Dev extends CommonJvm
-{ def moduleDeps = Seq(GeomExs, TilingExs, EGrid, Apps)
-  def source1 = T.source(millSourcePath / "src")
-  def source2 = T.source(millSourcePath / "JvmSrc")
-  def sources = T.sources(Seq(source1(), source2()))
+{ def moduleDeps = Seq(AppsExs)
+  def sources = T.sources(Seq("src", "srcDoc", "JvmSrc").map(name => PathRef(millSourcePath / name)))
   def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }
 
