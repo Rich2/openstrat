@@ -88,6 +88,8 @@ lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
 )
 
+lazy val UtilExs = projSubName("Util", "Exs").dependsOn(Geom)
+
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
   name := "rutiljs",
   Compile / sourceGenerators += Def.task {
@@ -115,7 +117,7 @@ lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
 )
 
-lazy val GeomExs = projSubName("Geom", "Exs").dependsOn(Geom).settings(
+lazy val GeomExs = projSubName("Geom", "Exs").dependsOn(Geom, UtilExs).settings(
   Compile/unmanagedSourceDirectories ++= Seq("srcLessons", "srcDoc", "JvmSrc").map(baseDirectory.value / _),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
