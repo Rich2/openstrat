@@ -238,32 +238,6 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
   { override def magnitude: Int = 13
   }
 
-  /** Base trait for capes / headlands / peninsulas. Only use these classes for [[HVert]]s where there is no offset for any of the adjacent hex's [[HCorner]]s
-   *  on shared [[HVert]]s. */
-  trait CapeBase
-  { /** The number of the first vertex to be indented. */
-    def indentStartIndex: Int
-
-    /** The magnitude of the [[HCorner]] indents. */
-    def magnitude: Int
-
-    /** The terrain of the main tile, typically a type of land. */
-    def terr: TT
-
-    /** The terrain of the [[HSep]] separators, typically a type of water. */
-    def sepTerrs: SST
-
-    def run(row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, 4, indentStartIndex, magnitude)
-      iUntilForeach(-1, 4) { i0 =>
-        val i: Int = (indentStartIndex + i0) %% 6
-        val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.setExists(grid, sep, sepTerrs)
-      }
-    }
-  }
-
   /** Needs removing. Base trait [Isthmus](https://en.wikipedia.org/wiki/Isthmus). Generally this will be used for Isthmuses, but it can be used for any
    *  [[HCen]] and [[HSep]] terrain that fits the geometry. */
   trait IsthmusBase

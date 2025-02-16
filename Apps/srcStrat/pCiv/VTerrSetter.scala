@@ -36,15 +36,6 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   { def apply(terr: Land = Plain, sepTerrs: Water = Sea): Isle10 = Isle10Homo(terr, sepTerrs)
   }
 
-  /** Needs removing. */
-  class Cape private(val indentStartIndex: Int, val terr: Land, val sepTerrs: Water) extends TRowElem with CapeBase
-  { override def magnitude: Int = 7
-  }
-
-  object Cape
-  { def apply(indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea): Cape =  new Cape(indentStartIndex, terr, sideTerrs)
-  }
-
   /** Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
   class Isthmus private(val indentIndex: Int, val terr: Land = Plain, val sepTerrs1: Water = Sea, val sepTerrs2: Water = Sea) extends TRowElem, IsthmusBase
 
