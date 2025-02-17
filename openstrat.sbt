@@ -53,7 +53,6 @@ def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, srcsStr).settings(
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.5" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
-
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
     val cl = artifact.classifier match {
       case Some(st) => "-" + st
@@ -193,11 +192,11 @@ lazy val ServletExtras = projSub("Dev", "ServletExtras").dependsOn(Dev).settings
 )
 
 lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
-  libraryDependencies += "com.lihaoyi" %% "cask" % "0.9.4" withSources() withJavadoc(),
+  libraryDependencies += "com.lihaoyi" %% "cask" % "0.9.7" withSources() withJavadoc(),
 )
 
 lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
-  libraryDependencies += "dev.zio" %% "zio" % "2.1.14" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio" % "2.1.15" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.1" withSources() withJavadoc(),
 )
 
