@@ -4,7 +4,7 @@ package ostrat; package prid; package phex
 /** A Rectangular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
 class HGridRect(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val gridRightCenC: Int) extends HGrid with TellInt4
-{ override def typeStr: String = "HGridReg"
+{ override def typeStr: String = "HGridRect"
   override def name1: String = "bottom"
   override def name2: String = "top"
   override def name3: String = "left"
@@ -17,8 +17,8 @@ class HGridRect(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, va
   def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
 
   override def equals(that: Any): Boolean = that match
-  { case that: HGridRect =>
-      that.canEqual(this) && bottomCenR == that.bottomCenR && topCenR  == that.topCenR && gridLeftCenC == that.gridLeftCenC && gridRightCenC == that.gridRightCenC
+  { case that: HGridRect =>  that.canEqual(this) && (bottomCenR == that.bottomCenR) && (topCenR  == that.topCenR) && (gridLeftCenC == that.gridLeftCenC) &&
+      (gridRightCenC == that.gridRightCenC)
     case _ => false
   }
 
@@ -211,8 +211,8 @@ object HGridRect
   }
 
   /** Implicit instance of [[Show]] for [[HGridRect]]. */
-  implicit val showEv: ShowTellInt4[HGridRect] = ShowTellInt4[HGridRect]("HGridReg")
+  implicit val showEv: ShowTellInt4[HGridRect] = ShowTellInt4[HGridRect]("HGridRect")
 
   /** Implicit instance of [[Unshow]] for [[HGridRect]]. */
-  implicit val unshowEv: UnshowInt4[HGridRect] = UnshowInt4[HGridRect]("HGridReg", "bottom", "top", "left", "right", minMax)
+  implicit val unshowEv: UnshowInt4[HGridRect] = UnshowInt4[HGridRect]("HGridRect", "bottom", "top", "left", "right", minMax)
 }

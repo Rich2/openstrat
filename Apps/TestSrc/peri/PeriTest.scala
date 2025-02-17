@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package peri
-import utest._
+import utest.*
 
 object Peri extends TestSuite
 {
@@ -10,8 +10,8 @@ object Peri extends TestSuite
     
     test("Path")
     {  army1.str ==> str1
-      "NRed".asTypeOld[Nation](Nation.unshowEv(NRed)) ==> Good(NRed)
-      str1.asTypeOld[Army](Army.unshowEv(NRed)) ==> Good(army1)
+      "NRed".asType[Nation](Nation.unshowEv(NRed)) ==> Succ(NRed)
+      str1.asType[Army](Army.unshowEv(NRed)) ==> Succ(army1)
     }
   }
 }
