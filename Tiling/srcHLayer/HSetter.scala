@@ -84,159 +84,6 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     override def run(row: Int, c: Int): Unit = sTerrs.setExists(grid, row, c - 2, sTerr)
   }
 
-  trait IsleNBase extends TileRowElemBase
-  { /** The tile terrain. typically land terrain. */
-    def terr: TT
-
-    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
-    def sepTerr0: SST
-
-    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
-    def sepTerr1: SST
-
-    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
-    def sepTerr2: SST
-
-    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
-    def sepTerr3: SST
-
-    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
-    def sepTerr4: SST
-
-    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
-    def sepTerr5: SST
-
-    def magnitude: Int
-
-    def setTerrs(row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
-      val s0 = HSep(row + 1, c + 1)
-      sTerrs.setExists(grid, s0, sepTerr0)
-      val s1 = HSep(row, c + 2)
-      sTerrs.setExists(grid, s1, sepTerr1)
-      val s2 = HSep(row - 1, c + 1)
-      sTerrs.setExists(grid, s2, sepTerr2)
-      val s3 = HSep(row - 1, c - 1)
-      sTerrs.setExists(grid, s3, sepTerr3)
-      val s4 = HSep(row, c - 2)      
-      sTerrs.setExists(grid, s4, sepTerr4)
-      val s5 = HSep(row + 1, c - 1)
-      sTerrs.setExists(grid, s5, sepTerr5)
-    }
-  }
-
-  /** Terrain setter trait for (geometrical) island terrain. where all the [[HSep]] separators have the same terrain type.  */
-  trait IsleNBaseHomo extends IsleNBase
-  { /** The [[HSep]] separator terrain for all 6 [[HSep]]s. Typically, water terrain or a wall on decimetre scale maps. */
-    def sepTerrs: SST
-
-    /** The [[HSep]] separator terrain for [[HSep]]0 the island's upper right separator. Typically, water terrain or a wall on decimetre scale maps. */
-    override def sepTerr0: SST = sepTerrs
-
-    /** The [[HSep]] separator terrain for [[HSep]]1 the island's right separator. Typically, water terrain or a wall on decimetre scale maps. */
-    override def sepTerr1: SST = sepTerrs
-
-    /** The [[HSep]] separator terrain for [[HSep]]2 the island's lower right separator. Typically, water terrain or a wall on decimetre scale maps. */
-    override def sepTerr2: SST = sepTerrs
-
-    /** The [[HSep]] separator terrain for [[HSep]]3 the island's lower left separator. Typically, water terrain or a wall on decimetre scale maps. */
-    override def sepTerr3: SST = sepTerrs
-
-    /** The [[HSep]] separator terrain for [[HSep]]4 the island's left separator. Typically, water terrain or a wall on decimetre scale maps. */
-    override def sepTerr4: SST = sepTerrs
-
-    /** The [[HSep]] separator terrain for [[HSep]]5 the island's upper left separator. Typically, water terrain or a wall on decimetre scale maps. */
-    override def sepTerr5: SST = sepTerrs
-  }
-
-  trait IsleNLargeBase extends IsleNBase
-  {
-    override def run(row: Int, c: Int): Unit =
-    { setTerrs(row, c)
-      corners.setBend0(row, c, magnitude, 6 - magnitude)
-      corners.setBend1(row, c, magnitude, 6 - magnitude)
-      corners.setBend2(row, c, magnitude, 6 - magnitude)
-      corners.setBend3(row, c, magnitude, 6 - magnitude)
-      corners.setBend4(row, c, magnitude, 6 - magnitude)
-      corners.setBend5(row, c, magnitude, 6 - magnitude)
-    }
-  }
-
-  /** Sets the [[HSep]] separators terrain and [[HCorner]]s for an Island or geometrically analogous terrain, with a radius set in the sub traits. Only use
-   * these classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s.  */
-  trait IsleNSmallBase extends IsleNBase
-  {
-    override def run(row: Int, c: Int): Unit =
-    { setTerrs(row, c)
-      corners.setNCornersIn(row, c, 6, 0, magnitude)
-    }
-  }
-
-  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 13/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle13Base extends IsleNLargeBase
-  { override def magnitude: Int = 3
-  }
-
-  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 12/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle12Base extends IsleNLargeBase
-  { override def magnitude: Int = 4
-  }
-
-  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 11/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle11Base extends IsleNLargeBase
-  { override def magnitude: Int = 5
-  }
-
-  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 10/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle10Base extends IsleNSmallBase
-  { override def magnitude: Int = 6
-  }
-
-  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 9/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle9Base extends IsleNSmallBase
-  { override def magnitude: Int = 7
-  }
-
-  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 8/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle8Base extends IsleNSmallBase
-  { override def magnitude: Int = 8
-  }
-
-  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 7/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle7Base extends IsleNSmallBase
-  { override def magnitude: Int = 9
-  }
-
-  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 6/16 of the radius of the hex. Only use* these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle6Base extends IsleNSmallBase
-  { override def magnitude: Int = 10
-  }
-
-  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 5/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle5Base extends IsleNSmallBase
-  { override def magnitude: Int = 11
-  }
-
-  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 4/16 of the radius of the hex. Only use these
-   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle4Base extends IsleNSmallBase
-  { override def magnitude: Int = 12
-  }
-
-  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 3/16 of the radius of the hex. Only use these
-   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait Isle3Base extends IsleNSmallBase
-  { override def magnitude: Int = 13
-  }
 
   /** Needs removing. Base trait [Isthmus](https://en.wikipedia.org/wiki/Isthmus). Generally this will be used for Isthmuses, but it can be used for any
    *  [[HCen]] and [[HSep]] terrain that fits the geometry. */
@@ -441,9 +288,9 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     }
   }
 
-  /** Sets only the inside [[HCorner]] of Vertex for a bend in [[HSep]]s terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation
-   *  of the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features
-   *  and is probably superfluous for created worlds / terrain. */
+  /** Sets only the inside [[HCorner]] of Vertex for a bend in [[HSep]]s terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the
+   * bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably
+   * superfluous for created worlds / terrain. */
   trait BendInBase extends BendBase
   { /** The magnitude of the offset on the inside [[HCorner]]. */
     def magnitude: Int
@@ -589,8 +436,8 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     }
   }
   
-  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
-   * geographic / terrain features and is probably superfluous for created worlds / terrain. */
+  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world geographic /
+   * terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeDownBase extends VertSetBase
   { /** Separator terrain for the [[HSep]] that is up-right from the [[HVert]]. */
     def upRightTerr: SST
@@ -658,6 +505,188 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
       corners.setCorner(row - 1, c - 2, 1, HVLt, magnitude)
       sTerrs.setExists(grid, row - 1, c + 1, leftTerr)
       sTerrs.setExists(grid, row + 1, c + 1, rightTerr)
+    }
+  }
+
+  trait IsleNBase extends TileRowElemBase
+  { /** The tile terrain. typically land terrain. */
+    def terr: TT
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr0: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr1: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr2: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr3: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr4: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr5: SST
+
+    def magnitude: Int
+
+    def setTerrs(row: Int, c: Int): Unit = {
+      terrs.set(row, c, terr)
+      val s0 = HSep(row + 1, c + 1)
+      sTerrs.setExists(grid, s0, sepTerr0)
+      val s1 = HSep(row, c + 2)
+      sTerrs.setExists(grid, s1, sepTerr1)
+      val s2 = HSep(row - 1, c + 1)
+      sTerrs.setExists(grid, s2, sepTerr2)
+      val s3 = HSep(row - 1, c - 1)
+      sTerrs.setExists(grid, s3, sepTerr3)
+      val s4 = HSep(row, c - 2)
+      sTerrs.setExists(grid, s4, sepTerr4)
+      val s5 = HSep(row + 1, c - 1)
+      sTerrs.setExists(grid, s5, sepTerr5)
+    }
+  }
+
+  /** Terrain setter trait for (geometrical) island terrain. where all the [[HSep]] separators have the same terrain type. */
+  trait IsleNBaseHomo extends IsleNBase {
+    /** The [[HSep]] separator terrain for all 6 [[HSep]]s. Typically, water terrain or a wall on decimetre scale maps. */
+      def sepTerrs: SST
+
+    /** The [[HSep]] separator terrain for [[HSep]]0 the island's upper right separator. Typically, water terrain or a wall on decimetre scale maps. */
+    override def sepTerr0: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]1 the island's right separator. Typically, water terrain or a wall on decimetre scale maps. */
+    override def sepTerr1: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]2 the island's lower right separator. Typically, water terrain or a wall on decimetre scale maps. */
+    override def sepTerr2: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]3 the island's lower left separator. Typically, water terrain or a wall on decimetre scale maps. */
+    override def sepTerr3: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]4 the island's left separator. Typically, water terrain or a wall on decimetre scale maps. */
+    override def sepTerr4: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]5 the island's upper left separator. Typically, water terrain or a wall on decimetre scale maps. */
+    override def sepTerr5: SST = sepTerrs
+  }
+
+  trait IsleNLargeBase extends IsleNBase {
+    override def run(row: Int, c: Int): Unit = {
+      setTerrs(row, c)
+      corners.setBend0(row, c, magnitude, 6 - magnitude)
+      corners.setBend1(row, c, magnitude, 6 - magnitude)
+      corners.setBend2(row, c, magnitude, 6 - magnitude)
+      corners.setBend3(row, c, magnitude, 6 - magnitude)
+      corners.setBend4(row, c, magnitude, 6 - magnitude)
+      corners.setBend5(row, c, magnitude, 6 - magnitude)
+    }
+  }
+
+  /** Sets the [[HSep]] separators terrain and [[HCorner]]s for an Island or geometrically analogous terrain, with a radius set in the sub traits. Only use
+   * these classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s. */
+  trait IsleNSmallBase extends IsleNBase
+  {
+    override def run(row: Int, c: Int): Unit =  
+    { setTerrs(row, c)
+      corners.setNCornersIn(row, c, 6, 0, magnitude)
+    }
+  }
+
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 13/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle13Base extends IsleNLargeBase
+  { override def magnitude: Int = 3
+  }
+
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 12/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle12Base extends IsleNLargeBase
+  { override def magnitude: Int = 4
+  }
+
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 11/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle11Base extends IsleNLargeBase
+  { override def magnitude: Int = 5
+  }
+
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 10/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle10Base extends IsleNSmallBase
+  { override def magnitude: Int = 6
+  }
+
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 9/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle9Base extends IsleNSmallBase
+  { override def magnitude: Int = 7
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 8/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle8Base extends IsleNSmallBase
+  { override def magnitude: Int = 8
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 7/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle7Base extends IsleNSmallBase
+  { override def magnitude: Int = 9
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 6/16 of the radius of the hex. Only use* these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle6Base extends IsleNSmallBase
+  { override def magnitude: Int = 10
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 5/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle5Base extends IsleNSmallBase
+  { override def magnitude: Int = 11
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 4/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle4Base extends IsleNSmallBase
+  { override def magnitude: Int = 12
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 3/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle3Base extends IsleNSmallBase
+  { override def magnitude: Int = 13
+  }
+
+  /** Base trait for capes / headlands / peninsulas. Only use these classes for [[HVert]]s where there is no offset for any of the adjacent hex's [[HCorner]]s
+   * on shared [[HVert]]s. */
+  trait CapeBase
+  { /** The number of the first vertex to be indented. */
+    def indentStartIndex: Int
+
+    def numIndents: Int
+
+    /** The magnitude of the [[HCorner]] indents. */
+    def magnitude: Int
+
+    /** The terrain of the main tile, typically a type of land. */
+    def terr: TT
+
+    /** The terrain of the [[HSep]] separators, typically a type of water. */
+    def sepTerrs: SST
+
+    def run(row: Int, c: Int): Unit =
+    { val numIndents2 = numIndents.max(0).min(5)
+      terrs.set(row, c, terr)
+      corners.setNCornersIn(row, c, numIndents2, indentStartIndex, magnitude)
+      iUntilForeach(-1, numIndents2) { i0 =>
+        val i: Int = (indentStartIndex + i0) %% 6
+        val sep: HSep = HCen(row, c).sep(i)
+        sTerrs.setExists(grid, sep, sepTerrs)
+      }
     }
   }
 }

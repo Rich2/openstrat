@@ -106,4 +106,14 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
      * which defaults to [[Sea]]. */
     def apply(c: Int, dirn: HVDirn, leftTerr: VSepSome, rightTerr: VSepSome): BendIn = new BendIn(c, dirn, leftTerr, rightTerr)
   }
+
+  /** Sets a number of consective [[BendIn]]s on the tile. */
+  class Cape private(val indentStartIndex: Int, val numIndents: Int, val terr: Land, val sepTerrs: Water) extends TRowElem with CapeBase
+  { override def magnitude: Int = 6
+  }
+
+  object Cape
+  { def apply(indentStartIndex: Int, numIndents: Int, terr: Land = Plain, sideTerrs: Water = Sea): Cape =
+      new Cape(indentStartIndex, numIndents, terr, sideTerrs)
+  }
 }

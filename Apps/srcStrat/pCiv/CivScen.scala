@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
 import prid._, phex._
 
@@ -57,15 +57,15 @@ object Civ2 extends CivScenStart
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
   {
     override val rows: RArr[DataRow] = RArr(
-      VertRow(13, BendIn(14, HVDR), BendIn(16, HVDn), BendAll(18, HVUp), BendAll(22, HVUp)),
-      TileRow(12, Sea * 3, Hill, Isthmus(0), Hill, Sea * 4),
+      VertRow(13, BendAll(18, HVUp), BendAll(22, HVUp)),
+      TileRow(12, Sea * 3, Cape(3, 4, Hill), Isthmus(0), Cape(0, 4, Hill), Sea * 4),
       VertRow(11, BendIn(8, HVDR), BendIn(10, HVDn), BendIn(12, HVDL), BendAll(18, HVDn), BendAll(22, HVDn)),
       TileRow(10, Plain * 2, Sea * 4, Isle10() * 2, Sea * 2),
-      VertRow(9, OrigRt(8, HVUp), OrigLt(12, HVUp), OrigLt(18, HVUR)),
+      VertRow(9, OrigRt(8, HVUp), OrigLt(12, HVUp)),
       TileRow(8, Plain * 4, Plain, Sea * 3, Plain, Sea),
-      VertRow(7, Orig(18, HVDR), Orig(28, HVUL), Orig(40, HVDn, River)),
-      TileRow(6, Plain * 3, Sea * 2, Mountain, Sea, Plain, Plain * 2),
-      VertRow(5, Orig(24, HVUp), Orig(30, HVDn), BendAll(38, HVDR, River), BendAll(40, HVUL, River)),
+      VertRow(7, Orig(40, HVDn, River)),
+      TileRow(6, Plain * 3, Sea * 2, Cape(5, 3, Mountain), Sea, Plain, Plain * 2),
+      VertRow(5, OrigRt(24, HVUp), OrigLt(28, HVUp), Orig(30, HVDn), BendAll(38, HVDR, River), BendAll(40, HVUL, River)),
       TileRow(4, Sea * 5, Mountain * 3, Plain * 2),
       VertRow(3, Orig(30, HVUp), Orig(36, HVUR, River), ThreeUp(38, River), Orig(40, HVUL, River)),
       TileRow(2, Plain * 10),
