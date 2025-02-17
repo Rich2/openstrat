@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package h1p
-import prid._, phex._, gPlay._
+import prid.*, phex.*, gPlay.*
 
 /** 1st example Turn 0 scenario state for Game One hex. */
 object G1HScen1 extends G1HScen
@@ -10,7 +10,6 @@ object G1HScen1 extends G1HScen
   counters.setSomeMut(4, 4, CounterA)
   counters.setSomesMut((4, 8, CounterB), (6, 10, CounterC))
   val gl: LayerHcOptGrid[Counter] = LayerHcOptGrid(gridSys, counters.arrayUnsafe)
-  deb(gl.str)
 }
 
 /** 2nd example Turn 0 scenario state for Game One hex. */

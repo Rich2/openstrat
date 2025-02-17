@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import utest._
 
 object HGridTest extends TestSuite
 {
-  val g1: HGridRect = HGridReg(2, 6, 2, 10)
+  val g1: HGridRect = HGridRect(3, 5)
  // val g2: HGridsDuo = HGridsDuo(2, 8, 2, 6, 100, 104)
 
   val tests = Tests {
@@ -17,14 +17,14 @@ object HGridTest extends TestSuite
 
     val ig1: HGridGen = HGridGen.fromTop(6, (2, 10), (4, 8), (6, 6))
     val ig1Str = "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
-    val eg1 = ig1Str.asTypeOld[HGridGen]
+    val eg1 = ig1Str.asType[HGridGen]
 
     test("test HGrid Irr")
     { ig1.str ==> ig1Str
-      assert(eg1.isGood)
-      eg1.map(_.bottomCenR) ==> Good(2)
-      eg1.map(_.rowRightCenC(6)) ==> Good(10)
-      eg1 ==> Good(ig1)
+      assert(eg1.isSucc)
+      eg1.map(_.bottomCenR) ==> Succ(2)
+      eg1.map(_.rowRightCenC(6)) ==> Succ(10)
+      eg1 ==> Succ(ig1)
     }
   }
 }

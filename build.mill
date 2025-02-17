@@ -2,7 +2,7 @@
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
-{ def version = "0.3.4snap"
+{ def version = "0.3.5snap"
   def scalaVersion = "3.6.3"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
@@ -10,7 +10,7 @@ trait Common extends ScalaModule
 trait CommonJvm extends Common
 { Outer =>
   trait InnerTests extends ScalaTests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.4")
+  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.5")
     def testFramework = "utest.runner.Framework"
     def sources = T.sources(Outer.millSourcePath / "TestSrc", millSourcePath / "src")
     def resources = T.sources(Outer.millSourcePath / "TestRes", millSourcePath / "res")
@@ -18,7 +18,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.18.1"
+{ def scalaJSVersion = "1.18.2"
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.8.0")
 }
 

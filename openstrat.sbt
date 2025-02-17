@@ -9,7 +9,7 @@ val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, Geom, GeomExs, Tiling, TilingExs, EGrid, Apps, Dev).enablePlugins(ScalaUnidocPlugin).settings(
+lazy val root = (project in file(".")).aggregate(Util, UtilExs, Geom, GeomExs, Tiling, TilingExs, EGrid, Apps, Dev).enablePlugins(ScalaUnidocPlugin).settings(
   scalaVersion := scalaVersionStr,
   publish/skip := true,
   apiURL := Some(url("https://richstrat.com/api/")),

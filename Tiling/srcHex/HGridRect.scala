@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** A Rectangular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
@@ -185,7 +185,7 @@ class HGridRect(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, va
 
 /** Companion object for the [[HGridRect]] class. Contains factory apply method and [[Show]] instance. */
 object HGridRect
-{ /** Factory apply method to create a regular hex grid of a given number of rows anc columns. */
+{ /** Factory apply method to create a regular hex grid of a given number of rows and columns. */
   def apply(numRows: Int, numCols: Int): HGridRect = new HGridRect(2, numRows.max0 * 2, 2, 2 + numCols.max0 * 2)
 
   /** Corrects the X and Y minimum and maximum values. */
