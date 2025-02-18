@@ -7,7 +7,8 @@ import reflect.TypeTest
  *  [[HCen]]. Therefore, the column of the tile is determined by its position in the row sequence. It is assumed that the majority of the [[HSep]]s, at least
  *  initially will have default empty / none values. Hence, the setters for the vertex rows must specify their column. */
 abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: TypeTest[Any, TT])
-{ implicit def grid: HGrid
+{ /** The grid that maps the data layers. */
+  implicit def grid: HGrid
 
   /** The [[LayerHcRefSys]]. The [[HCen]] tile values. */
   def terrs: LayerHcRefSys[TT]
@@ -30,6 +31,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     vRows.foreach(data => data.edits.foreach(_.run(data.row)))
   }
 
+  /** The side effecting implementation of a data tile row. */
   def tileRowRun(inp: TileRowBase): Unit =
   { val row = inp.row
     var c = grid.rowLeftCenC(row)
@@ -49,6 +51,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     }
   }
 
+  /** The base trait for data rows. */
   trait DataRowBase
   { /** The row number. */
     def row: Int
@@ -60,12 +63,13 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     def mutlis: RArr[Multiple[Any]]
   }
 
+  /** Base trait for vertex rows. The odd rows of the tile grid. */
   trait VertRowBase extends DataRowBase
-  {
-
+  { /** Data for each vertex and the connected [[HSep]]s. */
     val edits: RArr[VertRowElemBase]
   }
 
+  /** Base trait for elements of a [[VertRowBase]]. */
   trait VertRowElemBase
   { def run(row: Int): Unit
   }
@@ -123,8 +127,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
   }
 
   trait OrigBase extends VertSetBase
-  {
-    /** The terrain of the [[HSep]] from this end point oe source. */
+  { /** The terrain of the [[HSep]] from this end point oe source. */
     def sTerr: SST
 
     /** The direction from the [[HVert]] along the [[HSep]]. */
