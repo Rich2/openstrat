@@ -156,7 +156,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
   }
 
-  /** A map operation on the range of indexed values, where the return type of the [[SeqLike]] is explicitly given by the the first parameter. */
+  /** A map operation on the range of indexed values, where the return type of the [[SeqLike]] is explicitly given by the first parameter. */
   def indexMapTo[B, BB <: SeqLike[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(implicit build: BuilderSeqLikeMap[B, BB]): BB =
   { val res = build.uninitialised(length)
     var ti = 0
@@ -578,11 +578,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * replace the first parameter. */
   def mkStr(f: A => String, separator: String): String =
     if (length == 0) ""
-    else {
-      var acc = f(head)
+    else
+    { var acc = f(head)
       var count = 1
-      while (count < length) {
-        acc += separator + f(apply(count))
+      while (count < length)
+      { acc += separator + f(apply(count))
         count += 1
       }
       acc
