@@ -4,9 +4,14 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Mag west Sahara depends on nothing. */
 object MaghrebWest extends EarthPoly("Maghreb west", 33 ll 2.32, hillySahel)
-{  val ceuta: LatLong = 35.88 ll -5.31
+{ val ceuta: LatLong = 35.88 ll -5.31
+  val p5: LatLong = 35.531 ll -5.173
   val alHoceima: LatLong = 35.15 ll -4.38
+  val pointeLosFrailes: LatLong = 35.261 ll -3.928
+  val capQuilates: LatLong = 35.288 ll -3.706
+  val p18: LatLong = 35.206 ll -3.450
   val sidiAmar: LatLong = 35.439 ll -2.973
+  val p28: LatLong = 35.147 ll -2.423
   val northEast: LatLong = 35.085 ll -2.11
   val southEast: LatLong = 32.110 ll -1.154
 
@@ -19,7 +24,7 @@ object MaghrebWest extends EarthPoly("Maghreb west", 33 ll 2.32, hillySahel)
   val rabat: LatLong = 34.04 ll -6.83
   val tangierW: LatLong = 35.79 ll -5.92
 
-  override val polygonLL: PolygonLL = PolygonLL(ceuta, alHoceima, sidiAmar, northEast, southEast,
+  override val polygonLL: PolygonLL = PolygonLL(ceuta, p5, alHoceima, pointeLosFrailes, capQuilates, p18, sidiAmar, p28, northEast, southEast,
     agadir, agadirPort, capGhir, capSim, capTin, elJadida, rabat, tangierW)
 }
 

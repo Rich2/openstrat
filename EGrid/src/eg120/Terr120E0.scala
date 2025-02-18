@@ -118,9 +118,12 @@ object Terr120E0 extends Long120Terrs
     TRow(280, sea * 4, hillySavannah * 6, sea * 7 , hillySavannah, sea, hillySavannah, mtainSavannah, hillySavannah),
     VRow(279, OrigMin(538, HVUp, 2)),
     TRow(278, sea * 6, hillySavannah, mtainSavannah * 2, hillySavannah, sea, mtainSahel, hillySavannah * 2, mtainSavannah, mtainSub, hillySavannah * 3),
-    VRow(277, BendIn(492, HVUR, 11), Bend(494, HVUp, 4, 3), BendIn(496, HVDn, 8), ThreeDown(498, 13, 0, 8)),
-    TRow(276, sea * 6, mtainSavannah, sea * 2, mtainSavannah, hillySavannah * 2, sahel, hillySahel * 2, hillySavannah * 2, hillySahel),
-    TRow(274, sea * 6, savannah, mtainSavannah),
+
+    VRow(277, BendIn(492, HVUR, 11), Bend(494, HVUp, 4, 3), BendIn(496, HVDn, 8), ThreeDown(498, 13, 0, 8), BendMax(504, HVDn), ThreeDown(506, 13, 13, 13),
+      ThreeUp(508, 0, 13, 13), BendMin(510, HVUp, 4)),
+
+    TRow(276, sea * 6, mtainSavannah, sea, hillySavannah, mtainSavannah, hillySavannah * 2, sahel, hillySahel * 2, hillySavannah * 2, hillySahel),
+    TRow(274, sea * 6, savannah, mtainSavannah, hillySahel * 2),
     )
   }
   help.run
