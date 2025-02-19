@@ -76,7 +76,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
   { //val t = Arc()
     var minX, maxX, minY, maxY = 0.0
     var i = 0
-    ssForeach { ss =>
+    foreach { ss =>
       val v = ss.pEnd
       if (i == 0)
       { minX = v.x
@@ -102,7 +102,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
 
   /** Not sure if this is useful */
   def tailForeach(fLineSeg: CurveTailOld => Unit, fArcSeg: CurveTailOld => Unit, fBezierSeg: CurveTailOld => Unit): Unit =
-    ssForeach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
+    foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 
   @inline def segLast: CurveTailOld = ssLast
 }

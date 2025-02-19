@@ -10,7 +10,7 @@ trait SeqLike[+A] extends Any
   type ThisT <: SeqLike[A]
 
   /** Performs a side effecting function on each element of the specifying sequence in order. */
-  def ssForeach[U](f: A => U): Unit
+  def foreach[U](f: A => U): Unit
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */

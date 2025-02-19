@@ -74,9 +74,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
   }
 
-  /** Performs a side effecting function on each element of the specifying sequence in order. */
-  inline final override def ssForeach[U](f: A => U): Unit = foreach(f)
-
   /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The function
    * may return Unit. If it does return a non-Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can
    * be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The

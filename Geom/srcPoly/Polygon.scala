@@ -42,7 +42,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  final override def vertsForeach[U](f: Pt2 => U): Unit = ssForeach(f)
+  final override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)
 
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a* new
    * transformed Polygon */

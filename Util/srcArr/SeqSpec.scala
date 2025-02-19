@@ -15,7 +15,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def ssLength: Int
 
   /** Performs a side effecting function on each element of the specifying sequence in order. */
-  def ssForeach[U](f: A => U): Unit =
+  def foreach[U](f: A => U): Unit =
   { var i = 0
     while (i < ssLength)
     { f(ssIndex(i))
@@ -81,7 +81,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** specifying -sequence fold. */
   def ssFold[B](initVal: B)(f: (B, A) => B): B = {
     var res = initVal
-    ssForeach(a => res = f(res, a))
+    foreach(a => res = f(res, a))
     res
   }
 

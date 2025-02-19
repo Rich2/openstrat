@@ -3,7 +3,7 @@ package ostrat
 
 /** [[Show]] type class for showing [[Sequ]][Ae] objects. */
 trait ShowSeqSpec[Ae, A <: SeqSpec[Ae]] extends ShowSeqLike[Ae, A]
-{ override def showForeach(obj: A, f: Ae => Unit): Unit = obj.ssForeach(f)
+{ override def showForeach(obj: A, f: Ae => Unit): Unit = obj.foreach(f)
 }
 
 object ShowSeqSpec

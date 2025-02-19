@@ -5,12 +5,12 @@ package ostrat; package geom
  * values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
  *            [[PolygonM3]] it would be a [[PtM3]]. */
-trait PolygonLike[VT] extends Any with SeqSpec[VT]
+trait PolygonLike[VT] extends Any with VertBased[VT]
 {
   type SideT <: LineSegLike[VT]
 
   /** The number of vertices and also the number of sides in this Polygon. */
-  def numVerts: Int
+  //def numVerts: Int
 
   /** Checks this polygon has at least 3 vertices. */
   def vertsMin3: Boolean = numVerts >= 3
@@ -82,7 +82,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
 }
 
 trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqSpecValueN[VT]
-{ override def vertsForeach[U](f: VT => U): Unit = ssForeach(f)
+{ override def vertsForeach[U](f: VT => U): Unit = foreach(f)
   override def numVerts: Int = ssLength
 }
 
