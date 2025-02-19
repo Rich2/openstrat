@@ -353,7 +353,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
       case HVUp =>
       { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
         corners.setCornerSepExtra(row - 1, c + 2, 5, HVDn, origMag)
-        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, origMag)//Not working as expected
+        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, origMag)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
@@ -397,7 +397,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
       case HVUp => //Corrected and tested
       { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
         corners.setCornerSepExtra(row - 1, c - 2, 1, HVDn, origMag)
-        corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)
+        corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)//Not working as expected
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }

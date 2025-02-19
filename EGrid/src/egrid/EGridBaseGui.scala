@@ -15,12 +15,17 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
-  def sidePolys: HSepArrPair[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
-  def sideFills: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
+  /** The [[HSep]] separator polygons. */
+  def sepPolys: HSepArrPair[Polygon] = proj.hSepPolygons(sTerrs(_).nonEmpty, corners)
 
-  def sideDraws: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.draw(2, Colour.Red/* sTerrs(hSide).contrastBW*/) }
+  /** The [[HSep]] separator fills. */
+  def sepFills: GraphicElems = sepPolys.pairMap { (hSep, poly) => poly.fill(sTerrs(hSep).colour) }
 
-  def sideActives: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.active(hSide) }
+  /** The [[HSep]] separator draws. */
+  def sepDraws: GraphicElems = sepPolys.pairMap { (hSep, poly) => poly.draw(2, Colour.Red/* sTerrs(hSep).contrastBW*/) }
+
+  /** The [[HSep]] separator actives. */
+  def sepActives: GraphicElems = sepPolys.pairMap{ (hSide, poly) => poly.active(hSide) }
 
   def lines1: GraphicElems = proj.linksOptMap { hs =>
     def t1: WTile = terrs(hs.tileLt)
@@ -56,7 +61,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
     def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
-    lazy val sidePolys: HSepArrPair[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
+    lazy val sidePolys: HSepArrPair[Polygon] = proj.hSepPolygons(sTerrs(_).nonEmpty, corners)
     def sideFills: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
     def sideActives: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.active(hSide) }
     def lines1: GraphicElems = proj.linksOptMap { hs =>

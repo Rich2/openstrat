@@ -17,7 +17,7 @@ case class SorsGui(canv: CanvasPlatform, scenIn: SorsScen, viewIn: HGView, isFla
 
     def hexStrs2: GraphicElems = proj.ifTileScale(55, hexStrs1)
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2
+    tileFills ++ tileActives ++ sepFills ++ sepActives ++ lines2 ++ hexStrs2
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

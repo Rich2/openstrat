@@ -41,14 +41,14 @@ trait HSysProjection extends TSysProjection
     poly.optMap(transOptHVOffset(_))
   }
 
-  /** Produces the side polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
-  def hSidePolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sepOptMapPair { hs =>
+  /** Produces the [[HSep]] separator polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
+  def hSepPolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sepOptMapPair { hs =>
     if(f(hs)) corners.sidePoly(hs)(parent).optMap(transOptHVOffset(_))
     else None
     }
 
-  /** transforms and filters out non visible [[HSep]]s. */
-  def transHSides(inp: HSepArr): LineSegArr
+  /** transforms and filters out non-visible [[HSep]]s. */
+  def transHSeps(inp: HSepArr): LineSegArr
 
   def transTile(hc: HCen): Option[Polygon]
 

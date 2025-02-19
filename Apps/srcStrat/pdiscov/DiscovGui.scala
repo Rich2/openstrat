@@ -26,7 +26,7 @@ case class DiscovGui(canv: CanvasPlatform, scenIn: DiscovScen, viewIn: HGView, i
 
     def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ irrLines ++ hexStrs2
+    tileFills ++ tileActives ++ sepFills ++ sepActives ++ lines2  ++ irrLines ++ hexStrs2
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

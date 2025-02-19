@@ -52,9 +52,9 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrActives: GraphicElems = ifGlobe { ep => ep.irrActives2 }
 
-    def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sideDraws, RArr[GraphicElem]())
+    def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sepDraws, RArr[GraphicElem]())
 
-    seas ++ irrFills ++ irrActives ++ tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
+    seas ++ irrFills ++ irrActives ++ tileFills ++ tileActives ++ sepFills ++ sepActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
   }
 
   override def selectedStr: String = selectStack.mkStrSemis {

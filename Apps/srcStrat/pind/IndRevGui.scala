@@ -24,7 +24,7 @@ case class IndRevGui(canv: CanvasPlatform, scenIn: IndRevScen, viewIn: HGView, i
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, HCenPair(hc, corps), corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(corps.emptyTile(_)) ++ units
+    tileFills ++ tileActives ++ sepFills ++ sepActives ++ lines2 ++ hexStrs2(corps.emptyTile(_)) ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
