@@ -356,7 +356,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class BendInLt(val c: Int, val dirn: HVDirn, val magIn: Int, val OrigMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with
+  class BendInLt(val c: Int, val dirn: HVDirn, val magIn: Int, val origMag: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VertRowElem with
     BendInLtBase
 
   object BendInLt

@@ -317,43 +317,43 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     def magIn: Int
 
     /** The magnitude of the offset on the origin [[HCorner]]. */
-    def OrigMag: Int
+    def origMag: Int
 
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        corners.setCorner(row - 1, c, 0, HVDL, OrigMag)
-        corners.setCornerPair(row + 1, c - 2, 2, HVExact, 0, HVDL, OrigMag)
+        corners.setCorner(row - 1, c, 0, HVDL, origMag)
+        corners.setCornerPair(row + 1, c - 2, 2, HVExact, 0, HVDL, origMag)
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setCornerSepExtra(row - 1, c - 2, 1, HVUL, OrigMag)
-        corners.setCornerPair(row + 1, c, 3, HVUR, 0, HVUL, OrigMag)
+        corners.setCornerSepExtra(row - 1, c - 2, 1, HVUL, origMag)
+        corners.setCornerPair(row + 1, c, 3, HVUR, 0, HVUL, origMag)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
-        corners.setCornerPair(row + 1, c + 2, 4, HVExact, 0, HVUp, OrigMag)
-        corners.setCornerSepExtra(row + 1, c - 2, 2, HVUp, OrigMag)
+        corners.setCornerPair(row + 1, c + 2, 4, HVExact, 0, HVUp, origMag)
+        corners.setCornerSepExtra(row + 1, c - 2, 2, HVUp, origMag)
       }
 
       case HVDL =>
       { corners.setCornerIn(row - 1, c - 2, 1, magIn)
-        corners.setCorner(row + 1, c, 3, HVUL, OrigMag)
-        corners.setCorner(row - 1, c + 2, 5, HVUL, OrigMag)
+        corners.setCorner(row + 1, c, 3, HVUL, origMag)
+        corners.setCorner(row - 1, c + 2, 5, HVUL, origMag)
       }
 
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
-        corners.setCorner(row + 1, c + 2, 4, HVDR, OrigMag)
-        corners.setCornerPair(row - 1, c, 0, HVDR, OrigMag, HVExact, 0)
+        corners.setCorner(row + 1, c + 2, 4, HVDR, origMag)
+        corners.setCornerPair(row - 1, c, 0, HVDR, origMag, HVExact, 0)
       }
 
       case HVUp =>
       { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
-        corners.setCornerSepExtra(row - 1, c + 2, 5, HVDn, OrigMag)
-        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, OrigMag)
+        corners.setCornerSepExtra(row - 1, c + 2, 5, HVDn, origMag)
+        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, origMag)//Not working as expected
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
@@ -397,6 +397,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
       case HVUp => //Corrected and tested
       { corners.setCornerSepExtra(row + 1, c, 3, HVUp, magIn)
         corners.setCornerSepExtra(row - 1, c - 2, 1, HVDn, origMag)
+        corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
