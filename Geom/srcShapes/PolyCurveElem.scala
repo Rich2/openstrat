@@ -7,7 +7,7 @@ import ostrat.pWeb.SvgElem
 trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
   def shape: ShapeGenOld
-  def segsLen: Int = shape.ssLength
+  def segsLen: Int = shape.numElems
   override def boundingRect: Rect = shape.boundingRect
 
   /** The width of the [[BoundingRect]] of this object. */

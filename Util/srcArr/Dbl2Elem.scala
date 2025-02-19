@@ -29,22 +29,22 @@ trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDbl
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =
-  { val res = new Array[Double](ssLength)
+  { val res = new Array[Double](numElems)
     var count = 0
-    while(count < ssLength){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    while(count < numElems){ res(count) = arrayUnsafe(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
-  { val res = new Array[Double](ssLength)
+  { val res = new Array[Double](numElems)
     var count = 0
-    while(count < ssLength){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    while(count < numElems){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
 
   def ssForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < ssLength) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */

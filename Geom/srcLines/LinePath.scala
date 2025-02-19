@@ -28,7 +28,7 @@ final class LinePath(val arrayUnsafe: Array[Double]) extends AnyVal, AffinePrese
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symmetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: PolygonGen =
-  { val acc: Array[Double] = appendArray(ssLength)
+  { val acc: Array[Double] = appendArray(numElems)
     var count = arrayLen
 
     ssReverseForeach { orig =>

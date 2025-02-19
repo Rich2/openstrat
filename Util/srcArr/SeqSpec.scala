@@ -12,21 +12,21 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
    * will be a multiple of this number. */
-  def ssLength: Int
+  def numElems: Int
 
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   def foreach[U](f: A => U): Unit =
   { var i = 0
-    while (i < ssLength)
+    while (i < numElems)
     { f(ssIndex(i))
       i = i + 1
     }
   }
 
   /** Foreachs over the tail of the specifying sequence. Performs a side effecting function on each element of the tail of the specifying sequence in order. */
-  def ssTailForeach[U](f: A => U): Unit =
+  def tailForeach[U](f: A => U): Unit =
   { var i = 1
-    while (i < ssLength)
+    while (i < numElems)
     { f(ssIndex(i))
       i += 1
     }
@@ -34,9 +34,9 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Foreachs over the inner of the specifying sequence, excludes the first and last element. Performs a side effecting function on each element of the tail of
    * the specifying sequence in order. */
-  def ssInnerForeach[U](f: A => U): Unit =
+  def innerForeach[U](f: A => U): Unit =
   { var i = 1
-    while (i < ssLength - 1)
+    while (i < numElems - 1)
     { f(ssIndex(i));
       i += 1
     }
@@ -50,7 +50,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * (accumulator, element) => B signature. */
   def ssIForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
-    while (i < ssLength) {
+    while (i < numElems) {
       f(i, ssIndex(i))
       i = i + 1
     }
@@ -64,7 +64,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * (accumulator, element) => B signature. */
   def ssIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
-    while (i < ssLength) {
+    while (i < numElems) {
       f(i + initIndex, ssIndex(i))
       i = i + 1
     }
@@ -72,8 +72,8 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Specialised map to an immutable [[Arr]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for example a
    *  PolygonLike will map to another PolygonLike. */
-  def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB = {
-    val res = ev.uninitialised(ssLength)
+  def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  { val res = ev.uninitialised(numElems)
     ssIForeach((i, a) => ev.indexSet(res, i, f(a)))
     res
   }
@@ -88,7 +88,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Performs a side effecting function on each element of the specifying-sequence in reverse order. The function may return Unit. If it does return a non-Unit
    * value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def ssReverseForeach[U](f: A => U): Unit =
-  { var i = ssLength
+  { var i = numElems
     while (i > 0)
     { i -= 1
       f(ssIndex(i))
@@ -96,12 +96,12 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Last element of the specifying sequence. */
-  def ssLast: A = ssIndex(ssLength - 1)
+  def ssLast: A = ssIndex(numElems - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
   def ssTailFold[B](initial: B)(f: (B, A) => B) =
   { var acc: B = initial
-    ssTailForeach(a => acc = f(acc, a))
+    tailForeach(a => acc = f(acc, a))
     acc
   }
 

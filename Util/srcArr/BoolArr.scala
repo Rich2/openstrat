@@ -16,7 +16,7 @@ trait BoolSeqLike extends Any with SeqLike[Boolean]
 }
 
 trait BoolSeqSpec extends Any with BoolSeqLike with SeqSpec[Boolean]
-{ override final def ssLength: Int = unsafeArray.length
+{ override final def numElems: Int = unsafeArray.length
   override final def ssIndex(index: Int): Boolean = unsafeArray(index)
 }
 

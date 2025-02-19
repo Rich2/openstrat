@@ -37,7 +37,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec
   override def vertsPrevForEach[U](f: (SqCoord, SqCoord) => U): Unit = ???
 
   def toPolygon(f: SqCoord => Pt2): Polygon =
-  { val res = PolygonGen.uninitialised(ssLength)
+  { val res = PolygonGen.uninitialised(numElems)
     ssIForeach((i, hv) => res.setElemUnsafe(i, f(hv)))
     res
   }

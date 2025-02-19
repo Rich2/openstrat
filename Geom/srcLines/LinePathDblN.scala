@@ -40,7 +40,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     val newArray = new Array[Double](newArrayLen)
     val res = fromArray(newArray)
     var i = 0
-    ssInnerForeach{el => res.setElemUnsafe(i, el); i += 1}
+    innerForeach{el => res.setElemUnsafe(i, el); i += 1}
     res
   }
   
@@ -101,7 +101,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   { val newArray = new Array[Double](arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
-    var i = ssLength
+    var i = numElems
     operand.ssReverseForeach{vt =>
       res.setElemUnsafe(i, vt)
       i += 1

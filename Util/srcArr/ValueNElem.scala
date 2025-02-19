@@ -29,12 +29,12 @@ trait SeqSpecValueN[A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqS
   def reverse: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  override def ssLength: Int = arrayLen / elemProdSize
+  override def numElems: Int = arrayLen / elemProdSize
 
   def ssForAll(f: A => Boolean): Boolean =
   { var res = true
     var i = 0
-    while (i < ssLength & res)
+    while (i < numElems & res)
     { if (!f(ssIndex(i))) res = false
       i += 1
     }

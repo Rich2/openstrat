@@ -6,26 +6,26 @@ class SeqSpecExtensions[A](val thisSeqSpec : SeqSpec[A])
 {
   /** Map this collection of data elements to [[LinePathLike]] class of type BB. */
   def mapLinePath[B <: ValueNElem, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
-  { val res = build.uninitialised(thisSeqSpec.ssLength)
+  { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.ssIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
   def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
-  { val res = build.uninitialised(thisSeqSpec.ssLength)
+  { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.ssIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   def toLinePath[AA <: LinePathLike[A]](implicit build: LinePathBuilder[A, AA]): AA =
-  { val res = build.uninitialised(thisSeqSpec.ssLength)
+  { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.ssIForeach((i, a) => build.indexSet(res, i, a))
     res
   }
 
   def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeBuilderMap[A, AA]): AA =
-  { val res = build.uninitialised(thisSeqSpec.ssLength)
+  { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.ssIForeach((i, a) => build.indexSet(res, i, a))
     res
   }

@@ -11,7 +11,7 @@ trait LinePathLike[VT] extends Any with VertBased[VT]
 
   /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
   def map[B <: ValueNElem, BB <: LinePathLike[B]](f: VT => B)(implicit build: LinePathBuilder[B, BB]): BB =
-  { val res = build.uninitialised(ssLength)
+  { val res = build.uninitialised(numElems)
     ssIForeach((i, p) => res.setElemUnsafe(i, f(p)))
     res
   }
@@ -86,5 +86,5 @@ trait LinePathLike[VT] extends Any with VertBased[VT]
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
   def toPolygon: PolygonT
 
-  final def numVerts: Int = ssLength
+  final def numVerts: Int = numElems
 }

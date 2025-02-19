@@ -19,7 +19,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
     CurveTailOld(iMatch, d1, d2, d3, d4, d5, d6)
 
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
-  { val newArray = new Array[Double](ssLength * 7)
+  { val newArray = new Array[Double](numElems * 7)
     def setMiddle(offset: Int): Unit =
     { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) pp arrayUnsafe(offset + 4))
       newArray(offset + 3) = newMiddle.x
@@ -32,7 +32,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
       newArray(offset + 6) = newEnd.y
     }
 
-    (0 until ssLength).foreach{ index =>
+    (0 until numElems).foreach{ index =>
       val offset = index * 7
       arrayUnsafe(offset) match
       {

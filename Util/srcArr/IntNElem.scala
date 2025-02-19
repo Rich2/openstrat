@@ -28,8 +28,8 @@ trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntN[A] with SeqSpecVal
 { type ThisT <: SeqSpecIntN[A]
 
   override def reverse: ThisT =
-  { val res: ThisT = unsafeSameSize(ssLength)
-    ssIForeach({ (i, el) => res.setElemUnsafe(ssLength - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(numElems)
+    ssIForeach({ (i, el) => res.setElemUnsafe(numElems - 1 - i, el)})
     res
   }
 }
