@@ -43,15 +43,15 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Index with foreach on the specifying sequence elements. Performs a side effecting function on the index and each element of the specifying sequence. It
-   * takes a function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to
+   * takes a function as a parameter. The function may return Unit. If it does return a non-Unit value it is discarded. The [U] type parameter is there just to
    * avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0
    * if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the
    * index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    * (accumulator, element) => B signature. */
-  def ssIForeach[U](f: (Int, A) => Any): Unit =
+  def iForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
-    while (i < numElems) {
-      f(i, ssIndex(i))
+    while (i < numElems)
+    { f(i, ssIndex(i))
       i = i + 1
     }
   }
@@ -62,10 +62,10 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index. Note the function
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    * (accumulator, element) => B signature. */
-  def ssIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
+  def iForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
-    while (i < numElems) {
-      f(i + initIndex, ssIndex(i))
+    while (i < numElems)
+    { f(i + initIndex, ssIndex(i))
       i = i + 1
     }
   }
@@ -74,7 +74,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    *  PolygonLike will map to another PolygonLike. */
   def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(numElems)
-    ssIForeach((i, a) => ev.indexSet(res, i, f(a)))
+    iForeach((i, a) => ev.indexSet(res, i, f(a)))
     res
   }
 

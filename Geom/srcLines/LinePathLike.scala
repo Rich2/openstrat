@@ -12,7 +12,7 @@ trait LinePathLike[VT] extends Any with VertBased[VT]
   /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
   def map[B <: ValueNElem, BB <: LinePathLike[B]](f: VT => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(numElems)
-    ssIForeach((i, p) => res.setElemUnsafe(i, f(p)))
+    iForeach((i, p) => res.setElemUnsafe(i, f(p)))
     res
   }
 

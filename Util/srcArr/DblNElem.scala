@@ -26,7 +26,7 @@ trait SeqSpecDblN[A <: DblNElem] extends Any with SeqLikeDblN[A] with SeqSpecVal
 
   override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(numElems)
-    ssIForeach({ (i, el) => res.setElemUnsafe(numElems - 1 - i, el)})
+    iForeach({ (i, el) => res.setElemUnsafe(numElems - 1 - i, el)})
     res
   }
 
