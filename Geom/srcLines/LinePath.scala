@@ -31,7 +31,7 @@ final class LinePath(val arrayUnsafe: Array[Double]) extends AnyVal, AffinePrese
   { val acc: Array[Double] = appendArray(numElems)
     var count = arrayLen
 
-    ssReverseForeach { orig =>
+    reverseForeach { orig =>
       acc(count) = - orig.x
       acc(count + 1) = orig.y
       count += 2

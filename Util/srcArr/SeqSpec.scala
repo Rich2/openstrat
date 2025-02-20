@@ -57,7 +57,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a function as a
-   * parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
+   * parameter. The function may return Unit. If it does return a non-Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
    * discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just the function
    * parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index. Note the function
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
@@ -78,16 +78,16 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** specifying -sequence fold. */
-  def ssFold[B](initVal: B)(f: (B, A) => B): B = {
-    var res = initVal
+  /** foldLeft over the specifying sequence. */
+  def foldLeft[B](initVal: B)(f: (B, A) => B): B =
+  { var res = initVal
     foreach(a => res = f(res, a))
     res
   }
 
   /** Performs a side effecting function on each element of the specifying-sequence in reverse order. The function may return Unit. If it does return a non-Unit
    * value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
-  def ssReverseForeach[U](f: A => U): Unit =
+  def reverseForeach[U](f: A => U): Unit =
   { var i = numElems
     while (i > 0)
     { i -= 1

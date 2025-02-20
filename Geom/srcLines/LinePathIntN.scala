@@ -102,7 +102,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     operand.intForeach { d => newArray(i) = d; i += 1 }
     val res = fromArray(newArray)
     i = 1
-    ssReverseForeach { vt =>
+    reverseForeach { vt =>
       res.setElemUnsafe(i, vt)
       i += 1
     }
@@ -115,7 +115,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
     var i = numElems
-    operand.ssReverseForeach { vt =>
+    operand.reverseForeach { vt =>
       res.setElemUnsafe(i, vt)
       i += 1
     }
@@ -145,7 +145,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
   { val newArray = new Array[Int](arrayLen + operand.arrayLen)
     val res = fromArray(newArray)
     var i = 0
-    ssReverseForeach { vt =>
+    reverseForeach { vt =>
       res.setElemUnsafe(i, vt)
       i += 1
     }
@@ -157,7 +157,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
   { val newArray = new Array[Int](arrayLen + operand.arrayLen)
     val res = polygonFromArray(newArray)
     var i = 0
-    ssReverseForeach { vt =>
+    reverseForeach { vt =>
       res.setElemUnsafe(i, vt)
       i += 1
     }
@@ -169,11 +169,11 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
   { val newArray = new Array[Int](arrayLen + operand.arrayLen)
     val res = fromArray(newArray)
     var i = 0
-    ssReverseForeach { vt =>
+    reverseForeach { vt =>
       res.setElemUnsafe(i, vt)
       i += 1
     }
-    operand.ssReverseForeach { vt =>
+    operand.reverseForeach { vt =>
       res.setElemUnsafe(i, vt)
       i += 1
     }
