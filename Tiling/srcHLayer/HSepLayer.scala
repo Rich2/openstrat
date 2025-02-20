@@ -15,7 +15,7 @@ class HSepLayer[A](val unsafeArray: Array[A]) extends HSepLayerAny[A]
       apply(hs) match {
         case
           _: HSepSome => {
-          val poly = corners.sidePoly(hs).project(proj)
+          val poly = corners.sepPoly(hs).project(proj)
           Some(f(hs, poly))
         }
         case _ => None
@@ -27,7 +27,7 @@ class HSepLayer[A](val unsafeArray: Array[A]) extends HSepLayerAny[A]
       apply(hs) match {
         case
           a: HSepSome => {
-          val poly = corners.sidePoly(hs).project(proj)
+          val poly = corners.sepPoly(hs).project(proj)
           Some(f(hs, poly, a))
         }
         case _ => None

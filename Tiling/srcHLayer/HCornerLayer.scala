@@ -34,12 +34,12 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def sepExtra(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).sepExtra
 
   /** Produces an [[HSep]]'s line segment specified in [[HvOffset]] coordinates. */
-  def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHvOffset =
+  def sepLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHvOffset =
     LineSegHvOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
   /** Not sure about the safety of this method. */
   def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LineSeg =
-    sideLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
+    sepLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
 
   /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] by row and column. */
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
@@ -335,7 +335,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Returns the [[PolygonHvOffset]] [[PolygonLike]] for the given [[HSep]]. */
-  def sidePoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHvOffset = hs.tileLtOpt match
+  def sepPoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHvOffset = hs.tileLtOpt match
   {
     case None => //There is a tile to the right of the separator, but not one to the left
     { val (hcRt, vi) = hs.tileRtAndVert

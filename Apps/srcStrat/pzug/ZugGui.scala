@@ -28,7 +28,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
 
     def walls2: GraphicElems = proj.sidesOptMap { (hs: HSep) =>
       val sTerr: Boolean = sTerrs(hs)
-      if (sTerr) Some(corners.sidePoly(hs).project(proj).fill(Colour.Gray)) else None
+      if (sTerr) Some(corners.sepPoly(hs).project(proj).fill(Colour.Gray)) else None
     }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
@@ -40,7 +40,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
       if (sTerrs(hs) | t1 != t2) None
       else {
         val cs: (HCen, Int, Int) = hs.cornerNums
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
+        val ls1 = corners.sepLineHVAndOffset(cs._1, cs._2, cs._3)
         val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
         Some(ls2.draw(lineColour = t1.contrastBW))
       }

@@ -22,7 +22,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
     proj.sidesOptMap { hs =>
       apply(hs) match
       { case _: HSepSome =>
-        { val poly = corners.sidePoly(hs).project(proj)
+        { val poly = corners.sepPoly(hs).project(proj)
           Some(f(hs, poly))
         }
         case _ => None
@@ -35,7 +35,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
       apply(hs) match {
         case
           sa: HSepSome => {
-          val poly = corners.sidePoly(hs).project(proj)
+          val poly = corners.sepPoly(hs).project(proj)
           Some(f(sa.asInstanceOf[SA], poly))
         }
         case _ => None
@@ -48,7 +48,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
       apply(hs) match {
         case
           sa: HSepSome =>
-        { val poly = corners.sidePoly(hs).project(proj)
+        { val poly = corners.sepPoly(hs).project(proj)
           Some(f(sa.asInstanceOf[SA], hs, poly))
         }
         case _ => None
