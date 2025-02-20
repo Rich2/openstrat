@@ -99,7 +99,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def ssLast: A = ssIndex(numElems - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
-  def ssTailFold[B](initial: B)(f: (B, A) => B) =
+  def tailFold[B](initial: B)(f: (B, A) => B) =
   { var acc: B = initial
     tailForeach(a => acc = f(acc, a))
     acc

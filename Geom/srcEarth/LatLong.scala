@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed from arc
- * second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
+ * second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names. */
 final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with TellDbl2 with PointDbl2 with ApproxDbl
 { override type ThisT = LatLong
   override type LineSegT = LineSegLL
@@ -32,15 +32,15 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
     case _ => false
   }
 
-  /** This method current does not take account of lines that cross the date line, including the Poles */
+  /** This method current does not take account of lines that cross the date line, including the Poles. */
   def segsTo(num: Int, toPt: LatLong): Seq[LatLong] =
   { val latDelta = toPt.latRadians - latRadians
     val longDelta = toPt.longRadians - longRadians
     Seq(this) ++ (1 to num).map(i => LatLong.radians(latRadians + i * latDelta, longRadians + i * longDelta))
   }
 
-  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
-   *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
+  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When moving across
+   * a globe it will often be done using radians as the values come from 3d vector manipulation. */
   override def addLat(delta: AngleVec): LatLong = (latMilliSecs + delta.milliSecs) match
   { //Going over the north Pole
     case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs)
@@ -79,9 +79,9 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
     d3s.earthZPositive
   }
 
-  /** Taking this LatLong as the focus. The focus pont being the point of the Earth that from the view point is at x = 0km aad y = 0km in 2D
-   *  coordinates, determines if the parameter point on the globe is Z positive. True if it is facing the viewer false if it is on the far side of the
-   *  Earth form the viewer's perspective. */
+  /** Taking this LatLong as the focus. The focus pont being the point of the Earth that from the view point is at x = 0km aad y = 0km in 2D coordinates,
+   * determines if the parameter point on the globe is Z positive. True if it is facing the viewer false if it is on the far side of the Earth form the viewer's
+   * perspective. */
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.nonNeg
 
   /** From focus parameter, converts to 3D metre coordinates. */
@@ -122,35 +122,34 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   def lineSegFrom(startPt: LatLong): LineSegLL = LineSegLL(startPt, this)
 }
 
-/** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */
+/** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s. */
 object LatLong
 {
   /** Factory apply method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
   def apply(lat: Latitude, long: Longitude): LatLong = milliSecs(lat.milliSecs, long.milliSecs)
 
-  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
-   * values are negative. */
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western values
+   * are negative. */
   def degs(lat: Double, long: Double): LatLong = milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs)
 
-  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western
-   * values are negative. */
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western values
+   * are negative. */
   @inline def radians(latRadians: Double, longRadians: Double): LatLong = milliSecs(latRadians.radiansToMilliSecs, longRadians.radiansToMilliSecs)
   /*{ val lat = ((latRadians + PiOn2) %% Pi1) - PiOn2
     val long = ((longRadians + Pi1) %% Pi2) - Pi1
     LatLong.milliSecs(lat.radiansToMilliSecs, long.radiansToMilliSecs)
   }*/
 
-  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where
-   *  southern and western values are negative. */
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where southern and
+   * western values are negative. */
   def secs(lat: Double, long: Double): LatLong = milliSecs(lat * 1000, long * 1000)
 
-  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a
-   *  degree, where southern and western values are negative. */
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a degree, where
+   * southern and western values are negative. */
   def milliSecs(lat: Double, long: Double): LatLong =
-  {
-    val lat1 = lat %+- MilliSecsIn180Degs
-    val lat2 = lat1 match {
-      case l if l > MilliSecsIn90Degs => MilliSecsIn180Degs - l
+  { val lat1 = lat %+- MilliSecsIn180Degs
+    val lat2 = lat1 match
+    { case l if l > MilliSecsIn90Degs => MilliSecsIn180Degs - l
       case l if l < - MilliSecsIn90Degs => -MilliSecsIn180Degs - l
       case l => l
     }
