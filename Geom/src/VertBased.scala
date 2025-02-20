@@ -3,6 +3,6 @@ package ostrat; package geom
 
 trait VertBased[VT] extends Any with SeqSpec[VT]
 {
-  /** The number of vertices and also the number of sides in this Polygon. */
+  /** The number of vertices. */
   def numVerts: Int
 }

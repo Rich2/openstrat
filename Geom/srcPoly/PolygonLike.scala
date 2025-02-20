@@ -3,8 +3,8 @@ package ostrat; package geom
 
 /** A Polygon like object, where the points dimensions could be specified in 2D or 3D [[Metres]], latitude and longitude etc as well as the regular scalar
  * values of the standard [[Polygon]].
- *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
- *            [[PolygonM3]] it would be a [[PtM3]]. */
+ *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a [[PolygonM3]] it
+ *    would be a [[PtM3]]. */
 trait PolygonLike[VT] extends Any with VertBased[VT]
 {
   type SideT <: LineSegLike[VT]
@@ -24,7 +24,7 @@ trait PolygonLike[VT] extends Any with VertBased[VT]
    * @tparam B The element type of the returned sequence.
    * @tparam ArrB The type of the immutable Array like sequence of B.
    * @return the immutable sequence collection by applying the supplied function to each vertex. */
-  def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = ssMap(f)
+  def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = mapArr(f)
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
    * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based

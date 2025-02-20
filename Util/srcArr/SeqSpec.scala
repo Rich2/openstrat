@@ -72,7 +72,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Specialised map to an immutable [[Arr]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for example a
    *  PolygonLike will map to another PolygonLike. */
-  def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  def mapArr[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(numElems)
     iForeach((i, a) => ev.indexSet(res, i, f(a)))
     res
@@ -106,5 +106,5 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = ssMap(fElemStr).mkStr("; ").enParenth
+  override def elemsStr: String = mapArr(fElemStr).mkStr("; ").enParenth
 }

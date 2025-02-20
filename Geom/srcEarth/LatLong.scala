@@ -75,7 +75,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
   def polyToGlobedArea(inp: PolygonLL): OptEither[PtM2Arr, CurveSegMArrOld] =
-  { val d3s: PtM3Arr = inp.ssMap(el => fromFocusMetres(el))
+  { val d3s: PtM3Arr = inp.mapArr(el => fromFocusMetres(el))
     d3s.earthZPositive
   }
 
@@ -135,10 +135,6 @@ object LatLong
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western values
    * are negative. */
   @inline def radians(latRadians: Double, longRadians: Double): LatLong = milliSecs(latRadians.radiansToMilliSecs, longRadians.radiansToMilliSecs)
-  /*{ val lat = ((latRadians + PiOn2) %% Pi1) - PiOn2
-    val long = ((longRadians + Pi1) %% Pi2) - Pi1
-    LatLong.milliSecs(lat.radiansToMilliSecs, long.radiansToMilliSecs)
-  }*/
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where southern and
    * western values are negative. */

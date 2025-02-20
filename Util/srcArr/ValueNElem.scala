@@ -1,24 +1,22 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored
- *  as *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the
- *  logical size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is
- *  composed from 4 [[Double]] values. */
+/** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored as an
+ * Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the logical size of the
+ * product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is composed from 4 [[Double]] values. */
 trait ValueNElem extends Any with SpecialT
 
 trait SeqLikeValueN[A <: ValueNElem] extends Any with SeqLike[A]
 { type ThisT <: SeqLikeValueN[A]
-  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
-   * class. */
+  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection class. */
   def elemProdSize: Int
 
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrayLen: Int
 }
 
-/** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
- *  classes include both [[Arr]s and classes like polygons and lines. */
+/** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant classes
+ * include both [[Arr]]s and classes like polygons and lines. */
 trait SeqSpecValueN[A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqSpec[A]
 { type ThisT <: SeqSpecValueN[A]
 
@@ -42,8 +40,8 @@ trait SeqSpecValueN[A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqS
   }
 }
 
-/** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
- * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
+/** An immutable Arr of homogeneous value products. Currently, there is no compelling use case for heterogeneous value products, but the homogeneous name is
+ * being used to avoid having to change the name if and when homogeneous value product [[Arr]]s are implemented. */
 trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeValueN[A]
 { type ThisT <: ArrValueN[A]
 
@@ -81,8 +79,7 @@ trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeVal
   }
 }
 
-/** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
- *  [[Long]]. */
+/** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or [[Long]]. */
 trait BuffValueN[A <: ValueNElem] extends Any with BuffSequ[A]
 { type ArrT <: ArrValueN[A]
   def elemProdSize: Int
@@ -102,13 +99,12 @@ trait BuilderSeqLikeValueNMap[B <: ValueNElem, BB <: SeqLike[B]] extends Builder
 /** Constructs [[SeqLikeValueN]] objects via flatMap method. Element type not known at call site. */
 trait BuilderSeqLikeValueNFlat[BB <: SeqLikeValueN[?]] extends BuilderSeqLikeValueN[BB] with BuilderSeqLikeFlat[BB]
 
-/** Trait for creating the ArrTBuilder. Instances for the [[BuilderArrMap]] type class, for classes / traits you control, should go in the companion
- *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+/** Trait for creating the ArrTBuilder. Instances for the [[BuilderArrMap]] type class, for classes / traits you control, should go in the companion object of
+ * B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrValueNMap[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderSeqLikeValueNMap[B, ArrB] with BuilderArrMap[B, ArrB]
 { type BuffT <: BuffValueN[B]
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderArrFlat] should go in
- *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
- *  function. */
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderArrFlat] should go in the companion
+ * object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrValueNFlat[ArrB <: ArrValueN[?]] extends BuilderSeqLikeValueN[ArrB] with BuilderArrFlat[ArrB]
