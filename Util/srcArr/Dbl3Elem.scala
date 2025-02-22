@@ -44,7 +44,7 @@ trait SeqSpecDbl3[A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDbl
   def ssElem(d1: Double, d2: Double, d3: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  override def ssIndex(index: Int): A = ssElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+  override def index(index: Int): A = ssElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */

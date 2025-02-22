@@ -25,7 +25,7 @@ trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDbl
   def ssElem(d1: Double, d2: Double): A
 
 
-  override def ssIndex(index: Int): A = ssElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+  override def index(index: Int): A = ssElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =

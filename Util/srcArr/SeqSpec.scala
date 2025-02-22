@@ -8,17 +8,17 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqSpec[A]
 
   /** Accesses the specifying sequence element by a 0 based index. */
-  @inline def ssIndex(index: Int): A
+  @inline def index(index: Int): A
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
    * will be a multiple of this number. */
   def numElems: Int
 
   /** Performs a side effecting function on each element of the specifying sequence in order. */
-  def foreach[U](f: A => U): Unit =
+  override def foreach[U](f: A => U): Unit =
   { var i = 0
     while (i < numElems)
-    { f(ssIndex(i))
+    { f(index(i))
       i = i + 1
     }
   }
@@ -27,7 +27,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def tailForeach[U](f: A => U): Unit =
   { var i = 1
     while (i < numElems)
-    { f(ssIndex(i))
+    { f(index(i))
       i += 1
     }
   }
@@ -37,7 +37,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def innerForeach[U](f: A => U): Unit =
   { var i = 1
     while (i < numElems - 1)
-    { f(ssIndex(i));
+    { f(index(i));
       i += 1
     }
   }
@@ -51,7 +51,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
     while (i < numElems)
-    { f(i, ssIndex(i))
+    { f(i, index(i))
       i = i + 1
     }
   }
@@ -65,7 +65,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
     while (i < numElems)
-    { f(i + initIndex, ssIndex(i))
+    { f(i + initIndex, index(i))
       i = i + 1
     }
   }
@@ -91,12 +91,12 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   { var i = numElems
     while (i > 0)
     { i -= 1
-      f(ssIndex(i))
+      f(index(i))
     }
   }
 
   /** Last element of the specifying sequence. */
-  def ssLast: A = ssIndex(numElems - 1)
+  def last: A = index(numElems - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
   def tailFold[B](initial: B)(f: (B, A) => B) =

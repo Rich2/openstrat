@@ -27,7 +27,7 @@ trait Dbl4SeqSpec[A <: Dbl4Elem] extends Any with SeqLikeDbl4[A] with SeqSpecDbl
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
-  override def ssIndex(index: Int): A = ssElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+  override def index(index: Int): A = ssElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]

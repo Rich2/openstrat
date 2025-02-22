@@ -30,7 +30,7 @@ trait PolygonLike[VT] extends Any with VertBased[VT]
    * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
    * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   def vertsPrevForEach[U](f: (VT, VT) => U): Unit = if (numVerts >= 2)
-  { f(ssLast, vert(0))
+  { f(last, vert(0))
     var i = 2
     while (i <= numVerts)
     { f(vert(i - 2), vert(i - 1))
@@ -61,7 +61,7 @@ trait PolygonLike[VT] extends Any with VertBased[VT]
   }
 
   /** Returns the vertex of the given index. Cycles around if the index is out of range, vert 3 retruns vert 0 on a triangle. */
-  def vert(index: Int): VT = ssIndex(index %% numVerts)
+  def vert(vertNum: Int): VT = index(vertNum %% numVerts)
 
   /** This method should be overridden in final classes. */
   def vertsForAll(f: VT => Boolean): Boolean =

@@ -104,7 +104,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
   def tailForeach(fLineSeg: CurveTailOld => Unit, fArcSeg: CurveTailOld => Unit, fBezierSeg: CurveTailOld => Unit): Unit =
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 
-  @inline def segLast: CurveTailOld = ssLast
+  @inline def segLast: CurveTailOld = last
 }
 
 object ShapeGenOld extends CompanionSeqLikeDbl7[CurveTailOld, ShapeGenOld]

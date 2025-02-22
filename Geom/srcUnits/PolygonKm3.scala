@@ -44,7 +44,7 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
    *  vertex) => U follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
   override def vertsPrevForEach[U](f: (PtKm3, PtKm3) => U): Unit = if (numVerts >= 2)
-  { f(ssLast, vert(0))
+  { f(last, vert(0))
     var i = 2
     while (i <= numVerts){
       f(vert(i - 2), vert(i - 1))

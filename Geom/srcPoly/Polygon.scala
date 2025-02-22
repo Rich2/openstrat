@@ -59,7 +59,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  final def unsafeVert(rawIndex: Int): Pt2 = ssIndex(rawIndex)
+  final def unsafeVert(rawIndex: Int): Pt2 = index(rawIndex)
 
   def dropVert(v: Int): Polygon =
   { val res = PolygonGen.uninitialised(numVerts - 1)

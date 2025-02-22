@@ -27,7 +27,7 @@ trait SeqSpecDbl5[A <: Dbl5Elem] extends Any with SeqLikeDbl5[A] with SeqSpecDbl
    * sequence. */
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
-  def ssIndex(index: Int): A = ssElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
+  def index(index: Int): A = ssElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
 
   override def ssElemEq(a1: A, a2: A): Boolean =

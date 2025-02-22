@@ -32,7 +32,7 @@ trait SeqSpecDbl7[A <: Dbl7Elem] extends Any with SeqLikeDbl7[A] with SeqSpecDbl
   def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
     (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 
-  def ssIndex(index: Int): A =
+  def index(index: Int): A =
   { val offset = 7 * index
     ssElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
       arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))

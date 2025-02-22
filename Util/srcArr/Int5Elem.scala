@@ -32,7 +32,7 @@ trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecInt
   final def ssElemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
-  override def ssIndex(index: Int): A =
+  override def index(index: Int): A =
     newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 }
 

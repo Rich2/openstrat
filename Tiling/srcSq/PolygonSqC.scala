@@ -44,7 +44,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec
 
   def combine(operand: PolygonSqC): Option[PolygonSqC] =
   { var starts: Option[(Int, Int)] = None
-    val a = ssIndex(0)
+    val a = index(0)
     ???
   }
 
