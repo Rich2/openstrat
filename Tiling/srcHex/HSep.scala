@@ -215,8 +215,9 @@ class HSepC(val r: Int, val c: Int) extends HSep
     if (sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))
     else LineSegHvOffset(tileLt.v2Exact, tileLt.v3Exact)
 
+  /** I think this is now correct. */
   override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
-    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerV1(tileRt, 5), corners.cornerV1(tileRt, 0))
+    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerVLast(tileRt, 5), corners.cornerV1(tileRt, 0))
     else LineSegHvOffset(tileRt.v5Exact, tileRt.v0Exact)
 
   override def anglePerpRt: Angle = -60.degs
