@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag, pgui._
 
@@ -13,22 +13,22 @@ trait HGridSys extends HexStruct with TGridSys
     i
   }
 
-  /** The number of sides in the hex grid system. */
-  final lazy val numSides: Int =
+  /** The number of [[HSep]]s in the hex grid system. */
+  final lazy val numSeps: Int =
   { var i = 0
     sepsForeach(_ => i += 1)
     i
   }
 
-  /** The number of inner sides in the hex grid system. */
-  final lazy val numInnerSides: Int =
+  /** The number of inner [[HSep]]s in the hex grid system. */
+  final lazy val numInnerSeps: Int =
   { var i = 0
     linksForeach(_ => i += 1)
     i
   }
 
-  /** The number of outer sides in the hex grid system. */
-  final lazy val numOuterSides: Int =
+  /** The number of outer [[HSep]]s in the hex grid system. */
+  final lazy val numOuterSeps: Int =
   { var i = 0
     edgesForeach(_ => i += 1)
     i
@@ -175,7 +175,7 @@ trait HGridSys extends HexStruct with TGridSys
 
   /** maps over each Hex Separator's coordinate [[HSep]] in the hex grid system. */
   final def sepsMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
-  { val res: ArrT = build.uninitialised(numSides)
+  { val res: ArrT = build.uninitialised(numSeps)
     var i = 0
     sepsForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
@@ -183,7 +183,7 @@ trait HGridSys extends HexStruct with TGridSys
 
   /** maps over each the grid systems link / inner side's coordinate [[HSep]]. */
   final def linksMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
-  { val res: ArrT = build.uninitialised(numInnerSides)
+  { val res: ArrT = build.uninitialised(numInnerSeps)
     var i = 0
     linksForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
@@ -191,7 +191,7 @@ trait HGridSys extends HexStruct with TGridSys
 
   /** maps over each the grid systems outer side's coordinate [[HSep]]. */
   final def edgesMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
-  { val res: ArrT = build.uninitialised(numOuterSides)
+  { val res: ArrT = build.uninitialised(numOuterSeps)
     var i = 0
     edgesForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
@@ -270,7 +270,7 @@ trait HGridSys extends HexStruct with TGridSys
 
   /** maps over each Hex Separator's coordinate [[HSep]] in the hex grid system. */
   final def vertsMap[B, ArrT <: Arr[B]](f: HVert => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
-  { val res: ArrT = build.uninitialised(numSides)
+  { val res: ArrT = build.uninitialised(numSeps)
     var i = 0
     vertsForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res

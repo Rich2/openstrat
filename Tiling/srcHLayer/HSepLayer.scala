@@ -36,7 +36,7 @@ class HSepLayer[A](val unsafeArray: Array[A]) extends HSepLayerAny[A]
 
   /** Spawns a new [[HSepLayer]] data layer for the child [[HGridSys]] from this [[HSepLayer]]. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HSepLayer[A] =
-  { val array: Array[A] = new Array[A](childGridSys.numSides)
+  { val array: Array[A] = new Array[A](childGridSys.numSeps)
     childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
     new HSepLayer[A](array)
   }
@@ -47,8 +47,8 @@ object HSepLayer
   def apply[A](initial: A)(implicit ct: ClassTag[A], gridSys: HGridSys): HSepLayer[A] = apply[A](gridSys, initial)(ct)
 
   def apply[A](gridSys: HGridSys, initial: A)(implicit ct: ClassTag[A]): HSepLayer[A] =
-  { val newArray = new Array[A](gridSys.numSides)
-    iUntilForeach(gridSys.numSides)(newArray(_) = initial)
+  { val newArray = new Array[A](gridSys.numSeps)
+    iUntilForeach(gridSys.numSeps)(newArray(_) = initial)
     new HSepLayer[A](newArray)
   }
 }

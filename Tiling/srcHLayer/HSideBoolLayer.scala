@@ -126,7 +126,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   /** Spawns a new [[HSideBoolLayer]] data layer for the child [[HGridSys]]. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys): HSideBoolLayer =
-  { val array: Array[Boolean] = new Array[Boolean](childGridSys.numSides)
+  { val array: Array[Boolean] = new Array[Boolean](childGridSys.numSeps)
     childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
     new HSideBoolLayer(array)
   }
@@ -134,5 +134,5 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
 object HSideBoolLayer
 { /** Factory apply method for [[HSideBoolean]] takes an [[HGridSys]] as an implicit parameter. */
-  def apply()(implicit gridSys: HGridSys): HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](gridSys.numSides))
+  def apply()(implicit gridSys: HGridSys): HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](gridSys.numSeps))
 }

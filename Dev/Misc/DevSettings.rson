@@ -16,7 +16,7 @@ earth = { scale = 12; latitude = 0; longitude = 0; north; };
 uloc = { scale = 1.6; latitude = 52; longitude = 18; date = MTime(1939; 9; 1); };
 y1783 = { scen = 1; flat = false; 1 = HGView(160, 512; 25); 2 = HGView(160, 512; 25); };
 discov = { scen = 1; 1 = HGView(138, 522; 20)};
-eGrid = { scen = 1; flat = false; };
+eGrid = { scen = 1; flat = false; sepDraw = false; };
 g1Hex = { scen = 1; 1 = HGView(4, 6; 80); 2 = { HGView(7, 48; 52); counters = A, B, C, E}; 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 g1Sq = { scen = 1; 1 = SqGridView(4, 5; 150); 2 = { SqGridView(9, 11; 40); counters = A, B, C, D}; };
 g2Hex = { scen = 1; 1 = { HGView(4, 9; 80); counters = A, B, C }; 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };

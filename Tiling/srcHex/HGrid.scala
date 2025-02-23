@@ -332,7 +332,7 @@ trait HGrid extends TGrid with HGridSys with Tell
     iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSep(bottomSepR, c)) }
 
   def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit
-  def newSideBooleans: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
+  def newSideBooleans: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSeps))
 
   def rowLeftSepC(r: Int): Int = r match
   { case r if r == topSepR => rowLeftCenC(topCenR) - 1

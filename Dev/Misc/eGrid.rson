@@ -2,6 +2,7 @@
 //Settings file for EGrids
 scen = 79;
 flat = false;
+sepDraw = false;
 0 = HGView(102, 512; 23.5);//1300km 0°E
 1 = HGView(102, 1536; 23.5);//1300km 30°E
 2 = HGView(102, 2560; 23.5);//1300km 60°E

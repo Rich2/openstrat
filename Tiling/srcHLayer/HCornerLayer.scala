@@ -362,9 +362,9 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
         val p1 = cornerV1(hcRt, vi)
         val vi2 = (vi - 1) %% 6
-        val p2: HvOffset = cornerV1(hcRt, vi2)
+        val p2: HvOffset = cornerVLast(hcRt, vi2)//Changed seems correct
         val vi3 = (lvi + 1) %% 6
-        val p3: HvOffset = cornerV1(hcLt, vi3)
+        val p3: HvOffset = cornerV1(hcLt, vi3)//Not Changed think this is wrong but not sure
         val vi4 = lvi %% 6
         val p4: HvOffset = cornerV1(hcLt, vi4)
         val arr1: HvOffsetArr = ife(sepExtra(hcRt, vi) && sepExtra(hcLt, vi4), HvOffsetArr(hcRt.vExact(vi), p1, p2), HvOffsetArr(p1, p2))

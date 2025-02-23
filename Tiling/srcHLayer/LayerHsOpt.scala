@@ -57,7 +57,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
 
   /** Spawns a new [[HSideOptlLayer]] data layer for the child [[HGridSys]] from this [[LayerHSOptSys]]. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
-  { val array: Array[A] = new Array[A](childGridSys.numSides)
+  { val array: Array[A] = new Array[A](childGridSys.numSeps)
     childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
     new LayerHSOptSys[A, SA](array)
   }
@@ -69,14 +69,14 @@ object LayerHSOptSys
     apply[A, SA](gridSys, defaultValue.default)(ct)
 
   def apply[A, SA <: HSepSome](gridSys: HGridSys, value: A)(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
-  { val newArray = new Array[A](gridSys.numSides)
-    iUntilForeach(gridSys.numSides)(newArray(_) = value)
+  { val newArray = new Array[A](gridSys.numSeps)
+    iUntilForeach(gridSys.numSeps)(newArray(_) = value)
     new LayerHSOptSys[A, SA](newArray)
   }
 
   def apply[A, SA <: HSepSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
-  { val newArray = new Array[A](gridSys.numSides)
-    iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
+  { val newArray = new Array[A](gridSys.numSeps)
+    iUntilForeach(gridSys.numSeps)(newArray(_) = defaultValue.default)
     new LayerHSOptSys[A, SA](newArray)
   }
 }

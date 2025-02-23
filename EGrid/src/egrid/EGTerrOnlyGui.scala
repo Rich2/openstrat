@@ -1,9 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
 /** Displays grids on world as well as land mass outlines. */
-class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean = true) extends EGridBaseGui("Grid World")
+class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean, var sepDrawOn: Boolean)
+  extends EGridBaseGui("Grid World")
 { deb("Starting EGTerrOnlyGui")
   val scen: EScenBasic = scenIn
   val eas: RArr[EarthPoly] = earthAllRegions.flatMap(_.ePolys)
@@ -11,10 +12,13 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
 
   var scale: LengthMetric = gridSys.cScale / viewIn.pixelsPerC
   var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(viewIn.nthSth)
-  var sideDrawOn: Boolean = false
+
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
-  proj match { case ep: HSysProjectionEarth => ep.irrOn = irregsOn; case _ => }
+  proj match
+  { case ep: HSysProjectionEarth => { ep.irrOn = irregsOn }
+    case _ =>
+  }
   statusText = scen.title
 
   val terrs: LayerHcRefSys[WTile] = scen.terrs
@@ -22,11 +26,11 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match
-  { case hgm: EGridMulti => s"grid0: ${hgm.grids(0).numSides}"
+  { case hgm: EGridMulti => s"grid0: ${hgm.grids(0).numSeps}"
     case _ => "Single grid"
   }
 
-  val sideError = gridSys.numSides - gridSys.numInnerSides - gridSys.numOuterSides
+  val sepError = gridSys.numSeps - gridSys.numInnerSeps - gridSys.numOuterSeps
   //deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
   def frame: RArr[GraphicElem] =
@@ -52,7 +56,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrActives: GraphicElems = ifGlobe { ep => ep.irrActives2 }
 
-    def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sepDraws, RArr[GraphicElem]())
+    def sideDraws2: RArr[GraphicElem] = ife(sepDrawOn, sepDraws, RArr[GraphicElem]())
 
     seas ++ irrFills ++ irrActives ++ tileFills ++ tileActives ++ sepFills ++ sepActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
   }
@@ -78,9 +82,9 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   }
 
   def showSideDraw: PolygonCompound = clickButton("S") { b =>
-    sideDrawOn = !sideDrawOn
+    sepDrawOn = !sepDrawOn
     repaint()
-    statusText = ife(sideDrawOn, "Side Draw on", "Side Draw off")
+    statusText = ife(sepDrawOn, "Side Draw on", "Side Draw off")
     thisTop()
   }
 
@@ -96,6 +100,6 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
 }
 
 object EGTerrOnlyGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean, irregsOn: Boolean = true): EGTerrOnlyGui =
-    new EGTerrOnlyGui(canv,grid, view, isFlat, irregsOn)
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean, irregsOn: Boolean = true, sepDraw: Boolean = false): EGTerrOnlyGui =
+    new EGTerrOnlyGui(canv,grid, view, isFlat, irregsOn, sepDraw)
 }
