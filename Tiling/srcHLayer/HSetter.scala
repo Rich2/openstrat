@@ -370,6 +370,7 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     { case HVUR => //Corrected and tested
       { corners.setCornerSepExtra(row + 1, c + 2, 4, HVUR, magIn)
         corners.setCornerSepExtra(row + 1, c - 2, 2, HVDL, origMag)
+        corners.setCornerPair(row - 1, c, 0, HVDL, origMag, HVExact, 0)
       }
 
       case HVDR => //Corrected and tested

@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import prid._, phex._
 
@@ -34,7 +34,7 @@ trait LongTerrs
   /** The tiles terrains. */
   def terrs: LayerHcRefGrid[WTile]
 
-  /** The separators terrain. */
+  /** The separators' terrain. */
   def sTerrs: LayerHSOptSys[WSep, WSepSome]
 
   /** The [[HCorner]]s */

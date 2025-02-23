@@ -132,12 +132,14 @@ class HSepA(val r: Int, val c: Int) extends HSep
   override def unsafeTiles: (HCen, HCen) = (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
 
+  /** This seems to work. */
   override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
-    if(sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerV1(tileLt, 0), corners.cornerV1(tileLt, 1))
+    if(sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerVLast(tileLt, 0), corners.cornerV1(tileLt, 1))
     else LineSegHvOffset(tileLt.v0Exact, tileLt.v1Exact)
 
+  /** The vLast doesn't seem to make any difference. */
   override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
-    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerV1(tileRt, 3), corners.cornerV1(tileRt, 4))
+    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerVLast(tileRt, 3), corners.cornerV1(tileRt, 4))
     else LineSegHvOffset(tileRt.v3Exact, tileRt.v4Exact)
 
   override def anglePerpRt: Angle = 60.degs
