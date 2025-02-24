@@ -320,7 +320,8 @@ abstract class HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome](implicit ttTest: 
     def origMag: Int
 
     override def setCorners(row: Int): Unit = dirn match
-    { case HVUR =>
+    { //Seems Correct
+      case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
         corners.setCorner(row - 1, c, 0, HVDL, origMag)
         corners.setCornerPair(row + 1, c - 2, 2, HVExact, 0, HVDL, origMag)
