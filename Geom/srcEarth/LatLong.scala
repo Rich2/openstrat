@@ -122,10 +122,9 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   def lineSegFrom(startPt: LatLong): LineSegLL = LineSegLL(startPt, this)
 }
 
-/** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s. */
+/** Companion object for the [[LatLong]] class. Contains factory methods for the creation of [[LatLong]]s. */
 object LatLong
-{
-  /** Factory apply method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
+{ /** Factory apply method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
   def apply(lat: Latitude, long: Longitude): LatLong = milliSecs(lat.milliSecs, long.milliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western values
@@ -168,7 +167,8 @@ object LatLong
 
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
-  implicit val arrMapBuilderImplicit: BuilderArrDbl2Map[LatLong, LatLongArr] = new BuilderArrDbl2Map[LatLong, LatLongArr]
+  /** Implicit [[BuilderArrMap]] evidence / instance for [[LatLong]]. Builds [[LatLongArr]]s through map methods. */
+  implicit val builderArrMapEv: BuilderArrDbl2Map[LatLong, LatLongArr] = new BuilderArrDbl2Map[LatLong, LatLongArr]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)

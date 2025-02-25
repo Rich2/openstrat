@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*
 
 /** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 460km. A hex tile area of 183250.975km².
  *  Isle10 57981.753km² => 120974.276km². Ireland
