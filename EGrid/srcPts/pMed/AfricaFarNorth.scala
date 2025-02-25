@@ -64,6 +64,8 @@ object MaghrebEast extends EarthPoly("Maghreb east", 33 ll 2.32, hillySahel)
     p10, capCarbon, sidiMansour, p15, p20, p21, p22, plageLota, capAlAouna, lePointNoir, capDeFer, capRosa, capTabarka, capSerat, p25, capTarf, tunis, p27)
 }
 
+
+
 /** [[PolygonLL]] graphic for Sahara central depends on [[MaghrebEast]]. */
 object SaharaCentral extends EarthPoly("SaharaCentral", 26 ll 16, deshot)
 { val southEast: LatLong = 17 ll 16.75

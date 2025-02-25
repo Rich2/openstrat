@@ -111,21 +111,26 @@ object Terr120E0 extends Long120Terrs
     TRow(284, sea * 4, savannah, hillySavannah * 3, savannah, hillySavannah * 2, Isle4(hillySavannah), Isle7(hillySavannah), sea * 3, hillySavannah,
       mtainSavannah),
 
-    VRow(283, BendInRt(514, HVUR, 12, 7), BendIn(534, HVUR, 13), OrigRt(536, HVUL, 7), OrigLt(540, HVUR, 7), BendIn(542, HVUL, 13), BendIn(548, HVDR, 13), BendIn(550, HVDn, 13),
-      BendOut(552, HVUp, 7), BendIn(554, HVUR, 13)),
+    VRow(283, OrigLt(484, HVDn), BendInRt(514, HVUR, 12, 7), BendIn(534, HVUR, 13), OrigRt(536, HVUL, 7), OrigLt(540, HVUR, 7), BendIn(542, HVUL, 13),
+      BendIn(548, HVDR, 13), BendIn(550, HVDn, 13), BendOut(552, HVUp, 7), BendIn(554, HVUR, 13)),
 
     TRow(282, sea * 3, hillySub * 2, hillySavannah, savannah, hillySavannah, mtainSavannah, hillySavannah, sea * 9, mtainSavannah, mtainSub),
-    VRow(281, BendIn(538, HVDR, 13), BendIn(540, HVDn, 13), OrigLt(542, HVUL, 7), BendIn(546, HVDR, 13), BendOut(548, HVUL, 7)),
+
+    VRow(281, BendIn(484, HVUR, 11), OrigMin(486, HVUL), BendIn(538, HVDR, 13), BendIn(540, HVDn, 13), OrigLt(542, HVUL, 7), BendIn(546, HVDR, 13),
+      BendOut(548, HVUL, 7)),
+
     TRow(280, sea * 4, hillySavannah * 6, sea * 7 , hillySavannah, sea, hillySavannah, mtainSavannah, hillySavannah),
-    VRow(279, BendOut(508, HVDR, 7), OrigRt(510, HVDL, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), OrigMin(538, HVUp, 2)),
+
+    VRow(279, BendOut(508, HVDR, 7), OrigRt(510, HVDL, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendOut(516, HVUp), BendIn(518, HVDn, 13),
+      BendOut(520, HVUp), OrigLt(522, HVDL, 7), OrigMin(538, HVUp, 2)),
+
     TRow(278, sea * 6, hillySavannah, mtainSavannah * 2, hillySavannah, sea, mtainSahel, hillySavannah * 2, mtainSavannah, mtainSub, hillySavannah * 3),
 
     VRow(277, BendIn(492, HVUR, 11), Bend(494, HVUp, 4, 3), BendIn(496, HVDn, 8), BendInRt(498, HVUp, 13, 7), BendOut(500, HVDn, 7), BendInLt(502, HVUp, 13, 7),
       BendMax(504, HVDn), ThreeDown(506, 13, 13, 13), ThreeUp(508, 0, 13, 13), BendMin(510, HVUp, 4), BendOut(512, HVUL)),
 
-    TRow(276, sea * 6, mtainSavannah, sea, hillySavannah, mtainSavannah, hillySavannah * 2, sahel, hillySahel * 2, hillySavannah * 2, hillySahel),
-    //VRow(275, OrigMin(498, HVUp, 4)),
-    TRow(274, sea * 6, savannah, mtainSavannah, hillySahel * 2),
+    TRow(276, sea * 6, mtainSavannah, sea, hillySavannah, mtainSavannah, hillySavannah * 2, sahel, hillySahel * 2, hillySavannah * 2, hillySahel, sahel),
+    TRow(274, sea * 6, savannah, mtainSavannah, hillySahel * 3, sahel * 2, hillySahel * 2, sahel, hillySahel * 2, sahel),
     )
   }
   help.run
