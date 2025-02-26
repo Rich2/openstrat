@@ -157,6 +157,7 @@ object LatLong
     new LatLong(lat2, long2)
   }
 
+  /** Implicit [[DefaultValue]] evidence / instance for [[LatLong]]. */
   implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
 
   /** [[Show]] type class instance / evidence for [[LatLong]]. */
@@ -165,6 +166,7 @@ object LatLong
   /** [[Unshow]] type class instance / evidence for [[LatLong]]. */
   implicit val unshowEv: UnshowDbl2[LatLong] = UnshowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
 
+  /** Implicit [[EqT]] evidence / instance for [[LatLong]]. */
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
   /** Implicit [[BuilderArrMap]] evidence / instance for [[LatLong]]. Builds [[LatLongArr]]s through map methods. */
@@ -174,12 +176,14 @@ object LatLong
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
+  /** Implicit [[LinePathBuilder]] evidence / instance for [[LatLong]]. Builds [[LinePathLL]]s. */
   implicit val linePathBuildImplicit: LinePathDbl2Builder[LatLong, LinePathLL] = new LinePathDbl2Builder[LatLong, LinePathLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
+  /** Implicit [[PolygonBuilder]] evidence / instance for [[LatLong]]. Builds [[PolygonLL]]s. */
   implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[LatLong, PolygonLL] = new PolygonDbl2BuilderMap[LatLong, PolygonLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
