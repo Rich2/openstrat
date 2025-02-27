@@ -7,7 +7,7 @@ object DevPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbtJs, intellij, miscTitle, p6, table, p7, credits)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbt3D, intellij, miscTitle, p6, table, p7, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
   def appSel: HtmlLi = HtmlLi("JavaFx application selection and developer settings for the different apps.")
   def siteGen: HtmlLi = HtmlLi("Generates the HTML files for the website, including this file.")
@@ -56,96 +56,7 @@ object DevPage extends HtmlPage
     "available plus others.The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make" --
     "a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.")
 
-  def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
-    HtmlLi.sbt("project AppsJs"),
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1300App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1300AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1000App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1000AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG640App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG460App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG460AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG320App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG320AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG220Europe";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG220EuropeJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG220EuropeWide";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG220EuropeWideJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG220NAmerica";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG220NAmericaJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG160Europe";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG160EuropeJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG160Europe";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG160EuropeJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG120Europe";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG120EuropeJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG80Europe";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG80EuropeJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EarthApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EarthAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.UnitLocAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.BC305AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp""""),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.ZugAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW1AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW2AppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/IndRevApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.IndRevAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DungeonApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DungeonAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.SorsAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.PericuloAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App""""),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DiscovApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DiscovAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.PlanetsAppJs")""".stripMargin),
-
-    HtmlLi.sbt(""" set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.FlagsAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.CivRiseAppJs")""".stripMargin),
-
-    HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp";
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.ChessApp")""".stripMargin)
-  )
+  def sbt3D = HtmlP("""For JavaFx 3D """.xCon, HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),

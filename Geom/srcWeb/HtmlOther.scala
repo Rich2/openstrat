@@ -13,20 +13,19 @@ object HtmlA
 }
 
 /** HTML P paragraph element. */
-case class HtmlP(text: String, attribs: RArr[XmlAtt]) extends HtmlUnvoid
+case class HtmlP(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlUnvoid
 { def tag = "p"
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = "<p>" + text + "</p>"
-
-  override def contents: RArr[XCon] = RArr(text.xCon)
-  def textLen = text.length
-
+  def text(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = "<p>" + text(indent, line1InputLen, maxLineLen) + "</p>"
+  def textLen: String = text(0)
   override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
 /** Copied from old needs checking. */
 object HtmlP
 { /** Factory apply method for creating HTML paragraphs. */
-  def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP(strIn, attsIn.toRArr)
+  def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP(RArr(strIn.xCon), attsIn.toRArr)
+  def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
   /*{ def str: String = strIn
     def con1: XConText = str.xCon
     override val attribs: RArr[XmlAtt] = attsIn.toArr
