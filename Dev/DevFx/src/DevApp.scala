@@ -20,7 +20,7 @@ class AppStart extends application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     val params: java.util.List[String] = getParameters.getRaw
-    val oApp: Option[String] = ife(params.isEmpty, None, Some(params.getFirst))
+    val oApp: Option[String] = ife(params.isEmpty, None, Some(params.get(0)))
 
     /** Tries to get the app Launcher from matching the first arg. */
     val oApp2: Option[GuiLaunch] = oApp.flatMap(str => AppSelector.findChars(str))
