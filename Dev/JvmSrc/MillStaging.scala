@@ -45,7 +45,7 @@ object MillStaging extends StagingBuild
 
 /** Function object to stage the module jars built under Mill. */
 object MillStageJars
-{ val versionStr: String = "0.3.5snap"
+{ val versionStr: String = "0.3.5"
 
   def apply(stagingPath: String): Unit =
   { val sharedPath: String = stagingPath / "libShared"
@@ -53,7 +53,7 @@ object MillStageJars
       projPathDo { projPath =>
         def fc(srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
           fileCopy(projPath.asStr / "out" / srcStr / "jar.dest/out.jar", sharedPath / destStr + "-" + versionStr + ".jar")
-        val f1 = ErrBiAcc(fc("Util", "rutil"), fc("Geom", "geom"), fc("Tiling", "tiling"), fc("EGrid", "egrid"))
+        val f1: ErrBiAcc[Exception, FileCopied] = ErrBiAcc(fc("Util", "rutil"), fc("Geom", "geom"), fc("Tiling", "tiling"), fc("EGrid", "egrid"))
         debvar(f1)
       }
     }
