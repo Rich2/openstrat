@@ -16,6 +16,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
     case fail: Fail[?] => fail
   }
 
+  /** If this [[ErrBi]] is a [[Succ]] produce and [[ErrBi]] accumulator with the parameter function. */
   def flatMapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
     ErrBiAcc[EE, B]
 

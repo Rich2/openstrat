@@ -93,7 +93,9 @@ package object utiljvm
   }
   
   def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
-  
+
+  /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
+   * file. */
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
     jp.exists match
@@ -130,7 +132,8 @@ package object utiljvm
   implicit class DirPathAbsExtensions(val thisPath: DirsAbs)
   {
     def toJava: File = File(thisPath.asStr)
-    
+
+    /** Perform the side effecting procedure if the location exists and is a directory as opposed to a file. */
     def doIfDirExists(f: DirsAbs => Unit) =
     { val jd = thisPath.toJava
       if (jd.exists)

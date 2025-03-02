@@ -21,7 +21,8 @@ object MillStaging extends StagingBuild
     println(eGameJsFiles.summaryStr("earthgames directory JavaScript"))
 
     val otherPath: String = stagePath /% "otherapps"
-    val otherJsFiles = mkDirExist(otherPath).flatMapAcc { res =>
+    val otherBi: ExcIOMon[DirExists] = mkDirExist(otherPath)
+    val otherJsFiles = otherBi.flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
         val destStr: String = otherPath / ga.filesStem + ".js"
