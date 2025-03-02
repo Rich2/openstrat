@@ -249,6 +249,14 @@ def SiteStage = Task{
   Dev.runner().run(mainClass = "ostrat.pDev.MillStaging", args = Array[String]())
 }
 
+def JarsStage = Task{
+  Util.jar()
+  Util.docJar()
+  Util.sourcejar()
+  Geom.jar()
+  Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())
+}
+
 object Servlet extends CommonJvm
 { def sources = T.sources(T.workspace / "Dev" / "Servlet" / "src")
   def ivyDeps = Agg(ivy"jakarta.servlet:jakarta.servlet-api:6.0.0")
