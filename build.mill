@@ -252,7 +252,7 @@ def SiteStage = Task{
 def JarsStage = Task{
   Util.jar()
   Util.docJar()
-  Util.sourcejar()
+  Util.sourceJar()
   Geom.jar()
   Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())
 }

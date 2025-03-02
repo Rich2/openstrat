@@ -20,7 +20,10 @@ sealed trait ErrBi[+E <: Throwable, +A]
   def flatMapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
     ErrBiAcc[EE, B]
 
+  /** True if this is a successful [[Succ]] value. */
   def isSucc: Boolean
+
+  /** True if this is a fail error. */
   def isFail: Boolean
 
   /** Will perform action if success. Does nothing if [[Fail]]. */

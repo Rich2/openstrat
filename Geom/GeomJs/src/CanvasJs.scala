@@ -208,7 +208,7 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath()
     var startPt = segs.segLast.pEnd
     gc.moveTo(startPt.x, startPt.y)
-    segs.ssForeach{ seg =>
+    segs.foreach{ seg =>
       seg.segDo(ls =>
         gc.lineTo(ls.xEnd, ls.yEnd),
         as => as.fControlEndRadius(startPt, gc.arcTo),

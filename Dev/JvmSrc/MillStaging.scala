@@ -32,7 +32,8 @@ object MillStaging extends StagingBuild
     println(otherJsFiles.summaryStr("otherapps directory JavaScript"))
 
     val egridPath: String = stagePath /% "egrids"
-    val egridJsFiles = mkDirExist(egridPath).flatMapAcc { res =>
+    val eGridBi: ExcIOMon[DirExists] = mkDirExist(egridPath)
+    val egridJsFiles = eGridBi.flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
         val destStr: String = egridPath / ga.filesStem + ".js"
