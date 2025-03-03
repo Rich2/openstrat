@@ -1,10 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
-import geom._, collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
-/** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a
-*  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90
-*  degrees as this may break the algorithms. preferably keep the arcs significantly smaller. */
+/** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a view, ie
+ * into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90 degrees as this may
+ * break the algorithms. preferably keep the arcs significantly smaller. */
 class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongSeqSpec with PolygonLikeDbl2[LatLong]
 { type ThisT = PolygonLL
   type SideT = LineSegLL
@@ -35,10 +35,9 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongSeqSp
     res
   }
 
-  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
-   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
-   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
-   * signature. */
+  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
+   * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
+   * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   override def vertsPrevForEach[U](f: (LatLong, LatLong) => U): Unit = ???
 
   @inline override def side(index: Int): LineSegLL = LineSegLL(vert(index), vert(index + 1))
@@ -72,8 +71,8 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
   }
 }
 
-/** An [[Arr]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an Array of Arrays
- *  of Doubles. */
+/** An [[Arr]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an Array of Arrays of
+ * Doubles. */
 class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLArr
   override def typeStr: String = "PolygonLLArr"
@@ -83,7 +82,7 @@ class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArra
 }
 
 /** An [[BuffSequ]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an ArrayBuffer of
- *  Arrays of Doubles. */
+ * Arrays of Doubles. */
 class PolygonLLBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLBuff
   override def typeStr: String = "PolygonLLBuff"
