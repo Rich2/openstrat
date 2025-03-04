@@ -28,15 +28,15 @@ trait MillStageJars
 
   /** Copies a javadoc jar to the libShared staging folder. */
   def javadocCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
-    jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "javadoc.")
+    jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "-javadoc")
 
     /** Copies a sources jar to the libShared staging folder. */
   def sourceCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
-    jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "sources.")
+    jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "-sources")
 
   /** Copies a main jar to the libShared staging folder. */
   def jarCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String, origFolder: String, assetStr: String): ErrBi[Exception, FileCopied] =
-    fileCopy(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + "." + assetStr + "jar")
+    fileCopy(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + assetStr + ".jar")
 }
 
 object MillJars extends MillStageJars
