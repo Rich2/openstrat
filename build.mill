@@ -250,11 +250,8 @@ def SiteStage = Task{
 }
 
 def JarsStage = Task{
-//  Util.jar()
-//  Util.docJar()
-//  Util.sourceJar()
-//  Geom.jar()
   packAllMain()
+  packAllDocSrc()
   Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())
 }
 
@@ -275,7 +272,6 @@ def packAllMain = Task{
   Tiling.jar()
   EGrid.jar()
   Apps.jar()
-  Dev.jar()
 }
 
 def packAllDocSrc = Task{
@@ -289,8 +285,6 @@ def packAllDocSrc = Task{
   EGrid.sourceJar()
   Apps.docJar()
   Apps.sourceJar()
-  Dev.docJar()
-  Dev.sourceJar()
 }
 
 def ServletStage = Task{

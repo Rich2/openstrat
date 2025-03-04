@@ -57,6 +57,9 @@ class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVaria
 { /** Appends an element to this buffer. */
   def grow(newElem: ErrBi[E, B] @uncheckedVariance): Unit = newElem.forFld(errs.append(_), succs.append(_))
 
+  /** Appends elements to this buffer. */
+  def growAcc(newElems: ErrBiAcc[E, B] @uncheckedVariance): Unit = {newElems.errs.foreach(errs.append(_)); newElems.succs.foreach(succs.append(_)) }
+
   /** Converts from a buffer to an immutable [[ErrBiAcc]]. */
   def unbuff(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc(errs.toArray, succs.toArray)
 
