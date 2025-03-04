@@ -196,7 +196,7 @@ lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
 )
 
 lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
-  libraryDependencies += "dev.zio" %% "zio" % "2.1.15" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio" % "2.1.16" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.1" withSources() withJavadoc(),
 )
 
