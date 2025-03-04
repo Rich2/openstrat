@@ -24,11 +24,19 @@ trait MillStageJars
 
   /** Copies a main jar to the libShared staging folder. */
   def mainCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
-    fileCopy(projPath.asStr / "out" / srcStr / "jar.dest/out.jar", sharedPath / destStr + "-" + versionStr + ".jar")
+    jarCopy(projPath, sharedPath, srcStr, destStr, "jar", "")
+
+  /** Copies a javadoc jar to the libShared staging folder. */
+  def javadocCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
+    jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "javadoc.")
+
+    /** Copies a sources jar to the libShared staging folder. */
+  def sourceCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
+    jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "sources.")
 
   /** Copies a main jar to the libShared staging folder. */
-  def javadocCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
-    fileCopy(projPath.asStr / "out" / srcStr / "docJar.dest/out.jar", sharedPath / destStr + "-" + versionStr + ".javadoc.jar")
+  def jarCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String, origFolder: String, assetStr: String): ErrBi[Exception, FileCopied] =
+    fileCopy(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + "." + assetStr + "jar")
 }
 
 object MillJars extends MillStageJars
@@ -36,7 +44,8 @@ object MillJars extends MillStageJars
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath.asStr) }
 
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileCopied] =
-    modPairs.flatMapErrBiAcc(p => ErrBiAcc(mainCopy(projPath, sharedPath, p.a1, p.a2), javadocCopy(projPath, sharedPath, p.a1, p.a2)))
+    modPairs.flatMapErrBiAcc{p => ErrBiAcc(mainCopy(projPath, sharedPath, p.a1, p.a2), javadocCopy(projPath, sharedPath, p.a1, p.a2),
+      sourceCopy(projPath, sharedPath, p.a1, p.a2))}
 }
 
 /** Function object to stage the module main jars built under Mill. */
