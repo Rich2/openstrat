@@ -2,7 +2,8 @@
 package ostrat; package pDev
 import utiljvm.*, pDoc._
 
-object MillStaging extends StagingBuild
+/** application used by mill to stage openstrat files for a passive server. */
+object MillStageServer extends StagingBuild
 {
   def main(args: Array[String]): Unit =
   { stagingPathDo { stagingPath =>
@@ -42,23 +43,5 @@ object MillStaging extends StagingBuild
     }
     println(egridJsFiles.summaryStr("egrid directory JavaScript"))
     egridJsFiles.errsPrint
-  }
-}
-
-/** Function object to stage the module jars built under Mill. */
-object MillStageJars
-{ val versionStr: String = "0.3.5"
-
-  def apply(stagingPath: String): Unit =
-  { val sharedPath: String = stagingPath / "libShared"
-    mkDirExist(sharedPath).forSucc { res1 =>
-      projPathDo { projPath =>
-        def fc(srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
-          fileCopy(projPath.asStr / "out" / srcStr / "jar.dest/out.jar", sharedPath / destStr + "-" + versionStr + ".jar")
-        val f1: ErrBiAcc[Exception, FileCopied] =
-          ErrBiAcc(fc("Util", "rutil"), fc("Geom", "geom"), fc("Tiling", "tiling"), fc("EGrid", "egrid"), fc("Apps", "apps"))
-        debvar(f1)
-      }
-    }
   }
 }

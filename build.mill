@@ -246,14 +246,15 @@ def SiteStage = Task{
   EG80Europe.fullLinkJS()
   EarthApp.fullLinkJS()
 
-  Dev.runner().run(mainClass = "ostrat.pDev.MillStaging", args = Array[String]())
+  Dev.runner().run(mainClass = "ostrat.pDev.MillStageServer", args = Array[String]())
 }
 
 def JarsStage = Task{
-  Util.jar()
-  Util.docJar()
-  Util.sourceJar()
-  Geom.jar()
+//  Util.jar()
+//  Util.docJar()
+//  Util.sourceJar()
+//  Geom.jar()
+  packAllMain()
   Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())
 }
 
@@ -275,6 +276,21 @@ def packAllMain = Task{
   EGrid.jar()
   Apps.jar()
   Dev.jar()
+}
+
+def packAllDocSrc = Task{
+  Util.docJar()
+  Util.sourceJar()
+  Geom.docJar()
+  Geom.sourceJar()
+  Tiling.docJar()
+  Tiling.sourceJar()
+  EGrid.docJar()
+  EGrid.sourceJar()
+  Apps.docJar()
+  Apps.sourceJar()
+  Dev.docJar()
+  Dev.sourceJar()
 }
 
 def ServletStage = Task{

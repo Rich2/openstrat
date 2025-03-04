@@ -10,7 +10,7 @@ object MillStagingServlet
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
         deb("Staging Folder exists.")
-        MillStageJars(stagingPath.asStr)
+        MillStageMainJars(stagingPath.asStr)
         val cookPath: String = stagingPath /% "Cookies1"
         mkDirExist(cookPath).forSucc { res1 => webInf(cookPath) }
       }
