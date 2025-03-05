@@ -2,11 +2,12 @@
 package ostrat; package pDev
 import utiljvm.*
 
-/** Function object to stage the module main jars built under Mill. */
+/** Stages jars built under Mill. */
 trait MillStageJars
-{
+{ /** The openstrat version of the jars you wish to stage. */
   val versionStr: String = "0.3.5"
 
+  /** Pairs of the module names and the name stem for their assets. */
   val modPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid", "Apps", "apps")
 
   def apply(stagingPath: String): Unit =
@@ -30,7 +31,7 @@ trait MillStageJars
   def javadocCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
     jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "-javadoc")
 
-    /** Copies a sources jar to the libShared staging folder. */
+  /** Copies a sources jar to the libShared staging folder. */
   def sourceCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileCopied] =
     jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "-sources")
 
@@ -39,6 +40,7 @@ trait MillStageJars
     fileCopy(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + assetStr + ".jar")
 }
 
+/** Function object to stage the module all the JVM jars built under Mill. */
 object MillJars extends MillStageJars
 {
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath.asStr) }
