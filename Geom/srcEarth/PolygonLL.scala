@@ -66,9 +66,7 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
   /** [[Unshow]] type class instance / evidence for [[PolygonLL]]. */
   implicit val unshowEv: UnshowSeqLike[LatLong, PolygonLL] = UnshowSeqLike[LatLong, PolygonLL]("PolygonLL")
 
-  implicit val llTransImplicit: LLTrans[PolygonLL] = new LLTrans[PolygonLL] {
-    override def fLLTrans(orig: PolygonLL, f: LatLong => LatLong): PolygonLL = orig.map(f)
-  }
+  implicit val llTransImplicit: LLTrans[PolygonLL] = (orig: PolygonLL, f: LatLong => LatLong) => orig.map(f)
 }
 
 /** An [[Arr]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an Array of Arrays of

@@ -50,10 +50,9 @@ object MillJars extends MillStageJars
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath.asStr) }
 
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileCopied] =
-  {
-    val topJars: ErrBiAcc[Exception, FileCopied] = modPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) }
-    val fxJars = mainDocSourceCopy(projPath, sharedPath, "GeomFx", "geomfx")
-    topJars ++ fxJars
+  { val otherPairs: ArrPairStr[String] = StrStrPairArr("UtilJs", "rutiljs", "GeomFx", "geomfx", "GeomJs", "geomjs", "TilingJs", "tilingjs")
+    val allPairs = modPairs ++ otherPairs
+    allPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) }
   }
 }
 

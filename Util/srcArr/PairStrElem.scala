@@ -55,6 +55,8 @@ class ArrPairStr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     new ArrPairStr[A2](newA1Array, newA2Array)
   }
 
+  def ++ (operand: ArrPairStr[A2]): ArrPairStr[A2] = ???
+
   /** Returns the first A2 value whose A1 value matches the key parameter or failing that the first. If none fully match will return the one that matches the
    *  most [[Char]]s from the beginning as long that satisfies the minimum char number. */
   def findChars(key: String, minChars: Int = 2): Option[A2] =
