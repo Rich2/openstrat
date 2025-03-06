@@ -38,6 +38,10 @@ trait MillStageJars
   /** Copies a main jar to the libShared staging folder. */
   def jarCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String, origFolder: String, assetStr: String): ErrBi[Exception, FileCopied] =
     fileCopy(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + assetStr + ".jar")
+
+  def mainDocSourceCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBiAcc[Exception, FileCopied] =
+    ErrBiAcc[Exception, FileCopied](mainCopy(projPath, sharedPath, srcStr, destStr), javadocCopy(projPath, sharedPath, srcStr, destStr),
+    sourceCopy(projPath, sharedPath, srcStr, destStr))
 }
 
 /** Function object to stage the module all the JVM jars built under Mill. */
@@ -47,12 +51,10 @@ object MillJars extends MillStageJars
 
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileCopied] =
   {
-    val topJars: ErrBiAcc[Exception, FileCopied] = modPairs.flatMapErrBiAcc { p => ErrBiAcc(mainCopy(projPath, sharedPath, p.a1, p.a2),
-      javadocCopy(projPath, sharedPath, p.a1, p.a2),sourceCopy(projPath, sharedPath, p.a1, p.a2)) }
-    val fxJar = mainCopy(projPath, sharedPath, "GeomFx", "geomfx")
-    topJars +% fxJar
+    val topJars: ErrBiAcc[Exception, FileCopied] = modPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) }
+    val fxJars = mainDocSourceCopy(projPath, sharedPath, "GeomFx", "geomfx")
+    topJars ++ fxJars
   }
-
 }
 
 /** Function object to stage the module main jars built under Mill. */

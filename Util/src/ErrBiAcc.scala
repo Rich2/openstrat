@@ -46,6 +46,11 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errHead: E = errsArray(0)
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 
+  /** Appends [[ErrBi]] element to this accumulator. Order of successes and fails is preserved but not the overall order. */
+  @targetName("append") @inline def ++(operand: ErrBiAcc[E, B] @uncheckedVariance)(implicit ctE: ClassTag[E] @uncheckedVariance,
+    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc[E, B](errsArray ++ operand.errsArray, succsArray ++ operand.succsArray)
+
+  /** Appends [[ErrBiAcc]] to this accumulator. Order of successes and fails is preserved but not the overall order. */
   @targetName("appendElem") @inline def +%(newElem: ErrBi[E, B] @uncheckedVariance)(implicit ctE: ClassTag[E] @uncheckedVariance,
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
     newElem.fold{ err => new ErrBiAcc[E, B](errsArray :+ err, succsArray)}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
