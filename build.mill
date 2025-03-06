@@ -279,6 +279,7 @@ def packAllDocSrc = Task{
   Util.sourceJar()
   Geom.docJar()
   Geom.sourceJar()
+  GeomFx.jar()
   Tiling.docJar()
   Tiling.sourceJar()
   EGrid.docJar()

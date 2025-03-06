@@ -15,8 +15,8 @@ trait MillStageJars
     val sharedPath: String = stagingPath / "libShared"
     mkDirExist(sharedPath).forSucc { res1 =>
       projPathDo { projPath =>
-        val f1: ErrBiAcc[Exception, FileCopied] = action(projPath, sharedPath)
-        debvar(f1)
+        val res: ErrBiAcc[Exception, FileCopied] = action(projPath, sharedPath)
+        println(res.errsSummary)
       }
     }
   }
@@ -46,8 +46,13 @@ object MillJars extends MillStageJars
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath.asStr) }
 
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileCopied] =
-    modPairs.flatMapErrBiAcc{p => ErrBiAcc(mainCopy(projPath, sharedPath, p.a1, p.a2), javadocCopy(projPath, sharedPath, p.a1, p.a2),
-      sourceCopy(projPath, sharedPath, p.a1, p.a2))}
+  {
+    val topJars: ErrBiAcc[Exception, FileCopied] = modPairs.flatMapErrBiAcc { p => ErrBiAcc(mainCopy(projPath, sharedPath, p.a1, p.a2),
+      javadocCopy(projPath, sharedPath, p.a1, p.a2),sourceCopy(projPath, sharedPath, p.a1, p.a2)) }
+    val fxJar = mainCopy(projPath, sharedPath, "GeomFx", "geomfx")
+    topJars +% fxJar
+  }
+
 }
 
 /** Function object to stage the module main jars built under Mill. */

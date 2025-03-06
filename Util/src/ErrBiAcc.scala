@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Trait for the accumulation of successes and errors. */
 trait ErrBiAccBase[+E <: Throwable, +B]
@@ -42,8 +42,13 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errNum: Int = errsArray.length
   override def succNum: Int = succsArray.length
   override def toString: String = s"$succNum successes, $errNum failures."
+  def errsSummary: String = errsArray.foldLeft(toString)(_ --- _.toString)
   override def errHead: E = errsArray(0)
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
+
+  @targetName("appendElem") @inline def +%(newElem: ErrBi[E, B] @uncheckedVariance)(implicit ctE: ClassTag[E] @uncheckedVariance,
+    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
+    newElem.fold{ err => new ErrBiAcc[E, B](errsArray :+ err, succsArray)}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
 }
 
 object ErrBiAcc
