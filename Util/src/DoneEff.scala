@@ -11,6 +11,11 @@ trait DoneEff
   def detailStr: String
 }
 
+trait ShowDoneEff[A <: DoneEff] extends ShowSimple[A]
+{
+  def actionStr(numSuccesses: Int): String
+}
+
 /** Report of successful side effect. */
 trait DoneIO extends DoneEff
 
@@ -23,11 +28,14 @@ object FileWritten
 { /** Factory apply method to construct [[FileWritten]] report. */
   def apply(detailStr: String): FileWritten = FileWrittenJust(detailStr)
 
-  //implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileWritten] =
-   // ebs => ebs.succNum.pluralisation("file") -- "written." -- ebs.errNum.pluralisation("fail") + "."
+  implicit val namedTypeEv: ShowType[FileWritten] = new ShowDoneEff[FileWritten]
+  { override def typeStr: String = "FileWritten"
+    override def strT(obj: FileWritten): String = "File written"
 
-  implicit val namedTypeEv: ShowType[FileWritten] = new ShowType[FileWritten]{
-    override def typeStr: String = "FileWritten"
+    override def actionStr(numSuccesses: Int): String =
+    { val fw: String = ife(numSuccesses == 1, "file", "files")
+      s"$fw written successfully"
+    }
   }
 }
 
