@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -7,14 +7,14 @@ trait Persist extends Any
 { /** The type of the object to be persisted. */
   def typeStr: String
 
-  /** This property determines if the type can be used with [[Multiple]] syntax. {{{MyObj * 7}}}. for describing sequences succinctly. This is not
-   * desirable for some types such as numerical and mathematical vector types as this could be confusing 3 * 4 should resolve to an [[Int]] of value
-   * 12, not a Multiple(3, 4). */
+  /** This property determines if the type can be used with [[Multiple]] syntax. {{{MyObj * 7}}}. for describing sequences succinctly. This is not desirable for
+   * some types such as numerical and mathematical vector types as this could be confusing 3 * 4 should resolve to an [[Int]] of value 12, not a Multiple(3,
+   * 4). */
   def useMultiple: Boolean = true
 }
 
-/** Type class instances for both [[Show]] and [[Unshow]]. Only use this class where all possilbe requirements have PersistBoth instances. Do not use
- * it for such types as Sequences where all the potential components are not known. */
+/** Type class instances for both [[Show]] and [[Unshow]]. Only use this class where all possible requirements have PersistBoth instances. Do not use it for
+ * such types as Sequences where all the potential components are not known. */
 trait PersistBoth[A] extends Show[A] with Unshow[A]
 
 object PersistBoth

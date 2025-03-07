@@ -9,22 +9,22 @@ trait StagingBuild
     fileWrite(path, "index.html", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
-    println(docFiles.summaryStr("Documents directory HTML"))
+    deb(docFiles.msg2ErrsSummary("HTML", "to Documents directory"))
 
     val eGameHtmlFiles = mkDirExist(path /% "earthgames").flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
-    println(eGameHtmlFiles.summaryStr("earthgames directory HTML"))
+    println(eGameHtmlFiles.msg2ErrsSummary("HTML", "to earthgames directory"))
 
     val otherHtmlFiles = mkDirExist(path /% "otherapps").flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
-    println(otherHtmlFiles.summaryStr("otherapps directory HTML"))
+    deb(otherHtmlFiles.msg2ErrsSummary("HTML", "to otherapps directory"))
 
     val egridHtmlFiles = mkDirExist(path /% "egrids").flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
-    println(egridHtmlFiles.summaryStr("egrids directory HTML"))
+    deb(egridHtmlFiles.msg2ErrsSummary("HTML", "to egrids directory"))
   }
 
   def stageDocDir(path: DirsAbs): ErrBiAcc[IOExc, FileWritten] =

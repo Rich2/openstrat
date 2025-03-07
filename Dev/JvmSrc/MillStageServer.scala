@@ -19,7 +19,7 @@ object MillStageServer extends StagingBuild
     val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.filesStem + ".js"))
     }
-    println(eGameJsFiles.summaryStr("earthgames directory JavaScript"))
+    deb(eGameJsFiles.msg2ErrsSummary("JavaScript", "to earthgames directory"))
 
     val otherPath: String = stagePath /% "otherapps"
     val otherBi: ExcIOMon[DirExists] = mkDirExist(otherPath)
@@ -30,7 +30,7 @@ object MillStageServer extends StagingBuild
         fileCopy(fromStr, destStr)
       }
     }
-    println(otherJsFiles.summaryStr("otherapps directory JavaScript"))
+    println(otherJsFiles.msg2ErrsSummary("JavaScript", "to otherapps directory"))
 
     val egridPath: String = stagePath /% "egrids"
     val eGridBi: ExcIOMon[DirExists] = mkDirExist(egridPath)
@@ -41,7 +41,7 @@ object MillStageServer extends StagingBuild
         fileCopy(fromStr, destStr)
       }
     }
-    println(egridJsFiles.summaryStr("egrid directory JavaScript"))
+    println(egridJsFiles.msg2ErrsSummary("JavaScript", "to egrid directory"))
     egridJsFiles.errsPrint
   }
 }

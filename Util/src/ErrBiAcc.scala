@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -23,14 +23,6 @@ trait ErrBiAccBase[+E <: Throwable, +B]
   def errsPrint: Unit = errsforeach(println(_))
 }
 
-object ErrBiAccBase
-{ /** Extension class for [[ErrBiAccBase]]. */
-  implicit class errBiAccBaseExtensions[+E <: Throwable, +B](thisEBAB: ErrBiAccBase[E, B])
-  { /** Extension method to produce a summary line of the successes and failures of this [[ErrBiAccBase]]. */
-    def summaryStr(leadStr: String)(implicit ev: ErrBiSummary[E, B] @uncheckedVariance): String = ev.summaryStr(leadStr, thisEBAB)
-  }
-}
-
 /** immutable class for accumulated [[ErrBi]], biased bifunctor for errors. */
 class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
@@ -42,7 +34,19 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errNum: Int = errsArray.length
   override def succNum: Int = succsArray.length
   override def toString: String = s"$succNum successes, $errNum failures."
-  def errsSummary: String = errsArray.foldLeft(toString)(_ --- _.toString)
+  def summaryLine(implicit evST: ShowType[B]): String = s"$succNum ${evST.typeStr} successes, $errNum failures."
+  def errsSummary(implicit evST: ShowType[B]): String = errsArray.foldLeft(summaryLine)(_ --- _.toString)
+
+  def msgErrsSummary(succMsg: String)(implicit evST: ShowType[B]): String =
+  { val sumLine = s"$succNum successes $succMsg, $errNum failures."
+    errsArray.foldLeft(sumLine)(_ --- _.toString)
+  }
+
+  def msg2ErrsSummary(succMsg1: String, succMsg2: String)(implicit evST: ShowType[B]): String = {
+    val sumLine = s"$succNum $succMsg1 ${evST.typeStr} successes $succMsg2, $errNum failures."
+    errsArray.foldLeft(sumLine)(_ --- _.toString)
+  }
+
   override def errHead: E = errsArray(0)
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 

@@ -23,8 +23,12 @@ object FileWritten
 { /** Factory apply method to construct [[FileWritten]] report. */
   def apply(detailStr: String): FileWritten = FileWrittenJust(detailStr)
 
-  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileWritten] =
-    ebs => ebs.succNum.pluralisation("file") -- "written." -- ebs.errNum.pluralisation("fail") + "."
+  //implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileWritten] =
+   // ebs => ebs.succNum.pluralisation("file") -- "written." -- ebs.errNum.pluralisation("fail") + "."
+
+  implicit val namedTypeEv: ShowType[FileWritten] = new ShowType[FileWritten]{
+    override def typeStr: String = "FileWritten"
+  }
 }
 
 /** Report of a successful write that is not copied or moved. */

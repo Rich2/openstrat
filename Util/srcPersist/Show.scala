@@ -1,13 +1,22 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.immutable.ArraySeq
 
-/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions . The
- *  capabilities of decimal place precision and explicit typing for numbers are placed defined here and in the corresponding [[Show]] type class
- *  although they have n meaning / purpose for many types, as separating them adds enormous complexity for very little gain. */
-trait Show[-A] extends Persist
+trait ShowType[-A] extends Persist
+
+object ShowType
 {
-  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+  implicit val anyEv: ShowType[Any] = new ShowType[Any]
+  {
+    override val typeStr: String = "Any"
+  }
+}
+
+/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has more demanding ambitions. The capabilities of
+ * decimal place precision and explicit typing for numbers are placed defined here and in the corresponding [[Tell]] trait, although they have no meaning /
+ * purpose for many types, as separating them adds enormous complexity for very little gain. */
+trait Show[-A] extends ShowType[A]
+{ /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: A): String
 
@@ -20,10 +29,10 @@ trait Show[-A] extends Persist
   override def toString: String = "Show" + typeStr
 }
 
-/* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
-   instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
-   one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
-   Persist type instances, and these will be placed in the Persist companion object. */
+/** The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow instance
+ * without a ShowT instance. Many Persist instances are placed inside the Show companion object. However, type instances that themselves one or more Show type
+ * instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding Persist type instances, and these
+ * will be placed in the Persist companion object. */
 object Show
 { /** Implicit [[Show]] type class instance / evidence for [[Int]]. */
   implicit val intEv: Show[Int] = ShowSimple("Int", _.toString)
