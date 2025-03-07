@@ -1,6 +1,5 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.annotation.unchecked.uncheckedVariance, pParse.*
 
 /** A completed effect. */
 trait DoneEff
@@ -20,17 +19,17 @@ trait ShowDoneEff[A <: DoneEff] extends ShowSimple[A]
 trait DoneIO extends DoneEff
 
 /** Report of successful file write. */
-trait FileWritten extends DoneIO
+class FileWritten(val detailStr: String) extends DoneIO
 { override def effStr: String = "File written"
 }
 
 object FileWritten
 { /** Factory apply method to construct [[FileWritten]] report. */
-  def apply(detailStr: String): FileWritten = FileWrittenJust(detailStr)
+  def apply(detailStr: String): FileWritten = new FileWritten(detailStr)
 
   implicit val namedTypeEv: ShowType[FileWritten] = new ShowDoneEff[FileWritten]
   { override def typeStr: String = "FileWritten"
-    override def strT(obj: FileWritten): String = "File written"
+    override def strT(obj: FileWritten): String = "FileWritten"
 
     override def actionStr(numSuccesses: Int): String =
     { val fw: String = ife(numSuccesses == 1, "file", "files")
@@ -39,18 +38,27 @@ object FileWritten
   }
 }
 
-/** Report of a successful write that is not copied or moved. */
-case class FileWrittenJust(detailStr: String) extends FileWritten
-
-/** Report of a successful file copy. */
-case class FileCopied(detailStr: String) extends FileWritten
-{ override def effStr: String = "File copied"
+/** Report of successful file write. */
+class PomFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def effStr: String = "POM File written"
 }
 
-object FileCopied
-{
-  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileCopied] = eba => eba.succNum.pluralisation("file") -- "copied." -- eba.errNum.pluralisation("fail") + "."
+object PomFileWritten
+{ /** Factory apply method to construct [[FileWritten]] report. */
+  def apply(detailStr: String): PomFileWritten = new PomFileWritten(detailStr)
+
+  implicit val namedTypeEv: ShowType[PomFileWritten] = new ShowDoneEff[PomFileWritten]
+  { override def typeStr: String = "PomFileWritten"
+    override def strT(obj: PomFileWritten): String = "PomFileWritten"
+
+    override def actionStr(numSuccesses: Int): String =
+    { val fw: String = ife(numSuccesses == 1, "file", "files")
+      s"POM $fw written successfully"
+    }
+  }
 }
+
+
 
 /** Directory now exists. It may have already existed or have just been created. */
 trait DirExists extends DoneIO

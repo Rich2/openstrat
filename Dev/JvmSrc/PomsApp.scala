@@ -10,17 +10,17 @@ object PomsApp
     val oDir = args.headOption
     debvar(oDir)
 
-    def makePom(dirStr: String, name: String, versionStr: String, depStrs: String*): ErrBi[Exception, FileWritten] =
-      fileWrite(dirStr / name + "-" + versionStr + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+    def stagePom(dirStr: String, name: String, versionStr: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
+      pomFileWrite(dirStr / name + "-" + versionStr, new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
 
     oDir.foreach { dirStr =>
-      val res: ErrBiAcc[Exception, FileWritten] = ErrBiAcc(
-        makePom(dirStr, "rutil", versionStr),
-        makePom(dirStr, "geom", versionStr, "rutil"),
-        makePom(dirStr, "tiling", versionStr, "rutil", "geom"),
-        makePom(dirStr, "egrid", versionStr, "rutil", "geom", "tiling"),
-        makePom(dirStr, "apps", versionStr, "rutil", "geom", "tiling", "egrid"))
-     deb(res.msg2ErrsSummary("POM", s"to $dirStr"))
+      val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
+        stagePom(dirStr, "rutil", versionStr),
+        stagePom(dirStr, "geom", versionStr, "rutil"),
+        stagePom(dirStr, "tiling", versionStr, "rutil", "geom"),
+        stagePom(dirStr, "egrid", versionStr, "rutil", "geom", "tiling"),
+        stagePom(dirStr, "apps", versionStr, "rutil", "geom", "tiling", "egrid"))
+     deb(res.msgErrsSummary(s"to $dirStr"))
     }
   }
 }

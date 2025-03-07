@@ -38,7 +38,10 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   def errsSummary(implicit evST: ShowType[B]): String = errsArray.foldLeft(summaryLine)(_ --- _.toString)
 
   def msgErrsSummary(succMsg: String)(implicit evST: ShowType[B]): String =
-  { val sumLine = s"$succNum successes $succMsg, $errNum failures."
+  { val sumLine = evST match
+    { case sde: ShowDoneEff[_] => s"$succNum ${sde.actionStr(succNum) } $succMsg, $errNum failures."
+      case _ => s"$succNum ${evST.typeStr} successes $succMsg, $errNum failures."
+    }
     errsArray.foldLeft(sumLine)(_ --- _.toString)
   }
 

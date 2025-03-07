@@ -83,13 +83,16 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
+
+  def pomFileWrite(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
+    fileWrite(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
   
-  def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, FileCopied] =
+  def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
     catch { case e: IOExc => oErr = Some(e) }
-    oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
+    oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
   
   def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
