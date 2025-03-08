@@ -95,6 +95,8 @@ package object utiljvm
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
   
+  def jsFileCopy(fromStr:  String, toStr: String): ErrBi[Exception, JsFileWritten] = fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+  
   def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a

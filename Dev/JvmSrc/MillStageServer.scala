@@ -16,32 +16,32 @@ object MillStageServer extends StagingBuild
 
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
     val egPath: String = stagePath /% "earthgames"
-    val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.filesStem + ".js"))
+    val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = mkDirExist(egPath).flatMapAcc { res =>
+      AppPage.eGameApps.mapErrBiAcc(ga => jsFileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main", egPath / ga.filesStem))
     }
-    deb(eGameJsFiles.msg2ErrsSummary("JavaScript", "to earthgames directory"))
+    deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
 
     val otherPath: String = stagePath /% "otherapps"
     val otherBi: ExcIOMon[DirExists] = mkDirExist(otherPath)
     val otherJsFiles = otherBi.flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
-        val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
-        val destStr: String = otherPath / ga.filesStem + ".js"
-        fileCopy(fromStr, destStr)
+        val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main"
+        val destStr: String = otherPath / ga.filesStem
+        jsFileCopy(fromStr, destStr)
       }
     }
-    println(otherJsFiles.msg2ErrsSummary("JavaScript", "to otherapps directory"))
+    deb(otherJsFiles.msgErrsSummary("to otherapps directory"))
 
     val egridPath: String = stagePath /% "egrids"
     val eGridBi: ExcIOMon[DirExists] = mkDirExist(egridPath)
     val egridJsFiles = eGridBi.flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
-        val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
-        val destStr: String = egridPath / ga.filesStem + ".js"
-        fileCopy(fromStr, destStr)
+        val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main"
+        val destStr: String = egridPath / ga.filesStem
+        jsFileCopy(fromStr, destStr)
       }
     }
-    println(egridJsFiles.msg2ErrsSummary("JavaScript", "to egrid directory"))
+    deb(egridJsFiles.msgErrsSummary("to egrid directory"))
     egridJsFiles.errsPrint
   }
 }
