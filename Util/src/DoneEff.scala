@@ -60,17 +60,18 @@ object PomFileWritten
   }
 }
 
-/** Report of successful POM file write. */
+/** Report of successful JavaScript file write. */
 class JsFileWritten(detailStr: String) extends FileWritten(detailStr) {
   override def effStr: String = "JavaScript File written"
 }
 
-object JsPomFileWritten
+object JsFileWritten
 { /** Factory apply method to construct [[JsFileWritten]] report. */
   def apply(detailStr: String): JsFileWritten = new JsFileWritten(detailStr)
 
-  implicit val namedTypeEv: ShowType[JsFileWritten] = new ShowFileWritten[JsFileWritten] {
-    override val filePrefix: String = "JavaScript"
+  /** Implicit evidence / instance of [[ShowType]] for [[Js]] */
+  implicit val namedTypeEv: ShowType[JsFileWritten] = new ShowFileWritten[JsFileWritten]
+  { override val filePrefix: String = "JavaScript"
   }
 }
 

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
@@ -144,7 +144,7 @@ object BuffPairStr
 }
 
 object StrStrPairArr
-{ /** Function obect apply method to create [[ArrPair]] with pair of Strings form [[Tuple2]]s. */
+{ /** Function object apply method to create [[ArrPair]] with pair of Strings from [[Tuple2]]s. */
   def apply(strings: String *): ArrPairStr[String] =
   { if(strings.length.isOdd) excep("Odd number of Strings for StrStrPaiArr factory apply method.")
     val len = strings.length / 2
