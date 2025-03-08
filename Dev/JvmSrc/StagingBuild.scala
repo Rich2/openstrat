@@ -6,8 +6,8 @@ trait StagingBuild
 {
   def stageBase(path: DirsAbs): Unit =
   {
-    htmlFileWrite(path, "index", IndexPage.out)
-    fileWrite(path, "only.css", OnlyCss())
+    deb(htmlFileWrite(path, "index", IndexPage.out).reportStr)
+    deb(cssFileWrite(path, "only", OnlyCss()).reportStr)
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msg2ErrsSummary("HTML", "to Documents directory"))
 

@@ -39,7 +39,7 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
 
   def msgErrsSummary(succMsg: String)(implicit evST: ShowType[B]): String =
   { val sumLine = evST match
-    { case sde: ShowDoneEff[_] => s"$succNum ${sde.actionStr(succNum) } $succMsg, $errNum failures."
+    { case sde: ShowEffectReport[_] => s"$succNum ${sde.actionStr(succNum) } $succMsg, $errNum failures."
       case _ => s"$succNum ${evST.typeStr} successes $succMsg, $errNum failures."
     }
     errsArray.foldLeft(sumLine)(_ --- _.toString)
@@ -47,7 +47,7 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
 
   def msg2ErrsSummary(succMsg1: String, succMsg2: String)(implicit evST: ShowType[B]): String =
   { val sumLine: String = evST match
-  { case sde: ShowDoneEff[_] => s"$succNum $succMsg1 ${sde.actionStr(succNum) } $succMsg2, $errNum failures."
+  { case sde: ShowEffectReport[_] => s"$succNum $succMsg1 ${sde.actionStr(succNum) } $succMsg2, $errNum failures."
     case _ => s"$succNum $succMsg1 ${evST.typeStr} successes $succMsg2, $errNum failures."
   }
     errsArray.foldLeft(sumLine)(_ --- _.toString)

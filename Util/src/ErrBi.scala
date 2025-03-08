@@ -59,6 +59,8 @@ sealed trait ErrBi[+E <: Throwable, +A]
   { case succ: Succ[A] => succ.value
     case fail: Fail[E] => throw(Exception("Attempting to get value from a Fail with " + fail.error.toString))
   }
+  
+  def reportStr: String
 }
 
 object ErrBi
@@ -128,6 +130,7 @@ case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def forFold(fErr: Nothing => Unit)(fSucc: A => Unit): Unit = fSucc(value)
   override def forFld(fErr: Nothing => Unit, fSucc: A => Unit): Unit = fSucc(value)
   override def hashCode(): Int = 11 + 13 * value.hashCode()
+  override def reportStr: String = value match{ case er: EffectReport => er.reportStr; case a => a.toString }
 
   override def equals(that: Any): Boolean = that match
   { case op: Succ[?] if value == op.value => true
@@ -165,6 +168,7 @@ class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
   override def forFold(fErr: E => Unit)(fSucc: Nothing => Unit): Unit = fErr(error)
   override def forFld(fErr: E => Unit, fSucc: Nothing => Unit): Unit = fErr(error)
+  override def reportStr: String = error.toString
 
   override def equals(obj: Any): Boolean = obj match{
     case fail: Fail[?] => error == fail.error
