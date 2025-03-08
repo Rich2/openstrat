@@ -16,7 +16,7 @@ trait MillStageJars
     mkDirExist(sharedPath).forSucc { res1 =>
       projPathDo { projPath =>
         val res: ErrBiAcc[Exception, FileWritten] = action(projPath, sharedPath)
-        println(res.errsSummary)
+        deb(res.errsSummary)
       }
     }
   }
@@ -61,7 +61,6 @@ object MillJars extends MillStageJars
 object MillStageMainJars extends MillStageJars
 {
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileWritten] =
-  {
-    modPairs.mapErrBiAcc (p => mainCopy(projPath, sharedPath, p.a1, p.a2))
+  { modPairs.mapErrBiAcc (p => mainCopy(projPath, sharedPath, p.a1, p.a2))
   }
 }

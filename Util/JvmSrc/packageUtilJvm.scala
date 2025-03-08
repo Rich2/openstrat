@@ -84,6 +84,12 @@ package object utiljvm
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
 
+  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
+  def htmlFileWrite(path: DirsAbs, fileName: String, content: String): ErrBi[IOExc, HtmlFileWritten] = htmlFileWrite(path /% fileName , content)
+
+  def htmlFileWrite(pathName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
+    fileWrite(pathName + ".html", content).map(fw => HtmlFileWritten(fw.detailStr))
+
   def pomFileWrite(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
     fileWrite(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
   

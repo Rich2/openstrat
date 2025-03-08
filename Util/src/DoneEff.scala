@@ -69,9 +69,24 @@ object JsFileWritten
 { /** Factory apply method to construct [[JsFileWritten]] report. */
   def apply(detailStr: String): JsFileWritten = new JsFileWritten(detailStr)
 
-  /** Implicit evidence / instance of [[ShowType]] for [[Js]] */
+  /** Implicit evidence / instance of [[ShowType]] for [[JsFileWritten]] */
   implicit val namedTypeEv: ShowType[JsFileWritten] = new ShowFileWritten[JsFileWritten]
   { override val filePrefix: String = "JavaScript"
+  }
+}
+
+/** Report of successful HTML file write. */
+class HtmlFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def effStr: String = "HTML File written"
+}
+
+object HtmlFileWritten
+{ /** Factory apply method to construct [[HtmlFileWritten]] report. */
+  def apply(detailStr: String): HtmlFileWritten = new HtmlFileWritten(detailStr)
+
+  /** Implicit evidence / instance of [[ShowType]] for [[HtmlFileWritten]] */
+  implicit val namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
+  { override val filePrefix: String = "Html"
   }
 }
 

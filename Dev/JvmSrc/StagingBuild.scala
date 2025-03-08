@@ -6,15 +6,15 @@ trait StagingBuild
 {
   def stageBase(path: DirsAbs): Unit =
   {
-    fileWrite(path, "index.html", IndexPage.out)
+    htmlFileWrite(path, "index", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msg2ErrsSummary("HTML", "to Documents directory"))
 
-    val eGameHtmlFiles = mkDirExist(path /% "earthgames").flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
+    val eGameHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "earthgames").flatMapAcc { res =>
+      AppPage.eGameApps.mapErrBiAcc(page => htmlFileWrite(path / page.dirRel, page.filesStem, page.out))
     }
-    println(eGameHtmlFiles.msg2ErrsSummary("HTML", "to earthgames directory"))
+    deb(eGameHtmlFiles.msgErrsSummary("to earthgames directory"))
 
     val otherHtmlFiles = mkDirExist(path /% "otherapps").flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
