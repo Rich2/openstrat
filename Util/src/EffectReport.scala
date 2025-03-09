@@ -9,10 +9,11 @@ trait EffectReport
   /** The specific detail of the effect completed. */
   def detailStr: String
 
+  /** Report of the successful action / effect. */
   def reportStr: String
 }
 
-/** [[Show]] type class instances for [[EffectReport]]. Their main purpose is not to [[Perist]] [[EffectReport]]s but to be able to accumulate and summarise
+/** [[Show]] type class instances for [[EffectReport]]. Their main purpose is not to [[Persist]] [[EffectReport]]s but to be able to accumulate and summarise
  * them. */
 trait ShowEffectReport[A <: EffectReport] extends ShowSimple[A]
 { /** Describes the action of the successful effect that is being reported. */
@@ -22,11 +23,13 @@ trait ShowEffectReport[A <: EffectReport] extends ShowSimple[A]
 /** Report of successful side effect. */
 trait DoneIO extends EffectReport
 
+/** [[Show]] type class instances for file writing reports. Their main purpose is not to [[Persist]] [[ShowFileWritten]]s but to be able to accumulate and
+ * summarise them. */
 trait ShowFileWritten[A <: FileWritten] extends ShowEffectReport[A]
-{
+{ /** Prefix such as Html, Js or Css. */
   def filePrefix: String
 
-  override def typeStr: String = filePrefix + "FileWritten"
+  override def typeStr: String = "FileWritten"
   override def strT(obj: A): String = typeStr
 
   override def actionStr(numSuccesses: Int): String =
@@ -63,7 +66,8 @@ object PomFileWritten
   def apply(detailStr: String): PomFileWritten = new PomFileWritten(detailStr)
 
   implicit val namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
-  { override val filePrefix: String = "Pom"
+  { override val filePrefix: String = "POM"
+    override def typeStr: String = "PomFileWritten"
   }
 }
 
@@ -80,6 +84,7 @@ object JsFileWritten
   /** Implicit evidence / instance of [[ShowType]] for [[JsFileWritten]] */
   implicit val namedTypeEv: ShowType[JsFileWritten] = new ShowFileWritten[JsFileWritten]
   { override val filePrefix: String = "JavaScript"
+    override def typeStr: String = "JsFileWritten"
   }
 }
 
@@ -95,7 +100,8 @@ object HtmlFileWritten
 
   /** Implicit evidence / instance of [[ShowType]] for [[HtmlFileWritten]] */
   implicit val namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
-  { override val filePrefix: String = "Html"
+  { override val filePrefix: String = "HTML"
+    override def typeStr: String = "HtmlFileWritten"
   }
 }
 
@@ -111,7 +117,8 @@ object CssFileWritten
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
   implicit val namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
-  { override val filePrefix: String = "Css"
+  { override val filePrefix: String = "CSS"
+    override def typeStr: String = "CssFileWritten"
   }
 }
 
