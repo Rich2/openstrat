@@ -6,12 +6,15 @@ import utiljvm._
 object PomsApp
 {
   def main(args: Array[String]): Unit =
-  { val versionStr = "0.3.6snap"
+  { val versionStr = "0.3.6"
     val oDir = args.headOption
     debvar(oDir)
 
     def stagePom(dirStr: String, name: String, versionStr: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
       pomFileWrite(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+
+    def stagePom2(dirStr: String, name: String, versionStr: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
+      pomFileWrite(dirStr / name + "-" + versionStr, pom.out())  
 
     oDir.foreach { dirStr =>
       val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
