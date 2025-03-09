@@ -30,15 +30,15 @@ trait StagingBuild
   def stageDocDir(path: DirsAbs): ErrBiAcc[IOExc, FileWritten] =
   { val docPath = path /% "Documentation"
     mkDirExist(docPath).flatMapAcc { res => ErrBiAcc(
-      fileWrite(docPath / "apps.html", AppsPage.out),
-      fileWrite(docPath / "util.html", UtilPage.out),
-      fileWrite(docPath / "geom.html", GeomPage.out),
-      fileWrite(docPath / "tiling.html", TilingPage.out),
-      fileWrite(docPath / "earth.html", pEarth.EarthPage.out),
-      fileWrite(docPath / "egrid.html", EGridPage.out),
-      fileWrite(docPath / "dev.html", DevPage.out),
-      fileWrite(docPath / "newdevs.html", NewDevsPage.out),
-      fileWrite(docPath / "documentation.css", CssDocumentation())
+      htmlFileWrite(docPath / "apps", AppsPage.out),
+      htmlFileWrite(docPath / "util", UtilPage.out),
+      htmlFileWrite(docPath / "geom", GeomPage.out),
+      htmlFileWrite(docPath / "tiling", TilingPage.out),
+      htmlFileWrite(docPath / "earth", pEarth.EarthPage.out),
+      htmlFileWrite(docPath / "egrid", EGridPage.out),
+      htmlFileWrite(docPath / "dev", DevPage.out),
+      htmlFileWrite(docPath / "newdevs", NewDevsPage.out),
+      cssFileWrite(docPath / "documentation", CssDocumentation())
     )
     }
   }
