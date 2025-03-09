@@ -13,20 +13,19 @@ trait PomProject extends XmlMulti
   override def contents: RArr[XCon] = RArr(modelVersion, groudId, artifactId, version, dependenciesElem)
 }
 
-trait PomDep extends XmlMulti
+/** XML element for POM file dependency */
+class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: VersionElem) extends XmlMulti
 { override def tag: String = "dependency"
   override def attribs: RArr[XmlAtt] = RArr()
-  def artifactId: ArtifactId
-  val groupId: GroupId
-  def version: VersionElem
   override def contents: RArr[XCon] = RArr(groupId, artifactId, version)
 }
 
 object PomDep
-{
-  //(val groupStr: String, val artifactStr: String, val versionStr: String)
+{ /** Factory apply mthod to construct [[PomDep]] from [[String]]s. */
+  def apply(groupStr: String, artifactStr: String, versionStr: String): PomDep = new PomDep(GroupId(groupStr), ArtifactId(artifactStr), VersionElem(versionStr))
 }
 
+/** XML element for POM file dependenies. Takes individual [[PopDep]]s as its child elements. */
 class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlMulti
 { override def tag: String = "Dependencies"
   override def attribs: RArr[XmlAtt] = RArr()
@@ -37,13 +36,11 @@ object PomDepenenciesElem{
   def apply(dependencies: RArr[PomDep]): PomDepenenciesElem = new PomDepenenciesElem(dependencies)
 }
 
+/** XML element for a POM GroupID for "org.scala-lang". */
 object ScalaGroupId extends GroupId("org.scala-lang")
 
-class ScalaLibDependency(val versionStr: String) extends PomDep
-{ override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
-  override val groupId: GroupId = ScalaGroupId
-  override def version: VersionElem = VersionElem(versionStr)
-}
+/** XML element for a POM dependency for a version of the Scala3 library. */
+class ScalaLibDependency(val versionStr: String) extends PomDep(ScalaGroupId, ArtifactId("scala3-library_3"), VersionElem(versionStr))
 
 object ScalaLibDependency
 { def apply(versionStr: String): ScalaLibDependency = new ScalaLibDependency(versionStr)
@@ -57,4 +54,6 @@ class GroupId(groupStr: String) extends XmlElemSimple("groupId", groupStr)
 //  def dependency(versionStr: String): PomDep = PomDep()
 }
 
-object GroupId { def apply(groupStr: String): GroupId = new GroupId(groupStr) }
+object GroupId
+{ def apply(groupStr: String): GroupId = new GroupId(groupStr)
+}
