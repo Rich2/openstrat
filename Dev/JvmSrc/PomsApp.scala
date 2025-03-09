@@ -7,21 +7,25 @@ object PomsApp
 {
   def main(args: Array[String]): Unit =
   { val versionStr = "0.3.6"
+    val scalaVersion ="3.6.4"
     val oDir = args.headOption
     debvar(oDir)
 
-    def stagePom(dirStr: String, name: String, versionStr: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
-      pomFileWrite(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+    def stagePom(dirStr: String, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
+      pomFileWrite(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out())
 
-    def stagePom2(dirStr: String, name: String, versionStr: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
-      pomFileWrite(dirStr / name + "-" + versionStr, pom.out())  
+    def stagePom2(dirStr: String, name: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
+      pomFileWrite(dirStr / name + "-" + versionStr, pom.out())
 
     oDir.foreach { dirStr =>
+      val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr))
+      val gFxPom = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
       val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
-        stagePom(dirStr, "rutil", versionStr),
-        stagePom(dirStr, "geom", versionStr, "rutil"),
-        stagePom(dirStr, "tiling", versionStr, "rutil", "geom"),
-        stagePom(dirStr, "egrid", versionStr, "rutil", "geom", "tiling"),
+        stagePom(dirStr, "rutil"),
+        stagePom(dirStr, "geom", "rutil"),
+        stagePom(dirStr, "tiling", "rutil", "geom"),
+        stagePom(dirStr, "egrid", "rutil", "geom", "tiling"),
+        stagePom2(dirStr, "geomfx", gFxPom)
       )
      deb(res.msgErrsSummary(s"to $dirStr"))
     }

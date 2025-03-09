@@ -22,9 +22,11 @@ class OpenStratPomProject(val artifactStr: String, val versionStr: String, val d
 
 object OpenStratPomProject
 {
-  def apply(artifactStr: String, versionStr: String, moduleStrs: StrArr): OpenStratPomProject =
-  {
-    val dependencies: RArr[PomDep] = moduleStrs.map(s => OpenStratPomDep(s, versionStr)) +% ScalaLibDependency("3.4.1")
+  def apply(artifactStr: String, versionStr: String, scalaVersion: String, dependencies: RArr[PomDep]): OpenStratPomProject =
+    new OpenStratPomProject(artifactStr: String, versionStr: String, dependencies +% ScalaLibDependency(scalaVersion))
+
+  def apply(artifactStr: String, versionStr: String, scalaVersion: String, moduleStrs: StrArr): OpenStratPomProject =
+  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OpenStratPomDep(s, versionStr)) +% ScalaLibDependency(scalaVersion)
     new OpenStratPomProject(artifactStr: String, versionStr: String, dependencies)
   }
 }
