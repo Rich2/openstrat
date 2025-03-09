@@ -11,7 +11,7 @@ object PomsApp
     debvar(oDir)
 
     def stagePom(dirStr: String, name: String, versionStr: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
-      pomFileWrite(dirStr / name + "-" + versionStr, new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+      pomFileWrite(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, depStrs.toArr).out())
 
     oDir.foreach { dirStr =>
       val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
@@ -19,7 +19,7 @@ object PomsApp
         stagePom(dirStr, "geom", versionStr, "rutil"),
         stagePom(dirStr, "tiling", versionStr, "rutil", "geom"),
         stagePom(dirStr, "egrid", versionStr, "rutil", "geom", "tiling"),
-        stagePom(dirStr, "apps", versionStr, "rutil", "geom", "tiling", "egrid"))
+      )
      deb(res.msgErrsSummary(s"to $dirStr"))
     }
   }
