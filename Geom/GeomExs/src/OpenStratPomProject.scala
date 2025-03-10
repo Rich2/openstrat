@@ -5,13 +5,6 @@ import ostrat.pWeb.*
 object RichstratID extends GroupId("com.richstrat")
 
 case class OpenStratPomDep(idStr: String, versionStr: String) extends PomDep(RichstratID, ArtifactId(idStr), VersionElem(versionStr))
-{
-  //override def artifactId: ArtifactId  = 
-
-  //override val groupId: GroupId = 
-
-  //override def version: VersionElem = 
-}
 
 class OpenStratPomProject(val artifactStr: String, val versionStr: String, val dependencies: RArr[PomDep]) extends PomProject
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)

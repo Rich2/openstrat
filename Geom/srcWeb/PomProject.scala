@@ -46,13 +46,20 @@ object ScalaLibDependency
 { def apply(versionStr: String): ScalaLibDependency = new ScalaLibDependency(versionStr)
 }
 
+/** XML element for a POM GroupID for "org.openjfx". */
+object OpenJfxId extends GroupId("org.openjfx")
+
+/** XML element for a POM dependency for a version of the javafx-controls library. */
+class JavaFxControlsDependency(val versionStr: String) extends PomDep(OpenJfxId, ArtifactId("javafx-controls"), VersionElem(versionStr))
+
+object JavaFxControlsDependency
+{ def apply(versionStr: String): JavaFxControlsDependency = new JavaFxControlsDependency(versionStr)
+}
+
 class ArtifactId(artifactStr: String) extends XmlElemSimple("artifactId", artifactStr)
 object ArtifactId { def apply(artifactStr: String): ArtifactId = new ArtifactId(artifactStr) }
 
 class GroupId(groupStr: String) extends XmlElemSimple("groupId", groupStr)
-{
-//  def dependency(versionStr: String): PomDep = PomDep()
-}
 
 object GroupId
 { def apply(groupStr: String): GroupId = new GroupId(groupStr)

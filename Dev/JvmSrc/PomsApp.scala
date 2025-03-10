@@ -1,6 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm._
+import ostrat.pWeb.JavaFxControlsDependency
+import utiljvm.*
 
 /** Application for producing Openstrat POM files. Takes the target folder as a paremter. */
 object PomsApp
@@ -18,7 +19,7 @@ object PomsApp
       pomFileWrite(dirStr / name + "-" + versionStr, pom.out())
 
     oDir.foreach { dirStr =>
-      val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr))
+      val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("15.0.1"))
       val gFxPom = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
       val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
         stagePom(dirStr, "rutil"),
