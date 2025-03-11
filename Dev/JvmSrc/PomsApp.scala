@@ -1,7 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import ostrat.pWeb.JavaFxControlsDependency
-import utiljvm.*
+import utiljvm.*, pWeb.*
 
 /** Application for producing Openstrat POM files. Takes the target folder as a paremter. */
 object PomsApp
