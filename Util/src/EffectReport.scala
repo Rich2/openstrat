@@ -88,6 +88,25 @@ object JsFileWritten
   }
 }
 
+/** Report of successful Jar file write. */
+class JarFileWritten(detailStr: String) extends FileWritten(detailStr) {
+  override def reportTypeStr: String = "Jar File written"
+
+  override def toString: String = "JarFileWritten" + detailStr.enParenth
+}
+
+object JarFileWritten
+{ /** Factory apply method to construct [[JarFileWritten]] report. */
+  def apply(detailStr: String): JarFileWritten = new JarFileWritten(detailStr)
+
+  /** Implicit evidence / instance of [[ShowType]] for [[JarFileWritten]] */
+  implicit val namedTypeEv: ShowType[JarFileWritten] = new ShowFileWritten[JarFileWritten]
+  { override val filePrefix: String = "Jar"
+
+    override def typeStr: String = "JarFileWritten"
+  }
+}
+
 /** Report of successful HTML file write. */
 class HtmlFileWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "HTML File written"

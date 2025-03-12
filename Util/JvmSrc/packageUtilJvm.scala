@@ -113,7 +113,11 @@ package object utiljvm
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
   
-  def jsFileCopy(fromStr:  String, toStr: String): ErrBi[Exception, JsFileWritten] = fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+  def jsFileCopy(fromStr:  String, toStr: String): ErrBi[Exception, JsFileWritten] =
+    fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+
+  def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
+    fileCopy(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
   
   def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
 

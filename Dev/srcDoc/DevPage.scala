@@ -9,7 +9,7 @@ object DevPage extends HtmlPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbt3D, intellij, miscTitle, p6, table, p7, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
-  def appSel: HtmlLi = HtmlLi("JavaFx application selection and developer settings for the different apps.")
+  def appSel: HtmlLi = HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar"))
   def siteGen: HtmlLi = HtmlLi("Generates the HTML files for the website, including this file.")
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 

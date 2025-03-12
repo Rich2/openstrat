@@ -245,6 +245,7 @@ def SiteStage = Task{
   EG120Europe.fullLinkJS()
   EG80Europe.fullLinkJS()
   EarthApp.fullLinkJS()
+  DevFx.assembly()
 
   Dev.runner().run(mainClass = "ostrat.pDev.MillStageServer", args = Array[String]())
 }

@@ -30,8 +30,13 @@ case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object HtmlLi
 { /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
-  def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
-  def apply(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
+  def apply(contents: (XCon | String) *): HtmlLi ={
+    val arr = contents.mapArr {
+      case str: String => str.xCon
+      case xCon: XCon => xCon
+    }
+    new HtmlLi(arr)
+  }
 
   /** An HTML list item element that has a link as its sole content. */
   def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon))), attribs.toArr)
