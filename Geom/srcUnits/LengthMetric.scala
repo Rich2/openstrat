@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pParse._
+import pParse.*
 
-/** Metric units of measurement. Many convenient operators are provided for metric units. Operations that mix units from different measurment system are gnerally
- * provided with named operators, to highlight the programmer is doing this. */
+/** Metric units of measurement. Many convenient operators are provided for metric units. Operations that mix units from different measurement system are
+ * generally provided with named operators, to highlight the programmer is doing this. */
 trait MetricUnits extends Any
 
 /** A metric measurement of [[Length]] such as [[Metres]] or the [[Kilometres]] */
@@ -11,6 +11,7 @@ trait LengthMetric extends Any with Length with MetricUnits with TellDblBased
 { override def +(operand: Length): LengthMetric
   override def -(operand: Length): LengthMetric
   override def mulByLength(operand: Length): AreaMetric
+
   /** Returns the max length of this and the operand length in the units of this object. */
   def max(operand: LengthMetric): LengthMetric
 
@@ -49,11 +50,11 @@ final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
   override def nonNeg: Boolean = metresNum >= 0
   override def pos: Boolean = metresNum > 0
   override def neg: Boolean = metresNum < 0
-  @inline override def kilometresNum: Double = metresNum / 1000
-  @inline override def megametresNum: Double = metresNum / 1000000
-  @inline override def gigametresNum: Double = metresNum / 1000000000
+  @inline override def kilometresNum: Double = metresNum * 1e-3
+  @inline override def megametresNum: Double = metresNum * 1e-6
+  @inline override def gigametresNum: Double = metresNum * 1e-9
   @inline override def millimetresNum: Double = metresNum * 1000
-  @inline override def angstromsNum: Double = metresNum / 1e10
+  @inline override def angstromsNum: Double = metresNum * 1e10
 }
 
 /** Companion object for the [[Metres]] class. */
@@ -74,10 +75,10 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
   override def endingStr: String = "km"
   override def compare(that: Length): Int = kilometresNum.compare(that.kilometresNum)
   override def metresNum: Double = kilometresNum * 1000
-  override def megametresNum: Double = kilometresNum / 1000
-  override def gigametresNum: Double = kilometresNum / 1000000
+  override def megametresNum: Double = kilometresNum * 1e-3
+  override def gigametresNum: Double = kilometresNum * 1e-6
   @inline override def millimetresNum: Double = kilometresNum * 1e6
-  @inline override def angstromsNum: Double = metresNum / 1e13
+  @inline override def angstromsNum: Double = kilometresNum * 1e13
   override def +(operand: Length): Kilometres = Kilometres(kilometresNum = operand.kilometresNum)
   override def -(operand: Length): Kilometres = Kilometres(kilometresNum - operand.kilometresNum)
   override def unary_- : Kilometres = Kilometres(-kilometresNum)
@@ -117,11 +118,11 @@ final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetr
   override def unitsDbl: Double = megametresNum
   override def endingStr: String = "Mm"
   override def compare(that: Length): Int = megametresNum.compare(that.megametresNum)
-  override def metresNum: Double = megametresNum * 1000000
+  override def metresNum: Double = megametresNum * 1e6
   override def kilometresNum: Double = megametresNum * 1000
-  override def gigametresNum: Double = megametresNum / 1000
+  override def gigametresNum: Double = megametresNum * 1e-3
   @inline override def millimetresNum: Double = megametresNum * 1e9
-  @inline override def angstromsNum: Double = metresNum / 1e16
+  @inline override def angstromsNum: Double = megametresNum * 1e16
   override def +(operand: Length): Megametres = Megametres(megametresNum = operand.megametresNum)
   override def -(operand: Length): Megametres = Megametres(megametresNum - operand.megametresNum)
   override def unary_- : Megametres = Megametres(-megametresNum)
@@ -178,11 +179,11 @@ final class Millimetres(val millimetresNum: Double) extends AnyVal with LengthMe
   override def unitsDbl: Double = millimetresNum
   override def endingStr: String = "mm"
   override def compare(that: Length): Int = millimetresNum.compare(that.millimetresNum)
-  override def metresNum: Double = millimetresNum / 1000
-  override def kilometresNum: Double = millimetresNum / 1e6
-  override def megametresNum: Double = millimetresNum / 1000
-  override def gigametresNum: Double = millimetresNum / 1000000
-  @inline override def angstromsNum: Double = metresNum / 1e13
+  override def metresNum: Double = millimetresNum * 1e-3
+  override def kilometresNum: Double = millimetresNum * 1e-6
+  override def megametresNum: Double = millimetresNum * 1e-9
+  override def gigametresNum: Double = millimetresNum * 1e-12
+  @inline override def angstromsNum: Double = millimetresNum * 1e7
   override def +(operand: Length): Millimetres = Millimetres(millimetresNum = operand.millimetresNum)
   override def -(operand: Length): Millimetres = Millimetres(millimetresNum - operand.millimetresNum)
   override def unary_- : Millimetres = Millimetres(-millimetresNum)
