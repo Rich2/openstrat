@@ -14,7 +14,10 @@ trait Length extends Any with Ordered[Length]
   /** The number of gigametres in this [[Length]]. */
   def gigametresNum: Double
 
-  /** The number of gigametres in this [[Length]]. */
+  /** The number of millimetres in this [[Length]]. */
+  def millimetresNum: Double
+  
+  /** The number of angstroms in this [[Length]]. */
   def angstromsNum: Double
 
   /** The negative of this [[Length]] */

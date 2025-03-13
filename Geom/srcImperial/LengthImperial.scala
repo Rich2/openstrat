@@ -20,10 +20,11 @@ trait LengthImperial extends Any with Length with ImperialUnits
   override def mulByLength(operand: Length): AreaImperial
   override def /(operand: Double): LengthImperial
   override def unary_- : LengthImperial
-  override def metresNum: Double = yardsNum * Yards.toMetres
-  override def kilometresNum: Double = metresNum / 1000
-  override def megametresNum: Double = metresNum / 1000000
-  override def gigametresNum: Double = metresNum / 1000000000
+  @inline override def metresNum: Double = yardsNum * Yards.toMetres
+  @inline override def kilometresNum: Double = metresNum / 1000
+  @inline override def megametresNum: Double = metresNum / 1000000
+  @inline override def gigametresNum: Double = metresNum / 1000000000
+  @inline override def millimetresNum: Double = metresNum * 1000
   @inline override def angstromsNum: Double = metresNum / 1e10
 }
 
