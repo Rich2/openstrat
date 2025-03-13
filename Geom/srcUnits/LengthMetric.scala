@@ -170,16 +170,16 @@ object Gigametres
 
 /** Measurement of [[Length]] in Angstroms. can be negative. */
 final class Angstroms(val angstromsNum: Double) extends AnyVal with LengthMetric
-{ override def typeStr: String = "Gigametres"
+{ override def typeStr: String = "Angstroms"
   override def unitsDbl: Double = angstromsNum
-  override def endingStr: String = "Gm"
+  override def endingStr: String = "Å"
   override def compare(that: Length): Int = angstromsNum.compare(that.angstromsNum)
 
   override def metresNum: Double = angstromsNum / 1e10
   override def kilometresNum: Double = angstromsNum / 1e13
   override def megametresNum: Double = angstromsNum / 1e16
   override def gigametresNum: Double = angstromsNum / 1e19
-  override def +(operand: Length): Angstroms = Angstroms(angstromsNum = operand.angstromsNum)
+  override def +(operand: Length): Angstroms = Angstroms(angstromsNum + operand.angstromsNum)
   override def -(operand: Length): Angstroms = Angstroms(angstromsNum - operand.angstromsNum)
   override def unary_- : Angstroms = Angstroms(-angstromsNum)
   override def *(operand: Double): Angstroms = Angstroms(angstromsNum * operand)
