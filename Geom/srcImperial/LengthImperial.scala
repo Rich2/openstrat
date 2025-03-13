@@ -24,6 +24,7 @@ trait LengthImperial extends Any with Length with ImperialUnits
   override def kilometresNum: Double = metresNum / 1000
   override def megametresNum: Double = metresNum / 1000000
   override def gigametresNum: Double = metresNum / 1000000000
+  @inline override def angstromsNum: Double = metresNum / 1e10
 }
 
 /** [[Length]] measured in yards. Can be negative. */

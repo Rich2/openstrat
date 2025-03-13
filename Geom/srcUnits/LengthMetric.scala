@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pParse._
 
@@ -52,6 +52,7 @@ final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
   @inline override def kilometresNum: Double = metresNum / 1000
   @inline override def megametresNum: Double = metresNum / 1000000
   @inline override def gigametresNum: Double = metresNum / 1000000000
+  @inline override def angstromsNum: Double = metresNum / 1e10
 }
 
 /** Companion object for the [[Metres]] class. */
@@ -74,6 +75,7 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
   override def metresNum: Double = kilometresNum * 1000
   override def megametresNum: Double = kilometresNum / 1000
   override def gigametresNum: Double = kilometresNum / 1000000
+  @inline override def angstromsNum: Double = metresNum / 1e13
   override def +(operand: Length): Kilometres = Kilometres(kilometresNum = operand.kilometresNum)
   override def -(operand: Length): Kilometres = Kilometres(kilometresNum - operand.kilometresNum)
   override def unary_- : Kilometres = Kilometres(-kilometresNum)
@@ -116,6 +118,7 @@ final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetr
   override def metresNum: Double = megametresNum * 1000000
   override def kilometresNum: Double = megametresNum * 1000
   override def gigametresNum: Double = megametresNum / 1000
+  @inline override def angstromsNum: Double = metresNum / 1e16
   override def +(operand: Length): Megametres = Megametres(megametresNum = operand.megametresNum)
   override def -(operand: Length): Megametres = Megametres(megametresNum - operand.megametresNum)
   override def unary_- : Megametres = Megametres(-megametresNum)
@@ -145,6 +148,7 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetr
   override def metresNum: Double = gigametresNum * 1000000000
   override def kilometresNum: Double = gigametresNum * 1000000
   override def megametresNum: Double = gigametresNum * 1000
+  @inline override def angstromsNum: Double = metresNum / 1e19
   override def +(operand: Length): Gigametres = Gigametres(gigametresNum = operand.gigametresNum)
   override def -(operand: Length): Gigametres = Gigametres(gigametresNum - operand.gigametresNum)
   override def unary_- : Gigametres = Gigametres(-gigametresNum)
@@ -162,4 +166,34 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetr
 object Gigametres
 { /** Factory apply method for [[Gigametres]]. */
   def apply(gigametresNum: Double): Gigametres = new Gigametres(gigametresNum)
+}
+
+/** Measurement of [[Length]] in Angstroms. can be negative. */
+final class Angstroms(val angstromsNum: Double) extends AnyVal with LengthMetric
+{ override def typeStr: String = "Gigametres"
+  override def unitsDbl: Double = angstromsNum
+  override def endingStr: String = "Gm"
+  override def compare(that: Length): Int = angstromsNum.compare(that.angstromsNum)
+
+  override def metresNum: Double = angstromsNum / 1e10
+  override def kilometresNum: Double = angstromsNum / 1e13
+  override def megametresNum: Double = angstromsNum / 1e16
+  override def gigametresNum: Double = angstromsNum / 1e19
+  override def +(operand: Length): Angstroms = Angstroms(angstromsNum = operand.angstromsNum)
+  override def -(operand: Length): Angstroms = Angstroms(angstromsNum - operand.angstromsNum)
+  override def unary_- : Angstroms = Angstroms(-angstromsNum)
+  override def *(operand: Double): Angstroms = Angstroms(angstromsNum * operand)
+  override def mulByLength(operand: Length): Kilares = Kilares(kilometresNum * operand.kilometresNum)
+  override def /(operand: Double): Angstroms = Angstroms(angstromsNum / operand)
+  override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
+  override def max(operand: LengthMetric): Angstroms = Angstroms(angstromsNum.max(operand.angstromsNum))
+  override def min(operand: LengthMetric): Angstroms = Angstroms(angstromsNum.min(operand.angstromsNum))
+  override def nonNeg: Boolean = angstromsNum >= 0
+  override def pos: Boolean = angstromsNum > 0
+  override def neg: Boolean = angstromsNum < 0
+}
+
+object Angstroms
+{ /** Factory apply method for [[Angstroms]]. */
+  def apply(angstromsNum: Double): Angstroms = new Angstroms(angstromsNum)
 }
