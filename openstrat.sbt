@@ -89,7 +89,6 @@ lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
   name := "rutil",
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
   Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
-  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
 )
 
 lazy val UtilExs = jvmExsProj("Util").dependsOn(Geom)
