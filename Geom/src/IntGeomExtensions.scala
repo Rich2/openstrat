@@ -24,6 +24,9 @@ class IntGeomExtensions(thisInt: Int)
 
   /** Returns this [[Int]] value in [[Nanoometres]]. */
   @inline def nanoMetres: Nanometres = Nanometres(thisInt)
+
+  /** Returns this [[Int]] value in [[Picoometres]]. */
+  @inline def picoMetres: Picometres = Picometres(thisInt)
   
   /** Returns this [[Int]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisInt)

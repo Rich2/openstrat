@@ -22,6 +22,9 @@ trait Length extends Any with Ordered[Length]
 
   /** The number of nanometres in this [[Length]]. */
   def nanometresNum: Double
+
+  /** The number of picoometres in this [[Length]]. */
+  def picometresNum: Double
   
   /** The number of angstroms in this [[Length]]. */
   def angstromsNum: Double
