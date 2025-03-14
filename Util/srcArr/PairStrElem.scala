@@ -92,13 +92,22 @@ class ArrPairStr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
 }
 
 object ArrPairStr
-{
+{ /** Factory apply method for [[ArrPairStr]], takes repeat pair Tuples as its input. */
   def apply[A2](pairs: (String, A2)*)(implicit ct: ClassTag[A2]): ArrPairStr[A2] =
   { val len = pairs.length
     val a1Array = new Array[String](len)
     val a2Array = new Array[A2](len)
     pairs.iForeach{ (i, p) => a1Array(i) = p._1; a2Array(i) = p._2 }
     new ArrPairStr[A2](a1Array, a2Array)
+  }
+
+  /** Factory method for [[ArrPairStr]] with a [[String]] as its A2 type parameter, takes repeat [[String]]s as its input. */
+  def strs(strs: String*): ArrPairStr[String] =
+  { val len = strs.length / 2
+    val a1Array = new Array[String](len)
+    val a2Array = new Array[String](len)
+    iUntilForeach(len) { i => a1Array(i) = strs(i * 2); a2Array(i) = strs(i * 2 + 1) }
+    new ArrPairStr[String](a1Array, a2Array)
   }
 }
 

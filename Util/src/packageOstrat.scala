@@ -5,7 +5,6 @@
  * based errors framework and general utilities. */
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
-  //type EArr[A <: AnyRef] = EMonOld[RArr[A]]  
   type RefsMulti[A <: AnyRef] = RArr[Multiple[A]]
   type ShowEq[A] = Show[A] & EqT[A]
   type AnyRefs = RArr[AnyRef]
@@ -326,7 +325,6 @@ package object ostrat
     res
   }
 
-
   /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than) the end
    * value in integer steps. Default step value is 1. */
   def iUntilIntSum(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
@@ -335,7 +333,7 @@ package object ostrat
     acc
   }
 
-  /** 2 dimensional from-to-step foreach loop. Throws on non-termination. */
+  /** 2-dimensional from-to-step foreach loop. Throws on non-termination. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
 
@@ -352,8 +350,8 @@ package object ostrat
    * name is overloaded with a variant that takes 3 parameters for the i and j loops.*/
   def ijUntilForeach(iUntil: Int)(jUntil: Int)(f: (Int, Int) => Unit): Unit = iUntilForeach(iUntil){ i => iUntilForeach(jUntil){ j => f(i, j)}}
 
-  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
-   * start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
+  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of [[Int]]s to an ArrBase[A]. From
+   * the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit
     ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
@@ -369,8 +367,8 @@ package object ostrat
     res
   }
 
-  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
-   * start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
+  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of [[Int]]s to an ArrBase[A]. From
+   * the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijToMap[A, AA <: Arr[A]](iTo: Int)(jTo: Int)(f: (Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
     val jLen = (jTo + 1).max(0)
@@ -442,8 +440,7 @@ package object ostrat
   }
   
   implicit class OptionCompanionExtensions(thisObj: Option.type)
-  {
-    def map2[A1, A2, B](op1: Option[A1], op2: Option[A2])(f: (A1, A2) => B): Option[B] = op1.flatMap(s1 => op2.map(s2 => f(s1, s2)))
+  { def map2[A1, A2, B](op1: Option[A1], op2: Option[A2])(f: (A1, A2) => B): Option[B] = op1.flatMap(s1 => op2.map(s2 => f(s1, s2)))
     
     def map3[A1, A2, A3, B](op1: Option[A1], op2: Option[A2], op3: Option[A3])(f: (A1, A2, A3) => B): Option[B] =
       for{ s1 <- op1; s2 <- op2; s3 <- op3 } yield f(s1, s2, s3)
@@ -551,8 +548,10 @@ package object ostrat
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
   implicit def showTToExtensions[A](thisVal: A)(implicit ev: Show[A]): ShowingExtensions[A] = new ShowingExtensions[A](ev, thisVal)
+  
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
     new Show2Extensions[A1, A2, T](ev, thisVal)
+    
   implicit def stringToExtensions(s: String): ExtensionsString = new ExtensionsString(s)
   implicit def stringIterableToExtensions(strIter: Iterable[String]): ExtensionsStringIterable = ExtensionsStringIterable(strIter)
   implicit def stringArrayToExtensions(strArray: Array[String]): ExtensionsStringIterable = ExtensionsStringIterable(strArray)

@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag
 
@@ -44,30 +44,28 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     acc
   }
 
-  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
-   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
-   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
-   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
-   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
-   *  in fold methods' (accumulator, element) => B signature. */
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The function
+   * may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can
+   * be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The
+   * second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iForeach(f: (Int, A) => Unit): Unit =
   { var i = 0
     thisIter.foreach { elem => f(i, elem); i += 1 }
   }
 
-  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
-   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
-   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
-   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
-   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
-   *  in fold methods' (accumulator, element) => B signature. */
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The function
+   * may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can
+   * be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The
+   * second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iForeach(initialIndex: Int)(f: (Int, A) => Unit): Unit =
   { var i = initialIndex
     thisIter.foreach { elem => f(i, elem); i += 1 }
   }
 
-  /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
-   *  collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the collection
+   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iMap[B, BB <: Arr[B]](f: (Int, A) => B)(implicit build: BuilderArrMap[B, BB]): BB =
   { var i = 0
     val buff: build.BuffT = build.newBuff()
@@ -75,8 +73,8 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     build.buffToSeqLike(buff)
   }
 
-  /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
-   *  collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the collection
+   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iMap[B, BB <: Arr[B]](count: Int)(f: (A, Int) => B)(implicit build: BuilderArrMap[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
