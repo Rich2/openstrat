@@ -55,6 +55,7 @@ final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
   @inline override def gigametresNum: Double = metresNum * 1e-9
   @inline override def millimetresNum: Double = metresNum * 1000
   @inline override def micrometresNum: Double = metresNum * 1e6
+  @inline override def nanometresNum: Double = metresNum * 1e9
   @inline override def angstromsNum: Double = metresNum * 1e10
 }
 
@@ -80,6 +81,7 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
   @inline override def gigametresNum: Double = kilometresNum * 1e-6
   @inline override def millimetresNum: Double = kilometresNum * 1e6
   @inline override def micrometresNum: Double = kilometresNum * 1e9
+  @inline override def nanometresNum: Double = kilometresNum * 1e12
   @inline override def angstromsNum: Double = kilometresNum * 1e13
   override def +(operand: Length): Kilometres = Kilometres(kilometresNum = operand.kilometresNum)
   override def -(operand: Length): Kilometres = Kilometres(kilometresNum - operand.kilometresNum)
@@ -125,6 +127,7 @@ final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetr
   @inline override def gigametresNum: Double = megametresNum * 1e-3
   @inline override def millimetresNum: Double = megametresNum * 1e9
   @inline override def micrometresNum: Double = megametresNum * 1e12
+  @inline override def nanometresNum: Double = megametresNum * 1e15
   @inline override def angstromsNum: Double = megametresNum * 1e16
   override def +(operand: Length): Megametres = Megametres(megametresNum = operand.megametresNum)
   override def -(operand: Length): Megametres = Megametres(megametresNum - operand.megametresNum)
@@ -156,6 +159,7 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetr
   @inline override def megametresNum: Double = gigametresNum * 1000
   @inline override def millimetresNum: Double = gigametresNum * 1e12
   @inline override def micrometresNum: Double = gigametresNum * 1e15
+  @inline override def nanometresNum: Double = gigametresNum * 1e18
   @inline override def angstromsNum: Double = metresNum * 1e19
   override def +(operand: Length): Gigametres = Gigametres(gigametresNum = operand.gigametresNum)
   override def -(operand: Length): Gigametres = Gigametres(gigametresNum - operand.gigametresNum)
@@ -187,12 +191,13 @@ final class Millimetres(val millimetresNum: Double) extends AnyVal with LengthMe
   @inline override def megametresNum: Double = millimetresNum * 1e-9
   @inline override def gigametresNum: Double = millimetresNum * 1e-12
   @inline override def micrometresNum: Double = millimetresNum * 1e3
+  @inline override def nanometresNum: Double = millimetresNum * 1e6
   @inline override def angstromsNum: Double = millimetresNum * 1e7
   override def +(operand: Length): Millimetres = Millimetres(millimetresNum = operand.millimetresNum)
   override def -(operand: Length): Millimetres = Millimetres(millimetresNum - operand.millimetresNum)
   override def unary_- : Millimetres = Millimetres(-millimetresNum)
   override def *(operand: Double): Millimetres = Millimetres(millimetresNum * operand)
-  override def toRectArea(operand: Length): Metrares = Metrares(metresNum * operand.metresNum)
+  override def toRectArea(operand: Length): Millares = Millares(millimetresNum * operand.millimetresNum)
   override def /(operand: Double): Millimetres = Millimetres(millimetresNum / operand)
   override def divByLength(operand: Length): Double = millimetresNum / operand.millimetresNum
   override def max(operand: LengthMetric): Millimetres = Millimetres(millimetresNum.max(operand.millimetresNum))
@@ -207,8 +212,8 @@ object Millimetres
   def apply(millimetresNum: Double): Millimetres = new Millimetres(millimetresNum)
 
   implicit class LengthMetricExtensions(thisLength: Millimetres)
-  { /** Extension operator method to produce [[Kilares]], multiplying this [[Millimetres]] by an operand [[Length]]. */
-    def *(operand: Length): Metrares = thisLength.toRectArea(operand)
+  { /** Extension operator method to produce [[Millares]], multiplying this [[Millimetres]] by an operand [[Length]]. */
+    def *(operand: Length): Millares = thisLength.toRectArea(operand)
   }
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Millimetres]]. */
@@ -222,7 +227,7 @@ object Millimetres
   }
 }
 
-/** Measurement of [[Length]] in Micrometres. can be negative. */
+/** Measurement of [[Length]] in [[Micrometres]]. can be negative. */
 final class Micrometres(val micrometresNum: Double) extends AnyVal with LengthMetric
 { override def typeStr: String = "Micrometres"
   override def unitsDbl: Double = micrometresNum
@@ -233,6 +238,7 @@ final class Micrometres(val micrometresNum: Double) extends AnyVal with LengthMe
   @inline override def megametresNum: Double = micrometresNum * 1e-12
   @inline override def gigametresNum: Double = micrometresNum * 1e-15
   @inline override def millimetresNum: Double = micrometresNum * 1e-3
+  @inline override def nanometresNum: Double = micrometresNum * 1e3
   @inline override def angstromsNum: Double = micrometresNum * 1e4
   override def +(operand: Length): Micrometres = Micrometres(micrometresNum + operand.micrometresNum)
   override def -(operand: Length): Micrometres = Micrometres(micrometresNum - operand.micrometresNum)
@@ -253,8 +259,45 @@ object Micrometres
   def apply(micrometresNum: Double): Micrometres = new Micrometres(micrometresNum)
 
   implicit class LengthMetricExtensions(thisLength: Micrometres)
-  { /** Extension operator method to produce [[Metrares]], multiplying this [[Micrometres]] by an operand [[Length]]. */
+  { /** Extension operator method to produce [[Millares]], multiplying this [[Micrometres]] by an operand [[Length]]. */
      def *(operand: Length): Millares = thisLength.toRectArea(operand)
+  }
+}
+
+/** Measurement of [[Length]] in [[Nanometres]]. can be negative. */
+final class Nanometres(val nanometresNum: Double) extends AnyVal with LengthMetric
+{ override def typeStr: String = "Nanometres"
+  override def unitsDbl: Double = nanometresNum
+  override def endingStr: String = "nm"
+  override def compare(that: Length): Int = nanometresNum.compare(that.nanometresNum)
+  @inline override def metresNum: Double = nanometresNum * 1e-9
+  @inline override def kilometresNum: Double = nanometresNum * 1e-12
+  @inline override def megametresNum: Double = nanometresNum * 1e-15
+  @inline override def gigametresNum: Double = nanometresNum * 1e-18
+  @inline override def millimetresNum: Double = nanometresNum * 1e-6
+  @inline override def micrometresNum: Double = nanometresNum * 1e-3
+  @inline override def angstromsNum: Double = nanometresNum * 10
+  override def +(operand: Length): Nanometres = Nanometres(nanometresNum + operand.nanometresNum)
+  override def -(operand: Length): Nanometres = Nanometres(nanometresNum - operand.nanometresNum)
+  override def unary_- : Nanometres = Nanometres(-nanometresNum)
+  override def *(operand: Double): Nanometres = Nanometres(nanometresNum * operand)
+  override def toRectArea(operand: Length): Millares = Millares(millimetresNum * operand.millimetresNum)
+  override def /(operand: Double): Nanometres = Nanometres(nanometresNum / operand)
+  override def divByLength(operand: Length): Double = nanometresNum / operand.nanometresNum
+  override def max(operand: LengthMetric): Nanometres = Nanometres(nanometresNum.max(operand.nanometresNum))
+  override def min(operand: LengthMetric): Nanometres = Nanometres(nanometresNum.min(operand.nanometresNum))
+  override def nonNeg: Boolean = nanometresNum >= 0
+  override def pos: Boolean = nanometresNum > 0
+  override def neg: Boolean = nanometresNum < 0
+}
+
+object Nanometres
+{ /** Factory apply method for [[Nanometres]]. */
+  def apply(nanometresNum: Double): Nanometres = new Nanometres(nanometresNum)
+
+  implicit class LengthMetricExtensions(thisLength: Nanometres)
+  { /** Extension operator method to produce [[Millares]], multiplying this [[Nanometres]] by an operand [[Length]]. */
+    def *(operand: Length): Millares = thisLength.toRectArea(operand)
   }
 }
 
@@ -270,6 +313,7 @@ final class Angstroms(val angstromsNum: Double) extends AnyVal with LengthMetric
   @inline override def gigametresNum: Double = angstromsNum * 1e-19
   @inline override def millimetresNum: Double = angstromsNum * 1e-7
   @inline override def micrometresNum: Double = angstromsNum * 1e-4
+  @inline override def nanometresNum: Double = angstromsNum * 1e-1
   override def +(operand: Length): Angstroms = Angstroms(angstromsNum + operand.angstromsNum)
   override def -(operand: Length): Angstroms = Angstroms(angstromsNum - operand.angstromsNum)
   override def unary_- : Angstroms = Angstroms(-angstromsNum)

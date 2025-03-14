@@ -24,8 +24,9 @@ trait LengthImperial extends Any with Length with ImperialUnits
   @inline override def kilometresNum: Double = metresNum * 1e-3
   @inline override def megametresNum: Double = metresNum * 1e-6
   @inline override def gigametresNum: Double = metresNum / 1e-9
-  @inline override def millimetresNum: Double = metresNum * 1000
+  @inline override def millimetresNum: Double = metresNum * 1e3
   @inline override def micrometresNum: Double = metresNum * 1e6
+  @inline override def nanometresNum: Double = metresNum * 1e9
   @inline override def angstromsNum: Double = metresNum * 1e10
 }
 
