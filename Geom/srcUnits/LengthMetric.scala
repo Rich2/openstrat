@@ -149,8 +149,8 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetr
   override def endingStr: String = "Gm"
   override def compare(that: Length): Int = gigametresNum.compare(that.gigametresNum)
 
-  override def metresNum: Double = gigametresNum * 1000000000
-  override def kilometresNum: Double = gigametresNum * 1000000
+  override def metresNum: Double = gigametresNum * 1e9
+  override def kilometresNum: Double = gigametresNum * 1e6
   override def megametresNum: Double = gigametresNum * 1000
   @inline override def millimetresNum: Double = gigametresNum * 1e12
   @inline override def angstromsNum: Double = metresNum / 1e19
@@ -199,39 +199,37 @@ final class Millimetres(val millimetresNum: Double) extends AnyVal with LengthMe
 }
 
 object Millimetres
-{
-  /** Factory apply method for kilometres. */
-    def apply(millimetresNum: Double): Millimetres = new Millimetres(millimetresNum)
+{ /** Factory apply method for [[Milimetres]]. */
+  def apply(millimetresNum: Double): Millimetres = new Millimetres(millimetresNum)
 
   implicit class LengthMetricExtensions(thisLength: Millimetres)
-  {
-    /** Extension operator method to produce [[Kilares]], multiplying this [[Millimetres]] by an operand [[Length]]. */
-      def *(operand: Length): Kilares = thisLength.mulByLength(operand)
+  { /** Extension operator method to produce [[Kilares]], multiplying this [[Millimetres]] by an operand [[Length]]. */
+    def *(operand: Length): Kilares = thisLength.mulByLength(operand)
   }
 
+  /** Implicit [[Unshow]] type class instance / evidence for [[Milimetres]]. */
   implicit val unshow: Unshow[Millimetres] = new Unshow[Millimetres]
-  {
-    override def typeStr: String = "Millimetres"
+  { override def typeStr: String = "Millimetres"
 
-    override def fromExpr(expr: Expr) = expr match {
-      case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Succ(Millimetres(dh.num))
-      case _ => expr.failExc("Kilometre not found")
+    override def fromExpr(expr: Expr) = expr match
+    { case dh: DigitHeadAlphaToken if dh.alphaStr == "mm" => Succ(Millimetres(dh.num))
+      case _ => expr.failExc("Millimetre not found")
     }
   }
 }
-/** Measurement of [[Length]] in Angstroms. can be negative. */
+/** Measurement of [[Length]] in angstroms. can be negative. */
 final class Angstroms(val angstromsNum: Double) extends AnyVal with LengthMetric
 { override def typeStr: String = "Angstroms"
   override def unitsDbl: Double = angstromsNum
   override def endingStr: String = "Å"
   override def compare(that: Length): Int = angstromsNum.compare(that.angstromsNum)
 
-  override def metresNum: Double = angstromsNum / 1e10
-  override def kilometresNum: Double = angstromsNum / 1e13
-  override def megametresNum: Double = angstromsNum / 1e16
+  override def metresNum: Double = angstromsNum * 1e-10
+  override def kilometresNum: Double = angstromsNum * 1e-13
+  override def megametresNum: Double = angstromsNum * 1e-16
   
-  override def gigametresNum: Double = angstromsNum / 1e19
-  @inline override def millimetresNum: Double = angstromsNum / 1e7
+  override def gigametresNum: Double = angstromsNum * 1e-19
+  @inline override def millimetresNum: Double = angstromsNum * 1e-7
   override def +(operand: Length): Angstroms = Angstroms(angstromsNum + operand.angstromsNum)
   override def -(operand: Length): Angstroms = Angstroms(angstromsNum - operand.angstromsNum)
   override def unary_- : Angstroms = Angstroms(-angstromsNum)
