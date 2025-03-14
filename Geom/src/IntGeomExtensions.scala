@@ -25,9 +25,15 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisInt)
 
-  /** Returns this [[Int]] value in [[Kilares]], [[Kilometres]]². kilares folows the same naming convention as [[Hectares]]s. */
+  /** Returns this [[Int]] value in [[Hectares]], [[Hectometres]]². */
+  @inline def hectares: Hectares = Hectares(thisInt)
+  
+  /** Returns this [[Int]] value in [[Kilares]], [[Kilometres]]². [[kilares]] follows the same naming convention as [[Hectares]]. */
   @inline def kilares: Kilares = Kilares(thisInt)
 
+  /** Returns this [[Int]] value in [[Millares]], [[Millimetres]]². [[Millares]] follows the same naming convention as [[Hectares]]s. */
+  @inline def millares: Millares = Millares(thisInt)
+  
   /** Extension methods multiplies this scalar [[Int]] by the operand [[Length]]. If you want a more precise return type such as [[Netres]] or [[Miles]] put the
    * [[Length]] object first. */
   @inline def * (operator: Length): Length = operator * thisInt

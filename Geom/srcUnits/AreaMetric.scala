@@ -22,8 +22,9 @@ class Metrares(val metraresNum: Double) extends AnyVal with AreaMetric
   override def - (operand: Area): Metrares = new Metrares(metraresNum - operand.metraresNum)
   override def * (operand: Double): Metrares = new Metrares(metraresNum * operand)
   def / (operand: Double): Metrares = new Metrares(metraresNum / operand)
-  override def kilaresNum: Double = metraresNum / 1000000
-  override def hectaresNum: Double = metraresNum / 10000
+  @inline override def kilaresNum: Double = metraresNum * 1e-6
+  @inline override def hectaresNum: Double = metraresNum * 1e-4
+  @inline override def millaresNum: Double = metraresNum * 1e6
   override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
@@ -41,8 +42,9 @@ class Hectares(val hectaresNum: Double) extends AnyVal with AreaMetric
   override def -(operand: Area): Hectares = Hectares(hectaresNum - operand.hectaresNum)
   override def *(operand: Double): Hectares = new Hectares(hectaresNum * operand)
   override def /(operand: Double): Hectares = new Hectares(hectaresNum / operand)
-  override def kilaresNum: Double = hectaresNum / 100
-  override def metraresNum: Double = hectaresNum * 10000
+  @inline override def kilaresNum: Double = hectaresNum * 1e-2
+  @inline override def metraresNum: Double = hectaresNum * 1e4
+  @inline override def millaresNum: Double = hectaresNum * 1e10
   override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
@@ -55,8 +57,9 @@ class Kilares(val kilaresNum: Double) extends AnyVal with AreaMetric
   override def -(operand: Area): Kilares = Kilares(kilaresNum - operand.kilaresNum)
   override def * (operand: Double): Kilares = new Kilares(kilaresNum * operand)
   override def / (operand: Double): Kilares = new Kilares(kilaresNum / operand)
-  override def hectaresNum: Double = kilaresNum / 100
-  override def metraresNum: Double = kilaresNum * 10000
+  @inline override def hectaresNum: Double = kilaresNum * 100
+  @inline override def metraresNum: Double = kilaresNum * 1e6
+  @inline override def millaresNum: Double = kilaresNum * 1e12
   override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
@@ -88,4 +91,19 @@ implicit class arraySumEv[A](thisArray: Array[A])
 trait WithKilares
 { /** The area of the entity this object represents */
   def area: Kilares
+}
+
+/** Square millimetres a measure of [[Area]]. [[Millares]] follows the same naming convention as [[Hectares]]. */
+class Millares(val millaresNum: Double) extends AnyVal with AreaMetric
+{ override def typeStr: String = "Millarea"
+  override def unitsDbl: Double = millaresNum
+  override def endingStr: String = "mm²"
+  override def +(operand: Area): Millares = Millares(millaresNum + operand.millaresNum)
+  override def -(operand: Area): Millares = Millares(millaresNum - operand.millaresNum)
+  override def *(operand: Double): Millares = new Millares(millaresNum * operand)
+  override def /(operand: Double): Millares = new Millares(millaresNum / operand)
+  @inline override def hectaresNum: Double = millaresNum * 1e-10
+  @inline override def kilaresNum: Double = millaresNum * 1e-12
+  @inline override def metraresNum: Double = millaresNum * 1e-6
+  override def compare(that: Area): Int = if(millaresNum > that.millaresNum) 1 else if (millaresNum < that.millaresNum) -1 else 0
 }

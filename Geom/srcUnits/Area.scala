@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Measurement of area. */
@@ -6,11 +6,14 @@ trait Area extends Any with Ordered[Area]
 { /** the number of metres square in this area. */
   def metraresNum: Double
 
-  /** the number of kilometres square in this area. kilares follows the same naming convention as hectares. */
+  /** the number of square kilometres in this area. [[kilares]] follows the same naming convention as [[Hectares]]. */
   def kilaresNum: Double
 
-  /** the number of hectares, kilometres square in this area. */
+  /** the number of hectares, square kilometres in this area. */
   def hectaresNum: Double
+
+  /** the number of [[Millares]], square millimetres in this area. */
+  def millaresNum: Double
 
   /** the number of square yards. This follows the same naming convention as [[Hectares]]. */
   def yardaresNum: Double

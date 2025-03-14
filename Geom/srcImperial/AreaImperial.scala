@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package impunits
 
 /** Quantity of area specified in [[MetricUnits]]. */
@@ -10,6 +10,7 @@ trait AreaImperial extends Any with Area with ImperialUnits
   override def metraresNum: Double = yardaresNum * 0.836127
   override def kilaresNum: Double = milearesNum * Area.milearesToKilares
   override def hectaresNum: Double = acresNum * 0.404686
+  override def millaresNum: Double = metraresNum * 1e6
 }
 
 /** Square yards a measure of [[Area]]. Follows the same naming convention as Hectares. */

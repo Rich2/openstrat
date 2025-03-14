@@ -29,9 +29,18 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisDouble)
 
+  /** Returns this [[Double]] value in [[Hectares]]. */
+  @inline def hectares: Hectares = Hectares(thisDouble)
+  
   /** Returns this [[Double]] value in [[Kilares]]. */
   @inline def kilares: Kilares = Kilares(thisDouble)
 
+  /** Returns this [[Double]] value in [[Metrares]]. */
+  @inline def metrares: Metrares = Metrares(thisDouble)
+
+  /** Returns this [[Double]] value in [[Miilrares]]. */
+  @inline def millrares: Millares = Millares(thisDouble)
+  
   /** Returns this [[Double]] value in [[Yards]]. */
   @inline def yards: Yards = new Yards(thisDouble)
 

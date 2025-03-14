@@ -238,7 +238,7 @@ final class Micrometres(val micrometresNum: Double) extends AnyVal with LengthMe
   override def -(operand: Length): Micrometres = Micrometres(micrometresNum - operand.micrometresNum)
   override def unary_- : Micrometres = Micrometres(-micrometresNum)
   override def *(operand: Double): Micrometres = Micrometres(micrometresNum * operand)
-  override def toRectArea(operand: Length): Metrares = Metrares(metresNum * operand.metresNum)
+  override def toRectArea(operand: Length): Millares = Millares(millimetresNum * operand.millimetresNum)
   override def /(operand: Double): Micrometres = Micrometres(micrometresNum / operand)
   override def divByLength(operand: Length): Double = micrometresNum / operand.micrometresNum
   override def max(operand: LengthMetric): Micrometres = Micrometres(micrometresNum.max(operand.micrometresNum))
@@ -253,8 +253,8 @@ object Micrometres
   def apply(micrometresNum: Double): Micrometres = new Micrometres(micrometresNum)
 
   implicit class LengthMetricExtensions(thisLength: Micrometres)
-  { /** Extension operator method to produce [[Kilares]], multiplying this [[Micrometres]] by an operand [[Length]]. */
-     def *(operand: Length): Metrares = thisLength.toRectArea(operand)
+  { /** Extension operator method to produce [[Metrares]], multiplying this [[Micrometres]] by an operand [[Length]]. */
+     def *(operand: Length): Millares = thisLength.toRectArea(operand)
   }
 }
 
