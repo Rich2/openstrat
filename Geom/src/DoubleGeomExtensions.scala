@@ -23,6 +23,9 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Millimetres]]. */
   @inline def milliMetres: Millimetres = Millimetres(thisDouble)
 
+  /** Returns this [[Double]] value in [[Micrometres]]. */
+  @inline def microMetres: Micrometres = Micrometres(thisDouble)
+  
   /** Returns this [[Double]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisDouble)
 

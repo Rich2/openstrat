@@ -16,6 +16,9 @@ trait Length extends Any with Ordered[Length]
 
   /** The number of millimetres in this [[Length]]. */
   def millimetresNum: Double
+
+  /** The number of micrometres in this [[Length]]. */
+  def micrometresNum: Double
   
   /** The number of angstroms in this [[Length]]. */
   def angstromsNum: Double
@@ -32,8 +35,8 @@ trait Length extends Any with Ordered[Length]
   /** Multiply by the given scalar. */
   def *(operand: Double): Length
 
-  /** Multiply by another [[Length]] to produce an area. */
-  def mulByLength(operand: Length): Area
+  /** Combine with an operand [[Length]] for a [[Rectangle]] to return an [[Area]]. */
+  def toRectArea(operand: Length): Area
 
   /** Divide by the given scalar. */
   def /(operand: Double): Length
@@ -58,7 +61,7 @@ object Length
 {
   implicit class LengthExtensions(thisLength: Length)
   { /** Extension operator method to produce [[Area]], multiplying this [[Length]] by an operand [[Length]]. */
-    def *(operand: Length): Area = thisLength.mulByLength(operand)
+    def *(operand: Length): Area = thisLength.toRectArea(operand)
 
     /** Convenience extension operator to divide by a [[Length]] to return a scalar. Defers to the divByLength class method. */
     def / (operand: Length): Double = thisLength.divByLength(operand)

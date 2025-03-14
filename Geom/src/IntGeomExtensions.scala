@@ -16,8 +16,11 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Gigametres]]. */
   @inline def gigaMetres: Gigametres = Gigametres(thisInt)
 
-  /** Returns this [[Int]] value in [[Miilimetres]]. */
+  /** Returns this [[Int]] value in [[Millimetres]]. */
   @inline def milliMetres: Millimetres = Millimetres(thisInt)
+
+  /** Returns this [[Int]] value in [[Micrometres]]. */
+  @inline def microMetres: Micrometres = Micrometres(thisInt)
   
   /** Returns this [[Int]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisInt)
