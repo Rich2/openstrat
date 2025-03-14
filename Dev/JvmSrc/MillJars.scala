@@ -5,7 +5,7 @@ import utiljvm.*
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val versionStr: String = "0.3.5"
+  val versionStr: String = "0.3.6"
 
   /** Pairs of the module names and the name stem for their assets. */
   val modPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid", "Apps", "apps")
