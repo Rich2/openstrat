@@ -24,12 +24,15 @@ class IntGeomExtensions(thisInt: Int)
 
   /** Returns this [[Int]] value in [[Nanoometres]]. */
   @inline def nanoMetres: Nanometres = Nanometres(thisInt)
-
-  /** Returns this [[Int]] value in [[Picoometres]]. */
-  @inline def picoMetres: Picometres = Picometres(thisInt)
   
   /** Returns this [[Int]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisInt)
+
+  /** Returns this [[Int]] value in [[Picometres]]. */
+  @inline def picoMetres: Picometres = Picometres(thisInt)
+
+  /** Returns this [[Int]] value in [[Femtometres]]. */
+  @inline def femtoMetres: Femtometres = Femtometres(thisInt)
 
   /** Returns this [[Int]] value in [[Hectares]], [[Hectometres]]². */
   @inline def hectares: Hectares = Hectares(thisInt)

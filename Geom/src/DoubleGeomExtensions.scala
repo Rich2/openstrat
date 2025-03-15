@@ -29,11 +29,14 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Nanometres]]. */
   @inline def nanoMetres: Nanometres = Nanometres(thisDouble)
 
-  /** Returns this [[Double]] value in [[Picometres]]. */
-  @inline def picoMetres: Picometres = Picometres(thisDouble)
-  
   /** Returns this [[Double]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisDouble)
+
+  /** Returns this [[Double]] value in [[Picometres]]. */
+  @inline def picoMetres: Picometres = Picometres(thisDouble)
+
+  /** Returns this [[Double]] value in [[Femtometres]]. */
+  @inline def femtoMetres: Femtometres = Femtometres(thisDouble)
 
   /** Returns this [[Double]] value in [[Hectares]]. */
   @inline def hectares: Hectares = Hectares(thisDouble)
