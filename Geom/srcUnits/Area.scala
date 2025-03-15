@@ -15,6 +15,9 @@ trait Area extends Any with Ordered[Area]
   /** the number of [[Millares]], square millimetres in this area. */
   def millaresNum: Double
 
+  /** the number of [[Picares]], square picometres in this area. */
+  def picaresNum: Double
+
   /** the number of square yards. This follows the same naming convention as [[Hectares]]. */
   def yardaresNum: Double
 

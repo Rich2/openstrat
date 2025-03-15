@@ -1,9 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
- *  surface. */
+/** A 2-dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2-dimensional flat surface. */
 class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double) extends LineSegLength2[PtM2]
   with LineSegLikeDbl4[PtM2] with Dbl4Elem
 { override def xStart: Metres = Metres(xStartMetresNum)
@@ -27,11 +26,10 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
   override def yEndKilometresNum: Double = yEndMetresNum / 1000
 }
 
-/** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
- * an extension method. */
+/** Companion object for line segments in a 2-dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and an
+ * extension method. */
 object LineSegM2
-{
-  /** Factory apply method for constructing [[LineSegM2]]s from the start and end points. There is an apply overload to construct from the X and Y components of
+{ /** Factory apply method for constructing [[LineSegM2]]s from the start and end points. There is an apply overload to construct from the X and Y components of
    * the start and end points. To construct from scalar quantities use the metresNum method. */
   def apply(startPt: PtLength2, endPt: PtLength2): LineSegM2 = new LineSegM2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 

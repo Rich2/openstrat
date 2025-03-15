@@ -7,10 +7,11 @@ trait AreaImperial extends Any with Area with ImperialUnits
   override def - (operand: Area): AreaImperial
   override def * (operand: Double): AreaImperial
   override def / (operand: Double): AreaImperial
-  override def metraresNum: Double = yardaresNum * 0.836127
-  override def kilaresNum: Double = milearesNum * Area.milearesToKilares
-  override def hectaresNum: Double = acresNum * 0.404686
+  override def picaresNum: Double = metraresNum * 1e24
   override def millaresNum: Double = metraresNum * 1e6
+  override def metraresNum: Double = yardaresNum * 0.836127
+  override def hectaresNum: Double = acresNum * 0.404686
+  override def kilaresNum: Double = milearesNum * Area.milearesToKilares
 }
 
 /** Square yards a measure of [[Area]]. Follows the same naming convention as Hectares. */

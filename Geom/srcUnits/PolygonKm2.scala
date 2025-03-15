@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A polygon using verticies specified in [[Kilometres]] rather than scalars. */
+/** A polygon using vertices specified in [[PtKm2]] points rather than scalars. */
 final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength2[PtKm2]
 { type ThisT = PolygonKm2
   type SideT = LineSegKm2

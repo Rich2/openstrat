@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A 2 dimensional line segment measured in kilometres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
+/** A 2-dimensional line segment measured in kilometres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val xEndKilometresNum: Double, val yEndKilometresNum: Double) extends
   LineSegLength2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem
@@ -26,11 +26,11 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def dbl4: Double = yEndKilometresNum
 }
 
-/** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
- * an extension method. */
+/** Companion object for line segments in a 2-dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and an
+ * extension method. */
 object LineSegKm2
-{ /** Factory apply method for constructing [[LineSegKm2]]s from the start and end points. There is an apply overload to construct from the X and Y components of
-   * the start and end points. To construct from scalar quantities use the metresNum method. */
+{ /** Factory apply method for constructing [[LineSegKm2]]s from the start and end points. There is an apply overload to construct from the X and Y components
+   * of the start and end points. To construct from scalar quantities use the metresNum method. */
   def apply(startPt: PtKm2, endPt: PtKm2): LineSegKm2 = new LineSegKm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
   /** Factory apply method for constructing [[LineSegKm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
@@ -54,8 +54,7 @@ object LineSegKm2
   }
 }
 
-/** Compact immutable Array[Double] based collection class for [[LineSegKm2]]s. A mathematical
- *  straight line segment measured in metres. */
+/** Compact immutable Array[Double] based collection class for [[LineSegKm2]]s. A mathematical straight line segment measured in [[Kilometres]]. */
 class LineSegKm2Arr(val arrayUnsafe: Array[Double]) extends Dbl4Arr[LineSegKm2]
 { type ThisT = LineSegKm2Arr
   def fromArray(array: Array[Double]): LineSegKm2Arr = new LineSegKm2Arr(array)
