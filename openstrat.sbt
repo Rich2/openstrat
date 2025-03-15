@@ -180,6 +180,8 @@ lazy val Dev = jvmMainProj("Dev").dependsOn(AppsExs).settings(
 
 lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
+  assembly/mainClass := Some("ostrat.pFx.DevApp"),
+  assemblyMergeStrategy := {case _ => MergeStrategy.first }
 )
 
 lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev).settings(
