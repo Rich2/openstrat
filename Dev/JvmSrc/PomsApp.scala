@@ -2,11 +2,11 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-/** Application for producing Openstrat POM files. Takes the target folder as a paremter. */
+/** Application for producing Openstrat POM files. Takes the target folder as a parameter. */
 object PomsApp
 {
   def main(args: Array[String]): Unit =
-  { val versionStr = "0.3.6"
+  { val versionStr = "0.3.7"
     val scalaVersion ="3.6.4"
     val oDir = args.headOption
     debvar(oDir)
