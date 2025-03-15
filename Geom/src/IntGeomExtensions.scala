@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import impunits._
+import impunits.*
 
 /** Extension methods class for [[Int]], for the geom package. */
 class IntGeomExtensions(thisInt: Int)

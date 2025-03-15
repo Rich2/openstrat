@@ -42,6 +42,9 @@ object ScalaGroupId extends GroupId("org.scala-lang")
 /** XML element for a POM dependency for a version of the Scala3 library. */
 class ScalaLibDependency(val versionStr: String) extends PomDep(ScalaGroupId, ArtifactId("scala3-library_3"), VersionElem(versionStr))
 
+/** XML element for a POM dependency for a version of the Scala3.js library. */
+class ScalaJsLibDependency(val versionStr: String) extends PomDep(ScalaGroupId, ArtifactId("scala3-library_sjs1_3"), VersionElem(versionStr))
+
 object ScalaLibDependency
 { def apply(versionStr: String): ScalaLibDependency = new ScalaLibDependency(versionStr)
 }
