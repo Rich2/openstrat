@@ -19,7 +19,6 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
   override def dbl2: Double = yStartMetresNum
   override def dbl3: Double = xEndMetresNum
   override def dbl4: Double = yEndMetresNum
-
   override def xStartKilometresNum: Double = xStartMetresNum / 1000
   override def yStartKilometresNum: Double = yStartMetresNum / 1000
   override def xEndKilometresNum: Double = xEndMetresNum / 1000
@@ -68,10 +67,9 @@ class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends Dbl4Arr[LineSegM2]
 
 /** Companion object for the [[LineSegM2]]s class. */
 object LineSegM2Arr extends CompanionSeqLikeDbl4[LineSegM2, LineSegM2Arr]
-{
-  override def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
+{ override def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
 
-  /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
+  /** Implicit instance / evidence for [[BuilderArrFlat]] type class instance. */
   implicit val flatBuildEv: BuilderArrFlat[LineSegM2Arr] = new BuilderArrDbl4Flat[LineSegM2Arr]
   { type BuffT = LineSegM2Buff
     override def fromDblArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
