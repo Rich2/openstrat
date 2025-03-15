@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 trait PomProject extends XmlMulti
@@ -25,14 +25,15 @@ object PomDep
   def apply(groupStr: String, artifactStr: String, versionStr: String): PomDep = new PomDep(GroupId(groupStr), ArtifactId(artifactStr), VersionElem(versionStr))
 }
 
-/** XML element for POM file dependenies. Takes individual [[PopDep]]s as its child elements. */
+/** XML element for POM file dependencies. Note the plural. Takes individual [[PopDep]]s as its child elements. */
 class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlMulti
 { override def tag: String = "Dependencies"
   override def attribs: RArr[XmlAtt] = RArr()
   override def contents: RArr[PomDep] = dependencies
 }
 
-object PomDepenenciesElem{
+object PomDepenenciesElem
+{ /** Factory apply method for the Pom Dependencies element. Note the plural.Takes individual [[PopDep]]s as its child elements. */
   def apply(dependencies: RArr[PomDep]): PomDepenenciesElem = new PomDepenenciesElem(dependencies)
 }
 
