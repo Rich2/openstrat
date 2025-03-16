@@ -42,7 +42,7 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def subY(operand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum - operand.metresNum)
   override def * (operand: Double): PtPm2 = new PtPm2(xPicometresNum * operand, yPicometresNum * operand)
   override def / (operator: Double): PtPm2 = new PtPm2(xPicometresNum / operator, yPicometresNum / operator)
-  override def divByLength(operator: Length): Pt2 = Pt2(xPicometresNum / operator.metresNum, yPicometresNum / operator.metresNum)
+  override def divByLength(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
   override def revYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))
@@ -82,7 +82,7 @@ object PtPm2
   def origin: PtPm2 = new PtPm2(0, 0)
 
   implicit class Picometres2Implicit(thisPicometres2: PtPm2)
-  { def / (operator: LengthMetric): Pt2 = Pt2(thisPicometres2.x.metresNum/ operator.metresNum, thisPicometres2.y.metresNum / operator.metresNum)
+  { def / (operator: LengthMetric): Pt2 = thisPicometres2.divByLength(operator)
   }
 
   /** [[Show]] type class instance / evidence for [[PTPm2]]. */
