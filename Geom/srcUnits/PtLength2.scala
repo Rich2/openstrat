@@ -22,6 +22,8 @@ trait PtLength2 extends VecPtLength2, PointDbl2
   def lineSegTo(endPt: PtLength2): LineSegLength2[? <: PtLength2]
   def lineSegFrom(startPt: PtLength2): LineSegLength2[? <: PtLength2]
 
+  //def angleTo(angle: Angle, dist: Length): PtLength2
+
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
   def rotate180: PtLength2
 

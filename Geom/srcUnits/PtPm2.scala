@@ -51,6 +51,9 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def rotate180IfNot(cond: Boolean): PtPm2 = ife(cond, this, rotate180)
   override def rotate(a: AngleVec): PtPm2 =  new PtPm2(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
+  def angleTo(angle: Angle, delta: Length): PtPm2 =
+    PtPm2(xPicometresNum + delta.picometresNum * angle.cos, yPicometresNum + delta.picometresNum * angle.sin)
+
   override def rotateRadians(r: Double): PtPm2 =
   { val newX = xPicometresNum * cos(r) - yPicometresNum * sin(r)
     val newY =

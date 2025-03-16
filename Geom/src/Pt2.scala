@@ -46,7 +46,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
   /** Gives the angle from this point to the operand point. */
   def angleTo(operand: Pt2): Angle = (this >> operand).angle
 
-  /** Gives the anlge from the operand point to this point. */
+  /** Gives the angle from the operand point to this point. */
   def angleFrom(operand: Pt2): Angle = (this << operand).angle
 
   /** Gives the anlge from the operand point to this point. */
