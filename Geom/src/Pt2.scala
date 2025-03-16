@@ -1,10 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, annotation.targetName
 
-/** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
- *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
- *  can be used to translate the point. */
+/** A 2-dimensional point. [[Pt2]]s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a [[Vec2]]
+ * instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points, but they can be used to
+ * translate the point. */
 final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with CurveTailMax6
 { override type ThisT = Pt2
   override type LineSegT = LineSeg
@@ -36,8 +36,8 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
   /** Subtracts this 2D point from the operand 2D point to get the relative Vector. */
   def >>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
-  /** Subtracts this 2D point from the operand 2D point and halves it to get the relative Vector divided by 2. This is a very common operation when
-   * calculating the distance along an axis and the distance to the centre point is required. Hence the specific method */
+  /** Subtracts this 2D point from the operand 2D point and halves it to get the relative Vector divided by 2. This is a very common operation when calculating
+   * the distance along an axis and the distance to the centre point is required. Hence, the specific method. */
   def >/>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
@@ -52,12 +52,12 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
   /** Gives the anlge from the operand point to this point. */
   def angleFromYDown(operand: Pt2): Angle = (this << operand).angleYDown
 
-  /** The mid point or average of this and the operand Pt2. The mid point between this point and the operand second point. */
+  /** The mid-point or average of this and the operand Pt2. The mid-point between this point and the operand second point. */
   @targetName("midPoint") def \/(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
 
-  /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
+  /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
   def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
@@ -130,7 +130,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
 
   @inline def prolign(m: ProlignMatrix): Pt2 = m.vecTrans(this)
 
-  /** Reverses the y coordinate. Useful for translating between canvases where the y axis measures down and coordinate systems where y is up */
+  /** Reverses the y coordinate. Useful for translating between canvases where the y-axis measures down and coordinate systems where y is up */
   def inverseY: Pt2 = Pt2(x, -y)
 
   def toTuple: Tuple2[Double, Double] = (x, y)
@@ -214,9 +214,9 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 
-  /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextFixed]] to this point. The
-   * alignment of the text is determined by the angle parameter. The method is not meant to cover all possible configurations for text arrows. These
-   * can easily be constructed from OpenStrat primitives, but to provide a quick default for rapid development. */
+  /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextFixed]] to this point. The alignment of the
+   * text is determined by the angle parameter. The method is not meant to cover all possible configurations for text arrows. These can easily be constructed
+   * from OpenStrat primitives, but to provide a quick default for rapid development. */
   def textArrow(str: String, angle: Angle = Ang45, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
   {
     val align: TextAlign = angle match
@@ -231,13 +231,13 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
     this.angleFromLine(angle, arrowLength).withArrow(colour) +% tg
   }
 
-  /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextFixed]] to this point. The arrow
-   * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
+  /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextFixed]] to this point. The arrow points
+   * towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
   def textArrowToward(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14):
     RArr[GraphicSvgElem] = textArrow(str, angleFrom(dirnPt), arrowLength, colour, fontSize)
 
-  /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing away from the [[TextFixed]] to this point. The arrow
-   * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
+  /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing away from the [[TextFixed]] to this point. The arrow points
+   * towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
   def textArrowAwayFrom(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
     textArrow(str, angleTo(dirnPt), arrowLength, colour, fontSize)
 
@@ -247,8 +247,8 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
   override def endPt: Pt2 = this
 }
 
-/** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the
- * 2D geometric transformation type classes. */
+/** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the 2D geometric
+ * transformation type classes. */
 object Pt2
 { /** apply factory method for [[Pt2]]s. */
   def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
@@ -293,8 +293,8 @@ object Pt2
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 
-  /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function
-   * where Pt2 is the type B parameter. */
+  /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function where
+   * [[Pt2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
   implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LineSeg] = LineSeg(_, _)
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
@@ -316,4 +316,4 @@ object Pt2
   { override def shearXT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
     override def shearYT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }
-} 
+}

@@ -75,6 +75,7 @@ object PtKm2
   /** Factory method for creating a 2-dimensional point measured in metres from the X and Y [[Length]]s. */
   def apply(x: Length, y: Length): PtKm2 = new PtKm2(x.kilometresNum, y.kilometresNum)
 
+  /** Origin of a 2-dimensional space measured in [[Kilometres]]. */
   def origin: PtKm2 = new PtKm2(0, 0)
 
   implicit class Metres2Implicit(thisMetres2: PtKm2)

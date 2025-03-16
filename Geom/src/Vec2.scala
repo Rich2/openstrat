@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math.{Pi, atan}
 
-/** A 2 dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed
- * to the absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points.
- * Thanks to René Descartes for this great idea. */
+/** A 2-dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed to the
+ * absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points. Thanks to René
+ * Descartes for this great idea. */
 class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
 { override def typeStr: String = "Vec2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
@@ -94,7 +94,7 @@ class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
   def magnitude: Double = math.sqrt(x * x + y * y)
 }
 
-/** Companion object for [[Vec2]] contains apply factory, unapply extractor and implicit [[Persist instances. */
+/** Companion object for [[Vec2]] contains apply factory, unapply extractor and implicit [[Persist]] instances. */
 object Vec2
 { /** apply factory method for [[Vec2]]s. */
   def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
