@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Quantity of area specified in [[MetricUnits]]. */
-trait AreaMetric extends Any with Area with MetricUnits with TellDblBased
+trait AreaMetric extends Any, Area, MetricUnits, TellDblBased
 { override def + (operand: Area): Area
   override def - (operand: Area): AreaMetric
   override def * (operand: Double): AreaMetric
@@ -13,7 +13,7 @@ trait AreaMetric extends Any with Area with MetricUnits with TellDblBased
 }
 
 /** Square [[Picometres]] a measure of [[Area]]. [[Picares]] follows the same naming convention as [[Hectares]]. */
-class Picares(val picaresNum: Double) extends AnyVal with AreaMetric
+class Picares(val picaresNum: Double) extends AnyVal, AreaMetric
 { override def typeStr: String = "Picares"
   override def unitsDbl: Double = picaresNum
   override def endingStr: String = "pm²"
@@ -29,8 +29,8 @@ class Picares(val picaresNum: Double) extends AnyVal with AreaMetric
 }
 
 /** Square millimetres a measure of [[Area]]. [[Millares]] follows the same naming convention as [[Hectares]]. */
-class Millares(val millaresNum: Double) extends AnyVal with AreaMetric {
-  override def typeStr: String = "Millares"
+class Millares(val millaresNum: Double) extends AnyVal, AreaMetric
+{ override def typeStr: String = "Millares"
   override def unitsDbl: Double = millaresNum
   override def endingStr: String = "mm²"
   override def +(operand: Area): Millares = Millares(millaresNum + operand.millaresNum)
@@ -46,8 +46,8 @@ class Millares(val millaresNum: Double) extends AnyVal with AreaMetric {
 
 /** Square metres a measure of [[Area]]. Following convention this would be a called an Ares, but unfortunately and confusingly this is sometimes used for
  * 100m². */
-class Metrares(val metraresNum: Double) extends AnyVal with AreaMetric
-{ override def typeStr: String = "Metres"
+class Metrares(val metraresNum: Double) extends AnyVal, AreaMetric
+{ override def typeStr: String = "Metrares"
   override def unitsDbl: Double = metraresNum
   override def endingStr: String = "m²"
   override def + (operand: Area): Metrares = new Metrares(metraresNum + operand.metraresNum)
@@ -66,8 +66,8 @@ object Metrares
   def apply(metresSqNum: Double): Metrares = new Metrares(metresSqNum)
 }
 
-/** Square kilometres a measure of [[Area]]. Kilares follows the same naming convention as Hectares. */
-class Hectares(val hectaresNum: Double) extends AnyVal with AreaMetric
+/** Hectares a measure of [[Area]] in units of 100². */
+class Hectares(val hectaresNum: Double) extends AnyVal, AreaMetric
 { override def typeStr: String = "Hectares"
   override def unitsDbl: Double = hectaresNum
   override def endingStr: String = "ha"
@@ -82,8 +82,8 @@ class Hectares(val hectaresNum: Double) extends AnyVal with AreaMetric
   override def compare(that: Area): Int = if(kilaresNum > that.kilaresNum) 1 else if (kilaresNum < that.kilaresNum) -1 else 0
 }
 
-/** Square kilometres a measure of [[Area]]. Kilares follows the same naming convention as [[Hectares]]s. */
-class Kilares(val kilaresNum: Double) extends AnyVal with AreaMetric
+/** Square kilometres a measure of [[Area]]. [[Kilares]] follows the same naming convention as [[Hectares]]s. */
+class Kilares(val kilaresNum: Double) extends AnyVal, AreaMetric
 { override def typeStr: String = "Kilares"
   override def unitsDbl: Double = kilaresNum
   override def endingStr: String = "km²"

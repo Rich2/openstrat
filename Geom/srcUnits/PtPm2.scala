@@ -1,15 +1,17 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** Common trait for [[VecPm2]] and [[PtPm2]] */
-trait VecPtPm2 extends VecPtLength2
+trait VecPtPm2 extends VecPtLength2, TellElemDbl2
 { /** The X component of this 2-dimensional [[Picometres]] vector. */
   def x: Picometres = Picometres(xPicometresNum)
 
   /** The Y component of this 2-dimensional [[Picometres]] vector. */
   def y: Picometres = Picometres(yPicometresNum)
 
+  override def xFemtometresNum: Double = xPicometresNum * 1e-15
+  override def yFemtometresNum: Double = yPicometresNum * 1e-15
   override def xMetresNum: Double = xPicometresNum * 1e-12
   override def yMetresNum: Double = yPicometresNum * 1e-12
   override def xKilometresNum: Double = xPicometresNum * 1e-15
@@ -23,7 +25,7 @@ trait VecPtPm2 extends VecPtLength2
 }
 
 /** A 2-dimensional point specified in [[Picometres]] as units rather than pure scalar numbers. */
-final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends PtLength2 with VecPtPm2 with TellElemDbl2
+final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends PtLength2, VecPtPm2
 { override type ThisT = PtPm2
   override type LineSegT = LineSegPm2
   override def typeStr: String = "PtPm2"
@@ -74,8 +76,8 @@ object PtPm2
 
   def origin: PtPm2 = new PtPm2(0, 0)
 
-  implicit class Picometres2Implicit(thisMetres2: PtPm2)
-  { def / (operator: LengthMetric): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  implicit class Picometres2Implicit(thisPicometres2: PtPm2)
+  { def / (operator: LengthMetric): Pt2 = Pt2(thisPicometres2.x.metresNum/ operator.metresNum, thisPicometres2.y.metresNum / operator.metresNum)
   }
 
   /** [[Show]] type class instance / evidence for [[PTPm2]]. */
@@ -108,7 +110,7 @@ object PtPm2
 }
 
 /** Specialised immutable Array based collection class for [[PtPm2]]s. */
-class PtPm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtPm2]
+class PtPm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl2[PtPm2]
 { type ThisT = PtPm2Arr
   override def fromArray(array: Array[Double]): PtPm2Arr = new PtPm2Arr(array)
   override def typeStr: String = "PtPm2Arr"
@@ -128,7 +130,7 @@ object PtPm2Arr extends CompanionSeqLikeDbl2[PtPm2, PtPm2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtPm2]]s collections. */
-final class BuffPtPm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtPm2]
+final class BuffPtPm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtPm2]
 { override def typeStr: String = "BuffPtMetre2"
   def newElem(d1: Double, d2: Double): PtPm2 = PtPm2.picometresNum(d1, d2)
 }
@@ -138,7 +140,7 @@ object BuffPtPm2
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends VecPtPm2 with VecLength2// with TellElemDbl2
+final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends VecPtPm2, VecLength2
 { override def typeStr: String = "VecPm2"
   override def + (operand: VecLength2): VecPm2 = new VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def - (operand: VecLength2): VecPm2 = new VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
@@ -150,12 +152,12 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
 
 object VecPm2
 { /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Picometres]] components. */
-  def spply(x: Picometres, y: Picometres): VecPm2 = new VecPm2(x.kilometresNum, y.kilometresNum)
+  def spply(x: Picometres, y: Picometres): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
 
-  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. */
-  def lengths(x: Length, y: Length): VecPm2 = new VecPm2(x.kilometresNum, y.kilometresNum)
+  /** Factory method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Length]] components. */
+  def lengths(x: Length, y: Length): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
 
-  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the scalars of the components. */
+  /** Factory method for creating 2-dimensional vectors defined in [[Picometres]] from the scalars of the components. */
   def picometresNum(xPicometresNum: Double, yPicometresNum: Double): VecPm2 = new VecPm2(xPicometresNum, yPicometresNum)
 
   val buildImplicit: BuilderArrMap[VecPm2, VecPm2Arr] = new BuilderArrDbl2Map[VecPm2, VecPm2Arr]
@@ -175,7 +177,7 @@ class VecPm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecPm2]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[VecPm2]] collections. */
-final class VecPm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecPm2]
+final class VecPm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[VecPm2]
 { override def typeStr: String = "VecPm2Buff"
   def newElem(d1: Double, d2: Double): VecPm2 = VecPm2.picometresNum(d1, d2)
 }

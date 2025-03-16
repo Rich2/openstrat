@@ -19,10 +19,18 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
   override def dbl2: Double = yStartMetresNum
   override def dbl3: Double = xEndMetresNum
   override def dbl4: Double = yEndMetresNum
-  override def xStartKilometresNum: Double = xStartMetresNum / 1000
-  override def yStartKilometresNum: Double = yStartMetresNum / 1000
-  override def xEndKilometresNum: Double = xEndMetresNum / 1000
-  override def yEndKilometresNum: Double = yEndMetresNum / 1000
+  override def xStartFemtometresNum: Double = xStartMetresNum * 1e15
+  override def yStartFemtometresNum: Double = yStartMetresNum * 1e15
+  override def xEndFemtometresNum: Double = xEndMetresNum * 1e15
+  override def yEndFemtometresNum: Double = yEndMetresNum * 1e15
+  override def xStartPicometresNum: Double = xStartMetresNum * 1e12
+  override def yStartPicometresNum: Double = yStartMetresNum * 1e12 
+  override def xEndPicometresNum: Double = xEndMetresNum * 1e12
+  override def yEndPicometresNum: Double = yEndMetresNum * 1e12  
+  override def xStartKilometresNum: Double = xStartMetresNum * 1e-3
+  override def yStartKilometresNum: Double = yStartMetresNum * 1e-3
+  override def xEndKilometresNum: Double = xEndMetresNum * 1e-3
+  override def yEndKilometresNum: Double = yEndMetresNum * 1e-3
 }
 
 /** Companion object for line segments in a 2-dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and an

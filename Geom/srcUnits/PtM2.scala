@@ -10,6 +10,8 @@ trait VecPtM2 extends VecPtLength2
   /** The Y component of this 2-dimensional [[Metres]] vector. */
   def y: Metres = Metres(yMetresNum)
 
+  override def xFemtometresNum: Double = xMetresNum * 1e15
+  override def yFemtometresNum: Double = yMetresNum * 1e15
   override def xPicometresNum: Double = xMetresNum * 1e12
   override def yPicometresNum: Double = yMetresNum * 1e12
   override def xKilometresNum: Double = xMetresNum * 1e-3
@@ -65,13 +67,13 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
 
 /** Companion object for [[PtM2]] class contains factory methods. */
 object PtM2
-{ /** Factory apply method to create 2 dimeensional point specified in [[Metres]]. If you want to consttuct from scalars use the metresNum method. */
+{ /** Factory apply method to create 2-dimensional point specified in [[Metres]]. If you want to consttuct from scalars use the metresNum method. */
   def apply(x: Length, y: Length): PtM2 = new PtM2(x.metresNum, y.metresNum)
 
-  /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
+  /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
   def metresNum(xMetres: Double, yMetres: Double): PtM2 = new PtM2(xMetres, yMetres)
 
-  /** The origin of this 2 dimensional space. */
+  /** The origin of this 2-dimensional space. */
   def origin: PtM2 = new PtM2(0, 0)
 
   /** [[Show]] type class instance / evidence for [[PTM2]]. */
@@ -98,8 +100,8 @@ object PtM2
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 
-  /** Implicit instance for the [[PolygonM2Pair]] builder. This has to go in the [[PtM2]] companion object so it can be found by an A => B function
-   * where PtM2 is the type B parameter. */
+  /** Implicit instance for the [[PolygonM2Pair]] builder. This has to go in the [[PtM2]] companion object so it can be found by an A => B function where
+   * [[PtM2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM2PairBuilder[A2] = new PolygonM2PairBuilder[A2]
 }
 

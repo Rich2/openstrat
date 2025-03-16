@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A quasi line path specified in [[PtPm2]] points. The points do not have to lie within the same plane. This has been created for specifying molecular
  * structures. */
-final class LinePathPm2(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl2[PtPm2]
+final class LinePathPm2(val arrayUnsafe: Array[Double]) extends AnyVal, LinePathDbl2[PtPm2]
 { override type ThisT = LinePathPm2
   override type PolygonT = PolygonPm2
   override def typeStr: String = "LinePathPm2"

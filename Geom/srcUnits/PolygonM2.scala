@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A polygon where the vertices are specified in [[Metres]] rather than scalars. */
-final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength2[PtM2]
+final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLength2[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM2
   override def typeStr: String = "PolygonM2"
@@ -73,7 +73,7 @@ class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArra
 }
 
 /** Buff of [[PolygonM2]]s. */
-class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonM2]
+class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonM2]
 { override type ThisT = PolygonM2Buff
   override def typeStr: String = "PolygonM2Buff"
   override def fElemStr: PolygonM2 => String = _.toString
@@ -85,8 +85,8 @@ object PolygonM2Buff
 { def apply(initLen: Int = 4): PolygonM2Buff = new PolygonM2Buff(new ArrayBuffer[Array[Double]](initLen))
 }
 
-class PolygonM2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtM2, PolygonM2, A2]{
-  override def a1: PolygonM2 = new PolygonM2(a1ArrayDbl)
+class PolygonM2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtM2, PolygonM2, A2]
+{ override def a1: PolygonM2 = new PolygonM2(a1ArrayDbl)
 }
 
 object PolygonM2Pair

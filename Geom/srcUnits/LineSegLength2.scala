@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A line segment whose coordinates are specified in [[Length]] units. */
@@ -13,6 +13,14 @@ trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
   /** Divides by a [[Length]] to produce a scalar [[LineSeg]]. */
   def / (operand: Length): LineSeg
 
+  def xStartFemtometresNum: Double
+  def yStartFemtometresNum: Double
+  def xEndFemtometresNum: Double
+  def yEndFemtometresNum: Double
+  def xStartPicometresNum: Double
+  def yStartPicometresNum: Double
+  def xEndPicometresNum: Double
+  def yEndPicometresNum: Double
   def xStartMetresNum: Double
   def yStartMetresNum: Double
   def xEndMetresNum: Double

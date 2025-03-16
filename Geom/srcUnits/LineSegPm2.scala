@@ -16,6 +16,10 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
   override def /(operand: Length): LineSeg = LineSeg(xStartPicometresNum / operand.metresNum, yStartPicometresNum / operand.metresNum,
     xEndPicometresNum / operand.metresNum, yEndPicometresNum / operand.metresNum)
 
+  override def xStartFemtometresNum: Double = xStartPicometresNum * 1e-15
+  override def yStartFemtometresNum: Double = yStartPicometresNum * 1e-15
+  override def xEndFemtometresNum: Double = xEndPicometresNum * 1e-15
+  override def yEndFemtometresNum: Double = yEndPicometresNum * 1e-15
   override def xStartMetresNum: Double = xStartPicometresNum * 1e-12
   override def yStartMetresNum: Double = yStartPicometresNum * 1e-12
   override def xEndMetresNum: Double = xEndPicometresNum * 1e-12

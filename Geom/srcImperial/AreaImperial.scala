@@ -2,7 +2,7 @@
 package ostrat; package geom; package impunits
 
 /** Quantity of area specified in [[MetricUnits]]. */
-trait AreaImperial extends Any with Area with ImperialUnits
+trait AreaImperial extends Any, Area, ImperialUnits
 { override def + (operand: Area): AreaImperial
   override def - (operand: Area): AreaImperial
   override def * (operand: Double): AreaImperial
@@ -15,7 +15,7 @@ trait AreaImperial extends Any with Area with ImperialUnits
 }
 
 /** Square yards a measure of [[Area]]. Follows the same naming convention as Hectares. */
-class Yardares(val yardaresNum: Double) extends AnyVal with AreaImperial
+class Yardares(val yardaresNum: Double) extends AnyVal, AreaImperial
 { import Yardares.{ fromArea => ysfa }
   override def + (operand: Area): Yardares = new Yardares(yardaresNum + ysfa(operand))
   override def - (operand: Area): Yardares = new Yardares(yardaresNum - ysfa(operand))
@@ -41,7 +41,7 @@ object Yardares
 }
 
 /** Square yards a measure of [[Area]]. Follows the same naming convention as Hectares. */
-class Acres(val acresNum: Double) extends AnyVal with AreaImperial
+class Acres(val acresNum: Double) extends AnyVal, AreaImperial
 { import Acres.{ fromArea => afa }
   override def +(operand: Area): Acres = new Acres(acresNum + afa(operand))
   override def -(operand: Area): Acres = new Acres(acresNum - afa(operand))
@@ -67,7 +67,7 @@ object Acres
 }
 
 /** Square miles a measure of [[Area]]. Follows the same naming convention as [[Hectares]]. */
-class Mileares(val milearesNum: Double) extends AnyVal with AreaImperial
+class Mileares(val milearesNum: Double) extends AnyVal, AreaImperial
 { override def + (operand: Area): Mileares = new Mileares(milearesNum + operand.milearesNum)
   override def - (operand: Area): Mileares = new Mileares(milearesNum - operand.milearesNum)
   override def * (operand: Double): Mileares = new Mileares(milearesNum * operand)

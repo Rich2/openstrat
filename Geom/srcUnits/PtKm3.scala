@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** 3 dimensional point specified using [[Kilometres]] as units rather than scalars. */
+/** 3-dimensional point specified using [[Kilometres]] as units rather than scalars. */
 final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zKilometresNum: Double) extends PtLength3
 { override type ThisT = PtKm3
   override type LineSegT = LineSegKm3
@@ -20,7 +20,7 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
   def y: Kilometres = Kilometres(yKilometresNum)
   def z: Kilometres = Kilometres(zKilometresNum)
 
-  /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
+  /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
   @inline def dot(operand: PtKm3): Kilares = x * operand.x + y * operand.y + z * operand.z
   def xy: PtM2 = PtM2.metresNum(xKilometresNum, yKilometresNum)
   def xPos: Boolean = x.nonNeg
@@ -157,9 +157,9 @@ class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtKm3
   override def fElemStr: PtKm3 => String = _ => "Undefined" //_.str
   override def newElem(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
 
-  /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
-   *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
-   *  points are moved to the horizon. */
+  /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its on the side
+   * of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative points are moved to the
+   * horizon. */
   def earthZPositive: OptEither[PtM2Arr, CurveSegMArrOld] =
   {
     existsCount(_.z.nonNeg) match
@@ -217,7 +217,7 @@ final class PtKm3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with
 }
 
 object PtKm3Buff
-{ /** Facotry apply method for [[PtKm3Buff]]s. */
+{ /** Factory apply method for [[PtKm3Buff]]s. */
   def apply(initSize: Int = 4): PtKm3Buff = new PtKm3Buff(new ArrayBuffer[Double](initSize * 3))
 }
 

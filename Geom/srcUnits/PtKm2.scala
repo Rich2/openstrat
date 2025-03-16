@@ -3,13 +3,15 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** Common trait for [[VecKm2]] and [[PtKm2]] */
-trait VecPtKm2 extends VecPtLength2 {
-  /** The X component of this 2-dimensional [[Metres]] vector. */
-    def x: Kilometres = Kilometres(xKilometresNum)
+trait VecPtKm2 extends VecPtLength2, TellElemDbl2
+{ /** The X component of this 2-dimensional [[Metres]] vector. */
+  def x: Kilometres = Kilometres(xKilometresNum)
 
   /** The Y component of this 2-dimensional [[Metres]] vector. */
   def y: Kilometres = Kilometres(yKilometresNum)
 
+  override def xFemtometresNum: Double = xKilometresNum * 1e18
+  override def yFemtometresNum: Double = yKilometresNum * 1e18
   override def xPicometresNum: Double = xKilometresNum * 1e15
   override def yPicometresNum: Double = yKilometresNum * 1e15
   override def xMetresNum: Double = xKilometresNum * 1e3
@@ -23,7 +25,7 @@ trait VecPtKm2 extends VecPtLength2 {
 }
 
 /** A 2-dimensional point specified in [[Kilometres]] as units rather than pure scalar numbers. */
-final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLength2 with VecPtKm2 with TellElemDbl2
+final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLength2, VecPtKm2
 { override type ThisT = PtKm2
   override type LineSegT = LineSegKm2
   override def typeStr: String = "PtKm2"
@@ -111,7 +113,7 @@ object PtKm2
 class PtKm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtKm2]
 { type ThisT = PtKm2Arr
   override def fromArray(array: Array[Double]): PtKm2Arr = new PtKm2Arr(array)
-  override def typeStr: String = "Metres2s"
+  override def typeStr: String = "PtKm2Arr"
   override def seqDefElem(d1: Double, d2: Double): PtKm2 = PtKm2.kilometresNum(d1, d2)
   override def fElemStr: PtKm2 => String = _.str
 }
@@ -130,7 +132,7 @@ object PtKm2Arr extends CompanionSeqLikeDbl2[PtKm2, PtKm2Arr]
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtKm2]]s collections. */
 final class BuffPtKm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtKm2]
-{ override def typeStr: String = "BuffPtMetre2"
+{ override def typeStr: String = "BuffPtKm2"
   def newElem(d1: Double, d2: Double): PtKm2 = PtKm2.kilometresNum(d1, d2)
 }
 
@@ -138,9 +140,8 @@ object BuffPtKm2
 { def apply(initSize: Int = 4): BuffPtKm2 = new BuffPtKm2(new ArrayBuffer[Double](initSize * 2))
 }
 
-
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2 with VecLength2// with TellElemDbl2
+final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2, VecLength2
 { override def typeStr: String = "VecKm2"
 
   override def + (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)

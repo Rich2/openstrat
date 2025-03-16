@@ -16,10 +16,18 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def /(operand: Length): LineSeg = LineSeg(xStartKilometresNum / operand.metresNum, yStartKilometresNum / operand.metresNum,
     xEndKilometresNum / operand.metresNum, yEndKilometresNum / operand.metresNum)
 
-  override def xStartMetresNum: Double = xStartKilometresNum * 1000
-  override def yStartMetresNum: Double = yStartKilometresNum * 1000
-  override def xEndMetresNum: Double = xEndKilometresNum * 1000
-  override def yEndMetresNum: Double = yEndKilometresNum * 1000
+  override def xStartFemtometresNum: Double = xStartKilometresNum * 1e15
+  override def yStartFemtometresNum: Double = yStartKilometresNum * 1e15
+  override def xEndFemtometresNum: Double = xEndKilometresNum * 1e15
+  override def yEndFemtometresNum: Double = yEndKilometresNum * 1e15  
+  override def xStartPicometresNum: Double = xStartKilometresNum * 1e12
+  override def yStartPicometresNum: Double = yStartKilometresNum * 1e12
+  override def xEndPicometresNum: Double = xEndKilometresNum * 1e12
+  override def yEndPicometresNum: Double = yEndKilometresNum * 1e12  
+  override def xStartMetresNum: Double = xStartKilometresNum * 1e3
+  override def yStartMetresNum: Double = yStartKilometresNum * 1e3
+  override def xEndMetresNum: Double = xEndKilometresNum * 1e3
+  override def yEndMetresNum: Double = yEndKilometresNum * 1e3
   override def dbl1: Double = xStartKilometresNum
   override def dbl2: Double = yStartKilometresNum
   override def dbl3: Double = xEndKilometresNum

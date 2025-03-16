@@ -7,6 +7,8 @@ trait VecPtLength2 extends TellElemDbl2
   override def name1: String = "x"
   override def name2: String = "y"
 
+  def xFemtometresNum: Double
+  def yFemtometresNum: Double
   def xPicometresNum: Double
   def yPicometresNum: Double
   def xMetresNum: Double

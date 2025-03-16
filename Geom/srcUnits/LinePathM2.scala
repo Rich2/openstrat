@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A quasi line path specified in [[PtM2]] points. The points do not have to lie within the same plane. It has been created for the intermediary step of
  * converting from [[LinePathLL]]s to [[LinePath]]s on world maps. */
-final class LinePathM2(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl2[PtM2]
+final class LinePathM2(val arrayUnsafe: Array[Double]) extends AnyVal, LinePathDbl2[PtM2]
 { override type ThisT = LinePathM2
   override type PolygonT = PolygonM2
   override def typeStr: String = "LinePathM2"
