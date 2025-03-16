@@ -10,8 +10,8 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
   def yStart: Picometres = Picometres(yStartPicometresNum)
   def xEnd: Picometres = Picometres(xEndPicometresNum)
   def yEnd: Picometres = Picometres(yEndPicometresNum)
-  def startPt: PtPm2 = PtPm2.picometresNum(xStartPicometresNum, yStartPicometresNum)
-  def endPt: PtPm2 = PtPm2.picometresNum(xEndPicometresNum, yEndPicometresNum)
+  def startPt: PtPm2 = PtPm2(xStartPicometresNum, yStartPicometresNum)
+  def endPt: PtPm2 = PtPm2(xEndPicometresNum, yEndPicometresNum)
 
   override def /(operand: Length): LineSeg = LineSeg(xStartPicometresNum / operand.metresNum, yStartPicometresNum / operand.metresNum,
     xEndPicometresNum / operand.metresNum, yEndPicometresNum / operand.metresNum)

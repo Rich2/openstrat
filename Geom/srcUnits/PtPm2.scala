@@ -69,11 +69,13 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
 
 /** Companion object for [[PtPm2]] class contains factory methods. */
 object PtPm2
-{ /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
-  def picometresNum(xPicometres: Double, yPicometres: Double): PtPm2 = new PtPm2(xPicometres, yPicometres)
+{ /** Factory method for creating a 2-dimensional point measured in picometres from the X and Y [[Length]]s. */
+  def apply(x: Length, y: Length): PtPm2 = new PtPm2(x.picometresNum, y.picometresNum)
 
-  def apply(x: Picometres, y: Picometres): PtPm2 = new PtPm2(x.kilometresNum, y.kilometresNum)
+  /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
+  def apply(xPicometresNum: Double, yPicometresNum: Double): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum)
 
+  /** The origin of 2-dimensional corrinate space defined in picometres. */
   def origin: PtPm2 = new PtPm2(0, 0)
 
   implicit class Picometres2Implicit(thisPicometres2: PtPm2)
@@ -114,7 +116,7 @@ class PtPm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl2[PtPm2]
 { type ThisT = PtPm2Arr
   override def fromArray(array: Array[Double]): PtPm2Arr = new PtPm2Arr(array)
   override def typeStr: String = "PtPm2Arr"
-  override def seqDefElem(d1: Double, d2: Double): PtPm2 = PtPm2.picometresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
   override def fElemStr: PtPm2 => String = _.str
 }
 
@@ -132,7 +134,7 @@ object PtPm2Arr extends CompanionSeqLikeDbl2[PtPm2, PtPm2Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[PtPm2]]s collections. */
 final class BuffPtPm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtPm2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtPm2 = PtPm2.picometresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
 }
 
 object BuffPtPm2

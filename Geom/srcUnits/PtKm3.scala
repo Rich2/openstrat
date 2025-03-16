@@ -22,7 +22,7 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
 
   /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
   @inline def dot(operand: PtKm3): Kilares = x * operand.x + y * operand.y + z * operand.z
-  def xy: PtM2 = PtM2.metresNum(xKilometresNum, yKilometresNum)
+  def xy: PtM2 = PtM2.apply(xKilometresNum, yKilometresNum)
   def xPos: Boolean = x.nonNeg
   def xNeg: Boolean = x.neg
   def yPos: Boolean = y.nonNeg

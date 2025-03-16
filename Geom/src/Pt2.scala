@@ -76,7 +76,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
-  @inline def toMetres(factor: LengthMetric): PtM2 = PtM2.metresNum(x * factor.metresNum, y * factor.metresNum)
+  @inline def toMetres(factor: LengthMetric): PtM2 = PtM2.apply(x * factor.metresNum, y * factor.metresNum)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
@@ -257,7 +257,7 @@ object Pt2
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
   implicit class Pt2Implicit(thisPt: Pt2)
-  { def * (operand: Metres): PtM2 = PtM2.metresNum(thisPt.x * operand.metresNum, thisPt.y * operand.metresNum)
+  { def * (operand: Metres): PtM2 = PtM2.apply(thisPt.x * operand.metresNum, thisPt.y * operand.metresNum)
   }
 
   /** Returns point on a circle of radius 1 from the angle in radians. Gives an anti clockwise effect. */

@@ -49,7 +49,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
   override def rotate180If(cond: Boolean): PtM2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtM2 = ife(cond, this, rotate180)
-  override def rotate(a: AngleVec): PtM2 =  PtM2.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
+  override def rotate(a: AngleVec): PtM2 =  PtM2.apply(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
   override def rotateRadians(r: Double): PtM2 =
   { val newX = xMetresNum * cos(r) - yMetresNum * sin(r)
@@ -69,9 +69,9 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
 object PtM2
 { /** Factory apply method to create 2-dimensional point specified in [[Metres]]. If you want to consttuct from scalars use the metresNum method. */
   def apply(x: Length, y: Length): PtM2 = new PtM2(x.metresNum, y.metresNum)
-
+  
   /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
-  def metresNum(xMetres: Double, yMetres: Double): PtM2 = new PtM2(xMetres, yMetres)
+  def apply(xMetresNum: Double, yMetresNum: Double): PtM2 = new PtM2(xMetresNum, yMetresNum)
 
   /** The origin of this 2-dimensional space. */
   def origin: PtM2 = new PtM2(0, 0)
@@ -110,7 +110,7 @@ class PtM2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtM2]
 { type ThisT = PtM2Arr
   override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
   override def typeStr: String = "Metres2s"
-  override def seqDefElem(d1: Double, d2: Double): PtM2 = PtM2.metresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
   override def fElemStr: PtM2 => String = _.str
 }
 
@@ -128,7 +128,7 @@ object PtM2Arr extends CompanionSeqLikeDbl2[PtM2, PtM2Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */
 final class BuffPtM2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtM2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtM2 = PtM2.metresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
 }
 
 object BuffPtM2
