@@ -75,7 +75,7 @@ object PtPm2
   /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
   def apply(xPicometresNum: Double, yPicometresNum: Double): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum)
 
-  /** The origin of 2-dimensional corrinate space defined in picometres. */
+  /** The origin of 2-dimensional coordinate space defined in picometres. */
   def origin: PtPm2 = new PtPm2(0, 0)
 
   implicit class Picometres2Implicit(thisPicometres2: PtPm2)

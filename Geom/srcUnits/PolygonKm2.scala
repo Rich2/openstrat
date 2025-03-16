@@ -8,7 +8,7 @@ final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   type SideT = LineSegKm2
   override def typeStr: String = "PolygonKm2"
   def fromArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
-  override def ssElem(d1: Double, d2: Double): PtKm2 = PtKm2.kilometresNum(d1, d2)
+  override def ssElem(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
   override def fElemStr: PtKm2 => String = _.toString
   override def verts: PtKm2Arr = new PtKm2Arr(arrayUnsafe)
 

@@ -10,8 +10,8 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   def yStart: Kilometres = Kilometres(yStartKilometresNum)
   def xEnd: Kilometres = Kilometres(xEndKilometresNum)
   def yEnd: Kilometres = Kilometres(yEndKilometresNum)
-  def startPt: PtKm2 = PtKm2.kilometresNum(xStartKilometresNum, yStartKilometresNum)
-  def endPt: PtKm2 = PtKm2.kilometresNum(xEndKilometresNum, yEndKilometresNum)
+  def startPt: PtKm2 = PtKm2.apply(xStartKilometresNum, yStartKilometresNum)
+  def endPt: PtKm2 = PtKm2.apply(xEndKilometresNum, yEndKilometresNum)
 
   override def /(operand: Length): LineSeg = LineSeg(xStartKilometresNum / operand.metresNum, yStartKilometresNum / operand.metresNum,
     xEndKilometresNum / operand.metresNum, yEndKilometresNum / operand.metresNum)

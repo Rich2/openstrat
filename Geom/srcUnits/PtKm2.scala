@@ -67,12 +67,13 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
     LineSegKm2.kilometresNum(startPt.xKilometresNum, startPt.yKilometresNum, xKilometresNum, yKilometresNum)
 }
 
-/** Companion object for [[PtKm2]] class contains factory methods. */
+/** Companion object for [[PtKm2]] class contains factory apply methods, extension methods and type class instances. */
 object PtKm2
-{ /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
-  def kilometresNum(xKilometres: Double, yKilometres: Double): PtKm2 = new PtKm2(xKilometres, yKilometres)
+{ /** Factory method for creating a 2-dimensional point measured in kilometres from the scalar [[Double]] values. */
+  def apply(xKilometresNum: Double, yKilometresNum: Double): PtKm2 = new PtKm2(xKilometresNum, yKilometresNum)
 
-  def apply(x: Kilometres, y: Kilometres): PtKm2 = new PtKm2(x.kilometresNum, y.kilometresNum)
+  /** Factory method for creating a 2-dimensional point measured in metres from the X and Y [[Length]]s. */
+  def apply(x: Length, y: Length): PtKm2 = new PtKm2(x.kilometresNum, y.kilometresNum)
 
   def origin: PtKm2 = new PtKm2(0, 0)
 
@@ -114,7 +115,7 @@ class PtKm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtKm2
 { type ThisT = PtKm2Arr
   override def fromArray(array: Array[Double]): PtKm2Arr = new PtKm2Arr(array)
   override def typeStr: String = "PtKm2Arr"
-  override def seqDefElem(d1: Double, d2: Double): PtKm2 = PtKm2.kilometresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
   override def fElemStr: PtKm2 => String = _.str
 }
 
@@ -133,7 +134,7 @@ object PtKm2Arr extends CompanionSeqLikeDbl2[PtKm2, PtKm2Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[PtKm2]]s collections. */
 final class BuffPtKm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtKm2]
 { override def typeStr: String = "BuffPtKm2"
-  def newElem(d1: Double, d2: Double): PtKm2 = PtKm2.kilometresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
 }
 
 object BuffPtKm2
