@@ -38,21 +38,22 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
  * extension method. */
 object LineSegPm2
 { /** Factory apply method for constructing [[LineSegPm2]]s from the start and end points. There is an apply overload to construct from the X and Y components
-   * of the start and end points. To construct from scalar quantities use the metresNum method. */
-  def apply(startPt: PtPm2, endPt: PtPm2): LineSegPm2 = new LineSegPm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
+   * of the start and end points, specified as [[Double]] values of picometres. */
+  def apply(startPt: PtLength2, endPt: PtLength2): LineSegPm2 =
+    new LineSegPm2(startPt.xPicometresNum, startPt.yPicometresNum, endPt.xPicometresNum, endPt.yPicometresNum)
 
   /** Factory apply method for constructing [[LineSegPm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
    * from the start and end points.To construct from scalar quantities use the metresNum method. */
   def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegPm2 =
-    new LineSegPm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
+    new LineSegPm2(xStartPt.picometresNum, yStartPt.picometresNum, xEndPt.picometresNum, yEndPt.picometresNum)
 
   /** Factory method for constructing [[LineSegPm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
-  def kilometresNum(xStartPicometresNum: Double, yStartPicometresNum: Double, xEndPicometresNum: Double, yEndPicometresNum: Double): LineSegPm2 =
+  def apply(xStartPicometresNum: Double, yStartPicometresNum: Double, xEndPicometresNum: Double, yEndPicometresNum: Double): LineSegPm2 =
     new LineSegPm2(xStartPicometresNum, yStartPicometresNum, xEndPicometresNum, yEndPicometresNum)
 
   /** [[Show]] and [[Unshow]] type class instances / evidence for [[LineSegPm2]]. */
   implicit val persistEv: Persist2Both[PtPm2, PtPm2, LineSegPm2] =
-    Persist2Both[PtPm2, PtPm2, LineSegPm2]("LineSegKM2", "start", _.startPt, "end", _.endPt, LineSegPm2(_, _))
+    Persist2Both[PtPm2, PtPm2, LineSegPm2]("LineSegKM2", "start", _.startPt, "end", _.endPt, (p1, p2) => LineSegPm2(p1, p2))
 
   /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
   implicit val buildEv: BuilderArrDbl4Map[LineSegPm2, LineSegPm2Arr] = new BuilderArrDbl4Map[LineSegPm2, LineSegPm2Arr]
