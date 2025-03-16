@@ -11,8 +11,8 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   /** Scale accounting for whether the display has north up or down. */
   def dirnScale: LengthMetric = ife(northUp, scale, -scale)
 
-  val scaleMin: LengthMetric = 0.2.kiloMetres
-  val scaleMax: LengthMetric = 100.kiloMetres
+  val scaleMin: LengthMetric = 0.2.kilometres
+  val scaleMax: LengthMetric = 100.kilometres
   var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EarthPoly] = earthAllRegions.flatMap(_.ePolys)
@@ -70,7 +70,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
       else None
     }
 
-    def units2: GraphicElems = ifScale(8.kiloMetres, units1)
+    def units2: GraphicElems = ifScale(8.kilometres, units1)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 

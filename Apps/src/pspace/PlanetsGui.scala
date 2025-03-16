@@ -31,7 +31,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
-  var scale: LengthMetric = 0.8.gigaMetres// megaMiles.toMetres
+  var scale: LengthMetric = 0.8.gigametres// megaMiles.toMetres
   val scaleMax: Metres = 10.megaMiles.toMetres
   val scaleMin: Metres = 0.1.megaMiles.toMetres
   var elapsed: Int = 0

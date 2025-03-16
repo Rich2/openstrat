@@ -3,28 +3,28 @@ package ostrat; package geom
 
 /** Measurement of area. */
 trait Area extends Any with Ordered[Area]
-{ /** the number of metres square in this area. */
-  def metraresNum: Double
-
-  /** the number of square kilometres in this area. [[kilares]] follows the same naming convention as [[Hectares]]. */
-  def kilaresNum: Double
-
-  /** the number of hectares, square kilometres in this area. */
-  def hectaresNum: Double
-
-  /** the number of [[Millares]], square millimetres in this area. */
-  def millaresNum: Double
-
-  /** the number of [[Picares]], square picometres in this area. */
+{ /** the number of [[Picares]], square picometres in this area. */
   def picaresNum: Double
 
-  /** the number of square yards. This follows the same naming convention as [[Hectares]]. */
+  /** the number of millimetre² in this area. */
+  def millaresNum: Double
+
+  /** the number of metre² in this area. */
+  def metraresNum: Double
+
+  /** the number of kilometre² in this area. */
+  def kilaresNum: Double
+
+  /** the number of hectares, (100m)² in this area. */
+  def hectaresNum: Double
+
+  /** the number of yard² in this area. */
   def yardaresNum: Double
 
-  /** the number of acres, kilometres square in this area. */
+  /** the number of acres, 1 acre = 10chain² = 66feet by 660feet. */
   def acresNum: Double
 
-  /** the number of square miles in this area. This follows the same naming convention as [[Hectares]] */
+  /** the number of mile² in this area. */
   def milearesNum: Double
 
   /** Adds an [[Area]] returning an [[Area]] in the units of this subject. */

@@ -3,7 +3,7 @@ package ostrat; package eg80
 import geom._, egrid._, pglobe._, prid.phex._
 
 trait EGrid80Sys extends EGridSys
-{ override val cScale: LengthMetric = 20.kiloMetres
+{ override val cScale: LengthMetric = 20.kilometres
 }
 
 /** A main non-polar grid with a hex span of 80Km */
@@ -11,7 +11,7 @@ class EGrid80LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
   EGridLongFull(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300) with EGrid80Sys
 
 class EGrid80LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 20.kiloMetres, 300, rArray)
+  EGridLong(rBottomCen, cenLongInt, 20.kilometres, 300, rArray)
 {
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] within the grid. */
   override def hCoordLL(hc: HCoord): LatLong = hCoordMiddleLL(hc)

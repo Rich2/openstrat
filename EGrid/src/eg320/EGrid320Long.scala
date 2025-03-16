@@ -4,7 +4,7 @@ import geom._, egrid._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 320Km */
 abstract class EGrid320Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 80.kiloMetres, 100, rowArray) with EGrid320Sys
+  EGridLong(rBottomCen, cenLongInt, 80.kilometres, 100, rowArray) with EGrid320Sys
 
 object EGrid320Long
 {
@@ -30,7 +30,7 @@ class EGrid320LongPart(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray:
 
 /** A main non-polar grid with a hex span of 320Km */
 class EGrid320LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridLongFull(rBottomCen, rTopCen, cenLongInt, 80.kiloMetres, 100)
+  EGridLongFull(rBottomCen, rTopCen, cenLongInt, 80.kilometres, 100)
 
 object EGrid320LongFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320LongFull(rBottomCen, rTopCen, cenLongInt)

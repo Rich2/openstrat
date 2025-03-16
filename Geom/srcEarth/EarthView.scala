@@ -6,7 +6,7 @@ class EarthView (val latDegs: Double, val longDegs: Double, val scaleKm: Double,
 {
   def latLong: LatLong = LatLong.degs(latDegs, longDegs)
   def latLongDirn: LatLongDirn = LatLongDirn.degs(latDegs, longDegs)
-  def scale: LengthMetric = scaleKm.kiloMetres
+  def scale: LengthMetric = scaleKm.kilometres
 }
 
 object EarthView
