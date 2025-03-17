@@ -17,7 +17,7 @@ trait SimilarPreserve extends Any with ProlignPreserve
 /** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other
  * affine transformations. */
 trait SimilarAffPreserve extends SimilarPreserve
-{ type ThisT2 <: GeomElem
+{ type ThisT2 <: Geom2Elem
   def fTrans2(f: Pt2 => Pt2): ThisT2
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT2 = fTrans2(_.xyScale(xOperand, yOperand))
   override def shearX(operand: Double): ThisT2 = fTrans2(_.xShear(operand))

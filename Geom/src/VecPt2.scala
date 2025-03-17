@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
-trait VecPt2 extends Any with TellElemDbl2 with ApproxDbl
+trait VecPt2 extends Any, Geom2Elem, TellElemDbl2, ApproxDbl
 { /** The x component of this 2D vector / point. */
   def x: Double
 

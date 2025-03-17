@@ -40,7 +40,7 @@ object LsAReflect extends LessonStatic
 
   val na1 = na.SlateXY(20, 20)
 
-  val ca: RArr[GeomElem] = RArr(sq, cn)
+  val ca: RArr[Geom2Elem] = RArr(sq, cn)
   val ca2 = ca.SlateXY(20, 20)
   
   val la = List(sq, cn)
