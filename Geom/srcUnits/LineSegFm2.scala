@@ -22,8 +22,8 @@ class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Dou
   override def scale(operand: Double): LineSegFm2 =
     LineSegFm2(xStartFemtometresNum * operand, yStartFemtometresNum * operand, xEndFemtometresNum * operand, yEndFemtometresNum * operand)
 
-  override def /(operand: Length): LineSeg = LineSeg(xStartFemtometresNum / operand.metresNum, yStartFemtometresNum / operand.metresNum,
-    xEndFemtometresNum / operand.metresNum, yEndFemtometresNum / operand.metresNum)
+  override def /(operand: Length): LineSeg = LineSeg(xStartFemtometresNum / operand.femtometresNum, yStartFemtometresNum / operand.femtometresNum,
+    xEndFemtometresNum / operand.femtometresNum, yEndFemtometresNum / operand.femtometresNum)
 
   override def xStartPicometresNum: Double = xStartFemtometresNum * 1e-3
   override def yStartPicometresNum: Double = yStartFemtometresNum * 1e-3
