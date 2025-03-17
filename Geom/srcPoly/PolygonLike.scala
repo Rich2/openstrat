@@ -74,7 +74,7 @@ trait PolygonLike[VT] extends Any with VertBased[VT]
     res
   }
 
-  /** Returns a side of the appropriate type for the [[PolygonLike]] from the goven index. The index cycles. */
+  /** Returns a side of the appropriate type for the [[PolygonLike]] from the given index. The index cycles. */
   def side(index: Int): SideT
 
   def sidesForeach[U](f: SideT => U): Unit
@@ -134,8 +134,8 @@ trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with 
     newArray(2) = z0
     newArray(newLen - 1) = z0
     var i = 1
-    while (i < numVerts) {
-      val x = arrayUnsafe(i * 3)
+    while (i < numVerts)
+    { val x = arrayUnsafe(i * 3)
       newArray(i * 3) = x
       newArray((i + 1) * 3) = x
       val y = arrayUnsafe(i * 3 + 1)
@@ -169,8 +169,8 @@ trait PolygonLikeInt2[VT <: Int2Elem] extends Any with PolygonLikeIntN[VT] with 
     newArray(1) = y0
     newArray(newLen - 1) = y0
     var i = 1
-    while (i < numVerts) {
-      val x = arrayUnsafe(i * 2)
+    while (i < numVerts)
+    { val x = arrayUnsafe(i * 2)
       newArray(i * 4 - 2) = x
       newArray(i * 4) = x
       val y = arrayUnsafe(i * 2 + 1)

@@ -76,8 +76,8 @@ object PtKm2
   /** Origin of a 2-dimensional space measured in [[Kilometres]]. */
   def origin: PtKm2 = new PtKm2(0, 0)
 
-  implicit class Metres2Implicit(thisMetres2: PtKm2)
-  { def / (operator: LengthMetric): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  implicit class Kilometres2Implicit(thisPtKm2: PtKm2)
+  { def / (operator: LengthMetric): Pt2 = Pt2(thisPtKm2.x.kilometresNum/ operator.kilometresNum, thisPtKm2.y.kilometresNum / operator.kilometresNum)
   }
 
   /** [[Show]] type class instance / evidence for [[PTKm2]]. */
@@ -86,19 +86,22 @@ object PtKm2
   /** [[Unshow]] type class instance / evidence for [[PTKm2]]. */
   implicit val unShowEv: UnshowDbl2[PtKm2] = UnshowDbl2[PtKm2]("PtKm2", "x", "y", new PtKm2(_, _))
 
-  implicit val builderImplicit: BuilderArrDbl2Map[PtKm2, PtKm2Arr] = new BuilderArrDbl2Map[PtKm2, PtKm2Arr]
+  /** Implicit [[BuilderArr]] type class instance / evidence for [[PtKm2]] and [[LinePathKm2]]. */
+  implicit val builderArrEv: BuilderArrDbl2Map[PtKm2, PtKm2Arr] = new BuilderArrDbl2Map[PtKm2, PtKm2Arr]
   { type BuffT = BuffPtKm2
     override def fromDblArray(array: Array[Double]): PtKm2Arr = new PtKm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(buffer)
   }
 
-  implicit val linePathBuildImplicit: LinePathDbl2Builder[PtKm2, LinePathKm2] = new LinePathDbl2Builder[PtKm2, LinePathKm2]
+  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtKm2]] and [[LinePathKm2]]. */
+  implicit val linePathBuildEv: LinePathDbl2Builder[PtKm2, LinePathKm2] = new LinePathDbl2Builder[PtKm2, LinePathKm2]
   { override type BuffT = BuffPtKm2
     override def fromDblArray(array: Array[Double]): LinePathKm2 = new LinePathKm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtKm2, PolygonKm2] = new PolygonDbl2BuilderMap[PtKm2, PolygonKm2]
+  /** Implicit [[PolygonBuilder]] type class instance / evidence for [[PtKm2]] and [[PolygonKm2]]. */
+  implicit val polygonBuildEv: PolygonDbl2BuilderMap[PtKm2, PolygonKm2] = new PolygonDbl2BuilderMap[PtKm2, PolygonKm2]
   { override type BuffT = BuffPtKm2
     override def fromDblArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(inp)
