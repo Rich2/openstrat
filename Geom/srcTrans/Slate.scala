@@ -27,15 +27,16 @@ object Slate
 
   implicit def arrImplicit[A](implicit ev: Slate[A]): Slate[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
 
+  /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, dx, dy) => evF.mapT(obj, evA.slateXYT(_, dx, dy))
 
+  /** Implicit [[Slate]] instance / evidence for [[Array]]. */
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
 }
 
 /** Extension class for instances of the Slate type class. */
 class SlateExtensions[T](value: T, ev: Slate[T])
-{
-  /** Translate 2D geometric transformation extension method, along the X axis, on this object of type T, returning an object of Type T. */
+{ /** Translate 2D geometric transformation extension method, along the X axis, on this object of type T, returning an object of Type T. */
   def slateX(xOffset: Double): T = ev.slateXYT(value, xOffset, 0)
 
   /** Translate 2D geometric transformation extension method, along the Y axis, on this object of type T, returning an object of Type T. */
@@ -61,36 +62,38 @@ class SlateExtensions[T](value: T, ev: Slate[T])
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
 trait SlateLength[T]
-{
-  /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
+{ /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
   def slateT(obj: T, delta: VecPtLength2): T
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object SlateLength
-{
-  implicit def arrImplicit[A](implicit ev: SlateLength[A]): SlateLength[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
+{ /** Implicit [[SlateLength]] instance / evidence for [[RArr]]. */
+  implicit def rArrEv[A](implicit ev: SlateLength[A]): SlateLength[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
 
+  /** Implicit [[SlateLength]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLength[A]): SlateLength[F[A]] = (obj, delta) => evF.mapT(obj, evA.slateT(_, delta))
 
+  /** Implicit [[SlateLength]] instance / evidence for [[Array]]. */
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLength[A]): SlateLength[Array[A]] = (obj, delta) => obj.map(ev.slateT(_, delta))
 }
 
-/** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
- * Different sets of transformations can then be combined. */
+/** Type class for translate with X and Y parameters, 2 [[Length]] dimensional point and vector transformations. */
 trait SlateLengthXY[T]
-{ /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
- * the implementation of this method will delegate to the object itself. */
+{ /** Translate 2 [[Length]] dimension, geometric transformation, taking the xOffset and yOffset [[Length]]s as parameters, on an object of type T, returning an
+   * object of type T. For many types * the implementation of this method will delegate to the object itself. */
   def slateXYT(obj: T, xDelta: Length, yDelta: Length): T
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object SlateLengthXY
-{
-  implicit def arrImplicit[A](implicit ev: SlateLengthXY[A]): SlateLengthXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
+{ /** Implicit [[SlateLengthXY]] instance / evidence for [[RArr]]. */
+  implicit def rArrImplicit[A](implicit ev: SlateLengthXY[A]): SlateLengthXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
 
+  /** Implicit [[SlateLengthXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLengthXY[A]): SlateLengthXY[F[A]] =
     (obj, dx, dy) => evF.mapT(obj, evA.slateXYT(_, dx, dy))
 
+  /** Implicit [[SlateLengthXY]] instance / evidence for [[Array]]. */
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLengthXY[A]): SlateLengthXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
 }
