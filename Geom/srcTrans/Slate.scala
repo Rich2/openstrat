@@ -5,8 +5,7 @@ import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
 trait Slate[T]
-{
-  /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
+{ /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
    * the implementation of this method will delegate to the object itself. */
   def slateXYT(obj: T, xDelta: Double, yDelta: Double): T
 
@@ -22,10 +21,10 @@ trait Slate[T]
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object Slate
-{
-  implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj: T, dx: Double, dy: Double) => obj.slateXY(dx, dy).asInstanceOf[T]
+{ implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj: T, dx: Double, dy: Double) => obj.slateXY(dx, dy).asInstanceOf[T]
 
-  implicit def arrImplicit[A](implicit ev: Slate[A]): Slate[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
+  /** Implicit [[Slate]] instance / evidence for [[RArr]]. */
+  implicit def rArrImplicit[A](implicit ev: Slate[A]): Slate[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
 
   /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, dx, dy) => evF.mapT(obj, evA.slateXYT(_, dx, dy))
