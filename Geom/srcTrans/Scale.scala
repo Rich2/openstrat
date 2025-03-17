@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
 /** Type class for scale 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
- *  Different sets of transformations can then be combined. */
+ * Different sets of transformations can then be combined. */
 trait Scale[T]
 { /** Scales object of type T. */
   def scaleT(obj: T, operand: Double): T

@@ -19,6 +19,9 @@ class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Dou
   override def slate(xOperand: Length, yOperand: Length): LineSegFm2 = LineSegFm2(xStartFemtometresNum + xOperand.femtometresNum,
     yStartFemtometresNum + yOperand.femtometresNum, xEndFemtometresNum + xOperand.femtometresNum, yEndFemtometresNum + yOperand.femtometresNum)
 
+  override def scale(operand: Double): LineSegFm2 =
+    LineSegFm2(xStartFemtometresNum * operand, yStartFemtometresNum * operand, xEndFemtometresNum * operand, yEndFemtometresNum * operand)
+
   override def /(operand: Length): LineSeg = LineSeg(xStartFemtometresNum / operand.metresNum, yStartFemtometresNum / operand.metresNum,
     xEndFemtometresNum / operand.metresNum, yEndFemtometresNum / operand.metresNum)
 
