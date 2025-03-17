@@ -13,6 +13,9 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
   def startPt: PtPm2 = PtPm2(xStartPicometresNum, yStartPicometresNum)
   def endPt: PtPm2 = PtPm2(xEndPicometresNum, yEndPicometresNum)
 
+  override def slate(operand: VecPtLength2): LineSegPm2 = LineSegPm2(xStartPicometresNum + operand.xPicometresNum, yStartPicometresNum + operand.yPicometresNum,
+    xEndPicometresNum + operand.xPicometresNum, yEndPicometresNum + operand.yPicometresNum)
+
   override def /(operand: Length): LineSeg = LineSeg(xStartPicometresNum / operand.metresNum, yStartPicometresNum / operand.metresNum,
     xEndPicometresNum / operand.metresNum, yEndPicometresNum / operand.metresNum)
 

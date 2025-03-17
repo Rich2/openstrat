@@ -10,8 +10,11 @@ class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Dou
   def yStart: Femtometres = Femtometres(yStartFemtometresNum)
   def xEnd: Femtometres = Femtometres(xEndFemtometresNum)
   def yEnd: Femtometres = Femtometres(yEndFemtometresNum)
-  def startPt: PtFm2 = PtFm2.picometresNum(xStartFemtometresNum, yStartFemtometresNum)
-  def endPt: PtFm2 = PtFm2.picometresNum(xEndFemtometresNum, yEndFemtometresNum)
+  def startPt: PtFm2 = PtFm2(xStartFemtometresNum, yStartFemtometresNum)
+  def endPt: PtFm2 = PtFm2(xEndFemtometresNum, yEndFemtometresNum)
+
+  override def slate(operand: VecPtLength2): LineSegFm2 = LineSegFm2(xStartFemtometresNum + operand.xFemtometresNum, yStartFemtometresNum + operand.yFemtometresNum,
+    xEndFemtometresNum + operand.xFemtometresNum, yEndFemtometresNum + operand.yFemtometresNum)
 
   override def /(operand: Length): LineSeg = LineSeg(xStartFemtometresNum / operand.metresNum, yStartFemtometresNum / operand.metresNum,
     xEndFemtometresNum / operand.metresNum, yEndFemtometresNum / operand.metresNum)
@@ -47,7 +50,7 @@ object LineSegFm2
     new LineSegFm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
 
   /** Factory method for constructing [[LineSegFm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
-  def kilometresNum(xStartFemtometresNum: Double, yStartFemtometresNum: Double, xEndFemtometresNum: Double, yEndFemtometresNum: Double): LineSegFm2 =
+  def apply(xStartFemtometresNum: Double, yStartFemtometresNum: Double, xEndFemtometresNum: Double, yEndFemtometresNum: Double): LineSegFm2 =
     new LineSegFm2(xStartFemtometresNum, yStartFemtometresNum, xEndFemtometresNum, yEndFemtometresNum)
 
   /** [[Show]] and [[Unshow]] type class instances / evidence for [[LineSegFm2]]. */

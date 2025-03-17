@@ -12,6 +12,9 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
   override def startPt: PtM2 = PtM2(xStart, yStart)
   override def endPt: PtM2 = PtM2(xEnd, yEnd)
 
+  override def slate(operand: VecPtLength2): LineSegM2 = LineSegM2(xStartMetresNum + operand.xMetresNum, yStartMetresNum + operand.yMetresNum,
+    xEndMetresNum + operand.xMetresNum, yEndMetresNum + operand.yMetresNum)
+  
   override def /(operand: Length): LineSeg =
     LineSeg(xStartMetresNum / operand.metresNum, yStartMetresNum / operand.metresNum, xEndMetresNum / operand.metresNum, yEndMetresNum / operand.metresNum)
 
@@ -46,7 +49,7 @@ object LineSegM2
     new LineSegM2(xStartPt.metresNum, yStartPt.metresNum, xEndPt.metresNum, yEndPt.metresNum)
 
   /** Factory method for constructing [[LineSegM2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
-  def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double): LineSegM2 =
+  def apply(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double): LineSegM2 =
     new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 
   /** [[Show]] type class instance / evidence for [[LineSegM2]]. */

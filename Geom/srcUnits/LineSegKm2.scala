@@ -13,6 +13,9 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   def startPt: PtKm2 = PtKm2.apply(xStartKilometresNum, yStartKilometresNum)
   def endPt: PtKm2 = PtKm2.apply(xEndKilometresNum, yEndKilometresNum)
 
+  override def slate(operand: VecPtLength2): LineSegKm2 = LineSegKm2(xStartKilometresNum + operand.xKilometresNum, yStartKilometresNum + operand.yKilometresNum,
+    xEndKilometresNum + operand.xKilometresNum, yEndKilometresNum + operand.yKilometresNum)
+  
   override def /(operand: Length): LineSeg = LineSeg(xStartKilometresNum / operand.metresNum, yStartKilometresNum / operand.metresNum,
     xEndKilometresNum / operand.metresNum, yEndKilometresNum / operand.metresNum)
 
@@ -39,7 +42,7 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
 object LineSegKm2
 { /** Factory apply method for constructing [[LineSegKm2]]s from the start and end points. There is an apply overload to construct from the X and Y components
    * of the start and end points. To construct from scalar quantities use the metresNum method. */
-  def apply(startPt: PtKm2, endPt: PtKm2): LineSegKm2 = new LineSegKm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
+  def apply(startPt: PtLength2, endPt: PtLength2): LineSegKm2 = new LineSegKm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
   /** Factory apply method for constructing [[LineSegKm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
    * from the start and end points.To construct from scalar quantities use the metresNum method. */
@@ -47,7 +50,7 @@ object LineSegKm2
     new LineSegKm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
 
   /** Factory method for constructing [[LineSegKm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
-  def kilometresNum(xStartKilometresNum: Double, yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double): LineSegKm2 =
+  def apply(xStartKilometresNum: Double, yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double): LineSegKm2 =
     new LineSegKm2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)
 
   /** [[Show]] and [[Unshow]] type class instances / evidence for [[LineSegKm2]]. */

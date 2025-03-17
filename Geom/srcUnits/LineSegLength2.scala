@@ -10,6 +10,9 @@ trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
   def startPt: VT
   def endPt: VT
 
+  /** Translates this line segment in 2 [[Lenght]] dimensions space.   */
+  def slate(operand: VecPtLength2): LineSegLength2[VT]
+
   /** Divides by a [[Length]] to produce a scalar [[LineSeg]]. */
   def / (operand: Length): LineSeg
 

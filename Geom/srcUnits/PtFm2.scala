@@ -61,18 +61,16 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
     new PtFm2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtLength2): LineSegFm2 = LineSegFm2.kilometresNum(xFemtometresNum, yFemtometresNum, endPt.xFemtometresNum, endPt.yFemtometresNum)
-
-  override def lineSegFrom(startPt: PtLength2): LineSegFm2 =
-    LineSegFm2.kilometresNum(startPt.xFemtometresNum, startPt.yFemtometresNum, xFemtometresNum, yFemtometresNum)
+  override def lineSegTo(endPt: PtLength2): LineSegFm2 = LineSegFm2(xFemtometresNum, yFemtometresNum, endPt.xFemtometresNum, endPt.yFemtometresNum)
+  override def lineSegFrom(startPt: PtLength2): LineSegFm2 = LineSegFm2(startPt.xFemtometresNum, startPt.yFemtometresNum, xFemtometresNum, yFemtometresNum)
 }
 
 /** Companion object for [[PtFm2]] class contains factory methods. */
 object PtFm2
 { /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
-  def picometresNum(xFemtometres: Double, yFemtometres: Double): PtFm2 = new PtFm2(xFemtometres, yFemtometres)
+  def apply(xFemtometresNum: Double, yFemtometresNum: Double): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum)
 
-  def apply(x: Femtometres, y: Femtometres): PtFm2 = new PtFm2(x.kilometresNum, y.kilometresNum)
+  def apply(x: Length, y: Length): PtFm2 = new PtFm2(x.femtometresNum, y.femtometresNum)
 
   def origin: PtFm2 = new PtFm2(0, 0)
 
@@ -114,7 +112,7 @@ class PtFm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtFm2
 { type ThisT = PtFm2Arr
   override def fromArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
   override def typeStr: String = "PtFm2Arr"
-  override def seqDefElem(d1: Double, d2: Double): PtFm2 = PtFm2.picometresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fElemStr: PtFm2 => String = _.str
 }
 
@@ -132,7 +130,7 @@ object PtFm2Arr extends CompanionSeqLikeDbl2[PtFm2, PtFm2Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[PtFm2]]s collections. */
 final class BuffPtFm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtFm2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtFm2 = PtFm2.picometresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
 }
 
 object BuffPtFm2
