@@ -387,6 +387,7 @@ object Picometres
     def *(operand: Length): Millares = thisLength.toRectArea(operand)
   }
 }
+
 /** Measurement of [[Length]] in [[Femtometres]]. can be negative. */
 final class Femtometres(val femtometresNum: Double) extends AnyVal with LengthMetric
 { override def typeStr: String = "Femtometres"
