@@ -36,3 +36,9 @@ trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
   def xEndKilometresNum: Double
   def yEndKilometresNum: Double
 }
+
+object LineSegLength2
+{
+  implicit def slateEv: SlateLength[LineSegLength2[PtLength2]] = (obj, delta) => obj.slate(delta)
+  implicit def slateXYEv: SlateLengthXY[LineSegLength2[PtLength2]] = (obj, dx, dy) => obj.slate(dx, dy)
+}

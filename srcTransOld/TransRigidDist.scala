@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait TransRigidDister extends Any
+/*trait TransRigidDister extends Any
 { type ThisT <: TransRigidDister
   def slate(offset: PtM2): ThisT
   def rotateRadians(radians: Double): ThisT
@@ -54,4 +54,4 @@ class TransAlignDistExtension[T](value: T, ev: TransRigidDist[T])
 
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Metres, yOffset: Metres): T = ev.slate(value, PtM2(xOffset, yOffset))
-}
+}*/

@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait TransAffDister extends Any with TransSimDister
+/*trait TransAffDister extends Any with TransSimDister
 { type ThisT <: TransAffDister
   def shear(xScale: Double, yScale: Double): ThisT
 }
@@ -33,4 +33,4 @@ object TransAffDist
   }
 }
 
-class TransAffDistExtension[T](value: T, ev: TransAffDist[T])
+class TransAffDistExtension[T](value: T, ev: TransAffDist[T])*/

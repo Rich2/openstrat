@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait TransSimDister extends Any with TransRigidDister
+/*trait TransSimDister extends Any with TransRigidDister
 { type ThisT <: TransSimDister
   def scale(operand: Double): ThisT
 }
@@ -45,4 +45,4 @@ object TransSimDist
 class TransSimDistExtension[T](value: T, ev: TransSimDist[T]) extends RotateGenExtensions[T]
 { override def rotateRadians(r: Double): T = ev.rotateRadians(value, r)
   override def rotate(angle: AngleVec): T = ev.rotateRadians(value, angle.radians)
-}
+}*/

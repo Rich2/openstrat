@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Trait for objects that can be transformed in 2 dimensional distance space. */
-trait TransDister extends Any
+/*trait TransDister extends Any
 { def fTrans(f: PtM2 => PtM2): AffinePreserve
 }
 
@@ -46,4 +46,4 @@ trait TransAllDistExtension[T] extends Any
   /** this.asInstanceOf[T] */  
   def identity: T = this.asInstanceOf[T]   
   def inverseY: T = trans(v => PtM2(v.x, -v.y))
-}
+}*/
