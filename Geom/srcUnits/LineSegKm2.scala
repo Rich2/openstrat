@@ -43,7 +43,7 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def dbl4: Double = yEndKilometresNum
 }
 
-/** Companion object for line segments in a 2-dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and an
+/** Companion object for line segments in a 2-dimensional space measured in metres. Contains an apply method, an implicit ArrMap builder instance and an
  * extension method. */
 object LineSegKm2
 { /** Factory apply method for constructing [[LineSegKm2]]s from the start and end points. There is an apply overload to construct from the X and Y components
@@ -75,7 +75,7 @@ object LineSegKm2
 class LineSegKm2Arr(val arrayUnsafe: Array[Double]) extends Dbl4Arr[LineSegKm2]
 { type ThisT = LineSegKm2Arr
   def fromArray(array: Array[Double]): LineSegKm2Arr = new LineSegKm2Arr(array)
-  override def typeStr: String = "LineSegMArr"
+  override def typeStr: String = "LineSegKm2Arr"
   override def fElemStr: LineSegKm2 => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegKm2 = new LineSegKm2(d1, d2, d3, d4)
 }

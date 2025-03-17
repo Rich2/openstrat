@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
@@ -82,18 +82,21 @@ object PtM2
   /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
+  /** Implicit [[BuilderArrMap]] instance / evidence for [[PtM2]] and [[Pt2M2Arr]]. */
   implicit val builderImplicit: BuilderArrDbl2Map[PtM2, PtM2Arr] = new BuilderArrDbl2Map[PtM2, PtM2Arr]
   { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(buffer)
   }
 
+  /** Implicit [[LinePathLikeBuilderMap]] instance / evidence for [[PtM2]] and [[LinePathM2]]. */
   implicit val linePathBuildImplicit: LinePathDbl2Builder[PtM2, LinePathM2] = new LinePathDbl2Builder[PtM2, LinePathM2]
   { override type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 
+  /** Implicit [[PolygonLikeBuilderMap]] instance / evidence for [[PtM2]] and [[PolyognM2]]. */
   implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtM2, PolygonM2] = new PolygonDbl2BuilderMap[PtM2, PolygonM2]
   { override type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
@@ -132,9 +135,9 @@ final class BuffPtM2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with 
 }
 
 object BuffPtM2
-{ def apply(initSize: Int = 4): BuffPtM2 = new BuffPtM2(new ArrayBuffer[Double](initSize * 2))
+{ /** Factory apply method for [[BuffPtM2]] a buffer for 2-dimensional points specified in [[Metres]].  */
+  def apply(initSize: Int = 4): BuffPtM2 = new BuffPtM2(new ArrayBuffer[Double](initSize * 2))
 }
-
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
 final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecLength2 with VecPtM2
