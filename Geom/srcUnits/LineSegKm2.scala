@@ -15,6 +15,9 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
 
   override def slate(operand: VecPtLength2): LineSegKm2 = LineSegKm2(xStartKilometresNum + operand.xKilometresNum, yStartKilometresNum + operand.yKilometresNum,
     xEndKilometresNum + operand.xKilometresNum, yEndKilometresNum + operand.yKilometresNum)
+
+  override def slate(xOperand: Length, yOperand: Length): LineSegKm2 = LineSegKm2(xStartKilometresNum + xOperand.kilometresNum,
+    yStartKilometresNum + yOperand.kilometresNum, xEndKilometresNum + xOperand.kilometresNum, yEndKilometresNum + yOperand.kilometresNum)
   
   override def /(operand: Length): LineSeg = LineSeg(xStartKilometresNum / operand.metresNum, yStartKilometresNum / operand.metresNum,
     xEndKilometresNum / operand.metresNum, yEndKilometresNum / operand.metresNum)
