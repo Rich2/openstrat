@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A 2-dimensional line segment measured in [[Femtometres]], equivalent of the [[LineSeg]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Double, val xEndFemtometresNum: Double, val yEndFemtometresNum: Double) extends
-  LineSegLength2[PtFm2], LineSegLikeDbl4[PtFm2], Dbl4Elem
+  LineSegLen2[PtFm2], LineSegLikeDbl4[PtFm2], Dbl4Elem
 { def xStart: Femtometres = Femtometres(xStartFemtometresNum)
   def yStart: Femtometres = Femtometres(yStartFemtometresNum)
   def xEnd: Femtometres = Femtometres(xEndFemtometresNum)
@@ -13,7 +13,7 @@ class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Dou
   def startPt: PtFm2 = PtFm2(xStartFemtometresNum, yStartFemtometresNum)
   def endPt: PtFm2 = PtFm2(xEndFemtometresNum, yEndFemtometresNum)
 
-  override def slate(operand: VecPtLength2): LineSegFm2 = LineSegFm2(xStartFemtometresNum + operand.xFemtometresNum, yStartFemtometresNum + operand.yFemtometresNum,
+  override def slate(operand: VecPtLen2): LineSegFm2 = LineSegFm2(xStartFemtometresNum + operand.xFemtometresNum, yStartFemtometresNum + operand.yFemtometresNum,
     xEndFemtometresNum + operand.xFemtometresNum, yEndFemtometresNum + operand.yFemtometresNum)
 
   override def slate(xOperand: Length, yOperand: Length): LineSegFm2 = LineSegFm2(xStartFemtometresNum + xOperand.femtometresNum,
@@ -55,7 +55,7 @@ object LineSegFm2
   def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegFm2 =
     new LineSegFm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
 
-  /** Factory method for constructing [[LineSegFm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
+  /** Factory method for constructing [[LineSegFm2]] from scalar quantities. To construct from [[PtLen2]] quantities use the apply methods. */
   def apply(xStartFemtometresNum: Double, yStartFemtometresNum: Double, xEndFemtometresNum: Double, yEndFemtometresNum: Double): LineSegFm2 =
     new LineSegFm2(xStartFemtometresNum, yStartFemtometresNum, xEndFemtometresNum, yEndFemtometresNum)
 

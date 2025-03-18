@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** A 2-dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2-dimensional flat surface. */
-class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double) extends LineSegLength2[PtM2]
+class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double) extends LineSegLen2[PtM2]
   with LineSegLikeDbl4[PtM2] with Dbl4Elem
 { override def xStart: Metres = Metres(xStartMetresNum)
   override def yStart: Metres = Metres(yStartMetresNum)
@@ -12,7 +12,7 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
   override def startPt: PtM2 = PtM2(xStart, yStart)
   override def endPt: PtM2 = PtM2(xEnd, yEnd)
 
-  override def slate(operand: VecPtLength2): LineSegM2 = LineSegM2(xStartMetresNum + operand.xMetresNum, yStartMetresNum + operand.yMetresNum,
+  override def slate(operand: VecPtLen2): LineSegM2 = LineSegM2(xStartMetresNum + operand.xMetresNum, yStartMetresNum + operand.yMetresNum,
     xEndMetresNum + operand.xMetresNum, yEndMetresNum + operand.yMetresNum)
 
   override def slate(xOperand: Length, yOperand: Length): LineSegM2 = LineSegM2(xStartMetresNum + xOperand.metresNum, yStartMetresNum + yOperand.metresNum,
@@ -47,14 +47,14 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
 object LineSegM2
 { /** Factory apply method for constructing [[LineSegM2]]s from the start and end points. There is an apply overload to construct from the X and Y components of
    * the start and end points. To construct from scalar quantities use the metresNum method. */
-  def apply(startPt: PtLength2, endPt: PtLength2): LineSegM2 = new LineSegM2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
+  def apply(startPt: PtLen2, endPt: PtLen2): LineSegM2 = new LineSegM2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
   /** Factory apply method for constructing [[LineSegM2]]s from the X and Y components of the start and end points. There is an apply overload to construct from
    * the start and end points.To construct from scalar quantities use the metresNum method. */
   def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegM2 =
     new LineSegM2(xStartPt.metresNum, yStartPt.metresNum, xEndPt.metresNum, yEndPt.metresNum)
 
-  /** Factory method for constructing [[LineSegM2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
+  /** Factory method for constructing [[LineSegM2]] from scalar quantities. To construct from [[PtLen2]] quantities use the apply methods. */
   def apply(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double): LineSegM2 =
     new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 

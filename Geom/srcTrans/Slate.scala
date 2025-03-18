@@ -62,7 +62,7 @@ class SlateExtensions[T](value: T, ev: Slate[T])
  * Different sets of transformations can then be combined. */
 trait SlateLength[T]
 { /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
-  def slateT(obj: T, delta: VecPtLength2): T
+  def slateT(obj: T, delta: VecPtLen2): T
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */

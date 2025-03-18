@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A 2-dimensional line segment measured in [[Picometres]], equivalent of the [[LineSeg]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Double, val xEndPicometresNum: Double, val yEndPicometresNum: Double) extends
-  LineSegLength2[PtPm2] with LineSegLikeDbl4[PtPm2] with Dbl4Elem
+  LineSegLen2[PtPm2] with LineSegLikeDbl4[PtPm2] with Dbl4Elem
 { def xStart: Picometres = Picometres(xStartPicometresNum)
   def yStart: Picometres = Picometres(yStartPicometresNum)
   def xEnd: Picometres = Picometres(xEndPicometresNum)
@@ -13,7 +13,7 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
   def startPt: PtPm2 = PtPm2(xStartPicometresNum, yStartPicometresNum)
   def endPt: PtPm2 = PtPm2(xEndPicometresNum, yEndPicometresNum)
 
-  override def slate(operand: VecPtLength2): LineSegPm2 = LineSegPm2(xStartPicometresNum + operand.xPicometresNum, yStartPicometresNum + operand.yPicometresNum,
+  override def slate(operand: VecPtLen2): LineSegPm2 = LineSegPm2(xStartPicometresNum + operand.xPicometresNum, yStartPicometresNum + operand.yPicometresNum,
     xEndPicometresNum + operand.xPicometresNum, yEndPicometresNum + operand.yPicometresNum)
 
   override def slate(xOperand: Length, yOperand: Length): LineSegPm2 = LineSegPm2(xStartPicometresNum + xOperand.picometresNum,
@@ -48,7 +48,7 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
 object LineSegPm2
 { /** Factory apply method for constructing [[LineSegPm2]]s from the start and end points. There is an apply overload to construct from the X and Y components
    * of the start and end points, specified as [[Double]] values of picometres. */
-  def apply(startPt: PtLength2, endPt: PtLength2): LineSegPm2 =
+  def apply(startPt: PtLen2, endPt: PtLen2): LineSegPm2 =
     new LineSegPm2(startPt.xPicometresNum, startPt.yPicometresNum, endPt.xPicometresNum, endPt.yPicometresNum)
 
   /** Factory apply method for constructing [[LineSegPm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
@@ -56,7 +56,7 @@ object LineSegPm2
   def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegPm2 =
     new LineSegPm2(xStartPt.picometresNum, yStartPt.picometresNum, xEndPt.picometresNum, yEndPt.picometresNum)
 
-  /** Factory method for constructing [[LineSegPm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
+  /** Factory method for constructing [[LineSegPm2]] from scalar quantities. To construct from [[PtLen2]] quantities use the apply methods. */
   def apply(xStartPicometresNum: Double, yStartPicometresNum: Double, xEndPicometresNum: Double, yEndPicometresNum: Double): LineSegPm2 =
     new LineSegPm2(xStartPicometresNum, yStartPicometresNum, xEndPicometresNum, yEndPicometresNum)
 

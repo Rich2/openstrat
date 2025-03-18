@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** Common trait for [[VecPm2]] and [[PtPm2]] */
-trait VecPtPm2 extends VecPtLength2, TellElemDbl2
+trait VecPtPm2 extends VecPtLen2, TellElemDbl2
 { /** The X component of this 2-dimensional [[Picometres]] vector. */
   def x: Picometres = Picometres(xPicometresNum)
 
@@ -25,22 +25,22 @@ trait VecPtPm2 extends VecPtLength2, TellElemDbl2
 }
 
 /** A 2-dimensional point specified in [[Picometres]] as units rather than pure scalar numbers. */
-final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends PtLength2, VecPtPm2
+final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends PtLen2, VecPtPm2
 { override type ThisT = PtPm2
   override type LineSegT = LineSegPm2
   override def typeStr: String = "PtPm2"
 
-  override def slate(operand: PtLength2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
-  override def slateFrom(operand: PtLength2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
-  override def + (operand: VecLength2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
-  override def - (operand: VecLength2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def slate(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def slateFrom(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def + (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
+  override def - (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def addXY (otherX: Length, otherY: Length): PtPm2 = new PtPm2(xPicometresNum + otherX.metresNum, yPicometresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtPm2 = new PtPm2(xPicometresNum - otherX.metresNum, yPicometresNum - otherY.metresNum)
   override def addX(operand: Length): PtPm2 = new PtPm2(xPicometresNum + operand.metresNum, y.metresNum)
   override def addY(operand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum + operand.metresNum)
   override def subX(operand: Length): PtPm2 = new PtPm2(xPicometresNum - operand.metresNum, yPicometresNum)
   override def subY(operand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum - operand.metresNum)
-  override def * (operand: Double): PtPm2 = new PtPm2(xPicometresNum * operand, yPicometresNum * operand)
+  override def scale (operand: Double): PtPm2 = new PtPm2(xPicometresNum * operand, yPicometresNum * operand)
   override def / (operator: Double): PtPm2 = new PtPm2(xPicometresNum / operator, yPicometresNum / operator)
   override def divByLength(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
@@ -64,9 +64,9 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
     new PtPm2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtLength2): LineSegPm2 = LineSegPm2(xPicometresNum, yPicometresNum, endPt.xPicometresNum, endPt.yPicometresNum)
+  override def lineSegTo(endPt: PtLen2): LineSegPm2 = LineSegPm2(xPicometresNum, yPicometresNum, endPt.xPicometresNum, endPt.yPicometresNum)
 
-  override def lineSegFrom(startPt: PtLength2): LineSegPm2 =
+  override def lineSegFrom(startPt: PtLen2): LineSegPm2 =
     LineSegPm2(startPt.xPicometresNum, startPt.yPicometresNum, xPicometresNum, yPicometresNum)
 }
 
@@ -145,14 +145,15 @@ object BuffPtPm2
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends VecPtPm2, VecLength2
+final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends VecPtPm2, VecLen2
 { override def typeStr: String = "VecPm2"
-  override def + (operand: VecLength2): VecPm2 = new VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
-  override def - (operand: VecLength2): VecPm2 = new VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def + (operand: VecLen2): VecPm2 = new VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
+  override def - (operand: VecLen2): VecPm2 = new VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def * (operator: Double): VecPm2 = new VecPm2(xPicometresNum * operator, yPicometresNum * operator)
   override def / (operator: Double): VecPm2 = new VecPm2(xPicometresNum / operator, yPicometresNum / operator)
   override def magnitude: Picometres = Picometres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))
-  @inline override def dot(operand: VecLength2): Picares = Picares(xPicometresNum * operand.xPicometresNum + yPicometresNum * operand.yPicometresNum)
+  @inline override def dot(operand: VecLen2): Picares = Picares(xPicometresNum * operand.xPicometresNum + yPicometresNum * operand.yPicometresNum)
+  override def scale(operand: Double): VecPm2 = VecPm2(xPicometresNum * operand, yPicometresNum * operand)
 }
 
 object VecPm2

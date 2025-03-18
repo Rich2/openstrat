@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** Common trait for [[VecKm2]] and [[PtKm2]] */
-trait VecPtKm2 extends VecPtLength2, TellElemDbl2
+trait VecPtKm2 extends VecPtLen2, TellElemDbl2
 { /** The X component of this 2-dimensional [[Metres]] vector. */
   def x: Kilometres = Kilometres(xKilometresNum)
 
@@ -25,22 +25,23 @@ trait VecPtKm2 extends VecPtLength2, TellElemDbl2
 }
 
 /** A 2-dimensional point specified in [[Kilometres]] as units rather than pure scalar numbers. */
-final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLength2, VecPtKm2
+final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLen2, VecPtKm2
 { override type ThisT = PtKm2
   override type LineSegT = LineSegKm2
   override def typeStr: String = "PtKm2"
 
-  override def slate(operand: PtLength2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
-  override def slateFrom(operand: PtLength2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
-  override def + (operand: VecLength2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
-  override def - (operand: VecLength2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def slate(operand: PtLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def slateFrom(operand: PtLen2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def scale (operand: Double): PtKm2 = new PtKm2(xKilometresNum * operand, yKilometresNum * operand)
+  override def + (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
+  override def - (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def addXY (otherX: Length, otherY: Length): PtKm2 = new PtKm2(xKilometresNum + otherX.metresNum, yKilometresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtKm2 = new PtKm2(xKilometresNum - otherX.metresNum, yKilometresNum - otherY.metresNum)
   override def addX(operand: Length): PtKm2 = new PtKm2(xKilometresNum + operand.metresNum, y.metresNum)
   override def addY(operand: Length): PtKm2 = new PtKm2(xKilometresNum, yKilometresNum + operand.metresNum)
   override def subX(operand: Length): PtKm2 = new PtKm2(xKilometresNum - operand.metresNum, yKilometresNum)
   override def subY(operand: Length): PtKm2 = new PtKm2(xKilometresNum, yKilometresNum - operand.metresNum)
-  override def * (operand: Double): PtKm2 = new PtKm2(xKilometresNum * operand, yKilometresNum * operand)
+  
   override def / (operator: Double): PtKm2 = new PtKm2(xKilometresNum / operator, yKilometresNum / operator)
   override def divByLength(operator: Length): Pt2 = Pt2(xKilometresNum / operator.metresNum, yKilometresNum / operator.metresNum)
   override def revY: PtKm2 = new PtKm2(xKilometresNum, -yKilometresNum)
@@ -61,8 +62,8 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
     new PtKm2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtLength2): LineSegKm2 = LineSegKm2(xKilometresNum, yKilometresNum, endPt.xKilometresNum, endPt.yKilometresNum)
-  override def lineSegFrom(startPt: PtLength2): LineSegKm2 = LineSegKm2(startPt.xKilometresNum, startPt.yKilometresNum, xKilometresNum, yKilometresNum)
+  override def lineSegTo(endPt: PtLen2): LineSegKm2 = LineSegKm2(xKilometresNum, yKilometresNum, endPt.xKilometresNum, endPt.yKilometresNum)
+  override def lineSegFrom(startPt: PtLen2): LineSegKm2 = LineSegKm2(startPt.xKilometresNum, startPt.yKilometresNum, xKilometresNum, yKilometresNum)
 }
 
 /** Companion object for [[PtKm2]] class contains factory apply methods, extension methods and type class instances. */
@@ -144,15 +145,16 @@ object BuffPtKm2
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2, VecLength2
+final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2, VecLen2
 { override def typeStr: String = "VecKm2"
 
-  override def + (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
-  override def - (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def + (operand: VecLen2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
+  override def - (operand: VecLen2): VecKm2 = new VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def * (operator: Double): VecKm2 = new VecKm2(xKilometresNum * operator, yKilometresNum * operator)
   override def / (operator: Double): VecKm2 = new VecKm2(xKilometresNum / operator, yKilometresNum / operator)
   override def magnitude: Kilometres = Kilometres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
-  @inline override def dot(operand: VecLength2): Kilares = Kilares(xKilometresNum * operand.xKilometresNum + yKilometresNum * operand.yKilometresNum)
+  @inline override def dot(operand: VecLen2): Kilares = Kilares(xKilometresNum * operand.xKilometresNum + yKilometresNum * operand.yKilometresNum)
+  override def scale(operand: Double): VecKm2 = VecKm2(xKilometresNum * operand, yKilometresNum * operand)
 }
 
 object VecKm2

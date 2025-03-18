@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A line segment whose coordinates are specified in [[Length]] units. */
-trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
+trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT]
 { def xStart: Length
   def yStart: Length
   def xEnd: Length
@@ -11,13 +11,13 @@ trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
   def endPt: VT
 
   /** Translates this line segment in 2 [[Length]] dimensions space. */
-  def slate(operand: VecPtLength2): LineSegLength2[VT]
+  def slate(operand: VecPtLen2): LineSegLen2[VT]
 
   /** Translates this line segment in 2 [[Length]] dimensions space. */
-  def slate(xOperand: Length, yOperand: Length): LineSegLength2[VT]
+  def slate(xOperand: Length, yOperand: Length): LineSegLen2[VT]
 
   /** Scales this line segment in 2 [[Length]] dimensions space. */
-  def scale(operand: Double): LineSegLength2[VT]
+  def scale(operand: Double): LineSegLen2[VT]
 
   /** Divides by a [[Length]] to produce a scalar [[LineSeg]]. */
   def / (operand: Length): LineSeg
@@ -40,13 +40,13 @@ trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
   def yEndKilometresNum: Double
 }
 
-object LineSegLength2
-{ /** [[Slate]] type class instances / evidence for [[PtLength2]]. */
-  implicit def slateEv: SlateLength[LineSegLength2[PtLength2]] = (obj, delta) => obj.slate(delta)
+object LineSegLen2
+{ /** [[Slate]] type class instances / evidence for [[PtLen2]]. */
+  implicit def slateEv: SlateLength[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
 
-  /** [[SlateXY]] type class instances / evidence for [[PtLength2]]. */
-  implicit def slateXYEv: SlateLengthXY[LineSegLength2[PtLength2]] = (obj, dx, dy) => obj.slate(dx, dy)
+  /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
+  implicit def slateXYEv: SlateLengthXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
   
-  /** [[Scale]] type class instances / evidence for [[PtLength2]]. */
-  implicit def scaleEv: Scale[LineSegLength2[PtLength2]] = (obj, operand) => obj.scale(operand)
+  /** [[Scale]] type class instances / evidence for [[PtLen2]]. */
+  implicit def scaleEv: Scale[LineSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
 }
