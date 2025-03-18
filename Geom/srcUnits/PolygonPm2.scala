@@ -10,23 +10,12 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   def fromArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
   override def ssElem(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
   override def fElemStr: PtPm2 => String = _.toString
-  override def verts: PtPm2Arr = new PtPm2Arr(arrayUnsafe)
-
-  /** Utility method for efficient map operations using the femtometresNum. */
-  def mapPicometresNum(fx: Double => Double, fy: Double => Double): PolygonPm2 =
-  { val newArray = new Array[Double](arrayLen)
-    iUntilForeach(numVerts) { i =>
-      newArray(i * 2) = fx(arrayUnsafe(i * 2))
-      newArray(i * 2 + 1) = fy(arrayUnsafe(i * 2 + 1))
-    }
-    new PolygonPm2(newArray)
-  }
-  
-  override def slate(operand: VecPtLen2): PolygonPm2 = mapPicometresNum(_ + operand.xPicometresNum, _ + operand.yPicometresNum)
-  override def slate(xDelta: Length, yDelta: Length): PolygonPm2 = mapPicometresNum(_ + xDelta.picometresNum, _ + yDelta.picometresNum)
-  override def slateX(operand: Length): PolygonPm2 = mapPicometresNum(_ + operand.picometresNum, y => y)
-  override def slateY(operand: Length): PolygonPm2 = mapPicometresNum(x => x, _ + operand.picometresNum)
-  override def scale(operand: Double): PolygonPm2 = mapPicometresNum(_ * operand, _ * operand)
+  override def verts: PtPm2Arr = new PtPm2Arr(arrayUnsafe)  
+  override def slate(operand: VecPtLen2): PolygonPm2 = dblsMap(_ + operand.xPicometresNum, _ + operand.yPicometresNum)
+  override def slate(xDelta: Length, yDelta: Length): PolygonPm2 = dblsMap(_ + xDelta.picometresNum, _ + yDelta.picometresNum)
+  override def slateX(operand: Length): PolygonPm2 = dblsMap(_ + operand.picometresNum, y => y)
+  override def slateY(operand: Length): PolygonPm2 = dblsMap(x => x, _ + operand.picometresNum)
+  override def scale(operand: Double): PolygonPm2 = dblsMap(_ * operand, _ * operand)
   override def mapScalars(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.picometresNum))  
 
   /** Performs the side effecting function on the [[PtPm2]] value of each vertex. */
