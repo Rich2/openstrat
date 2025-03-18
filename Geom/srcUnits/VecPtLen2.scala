@@ -45,6 +45,7 @@ trait VecLen2 extends VecPtLen2
   override def slateX(operand: Length): VecLen2
   override def slateY(operand: Length): VecLen2
   override def scale(operand: Double): VecLen2
+  override def mapScalars(operator: Length): Vec2
 }
 
 object VecLen2
@@ -66,11 +67,12 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   override def slateY(operand: Length): PtLen2
   def slateFrom(operand: PtLen2): PtLen2
   override def scale(operand: Double): PtLen2
+  override def mapScalars(operator: Length): Pt2
   override def + (operand: VecLen2): PtLen2
   override def - (operand: VecLen2): PtLen2
 
   def / (operator: Double): PtLen2
-  def mapScalars(operator: Length): Pt2
+  
   def magnitude: Length
   def revY: PtLen2
   def revYIf(cond: Boolean): PtLen2

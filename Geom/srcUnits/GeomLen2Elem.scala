@@ -23,4 +23,7 @@ trait GeomLen2Elem extends Any
   /** Uniform 2 [[Length]] dimension geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and
    * preserves [[Circle]]s and [[Square]]s. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): GeomLen2Elem
+
+  /** Divides by a [[Length]] to produce an equivlent [[Geom2Elem]] without [[Length]] units. */
+  def mapScalars(operand: Length): Geom2Elem
 }

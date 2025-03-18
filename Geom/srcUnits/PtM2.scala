@@ -35,10 +35,11 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def slateY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum + operand.metresNum)
   override def slateFrom(operand: PtLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def scale (operand: Double): PtM2 = new PtM2(xMetresNum * operand, yMetresNum * operand)
+  override def mapScalars(operator: Length): Pt2 = Pt2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
+  
   override def + (operand: VecLen2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)  
-  override def / (operator: Double): PtM2 = new PtM2(xMetresNum / operator, yMetresNum / operator)
-  override def mapScalars(operator: Length): Pt2 = Pt2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
+  override def / (operator: Double): PtM2 = new PtM2(xMetresNum / operator, yMetresNum / operator)  
   override def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
   override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
@@ -149,6 +150,7 @@ final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extend
   override def slateX(operand: Length): VecM2 = VecM2(xMetresNum + operand.metresNum, yMetresNum)
   override def slateY(operand: Length): VecM2 = VecM2(xMetresNum, yMetresNum + operand.metresNum)
   override def scale(operand: Double): VecM2 = VecM2(xMetresNum * operand, yMetresNum * operand)
+  override def mapScalars(operator: Length): Vec2 = Vec2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
 }
 
 object VecM2
