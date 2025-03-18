@@ -100,27 +100,27 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zNonNeg, Some(rotated.xy.rotate180If(southUp)), None)
-    opt.map(_ / metresPerPixel)
+    opt.map(_.mapScalars(metresPerPixel))
   }
 
   override def transCoord(hc: HCoord): Pt2 =
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     val r1: PtM2 = rotated.xy.rotate180If(southUp)
-    r1 / metresPerPixel
+    r1.mapScalars(metresPerPixel)
   }
 
   override def transOptHVOffset(hvo: HvOffset): Option[Pt2] =
   { val m3 = hvo.toPtM3(hCoord => parent.hCoordLL(hCoord).toMetres3)(parent)
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zNonNeg, Some(rotated.xy.rotate180If(southUp)), None)
-    opt.map(_ / metresPerPixel)
+    opt.map(_.mapScalars(metresPerPixel))
   }
 
   override def transTile(hc: HCen): Option[Polygon] =
   { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
     val opt: Option[PolygonM2] = ife(p1.vert(0).zNonNeg, Some(p1.map(_.xy)), None)
-    opt.map{poly => poly.map(_.rotate180If(southUp) / metresPerPixel) }
+    opt.map{poly => poly.map(_.rotate180If(southUp).mapScalars(metresPerPixel)) }
   }
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
@@ -138,20 +138,20 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
       case _ => LightPink
     }
-    p.map(_ / metresPerPixel).fill(col)
+    p.map(_.mapScalars(metresPerPixel)).fill(col)
   }
 
-  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / metresPerPixel).draw(lineColour = Violet) }
+  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_.mapScalars(metresPerPixel)).draw(lineColour = Violet) }
 
   def irrLines2: GraphicElems = ifTileScale(8, ife(irrOn, irrLines, RArr()))
 
-  def irrActives = irr1.map { a => a._2.map(_ / metresPerPixel).active(a._1) }
+  def irrActives = irr1.map { a => a._2.map(_.mapScalars(metresPerPixel)).active(a._1) }
 
   def irrActives2: GraphicElems = ifTileScale(8, ife(irrOn, irrActives, RArr()))
 
   def irrNames: RArr[TextFixed] = irr1.map { pair =>
     val (d, _) = pair
-    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy.rotate180If(southUp) / metresPerPixel
+    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy.rotate180If(southUp).mapScalars(metresPerPixel)
     TextFixed(d.name, 12, posn, d.colour.contrastBW)
   }
 

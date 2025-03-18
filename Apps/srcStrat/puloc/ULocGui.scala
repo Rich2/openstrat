@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
@@ -35,27 +35,27 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
       case p if p.zAllNeg => None
       case p =>
       { val newPoly = p.map {
-          case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
+          case v if v.zNeg => v.xy.mapScalars(v.xyLengthFrom()).toMetres(EarthAvRadius)
           case v => v.xy
         }
         Some(newPoly)
       }
     }
 
-    val ps5 = ps4.polygonMapToPair{ p => p / dirnScale }
+    val ps5 = ps4.polygonMapToPair(_.mapScalars(dirnScale))
 
     val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActive(a2.colour, a2))
 
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
 
     val areaNames: RArr[TextFixed] = ps4.a2Map { d =>
-      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / dirnScale
+      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy.mapScalars(dirnScale)
       TextFixed(d.name, 10, posn, d.colour.contrastBW)
     }
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
     val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zNonNeg)
-    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy / scale)
+    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy.mapScalars(scale))
 
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
       p.a1.textAt(p.a2.name, 10, col) }
@@ -63,7 +63,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
     def units1: GraphicElems = finds.optMap{ ls =>
       val xyz = ls.loc.toMetres3.fromLatLongFocus(focus)
       if (xyz.zNonNeg){
-        val pt = (xyz.xy/scale)
+        val pt = xyz.xy.mapScalars(scale)
         val res = InfantryCounter.level(50, ls, ls.colour, ls.level).slate(pt)
         Some(res)
       }

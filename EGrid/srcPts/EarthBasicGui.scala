@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._, pgui._, Colour._
 
@@ -42,14 +42,14 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
       case p => {
-        val newPoly = p.map { case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
+        val newPoly = p.map { case v if v.zNeg => v.xy.mapScalars(v.xyLengthFrom()).toMetres(EarthAvRadius)
           case v => v.xy
         }
         Some(newPoly)
       }
     }
 
-    val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair{ p => p / dirnScale }
+    val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair(_.mapScalars(dirnScale))
 
     val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap { (p, a2) =>
       val str: String = a2 match
@@ -74,7 +74,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
     val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zNonNeg)
-    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy / scale)
+    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy.mapScalars(scale))
 
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
       p.a1.textAt(p.a2.name, 10, col) }

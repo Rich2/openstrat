@@ -39,7 +39,7 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override def slateX(operand: Length): PtFm2 = new PtFm2(xFemtometresNum + operand.metresNum, y.metresNum)
   override def slateY(operand: Length): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum + operand.metresNum)
   override def / (operator: Double): PtFm2 = new PtFm2(xFemtometresNum / operator, yFemtometresNum / operator)
-  override def divByLength(operator: Length): Pt2 = Pt2(xFemtometresNum / operator.femtometresNum, yFemtometresNum / operator.femtometresNum)
+  override def mapScalars(operator: Length): Pt2 = Pt2(xFemtometresNum / operator.femtometresNum, yFemtometresNum / operator.femtometresNum)
   override def revY: PtFm2 = new PtFm2(xFemtometresNum, -yFemtometresNum)
   override def revYIf(cond: Boolean): PtFm2 = ife(cond, new PtFm2(xFemtometresNum, -yFemtometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))
@@ -72,7 +72,7 @@ object PtFm2
   def origin: PtFm2 = new PtFm2(0, 0)
 
   implicit class Femtometres2Implicit(thisPtFm2: PtFm2)
-  { def / (operator: LengthMetric): Pt2 = thisPtFm2.divByLength(operator)
+  { def / (operator: LengthMetric): Pt2 = thisPtFm2.mapScalars(operator)
   }
 
   /** [[Show]] type class instance / evidence for [[PTFm2]]. */

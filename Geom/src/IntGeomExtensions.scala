@@ -4,8 +4,7 @@ import impunits.*
 
 /** Extension methods class for [[Int]], for the geom package. */
 class IntGeomExtensions(thisInt: Int)
-{
-  /** Returns this [[Int]] value in [[Femtometres]]. */
+{ /** Returns this [[Int]] value in [[Femtometres]]. */
   @inline def femtometres: Femtometres = Femtometres(thisInt)
 
   /** Returns this [[Int]] value in [[Picometres]]. */

@@ -40,7 +40,7 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def - (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   
   override def / (operator: Double): PtPm2 = new PtPm2(xPicometresNum / operator, yPicometresNum / operator)
-  override def divByLength(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
+  override def mapScalars(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
   override def revYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))
@@ -80,7 +80,7 @@ object PtPm2
   def origin: PtPm2 = new PtPm2(0, 0)
 
   implicit class Picometres2Implicit(thisPicometres2: PtPm2)
-  { def / (operator: LengthMetric): Pt2 = thisPicometres2.divByLength(operator)
+  { def / (operator: LengthMetric): Pt2 = thisPicometres2.mapScalars(operator)
   }
 
   /** [[Show]] type class instance / evidence for [[PTPm2]]. */

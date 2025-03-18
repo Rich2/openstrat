@@ -58,17 +58,13 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   override def + (operand: VecLen2): PtLen2
   override def - (operand: VecLen2): PtLen2
 
-  //def subX(operand: Length): PtLen2
-  //def subY(operand: Length): PtLen2
   def / (operator: Double): PtLen2
-  def divByLength(operator: Length): Pt2
+  def mapScalars(operator: Length): Pt2
   def magnitude: Length
   def revY: PtLen2
   def revYIf(cond: Boolean): PtLen2
   def lineSegTo(endPt: PtLen2): LineSegLen2[? <: PtLen2]
   def lineSegFrom(startPt: PtLen2): LineSegLen2[? <: PtLen2]
-
-  //def angleTo(angle: Angle, dist: Length): PtLength2
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
   def rotate180: PtLen2
@@ -86,7 +82,7 @@ trait PtLen2 extends VecPtLen2, PointDbl2
 
 object PtLen2
 {
-  implicit class Metres2Implicit(thisPtLength2: PtLen2)
-  { def / (operator: Length): Pt2 = thisPtLength2.divByLength(operator)
-  }
+  /*implicit class Metres2Implicit(thisPtLength2: PtLen2)
+  { def / (operator: Length): Pt2 = thisPtLength2.mapScalars(operator)
+  }*/
 }
