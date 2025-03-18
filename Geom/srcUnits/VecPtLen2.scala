@@ -41,21 +41,25 @@ trait VecLen2 extends VecPtLen2
   @inline def dot(operand: VecLen2): Area
 
   override def slate(operand: VecPtLen2): VecLen2
+  override def slate(xDelta: Length, yDelta: Length): VecLen2
+  override def slateX(operand: Length): VecLen2
+  override def slateY(operand: Length): VecLen2
+  override def scale(operand: Double): VecLen2
 }
 
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
 { override def slate(operand: VecPtLen2): PtLen2
   override def slate (deltaX: Length, deltaY: Length): PtLen2
+  override def slateX(operand: Length): PtLen2
+  override def slateY(operand: Length): PtLen2
   def slateFrom(operand: PtLen2): PtLen2
+  override def scale(operand: Double): PtLen2
   override def + (operand: VecLen2): PtLen2
   override def - (operand: VecLen2): PtLen2
-  def subXY (otherX: Length, otherY: Length): PtLen2
-  def addX(operand: Length): PtLen2
-  def addY(operand: Length): PtLen2
-  def subX(operand: Length): PtLen2
-  def subY(operand: Length): PtLen2
-  def scale (operand: Double): PtLen2
+
+  //def subX(operand: Length): PtLen2
+  //def subY(operand: Length): PtLen2
   def / (operator: Double): PtLen2
   def divByLength(operator: Length): Pt2
   def magnitude: Length
