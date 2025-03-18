@@ -40,7 +40,7 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   
   override def + (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def - (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)  
-  override def / (operator: Double): PtPm2 = new PtPm2(xPicometresNum / operator, yPicometresNum / operator)  
+//  override def / (operator: Double): PtPm2 = new PtPm2(xPicometresNum / operator, yPicometresNum / operator)  
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
   override def revYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))

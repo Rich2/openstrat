@@ -30,34 +30,6 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
   def yNeg: Boolean
 }
 
-trait VecLen2 extends VecPtLen2
-{ override def + (op: VecLen2): VecLen2
-  override def - (operand: VecLen2): VecLen2
-  def * (operator: Double): VecLen2
-  def / (operator: Double): VecLen2
-  def magnitude: Length
-
-  /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
-  @inline def dot(operand: VecLen2): Area
-
-  override def slate(operand: VecPtLen2): VecLen2
-  override def slate(xDelta: Length, yDelta: Length): VecLen2
-  override def slateX(operand: Length): VecLen2
-  override def slateY(operand: Length): VecLen2
-  override def scale(operand: Double): VecLen2
-  override def mapScalars(operator: Length): Vec2
-}
-
-object VecLen2
-{ /** Implicit [[SlateLen]] type class instance / evidence for [[VecLen2]]. */
-  implicit val slateEv: SlateLen[VecLen2] = (obj, delta) => obj.slate(delta)
-
-  /** Implicit [[SlateLenXY]] type class instance / evidence for [[VecLen2]]. */
-  implicit val slateXYEv: SlateLenXY[VecLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
-
-  /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
-  implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)
-}
 
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
@@ -70,8 +42,6 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   override def mapScalars(operator: Length): Pt2
   override def + (operand: VecLen2): PtLen2
   override def - (operand: VecLen2): PtLen2
-
-  def / (operator: Double): PtLen2
   
   def magnitude: Length
   def revY: PtLen2
@@ -102,4 +72,35 @@ object PtLen2
 
   /** Implicit [[Scale]] type class instance / evidence for [[PtLen2]]. */
   implicit val scaleEv: Scale[PtLen2] = (obj, operand) => obj.scale(operand)
+}
+
+/** A 2-dimensional vector specified in [[Length]] units. */
+trait VecLen2 extends VecPtLen2
+{ override def + (op: VecLen2): VecLen2
+  override def - (operand: VecLen2): VecLen2
+  def * (operator: Double): VecLen2
+  def / (operator: Double): VecLen2
+  def magnitude: Length
+
+  /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
+  @inline def dot(operand: VecLen2): Area
+
+  override def slate(operand: VecPtLen2): VecLen2
+  override def slate(xDelta: Length, yDelta: Length): VecLen2
+  override def slateX(operand: Length): VecLen2
+  override def slateY(operand: Length): VecLen2
+  override def scale(operand: Double): VecLen2
+  override def mapScalars(operator: Length): Vec2
+}
+
+/** Companion object for 2-dimensional vector specified in [[Length]] units. Contains various [[GeomLen2Elem]] type classes for [[VecLen2]] */
+object VecLen2
+{ /** Implicit [[SlateLen]] type class instance / evidence for [[VecLen2]]. */
+  implicit val slateEv: SlateLen[VecLen2] = (obj, delta) => obj.slate(delta)
+
+  /** Implicit [[SlateLenXY]] type class instance / evidence for [[VecLen2]]. */
+  implicit val slateXYEv: SlateLenXY[VecLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
+  implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)
 }
