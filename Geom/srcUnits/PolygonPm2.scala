@@ -27,6 +27,7 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def slateX(operand: Length): PolygonPm2 = mapPicometresNum(_ + operand.picometresNum, y => y)
   override def slateY(operand: Length): PolygonPm2 = mapPicometresNum(x => x, _ + operand.picometresNum)
   override def scale(operand: Double): PolygonPm2 = mapPicometresNum(_ * operand, _ * operand)
+  override def mapScalars(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.picometresNum))  
 
   /** Performs the side effecting function on the [[PtPm2]] value of each vertex. */
   override def vertsForeach[U](f: PtPm2 => U): Unit =

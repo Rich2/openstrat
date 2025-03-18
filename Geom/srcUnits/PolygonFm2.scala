@@ -11,6 +11,7 @@ final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def ssElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fElemStr: PtFm2 => String = _.toString
   override def verts: PtFm2Arr = new PtFm2Arr(arrayUnsafe)
+  override def mapScalars(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.femtometresNum))
 
   /** Utility method for efficient map operations using the femtometresNum. */
   def mapFemtometresNum(fx: Double => Double, fy: Double => Double): PolygonFm2 =
