@@ -31,7 +31,7 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def typeStr: String = "PtPm2"
 
   override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xPicometresNum + xDelta.picometresNum, yPicometresNum + yDelta.picometresNum)
-  override def slate(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def slate(operand: VecPtLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def slateFrom(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def + (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def - (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
@@ -153,6 +153,7 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
   override def / (operator: Double): VecPm2 = new VecPm2(xPicometresNum / operator, yPicometresNum / operator)
   override def magnitude: Picometres = Picometres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))
   @inline override def dot(operand: VecLen2): Picares = Picares(xPicometresNum * operand.xPicometresNum + yPicometresNum * operand.yPicometresNum)
+  override def slate(operand: VecPtLen2): VecPm2 = VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def scale(operand: Double): VecPm2 = VecPm2(xPicometresNum * operand, yPicometresNum * operand)
   override def slate(xDelta: Length, yDelta: Length): VecPm2 = VecPm2(xPicometresNum + xDelta.picometresNum, yPicometresNum + yDelta.picometresNum)
 }

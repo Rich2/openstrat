@@ -30,7 +30,7 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override type LineSegT = LineSegFm2
   override def typeStr: String = "PtFm2"
 
-  override def slate(operand: PtLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
+  override def slate(operand: VecPtLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
   override def slateFrom(operand: PtLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def scale (operand: Double): PtFm2 = new PtFm2(xFemtometresNum * operand, yFemtometresNum * operand)
@@ -145,6 +145,7 @@ final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Dou
   override def * (operator: Double): VecFm2 = new VecFm2(xFemtometresNum * operator, yFemtometresNum * operator)
   override def / (operator: Double): VecFm2 = new VecFm2(xFemtometresNum / operator, yFemtometresNum / operator)
   override def magnitude: Femtometres = Femtometres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))
+  override def slate(operand: VecPtLen2): VecFm2 = VecFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum + operand.yFemtometresNum)
   override def slate(xDelta: Length, yDelta: Length): VecFm2 = VecFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
   override def scale(operand: Double): VecFm2 = VecFm2(xFemtometresNum * operand, yFemtometresNum * operand)
 

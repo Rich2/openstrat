@@ -6,6 +6,12 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
 { override def name1: String = "x"
   override def name2: String = "y"
 
+  /** A vector can be added to a point or a vector, returning an object of the same type. */
+  def +(operand: VecLen2): VecPtLen2
+
+  /** A vector can be sbutracted from a point or a vector, returning an object of the same type. */
+  def -(operand: VecLen2): VecPtLen2
+
   /** The number of [[Femtometres]] in the X component of this point / vector */
   def xFemtometresNum: Double
 
@@ -25,23 +31,25 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
 }
 
 trait VecLen2 extends VecPtLen2
-{ def + (op: VecLen2): VecLen2
-  def - (operand: VecLen2): VecLen2
+{ override def + (op: VecLen2): VecLen2
+  override def - (operand: VecLen2): VecLen2
   def * (operator: Double): VecLen2
   def / (operator: Double): VecLen2
   def magnitude: Length
 
   /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
   @inline def dot(operand: VecLen2): Area
+
+  override def slate(operand: VecPtLen2): VecLen2
 }
 
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
-{ def slate(operand: PtLen2): PtLen2
+{ override def slate(operand: VecPtLen2): PtLen2
   override def slate (deltaX: Length, deltaY: Length): PtLen2
   def slateFrom(operand: PtLen2): PtLen2
-  def + (operand: VecLen2): PtLen2
-  def - (operand: VecLen2): PtLen2
+  override def + (operand: VecLen2): PtLen2
+  override def - (operand: VecLen2): PtLen2
   def subXY (otherX: Length, otherY: Length): PtLen2
   def addX(operand: Length): PtLen2
   def addY(operand: Length): PtLen2
