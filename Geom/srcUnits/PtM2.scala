@@ -31,10 +31,10 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def typeStr: String = "PtM2"
 
   override def slate(operand: PtLen2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum - operand.yMetresNum)
+  override def slate(xDelta: Length, yDelta: Length): PtM2 = PtM2(xMetresNum + xDelta.metresNum, yMetresNum + yDelta.metresNum)
   override def slateFrom(operand: PtLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def + (operand: VecLen2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
-  override def addXY (otherX: Length, otherY: Length): PtM2 = new PtM2(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtM2 = new PtM2(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
   override def addX(operand: Length): PtM2 = new PtM2(xMetresNum + operand.metresNum, y.metresNum)
   override def addY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum + operand.metresNum)
@@ -148,6 +148,7 @@ final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extend
   override def / (operator: Double): VecM2 = new VecM2(xMetresNum / operator, yMetresNum / operator)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
   @inline override def dot(operand: VecLen2): Metrares = Metrares(xMetresNum * operand.xMetresNum + yMetresNum * operand.yMetresNum)
+  override def slate(xDelta: Length, yDelta: Length): VecM2 = VecM2(xMetresNum + xDelta.metresNum, yMetresNum + yDelta.metresNum)
   override def scale(operand: Double): VecM2 = VecM2(xMetresNum * operand, yMetresNum * operand)
 }
 

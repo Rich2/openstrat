@@ -31,11 +31,11 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override def typeStr: String = "PtFm2"
 
   override def slate(operand: PtLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
+  override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
   override def slateFrom(operand: PtLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def scale (operand: Double): PtFm2 = new PtFm2(xFemtometresNum * operand, yFemtometresNum * operand)
   override def + (operand: VecLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum + operand.yFemtometresNum)
   override def - (operand: VecLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
-  override def addXY (otherX: Length, otherY: Length): PtFm2 = new PtFm2(xFemtometresNum + otherX.metresNum, yFemtometresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtFm2 = new PtFm2(xFemtometresNum - otherX.metresNum, yFemtometresNum - otherY.metresNum)
   override def addX(operand: Length): PtFm2 = new PtFm2(xFemtometresNum + operand.metresNum, y.metresNum)
   override def addY(operand: Length): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum + operand.metresNum)
@@ -145,6 +145,7 @@ final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Dou
   override def * (operator: Double): VecFm2 = new VecFm2(xFemtometresNum * operator, yFemtometresNum * operator)
   override def / (operator: Double): VecFm2 = new VecFm2(xFemtometresNum / operator, yFemtometresNum / operator)
   override def magnitude: Femtometres = Femtometres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))
+  override def slate(xDelta: Length, yDelta: Length): VecFm2 = VecFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
   override def scale(operand: Double): VecFm2 = VecFm2(xFemtometresNum * operand, yFemtometresNum * operand)
 
   /** This returns [[Picares]] as there isn't an [[AreaMetric]] class for [[Femtometres]]. */

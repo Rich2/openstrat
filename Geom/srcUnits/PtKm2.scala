@@ -29,13 +29,12 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
 { override type ThisT = PtKm2
   override type LineSegT = LineSegKm2
   override def typeStr: String = "PtKm2"
-
-  override def slate(operand: PtLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def slate(xDelta: Length, yDelta: Length): PtKm2 = PtKm2(xKilometresNum + xDelta.kilometresNum, yKilometresNum + yDelta.kilometresNum)
+  override def slate(operand: PtLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
   override def slateFrom(operand: PtLen2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def scale (operand: Double): PtKm2 = new PtKm2(xKilometresNum * operand, yKilometresNum * operand)
   override def + (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
   override def - (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
-  override def addXY (otherX: Length, otherY: Length): PtKm2 = new PtKm2(xKilometresNum + otherX.metresNum, yKilometresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtKm2 = new PtKm2(xKilometresNum - otherX.metresNum, yKilometresNum - otherY.metresNum)
   override def addX(operand: Length): PtKm2 = new PtKm2(xKilometresNum + operand.metresNum, y.metresNum)
   override def addY(operand: Length): PtKm2 = new PtKm2(xKilometresNum, yKilometresNum + operand.metresNum)
@@ -154,6 +153,7 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
   override def / (operator: Double): VecKm2 = new VecKm2(xKilometresNum / operator, yKilometresNum / operator)
   override def magnitude: Kilometres = Kilometres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
   @inline override def dot(operand: VecLen2): Kilares = Kilares(xKilometresNum * operand.xKilometresNum + yKilometresNum * operand.yKilometresNum)
+  override def slate(xDelta: Length, yDelta: Length): VecKm2 = VecKm2(xKilometresNum + xDelta.kilometresNum, yKilometresNum + yDelta.kilometresNum)
   override def scale(operand: Double): VecKm2 = VecKm2(xKilometresNum * operand, yKilometresNum * operand)
 }
 
