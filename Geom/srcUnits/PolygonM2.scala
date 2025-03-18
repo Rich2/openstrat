@@ -12,7 +12,8 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
 
-  def mapMetreNums(fx: Double => Double, fy: Double => Double): PolygonM2 =
+  /** Utility method for efficient map operations using the metresNum. */
+  def mapMetresNum(fx: Double => Double, fy: Double => Double): PolygonM2 =
   { val newArray = new Array[Double](arrayLen)
     iUntilForeach(numVerts) { i =>
       newArray(i * 2) = fx(arrayUnsafe(i * 2))
@@ -21,11 +22,11 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
     new PolygonM2(newArray)
   }
 
-  override def slate(operand: VecPtLen2): PolygonM2 = mapMetreNums(_ + operand.xMetresNum, _ + operand.yMetresNum)
-  override def slate(xDelta: Length, yDelta: Length): PolygonM2 = ???
-  override def slateX(operand: Length): PolygonM2 = ???
-  override def slateY(operand: Length): PolygonM2 = ???
-  override def scale(operand: Double): PolygonM2 = ???
+  override def slate(operand: VecPtLen2): PolygonM2 = mapMetresNum(_ + operand.xMetresNum, _ + operand.yMetresNum)
+  override def slate(xDelta: Length, yDelta: Length): PolygonM2 = mapMetresNum(_ + xDelta.metresNum, _ + yDelta.metresNum)
+  override def slateX(operand: Length): PolygonM2 = mapMetresNum(_ + operand.metresNum, y => y)
+  override def slateY(operand: Length): PolygonM2 = mapMetresNum(x => x, _ + operand.metresNum)
+  override def scale(operand: Double): PolygonM2 = mapMetresNum(_ * operand, _ * operand)
 
   override def vertsForeach[U](f: PtM2 => U): Unit =
   { var count = 0
