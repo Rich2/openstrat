@@ -53,6 +53,9 @@ object VecLen2
 
   /** Implicit [[SlateLenXY]] type class instance / evidence for [[VecLen2]]. */
   implicit val slateXYEv: SlateLenXY[VecLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
+  implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)
 }
 
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
@@ -94,4 +97,7 @@ object PtLen2
 
   /** Implicit [[SlateLenXY]] type class instance / evidence for [[PtLen2]]. */
   implicit val slateXYEv: SlateLenXY[PtLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[PtLen2]]. */
+  implicit val scaleEv: Scale[PtLen2] = (obj, operand) => obj.scale(operand)
 }

@@ -19,6 +19,12 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
   override def slate(xOperand: Length, yOperand: Length): LineSegPm2 = LineSegPm2(xStartPicometresNum + xOperand.picometresNum,
     yStartPicometresNum + yOperand.picometresNum, xEndPicometresNum + xOperand.picometresNum, yEndPicometresNum + yOperand.picometresNum)
 
+  override def slateX(operand: Length): LineSegPm2 = LineSegPm2(xStartPicometresNum + operand.picometresNum, yStartPicometresNum,
+    xEndPicometresNum + operand.picometresNum, yEndPicometresNum)
+
+  override def slateY(operand: Length): LineSegPm2 = LineSegPm2(xStartPicometresNum, yStartPicometresNum + operand.picometresNum, xEndPicometresNum,
+    yEndPicometresNum + operand.picometresNum)
+
   override def scale(operand: Double): LineSegPm2 =
     LineSegPm2(xStartPicometresNum * operand, yStartPicometresNum * operand, xEndPicometresNum * operand, yEndPicometresNum * operand)
 

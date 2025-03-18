@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A line segment whose coordinates are specified in [[Length]] units. */
-trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT]
+trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
 { def xStart: Length
   def yStart: Length
   def xEnd: Length
