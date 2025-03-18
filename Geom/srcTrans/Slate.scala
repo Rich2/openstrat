@@ -60,39 +60,39 @@ class SlateExtensions[T](value: T, ev: Slate[T])
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
-trait SlateLength[T]
+trait SlateLen[T]
 { /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
   def slateT(obj: T, delta: VecPtLen2): T
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
-object SlateLength
-{ /** Implicit [[SlateLength]] instance / evidence for [[RArr]]. */
-  implicit def rArrEv[A](implicit ev: SlateLength[A]): SlateLength[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
+object SlateLen
+{ /** Implicit [[SlateLen]] instance / evidence for [[RArr]]. */
+  implicit def rArrEv[A](implicit ev: SlateLen[A]): SlateLen[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
 
-  /** Implicit [[SlateLength]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLength[A]): SlateLength[F[A]] = (obj, delta) => evF.mapT(obj, evA.slateT(_, delta))
+  /** Implicit [[SlateLen]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLen[A]): SlateLen[F[A]] = (obj, delta) => evF.mapT(obj, evA.slateT(_, delta))
 
-  /** Implicit [[SlateLength]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLength[A]): SlateLength[Array[A]] = (obj, delta) => obj.map(ev.slateT(_, delta))
+  /** Implicit [[SlateLen]] instance / evidence for [[Array]]. */
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLen[A]): SlateLen[Array[A]] = (obj, delta) => obj.map(ev.slateT(_, delta))
 }
 
 /** Type class for translate with X and Y parameters, 2 [[Length]] dimensional point and vector transformations. */
-trait SlateLengthXY[T]
+trait SlateLenXY[T]
 { /** Translate 2 [[Length]] dimension, geometric transformation, taking the xOffset and yOffset [[Length]]s as parameters, on an object of type T, returning an
    * object of type T. For many types * the implementation of this method will delegate to the object itself. */
   def slateXYT(obj: T, xDelta: Length, yDelta: Length): T
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
-object SlateLengthXY
-{ /** Implicit [[SlateLengthXY]] instance / evidence for [[RArr]]. */
-  implicit def rArrImplicit[A](implicit ev: SlateLengthXY[A]): SlateLengthXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
+object SlateLenXY
+{ /** Implicit [[SlateLenXY]] instance / evidence for [[RArr]]. */
+  implicit def rArrImplicit[A](implicit ev: SlateLenXY[A]): SlateLenXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
 
-  /** Implicit [[SlateLengthXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLengthXY[A]): SlateLengthXY[F[A]] =
+  /** Implicit [[SlateLenXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLenXY[A]): SlateLenXY[F[A]] =
     (obj, dx, dy) => evF.mapT(obj, evA.slateXYT(_, dx, dy))
 
-  /** Implicit [[SlateLengthXY]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLengthXY[A]): SlateLengthXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
+  /** Implicit [[SlateLenXY]] instance / evidence for [[Array]]. */
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLenXY[A]): SlateLenXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
 }

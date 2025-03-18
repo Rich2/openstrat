@@ -42,10 +42,10 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT]
 
 object LineSegLen2
 { /** [[Slate]] type class instances / evidence for [[PtLen2]]. */
-  implicit def slateEv: SlateLength[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
+  implicit def slateEv: SlateLen[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
 
   /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
-  implicit def slateXYEv: SlateLengthXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
+  implicit def slateXYEv: SlateLenXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
   
   /** [[Scale]] type class instances / evidence for [[PtLen2]]. */
   implicit def scaleEv: Scale[LineSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)

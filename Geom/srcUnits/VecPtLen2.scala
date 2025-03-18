@@ -47,6 +47,14 @@ trait VecLen2 extends VecPtLen2
   override def scale(operand: Double): VecLen2
 }
 
+object VecLen2
+{ /** Implicit [[SlateLen]] type class instance / evidence for [[VecLen2]]. */
+  implicit val slateEv: SlateLen[VecLen2] = (obj, delta) => obj.slate(delta)
+
+  /** Implicit [[SlateLenXY]] type class instance / evidence for [[VecLen2]]. */
+  implicit val slateXYEv: SlateLenXY[VecLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
+}
+
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
 { override def slate(operand: VecPtLen2): PtLen2
@@ -81,8 +89,9 @@ trait PtLen2 extends VecPtLen2, PointDbl2
 }
 
 object PtLen2
-{
-  /*implicit class Metres2Implicit(thisPtLength2: PtLen2)
-  { def / (operator: Length): Pt2 = thisPtLength2.mapScalars(operator)
-  }*/
+{ /** Implicit [[SlateLen]] type class instance / evidence for [[PtLen2]]. */
+  implicit val slateEv: SlateLen[PtLen2] = (obj, delta) => obj.slate(delta)
+
+  /** Implicit [[SlateLenXY]] type class instance / evidence for [[PtLen2]]. */
+  implicit val slateXYEv: SlateLenXY[PtLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
 }
