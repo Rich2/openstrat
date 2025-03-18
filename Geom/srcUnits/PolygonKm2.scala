@@ -11,11 +11,22 @@ final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def ssElem(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
   override def fElemStr: PtKm2 => String = _.toString
   override def verts: PtKm2Arr = new PtKm2Arr(arrayUnsafe)
-  override def slate(operand: VecPtLen2): PolygonKm2 = ???
-  override def slate(xDelta: Length, yDelta: Length): PolygonKm2 = ???
-  override def slateX(operand: Length): PolygonKm2 = ???
-  override def slateY(operand: Length): PolygonKm2 = ???
-  override def scale(operand: Double): PolygonKm2 = ???
+
+  /** Utility method for efficient map operations using the femtometresNum. */
+  def mapKilometresNum(fx: Double => Double, fy: Double => Double): PolygonKm2 =
+  { val newArray = new Array[Double](arrayLen)
+    iUntilForeach(numVerts) { i =>
+      newArray(i * 2) = fx(arrayUnsafe(i * 2))
+      newArray(i * 2 + 1) = fy(arrayUnsafe(i * 2 + 1))
+    }
+    new PolygonKm2(newArray)
+  }
+  
+  override def slate(operand: VecPtLen2): PolygonKm2 = mapKilometresNum(_ + operand.xKilometresNum, _ + operand.yKilometresNum)
+  override def slate(xDelta: Length, yDelta: Length): PolygonKm2 = mapKilometresNum(_ + xDelta.kilometresNum, _ + yDelta.kilometresNum)
+  override def slateX(operand: Length): PolygonKm2 = mapKilometresNum(_ + operand.kilometresNum, y => y)
+  override def slateY(operand: Length): PolygonKm2 = mapKilometresNum(x => x, _ + operand.kilometresNum)
+  override def scale(operand: Double): PolygonKm2 = mapKilometresNum(_ * operand, _ + operand)
 
   /** Performs the side effecting function on the [[PtKm2]] value of each vertex. */
   override def vertsForeach[U](f: PtKm2 => U): Unit =
