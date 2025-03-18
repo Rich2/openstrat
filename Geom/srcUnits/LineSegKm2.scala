@@ -28,7 +28,7 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def scale(operand: Double): LineSegKm2 =
     LineSegKm2(xStartKilometresNum * operand, yStartKilometresNum * operand, xEndKilometresNum * operand, yEndKilometresNum * operand)
   
-  override def /(operand: Length): LineSeg = LineSeg(xStartKilometresNum / operand.kilometresNum, yStartKilometresNum / operand.kilometresNum,
+  override def mapScalars(operand: Length): LineSeg = LineSeg(xStartKilometresNum / operand.kilometresNum, yStartKilometresNum / operand.kilometresNum,
     xEndKilometresNum / operand.kilometresNum, yEndKilometresNum / operand.kilometresNum)
 
   override def xStartFemtometresNum: Double = xStartKilometresNum * 1e15

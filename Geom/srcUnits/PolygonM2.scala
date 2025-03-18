@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A polygon where the vertices are specified in [[Metres]] rather than scalars. */
-final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLength2[PtM2]
+final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM2
   override def typeStr: String = "PolygonM2"
@@ -11,6 +11,11 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   override def ssElem(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
   override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
+  override def slate(operand: VecPtLen2): PolygonM2 = ???
+  override def slate(xDelta: Length, yDelta: Length): PolygonM2 = ???
+  override def slateX(operand: Length): PolygonM2 = ???
+  override def slateY(operand: Length): PolygonM2 = ???
+  override def scale(operand: Double): PolygonM2 = ???
 
   override def vertsForeach[U](f: PtM2 => U): Unit =
   { var count = 0

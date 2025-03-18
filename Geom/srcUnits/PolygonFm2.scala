@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A polygon using vertices specified in [[PtFm2]] points rather than scalars. */
-final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength2[PtFm2]
+final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLen2[PtFm2]
 { type ThisT = PolygonFm2
   type SideT = LineSegFm2
   override def typeStr: String = "PolygonFm2"
@@ -11,6 +11,11 @@ final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def ssElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fElemStr: PtFm2 => String = _.toString
   override def verts: PtFm2Arr = new PtFm2Arr(arrayUnsafe)
+  override def slate(operand: VecPtLen2): PolygonFm2 = ???
+  override def slate(xDelta: Length, yDelta: Length): PolygonFm2 = ???
+  override def slateX(operand: Length): PolygonFm2 = ???
+  override def slateY(operand: Length): PolygonFm2 = ???
+  override def scale(operand: Double): PolygonFm2 = ???
 
   /** Performs the side effecting function on the [[PtFm2]] value of each vertex. */
   override def vertsForeach[U](f: PtFm2 => U): Unit =

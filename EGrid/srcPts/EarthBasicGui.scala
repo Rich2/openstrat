@@ -81,7 +81,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val conns3 = conns2.map(_.fromLatLongFocus(focus))
     val conns4 = conns3.filter(_.zsPos)
-    val conns5 = conns4.map(_.xy / scale)
+    val conns5 = conns4.map(_.xy mapScalars scale)
     val conns6 = conns5.draw(2, Orange)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)

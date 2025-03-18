@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait GeomLen2Elem
+trait GeomLen2Elem extends Any
 {
   /** Translate 2 [[Length]] dimension geometric transformation [[GeomLen2Elem]]. The Return type will be narrowed in sub traits. There is a name overload
    *  taking the X and Y Deltas as separate parameters, slateX and slateY methods are also available. */

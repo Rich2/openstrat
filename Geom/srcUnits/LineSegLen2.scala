@@ -20,7 +20,7 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
   def scale(operand: Double): LineSegLen2[VT]
 
   /** Divides by a [[Length]] to produce a scalar [[LineSeg]]. */
-  def / (operand: Length): LineSeg
+  def mapScalars (operand: Length): LineSeg
 
   def xStartFemtometresNum: Double
   def yStartFemtometresNum: Double
