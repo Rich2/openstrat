@@ -37,10 +37,8 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override def slateFrom(operand: PtLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def scale (operand: Double): PtFm2 = new PtFm2(xFemtometresNum * operand, yFemtometresNum * operand)
   override def mapScalars(operator: Length): Pt2 = Pt2(xFemtometresNum / operator.femtometresNum, yFemtometresNum / operator.femtometresNum)
-  
-  override def + (operand: VecLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum + operand.yFemtometresNum)
-  override def - (operand: VecLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)  
-  
+  override def - (operand: VecLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
+  override def - (operand: PtLen2): VecFm2 = VecFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def revY: PtFm2 = new PtFm2(xFemtometresNum, -yFemtometresNum)
   override def revYIf(cond: Boolean): PtFm2 = ife(cond, new PtFm2(xFemtometresNum, -yFemtometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))
@@ -155,11 +153,13 @@ final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Dou
 }
 
 object VecFm2
-{ /** Factory apply method for creating 2-dimensional vectors defined in [[Femtometres]] from the 2 [[Femtometres]] components. */
-  def spply(x: Femtometres, y: Femtometres): VecFm2 = new VecFm2(x.kilometresNum, y.kilometresNum)
+{ /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. There is an apply name overload that takes the
+   * [[Double]] values as parameters. */
+  def apply(x: Length, y: Length): VecFm2 = new VecFm2(x.femtometresNum, y.femtometresNum)
 
-  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. */
-  def lengths(x: Length, y: Length): VecFm2 = new VecFm2(x.kilometresNum, y.kilometresNum)
+  /** Factory apply method for creating 2-dimensional vectors defined in [[Femtometres]] from the 2 [[Double]] value. There is an apply name overload that takes
+   * X and Y [[Length]]s as parameters. */
+  def apply(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)
 
   /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the scalars of the components. */
   def picometresNum(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)

@@ -36,8 +36,9 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
   override def slateY(operand: Length): PtKm2 = new PtKm2(xKilometresNum, yKilometresNum + operand.metresNum)
   override def scale (operand: Double): PtKm2 = new PtKm2(xKilometresNum * operand, yKilometresNum * operand)
   override def mapScalars(operator: Length): Pt2 = Pt2(xKilometresNum / operator.metresNum, yKilometresNum / operator.metresNum)
-  override def + (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
+  
   override def - (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def - (operand: PtLen2): VecKm2 = VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def revY: PtKm2 = new PtKm2(xKilometresNum, -yKilometresNum)
   override def revYIf(cond: Boolean): PtKm2 = ife(cond, new PtKm2(xKilometresNum, -yKilometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
@@ -157,11 +158,11 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
 }
 
 object VecKm2
-{ /** Factory apply method for creating 2-dimensional vectors defined in [[Kilometres]] from the 2 [[Kilometres]] components. */
-  def spply(x: Kilometres, y: Kilometres): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
+{ /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. */
+  def apply(x: Length, y: Length): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
 
-  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. */
-  def lengths(x: Length, y: Length): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
+  /** Factory apply method for creating 2-dimensional vectors defined in [[Kilometres]] from the 2 [[Double]] values. */
+  def apply(xKilometresNum: Double, yKilometresNum: Double): VecKm2 = new VecKm2(xKilometresNum, yKilometresNum)
 
   /** Factory method for creating 2-dimensional vectors defined in [[Kilometres]] from the scalars of the components. */
   def kilometresNum(xKilometresNum: Double, yKilometresNum: Double): VecKm2 = new VecKm2(xKilometresNum, yKilometresNum)

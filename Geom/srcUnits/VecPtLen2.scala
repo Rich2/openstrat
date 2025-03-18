@@ -6,11 +6,8 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
 { override def name1: String = "x"
   override def name2: String = "y"
 
-  /** A vector can be added to a point or a vector, returning an object of the same type. */
-  def +(operand: VecLen2): VecPtLen2
-
-  /** A vector can be sbutracted from a point or a vector, returning an object of the same type. */
-  def -(operand: VecLen2): VecPtLen2
+  /** A vector can be subtracted from a point or a vector, returning an object of the same type. */
+  //def -(operand: VecLen2): VecPtLen2
 
   /** The number of [[Femtometres]] in the X component of this point / vector */
   def xFemtometresNum: Double
@@ -40,9 +37,14 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   def slateFrom(operand: PtLen2): PtLen2
   override def scale(operand: Double): PtLen2
   override def mapScalars(operator: Length): Pt2
-  override def + (operand: VecLen2): PtLen2
-  override def - (operand: VecLen2): PtLen2
-  
+
+  /** Subtracting a vector from a point returns a point. Subtracting a vector from a vector returns a vector. Subtracting a point from a point returns a
+   * vector. */
+  def -(operand: VecLen2): PtLen2
+
+  /** Subtracting a point from a point returns a vector. Subtracting a vector from a point returns a point. */
+  def -(operand: PtLen2): VecLen2
+
   def magnitude: Length
   def revY: PtLen2
   def revYIf(cond: Boolean): PtLen2
@@ -76,8 +78,8 @@ object PtLen2
 
 /** A 2-dimensional vector specified in [[Length]] units. */
 trait VecLen2 extends VecPtLen2
-{ override def + (op: VecLen2): VecLen2
-  override def - (operand: VecLen2): VecLen2
+{ def + (op: VecLen2): VecLen2
+  def - (operand: VecLen2): VecLen2
   def * (operator: Double): VecLen2
   def / (operator: Double): VecLen2
   def magnitude: Length

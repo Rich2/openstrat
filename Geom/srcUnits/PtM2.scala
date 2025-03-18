@@ -36,9 +36,8 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def slateFrom(operand: PtLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def scale (operand: Double): PtM2 = new PtM2(xMetresNum * operand, yMetresNum * operand)
   override def mapScalars(operator: Length): Pt2 = Pt2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
-  
-  override def + (operand: VecLen2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
+  override def - (operand: PtLen2): VecM2 = VecM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
   override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
@@ -153,13 +152,13 @@ final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extend
 }
 
 object VecM2
-{ /** Factory apply method for creating 2 dimensional vectors defined in [[Metres]] from the 2 [[Metres]] components. */
-  def spply(x: Metres, y: Metres): VecM2 = new VecM2(x.metresNum, y.metresNum)
+{ /** Factory apply method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Metres]] components. */
+  def spply(x: Length, y: Length): VecM2 = new VecM2(x.metresNum, y.metresNum)
 
-  /** Factory method for creating 2 dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. */
-  def lengths(x: Length, y: Length): VecM2 = new VecM2(x.metresNum, y.metresNum)
+  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Double]] values. */
+  def apply(xMetresNum: Double, yMetresNum: Double): VecM2 = new VecM2(xMetresNum, yMetresNum)
 
-  /** Factory method for creating 2 dimensional vectors defined in [[Metres]] from the scalars of the components. */
+  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the scalars of the components. */
   def metresNum(xMetresNum: Double, yMetresNum: Double): VecM2 = new VecM2(xMetresNum, yMetresNum)
 
   val buildImplicit: BuilderArrMap[VecM2, VecM2Arr] = new BuilderArrDbl2Map[VecM2, VecM2Arr]

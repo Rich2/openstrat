@@ -36,11 +36,9 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def slateY(operand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum + operand.metresNum)
   override def slateFrom(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)  
   override def scale (operand: Double): PtPm2 = new PtPm2(xPicometresNum * operand, yPicometresNum * operand)
-  override def mapScalars(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
-  
-  override def + (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
-  override def - (operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)  
-//  override def / (operator: Double): PtPm2 = new PtPm2(xPicometresNum / operator, yPicometresNum / operator)  
+  override def mapScalars(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)  
+  override def -(operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def -(operand: PtLen2): VecPm2 = VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
   override def revYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))
@@ -162,6 +160,9 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
 object VecPm2
 { /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Picometres]] components. */
   def spply(x: Picometres, y: Picometres): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
+
+  /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Double]] values. */
+  def apply(xPicometresNum: Double, yPicometresNum: Double): VecPm2 = new VecPm2(xPicometresNum, yPicometresNum)
 
   /** Factory method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Length]] components. */
   def lengths(x: Length, y: Length): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
