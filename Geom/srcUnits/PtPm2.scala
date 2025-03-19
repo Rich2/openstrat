@@ -83,19 +83,22 @@ object PtPm2
   /** [[Unshow]] type class instance / evidence for [[PTPm2]]. */
   implicit val unShowEv: UnshowDbl2[PtPm2] = UnshowDbl2[PtPm2]("PtPm2", "x", "y", new PtPm2(_, _))
 
-  implicit val builderImplicit: BuilderArrDbl2Map[PtPm2, PtPm2Arr] = new BuilderArrDbl2Map[PtPm2, PtPm2Arr]
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtPm2]] and [[PtPm2Arr]]. */
+  implicit val arrBuilderEv: BuilderArrDbl2Map[PtPm2, PtPm2Arr] = new BuilderArrDbl2Map[PtPm2, PtPm2Arr]
   { type BuffT = BuffPtPm2
     override def fromDblArray(array: Array[Double]): PtPm2Arr = new PtPm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtPm2 = new BuffPtPm2(buffer)
   }
 
-  implicit val linePathBuildImplicit: LinePathDbl2Builder[PtPm2, LinePathPm2] = new LinePathDbl2Builder[PtPm2, LinePathPm2]
+  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtPm2]] and [[LinePathPtPm2]]. */
+  implicit val linePathBuilderEv: LinePathDbl2Builder[PtPm2, LinePathPm2] = new LinePathDbl2Builder[PtPm2, LinePathPm2]
   { override type BuffT = BuffPtPm2
     override def fromDblArray(array: Array[Double]): LinePathPm2 = new LinePathPm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtPm2 = new BuffPtPm2(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtPm2, PolygonPm2] = new PolygonDbl2BuilderMap[PtPm2, PolygonPm2]
+  /** Implicit [[PolygonBuilder]] type class instance / evidence for [[PtPm2]] and [[PolygonPtPm2]]. */
+  implicit val polygonBuilderEv: PolygonDbl2BuilderMap[PtPm2, PolygonPm2] = new PolygonDbl2BuilderMap[PtPm2, PolygonPm2]
   { override type BuffT = BuffPtPm2
     override def fromDblArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtPm2 = new BuffPtPm2(inp)

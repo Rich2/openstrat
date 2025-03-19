@@ -29,7 +29,6 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
 { override type ThisT = PtFm2
   override type LineSegT = LineSegFm2
   override def typeStr: String = "PtFm2"
-
   override def slate(operand: VecPtLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
   override def slateX(operand: Length): PtFm2 = new PtFm2(xFemtometresNum + operand.metresNum, y.metresNum)
@@ -80,18 +79,21 @@ object PtFm2
   /** [[Unshow]] type class instance / evidence for [[PTFm2]]. */
   implicit val unShowEv: UnshowDbl2[PtFm2] = UnshowDbl2[PtFm2]("PtFm2", "x", "y", new PtFm2(_, _))
 
-  implicit val builderImplicit: BuilderArrDbl2Map[PtFm2, PtFm2Arr] = new BuilderArrDbl2Map[PtFm2, PtFm2Arr]
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtFm2]] and [[PtFm2Arr]]. */
+  implicit val arrMapbuilderEv: BuilderArrDbl2Map[PtFm2, PtFm2Arr] = new BuilderArrDbl2Map[PtFm2, PtFm2Arr]
   { type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(buffer)
   }
 
-  implicit val linePathBuildImplicit: LinePathDbl2Builder[PtFm2, LinePathFm2] = new LinePathDbl2Builder[PtFm2, LinePathFm2]
+  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtFm2]] and [[LinePathPtFm2]]. */
+  implicit val linePathBuildEv: LinePathDbl2Builder[PtFm2, LinePathFm2] = new LinePathDbl2Builder[PtFm2, LinePathFm2]
   { override type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): LinePathFm2 = new LinePathFm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(inp)
   }
 
+  /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtFm2]] and [[PolygonPtFm2]]. */
   implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtFm2, PolygonFm2] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2]
   { override type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
@@ -130,7 +132,8 @@ final class BuffPtFm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with
 }
 
 object BuffPtFm2
-{ def apply(initSize: Int = 4): BuffPtFm2 = new BuffPtFm2(new ArrayBuffer[Double](initSize * 2))
+{ /** Factory apply method for empty efficent buffer class for [[PtFm2]]s. */
+  def apply(initSize: Int = 4): BuffPtFm2 = new BuffPtFm2(new ArrayBuffer[Double](initSize * 2))
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
