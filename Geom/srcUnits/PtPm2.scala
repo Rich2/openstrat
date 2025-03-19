@@ -77,10 +77,6 @@ object PtPm2
   /** The origin of 2-dimensional coordinate space defined in picometres. */
   def origin: PtPm2 = new PtPm2(0, 0)
 
-  implicit class Picometres2Implicit(thisPicometres2: PtPm2)
-  { def / (operator: LengthMetric): Pt2 = thisPicometres2.mapScalars(operator)
-  }
-
   /** [[Show]] type class instance / evidence for [[PTPm2]]. */
   implicit val persistEv: ShowTellDbl2[PtPm2] = ShowTellDbl2[PtPm2]("PtPm2")
 

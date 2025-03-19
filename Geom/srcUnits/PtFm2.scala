@@ -71,11 +71,8 @@ object PtFm2
    * X and Y [[Length]]s as parameters. */
   def apply(xFemtometresNum: Double, yFemtometresNum: Double): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum)
 
+  /** Origin of 2-dimensional space specified in femtometres. */
   def origin: PtFm2 = new PtFm2(0, 0)
-
-  implicit class Femtometres2Implicit(thisPtFm2: PtFm2)
-  { def / (operator: LengthMetric): Pt2 = thisPtFm2.mapScalars(operator)
-  }
 
   /** [[Show]] type class instance / evidence for [[PTFm2]]. */
   implicit val persistEv: ShowTellDbl2[PtFm2] = ShowTellDbl2[PtFm2]("PtFm2")

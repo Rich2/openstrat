@@ -71,10 +71,6 @@ object PtKm2
   /** Origin of a 2-dimensional space measured in [[Kilometres]]. */
   def origin: PtKm2 = new PtKm2(0, 0)
 
-  implicit class Kilometres2Implicit(thisPtKm2: PtKm2)
-  { def / (operator: LengthMetric): Pt2 = Pt2(thisPtKm2.x.kilometresNum/ operator.kilometresNum, thisPtKm2.y.kilometresNum / operator.kilometresNum)
-  }
-
   /** [[Show]] type class instance / evidence for [[PTKm2]]. */
   implicit val persistEv: ShowTellDbl2[PtKm2] = ShowTellDbl2[PtKm2]("PtKm2")
 
