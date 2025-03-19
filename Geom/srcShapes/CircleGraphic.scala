@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui._, Colour.Black, pWeb._
 
@@ -49,3 +49,18 @@ case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
 { override def reify(scale: Double, cen: Pt2): CircleFill = CircleFill(Circle(scale, cen), fillColour)
   override def reify(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(scale, xCen, yCen), fillColour)
 }
+
+trait CircleLen2Graphic extends EllipseLen2Graphic
+{ override def shape: CircleLen2
+}
+
+case class CircleLen2Draw(shape: CircleLen2, lineWidth: Double = 2.0, lineColour: Colour = Black) extends EllipseLen2Draw with CircleLen2Graphic
+{ override def slate(operand: VecPtLen2): CircleLen2Draw = CircleLen2Draw(shape.slate(operand), lineWidth, lineColour)
+  override def slate(xDelta: Length, yDelta: Length): CircleLen2Draw = CircleLen2Draw(shape.slate(xDelta, yDelta), lineWidth, lineColour)
+  override def slateX(operand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateX(operand), lineWidth, lineColour)
+  override def slateY(operand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateY(operand), lineWidth, lineColour)
+  override def scale(operand: Double): CircleLen2Draw = CircleLen2Draw(shape.scale(operand), lineWidth, lineColour)
+  override def mapScalar2(operand: Length): Graphic2Elem = CircleDraw(shape.mapScalar2(operand))
+}
+
+trait CircleFillLen2

@@ -68,3 +68,8 @@ object ShapeGraphic
     override def rotate270(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
   }
 }
+
+trait ShapeLen2Graphic
+{
+  def shape: ShapeLen2
+}

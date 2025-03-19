@@ -125,9 +125,9 @@ object Ellipse
     override def shearYT(obj: Ellipse, xFactor: Double): Ellipse = obj.shearY(xFactor)
   }
 
-  /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
+  /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 [[Pt2]]s or 6 scalars, although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  final case class EllipseImp(cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, radius2: Double) extends Ellipse with AxisFree
+  final case class EllipseImp(cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, radius2: Double) extends Ellipse, AxisFree
   { override type ThisT = EllipseImp
     override def axesPt2x: Double = 2 * cenX - axesPt4x
     override def axesPt2y: Double = 2 * cenY - axesPt4y
@@ -188,3 +188,5 @@ object Ellipse
     def cenAxes1Axes4(cen: Pt2, pAxes1: Pt2, pAxes4: Pt2): EllipseImp = new EllipseImp(cen.x, cen.y, pAxes1.x, pAxes1.y, cen.distTo(pAxes4))
   }
 }
+
+trait EllipseLen2 extends ShapeLen2, FillableLen2

@@ -82,3 +82,10 @@ object EllipseActive
     override def ptsTrans(f: Pt2 => Pt2): EllipseActive = EllipseActiveImp(shape.fTrans(f), pointerId)
   }
 }
+
+trait EllipseLen2Graphic extends ShapeLen2Graphic
+{
+  override def shape: EllipseLen2
+}
+
+trait EllipseLen2Draw extends ShapeLen2Draw, EllipseLen2Graphic

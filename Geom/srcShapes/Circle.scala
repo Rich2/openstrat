@@ -102,8 +102,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
 
 /** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */
 object Circle extends ShapeIcon
-{
-  override type ShapeT = Circle
+{ override type ShapeT = Circle
 
   /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
    * the centre point or the X and Y positions of its centre. */
@@ -140,12 +139,12 @@ object Circle extends ShapeIcon
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }
 
-final case class CircleLen(diameter: Length, cenX: Length, cenY: Length) extends GeomLen2Elem
-{ type ThisT = CircleLen
-  override def slate(operand: VecPtLen2): CircleLen = CircleLen(diameter, cenX + operand.x, cenY + operand.y)
-  override def slate(xDelta: Length, yDelta: Length): CircleLen = CircleLen(diameter, cenX + xDelta, cenY + yDelta)
-  override def slateX(operand: Length): CircleLen = CircleLen(diameter, cenX + operand, cenY)
-  override def slateY(operand: Length): CircleLen = CircleLen(diameter, cenX, cenY + operand)
-  override def scale(operand: Double): CircleLen = CircleLen(diameter, cenX * operand, cenY * operand)
+final case class CircleLen2(diameter: Length, cenX: Length, cenY: Length) extends EllipseLen2
+{ type ThisT = CircleLen2
+  override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2(diameter, cenX + operand.x, cenY + operand.y)
+  override def slate(xDelta: Length, yDelta: Length): CircleLen2 = CircleLen2(diameter, cenX + xDelta, cenY + yDelta)
+  override def slateX(operand: Length): CircleLen2 = CircleLen2(diameter, cenX + operand, cenY)
+  override def slateY(operand: Length): CircleLen2 = CircleLen2(diameter, cenX, cenY + operand)
+  override def scale(operand: Double): CircleLen2 = CircleLen2(diameter, cenX * operand, cenY * operand)
   override def mapScalar2(operand: Length): Circle = Circle(diameter / operand, cenX / operand, cenY / operand)
 }

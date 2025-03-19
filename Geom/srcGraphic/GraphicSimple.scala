@@ -57,3 +57,5 @@ object GraphicSimple
     override def rotate270(obj: GraphicSimple): GraphicSimple = obj.rotate90
   }  
 }
+
+trait GraphicLen2Simple extends GraphicLen2Elem

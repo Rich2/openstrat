@@ -37,7 +37,7 @@ trait Drawable extends Any with Geom2Elem
   /** Rotation of 180 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def rotate180: Drawable
 
-  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in
+  /** Rotation positive or anti-clockwise 270 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in
    * subclasses and traits. */
   override def rotate270: Drawable
 
@@ -49,7 +49,7 @@ trait Drawable extends Any with Geom2Elem
   override def reflect(lineLike: LineLike): Drawable
 
   /** XY scaling 2D geometric transformation, on this Drawable returns a Drawable. This allows different scaling factors across X and Y dimensions. The return
-   * type will be narrowed in sub classes and traits. */
+   * type will be narrowed in subclasses and traits. */
   override def scaleXY(xOperand: Double, yOperand: Double): Drawable
 
   /** Shear 2D geometric transformation along the X Axis, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
@@ -93,3 +93,6 @@ trait Fillable extends Any with Drawable
   /** Returns a fill and draw graphic of this geometric object. */
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
 }
+
+trait DrawableLen2 extends GeomLen2Elem
+trait FillableLen2 extends DrawableLen2
