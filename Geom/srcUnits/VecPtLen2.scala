@@ -6,22 +6,31 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
 { override def name1: String = "x"
   override def name2: String = "y"
 
-  /** A vector can be subtracted from a point or a vector, returning an object of the same type. */
-  //def -(operand: VecLen2): VecPtLen2
-
-  /** The number of [[Femtometres]] in the X component of this point / vector */
+  /** The number of femtometres in the X component of this point / vector. */
   def xFemtometresNum: Double
 
-  /** The number of [[Femtometres]] in the Y component of this point / vector */
+  /** The number of femtometres in the Y component of this point / vector. */
   def yFemtometresNum: Double
 
+  /** The number of picometres in the X component of this point / vector. */
   def xPicometresNum: Double
+
+  /** The number of picometres in the Y component of this point / vector. */
   def yPicometresNum: Double
+
+  /** The number of metres in the X component of this point / vector. */
   def xMetresNum: Double
+
+  /** The number of metres in the Y component of this point / vector. */
   def yMetresNum: Double
+
+  /** The number of kilometres in the X component of this point / vector. */
   def xKilometresNum: Double
+
+  /** The number of kilometres in the Y component of this point / vector. */
   def yKilometresNum: Double
   def xPos: Boolean
+
   def xNeg: Boolean
   def yPos: Boolean
   def yNeg: Boolean
@@ -45,7 +54,7 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   /** Subtracting a point from a point returns a vector. Subtracting a vector from a point returns a point. */
   def -(operand: PtLen2): VecLen2
 
-  def magnitude: Length
+  //def magnitude: Length
   def revY: PtLen2
   def revYIf(cond: Boolean): PtLen2
   def lineSegTo(endPt: PtLen2): LineSegLen2[? <: PtLen2]

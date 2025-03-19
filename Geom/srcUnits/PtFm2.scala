@@ -41,7 +41,6 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override def - (operand: PtLen2): VecFm2 = VecFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def revY: PtFm2 = new PtFm2(xFemtometresNum, -yFemtometresNum)
   override def revYIf(cond: Boolean): PtFm2 = ife(cond, new PtFm2(xFemtometresNum, -yFemtometresNum), this)
-  override def magnitude: Metres = Metres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))
   override def rotate180: PtFm2 = new PtFm2(-xFemtometresNum, -yFemtometresNum)
   override def rotate180If(cond: Boolean): PtFm2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtFm2 = ife(cond, this, rotate180)

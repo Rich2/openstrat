@@ -29,7 +29,6 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
 { override type ThisT = PtPm2
   override type LineSegT = LineSegPm2
   override def typeStr: String = "PtPm2"
-
   override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xPicometresNum + xDelta.picometresNum, yPicometresNum + yDelta.picometresNum)
   override def slate(operand: VecPtLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def slateX(operand: Length): PtPm2 = new PtPm2(xPicometresNum + operand.metresNum, y.metresNum)
@@ -41,7 +40,6 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def -(operand: PtLen2): VecPm2 = VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
   override def revYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
-  override def magnitude: Metres = Metres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))
   override def rotate180: PtPm2 = new PtPm2(-xPicometresNum, -yPicometresNum)
   override def rotate180If(cond: Boolean): PtPm2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtPm2 = ife(cond, this, rotate180)

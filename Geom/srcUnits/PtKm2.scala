@@ -41,7 +41,6 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
   override def - (operand: PtLen2): VecKm2 = VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def revY: PtKm2 = new PtKm2(xKilometresNum, -yKilometresNum)
   override def revYIf(cond: Boolean): PtKm2 = ife(cond, new PtKm2(xKilometresNum, -yKilometresNum), this)
-  override def magnitude: Metres = Metres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
   override def rotate180: PtKm2 = new PtKm2(-xKilometresNum, -yKilometresNum)
   override def rotate180If(cond: Boolean): PtKm2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtKm2 = ife(cond, this, rotate180)
