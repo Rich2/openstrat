@@ -33,7 +33,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   val sepError = gridSys.numSeps - gridSys.numInnerSeps - gridSys.numOuterSeps
   //deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
-  def frame: RArr[GraphicElem] =
+  def frame: RArr[Graphic2Elem] =
   {
     def outerLines = proj.outerSidesDraw(3, Gold)
 
@@ -56,7 +56,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrActives: GraphicElems = ifGlobe { ep => ep.irrActives2 }
 
-    def sideDraws2: RArr[GraphicElem] = ife(sepDrawOn, sepDraws, RArr[GraphicElem]())
+    def sideDraws2: RArr[Graphic2Elem] = ife(sepDrawOn, sepDraws, RArr[Graphic2Elem]())
 
     seas ++ irrFills ++ irrActives ++ tileFills ++ tileActives ++ sepFills ++ sepActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
   }

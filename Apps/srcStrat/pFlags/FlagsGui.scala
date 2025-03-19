@@ -53,7 +53,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val star: GraphicElems = RArr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
 
-  def allStuff: RArr[GraphicElem] = /*tlObjs ++ trObjs ++ blObjs ++ brObjs ++ */ flagLines +% bigRect //+- myr
+  def allStuff: RArr[Graphic2Elem] = /*tlObjs ++ trObjs ++ blObjs ++ brObjs ++ */ flagLines +% bigRect //+- myr
 
   mouseUp = (_, li, _) =>
   { val str: String = li.headFoldToString("No clickable object on canvas")

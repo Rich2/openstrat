@@ -18,7 +18,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
   def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(r, c))
 
   /** Maps over the respective [[HSep]] and [[Polygon]]s of the Some values, but does not use the value's themselves. */
-  def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => Graphic2Elem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match
       { case _: HSepSome =>
@@ -30,7 +30,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
     }
 
   /** Maps over the Some values with their respective [[Polygon]]s. */
-  def somePolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def somePolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, Polygon) => Graphic2Elem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
@@ -43,7 +43,7 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
     }
 
   /** Maps over the Some values with their respective [[HSep]] and [[Polygon]]s. */
-  def someHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, HSep, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def someHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, HSep, Polygon) => Graphic2Elem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case

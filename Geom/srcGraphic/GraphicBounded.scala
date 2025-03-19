@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]]
  *  and [[Curve]] graphics. */
-trait GraphicBounded extends GraphicElem with BoundedElem
+trait GraphicBounded extends Graphic2Elem with BoundedElem
 {
   def slateXY(xDelta: Double, yDelta: Double): GraphicBounded
   def scale(operand: Double): GraphicBounded

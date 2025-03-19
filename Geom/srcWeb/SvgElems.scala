@@ -12,7 +12,7 @@ case class HtmlSvg(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlMult
 
 object HtmlSvg
 {
-  def apply(rect: Rect, contents: RArr[GraphicElem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
+  def apply(rect: Rect, contents: RArr[Graphic2Elem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
   { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, -rect.top, rect.width, rect.height)) ++ otherAtts
     val svgElems = contents.flatMap(_.svgElems)
     new HtmlSvg(svgElems, atts)
@@ -26,9 +26,9 @@ object HtmlSvg
     new HtmlSvg(contents, atts)
   }
 
-  def auto(margin: Double, contents: RArr[GraphicElem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg = autoHorrVert(margin, margin, contents, otherAtts)
+  def auto(margin: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg = autoHorrVert(margin, margin, contents, otherAtts)
 
-  def autoHorrVert(horrMargin: Double, vertMargin: Double, contents: RArr[GraphicElem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
+  def autoHorrVert(horrMargin: Double, vertMargin: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
   { val rect: Rect = Rect.bounding(contents).addHorrVertMargin(horrMargin, vertMargin)
     val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, -rect.top, rect.width, rect.height)) ++ otherAtts
     val svgElems = contents.flatMap(_.svgElems)

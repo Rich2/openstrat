@@ -18,7 +18,7 @@ object LsE1 extends LessonGraphics
     var cmd: TurnCmd = NoMove
     statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
 
-    def cmdDisp: RArr[GraphicElem] = cmd match {
+    def cmdDisp: RArr[Graphic2Elem] = cmd match {
       case Move(v) => Arrow.paint(state.posn, v) //Returns Arr[GraphicElem]
       case CycleColour => RArr(state.drawNextColour)
       case _ => RArr()

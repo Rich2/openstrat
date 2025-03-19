@@ -21,7 +21,7 @@ trait HSysProjection extends TSysProjection
   def hCenFlatMap[ArrB <: Arr[?]](f: HCen => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB = gChild.flatMap(f)
 
   /** Maps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. */
-  def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
+  def hCenPtMap(f: (HCen, Pt2) => Graphic2Elem): GraphicElems
 
   /** IfMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The mapping function is only applied if the first
    * function condition is true. */
@@ -33,7 +33,7 @@ trait HSysProjection extends TSysProjection
   def hCensIfPtFlatMap[ArrB <: Arr[?]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
     gChild.ifFlatMap(hc => f1(hc) && transOptCoord(hc).nonEmpty)(hc => f2(hc, transCoord(hc)))
 
-  def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
+  def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => Graphic2Elem): GraphicElems
 
   /** Produces the hex tile polygons modified by the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
   def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] = gChild.optMapPair{hc =>

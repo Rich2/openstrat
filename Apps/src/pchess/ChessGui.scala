@@ -25,7 +25,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui//("
 
   def thisTop(): Unit = reTop(RArr(bTurn))
   thisTop()
-  def frame: RArr[GraphicElem] = (tiles ++ pieces).slate(-grid.cenVec).scale(cPScale)
+  def frame: RArr[Graphic2Elem] = (tiles ++ pieces).slate(-grid.cenVec).scale(cPScale)
   def repaint(): Unit = mainRepaint(frame)
   repaint()
 }

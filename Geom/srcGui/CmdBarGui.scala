@@ -14,8 +14,8 @@ trait CmdBarGui extends CanvasPanelled
   def textButton(str: String, cmd: AnyRef): PolygonCompound = Rect(40, 25).fillActiveDrawText(Gray, cmd, str, 15, 2, White, Colour.Black, LeftAlign)
 
   val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barThickness, canv.bottomLeft))
-  def mainRepaint(els: RArr[GraphicElem]): Unit = mainPanel.repaint(els)
-  def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els*)
+  def mainRepaint(els: RArr[Graphic2Elem]): Unit = mainPanel.repaint(els)
+  def mainRepaints(els: Graphic2Elem*): Unit = mainPanel.repaints(els*)
   def mainWidth: Double = mainPanel.width
   def mainHeight: Double = mainPanel.height
 

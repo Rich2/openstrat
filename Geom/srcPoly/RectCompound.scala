@@ -35,7 +35,7 @@ trait RectCompound extends RectGraphic with RectangleCompound
   override def scaleXY(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand) )
 
-  override def addChildren(newChildren: Arr[GraphicElem]): RectCompound = RectCompound(shape, facets, children ++ newChildren)
+  override def addChildren(newChildren: Arr[Graphic2Elem]): RectCompound = RectCompound(shape, facets, children ++ newChildren)
 
   def htmlSvg: HtmlSvg =
   { val atts = RArr(WidthAtt(shape.width), HeightAtt(shape.height), ViewBox(shape.left, -shape.top, shape.width, shape.height), CentreBlockAtt)
@@ -47,7 +47,7 @@ trait RectCompound extends RectGraphic with RectangleCompound
 /** Companion object for the RectCompound trait, contains implicit instances for 2D geometric transformation type classes. */
 object RectCompound
 {
-  def apply(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()): RectCompound =
+  def apply(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): RectCompound =
     RectCompoundImp(shape, facets, children)
 
   implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
@@ -63,5 +63,5 @@ object RectCompound
     override def rotate270(obj: RectCompound): RectCompound = obj.rotate270
   }
 
-  case class RectCompoundImp(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectCompound
+  case class RectCompoundImp(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectCompound
 }

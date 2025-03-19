@@ -235,7 +235,7 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def projHcMap(proj: HSysProjection)(fNone: (Pt2, HCen) => GraphicElem)(fSome: (A, Pt2, HCen) => GraphicElem): GraphicElems =
+  def projHcMap(proj: HSysProjection)(fNone: (Pt2, HCen) => Graphic2Elem)(fSome: (A, Pt2, HCen) => Graphic2Elem): GraphicElems =
     proj.hCenPtMap{ (hc, pt) =>
       val a = arrayUnsafe(proj.parent.layerArrayIndex(hc))
       ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
@@ -290,11 +290,11 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
    *  function. Returns a [[Seqimut]] of length 0 to the length of this [[LayerHcOptSys]]. */
-  def projSomeHCMap(f: (A, HCen) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHCMap(proj)(f)
+  def projSomeHCMap(f: (A, HCen) => Graphic2Elem)(implicit proj: HSysProjection): GraphicElems = projSomeHCMap(proj)(f)
 
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHCMap(proj: HSysProjection)(f: (A, HCen) => GraphicElem): GraphicElems =
+   * most cases B will be a [[Graphic2Elem]] or a subtype. */
+  def projSomeHCMap(proj: HSysProjection)(f: (A, HCen) => Graphic2Elem): GraphicElems =
   {
     val buff = BuffGraphic()
     proj.gChild.foreach { hc =>
@@ -307,12 +307,12 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
   }
 
   /** Uses projection to map the Some data value with the projections corresponding [[Pt2]] to an element of type B. In most cases B will be a
-   *  [[GraphicElem]] or a subtype. */
+   *  [[Graphic2Elem]] or a subtype. */
   def projSomesPtMap[B, ArrB <: Arr[B]](f: (A, Pt2) => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
     projSomesPtMap(proj)(f)
 
   /** Uses projection to map the Some data value with the projections corresponding [[Pt2]] to an element of type B. In most cases B will be a
-   *  [[GraphicElem]] or a subtype. */
+   *  [[Graphic2Elem]] or a subtype. */
   def projSomesPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
@@ -325,12 +325,12 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   *  most cases B will be a [[GraphicElem]] or a subtype. */
+   *  most cases B will be a [[Graphic2Elem]] or a subtype. */
   def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
     projSomesHcPtMap(proj)(f)
 
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[GraphicElem]] or a subtype. */
+   * most cases B will be a [[Graphic2Elem]] or a subtype. */
   def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>

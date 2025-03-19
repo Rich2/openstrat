@@ -3,7 +3,11 @@ package ostrat; package geom
 
 /** Common base trait for [[VecLen2]] and [[PtLen2]]. */
 trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
-{ override def name1: String = "x"
+{
+  def x: Length
+  def y: Length
+
+  override def name1: String = "x"
   override def name2: String = "y"
 
   /** The number of femtometres in the X component of this point / vector. */
@@ -45,7 +49,7 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   override def slateY(operand: Length): PtLen2
   def slateFrom(operand: PtLen2): PtLen2
   override def scale(operand: Double): PtLen2
-  override def mapScalars(operator: Length): Pt2
+  override def mapScalar2(operator: Length): Pt2
 
   /** Subtracting a vector from a point returns a point. Subtracting a vector from a vector returns a vector. Subtracting a point from a point returns a
    * vector. */
@@ -100,7 +104,7 @@ trait VecLen2 extends VecPtLen2
   override def slateX(operand: Length): VecLen2
   override def slateY(operand: Length): VecLen2
   override def scale(operand: Double): VecLen2
-  override def mapScalars(operator: Length): Vec2
+  override def mapScalar2(operator: Length): Vec2
 }
 
 /** Companion object for 2-dimensional vector specified in [[Length]] units. Contains various [[GeomLen2Elem]] type classes for [[VecLen2]] */

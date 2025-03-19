@@ -139,3 +139,13 @@ object Circle extends ShapeIcon
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }
+
+final case class CircleLen(diameter: Length, cenX: Length, cenY: Length) extends GeomLen2Elem
+{ type ThisT = CircleLen
+  override def slate(operand: VecPtLen2): CircleLen = CircleLen(diameter, cenX + operand.x, cenY + operand.y)
+  override def slate(xDelta: Length, yDelta: Length): CircleLen = CircleLen(diameter, cenX + xDelta, cenY + yDelta)
+  override def slateX(operand: Length): CircleLen = CircleLen(diameter, cenX + operand, cenY)
+  override def slateY(operand: Length): CircleLen = CircleLen(diameter, cenX, cenY + operand)
+  override def scale(operand: Double): CircleLen = CircleLen(diameter, cenX * operand, cenY * operand)
+  override def mapScalar2(operand: Length): Circle = Circle(diameter / operand, cenX / operand, cenY / operand)
+}

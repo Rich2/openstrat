@@ -17,7 +17,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
   val scale = gridSys.fullDisplayScale(mainWidth, mainHeight)
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: GraphicElem = gridSys.sidesDraw()
+  val sidesDraw: Graphic2Elem = gridSys.sidesDraw()
 
   override implicit def proj: SqSysProjection = ???
 

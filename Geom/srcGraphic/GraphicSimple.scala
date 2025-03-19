@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** GraphicSimple is a non compound graphic element that can be rendered to a display (or printed) or is an active element in a display, but can't be
  *  both that require a [[GraphicCompound]]. */
-trait GraphicSimple extends GraphicElem
+trait GraphicSimple extends Graphic2Elem
 { /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): GraphicSimple
 

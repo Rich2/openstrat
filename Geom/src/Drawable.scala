@@ -2,13 +2,13 @@
 package ostrat; package geom
 import Colour.Black
 
-/** A 2D geometric element that can be drawn producing a [[GraphicElem]]. */
+/** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any with Geom2Elem
 { /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed.  */
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black): GraphicElem
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): Graphic2Elem
 
   /** If this element is [[Fillable]] applies the fill method, ignoring the line width parameter, else applies the draw method. */
-  def fillOrDraw(lineWidth: Double = 2, colour: Colour = Black): GraphicElem = this match
+  def fillOrDraw(lineWidth: Double = 2, colour: Colour = Black): Graphic2Elem = this match
   { case fl: Fillable => fl.fill(colour)
     case _ => draw(lineWidth, colour)
   }
@@ -82,14 +82,14 @@ object Drawable
   }
 }
 
-/** A 2D geometric element that can be drawn and filled producing [[GraphicElem]]s. */
+/** A 2D geometric element that can be drawn and filled producing [[Graphic2Elem]]s. */
 trait Fillable extends Any with Drawable
 { /** Returns a fill graphic of this geometric object. */
-  def fill(fillColour: Colour): GraphicElem
+  def fill(fillColour: Colour): Graphic2Elem
 
   /** Returns a fill graphic of this geometric object from the Int RGBA value. */
-  def fillInt(intValue: Int): GraphicElem
+  def fillInt(intValue: Int): Graphic2Elem
 
   /** Returns a fill and draw graphic of this geometric object. */
-  def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
+  def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
 }

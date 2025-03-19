@@ -2,10 +2,10 @@
 package ostrat; package geom
 
 /** A 2D geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all transformations. So
- * for example a [[Circle]] is no longer a [[Circle]] after a Shear transformation, but remains an [[Ellipse]]. [[GraphicElem]] inherits from GeomElem. A
- * [[Circle]] is not a [[GraphicElem]] but if we add a fill colour to make a [[CircleFill]], or a line width and line  colour to it, we have a [[GraphicElem]] a
+ * for example a [[Circle]] is no longer a [[Circle]] after a Shear transformation, but remains an [[Ellipse]]. [[Graphic2Elem]] inherits from GeomElem. A
+ * [[Circle]] is not a [[Graphic2Elem]] but if we add a fill colour to make a [[CircleFill]], or a line width and line  colour to it, we have a [[Graphic2Elem]] a
  * graphical element that can be displayed on a canvas or output to SVG. It is expected that all elements that inherit from GeomElem that are not
- * [[GraphicElem]]s will be [[Drawable]] elements, but this has not been finalised. */
+ * [[Graphic2Elem]]s will be [[Drawable]] elements, but this has not been finalised. */
 trait Geom2Elem extends Any
 { /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
    * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.

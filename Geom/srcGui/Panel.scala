@@ -18,8 +18,8 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
   var onScroll: Boolean => Unit = { b => }
-  def repaint(elems: RArr[GraphicElem]): Unit = { canvObjs = elems; outerCanv.refreshPanel(this) }
-  def repaints(elems: GraphicElem*): Unit = repaint(elems.toArr)
+  def repaint(elems: RArr[Graphic2Elem]): Unit = { canvObjs = elems; outerCanv.refreshPanel(this) }
+  def repaints(elems: Graphic2Elem*): Unit = repaint(elems.toArr)
 }
 
 case class MouseButtonCmd(cmd: MouseButton => Unit)

@@ -14,7 +14,7 @@ trait ShapeCompound extends ShapeGraphic with NoCanvElem
   override def svgInline: HtmlSvg = ???
 
   /** The [[ShapeCompound]] type will be widened at a later point. */
-  def children: RArr[GraphicElem]
+  def children: RArr[Graphic2Elem]
 
   override def slateXY(xDelta: Double, yDelta: Double): ShapeCompound
   override def scale(operand: Double): ShapeCompound
@@ -31,8 +31,8 @@ trait ShapeCompound extends ShapeGraphic with NoCanvElem
   override def shearX(operand: Double): ShapeCompound
   override def shearY(operand: Double): ShapeCompound
 
-  /** Functionally adds more child [[GraphicElem]] graphics. These child graphics will be at placed in front of previous children. */
-  def addChildren(newChildren: Arr[GraphicElem]): ShapeCompound
+  /** Functionally adds more child [[Graphic2Elem]] graphics. These child graphics will be at placed in front of previous children. */
+  def addChildren(newChildren: Arr[Graphic2Elem]): ShapeCompound
 }
 
 /** Companion object for the [[ShapeCompound]] trait, contains implicit instances for 2D geometric transoframtion type classes for common collection

@@ -10,7 +10,7 @@ trait PolygonLen2[VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT]
   override def slateX(operand: Length): PolygonLen2[VT]
   override def slateY(operand: Length): PolygonLen2[VT]
   override def scale(operand: Double): PolygonLen2[VT]
-  def mapScalars(operand: Length): Polygon
+  def mapScalar2(operand: Length): Polygon
 
   def revY: PolygonLen2[VT]
   def revYIf(cond: Boolean): PolygonLen2[VT]

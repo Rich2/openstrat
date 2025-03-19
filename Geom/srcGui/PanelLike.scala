@@ -9,7 +9,7 @@ trait PanelLike extends RectCenlign
   /** The active objects registered with this [[PanelLike]]. */
   var actives: RArr[GraphicActive] = RArr()
 
-  var canvObjs: RArr[GraphicElem] = RArr()
+  var canvObjs: RArr[Graphic2Elem] = RArr()
 
   /** This method name is inconsistent with mouseUp on the canvas class*/
   var mouseUp: (MouseButton, RArr[Any], Pt2) => Unit = (_, _, _) => {}

@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb._
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends EllipseCompound with
+case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound with
   CircleGraphic with AxisFree
 {
   override type ThisT = CircleCompound
@@ -41,7 +41,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
   override def shearY(operand: Double): EllipseCompound = ???
 
-  override def addChildren(newChildren: Arr[GraphicElem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
+  override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }
 
 object CircleCompound

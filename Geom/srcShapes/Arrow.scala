@@ -27,7 +27,7 @@ object Arrow
   }
   
   def apply(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 25, lineWidth: Double = 2,
-            lineColour: Colour = Colour.Black): RArr[GraphicElem] =
+            lineColour: Colour = Colour.Black): RArr[Graphic2Elem] =
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
     val shaft = LineSegDraw(startPt, endPt, lineWidth, lineColour)

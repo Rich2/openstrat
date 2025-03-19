@@ -3,7 +3,7 @@ package ostrat; package geom
 import ostrat.pWeb._
 
 /** Graphic element that can be described with single [[SvgElem]] */
-trait GraphicSvgElem extends GraphicElem
+trait GraphicSvgElem extends Graphic2Elem
 {
   def svgElem: SvgElem
 

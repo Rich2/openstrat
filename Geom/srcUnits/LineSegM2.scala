@@ -27,7 +27,7 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
   override def scale(operand: Double): LineSegM2 =
     LineSegM2(xStartMetresNum * operand, yStartMetresNum * operand, xEndMetresNum * operand, yEndMetresNum * operand)
   
-  override def mapScalars(operand: Length): LineSeg =
+  override def mapScalar2(operand: Length): LineSeg =
     LineSeg(xStartMetresNum / operand.metresNum, yStartMetresNum / operand.metresNum, xEndMetresNum / operand.metresNum, yEndMetresNum / operand.metresNum)
 
   override def dbl1: Double = xStartMetresNum

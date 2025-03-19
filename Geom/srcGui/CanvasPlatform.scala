@@ -134,5 +134,5 @@ trait CanvasPlatform extends RectCenlign
   def fromFileFindSettingElseOld[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
 
-  def rendElems(elems: RArr[GraphicElem]): Unit = elems.foreach(_.rendToCanvas(this))
+  def rendElems(elems: RArr[Graphic2Elem]): Unit = elems.foreach(_.rendToCanvas(this))
 }

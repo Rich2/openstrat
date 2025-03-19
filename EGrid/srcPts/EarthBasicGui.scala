@@ -42,14 +42,14 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
       case p => {
-        val newPoly = p.map { case v if v.zNeg => v.xy.mapScalars(v.xyLengthFrom()).toMetres(EarthAvRadius)
+        val newPoly = p.map { case v if v.zNeg => v.xy.mapScalar2(v.xyLengthFrom()).toMetres(EarthAvRadius)
           case v => v.xy
         }
         Some(newPoly)
       }
     }
 
-    val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair(_.mapScalars(dirnScale))
+    val ps5: PolygonGenPairArr[EarthPoly] = ps4.polygonMapToPair(_.mapScalar2(dirnScale))
 
     val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap { (p, a2) =>
       val str: String = a2 match
@@ -60,7 +60,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       p.fillActiveText(a2.colour, str, a2.name, 10, a2.contrastBW)
     }
     
-    val graphicPairs: RPairArr[GraphicElem, TextFixed] = ps5.pairMap{ (poly, a2) =>
+    val graphicPairs: RPairArr[Graphic2Elem, TextFixed] = ps5.pairMap{ (poly, a2) =>
       val str: String = a2 match
       { case isle: IslandPoly => isle.strWithGroups
         case lake: LakePoly => lake.name -- lake.area.str
@@ -74,14 +74,14 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
     val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zNonNeg)
-    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy.mapScalars(scale))
+    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy.mapScalar2(scale))
 
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
       p.a1.textAt(p.a2.name, 10, col) }
 
     val conns3 = conns2.map(_.fromLatLongFocus(focus))
     val conns4 = conns3.filter(_.zsPos)
-    val conns5 = conns4.map(_.xy mapScalars scale)
+    val conns5 = conns4.map(_.xy mapScalar2 scale)
     val conns6 = conns5.draw(2, Orange)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)

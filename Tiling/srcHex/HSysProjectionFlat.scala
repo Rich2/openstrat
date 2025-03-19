@@ -10,7 +10,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
   override def pixelsPerTile: Double = pixelsPerC * 4
 
   var focus: Vec2 = parent.defaultView(pixelsPerC).vec
-  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixelsPerTile >= minScale, elems, RArr[GraphicElem]())
+  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixelsPerTile >= minScale, elems, RArr[Graphic2Elem]())
 
   override def setView(view: Any): Unit = view match
   {
@@ -78,13 +78,13 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixelsPerC).active(hc))
 
-  override def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems =
-  { val buff = new ArrayBuffer[GraphicElem]
+  override def hCenPtMap(f: (HCen, Pt2) => Graphic2Elem): GraphicElems =
+  { val buff = new ArrayBuffer[Graphic2Elem]
     gChild.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(hc, pt))) }
-    new RArr[GraphicElem](buff.toArray)
+    new RArr[Graphic2Elem](buff.toArray)
   }
 
-  override def hCenSizedMap(hexScale: Double)(f: (HCen, Pt2) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenPtMap(f))
+  override def hCenSizedMap(hexScale: Double)(f: (HCen, Pt2) => Graphic2Elem): GraphicElems = ifTileScale(hexScale, hCenPtMap(f))
 
   override def sideLines: LineSegArr = gChild.sepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
   override def innerSideLines: LineSegArr = gChild.innerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)

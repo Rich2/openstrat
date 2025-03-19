@@ -8,7 +8,7 @@ trait CanvasUser
   val canv: CanvasPlatform
 
   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
-  def paintObjs(movedObjs: RArr[GraphicElem]): RArr[GraphicActive] =
+  def paintObjs(movedObjs: RArr[Graphic2Elem]): RArr[GraphicActive] =
   {
     val activeBuff: ArrayBuffer[GraphicActive] = Buffer()
 
@@ -19,13 +19,13 @@ trait CanvasUser
 
     movedObjs.foreach(processGraphic)
 
-    def processGraphic(el: GraphicElem): Unit = el match
+    def processGraphic(el: Graphic2Elem): Unit = el match
     {
       case el: GraphicClickable => activeBuff += el
       case sc: ShapeCompound => { sc.rendToCanvas(canv); sc.children.foreach(processGraphic) }
       //case cs: GraphicParentOld => canv.rendElems(cs.children)
       case cpf: GraphicParentFull => canv.rendElems(cpf.children)
-      case ce: GraphicElem => ce.rendToCanvas(canv)
+      case ce: Graphic2Elem => ce.rendToCanvas(canv)
       //s case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))
       //case v =>
     }

@@ -10,7 +10,7 @@ class HSepLayer[A](val unsafeArray: Array[A]) extends HSepLayerAny[A]
   /** apply index method returns the data from this layer for the given [[HSep]]. */
   def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(r, c))
 
-  def somesPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def somesPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => Graphic2Elem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
@@ -22,7 +22,7 @@ class HSepLayer[A](val unsafeArray: Array[A]) extends HSepLayerAny[A]
       }
     }
 
-  def somesPolyMapAlt(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def somesPolyMapAlt(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon, A) => Graphic2Elem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case

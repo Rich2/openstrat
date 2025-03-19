@@ -10,7 +10,7 @@ abstract class GlobeGui(val title: String) extends CmdBarGui
   /** The length normally shown in kms per pixel. */
   var scale: LengthMetric
 
-  def ifScale(minScale: LengthMetric, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
+  def ifScale(minScale: LengthMetric, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[Graphic2Elem]())
 
   def scaleStr = s"scale = ${scale.kilometresNum.str2} km/pixel"
   def repaint(): Unit

@@ -115,12 +115,12 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
   }
 
   /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[GraphicElem]] or a subtype. */
+   * most cases B will be a [[Graphic2Elem]] or a subtype. */
   def projHeadsHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
     projHeadsHcPtMap(proj)(f)
 
   /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[GraphicElem]] or a subtype. */
+   * most cases B will be a [[Graphic2Elem]] or a subtype. */
   def projHeadsHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
@@ -137,7 +137,7 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
     projSomesHcPtMap(proj)(f)
 
   /** Uses projection to map the non empty ArrSome head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[GraphicElem]] or a subtype. */
+   * most cases B will be a [[Graphic2Elem]] or a subtype. */
   def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>

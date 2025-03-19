@@ -21,14 +21,14 @@ trait CanvasPanelled extends CanvasUser
   def refresh(): Unit = panels.foreach(refreshPanel)   
   
   /** This method creates a new frame for the panel. It clips the painting area. Paints the [[Panel]] with the back colour, translates the
-   *  [[GraphicElem]]s from their positions relative to the [[Panel]]'s centre to their absolute positions on the canvas. It stores the active
+   *  [[Graphic2Elem]]s from their positions relative to the [[Panel]]'s centre to their absolute positions on the canvas. It stores the active
    *  object shapes with their absolute positions on the panels active object list. Finally it unclips the painting area. */
   def refreshPanel(panel: Panel): Unit =
   { val clipPoly = panel.clipPoly
     canv.gcSave()
     canv.clip(clipPoly)
     canv.polygonFill(clipPoly.fill(panel.backColour))
-    val movedObjs: RArr[GraphicElem] = panel.canvObjs.slate(panel.clipVec)
+    val movedObjs: RArr[Graphic2Elem] = panel.canvObjs.slate(panel.clipVec)
     panel.actives = paintObjs(movedObjs)
     canv.gcRestore()
   }   

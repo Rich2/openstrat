@@ -34,10 +34,10 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
  * Rectangles and an apply factor method that delegats to it. */
 object RectangleCompound
 {
-  def apply(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) : RectangleCompound =
+  def apply(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) : RectangleCompound =
     new RectangleCompoundImp(shape, facets, children)
 
-  case class RectangleCompoundImp(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectangleCompound with
+  case class RectangleCompoundImp(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectangleCompound with
     AxisFree
   {
     override type ThisT = RectangleCompoundImp

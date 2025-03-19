@@ -18,7 +18,7 @@ case class RadioGroup(radioOptions:RArr[RadioOption], aSelectedIndex:Int)
   def setEnabled(newState:Boolean): Unit = radioOptions.foreach(radio => radio.isEnabled = newState)
 
   def toGraphicElems(): GraphicElems =
-  { var ret:RArr[GraphicElem] = RArr()
+  { var ret:RArr[Graphic2Elem] = RArr()
     radioOptions.foreach(radio => { ret = radio.toGraphicElems(this) ++ ret })
     ret
   }

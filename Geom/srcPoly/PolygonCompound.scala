@@ -50,7 +50,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def shearY(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
 
-  def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
+  def addChildren(newChildren: Arr[Graphic2Elem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 
   def rightX: Double = shape.rightX
 }
@@ -59,7 +59,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
  * classes. */
 object PolygonCompound
 {
-  def apply(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()): PolygonCompound =
+  def apply(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
 
   //implicit val showTImplicit: Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound] = Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound]()
@@ -85,7 +85,7 @@ object PolygonCompound
   }
 
   /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-  case class PolygonCompoundImp(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends PolygonCompound with
+  case class PolygonCompoundImp(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends PolygonCompound with
     AxisFree
   {
     override type ThisT = PolygonCompoundImp

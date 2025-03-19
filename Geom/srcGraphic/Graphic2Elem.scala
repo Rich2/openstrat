@@ -3,85 +3,85 @@ package ostrat; package geom
 import pWeb._
 
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element in a
- * display or both. So I think the self type will force all [[GraphicElem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
-trait GraphicElem extends Geom2Elem
+ * display or both. So I think the self type will force all [[Graphic2Elem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
+trait Graphic2Elem extends Geom2Elem
 { /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xDelta: Double, yDelta: Double): GraphicElem
+  override def slateXY(xDelta: Double, yDelta: Double): Graphic2Elem
 
   /** Uniform scaling 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. The scale
    * name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale method for
    * differential scaling on the X and Y axes. */
-  override def scale(operand: Double): GraphicElem
+  override def scale(operand: Double): Graphic2Elem
   
   /** Mirror, reflection 2D geometric transformation across the X axis on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
    * classes. */
-  override def negY: GraphicElem
+  override def negY: Graphic2Elem
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
    * classes. */
-  override def negX: GraphicElem
+  override def negX: Graphic2Elem
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): GraphicElem
+  override def prolign(matrix: ProlignMatrix): Graphic2Elem
 
   /** Rotation positive or anti-clockwise 90 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be narrowed in
    * subclasses and traits. */
-  override def rotate90: GraphicElem
+  override def rotate90: Graphic2Elem
 
   /** Rotation positive or anti-clockwise 180 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be narrowed in
    * subclasses and traits. */
-  override def rotate180: GraphicElem
+  override def rotate180: Graphic2Elem
 
   /** Rotation positive or anti-clockwise 270 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be narrowed in
    * subclasses and traits. */
-  override def rotate270: GraphicElem
+  override def rotate270: Graphic2Elem
 
   /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return type will be
    * narrowed in sub traits / classes. */
-  override def rotate(angle: AngleVec): GraphicElem
+  override def rotate(angle: AngleVec): Graphic2Elem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub
    * traits / classes. */
-  override def reflect(lineLike: LineLike): GraphicElem
+  override def reflect(lineLike: LineLike): Graphic2Elem
 
   /** XY scaling 2D geometric transformation on a GraphicElem, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions. The
    * return type will be narrowed in subclasses and traits. */
-  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem
+  override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
 
   /** Shear 2D geometric transformation along the X Axis on a GraphicElem, returns a GraphicElem. The return type will be narrowed in subclasses and traits. */
-  override def shearX(operand: Double): GraphicElem
+  override def shearX(operand: Double): Graphic2Elem
 
   /** Shear 2D geometric transformation along the Y Axis on a GraphicElem, returns a GraphicElem. The return type will be narrowed in subclasses and traits. */
-  override def shearY(operand: Double): GraphicElem
+  override def shearY(operand: Double): Graphic2Elem
 
   def svgElems: RArr[SvgElem]
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
-object GraphicElem
+object Graphic2Elem
 {
-  implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: ScaleXY[GraphicElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
-  implicit val ReflectImplicit: Reflect[GraphicElem] = (obj, lineLike) => obj.reflect(lineLike)
+  implicit val slateImplicit: Slate[Graphic2Elem] = (obj: Graphic2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[Graphic2Elem] = (obj: Graphic2Elem, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[Graphic2Elem] = (obj: Graphic2Elem, angle: AngleVec) => obj.rotate(angle)
+  implicit val XYScaleImplicit: ScaleXY[Graphic2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[Graphic2Elem] = (obj, matrix) => obj.prolign(matrix)
+  implicit val ReflectImplicit: Reflect[Graphic2Elem] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxisImplicit: TransAxes[GraphicElem] = new TransAxes[GraphicElem]
-  { override def negYT(obj: GraphicElem): GraphicElem = obj.negY
-    override def negXT(obj: GraphicElem): GraphicElem = obj.negX
-    override def rotate90(obj: GraphicElem): GraphicElem = obj.rotate90
-    override def rotate180(obj: GraphicElem): GraphicElem = obj.rotate180
-    override def rotate270(obj: GraphicElem): GraphicElem = obj.rotate270
+  implicit val reflectAxisImplicit: TransAxes[Graphic2Elem] = new TransAxes[Graphic2Elem]
+  { override def negYT(obj: Graphic2Elem): Graphic2Elem = obj.negY
+    override def negXT(obj: Graphic2Elem): Graphic2Elem = obj.negX
+    override def rotate90(obj: Graphic2Elem): Graphic2Elem = obj.rotate90
+    override def rotate180(obj: Graphic2Elem): Graphic2Elem = obj.rotate180
+    override def rotate270(obj: Graphic2Elem): Graphic2Elem = obj.rotate270
   }
 }
 
 /** A canvas element that can be rendered by the [[pgui.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the library. */
-trait CanvElem extends GraphicElem
+trait CanvElem extends Graphic2Elem
 {
   /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. */
   override def slateXY(xDelta: Double, yDelta: Double): CanvElem
@@ -144,9 +144,9 @@ object CanvElem
   }
 }
 
-/** A graphic element [[GraphicElem]] that is not one of the standard canvas elements [[CanvElem]], it must provide a conversion into those standard
+/** A graphic element [[Graphic2Elem]] that is not one of the standard canvas elements [[CanvElem]], it must provide a conversion into those standard
  * elements. */
-trait NoCanvElem extends GraphicElem
+trait NoCanvElem extends Graphic2Elem
 { /** This method converts this non-standard graphic element into [[CanvElem]]s that can be processed by the [[pCanv.CanvasPlatform]]. */
   def canvElems: RArr[CanvElem]
 }

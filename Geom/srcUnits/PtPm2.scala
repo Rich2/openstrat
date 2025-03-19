@@ -35,7 +35,7 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def slateY(operand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum + operand.metresNum)
   override def slateFrom(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)  
   override def scale (operand: Double): PtPm2 = new PtPm2(xPicometresNum * operand, yPicometresNum * operand)
-  override def mapScalars(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)  
+  override def mapScalar2(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)  
   override def -(operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def -(operand: PtLen2): VecPm2 = VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
@@ -153,7 +153,7 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
   override def slate(xDelta: Length, yDelta: Length): VecPm2 = VecPm2(xPicometresNum + xDelta.picometresNum, yPicometresNum + yDelta.picometresNum)
   override def slateX(operand: Length): VecPm2 = VecPm2(xPicometresNum + operand.picometresNum, yPicometresNum)
   override def slateY(operand: Length): VecPm2 = VecPm2(xPicometresNum, yPicometresNum + operand.picometresNum)
-  override def mapScalars(operator: Length): Vec2 = Vec2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
+  override def mapScalar2(operator: Length): Vec2 = Vec2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
 }
 
 /** Companion object for 2-dimensional vector specified in picometres as units rather than pure scalar numbers. Contains factory apply methods and [[Arr]]

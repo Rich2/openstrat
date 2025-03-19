@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
- * graphics. Of particular note are the [[Pt2]], [[Geom2Elem]] and [[GraphicElem]] class /traits. These are the foundation of the API and the library.
+ * graphics. Of particular note are the [[Pt2]], [[Geom2Elem]] and [[Graphic2Elem]] class /traits. These are the foundation of the API and the library.
  * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
  * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
@@ -16,8 +16,8 @@ package object geom
   /** A [[Vec2]] along the Y Axis, whose X component = 0. */
   def yVec2(y: Double): Vec2 = Vec2(0, y)
 
-  /** Constructs a new [[ArrayBuffer]] of [[GraphicElem]]. */
-  @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[GraphicElem] = new ArrayBuffer[GraphicElem](initialLength)
+  /** Constructs a new [[ArrayBuffer]] of [[Graphic2Elem]]. */
+  @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[Graphic2Elem] = new ArrayBuffer[Graphic2Elem](initialLength)
 
   implicit def sequExtension[A](value: Sequ[A]): SequExtensions[A] = new SequExtensions[A](value)
   implicit def seqDefExtension[A](value: SeqSpec[A]): SeqSpecExtensions[A] = new SeqSpecExtensions[A](value)
@@ -103,7 +103,7 @@ package object geom
 
   val EarthAvDiameter: Metres = 12742000.metres
   val EarthAvRadius: Metres = EarthAvDiameter / 2
-  type GraphicElems = RArr[GraphicElem]
+  type GraphicElems = RArr[Graphic2Elem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomExtensions = new IntGeomExtensions(thisInt)
   implicit def doubleToImplicitGeom(thisDouble: Double): GeomDoubleExtensions = new GeomDoubleExtensions(thisDouble)

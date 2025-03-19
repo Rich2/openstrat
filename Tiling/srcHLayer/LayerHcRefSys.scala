@@ -66,25 +66,25 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
   def projRowsCombinePolygons(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonGenPairArr[A] =
     projRowsCombine.map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
 
-  def projPtMap(proj: HSysProjection)(f: (Pt2, A) => GraphicElem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(pt2, apply(hc)(proj.gChild)) }
+  def projPtMap(proj: HSysProjection)(f: (Pt2, A) => Graphic2Elem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(pt2, apply(hc)(proj.gChild)) }
 
   /** Maps the visible [[HCen]]s in the projection with their respective projection [[Pt2]] tile centre points and the data layer element form this collection to [[GraphicElems]]. This method name overload takes the [[HSysProjection]] as an implicit
    *  parameter. The other name overload takes it as an explicit first parameter list. In practice this method may be of limited utility. It may be better to use the the [[HSysProjection]] or another class as the dispatching object and access these
    *  data layer elements by the [[HCen]] apply methods. */
-  def projHCenPtMap(f: (HCen, Pt2, A) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projHCenPtMap(proj)(f)
+  def projHCenPtMap(f: (HCen, Pt2, A) => Graphic2Elem)(implicit proj: HSysProjection): GraphicElems = projHCenPtMap(proj)(f)
 
   /** Maps the visible [[HCen]]s in the projection with their respective projection [[Pt2]] tile centre points and the data layer element form this collection to [[GraphicElems]]. This method name overload takes the [[HSysProjection]] as an explicit
    *  first parameter  list. The other name overload takes it as an implicit parameter.In practice this method may be of limited utility. It may be better to use the the [[HSysProjection]] or another class as the dispatching object and access these
    * data layer elements by the [[HCen]] apply methods. */
-  def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => GraphicElem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(hc, pt2, apply(hc)(proj.gChild)) }
+  def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => Graphic2Elem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(hc, pt2, apply(hc)(proj.gChild)) }
 
-  def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem): GraphicElems = proj.hCenMap{hc =>
+  def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => Graphic2Elem): GraphicElems = proj.hCenMap{hc =>
     val terr = apply(hc)(proj.parent)
     val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(poly2, terr)
   }
 
-  def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => GraphicElem): GraphicElems = proj.hCenMap { hc =>
+  def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => Graphic2Elem): GraphicElems = proj.hCenMap { hc =>
     val terr = apply(hc)(proj.parent)
     val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(hc, poly2, terr)

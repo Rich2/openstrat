@@ -110,7 +110,7 @@ object GridGraphic1 extends RectCompound
   val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
   val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
   val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
-  val children: RArr[GraphicElem] = seps2 %: cens.scale(sc) ++ spt ++ vts
+  val children: RArr[Graphic2Elem] = seps2 %: cens.scale(sc) ++ spt ++ vts
 
   override def shape: Rect = Rect.bounding(children).addHorrVertMargin(100, 40)
 

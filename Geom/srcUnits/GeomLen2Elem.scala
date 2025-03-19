@@ -24,6 +24,16 @@ trait GeomLen2Elem extends Any
    * preserves [[Circle]]s and [[Square]]s. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): GeomLen2Elem
 
-  /** Divides by a [[Length]] to produce an equivlent [[Geom2Elem]] without [[Length]] units. */
-  def mapScalars(operand: Length): Geom2Elem
+  /** Divides by a [[Length]] to produce an equivalent [[Geom2Elem]] without [[Length]] units. */
+  def mapScalar2(operand: Length): Geom2Elem
+}
+
+/** A graphical element in 2 [[Length]] dimension space. */
+trait GraphicLen2Elem extends GeomLen2Elem
+{ override def slate(operand: VecPtLen2): GraphicLen2Elem
+  override def slate(xDelta: Length, yDelta: Length): GraphicLen2Elem
+  override def slateX(operand: Length): GraphicLen2Elem
+  override def slateY(operand: Length): GraphicLen2Elem
+  override def scale(operand: Double): GraphicLen2Elem
+  override def mapScalar2(operand: Length): Graphic2Elem
 }
