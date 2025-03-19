@@ -64,3 +64,12 @@ object CircleCompound
     override def rotate270(obj: CircleCompound): CircleCompound = obj.rotate270
   }
 }
+
+case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet]) extends CircleLen2Graphic, EllipseLen2Compound
+{ override def slate(operand: VecPtLen2): CircleLen2Compound = CircleLen2Compound(shape.slate(operand), facets)
+  override def slate(xDelta: Length, yDelta: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xDelta, yDelta), facets)
+  override def slateX(operand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(operand), facets)
+  override def slateY(operand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(operand), facets)
+  override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets)
+  override def mapScalar2(operand: Length): CircleCompound = CircleCompound(shape.mapScalar2(operand), facets)
+}

@@ -69,7 +69,7 @@ object ShapeGraphic
   }
 }
 
-trait ShapeLen2Graphic
+trait ShapeLen2Graphic extends GraphicLen2Elem
 {
   def shape: ShapeLen2
 }

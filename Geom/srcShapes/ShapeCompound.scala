@@ -1,11 +1,15 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import ostrat.pWeb._
 
-/** A shape based compound graphic. The return types of methods will be narrowed in sub classes. */
-trait ShapeCompound extends ShapeGraphic with NoCanvElem
-{ 
+trait ShapeGeomlessCompound
+{
   def facets: RArr[GraphicFacet]
+}
+
+/** A shape based compound graphic. The return types of methods will be narrowed in subclasses. */
+trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
+{
   final override def attribs: RArr[XmlAtt] = shapeAttribs ++ facets.flatMap(_.attribs)
   override def canvElems: RArr[CanvElem] = ???
   def mainSvgElem: SvgElem
@@ -53,3 +57,5 @@ object ShapeCompound
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
 }
+
+trait ShapeLen2Compound extends ShapeGeomlessCompound, ShapeLen2Graphic

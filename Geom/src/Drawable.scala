@@ -89,10 +89,12 @@ trait Fillable extends Any with Drawable
 
   /** Returns a fill graphic of this geometric object from the Int RGBA value. */
   def fillInt(intValue: Int): Graphic2Elem
-
-  /** Returns a fill and draw graphic of this geometric object. */
+  
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
 }
 
 trait DrawableLen2 extends GeomLen2Elem
 trait FillableLen2 extends DrawableLen2
+{
+  def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicLen2Elem
+}

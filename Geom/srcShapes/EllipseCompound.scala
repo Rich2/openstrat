@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -86,3 +86,5 @@ object EllipseCompound
     //override def slateTo(newCen: Pt2): EllipseCompoundImplement = ???
   }
 }
+
+trait EllipseLen2Compound extends EllipseLen2Graphic, ShapeGeomlessCompound
