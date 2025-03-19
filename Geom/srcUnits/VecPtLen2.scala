@@ -53,8 +53,7 @@ trait PtLen2 extends VecPtLen2, PointDbl2
 
   /** Subtracting a point from a point returns a vector. Subtracting a vector from a point returns a point. */
   def -(operand: PtLen2): VecLen2
-
-  //def magnitude: Length
+  
   def revY: PtLen2
   def revYIf(cond: Boolean): PtLen2
   def lineSegTo(endPt: PtLen2): LineSegLen2[? <: PtLen2]

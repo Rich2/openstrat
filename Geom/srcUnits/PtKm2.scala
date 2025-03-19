@@ -100,7 +100,7 @@ object PtKm2
 
   /** Implicit instance for the [[PolygonKm2Pair]] builder. This has to go in the [[PtKm2]] companion object so it can be found by an A => B function where
    * [[PtKm2]] is the type B parameter. */
-  implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonKm2PairBuilder[A2] = new PolygonKm2PairBuilder[A2]
+  implicit def polygonPairBuilderEv[A2](implicit ct: ClassTag[A2]): PolygonKm2PairBuilder[A2] = new PolygonKm2PairBuilder[A2]
 }
 
 /** Specialised immutable Array based collection class for [[PtKm2]]s. */

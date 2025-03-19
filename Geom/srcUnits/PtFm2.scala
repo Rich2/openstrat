@@ -164,7 +164,8 @@ object VecFm2
    * X and Y [[Length]]s as parameters. */
   def apply(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)
 
-  val buildImplicit: BuilderArrMap[VecFm2, VecFm2Arr] = new BuilderArrDbl2Map[VecFm2, VecFm2Arr]
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[VecFm2]] and [[VecFm2Arr]]. */
+  implicit val arrMapBuilderEv: BuilderArrMap[VecFm2, VecFm2Arr] = new BuilderArrDbl2Map[VecFm2, VecFm2Arr]
   { override type BuffT = VecFm2Buff
     override def fromDblArray(array: Array[Double]): VecFm2Arr = new VecFm2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecFm2Buff = new VecFm2Buff(buffer)
