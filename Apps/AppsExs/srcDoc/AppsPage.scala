@@ -41,8 +41,14 @@ object AppsPage extends OSDocumentationPage
 
   def otherApps: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Apps"),
     HtmlLi("Geometry and Graphics Tutorials"),
-    HtmlLi.linkAndText(otDir / "planetsapp.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
+
+    HtmlLi.linkAndText(otDir / "planetsapp.html", "Planets",
+      "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
+
     HtmlLi("Simultaneous turn, tile based tutorial games."),
-    HtmlLi.linkAndText(otDir / "flagsapp.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did most of the work on this."),
+
+    HtmlLi.linkAndText(otDir / "flagsapp.html", "Flags",
+      "Just some flags using the graphics module. Thanks to Rod and Stephen who did most of the work on this."),
+
     HtmlLi.linkAndText(otDir / "chessapp.html", "Chess", "Not completed."))
 }

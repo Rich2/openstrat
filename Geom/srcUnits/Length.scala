@@ -1,6 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
+/** Measurment of length which can be defined in various units metric and non-metric. */
 trait Length extends Any, Ordered[Length]
 { /** The number of metres in this [[Length]]. */
   def metresNum: Double

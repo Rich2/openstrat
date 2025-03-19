@@ -51,7 +51,7 @@ chess = {scen = 1 };
 ("Go", pgo.GoLaunch),
 ("CH", pchess.ChessLaunch),
 ("DR", pchess.pdraughts.DraughtsLaunch),
-
+("PA", ppart.PhysChemLaunch),
 ("PL", (pspace.PlanetsGui(_), "JavaFx Planets")),
 ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
 ("Y1", (pZero.TessGui(_), "Tess")),
@@ -64,4 +64,5 @@ chess = {scen = 1 };
 ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
 ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
+
 */

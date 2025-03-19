@@ -31,10 +31,10 @@ object AppSelector
     ("CH", pchess.ChessLaunch),
     ("DR", pchess.pdraughts.DraughtsLaunch),
     ("PL", pspace.PlanetLaunch),
+    ("PA", ppart.PhysChemLaunch),
   )
 
   val ids: ArrPairStr[(CanvasPlatform => Any, String)] = ArrPairStr(
-
     ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y1", (pZero.TessGui(_), "Tess")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
