@@ -157,21 +157,19 @@ object VecM2
 
   /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Double]] values. */
   def apply(xMetresNum: Double, yMetresNum: Double): VecM2 = new VecM2(xMetresNum, yMetresNum)
-
-  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the scalars of the components. */
-  def metresNum(xMetresNum: Double, yMetresNum: Double): VecM2 = new VecM2(xMetresNum, yMetresNum)
-
-  val buildImplicit: BuilderArrMap[VecM2, VecM2Arr] = new BuilderArrDbl2Map[VecM2, VecM2Arr]
+  
+  /** [[BuilderArrMap]] type class instance for [[VecM2]] and [[VecM2Arr]]. */
+  val builderArrMapEv: BuilderArrMap[VecM2, VecM2Arr] = new BuilderArrDbl2Map[VecM2, VecM2Arr]
   { override type BuffT = VecM2Buff
     override def fromDblArray(array: Array[Double]): VecM2Arr = new VecM2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecM2Buff = new VecM2Buff(buffer)
   }
 }
 
-/** Efficent Specialised [[Arr]] for [[VecM2]]s. */
+/** Efficient Specialised [[Arr]] for [[VecM2]]s. */
 class VecM2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecM2]
 { override type ThisT = VecM2Arr
-  override def seqDefElem(d1: Double, d2: Double): VecM2 = VecM2.metresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): VecM2 = VecM2(d1, d2)
   override def fromArray(array: Array[Double]): VecM2Arr = new VecM2Arr(array)
   override def typeStr: String = "VecM2Arr"
   override def fElemStr: VecM2 => String = _.str
@@ -180,5 +178,5 @@ class VecM2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecM2]
 /** A specialised flat ArrayBuffer[Double] based class for [[VecM2]] collections. */
 final class VecM2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecM2]
 { override def typeStr: String = "VecM2Buff"
-  def newElem(d1: Double, d2: Double): VecM2 = VecM2.metresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): VecM2 = VecM2(d1, d2)
 }

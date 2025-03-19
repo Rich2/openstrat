@@ -61,12 +61,16 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override def lineSegFrom(startPt: PtLen2): LineSegFm2 = LineSegFm2(startPt.xFemtometresNum, startPt.yFemtometresNum, xFemtometresNum, yFemtometresNum)
 }
 
-/** Companion object for [[PtFm2]] class contains factory methods. */
+/** Companion object for [[PtFm2]] class contains factory methods and various type class instances. The [[GeomLen2Elem]] type class instances are in the
+ * [[PtLen2]] companion object. */
 object PtFm2
-{ /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
-  def apply(xFemtometresNum: Double, yFemtometresNum: Double): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum)
-
+{ /** Factory apply method for creating 2-dimensional points defined in [[Femtometres]] from the X and Y [[Length]] components. There is an apply name overload
+   * that takes the [[Double]] values as parameters. */
   def apply(x: Length, y: Length): PtFm2 = new PtFm2(x.femtometresNum, y.femtometresNum)
+  
+  /** Factory apply method for creating 2-dimensional vectors defined in [[Femtometres]] from the 2 [[Double]] value. There is an apply name overload that takes
+   * X and Y [[Length]]s as parameters. */
+  def apply(xFemtometresNum: Double, yFemtometresNum: Double): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum)
 
   def origin: PtFm2 = new PtFm2(0, 0)
 
@@ -153,16 +157,13 @@ final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Dou
 }
 
 object VecFm2
-{ /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. There is an apply name overload that takes the
-   * [[Double]] values as parameters. */
+{ /** Factory method for creating 2-dimensional vectors defined in [[Femtometres]] from the 2 [[Length]] components. There is an apply name overload that takes
+   * the [[Double]] values as parameters. */
   def apply(x: Length, y: Length): VecFm2 = new VecFm2(x.femtometresNum, y.femtometresNum)
 
   /** Factory apply method for creating 2-dimensional vectors defined in [[Femtometres]] from the 2 [[Double]] value. There is an apply name overload that takes
    * X and Y [[Length]]s as parameters. */
   def apply(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)
-
-  /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the scalars of the components. */
-  def picometresNum(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)
 
   val buildImplicit: BuilderArrMap[VecFm2, VecFm2Arr] = new BuilderArrDbl2Map[VecFm2, VecFm2Arr]
   { override type BuffT = VecFm2Buff
@@ -174,7 +175,7 @@ object VecFm2
 /** Efficient Specialised [[Arr]] for [[VecFm2]]s. */
 class VecFm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecFm2]
 { override type ThisT = VecFm2Arr
-  override def seqDefElem(d1: Double, d2: Double): VecFm2 = VecFm2.picometresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
   override def fromArray(array: Array[Double]): VecFm2Arr = new VecFm2Arr(array)
   override def typeStr: String = "VecFm2Arr"
   override def fElemStr: VecFm2 => String = _.str
@@ -183,5 +184,5 @@ class VecFm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecFm2]
 /** A specialised flat ArrayBuffer[Double] based class for [[VecFm2]] collections. */
 final class VecFm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecFm2]
 { override def typeStr: String = "VecFm2Buff"
-  def newElem(d1: Double, d2: Double): VecFm2 = VecFm2.picometresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
 }

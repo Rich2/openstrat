@@ -66,12 +66,14 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
     LineSegPm2(startPt.xPicometresNum, startPt.yPicometresNum, xPicometresNum, yPicometresNum)
 }
 
-/** Companion object for [[PtPm2]] class contains factory methods. */
+/** Companion object for [[PtPm2]] class contains factory methods and various type class instances. */
 object PtPm2
-{ /** Factory method for creating a 2-dimensional point measured in picometres from the X and Y [[Length]]s. */
+{ /** Factory method for creating a 2-dimensional point measured in picometres from the X and Y [[Length]]s. There is an apply name overload that takes the
+   * [[Double]] values as parameters. */
   def apply(x: Length, y: Length): PtPm2 = new PtPm2(x.picometresNum, y.picometresNum)
 
-  /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. */
+  /** Factory method for creating a 2-dimensional point measured in metres from the scalar [[Double]] values. There is an apply name overload that takes the X
+   * and Y [[Length]] components. */
   def apply(xPicometresNum: Double, yPicometresNum: Double): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum)
 
   /** The origin of 2-dimensional coordinate space defined in picometres. */
@@ -158,17 +160,13 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
 }
 
 object VecPm2
-{ /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Picometres]] components. */
-  def spply(x: Picometres, y: Picometres): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
+{ /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Picometres]] components. There is an apply name overload
+   * that takes the [[Double]] values as parameters.*/
+  def spply(x: Length, y: Length): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
 
-  /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Double]] values. */
+  /** Factory apply method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Double]] values. There is an apply name overload that takes
+   * the X and Y [[Length]] components as parameters.*/
   def apply(xPicometresNum: Double, yPicometresNum: Double): VecPm2 = new VecPm2(xPicometresNum, yPicometresNum)
-
-  /** Factory method for creating 2-dimensional vectors defined in [[Picometres]] from the 2 [[Length]] components. */
-  def lengths(x: Length, y: Length): VecPm2 = new VecPm2(x.picometresNum, y.picometresNum)
-
-  /** Factory method for creating 2-dimensional vectors defined in [[Picometres]] from the scalars of the components. */
-  def picometresNum(xPicometresNum: Double, yPicometresNum: Double): VecPm2 = new VecPm2(xPicometresNum, yPicometresNum)
 
   val buildImplicit: BuilderArrMap[VecPm2, VecPm2Arr] = new BuilderArrDbl2Map[VecPm2, VecPm2Arr]
   { override type BuffT = VecPm2Buff
@@ -180,7 +178,7 @@ object VecPm2
 /** Efficient Specialised [[Arr]] for [[VecPm2]]s. */
 class VecPm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecPm2]
 { override type ThisT = VecPm2Arr
-  override def seqDefElem(d1: Double, d2: Double): VecPm2 = VecPm2.picometresNum(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): VecPm2 = VecPm2(d1, d2)
   override def fromArray(array: Array[Double]): VecPm2Arr = new VecPm2Arr(array)
   override def typeStr: String = "VecPm2Arr"
   override def fElemStr: VecPm2 => String = _.str
@@ -189,5 +187,5 @@ class VecPm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecPm2]
 /** A specialised flat ArrayBuffer[Double] based class for [[VecPm2]] collections. */
 final class VecPm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[VecPm2]
 { override def typeStr: String = "VecPm2Buff"
-  def newElem(d1: Double, d2: Double): VecPm2 = VecPm2.picometresNum(d1, d2)
+  def newElem(d1: Double, d2: Double): VecPm2 = VecPm2(d1, d2)
 }
