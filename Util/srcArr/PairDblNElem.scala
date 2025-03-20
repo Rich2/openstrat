@@ -72,6 +72,8 @@ BuilderArrPairDblN[B1, ArrB1, B2, ArrB] with BuilderArrPairMap[B1, ArrB1, B2, B,
 
   final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
   inline final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.grow(newElem)
+
+  override def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB = arrFromArrays(b1Arr.arrayUnsafe, b2s)
 }
 
 /** Builder for [[ArrPairDblN]] objects by both flatMap f: A => ArrpairB methods. */

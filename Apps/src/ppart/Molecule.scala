@@ -7,19 +7,23 @@ trait Molecule
 { val atoms: RArr[Atom]
   def atomInd(atom: Atom): Int = atoms.indexOf(atom)
   def atomPosns: PtPm2Arr
+  def posnAtoms: PtPm2PairArr[Atom] = PtPm2PairArr(atomPosns, atoms)
   val bonds: RPairArr[Atom, Atom]
   def bondSegs: LineSegPm2Arr = bonds.map{bond =>
     val i1: PtPm2 = atomPosns(atomInd(bond.a1))
     val i2: PtPm2 = atomPosns(atomInd(bond.a2))
     LineSegPm2(i1, i2)
   }
-  def fills(scale: Length, xOff: Length = 0.metres, yOff: Length = 0.metres): GraphicElems =
-    atoms.iMap{(i, at) => at.fillDraw(scale, (xOff + atomPosns(i).x) / scale, (yOff  + atomPosns(i).y)/ scale) }
+
+  def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2(atom.radius * 2, pt).fillDraw(atom.colour, atom.contrastBW) }
+
+  def fillsOld(scale: Length, xOff: Length = 0.metres, yOff: Length = 0.metres): GraphicElems =
+    atoms.iMap{ (i, at) => at.fillDraw(scale, (xOff + atomPosns(i).x) / scale, (yOff  + atomPosns(i).y)/ scale) }
 
   def draws(scale: Length, xOff: Length = 0.picometres, yOff: Length = 0.picometres): GraphicElems =
     bondSegs.map{bs => bs.slate(xOff, yOff).mapScalar2(scale).draw() }
 
-  def fillDraws(scale: Length, xOff: Length = 0.metres, yOff: Length = 0.metres): GraphicElems = draws(scale, xOff, yOff) ++ fills(scale, xOff, yOff)
+  def fillDrawsOld(scale: Length, xOff: Length = 0.metres, yOff: Length = 0.metres): GraphicElems = draws(scale, xOff, yOff) ++ fillsOld(scale, xOff, yOff)
 }
 
 object Dihydrogen extends Molecule

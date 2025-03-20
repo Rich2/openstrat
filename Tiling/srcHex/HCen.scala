@@ -238,7 +238,6 @@ object HCenPairArr1
   }
 }
 
-
 class HCenPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt2[HCen, B2, HCenPair[B2]]
 { override type ThisT = HCenPairBuff[B2]
   override def typeStr: String = "HCenPairBuff"

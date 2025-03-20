@@ -31,7 +31,7 @@ trait PointDbl2SeqLike[PT <: PointDbl2] extends Any with PointDblNSeqLike[PT]
 trait PointDbl2Pair[A1 <: PointDbl2, A2] extends PointDblNPair[A1, A2] with PairDbl2Elem[A1, A2]
 
 trait PointDbl2PairArr[A1 <: PointDbl2, ArrA1 <: ArrDbl2[A1], A2, A <: PointDbl2Pair[A1, A2]] extends PointDblNPairArr[A1, ArrA1, A2, A] with
-  PairArrPairDbl2[A1, ArrA1, A2, A]
+  ArrPairDbl2[A1, ArrA1, A2, A]
 { type ThisT <: PointDbl2PairArr[A1, ArrA1, A2, A]
 }
 

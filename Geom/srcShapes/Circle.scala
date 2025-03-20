@@ -151,3 +151,9 @@ final case class CircleLen2(diameter: Length, cenX: Length, cenY: Length) extend
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleLen2Compound =
     CircleLen2Compound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 }
+
+object CircleLen2
+{
+  def apply(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter, cenX, cenY)
+  def apply(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter, cen.x, cen.y)
+}

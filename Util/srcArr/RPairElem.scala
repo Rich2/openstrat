@@ -70,6 +70,8 @@ object RPairArr
     pairs.iForeach{(i, p) => a1s(i) = p._1; a2s(i) = p._2 }
     new RPairArr[A1, A2](a1s, a2s)
   }
+  
+  def apply[A1, A2](a1s: RArr[A1], a2s: RArr[A2]): RPairArr[A1, A2] = new RPairArr[A1, A2](a1s.arrayUnsafe, a2s.arrayUnsafe)
 
   /** Factory method for constructing an [[RPairArr]] from [[PairElem]]s. */
   def pairs[A1, A2](pairs: PairElem[A1, A2]*)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] = {
