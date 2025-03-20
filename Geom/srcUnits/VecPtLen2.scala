@@ -34,12 +34,10 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
   /** The number of kilometres in the Y component of this point / vector. */
   def yKilometresNum: Double
   def xPos: Boolean
-
   def xNeg: Boolean
   def yPos: Boolean
   def yNeg: Boolean
 }
-
 
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
@@ -86,6 +84,9 @@ object PtLen2
 
   /** Implicit [[Scale]] type class instance / evidence for [[PtLen2]]. */
   implicit val scaleEv: Scale[PtLen2] = (obj, operand) => obj.scale(operand)
+
+  /** Implicit [[MapGeom2T]] type class instance / evidence for [[PtLen2]] and [[Pt2]]. */
+  implicit val mapGeom2Ev: MapGeom2T[PtLen2, Pt2] = (obj, operand) => obj.mapGeom2(operand)
 }
 
 /** A 2-dimensional vector specified in [[Length]] units. */
@@ -117,4 +118,7 @@ object VecLen2
 
   /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
   implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)
+
+  /** Implicit [[MapGeom2T]] type class instance / evidence for [[VecLen2]] and [[Vec2]]. */
+  implicit val mapGeom2Ev: MapGeom2T[VecLen2, Vec2] = (obj, operand) => obj.mapGeom2(operand)
 }

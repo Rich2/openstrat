@@ -16,8 +16,8 @@ trait Molecule
   }
 
   def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2(atom.radius, pt).fillDraw(atom.colour, atom.contrastBW) }
-
-  def lines: RArr[GraphicLen2Elem] = bondSegs.map{bs => bs.draw() }
+  def lines: RArr[LineSegLen2Draw] = bondSegs.map { bs => bs.draw() }
+  def linesCircles: RArr[GraphicLen2Elem] = lines ++ circles
 }
 
 object Dihydrogen extends Molecule
