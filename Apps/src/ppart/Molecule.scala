@@ -9,7 +9,7 @@ trait Molecule
   def atomPosns: PtPm2Arr
   def posnAtoms: PtPm2PairArr[Atom] = PtPm2PairArr(atomPosns, atoms)
   val bonds: RPairArr[Atom, Atom]
-  def bondSegs: LineSegPm2Arr = bonds.map{bond =>
+  def bondSegs: LineSegPm2Arr = bonds.map{ bond =>
     val i1: PtPm2 = atomPosns(atomInd(bond.a1))
     val i2: PtPm2 = atomPosns(atomInd(bond.a2))
     LineSegPm2(i1, i2)

@@ -3,10 +3,10 @@ package ostrat; package ppart
 import geom.*, Colour.*, pgui.*
 
 class ParticleGui(val canv: CanvasPlatform) extends CanvasNoPanels("Canv1")
-{ val scale = 0.01.angstroms
-  val output = Water.fillDrawsOld(scale) ++ Dihydrogen.fillDrawsOld(scale, 0.picometres, 200.picometres) ++
+{ val scale = 1.picometres// 0.01.angstroms
+  val output: GraphicElems = Water.fillDrawsOld(scale) ++ Dihydrogen.fillDrawsOld(scale, 0.picometres, 200.picometres) ++
     CO2Mc.fillDrawsOld(scale, 300.picometres, 200.picometres) ++ CO2Mc.circles.map(_.mapScalar2(scale)).slateX(-400) ++
     Water.circles.map(_.mapScalar2(scale)).slateX(400)
 
-  repaint(output)
+  repaint(output +% Circle(100, -100, 100).fill(Green) +% Sqlign(100, -150, 100).fill(Violet))
 }
