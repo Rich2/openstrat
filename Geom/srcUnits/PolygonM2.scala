@@ -12,9 +12,9 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
   override def slate(operand: VecPtLen2): PolygonM2 = dblsMap(_ + operand.xMetresNum, _ + operand.yMetresNum)
-  override def slate(xDelta: Length, yDelta: Length): PolygonM2 = dblsMap(_ + xDelta.metresNum, _ + yDelta.metresNum)
-  override def slateX(operand: Length): PolygonM2 = dblsMap(_ + operand.metresNum, y => y)
-  override def slateY(operand: Length): PolygonM2 = dblsMap(x => x, _ + operand.metresNum)
+  override def slate(xOperand: Length, yOperand: Length): PolygonM2 = dblsMap(_ + xOperand.metresNum, _ + yOperand.metresNum)
+  override def slateX(xOperand: Length): PolygonM2 = dblsMap(_ + xOperand.metresNum, y => y)
+  override def slateY(yOperand: Length): PolygonM2 = dblsMap(x => x, _ + yOperand.metresNum)
   override def scale(operand: Double): PolygonM2 = dblsMap(_ * operand, _ * operand)
   override def mapScalar2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.metresNum))
   

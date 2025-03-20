@@ -29,10 +29,10 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
 { override type ThisT = PtPm2
   override type LineSegT = LineSegPm2
   override def typeStr: String = "PtPm2"
-  override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xPicometresNum + xDelta.picometresNum, yPicometresNum + yDelta.picometresNum)
+  override def slate(xOperand: Length, yOperand: Length): PtFm2 = PtFm2(xPicometresNum + xOperand.picometresNum, yPicometresNum + yOperand.picometresNum)
   override def slate(operand: VecPtLen2): PtPm2 = new PtPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
-  override def slateX(operand: Length): PtPm2 = new PtPm2(xPicometresNum + operand.metresNum, y.metresNum)
-  override def slateY(operand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum + operand.metresNum)
+  override def slateX(xOperand: Length): PtPm2 = new PtPm2(xPicometresNum + xOperand.metresNum, y.metresNum)
+  override def slateY(yOperand: Length): PtPm2 = new PtPm2(xPicometresNum, yPicometresNum + yOperand.metresNum)
   override def slateFrom(operand: PtLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)  
   override def scale (operand: Double): PtPm2 = new PtPm2(xPicometresNum * operand, yPicometresNum * operand)
   override def mapScalar2(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)  
@@ -208,9 +208,9 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
   @inline override def dot(operand: VecLen2): Picares = Picares(xPicometresNum * operand.xPicometresNum + yPicometresNum * operand.yPicometresNum)
   override def slate(operand: VecPtLen2): VecPm2 = VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def scale(operand: Double): VecPm2 = VecPm2(xPicometresNum * operand, yPicometresNum * operand)
-  override def slate(xDelta: Length, yDelta: Length): VecPm2 = VecPm2(xPicometresNum + xDelta.picometresNum, yPicometresNum + yDelta.picometresNum)
-  override def slateX(operand: Length): VecPm2 = VecPm2(xPicometresNum + operand.picometresNum, yPicometresNum)
-  override def slateY(operand: Length): VecPm2 = VecPm2(xPicometresNum, yPicometresNum + operand.picometresNum)
+  override def slate(xOperand: Length, yOperand: Length): VecPm2 = VecPm2(xPicometresNum + xOperand.picometresNum, yPicometresNum + yOperand.picometresNum)
+  override def slateX(xOperand: Length): VecPm2 = VecPm2(xPicometresNum + xOperand.picometresNum, yPicometresNum)
+  override def slateY(yOperand: Length): VecPm2 = VecPm2(xPicometresNum, yPicometresNum + yOperand.picometresNum)
   override def mapScalar2(operator: Length): Vec2 = Vec2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)
 }
 

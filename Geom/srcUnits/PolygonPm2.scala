@@ -12,9 +12,9 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def fElemStr: PtPm2 => String = _.toString
   override def verts: PtPm2Arr = new PtPm2Arr(arrayUnsafe)  
   override def slate(operand: VecPtLen2): PolygonPm2 = dblsMap(_ + operand.xPicometresNum, _ + operand.yPicometresNum)
-  override def slate(xDelta: Length, yDelta: Length): PolygonPm2 = dblsMap(_ + xDelta.picometresNum, _ + yDelta.picometresNum)
-  override def slateX(operand: Length): PolygonPm2 = dblsMap(_ + operand.picometresNum, y => y)
-  override def slateY(operand: Length): PolygonPm2 = dblsMap(x => x, _ + operand.picometresNum)
+  override def slate(xOperand: Length, yOperand: Length): PolygonPm2 = dblsMap(_ + xOperand.picometresNum, _ + yOperand.picometresNum)
+  override def slateX(xOperand: Length): PolygonPm2 = dblsMap(_ + xOperand.picometresNum, y => y)
+  override def slateY(yOperand: Length): PolygonPm2 = dblsMap(x => x, _ + yOperand.picometresNum)
   override def scale(operand: Double): PolygonPm2 = dblsMap(_ * operand, _ * operand)
   override def mapScalar2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.picometresNum))  
 

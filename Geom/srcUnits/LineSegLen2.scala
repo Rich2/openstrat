@@ -9,17 +9,12 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
   def yEnd: Length
   def startPt: VT
   def endPt: VT
+  override def slate(operand: VecPtLen2): LineSegLen2[VT]  
+  override def slate(xOperand: Length, yOperand: Length): LineSegLen2[VT]
 
-  /** Translates this line segment in 2 [[Length]] dimensions space. */
-  def slate(operand: VecPtLen2): LineSegLen2[VT]
-
-  /** Translates this line segment in 2 [[Length]] dimensions space. */
-  def slate(xOperand: Length, yOperand: Length): LineSegLen2[VT]
-
-  /** Scales this line segment in 2 [[Length]] dimensions space. */
-  def scale(operand: Double): LineSegLen2[VT]
-
-  /** Divides by a [[Length]] to produce a scalar [[LineSeg]]. */
+  override def slateX(xOperand: Length): LineSegLen2[VT]
+  override def slateY(xOperand: Length): LineSegLen2[VT]
+  def scale(operand: Double): LineSegLen2[VT]  
   def mapScalar2 (operand: Length): LineSeg
 
   def xStartFemtometresNum: Double

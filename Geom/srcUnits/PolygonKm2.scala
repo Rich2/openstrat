@@ -12,9 +12,9 @@ final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def fElemStr: PtKm2 => String = _.toString
   override def verts: PtKm2Arr = new PtKm2Arr(arrayUnsafe)
   override def slate(operand: VecPtLen2): PolygonKm2 = dblsMap(_ + operand.xKilometresNum, _ + operand.yKilometresNum)
-  override def slate(xDelta: Length, yDelta: Length): PolygonKm2 = dblsMap(_ + xDelta.kilometresNum, _ + yDelta.kilometresNum)
-  override def slateX(operand: Length): PolygonKm2 = dblsMap(_ + operand.kilometresNum, y => y)
-  override def slateY(operand: Length): PolygonKm2 = dblsMap(x => x, _ + operand.kilometresNum)
+  override def slate(xOperand: Length, yOperand: Length): PolygonKm2 = dblsMap(_ + xOperand.kilometresNum, _ + yOperand.kilometresNum)
+  override def slateX(xOperand: Length): PolygonKm2 = dblsMap(_ + xOperand.kilometresNum, y => y)
+  override def slateY(yOperand: Length): PolygonKm2 = dblsMap(x => x, _ + yOperand.kilometresNum)
   override def scale(operand: Double): PolygonKm2 = dblsMap(_ * operand, _ + operand)
   override def mapScalar2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.kilometresNum))
 

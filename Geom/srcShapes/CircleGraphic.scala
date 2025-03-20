@@ -56,9 +56,9 @@ trait CircleLen2Graphic extends EllipseLen2Graphic
 
 case class CircleLen2Draw(shape: CircleLen2, lineWidth: Double = 2.0, lineColour: Colour = Black) extends EllipseLen2Draw with CircleLen2Graphic
 { override def slate(operand: VecPtLen2): CircleLen2Draw = CircleLen2Draw(shape.slate(operand), lineWidth, lineColour)
-  override def slate(xDelta: Length, yDelta: Length): CircleLen2Draw = CircleLen2Draw(shape.slate(xDelta, yDelta), lineWidth, lineColour)
-  override def slateX(operand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateX(operand), lineWidth, lineColour)
-  override def slateY(operand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateY(operand), lineWidth, lineColour)
+  override def slate(xOperand: Length, yOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): CircleLen2Draw = CircleLen2Draw(shape.scale(operand), lineWidth, lineColour)
   override def mapScalar2(operand: Length): Graphic2Elem = CircleDraw(shape.mapScalar2(operand))
 }

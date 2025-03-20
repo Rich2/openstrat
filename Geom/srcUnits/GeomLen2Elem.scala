@@ -10,15 +10,15 @@ trait GeomLen2Elem extends Any
   /** Translate 2 [[Length]] dimension geometric transformation, taking the xDelta and yDelta as parameters on this [[GeomLen2Elem]] returning a
    * [[GeomLen2Elem]]. The Return type will be narrowed in sub traits. There is a name overload method taking a [[Pt2]] or [[Vec2]] as a parameter, slateX and
    * slateY methods are also available. */
-  def slate(xDelta: Length, yDelta: Length): GeomLen2Elem
+  def slate(xOperand: Length, yOperand: Length): GeomLen2Elem
 
   /** Translate 2 [[Length]] dimension geometric transformation in the X dimension returning a [[GeomLen2Elem]]. The Return type will be narrowed in sub
    * traits. */
-  def slateX(operand: Length): GeomLen2Elem
+  def slateX(xOperand: Length): GeomLen2Elem
 
   /** Translate 2 [[Length]] dimension geometric transformation in the Y dimension returning a [[GeomLen2Elem]]. The Return type will be narrowed in sub
    * traits. */
-  def slateY(operand: Length): GeomLen2Elem
+  def slateY(yOperand: Length): GeomLen2Elem
 
   /** Uniform 2 [[Length]] dimension geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and
    * preserves [[Circle]]s and [[Square]]s. The Return type will be narrowed in sub traits / classes. */
@@ -31,9 +31,9 @@ trait GeomLen2Elem extends Any
 /** A graphical element in 2 [[Length]] dimension space. */
 trait GraphicLen2Elem extends GeomLen2Elem
 { override def slate(operand: VecPtLen2): GraphicLen2Elem
-  override def slate(xDelta: Length, yDelta: Length): GraphicLen2Elem
-  override def slateX(operand: Length): GraphicLen2Elem
-  override def slateY(operand: Length): GraphicLen2Elem
+  override def slate(xOperand: Length, yOperand: Length): GraphicLen2Elem
+  override def slateX(xOperand: Length): GraphicLen2Elem
+  override def slateY(yOperand: Length): GraphicLen2Elem
   override def scale(operand: Double): GraphicLen2Elem
   override def mapScalar2(operand: Length): Graphic2Elem
 }

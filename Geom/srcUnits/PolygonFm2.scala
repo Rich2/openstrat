@@ -13,9 +13,9 @@ final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def verts: PtFm2Arr = new PtFm2Arr(arrayUnsafe)
   override def mapScalar2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.femtometresNum))
   override def slate(operand: VecPtLen2): PolygonFm2 = dblsMap(_ + operand.xFemtometresNum, _ + operand.yFemtometresNum)
-  override def slate(xDelta: Length, yDelta: Length): PolygonFm2 = dblsMap(_ + xDelta.femtometresNum, _ + yDelta.femtometresNum)
-  override def slateX(operand: Length): PolygonFm2 = dblsMap(_ + operand.femtometresNum, y => y)
-  override def slateY(operand: Length): PolygonFm2 = dblsMap(x => x, _ + operand.femtometresNum)
+  override def slate(xOperand: Length, yOperand: Length): PolygonFm2 = dblsMap(_ + xOperand.femtometresNum, _ + yOperand.femtometresNum)
+  override def slateX(xOperand: Length): PolygonFm2 = dblsMap(_ + xOperand.femtometresNum, y => y)
+  override def slateY(yOperand: Length): PolygonFm2 = dblsMap(x => x, _ + yOperand.femtometresNum)
   override def scale(operand: Double): PolygonFm2 = dblsMap(_ * operand, _ * operand)
 
   /** Performs the side effecting function on the [[PtFm2]] value of each vertex. */

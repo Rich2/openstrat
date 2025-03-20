@@ -6,9 +6,9 @@ trait PolygonLen2[VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT]
   type SideT <: LineSegLen2[VT]
 
   override def slate(operand: VecPtLen2): PolygonLen2[VT]  
-  override def slate(xDelta: Length, yDelta: Length): PolygonLen2[VT]
-  override def slateX(operand: Length): PolygonLen2[VT]
-  override def slateY(operand: Length): PolygonLen2[VT]
+  override def slate(xOperand: Length, yOperand: Length): PolygonLen2[VT]
+  override def slateX(xOperand: Length): PolygonLen2[VT]
+  override def slateY(yOperand: Length): PolygonLen2[VT]
   override def scale(operand: Double): PolygonLen2[VT]
   def mapScalar2(operand: Length): Polygon
 

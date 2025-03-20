@@ -1,52 +1,30 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2] with LineLike with
-CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem {
-  override type ThisT = LineSeg
-
+CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
+{ override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
-
   override def name1: String = "start"
-
   override def name2: String = "end"
-
   override implicit def show1: Show[Pt2] = Pt2.persistEv
-
   override implicit def show2: Show[Pt2] = Pt2.persistEv
-
   override def tellDepth: Int = 2
-
   override def tell1: Pt2 = startPt
-
   override def tell2: Pt2 = endPt
-
   override def dbl1: Double = startX
-
   override def dbl2: Double = startY
-
   override def dbl3: Double = endX
-
   override def dbl4: Double = endY
-
   def startPt: Pt2 = startX pp startY
-
   def endPt: Pt2 = endX pp endY
-
-  /*override def canEqual(that: Any): Boolean = that match
-  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }*/
-
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(startX, startY, endX, endY)
-
   def ptsTrans(f: Pt2 => Pt2): LineSeg = LineSeg(f(pStart), f(pEnd))
-
   def shortArray: Array[Short] = Array(startX.toShort, startY.toShort, endX.toShort, endY.toShort)
-
   def isHorizontal: Boolean = startY == endY
-
   def isVertical: Boolean = startX == endX
 
   /** Checks whether a forward horizontal ray crosses this polygon side. */
@@ -63,7 +41,7 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem {
     }
   }
 
-  /** The mid or half way point of this lineSeg. */
+  /** The mid or halfway point of this lineSeg. */
   def midPt: Pt2 = Pt2((startX + endX) / 2, (startY + endY) / 2)
 
   /** Returns a point part way along this [[LinsSeg]] expects a [[Double]] of range 0 => 1. */
@@ -90,28 +68,28 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem {
 
   @inline def length: Double = vec.magnitude
 
-  /** Gives the Vec2 point at the specified distance to the right of the end point. At the end point turn right 90 degrees and then travel the given
-   * distance to the point. The Vec2 of that point is returned by this method. */
+  /** Gives the Vec2 point at the specified distance to the right of the end point. At the end point turn right 90 degrees and then travel the given distance to
+   * the point. The Vec2 of that point is returned by this method. */
   def endToRight(distFromEnd: Double): Pt2 = pEnd + right90.toVec2(distFromEnd)
 
-  /** Gives the Vec2 point at the specified distance to the left of the end point. At the end point turn left 90 degrees and then travel the given
-   * distance to the point.  The Vec2 of that point is returned by this method.*/
+  /** Gives the Vec2 point at the specified distance to the left of the end point. At the end point turn left 90 degrees and then travel the given distance to
+   * the point.  The Vec2 of that point is returned by this method.*/
   def endToLeft(distFromEnd: Double): Pt2 = pEnd + left90.toVec2(distFromEnd)
 
-  /** Gives the Vec2 point at the specified distance to the right of the start point. At the start point turn right 90 degrees and then travel the
-   *  given distance to the point. The Vec2 of that point is returned by this method. */
+  /** Gives the Vec2 point at the specified distance to the right of the start point. At the start point turn right 90 degrees and then travel the given
+   * distance to the point. The Vec2 of that point is returned by this method. */
   def startToRight(distFromStart: Double): Pt2 = pStart + right90.toVec2(distFromStart)
 
-  /** Gives the Vec2 point at the specified distance to the left of the start point. At the start point turn left 90 degrees and then travel the given
-   * distance to the point. The Vec2 of that point is returned by this method. */
+  /** Gives the Vec2 point at the specified distance to the left of the start point. At the start point turn left 90 degrees and then travel the given distance
+   * to the point. The Vec2 of that point is returned by this method. */
   def startToLeft(distFromStart: Double): Pt2 = pStart + left90.toVec2(distFromStart)
 
-  /** Gives the Vec2 point at the specified distance to the right of the mid point. At the mid point turn right 90 degrees and then travel the given
-   *  distance to the point. The Vec2 of that point is returned by this method. */
+  /** Gives the [[Vec2]] point at the specified distance to the right of the mid-point. At the mid-point turn right 90 degrees and then travel the given
+   * distance to the point. The Vec2 of that point is returned by this method. */
   def midPtToRight(distFromMidPt: Double): Pt2 = midPt + right90.toVec2(distFromMidPt)
 
-  /** Gives the Vec2 point at the specified distance to the left of the mid point. At the mid point turn left 90 degrees and then travel the given
-   *  distance to the point. The Vec2 of that point is returned by this method. */
+  /** Gives the [[Vec2]] point at the specified distance to the left of the mid point. At the mid point turn left 90 degrees and then travel the given distance
+   * to the point. The Vec2 of that point is returned by this method. */
   def midPtToLeft(distFromMidPt: Double): Pt2 = midPt + left90.toVec2(distFromMidPt)
 
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): LineSegDraw = LineSegDraw(this, lineWidth, lineColour)
@@ -151,8 +129,8 @@ object LineSeg
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
-/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. [[LineSeg]] is the library's term for a mathematical straight line
- *  segment, but what in common parlance is often just referred to as a line. */
+/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. [[LineSeg]] is the library's term for a mathematical straight line segment, but
+ * what in common parlance is often just referred to as a line. */
 class LineSegArr(val arrayUnsafe: Array[Double]) extends AnyVal with LineSegLikeDbl4Arr[Pt2, LineSeg] with Dbl4Arr[LineSeg] with AffinePreserve with
 Drawable with BoundedElem
 { type ThisT = LineSegArr
@@ -161,17 +139,13 @@ Drawable with BoundedElem
   override def fElemStr: LineSeg => String = _.str
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LineSegArr = map(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
-
-  /** Draws the [[LineSeg]]s with the given width and colour. */
   override def draw(lineWidth: Double = 2, colour: Colour = Black): LinesDraw = LinesDraw(this, lineWidth, colour)
-
   override def boundingRect: Rect = foldLeft(_ || _.boundingRect)
 }
 
-/** Companion object for the LineSegs class. */
+/** Companion object for the specialised [[Arr]] class for [[LineSeg]]s. Contains factory methods and type class instances. */
 object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
-{
-  override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
+{ override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
 
   /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
   implicit val arrFlatBuildEv: BuilderArrFlat[LineSegArr] = new LineSegArrFlatBuilder
@@ -185,7 +159,7 @@ object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
   implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
 
-/** Efficient expandable buffer for Line2s. */
+/** Efficient expandable buffer for [[LineSeg]]s. */
 class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSeg]
 { override def typeStr: String = "Line2sBuff"
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)

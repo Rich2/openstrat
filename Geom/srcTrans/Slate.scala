@@ -96,3 +96,9 @@ object SlateLenXY
   /** Implicit [[SlateLenXY]] instance / evidence for [[Array]]. */
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLenXY[A]): SlateLenXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
 }
+
+/** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
+trait MapScalar2[T]
+{ /** Maps from [[GeomLen2Elem]]s to [[Geom2]]s */
+  def mapScalar2T(obj: T, operand: Length): T
+}

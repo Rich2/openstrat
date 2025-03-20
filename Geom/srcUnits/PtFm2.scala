@@ -30,9 +30,9 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
   override type LineSegT = LineSegFm2
   override def typeStr: String = "PtFm2"
   override def slate(operand: VecPtLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
-  override def slate(xDelta: Length, yDelta: Length): PtFm2 = PtFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
-  override def slateX(operand: Length): PtFm2 = new PtFm2(xFemtometresNum + operand.metresNum, y.metresNum)
-  override def slateY(operand: Length): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum + operand.metresNum)
+  override def slate(xOperand: Length, yOperand: Length): PtFm2 = PtFm2(xFemtometresNum + xOperand.femtometresNum, yFemtometresNum + yOperand.femtometresNum)
+  override def slateX(xOperand: Length): PtFm2 = new PtFm2(xFemtometresNum + xOperand.metresNum, y.metresNum)
+  override def slateY(yOperand: Length): PtFm2 = new PtFm2(xFemtometresNum, yFemtometresNum + yOperand.metresNum)
   override def slateFrom(operand: PtLen2): PtFm2 = new PtFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def scale (operand: Double): PtFm2 = new PtFm2(xFemtometresNum * operand, yFemtometresNum * operand)
   override def mapScalar2(operator: Length): Pt2 = Pt2(xFemtometresNum / operator.femtometresNum, yFemtometresNum / operator.femtometresNum)
@@ -145,9 +145,9 @@ final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Dou
   override def / (operator: Double): VecFm2 = new VecFm2(xFemtometresNum / operator, yFemtometresNum / operator)
   override def magnitude: Femtometres = Femtometres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))
   override def slate(operand: VecPtLen2): VecFm2 = VecFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum + operand.yFemtometresNum)
-  override def slate(xDelta: Length, yDelta: Length): VecFm2 = VecFm2(xFemtometresNum + xDelta.femtometresNum, yFemtometresNum + yDelta.femtometresNum)
-  override def slateX(operand: Length): VecFm2 = VecFm2(xFemtometresNum + operand.femtometresNum, yFemtometresNum)
-  override def slateY(operand: Length): VecFm2 = VecFm2(xFemtometresNum, yFemtometresNum + operand.femtometresNum)
+  override def slate(xOperand: Length, yOperand: Length): VecFm2 = VecFm2(xFemtometresNum + xOperand.femtometresNum, yFemtometresNum + yOperand.femtometresNum)
+  override def slateX(xOperand: Length): VecFm2 = VecFm2(xFemtometresNum + xOperand.femtometresNum, yFemtometresNum)
+  override def slateY(yOperand: Length): VecFm2 = VecFm2(xFemtometresNum, yFemtometresNum + yOperand.femtometresNum)
   override def scale(operand: Double): VecFm2 = VecFm2(xFemtometresNum * operand, yFemtometresNum * operand)
   override def mapScalar2(operator: Length): Vec2 = Vec2(xFemtometresNum / operator.femtometresNum, yFemtometresNum / operator.femtometresNum)
 

@@ -67,9 +67,9 @@ object CircleCompound
 
 case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet]) extends CircleLen2Graphic, EllipseLen2Compound
 { override def slate(operand: VecPtLen2): CircleLen2Compound = CircleLen2Compound(shape.slate(operand), facets)
-  override def slate(xDelta: Length, yDelta: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xDelta, yDelta), facets)
-  override def slateX(operand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(operand), facets)
-  override def slateY(operand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(operand), facets)
+  override def slate(xOperand: Length, yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xOperand, yOperand), facets)
+  override def slateX(xOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(xOperand), facets)
+  override def slateY(yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(yOperand), facets)
   override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets)
   override def mapScalar2(operand: Length): CircleCompound = CircleCompound(shape.mapScalar2(operand), facets)
 }

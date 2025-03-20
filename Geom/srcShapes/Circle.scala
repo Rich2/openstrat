@@ -142,9 +142,9 @@ object Circle extends ShapeIcon
 final case class CircleLen2(diameter: Length, cenX: Length, cenY: Length) extends EllipseLen2
 { type ThisT = CircleLen2
   override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2(diameter, cenX + operand.x, cenY + operand.y)
-  override def slate(xDelta: Length, yDelta: Length): CircleLen2 = CircleLen2(diameter, cenX + xDelta, cenY + yDelta)
-  override def slateX(operand: Length): CircleLen2 = CircleLen2(diameter, cenX + operand, cenY)
-  override def slateY(operand: Length): CircleLen2 = CircleLen2(diameter, cenX, cenY + operand)
+  override def slate(xOperand: Length, yOperand: Length): CircleLen2 = CircleLen2(diameter, cenX + xOperand, cenY + yOperand)
+  override def slateX(xOperand: Length): CircleLen2 = CircleLen2(diameter, cenX + xOperand, cenY)
+  override def slateY(yOperand: Length): CircleLen2 = CircleLen2(diameter, cenX, cenY + yOperand)
   override def scale(operand: Double): CircleLen2 = CircleLen2(diameter, cenX * operand, cenY * operand)
   override def mapScalar2(operand: Length): Circle = Circle(diameter / operand, cenX / operand, cenY / operand)
 

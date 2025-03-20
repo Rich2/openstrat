@@ -44,9 +44,9 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
 { override def slate(operand: VecPtLen2): PtLen2
-  override def slate (deltaX: Length, deltaY: Length): PtLen2
-  override def slateX(operand: Length): PtLen2
-  override def slateY(operand: Length): PtLen2
+  override def slate(deltaX: Length, deltaY: Length): PtLen2
+  override def slateX(xOperand: Length): PtLen2
+  override def slateY(yOperand: Length): PtLen2
   def slateFrom(operand: PtLen2): PtLen2
   override def scale(operand: Double): PtLen2
   override def mapScalar2(operator: Length): Pt2
@@ -100,9 +100,9 @@ trait VecLen2 extends VecPtLen2
   @inline def dot(operand: VecLen2): Area
 
   override def slate(operand: VecPtLen2): VecLen2
-  override def slate(xDelta: Length, yDelta: Length): VecLen2
-  override def slateX(operand: Length): VecLen2
-  override def slateY(operand: Length): VecLen2
+  override def slate(xOperand: Length, yOperand: Length): VecLen2
+  override def slateX(xOperand: Length): VecLen2
+  override def slateY(yOperand: Length): VecLen2
   override def scale(operand: Double): VecLen2
   override def mapScalar2(operator: Length): Vec2
 }

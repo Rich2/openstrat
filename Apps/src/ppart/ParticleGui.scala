@@ -9,4 +9,5 @@ class ParticleGui(val canv: CanvasPlatform) extends CanvasNoPanels("Canv1")
     Water.circles.map(_.mapScalar2(scale)).slateX(400)
 
   repaint(output +% Circle(100, -100, 100).fill(Green) +% Sqlign(100, -150, 100).fill(Violet))
+  LineSegDraw
 }

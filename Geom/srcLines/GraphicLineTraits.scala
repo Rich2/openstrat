@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui._, Colour.Black, pWeb._
 
@@ -82,4 +82,13 @@ object DashedLineDraw
 
   def array(pStart: Pt2, pEnd: Pt2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black): DashedLineDraw =
     new DashedLineDraw(pStart.lineSegTo(pEnd), lineWidth, colour, dashArr)
+}
+
+case class LineSegLen2Draw(lineSeg: LineSegLen2[?], width: Double, colour: Colour) extends GraphicLen2Simple
+{ override def slate(operand: VecPtLen2): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slate(operand), width, colour)
+  override def slate(xOperand: Length, yOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slate(xOperand, yOperand), width, colour)
+  override def slateX(xOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slateX(xOperand), width, colour)
+  override def slateY(yOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slateY(yOperand), width, colour)
+  override def scale(operand: Double): LineSegLen2Draw = LineSegLen2Draw(lineSeg.scale(operand), width, colour)
+  override def mapScalar2(operand: Length): LineSegDraw = LineSegDraw(lineSeg.mapScalar2(operand), width, colour)
 }
