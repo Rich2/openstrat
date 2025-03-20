@@ -15,15 +15,9 @@ trait Molecule
     LineSegPm2(i1, i2)
   }
 
-  def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2(atom.radius * 2, pt).fillDraw(atom.colour, atom.contrastBW) }
+  def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2(atom.radius, pt).fillDraw(atom.colour, atom.contrastBW) }
 
-  def fillsOld(scale: Length, xOff: Length = 0.metres, yOff: Length = 0.metres): GraphicElems =
-    atoms.iMap{ (i, at) => at.fillDraw(scale, (xOff + atomPosns(i).x) / scale, (yOff  + atomPosns(i).y)/ scale) }
-
-  def draws(scale: Length, xOff: Length = 0.picometres, yOff: Length = 0.picometres): GraphicElems =
-    bondSegs.map{bs => bs.slate(xOff, yOff).mapGeom2(scale).draw() }
-
-  def fillDrawsOld(scale: Length, xOff: Length = 0.metres, yOff: Length = 0.metres): GraphicElems = draws(scale, xOff, yOff) ++ fillsOld(scale, xOff, yOff)
+  def lines: RArr[GraphicLen2Elem] = bondSegs.map{bs => bs.draw() }
 }
 
 object Dihydrogen extends Molecule

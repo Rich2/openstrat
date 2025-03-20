@@ -94,6 +94,9 @@ trait Fillable extends Any with Drawable
 }
 
 trait DrawableLen2 extends GeomLen2Elem
+{
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
+}
 trait FillableLen2 extends DrawableLen2
 {
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicLen2Elem

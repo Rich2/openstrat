@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A line segment whose coordinates are specified in [[Length]] units. */
-trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
+trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
 { def xStart: Length
   def yStart: Length
   def xEnd: Length
@@ -16,6 +16,8 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
   override def slateY(xOperand: Length): LineSegLen2[VT]
   def scale(operand: Double): LineSegLen2[VT]  
   def mapGeom2 (operand: Length): LineSeg
+
+  override def draw(lineWidth: Double, lineColour: Colour): LineSegLen2Draw = LineSegLen2Draw(this, lineWidth, lineColour)
 
   def xStartFemtometresNum: Double
   def yStartFemtometresNum: Double
