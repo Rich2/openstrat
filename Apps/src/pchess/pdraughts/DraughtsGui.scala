@@ -17,7 +17,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
 
   def frame: GraphicElems =
   { val tiles: GraphicElems = grid.map { sc => sc.polygonReg.fillActive(sc.checkeredColour(darkSquareColour, lightSquareColour), sc) }
-    val pieces = scen.draughts.scSomesMap{ (sc, p) => Circle(1.2, sc.toPt2Reg).fillActive(p.colour, p) }
+    val pieces = scen.draughts.scSomesMap{ (sc, p) => Circled(1.2, sc.toPt2Reg).fillActive(p.colour, p) }
     (tiles ++ pieces).slate(-grid.cenVec).scale(cPScale)
  }
 

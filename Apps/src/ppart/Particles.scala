@@ -5,9 +5,8 @@ import geom.*, Colour.*
 trait ParticlePrimary extends Coloured
 { /** The maximum radius of the particle. */
   def radius: Length
-  def circle(scale: Length, xCen: Double = 0, yCen: Double = 0): Circle = Circle(radius / scale, xCen, yCen)
-  def fill(scale: Length, xCen: Double = 0, yCen: Double = 0): CircleFill = CircleFill(circle(scale, xCen, yCen), colour)
-  def fillDraw(scale: Length, xCen: Double = 0, yCen: Double = 0): CircleCompound = circle(scale, xCen, yCen).fillDraw(colour, contrastBW)
+  
+  /** The electric charge. */
   def charge: Int
 }
 

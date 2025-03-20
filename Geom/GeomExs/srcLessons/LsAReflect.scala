@@ -19,15 +19,15 @@ object LsAReflect extends LessonStatic
   val r1 = rect.fill(Red)
   val r1r = rect.reflect(line1).fill(Orange)
   val vRed = 0 pp -50
-  val cl1: Circle = Circle(75, vRed)
+  val cl1: Circle = Circled(75, vRed)
   val ccl1 = cl1.fill(Red)
   val ccl1r = cl1.reflect(line1).fill(Orange)
 
   val r2 = Rect(180, 100, 150, -200)
-  val cl2 = Circle(80, 110 pp - 300)
+  val cl2 = Circled(80, 110 pp - 300)
   val sq = Sqlign(100, 110, -400)
 
-  val cn = Circle(80, 110, -290)
+  val cn = Circled(80, 110, -290)
   val v1 = Pt2(0, -cl1.diameter)
   val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
   val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degsVec)), 2, Gold)

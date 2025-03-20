@@ -14,7 +14,7 @@ final class Circle protected[geom](val diameter: Double, val cenX: Double, val c
     val newV1: Pt2 = f(v1)
     val newCen = f(cen)
     val newRadius = newCen.distTo(newV1)
-    Circle(newRadius * 2, newCen)
+    Circler(newRadius, newCen)
   }
   
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
@@ -27,16 +27,16 @@ final class Circle protected[geom](val diameter: Double, val cenX: Double, val c
   override def boundingHeight: Double = diameter
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slateXY(xDelta: Double, yDelta: Double): Circle = Circle(diameter, cen.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): Circle = Circler(radius, cen.addXY(xDelta, yDelta))
 
   /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Circle = Circle(diameter * operand, cen.scale(operand))
+  override def scale(operand: Double): Circle = Circler(radius * operand, cen.scale(operand))
 
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
 
-  override def rotate(angle: AngleVec): Circle = Circle(diameter, cen.rotate(angle))
+  override def rotate(angle: AngleVec): Circle = Circler(radius, cen.rotate(angle))
 
-  override def reflect(lineLike: LineLike): Circle = Circle(diameter, cen.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Circle = Circler(radius, cen.reflect(lineLike))
 
   def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)// BoundingRect(cenX - radius, cenX + radius, cenY - radius, cenY + radius)
   
@@ -106,11 +106,11 @@ object Circle extends ShapeIcon
 
   /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
    * the centre point or the X and Y positions of its centre. */
-  def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
+  //def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
 
   /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
    * the centre point or the X and Y positions of its centre. */
-  def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter, cenX, cenY)
+  //def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter, cenX, cenY)
 
   /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at
    *  its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
@@ -120,8 +120,8 @@ object Circle extends ShapeIcon
    *  its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
   def radius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)
 
-  override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
-  override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
+  override def reify(scale: Double, cen: Pt2): Circle = Circler(scale, cen)
+  override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circler(scale, xCen, yCen)
   
   implicit val slateImplicit: Slate[Circle] = (obj, dx, dy) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)

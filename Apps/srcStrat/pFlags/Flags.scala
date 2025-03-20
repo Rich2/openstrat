@@ -76,7 +76,7 @@ object Japan extends Flag
   val ratio = 1.5
   def apply(): GraphicElems =
   { val rw = rect.fill(White)
-    val circ = Circle(0.6).fill(Colour.fromInts(188, 0,45))
+    val circ = Circled(0.6).fill(Colour.fromInts(188, 0,45))
     RArr(rw, circ)
   }
 }
@@ -109,8 +109,8 @@ object CommonShapesInFlags extends Flag
     Star3().scale(0.15).rotate(DegVec180).slate(0.6 pp 0.3).draw(1.5, Blue),
 
     //crescent
-    Circle(0.225, -0.6, -0.3).fill(Red),
-    Circle(0.2, -0.6, -0.3).slate(0.04 pp 0).fill(White),
+    Circled(0.225, -0.6, -0.3).fill(Red),
+    Circled(0.2, -0.6, -0.3).slate(0.04 pp 0).fill(White),
 
     //composite star ()
     Star5().scale(0.15).slate(-0.3 pp 0).fill(Gold),
@@ -159,7 +159,7 @@ object Iraq extends Flag
         LineTail(-0.3268 pp 0.2881)).fill(Colour(0xFF007a3d)),
       ShapeGenOld(LineTail(-0.3478 pp 0.2571), BezierTail(-0.3466 pp 0.2553, -0.3425 pp 0.2553, -0.3427 pp 0.2583),
         BezierTail(-0.3434 pp 0.2608, -0.3487 pp 0.2599, -0.3478 pp 0.2571), LineTail(-0.3478 pp 0.2571)).fill(Colour(0xFFFFFFFF)),
-      Circle(0.0068, -0.5091, 0.2311).fill(Colour(0xFF007a3d)),
+      Circled(0.0068, -0.5091, 0.2311).fill(Colour(0xFF007a3d)),
       ShapeGenOld(LineTail(-0.4041 pp 0.312), BezierTail(-0.3999 pp 0.3098, -0.3967 pp 0.3067, -0.3916 pp 0.3054),
         BezierTail(-0.3922 pp 0.3033, -0.394 pp 0.3025, -0.3945 pp 0.3003), LineTail(-0.3945 pp 0.2554),
         BezierTail(-0.3889 pp 0.2542, -0.3877 pp 0.2574, -0.385 pp 0.2591), BezierTail(-0.3842 pp 0.2519, -0.3797 pp 0.2449, -0.3798 pp 0.2393),
@@ -178,11 +178,11 @@ object India extends Flag
     LineTail(-0.75 pp 0.3833)).slateXY(0.75, -0.5).fill(Colour(0xFF000080))
     
     val spokes = iToMap(23){i => spoke.rotate(DegVec30/2*i)}
-    val rimNotch = Circle(0.875/75, 0, -17.5/150).rotate(DegVec30/4).fill(Colour(0xFF000080))
+    val rimNotch = Circled(0.875/75, 0, -17.5/150).rotate(DegVec30/4).fill(Colour(0xFF000080))
     val rimNotches = iToMap(23){i => rimNotch.rotate(DegVec30/2*i)}
-    val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
-    val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
-    val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))
+    val outerCircle = Circled(20.0/75).fill(Colour(0xFF000080))
+    val middleCircle = Circled(17.5/75).fill(Colour(0xFFFFFFFF))
+    val innerCircle = Circled(3.5/75).fill(Colour(0xFF000080))
     topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ RArr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }

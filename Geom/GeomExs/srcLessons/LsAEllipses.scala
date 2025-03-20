@@ -15,16 +15,16 @@ object LsAEllipses extends LessonGraphics
 case class LsAEllipses(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
 { val x1 = 100
   val y1 = 200
-  val c0: Ellipse = Circle(60)
+  val c0: Ellipse = Circler(30)
   val d0 = c0.slateX(50)
   val e0: Ellipse = c0.scaleXY(2, 3)
   val a1 = RArr(c0, d0).scaleXY(2, 3)
   
-  val c1 = Circle(200).fill(Green)
+  val c1 = Circler(100).fill(Green)
 
   val c1d = c1.scale2.toDraw()
   val circles: RArr[CircleGraphicSimple & CanvElem] =
-    RArr(c1, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
+    RArr(c1, Circled(100, 0, 200).fill(Violet), Circled(100, 200, 0).fill(SandyBrown), Circled(100, 0, -200).fill(Turquoise), c1d)
   val crosses =  Pt2Arr(0 pp 0, -100 pp 0, 100 pp 0, 0 pp 100).flatMap(Cross.diag(_)).draw()
 
   val el1: EllipseFill = Ellipse(200, 100, -300 pp 0).fill(Red)

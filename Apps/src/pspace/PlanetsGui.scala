@@ -58,7 +58,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
       case _ => PtM2(0.metres, 0.metres)
     }
 
-    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(thisBody.colour)
+    def paint(elapsed: Integer): CircleFill = Circler(0.3 * dispSize, toCanv(thisBody.posn(elapsed))).fill(thisBody.colour)
 
     def dispSize: Double = thisBody match {
       case Sun => 14

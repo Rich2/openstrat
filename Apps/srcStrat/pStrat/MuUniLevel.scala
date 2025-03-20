@@ -120,7 +120,7 @@ object Echelon extends LuUniLevel
 { override val int1: Int = 7
   override def topStr: String = "••••"
   override def toString: String = "Echelon"
-  override def drawables: RArr[Drawable] = iToMap(-3, 3, 2){ i => Circle(0.5).scale(1.5).slateX(i) }
+  override def drawables: RArr[Drawable] = iToMap(-3, 3, 2){ i => Circled(0.5).scale(1.5).slateX(i) }
 }
 
 /** 20 to 50 men. */
@@ -128,7 +128,7 @@ object Platoon extends LuUniLevel
 { override val int1: Int = 6
   override def topStr: String = "•••"
   override def toString: String = "Platoon"
-  override def drawables: RArr[Drawable] = iToMap(-2, 2, 2){ i => Circle(0.5).scale(1.5).slateX(i) }
+  override def drawables: RArr[Drawable] = iToMap(-2, 2, 2){ i => Circled(0.5).scale(1.5).slateX(i) }
 }
 
 /** 10 - 20 men. Platoon section, or large infantry squad. Given the conflicting terms around this size of unit, a new term was created.  */
@@ -136,7 +136,7 @@ object ZugSect extends LuUniLevel
 { override val int1: Int = 5
   override def topStr: String = "••"
   override def toString: String = "Section"
-  override def drawables: RArr[Drawable] = iToMap(-1, 1, 2){ i => Circle(0.5).scale(1.5).slateX(i) }
+  override def drawables: RArr[Drawable] = iToMap(-1, 1, 2){ i => Circled(0.5).scale(1.5).slateX(i) }
 }
 
 /** 6 - 10 men. Small squad.  */
@@ -144,7 +144,7 @@ object Squadette extends LuUniLevel
 { override val int1: Int = 5
   override def topStr: String = "•"
   override def toString: String = "Squad"
-  override def drawables: RArr[Drawable] = RArr(Circle(0.5))
+  override def drawables: RArr[Drawable] = RArr(Circled(0.5))
 }
 
 /** 3 - 5 men. A fire team, vehicle. */

@@ -10,10 +10,10 @@ object LsACircles2 extends LessonStatic
   override def bodyStr: String = """"""
 
   val output = RArr(
-    Circle(200).draw(lineColour = SeaGreen),
-    Circle(140, 50, 80).draw(4, Orange),
-    Circle(160, 300, 0).fillRadial(Green, Red),
-    Circle(160, -250, 150).fillDraw(Turquoise, Black, 3),
-    Circle(80, 0, -220).fillDraw(DarkGoldenRod, Violet, 12),
+    Circler(100).draw(lineColour = SeaGreen),
+    Circler(70, 50, 80).draw(4, Orange),
+    Circler(80, 300, 0).fillRadial(Green, Red),
+    Circler(80, -250, 150).fillDraw(Turquoise, Black, 3),
+    Circler(40, 0, -220).fillDraw(DarkGoldenRod, Violet, 12),
   )
 }
