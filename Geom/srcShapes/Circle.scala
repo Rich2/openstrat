@@ -6,7 +6,7 @@ import pWeb._, math.Pi, Colour.Black
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
+final class Circle protected[geom](val diameter: Double, val cenX: Double, val cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
 { type ThisT = Circle
 
   override def fTrans(f: Pt2 => Pt2): Circle =
@@ -139,14 +139,36 @@ object Circle extends ShapeIcon
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }
 
-final case class CircleLen2(diameter: Length, cenX: Length, cenY: Length) extends EllipseLen2
+object Circler {
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
+   * the centre point or the X and Y positions of its centre. */
+  def apply(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius * 2, cen.x, cen.y)
+
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
+   * the centre point or the X and Y positions of its centre. */
+  def apply(radius: Double, cenX: Double, cenY: Double): Circle = new Circle(radius * 2, cenX, cenY)
+}
+
+object Circled
+{
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
+   * the centre point or the X and Y positions of its centre. */
+  def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
+
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
+   * the centre point or the X and Y positions of its centre. */
+  def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter, cenX, cenY)
+}
+
+
+final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Length) extends EllipseLen2
 { type ThisT = CircleLen2
-  override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2(diameter, cenX + operand.x, cenY + operand.y)
-  override def slate(xOperand: Length, yOperand: Length): CircleLen2 = CircleLen2(diameter, cenX + xOperand, cenY + yOperand)
-  override def slateX(xOperand: Length): CircleLen2 = CircleLen2(diameter, cenX + xOperand, cenY)
-  override def slateY(yOperand: Length): CircleLen2 = CircleLen2(diameter, cenX, cenY + yOperand)
-  override def scale(operand: Double): CircleLen2 = CircleLen2(diameter, cenX * operand, cenY * operand)
-  override def mapGeom2(operand: Length): Circle = Circle(diameter / operand, cenX / operand, cenY / operand)
+  override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2r(radius, cenX + operand.x, cenY + operand.y)
+  override def slate(xOperand: Length, yOperand: Length): CircleLen2 = CircleLen2r(radius, cenX + xOperand, cenY + yOperand)
+  override def slateX(xOperand: Length): CircleLen2 = CircleLen2r(radius, cenX + xOperand, cenY)
+  override def slateY(yOperand: Length): CircleLen2 = CircleLen2r(radius, cenX, cenY + yOperand)
+  override def scale(operand: Double): CircleLen2 = CircleLen2r(radius, cenX * operand, cenY * operand)
+  override def mapGeom2(operand: Length): Circle = Circler(radius / operand, cenX / operand, cenY / operand)
   override def draw(lineWidth: Double, lineColour: Colour): CircleLen2Draw = CircleLen2Draw(this, lineWidth, lineColour)
   
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleLen2Compound =
@@ -155,6 +177,19 @@ final case class CircleLen2(diameter: Length, cenX: Length, cenY: Length) extend
 
 object CircleLen2
 {
-  def apply(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter, cenX, cenY)
-  def apply(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter, cen.x, cen.y)
+  //def apply(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter, cenX, cenY)
+  //def apply(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter, cen.x, cen.y)
+}
+
+object CircleLen2d
+{
+  def apply(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter / 2, cenX, cenY)
+
+  def apply(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter / 2, cen.x, cen.y)
+}
+
+object CircleLen2r
+{
+  def apply(radius: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(radius, cenX, cenY)
+  def apply(radius: Length, cen: PtLen2): CircleLen2 = new CircleLen2(radius, cen.x, cen.y)
 }

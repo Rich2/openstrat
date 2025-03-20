@@ -15,7 +15,7 @@ trait Molecule
     LineSegPm2(i1, i2)
   }
 
-  def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2(atom.radius, pt).fillDraw(atom.colour, atom.contrastBW) }
+  def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2r(atom.radius / 2, pt).fillDraw(atom.colour, atom.contrastBW) }
   def lines: RArr[LineSegLen2Draw] = bondSegs.map { bs => bs.draw() }
   def linesCircles: RArr[GraphicLen2Elem] = lines ++ circles
 }
@@ -44,8 +44,7 @@ object Water extends Molecule
 }
 
 object CO2Mc extends Molecule
-{
-  val aO1 = OAtom()
+{ val aO1 = OAtom()
   val aC1 = CAtom()
   val aO2 = OAtom()
   override val atoms: RArr[Atom] = RArr(aO1, aC1, aO2)
