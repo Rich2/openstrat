@@ -85,8 +85,8 @@ object PtLen2
   /** Implicit [[Scale]] type class instance / evidence for [[PtLen2]]. */
   implicit val scaleEv: Scale[PtLen2] = (obj, operand) => obj.scale(operand)
 
-  /** Implicit [[MapGeom2T]] type class instance / evidence for [[PtLen2]] and [[Pt2]]. */
-  implicit val mapGeom2Ev: MapGeom2T[PtLen2, Pt2] = (obj, operand) => obj.mapGeom2(operand)
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[PtLen2]] and [[Pt2]]. */
+  implicit val mapGeom2Ev: MapGeom2[PtLen2, Pt2] = (obj, operand) => obj.mapGeom2(operand)
 }
 
 /** A 2-dimensional vector specified in [[Length]] units. */
@@ -119,6 +119,6 @@ object VecLen2
   /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
   implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)
 
-  /** Implicit [[MapGeom2T]] type class instance / evidence for [[VecLen2]] and [[Vec2]]. */
-  implicit val mapGeom2Ev: MapGeom2T[VecLen2, Vec2] = (obj, operand) => obj.mapGeom2(operand)
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[VecLen2]] and [[Vec2]]. */
+  implicit val mapGeom2Ev: MapGeom2[VecLen2, Vec2] = (obj, operand) => obj.mapGeom2(operand)
 }

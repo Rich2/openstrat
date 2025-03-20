@@ -48,6 +48,6 @@ object GraphicLen2Elem
   /** Implicit [[Scale]] type class instance / evidence for [[GraphicLen2Elem]]. */
   implicit val scaleEv: Scale[GraphicLen2Elem] = (obj, operand) => obj.scale(operand)
 
-  /** Implicit [[MapGeom2T]] type class instance / evidence for [[GraphicLen2Elem]] and [[Graphic2Elem]]. */
-  implicit val mapGeomEv: MapGeom2T[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[GraphicLen2Elem]] and [[Graphic2Elem]]. */
+  implicit val mapGeomEv: MapGeom2[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
 }
