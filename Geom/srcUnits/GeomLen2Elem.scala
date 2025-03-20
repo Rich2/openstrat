@@ -25,7 +25,7 @@ trait GeomLen2Elem extends Any
   def scale(operand: Double): GeomLen2Elem
 
   /** Divides by a [[Length]] to produce an equivalent [[Geom2Elem]] without [[Length]] units. */
-  def mapScalar2(operand: Length): Geom2Elem
+  def mapGeom2(operand: Length): Geom2Elem
 }
 
 /** A graphical element in 2 [[Length]] dimension space. */
@@ -35,5 +35,19 @@ trait GraphicLen2Elem extends GeomLen2Elem
   override def slateX(xOperand: Length): GraphicLen2Elem
   override def slateY(yOperand: Length): GraphicLen2Elem
   override def scale(operand: Double): GraphicLen2Elem
-  override def mapScalar2(operand: Length): Graphic2Elem
+  override def mapGeom2(operand: Length): Graphic2Elem
+}
+
+object GraphicLen2Elem
+{ /** Implicit [[SlateLen2]] type class instance / evidence for [[GraphicLen2Elem]]. */
+  implicit val slateLenEv: SlateLen2[GraphicLen2Elem] = (obj, operand) => obj.slate(operand)
+
+  /** Implicit [[SlateLenXY]] type class instance / evidence for [[GraphicLen2Elem]]. */
+  implicit val slateLenXYEv: SlateLenXY[GraphicLen2Elem] = (obj, xOp, yOp) => obj.slate(xOp, yOp)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[GraphicLen2Elem]]. */
+  implicit val scaleEv: Scale[GraphicLen2Elem] = (obj, operand) => obj.scale(operand)
+
+  /** Implicit [[MapGeom2T]] type class instance / evidence for [[GraphicLen2Elem]] and [[Graphic2Elem]]. */
+  implicit val mapGeomEv: MapGeom2T[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
 }

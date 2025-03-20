@@ -71,5 +71,5 @@ case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet]) ext
   override def slateX(xOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(xOperand), facets)
   override def slateY(yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(yOperand), facets)
   override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets)
-  override def mapScalar2(operand: Length): CircleCompound = CircleCompound(shape.mapScalar2(operand), facets)
+  override def mapGeom2(operand: Length): CircleCompound = CircleCompound(shape.mapGeom2(operand), facets)
 }

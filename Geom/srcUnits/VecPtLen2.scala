@@ -49,7 +49,7 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   override def slateY(yOperand: Length): PtLen2
   def slateFrom(operand: PtLen2): PtLen2
   override def scale(operand: Double): PtLen2
-  override def mapScalar2(operator: Length): Pt2
+  override def mapGeom2(operator: Length): Pt2
 
   /** Subtracting a vector from a point returns a point. Subtracting a vector from a vector returns a vector. Subtracting a point from a point returns a
    * vector. */
@@ -78,8 +78,8 @@ trait PtLen2 extends VecPtLen2, PointDbl2
 }
 
 object PtLen2
-{ /** Implicit [[SlateLen]] type class instance / evidence for [[PtLen2]]. */
-  implicit val slateEv: SlateLen[PtLen2] = (obj, delta) => obj.slate(delta)
+{ /** Implicit [[SlateLen2]] type class instance / evidence for [[PtLen2]]. */
+  implicit val slateEv: SlateLen2[PtLen2] = (obj, delta) => obj.slate(delta)
 
   /** Implicit [[SlateLenXY]] type class instance / evidence for [[PtLen2]]. */
   implicit val slateXYEv: SlateLenXY[PtLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
@@ -104,13 +104,13 @@ trait VecLen2 extends VecPtLen2
   override def slateX(xOperand: Length): VecLen2
   override def slateY(yOperand: Length): VecLen2
   override def scale(operand: Double): VecLen2
-  override def mapScalar2(operator: Length): Vec2
+  override def mapGeom2(operator: Length): Vec2
 }
 
 /** Companion object for 2-dimensional vector specified in [[Length]] units. Contains various [[GeomLen2Elem]] type classes for [[VecLen2]] */
 object VecLen2
-{ /** Implicit [[SlateLen]] type class instance / evidence for [[VecLen2]]. */
-  implicit val slateEv: SlateLen[VecLen2] = (obj, delta) => obj.slate(delta)
+{ /** Implicit [[SlateLen2]] type class instance / evidence for [[VecLen2]]. */
+  implicit val slateEv: SlateLen2[VecLen2] = (obj, delta) => obj.slate(delta)
 
   /** Implicit [[SlateLenXY]] type class instance / evidence for [[VecLen2]]. */
   implicit val slateXYEv: SlateLenXY[VecLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)

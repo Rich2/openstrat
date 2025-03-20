@@ -28,7 +28,7 @@ class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Doubl
   override def scale(operand: Double): LineSegPm2 =
     LineSegPm2(xStartPicometresNum * operand, yStartPicometresNum * operand, xEndPicometresNum * operand, yEndPicometresNum * operand)
 
-  override def mapScalar2(operand: Length): LineSeg = LineSeg(xStartPicometresNum / operand.picometresNum, yStartPicometresNum / operand.picometresNum,
+  override def mapGeom2(operand: Length): LineSeg = LineSeg(xStartPicometresNum / operand.picometresNum, yStartPicometresNum / operand.picometresNum,
     xEndPicometresNum / operand.picometresNum, yEndPicometresNum / operand.picometresNum)
 
   override def xStartFemtometresNum: Double = xStartPicometresNum * 1e-15

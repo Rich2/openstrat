@@ -11,7 +11,7 @@ final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def ssElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fElemStr: PtFm2 => String = _.toString
   override def verts: PtFm2Arr = new PtFm2Arr(arrayUnsafe)
-  override def mapScalar2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.femtometresNum))
+  override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.femtometresNum))
   override def slate(operand: VecPtLen2): PolygonFm2 = dblsMap(_ + operand.xFemtometresNum, _ + operand.yFemtometresNum)
   override def slate(xOperand: Length, yOperand: Length): PolygonFm2 = dblsMap(_ + xOperand.femtometresNum, _ + yOperand.femtometresNum)
   override def slateX(xOperand: Length): PolygonFm2 = dblsMap(_ + xOperand.femtometresNum, y => y)

@@ -90,5 +90,5 @@ case class LineSegLen2Draw(lineSeg: LineSegLen2[?], width: Double, colour: Colou
   override def slateX(xOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slateX(xOperand), width, colour)
   override def slateY(yOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slateY(yOperand), width, colour)
   override def scale(operand: Double): LineSegLen2Draw = LineSegLen2Draw(lineSeg.scale(operand), width, colour)
-  override def mapScalar2(operand: Length): LineSegDraw = LineSegDraw(lineSeg.mapScalar2(operand), width, colour)
+  override def mapGeom2(operand: Length): LineSegDraw = LineSegDraw(lineSeg.mapGeom2(operand), width, colour)
 }

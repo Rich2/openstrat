@@ -60,21 +60,21 @@ class SlateExtensions[T](value: T, ev: Slate[T])
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
-trait SlateLen[T]
+trait SlateLen2[T]
 { /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
   def slateT(obj: T, delta: VecPtLen2): T
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
-object SlateLen
-{ /** Implicit [[SlateLen]] instance / evidence for [[RArr]]. */
-  implicit def rArrEv[A](implicit ev: SlateLen[A]): SlateLen[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
+object SlateLen2
+{ /** Implicit [[SlateLen2]] instance / evidence for [[RArr]]. */
+  implicit def rArrEv[A](implicit ev: SlateLen2[A]): SlateLen2[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
 
-  /** Implicit [[SlateLen]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLen[A]): SlateLen[F[A]] = (obj, delta) => evF.mapT(obj, evA.slateT(_, delta))
+  /** Implicit [[SlateLen2]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLen2[A]): SlateLen2[F[A]] = (obj, delta) => evF.mapT(obj, evA.slateT(_, delta))
 
-  /** Implicit [[SlateLen]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLen[A]): SlateLen[Array[A]] = (obj, delta) => obj.map(ev.slateT(_, delta))
+  /** Implicit [[SlateLen2]] instance / evidence for [[Array]]. */
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLen2[A]): SlateLen2[Array[A]] = (obj, delta) => obj.map(ev.slateT(_, delta))
 }
 
 /** Type class for translate with X and Y parameters, 2 [[Length]] dimensional point and vector transformations. */
@@ -98,7 +98,7 @@ object SlateLenXY
 }
 
 /** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
-trait MapScalar2[T]
+trait MapGeom2T[TL, T <: Geom2Elem]
 { /** Maps from [[GeomLen2Elem]]s to [[Geom2]]s */
-  def mapScalar2T(obj: T, operand: Length): T
+  def mapGeom2T(obj: TL, operand: Length): T
 }

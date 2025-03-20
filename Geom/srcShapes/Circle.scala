@@ -146,7 +146,7 @@ final case class CircleLen2(diameter: Length, cenX: Length, cenY: Length) extend
   override def slateX(xOperand: Length): CircleLen2 = CircleLen2(diameter, cenX + xOperand, cenY)
   override def slateY(yOperand: Length): CircleLen2 = CircleLen2(diameter, cenX, cenY + yOperand)
   override def scale(operand: Double): CircleLen2 = CircleLen2(diameter, cenX * operand, cenY * operand)
-  override def mapScalar2(operand: Length): Circle = Circle(diameter / operand, cenX / operand, cenY / operand)
+  override def mapGeom2(operand: Length): Circle = Circle(diameter / operand, cenX / operand, cenY / operand)
 
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleLen2Compound =
     CircleLen2Compound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))

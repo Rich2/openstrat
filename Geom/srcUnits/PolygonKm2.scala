@@ -16,7 +16,7 @@ final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def slateX(xOperand: Length): PolygonKm2 = dblsMap(_ + xOperand.kilometresNum, y => y)
   override def slateY(yOperand: Length): PolygonKm2 = dblsMap(x => x, _ + yOperand.kilometresNum)
   override def scale(operand: Double): PolygonKm2 = dblsMap(_ * operand, _ + operand)
-  override def mapScalar2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.kilometresNum))
+  override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.kilometresNum))
 
   /** Performs the side effecting function on the [[PtKm2]] value of each vertex. */
   override def vertsForeach[U](f: PtKm2 => U): Unit =

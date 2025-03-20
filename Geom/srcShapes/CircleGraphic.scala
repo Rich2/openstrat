@@ -60,7 +60,7 @@ case class CircleLen2Draw(shape: CircleLen2, lineWidth: Double = 2.0, lineColour
   override def slateX(xOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateX(xOperand), lineWidth, lineColour)
   override def slateY(yOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): CircleLen2Draw = CircleLen2Draw(shape.scale(operand), lineWidth, lineColour)
-  override def mapScalar2(operand: Length): Graphic2Elem = CircleDraw(shape.mapScalar2(operand))
+  override def mapGeom2(operand: Length): Graphic2Elem = CircleDraw(shape.mapGeom2(operand))
 }
 
 trait CircleFillLen2

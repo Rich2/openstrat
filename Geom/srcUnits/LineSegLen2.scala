@@ -15,7 +15,7 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
   override def slateX(xOperand: Length): LineSegLen2[VT]
   override def slateY(xOperand: Length): LineSegLen2[VT]
   def scale(operand: Double): LineSegLen2[VT]  
-  def mapScalar2 (operand: Length): LineSeg
+  def mapGeom2 (operand: Length): LineSeg
 
   def xStartFemtometresNum: Double
   def yStartFemtometresNum: Double
@@ -37,7 +37,7 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], GeomLen2Elem
 
 object LineSegLen2
 { /** [[Slate]] type class instances / evidence for [[PtLen2]]. */
-  implicit def slateEv: SlateLen[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
+  implicit def slateEv: SlateLen2[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
 
   /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
   implicit def slateXYEv: SlateLenXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
