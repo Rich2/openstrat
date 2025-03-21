@@ -104,20 +104,21 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
 object Circle extends ShapeIcon
 { override type ShapeT = Circle
 
-  /** Factory apply method for creating a circle. The first parameter gives the radius of the circle. If no other parameters are passed the default position is
-   * for the centre of the circle to be positioned at its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
+  /** Factory apply method for creating a circle. The first parameter gives the radius of the circle. The default centre is at the origin. There is an apply
+   * method name overload that takes the X and Y centre values as parameters There are corresponding d methods that take a diameter as the first parameter. */
   def apply(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius, cen.x, cen.y)
 
-  /** Factory apply method for creating a circle. The first parameter gives the radius of the circle. If no other parameters are passed the default position is
-   * for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  /** Factory apply method for creating a circle. The first parameter gives the radius of the circle, followed by the X and Y centre values. There is an apply
+   * method name overload that takes a [[Pt2]] as a second parameter with a default value of the origin. */
   def apply(radius: Double, cenX: Double, cenY: Double): Circle = new Circle(radius, cenX, cenY)
 
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position
-   * is for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  /** Factory method for creating a circle. The first parameter gives the diameter of the circle. The default centre is at the origin. There is a name overload
+   * that takes the X and Y centre values as parameters. There are corresponding apply methods that take a radius as the first parameter. */
   def d(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter / 2, cen.x, cen.y)
 
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position
-   * is for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  /** Factory method for creating a circle. The first parameter gives the diameter of the circle, followed by the X and Y centre values. There is a method name
+   * overload that takes a [[Pt2]] as a second parameter with a default value of the origin. There are corresponding apply methods that take a radius as the
+   * first parameter. */
   def d(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter / 2, cenX, cenY)
 
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
@@ -154,12 +155,21 @@ final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Lengt
 }
 
 object CircleLen2
-{
+{ /** Factory apply method for creating a circle with [[Length]] units. The first parameter gives the radius of the circle. The default centre is at the origin.
+   * There is an apply name overload that takes the X and Y centre [[Length]] values as parameters There are corresponding d methods that take a diameter as the
+   * first parameter. */
   def apply(radius: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(radius, cenX, cenY)
 
+  /** Factory apply method for creating a circle with [[Length]] units. The first parameter gives the radius of the circle, followed by the X and Y centre
+   * [[Length]] values. There is an apply method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. */
   def apply(radius: Length, cen: PtLen2): CircleLen2 = new CircleLen2(radius, cen.x, cen.y)
 
+  /** Factory method for creating a circle. The first parameter gives the diameter of the circle. The default centre is at the origin. There is a name
+   * overload that takes the X and Y centre values as parameters. There are corresponding to apply methods that take a radius as the first parameter. */
   def d(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter / 2, cenX, cenY)
 
+  /** Factory method for creating a circle with [[Length]] units. The first parameter gives the diameter of the circle, followed by the X and Y centre values.
+   * There is a method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. There are corresponding apply methods
+   * that take a radius as the first parameter. */
   def d(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter / 2, cen.x, cen.y)
 }
