@@ -122,6 +122,11 @@ implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawer[A, B]
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
 }
 
+trait Filler[+A, +B] extends Drawer[A, B]
+{
+  //def fillT
+}
+
 trait DrawableLen2 extends GeomLen2Elem
 {
   def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
