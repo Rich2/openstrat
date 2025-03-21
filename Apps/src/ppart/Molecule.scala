@@ -9,14 +9,15 @@ trait Molecule
   def atomPosns: PtPm2Arr
   def posnAtoms: PtPm2PairArr[Atom] = PtPm2PairArr(atomPosns, atoms)
   val bonds: RPairArr[Atom, Atom]
-  def bondSegs: LineSegPm2Arr = bonds.map{ bond =>
+
+  def bondSegs: LineSegPm2Arr = bonds.map { bond =>
     val i1: PtPm2 = atomPosns(atomInd(bond.a1))
     val i2: PtPm2 = atomPosns(atomInd(bond.a2))
     LineSegPm2(i1, i2)
   }
 
   def circles: RArr[CircleLen2Compound] = posnAtoms.pairMap{ (pt, atom) => CircleLen2(atom.radius / 2, pt).fillDraw(atom.colour, atom.contrastBW) }
-  def lines: RArr[LineSegLen2Draw] = bondSegs.map { bs => bs.draw() }
+  def lines = bondSegs.draw()
   def linesCircles: RArr[GraphicLen2Elem] = lines ++ circles
 }
 

@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A class that is like a LineSeg, includes [[LineSeg]] and [[LineSegM2]]. The trait takes the type parameter of the vertex. */
-trait LineSegLike[VT] extends ValueNElem
+trait LineSegLike[+VT] extends ValueNElem
 {
   /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
    * [[PtM2]] for a [[LineSegM2]]. */

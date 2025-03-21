@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A line segment whose coordinates are specified in [[Length]] units. */
-trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
+trait LineSegLen2[+VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
 { def xStart: Length
   def yStart: Length
   def xEnd: Length
@@ -39,11 +39,20 @@ trait LineSegLen2[VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
 
 object LineSegLen2
 { /** [[Slate]] type class instances / evidence for [[PtLen2]]. */
-  implicit def slateEv: SlateLen2[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
+  implicit val slateEv: SlateLen2[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
 
   /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
-  implicit def slateXYEv: SlateLenXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
+  implicit val slateXYEv: SlateLenXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
   
   /** [[Scale]] type class instances / evidence for [[PtLen2]]. */
-  implicit def scaleEv: Scale[LineSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
+  implicit val scaleEv: Scale[LineSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
+
+  implicit val drawerEv: Drawer[LineSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+}
+
+trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]]
+
+object LineSegLen2Arr
+{
+  implicit def drawerEv[VT <: PtLen2]: Drawer[LineSegLen2Arr[VT], RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
 }

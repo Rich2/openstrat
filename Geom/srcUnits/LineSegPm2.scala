@@ -79,7 +79,7 @@ object LineSegPm2
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSegPm2]]s. A mathematical straight line segment measured in [[Picometres]]. */
-class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends Dbl4Arr[LineSegPm2]
+class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2], Dbl4Arr[LineSegPm2]
 { type ThisT = LineSegPm2Arr
   def fromArray(array: Array[Double]): LineSegPm2Arr = new LineSegPm2Arr(array)
   override def typeStr: String = "LineSegMArr"
@@ -104,6 +104,8 @@ object LineSegPm2Arr extends CompanionSeqLikeDbl4[LineSegPm2, LineSegPm2Arr]
 
   /** [[Unshow]] type class instance / evidence for [[LineSegPm2Arr]]. */
   implicit lazy val unshowEv: UnshowSeq[LineSegPm2, LineSegPm2Arr] = UnshowSeq[LineSegPm2, LineSegPm2Arr]()
+
+  implicit def drawerEv: Drawer[LineSegPm2Arr, RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
 }
 
 /** Efficient expandable buffer for [[LineSegPm2]]s. */

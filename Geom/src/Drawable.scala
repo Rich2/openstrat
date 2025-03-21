@@ -1,6 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, reflect.ClassTag
+import Colour.Black
+
+import reflect.ClassTag
+import scala.annotation.unchecked.uncheckedVariance
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any with Geom2Elem
@@ -96,15 +99,16 @@ trait Fillable extends Any with Drawable
 }
 
 /** Type class for drawing. */
-trait Drawer[A, B]
-{ /** The type class's draw metod. */
-  def drawT(obj: A, lineWidth: Double = 2, lineColour: Colour = Black): B
+trait Drawer[+A, +B]
+{ /** The type class's draw method. */
+  def drawT(obj: A @uncheckedVariance, lineWidth: Double = 2, lineColour: Colour = Black): B
 }
 
 /** Companion object for the [[Drawer]] type class. Contains implicit instances for collections and other container classes. */
 object Drawer
-{ /** Implicit [[Drawer]] type class instances / evidence for [[RArr]]. */
-  implicit def rArrEv[A, B](implicit evA: Drawer[A, B], ct: ClassTag[B]): Drawer[RArr[A], RArr[B]] = (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
+{ /** Implicit [[Drawer]] type class instances / evidence for [[Arr]]. */
+  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Drawer[A, B], build: BuilderArrMap[B, ArrB]): Drawer[Arr[A], Arr[B]] =
+    (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
 
   /** Implicit [[Drawer]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
   implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Drawer[A, B]): Drawer[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
@@ -131,6 +135,7 @@ object DrawableLen2
 { implicit val slateLen2Ev: SlateLen2[DrawableLen2] = (obj, op) => obj.slate(op)
   implicit val slateLenXY: SlateLenXY[DrawableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
   implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
+  implicit val drawTEv: Drawer[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
 trait FillableLen2 extends DrawableLen2
