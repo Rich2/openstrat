@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, math.Pi, Colour.Black
 
@@ -6,7 +6,7 @@ import pWeb._, math.Pi, Colour.Black
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-final class Circle protected[geom](val diameter: Double, val cenX: Double, val cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
+final class Circle protected[geom](val radius: Double, val cenX: Double, val cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
 { type ThisT = Circle
 
   override def fTrans(f: Pt2 => Pt2): Circle =
@@ -18,7 +18,7 @@ final class Circle protected[geom](val diameter: Double, val cenX: Double, val c
   }
   
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
-  @inline def radius: Double = diameter / 2
+  @inline def diameter: Double = radius * 2
 
   override def area: Double = Pi * radius * radius
   override def e: Double = 0
@@ -104,20 +104,22 @@ final class Circle protected[geom](val diameter: Double, val cenX: Double, val c
 object Circle extends ShapeIcon
 { override type ShapeT = Circle
 
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
-   * the centre point or the X and Y positions of its centre. */
-  //def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
+  /** Factory apply method for creating a circle. The first parameter gives the radius of the circle. If no other parameters are passed the default position is
+   * for the centre of the circle to be positioned at its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
+  def apply(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius, cen.x, cen.y)
 
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
-   * the centre point or the X and Y positions of its centre. */
-  //def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter, cenX, cenY)
+  /** Factory apply method for creating a circle. The first parameter gives the radius of the circle. If no other parameters are passed the default position is
+   * for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  def apply(radius: Double, cenX: Double, cenY: Double): Circle = new Circle(radius, cenX, cenY)
 
-  /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at
-   *  its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
+  /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other
+   * parameters are passed the default position is for the centre of the circle to be positioned at its origin. The radius can be followed by the centre point
+   * or the X and Y positions of its centre. */
   def radius(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius * 2, cen.x, cen.y)
 
-  /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at
-   *  its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
+  /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other
+   * parameters are passed the default position is for the centre of the circle to be positioned at its origin. The radius can be followed by the centre point
+   * or the X and Y positions of its centre. */
   def radius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)
 
   override def reify(scale: Double, cen: Pt2): Circle = Circler(scale, cen)
@@ -140,24 +142,24 @@ object Circle extends ShapeIcon
 }
 
 object Circler {
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
-   * the centre point or the X and Y positions of its centre. */
-  def apply(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius * 2, cen.x, cen.y)
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position
+   * is for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  def apply(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius, cen.x, cen.y)
 
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
-   * the centre point or the X and Y positions of its centre. */
-  def apply(radius: Double, cenX: Double, cenY: Double): Circle = new Circle(radius * 2, cenX, cenY)
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position
+   * is for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  def apply(radius: Double, cenX: Double, cenY: Double): Circle = new Circle(radius, cenX, cenY)
 }
 
 object Circled
 {
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
-   * the centre point or the X and Y positions of its centre. */
-  def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position
+   * is for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter / 2, cen.x, cen.y)
 
-  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
-   * the centre point or the X and Y positions of its centre. */
-  def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter, cenX, cenY)
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position
+   * is for the centre of the circle to be positioned at its origin. The diameter can be followed by the centre point or the X and Y positions of its centre. */
+  def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter / 2, cenX, cenY)
 }
 
 

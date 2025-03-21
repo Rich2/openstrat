@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pgui._, pStrat._
+import pgui.*, pStrat.*
 
 /** Object for selecting various JavaFx apps / examples at run time. */
 object AppSelector
@@ -32,6 +32,7 @@ object AppSelector
     ("DR", pchess.pdraughts.DraughtsLaunch),
     ("PL", pspace.PlanetLaunch),
     ("PA", ppart.PhysChemLaunch),
+    ("FL", pFlags.FlagsLaunch),
   )
 
   val ids: ArrPairStr[(CanvasPlatform => Any, String)] = ArrPairStr(
