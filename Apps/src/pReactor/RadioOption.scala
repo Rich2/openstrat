@@ -16,11 +16,11 @@ case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:P
 
     val ink = if (isEnabled) White else Grey
     var ret:GraphicElems = RArr(TextFixed(labelText, defaultSize, loc.addX(defaultSize), ink, LeftAlign))
-    if (isSelected) ret = ret ++ RArr(Circled(defaultSize - 4, loc).fill(ink))
+    if (isSelected) ret = ret ++ RArr(Circle.d(defaultSize - 4, loc).fill(ink))
 
     //drawActive with lineWidth 0.01 FUDGE :( todo: flesh out   circle.active(activeId) and circle.drawActive(activeId)
-    if (isEnabled) ret ++ RArr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 0.01, this), Circled(defaultSize, loc).draw(1, ink))
-    else ret ++ RArr(Circled(defaultSize, loc).draw(1, ink))
+    if (isEnabled) ret ++ RArr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 0.01, this), Circle.d(defaultSize, loc).draw(1, ink))
+    else ret ++ RArr(Circle.d(defaultSize, loc).draw(1, ink))
   }
 
   def clicked(): Unit = parent.clicked(this)

@@ -44,7 +44,7 @@ object GeomPage extends HtmlPage
   object Ellipses extends HtmlSection
   { override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
 
-    val circ2: Circle = Circled(200)
+    val circ2: Circle = Circle.d(200)
     val circ1: Circle = circ2.slateX(-200)
     val circ3: Circle = circ2.slateX(200)
     val cg1 = circ1.fill(Orange)

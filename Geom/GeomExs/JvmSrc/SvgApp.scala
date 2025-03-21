@@ -4,16 +4,16 @@ import Colour._, pWeb._
 
 /** An example app using the Graphics module to produce SVG. */
 object SvgApp extends App 
-{ val cof1 = Circler(40).fill(Orange).svgInlineStr
-  val cof2 = Circler(60).fill(Red).svgInlineStr
-  val cof3 = Circler(40, 80, 50).fill(Gold).svgInlineStr
-  val cof4 = RArr(Circler(50, -50, 50).fill(Pink), Circler(50, 50, -50).fill(Colour.LightBlue)).svgInline()
+{ val cof1 = Circle(40).fill(Orange).svgInlineStr
+  val cof2 = Circle(60).fill(Red).svgInlineStr
+  val cof3 = Circle(40, 80, 50).fill(Gold).svgInlineStr
+  val cof4 = RArr(Circle(50, -50, 50).fill(Pink), Circle(50, 50, -50).fill(Colour.LightBlue)).svgInline()
   val e1 = Ellipse(90, 60)
   val ef1 = e1.fill(DarkMagenta).svgInlineStr
   val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInlineStr
   val s3 = "<svg><circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red /></svg>"  
   val s3Sub = s3.htmlReservedSubstitute
-  val ef3 = RArr(Circled(75, 75, 0).fill(Orange), Circled(75, 225, 0).fill(Violet), Circled(25, 300, 0).fill(Red)).svgInline()
+  val ef3 = RArr(Circle.d(75, 75, 0).fill(Orange), Circle.d(75, 225, 0).fill(Violet), Circle.d(25, 300, 0).fill(Red)).svgInline()
   
   val bodyStr: String = 
     s"""<p>So this is some relatively simple HTML. The formatting of this example has deliberately been kept simple. For that reason no CSS has been

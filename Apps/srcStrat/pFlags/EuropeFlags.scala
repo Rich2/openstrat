@@ -124,7 +124,7 @@ object Swastika extends Flag
     val bar = Rect.bCen(0.1, 0.2).fill(Black)
     val arm = Rect.tl(6.0 / 20, 0.1, -1.0 / 20 pp 0.25).fill(Black)
     val cross = RArr(bar, arm).rotate45.flatMap(_.rotateQuadrants)
-    RArr(poly.fill(Red), Circled(6.0 / 8).fill(White)) ++ cross
+    RArr(poly.fill(Red), Circle.d(6.0 / 8).fill(White)) ++ cross
   }
 }
 

@@ -47,7 +47,7 @@ object LsBezierChange extends LessonGraphics
     drawBezier()
 
     def drawBezier(): Unit = {
-      val dragCircles = bezierPoints.map(dc => Circled(circleRadius, dc.loc).fill(dc.color))
+      val dragCircles = bezierPoints.map(dc => Circle.d(circleRadius, dc.loc).fill(dc.color))
 
       /** line between the start point and its control point */
       val startControlLine = LineSegDraw(startPoint.loc, controlStart.loc, 1, Grey)
@@ -64,7 +64,7 @@ object LsBezierChange extends LessonGraphics
       val elementsToPaint = dragCircles ++ RArr(txt, startControlLine, endControlLine, bezier)
 
       val quadraticBezier = Bezier(quadraticStart.loc, quadraticControl.loc, quadraticControl.loc, quadraticEnd.loc).draw(2, Blue)
-      val quadraticDragCircles = quadraticBezierPoints.map(dc => Circled(circleRadius, dc.loc).fill(dc.color))
+      val quadraticDragCircles = quadraticBezierPoints.map(dc => Circle.d(circleRadius, dc.loc).fill(dc.color))
       val quadraticStartControlLine = LineSegDraw(quadraticStart.loc, quadraticControl.loc, 1, Grey)
       val quadraticEndControlLine = LineSegDraw(quadraticEnd.loc, quadraticControl.loc, 1, Grey)
       val txtQuad = TextFixed("BezierDraw(" + quadraticStart.loc + ", " + quadraticControl.loc + ", " + quadraticControl.loc + ", " + quadraticEnd.loc + ", 2, Blue)", 18, 0 pp -300, Blue)

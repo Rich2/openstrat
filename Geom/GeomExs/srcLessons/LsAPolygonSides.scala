@@ -9,7 +9,7 @@ object LsAPolygonSides extends LessonStatic
   val hd: PolygonDraw = hex.draw()
 
   val hex2 = hex.vertsMultiply(4)
-  val ccs = hex2.vertsMap(Circled(15, _).fill(Violet))
+  val ccs = hex2.vertsMap(Circle.d(15, _).fill(Violet))
 
   val sides = hex.slateX(500).sides.iMap{ (i, ls) => ls.draw(2, ColourArr.rainbow(i)) }
   override def output: GraphicElems = RArr(hd) ++ sides ++ ccs

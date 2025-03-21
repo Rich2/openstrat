@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
@@ -35,14 +35,14 @@ case class LsC8Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: Mor
   drawStuff()
 
   def drawStuff():Unit = 
-  { val cds = pts.map(dr => Circled(circleRadius, dr.v).fill(dr.c))
+  { val cds = pts.map(dr => Circle.d(circleRadius, dr.v).fill(dr.c))
     
     val cl1 = LineSegDraw(p1.v, c1.v, 2, Grey)    /** line between the start point and its control point */
     val cl2 = LineSegDraw(p2.v, c2.v, 2, Grey)    /** line between the end point and its control point */
 
     /** this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , ) */
     //val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
-    val circ = Circled(cRad.v.distTo(cCen.v), cCen.v).draw(2.0, Blue)
+    val circ = Circle.d(cRad.v.distTo(cCen.v), cCen.v).draw(2.0, Blue)
     val ell = Ellipse(200, 100).fill(SeaGreen)
 
     val elementsToPaint = cds ++ RArr(cl1, cl2, ell, circ, ell)

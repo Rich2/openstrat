@@ -35,7 +35,7 @@ object LsARotation extends LessonStatic
   val cen6 = TextFixed("c6 cen", 14, -100 pp 200)
   val ps = Pt2(100, 100)
   val cc = Pt2(150, 150)
-  val cd = Circler(50 * 2.sqrt, cc).draw()
+  val cd = Circle(50 * 2.sqrt, cc).draw()
   val p90 = ps.rotateAbout(cc, 90.degsVec)
   val p135 = ps.rotateAbout(cc, 135.degsVec)
   val p180 = ps.rotateAbout(cc, 180.degsVec)

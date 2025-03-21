@@ -46,8 +46,8 @@ case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive wit
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
-{ override def reify(scale: Double, cen: Pt2): CircleFill = CircleFill(Circler(scale, cen), fillColour)
-  override def reify(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circler(scale, xCen, yCen), fillColour)
+{ override def reify(scale: Double, cen: Pt2): CircleFill = CircleFill(Circle(scale, cen), fillColour)
+  override def reify(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(scale, xCen, yCen), fillColour)
 }
 
 trait CircleLen2Graphic extends EllipseLen2Graphic

@@ -8,12 +8,12 @@ object LsAHexEnum extends LessonStatic
 
   override def bodyStr: String = """Hexagon enumeration."""
 
-  val c1: CircleDraw = Circled(200).draw()
-  val c2: CircleDraw = Circled(231).draw(lineColour = DarkBlue)
+  val c1: CircleDraw = Circle.d(200).draw()
+  val c2: CircleDraw = Circle.d(231).draw(lineColour = DarkBlue)
 
   val h1: HexParrX = HexParrX(200)
   val hd: PolygonDraw = h1.draw()
-  val htv: RArr[CircleFill] = h1.vertsMap(v => Circled(25, v).fill(Pink))
+  val htv: RArr[CircleFill] = h1.vertsMap(v => Circle.d(25, v).fill(Pink))
   val hts: RArr[TextFixed] = h1.vertsMap(v => TextFixed(v.str0, 15, v))
   val h2: HexParrX = h1.slateX(-400)
   val hc: RArr[LineSegDraw] = h2.sides.iMap { (i, s) => s.draw(2, ColourArr.rainbow.cycleGet(i)) }
