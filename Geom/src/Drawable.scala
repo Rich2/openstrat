@@ -59,16 +59,16 @@ trait Drawable extends Any with Geom2Elem
   override def shearY(operand: Double): Drawable
 }
 
-/** Companion object for the Drawable trait contains implicit instances for various 2D geometric transformation type classes. */
+/** Companion object for the [[Drawable]] trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
-{ implicit val slateImplicit: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
+{ implicit val slateEv: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
+  implicit val rotateEv: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignEv: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleEv: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val ReflectEv: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: TransAxes[Drawable] = new TransAxes[Drawable]
+  implicit val transAxesEv: TransAxes[Drawable] = new TransAxes[Drawable]
   { override def negYT(obj: Drawable): Drawable = obj.negY
     override def negXT(obj: Drawable): Drawable = obj.negX
     override def rotate90(obj: Drawable): Drawable = obj.rotate90
@@ -76,7 +76,7 @@ object Drawable
     override def rotate270(obj: Drawable): Drawable = obj.rotate90
   }
 
-  implicit val shearImplicit: Shear[Drawable] = new Shear[Drawable]
+  implicit val shearEv: Shear[Drawable] = new Shear[Drawable]
   { override def shearXT(obj: Drawable, yFactor: Double): Drawable = obj.shearX(yFactor)
     override def shearYT(obj: Drawable, xFactor: Double): Drawable = obj.shearY(xFactor)
   }
@@ -121,6 +121,16 @@ implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawer[A, B]
 trait DrawableLen2 extends GeomLen2Elem
 {
   def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
+
+  override def slate(operand: VecPtLen2): DrawableLen2
+  override def slate(xOperand: Length, yOperand: Length): DrawableLen2
+  override def scale(operand: Double): DrawableLen2
+}
+
+object DrawableLen2
+{ implicit val slateLen2Ev: SlateLen2[DrawableLen2] = (obj, op) => obj.slate(op)
+  implicit val slateLenXY: SlateLenXY[DrawableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
+  implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
 }
 
 trait FillableLen2 extends DrawableLen2
