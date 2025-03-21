@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
+import Colour.Black, reflect.ClassTag
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any with Geom2Elem
@@ -80,6 +80,8 @@ object Drawable
   { override def shearXT(obj: Drawable, yFactor: Double): Drawable = obj.shearX(yFactor)
     override def shearYT(obj: Drawable, xFactor: Double): Drawable = obj.shearY(xFactor)
   }
+
+  implicit val drawTEv: Drawer[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
 }
 
 /** A 2D geometric element that can be drawn and filled producing [[Graphic2Elem]]s. */
@@ -91,6 +93,22 @@ trait Fillable extends Any with Drawable
   def fillInt(intValue: Int): Graphic2Elem
   
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
+}
+
+/** Type class for drawing. */
+trait Drawer[A, B]
+{ /** The type class's draw metod. */
+  def drawT(obj: A, lineWidth: Double = 2, lineColour: Colour = Black): B
+}
+
+object Drawer
+{
+  implicit def rArrEv[A, B](implicit evA: Drawer[A, B], ct: ClassTag[B]): Drawer[RArr[A], RArr[B]] = (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
+}
+
+implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawer[A, B])
+{
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
 }
 
 trait DrawableLen2 extends GeomLen2Elem
