@@ -101,13 +101,20 @@ trait Drawer[A, B]
   def drawT(obj: A, lineWidth: Double = 2, lineColour: Colour = Black): B
 }
 
+/** Companion object for the [[Drawer]] type class. Contains implicit instances for collections and other container classes. */
 object Drawer
-{
+{ /** Implicit [[Drawer]] type class instances / evidence for [[RArr]]. */
   implicit def rArrEv[A, B](implicit evA: Drawer[A, B], ct: ClassTag[B]): Drawer[RArr[A], RArr[B]] = (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
+
+  /** Implicit [[Drawer]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Drawer[A, B]): Drawer[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
+
+  /** Implicit [[Drawer]] type class instances / evidence for [[Array]]. */
+  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Drawer[A, B]): Drawer[Array[A], Array[B]] = (obj, lw, col) => obj.map(ev.drawT(_, lw, col))
 }
 
 implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawer[A, B])
-{
+{ /** Extension method to draw the object from a [[Drawer]] type class instance. */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
 }
 
@@ -115,6 +122,7 @@ trait DrawableLen2 extends GeomLen2Elem
 {
   def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
 }
+
 trait FillableLen2 extends DrawableLen2
 {
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicLen2Elem

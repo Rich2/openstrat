@@ -65,16 +65,16 @@ trait SlateLen2[A]
   def slateT(obj: A, delta: VecPtLen2): A
 }
 
-/** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
+/** Companion object for the [[SlateLen2]] type class. Contains implicit instances for collections and other container classes. */
 object SlateLen2
-{ /** Implicit [[SlateLen2]] instance / evidence for [[RArr]]. */
+{ /** Implicit [[SlateLen2]] type class instances / evidence for [[RArr]]. */
   implicit def rArrEv[A](implicit ev: SlateLen2[A]): SlateLen2[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
 
-  /** Implicit [[SlateLen2]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLen2[A]): SlateLen2[F[A]] = (obj, delta) => evF.mapT(obj, evA.slateT(_, delta))
+  /** Implicit [[SlateLen2]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  implicit def functorEv[A, F[_]](implicit evF: Functor[F], evA: SlateLen2[A]): SlateLen2[F[A]] = (obj, op) => evF.mapT(obj, evA.slateT(_, op))
 
-  /** Implicit [[SlateLen2]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLen2[A]): SlateLen2[Array[A]] = (obj, delta) => obj.map(ev.slateT(_, delta))
+  /** Implicit [[SlateLen2]] type class instances / evidence for [[Array]]. */
+  implicit def arrayEv[A](implicit ct: ClassTag[A], ev: SlateLen2[A]): SlateLen2[Array[A]] = (obj, op) => obj.map(ev.slateT(_, op))
 }
 
 /** Type class for translate with X and Y parameters, 2 [[Length]] dimensional point and vector transformations. */
@@ -86,15 +86,15 @@ trait SlateLenXY[A]
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object SlateLenXY
-{ /** Implicit [[SlateLenXY]] instance / evidence for [[RArr]]. */
-  implicit def rArrImplicit[A](implicit ev: SlateLenXY[A]): SlateLenXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
+{ /** Implicit [[SlateLenXY]] type class instances / evidence for [[RArr]]. */
+  implicit def rArrEv[A](implicit ev: SlateLenXY[A]): SlateLenXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
 
-  /** Implicit [[SlateLenXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateLenXY[A]): SlateLenXY[F[A]] =
+  /** Implicit [[SlateLenXY]] type class instances / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorEv[A, F[_]](implicit evF: Functor[F], evA: SlateLenXY[A]): SlateLenXY[F[A]] =
     (obj, dx, dy) => evF.mapT(obj, evA.slateXYT(_, dx, dy))
 
-  /** Implicit [[SlateLenXY]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateLenXY[A]): SlateLenXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
+  /** Implicit [[SlateLenXY]] type class instances / evidence for [[Array]]. */
+  implicit def arrayEv[A](implicit ct: ClassTag[A], ev: SlateLenXY[A]): SlateLenXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
 }
 
 /** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
