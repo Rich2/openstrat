@@ -53,6 +53,6 @@ object LineSegLen2
 trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]]
 
 object LineSegLen2Arr
-{
+{ /** [[Drawer]] type class instance / evidence for [[LineSegLen2Arr]]. */  
   implicit def drawerEv[VT <: PtLen2]: Drawer[LineSegLen2Arr[VT], RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
 }

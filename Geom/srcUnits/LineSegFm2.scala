@@ -102,6 +102,9 @@ object LineSegFm2Arr extends CompanionSeqLikeDbl4[LineSegFm2, LineSegFm2Arr]
 
   /** [[Unshow]] type class instance / evidence for [[LineSegFm2Arr]]. */
   implicit lazy val unshowEv: UnshowSeq[LineSegFm2, LineSegFm2Arr] = UnshowSeq[LineSegFm2, LineSegFm2Arr]()
+  
+  /** [[Drawer]] type class instance / evidence for [[LineSegFm2Arr]]. */
+  implicit def drawerEv: Drawer[LineSegFm2Arr, RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
 }
 
 /** Efficient expandable buffer for [[LineSegFm2]]s. */
