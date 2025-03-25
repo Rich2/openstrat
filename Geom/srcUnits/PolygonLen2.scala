@@ -1,6 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
+/** A polygon specified in [[Length]] units. */
 trait PolygonLen2[VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT]
 { type ThisT <: PolygonLen2[VT]
   type SideT <: LineSegLen2[VT]
