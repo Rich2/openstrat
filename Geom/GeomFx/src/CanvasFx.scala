@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
 import geom._, pgui._, utiljvm._, javafx._, scene._
 
@@ -28,10 +28,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   canvFx.setOnMouseMoved((e: input.MouseEvent) => mouseMovedTopLeft(e.getX(), e.getY(), getButton(e))) 
   canvFx.setOnMouseDragged((e: input.MouseEvent) => mouseDraggedTopLeft(e.getX(), e.getY(), getButton(e))) 
   
-  theScene.setOnKeyReleased{(e: input.KeyEvent) =>
+  theScene.setOnKeyReleased{ (e: input.KeyEvent) =>
     shiftDown = e.isShiftDown()
     keyUp(e.getText)
   }
+
   theScene.setOnKeyPressed{(e: input.KeyEvent) =>
     shiftDown = e.isShiftDown()
     keyDown(e.getText)
@@ -46,8 +47,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   import paint.Color
   def toFxColor(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
 
-  def setFill(fill: FillFacet): Unit = fill match {
-    case c: Colour => gc.setFill(toFxColor(c))
+  def setFill(fill: FillFacet): Unit = fill match
+  { case c: Colour => gc.setFill(toFxColor(c))
     case fr: FillRadial =>
     {
       import paint._
@@ -121,6 +122,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setFill(lg1)
     gc.fillOval(circle.cenX - circle.radius, circle.cenY - circle.radius, circle.diameter, circle.diameter)
   }
+
   override def tlCircleDraw(cd: CircleDraw): Unit =
   { gc.setLineWidth(cd.lineWidth)
     gc.setStroke(toFxColor(cd.lineColour))
@@ -159,8 +161,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   def fxBaseline(baseLine: BaseLine) =
-  {
-    import BaseLine._
+  { import BaseLine._
     baseLine match
     { case Top => geometry.VPos.TOP
       case Middle => geometry.VPos.CENTER
