@@ -47,12 +47,12 @@ object LineSegLen2
   /** [[Scale]] type class instances / evidence for [[PtLen2]]. */
   implicit val scaleEv: Scale[LineSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
 
-  implicit val drawerEv: Drawer[LineSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  implicit val drawerEv: Drawing[LineSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
 trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]]
 
 object LineSegLen2Arr
-{ /** [[Drawer]] type class instance / evidence for [[LineSegLen2Arr]]. */  
-  implicit def drawerEv[VT <: PtLen2]: Drawer[LineSegLen2Arr[VT], RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
+{ /** [[Drawing]] type class instance / evidence for [[LineSegLen2Arr]]. */  
+  implicit def drawerEv[VT <: PtLen2]: Drawing[LineSegLen2Arr[VT], RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
 }

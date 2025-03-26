@@ -138,6 +138,9 @@ object Circle extends ShapeIcon
   }
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
+
+  /** [[Filling]] type class instance / evidence for [[Circle]] and [[CircleFill]] */
+  val fillerEv: Filling[Circle, CircleFill] = (obj, ff) => obj.fill(ff)
 }
 
 final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Length) extends EllipseLen2

@@ -380,6 +380,6 @@ object Polygon extends CompanionSeqLikeDbl2[Pt2, Polygon]
     override def shearYT(obj: Polygon, xFactor: Double): Polygon = obj.shearY(xFactor)
   }
 
-  /** Implicit [[Drawer]] type class instance / evidence for [[Polygon]]. */
-  implicit val drawerEv: Drawer[Polygon, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  /** Implicit [[Drawing]] type class instance / evidence for [[Polygon]]. */
+  implicit val drawerEv: Drawing[Polygon, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }

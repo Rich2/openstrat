@@ -16,61 +16,42 @@ trait Drawable extends Any with Geom2Elem
     case _ => draw(lineWidth, colour)
   }
 
-  /** Translate 2D geometric transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits. */
   override def slateXY(xDelta: Double, yDelta: Double): Drawable
-
-  /** Uniform 2D geometric scaling transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): Drawable
-
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating Y, on this Drawable returns a Drawable. The return type will be narrowed in
-   * sub traits / classes. */
   override def negY: Drawable
-
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X, on this Drawable returns a Drawable. The return type will be narrowed in
-   * sub traits / classes. */
   override def negX: Drawable
-
-  /** 2D Transformation using a [[ProlignMatrix]] on this Drawable returns a Drawable. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): Drawable
-
-  /** Rotation positive or anti-clockwise 90 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in
-   * subclasses and traits. */
   override def rotate90: Drawable
-
-  /** Rotation of 180 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def rotate180: Drawable
-
-  /** Rotation positive or anti-clockwise 270 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in
-   * subclasses and traits. */
   override def rotate270: Drawable
-
-  /** Rotation 2D geometric transformation, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def rotate(angle: AngleVec): Drawable
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray, on this Drawable returns a Drawable. The return type will be narrowed in
-   * subclasses and traits. */
   override def reflect(lineLike: LineLike): Drawable
-
-  /** XY scaling 2D geometric transformation, on this Drawable returns a Drawable. This allows different scaling factors across X and Y dimensions. The return
-   * type will be narrowed in subclasses and traits. */
   override def scaleXY(xOperand: Double, yOperand: Double): Drawable
-
-  /** Shear 2D geometric transformation along the X Axis, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def shearX(operand: Double): Drawable
-
-  /** Shear 2D geometric transformation along the Y Axis, on this Drawable returns a Drawable. The return type will be narrowed in subclasses and traits. */
   override def shearY(operand: Double): Drawable
 }
 
 /** Companion object for the [[Drawable]] trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
-{ implicit val slateEv: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ /** [[Slate]] type class instance / evidence for [[Drawable]]. */
+  implicit val slateEv: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+
+  /** [[Scale]] type class instance / evidence for [[Drawable]]. */
   implicit val scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
+
+  /** [[Rotate]] type class instance / evidence for [[Drawable]]. */
   implicit val rotateEv: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
+
+  /** [[Slate]] type class instance / evidence for [[Drawable]]. */
   implicit val prolignEv: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleEv: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** [[ScaleXY]] type class instance / evidence for [[Drawable]]. */
+  implicit val scaleXYEv: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** [[Reflect]] type class instance / evidence for [[Drawable]]. */
   implicit val ReflectEv: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
 
+  /** [[TransAxes]] type class instance / evidence for [[Drawable]]. */
   implicit val transAxesEv: TransAxes[Drawable] = new TransAxes[Drawable]
   { override def negYT(obj: Drawable): Drawable = obj.negY
     override def negXT(obj: Drawable): Drawable = obj.negX
@@ -78,13 +59,13 @@ object Drawable
     override def rotate180(obj: Drawable): Drawable = obj.rotate90
     override def rotate270(obj: Drawable): Drawable = obj.rotate90
   }
-
+  /** [[Shear]] type class instance / evidence for [[Drawable]]. */
   implicit val shearEv: Shear[Drawable] = new Shear[Drawable]
   { override def shearXT(obj: Drawable, yFactor: Double): Drawable = obj.shearX(yFactor)
     override def shearYT(obj: Drawable, xFactor: Double): Drawable = obj.shearY(xFactor)
   }
-
-  implicit val drawTEv: Drawer[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
+  /** [[Drawing]] type class instance / evidence for [[Drawable]]. */
+  implicit val drawTEv: Drawing[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
 }
 
 /** A 2D geometric element that can be drawn and filled producing [[Graphic2Elem]]s. */
@@ -96,48 +77,102 @@ trait Fillable extends Any with Drawable
   def fillInt(intValue: Int): Graphic2Elem
   
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
+
+  val fillerEv: Filling[Fillable, Graphic2Elem] = (obj, ff) => obj.fill(ff)
+
+  override def slateXY(xDelta: Double, yDelta: Double): Fillable
+  override def scale(operand: Double): Fillable
+  override def negY: Fillable
+  override def negX: Fillable
+  override def prolign(matrix: ProlignMatrix): Fillable
+  override def rotate90: Fillable
+  override def rotate180: Fillable
+  override def rotate270: Fillable
+  override def rotate(angle: AngleVec): Fillable
+  override def reflect(lineLike: LineLike): Fillable
+  override def scaleXY(xOperand: Double, yOperand: Double): Fillable
+  override def shearX(operand: Double): Fillable
+  override def shearY(operand: Double): Fillable
+}
+
+object Fillable
+{ /** [[Slate]] type class instance / evidence for [[Fillable]]. */
+  implicit val slateEv: Slate[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+
+  /** [[Scale]] type class instance / evidence for [[Fillable]]. */
+  implicit val scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)
+
+  /** [[Rotate]] type class instance / evidence for [[Fillable]]. */
+  implicit val rotateEv: Rotate[Fillable] = (obj: Fillable, angle: AngleVec) => obj.rotate(angle)
+
+  /** [[Slate]] type class instance / evidence for [[Fillable]]. */
+  implicit val prolignEv: Prolign[Fillable] = (obj, matrix) => obj.prolign(matrix)
+
+  /** [[ScaleXY]] type class instance / evidence for [[Fillable]]. */
+  implicit val scaleXYEv: ScaleXY[Fillable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** [[Reflect]] type class instance / evidence for [[Fillable]]. */
+  implicit val ReflectEv: Reflect[Fillable] = (obj, lineLike) => obj.reflect(lineLike)
+
+  /** [[TransAxes]] type class instance / evidence for [[Fillable]]. */
+  implicit val transAxesEv: TransAxes[Fillable] = new TransAxes[Fillable]
+  { override def negYT(obj: Fillable): Fillable = obj.negY
+    override def negXT(obj: Fillable): Fillable = obj.negX
+    override def rotate90(obj: Fillable): Fillable = obj.rotate90
+    override def rotate180(obj: Fillable): Fillable = obj.rotate90
+    override def rotate270(obj: Fillable): Fillable = obj.rotate90
+  }
+
+  /** [[Shear]] type class instance / evidence for [[Fillable]]. */
+  implicit val shearEv: Shear[Fillable] = new Shear[Fillable]
+  { override def shearXT(obj: Fillable, yFactor: Double): Fillable = obj.shearX(yFactor)
+    override def shearYT(obj: Fillable, xFactor: Double): Fillable = obj.shearY(xFactor)
+  }
+
+  /** [[Drawing]] type class instance / evidence for [[Fillable]]. */
+  implicit val drawTEv: Drawing[Fillable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
 }
 
 /** Type class for drawing. */
-trait Drawer[+A, +B]
+trait Drawing[+A, +B]
 { /** The type class's draw method. */
   def drawT(obj: A @uncheckedVariance, lineWidth: Double = 2, lineColour: Colour = Black): B
 }
 
-/** Companion object for the [[Drawer]] type class. Contains implicit instances for collections and other container classes. */
-object Drawer
-{ /** Implicit [[Drawer]] type class instances / evidence for [[Arr]]. */
-  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Drawer[A, B], build: BuilderArrMap[B, ArrB]): Drawer[Arr[A], Arr[B]] =
+/** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */
+object Drawing
+{ /** Implicit [[Drawing]] type class instances / evidence for [[Arr]]. */
+  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Drawing[A, B], build: BuilderArrMap[B, ArrB]): Drawing[Arr[A], Arr[B]] =
     (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
 
-  /** Implicit [[Drawer]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
-  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Drawer[A, B]): Drawer[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
+  /** Implicit [[Drawing]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Drawing[A, B]): Drawing[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
 
-  /** Implicit [[Drawer]] type class instances / evidence for [[Array]]. */
-  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Drawer[A, B]): Drawer[Array[A], Array[B]] = (obj, lw, col) => obj.map(ev.drawT(_, lw, col))
+  /** Implicit [[Drawing]] type class instances / evidence for [[Array]]. */
+  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Drawing[A, B]): Drawing[Array[A], Array[B]] = (obj, lw, col) => obj.map(ev.drawT(_, lw, col))
 }
 
-implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawer[A, B])
-{ /** Extension method to draw the object from a [[Drawer]] type class instance. */
+implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawing[A, B])
+{ /** Extension method to draw the object from a [[Drawing]] type class instance. */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
 }
 
-trait Filler[+A, +B]
-{
-  def fillT(obj: A @uncheckedVariance, fillFacet: FillFacet): B
+/** Type class for creating graphical fill objects, */
+trait Filling[+A, +B]
+{ def fillT(obj: A @uncheckedVariance, fillFacet: FillFacet): B
 }
 
-/** Companion object for the [[Filler]] type class. Contains implicit instances for collections and other container classes. */
-object Filler
-{ /** Implicit [[Filler]] type class instances / evidence for [[Arr]]. */
-  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Filler[A, B], build: BuilderArrMap[B, ArrB]): Filler[Arr[A], Arr[B]] =
+/** Companion object for the [[Filling]] type class. Contains implicit instances for collections and other container classes. */
+object Filling
+{ /** Implicit [[Filling]] type class instances / evidence for [[Arr]]. */
+  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Filling[A, B], build: BuilderArrMap[B, ArrB]): Filling[Arr[A], Arr[B]] =
     (obj, ff) => obj.map(evA.fillT(_, ff))
 
-  /** Implicit [[Filler]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
-  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Filler[A, B]): Filler[F[A], F[B]] = (obj, ff) => evF.mapT(obj, evA.fillT(_, ff))
+  /** Implicit [[Filling]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Filling[A, B]): Filling[F[A], F[B]] = (obj, ff) => evF.mapT(obj, evA.fillT(_, ff))
 
-  /** Implicit [[Filler]] type class instances / evidence for [[Array]]. */
-  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Filler[A, B]): Filler[Array[A], Array[B]] = (obj, ff) => obj.map(ev.fillT(_, ff))
+  /** Implicit [[Filling]] type class instances / evidence for [[Array]]. */
+  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Filling[A, B]): Filling[Array[A], Array[B]] = (obj, ff) => obj.map(ev.fillT(_, ff))
 }
 
 trait DrawableLen2 extends GeomLen2Elem
@@ -153,7 +188,7 @@ object DrawableLen2
 { implicit val slateLen2Ev: SlateLen2[DrawableLen2] = (obj, op) => obj.slate(op)
   implicit val slateLenXY: SlateLenXY[DrawableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
   implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
-  implicit val drawTEv: Drawer[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  implicit val drawTEv: Drawing[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
 trait FillableLen2 extends DrawableLen2
