@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, ostrat.Colour.Black
 
@@ -62,7 +62,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** The shortest of the width and height dimensions relative to the given ratio. */
   def widthHeightMin(ratio: Double): Double = width.min(height * ratio)
 
-  override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
+  override def fill(fillFacet: FillFacet): RectangleFill = RectFill(this, fillFacet)
   override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectDraw = RectDraw(this, lineWidth, lineColour)
 
@@ -97,24 +97,24 @@ object Rect
   /** Construct a [[Rect]] from the left, right, bottom and top values." */
   def lrbt(left: Double, right: Double, bottom: Double, top: Double): Rect = Rect(right -left, top - bottom, (left + right) / 2, (bottom + top) / 2)
 
-  /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
-   *  right vertex of the Rect at the origin. */
+  /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top right
+   * vertex of the Rect at the origin. */
   def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect = RectImp(width, height, topRight.x - width / 2, topRight.y - height / 2)
 
-  /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top
-   *  left vertex of the Rect at the origin. */
+  /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top left vertex
+   * of the Rect at the origin. */
   def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect = RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
 
-  /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the bottomRight parameter places the
-   * bottom right vertex of the Rect at the origin. */
+  /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the bottomRight parameter places the bottom right
+   * vertex of the Rect at the origin. */
   def br(width: Double, height: Double, bottomRight: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
 
-  /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the
-   * bottom left vertex of the Rect at the origin. */
+  /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the bottom
+   * left vertex of the Rect at the origin. */
   def bl(width: Double, height: Double, bottomLeft: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
 
-  /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places
-   *  the bottom centre of the Rect at the origin. */
+  /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places the bottom
+   * centre of the Rect at the origin. */
   def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
   def cross(width: Double, height: Double, barWidth: Double): RArr[Polygon] = RArr(apply(width, barWidth), apply(barWidth, height))
@@ -124,8 +124,8 @@ object Rect
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonCompound =
     goldenRatio(height).fillDraw(colour, colour.contrast, lineWidth)
 
-  /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
-   * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
+  /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the rectangle, but
+   * any of the 4 corner vertices will give the correct constructor values. */
   def cenV0(cen: Pt2, v0: Pt2): Rect = ???// new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
 
   def bounding(inp: Arr[?]): Rect = inp.foldLeft{(acc, el) => el match
@@ -185,7 +185,7 @@ object Rect
     override def scaleXY(xOperand: Double, yOperand: Double): RectImp = mapRectImp(_.xyScale(xOperand, yOperand))
   }
 
-  /** Companion object for the [[Rect.RectImp]] class */
+  /** Companion object for the [[Rect.RectImp]] class. */
   object RectImp
   { /** Factory method for Rect.RectImp class. */
     def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp =

@@ -6,7 +6,7 @@ object LsACircles extends LessonStatic
 { val title = "Coloured Circles"
 
   val output: RArr[CircleFill] = RArr(
-    Circle(50, cenX = 0, cenY = 0).fill(fillColour = SeaGreen),
+    Circle(50, cenX = 0, cenY = 0).fill(fillFacet = SeaGreen),
     Circle.d(70, 50, 80).fill(Orange),
     Circle.d(80, 300, 0).fill(Red),
     Circle.d(80, -250, 150).fill(LemonLime),

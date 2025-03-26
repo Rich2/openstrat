@@ -90,7 +90,7 @@ object Drawable
 /** A 2D geometric element that can be drawn and filled producing [[Graphic2Elem]]s. */
 trait Fillable extends Any with Drawable
 { /** Returns a fill graphic of this geometric object. */
-  def fill(fillColour: Colour): Graphic2Elem
+  def fill(fillColour: FillFacet): Graphic2Elem
 
   /** Returns a fill graphic of this geometric object from the Int RGBA value. */
   def fillInt(intValue: Int): Graphic2Elem

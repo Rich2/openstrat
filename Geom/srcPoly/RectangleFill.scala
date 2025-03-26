@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Graphic to fill a Rectangle with a single colour. */
@@ -7,16 +7,16 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): RectangleFill = RectangleFill(shape.slateXY(xDelta, yDelta), fill)
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and Squares.
+   * Use the xyScale method for differential scaling. */
   override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), fill)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed in
+   * subclasses. */
   override def negY: RectangleFill = RectangleFill(shape.negY, fill)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed in
+   * subclasses. */
   override def negX: RectangleFill = RectangleFill(shape.negX, fill)
 
   override def rotate90: RectangleFill = RectangleFill(shape.rotate90, fill)
@@ -32,8 +32,8 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fill)
 }
 
-/** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates
- * to it. It also contains implicit instances for 2D geometric transformations. */
+/** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates to it. It
+ * also contains implicit instances for 2D geometric transformations. */
 object RectangleFill
 {
   def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillImp(shape, fillFacet)

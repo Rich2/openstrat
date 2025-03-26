@@ -65,7 +65,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def boundingHeight: Double = ???
 
-  override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
+  override def fill(fillColour: FillFacet): EllipseFill = EllipseFill(this, fillColour)
 
   override def fillInt(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
 
