@@ -90,7 +90,7 @@ object Drawable
 /** A 2D geometric element that can be drawn and filled producing [[Graphic2Elem]]s. */
 trait Fillable extends Any with Drawable
 { /** Returns a fill graphic of this geometric object. */
-  def fill(fillColour: FillFacet): Graphic2Elem
+  def fill(fillfacet: FillFacet): Graphic2Elem
 
   /** Returns a fill graphic of this geometric object from the Int RGBA value. */
   def fillInt(intValue: Int): Graphic2Elem
@@ -122,9 +122,22 @@ implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawer[A, B]
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
 }
 
-trait Filler[+A, +B] extends Drawer[A, B]
+trait Filler[+A, +B]
 {
-  //def fillT
+  def fillT(obj: A @uncheckedVariance, fillFacet: FillFacet): B
+}
+
+/** Companion object for the [[Filler]] type class. Contains implicit instances for collections and other container classes. */
+object Filler
+{ /** Implicit [[Filler]] type class instances / evidence for [[Arr]]. */
+  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Filler[A, B], build: BuilderArrMap[B, ArrB]): Filler[Arr[A], Arr[B]] =
+    (obj, ff) => obj.map(evA.fillT(_, ff))
+
+  /** Implicit [[Filler]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Filler[A, B]): Filler[F[A], F[B]] = (obj, ff) => evF.mapT(obj, evA.fillT(_, ff))
+
+  /** Implicit [[Filler]] type class instances / evidence for [[Array]]. */
+  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Filler[A, B]): Filler[Array[A], Array[B]] = (obj, ff) => obj.map(ev.fillT(_, ff))
 }
 
 trait DrawableLen2 extends GeomLen2Elem

@@ -40,7 +40,7 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
 
   def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)// BoundingRect(cenX - radius, cenX + radius, cenY - radius, cenY + radius)
   
-  override def fill(fillFacet: FillFacet): CircleFill = CircleFill(this, fillFacet)
+  override def fill(fillfacet: FillFacet): CircleFill = CircleFill(this, fillfacet)
   override def fillInt(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
 
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound = CircleCompound(this, RArr(FillRadial(cenColour, outerColour)), RArr())

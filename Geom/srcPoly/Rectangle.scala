@@ -32,7 +32,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   @inline final override def cen: Pt2 = cenX pp cenY
 
-  override def fill(fillColour: FillFacet): RectangleFill = RectangleFill(this, fillColour)
+  override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 

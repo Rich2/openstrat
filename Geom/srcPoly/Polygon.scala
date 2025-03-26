@@ -201,7 +201,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def active(id: AnyRef): PolygonActive = PolygonActive(this, id)
   def activeChildren(id: AnyRef, children: GraphicElems): PolygonCompound = PolygonCompound(this, RArr(), active(id) %: children)
 
-  override def fill(fillColour: FillFacet): PolygonFill = PolygonFill(this, fillColour)
+  override def fill(fillfacet: FillFacet): PolygonFill = PolygonFill(this, fillfacet)
   override def fillInt(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 

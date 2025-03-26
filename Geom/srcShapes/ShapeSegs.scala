@@ -47,7 +47,7 @@ trait ShapeSegs extends Shape
   /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def shearY(operand: Double): ShapeGen = ???
 
-  override def fill(fillColour: FillFacet): ShapeFill = ???
+  override def fill(fillfacet: FillFacet): ShapeFill = ???
 
   override def fillInt(intValue: Int): ShapeFill = ???
 

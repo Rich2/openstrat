@@ -42,7 +42,7 @@ trait Triangle extends Polygon3Plus
 	def xCen: Double = (v0x + v1x + v2x) / 3
 	def yCen: Double = (v0y + v1y + v2y) / 3
 
-	override def fill(colour: FillFacet): TriangleFill = TriangleFill(this, colour)
+	override def fill(fillfacet: FillFacet): TriangleFill = TriangleFill(this, fillfacet)
 	override def fillInt(intValue: Int): TriangleFill = TriangleFill(this, Colour(intValue))
 }
 

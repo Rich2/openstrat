@@ -8,7 +8,7 @@ trait Shape extends Any with Fillable with BoundedElem
 { /** Determines if the parameter point lies inside this [[Circle]]. */
   def ptInside(pt: Pt2): Boolean
 
-  override def fill(fillColour: FillFacet): ShapeFill
+  override def fill(fillfacet: FillFacet): ShapeFill
   override def fillInt(intValue: Int): ShapeFill
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): ShapeCompound

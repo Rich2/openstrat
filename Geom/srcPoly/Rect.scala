@@ -62,7 +62,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** The shortest of the width and height dimensions relative to the given ratio. */
   def widthHeightMin(ratio: Double): Double = width.min(height * ratio)
 
-  override def fill(fillFacet: FillFacet): RectangleFill = RectFill(this, fillFacet)
+  override def fill(fillfacet: FillFacet): RectangleFill = RectFill(this, fillfacet)
   override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectDraw = RectDraw(this, lineWidth, lineColour)
 
