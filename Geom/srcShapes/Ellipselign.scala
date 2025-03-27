@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[Ellipselign.EllipselignImp]] classes implement
@@ -14,14 +14,11 @@ trait Ellipselign extends Ellipse
   /** The alignment angle of axis 1 in an [[Ellipselign]] including the special case of [[Circle]] is by definition 0°. */
   override final def alignAngle: Angle = Angle(0)
 
+  override def slate(operand: VecPt2): Ellipselign = Ellipselign(xRadius, yRadius, cenX + operand.x, cenY + operand.y)
   override def slateXY(xOperand: Double, yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY + yOperand)
-
   override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, cenX * operand, cenY * operand)
-
   override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -cenX, cenY)
-
   override def negY: Ellipselign = Ellipselign(xRadius, yRadius, cenX, -cenY)
-
   override def rotate90: Ellipselign = ???
   override def rotate180: Ellipselign = ???
   override def rotate270: Ellipselign = ???

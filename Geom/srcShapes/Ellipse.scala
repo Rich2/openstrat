@@ -2,8 +2,8 @@
 package ostrat; package geom
 import pWeb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
 
-/** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
- *  methods in the Ellipse companion object return [Ellipse]]. */
+/** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory methods in
+ * the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends EllipseBased with ShapeCentred
 { final override def cen: Pt2 = cenX pp cenY
 
@@ -36,12 +36,9 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(axesPt1), f(axesPt4))
 
-  /** Translate 2D geometric transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
+  override def slate(operand: VecPt2): Ellipse
   override def slateXY(xDelta: Double, yDelta: Double): Ellipse
-
-  /** Uniform scaling transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
   override def scale(operand: Double): Ellipse
-
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
   override def rotate90: Ellipse = fTrans(_.rotate90)
@@ -69,8 +66,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
     EllipseCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)))
 }
 
-/** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to
- * EllipseImp. */
+/** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
 object Ellipse
 { /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
   def apply(radius1: Double, radius0: Double, cenX: Double, cenY: Double): Ellipse = new EllipseImp(cenX, cenY, radius1, 0,  radius0)
@@ -146,26 +142,14 @@ object Ellipse
     override def alignAngle: Angle = cen.angleTo(axesPt1)
     def s0Angle = alignAngle.p90
 
-    /** Translate 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
-    override def slateXY(xDelta: Double, yDelta: Double): EllipseImp =
-      EllipseImp(cenX + xDelta, cenY + yDelta, axesPt1x + xDelta, axesPt1y + yDelta, radius2)
-
-    /** Uniform scaling 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
-    override def scale(operand: Double): EllipseImp =
-      EllipseImp(cenX * operand, cenY * operand, axesPt1x * operand, axesPt1y * operand, radius2 * operand)
-
-    override def reflect(lineLike: LineLike): EllipseImp =
-      EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), axesPt1.reflect(lineLike), axesPt4.reflect(lineLike))
-
+    override def slate(operand: VecPt2): EllipseImp = EllipseImp(cenX + operand.x, cenY * operand.y, axesPt1x + operand.x, axesPt1y + operand.y, radius2)
+    override def slateXY(xDelta: Double, yDelta: Double): EllipseImp = EllipseImp(cenX + xDelta, cenY + yDelta, axesPt1x + xDelta, axesPt1y + yDelta, radius2)
+    override def scale(operand: Double): EllipseImp = EllipseImp(cenX * operand, cenY * operand, axesPt1x * operand, axesPt1y * operand, radius2 * operand)
+    override def reflect(lineLike: LineLike): EllipseImp = EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), axesPt1.reflect(lineLike), axesPt4.reflect(lineLike))
     override def rotate(angle: AngleVec): EllipseImp = ???
+    override def shearX(operand: Double): EllipseImp = EllipseImp.cenAxes1Axes4(cen.xShear(operand), axesPt1.xShear(operand), axesPt4.xShear(operand))
+    override def shearY(operand: Double): EllipseImp = EllipseImp.cenAxes1Axes4(cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand))
 
-    override def shearX(operand: Double): EllipseImp =
-      EllipseImp.cenAxes1Axes4(cen.xShear(operand), axesPt1.xShear(operand), axesPt4.xShear(operand))
-
-    override def shearY(operand: Double): EllipseImp =
-      EllipseImp.cenAxes1Axes4(cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand))
-
-    /** Determines if the parameter point lies inside this [[Circle]]. */
     override def ptInside(pt: Pt2): Boolean = ???
   }
 
@@ -176,7 +160,6 @@ object Ellipse
     def cenAxes1Axes4(cen: Pt2, pAxes1: Pt2, pAxes4: Pt2): EllipseImp = new EllipseImp(cen.x, cen.y, pAxes1.x, pAxes1.y, cen.distTo(pAxes4))
   }
 }
-
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphicCentred
@@ -262,8 +245,8 @@ object EllipseActive
 
 /** Compound graphic trait for an ellipse. Note [[CircleCompound]] is a sub class of this trait. */
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
-{
-  override def mainSvgElem: SvgElem = SvgEllipse(attribs)
+{ override def mainSvgElem: SvgElem = SvgEllipse(attribs)
+  override def slate(operand: VecPt2): EllipseCompound
   override def slateXY(xDelta: Double, yDelta: Double): EllipseCompound
   override def scale(operand: Double): EllipseCompound
   override def negY: EllipseCompound
@@ -271,9 +254,9 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
   override def prolign(matrix: ProlignMatrix): EllipseCompound
   override def rotate(angle: AngleVec): EllipseCompound
   override def reflect(lineLike: LineLike): EllipseCompound
-  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound
-  override def shearX(operand: Double): EllipseCompound
-  override def shearY(operand: Double): EllipseCompound
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = EllipseCompound(shape.scaleXY(xOperand, yOperand), facets, children)
+  override def shearX(operand: Double): EllipseCompound = EllipseCompound(shape.shearX(operand), facets, children)
+  override def shearY(operand: Double): EllipseCompound = EllipseCompound(shape.shearY(operand), facets, children)
   override def addChildren(newChildren: Arr[Graphic2Elem]): EllipseCompound = EllipseCompound(shape, facets, children ++ newChildren)
 }
 
@@ -305,24 +288,17 @@ object EllipseCompound
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
 
-    /** Translate geometric transformation. */
+    override def slate(operand: VecPt2): EllipseCompoundImplement = EllipseCompoundImplement(shape.slate(operand), facets, children.slate(operand))
+
     override def slateXY(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
+      EllipseCompoundImplement(shape.slateXY(xDelta, yDelta), facets, children.slateXY(xDelta, yDelta))
 
-    /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-     * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.scale(operand), facets, children.scale(operand))
-
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
-
     override def rotate(angle: AngleVec): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotate(angle), facets, children.rotate(angle))
-
     override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
-
     override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
-
     override def shearX(operand: Double): EllipseCompoundImplement = ???
-
     override def shearY(operand: Double): EllipseCompoundImplement = ???
     //override def slateTo(newCen: Pt2): EllipseCompoundImplement = ???
   }

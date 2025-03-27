@@ -1,36 +1,20 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour._, pgui._
+import Colour.*, pgui.*
 
 /** Graphic that draws a rectangle. */
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 
-{
-  /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
-  override def slateXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slateXY(xOperand, yOperand), lineWidth, lineColour)
-
-  /** Uniform scaling transformation a RectangleDraw, returns a RectangleDraw. */
+{ override def slate(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slate(operand), lineWidth, lineColour)
+  override def slateXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slateXY(xOperand, yOperand), lineWidth, lineColour)  
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
-
-  /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
-
-  /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
-
   override def rotate90: RectangleDraw = ???
   override def rotate180: RectangleDraw = ???
   override def rotate270: RectangleDraw = ???
-
-  /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
-
-  /** Mirror, rotate(radians) transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def rotate(angle: AngleVec): RectangleDraw = RectangleDraw(shape.rotate(angle), lineWidth, lineColour)
-
-  /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def reflect(lineLike: LineLike): RectangleDraw = RectangleDraw(shape.reflect(lineLike), lineWidth, lineColour)
-
-  /** Independent X and Y dimension scaling upon a RectangleDraw returns a RectangleDraw. */
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
 }
 

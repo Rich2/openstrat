@@ -5,7 +5,7 @@ package ostrat; package geom
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
 { /** Translate geometric transformation. */
   override def slateXY(xOperand: Double, yOperand: Double): RectangleCompound =
-    RectangleCompound(shape.slateXY(xOperand, yOperand), facets, children.SlateXY(xOperand, yOperand))
+    RectangleCompound(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -44,7 +44,7 @@ object RectangleCompound
 
     /** Translate geometric transformation. */
     override def slateXY(xOperand: Double, yOperand: Double): RectangleCompoundImp =
-      RectangleCompoundImp(shape.slateXY(xOperand, yOperand), facets, children.SlateXY(xOperand, yOperand))
+      RectangleCompoundImp(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

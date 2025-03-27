@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. The CArc is intended to function as
@@ -8,8 +8,8 @@ package ostrat; package geom
  *  @groupdesc EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double, val rotationsInt: Int) extends
-  EArclign
+class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double, val rotationsInt: Int)
+  extends EArclign
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(cenX, cenY)
 
@@ -26,41 +26,25 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineWidth: Double, lineColour: Colour): CArcDraw = CArcDraw(this, lineColour, lineWidth)
-  /** Translate 2D geometric transformation on this CArc returns a CArc. */
-  override def slateXY(xOperand: Double, yOperand: Double): CArc = CArc(pStart.addXY(xOperand, yOperand), cen.addXY(xOperand, yOperand),
-    pEnd.addXY(xOperand, yOperand), rotationsInt)
-
-  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
-   * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  
+  override def slate(operand: VecPt2): CArc = CArc(pStart.slate(operand), cen.slate(operand), pEnd.slate(operand), rotationsInt)
+  
+  override def slateXY(xOperand: Double, yOperand: Double): CArc =
+    CArc(pStart.addXY(xOperand, yOperand), cen.addXY(xOperand, yOperand), pEnd.addXY(xOperand, yOperand), rotationsInt)
+  
   override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), rotationsInt)
-
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating y on this CArc returns a CArc. */
   override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -rotationsInt)
-
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating Xon this CArc returns a CArc. */
   override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -rotationsInt)
-
-  /** Rotation of 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate90: CArc = ???
-
-  /** Rotation of 180 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate180: CArc = ???
-
-  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate270: CArc = ???
-
-  /** 2D Transformation using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): CArc = ???
-
-  /** Rotation 2D geometric transformation on a CArc returns a CArc. */
   override def rotate(angle: AngleVec): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), rotationsInt)
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc returns a CArc. */
   override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
 
   /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */
 
-  /** The end of elliptical axis 1. By default this is the right vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
+  /** The end of elliptical axis 1. By default, this is the right vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
    * there on this circle, which is a special case of an ellipse. */
   override def axesPt1: Pt2 = cen.addX(radius)
 

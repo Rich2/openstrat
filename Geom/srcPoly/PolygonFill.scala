@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui._
 
@@ -10,40 +10,20 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(lineWidth, newColour)
 
-  /** Translate geometric transformation. */
+  override def slate(operand: VecPt2): PolygonFill = PolygonFill(shape.slate(operand), fillFacet)
   override def slateXY(xDelta: Double, yDelta: Double): PolygonFill = PolygonFill(shape.slateXY(xDelta, yDelta), fillFacet)
-
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fillFacet)
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negY: PolygonFill = PolygonFill(shape.negY, fillFacet)
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negX: PolygonFill = PolygonFill(shape.negX, fillFacet)
-
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fillFacet)
-
   override def rotate(angle: AngleVec): PolygonFill = PolygonFill(shape.rotate(angle), fillFacet)
-
   override def rotate90: PolygonFill = ???
   override def rotate180: PolygonFill = ???
   override def rotate270: PolygonFill = ???
-
   override def shearX(operand: Double): PolygonFill = ???
-
   override def shearY(operand: Double): PolygonFill = ???
-
   override def reflect(lineLike: LineLike): PolygonFill = ???
-
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill = ???
-
-  //override def productElement(n: Int): Any = ???
-
-  //override def canEqual(that: Any): Boolean = ???
 }
 
 /** Companion object for PolygonFill trait. Contains an implementation class [[PolygonFillImp]], a factory method returning the PolygonFill type and

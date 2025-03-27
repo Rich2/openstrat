@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
@@ -14,8 +14,8 @@ trait SimilarPreserve extends Any with ProlignPreserve
   override def rotate(angle: AngleVec): ThisT = ptsTrans(_.rotate(angle))
 }
 
-/** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other
- * affine transformations. */
+/** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other affine
+ * transformations. */
 trait SimilarAffPreserve extends SimilarPreserve
 { type ThisT2 <: Geom2Elem
   def fTrans2(f: Pt2 => Pt2): ThisT2

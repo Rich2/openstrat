@@ -10,6 +10,11 @@ trait Geom2Elem extends Any
 { /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
    * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
    * These methods will be offered as extension methods using this method for their implementations. */
+  def slate(operand: VecPt2): Geom2Elem// = slateXY(operand.x, operand.y)
+
+  /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
+   * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
+   * These methods will be offered as extension methods using this method for their implementations. */
   def slateXY(xOperand: Double, yOperand: Double): Geom2Elem
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
@@ -58,14 +63,29 @@ trait Geom2Elem extends Any
 
 /** Companion object for the [[Geom2Elem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
 object Geom2Elem
-{ implicit val slateImplicit: SlateXY[Geom2Elem] = (obj: Geom2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[Geom2Elem] = (obj: Geom2Elem, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Geom2Elem] = (obj: Geom2Elem, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[Geom2Elem] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[Geom2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[Geom2Elem] = (obj, lineLike) => obj.reflect(lineLike)
+{ /** Implicit [[Slate]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val slateEv: Slate[Geom2Elem] = (obj, operand) => obj.slate(operand)
 
-  implicit val transAxesImplicit: TransAxes[Geom2Elem] = new TransAxes[Geom2Elem]
+  /** Implicit [[SlateXY]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val slateXYEv: SlateXY[Geom2Elem] = (obj: Geom2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val scaleEv: Scale[Geom2Elem] = (obj: Geom2Elem, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val rotateEv: Rotate[Geom2Elem] = (obj: Geom2Elem, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val prolignEv: Prolign[Geom2Elem] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val scaleXYEv: ScaleXY[Geom2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** Implicit [[Reflect]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val ReflectEv: Reflect[Geom2Elem] = (obj, lineLike) => obj.reflect(lineLike)
+
+  /** Implicit [[TransAxes]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val transAxesEv: TransAxes[Geom2Elem] = new TransAxes[Geom2Elem]
   { override def negYT(obj: Geom2Elem): Geom2Elem = obj.negY
     override def negXT(obj: Geom2Elem): Geom2Elem = obj.negX
     override def rotate90(obj: Geom2Elem): Geom2Elem = obj.rotate90
@@ -73,7 +93,8 @@ object Geom2Elem
     override def rotate270(obj: Geom2Elem): Geom2Elem = obj.rotate270
   }
 
-  implicit val shearImplicit: Shear[Geom2Elem] = new Shear[Geom2Elem]
+  /** Implicit [[Shear]] type class instance / evidence for [[Geom2Elem]]. */
+  implicit val shearEv: Shear[Geom2Elem] = new Shear[Geom2Elem]
   { override def shearXT(obj: Geom2Elem, yFactor: Double): Geom2Elem = obj.shearX(yFactor)
     override def shearYT(obj: Geom2Elem, xFactor: Double): Geom2Elem = obj.shearY(xFactor)
   }

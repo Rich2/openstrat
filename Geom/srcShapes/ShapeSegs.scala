@@ -20,7 +20,8 @@ trait ShapeSegs extends Shape
 
   override def attribs: RArr[XmlAtt] = ???
 
-  override def slateXY(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.SlateXY(xOperand, yOperand))
+  override def slate(operand: VecPt2): ShapeGen = new ShapeGen(unsafeArray.slate(operand))
+  override def slateXY(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateXY(xOperand, yOperand))
 
   /** Uniform scaling 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
    * xyScale method for differential scaling on the X and Y axes. */

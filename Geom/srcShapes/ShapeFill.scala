@@ -14,12 +14,10 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
 
   def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
 
-  /** Translate geometric transformation. */
+  override def slate(offset: VecPt2): ShapeFill
   override def slateXY(xDelta: Double, yDelta: Double): ShapeFill
-  
-  //override def slate(offset: Vec2Like): ShapeFill
-  override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill  
   override def scale(operand: Double): ShapeFill
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill  
   override def negY: ShapeFill
   override def negX: ShapeFill
   override def prolign(matrix: ProlignMatrix): ShapeFill

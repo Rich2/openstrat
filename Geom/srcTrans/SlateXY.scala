@@ -50,7 +50,7 @@ class SlateXYExtensions[A](value: A, ev: SlateXY[A])
 
   /** Translate 2D geometric transformation extension method, taking the X offset and Y offset as parameters, on this object of type T, returning an object of
    * Type T. */
-  def SlateXY(xOperand: Double, yOperand: Double): A = ev.slateXY(value, xOperand, yOperand)
+  def slateXY(xOperand: Double, yOperand: Double): A = ev.slateXY(value, xOperand, yOperand)
 
   /** Translate 2D geometric transformation extension method, taking a [[Pt2]] or a [[Vec2]] as a parameter, on this object of type T, returning an object of
    * Type T. */

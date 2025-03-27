@@ -26,20 +26,13 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def boundingWidth: Double = diameter
   override def boundingHeight: Double = diameter
 
-  /** Translate geometric transformation on a Circle returns a Circle. */
+  override def slate(operand: VecPt2): Circle = Circle(radius, cenX + operand.x, cenY + operand.y)
   override def slateXY(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.addXY(xOperand, yOperand))
-
-  /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
-
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
-
   override def rotate(angle: AngleVec): Circle = Circle(radius, cen.rotate(angle))
-
   override def reflect(lineLike: LineLike): Circle = Circle(radius, cen.reflect(lineLike))
-
-  def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)// BoundingRect(cenX - radius, cenX + radius, cenY - radius, cenY + radius)
-  
+  override def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)
   override def fill(fillfacet: FillFacet): CircleFill = CircleFill(this, fillfacet)
   override def fillInt(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
 
@@ -191,12 +184,9 @@ case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
   override def reify(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(scale, xCen, yCen), fillColour)
 }
 
-
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound with
-  CircleGraphic with AxisFree
-{
-  override type ThisT = CircleCompound
+case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound, CircleGraphic, AxisFree
+{ override type ThisT = CircleCompound
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
@@ -213,44 +203,44 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
   final override def mainSvgElem: SvgCircle = SvgCircle(attribs)
 
-  /** Translate geometric transformation. */
+  override def slate(operand: VecPt2): CircleCompound = CircleCompound(shape.slate(operand), facets, children.slate(operand))
+
   override def slateXY(xOperand: Double, yOperand: Double): CircleCompound =
-    CircleCompound(shape.slateXY(xOperand, yOperand), facets, children.SlateXY(xOperand, yOperand))
+    CircleCompound(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
-
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
   override def rotate(angle: AngleVec): CircleCompound = CircleCompound(shape.rotate(angle), facets, children.rotate(angle))
   override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
-
-  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = ???
-
-  override def shearX(operand: Double): EllipseCompound = ???
-
-  override def shearY(operand: Double): EllipseCompound = ???
-
   override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }
 
+
 object CircleCompound
-{
-  implicit val slateImplicit: SlateXY[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
-  implicit val reflectImplicit: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
+{ /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val slateEv: Slate[CircleCompound] = (obj, operand) => obj.slate(operand)
 
-  implicit val reflectAxesImplicit: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
+  /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val slateXYEv: SlateXY[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+
+  /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val scaleEv: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
+  
+  /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val rotateEv: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
+  
+  /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val prolignEv: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
+  
+  /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val reflectEv: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
+  
+  /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
+  implicit val reflectAxesEv: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
   { override def negYT(obj: CircleCompound): CircleCompound = obj.negY
-
     override def negXT(obj: CircleCompound): CircleCompound = obj.negX
-
     override def rotate90(obj: CircleCompound): CircleCompound = obj.rotate90
-
     override def rotate180(obj: CircleCompound): CircleCompound = obj.rotate180
-
     override def rotate270(obj: CircleCompound): CircleCompound = obj.rotate270
   }
 }

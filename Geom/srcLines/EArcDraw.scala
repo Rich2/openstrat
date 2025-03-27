@@ -12,16 +12,10 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   def yCen: Double = curveSeg.cenY
   def cen: Pt2 = curveSeg.cen
 
-  /** Translate 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes. */
+  override def slate(operand: VecPt2): EArcDraw = EArcDraw(curveSeg.slate(operand), colour, lineWidth)
   override def slateXY(xOperand: Double, yOperand: Double): EArcDraw = EArcDraw(curveSeg.slateXY(xOperand, yOperand), colour, lineWidth)
-
-  /** Uniform scaling 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes.
-   * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
-   * method for differential scaling on the X and Y axes. */
+  
   override def scale(operand: Double): EArcDraw = EArcDraw(curveSeg.scale(operand), colour, lineWidth)
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in
-   * sub traits / classes. */
   override def negY: EArcDraw = EArcDraw(curveSeg.negY, colour, lineWidth)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in

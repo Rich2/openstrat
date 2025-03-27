@@ -4,11 +4,9 @@ import Colour.Black, pWeb._
 
 /** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed
  * sequence of curve segments. */
-final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs with AxisFree {
-  override type ThisT = ShapeGen
-
+final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs with AxisFree
+{ override type ThisT = ShapeGen
   override def rotate(angle: AngleVec): ShapeGen = ???
-
   override def reflect(lineLike: LineLike): ShapeGen = ???
 }
 

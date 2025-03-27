@@ -1,42 +1,23 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, pWeb._
+import pgui.*, pWeb.*
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 { override def svgElem: SvgElem = SvgPolygon(attribs)
-
-  override def shearX(operand: Double): PolygonGraphicSimple
-
-  override def shearY(operand: Double): PolygonGraphicSimple
-
-  override def reflect(lineLike: LineLike): PolygonGraphicSimple
-
-  //override def nonShapeAttribs: RArr[XmlAtt] = ???
-
-  /** Translate geometric transformation. */
+  override def slate(operand: VecPt2): PolygonGraphicSimple
   override def slateXY(xOperand: Double, yOperand: Double): PolygonGraphicSimple
-
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): PolygonGraphicSimple
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  override def shearX(operand: Double): PolygonGraphicSimple
+  override def shearY(operand: Double): PolygonGraphicSimple
+  override def reflect(lineLike: LineLike): PolygonGraphicSimple
   override def negY: PolygonGraphicSimple
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negX: PolygonGraphicSimple
-
   override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
-
   override def rotate90: PolygonGraphicSimple
   override def rotate180: PolygonGraphicSimple
   override def rotate270: PolygonGraphicSimple
-
   override def rotate(angle: AngleVec): PolygonGraphicSimple
-
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphicSimple
 }
 

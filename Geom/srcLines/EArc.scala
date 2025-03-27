@@ -56,46 +56,37 @@ trait EArc extends EllipseBased with CurveSeg
 
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
-  /** Translate 2D geometric transformation on this EArc, returns an EArc. */
+  override def slate(operand: VecPt2): EArc =
+    EArc(pStart.slate(operand), cen.slate(operand), axesPt1.slate(operand), axesPt4.slate(operand), pEnd.slate(operand), rotationsInt)
+  
   override def slateXY(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xySlate(xOperand, yOperand), cen.xySlate(xOperand, yOperand),
     axesPt1.xySlate(xOperand, yOperand), axesPt4.xySlate(xOperand, yOperand), pEnd.xySlate(xOperand, yOperand), rotationsInt)
-
-  /** Uniform 2D geometric scaling transformation, returns an EArc. */
+  
   override def scale(operand: Double): EArc =
     EArc(pStart.scale(operand), cen.scale(operand), axesPt1.scale(operand), axesPt4.scale(operand), pEnd.scale(operand), rotationsInt)
 
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating y, on this EArc retruns an EARc. */
-  override def negY: EArc = EArc(pStart.negY, cen.negY, axesPt1.negY, axesPt4.negY, pEnd.negY, -rotationsInt)
-
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
   override def negX: EArc = EArc(pStart.negX, cen.negX, axesPt1.negX, axesPt4.negX, pEnd.negX, -rotationsInt)
-
-  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
+  override def negY: EArc = EArc(pStart.negY, cen.negY, axesPt1.negY, axesPt4.negY, pEnd.negY, -rotationsInt)
+  
   override def prolign(matrix: ProlignMatrix): EArc =
     EArc(pStart.prolign(matrix), cen.prolign(matrix), axesPt1.prolign(matrix), axesPt4.prolign(matrix), pEnd.prolign(matrix), rotationsInt)
-
-  /** Rotation 2D geometric transformation on a EArc. The return type will be narrowed in sub classes and traits. */
+  
   override def rotate(angle: AngleVec): EArc =
     EArc(pStart.rotate(angle), cen.rotate(angle), axesPt1.rotate(angle), axesPt4.rotate(angle), pEnd.rotate(angle), rotationsInt)
 
   override def rotate90: EArc = EArc(pStart.rotate90, cen.rotate90, axesPt1.rotate90, axesPt4.rotate90, pEnd.rotate90, rotationsInt)
   override def rotate180: EArc = EArc(pStart.rotate180, cen.rotate180, axesPt1.rotate180, axesPt4.rotate180, pEnd.rotate180, rotationsInt)
   override def rotate270: EArc = EArc(pStart.rotate270, cen.rotate270, axesPt1.rotate270, axesPt4.rotate270, pEnd.rotate270, rotationsInt)
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a EArc returns an EArc. */
+  
   override def reflect(lineLike: LineLike): EArc =
     EArc(pStart.reflect(lineLike), cen.reflect(lineLike), axesPt1.reflect(lineLike), axesPt4.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
-
-  /** XY scaling 2D geometric transformation on this EArc returns an EArc.This allows different
-   *  scaling factors across X and Y dimensions. */
+  
   override def scaleXY(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xyScale(xOperand, yOperand), cen.xyScale(xOperand, yOperand),
     axesPt1.xyScale(xOperand, yOperand), axesPt4.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), rotationsInt)
-
-  /** Shear 2D geometric transformation along the X Axis on this EArc returns an EArc. */
+  
   override def shearX(operand: Double): EArc =
     EArc(pStart.xShear(operand), cen.xShear(operand), axesPt1.xShear(operand), axesPt4.xShear(operand), pEnd.xShear(operand), rotationsInt)
-
-  /** Shear 2D geometric transformation along the Y Axis on this EArc, returns an EArc. */
+  
   override def shearY(operand: Double): EArc =
     EArc(pStart.xShear(operand), cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand), pEnd.yShear(operand), rotationsInt)
 
@@ -107,13 +98,12 @@ object EArc
   def apply(pStart: Pt2, cen: Pt2, axisV1: Pt2, axisV4: Pt2, pEnd: Pt2, counter: Int): EArc =
     new EArcImp(pStart.x, pStart.y, cen.x, cen.y, axisV1.x, axisV1.y, axisV4.x, axisV4.y, pEnd.x, pEnd.y, counter)
 
-  /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
-   *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than
-   *  360 degrees and less than -360 degrees. */
-  final case class EArcImp(startX: Double, startY: Double, cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, axesPt4x: Double,
-                           axesPt4y: Double, endX: Double, endY: Double, rotationsInt: Int) extends EArc
-  {
-    override def cen: Pt2 = Pt2(cenX, cenY)
+  /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the right of the
+   * ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than 360 degrees and less
+   * than -360 degrees. */
+  final case class EArcImp(startX: Double, startY: Double, cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, axesPt4x: Double, axesPt4y: Double,
+    endX: Double, endY: Double, rotationsInt: Int) extends EArc
+  { override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = cen.distTo(axesPt1)
     override def radius2: Double = cen.distTo(axesPt4)
     override def axesPt1: Pt2 = axesPt1x pp axesPt1y
@@ -130,9 +120,5 @@ object EArc
     override def cenP4: Vec2 = cen >> axesPt4
 
     def addRotations(delta: Int): EArcImp = new EArcImp(startX, startY, cenX, cenY, axesPt1x, axesPt1y, axesPt4x, axesPt4y, endX, endY, rotationsInt + delta)
-  }
-
-  object EArcImp {
-    //def apply(): EArc = new EArc
   }
 }
