@@ -25,3 +25,18 @@ object ShapeDraw
 }
 
 trait ShapeLen2Draw extends ShapeGeomlessDraw, ShapeLen2GraphicSimple
+{ override def slate(operand: VecPtLen2): ShapeLen2Draw
+  override def slate(xOperand: Length, yOperand: Length): ShapeLen2Draw
+  override def scale(operand: Double): ShapeLen2Draw
+}
+
+object ShapeLen2Draw
+{ /** Implicit [[SlateLen2]] type class instance / evidence for [[ShapeLen2Draw]]. */
+  implicit val slateLen2Ev: SlateLen2[ShapeLen2Draw] = (obj: ShapeLen2Draw, operand) => obj.slate(operand)
+
+  /** Implicit [[SlateLenXY]] type class instance / evidence for [[ShapeLen2Draw]]. */
+  implicit val slateLenXYEv: SlateLenXY[ShapeLen2Draw] = (obj: ShapeLen2Draw, xOp: Length, yOp: Length) => obj.slate(xOp, yOp)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[ShapeLen2Draw]]. */
+  implicit val scaleEv: Scale[ShapeLen2Draw] = (obj: ShapeLen2Draw, operand: Double) => obj.scale(operand)
+}
