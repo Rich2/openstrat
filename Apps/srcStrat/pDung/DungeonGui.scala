@@ -47,7 +47,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
     thisTop()
   }
   thisTop()
-  def frame: GraphicElems = (tiles  ++ players).slate(-focus).scale(scale) +% sls
+  def frame: GraphicElems = (tiles ++ players).slate(-focus).scale(scale) +% sls
   def repaint() = mainRepaint(frame)
   repaint()
 }

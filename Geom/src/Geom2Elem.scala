@@ -58,7 +58,7 @@ trait Geom2Elem extends Any
 
 /** Companion object for the [[Geom2Elem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
 object Geom2Elem
-{ implicit val slateImplicit: Slate[Geom2Elem] = (obj: Geom2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ implicit val slateImplicit: SlateXY[Geom2Elem] = (obj: Geom2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Geom2Elem] = (obj: Geom2Elem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Geom2Elem] = (obj: Geom2Elem, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Geom2Elem] = (obj, matrix) => obj.prolign(matrix)

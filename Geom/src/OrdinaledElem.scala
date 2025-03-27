@@ -20,7 +20,7 @@ trait ShapeGraphicOrdinaled extends ShapeGraphic with OrdinaledElem
 }
 
 /** Extension class for [[OrdinaledElem]]s. */
-class OrdinaledExtensions[A <: OrdinaledElem](thisA: A)(implicit ev: Slate[A])
+class OrdinaledExtensions[A <: OrdinaledElem](thisA: A)(implicit ev: SlateXY[A])
 {
   /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an
    * absolute position. */

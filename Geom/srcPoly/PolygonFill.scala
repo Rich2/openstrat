@@ -53,7 +53,7 @@ object PolygonFill
   def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillImp(shape, fillFacet)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
-  implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slateXY(xDelta, yDelta)
+  implicit val slateImplicit: SlateXY[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slateXY(xDelta, yDelta)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[PolygonFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

@@ -84,7 +84,7 @@ object HexParrX
   /** [[Show]] and [[Unshow]] type class instances / evidence for [[HexParrX]]. */
   implicit val persistEv: Persist2Both[Double, Pt2, HexParrX] = Persist2Both[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
-  implicit val slateImplicit: Slate[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrX] = (obj, matrix) => obj.prolign(matrix)
 }

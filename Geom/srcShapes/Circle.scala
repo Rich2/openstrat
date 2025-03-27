@@ -124,7 +124,7 @@ object Circle extends ShapeIcon
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
-  implicit val slateImplicit: Slate[Circle] = (obj, dx, dy) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Circle] = (obj, dx, dy) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
@@ -236,7 +236,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
 object CircleCompound
 {
-  implicit val slateImplicit: Slate[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)

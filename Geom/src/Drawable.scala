@@ -30,8 +30,8 @@ trait Drawable extends Any with Geom2Elem
 
 /** Companion object for the [[Drawable]] trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
-{ /** [[Slate]] type class instance / evidence for [[Drawable]]. */
-  implicit val slateEv: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
+  implicit val slateEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
 
   /** [[Scale]] type class instance / evidence for [[Drawable]]. */
   implicit val scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
@@ -39,7 +39,7 @@ object Drawable
   /** [[Rotate]] type class instance / evidence for [[Drawable]]. */
   implicit val rotateEv: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
 
-  /** [[Slate]] type class instance / evidence for [[Drawable]]. */
+  /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
   implicit val prolignEv: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[ScaleXY]] type class instance / evidence for [[Drawable]]. */
@@ -93,8 +93,8 @@ trait Fillable extends Any with Drawable
 }
 
 object Fillable
-{ /** [[Slate]] type class instance / evidence for [[Fillable]]. */
-  implicit val slateEv: Slate[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
+  implicit val slateEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
 
   /** [[Scale]] type class instance / evidence for [[Fillable]]. */
   implicit val scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)
@@ -102,7 +102,7 @@ object Fillable
   /** [[Rotate]] type class instance / evidence for [[Fillable]]. */
   implicit val rotateEv: Rotate[Fillable] = (obj: Fillable, angle: AngleVec) => obj.rotate(angle)
 
-  /** [[Slate]] type class instance / evidence for [[Fillable]]. */
+  /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
   implicit val prolignEv: Prolign[Fillable] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[ScaleXY]] type class instance / evidence for [[Fillable]]. */

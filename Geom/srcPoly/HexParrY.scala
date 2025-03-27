@@ -89,7 +89,7 @@ object HexParrY
   /** [[Unshow]] type class instance / evidence for [[HexParrY]]. */
   implicit val unshowEv: Unshow[HexParrY] = Unshow2[Double, Pt2, HexParrY]("HexYlign", "width", "cen", apply)
 
-  implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrY] = (obj, matrix) => obj.prolign(matrix)
 }

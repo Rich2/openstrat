@@ -5,6 +5,13 @@ import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
 trait Slate[A]
+{ /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
+  def slate(obj: A, operand: VecPt2): A
+}
+
+/** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
+ * Different sets of transformations can then be combined. */
+trait SlateXY[A]
 { /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
    * the implementation of this method will delegate to the object itself. */
   def slateXY(obj: A, xOperand: Double, yOperand: Double): A
@@ -20,42 +27,38 @@ trait Slate[A]
 }
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
-object Slate
-{ implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj: T, dx: Double, dy: Double) => obj.slateXY(dx, dy).asInstanceOf[T]
+object SlateXY
+{ implicit def transSimerImplicit[T <: SimilarPreserve]: SlateXY[T] = (obj: T, dx: Double, dy: Double) => obj.slateXY(dx, dy).asInstanceOf[T]
 
-  /** Implicit [[Slate]] instance / evidence for [[RArr]]. */
-  implicit def rArrImplicit[A](implicit ev: Slate[A]): Slate[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXY(_, dx, dy))
+  /** Implicit [[SlateXY]] instance / evidence for [[RArr]]. */
+  implicit def rArrImplicit[A](implicit ev: SlateXY[A]): SlateXY[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXY(_, dx, dy))
 
-  /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, dx, dy) => evF.mapT(obj, evA.slateXY(_, dx, dy))
+  /** Implicit [[SlateXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: SlateXY[A]): SlateXY[F[A]] = (obj, dx, dy) => evF.mapT(obj, evA.slateXY(_, dx, dy))
 
-  /** Implicit [[Slate]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXY(_, dx, dy))
+  /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateXY[A]): SlateXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXY(_, dx, dy))
 }
 
 /** Extension class for instances of the Slate type class. */
-class SlateExtensions[A](value: A, ev: Slate[A])
+class SlateXYExtensions[A](value: A, ev: SlateXY[A])
 { /** Translate 2D geometric transformation extension method, along the X axis, on this object of type T, returning an object of Type T. */
-  def slateX(xOffset: Double): A = ev.slateXY(value, xOffset, 0)
+  def slateX(xOperand: Double): A = ev.slateXY(value, xOperand, 0)
 
   /** Translate 2D geometric transformation extension method, along the Y axis, on this object of type T, returning an object of Type T. */
-  def slateY(yOffset: Double): A = ev.slateXY(value, 0, yOffset)
+  def slateY(yOperand: Double): A = ev.slateXY(value, 0, yOperand)
 
   /** Translate 2D geometric transformation extension method, taking the X offset and Y offset as parameters, on this object of type T, returning an object of
    * Type T. */
-  def SlateXY(xDelta: Double, yDelta: Double): A = ev.slateXY(value, xDelta, yDelta)
+  def SlateXY(xOperand: Double, yOperand: Double): A = ev.slateXY(value, xOperand, yOperand)
 
   /** Translate 2D geometric transformation extension method, taking a [[Pt2]] or a [[Vec2]] as a parameter, on this object of type T, returning an object of
    * Type T. */
-  def slate(offset: VecPt2): A = ev.slateXY(value, offset.x, offset.y)
+  def slate(operand: VecPt2): A = ev.slateXY(value, operand.x, operand.y)
 
   /** Translate 2D geometric transformation extension method, taking a 2-dimensional vector as its operand, specified in terms of its angle and magnitude
    * parameters, on this object of type T, returning an object of Type T. */
   def slateAngle(angle: Angle, magnitude: Double): A = ev.slate(value, angle.toVec2(magnitude))
-
-  /** Translate in 2D geometric transformation extension method by the delta or vector from the first parameter point to the second parameter point, on this
-   * type T, returning an object of type T. */
-  def slateDelta(ptA: Pt2, ptB: Pt2): A = ev.slateXY(value, ptB.x - ptA.x, ptA.y - ptB.y)
 }
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.

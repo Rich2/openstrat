@@ -69,8 +69,8 @@ class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
   def rotateQuadrants(implicit ct: ClassTag[T]): RArr[T] = RArr(thisT, rotate270, rotate180, rotate90)
 }
 
-/** Extension class for types that fulfill the type class interface for [[TransAxes]] and [[Slate]]. */
-class TransAxesSlateExtensions[T](thisT: T)(implicit evR: TransAxes[T], evS: Slate[T])
+/** Extension class for types that fulfill the type class interface for [[TransAxes]] and [[SlateXY]]. */
+class TransAxesSlateExtensions[T](thisT: T)(implicit evR: TransAxes[T], evS: SlateXY[T])
 {
   /** Reflect across a line parallel to the X axis. */
   def reflectXParallel(yValue: Double): T =

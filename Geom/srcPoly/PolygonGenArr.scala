@@ -28,7 +28,7 @@ object PolygonGenArr
 
   implicit val eqImplicit: EqT[PolygonGenArr] = ArrArrayDblEq[PolygonGen, PolygonGenArr]
 
-  implicit val slateImplicit: Slate[PolygonGenArr] = (obj: PolygonGenArr, dx: Double, dy: Double) => obj.map(_.slateXY(dx, dy))
+  implicit val slateImplicit: SlateXY[PolygonGenArr] = (obj: PolygonGenArr, dx: Double, dy: Double) => obj.map(_.slateXY(dx, dy))
   implicit val scaleImplicit: Scale[PolygonGenArr] = (obj: PolygonGenArr, operand: Double) => obj.map(_.scale(operand))
   implicit val rotateImplicit: Rotate[PolygonGenArr] = (obj: PolygonGenArr, angle: AngleVec) => obj.map(_.rotate(angle))
   implicit val prolignImplicit: Prolign[PolygonGenArr] = (obj, matrix) => obj.map(_.prolign(matrix))

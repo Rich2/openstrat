@@ -54,7 +54,7 @@ object ShapeGraphic
     def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = ???
   }
   
-  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[ShapeGraphic] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

@@ -64,7 +64,7 @@ trait Graphic2Elem extends Geom2Elem
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object Graphic2Elem
 {
-  implicit val slateImplicit: Slate[Graphic2Elem] = (obj: Graphic2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Graphic2Elem] = (obj: Graphic2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Graphic2Elem] = (obj: Graphic2Elem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Graphic2Elem] = (obj: Graphic2Elem, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[Graphic2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
@@ -128,7 +128,7 @@ trait CanvElem extends Graphic2Elem
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object CanvElem
 {
-  implicit val slateImplicit: Slate[CanvElem] = (obj: CanvElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[CanvElem] = (obj: CanvElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[CanvElem] = (obj: CanvElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CanvElem] = (obj: CanvElem, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[CanvElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

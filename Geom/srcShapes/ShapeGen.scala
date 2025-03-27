@@ -28,7 +28,7 @@ object ShapeGen
 
     }
 
-  implicit val slateImplicit: Slate[ShapeGen] = (obj: ShapeGen, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[ShapeGen] = (obj: ShapeGen, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[ShapeGen] = (obj, matrix) => obj.prolign(matrix)

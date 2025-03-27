@@ -38,7 +38,7 @@ trait LineSegLen2[+VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
 }
 
 object LineSegLen2
-{ /** [[Slate]] type class instances / evidence for [[PtLen2]]. */
+{ /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
   implicit val slateEv: SlateLen2[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
 
   /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */

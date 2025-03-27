@@ -43,7 +43,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
 

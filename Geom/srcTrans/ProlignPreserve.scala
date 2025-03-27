@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A class that can preserve its type through all the Prolign, proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function.
- *  These are translate [[Slate]], [[Scale]] and negX and negY, the [[TransAxes]], transformations.
+ *  These are translate [[SlateXY]], [[Scale]] and negX and negY, the [[TransAxes]], transformations.
  *  */
 trait ProlignPreserve extends Any with Geom2Elem
 {

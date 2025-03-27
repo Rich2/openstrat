@@ -86,7 +86,7 @@ object HexReg
     override def syntaxDepth(obj: HexReg): Int = 2
   }
 
-  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)

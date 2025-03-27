@@ -67,7 +67,7 @@ trait CurveSeg extends Drawable
 }
 
 object CurveSeg
-{ implicit val slateImplicit: Slate[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ implicit val slateImplicit: SlateXY[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)

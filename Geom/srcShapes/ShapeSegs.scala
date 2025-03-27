@@ -84,7 +84,7 @@ object ShapeSegs
 
   }
 
-  implicit val slateImplicit: Slate[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeSegs] = (obj: ShapeSegs, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeSegs] = (obj: ShapeSegs, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[ShapeSegs] = (obj, matrix) => obj.prolign(matrix)

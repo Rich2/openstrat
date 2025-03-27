@@ -302,7 +302,7 @@ object Pt2
    * [[Pt2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
   implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LineSeg] = LineSeg(_, _)
-  implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: SlateXY[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)

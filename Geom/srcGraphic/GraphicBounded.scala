@@ -27,7 +27,7 @@ trait GraphicBounded extends Graphic2Elem with BoundedElem
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicBounded
 {
-  implicit val slateImplicit: Slate[GraphicBounded] = (obj: GraphicBounded, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[GraphicBounded] = (obj: GraphicBounded, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GraphicBounded] = (obj: GraphicBounded, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicBounded] = (obj: GraphicBounded, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[GraphicBounded] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

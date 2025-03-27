@@ -134,7 +134,7 @@ object Rect
     }
   }
 
-  implicit val slateImplicit: Slate[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
 
