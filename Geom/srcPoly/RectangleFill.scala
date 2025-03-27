@@ -5,31 +5,31 @@ package ostrat; package geom
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
   /** Translate geometric transformation. */
-  override def slateXY(xDelta: Double, yDelta: Double): RectangleFill = RectangleFill(shape.slateXY(xDelta, yDelta), fill)
+  override def slateXY(xDelta: Double, yDelta: Double): RectangleFill = RectangleFill(shape.slateXY(xDelta, yDelta), fillFacet)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and Squares.
    * Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), fill)
+  override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), fillFacet)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed in
    * subclasses. */
-  override def negY: RectangleFill = RectangleFill(shape.negY, fill)
+  override def negY: RectangleFill = RectangleFill(shape.negY, fillFacet)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed in
    * subclasses. */
-  override def negX: RectangleFill = RectangleFill(shape.negX, fill)
+  override def negX: RectangleFill = RectangleFill(shape.negX, fillFacet)
 
-  override def rotate90: RectangleFill = RectangleFill(shape.rotate90, fill)
-  override def rotate180: RectangleFill = RectangleFill(shape.rotate180, fill)
-  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, fill)
+  override def rotate90: RectangleFill = RectangleFill(shape.rotate90, fillFacet)
+  override def rotate180: RectangleFill = RectangleFill(shape.rotate180, fillFacet)
+  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, fillFacet)
 
-  override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fill)
+  override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fillFacet)
 
-  override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fill)
+  override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
 
-  override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fill)
+  override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
 
-  override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fill)
+  override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fillFacet)
 }
 
 /** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates to it. It
@@ -52,5 +52,5 @@ object RectangleFill
   }
 
   /** Implementation class for the general case of a [[RectangleFill]]. */
-  case class RectangleFillImp(shape: Rectangle, fill: FillFacet) extends RectangleFill
+  case class RectangleFillImp(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
 }

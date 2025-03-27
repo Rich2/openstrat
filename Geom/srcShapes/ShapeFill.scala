@@ -1,49 +1,34 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import pWeb._
 
-/** A simple plain colour fill graphic. */
-trait ShapeFill extends ShapeGraphicSimple
+/** Base [[ShapeFill]] trait for multiple geometries. */
+trait ShapeGeomlessFill
 { /** The colour of this fill graphic. */
-  def fill: FillFacet
+  def fillFacet: FillFacet
+}
 
-  override def nonShapeAttribs: RArr[XmlAtt] = fill.attribs// Arr(fillAttrib)
+/** A simple plain colour fill graphic. */
+trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
+{ override def nonShapeAttribs: RArr[XmlAtt] = fillFacet.attribs// Arr(fillAttrib)
 
   def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): ShapeFill
-
-  /** Translate geometric transformation. */
+  
   //override def slate(offset: Vec2Like): ShapeFill
-
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill  
   override def scale(operand: Double): ShapeFill
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negY: ShapeFill
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negX: ShapeFill
-
   override def prolign(matrix: ProlignMatrix): ShapeFill
-
   override def rotate90: ShapeFill
   override def rotate180: ShapeFill
   override def rotate270: ShapeFill
-
   override def rotate(angle: AngleVec): ShapeFill
-
   override def reflect(lineLike: LineLike): ShapeFill
-
-  override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill
-
   override def shearX(operand: Double): ShapeFill
-
   override def shearY(operand: Double): ShapeFill
 }
 
@@ -63,3 +48,5 @@ object ShapeFill
     override def rotate270(obj: ShapeFill): ShapeFill = obj.rotate270
   }
 }
+
+trait ShapeLen2Fill extends ShapeGeomlessFill, ShapeLen2GraphicSimple

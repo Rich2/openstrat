@@ -175,8 +175,9 @@ object Filling
   implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Filling[A, B]): Filling[Array[A], Array[B]] = (obj, ff) => obj.map(ev.fillT(_, ff))
 }
 
+/** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
 trait DrawableLen2 extends GeomLen2Elem
-{
+{ /** Draws the object. The line width is defined in pixels. */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
 
   override def slate(operand: VecPtLen2): DrawableLen2
@@ -185,13 +186,44 @@ trait DrawableLen2 extends GeomLen2Elem
 }
 
 object DrawableLen2
-{ implicit val slateLen2Ev: SlateLen2[DrawableLen2] = (obj, op) => obj.slate(op)
+{ /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
+  implicit val slateLen2Ev: SlateLen2[DrawableLen2] = (obj, op) => obj.slate(op)
+  
+  /** [[SlateLenXY]] type class instance / evidence for [[DrawableLen2]]. */
   implicit val slateLenXY: SlateLenXY[DrawableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
+  
+  /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
   implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
+  
+  /** [[Drawing]] type class instance / evidence for [[DrawableLen2]] and [[GraphicLen2Elem]]. */
   implicit val drawTEv: Drawing[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
+/** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
 trait FillableLen2 extends DrawableLen2
 {
-  def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicLen2Elem
+  def fill(fillFacet: FillFacet): GraphicLen2Elem
+  
+  def fillDraw(fillFacet: FillFacet, lineColour: Colour = Black, lineWidth: Double = 2): GraphicLen2Elem
+
+  override def slate(operand: VecPtLen2): FillableLen2
+
+  override def slate(xOperand: Length, yOperand: Length): FillableLen2
+
+  override def scale(operand: Double): FillableLen2
+  
+}
+
+object FillableLen2
+{ /** [[SlateLen2]] type class instance / evidence for [[FillableLen2]]. */
+  implicit val slateLen2Ev: SlateLen2[FillableLen2] = (obj, op) => obj.slate(op)
+
+  /** [[SlateLenXY]] type class instance / evidence for [[FillableLen2]]. */
+  implicit val slateLenXY: SlateLenXY[FillableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
+
+  /** [[Scale]] type class instance / evidence for [[FillableLen2]]. */
+  implicit val scaleEv: Scale[FillableLen2] = (obj, operand) => obj.scale(operand)
+
+  /** [[Drawing]] type class instance / evidence for [[FillableLen2]] and [[GraphicLen2Elem]]. */
+  implicit val drawTEv: Drawing[FillableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }

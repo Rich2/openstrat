@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, Colour.Black, math.{Pi, sqrt}
+import pWeb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
@@ -44,31 +44,19 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
-
   override def rotate90: Ellipse = fTrans(_.rotate90)
   override def rotate180: Ellipse = fTrans(_.rotate180)
   override def rotate270: Ellipse = fTrans(_.rotate270)
-
   override def rotate(angle: AngleVec): Ellipse = fTrans(_.rotate(angle))
-
   override def negY: Ellipse
-
   override def negX: Ellipse
-
   override def reflect(lineLike: LineLike): Ellipse = fTrans(_.reflect(lineLike))
-
   override def shearX(operand: Double): Ellipse = fTrans(_.xShear(operand))
-
   override def shearY(operand: Double): Ellipse = fTrans(_.yShear(operand))
-
   override def boundingWidth: Double = ???
-
   override def boundingHeight: Double = ???
-
   override def fill(fillfacet: FillFacet): EllipseFill = EllipseFill(this, fillfacet)
-
   override def fillInt(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
-
   override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineColour, lineWidth)
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): EllipseCompound =
@@ -189,4 +177,153 @@ object Ellipse
   }
 }
 
-trait EllipseLen2 extends ShapeLen2, FillableLen2
+
+/** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
+trait EllipseGraphic extends ShapeGraphicCentred
+{ override def shape: Ellipse
+}
+
+/** A Simple circle based graphic. Not sure if this trait is useful. */
+trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarAffPreserve
+{ type ThisT <: EllipseGraphicSimple
+  type ThisT2 <: EllipseGraphicSimple
+  override def svgElem: SvgElem = SvgEllipse(attribs)
+}
+
+/** A simple single colour fill of a circle graphic. */
+trait EllipseFill extends EllipseGraphicSimple with ShapeFill with CanvElem
+{ type ThisT <: EllipseFill
+  type ThisT2 = EllipseFill
+  override def fTrans2(f: Pt2 => Pt2): ThisT2 = EllipseFill(shape.fTrans(f), fillFacet)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
+
+  override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): EllipseDraw = shape.draw(lineWidth, newColour)
+}
+
+/** Companion object for the EllipseFill class. */
+object EllipseFill
+{
+  def apply(shape: Ellipse, fillFacet: FillFacet): EllipseFill = EllipseFillImp(shape, fillFacet)
+
+  /** A simple single colour fill of an ellipse graphic. */
+  final case class EllipseFillImp(shape: Ellipse, fillFacet: FillFacet) extends EllipseFill
+  { type ThisT = EllipseFill
+
+    override def ptsTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fillFacet)
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
+  }
+}
+
+trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with CanvElem
+{
+  type ThisT <: EllipseDraw
+  type ThisT2 = EllipseDraw
+  override def fTrans2(f: Pt2 => Pt2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineColour, lineWidth)
+}
+
+object EllipseDraw
+{
+  def apply(shape: Ellipse, lineColour: Colour = Black, lineWidth: Double = 2.0): EllipseDraw = EllipseDrawImp(shape, lineColour, lineWidth)
+
+  /** Implementation class for [[EllipseDraw]]. */
+  final case class EllipseDrawImp(shape: Ellipse, lineColour: Colour = Black, lineWidth: Double = 2.0) extends EllipseDraw
+  { type ThisT = EllipseDraw
+
+    override def ptsTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineColour, lineWidth)
+
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(this)
+  }
+}
+
+trait EllipseActive extends EllipseGraphicSimple with GraphicClickable
+{ type ThisT <: EllipseActive
+  type ThisT2 = EllipseActive
+  override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), pointerId)
+  final override def nonShapeAttribs: RArr[XmlAtt] = RArr()
+}
+
+object EllipseActive
+{
+  def apply(shape: Ellipse, pointerId: Any): EllipseActive = EllipseActiveImp(shape, pointerId)
+
+  /** Implementation class for [[EllipseDraw]]. */
+  final case class EllipseActiveImp(shape: Ellipse, pointerId: Any) extends EllipseActive
+  { type ThisT = EllipseActive
+
+    override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
+
+    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+    override def rendToCanvas(cp: CanvasPlatform): Unit = ???
+
+    override def ptsTrans(f: Pt2 => Pt2): EllipseActive = EllipseActiveImp(shape.fTrans(f), pointerId)
+  }
+}
+
+
+/** Compound graphic trait for an ellipse. Note [[CircleCompound]] is a sub class of this trait. */
+trait EllipseCompound extends ShapeCompound with EllipseGraphic
+{
+  override def mainSvgElem: SvgElem = SvgEllipse(attribs)
+  override def slateXY(xDelta: Double, yDelta: Double): EllipseCompound
+  override def scale(operand: Double): EllipseCompound
+  override def negY: EllipseCompound
+  override def negX: EllipseCompound
+  override def prolign(matrix: ProlignMatrix): EllipseCompound
+  override def rotate(angle: AngleVec): EllipseCompound
+  override def reflect(lineLike: LineLike): EllipseCompound
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound
+  override def shearX(operand: Double): EllipseCompound
+  override def shearY(operand: Double): EllipseCompound
+  override def addChildren(newChildren: Arr[Graphic2Elem]): EllipseCompound = EllipseCompound(shape, facets, children ++ newChildren)
+}
+
+/** Companion object for the [[EllipseCompound]] trait contains factory apply method and implicit instances for the 2D geometric transformations.  */
+object EllipseCompound
+{
+  def apply(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): EllipseCompound =
+    new EllipseCompoundImplement(shape, facets, children)
+
+  /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
+   * created non anonymously because the type might be useful for certain specialised performance usecases. */
+  final case class EllipseCompoundImplement(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends
+    EllipseCompound with AxisFree
+  {
+    override type ThisT = EllipseCompoundImplement
+    override def mainSvgElem: SvgEllipse = SvgEllipse(attribs)
+    /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
+    /*    override def svgElem: SvgEllipse =
+        { val newEllipse = shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top)
+          val newAtts = newEllipse.attribs
+          val atts2 = if (shape.alignAngle == 0.degs) newAtts else newAtts +% SvgRotate(- shape.alignAngle.degs, shape.cenX, shape.cenY)
+          SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
+        }*/
+
+    override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
+      case c: Colour => cp.ellipseFill(EllipseFill(shape, c))
+      //case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
+      //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
+      case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
+    }
+
+    /** Translate geometric transformation. */
+    override def slateXY(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
+      EllipseCompoundImplement(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
+
+    /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+     * Squares. Use the xyScale method for differential scaling. */
+    override def scale(operand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.scale(operand), facets, children.scale(operand))
+
+    override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
+
+    override def rotate(angle: AngleVec): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotate(angle), facets, children.rotate(angle))
+
+    override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
+
+    override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
+
+    override def shearX(operand: Double): EllipseCompoundImplement = ???
+
+    override def shearY(operand: Double): EllipseCompoundImplement = ???
+    //override def slateTo(newCen: Pt2): EllipseCompoundImplement = ???
+  }
+}

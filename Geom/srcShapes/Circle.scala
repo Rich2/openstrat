@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, math.Pi, Colour.Black
+import pWeb.*, math.Pi, Colour.Black, pgui.*
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse.
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
@@ -143,36 +143,114 @@ object Circle extends ShapeIcon
   val fillerEv: Filling[Circle, CircleFill] = (obj, ff) => obj.fill(ff)
 }
 
-final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Length) extends EllipseLen2
-{ type ThisT = CircleLen2
-  override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2(radius, cenX + operand.x, cenY + operand.y)
-  override def slate(xOperand: Length, yOperand: Length): CircleLen2 = CircleLen2(radius, cenX + xOperand, cenY + yOperand)
-  override def slateX(xOperand: Length): CircleLen2 = CircleLen2(radius, cenX + xOperand, cenY)
-  override def slateY(yOperand: Length): CircleLen2 = CircleLen2(radius, cenX, cenY + yOperand)
-  override def scale(operand: Double): CircleLen2 = CircleLen2(radius, cenX * operand, cenY * operand)
-  override def mapGeom2(operand: Length): Circle = Circle(radius / operand, cenX / operand, cenY / operand)
-  override def draw(lineWidth: Double, lineColour: Colour): CircleLen2Draw = CircleLen2Draw(this, lineWidth, lineColour)
-  
-  override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleLen2Compound =
-    CircleLen2Compound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
+/** A circle based Graphic, may be simple or compound. */
+trait CircleGraphic extends EllipseGraphic
+{ override def shape: Circle
+
+  /** The radius of this circle graphic. */
+  @inline final def radius: Double = shape.radius
+
+  /** The diameter of this circle graphic. */
+  @inline final def diameter: Double = shape.diameter
 }
 
-object CircleLen2
-{ /** Factory apply method for creating a circle with [[Length]] units. The first parameter gives the radius of the circle. The default centre is at the origin.
-   * There is an apply name overload that takes the X and Y centre [[Length]] values as parameters There are corresponding d methods that take a diameter as the
-   * first parameter. */
-  def apply(radius: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(radius, cenX, cenY)
+/** A Simple circle based graphic. */
+trait CircleGraphicSimple extends CircleGraphic with EllipseGraphicSimple
+{ type ThisT <: CircleGraphicSimple
+  final override def svgElem: SvgCircle = SvgCircle(attribs)
+}
 
-  /** Factory apply method for creating a circle with [[Length]] units. The first parameter gives the radius of the circle, followed by the X and Y centre
-   * [[Length]] values. There is an apply method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. */
-  def apply(radius: Length, cen: PtLen2): CircleLen2 = new CircleLen2(radius, cen.x, cen.y)
+/** A simple single colour fill of a circle graphic. */
+final case class CircleFill(shape: Circle, fillFacet: FillFacet) extends CircleGraphicSimple with EllipseFill with CanvElem
+{ override type ThisT = CircleFill
+  override def ptsTrans(f: Pt2 => Pt2): ThisT = CircleFill(shape.fTrans(f), fillFacet)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
+  override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): CircleDraw = shape.draw(lineWidth, newColour)
+}
 
-  /** Factory method for creating a circle. The first parameter gives the diameter of the circle. The default centre is at the origin. There is a name
-   * overload that takes the X and Y centre values as parameters. There are corresponding to apply methods that take a radius as the first parameter. */
-  def d(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter / 2, cenX, cenY)
+/** A simple draw of a circle graphic. */
+final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicSimple with EllipseDraw
+{ type ThisT = CircleDraw
+  override def ptsTrans(f: Pt2 => Pt2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
+}
 
-  /** Factory method for creating a circle with [[Length]] units. The first parameter gives the diameter of the circle, followed by the X and Y centre values.
-   * There is a method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. There are corresponding apply methods
-   * that take a radius as the first parameter. */
-  def d(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter / 2, cen.x, cen.y)
+/** A pointable polygon without visual. */
+case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive with CircleGraphicSimple
+{ override type ThisT = CircleActive
+  override def ptsTrans(f: Pt2 => Pt2): CircleActive = CircleActive(shape.fTrans(f), pointerId)
+
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.") }
+
+  override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
+}
+
+case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
+{ override def reify(scale: Double, cen: Pt2): CircleFill = CircleFill(Circle(scale, cen), fillColour)
+  override def reify(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(scale, xCen, yCen), fillColour)
+}
+
+
+/** Compound Circle Graphic class. */
+case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound with
+  CircleGraphic with AxisFree
+{
+  override type ThisT = CircleCompound
+
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
+    case c: Colour => cp.circleFill(CircleFill(shape, c))
+    case DrawFacet(c, w) => cp.circleDraw(shape.draw(w, c))
+    case fr: FillRadial => cp.circleFillRadial(shape, fr)
+
+    case TextFacet(s, ratio, colour, ta, bl, min) => {
+      val size = boundingWidth / ratio
+      if (size >= min) cp.textGraphic(TextFixed(s, size, cenDefault, colour, ta, bl))
+    }
+
+    case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
+  }
+
+  final override def mainSvgElem: SvgCircle = SvgCircle(attribs)
+
+  /** Translate geometric transformation. */
+  override def slateXY(xDelta: Double, yDelta: Double): CircleCompound =
+    CircleCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
+
+  override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
+  override def rotate(angle: AngleVec): CircleCompound = CircleCompound(shape.rotate(angle), facets, children.rotate(angle))
+  override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
+
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = ???
+
+  override def shearX(operand: Double): EllipseCompound = ???
+
+  override def shearY(operand: Double): EllipseCompound = ???
+
+  override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
+}
+
+object CircleCompound
+{
+  implicit val slateImplicit: Slate[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
+  implicit val reflectImplicit: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
+
+  implicit val reflectAxesImplicit: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
+  { override def negYT(obj: CircleCompound): CircleCompound = obj.negY
+
+    override def negXT(obj: CircleCompound): CircleCompound = obj.negX
+
+    override def rotate90(obj: CircleCompound): CircleCompound = obj.rotate90
+
+    override def rotate180(obj: CircleCompound): CircleCompound = obj.rotate180
+
+    override def rotate270(obj: CircleCompound): CircleCompound = obj.rotate270
+  }
 }

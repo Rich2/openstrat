@@ -60,7 +60,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   override def tlPolyFill(pf: PolygonFill): Unit =
-  { setFill(pf.fill)
+  { setFill(pf.fillFacet)
     gc.fillPolygon(pf.xVertsArray, pf.yVertsArray, pf.vertsNum)
   }
 
@@ -110,7 +110,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   override def tlCircleFill(cf: CircleFill): Unit =
-  { setFill(cf.fill)
+  { setFill(cf.fillFacet)
     gc.fillOval(cf.cenX - cf.radius, cf.cenY - cf.radius, cf.diameter, cf.diameter)
   }
 
@@ -130,7 +130,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   override def tlEllipseFill(ef: EllipseFill): Unit =
-  { setFill(ef.fill)
+  { setFill(ef.fillFacet)
     gc.fillOval(ef.cenX - ef.shape.radius1, ef.cenY - ef.shape.radius2 , ef.shape.diameter1, ef.shape.diameter2)
   }
 

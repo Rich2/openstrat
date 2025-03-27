@@ -23,7 +23,7 @@ object RectFill
   def apply(rect: Rect, fillFacet: FillFacet): RectFill = RectFillImp(rect, fillFacet)
 
   /** An implementation class for a [[RectFill]] that is not specified as a [[SquareFill]]. */
-  case class RectFillImp(shape: Rect, fill: FillFacet) extends RectFill
+  case class RectFillImp(shape: Rect, fillFacet: FillFacet) extends RectFill
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
