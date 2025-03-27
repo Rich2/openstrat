@@ -70,3 +70,8 @@ object MapGeom2
   /** Implicit [[MapGeom2]] type class instance / evidence for [[Array]]. */
   implicit def arrayEv[A, B](implicit ct: ClassTag[B], evAL: MapGeom2[A, B]): MapGeom2[Array[A], Array[B]] = (obj, len) => obj.map(evAL.mapGeom2T(_, len))
 }
+
+extension [A, B](thisA: A)(using ev: MapGeom2[A, B])
+{ /** maps the object from [[GeomLen2Elem]]s to the equivlent [[Geom2Elem]]s. */
+  def mapGeom2(operand: Length) = ev.mapGeom2T(thisA, operand)
+}
