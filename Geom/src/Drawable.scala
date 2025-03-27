@@ -30,8 +30,11 @@ trait Drawable extends Any with Geom2Elem
 
 /** Companion object for the [[Drawable]] trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
-{ /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
-  implicit val slateEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ /** [[Slate]] type class instance / evidence for [[Drawable]]. */
+  implicit val slateEv: Slate[Drawable] = (obj: Drawable, operand: VecPt2) => obj.slate(operand)
+
+  /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
+  implicit val slateXYEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
 
   /** [[Scale]] type class instance / evidence for [[Drawable]]. */
   implicit val scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
@@ -93,8 +96,11 @@ trait Fillable extends Any with Drawable
 }
 
 object Fillable
-{ /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
-  implicit val slateEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+{ /** [[Slate]] type class instance / evidence for [[Fillable]]. */
+  implicit val slateEv: Slate[Fillable] = (obj: Fillable, operand: VecPt2) => obj.slate(operand)
+
+  /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
+  implicit val slateXYEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
 
   /** [[Scale]] type class instance / evidence for [[Fillable]]. */
   implicit val scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)
