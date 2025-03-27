@@ -27,7 +27,7 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def boundingHeight: Double = diameter
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slateXY(xDelta: Double, yDelta: Double): Circle = Circle(radius, cen.addXY(xDelta, yDelta))
+  override def slateXY(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.addXY(xOperand, yOperand))
 
   /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
@@ -214,8 +214,8 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   final override def mainSvgElem: SvgCircle = SvgCircle(attribs)
 
   /** Translate geometric transformation. */
-  override def slateXY(xDelta: Double, yDelta: Double): CircleCompound =
-    CircleCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
+  override def slateXY(xOperand: Double, yOperand: Double): CircleCompound =
+    CircleCompound(shape.slateXY(xOperand, yOperand), facets, children.SlateXY(xOperand, yOperand))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

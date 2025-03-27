@@ -97,7 +97,7 @@ class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
   override def shearX(operand: Double): Vec2 = Vec2(x * operand, y)
   override def shearY(operand: Double): Vec2 = Vec2(x, y * operand)
 
-  override def slateXY(xDelta: Double, yDelta: Double): Vec2 = Vec2(x + xDelta, y + yDelta)
+  override def slateXY(xOperand: Double, yOperand: Double): Vec2 = Vec2(x + xOperand, y + yOperand)
 
   override def negX: Vec2 = Vec2(-x, y)
   override def negY: Vec2 = Vec2(x, -y)

@@ -15,7 +15,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   //override def nonShapeAttribs: RArr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
-  override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphicSimple
+  override def slateXY(xOperand: Double, yOperand: Double): PolygonGraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

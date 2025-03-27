@@ -8,7 +8,7 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
-  override def slateXY(xDelta: Double, yDelta: Double): PolygonDraw = PolygonDraw(shape.slateXY(xDelta, yDelta), lineWidth, lineColour)
+  override def slateXY(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slateXY(xOperand, yOperand), lineWidth, lineColour)
 
   /** Uniform scaling transformation a PolygonDraw, returns a PolygonDraw. */
   override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand), lineWidth, lineColour)

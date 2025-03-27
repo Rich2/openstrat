@@ -30,7 +30,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
     acc
   }
 
-  override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphic
+  override def slateXY(xOperand: Double, yOperand: Double): PolygonGraphic
   override def scale(operand: Double): PolygonGraphic
   override def negY: PolygonGraphic
   override def negX: PolygonGraphic

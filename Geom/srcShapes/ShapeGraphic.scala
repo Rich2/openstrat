@@ -16,7 +16,7 @@ trait ShapeGraphic extends GraphicBounded
   final def svgInlineStr: String = svgInline.out(0, 150)
 
   /** Translate geometric transformation. */
-  def slateXY(xDelta: Double, yDelta: Double): ShapeGraphic
+  def slateXY(xOperand: Double, yOperand: Double): ShapeGraphic
 
   /** Translate geometric transformation. */
   //def slate(offset: Vec2Like): ShapeGraphic

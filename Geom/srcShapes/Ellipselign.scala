@@ -14,7 +14,7 @@ trait Ellipselign extends Ellipse
   /** The alignment angle of axis 1 in an [[Ellipselign]] including the special case of [[Circle]] is by definition 0°. */
   override final def alignAngle: Angle = Angle(0)
 
-  override def slateXY(xDelta: Double, yDelta: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xDelta, cenY + yDelta)
+  override def slateXY(xOperand: Double, yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY + yOperand)
 
   override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, cenX * operand, cenY * operand)
 

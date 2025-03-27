@@ -55,7 +55,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   override def slate(offset: VecPt2): Rectangle = vertsTrans(_.slate(offset))
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slateXY(xDelta: Double, yDelta: Double): Rectangle = vertsTrans(_.xySlate(xDelta, yDelta))
+  override def slateXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xySlate(xOperand, yOperand))
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))

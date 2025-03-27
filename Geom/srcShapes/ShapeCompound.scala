@@ -20,7 +20,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: RArr[Graphic2Elem]
 
-  override def slateXY(xDelta: Double, yDelta: Double): ShapeCompound
+  override def slateXY(xOperand: Double, yOperand: Double): ShapeCompound
   override def scale(operand: Double): ShapeCompound
   override def negY: ShapeCompound
   override def negX: ShapeCompound

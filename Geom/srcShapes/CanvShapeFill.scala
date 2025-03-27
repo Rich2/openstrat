@@ -6,7 +6,7 @@ package geom
 trait CanvShapeFill extends ShapeFill with CanvElem
 {
   /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xDelta: Double, yDelta: Double): CanvShapeFill
+  override def slateXY(xOperand: Double, yOperand: Double): CanvShapeFill
 
   /** Uniform scaling 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

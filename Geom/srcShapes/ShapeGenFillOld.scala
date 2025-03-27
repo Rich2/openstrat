@@ -11,7 +11,7 @@ final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends Can
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xDelta: Double, yDelta: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateXY(xDelta, yDelta), colour)
+  override def slateXY(xOperand: Double, yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateXY(xOperand, yOperand), colour)
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

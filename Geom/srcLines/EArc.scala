@@ -57,8 +57,8 @@ trait EArc extends EllipseBased with CurveSeg
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   /** Translate 2D geometric transformation on this EArc, returns an EArc. */
-  override def slateXY(xDelta: Double, yDelta: Double): EArc = EArc(pStart.xySlate(xDelta, yDelta), cen.xySlate(xDelta, yDelta),
-    axesPt1.xySlate(xDelta, yDelta), axesPt4.xySlate(xDelta, yDelta), pEnd.xySlate(xDelta, yDelta), rotationsInt)
+  override def slateXY(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xySlate(xOperand, yOperand), cen.xySlate(xOperand, yOperand),
+    axesPt1.xySlate(xOperand, yOperand), axesPt4.xySlate(xOperand, yOperand), pEnd.xySlate(xOperand, yOperand), rotationsInt)
 
   /** Uniform 2D geometric scaling transformation, returns an EArc. */
   override def scale(operand: Double): EArc =

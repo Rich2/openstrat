@@ -5,7 +5,7 @@ package ostrat; package geom
  *  both that require a [[GraphicCompound]]. */
 trait GraphicSimple extends Graphic2Elem
 { /** Translate geometric transformation. */
-  override def slateXY(xDelta: Double, yDelta: Double): GraphicSimple
+  override def slateXY(xOperand: Double, yOperand: Double): GraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

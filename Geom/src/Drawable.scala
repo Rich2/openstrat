@@ -1,9 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
-
-import reflect.ClassTag
-import scala.annotation.unchecked.uncheckedVariance
+import Colour.Black, reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any with Geom2Elem
@@ -16,7 +13,7 @@ trait Drawable extends Any with Geom2Elem
     case _ => draw(lineWidth, colour)
   }
 
-  override def slateXY(xDelta: Double, yDelta: Double): Drawable
+  override def slateXY(xOperand: Double, yOperand: Double): Drawable
   override def scale(operand: Double): Drawable
   override def negY: Drawable
   override def negX: Drawable
@@ -80,7 +77,7 @@ trait Fillable extends Any with Drawable
 
   val fillerEv: Filling[Fillable, Graphic2Elem] = (obj, ff) => obj.fill(ff)
 
-  override def slateXY(xDelta: Double, yDelta: Double): Fillable
+  override def slateXY(xOperand: Double, yOperand: Double): Fillable
   override def scale(operand: Double): Fillable
   override def negY: Fillable
   override def negX: Fillable

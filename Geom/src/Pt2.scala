@@ -249,7 +249,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   override def scaleXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
   override def shearX(operand: Double): Pt2 = Pt2(x * operand, y)
   override def shearY(operand: Double): Pt2 = Pt2(x, y * operand)
-  override def slateXY(xDelta: Double, yDelta: Double): Pt2 = Pt2(x + xDelta, y + yDelta)
+  override def slateXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 }
 
 /** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the 2D geometric

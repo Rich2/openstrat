@@ -5,7 +5,7 @@ package ostrat; package geom
  *  and [[Curve]] graphics. */
 trait GraphicBounded extends Graphic2Elem with BoundedElem
 {
-  def slateXY(xDelta: Double, yDelta: Double): GraphicBounded
+  def slateXY(xOperand: Double, yOperand: Double): GraphicBounded
   def scale(operand: Double): GraphicBounded
 
   def negY: GraphicBounded

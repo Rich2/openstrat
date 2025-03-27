@@ -18,8 +18,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def canvElems: RArr[CanvElem] = ???
 
   /** Translate geometric transformation. */
-  override def slateXY(xDelta: Double, yDelta: Double): PolygonCompound =
-    PolygonCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
+  override def slateXY(xOperand: Double, yOperand: Double): PolygonCompound =
+    PolygonCompound(shape.slateXY(xOperand, yOperand), facets, children.SlateXY(xOperand, yOperand))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -105,8 +105,8 @@ object PolygonCompound
     }
 
     /** Translate geometric transformation. */
-    override def slateXY(xDelta: Double, yDelta: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
+    override def slateXY(xOperand: Double, yOperand: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.slateXY(xOperand, yOperand), facets, children.SlateXY(xOperand, yOperand))
 
     override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))

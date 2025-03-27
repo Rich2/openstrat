@@ -11,7 +11,7 @@ trait TextGraphic extends CanvElem{
   def textAlign: TextAlign
   def baseLine: BaseLine
 
-  override def slateXY(xDelta: Double, yDelta: Double): TextGraphic
+  override def slateXY(xOperand: Double, yOperand: Double): TextGraphic
   override def negY: TextGraphic
   def posn: Pt2 = Pt2(xPosn, yPosn)
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
@@ -51,7 +51,7 @@ TextGraphic
 { type ThisT = Textlign
 
   /** Translate 2D geometric transformation on this [[Textlign]]. */
-  override def slateXY(xDelta: Double, yDelta: Double): Textlign = copy(str, fontSize, xPosn + xDelta, yPosn + yDelta )
+  override def slateXY(xOperand: Double, yOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn + yOperand)
 
   /** Uniform scaling 2D geometric transformation on this [[Textlign]], returns a TextAligned. Scales the font size as well as the x and y
    *  positions. */

@@ -10,7 +10,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   def p0: Pt2 = Pt2(x0, y0)
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slateXY(xDelta: Double, yDelta: Double): Ray = Ray.v0Secs(p0.addXY(xDelta, yDelta), angleSecs)
+  override def slateXY(xOperand: Double, yOperand: Double): Ray = Ray.v0Secs(p0.addXY(xOperand, yOperand), angleSecs)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
