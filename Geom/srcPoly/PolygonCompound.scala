@@ -19,8 +19,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def slate(operand: VecPt2): PolygonCompound = PolygonCompound(shape.slate(operand), facets, children.slate(operand))
   
-  override def slateXY(xOperand: Double, yOperand: Double): PolygonCompound =
-    PolygonCompound(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): PolygonCompound =
+    PolygonCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
   
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
   override def negY: PolygonCompound = PolygonCompound(shape.negY, facets, children.negY)
@@ -57,7 +57,7 @@ object PolygonCompound
   implicit val slateEv: Slate[PolygonCompound] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance evidence for [[PolygonCompound]]. */
-  implicit val slateXYEv: SlateXY[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance evidence for [[PolygonCompound]]. */
   implicit val scaleEv: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
@@ -109,8 +109,8 @@ object PolygonCompound
     }
 
     override def slate(operand: VecPt2): PolygonCompoundImp = PolygonCompoundImp(shape.slate(operand), facets, children.slate(operand))
-    override def slateXY(xOperand: Double, yOperand: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+    override def slate(xOperand: Double, yOperand: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
     override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))

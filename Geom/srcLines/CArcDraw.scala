@@ -10,7 +10,7 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
   def radius: Double = curveSeg.radius
 
   override def slate(operand: VecPt2): CArcDraw = CArcDraw(curveSeg.slate(operand), colour, lineWidth)
-  override def slateXY(xOperand: Double, yOperand: Double): CArcDraw = CArcDraw(curveSeg.slateXY(xOperand, yOperand), colour, lineWidth)
+  override def slate(xOperand: Double, yOperand: Double): CArcDraw = CArcDraw(curveSeg.slate(xOperand, yOperand), colour, lineWidth)
   override def scale(operand: Double): CArcDraw = CArcDraw(curveSeg.scale(operand), colour, lineWidth)
   override def prolign(matrix: ProlignMatrix): CArcDraw = CArcDraw(curveSeg.prolign(matrix), colour, lineWidth)
   override def rotate(angle: AngleVec): CArcDraw = CArcDraw(curveSeg.rotate(angle), colour, lineWidth)

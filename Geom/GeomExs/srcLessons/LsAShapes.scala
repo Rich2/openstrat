@@ -22,7 +22,7 @@ object LsAShapes extends LessonStatic
   val sf1 = PolyCurveFill(shape1.slate(400 pp 100), Violet)
   val sf2 = PolyCurveDraw(shape1.clk45, lineWidth = 2)
   val sf3 = sf2.scale(0.5)
-  val sf4 = sf3.slateXY(-250, 200)
+  val sf4 = sf3.slate(-250, 200)
   val sf5 = sf4.slateX(-100).copy(colour = Green)
   val sf6 = sf5.negY.copy(colour = Red)
 

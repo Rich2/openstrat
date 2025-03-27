@@ -31,7 +31,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
       { x += margin
         rowFirst = false
       }
-      val res2 = res1.slateXY(x + dx, y)
+      val res2 = res1.slate(x + dx, y)
       x += dx * 2
       res2
     }

@@ -11,8 +11,8 @@ trait RectCompound extends RectGraphic with RectangleCompound
     attribs ++ facets.flatMap(_.attribs))*/
   override def mainSvgElem: SvgRect = SvgRect(attribs)
   /** Translate geometric transformation. */
-  override def slateXY(xOperand: Double, yOperand: Double): RectCompound =
-    RectCompound(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): RectCompound =
+    RectCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -50,7 +50,7 @@ object RectCompound
   def apply(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): RectCompound =
     RectCompoundImp(shape, facets, children)
 
-  implicit val slateImplicit: SlateXY[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: ScaleXY[RectCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)

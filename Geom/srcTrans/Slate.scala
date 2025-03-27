@@ -1,12 +1,26 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import reflect.ClassTag, annotation.unchecked.uncheckedVariance
+import reflect.ClassTag
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
 trait Slate[A]
 { /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
   def slate(obj: A, operand: VecPt2): A
+}
+
+/** Companion object for the [[Slate]] type class. Contains implicit instances for collections and other container classes. */
+object Slate
+{ implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj, op) => obj.slate(op).asInstanceOf[T]
+
+  /** Implicit [[SlateXY]] instance / evidence for [[RArr]]. */
+  implicit def rArrImplicit[A](implicit ev: Slate[A]): Slate[RArr[A]] = (obj, op) => obj.smap(ev.slate(_, op))
+
+  /** Implicit [[SlateXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, op) => evF.mapT(obj, evA.slate(_, op))
+
+  /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, op) => obj.map(ev.slate(_, op))
 }
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
@@ -28,7 +42,7 @@ trait SlateXY[A]
 
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object SlateXY
-{ implicit def transSimerImplicit[T <: SimilarPreserve]: SlateXY[T] = (obj: T, dx: Double, dy: Double) => obj.slateXY(dx, dy).asInstanceOf[T]
+{ implicit def transSimerImplicit[T <: SimilarPreserve]: SlateXY[T] = (obj: T, dx: Double, dy: Double) => obj.slate(dx, dy).asInstanceOf[T]
 
   /** Implicit [[SlateXY]] instance / evidence for [[RArr]]. */
   implicit def rArrImplicit[A](implicit ev: SlateXY[A]): SlateXY[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXY(_, dx, dy))
@@ -38,6 +52,13 @@ object SlateXY
 
   /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: SlateXY[A]): SlateXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXY(_, dx, dy))
+}
+
+/** Extension class for instances of the Slate type class. */
+implicit class SlateExtensions[A](value: A)(implicit ev: Slate[A])
+{ /** Translate 2D geometric transformation extension method, taking a [[Pt2]] or a [[Vec2]] as a parameter, on this object of type T, returning an object of
+   * Type T. */
+  def slate(operand: VecPt2): A = ev.slate(value, operand)
 }
 
 /** Extension class for instances of the Slate type class. */
@@ -51,10 +72,6 @@ class SlateXYExtensions[A](value: A, ev: SlateXY[A])
   /** Translate 2D geometric transformation extension method, taking the X offset and Y offset as parameters, on this object of type T, returning an object of
    * Type T. */
   def slateXY(xOperand: Double, yOperand: Double): A = ev.slateXY(value, xOperand, yOperand)
-
-  /** Translate 2D geometric transformation extension method, taking a [[Pt2]] or a [[Vec2]] as a parameter, on this object of type T, returning an object of
-   * Type T. */
-  def slate(operand: VecPt2): A = ev.slateXY(value, operand.x, operand.y)
 
   /** Translate 2D geometric transformation extension method, taking a 2-dimensional vector as its operand, specified in terms of its angle and magnitude
    * parameters, on this object of type T, returning an object of Type T. */
@@ -90,7 +107,7 @@ trait SlateLenXY[A]
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object SlateLenXY
 { /** Implicit [[SlateLenXY]] type class instances / evidence for [[RArr]]. */
-  implicit def rArrEv[A](implicit ev: SlateLenXY[A]): SlateLenXY[RArr[A]] =(obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
+  implicit def rArrEv[A](implicit ev: SlateLenXY[A]): SlateLenXY[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
 
   /** Implicit [[SlateLenXY]] type class instances / evidence for [[Functor]]. This provides instances for List, Option etc. */
   implicit def functorEv[A, F[_]](implicit evF: Functor[F], evA: SlateLenXY[A]): SlateLenXY[F[A]] =
@@ -98,23 +115,4 @@ object SlateLenXY
 
   /** Implicit [[SlateLenXY]] type class instances / evidence for [[Array]]. */
   implicit def arrayEv[A](implicit ct: ClassTag[A], ev: SlateLenXY[A]): SlateLenXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
-}
-
-/** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
-trait MapGeom2[A, B]
-{ /** Maps from [[GeomLen2Elem]]s to [[Geom2]]s */
-  def mapGeom2T(obj: A, operand: Length): B
-}
-
-/** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
-object MapGeom2
-{ /** Implicit [[MapGeom2]] type class instance / evidence for [[RArr]]. */
-  implicit def rArrEv[A, B](implicit ev: MapGeom2[A, B], ct: ClassTag[B]): MapGeom2[RArr[A], RArr[B]] = (obj, len) => obj.map(ev.mapGeom2T(_, len))
-
-  /** Implicit [[MapGeom2]] type class instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: MapGeom2[A, B]): MapGeom2[F[A], F[B]] =
-    (obj, len) => evF.mapT(obj, evA.mapGeom2T(_, len))
-
-  /** Implicit [[MapGeom2]] type class instance / evidence for [[Array]]. */
-  implicit def arrayEv[A, B](implicit ct: ClassTag[B], evAL: MapGeom2[A, B]): MapGeom2[Array[A], Array[B]] = (obj, len) => obj.map(evAL.mapGeom2T(_, len))
 }

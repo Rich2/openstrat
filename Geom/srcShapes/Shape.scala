@@ -26,7 +26,7 @@ trait Shape extends Any with Fillable with BoundedElem
     case _ => false
   }
 
-  override def slateXY(xDelta: Double, yDelta: Double): Shape
+  override def slate(xDelta: Double, yDelta: Double): Shape
   override def scale(operand: Double): Shape
   override def negY: Shape
   override def negX: Shape
@@ -44,7 +44,7 @@ trait Shape extends Any with Fillable with BoundedElem
 /** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
 object Shape
 { /** Implicit [[SlateXY]] type class instance / evidence for [[Shape]] */
-  implicit val slateEv: SlateXY[Shape] = (obj: Shape, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateEv: SlateXY[Shape] = (obj: Shape, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[Shape]] */
   implicit val scaleEv: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)

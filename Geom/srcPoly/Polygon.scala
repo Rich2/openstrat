@@ -138,7 +138,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant traits /
    * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slateXY(xOperand: Double, yOperand: Double): Polygon = map(_.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Polygon = map(_.addXY(xOperand, yOperand))
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant traits /
    * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -348,7 +348,7 @@ object Polygon extends CompanionSeqLikeDbl2[Pt2, Polygon]
   implicit val eqTEv: EqT[Polygon] = (p1, p2) => p1.arrayUnsafe.sameElements(p2.arrayUnsafe)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Polygon]]. */
-  implicit val slateEv: SlateXY[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateEv: SlateXY[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[Polygon]]. */
   implicit val scaleEv: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)

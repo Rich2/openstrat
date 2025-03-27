@@ -15,7 +15,7 @@ trait Ellipselign extends Ellipse
   override final def alignAngle: Angle = Angle(0)
 
   override def slate(operand: VecPt2): Ellipselign = Ellipselign(xRadius, yRadius, cenX + operand.x, cenY + operand.y)
-  override def slateXY(xOperand: Double, yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY + yOperand)
+  override def slate(xOperand: Double, yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY + yOperand)
   override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, cenX * operand, cenY * operand)
   override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -cenX, cenY)
   override def negY: Ellipselign = Ellipselign(xRadius, yRadius, cenX, -cenY)

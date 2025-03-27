@@ -13,7 +13,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   def cen: Pt2 = curveSeg.cen
 
   override def slate(operand: VecPt2): EArcDraw = EArcDraw(curveSeg.slate(operand), colour, lineWidth)
-  override def slateXY(xOperand: Double, yOperand: Double): EArcDraw = EArcDraw(curveSeg.slateXY(xOperand, yOperand), colour, lineWidth)
+  override def slate(xOperand: Double, yOperand: Double): EArcDraw = EArcDraw(curveSeg.slate(xOperand, yOperand), colour, lineWidth)
   
   override def scale(operand: Double): EArcDraw = EArcDraw(curveSeg.scale(operand), colour, lineWidth)
   override def negY: EArcDraw = EArcDraw(curveSeg.negY, colour, lineWidth)

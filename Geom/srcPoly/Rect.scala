@@ -12,7 +12,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def slate(offset: VecPt2): Rect = vertsTrans(_.slate(offset))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slateXY(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.xySlate(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.xySlate(xOperand, yOperand))
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
   override def scale(operand: Double): Rect = vertsTrans(_.scale(operand))
@@ -134,7 +134,7 @@ object Rect
     }
   }
 
-  implicit val slateImplicit: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
 
@@ -166,7 +166,7 @@ object Rect
     override def attribs: RArr[XmlAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slateXY(xOperand: Double, yOperand: Double): RectImp = mapRectImp(_.xySlate(xOperand, yOperand))
+    override def slate(xOperand: Double, yOperand: Double): RectImp = mapRectImp(_.xySlate(xOperand, yOperand))
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: VecPt2): RectImp = mapRectImp(_.slate(offset))

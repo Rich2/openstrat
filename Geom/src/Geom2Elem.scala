@@ -15,7 +15,7 @@ trait Geom2Elem extends Any
   /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
    * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
    * These methods will be offered as extension methods using this method for their implementations. */
-  def slateXY(xOperand: Double, yOperand: Double): Geom2Elem
+  def slate(xOperand: Double, yOperand: Double): Geom2Elem
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
@@ -67,7 +67,7 @@ object Geom2Elem
   implicit val slateEv: Slate[Geom2Elem] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Geom2Elem]]. */
-  implicit val slateXYEv: SlateXY[Geom2Elem] = (obj: Geom2Elem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[Geom2Elem] = (obj: Geom2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[Geom2Elem]]. */
   implicit val scaleEv: Scale[Geom2Elem] = (obj: Geom2Elem, operand: Double) => obj.scale(operand)

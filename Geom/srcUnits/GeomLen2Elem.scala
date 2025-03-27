@@ -1,5 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import reflect.ClassTag
 
 trait GeomLen2Elem extends Any
 { /** Translate 2 [[Length]] dimension geometric transformation [[GeomLen2Elem]]. The Return type will be narrowed in sub traits. There is a name overload
@@ -49,4 +50,23 @@ object GraphicLen2Elem
 
   /** Implicit [[MapGeom2]] type class instance / evidence for [[GraphicLen2Elem]] and [[Graphic2Elem]]. */
   implicit val mapGeomEv: MapGeom2[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
+}
+
+/** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
+trait MapGeom2[A, B]
+{ /** Maps from [[GeomLen2Elem]]s to [[Geom2]]s */
+  def mapGeom2T(obj: A, operand: Length): B
+}
+
+/** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
+object MapGeom2
+{ /** Implicit [[MapGeom2]] type class instance / evidence for [[RArr]]. */
+  implicit def rArrEv[A, B](implicit ev: MapGeom2[A, B], ct: ClassTag[B]): MapGeom2[RArr[A], RArr[B]] = (obj, len) => obj.map(ev.mapGeom2T(_, len))
+
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: MapGeom2[A, B]): MapGeom2[F[A], F[B]] =
+    (obj, len) => evF.mapT(obj, evA.mapGeom2T(_, len))
+
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[Array]]. */
+  implicit def arrayEv[A, B](implicit ct: ClassTag[B], evAL: MapGeom2[A, B]): MapGeom2[Array[A], Array[B]] = (obj, len) => obj.map(evAL.mapGeom2T(_, len))
 }

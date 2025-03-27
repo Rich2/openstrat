@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A segment of a curve that could be used in a closed shape or curve path. The names start and end are used in CurveSeg and its sub classes to
- *  provide consistent naming across line segments [[LineSeg]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic beziers
- *  [[Bezier]]s, which require different numbers of points in their specification. */
+/** A segment of a curve that could be used in a closed shape or curve path. The names start and end are used in CurveSeg and its subclasses to provide
+ * consistent naming across line segments [[LineSeg]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic Béziers [[Bezier]]s, which
+ * require different numbers of points in their specification. */
 trait CurveSeg extends Drawable
 { 
   def boundingRect: Rect = ???
@@ -26,63 +26,54 @@ trait CurveSeg extends Drawable
   /** The end point [[Pt2]] of this curve segment. Often called p2 on a line or p4 on a cubic bezier in other APIs. */
   final def pEnd: Pt2 = endX pp endY
 
-  /** Translate 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits. */
-  override def slateXY(xOperand: Double, yOperand: Double): CurveSeg
-
-  /** Uniform 2D geometric scaling transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits / classes. */
+  override def slate(operand: VecPt2): CurveSeg
+  override def slate(xOperand: Double, yOperand: Double): CurveSeg
   override def scale(operand: Double): CurveSeg
-
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating Y, on this CurveSeg, returns a CurveSeg. The return type will be
-   *  narrowed in sub traits / classes. */
-  override def negY: CurveSeg
-
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X, on this CurveSeg, returns a CurveSeg. The return type will be
-   *  narrowed in sub traits / classes. */
   override def negX: CurveSeg
-
-  /** 2D Transformation using a [[ProlignMatrix]], on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes / traits. */
+  override def negY: CurveSeg
   override def prolign(matrix: ProlignMatrix): CurveSeg
-
-  /** Rotation 2D geometric transformation on a GeomElem, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and traits. */
   override def rotate(angle: AngleVec): CurveSeg
-
   override def rotate90: CurveSeg
   override def rotate180: CurveSeg
   override def rotate270: CurveSeg
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray, on this CurveSeg, returns a CurveSeg. The return type will be narrowed
-   *  in sub classes and traits. */
   override def reflect(lineLike: LineLike): CurveSeg
-
-  /** XY scaling 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and traits. */
   override def scaleXY(xOperand: Double, yOperand: Double): CurveSeg
-
-  /** Shear 2D geometric transformation along the X Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
-   *  traits. */
   override def shearX(operand: Double): CurveSeg
-
-  /** Shear 2D geometric transformation along the Y Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
-   *  traits. */
   override def shearY(operand: Double): CurveSeg
 }
 
 object CurveSeg
-{ implicit val slateImplicit: SlateXY[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
+{ /** Implicit [[Slate]] type class instance for [[CurveSeg]]. */
+  implicit val slateEv: Slate[CurveSeg] = (obj, operand) => obj.slate(operand)
 
-  implicit val transAxesImplicit: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
+  /** Implicit [[SlateXY]] type class instance for [[CurveSeg]]. */
+  implicit val slateXYEv: SlateXY[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slate(dx, dy)
+
+  /** Implicit [[Scale]] type class instance for [[CurveSeg]]. */
+  implicit val scaleEv: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance for [[CurveSeg]]. */
+  implicit val rotateEv: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[prolign]] type class instance for [[CurveSeg]]. */
+  implicit val prolignEv: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[ScaleXY]] type class instance for [[CurveSeg]]. */
+  implicit val scaleXYEv: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** Implicit [[Refelect]] type class instance for [[CurveSeg]]. */
+  implicit val ReflectEv: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
+  
+  /** Implicit [[TransAxes]] type class instance for [[CurveSeg]]. */
+  implicit val transAxesEv: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
   { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
     override def negXT(obj: CurveSeg): CurveSeg = obj.negX
     override def rotate90(obj: CurveSeg): CurveSeg = obj.rotate90
     override def rotate180(obj: CurveSeg): CurveSeg = obj.rotate180
     override def rotate270(obj: CurveSeg): CurveSeg = obj.rotate270
   }
-
-  implicit val shearImplicit: Shear[CurveSeg] = new Shear[CurveSeg]
+  /** Implicit [[Shear]] type class instance for [[CurveSeg]]. */
+  implicit val shearEv: Shear[CurveSeg] = new Shear[CurveSeg]
   { override def shearXT(obj: CurveSeg, yFactor: Double): CurveSeg = obj.shearX(yFactor)
     override def shearYT(obj: CurveSeg, xFactor: Double): CurveSeg = obj.shearY(xFactor)
   }

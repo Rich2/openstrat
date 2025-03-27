@@ -29,7 +29,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   
   override def slate(operand: VecPt2): CArc = CArc(pStart.slate(operand), cen.slate(operand), pEnd.slate(operand), rotationsInt)
   
-  override def slateXY(xOperand: Double, yOperand: Double): CArc =
+  override def slate(xOperand: Double, yOperand: Double): CArc =
     CArc(pStart.addXY(xOperand, yOperand), cen.addXY(xOperand, yOperand), pEnd.addXY(xOperand, yOperand), rotationsInt)
   
   override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), rotationsInt)

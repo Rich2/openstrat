@@ -5,7 +5,7 @@ package ostrat; package geom
  *  and [[Curve]] graphics. */
 trait GraphicBounded extends Graphic2Elem with BoundedElem
 {
-  def slateXY(xOperand: Double, yOperand: Double): GraphicBounded
+  def slate(xOperand: Double, yOperand: Double): GraphicBounded
   def scale(operand: Double): GraphicBounded
 
   def negY: GraphicBounded
@@ -27,7 +27,7 @@ trait GraphicBounded extends Graphic2Elem with BoundedElem
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicBounded
 {
-  implicit val slateImplicit: SlateXY[GraphicBounded] = (obj: GraphicBounded, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[GraphicBounded] = (obj: GraphicBounded, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[GraphicBounded] = (obj: GraphicBounded, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicBounded] = (obj: GraphicBounded, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[GraphicBounded] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

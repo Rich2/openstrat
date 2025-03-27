@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pWeb._
 
@@ -21,42 +21,19 @@ trait ShapeSegs extends Shape
   override def attribs: RArr[XmlAtt] = ???
 
   override def slate(operand: VecPt2): ShapeGen = new ShapeGen(unsafeArray.slate(operand))
-  override def slateXY(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateXY(xOperand, yOperand))
-
-  /** Uniform scaling 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
-   * xyScale method for differential scaling on the X and Y axes. */
+  override def slate(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateXY(xOperand, yOperand))
   override def scale(operand: Double): ShapeGen = new ShapeGen(unsafeArray.scale(operand))
-
-  /** 2D Transformation using a [[ProlignMatrix]] on a Shape, returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def prolign(matrix: ProlignMatrix): ShapeGen = ???
-
-  /** Rotation 2D geometric transformation on a ShapeGen taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be
-   * narrowed in sub traits / classes. */
   override def rotate(angle: AngleVec): ShapeSegs = ???
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a Shape, returns a Shape. The Return type will be narrowed in sub
-   * traits / classes. */
   override def reflect(lineLike: LineLike): ShapeGen = ???
-
-  /** XY scaling 2D geometric transformation on a ShapeGen returns a Shape. This allows different scaling factors across X and Y dimensions. The return
-   * type will be narrowed in sub classes and traits. */
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGen = ???
-
-  /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def shearX(operand: Double): ShapeGen = ???
-
-  /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def shearY(operand: Double): ShapeGen = ???
-
   override def fill(fillfacet: FillFacet): ShapeFill = ???
-
   override def fillInt(intValue: Int): ShapeFill = ???
-
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): ShapeCompound = ???
-
   override def fillActive(fillColour: Colour, pointerID: Any): ShapeCompound = ???
-
-  /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
+  
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
                               baseLine: BaseLine, minSize: Double): ShapeCompound = ???
 
@@ -69,12 +46,13 @@ trait ShapeSegs extends Shape
   override def rotate180: ShapeSegs = ???
   override def rotate270: ShapeSegs = ???
 }
+
 /** Companion object of the ShapeSegs class contains implicit instances for 2D geometric transformations. */
 object ShapeSegs
 {
   /** Throws on 0 length var args. */
-  def apply(curveTails: CurveTailOld*): ShapeSegs = {
-    val array: Array[CurveSeg] = new Array[CurveSeg](curveTails.length)
+  def apply(curveTails: CurveTailOld*): ShapeSegs =
+  { val array: Array[CurveSeg] = new Array[CurveSeg](curveTails.length)
     curveTails.iForeach { (ct, i) =>
       ct match {
         //case lt: LineTail =>
@@ -85,28 +63,39 @@ object ShapeSegs
 
   }
 
-  implicit val slateImplicit: SlateXY[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[ShapeSegs] = (obj: ShapeSegs, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeSegs] = (obj: ShapeSegs, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[ShapeSegs] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[ShapeSegs] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[ShapeSegs] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Slate]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val slateEv: Slate[ShapeSegs] = (obj, operand) => obj.slate(operand)
 
-  implicit val transAxesImplicit: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs] {
+  /** Implicit [[SlateXY]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val slateXYEv: SlateXY[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slate(dx, dy)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val scaleEv: Scale[ShapeSegs] = (obj: ShapeSegs, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val rotateEv: Rotate[ShapeSegs] = (obj: ShapeSegs, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val prolignEv: Prolign[ShapeSegs] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val scaleXYEv: ScaleXY[ShapeSegs] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** Implicit [[Reflect]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val ReflectEv: Reflect[ShapeSegs] = (obj, lineLike) => obj.reflect(lineLike)
+  
+  /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val transAxesEv: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs]
+  { override def negXT(obj: ShapeSegs): ShapeSegs = obj.negX
     override def negYT(obj: ShapeSegs): ShapeSegs = obj.negY
-
-    override def negXT(obj: ShapeSegs): ShapeSegs = obj.negX
-
     override def rotate90(obj: ShapeSegs): ShapeSegs = obj.rotate90
-
     override def rotate180(obj: ShapeSegs): ShapeSegs = obj.rotate180
-
     override def rotate270(obj: ShapeSegs): ShapeSegs = obj.rotate270
   }
-
-  implicit val shearImplicit: Shear[ShapeSegs] = new Shear[ShapeSegs] {
-    override def shearXT(obj: ShapeSegs, yFactor: Double): ShapeSegs = obj.shearX(yFactor)
-
+  
+  /** Implicit [[Shear]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val shearEv: Shear[ShapeSegs] = new Shear[ShapeSegs]
+  { override def shearXT(obj: ShapeSegs, yFactor: Double): ShapeSegs = obj.shearX(yFactor)
     override def shearYT(obj: ShapeSegs, xFactor: Double): ShapeSegs = obj.shearY(xFactor)
   }
 }

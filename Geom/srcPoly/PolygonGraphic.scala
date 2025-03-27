@@ -31,7 +31,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   }
 
   override def slate(operand: VecPt2): PolygonGraphic
-  override def slateXY(xOperand: Double, yOperand: Double): PolygonGraphic
+  override def slate(xOperand: Double, yOperand: Double): PolygonGraphic
   override def scale(operand: Double): PolygonGraphic
   override def negY: PolygonGraphic
   override def negX: PolygonGraphic
@@ -52,7 +52,7 @@ object PolygonGraphic
   implicit val slateEv: Slate[PolygonGraphic] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[PolygonGraphic]]. */
-  implicit val slateXYEv: SlateXY[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonGraphic]]. */
   implicit val scaleEv: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)

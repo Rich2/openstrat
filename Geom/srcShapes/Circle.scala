@@ -27,7 +27,7 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def boundingHeight: Double = diameter
 
   override def slate(operand: VecPt2): Circle = Circle(radius, cenX + operand.x, cenY + operand.y)
-  override def slateXY(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.addXY(xOperand, yOperand))
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
   override def rotate(angle: AngleVec): Circle = Circle(radius, cen.rotate(angle))
@@ -117,7 +117,7 @@ object Circle extends ShapeIcon
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
-  implicit val slateImplicit: SlateXY[Circle] = (obj, dx, dy) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Circle] = (obj, dx, dy) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
@@ -205,8 +205,8 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
   override def slate(operand: VecPt2): CircleCompound = CircleCompound(shape.slate(operand), facets, children.slate(operand))
 
-  override def slateXY(xOperand: Double, yOperand: Double): CircleCompound =
-    CircleCompound(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): CircleCompound =
+    CircleCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
@@ -221,7 +221,7 @@ object CircleCompound
   implicit val slateEv: Slate[CircleCompound] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val slateXYEv: SlateXY[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Slate]] type class instance / evidence for [[CirlceCompound]]. */
   implicit val scaleEv: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)

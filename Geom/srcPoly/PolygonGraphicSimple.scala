@@ -6,7 +6,7 @@ import pgui.*, pWeb.*
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 { override def svgElem: SvgElem = SvgPolygon(attribs)
   override def slate(operand: VecPt2): PolygonGraphicSimple
-  override def slateXY(xOperand: Double, yOperand: Double): PolygonGraphicSimple
+  override def slate(xOperand: Double, yOperand: Double): PolygonGraphicSimple
   override def scale(operand: Double): PolygonGraphicSimple
   override def shearX(operand: Double): PolygonGraphicSimple
   override def shearY(operand: Double): PolygonGraphicSimple
@@ -24,7 +24,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
 {
-  implicit val slateImplicit: SlateXY[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

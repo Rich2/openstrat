@@ -20,7 +20,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: RArr[Graphic2Elem]
 
-  override def slateXY(xOperand: Double, yOperand: Double): ShapeCompound
+  override def slate(xOperand: Double, yOperand: Double): ShapeCompound
   override def scale(operand: Double): ShapeCompound
   override def negY: ShapeCompound
   override def negX: ShapeCompound
@@ -43,7 +43,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit val slateImplicit: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
 

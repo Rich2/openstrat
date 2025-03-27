@@ -11,7 +11,7 @@ object LsPointerTargeting extends LessonGraphics
 
   case class LsC3Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   { val r: PolygonCompound = Rect(200, 100).fillActive(Yellow, None)
-    val r1: PolygonCompound = r.slateXY(-300, 300)
+    val r1: PolygonCompound = r.slate(-300, 300)
     val r2: PolygonCompound = r.slate(300 pp 300)
     val r3: PolygonCompound = r.slate(300 pp -300)
     val r4: PolygonCompound = r.slate(-300 pp -300)

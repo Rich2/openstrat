@@ -12,7 +12,7 @@ trait PhiRectangle extends Rectangle
   //def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def slateXY(xOperand: Double, yOperand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.addXY(xOperand, yOperand), sd2Cen.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.addXY(xOperand, yOperand), sd2Cen.addXY(xOperand, yOperand))
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
   override def slate(offset: VecPt2): PhiRectangle = PhiRectangle.s1s3(sd0Cen.slate(offset), sd2Cen.slate(offset))
@@ -65,7 +65,7 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect with PhiRectangle
   override def width2: Double = height
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
-  override def slateXY(xOperand: Double, yOperand: Double): PhiRect = PhiRect(height, cenX + xOperand, cenY + yOperand)
+  override def slate(xOperand: Double, yOperand: Double): PhiRect = PhiRect(height, cenX + xOperand, cenY + yOperand)
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(offset: VecPt2): PhiRect = PhiRect(height, cen.slate(offset))
@@ -100,7 +100,7 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect with PhiRectan
   override def width2: Double = width
 
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
-  override def slateXY(xOperand: Double, yOperand: Double): PhiRectY = PhiRectY(width, cenX + xOperand, cenY + yOperand)
+  override def slate(xOperand: Double, yOperand: Double): PhiRectY = PhiRectY(width, cenX + xOperand, cenY + yOperand)
 
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
   override def slate(offset: VecPt2): PhiRectY = PhiRectY(width, cen.slate(offset))

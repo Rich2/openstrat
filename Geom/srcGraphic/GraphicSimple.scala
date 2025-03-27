@@ -5,7 +5,7 @@ package ostrat; package geom
  *  both that require a [[GraphicCompound]]. */
 trait GraphicSimple extends Graphic2Elem
 { /** Translate geometric transformation. */
-  override def slateXY(xOperand: Double, yOperand: Double): GraphicSimple
+  override def slate(xOperand: Double, yOperand: Double): GraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -43,7 +43,7 @@ trait GraphicSimple extends Graphic2Elem
 /** Companion object for the [[GraphicSimple]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicSimple
 {
-  implicit val slateImplicit: SlateXY[GraphicSimple] = (obj: GraphicSimple, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[GraphicSimple] = (obj: GraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[GraphicSimple] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

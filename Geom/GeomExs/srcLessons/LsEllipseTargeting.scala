@@ -11,8 +11,8 @@ object LsEllipseTargeting extends LessonGraphics
 
   case class LsC3bCanv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   { val el = Ellipselign(200, 100)
-    val e1 = el.slateXY(-250, 150).fillActive(Green, "green")
-    val e2 = el.slateXY(250, 150).fillActive(Yellow, "yellow")
+    val e1 = el.slate(-250, 150).fillActive(Green, "green")
+    val e2 = el.slate(250, 150).fillActive(Yellow, "yellow")
 
     val rList: GraphicElems = RArr(e1, e2)
     val textPosn = 0 pp 0

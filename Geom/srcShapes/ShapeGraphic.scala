@@ -16,7 +16,7 @@ trait ShapeGraphic extends GraphicBounded
   final def svgInlineStr: String = svgInline.out(0, 150)
 
   /** Translate geometric transformation. */
-  def slateXY(xOperand: Double, yOperand: Double): ShapeGraphic
+  def slate(xOperand: Double, yOperand: Double): ShapeGraphic
 
   /** Translate geometric transformation. */
   //def slate(offset: Vec2Like): ShapeGraphic
@@ -54,7 +54,7 @@ object ShapeGraphic
     def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = ???
   }
   
-  implicit val slateImplicit: SlateXY[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[ShapeGraphic] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

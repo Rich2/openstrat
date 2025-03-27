@@ -14,7 +14,7 @@ trait Drawable extends Any with Geom2Elem
   }
 
   override def slate(offset: VecPt2): Drawable
-  override def slateXY(xOperand: Double, yOperand: Double): Drawable
+  override def slate(xOperand: Double, yOperand: Double): Drawable
   override def scale(operand: Double): Drawable
   override def negY: Drawable
   override def negX: Drawable
@@ -35,7 +35,7 @@ object Drawable
   implicit val slateEv: Slate[Drawable] = (obj: Drawable, operand: VecPt2) => obj.slate(operand)
 
   /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
-  implicit val slateXYEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** [[Scale]] type class instance / evidence for [[Drawable]]. */
   implicit val scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
@@ -81,7 +81,7 @@ trait Fillable extends Any with Drawable
 
   val fillerEv: Filling[Fillable, Graphic2Elem] = (obj, ff) => obj.fill(ff)
   override def slate(offset: VecPt2): Fillable
-  override def slateXY(xOperand: Double, yOperand: Double): Fillable
+  override def slate(xOperand: Double, yOperand: Double): Fillable
   override def scale(operand: Double): Fillable
   override def negY: Fillable
   override def negX: Fillable
@@ -101,7 +101,7 @@ object Fillable
   implicit val slateEv: Slate[Fillable] = (obj: Fillable, operand: VecPt2) => obj.slate(operand)
 
   /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
-  implicit val slateXYEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** [[Scale]] type class instance / evidence for [[Fillable]]. */
   implicit val scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)

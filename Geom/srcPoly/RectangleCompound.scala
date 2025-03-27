@@ -4,8 +4,8 @@ package ostrat; package geom
 /** A compound graphic for rectangles. */
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
 { /** Translate geometric transformation. */
-  override def slateXY(xOperand: Double, yOperand: Double): RectangleCompound =
-    RectangleCompound(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): RectangleCompound =
+    RectangleCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -43,8 +43,8 @@ object RectangleCompound
     override type ThisT = RectangleCompoundImp
 
     /** Translate geometric transformation. */
-    override def slateXY(xOperand: Double, yOperand: Double): RectangleCompoundImp =
-      RectangleCompoundImp(shape.slateXY(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+    override def slate(xOperand: Double, yOperand: Double): RectangleCompoundImp =
+      RectangleCompoundImp(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

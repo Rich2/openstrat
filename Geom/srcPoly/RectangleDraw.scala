@@ -5,7 +5,7 @@ import Colour.*, pgui.*
 /** Graphic that draws a rectangle. */
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 
 { override def slate(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slate(operand), lineWidth, lineColour)
-  override def slateXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slateXY(xOperand, yOperand), lineWidth, lineColour)  
+  override def slate(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)  
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
   override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)

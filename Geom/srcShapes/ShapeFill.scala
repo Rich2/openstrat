@@ -15,7 +15,7 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
   def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
 
   override def slate(offset: VecPt2): ShapeFill
-  override def slateXY(xDelta: Double, yDelta: Double): ShapeFill
+  override def slate(xDelta: Double, yDelta: Double): ShapeFill
   override def scale(operand: Double): ShapeFill
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill  
   override def negY: ShapeFill
@@ -35,7 +35,7 @@ object ShapeFill
   implicit val slateEv: Slate[ShapeFill] = (obj: ShapeFill, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val slateXYEv: SlateXY[ShapeFill] = (obj: ShapeFill, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[ShapeFill] = (obj: ShapeFill, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeFill]]. */
   implicit val scaleEv: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)

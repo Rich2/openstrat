@@ -10,7 +10,7 @@ final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends Can
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   override def slate(operand: VecPt2): ShapeGenFillOld = ShapeGenFillOld(shape.slate(operand), colour)
-  override def slateXY(xOperand: Double, yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateXY(xOperand, yOperand), colour)
+  override def slate(xOperand: Double, yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slate(xOperand, yOperand), colour)
   override def scale(operand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.scale(operand), colour)
   override def prolign(matrix: ProlignMatrix): ShapeGenFillOld = ShapeGenFillOld(shape.prolign(matrix), colour)
   override def rotate(angle: AngleVec): ShapeGenFillOld = ShapeGenFillOld(shape.rotate(angle), colour)

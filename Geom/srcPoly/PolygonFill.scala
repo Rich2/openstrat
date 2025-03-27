@@ -11,7 +11,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(lineWidth, newColour)
 
   override def slate(operand: VecPt2): PolygonFill = PolygonFill(shape.slate(operand), fillFacet)
-  override def slateXY(xDelta: Double, yDelta: Double): PolygonFill = PolygonFill(shape.slateXY(xDelta, yDelta), fillFacet)
+  override def slate(xDelta: Double, yDelta: Double): PolygonFill = PolygonFill(shape.slate(xDelta, yDelta), fillFacet)
   override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fillFacet)
   override def negY: PolygonFill = PolygonFill(shape.negY, fillFacet)
   override def negX: PolygonFill = PolygonFill(shape.negX, fillFacet)
@@ -33,7 +33,7 @@ object PolygonFill
   def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillImp(shape, fillFacet)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
-  implicit val slateImplicit: SlateXY[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slateXY(xDelta, yDelta)
+  implicit val slateImplicit: SlateXY[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slate(xDelta, yDelta)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: ScaleXY[PolygonFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)

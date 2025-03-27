@@ -28,7 +28,7 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[
   override def slate(delta: VecPt2): HexParrX = vertsTrans(_.slate(delta))
 
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
-  override def slateXY(xOperand: Double, yOperand: Double): HexParrX = vertsTrans(_.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): HexParrX = vertsTrans(_.addXY(xOperand, yOperand))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexXlign returning a HexXlign. */
   override def scale(operand: Double): HexParrX = vertsTrans(_.scale(operand))
@@ -84,7 +84,7 @@ object HexParrX
   /** [[Show]] and [[Unshow]] type class instances / evidence for [[HexParrX]]. */
   implicit val persistEv: Persist2Both[Double, Pt2, HexParrX] = Persist2Both[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
-  implicit val slateImplicit: SlateXY[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrX] = (obj, matrix) => obj.prolign(matrix)
 }

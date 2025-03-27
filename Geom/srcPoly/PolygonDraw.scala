@@ -6,7 +6,7 @@ import pgui._, Colour.Black
 trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
 { override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   override def slate(operand: VecPt2): PolygonDraw = PolygonDraw(shape.slate(operand), lineWidth, lineColour)
-  override def slateXY(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slateXY(xOperand, yOperand), lineWidth, lineColour)
+  override def slate(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand), lineWidth, lineColour)
   override def negY: PolygonDraw = PolygonDraw(shape.negY, lineWidth, lineColour)
   override def negX: PolygonDraw = PolygonDraw(shape.negX, lineWidth, lineColour)
@@ -29,7 +29,7 @@ object PolygonDraw
   implicit val slateEv: Slate[PolygonDraw] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[PolygonDraw]]. */
-  implicit val slateXYEv: SlateXY[PolygonDraw] = (obj: PolygonDraw, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateXYEv: SlateXY[PolygonDraw] = (obj: PolygonDraw, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonDraw]]. */
   implicit val scaleEv: Scale[PolygonDraw] = (obj: PolygonDraw, operand: Double) => obj.scale(operand)

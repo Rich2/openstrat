@@ -64,7 +64,7 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
 
   implicit val eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
 
-  implicit val slateImplicit: SlateXY[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2Arr] = (obj: Pt2Arr, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2Arr] = (obj, matrix) => obj.prolign(matrix)

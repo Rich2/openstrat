@@ -11,7 +11,7 @@ trait TextGraphic extends CanvElem{
   def textAlign: TextAlign
   def baseLine: BaseLine
 
-  override def slateXY(xOperand: Double, yOperand: Double): TextGraphic
+  override def slate(xOperand: Double, yOperand: Double): TextGraphic
   override def negY: TextGraphic
   def posn: Pt2 = Pt2(xPosn, yPosn)
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
@@ -51,7 +51,7 @@ TextGraphic
 { type ThisT = Textlign
 
   override def slate(operand: VecPt2): Textlign = copy(str, fontSize, xPosn + operand.x, yPosn + operand.y)
-  override def slateXY(xOperand: Double, yOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn + yOperand)
+  override def slate(xOperand: Double, yOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn + yOperand)
   override def scale(operand: Double): Textlign = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
   override def negY: Textlign = copy(str, fontSize, xPosn, -yPosn)
   override def negX: Textlign = copy(str, fontSize, -xPosn, yPosn)
