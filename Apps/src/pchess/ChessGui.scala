@@ -2,7 +2,7 @@
 package ostrat; package pchess
 import geom._, pgui._, Colour._, prid._, psq._
 
-case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui//("Chess")
+case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui
 {
   override def title: String = "Chess"
 

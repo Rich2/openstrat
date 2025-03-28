@@ -6,6 +6,7 @@ trait GraphicFacet extends Any
 { def attribs: RArr[XmlAtt]
 }
 
+/** A fill graphic. */
 trait FillFacet extends Any with GraphicFacet
 
 /** Starting off with simplified. Radial Gradient. Will expand later. */
@@ -13,6 +14,7 @@ case class FillRadial(cenColour: Colour, outerColour: Colour) extends FillFacet
 { override def attribs: RArr[XmlAtt] = RArr()
 }
 
+/** An interactive Shape that the user can interact with. */
 case class ShapeActive(id: Any) extends GraphicFacet
 { override def attribs: RArr[XmlAtt] = RArr()
 }
