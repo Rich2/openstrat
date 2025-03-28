@@ -62,10 +62,10 @@ object Square extends ShapeIcon
     new SquareImp(array)
   }
 
-  /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
-   * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
-   * its centre at the axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre.
-   * If you want to create a square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
+  /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
+   * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
+   * axes' centre. Otherwise, the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre. If you want to create a
+   * square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
   def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square = apply(width, rotation, xCen pp yCen)
 
   /** Scale the Square and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
