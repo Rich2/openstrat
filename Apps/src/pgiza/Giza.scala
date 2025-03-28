@@ -2,29 +2,11 @@
 package ostrat; package pgiza
 import geom.*, Colour.*
 
-case class CubitEg(cubitsNum: Double) extends AnyVal, LengthNotMetric
+trait Pyramid
 {
-  override def metresNum: Double = ???
-
-  override def toRectArea(operand: Length): Area = ???
-  override def +(operand: Length): Length = ???
-  override def -(operand: Length): Length = ???
-  override def unary_- : Length = ???
-  override def *(operand: Double): Length = ???
-
-  override def /(operand: Double): Length = ???
-
-  override def divByLength(operand: Length): Double = ???
-  override def pos: Boolean = ???
-  override def neg: Boolean = ???
-
-  override def nonNeg: Boolean = ???
-
-  override def compare(that: _root_.ostrat.geom.Length): Int = ???
-}
-
-trait Pyramid {
   def baseLen: Length
+  def sideLen: Length = baseLen / 4
+  def square = CircleLen2(sideLen / 2).fill(Wheat)
 }
 
 object GreatPyramid extends Pyramid

@@ -25,7 +25,7 @@ object CircleLen2
 
   /** Factory apply method for creating a circle with [[Length]] units. The first parameter gives the radius of the circle, followed by the X and Y centre
    * [[Length]] values. There is an apply method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. */
-  def apply(radius: Length, cen: PtLen2): CircleLen2 = new CircleLen2(radius, cen.x, cen.y)
+  def apply(radius: Length, cen: PtLen2 = PtM2.origin): CircleLen2 = new CircleLen2(radius, cen.x, cen.y)
 
   /** Factory method for creating a circle. The first parameter gives the diameter of the circle. The default centre is at the origin. There is a name
    * overload that takes the X and Y centre values as parameters. There are corresponding to apply methods that take a radius as the first parameter. */
