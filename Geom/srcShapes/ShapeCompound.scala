@@ -2,8 +2,9 @@
 package ostrat; package geom
 import ostrat.pWeb._
 
+/** Base trait for a compound shape graphic in various geometries */
 trait ShapeGeomlessCompound
-{
+{ /** Graphical facet such as fills, drawing lines and active. */
   def facets: RArr[GraphicFacet]
 }
 
@@ -20,6 +21,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: RArr[Graphic2Elem]
 
+  override def slate(operand: VecPt2): ShapeCompound
   override def slate(xOperand: Double, yOperand: Double): ShapeCompound
   override def scale(operand: Double): ShapeCompound
   override def negY: ShapeCompound
@@ -43,19 +45,30 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit val slateImplicit: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
+  /** Implicit [[Slate]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val slateEv: Slate[ShapeCompound] = (obj, operand) => obj.slate(operand)
 
-  implicit val reflectAxesImplicit: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
+  /** Implicit [[SlateXY]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val slateXYEv: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
+  
+  /** Implicit [[Scale]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val scaleEv: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
+  
+  /** Implicit [[Rotate]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val rotateEv: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
+  
+  /** Implicit [[TrabsAxes]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val transAxesEv: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
     override def rotate90(obj: ShapeCompound): ShapeCompound = obj.rotate90
     override def rotate180(obj: ShapeCompound): ShapeCompound = obj.rotate180
     override def rotate270(obj: ShapeCompound): ShapeCompound = obj.rotate270
   }
-
-  implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
+  
+  /** Implicit [[Prolign]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val prolignEv: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
 }
 
+/** A compound shape graphic specified in [[Length]] units. */
 trait ShapeLen2Compound extends ShapeGeomlessCompound, ShapeLen2Graphic

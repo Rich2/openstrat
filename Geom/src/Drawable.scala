@@ -60,11 +60,13 @@ object Drawable
     override def rotate180(obj: Drawable): Drawable = obj.rotate90
     override def rotate270(obj: Drawable): Drawable = obj.rotate90
   }
+  
   /** [[Shear]] type class instance / evidence for [[Drawable]]. */
   implicit val shearEv: Shear[Drawable] = new Shear[Drawable]
   { override def shearXT(obj: Drawable, yFactor: Double): Drawable = obj.shearX(yFactor)
     override def shearYT(obj: Drawable, xFactor: Double): Drawable = obj.shearY(xFactor)
   }
+  
   /** [[Drawing]] type class instance / evidence for [[Drawable]]. */
   implicit val drawTEv: Drawing[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
 }
@@ -77,9 +79,9 @@ trait Fillable extends Any with Drawable
   /** Returns a fill graphic of this geometric object from the Int RGBA value. */
   def fillInt(intValue: Int): Graphic2Elem
   
+  /** Graphically fill and draws this object. */
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
-
-  val fillerEv: Filling[Fillable, Graphic2Elem] = (obj, ff) => obj.fill(ff)
+  
   override def slate(offset: VecPt2): Fillable
   override def slate(xOperand: Double, yOperand: Double): Fillable
   override def scale(operand: Double): Fillable
@@ -205,17 +207,15 @@ object DrawableLen2
 
 /** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
 trait FillableLen2 extends DrawableLen2
-{
+{  /** Graphically fills this object. */
   def fill(fillFacet: FillFacet): GraphicLen2Elem
-  
+
+  /** Graphically fills and draws this object. */
   def fillDraw(fillFacet: FillFacet, lineColour: Colour = Black, lineWidth: Double = 2): GraphicLen2Elem
 
   override def slate(operand: VecPtLen2): FillableLen2
-
   override def slate(xOperand: Length, yOperand: Length): FillableLen2
-
   override def scale(operand: Double): FillableLen2
-  
 }
 
 object FillableLen2

@@ -2,6 +2,7 @@
 package ostrat; package geom
 import reflect.ClassTag
 
+/** A 2-dimensional geometrical object, specified in [[Length]] units. */
 trait GeomLen2Elem extends Any
 { /** Translate 2 [[Length]] dimension geometric transformation [[GeomLen2Elem]]. The Return type will be narrowed in sub traits. There is a name overload
    *  taking the X and Y Deltas as separate parameters, slateX and slateY methods are also available. */
