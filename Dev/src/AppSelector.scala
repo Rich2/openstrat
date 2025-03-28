@@ -57,4 +57,12 @@ object AppSelector
   def findCharsOrDefault(key: String, minChars: Int = 2): GuiLaunch = launchs.findChars(key, minChars).getOrElse(defaultApp)
 
   def findErrBiCharsOrDefault(eKey: ErrBi[?, String], minChars: Int = 2): GuiLaunch = eKey.flatOptMap(str => findChars(str, minChars)).getElse(defaultApp)
+
+  def eFindEither(eKey: ErrBi[?, String], minChars: Int = 2): Either[(CanvasPlatform => Any, String), GuiLaunch] =
+    eKey.fld(_ => Right(defaultApp), findEither(_, minChars))
+  
+  def findEither(key: String, minChars: Int = 2): Either[(CanvasPlatform => Any, String), GuiLaunch] = findChars(key, minChars) match
+    { case Some(gl) => Right(gl)
+      case None => ids.a1FindA2(key).fld(Right(defaultApp), Left(_))
+    }
 }

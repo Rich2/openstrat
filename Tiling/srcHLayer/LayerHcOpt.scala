@@ -451,7 +451,7 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   def findHCen(value: A)(implicit gridSys: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
-    gridSys.foreach{hc => res.replaceNone(ife(value == getex(hc), Some(hc), None)) }
+    gridSys.foreach{hc => res.orElse(ife(value == getex(hc), Some(hc), None)) }
     res
   }
 

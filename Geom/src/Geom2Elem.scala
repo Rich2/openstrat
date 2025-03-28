@@ -10,7 +10,7 @@ trait Geom2Elem extends Any
 { /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
    * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
    * These methods will be offered as extension methods using this method for their implementations. */
-  def slate(operand: VecPt2): Geom2Elem// = slateXY(operand.x, operand.y)
+  def slate(operand: VecPt2): Geom2Elem
 
   /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
    * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.

@@ -27,7 +27,8 @@ civ = 1;
 chess = {scen = 1 };
 
 /* Change the  number to change the app on next run.
-("L", learn.Lessons),
+launchs have their own settings:
+("L", learn.LessonsLaunch),
 ("PF", peri.PeriLaunch),
 ("DL", dless.DLessLaunch),
 ("W1", pww1.WW1Launch),
@@ -44,15 +45,18 @@ chess = {scen = 1 };
 ("DG", pDung.DungLaunch),
 ("IR", pind.IndRevLaunch),
 ("W2", pww2.WW2Launch),
-("DI", p1492.DiscLaunch),
+("DI", pdiscov.DiscovLaunch),
 ("SO", psors.SorsLaunch),
 ("CV", pCiv.CivLaunch),
 ("NM", pnorm.NormLaunch),
 ("Go", pgo.GoLaunch),
 ("CH", pchess.ChessLaunch),
 ("DR", pchess.pdraughts.DraughtsLaunch),
+("PL", pspace.PlanetLaunch),
 ("PA", ppart.PhysChemLaunch),
-("PL", (pspace.PlanetsGui(_), "JavaFx Planets")),
+("FL", pFlags.FlagsLaunch),
+
+ids: 
 ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
 ("Y1", (pZero.TessGui(_), "Tess")),
 ("Y8", (ColourGen(_), "JavaFx Some Colours")),
@@ -64,5 +68,4 @@ chess = {scen = 1 };
 ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
 ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
-
 */

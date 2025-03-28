@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 class CharExtensions(thisChar: Char)
@@ -12,14 +12,13 @@ class CharExtensions(thisChar: Char)
 
   /** Returns a [[String]] that repeats this [[Char]] the given parameter number of times. */
   def timesString(n: Int): String =
-  {
-    var acc = ""
+  { var acc = ""
     n.doTimes(() => acc += thisChar.toString)
     acc
   }
 
-  /** Returns a String. Replacing reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is
-   *  replaced by "&gt;". */
+  /** Returns a String. Replacing reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is replaced by
+   * "&gt;". */
   def htmlReservedSubstituion: String = thisChar match
   { case '&' => "&amp;"
     case '<' => "&lt;"
@@ -47,15 +46,15 @@ class OptionExtensions[A](thisOption: Option[A])
     case Some(a) => fSome(a)
   }
 
-  /** safe get. Seeks an implicit value for the [[GefaultValue]] type class for the type of the option. Returns the value if a some else returns the
-   * default value. */
+  /** safe get. Seeks an implicit value for the [[GefaultValue]] type class for the type of the option. Returns the value if a some else returns the default
+   * value. */
   def getSafe(implicit ev: DefaultValue[A]): A = thisOption match
   { case Some(a) => a
     case None => ev.default
   }
 
-  /** An alternative fold extension method for [[Option]] where it searches for an implicit instance of [[DefaultValue]][B] and uses the default value
-   *  in the case of None' */
+  /** An alternative fold extension method for [[Option]] where it searches for an implicit instance of [[DefaultValue]][B] and uses the default value in the
+   * case of [[None]]' */
   def defaultFold[B](fSome: A => B)(implicit ev: DefaultValue[B]): B = thisOption match
   { case None => ev.default
     case Some(a) => fSome(a)
@@ -71,15 +70,9 @@ class OptionExtensions[A](thisOption: Option[A])
   { case Some(a) => Succ(a)
     case None => Fail(NoneExc)
   }
-
-  /** Keeps the same value if [[Some]], lazily takes the parameter value if [[None]]. */
-  def replaceNone(newOption: => Option[A]) = thisOption match
-  { case None => newOption
-    case _ => this
-  }
   
   def flatMapErrBi[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[E | ExcNFT, B] = thisOption match
   { case Some(a) => f(a)
     case None => FailNotFound
-  }  
+  }
 }

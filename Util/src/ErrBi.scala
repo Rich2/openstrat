@@ -39,11 +39,15 @@ sealed trait ErrBi[+E <: Throwable, +A]
 
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
    * of primitive values. */
-  final def getElse(elseValue: A @uncheckedVariance): A = this match{
-    case Succ(a) => a
+  final def getElse(elseValue: A @uncheckedVariance): A = this match
+  { case Succ(a) => a
     case _ => elseValue
   }
 
+  def orElse[E2 <: Throwable](elseVal: => ErrBi[E2, A] @uncheckedVariance): ErrBi[E2, A] = this match
+  { case succ: Succ[A] => succ
+    case _ => elseVal
+  }
   /** Returns this if success, else returns the other [[ErrBi]]. */
   def succOrOther[EE >: E <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA] @uncheckedVariance): ErrBi[EE, AA]
 
