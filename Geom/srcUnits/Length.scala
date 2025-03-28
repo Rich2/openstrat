@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Measurment of length which can be defined in various units metric and non-metric. */
+/** Measurement of length which can be defined in various units metric and non-metric. */
 trait Length extends Any, Ordered[Length]
 { /** The number of metres in this [[Length]]. */
   def metresNum: Double
@@ -30,7 +30,7 @@ trait Length extends Any, Ordered[Length]
   /** The number of picometres in this [[Length]]. */
   def picometresNum: Double
 
-  /** The number of femtoometres in this [[Length]]. */
+  /** The number of femtometres in this [[Length]]. */
   def femtometresNum: Double
 
   /** The negative of this [[Length]] */
@@ -76,4 +76,16 @@ object Length
     /** Convenience extension operator to divide by a [[Length]] to return a scalar. Defers to the divByLength class method. */
     def / (operand: Length): Double = thisLength.divByLength(operand)
   }
+}
+
+trait LengthNotMetric extends Any, Length
+{ @inline override def kilometresNum: Double = metresNum * 1e-3
+  @inline override def megametresNum: Double = metresNum * 1e-6
+  @inline override def gigametresNum: Double = metresNum * 1e-9
+  @inline override def millimetresNum: Double = metresNum * 1e3
+  @inline override def micrometresNum: Double = metresNum * 1e6
+  @inline override def nanometresNum: Double = metresNum * 1e9
+  @inline override def angstromsNum: Double = metresNum * 1e10
+  @inline override def picometresNum: Double = metresNum * 1e12
+  @inline override def femtometresNum: Double = metresNum * 1e15
 }

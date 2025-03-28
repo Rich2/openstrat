@@ -4,7 +4,7 @@ package ostrat; package geom; package impunits
 /** British Imperial system of measurement units. */
 trait ImperialUnits extends Any
 
-trait LengthImperial extends Any with Length with ImperialUnits
+trait LengthImperial extends Any with LengthNotMetric with ImperialUnits
 { /** The number of yards in this length */
   def yardsNum: Double
 
@@ -21,15 +21,6 @@ trait LengthImperial extends Any with Length with ImperialUnits
   override def /(operand: Double): LengthImperial
   override def unary_- : LengthImperial
   @inline override def metresNum: Double = yardsNum * Yards.toMetres
-  @inline override def kilometresNum: Double = metresNum * 1e-3
-  @inline override def megametresNum: Double = metresNum * 1e-6
-  @inline override def gigametresNum: Double = metresNum / 1e-9
-  @inline override def millimetresNum: Double = metresNum * 1e3
-  @inline override def micrometresNum: Double = metresNum * 1e6
-  @inline override def nanometresNum: Double = metresNum * 1e9
-  @inline override def angstromsNum: Double = metresNum * 1e10
-  @inline override def picometresNum: Double = metresNum * 1e12
-  @inline override def femtometresNum: Double = metresNum * 1e15
 }
 
 /** [[Length]] measured in yards. Can be negative. */

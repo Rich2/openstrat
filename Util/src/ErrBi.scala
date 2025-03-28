@@ -44,6 +44,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
     case _ => elseValue
   }
 
+  /** Returns this [[ErrBi]] if it is a [[Succ]] else returns the parameter [[ErrBi]], which may be a [[Succ]] or [[Fail]]. */
   def orElse[E2 <: Throwable](elseVal: => ErrBi[E2, A] @uncheckedVariance): ErrBi[E2, A] = this match
   { case succ: Succ[A] => succ
     case _ => elseVal
