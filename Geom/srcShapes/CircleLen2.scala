@@ -32,7 +32,7 @@ object CircleLen2
   def d(diameter: Length, cenX: Length, cenY: Length): CircleLen2 = new CircleLen2(diameter / 2, cenX, cenY)
 
   /** Factory method for creating a circle with [[Length]] units. The first parameter gives the diameter of the circle, followed by the X and Y centre values.
-   * There is a method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. There are corresponding apply methods
+   * There is a method name overload that takes a [[PtLen2]] as a second parameter with a default value of the origin. There are corresponding to apply methods
    * that take a radius as the first parameter. */
   def d(diameter: Length, cen: PtLen2): CircleLen2 = new CircleLen2(diameter / 2, cen.x, cen.y)
 }
