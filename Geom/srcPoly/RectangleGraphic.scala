@@ -86,7 +86,6 @@ object RectangleFill
   case class RectangleFillImp(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
 }
 
-
 /** A compound graphic for rectangles. */
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
 {
@@ -108,10 +107,11 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 /** Companion object for RectangleCompound. Contains the [[RectangleCompound.RectangleCompoundImp]] implementation class for the general case of Rectangles and
  * an apply factor method that delegates to it. */
 object RectangleCompound
-{
+{ /** Factory apply method to construct a [[RectangleCompound]]. */
   def apply(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) : RectangleCompound =
     new RectangleCompoundImp(shape, facets, children)
 
+  /** Implementation class for the general case of [[RectangleCompound]]. */
   case class RectangleCompoundImp(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectangleCompound, AxisFree
   { override type ThisT = RectangleCompoundImp
     override def slate(operand: VecPt2): RectangleCompoundImp = RectangleCompoundImp(shape.slate(operand), facets, children.slate(operand))
