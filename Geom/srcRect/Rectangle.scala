@@ -45,40 +45,25 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   def diag2: LineSeg = LineSeg(v3, v1)
   @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
 
-  /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: VecPt2): Rectangle = vertsTrans(_.slate(offset))
-
-  /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xySlate(xOperand, yOperand))
-
-  /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
-
+  override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)
   override def prolign(matrix: ProlignMatrix): Rectangle = vertsTrans(_.prolign(matrix))
-
   override def rotate90: Rectangle = vertsTrans(_.rotate90)
   override def rotate180: Rectangle = vertsTrans(_.rotate180)
   override def rotate270: Rectangle = vertsTrans(_.rotate270)
-
   override def reflect(lineLike: LineLike): Rectangle = vertsTrans(_.reflect(lineLike))
-
   override def rotate(angle: AngleVec): Rectangle = vertsTrans(_.rotate(angle))
-
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 }
 
-/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
- *  contains various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
+/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also contains
+ * various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
 object Rectangle
-{
-  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the
-   * the centre point is the origin. */
+{  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the the centre
+   * point is the origin. */
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
   { val rtVec = rotation.toVec(width / 2)
     val upVec = (rotation + 90.degsVec).toVec(height / 2)
