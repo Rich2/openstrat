@@ -4,17 +4,25 @@ import Colour.*, pgui.*
 
 trait RectangleGraphic extends PolygonGraphic with ShapeGraphicCentred
 { override def shape: Rectangle
+  override def slate(operand: VecPt2): RectangleGraphic
+  override def slate(xOperand: Double, yOperand: Double): RectangleGraphic
 }
 
 trait RectangleGraphicSimple extends PolygonGraphicSimple with RectangleGraphic
+{ override def slate(operand: VecPt2): _root_.ostrat.geom.RectangleGraphicSimple
+  override def slate(xOperand: Double, yOperand: Double): RectangleGraphicSimple
+  override def scale(operand: Double): RectangleGraphicSimple
+  override def negX: RectangleGraphicSimple
+  override def negY: RectangleGraphicSimple
+}
 
 /** Graphic that draws a rectangle. */
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
-  override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
+  override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
   override def rotate90: RectangleDraw = ???
   override def rotate180: RectangleDraw = ???
   override def rotate270: RectangleDraw = ???

@@ -2,6 +2,5 @@
 package ostrat; package geom
 
 trait SquareGraphic extends RectangleGraphic
-{
-
+{ override def shape: Square
 }
