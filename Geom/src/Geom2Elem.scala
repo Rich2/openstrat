@@ -26,10 +26,7 @@ trait Geom2Elem extends Any
   
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
   def negY: Geom2Elem  
-
-  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in subclasses / traits. */
-  def prolign(matrix: ProlignMatrix): Geom2Elem
-
+  
   /** Rotation positive or anti-clockwise 90 degrees, 2D geometric transformation on a GeomElem, returns a GeomElem. The return type will be narrowed in
    * subclasses and traits. */
   def rotate90: Geom2Elem
@@ -40,6 +37,9 @@ trait Geom2Elem extends Any
   /** Rotation positive or anti-clockwise 270 degrees, 2D geometric transformation on a GeomElem, returns a GeomElem. The return type will be narrowed in
    * subclasses and traits. */
   def rotate270: Geom2Elem
+
+  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in subclasses / traits. */
+  def prolign(matrix: ProlignMatrix): Geom2Elem
 
   /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   def rotate(angle: AngleVec): Geom2Elem

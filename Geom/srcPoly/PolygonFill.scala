@@ -15,22 +15,22 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def scale(operand: Double): PolygonFill
   override def negX: PolygonFill
   override def negY: PolygonFill
-  override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fillFacet)
-  override def rotate(angle: AngleVec): PolygonFill = PolygonFill(shape.rotate(angle), fillFacet)
   override def rotate90: PolygonFill
   override def rotate180: PolygonFill
   override def rotate270: PolygonFill
+  override def prolign(matrix: ProlignMatrix): PolygonFill
+  override def rotate(angle: AngleVec): PolygonFill
+  override def reflect(lineLike: LineLike): PolygonFill
   override def shearX(operand: Double): PolygonFill
   override def shearY(operand: Double): PolygonFill
-  override def reflect(lineLike: LineLike): PolygonFill = ???
-  override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill
 }
 
-/** Companion object for PolygonFill trait. Contains an implementation class [[PolygonFillImp]], a factory method returning the PolygonFill type and
- * implicit instances for the 2D geometric transformation type classes. */
+/** Companion object for PolygonFill trait. Contains an implementation class [[PolygonFillGen]], a factory method returning the PolygonFill type and implicit
+ * instances for the 2D geometric transformation type classes. */
 object PolygonFill
 {
-  def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillImp(shape, fillFacet)
+  def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillGen(shape, fillFacet)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
   implicit val slateImplicit: SlateXY[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slate(xDelta, yDelta)
@@ -52,17 +52,21 @@ object PolygonFill
    * @constructor create a new PolygonFill with the underlying polygon and a colour.
    * @param shape The Polygon shape.
    * @param colour The colour of this graphic. */
-  final case class PolygonFillImp(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
-  { override def slate(operand: VecPt2): PolygonFill = PolygonFillImp(shape.slate(operand), fillFacet)
-    override def slate(xDelta: Double, yDelta: Double): PolygonFillImp = PolygonFillImp(shape.slate(xDelta, yDelta), fillFacet)
-    override def scale(operand: Double): PolygonFillImp = PolygonFillImp(shape.scale(operand), fillFacet)
-    override def negY: PolygonFillImp = PolygonFillImp(shape.negY, fillFacet)
-    override def negX: PolygonFillImp = PolygonFillImp(shape.negX, fillFacet)
-    override def rotate90: PolygonFillImp = PolygonFillImp(shape.rotate90, fillFacet)
-    override def rotate180: PolygonFillImp = PolygonFillImp(shape.rotate180, fillFacet)
-    override def rotate270: PolygonFill = PolygonFillImp(shape.rotate270, fillFacet)
-    override def shearX(operand: Double): PolygonFillImp = PolygonFillImp(shape.shearX(operand), fillFacet)
-    override def shearY(operand: Double): PolygonFillImp = PolygonFillImp(shape.shearY(operand), fillFacet)
+  final case class PolygonFillGen(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
+  { override def slate(operand: VecPt2): PolygonFill = PolygonFillGen(shape.slate(operand), fillFacet)
+    override def slate(xDelta: Double, yDelta: Double): PolygonFillGen = PolygonFillGen(shape.slate(xDelta, yDelta), fillFacet)
+    override def scale(operand: Double): PolygonFillGen = PolygonFillGen(shape.scale(operand), fillFacet)
+    override def negY: PolygonFillGen = PolygonFillGen(shape.negY, fillFacet)
+    override def negX: PolygonFillGen = PolygonFillGen(shape.negX, fillFacet)
+    override def rotate90: PolygonFillGen = PolygonFillGen(shape.rotate90, fillFacet)
+    override def rotate180: PolygonFillGen = PolygonFillGen(shape.rotate180, fillFacet)
+    override def rotate270: PolygonFill = PolygonFillGen(shape.rotate270, fillFacet)
+    override def prolign(matrix: ProlignMatrix): PolygonFillGen = PolygonFillGen(shape.prolign(matrix), fillFacet)
+    override def rotate(angle: AngleVec): PolygonFillGen = PolygonFillGen(shape.rotate(angle), fillFacet)
+    override def reflect(lineLike: LineLike): PolygonFillGen = PolygonFillGen(shape.reflect(lineLike), fillFacet)
+    override def shearX(operand: Double): PolygonFillGen = PolygonFillGen(shape.shearX(operand), fillFacet)
+    override def shearY(operand: Double): PolygonFillGen = PolygonFillGen(shape.shearY(operand), fillFacet)
+    override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill = PolygonFillGen(shape.scaleXY(xOperand, yOperand), fillFacet)
     override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): PolygonDraw = shape.draw(lineWidth, newColour)
   }
 }

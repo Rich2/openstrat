@@ -58,19 +58,19 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def rotate90: RectangleFill
   override def rotate180: RectangleFill
   override def rotate270: RectangleFill
-  override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fillFacet)
-  override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
+  override def prolign(matrix: ProlignMatrix): RectangleFill
+  override def rotate(angle: AngleVec): RectangleFill
+  override def reflect(lineLike: LineLike): RectangleFill
   override def shearX(operand: Double): PolygonFill = PolygonFill(shape.shearX(operand), fillFacet)
-  override def shearY(operand: Double): PolygonFill = PolygonFill(shape.shearY(operand), fillFacet)
-  override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
+  override def shearY(operand: Double): PolygonFill = PolygonFill(shape.shearY(operand), fillFacet)  
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fillFacet)
 }
 
-/** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates to it. It
+/** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillGen]] and an apply factor method that delegates to it. It
  * also contains implicit instances for 2D geometric transformations. */
 object RectangleFill
 { /** Factory apply method to construct a [[RectangleFill]] graphic element. */
-  def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillImp(shape, fillFacet)
+  def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillGen(shape, fillFacet)
 
   /** Implicit [[Slate]] type class instance / evidence for [[RectangleFill]]. */
   implicit val slateEv: Slate[RectangleFill] = (obj, operand) => obj.slate(operand)
@@ -97,15 +97,18 @@ object RectangleFill
   }
   
   /** Implementation class for the general case of a [[RectangleFill]]. */
-  case class RectangleFillImp(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
-  { override def slate(operand: VecPt2): RectangleFillImp = RectangleFillImp(shape.slate(operand), fillFacet)
-    override def slate(xDelta: Double, yDelta: Double): RectangleFillImp = RectangleFillImp(shape.slate(xDelta, yDelta), fillFacet)
-    override def scale(operand: Double): RectangleFillImp = RectangleFillImp(shape.scale(operand), fillFacet)
-    override def negX: RectangleFillImp = RectangleFillImp(shape.negX, fillFacet)
-    override def negY: RectangleFillImp = RectangleFillImp(shape.negY, fillFacet)
-    override def rotate90: RectangleFillImp = RectangleFillImp(shape.rotate90, fillFacet)
-    override def rotate180: RectangleFillImp = RectangleFillImp(shape.rotate180, fillFacet)
-    override def rotate270: RectangleFillImp = RectangleFillImp(shape.rotate270, fillFacet)
+  case class RectangleFillGen(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
+  { override def slate(operand: VecPt2): RectangleFillGen = RectangleFillGen(shape.slate(operand), fillFacet)
+    override def slate(xDelta: Double, yDelta: Double): RectangleFillGen = RectangleFillGen(shape.slate(xDelta, yDelta), fillFacet)
+    override def scale(operand: Double): RectangleFillGen = RectangleFillGen(shape.scale(operand), fillFacet)
+    override def negX: RectangleFillGen = RectangleFillGen(shape.negX, fillFacet)
+    override def negY: RectangleFillGen = RectangleFillGen(shape.negY, fillFacet)
+    override def rotate90: RectangleFillGen = RectangleFillGen(shape.rotate90, fillFacet)
+    override def rotate180: RectangleFillGen = RectangleFillGen(shape.rotate180, fillFacet)
+    override def rotate270: RectangleFillGen = RectangleFillGen(shape.rotate270, fillFacet)
+    override def prolign(matrix: ProlignMatrix): RectangleFillGen = RectangleFillGen(shape.prolign(matrix), fillFacet)
+    override def rotate(angle: AngleVec): RectangleFillGen = RectangleFillGen(shape.rotate(angle), fillFacet)
+    override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
   }
 }
 

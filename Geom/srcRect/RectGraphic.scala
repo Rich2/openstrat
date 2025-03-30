@@ -21,6 +21,10 @@ trait RectFill extends RectGraphicSimple with RectangleFill
   override def scale(operand: Double): RectFill
   override def negX: RectFill
   override def negY: RectFill
+  override def rotate90: RectFill
+  override def rotate180: RectFill
+  override def rotate270: RectFill
+  override def prolign(matrix: ProlignMatrix): RectFill
 }
 
 /** Companion object for the RectFill trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
@@ -40,6 +44,9 @@ object RectFill
     override def rotate90: RectFillImp = RectFillImp(shape.rotate90, fillFacet)
     override def rotate180: RectFillImp = RectFillImp(shape.rotate180, fillFacet)
     override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
+    override def prolign(matrix: ProlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
+    override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
+    override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
   }
 }
 

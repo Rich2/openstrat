@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
@@ -10,32 +10,18 @@ trait Triangle extends Polygon3Plus
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
 	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))
 
-	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(offset: VecPt2): Triangle = vertsTrans(_.slate(offset))
-
-	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.addXY(xOperand, yOperand))
-
-	/** Uniform scaling 2D geometric transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
-	 *  Circles and Squares. Use the xyScale method for differential scaling. */
 	override def scale(operand: Double): Triangle = vertsTrans(_.scale(operand))
-
-	/** Mirror, reflection transformation across the Y axis on a triangle returns a triangle.The return type is narrowed in sub classes. */
-	override def negY: Triangle = vertsTrans(_.negY)
-
-	/** Mirror, reflection transformation across the X axis on a triangle, returns a triangle. The rturn type to be narrowed sub classes. */
 	override def negX: Triangle = vertsTrans(_.negX)
-
-	override def prolign(matrix: ProlignMatrix): Triangle = vertsTrans(_.prolign(matrix))
-
-	override def reflect(lineLike: LineLike): Triangle = vertsTrans(_.reflect(lineLike))
-
+	override def negY: Triangle = vertsTrans(_.negY)
 	override def rotate90: Triangle = vertsTrans(_.rotate90)
 	override def rotate180: Triangle = vertsTrans(_.rotate180)
 	override def rotate270: Triangle = vertsTrans(_.rotate180)
-
+	override def prolign(matrix: ProlignMatrix): Triangle = vertsTrans(_.prolign(matrix))
+	override def reflect(lineLike: LineLike): Triangle = vertsTrans(_.reflect(lineLike))
+	override def rotate(angle: AngleVec): Triangle = vertsTrans(_.rotate(angle))
 	override def scaleXY(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.xyScale(xOperand, yOperand))
-
 	override def shearX(operand: Double): Triangle = vertsTrans(_.xShear(operand))
 	override def shearY(operand: Double): Triangle = vertsTrans(_.yShear(operand))
 

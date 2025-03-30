@@ -13,10 +13,10 @@ trait Graphic2Elem extends Geom2Elem
   override def scale(operand: Double): Graphic2Elem
   override def negX: Graphic2Elem
   override def negY: Graphic2Elem
-  override def prolign(matrix: ProlignMatrix): Graphic2Elem
   override def rotate90: Graphic2Elem
   override def rotate180: Graphic2Elem  
   override def rotate270: Graphic2Elem
+  override def prolign(matrix: ProlignMatrix): Graphic2Elem
   override def rotate(angle: AngleVec): Graphic2Elem
   override def reflect(lineLike: LineLike): Graphic2Elem
   override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
