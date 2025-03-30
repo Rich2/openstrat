@@ -17,9 +17,9 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def negY: PolygonFill
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fillFacet)
   override def rotate(angle: AngleVec): PolygonFill = PolygonFill(shape.rotate(angle), fillFacet)
-  override def rotate90: PolygonFill = ???
-  override def rotate180: PolygonFill = ???
-  override def rotate270: PolygonFill = ???
+  override def rotate90: PolygonFill
+  override def rotate180: PolygonFill
+  override def rotate270: PolygonFill
   override def shearX(operand: Double): PolygonFill = ???
   override def shearY(operand: Double): PolygonFill = ???
   override def reflect(lineLike: LineLike): PolygonFill = ???
@@ -58,6 +58,9 @@ object PolygonFill
     override def scale(operand: Double): PolygonFillImp = PolygonFillImp(shape.scale(operand), fillFacet)
     override def negY: PolygonFillImp = PolygonFillImp(shape.negY, fillFacet)
     override def negX: PolygonFillImp = PolygonFillImp(shape.negX, fillFacet)
+    override def rotate90: PolygonFillImp = PolygonFillImp(shape.rotate90, fillFacet)
+    override def rotate180: PolygonFillImp = PolygonFillImp(shape.rotate180, fillFacet)
+    override def rotate270: PolygonFill = PolygonFillImp(shape.rotate270, fillFacet)
     override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): PolygonDraw = shape.draw(lineWidth, newColour)
   }
 }

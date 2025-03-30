@@ -55,9 +55,9 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def scale(operand: Double): RectangleFill
   override def negY: RectangleFill
   override def negX: RectangleFill
-  override def rotate90: RectangleFill = RectangleFill(shape.rotate90, fillFacet)
-  override def rotate180: RectangleFill = RectangleFill(shape.rotate180, fillFacet)
-  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, fillFacet)
+  override def rotate90: RectangleFill
+  override def rotate180: RectangleFill
+  override def rotate270: RectangleFill
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fillFacet)
   override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
@@ -99,8 +99,11 @@ object RectangleFill
   { override def slate(operand: VecPt2): RectangleFillImp = RectangleFillImp(shape.slate(operand), fillFacet)
     override def slate(xDelta: Double, yDelta: Double): RectangleFillImp = RectangleFillImp(shape.slate(xDelta, yDelta), fillFacet)
     override def scale(operand: Double): RectangleFillImp = RectangleFillImp(shape.scale(operand), fillFacet)
-    override def negY: RectangleFillImp = RectangleFillImp(shape.negY, fillFacet)
     override def negX: RectangleFillImp = RectangleFillImp(shape.negX, fillFacet)
+    override def negY: RectangleFillImp = RectangleFillImp(shape.negY, fillFacet)
+    override def rotate90: RectangleFillImp = RectangleFillImp(shape.rotate90, fillFacet)
+    override def rotate180: RectangleFillImp = RectangleFillImp(shape.rotate180, fillFacet)
+    override def rotate270: RectangleFillImp = RectangleFillImp(shape.rotate270, fillFacet)
   }
 }
 

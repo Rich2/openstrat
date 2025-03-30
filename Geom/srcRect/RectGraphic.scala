@@ -37,6 +37,9 @@ object RectFill
     override def scale(operand: Double): RectFillImp = RectFillImp(shape.scale(operand), fillFacet)
     override def negX: RectFillImp = RectFillImp(shape.negX, fillFacet)
     override def negY: RectFillImp = RectFillImp(shape.negY, fillFacet)
+    override def rotate90: RectFillImp = RectFillImp(shape.rotate90, fillFacet)
+    override def rotate180: RectFillImp = RectFillImp(shape.rotate180, fillFacet)
+    override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
   }
 }
 
