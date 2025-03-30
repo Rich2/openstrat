@@ -18,4 +18,6 @@ case class TriangleFill(shape: Triangle, fillFacet: FillFacet) extends TriangleG
   override def rotate90: TriangleFill = TriangleFill(shape.rotate90, fillFacet)
   override def rotate180: TriangleFill = TriangleFill(shape.rotate180, fillFacet)
   override def rotate270: TriangleFill = TriangleFill(shape.rotate180, fillFacet)
+  override def shearX(operand: Double): TriangleFill = TriangleFill(shape.shearX(operand), fillFacet)
+  override def shearY(operand: Double): TriangleFill = TriangleFill(shape.shearY(operand), fillFacet)
 }

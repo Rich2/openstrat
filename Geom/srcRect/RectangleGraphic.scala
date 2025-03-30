@@ -60,6 +60,8 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def rotate270: RectangleFill
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fillFacet)
   override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
+  override def shearX(operand: Double): PolygonFill = PolygonFill(shape.shearX(operand), fillFacet)
+  override def shearY(operand: Double): PolygonFill = PolygonFill(shape.shearY(operand), fillFacet)
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fillFacet)
 }
