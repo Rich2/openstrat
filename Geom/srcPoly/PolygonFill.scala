@@ -10,7 +10,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(lineWidth, newColour)
 
-  override def slate(operand: VecPt2): PolygonFill = PolygonFill(shape.slate(operand), fillFacet)
+  override def slate(operand: VecPt2): PolygonFill// = PolygonFill(shape.slate(operand), fillFacet)
   override def slate(xDelta: Double, yDelta: Double): PolygonFill = PolygonFill(shape.slate(xDelta, yDelta), fillFacet)
   override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fillFacet)
   override def negY: PolygonFill = PolygonFill(shape.negY, fillFacet)
@@ -54,6 +54,7 @@ object PolygonFill
    * @param colour The colour of this graphic. */
   final case class PolygonFillImp(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
   {
+    override def slate(operand: VecPt2): PolygonFill = PolygonFillImp(shape.slate(operand), fillFacet)
     // override def fTrans(f: Vec2 => Vec2): PolygonFillImp = PolygonFillImp(shape.fTrans(f), colour)
 
     //override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)

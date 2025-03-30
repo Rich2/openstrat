@@ -24,6 +24,9 @@ object RectFill
 
   /** An implementation class for a [[RectFill]] that is not specified as a [[SquareFill]]. */
   case class RectFillImp(shape: Rect, fillFacet: FillFacet) extends RectFill
+  {
+    override def slate(operand: VecPt2): RectFillImp = RectFillImp(shape.slate(operand), fillFacet)
+  }
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
