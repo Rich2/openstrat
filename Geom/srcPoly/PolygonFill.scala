@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._
+import pgui.*, Colour.Black
 
 /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
  * PolygonFill will be returned. */
@@ -10,11 +10,11 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(lineWidth, newColour)
 
-  override def slate(operand: VecPt2): PolygonFill// = PolygonFill(shape.slate(operand), fillFacet)
-  override def slate(xDelta: Double, yDelta: Double): PolygonFill = PolygonFill(shape.slate(xDelta, yDelta), fillFacet)
-  override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fillFacet)
-  override def negY: PolygonFill = PolygonFill(shape.negY, fillFacet)
-  override def negX: PolygonFill = PolygonFill(shape.negX, fillFacet)
+  override def slate(operand: VecPt2): PolygonFill
+  override def slate(xDelta: Double, yDelta: Double): PolygonFill
+  override def scale(operand: Double): PolygonFill
+  override def negX: PolygonFill
+  override def negY: PolygonFill
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fillFacet)
   override def rotate(angle: AngleVec): PolygonFill = PolygonFill(shape.rotate(angle), fillFacet)
   override def rotate90: PolygonFill = ???
@@ -47,16 +47,17 @@ object PolygonFill
     override def rotate270(obj: PolygonFill): PolygonFill = obj.rotate90
   }
 
-  /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
-   * PolygonFill will be returned.
+  /** Immutable Graphic element that defines and fills a Polygon. This element can be transformed through all the Affine transformations and a [[PolygonFill]]
+   * will be returned.
    * @constructor create a new PolygonFill with the underlying polygon and a colour.
    * @param shape The Polygon shape.
    * @param colour The colour of this graphic. */
   final case class PolygonFillImp(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
-  {
-    override def slate(operand: VecPt2): PolygonFill = PolygonFillImp(shape.slate(operand), fillFacet)
-    // override def fTrans(f: Vec2 => Vec2): PolygonFillImp = PolygonFillImp(shape.fTrans(f), colour)
-
-    //override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
+  { override def slate(operand: VecPt2): PolygonFill = PolygonFillImp(shape.slate(operand), fillFacet)
+    override def slate(xDelta: Double, yDelta: Double): PolygonFillImp = PolygonFillImp(shape.slate(xDelta, yDelta), fillFacet)
+    override def scale(operand: Double): PolygonFillImp = PolygonFillImp(shape.scale(operand), fillFacet)
+    override def negY: PolygonFillImp = PolygonFillImp(shape.negY, fillFacet)
+    override def negX: PolygonFillImp = PolygonFillImp(shape.negX, fillFacet)
+    override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): PolygonDraw = shape.draw(lineWidth, newColour)
   }
 }

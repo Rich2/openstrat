@@ -21,11 +21,11 @@ trait Geom2Elem extends Any
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): Geom2Elem
 
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  def negY: Geom2Elem
-
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
   def negX: Geom2Elem
+  
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  def negY: Geom2Elem  
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in subclasses / traits. */
   def prolign(matrix: ProlignMatrix): Geom2Elem

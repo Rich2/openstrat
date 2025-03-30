@@ -15,6 +15,13 @@ trait RectGraphicSimple extends RectGraphic with RectangleGraphicSimple
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
 trait RectFill extends RectGraphicSimple with RectangleFill
+{ type ThisT <: RectFill
+  override def slate(operand: VecPt2): RectFill
+  override def slate(xDelta: Double, yDelta: Double): RectFill
+  override def scale(operand: Double): RectFill
+  override def negX: RectFill
+  override def negY: RectFill
+}
 
 /** Companion object for the RectFill trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
 object RectFill
@@ -24,8 +31,12 @@ object RectFill
 
   /** An implementation class for a [[RectFill]] that is not specified as a [[SquareFill]]. */
   case class RectFillImp(shape: Rect, fillFacet: FillFacet) extends RectFill
-  {
+  { override type ThisT = RectFillImp
     override def slate(operand: VecPt2): RectFillImp = RectFillImp(shape.slate(operand), fillFacet)
+    override def slate(xDelta: Double, yDelta: Double): RectFillImp = RectFillImp(shape.slate(xDelta, yDelta), fillFacet)
+    override def scale(operand: Double): RectFillImp = RectFillImp(shape.scale(operand), fillFacet)
+    override def negX: RectFillImp = RectFillImp(shape.negX, fillFacet)
+    override def negY: RectFillImp = RectFillImp(shape.negY, fillFacet)
   }
 }
 

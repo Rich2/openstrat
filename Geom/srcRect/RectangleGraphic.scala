@@ -50,11 +50,11 @@ object RectangleDraw
 
 /** Graphic to fill a Rectangle with a single colour. */
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
-{ override def slate(operand: VecPt2): RectangleFill// = RectangleFill(shape.slate(operand), fillFacet)
-  override def slate(xDelta: Double, yDelta: Double): RectangleFill = RectangleFill(shape.slate(xDelta, yDelta), fillFacet)
-  override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), fillFacet)
-  override def negY: RectangleFill = RectangleFill(shape.negY, fillFacet)
-  override def negX: RectangleFill = RectangleFill(shape.negX, fillFacet)
+{ override def slate(operand: VecPt2): RectangleFill
+  override def slate(xDelta: Double, yDelta: Double): RectangleFill
+  override def scale(operand: Double): RectangleFill
+  override def negY: RectangleFill
+  override def negX: RectangleFill
   override def rotate90: RectangleFill = RectangleFill(shape.rotate90, fillFacet)
   override def rotate180: RectangleFill = RectangleFill(shape.rotate180, fillFacet)
   override def rotate270: RectangleFill = RectangleFill(shape.rotate270, fillFacet)
@@ -96,8 +96,11 @@ object RectangleFill
   
   /** Implementation class for the general case of a [[RectangleFill]]. */
   case class RectangleFillImp(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
-  {
-    override def slate(operand: VecPt2): RectangleFillImp = RectangleFillImp(shape.slate(operand), fillFacet)
+  { override def slate(operand: VecPt2): RectangleFillImp = RectangleFillImp(shape.slate(operand), fillFacet)
+    override def slate(xDelta: Double, yDelta: Double): RectangleFillImp = RectangleFillImp(shape.slate(xDelta, yDelta), fillFacet)
+    override def scale(operand: Double): RectangleFillImp = RectangleFillImp(shape.scale(operand), fillFacet)
+    override def negY: RectangleFillImp = RectangleFillImp(shape.negY, fillFacet)
+    override def negX: RectangleFillImp = RectangleFillImp(shape.negX, fillFacet)
   }
 }
 

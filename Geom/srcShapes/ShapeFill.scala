@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
+import pWeb.*, Colour.Black
 
 /** Base [[ShapeFill]] trait for multiple geometries. */
 trait ShapeGeomlessFill
@@ -12,7 +12,8 @@ trait ShapeGeomlessFill
 trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
 { override def nonShapeAttribs: RArr[XmlAtt] = fillFacet.attribs// Arr(fillAttrib)
 
-  def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
+  /** Converts this fill graphic into a draw. */
+  def toDraw(lineWidth: Double = 2, newColour: Colour = Black): ShapeDraw
 
   override def slate(offset: VecPt2): ShapeFill
   override def slate(xDelta: Double, yDelta: Double): ShapeFill
