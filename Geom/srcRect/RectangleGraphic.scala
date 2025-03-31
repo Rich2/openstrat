@@ -114,8 +114,7 @@ object RectangleFill
 
 /** A compound graphic for rectangles. */
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
-{
-  override def slate(operand: VecPt2): RectangleCompound = RectangleCompound(shape.slate(operand), facets, children.slate(operand))
+{ override def slate(operand: VecPt2): RectangleCompound = RectangleCompound(shape.slate(operand), facets, children.slate(operand))
   
   override def slate(xOperand: Double, yOperand: Double): RectangleCompound =
     RectangleCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
@@ -128,6 +127,8 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
   override def rotate(angle: AngleVec): RectangleCompound = RectangleCompound(shape.rotate(angle), facets, children.rotate(angle))
   override def reflect(lineLike: LineLike): RectangleCompound = ???
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleCompound = ???
+  override def shearX(operand: Double): PolygonCompound = ???
+  override def shearY(operand: Double): PolygonCompound = ???
 }
 
 /** Companion object for RectangleCompound. Contains the [[RectangleCompound.RectangleCompoundImp]] implementation class for the general case of Rectangles and

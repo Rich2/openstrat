@@ -57,6 +57,12 @@ object Graphic2Elem
     override def rotate180(obj: Graphic2Elem): Graphic2Elem = obj.rotate180
     override def rotate270(obj: Graphic2Elem): Graphic2Elem = obj.rotate270
   }
+
+  /** Implicit [[Shear]] type class instance / evidence for [[Graphic2Elem]]. */
+  implicit val shearEv: Shear[Graphic2Elem] = new Shear[Graphic2Elem]
+  { override def shearXT(obj: Graphic2Elem, yFactor: Double): Graphic2Elem = obj.shearX(yFactor)
+    override def shearYT(obj: Graphic2Elem, xFactor: Double): Graphic2Elem = obj.shearY(xFactor)
+  }
 }
 
 /** A canvas element that can be rendered by the [[pgui.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the library. */

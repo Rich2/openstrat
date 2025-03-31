@@ -46,3 +46,14 @@ trait PolygonLen2Graphic extends ShapeLen2Graphic
   override def scale(operand: Double): PolygonLen2Graphic
   override def mapGeom2(operand: Length): PolygonGraphic
 }
+
+/** A polygon graphic where the point are specified in [[Length]] units. */
+trait PolygonLen2Fill extends ShapeLen2Fill
+{ override def shape: PolygonLen2[? <: PtLen2]
+  override def slate(operand: VecPtLen2): PolygonLen2Fill
+  override def slate(xOperand: Length, yOperand: Length): PolygonLen2Fill
+  override def slateX(xOperand: Length): PolygonLen2Fill
+  override def slateY(yOperand: Length): PolygonLen2Fill
+  override def scale(operand: Double): PolygonLen2Fill
+  override def mapGeom2(operand: Length): PolygonFill
+}
