@@ -22,10 +22,10 @@ trait RectangleLen2Graphic extends PolygonLen2Graphic
 }
 
 trait RectangleLen2Fill extends RectangleLen2Graphic, PolygonLen2Fill
-{ override def slate(operand: VecPtLen2): RectangleLen2Fill = ???
-  override def slate(xOperand: Length, yOperand: Length): RectangleLen2Fill = ???
-  override def slateX(xOperand: Length): RectangleLen2Fill = ???
-  override def slateY(yOperand: Length): RectangleLen2Fill = ???
-  override def scale(operand: Double): RectangleLen2Fill = ???
-  override def mapGeom2(operand: Length): RectangleFill = ???
+{ override def slate(operand: VecPtLen2): RectangleLen2Fill
+  override def slate(xOperand: Length, yOperand: Length): RectangleLen2Fill
+  override def slateX(xOperand: Length): RectangleLen2Fill
+  override def slateY(yOperand: Length): RectangleLen2Fill
+  override def scale(operand: Double): RectangleLen2Fill
+  override def mapGeom2(operand: Length): RectangleFill
 }

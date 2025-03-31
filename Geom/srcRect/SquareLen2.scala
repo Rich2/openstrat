@@ -9,3 +9,10 @@ trait SquareLen2[VT <: PtLen2] extends RectangleLen2[VT]
   override def scale(operand: Double): SquareLen2[VT]
   override def mapGeom2(operand: Length): Square
 }
+
+trait SquareLen2Graphic extends RectangleLen2Graphic
+{
+  override def shape: SquareLen2[PtLen2]
+}
+
+trait SquareLen2Fill extends ShapeLen2Graphic, RectangleLen2Graphic

@@ -6,7 +6,8 @@ trait Pyramid
 {
   def baseLen: Length
   def sideLen: Length = baseLen / 4
-  def square = CircleLen2(sideLen / 2).fill(Wheat)
+  def circle = CircleLen2(sideLen / 2).fill(Wheat)
+  def square = SqlignLen2Fill(SqlignLen2(sideLen), Violet)
 }
 
 object GreatPyramid extends Pyramid
