@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A polygon specified in [[Length]] units. */
-trait PolygonLen2[VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT]
+trait PolygonLen2[VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT], ShapeLen2
 { type ThisT <: PolygonLen2[VT]
   type SideT <: LineSegLen2[VT]
 
@@ -34,4 +34,15 @@ object PolygonLen2
 
   /** implicit [[MapGeom2]] type class instance / evidence for [[PolygonLen2]]. */
   implicit val mapGeom2Ev: MapGeom2[PolygonLen2[PtLen2], Polygon] = (obj, operand) => obj.mapGeom2(operand)
+}
+
+/** A polygon graphic where the point are specified in [[Length]] units. */
+trait PolygonLen2Graphic extends ShapeLen2Graphic
+{ override def shape: PolygonLen2[? <: PtLen2]
+  override def slate(operand: VecPtLen2): PolygonLen2Graphic
+  override def slate(xOperand: Length, yOperand: Length): PolygonLen2Graphic
+  override def slateX(xOperand: Length): PolygonLen2Graphic
+  override def slateY(yOperand: Length): PolygonLen2Graphic
+  override def scale(operand: Double): PolygonLen2Graphic
+  override def mapGeom2(operand: Length): PolygonGraphic
 }

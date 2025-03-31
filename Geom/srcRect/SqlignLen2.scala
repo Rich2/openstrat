@@ -19,3 +19,5 @@ object SqlignLen2
    * [[PtLen2]] as a parameter, with the origin as the default value. */
   def apply(width: Length, cenX: Length, cenY: Length): SqlignLen2 = new SqlignLen2(width, cenX, cenY)
 }
+
+trait SqlignLen2Graphic extends PolygonLen2Graphic

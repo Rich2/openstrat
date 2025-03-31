@@ -30,15 +30,15 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   /** Returns the [[Vec2]] 2D vector from the origin to this Pt2. */
   def toVec: Vec2 = Vec2(x, y)
 
-  /** Subtracts the operand 2D point from this 2D point to get the relative Vector. */
-  def <<(startPt: Pt2): Vec2 = Vec2(x - startPt.x, y - startPt.y)
+  /** Subtracts the operand 2D point from this 2D point to get the relative Vector from the operand point to this point. */
+  @targetName("vectorFrom") def <<(startPt: Pt2): Vec2 = Vec2(x - startPt.x, y - startPt.y)
 
   /** Subtracts this 2D point from the operand 2D point to get the relative Vector. */
-  def >>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
+  @targetName("vectorTo") def >>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
   /** Subtracts this 2D point from the operand 2D point and halves it to get the relative Vector divided by 2. This is a very common operation when calculating
    * the distance along an axis and the distance to the centre point is required. Hence, the specific method. */
-  def >/>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
+  @targetName("halfVector To") def >/>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
   def distTo(operand: Pt2): Double = (this >> operand).magnitude
@@ -274,7 +274,9 @@ object Pt2
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Pt2]]s. */
   implicit val persistEv: PersistDbl2Both[Pt2] = PersistDbl2Both[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
 
+  /** Implicit [[EqT]] equality type class instance / evidence for [[Pt2]]. */
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
+
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
   implicit val arrBuilderImplicit: BuilderArrDbl2Map[Pt2, Pt2Arr] = new BuilderArrDbl2Map[Pt2, Pt2Arr]

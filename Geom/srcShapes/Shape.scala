@@ -74,4 +74,11 @@ object Shape
 }
 
 /** A closed shape specified in [[Length]] units. */
-trait ShapeLen2 extends GeomLen2Elem
+trait ShapeLen2 extends Any, GeomLen2Elem
+{ override def slate(operand: VecPtLen2): ShapeLen2
+  override def slate(xOperand: Length, yOperand: Length): ShapeLen2
+  override def slateX(xOperand: Length): ShapeLen2
+  override def slateY(yOperand: Length): ShapeLen2
+  override def scale(operand: Double): ShapeLen2
+  override def mapGeom2(operand: Length): Shape
+}
