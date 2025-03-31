@@ -61,4 +61,4 @@ object ShapeFill
 }
 
 /** Graphical fill trait for shapes specified with [[Length]] coordinates. */
-trait ShapeLen2Fill extends ShapeGeomlessFill, ShapeLen2GraphicSimple
+trait ShapeLen2Fill extends ShapeGeomlessFill, ShapeLen2Graphic//Simple

@@ -38,7 +38,7 @@ object PolygonLen2
 
 /** A polygon graphic where the point are specified in [[Length]] units. */
 trait PolygonLen2Graphic extends ShapeLen2Graphic
-{ override def shape: PolygonLen2[? <: PtLen2]
+{ override def shape: PolygonLen2[PtLen2]
   override def slate(operand: VecPtLen2): PolygonLen2Graphic
   override def slate(xOperand: Length, yOperand: Length): PolygonLen2Graphic
   override def slateX(xOperand: Length): PolygonLen2Graphic
@@ -48,9 +48,8 @@ trait PolygonLen2Graphic extends ShapeLen2Graphic
 }
 
 /** A polygon graphic where the point are specified in [[Length]] units. */
-trait PolygonLen2Fill extends ShapeLen2Fill
-{ override def shape: PolygonLen2[? <: PtLen2]
-  override def slate(operand: VecPtLen2): PolygonLen2Fill
+trait PolygonLen2Fill extends PolygonLen2Graphic, ShapeLen2Fill
+{ override def slate(operand: VecPtLen2): PolygonLen2Fill
   override def slate(xOperand: Length, yOperand: Length): PolygonLen2Fill
   override def slateX(xOperand: Length): PolygonLen2Fill
   override def slateY(yOperand: Length): PolygonLen2Fill
