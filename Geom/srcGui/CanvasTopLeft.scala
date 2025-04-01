@@ -16,7 +16,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def eArcDraw(ead: EArcDraw): Unit = tlEArcDraw(ead.negY.slate(width / 2, height / 2))
 
   final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.ptsTrans(tlCen))
-  final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.ptsTrans(tlCen)): Unit
+  final override def lineSegsDraw(lsd: LineSegArrDraw): Unit = tlLinesDraw(lsd.ptsTrans(tlCen)): Unit
   final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.ptsTrans(tlCen))
 
   final override def pShapeGenFill(sgf: ShapeGenFillOld): Unit = tlShapeFill(sgf.negY.slate(width / 2, height / 2))
@@ -48,7 +48,7 @@ trait CanvasTopLeft extends CanvasPlatform
   protected def tlCArcDraw(cad: CArcDraw): Unit
   protected def tlEArcDraw(ead: EArcDraw): Unit
 
-  protected def tlLinesDraw(lsd: LinesDraw): Unit
+  protected def tlLinesDraw(lsd: LineSegArrDraw): Unit
   protected def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
   protected def tlShapeFill(sgf: ShapeGenFillOld): Unit

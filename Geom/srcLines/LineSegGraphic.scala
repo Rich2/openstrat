@@ -3,7 +3,7 @@ package ostrat; package geom
 import pgui._, Colour.Black, pWeb._
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
-case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem with GraphicSvgElem
+case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic, AffinePreserve, CanvElem, GraphicSvgElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
   override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), width, colour)
@@ -29,9 +29,10 @@ object LineSegDraw
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
-case class LinesDraw(lines: LineSegArr, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem with BoundedElem
-{ override type ThisT = LinesDraw
-  override def ptsTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.ptsTrans(f), lineWidth, colour)
+class LineSegArrDraw private(val arrayUnsafe: Array[Double], val lineWidth: Double, val colour: Colour = Black) extends GraphicAffineElem, CanvElem, BoundedElem
+{ override type ThisT = LineSegArrDraw
+  def lines: LineSegArr = new LineSegArr(arrayUnsafe)
+  override def ptsTrans(f: Pt2 => Pt2): LineSegArrDraw = LineSegArrDraw(lines.ptsTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
 
   def svgElem: SvgElem = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
@@ -40,10 +41,12 @@ case class LinesDraw(lines: LineSegArr, lineWidth: Double, colour: Colour = Blac
   override def boundingRect: Rect = lines.boundingRect
 }
 
-object LinesDraw
+object LineSegArrDraw
 {
-  implicit val persistEv: Persist3Both[LineSegArr, Double, Colour, LinesDraw] =
-    Persist3Both[LineSegArr, Double, Colour, LinesDraw]("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
+  def apply(lines: LineSegArr, lineWidth: Double, colour: Colour = Black): LineSegArrDraw = new LineSegArrDraw(lines.arrayUnsafe, lineWidth, colour)
+
+  implicit val persistEv: Persist3Both[LineSegArr, Double, Colour, LineSegArrDraw] =
+    Persist3Both[LineSegArr, Double, Colour, LineSegArrDraw]("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
 case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem

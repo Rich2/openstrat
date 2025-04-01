@@ -21,7 +21,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
     def actives: RArr[PolygonActive] = proj.tileActives
 
     /** Draws the tiles sides (or edges). */
-    def sidesDraw: LinesDraw = proj.sidesDraw()
+    def sidesDraw: LineSegArrDraw = proj.sidesDraw()
 
     def unitGraphics: RArr[PolygonCompound] = lunits.projSomesHcPtMap { (rarr, hc, pt) =>
       val str: String = rarr.head.team.toString --- rarr.mkStr(us => us.lunit.num.str, ", ") --- hc.rcStr

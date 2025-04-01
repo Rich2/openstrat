@@ -8,7 +8,7 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
 { override def getTime: Long = 0
   override protected def tlPolyFill(pf: PolygonFill): Unit = {}
   override protected def tlPolyDraw(pd: PolygonDraw): Unit = {}
-  override protected def tlLinesDraw(lsd: LinesDraw): Unit = {}
+  override protected def tlLinesDraw(lsd: LineSegArrDraw): Unit = {}
 
   override protected def tlShapeFill(sgf: ShapeGenFillOld): Unit = {}
   override protected def tlShapeDraw(sgd: ShapeGenDrawOld): Unit = {}

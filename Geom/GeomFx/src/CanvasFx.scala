@@ -191,7 +191,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
    
-  protected def tlLinesDraw(lsd: LinesDraw): Unit =
+  protected def tlLinesDraw(lsd: LineSegArrDraw): Unit =
   { gc.beginPath
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.setLineWidth(lsd.lineWidth)

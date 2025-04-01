@@ -208,7 +208,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
     new LineSeg(x, y - armLength, x, y + armLength))
 
   /** Not sure about this method */
-  def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LinesDraw =
+  def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LineSegArrDraw =
     LineSegArr.fromDbls(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 

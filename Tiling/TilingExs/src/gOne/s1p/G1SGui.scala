@@ -53,7 +53,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
   }
 
   /** Draws the tiles sides (or edges). */
-  def sidesDraw: LinesDraw = proj.sidesDraw()
+  def sidesDraw: LineSegArrDraw = proj.sidesDraw()
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>

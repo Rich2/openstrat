@@ -69,7 +69,7 @@ trait CanvasPlatform extends RectCenlign
 
   def bezierDraw(bd: BezierDraw): Unit
 
-  def lineSegsDraw(lsd: LinesDraw): Unit
+  def lineSegsDraw(lsd: LineSegArrDraw): Unit
    
   final def shapeGenFill(sgf: ShapeGenFillOld): Unit = onlyIf(sgf.shape.numElems > 0, pShapeGenFill(sgf))
   protected def pShapeGenFill(sgf: ShapeGenFillOld): Unit
