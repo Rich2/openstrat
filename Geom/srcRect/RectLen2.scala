@@ -2,7 +2,21 @@
 package ostrat; package geom
 
 trait RectLen2[+VT <: PtLen2] extends RectangleLen2[VT]
-{ override def slate(operand: VecPtLen2): RectLen2[VT]
+{ type ThisT <: RectLen2[VT]
+  
+  /** Right top point. */
+  def rt: PtLen2
+  
+  /** Right bottom point. */
+  def rb: PtLen2
+
+  /** left bottom point. */
+  def lb: PtLen2
+
+  /** Left top point. */
+  def lt: PtLen2
+  
+  override def slate(operand: VecPtLen2): RectLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): RectLen2[VT]
   override def slateX(xOperand: Length): RectLen2[VT]
   override def slateY(yOperand: Length): RectLen2[VT]

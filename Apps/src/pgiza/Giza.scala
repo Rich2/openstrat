@@ -5,8 +5,8 @@ import geom.*, Colour.*
 trait Pyramid
 {
   def sideLen: Length
-  def square: SqlignLen2[PtLen2] = ???
-  def squareFill = square.fill(Wheat)// SqlignLen2(sideLen).slate(offset).fill(Wheat)
+  def square: SqlignLen2[PtLen2]
+  def squareFill = square.fill(Wheat)
   def offset: VecLen2
   def offSquare = squareFill
   val axisOffsetNum = 300
@@ -31,8 +31,7 @@ object KhafrePyramid extends Pyramid
 
 object MenkaurePyramid extends Pyramid
 {
-  override def square: SqlignLen2[PtLen2] = SqlignM2.rb(sideLen, KhafrePyramid.square.rb.slate(-offVec))
-    //SqlignLen2.rb(sideLen, 0.metres, 0.metres).slate(-offVec)
+  override def square: SqlignLen2[PtLen2] = SqlignM2.rb(sideLen, KhafrePyramid.square.rb.slate(-offVec))    
   override def sideLen: Length = 102.2.metres
   override def offset: VecLen2 = VecM2(-axisOffsetNum, -axisOffsetNum)
 }
