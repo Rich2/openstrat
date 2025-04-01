@@ -1,11 +1,12 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import annotation.unchecked.uncheckedVariance
 
 /** A Polygon like object, where the points dimensions could be specified in 2D or 3D [[Metres]], latitude and longitude etc as well as the regular scalar
  * values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a [[PolygonM3]] it
  *    would be a [[PtM3]]. */
-trait PolygonLike[VT] extends Any with VertBased[VT]
+trait PolygonLike[+VT] extends Any with VertBased[VT]
 {
   type SideT <: LineSegLike[VT]
 
@@ -81,19 +82,19 @@ trait PolygonLike[VT] extends Any with VertBased[VT]
   def sides: Arr[SideT]
 }
 
-trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqSpecValueN[VT]
-{ override def vertsForeach[U](f: VT => U): Unit = foreach(f)
+trait PolygonValueN[+VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqSpecValueN[VT]
+{ override def vertsForeach[U](f: VT  => U): Unit = foreach(f)
   override def numVerts: Int = numElems
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */
-trait PolygonLikeDblN[VT <: DblNElem] extends Any with PolygonValueN[VT] with SeqSpecDblN[VT]
+trait PolygonLikeDblN[+VT <: DblNElem] extends Any with PolygonValueN[VT] with SeqSpecDblN[VT]
 { /** Creates the [[Array]][Double] need to implement the sides method. */
   protected def arrayForSides: Array[Double]
 }
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
-trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl2[VT]
+trait PolygonLikeDbl2[+VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl2[VT]
 {
   protected override def arrayForSides: Array[Double] =
   { val newLen = numVerts * 4
@@ -119,7 +120,7 @@ trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with 
 }
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
-trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl3[VT]
+trait PolygonLikeDbl3[+VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl3[VT]
 {
   protected override def arrayForSides: Array[Double] =
   { val newLen = numVerts * 6

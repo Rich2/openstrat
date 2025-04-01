@@ -6,7 +6,7 @@ trait Pyramid
 {
   def sideLen: Length
   def square: SqlignLen2[?] = ???
-  def squareFill = SqlignLen2Fill(SqlignLen2(sideLen).slate(offset), Wheat)
+  def squareFill = SqlignLen2(sideLen).slate(offset).fill(Wheat)
   def offset: VecLen2
   def offSquare = squareFill
   val axisOffsetNum = 300

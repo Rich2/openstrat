@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
 /** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[ArrDbl2]] Array[Double] based collections. */
 trait Dbl2Elem extends Any with DblNElem
@@ -13,9 +13,9 @@ trait Dbl2Elem extends Any with DblNElem
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
-trait SeqLikeDbl2[A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
+trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 2
-  override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
+  override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 
   /** Produces a new [[Array]][Double] of the same size, with the functions acting on the first and second [[Double]] of each element. */
   def arrayUnsafeMap2(f1: Double => Double, f2: Double => Double): Array[Double] =
@@ -34,13 +34,13 @@ trait SeqLikeDbl2[A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
-trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
+trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
 { /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the
    *  sequence. */
   def ssElem(d1: Double, d2: Double): A
 
   override def index(index: Int): A = ssElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
-  override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+  override def ssElemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](numElems)
@@ -62,7 +62,7 @@ trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDbl
   }
 
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
-  def unsafeMap(f: A => A): Array[Double] =
+  def unsafeMap(f: A => A @uncheckedVariance): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i =>
       val newElem = f(ssElem(arrayUnsafe(i), arrayUnsafe(i + 1)))

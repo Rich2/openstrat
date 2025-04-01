@@ -1,12 +1,13 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import annotation.unchecked.uncheckedVariance
 
 /** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored as an
  * Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the logical size of the
  * product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is composed from 4 [[Double]] values. */
 trait ValueNElem extends Any with SpecialT
 
-trait SeqLikeValueN[A <: ValueNElem] extends Any with SeqLike[A]
+trait SeqLikeValueN[+A <: ValueNElem] extends Any with SeqLike[A]
 { type ThisT <: SeqLikeValueN[A]
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection class. */
   def elemProdSize: Int
@@ -17,11 +18,11 @@ trait SeqLikeValueN[A <: ValueNElem] extends Any with SeqLike[A]
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant classes
  * include both [[Arr]]s and classes like polygons and lines. */
-trait SeqSpecValueN[A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqSpec[A]
+trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqSpec[A]
 { type ThisT <: SeqSpecValueN[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */
-  def ssElemEq(a1: A, a2: A): Boolean
+  def ssElemEq(a1: A  @uncheckedVariance, a2: A @uncheckedVariance): Boolean
 
   /** Reverses the order of the elements of the specifying sequence. */
   def reverse: ThisT

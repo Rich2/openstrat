@@ -1,9 +1,10 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import annotation.unchecked.uncheckedVariance
 
-class SqlignLen2[VT <: PtLen2](val width: Length, val cenX: Length, val cenY: Length) extends SquareLen2[VT], RectLen2[VT]
-{ type ThisT = SqlignLen2[VT]
-  override type SideT = LineSegLen2[VT]
+class SqlignLen2[+VT <: PtLen2](val width: Length, val cenX: Length, val cenY: Length) extends SquareLen2[VT], RectLen2[VT]
+{ type ThisT = SqlignLen2[VT]  @uncheckedVariance
+  override type SideT = LineSegLen2[VT]  @uncheckedVariance
 
   override def typeStr: String = ???
   override def slate(operand: VecPtLen2): SqlignLen2[VT] = SqlignLen2(width, cenX + operand.x, cenY + operand.y)
@@ -13,7 +14,7 @@ class SqlignLen2[VT <: PtLen2](val width: Length, val cenX: Length, val cenY: Le
   override def scale(operand: Double): SqlignLen2[VT] = SqlignLen2(width * operand, cenX * operand, cenY * operand)
   override def mapGeom2(operand: Length): Sqlign = Sqlign(width / operand, cenX / operand, cenY / operand)
 
-  override def fElemStr: VT => String = ???
+  override def fElemStr: VT  @uncheckedVariance => String = ???
   override def elemsStr: String = ???
   def revY: SqlignLen2[VT] = ???
   def revYIf(cond: Boolean): SqlignLen2[VT] = ???
@@ -27,7 +28,7 @@ class SqlignLen2[VT <: PtLen2](val width: Length, val cenX: Length, val cenY: Le
   override def verts: Arr[VT] = ???
   override def fromArray(array: Array[Double]): SqlignLen2[VT] = ???
   override def ssElem(d1: Double, d2: Double): VT = ???
-//  def fill(fillFacet: FillFacet): SqlignLen2Fill = SqlignLen2Fill(this, fillFacet)
+  def fill(fillFacet: FillFacet): SqlignLen2Fill = SqlignLen2Fill(this, fillFacet)
 }
 
 object SqlignLen2

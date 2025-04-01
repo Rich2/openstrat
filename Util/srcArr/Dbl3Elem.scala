@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, scala.collection.mutable.ArrayBuffer
+import annotation.*, annotation.unchecked.uncheckedVariance, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 3 [[Double]]s. These are used in [[ArrDbl3]] Array[Double] based collections. */
 trait Dbl3Elem extends Any with DblNElem
@@ -17,9 +17,9 @@ trait Dbl3Elem extends Any with DblNElem
 }
 
 /** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
-trait SeqLikeDbl3[A <: Dbl3Elem] extends Any with SeqLikeDblN[A]
+trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize = 3
-  override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
+  override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
 /** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
@@ -39,11 +39,11 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] exten
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
-trait SeqSpecDbl3[A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDblN[A]
+trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDblN[A]
 { /** Method for creating new elements of the specifying-sequence from 3 [[Double]]s. */
   def ssElem(d1: Double, d2: Double, d3: Double): A
 
-  override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+  override def ssElemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   override def index(index: Int): A = ssElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 }
 
