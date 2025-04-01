@@ -141,6 +141,7 @@ final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Dou
 { override def typeStr: String = "VecFm2"
   override def + (operand: VecLen2): VecFm2 = new VecFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum + operand.yFemtometresNum)
   override def - (operand: VecLen2): VecFm2 = new VecFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
+  override def unary_- : VecFm2 = VecFm2(-xFemtometresNum, -yFemtometresNum)
   override def * (operator: Double): VecFm2 = new VecFm2(xFemtometresNum * operator, yFemtometresNum * operator)
   override def / (operator: Double): VecFm2 = new VecFm2(xFemtometresNum / operator, yFemtometresNum / operator)
   override def magnitude: Femtometres = Femtometres(math.sqrt(xFemtometresNum.squared + yFemtometresNum.squared))

@@ -138,6 +138,7 @@ final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extend
 { override def typeStr: String = "VecM2"
   override def + (operand: VecLen2): VecM2 = new VecM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLen2): VecM2 = new VecM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
+  override def unary_- : VecM2 = VecM2(-xMetresNum, -yMetresNum)
   override def * (operator: Double): VecM2 = new VecM2(xMetresNum * operator, yMetresNum * operator)
   override def / (operator: Double): VecM2 = new VecM2(xMetresNum / operator, yMetresNum / operator)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))

@@ -202,6 +202,7 @@ final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Doubl
 { override def typeStr: String = "VecPm2"
   override def + (operand: VecLen2): VecPm2 = new VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def - (operand: VecLen2): VecPm2 = new VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
+  override def unary_- : VecPm2 = VecPm2(-xPicometresNum, -yPicometresNum)
   override def * (operator: Double): VecPm2 = new VecPm2(xPicometresNum * operator, yPicometresNum * operator)
   override def / (operator: Double): VecPm2 = new VecPm2(xPicometresNum / operator, yPicometresNum / operator)
   override def magnitude: Picometres = Picometres(math.sqrt(xPicometresNum.squared + yPicometresNum.squared))

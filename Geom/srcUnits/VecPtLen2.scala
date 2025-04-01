@@ -93,6 +93,7 @@ object PtLen2
 trait VecLen2 extends VecPtLen2
 { def + (op: VecLen2): VecLen2
   def - (operand: VecLen2): VecLen2
+  def unary_- : VecLen2
   def * (operator: Double): VecLen2
   def / (operator: Double): VecLen2
   def magnitude: Length

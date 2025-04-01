@@ -140,6 +140,7 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
 
   override def + (operand: VecLen2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
   override def - (operand: VecLen2): VecKm2 = new VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
+  override def unary_- : VecKm2 = VecKm2(-xKilometresNum, -yKilometresNum)
   override def * (operator: Double): VecKm2 = new VecKm2(xKilometresNum * operator, yKilometresNum * operator)
   override def / (operator: Double): VecKm2 = new VecKm2(xKilometresNum / operator, yKilometresNum / operator)
   override def magnitude: Kilometres = Kilometres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
