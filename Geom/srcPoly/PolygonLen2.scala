@@ -47,6 +47,12 @@ trait PolygonLen2Graphic extends ShapeLen2Graphic
   override def mapGeom2(operand: Length): PolygonGraphic
 }
 
+object PolygonLen2Graphic
+{
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[PolygonLen2Graphic]] to [[PolygonGraphic]] */
+  implicit val mapGeomEv: MapGeom2[PolygonLen2Graphic, PolygonGraphic] = (obj, operand) => obj.mapGeom2(operand)
+}
+
 /** A polygon graphic where the point are specified in [[Length]] units. */
 trait PolygonLen2Fill extends PolygonLen2Graphic, ShapeLen2Fill
 { override def slate(operand: VecPtLen2): PolygonLen2Fill

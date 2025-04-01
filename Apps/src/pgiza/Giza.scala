@@ -4,24 +4,36 @@ import geom.*, Colour.*
 
 trait Pyramid
 {
-  def baseLen: Length
-  def sideLen: Length = baseLen / 4
-  def circle = CircleLen2(sideLen / 2).fill(Wheat)
-  def square = SqlignLen2Fill(SqlignLen2(sideLen), Violet)
+  def sideLen: Length
+  def square: SqlignLen2[?] = ???
+  def squareFill = SqlignLen2Fill(SqlignLen2(sideLen).slate(offset), Wheat)
+  def offset: VecLen2
+  def offSquare = squareFill
+  val axisOffsetNum = 300
 }
 
 object GreatPyramid extends Pyramid
 {
-  def baseLen = 230.3.metres
+  override def square: SqlignLen2[?] = ???
+  override val sideLen = 230.3.metres
   def height = 146.6.metres
+
+  override def offset: VecLen2 = VecM2(axisOffsetNum, axisOffsetNum)
 }
 
 object KhafrePyramid extends Pyramid
 {
-  override val baseLen = 215.25.metres
+  override val sideLen = 215.25.metres
+  override def offset: VecLen2 = VecM2(0, 0)
 }
 
 object MenkaurePyramid extends Pyramid
 {
-  override def baseLen: Length = 102.2.metres
+  override def sideLen: Length = 102.2.metres
+  override def offset: VecLen2 = VecM2(-axisOffsetNum, -axisOffsetNum)
+}
+
+object Giza
+{
+  def pyramids = RArr(GreatPyramid, KhafrePyramid, MenkaurePyramid)
 }

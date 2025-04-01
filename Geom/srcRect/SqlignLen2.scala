@@ -27,6 +27,7 @@ class SqlignLen2[VT <: PtLen2](val width: Length, val cenX: Length, val cenY: Le
   override def verts: Arr[VT] = ???
   override def fromArray(array: Array[Double]): SqlignLen2[VT] = ???
   override def ssElem(d1: Double, d2: Double): VT = ???
+//  def fill(fillFacet: FillFacet): SqlignLen2Fill = SqlignLen2Fill(this, fillFacet)
 }
 
 object SqlignLen2
@@ -37,6 +38,8 @@ object SqlignLen2
   /** Factory apply method to create a square defined in [[Length]] units that is aligned to the X and Y axes. There is an apply name overload that takes a
    * [[PtLen2]] as a parameter, with the origin as the default value. */
   def apply[VT <: PtLen2](width: Length, cenX: Length, cenY: Length): SqlignLen2[VT] = new SqlignLen2(width, cenX, cenY)
+
+  def br[VT <: PtLen2](width: Length, bottomRight: PtLen2): SqlignLen2[VT] =  new SqlignLen2(width, bottomRight.x - width / 2, bottomRight.y + width / 2)
 }
 
 trait SqlignLen2Graphic extends SquareLen2Graphic, RectLen2Graphic
@@ -51,4 +54,10 @@ case class SqlignLen2Fill(shape: SqlignLen2[PtLen2], fillFacet: FillFacet) exten
   override def slateY(yOperand: Length): SqlignLen2Fill = SqlignLen2Fill(shape.slateY(yOperand), fillFacet)
   override def scale(operand: Double): SqlignLen2Fill = SqlignLen2Fill(shape.scale(operand), fillFacet)
   override def mapGeom2(operand: Length): SqlignFill = SqlignFill(shape.mapGeom2(operand), fillFacet)
+}
+
+object SqlignLen2Fill
+{
+  /** Implicit [[MapGeom2]] type class instance / evidence for [[SqlignLen2Fill]] to [[SqlignFill]] */
+  implicit val mapGeomEv: MapGeom2[SqlignLen2Fill, SqlignFill] = (obj, operand) => obj.mapGeom2(operand)
 }
