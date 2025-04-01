@@ -7,6 +7,8 @@ class SqlignLen2[+VT <: PtLen2](val width: Length, val cenX: Length, val cenY: L
   override type SideT = LineSegLen2[VT]  @uncheckedVariance
 
   override def typeStr: String = ???
+  
+  def rb: PtLen2 = PtM2(cenX + width / 2, cenY - width / 2)
   override def slate(operand: VecPtLen2): SqlignLen2[VT] = SqlignLen2(width, cenX + operand.x, cenY + operand.y)
   override def slate(xOperand: Length, yOperand: Length): SqlignLen2[VT] = SqlignLen2(width, cenX + xOperand, cenY + yOperand)
   override def slateX(xOperand: Length): SqlignLen2[VT] = SqlignLen2(width, cenX + xOperand, cenY)
@@ -41,6 +43,8 @@ object SqlignLen2
   def apply[VT <: PtLen2](width: Length, cenX: Length, cenY: Length): SqlignLen2[VT] = new SqlignLen2(width, cenX, cenY)
 
   def br[VT <: PtLen2](width: Length, bottomRight: PtLen2): SqlignLen2[VT] =  new SqlignLen2(width, bottomRight.x - width / 2, bottomRight.y + width / 2)
+
+  def rb[VT <: PtLen2](width: Length, right: Length, bottom: Length): SqlignLen2[VT] = new SqlignLen2(width, right - width / 2, bottom + width / 2)
 }
 
 trait SqlignLen2Graphic extends SquareLen2Graphic, RectLen2Graphic

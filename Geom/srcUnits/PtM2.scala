@@ -29,7 +29,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "PtM2"
-  override def slate(operand: VecPtLen2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum - operand.yMetresNum)
+  override def slate(operand: VecPtLen2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def slate(xOperand: Length, yOperand: Length): PtM2 = PtM2(xMetresNum + xOperand.metresNum, yMetresNum + yOperand.metresNum)
   override def slateX(xOperand: Length): PtM2 = new PtM2(xMetresNum + xOperand.metresNum, y.metresNum)
   override def slateY(yOperand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum + yOperand.metresNum)
