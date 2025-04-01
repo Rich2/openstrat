@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment without its starting point, which is supplied by the previous curveTail. It takes
@@ -110,5 +110,5 @@ object ArcTail
 /** This provides factory methods to create a Bezier tail. There is no independent BezierTail class. This is one of 3 factory objects to CurveTail. */
 object BezierTail
 { def apply(pC1: Pt2, pC2: Pt2, pEnd: Pt2): CurveTailOld = new CurveTailOld(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
-  //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
+  def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveTailOld = new CurveTailOld(12, xC1, yC1, xC2, yC2, xEnd, yEnd)
 }

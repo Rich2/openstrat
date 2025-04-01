@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._
+import ostrat.*, geom.*, pgui.*
 
 object SText
 { def apply(y: Double, str: String) = TextFixed(str, 24, -250 pp y, align = LeftAlign)
@@ -28,7 +28,7 @@ object LsRson1 extends LessonGraphics
     val v1 = Pt2(2.3, -9.8)
     val t4 = v1.str
 
-    val v2: Pt2 = 4.6 pp 78.4
+    val v2: Pt2 = Pt2(4.6, 78.4)
     val l1 = LineSeg(v1, v2)
 
     /** So note how there is a semicolon between the two points but a comma between the x and y values of each point. */
