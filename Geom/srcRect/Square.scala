@@ -36,7 +36,7 @@ object Square extends ShapeIcon
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
-   * axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre. If you want to create a
+   * axes centre. Otherwise, the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre. If you want to create a
    * square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
   def apply(width: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Square =
   { val rtVec = xVec2(width / 2).rotate(rotation)
@@ -53,7 +53,7 @@ object Square extends ShapeIcon
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
    * axes' centre. Otherwise, the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre. If you want to create a
    * square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
-  def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square = apply(width, rotation, xCen pp yCen)
+  def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square = apply(width, rotation, Pt2(xCen, yCen))
 
   /** Scale the Square and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
   override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)

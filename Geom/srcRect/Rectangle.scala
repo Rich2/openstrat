@@ -24,7 +24,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   /** length from v2 to v3 and v03 to v1. */
   def width2: Double = v1.distTo(v2)
 
-  @inline final override def cen: Pt2 = cenX pp cenY
+  @inline final override def cen: Pt2 = Pt2(cenX, cenY)
 
   override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
@@ -91,10 +91,10 @@ object Rectangle
   { val w = width / 2
     val h = height / 2
     val s1 = ShapeGenOld(
-        LineTail(w - radius,          h), ArcTail(w - radius pp h - radius, w pp h -radius),
-        LineTail(w,          radius - h), ArcTail(w - radius pp radius - h, w - radius pp -h),
-        LineTail(radius - w,         -h), ArcTail(radius - w pp radius - h, -w pp radius -h),
-        LineTail(- w,        h - radius), ArcTail(radius - w pp h - radius, radius - w pp h))
+        LineTail(w - radius,          h), ArcTail(w - radius,h - radius, w,h -radius),
+        LineTail(w,          radius - h), ArcTail(w - radius,radius - h, w -radius,- h),
+        LineTail(radius - w,         -h), ArcTail(radius - w,radius - h, -w,radius - h),
+        LineTail(- w,        h - radius), ArcTail(radius - w,h - radius, radius - w,h))
      s1.slate(cen)
   }
 
