@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat.*, geom.*, pgui.*, Colour.*
 
 /** This is a temporary lesson: whilst Arcs get fixed. */
 case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
@@ -14,9 +14,11 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       val longArcOffset = 0.025
       /** Angle of arc */
       val theta = Pi1 / 180 * index + longArcOffset
-      val startPoint = x + radius * math.cos(longArcOffset) pp y + radius * math.sin(longArcOffset)
-      val endPoint = x + radius * math.cos(theta + longArcOffset) pp y + radius * math.sin(theta + longArcOffset)
-      CArc.pos(startPoint, x pp y, endPoint).draw(lineColour = DeepSkyBlue)
+      val xStart = x + radius * math.cos(longArcOffset)
+      val yStart = y + radius * math.sin(longArcOffset)
+      val xEnd = x + radius * math.cos(theta + longArcOffset)
+      val yEnd = y + radius * math.sin(theta + longArcOffset)
+      CArc.pos(xStart, yStart, x, y, xEnd, yEnd).draw(lineColour = DeepSkyBlue)
     }
 
     val arcNeg =
@@ -26,9 +28,11 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       val shortArcOffset = Pi1/360
       /** Angle of arc. */
       val theta = shortArcOffset + Pi1 / 180 * index
-      val startPoint = x + radius * math.cos(theta) pp y + radius * math.sin(theta)
-      val endPoint = x + radius * math.cos(theta + delta + delta) pp y + radius * math.sin(theta + delta + delta)
-      CArc.neg(startPoint, x pp y, endPoint).draw(lineColour = Orange)
+      val xStart = x + radius * math.cos(theta)
+      val yStart = y + radius * math.sin(theta)
+      val xEnd = x + radius * math.cos(theta + delta + delta)
+      val yEnd = y + radius * math.sin(theta + delta + delta)
+      CArc.neg(xStart, yStart, x, y, xEnd, yEnd).draw(lineColour = Orange)
     }
 
     RArr(arcPos, arcNeg, index.xyTextGraphic(12, x, y, Black))

@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon. a = √3 * r / 2. r = 2 * √3 * a. */
@@ -8,22 +8,21 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 
   final override def cenX: Double = v0x \/ v3x
   final override def cenY: Double = v0y \/ v3y
-  final override def cen: Pt2 = cenX pp cenY
+  final override def cen: Pt2 = Pt2(cenX, cenY)
   def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def apoDiameter: Double
 
-  /** The apothem or the radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a
-   *  side. */
+  /** The apothem or the radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
   @inline def apo: Double
 
-  /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
-   *  the hexagon side. */
+  /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also, the length of the
+   * hexagon side. */
   @inline def radius: Double
 
-  /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
-   * the length of the hexagon side. */
+  /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This length is twice the length
+   * of the hexagon side. */
   @inline def diameter: Double
 
   /** A Hexagon has 6 vertices. */
@@ -42,8 +41,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 
   override def rotate(angle: AngleVec): HexReg = mapHexReg(_.rotate(angle))
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
-   * traits / classes. */
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub traits /
+   * classes. */
   override def reflect(lineLike: LineLike): HexReg = mapHexReg(_.reflect(lineLike))
 
   /** The area of this [[HexReg]]. 3 * √3 * r² / 2. Or 2 * √3 * a²  */
@@ -53,8 +52,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
 object HexReg
 {
-  /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
-   * 4 at the bottom parallel to the X axis and side1 at the top. */
+  /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side 4 at the
+   * bottom parallel to the X axis and side1 at the top. */
   def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg =
   {
     val h2: Double = dInner / 2
@@ -73,8 +72,8 @@ object HexReg
     hr.rotate(rotation).slate(xCen, yCen)
   }
 
-  /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
-   * 4 at the bottom parallel to the X axis and side1 at the top. */
+  /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side 4 at the
+   * bottom parallel to the X axis and side1 at the top. */
   def apply(dInner: Double, rotation: AngleVec, cen: Pt2): HexReg = apply(dInner, rotation, cen.x, cen.y)
 
   def apply(dInner: Double, rotation: AngleVec): HexReg = apply(dInner, rotation, 0, 0)
@@ -123,12 +122,12 @@ object HexReg
     /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
     override def apo: Double = diameter * 3.sqrt / 4
 
-    /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
-     * the hexagon side. */
+    /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also, the length of the
+     * hexagon side. */
     override def radius: Double = diameter / 2
 
-    /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
-     * the length of the hexagon side. */
+    /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This length is twice the
+     * length of the hexagon side. */
     override def diameter: Double = v5.distTo(v2)
 
     @inline override def apoDiameter: Double = diameter * 3.sqrt / 2

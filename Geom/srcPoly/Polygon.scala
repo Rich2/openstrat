@@ -16,7 +16,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   final def vLastY: Double = arrayUnsafe(numVerts - 1)
 
   /** The last vertex. The default convention places this just anti-clockwise of 12 o'clock. */
-  def vLast: Pt2 = vLastX pp vLastY
+  def vLast: Pt2 = Pt2(vLastX, vLastY)
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
   final def side0: LineSeg = LineSeg(v0, vert(1))
@@ -28,7 +28,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   final def sd0CenY: Double = v0y \/ vertY(1)
 
   /** The centre or halfway point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as vertex 0.5. */
-  final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
+  final def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 
   override def verts: Pt2Arr =
   { val newArray: Array[Double] = new Array[Double](numVerts * 2)
@@ -103,9 +103,9 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
    * the vertex immediately anti-clockwise if there is no vertex in this position. */
-  final def v0: Pt2 = v0x pp v0y
+  final def v0: Pt2 = Pt2(v0x, v0y)
 
-  /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
+  /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points. */
   override def boundingRect: Rect =
   { var minX, maxX = v0x
     var minY, maxY = v0y

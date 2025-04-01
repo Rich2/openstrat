@@ -2,8 +2,8 @@
 package ostrat; package geom
 import pWeb._, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
- *  avoid ambiguity. */
+/** Straight line segment. A straight line in everyday terminology. Mathematically: 2-dimensional directed, line segment. The name was chosen to avoid
+ * ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2] with LineLike with
 CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
 { override type ThisT = LineSeg
@@ -19,8 +19,8 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
   override def dbl2: Double = startY
   override def dbl3: Double = endX
   override def dbl4: Double = endY
-  def startPt: Pt2 = startX pp startY
-  def endPt: Pt2 = endX pp endY
+  def startPt: Pt2 = Pt2(startX, startY)
+  def endPt: Pt2 = Pt2(endX, endY)
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(startX, startY, endX, endY)
   def ptsTrans(f: Pt2 => Pt2): LineSeg = LineSeg(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(startX.toShort, startY.toShort, endX.toShort, endY.toShort)

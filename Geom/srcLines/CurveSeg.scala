@@ -15,7 +15,7 @@ trait CurveSeg extends Drawable
   def startY: Double
 
   /** Start point of this curve segment, often called p1 */
-  final def pStart: Pt2 = startX pp startY
+  final def pStart: Pt2 = Pt2(startX, startY)
 
   /** The X component of the end point of this curve segment. Often called x2 on a line or x4 on a cubic bezier in other APIs.*/
   def endX: Double

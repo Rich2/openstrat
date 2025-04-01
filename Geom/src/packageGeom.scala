@@ -2,10 +2,10 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
- * graphics. Of particular note are the [[Pt2]], [[Geom2Elem]] and [[Graphic2Elem]] class /traits. These are the foundation of the API and the library.
- * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
- * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
+/** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and graphics.
+ * Of particular note are the [[Pt2]], [[Geom2Elem]] and [[Graphic2Elem]] class /traits. These are the foundation of the API and the library. A number of
+ * implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of particular use
+ * for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 { import math.Pi, Colour.Black
   val Phi: Double = 1.6180339887498948482
@@ -120,20 +120,18 @@ package object geom
   }
 
   implicit class StringImplictGeom(thisString: String)
-  {
-    import pParse.{ stringToStatements => stss}
+  { import pParse.{ stringToStatements => stss}
 
-    /** Find unique [[Pt2]] expression from this String parsing it as an Sequence of RSON statements. */
+    /** Find unique [[Pt2]] expression from this String parsing it as a Sequence of RSON statements. */
     def findPt2 = stss(thisString).flatMap(_.findType[Pt2])
 
-    /** Find unique [[Pt2]] expression from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
+    /** Find unique [[Pt2]] expression from this String, or return default [[Pt2]] value, parsing it as a Sequence of RSON statements. */
     def findPt2Else(elseValue: => Pt2) = findPt2.getElse(elseValue)
 
     /** Find unique [[Pt2]] setting of the given name from this String, parsing it as an Sequence of RSON statements. */
     def findSettingPt2(setting: String) = stss(thisString).flatMap(_.findSetting[Pt2](setting))
 
-    /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON
-     *  statements. */
+    /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
     def findSettingPt2Else(setting: String, elseValue: Pt2): Pt2 = findSettingPt2(setting).getElse(elseValue)
 
     def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
@@ -269,7 +267,7 @@ package object geom
     textCells.foreach{tc =>
       val rLen = tc.textStr.length * fontSize
       xAcc = rLen / 2
-      val rect: Rectangle = Rect(rLen, fontSize, xAcc pp y)
+      val rect: Rectangle = Rect(rLen, fontSize, xAcc, y)
       val newElem = rect.fill(Colour.Green)
       acc = acc :+ newElem
       xAcc += rLen / 2
@@ -278,18 +276,18 @@ package object geom
     acc.toArr
   }
 
-  /** Maps a range of Ints to [[PolygonLike]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non termination. Method
-   * name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
-  def iUntilPolygonLikeMap[A, AA <: PolygonLike[A]](iUntil: Int)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA = {
-    val iLen = (iUntil).max(0)
+  /** Maps a range of [[Int]]s to [[PolygonLike]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non-termination. Method name overloaded
+   * with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
+  def iUntilPolygonLikeMap[A, AA <: PolygonLike[A]](iUntil: Int)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA =
+  { val iLen = (iUntil).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
     iUntilForeach(iUntil) { count => ev.indexSet(res, index, f(count)); index += 1 }
     res
   }
 
-  /** Maps a range of Ints to a [[PolygonLike]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws
-   * on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
+  /** Maps a range of Ints to a [[PolygonLike]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws on
+   * non-termination. Method name overloaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iUntilpolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
@@ -298,9 +296,8 @@ package object geom
     res
   }
 
-  /** Maps over a range of Ints to a [[PolygonLike]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step
-   *  value is 1.Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and
-   * iStep is 1. */
+  /** Maps over a range of [[Int]]s to a [[PolygonLike]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step value is
+   * 1.Throws on non-termination. Method name overloaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
