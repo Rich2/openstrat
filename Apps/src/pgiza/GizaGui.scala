@@ -5,7 +5,7 @@ import geom.*, pgui.{CanvasPlatform, CmdBarGui}
 class GizaGui(val canv: CanvasPlatform) extends CmdBarGui
 {
   override def title: String = "Giza Pyramids"
-  def frame: RArr[Graphic2Elem] = Giza.pyramids.map(_.baseFill).mapGeom2(1.metres)
+  def frame: RArr[Graphic2Elem] = Giza.pyramids.map(_.baseFill).mapGeom2(1.metres)// ++ Giza.pyramids.map(_.lbrtLine).mapGeom2(1.metres)
   def repaint(): Unit = mainRepaint(frame)
   repaint()
 }

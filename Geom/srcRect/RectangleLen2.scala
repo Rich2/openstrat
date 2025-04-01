@@ -9,8 +9,6 @@ trait RectangleLen2[+VT <: PtLen2] extends PolygonLen2[VT]
   override def slateY(yOperand: Length): RectangleLen2[VT]
   override def scale(operand: Double): RectangleLen2[VT]
   override def mapGeom2(operand: Length): Rectangle
-
-  def lbrtDiag: SideT
 }
 
 /** A polygon graphic where the point are specified in [[Length]] units. */

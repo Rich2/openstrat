@@ -4,9 +4,7 @@ package ostrat; package geom
 trait SqlignLen2[+VT <: PtLen2]() extends SquareLen2[VT], RectLen2[VT]
 { type ThisT <: SqlignLen2[VT]
   type SideT <: LineSegLen2[VT]
-  def width: Length
-  def cenX: Length
-  def cenY: Length
+
 
   override def slate(operand: VecPtLen2): SqlignLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): SqlignLen2[VT]
@@ -29,30 +27,17 @@ object SqlignLen2
 {
 }
 
-class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double) extends SqlignLen2[PtM2]
+class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double) extends SqlignLen2[PtM2], RectM2
 { type ThisT = SqlignM2
   override type SideT = LineSegM2
   override def typeStr: String = "SqlignM2"
-  override def width: Metres = Metres(widthMNum)
-  override def cenX: Metres = Metres(xCenMNum)
-  override def cenY: Metres = Metres(yCenMNum)
+  inline def heightMNum: Double = widthMNum
 
-  def leftMNum = xCenMNum - widthMNum / 2
-  def rightMetresNum = xCenMNum + widthMNum / 2
-  def bottomMetresNum = yCenMNum - widthMNum / 2
-  def topMetresNum = yCenMNum + widthMNum / 2
-  override def rt: PtM2 = PtM2(xCenMNum + widthMNum / 2, yCenMNum + widthMNum / 2)
-  override def rb: PtM2 = PtM2(xCenMNum + widthMNum / 2, yCenMNum - widthMNum / 2)
-  override def lb: PtM2 = PtM2(xCenMNum - widthMNum / 2, yCenMNum - widthMNum / 2)
-  override def lt: PtM2 = PtM2(xCenMNum - widthMNum / 2, yCenMNum + widthMNum / 2)
-
-  override def lbrtDiag: LineSegM2 = LineSegM2(leftMNum, bottomMetresNum, rightMetresNum, topMetresNum)
   override def slate(operand: VecPtLen2): SqlignM2 = SqlignM2(widthMNum, xCenMNum + operand.xMetresNum, yCenMNum + operand.yMetresNum)
   override def slate(xOperand: Length, yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum + yOperand.metresNum)
-
   override def slateX(xOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum)
   override def slateY(yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum, yCenMNum + yOperand.metresNum)
-  override def scale(operand: Double): SqlignM2 = ??? // SqlignM2(width * operand, cenX * operand, cenY * operand)
+  override def scale(operand: Double): SqlignM2 = SqlignM2(widthMNum * operand, xCenMNum * operand, yCenMNum * operand)
   override def mapGeom2(operand: Length): Sqlign = Sqlign(width / operand, cenX / operand, cenY / operand)
 
   override def fElemStr: PtM2 => String = ???
