@@ -115,7 +115,16 @@ class LineSegM2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with B
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
 }
 
-abstract class LineSegM2ArrDraw(val arrayUnsafe: Array[Double]) extends GraphicLen2Elem, SeqSpecDbl4[LineSegM2]
-{
-  
+class LineSegM2ArrDraw(val arrayUnsafe: Array[Double]) extends GraphicLen2Elem, SeqSpecDbl4[LineSegM2]
+{ override type ThisT = LineSegM2ArrDraw
+  override def typeStr: String = "LineSegM2ArrDraw"
+  override def slate(operand: VecPtLen2): LineSegM2ArrDraw = ???
+  override def slate(xOperand: Length, yOperand: Length): LineSegM2ArrDraw = ???
+  override def slateX(xOperand: Length): LineSegM2ArrDraw = ???
+  override def slateY(yOperand: Length): LineSegM2ArrDraw = ???
+  override def scale(operand: Double): LineSegM2ArrDraw = ???
+  override def mapGeom2(operand: Length): Graphic2Elem = ???
+  override def fElemStr: LineSegM2 => String = ???
+  override def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = ???
+  override def fromArray(array: Array[Double]): LineSegM2ArrDraw = ???
 }
