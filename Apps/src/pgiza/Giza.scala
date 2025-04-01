@@ -41,5 +41,5 @@ object MenkaurePyramid extends Pyramid
 
 object Giza
 {
-  def pyramids = RArr(GreatPyramid, KhafrePyramid, MenkaurePyramid)
+  def pyramids: RArr[Pyramid] = RArr(GreatPyramid, KhafrePyramid, MenkaurePyramid)
 }

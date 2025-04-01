@@ -79,7 +79,7 @@ object LineSegPm2
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSegPm2]]s. A mathematical straight line segment measured in [[Picometres]]. */
-class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2], Dbl4Arr[LineSegPm2]
+class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2], ArrDbl4[LineSegPm2]
 { type ThisT = LineSegPm2Arr
   def fromArray(array: Array[Double]): LineSegPm2Arr = new LineSegPm2Arr(array)
   override def typeStr: String = "LineSegMArr"

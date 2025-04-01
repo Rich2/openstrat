@@ -78,7 +78,7 @@ object LineSegFm2
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSegFm2]]s. A mathematical straight line segment measured in [[Femtometres]]. */
-class LineSegFm2Arr(val arrayUnsafe: Array[Double]) extends Dbl4Arr[LineSegFm2]
+class LineSegFm2Arr(val arrayUnsafe: Array[Double]) extends ArrDbl4[LineSegFm2]
 { type ThisT = LineSegFm2Arr
   def fromArray(array: Array[Double]): LineSegFm2Arr = new LineSegFm2Arr(array)
   override def typeStr: String = "LineSegMArr"

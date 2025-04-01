@@ -80,7 +80,7 @@ object LineSegM2
 
 /** Compact immutable Array[Double] based collection class for [[LineSegM2]]s. A mathematical
  *  straight line segment measured in metres. */
-class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends Dbl4Arr[LineSegM2]
+class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends ArrDbl4[LineSegM2]
 { type ThisT = LineSegM2Arr
   def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
   override def typeStr: String = "LineSegMArr"
@@ -113,4 +113,9 @@ object LineSegM2Arr extends CompanionSeqLikeDbl4[LineSegM2, LineSegM2Arr]
 class LineSegM2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSegM2]
 { override def typeStr: String = "Line2sBuff"
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
+}
+
+abstract class LineSegM2ArrDraw(val arrayUnsafe: Array[Double]) extends GraphicLen2Elem, SeqSpecDbl4[LineSegM2]
+{
+  
 }

@@ -11,7 +11,7 @@ trait PairDbl4Elem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
 }
 
 /** [[Arr]] of [[PairDbl4]] elements. */
-trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: PairDbl4Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A]
+trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairDbl4[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
@@ -65,13 +65,13 @@ trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPa
 }
 
 /** Common trait for builders of [[ArrPairDbl4]] objects via the map and flatMap methods. */
-trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
+trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
 BuilderArrPairDblN[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairDbl4[B1, B2, ?]
 }
 
 /** Builder for [[ArrPairDbl4]] objects via the map f: A => PairB method. */
-trait BuilderArrPairDbl4Map[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, B <: PairDbl4Elem[B1, B2], ArrB <: ArrPairDbl4[B1, ArrB1, B2, B]] extends
+trait BuilderArrPairDbl4Map[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, B <: PairDbl4Elem[B1, B2], ArrB <: ArrPairDbl4[B1, ArrB1, B2, B]] extends
 BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  BuilderArrPairDblNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDbl4[B1, B2, B]
   override type B1BuffT <: BuffDbl4[B1]
@@ -84,10 +84,10 @@ BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  BuilderArrPairDblNMap[B1, ArrB1, B
 }
 
 /** Builder for [[ArrPairDbl4]] objects via the flatMap f: A => ArrPairB method. */
-trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
+trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
   BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with BuilderArrPairDblNFlat[B1, ArrB1, B2, ArrB]
 
-trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1]] extends CompanionArrPairDblN[A1, ArrA1]
+trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1]] extends CompanionArrPairDblN[A1, ArrA1]
 {
   override def elemNumDbls: Int = 4
 
