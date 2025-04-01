@@ -37,7 +37,6 @@ class LineSegArrDraw private(val arrayUnsafe: Array[Double], val lineWidth: Doub
 
   def svgElem: SvgElem = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
   override def svgElems: RArr[SvgElem] = RArr(svgElem)
-
   override def boundingRect: Rect = lines.boundingRect
 }
 

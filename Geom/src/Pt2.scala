@@ -58,7 +58,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
 
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
-  def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
+  def slateXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
   def slate(operand: VecPt2): Pt2 = Pt2(x + operand.x, y + operand.y)
@@ -304,7 +304,7 @@ object Pt2
    * [[Pt2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
   implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LineSeg] = LineSeg(_, _)
-  implicit val slateImplicit: SlateXY[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: SlateXY[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)

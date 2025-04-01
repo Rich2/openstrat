@@ -15,7 +15,7 @@ trait EArclign extends EArc
 
   /** Translate 2D geometric transformation on this EArclign returns an EArclign. */
   override def slate(xOperand: Double, yOperand: Double): EArclign =
-    EArclign(pStart.xySlate(xOperand, yOperand), cen.xySlate(xOperand, yOperand), xRadius, yRadius, pEnd.xySlate(xOperand, yOperand), rotationsInt)
+    EArclign(pStart.slateXY(xOperand, yOperand), cen.slateXY(xOperand, yOperand), xRadius, yRadius, pEnd.slateXY(xOperand, yOperand), rotationsInt)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */

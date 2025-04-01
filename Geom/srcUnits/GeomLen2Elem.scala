@@ -29,6 +29,28 @@ trait GeomLen2Elem extends Any
   def mapGeom2(operand: Length): Geom2Elem
 }
 
+/** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
+ * are translate [[SlateXY]], [[Scale]] and negX and negY, the [[TransAxes]], transformations. */
+trait ProlignLen2Preserve extends Any with GeomLen2Elem
+{ /** The most narrow type preserved in some 2d geometric transformations. */
+  type ThisT <: ProlignLen2Preserve
+
+  /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
+  def ptsTrans(f: PtLen2 => PtLen2): ThisT
+
+  override def slate(operand: VecPtLen2): ThisT = ptsTrans(_.slate(operand))
+
+  override def slate(xOperand: Length, yOperand: Length): ThisT = ptsTrans(_.slate(xOperand, yOperand))
+
+  override def scale(operand: Double): ThisT = ptsTrans(_.scale(operand))
+
+  //override def negX: ThisT = ptsTrans(_.negX)
+
+  //override def negY: ThisT = ptsTrans(_.negY)
+
+  //override def prolign(matrix: ProlignMatrix): ThisT = ptsTrans(_.prolign(matrix))
+}
+
 /** A graphical element in 2 [[Length]] dimension space. */
 trait GraphicLen2Elem extends GeomLen2Elem
 { override def slate(operand: VecPtLen2): GraphicLen2Elem
