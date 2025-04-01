@@ -1,9 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black
 
 /** Elliptical Arc. the trait has 2 implementations [[CArc]] and [[EArc.EArcImp]]. */
-trait EArc extends EllipseBased with CurveSeg
+trait EArc extends EllipseBased, CurveSeg
 { /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
   def cenStart: Vec2 = cen >> pStart
 
@@ -106,14 +106,14 @@ object EArc
   { override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = cen.distTo(axesPt1)
     override def radius2: Double = cen.distTo(axesPt4)
-    override def axesPt1: Pt2 = axesPt1x pp axesPt1y
+    override def axesPt1: Pt2 = Pt2(axesPt1x, axesPt1y)
     override def axesPt2: Pt2 = cen + cenP2
     override def axesPt2x: Double = axesPt2.x
     override def axesPt2y: Double = axesPt2.y
     override def axesPt3: Pt2 = cen + cenP3
     override def axesPt3x: Double = axesPt3.x
     override def axesPt3y: Double = axesPt3.y
-    override def axesPt4: Pt2 = axesPt4x pp axesPt4y
+    override def axesPt4: Pt2 = Pt2(axesPt4x, axesPt4y)
     override def cenP1: Vec2 = cen >> axesPt1
     override def cenP2: Vec2 = -cenP4
     override def cenP3: Vec2 = -cenP1

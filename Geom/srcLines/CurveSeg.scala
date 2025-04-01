@@ -24,7 +24,7 @@ trait CurveSeg extends Drawable
   def endY: Double
 
   /** The end point [[Pt2]] of this curve segment. Often called p2 on a line or p4 on a cubic bezier in other APIs. */
-  final def pEnd: Pt2 = endX pp endY
+  final def pEnd: Pt2 = Pt2(endX, endY)
 
   override def slate(operand: VecPt2): CurveSeg
   override def slate(xOperand: Double, yOperand: Double): CurveSeg

@@ -181,7 +181,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   def centreSquare(length: Double): PolygonGen =
   { val r = length / 2.0
-    PolygonGen(-r pp r, r pp r, r pp -r, -r pp -r).slate(x, y)
+    PolygonGen.fromDbls(-r,r, r,r, r,-r, -r,-r).slate(x, y)
   }
 
   def textAt(str: String, fontSize: Int = 12, fontColour: Colour = Colour.Black): TextFixed = TextFixed(str, fontSize, this, fontColour)

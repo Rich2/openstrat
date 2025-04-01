@@ -55,7 +55,7 @@ object HexReg
 {
   /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
    * 4 at the bottom parallel to the X axis and side1 at the top. */
-  def apply(dInner: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): HexReg =
+  def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg =
   {
     val h2: Double = dInner / 2
     val dsq3: Double = dInner / 3.sqrt
@@ -70,12 +70,14 @@ object HexReg
     )
 
     val hr = new HexRegImp(array)
-    hr.rotate(rotation).slate(cen)
+    hr.rotate(rotation).slate(xCen, yCen)
   }
 
   /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
    * 4 at the bottom parallel to the X axis and side1 at the top. */
-  def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg = apply(dInner, rotation, xCen pp yCen)
+  def apply(dInner: Double, rotation: AngleVec, cen: Pt2): HexReg = apply(dInner, rotation, cen.x, cen.y)
+
+  def apply(dInner: Double, rotation: AngleVec): HexReg = apply(dInner, rotation, 0, 0)
 
   def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
 

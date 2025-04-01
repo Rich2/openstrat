@@ -9,8 +9,8 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
   override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), width, colour)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(curveSeg, width, dashLength, gapLength, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegDraw(this)
-  def startPt: Pt2 = xStart pp yStart
-  def endPt: Pt2 = xEnd pp yEnd
+  def startPt: Pt2 = Pt2(xStart, yStart)
+  def endPt: Pt2 = Pt2(xEnd, yEnd)
   def arrow: GraphicElems = Arrow.paint(startPt, endPt, 30.degsVec, 20, colour, width)
 
   override def svgElem: SvgElem = SvgLine(xStart, yStart, xEnd, yEnd, colour, width)
