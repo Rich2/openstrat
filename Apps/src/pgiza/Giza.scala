@@ -9,7 +9,7 @@ trait Pyramid
   /** The  */
   def basePositioned: SqlignM2
   def baseFill: SqlignLen2Fill = basePositioned.fill(Wheat)
-  def lbrtLine = basePositioned.lbrtDiag.draw()
+  def lbrtLine: LineSegLen2Draw = basePositioned.lbrtDiag.draw()
 
   def offset: VecLen2
   val axisOffsetNum = 300

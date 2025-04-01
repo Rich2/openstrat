@@ -92,3 +92,8 @@ case class LineSegLen2Draw(lineSeg: LineSegLen2[?], width: Double, colour: Colou
   override def scale(operand: Double): LineSegLen2Draw = LineSegLen2Draw(lineSeg.scale(operand), width, colour)
   override def mapGeom2(operand: Length): LineSegDraw = LineSegDraw(lineSeg.mapGeom2(operand), width, colour)
 }
+
+object LineSegLen2Draw
+{
+  implicit val mapGeom2Ev: MapGeom2[LineSegLen2Draw, LineSegDraw] = (obj, operand) => obj.mapGeom2(operand)
+}
