@@ -47,7 +47,7 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Metrares]] metre². */
   @inline def metrares: Metrares = Metrares(thisDouble)
 
-  /** Returns this [[Double]] value in [[Hectares]], hectometre². */
+  /** Returns this [[Double]] value in [[Hectares]], hectometre. */
   @inline def hectares: Hectares = Hectares(thisDouble)
   
   /** Returns this [[Double]] value in [[Kilares]], kilometre². */

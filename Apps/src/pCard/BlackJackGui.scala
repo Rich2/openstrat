@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCard
-import geom._, pgui._, Colour.Black
+import geom.*, pgui.*, Colour.Black
 
 case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack")
 {      
@@ -10,7 +10,7 @@ case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack"
    def clubFill(): GraphicElems =
    {
       val rad: Double = 0.55
-      val circ3: PolygonGen = PolygonGen(0 pp rad, - rad * Sin60 pp - rad * Sin30, rad * Sin60 pp - rad * Sin30).scale(0.5)
+      val circ3: Polygon = Polygon.fromDbls(0,rad, -rad * Sin60,-rad * Sin30, rad * Sin60,-rad * Sin30).scale(0.5)
       val c3 = circ3.slateY(0.06).vertsMap(cen => Circle(rad * 0.46, cen).fill(Black))
       val rect: PolygonFill = TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(-0.28).fill(Black)
       c3 +% rect

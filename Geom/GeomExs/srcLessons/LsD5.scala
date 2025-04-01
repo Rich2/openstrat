@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._, pgui._
+import ostrat.*, geom.*, pgui.*
 
 object LsD5 extends LessonGraphics
 { override def title: String = "RSON Lesson 5"
@@ -12,14 +12,12 @@ object LsD5 extends LessonGraphics
   /** Lesson D4 Settings. */
   case class LsD5Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D5") {
     val s1 = IntArr(10, 9, 8, 7)
-    val s2 = Pt2Arr(4 pp 3, 2.1 pp 0.7, 500 pp -100, Pt2Z)
+    val s2 = Pt2Arr.fromDbls(4,3, 2.1,0.7, 500,-100, 0,0)
 
     //val ss = Sett("Arr", s1).ap("Ls", s2).str
     //val c1 = ss.findIntArray
 
     //val cc = TextGraphic.lines(Arr(c1).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = LeftAlign)
-
-
     //repaintOld(SText(200, ss) +: cc)
   }
 }

@@ -1,18 +1,15 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._
+import ostrat.*, geom.*, pgui.*
 
 object LsD3 extends LessonGraphics
 { override def title: String = "RSON Lesson 3"
-
   override def bodyStr: String = """Lesson C3. Pointer in object."""
-
   override def canv: CanvasPlatform => Any = LsD3Canv(_)
-
-
+  
   /** D Series lessons deal with persistence */
-  case class LsD3Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3") {
-    val r1 = Rval(5) - 2.1 - false - "Hello World!" - (2.3 pp -43.8) - Array(4, 5, 6)
+  case class LsD3Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
+  { val r1 = Rval(5) - 2.1 - false - "Hello World!" - Pt2(2.3, -43.8) - Array(4, 5, 6)
     val topBlock = SText(300, r1.str)
 
     val s2 = Setting("Age", 5).ap("Average", -2.1).ap("Open", false).ap("Greeting", "Hello World!").ap("Posn", 2.3 pp -43.8).str
