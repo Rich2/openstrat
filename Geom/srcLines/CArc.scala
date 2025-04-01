@@ -30,7 +30,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   override def slate(operand: VecPt2): CArc = CArc(pStart.slate(operand), cen.slate(operand), pEnd.slate(operand), rotationsInt)
   
   override def slate(xOperand: Double, yOperand: Double): CArc =
-    CArc(pStart.addXY(xOperand, yOperand), cen.addXY(xOperand, yOperand), pEnd.addXY(xOperand, yOperand), rotationsInt)
+    CArc(pStart.slate(xOperand, yOperand), cen.slate(xOperand, yOperand), pEnd.slate(xOperand, yOperand), rotationsInt)
   
   override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), rotationsInt)
   override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -rotationsInt)
@@ -46,7 +46,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** The end of elliptical axis 1. By default, this is the right vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
    * there on this circle, which is a special case of an ellipse. */
-  override def axesPt1: Pt2 = cen.addX(radius)
+  override def axesPt1: Pt2 = cen.slateX(radius)
 
   /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is specified as
    * the right of the circle this CArc is based on. */
@@ -58,7 +58,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** The start of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no actual
    * vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt2: Pt2 = cen.subY(radius)
+  override def axesPt2: Pt2 = cen.slateYFrom(radius)
 
   /** The X component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the
    * major axis or a co-vertex for the minor axis. */
@@ -70,7 +70,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** The start of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
    * there on this circle, which is a special case of an ellipse. */
-  override def axesPt3: Pt2 = cen.subX(radius)
+  override def axesPt3: Pt2 = cen.slateXFrom(radius)
 
   /** The X component of the start point of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although
    * there is no actual vertex there on this circle, which is a special case of an ellipse. */
@@ -80,7 +80,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** The end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no actual
    * vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt4: Pt2 = cen.addY(radius)
+  override def axesPt4: Pt2 = cen.slateY(radius)
 
   /** The X component of the end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there
    *  is no actual vertex there on this circle, which is a special case of an ellipse. */

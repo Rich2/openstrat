@@ -41,7 +41,7 @@ object TextFixed
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[TextFixed] =
   { val len = strs.length
     if(len == 0) RArr()
-    else strs.iMap((i, str) => TextFixed(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
+    else strs.iMap((i, str) => TextFixed(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
 }
 
@@ -81,6 +81,6 @@ object Textlign
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[Textlign] =
   { val len = strs.length
     if(len == 0) RArr()
-    else strs.iMap((i, str) => Textlign(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
+    else strs.iMap((i, str) => Textlign(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
 }

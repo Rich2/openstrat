@@ -12,7 +12,7 @@ trait PhiRectangle extends Rectangle
   //def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def slate(xOperand: Double, yOperand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.addXY(xOperand, yOperand), sd2Cen.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.slate(xOperand, yOperand), sd2Cen.slate(xOperand, yOperand))
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
   override def slate(offset: VecPt2): PhiRectangle = PhiRectangle.s1s3(sd0Cen.slate(offset), sd2Cen.slate(offset))

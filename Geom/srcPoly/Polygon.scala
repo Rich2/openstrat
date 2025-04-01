@@ -138,7 +138,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant traits /
    * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(xOperand: Double, yOperand: Double): Polygon = map(_.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Polygon = map(_.slate(xOperand, yOperand))
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant traits /
    * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */

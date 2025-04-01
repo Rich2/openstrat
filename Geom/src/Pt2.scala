@@ -58,7 +58,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
 
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
-  def slateXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
+  def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
   def slate(operand: VecPt2): Pt2 = Pt2(x + operand.x, y + operand.y)
@@ -67,23 +67,17 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def slateFrom(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
-  def origin(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
-
-  /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
-  def xyOrigin(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)
-
-  def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
-  def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
+  def slateFrom(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
   @inline def toMetres(factor: LengthMetric): PtM2 = PtM2.apply(x * factor.metresNum, y * factor.metresNum)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
-  def addX(adj: Double): Pt2 = Pt2(x + adj, y)
-  def addY(adj: Double): Pt2 = Pt2(x, y + adj)
-  def subX(adj: Double): Pt2 = Pt2(x - adj, y)
-  def subY(adj: Double): Pt2 = Pt2(x, y - adj)
+  def slateX(adj: Double): Pt2 = Pt2(x + adj, y)
+  def slateY(adj: Double): Pt2 = Pt2(x, y + adj)
+  def slateXFrom(adj: Double): Pt2 = Pt2(x - adj, y)
+  def slateYFrom(adj: Double): Pt2 = Pt2(x, y - adj)
 
   def yScale(factor: Double): Pt2 = Pt2(x, y * factor)
   def xScale(factor: Double): Pt2 = Pt2(x * factor, y)
@@ -249,7 +243,6 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   override def scaleXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
   override def shearX(operand: Double): Pt2 = Pt2(x * operand, y)
   override def shearY(operand: Double): Pt2 = Pt2(x, y * operand)
-  override def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 }
 
 /** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the 2D geometric
@@ -304,7 +297,7 @@ object Pt2
    * [[Pt2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
   implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LineSeg] = LineSeg(_, _)
-  implicit val slateImplicit: SlateXY[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val slateImplicit: SlateXY[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)

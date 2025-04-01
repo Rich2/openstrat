@@ -106,7 +106,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         for (b <- aDefaultGame.cellSites(i))
         { b match
           { case "N" =>
-            { if (animationStep > 0.55) locy = loc.addY(0.5*size*(animationStep-0.5))
+            { if (animationStep > 0.55) locy = loc.slateY(0.5*size*(animationStep-0.5))
               else locy = loc - (0 vv 0.25*size*(animationStep))
             }
             case "E" =>

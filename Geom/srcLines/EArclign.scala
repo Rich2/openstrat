@@ -15,7 +15,7 @@ trait EArclign extends EArc
 
   /** Translate 2D geometric transformation on this EArclign returns an EArclign. */
   override def slate(xOperand: Double, yOperand: Double): EArclign =
-    EArclign(pStart.slateXY(xOperand, yOperand), cen.slateXY(xOperand, yOperand), xRadius, yRadius, pEnd.slateXY(xOperand, yOperand), rotationsInt)
+    EArclign(pStart.slate(xOperand, yOperand), cen.slate(xOperand, yOperand), xRadius, yRadius, pEnd.slate(xOperand, yOperand), rotationsInt)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
@@ -68,10 +68,10 @@ object EArclign
     override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = xRadius
     override def radius2: Double = yRadius
-    override def axesPt1: Pt2 = cen.addX(xRadius)
+    override def axesPt1: Pt2 = cen.slateX(xRadius)
     override def axesPt1x: Double = cenX + xRadius
     override def axesPt1y: Double = cenY
-    override def axesPt2: Pt2 = cen.subY(yRadius)
+    override def axesPt2: Pt2 = cen.slateYFrom(yRadius)
 
     /** The X component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
      * axis or a co-vertex for the minor axis.. */
@@ -82,14 +82,14 @@ object EArclign
      * vertex for the major axis or a co-vertex for the minor axis. */
     override def axesPt2y: Double = ???
 
-    override def axesPt3: Pt2 = cen.subX(xRadius)
+    override def axesPt3: Pt2 = cen.slateXFrom(xRadius)
 
 
     override def axesPt3x: Double = ???
 
     override def axesPt3y: Double = ???
 
-    override def axesPt4: Pt2 = cen.addY(yRadius)
+    override def axesPt4: Pt2 = cen.slateY(yRadius)
     override def axesPt4x: Double = cenX
     override def axesPt4y: Double = cenY + radius2
 

@@ -11,7 +11,7 @@ trait ProlignPreserve extends Any with Geom2Elem
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   def ptsTrans(f: Pt2 => Pt2): ThisT
   override def slate(operand: VecPt2): ThisT = ptsTrans(_.slate(operand))
-  override def slate(xOperand: Double, yOperand: Double): ThisT = ptsTrans(_.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): ThisT = ptsTrans(_.slate(xOperand, yOperand))
   override def scale(operand: Double): ThisT = ptsTrans(_.scale(operand))
   override def negX: ThisT = ptsTrans(_.negX)
   override def negY: ThisT = ptsTrans(_.negY)

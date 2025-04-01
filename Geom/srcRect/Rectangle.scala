@@ -46,7 +46,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
 
   override def slate(offset: VecPt2): Rectangle = vertsTrans(_.slate(offset))
-  override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slateXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slate(xOperand, yOperand))
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
   override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
   override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)

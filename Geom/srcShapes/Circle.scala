@@ -10,7 +10,7 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
 { type ThisT = Circle
 
   override def fTrans(f: Pt2 => Pt2): Circle =
-  { val v1: Pt2 = cen.addX(radius)
+  { val v1: Pt2 = cen.slateX(radius)
     val newV1: Pt2 = f(v1)
     val newCen = f(cen)
     val newRadius = newCen.distTo(newV1)
@@ -27,7 +27,7 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def boundingHeight: Double = diameter
 
   override def slate(operand: VecPt2): Circle = Circle(radius, cenX + operand.x, cenY + operand.y)
-  override def slate(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.addXY(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.slate(xOperand, yOperand))
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
   override def rotate(angle: AngleVec): Circle = Circle(radius, cen.rotate(angle))

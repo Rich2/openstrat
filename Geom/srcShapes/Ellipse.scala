@@ -86,7 +86,7 @@ object Ellipse
 
   def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = new EllipseImp(xCen, yCen, xAxes1, yAxes1, radius2)
 
-  implicit val slateImplicit: SlateXY[Ellipse] = (ell, dx, dy) => cenAxes1axes4(ell.cen.addXY(dx, dy), ell.axesPt1.addXY(dx, dy), ell.axesPt4.addXY(dx, dy))
+  implicit val slateImplicit: SlateXY[Ellipse] = (ell, dx, dy) => cenAxes1axes4(ell.cen.slate(dx, dy), ell.axesPt1.slate(dx, dy), ell.axesPt4.slate(dx, dy))
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =
