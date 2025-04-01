@@ -1,7 +1,7 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-//import annotation.unchecked.uncheckedVariance
 
+/**  */
 trait SqlignLen2Graphic extends SquareLen2Graphic, RectLen2Graphic
 {
   override def shape: SqlignLen2[PtLen2]

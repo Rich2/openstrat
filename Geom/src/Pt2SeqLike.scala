@@ -9,8 +9,8 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
   { val newArray = new Array[Double](arrayUnsafe.length)
     var count = 0
     while (count < arrayUnsafe.length)
-    {
-      val newVec = f(arrayUnsafe(count) pp arrayUnsafe(count + 1))
+    { val pt = Pt2(arrayUnsafe(count), arrayUnsafe(count + 1))
+      val newVec = f(pt)
       newArray(count) = newVec.x
       newArray(count + 1) = newVec.y
       count += 2

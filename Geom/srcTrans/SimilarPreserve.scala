@@ -4,8 +4,6 @@ package ostrat; package geom
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
 trait SimilarPreserve extends Any with ProlignPreserve
 { type ThisT <: SimilarPreserve
-  override def negY: ThisT = ptsTrans(_.negY)
-  override def negX: ThisT = ptsTrans(_.negX)
   override def rotate90: ThisT = ptsTrans(_.rotate90)
   override def rotate180: ThisT = ptsTrans(_.rotate180)
   override def rotate270: ThisT = ptsTrans(_.rotate270)

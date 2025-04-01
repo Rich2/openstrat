@@ -5,11 +5,11 @@ import pWeb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory methods in
  * the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends EllipseBased with ShapeCentred
-{ final override def cen: Pt2 = cenX pp cenY
+{ final override def cen: Pt2 = Pt2(cenX, cenY)
 
-  final def axesPt1: Pt2 = axesPt1x pp axesPt1y
+  final def axesPt1: Pt2 = Pt2(axesPt1x, axesPt1y)
   final def axesPt2: Pt2 = Pt2(axesPt2x, axesPt2y)
-  override def axesPt3: Pt2 = axesPt3x pp axesPt3y
+  override def axesPt3: Pt2 = Pt2(axesPt3x, axesPt3y)
 
   /** The major radius of this ellipse, often referred to as a in maths. */
   def rMajor: Double
