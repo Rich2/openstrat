@@ -20,7 +20,10 @@ object LineSegDraw
 {
   def apply(lineSeg: LineSeg, lineWidth: Double, colour: Colour) = new LineSegDraw(lineSeg, lineWidth, colour)
   def apply(pStart: Pt2, pEnd: Pt2, lineWidth: Double = 2.0, colour: Colour = Black): LineSegDraw = LineSeg(pStart, pEnd).draw(lineWidth, colour)
-
+  
+  def dbls(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double = 2.0, colour: Colour = Black): LineSegDraw =
+    LineSeg(xStart, yStart, xEnd, yEnd).draw(lineWidth, colour)
+  
   implicit val showEv: Show4[Pt2, Pt2, Double, Colour, LineSegDraw] =
     Show4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, Some(Black), Some(1.0))
 
