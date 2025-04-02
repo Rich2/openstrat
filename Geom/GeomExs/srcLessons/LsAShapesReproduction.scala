@@ -1,21 +1,19 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat.*, geom.*, pgui.*, Colour.*
+import ostrat.*, geom.*, Colour.*
 
 object LsAShapesReproduction extends LessonStatic
-{
-  override def title: String = "Shapes Reproduction"
-
+{ override def title: String = "Shapes Reproduction"
   override def bodyStr: String = "Shapes Reproduction"
 
-  val pt1 = -200 pp 200
-  val arcCentre = 0 pp 200
-  val pt2 = 0 pp 400
-  val pt3 = 200 pp 200
-  val pt4 = 200 pp -200
-  val ctrl1 = 150 pp -125
-  val ctrl2 = -175 pp -250
-  val pt5 = -200 pp -200
+  val pt1 = Pt2(-200, 200)
+  val arcCentre = Pt2(0, 200)
+  val pt2 = Pt2(0, 400)
+  val pt3 = Pt2(200, 200)
+  val pt4 = Pt2(200, -200)
+  val ctrl1 = Pt2(150, -125)
+  val ctrl2 = Pt2(-175, -250)
+  val pt5 = Pt2(-200, -200)
 
   override def output: GraphicElems = RArr(
       //A shape is just a closed sequence of curve segments */

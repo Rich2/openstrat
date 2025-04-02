@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, Colour._
+import ostrat.*, geom.*, Colour.*
 
 /* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It
  *  doesn't do anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment.
@@ -10,7 +10,17 @@ import ostrat._, geom._, Colour._
 // This is also a comment. Everything after two forward-slashes to the end of line. You can add and remove //s from the beginning of the commands,
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
- 
+
+/** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the screen.
+ * Congratulations! you are now a programmer. But, but, you respond, there's loads of magic going on here that I don't understand. All programmers rely on
+ * magic, and of course the first thing we should know about magic is it doesn't always work. I will try and explain how some of the magic works, but in
+ * programming there's always more magic to decode.
+ *
+ * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a " quotation
+ * mark and end with a quotation mark. Change the text in on one of the strings, save the file, and you should see the text change on the screen. If you try
+ * replacing a string with a number or replacing a number with a String, the compiler will complain, and you will get an error message. The third type is Colour.
+ * Note Colours must have the correct capital letters. You can just try guessing the colours or you can google / duckduck web colours to see what is available.
+ * Again put a Colour where a number or a string is expected or vice versa and the compiler will complain. */
 object LsARotation extends LessonStatic
 {
   override def title: String = "Rotation"
@@ -32,7 +42,7 @@ object LsARotation extends LessonStatic
 //  val a1 = Arr(d1, d2, d3, d4, d5, d6)
 //  val a2 = a1 ++ a1.flatMap(_.startCenEndTexts)
 
-  val cen6 = TextFixed("c6 cen", 14, -100 pp 200)
+  val cen6 = TextFixed.xy("c6 cen", 14, -100, 200)
   val ps = Pt2(100, 100)
   val cc = Pt2(150, 150)
   val cd = Circle(50 * 2.sqrt, cc).draw()
@@ -45,15 +55,3 @@ object LsARotation extends LessonStatic
   override def output: GraphicElems = RArr(cd, ps.toText(10, Pink), p90.toText(10, Red), p135.toText(10, Brown), p180.toText(10, Green),
     p225.toText(10, Orange), p270.toText(10, Blue))
 }
-
-/** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
-  * screen. Congratulations! you are now a programmer. But, but, you respond, there's loads of magic going on here that I don't understand. All
-  * programmers rely on magic, and of course the first thing we should know about magic is it doesn't always work. I will try and explain how some of
-  * the magic works, but in programming there's always more magic to decode.
-  *
-  * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a "
-  * quotation mark and end with a quotation mark. Change the text in on one of the strings, save the file and you should see the text change on the
-  * screen. If you try replacing a string with a number or replacing a number with a String, the compiler will complain and you will get an error
-  * message. The third type is Colour. Note Colours must have the correct capital letters. You can just try guessing the colours or you can google /
-  * duckduck web colours to see what is available. Again put a Colour where a number or a string is expected or vice versa and the compiler will
-  * complain. */

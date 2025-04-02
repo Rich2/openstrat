@@ -3,8 +3,7 @@ package learn
 import ostrat.*, pParse.*, pgui.*
 
 object LessonsLaunch extends GuiLaunchMore
-{
-  override def settingStr: String = "lessons"
+{ override def settingStr: String = "lessons"
 
   override def default: (CanvasPlatform => Any, String) = (LsACircles.canv, "JavaFx" -- LsACircles.title)
 
