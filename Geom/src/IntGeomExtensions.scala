@@ -59,11 +59,8 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[MegaMiles]] millions of miles. */
   @inline def megaMiles: MegaMiles = MegaMiles(thisInt)
 
+  /** Extension method for angle of elevation. */
   def ° : Angle = Angle(thisInt)
-
-  /** Succinct syntax for creating 2-dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical operators.
-   * A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [[Pt3]]. */
-  @inline infix def pp(y: Double): Pt2 = Pt2(thisInt, y)
 
   /** Succinct syntax for creating 2-dimensional vectors, [[Vec2]]s from 2 numbers. Note the low precedence of this method relative to most numerical operators.
    * A third number as example {{{3.1 vv 4 vv -7.25}}} can be used to create a [[Vec3]]. */
