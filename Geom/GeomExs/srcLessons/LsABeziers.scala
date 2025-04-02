@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._, Colour._
+import ostrat.*, geom.*, Colour.*
 
 object LsABeziers extends LessonStatic
 {
@@ -12,7 +12,7 @@ object LsABeziers extends LessonStatic
   //This can be more elegantly expressed in dotty
   def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
   val pt1 = 500 pp - 400
-  val sh1 = ShapeGenOld(LineTail(Pt2Z), LineTail(200 pp 0), BezierTail(300 pp 300, 350 pp 100, pt1), LineTail(100 pp -200))
+  val sh1 = ShapeGenOld(LineTail(Pt2Z), LineTail(200 pp 0), BezierTail(Pt2(300, 300), Pt2(350, 100), pt1), LineTail(100 pp -200))
 
   override def output: GraphicElems = RArr(
     bd(-100 pp 200, 300 pp 400, Green),

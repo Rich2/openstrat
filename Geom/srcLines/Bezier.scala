@@ -1,7 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
-import ostrat.pWeb.SvgElem
+import Colour.Black, pWeb.SvgElem
 
 /** Cubic bezier curve. */
 class Bezier (val startX: Double, val startY: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
