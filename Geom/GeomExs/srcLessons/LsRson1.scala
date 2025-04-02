@@ -3,18 +3,16 @@ package learn
 import ostrat.*, geom.*, pgui.*
 
 object SText
-{ def apply(y: Double, str: String) = TextFixed(str, 24, -250 pp y, align = LeftAlign)
+{ def apply(y: Double, str: String) = TextFixed.xy(str, 24, -250, y, align = LeftAlign)
 }
 
 object MText
-{ def apply(y: Double, strs: StrArr): RArr[TextFixed] = TextFixed.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
+{ def apply(y: Double, strs: StrArr): RArr[TextFixed] = TextFixed.lines(strs, lineSpacing = 1.5, posn = Pt2(-250, y), align = LeftAlign)
 }
 
 object LsRson1 extends LessonGraphics
 { override def title: String = "RSON Lesson 1"
-
   override def bodyStr: String = """RSon Lesson 1."""
-
   override def canv: CanvasPlatform => Any = LsD1Canv(_)
 
   /** D Series lessons deal with persistence */

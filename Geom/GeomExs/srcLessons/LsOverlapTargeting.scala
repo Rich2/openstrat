@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat.*, geom.*, pgui.*, Colour.*
 
 object LsOverlapTargeting extends LessonGraphics
 { override def title: String = "Targeting overlap Lesson"
@@ -23,7 +23,7 @@ object LsOverlapTargeting extends LessonGraphics
 
     def gArr = rArr.map(h => h.rect.fillActiveDraw(h.colour, h))
 
-    val startText = TextFixed("Click on the rectangles. All rectangles under the point will cycle their colour.", 28, 0 pp 400)
+    val startText = TextFixed.xy("Click on the rectangles. All rectangles under the point will cycle their colour.", 28, 0, 400)
     repaint(gArr +% startText)
 
     mouseUp = (b, s, v) => {

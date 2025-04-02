@@ -12,11 +12,11 @@ object LsPointerTargeting extends LessonGraphics
   case class LsC3Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   { val r: PolygonCompound = Rect(200, 100).fillActive(Yellow, None)
     val r1: PolygonCompound = r.slate(-300, 300)
-    val r2: PolygonCompound = r.slate(300 pp 300)
-    val r3: PolygonCompound = r.slate(300 pp -300)
-    val r4: PolygonCompound = r.slate(-300 pp -300)
+    val r2: PolygonCompound = r.slate(300, 300)
+    val r3: PolygonCompound = r.slate(300, -300)
+    val r4: PolygonCompound = r.slate(-300, -300)
     val rList = RArr(r1, r2, r3, r4)
-    val textPosn = 0 pp 0
+    val textPosn = Pt2Z
     val startText = TextFixed("Please click on the screen.", 28, textPosn)
     repaint(rList +% startText)
 
