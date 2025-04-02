@@ -10,9 +10,18 @@ import ostrat.*, geom.*, Colour.*
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
 
-/** Arcs Lesson. */
+/** Arcs Lesson. There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
+ * screen. Congratulations! you are now a programmer. But, but, you respond, there's loads of magic going on here that I don't understand. All programmers rely
+ * on magic, and of course the first thing we should know about magic is it doesn't always work. I will try and explain how some of the magic works, but in
+ * programming there's always more magic to decode.
+ *
+ * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a " quotation
+ * mark and end with a quotation mark. Change the text in on one of the strings, save the file, and you should see the text change on the screen. If you try
+ * replacing a string with a number or replacing a number with a String, the compiler will complain, and you will get an error message. The third type is Colour.
+ * Note Colours must have the correct capital letters. You can just try guessing the colours, or you can google / duckduck web colours to see what is available.
+ * Again put a Colour where a number or a string is expected or vice versa and the compiler will complain. */
 object LsAArcs1 extends LessonStatic
-{ override def title: String = "Arcs"
+{ override def title: String = "Arcs 1"
   override def bodyStr: String = "Arcs"
 
   val c1St = Pt2(100, 200)
@@ -48,14 +57,3 @@ object LsAArcs1 extends LessonStatic
 
   override def output: GraphicElems = stuff ++ c1StText ++ c2StText ++ e1StArrow ++ e2StArrow ++ c4Text
 }
-
-/** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the screen.
- * Congratulations! you are now a programmer. But, but, you respond, there's loads of magic going on here that I don't understand. All programmers rely on
- * magic, and of course the first thing we should know about magic is it doesn't always work. I will try and explain how some of the magic works, but in
- * programming there's always more magic to decode.
- *
- * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a " quotation
- * mark and end with a quotation mark. Change the text in on one of the strings, save the file, and you should see the text change on the screen. If you try
- * replacing a string with a number or replacing a number with a String, the compiler will complain, and you will get an error message. The third type is Colour.
- * Note Colours must have the correct capital letters. You can just try guessing the colours, or you can google / duckduck web colours to see what is available.
- * Again put a Colour where a number or a string is expected or vice versa and the compiler will complain. */
