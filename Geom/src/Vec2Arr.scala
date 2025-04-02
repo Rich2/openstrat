@@ -21,7 +21,7 @@ final class Vec2Arr(val arrayUnsafe: Array[Double]) extends /*AffinePreserve wit
     var count = 0
     while (count < arrayUnsafe.length)
     {
-      val newVec = f(arrayUnsafe(count) vv arrayUnsafe(count + 1))
+      val newVec = f(Vec2(arrayUnsafe(count), arrayUnsafe(count + 1)))
       newArray(count) = newVec.x
       newArray(count + 1) = newVec.y
       count += 2

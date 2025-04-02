@@ -93,10 +93,10 @@ object EArclign
     override def axesPt4x: Double = cenX
     override def axesPt4y: Double = cenY + radius2
 
-    override def cenP1: Vec2 = xRadius vv 0
-    override def cenP2: Vec2 = 0 vv - yRadius
-    override def cenP3: Vec2 = -xRadius vv 0
-    override def cenP4: Vec2 = 0 vv yRadius
+    override def cenP1: Vec2 = Vec2(xRadius, 0)
+    override def cenP2: Vec2 = Vec2(0, - yRadius)
+    override def cenP3: Vec2 = Vec2(-xRadius, 0)
+    override def cenP4: Vec2 = Vec2(0, yRadius)
 
     def addRotations(delta: Int): EArclignImp = EArclignImp(startX, startY, cenX, cenY, xRadius, yRadius, endX, endY, rotationsInt + delta)
   }

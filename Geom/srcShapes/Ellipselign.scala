@@ -4,8 +4,7 @@ package ostrat; package geom
 /** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[Ellipselign.EllipselignImp]] classes implement this
  * interface. */
 trait Ellipselign extends Ellipse
-{
-  /** The radius of the axis of the ellipse aligned to the X axis. */
+{ /** The radius of the axis of the ellipse aligned to the X axis. */
   def xRadius: Double
 
   /** The radius of the axis of the ellipse aligned to the Y axis. */
@@ -86,23 +85,23 @@ object Ellipselign
      * major axis or a co-vertex for the minor axis. */
     override def axesPt4x: Double = cenX
 
-    /** The Y component of the end point of axis 2. By default this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
+    /** The Y component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
      * a co-vertex for the minor axis. */
     override def axesPt4y: Double = cenY + yRadius
 
     /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
      * on. */
-    override def cenP1: Vec2 = xRadius vv 0
+    override def cenP1: Vec2 = Vec2(xRadius, 0)
 
     /** The 2D vector [[Vec2]] from the centre point to pAxes2, the start point of axis 2, by default at the bottom of the Ellipse this arc is based
      * on. */
-    override def cenP2: Vec2 = 0 vv -yRadius
+    override def cenP2: Vec2 = Vec2(0, -yRadius)
 
     /** The 2D vector [[Vec2]] from the centre point to pAxes3, the start point of axis 1, by default on the left of the Ellipse this arc is based
      * on. */
-    override def cenP3: Vec2 = -xRadius vv 0
+    override def cenP3: Vec2 = Vec2(-xRadius, 0)
 
     /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
-    override def cenP4: Vec2 = 0 vv yRadius
+    override def cenP4: Vec2 = Vec2(0, yRadius)
   }
 }
