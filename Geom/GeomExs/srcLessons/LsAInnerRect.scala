@@ -14,7 +14,7 @@ object LsAInnerRect extends LessonStatic
   val ccs = sps.map(Circle.d(10, _).fill(Violet))
   val ipoly = PolygonGen.dbls(400,400, 450,380, 455,280, 520,280, 520,230, 450,220, 460,100, 300,0)
   val ipd = ipoly.draw()
-  val icen = 470 pp 260
+  val icen = Pt2(470, 260)
   val cross = Cross.draw(icen)
   val in2: Rect = ipoly.inRectFrom(icen, 1)
   val out2 = ipoly.boundingRect.draw(1, Green)

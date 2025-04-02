@@ -14,7 +14,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   /** The major radius of this ellipse, often referred to as a in maths. */
   def rMajor: Double
 
-  /** The major radius of this ellipse,often refered to as b in maths. */
+  /** The major radius of this ellipse,often referred to as b in maths. */
   def rMinor: Double
 
   /** The h value of this ellipse. */
@@ -69,7 +69,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
 object Ellipse
 { /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
-  def apply(radius1: Double, radius0: Double, cenX: Double, cenY: Double): Ellipse = new EllipseImp(cenX, cenY, radius1, 0,  radius0)
+  def apply(radius1: Double, radius0: Double, cenX: Double, cenY: Double): Ellipse = new EllipseImp(cenX, cenY, cenX + radius1, cenY,  radius0)
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
   def apply(radius1: Double, radius0: Double, cen: Pt2 = Pt2Z): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
