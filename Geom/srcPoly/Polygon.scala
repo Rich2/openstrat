@@ -266,6 +266,19 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     res
   }
 
+  /** Insert vertices as [[Double]]s before the specified insertion vertex. */
+  def insVertDbls(insertionPoint: Int, newPts: Double*): Polygon =
+  { val exLen = newPts.length
+    ifExcep(exLen.isOdd, "Odd number of Doubles supplied for Pt2 insertion.")
+    val newArray = new Array[Double](arrayLen + exLen)
+    val inp2 = (insertionPoint %% numVerts) * 2
+    Array.copy(arrayUnsafe, 0, newArray, 0, inp2)
+    Array.copy(newPts.toArray, 0, newArray, inp2, exLen)
+    val remLen = arrayLen - inp2
+    Array.copy(arrayUnsafe, inp2, newArray, inp2 + exLen, remLen)
+    Polygon.fromArray(newArray)
+  }
+
   def precisionDefault: Double = ???
 
   override def approx(that: Any, precision: Double): Boolean = ???

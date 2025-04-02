@@ -13,22 +13,24 @@ trait Flag
   def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
 
   def compound(evObj: AnyRef = this): PolygonCompound =
-  { val rect = Rect(ratio, 1)
+  { val rect = Rect(ratio)
     PolygonCompound(rect, RArr(), apply() +% rect.active(evObj))
   }
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-  def leftToRight(colours: Colour*): GraphicElems = colours.iMap{ (i, colour) => Rect.tl(ratio / colours.length, 1,
-    -ratio / 2 pp +0.5).slate(i * ratio / colours.length, 0).fill(colour) }
+  def leftToRight(colours: Colour*): GraphicElems = colours.iMap{ (i, colour) =>
+    val rect = Rect.tl(ratio / colours.length, 1, -ratio / 2, 0.5)
+    rect.slate(i * ratio / colours.length, 0).fill(colour)
+  }
          
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottom(colours: Colour*): GraphicElems = colours.iMap{ (i, colour) => Rect.tl(ratio,
-    1.0 / colours.length, -ratio / 2 pp +0.5).slate(0, -i.toDouble / colours.length).fill(colour) }
+  def topToBottom(colours: Colour*): GraphicElems = colours.iMap{ (i, colour) =>
+    Rect.tl(ratio, 1.0 / colours.length, -ratio / 2, 0.5).slateY(-i.toDouble / colours.length).fill(colour) }
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
   def topToBottomRepeat(numBands: Int, colours: Colour*): GraphicElems = iUntilMap(numBands){ i =>
-    val r1 = Rect.tl(ratio, 1.0 / numBands, -ratio / 2 pp + 0.5)
-    val r2 = r1.slate(0, -i.toDouble / numBands)
+    val r1 = Rect.tl(ratio, 1.0 / numBands, -ratio / 2, 0.5)
+    val r2 = r1.slateY(-i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
   }
 }
@@ -66,8 +68,7 @@ object Chad extends Flag
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  def apply(): GraphicElems = RArr(Rect(1.5, 1).fill(Red),
-    Rect.tl(0.75, 0.5, - 0.75 pp 0.5).fill(DarkBlue))
+  def apply(): GraphicElems = RArr(Rect(1.5).fill(Red), Rect.tl(0.75, 0.5, - 0.75, 0.5).fill(DarkBlue))
 }
 
 object Japan extends Flag
@@ -95,25 +96,25 @@ object CommonShapesInFlags extends Flag
 
     //off centre cross
     Rect(ratio, 0.25).fill(Green),
-    Rect(0.25, 1).fill(Green).slate(-0.3 pp 0),
+    Rect(0.25, 1).fill(Green).slateX(-0.3),
 
-    Star5().scale(0.1).slate(-0.6 pp 0.3).fill(Magenta),
+    Star5().scale(0.1).slate(-0.6, 0.3).fill(Magenta),
 
-    Star7(0.382).scale(0.1).slate(-0.3 pp 0.3).fill(Red),
+    Star7(0.382).scale(0.1).slate(-0.3, 0.3).fill(Red),
 
-    Star5().scale(0.1).slate(0.3 pp 0.3).draw(1, Lime),
+    Star5().scale(0.1).slate(0.3, 0.3).draw(1, Lime),
 
     //hexagram
-    Star3().scale(0.15).slate(0.6 pp 0.3).draw(1.5, Blue),
-    Star3().scale(0.15).rotate(DegVec180).slate(0.6 pp 0.3).draw(1.5, Blue),
+    Star3().scale(0.15).slate(0.6, 0.3).draw(1.5, Blue),
+    Star3().scale(0.15).rotate(DegVec180).slate(0.6, 0.3).draw(1.5, Blue),
 
     //crescent
     Circle.d(0.225, -0.6, -0.3).fill(Red),
-    Circle.d(0.2, -0.6, -0.3).slate(0.04 pp 0).fill(White),
+    Circle.d(0.2, -0.6, -0.3).slate(0.04, 0).fill(White),
 
     //composite star ()
-    Star5().scale(0.15).slate(-0.3 pp 0).fill(Gold),
-    Star5().scale(0.1).slate(-0.3 pp 0).fill(Magenta),
+    Star5().scale(0.15).slate(-0.3, 0).fill(Gold),
+    Star5().scale(0.1).slate(-0.3, 0).fill(Magenta),
 
     Pentagram().scale(0.1).slate(0 pp 0.3).draw(2, Colour(0xFF006233)),
   )

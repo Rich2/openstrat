@@ -134,7 +134,7 @@ object CzechRepublic extends Flag
   def apply(): GraphicElems = RArr(
     Rect(ratio, 1).fill(White),
     Rect(ratio, 0.5).slate(0 pp -0.25).fill(Colour(0xFFD7141A)),
-    Triangle(-ratio / 2 pp 0.5, -ratio / 2 pp -0.5, 0 pp 0).fill(Colour(0xFF11457E))
+    Triangle(-ratio / 2, 0.5, -ratio / 2, -0.5, 0, 0).fill(Colour(0xFF11457E))
   )
 }
 

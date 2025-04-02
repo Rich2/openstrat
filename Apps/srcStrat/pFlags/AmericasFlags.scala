@@ -42,8 +42,8 @@ object Chile extends Flag
   val ratio = 1.5
   def apply(): GraphicElems = RArr(
     Rect(ratio, 1).fill(White),
-    Rect(ratio, 0.5, 0 pp -0.25).fill(Colour(0xFFD52B1E)),
-    Rect(0.5, 0.5, -0.5 pp 0.25).fill(Colour(0xFF0039A6)),
-    Star5().scale(0.125).slate(-0.5 pp 0.25).fill(White)
+    Rect(ratio, 0.5, 0, -0.25).fill(Colour(0xFFD52B1E)),
+    Rect(0.5, 0.5, -0.5, 0.25).fill(Colour(0xFF0039A6)),
+    Star5().scale(0.125).slate(-0.5, 0.25).fill(White)
   )
 }

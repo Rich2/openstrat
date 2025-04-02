@@ -1,4 +1,4 @@
-/* Copyright 2021 - 2023 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2021-25 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
 import geom._, pgui._, Colour._
 
@@ -80,11 +80,6 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   var dragStartX = 0.0
   var isDragging = false
   
-//  def showSelected(which:Symbol): Unit =
-//  { 
-           
-//  }
-  
  def showGridView(indexOfFirstItemInView:Int = 0): Unit =
   { val firstIndex = Math.min(Math.max(indexOfFirstItemInView, 0), maxIndexOfFirstItemInView)
     viewableItems = RArr()
@@ -99,7 +94,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   def positionBar(): Unit = 
   { barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX pp scrollYpos).fill(Pink)
+    bar = Rectangle.curvedCorners(barWidth, 30, 10, Pt2(barStartX + barOffsetX, scrollYpos)).fill(Pink)
     repaint(RArr(background) ++ scrollBar ++ viewableItems ++ RArr(bar))
   }
 

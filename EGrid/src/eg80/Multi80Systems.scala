@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import prid._, phex._, egrid._
+import prid.*, phex.*, egrid.*
 
 /** 80km terrain only scenario for Europe. 2 Grid system for 0°E and 30°E */
 object Scen80Europe extends EScenLongMulti

@@ -1,10 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pStrat
-import geom._, pgui._
+import geom.*, pgui.*
 
 case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Generator")
-{
-  var line = 0
+{ val line = 0
   val n = 2
   
   def intMaker(i: Int): Int =
@@ -18,7 +17,7 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
     val b1 = intMaker(b)
     def c1 = Colour.fromInts(r1, g1, b1)
     val c2 = Rect.colouredBordered(25, c1, 2).slate(left + 30, top - 20)
-    def c3 = TextFixed(commaedInts(r1, g1, b1), 15, left + 120 pp top - 20)
+    def c3 = TextFixed(commaedInts(r1, g1, b1), 15, Pt2(left + 120, top - 20))
     (c2, c3)
   }
    
