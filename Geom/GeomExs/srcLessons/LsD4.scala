@@ -12,11 +12,11 @@ object LsD4 extends LessonGraphics
   { val v1 = Pt2(2.3, -9.8)
     val t4 = v1.str
 
-    val v2: Pt2 = 4.6 pp 78.4
+    val v2: Pt2 = Pt2(4.6, 78.4)
 
     val v3 = v1.slateX(50)
     val v4 = v1.slateXFrom(300)
-    val v5 = 4.4 pp 5.5
+    val v5 = Pt2(4.4, 5.5)
     val v6 = v5.slateY(100)
     //So in this longer example, the semicolons and commas become more useful. You can't do this with toString
     val t1 = PolygonGen(v1, v2, v3, v4, v5, v6)
