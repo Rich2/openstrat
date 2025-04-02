@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[ArrDblN]] Array[Double] based collections. */
 trait DblNElem extends Any with ValueNElem
@@ -162,7 +162,7 @@ trait CompanionSeqLikeDblN[A <: DblNElem, AA <: SeqLikeDblN[A]]
   def empty: AA = fromArray(new Array[Double](0))
 
   /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is incorrect. */
-  def fromDbls(inp: Double*): AA =
+  def dbls(inp: Double*): AA =
   { val arrLen: Int = inp.length
     if (arrLen % numElemDbls != 0) excep(
       s"$arrLen Double values is not a correct number for the creation of this objects defining sequence, must be a multiple of $numElemDbls")

@@ -37,7 +37,7 @@ object Star7
 
 object Star3
 {
-  def apply(sideLength: Double = 1): Polygon = Polygon.fromDbls(0, sideLength * math.sqrt(3) / 3,
+  def apply(sideLength: Double = 1): Polygon = Polygon.dbls(0, sideLength * math.sqrt(3) / 3,
               sideLength / 2, -sideLength * math.sqrt(3) / 6,
               -sideLength / 2, -sideLength * math.sqrt(3) / 6)
       

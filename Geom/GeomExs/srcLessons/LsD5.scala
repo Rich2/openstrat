@@ -12,7 +12,7 @@ object LsD5 extends LessonGraphics
   /** Lesson D4 Settings. */
   case class LsD5Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D5") {
     val s1 = IntArr(10, 9, 8, 7)
-    val s2 = Pt2Arr.fromDbls(4,3, 2.1,0.7, 500,-100, 0,0)
+    val s2 = Pt2Arr.dbls(4,3, 2.1,0.7, 500,-100, 0,0)
 
     //val ss = Sett("Arr", s1).ap("Ls", s2).str
     //val c1 = ss.findIntArray

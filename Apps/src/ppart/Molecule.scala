@@ -27,7 +27,7 @@ object Dihydrogen extends Molecule
   val aH2 = HAtom()
   override val atoms: RArr[Atom] = RArr(aH1, aH2)
 
-  override def atomPosns: PtPm2Arr = PtPm2Arr.fromDbls(-37,0 ,37,0)
+  override def atomPosns: PtPm2Arr = PtPm2Arr.dbls(-37,0 ,37,0)
   override val bonds: RPairArr[Atom, Atom] = RPairArr((aH1, aH2))
 }
 
@@ -50,6 +50,6 @@ object CO2Mc extends Molecule
   val aO2 = OAtom()
   override val atoms: RArr[Atom] = RArr(aO1, aC1, aO2)
   val bondLenNum = 116.3
-  override def atomPosns: PtPm2Arr = PtPm2Arr.fromDbls(-bondLenNum,0 ,0,0, bondLenNum, 0)
+  override def atomPosns: PtPm2Arr = PtPm2Arr.dbls(-bondLenNum,0 ,0,0, bondLenNum, 0)
   override val bonds: RPairArr[Atom, Atom] = RPairArr((aC1, aO1), (aC1, aO2))
 }

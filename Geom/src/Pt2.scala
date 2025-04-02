@@ -181,7 +181,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   def centreSquare(length: Double): PolygonGen =
   { val r = length / 2.0
-    PolygonGen.fromDbls(-r,r, r,r, r,-r, -r,-r).slate(x, y)
+    PolygonGen.dbls(-r,r, r,r, r,-r, -r,-r).slate(x, y)
   }
 
   def textAt(str: String, fontSize: Int = 12, fontColour: Colour = Colour.Black): TextFixed = TextFixed(str, fontSize, this, fontColour)
@@ -201,7 +201,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   /** Not sure about this method */
   def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LineSegArrDraw =
-    LineSegArr.fromDbls(x - armLength, y, x + armLength, y,
+    LineSegArr.dbls(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta

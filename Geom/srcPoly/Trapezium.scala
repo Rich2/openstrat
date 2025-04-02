@@ -8,7 +8,7 @@ object Trapezium
 
 object TrapezoidIsosceles
 {
-  def apply(baseWidth: Double, topWidth: Double, height: Double): Polygon = Polygon.fromDbls(
+  def apply(baseWidth: Double, topWidth: Double, height: Double): Polygon = Polygon.dbls(
       -topWidth /2, height/2,
       topWidth/2, height / 2,
       baseWidth/2, -height/2,

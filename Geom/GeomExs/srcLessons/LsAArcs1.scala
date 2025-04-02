@@ -39,9 +39,9 @@ object LsAArcs1 extends LessonStatic
     LineSegDraw.dbls(0, 50, 150, 200, lineWidth = 3),
     LineSegDraw.dbls(50, -50, 200, -50, 2, Red),//Note if you don't include a Colour you get Black
 
-    LinePath(0 pp -50, 50 pp -100, -25 pp -75, 200 pp -60).draw(2, Orange),
+    LinePath.dbls(0,-50, 50,-100, -25,-75, 200,-60).draw(2, Orange),
 
-    Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(2, Green),
+    Bezier(200,-350, -500,-300,-600, -300, -450,-200).draw(2, Green),
     c1, c2,
     c3d, c4d, e1, e2
   )

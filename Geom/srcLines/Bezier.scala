@@ -16,6 +16,9 @@ class Bezier (val startX: Double, val startY: Double, val xC1: Double, val yC1: 
 
 object Bezier
 { def apply(pStart: Pt2, pC1: Pt2, pC2: Pt2, pEnd: Pt2): Bezier = new Bezier(pStart.x, pStart.y, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
+
+  def apply(xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): Bezier =
+    new Bezier(xStart, yStart, xC1, yC1, xC2, yC2, xEnd, yEnd)
 }
       
 /** Functional class for Drawing a cubic Bezier curve. */

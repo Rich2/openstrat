@@ -39,22 +39,22 @@ object UnitedKingdom extends EnglandLike
     /** ywc * 2 where diag crosses ywc */
     val xDiag = 10.0 / 30.0
 
-    val b1 = Polygon.fromDbls(
+    val b1 = Polygon.dbls(
       5.0 / 30, 0.5, 1 - xd * 3, 0.5,
       1.0 / 6.0, ywc + yd)
 
-    val b2 = Polygon.fromDbls(
+    val b2 = Polygon.dbls(
       xDiag + 3 * xd, ywc,
       1, 0.5 - yd * 3,
       1, ywc)
 
-    val r1: Polygon = Polygon.fromDbls(
+    val r1: Polygon = Polygon.dbls(
       -1, 0.5,
       -xDiag, ywc,
       -(xDiag + xd * 2), ywc,
       -1, 0.5 - (yd * 2))
 
-    val r2: Polygon = Polygon.fromDbls(
+    val r2: Polygon = Polygon.dbls(
       xDiag - xd * 2, ywc,
       1 - xd * 2, 0.5,
       1, 0.5,
