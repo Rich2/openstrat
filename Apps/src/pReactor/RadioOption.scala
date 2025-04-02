@@ -1,15 +1,17 @@
 /* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pReactor
-import geom._, Colour._
+import geom.*, Colour.*
 
 /** Simple Radio button with label **/
-case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 pp 0, aIsEnabled:Boolean = true)
-{ val defaultSize = 12
+case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", xLoc: Double = 0, yLoc: Double = 0, aIsEnabled:Boolean = true)
+{ def loc: Pt2 = Pt2(xLoc, yLoc)
+  val defaultSize = 12
   var parent:RadioGroup = null
   var isSelected = aIsSelected
   var isEnabled = aIsEnabled
 
-  def toGraphicElems(aParent:RadioGroup, aIsSelected: Boolean = isSelected, labelText: String = labelText, loc:Pt2 = loc, aIsEnabled: Boolean = isEnabled): GraphicElems =
+  def toGraphicElems(aParent:RadioGroup, aIsSelected: Boolean = isSelected, labelText: String = labelText, loc:Pt2 = loc, aIsEnabled: Boolean = isEnabled):
+    GraphicElems =
   { isSelected = aIsSelected
     isEnabled = aIsEnabled
     parent = aParent

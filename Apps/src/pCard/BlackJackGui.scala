@@ -5,7 +5,7 @@ import geom.*, pgui.*, Colour.Black
 case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack")
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
-   hand.iMap{ (i, c) => TextFixed(c.unicode.mkString, 100, 50 + 100 * i pp 100, c.suitColour) }
+   hand.iMap{ (i, c) => TextFixed.xy(c.unicode.mkString, 100, 50 + 100 * i, 100, c.suitColour) }
    
    def clubFill(): GraphicElems =
    {

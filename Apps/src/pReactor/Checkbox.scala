@@ -1,15 +1,18 @@
 /* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pReactor
-import geom._, Colour._
+import geom.*, Colour.*
 
 /** Simple Checkbox with label **/
-case class Checkbox(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 pp 0, aIsEnabled:Boolean = false, action: (Checkbox) => Unit = (Checkbox) => {}, myColor:Colour = White) {
+case class Checkbox(aIsSelected: Boolean = false, labelText:String = "", xLoc: Double = 0, yLoc: Double = 0, aIsEnabled:Boolean = false,
+  action: (Checkbox) => Unit = (Checkbox) => {}, myColor:Colour = White)
+{ val loc: Pt2 = Pt2(xLoc, yLoc)
   val defaultSize = 12
   var isSelected = aIsSelected
   var isEnabled = aIsEnabled
   var color = myColor
 
-  def toGraphicElems(aIsSelected: Boolean = isSelected, labelText: String = labelText, loc: Pt2 = loc, aIsEnabled:Boolean = isEnabled, aAction: (Checkbox) => Unit = action): GraphicElems =
+  def toGraphicElems(aIsSelected: Boolean = isSelected, labelText: String = labelText, loc: Pt2 = loc, aIsEnabled:Boolean = isEnabled,
+    aAction: (Checkbox) => Unit = action): GraphicElems =
   { isSelected = aIsSelected
     isEnabled = aIsEnabled
     val ink = if (isEnabled) myColor else Grey

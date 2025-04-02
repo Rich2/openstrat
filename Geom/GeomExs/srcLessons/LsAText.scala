@@ -22,8 +22,8 @@ object LsAText extends LessonStatic
 
     //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
     TextOutline("Text in outline at centre screen", 40, Pt2Z, Orange, 1),
-    TextOutline("More outline text, at x is 0, y is - 200", 60, 0 pp -200, Red, 2),
-    TextOutline("Text with its baseline = top", 40, 100 pp 50, Blue, 1, LeftAlign, BaseLine.Top),
+    TextOutline.xy("More outline text, at x is 0, y is - 200", 60, 0, -200, Red, 2),
+    TextOutline.xy("Text with its baseline = top", 40, 100, 50, Blue, 1, LeftAlign, BaseLine.Top),
 
     // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
     Polygon.dbls(-300,200, -300,300, -250,300).fill(Orange),

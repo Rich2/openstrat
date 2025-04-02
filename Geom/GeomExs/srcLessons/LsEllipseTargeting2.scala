@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat.*, geom.*, pgui.*, Colour.*
 
 object LsEllipseTargeting2 extends LessonGraphics
 { override def title: String = "Ellipse targeting Lesson 2"
@@ -19,8 +19,8 @@ object LsEllipseTargeting2 extends LessonGraphics
 
     def gArr = rArr.map(r => r.fillActive(colour, r.cenPt))
 
-    val textPosn = 0 pp 0
-    val startText = TextFixed("Click on the rectangles to cycle the colour.", 28, textPosn)
+    val textPosn: Pt2 = Pt2Z
+    val startText: TextFixed = TextFixed("Click on the rectangles to cycle the colour.", 28, textPosn)
     deb((gArr +% startText).length.toString)
     repaint(gArr +% startText)
 

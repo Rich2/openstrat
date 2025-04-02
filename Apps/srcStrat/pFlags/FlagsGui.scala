@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver and w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver and w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
 import geom._, pgui._, Colour._
 
@@ -49,7 +49,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val brFlags = RArr(Germany, Germany1871, Ireland, UnitedStates)
   val brObjs = brFlags.iMap((i, el) => el.compoundStr.scale(100).bottomRightTo(canv.bottomRight.slateY(i * 110)))
 
-  val starCen = 300 pp 0
+  val starCen = Pt2(300, 0)
   val star: GraphicElems = RArr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
 
@@ -57,7 +57,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 
   mouseUp = (_, li, _) =>
   { val str: String = li.headFoldToString("No clickable object on canvas")
-    val tg = TextFixed(str, 28, 0 pp 100)
+    val tg = TextFixed.xy(str, 28, 0, 100)
     if (li.nonEmpty) li(0) match {
       case fl : Flag => big = fl
       case _ => 
