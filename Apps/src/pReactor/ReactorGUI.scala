@@ -109,19 +109,19 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         { b match
           { case "N" =>
             { if (animationStep > 0.55) locy = loc.slateY(0.5*size*(animationStep-0.5))
-              else locy = loc - (0 vv 0.25*size*(animationStep))
+              else locy = loc - Vec2(0, 0.25*size*(animationStep))
             }
             case "E" =>
-            { if (animationStep > 0.55) locy = loc + (0.5*size*(animationStep-0.5) vv 0)
-              else locy = loc - (0.25*size*(animationStep) vv 0)
+            { if (animationStep > 0.55) locy = loc + Vec2(0.5*size*(animationStep-0.5), 0)
+              else locy = loc - Vec2(0.25*size*(animationStep), 0)
             }
             case "S" =>
-            { if (animationStep > 0.55) locy = loc - (0 vv 0.5*size*(animationStep-0.5))
-              else locy = loc + (0 vv 0.25*size*(animationStep))
+            { if (animationStep > 0.55) locy = loc - Vec2(0, 0.5*size*(animationStep-0.5))
+              else locy = loc + Vec2(0, 0.25*size*(animationStep))
             }
             case "W" =>
-            { if (animationStep > 0.55)  locy = loc - (0.5*size*(animationStep-0.5) vv 0)
-              else locy = loc + (0.25*size*(animationStep) vv 0)
+            { if (animationStep > 0.55)  locy = loc - Vec2(0.5*size*(animationStep-0.5), 0)
+              else locy = loc + Vec2(0.25*size*(animationStep), 0)
             }
           }
           canv.circleFill(Circle.d(size * (1 - animationStep)/ballScale, locy.slate(getLocFromCellSite(i, 0, b))).

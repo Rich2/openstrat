@@ -20,18 +20,18 @@ object LsBezierChange extends LessonGraphics
     /** start point bezier. */
     val startPoint = DragCircle(-250, 0, Red)
 
-    /** End point of bezier curve. */
+    /** End point of Bézier curve. */
     val endPoint = DragCircle(-50, 0, Red)
 
     /** control point for start point */
     val controlStart = DragCircle(-250, -250, Gray)
 
-    var controlStartOffset = 0 vv -250
+    var controlStartOffset = Vec2(0, -250)
 
     /** control point for end point */
     val controlEnd = DragCircle(-50, 150, Gray)
 
-    var controlEndOffset = 0 vv 150
+    var controlEndOffset = Vec2(0, 150)
 
     val bezierPoints = RArr(startPoint, endPoint, controlStart, controlEnd)
 
