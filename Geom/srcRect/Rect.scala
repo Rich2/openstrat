@@ -105,6 +105,9 @@ object Rect
    * of the Rect at the origin. */
   def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect = RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
 
+  /** Factory method for Rect from width, height and the topLeft position parameters. */
+  def tl(width: Double, height: Double, xTopLeft: Double, yTopLeft: Double): Rect = RectImp(width, height, xTopLeft + width / 2, yTopLeft - height / 2)
+
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the bottomRight parameter places the bottom right
    * vertex of the Rect at the origin. */
   def br(width: Double, height: Double, bottomRight: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
