@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
 import geom.*, Colour.*
 
@@ -133,7 +133,7 @@ object CzechRepublic extends Flag
   val ratio = 1.5
   def apply(): GraphicElems = RArr(
     Rect(ratio, 1).fill(White),
-    Rect(ratio, 0.5).slate(0 pp -0.25).fill(Colour(0xFFD7141A)),
+    Rect(ratio, 0.5).slate(0, -0.25).fill(Colour(0xFFD7141A)),
     Triangle(-ratio / 2, 0.5, -ratio / 2, -0.5, 0, 0).fill(Colour(0xFF11457E))
   )
 }

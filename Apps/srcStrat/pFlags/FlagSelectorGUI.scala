@@ -53,8 +53,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val isScrollHorizontal = true
   val scrollYpos = vHeight / 2 + vHeaderSize / 2
   
-  val firstFlagsPosition = (-(vWidth - vCellWidth) / 2 pp (vHeight - vCellHeight) / 2)
-  val barBackground =  Rectangle.curvedCorners(maxBarWidth + 2, 32, 10, (0 pp scrollYpos)).fill(Black)
+  val firstFlagsPosition = Pt2(-(vWidth - vCellWidth) / 2, (vHeight - vCellHeight) / 2)
+  val barBackground =  Rectangle.curvedCorners(maxBarWidth + 2, 32, 10, Pt2(0, scrollYpos)).fill(Black)
   val background = Rectangle.curvedCorners(vWidth, vHeight, 10).fill(Gray)
   val btnMore = simpleButton(">") { scrollMore() }.slate(+20 + maxBarWidth / 2, scrollYpos)
   val btnLess = simpleButton("<") { scrollLess() }.slate(-20 - maxBarWidth / 2, scrollYpos)

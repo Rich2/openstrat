@@ -116,7 +116,7 @@ object CommonShapesInFlags extends Flag
     Star5().scale(0.15).slate(-0.3, 0).fill(Gold),
     Star5().scale(0.1).slate(-0.3, 0).fill(Magenta),
 
-    Pentagram().scale(0.1).slate(0 pp 0.3).draw(2, Colour(0xFF006233)),
+    Pentagram().scale(0.1).slate(0, 0.3).draw(2, Colour(0xFF006233)),
   )
 }
 

@@ -49,7 +49,7 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Kilares]], Kilometre². [[kilares]] follows the same naming convention as [[Hectares]]. */
   @inline def kilares: Kilares = Kilares(thisInt)
   
-  /** Extension methods multiplies this scalar [[Int]] by the operand [[Length]]. If you want a more precise return type such as [[Netres]] or [[Miles]] put the
+  /** Extension methods multiplies this scalar [[Int]] by the operand [[Length]]. If you want a more precise return type such as [[Metres]] or [[Miles]] put the
    * [[Length]] object first. */
   @inline def * (operator: Length): Length = operator * thisInt
 

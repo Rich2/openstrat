@@ -116,6 +116,10 @@ object Rect
    * left vertex of the Rect at the origin. */
   def bl(width: Double, height: Double, bottomLeft: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
 
+  /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the bottom
+   * left vertex of the Rect at the origin. */
+  def bl(width: Double, height: Double, xBL: Double, yBL: Double): Rect = RectImp(width, height, xBL + width / 2, yBL + height / 2)
+
   /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places the bottom
    * centre of the Rect at the origin. */
   def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
