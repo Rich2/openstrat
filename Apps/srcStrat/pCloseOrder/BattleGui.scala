@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCloseOrder
-import pgui._, geom._
+import pgui.*, geom.*
 
 /** Beginnings of a game to explore close formation battles. */
 case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("BattleGui")
@@ -9,7 +9,7 @@ case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("
 
   def rs: GraphicElems = lunits.flatMap { c =>
     ijToMap(1, c.ranks)(0, c.rankLen) { (y, x) =>
-      Rect(15, 10, (x - c.rankMiddle) * 20 + c.posn.x pp (y - 2) * 20 + c.posn.y).fill(c.colour)
+      Rect(15, 10, (x - c.rankMiddle) * 20 + c.posn.x, (y - 2) * 20 + c.posn.y).fill(c.colour)
     }
   }
    repaint(rs)

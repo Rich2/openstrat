@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
-import geom._, Colour._
+import geom.*, Colour.*
 
 object UnitedStates extends Flag
 { val name = "United States"
@@ -23,7 +23,7 @@ object UnitedStates extends Flag
   val star = star0.slate(-0.95, 0.5)
 
   def apply(): GraphicElems =
-  { val blueFieldOld = Rect.tl(0.76, 7.0/ 13, -0.95 pp 0.5).fill(usBlue)
+  { val blueFieldOld = Rect.tl(0.76, 7.0/ 13, -0.95, 0.5).fill(usBlue)
     val stars = ijToMap(0, 10, 2)(1, 9, 2) { (x, y) => star.slate(starX + x * starX, -y * starY) }
     val starsInner = ijToMap(2, 10, 2)(2, 8, 2) { (x, y) => star.slate(x * starX, -y * starY) }
     val stripes = topToBottomRepeat(13, oGRed, White)
