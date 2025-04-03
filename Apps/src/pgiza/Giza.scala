@@ -3,14 +3,16 @@ package ostrat; package pgiza
 import geom.*, Colour.*
 
 trait Pyramid
-{
+{ /** Base side length. */
   def sideLen: Length
 
-  /** The  */
+  /** The 2-dimensional pyramid base. */
   def basePositioned: SqlignM2
+
   def baseFill: SqlignLen2Fill = basePositioned.fill(Wheat)
   def lbrtLine: LineSegLen2Draw = basePositioned.lbrtDiag.draw()
-  //def diagsDraw = basePositioned
+  def diagsDraw: LineSegLen2ArrDraw = basePositioned.diags.draw()
+  def baseGraphics: RArr[GraphicLen2Elem] = RArr(baseFill, diagsDraw)
 
   def offset: VecLen2
   val axisOffsetNum = 300

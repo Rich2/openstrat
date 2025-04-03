@@ -33,6 +33,7 @@ class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double
   override def typeStr: String = "SqlignM2"
   inline def heightMNum: Double = widthMNum
 
+  override def diags: LineSegM2Arr = LineSegM2Arr(lbrtDiag, ltrbDiag)
   override def slate(operand: VecPtLen2): SqlignM2 = SqlignM2(widthMNum, xCenMNum + operand.xMetresNum, yCenMNum + operand.yMetresNum)
   override def slate(xOperand: Length, yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum + yOperand.metresNum)
   override def slateX(xOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum)

@@ -3,7 +3,10 @@ package ostrat; package geom
 
 /** A Rectangle defined in [[Length]] units. */
 trait RectangleLen2[+VT <: PtLen2] extends PolygonLen2[VT]
-{ override def slate(operand: VecPtLen2): RectangleLen2[VT]
+{
+  def diags: LineSegLen2Arr[VT]
+
+  override def slate(operand: VecPtLen2): RectangleLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): RectangleLen2[VT]
   override def slateX(xOperand: Length): RectangleLen2[VT]
   override def slateY(yOperand: Length): RectangleLen2[VT]

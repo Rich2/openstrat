@@ -50,7 +50,7 @@ object LineSegLen2
   implicit val drawerEv: Drawing[LineSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
-trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]], GeomLen2Elem
+trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]], GeomLen2Elem, DrawableLen2
 { type ThisT <: LineSegLen2Arr[VT]
   override def slate(operand: VecPtLen2): LineSegLen2Arr[VT]
   override def slate(xOperand: Length, yOperand: Length): LineSegLen2Arr[VT]
@@ -58,6 +58,7 @@ trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]], GeomLen2Elem
   override def slateY(yOperand: Length): LineSegLen2Arr[VT]
   override def scale(operand: Double): LineSegLen2Arr[VT]
   override def mapGeom2(operand: Length): LineSegArr
+  override def draw(lineWidth: Double, lineColour: Colour): LineSegLen2ArrDraw = LineSegLen2ArrDraw(this, lineWidth, lineColour)
 }
 
 object LineSegLen2Arr
@@ -91,4 +92,6 @@ class LineSegLen2ArrDraw(val lineSegArr: LineSegLen2Arr[PtLen2], lineWidth: Doub
 object LineSegLen2ArrDraw
 {
   def apply(lineSegArr: LineSegLen2Arr[PtLen2], lineWidth: Double, colour: Colour): LineSegLen2ArrDraw = new LineSegLen2ArrDraw(lineSegArr, lineWidth, colour)
+  
+  implicit val mapGeom2Ev: MapGeom2[LineSegLen2ArrDraw, LineSegArrDraw] = (obj, operand) => obj.mapGeom2(operand)
 }
