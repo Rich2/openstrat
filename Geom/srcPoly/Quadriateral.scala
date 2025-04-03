@@ -7,3 +7,14 @@ trait Quadrilateral extends Polygon4Plus
 { type ThisT <: Quadrilateral
   final override def numVerts: Int = 4
 }
+
+class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve
+{
+  type ThisT = QuadriateralGen
+
+  override def typeStr: String = "QuadrilateralGen"
+
+  override def ptsTrans(f: Pt2 => Pt2): QuadriateralGen = ???
+
+  override def fromArray(array: Array[Double]): QuadriateralGen = new QuadriateralGen(array)
+}

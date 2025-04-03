@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, Colour.Black
+import pWeb.*, Colour.Black
 
 /** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of polygons
  * such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the vertices in a

@@ -37,7 +37,6 @@ object AppSelector
 
   val ids: ArrPairStr[(CanvasPlatform => Any, String)] = ArrPairStr(
     ("GZ", (pgiza.GizaGui(_), "Giza Pyramids")),
-    ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y1", (pZero.TessGui(_), "Tess")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),

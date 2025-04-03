@@ -21,29 +21,17 @@ class AppStart extends application.Application
     val jScene = new Scene(root, canvWidth, canvHeight)
     val params: java.util.List[String] = getParameters.getRaw
     val oApp: Option[String] = ife(params.isEmpty, None, Some(params.get(0)))
-
-    /** Tries to get the app Launcher from matching the first arg. */
-    val oApp2: Option[GuiLaunch] = oApp.flatMap(str => AppSelector.findChars(str))
-
-    val eApp3: ErrBi[Throwable, String] = oApp.toErrBi.orElse(findDevSettingIdStr("appSet"))
-    val eApp4 = AppSelector.eFindEither(eApp3)
-    val pair2: (CanvasPlatform => Any, String) = eApp4.fold(p => p, launch =>
+    val eApp1: ErrBi[Throwable, String] = oApp.toErrBi.orElse(findDevSettingIdStr("appSet"))
+    val eApp2 = AppSelector.eFindEither(eApp1)
+    
+    val pair: (CanvasPlatform => Any, String) = eApp2.fold(p => p, launch =>
       { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
         val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
         eSett.fld(e => launch.default, launch(_))
       })
 
-    /** Tries to get the app launcher from matching the first arg, failing that tries to get it from the appSet setting. Else returns the default app. */
-    val launch: GuiLaunch = oApp2.getOrElse(AppSelector.findErrBiCharsOrDefault(findDevSettingIdStr("appSet")))
-
-    val pair: (CanvasPlatform => Any, String) =
-    { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
-      val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
-      eSett.fld(e => launch.default, launch(_))
-    }
-
     val newAlt = CanvasFx(canvasCanvas, jScene)
-    pair2._1(newAlt)
+    pair._1(newAlt)
     primaryStage.setTitle(pair._2)
     primaryStage.setScene(jScene)
     primaryStage.show
