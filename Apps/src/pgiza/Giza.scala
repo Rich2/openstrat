@@ -10,6 +10,7 @@ trait Pyramid
   def basePositioned: SqlignM2
   def baseFill: SqlignLen2Fill = basePositioned.fill(Wheat)
   def lbrtLine: LineSegLen2Draw = basePositioned.lbrtDiag.draw()
+  //def diagsDraw = basePositioned
 
   def offset: VecLen2
   val axisOffsetNum = 300

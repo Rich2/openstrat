@@ -1,11 +1,11 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
+import pWeb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Straight line segment. A straight line in everyday terminology. Mathematically: 2-dimensional directed, line segment. The name was chosen to avoid
  * ambiguity. */
-final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2] with LineLike with
-CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
+final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2], LineLike, CurveSeg,
+  Tell2[Pt2, Pt2], AffinePreserve, BoundedElem
 { override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
   override def name1: String = "start"
@@ -33,8 +33,8 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
     case _ if pt.y < startY & pt.y < endY => false //Check if point is  below the polygon side, below beg pt and end pt
     case _ if 0.000001 > (endY - startY).abs => false /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
      of the polygon that the point can measured as outside */
-    case _ => {
-      val ptDeltaY: Double = pt.y - startY
+    case _ =>
+    { val ptDeltaY: Double = pt.y - startY
       val deltaX: Double = endX - startX //Not entirely sure what's going on here
       val lineX: Double = startX + (deltaX * ptDeltaY / (endY - startY)) //
       pt.x > lineX

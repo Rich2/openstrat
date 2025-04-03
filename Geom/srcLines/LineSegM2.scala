@@ -80,12 +80,18 @@ object LineSegM2
 
 /** Compact immutable Array[Double] based collection class for [[LineSegM2]]s. A mathematical
  *  straight line segment measured in metres. */
-class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends ArrDbl4[LineSegM2]
+class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtM2], ArrDbl4[LineSegM2]
 { type ThisT = LineSegM2Arr
   def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
   override def typeStr: String = "LineSegMArr"
   override def fElemStr: LineSegM2 => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
+  override def slate(operand: VecPtLen2): LineSegM2Arr = map(_.slate(operand))
+  override def slate(xOperand: Length, yOperand: Length): LineSegM2Arr = map(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Length): LineSegM2Arr = map(_.slateX(xOperand))
+  override def slateY(yOperand: Length): LineSegM2Arr = map(_.slateY(yOperand))
+  override def scale(operand: Double): LineSegM2Arr = map(_.scale(operand))
+  override def mapGeom2(operand: Length): LineSegArr = map(_.mapGeom2(operand))
 }
 
 /** Companion object for the [[LineSegM2]]s class. */
@@ -113,18 +119,4 @@ object LineSegM2Arr extends CompanionSeqLikeDbl4[LineSegM2, LineSegM2Arr]
 class LineSegM2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSegM2]
 { override def typeStr: String = "Line2sBuff"
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
-}
-
-class LineSegM2ArrDraw(val arrayUnsafe: Array[Double]) extends GraphicLen2Elem, SeqSpecDbl4[LineSegM2]
-{ override type ThisT = LineSegM2ArrDraw
-  override def typeStr: String = "LineSegM2ArrDraw"
-  override def slate(operand: VecPtLen2): LineSegM2ArrDraw = ???
-  override def slate(xOperand: Length, yOperand: Length): LineSegM2ArrDraw = ???
-  override def slateX(xOperand: Length): LineSegM2ArrDraw = ???
-  override def slateY(yOperand: Length): LineSegM2ArrDraw = ???
-  override def scale(operand: Double): LineSegM2ArrDraw = ???
-  override def mapGeom2(operand: Length): Graphic2Elem = ???
-  override def fElemStr: LineSegM2 => String = ???
-  override def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = ???
-  override def fromArray(array: Array[Double]): LineSegM2ArrDraw = ???
 }

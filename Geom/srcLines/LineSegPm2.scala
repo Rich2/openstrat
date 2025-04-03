@@ -85,6 +85,12 @@ class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2
   override def typeStr: String = "LineSegMArr"
   override def fElemStr: LineSegPm2 => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegPm2 = new LineSegPm2(d1, d2, d3, d4)
+  override def slate(operand: VecPtLen2): LineSegPm2Arr = map(_.slate(operand))
+  override def slate(xOperand: Length, yOperand: Length): LineSegPm2Arr = map(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Length): LineSegPm2Arr = map(_.slateX(xOperand))
+  override def slateY(yOperand: Length): LineSegPm2Arr = map(_.slateY(yOperand))
+  override def scale(operand: Double): LineSegPm2Arr = map(_.scale(operand))
+  override def mapGeom2(operand: Length): LineSegArr = map(_.mapGeom2(operand))
 }
 
 /** Companion object for the [[LineSegPm2]]s class. */
