@@ -80,19 +80,30 @@ object LineSegM2
 
 /** Compact immutable Array[Double] based collection class for [[LineSegM2]]s. A mathematical
  *  straight line segment measured in metres. */
-class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtM2], ArrDbl4[LineSegM2]
+class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtM2], ArrDbl4[LineSegM2], MetresBased
 { type ThisT = LineSegM2Arr
   def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
   override def typeStr: String = "LineSegMArr"
 
-  def ++(operand: LineSegLen2Arr[?]): LineSegM2Arr = operand match
-  { case m2Arr: LineSegM2Arr => new LineSegM2Arr(arrayUnsafe ++ m2Arr.arrayUnsafe)
-    case _ => {
-      val newArray = new Array[Double](arrayLen + operand.arrayLen)
-      Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen)
-      new LineSegM2Arr(newArray)
-    }
+  override def ++(operand: LineSegLen2Arr[?]): LineSegM2Arr =
+  { val finalArray: Array[Double] =  operand match
+    { case m2Arr: LineSegM2Arr => arrayUnsafe ++ m2Arr.arrayUnsafe
+
+      case _ =>
+      { val opLen = operand.arrayLen
+        val newArray = new Array[Double](arrayLen + opLen)
+        Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen)
+        var i = 0
+        while (i < operand.arrayLen)
+        { newArray(arrayLen + i) = operand.arrayUnsafe(i) * unitToMetre
+          i += 1
+        }
+        newArray
+      }
+    }  
+    new LineSegM2Arr(finalArray)
   }
+  
   override def fElemStr: LineSegM2 => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
   override def slate(operand: VecPtLen2): LineSegM2Arr = map(_.slate(operand))

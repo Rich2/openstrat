@@ -79,7 +79,7 @@ object LineSegPm2
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSegPm2]]s. A mathematical straight line segment measured in [[Picometres]]. */
-class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2], ArrDbl4[LineSegPm2]
+class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2], ArrDbl4[LineSegPm2], PicometresBased
 { type ThisT = LineSegPm2Arr
   def fromArray(array: Array[Double]): LineSegPm2Arr = new LineSegPm2Arr(array)
   override def typeStr: String = "LineSegMArr"
@@ -91,6 +91,26 @@ class LineSegPm2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtPm2
   override def slateY(yOperand: Length): LineSegPm2Arr = map(_.slateY(yOperand))
   override def scale(operand: Double): LineSegPm2Arr = map(_.scale(operand))
   override def mapGeom2(operand: Length): LineSegArr = map(_.mapGeom2(operand))
+
+  override def ++(operand: LineSegLen2Arr[?]): LineSegPm2Arr =
+  {
+    val finalArray: Array[Double] = operand match
+    { case m2Arr: LineSegPm2Arr => arrayUnsafe ++ m2Arr.arrayUnsafe
+
+      case _ =>
+      { val opLen = operand.arrayLen
+        val newArray = new Array[Double](arrayLen + opLen)
+        Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen)
+        var i = 0
+        while (i < operand.arrayLen)
+        { newArray(arrayLen + i) = operand.arrayUnsafe(i) * unitToPicometre
+          i += 1
+        }
+        newArray
+      }
+    }
+    new LineSegPm2Arr(finalArray)
+  }
 }
 
 /** Companion object for the [[LineSegPm2]]s class. */

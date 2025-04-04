@@ -78,12 +78,20 @@ object LineSegKm2
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSegKm2]]s. A mathematical straight line segment measured in [[Kilometres]]. */
-class LineSegKm2Arr(val arrayUnsafe: Array[Double]) extends ArrDbl4[LineSegKm2]
+class LineSegKm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLen2Arr[PtKm2], KilometresBased, ArrDbl4[LineSegKm2]
 { type ThisT = LineSegKm2Arr
   def fromArray(array: Array[Double]): LineSegKm2Arr = new LineSegKm2Arr(array)
   override def typeStr: String = "LineSegKm2Arr"
   override def fElemStr: LineSegKm2 => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegKm2 = new LineSegKm2(d1, d2, d3, d4)
+
+  override def ++(operand: LineSegLen2Arr[?]): LineSegKm2Arr = ???
+  override def slate(operand: _root_.ostrat.geom.VecPtLen2): LineSegKm2Arr = ???
+  override def slate(xOperand: _root_.ostrat.geom.Length, yOperand: _root_.ostrat.geom.Length): LineSegKm2Arr = ???
+  override def slateX(xOperand: _root_.ostrat.geom.Length): LineSegKm2Arr = ???
+  override def slateY(yOperand: _root_.ostrat.geom.Length): LineSegKm2Arr = ???
+  override def scale(operand: Double): LineSegKm2Arr = ???
+  override def mapGeom2(operand: Length): LineSegArr = ???
 }
 
 /** Companion object for the [[LineSegKm2]]s class. */

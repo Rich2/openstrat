@@ -182,7 +182,7 @@ object Filling
 }
 
 /** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
-trait DrawableLen2 extends GeomLen2Elem
+trait DrawableLen2 extends Any, GeomLen2Elem
 { /** Draws the object. The line width is defined in pixels. */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
 
