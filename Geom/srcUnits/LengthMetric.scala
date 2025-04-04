@@ -31,7 +31,7 @@ object LengthMetric
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
-final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
+final class Metres(val metresNum: Double) extends AnyVal, LengthMetric, MetresBased
 { override def typeStr: String = "Metres"
   override def unitsDbl: Double = metresNum
   override def endingStr: String = "m"
@@ -73,7 +73,7 @@ object Metres
 }
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
-final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetric
+final class Kilometres(val kilometresNum: Double) extends AnyVal, LengthMetric, KilometresBased
 { override def typeStr: String = "Kilometres"
   override def unitsDbl: Double = kilometresNum
   override def endingStr: String = "km"
@@ -121,7 +121,7 @@ object Kilometres
 }
 
 /** Measurement of [[Length]] in Megametres. can be negative. */
-final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetric
+final class Megametres(val megametresNum: Double) extends AnyVal, LengthMetric, MegametresBased
 { override def typeStr: String = "Megametres"
   override def unitsDbl: Double = megametresNum
   override def endingStr: String = "Mm"
@@ -155,7 +155,7 @@ object Megametres
 }
 
 /** Measurement of [[Length]] in Gigametres. can be negative. */
-final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetric
+final class Gigametres(val gigametresNum: Double) extends AnyVal, LengthMetric, GigametresBased
 { override def typeStr: String = "Gigametres"
   override def unitsDbl: Double = gigametresNum
   override def endingStr: String = "Gm"
@@ -189,7 +189,7 @@ object Gigametres
 }
 
 /** Measurement of [[Length]] in Millimetres. can be negative. */
-final class Millimetres(val millimetresNum: Double) extends AnyVal with LengthMetric
+final class Millimetres(val millimetresNum: Double) extends AnyVal, LengthMetric, MillimetresBased
 { override def typeStr: String = "Millimetres"
   override def unitsDbl: Double = millimetresNum
   override def endingStr: String = "mm"
@@ -238,7 +238,7 @@ object Millimetres
 }
 
 /** Measurement of [[Length]] in [[Micrometres]]. can be negative. */
-final class Micrometres(val micrometresNum: Double) extends AnyVal with LengthMetric
+final class Micrometres(val micrometresNum: Double) extends AnyVal, LengthMetric, MicrometresBased
 { override def typeStr: String = "Micrometres"
   override def unitsDbl: Double = micrometresNum
   override def endingStr: String = "μm"
@@ -277,7 +277,7 @@ object Micrometres
 }
 
 /** Measurement of [[Length]] in [[Nanometres]]. can be negative. */
-final class Nanometres(val nanometresNum: Double) extends AnyVal with LengthMetric
+final class Nanometres(val nanometresNum: Double) extends AnyVal, LengthMetric, NanometresBased
 { override def typeStr: String = "Nanometres"
   override def unitsDbl: Double = nanometresNum
   override def endingStr: String = "nm"
@@ -316,7 +316,7 @@ object Nanometres
 }
 
 /** Measurement of [[Length]] in angstroms. can be negative. */
-final class Angstroms(val angstromsNum: Double) extends AnyVal with LengthMetric
+final class Angstroms(val angstromsNum: Double) extends AnyVal, LengthMetric, AngstromsBased
 { override def typeStr: String = "Angstroms"
   override def unitsDbl: Double = angstromsNum
   override def endingStr: String = "Å"
@@ -350,7 +350,7 @@ object Angstroms
 }
 
 /** Measurement of [[Length]] in [[Picometres]]. can be negative. */
-final class Picometres(val picometresNum: Double) extends AnyVal with LengthMetric
+final class Picometres(val picometresNum: Double) extends AnyVal, LengthMetric, PicometresBased
 { override def typeStr: String = "Picometres"
   override def unitsDbl: Double = picometresNum
   override def endingStr: String = "pm"
@@ -389,7 +389,7 @@ object Picometres
 }
 
 /** Measurement of [[Length]] in [[Femtometres]]. can be negative. */
-final class Femtometres(val femtometresNum: Double) extends AnyVal with LengthMetric
+final class Femtometres(val femtometresNum: Double) extends AnyVal, LengthMetric, FemtometresBased
 { override def typeStr: String = "Femtometres"
   override def unitsDbl: Double = femtometresNum
   override def endingStr: String = "pm"

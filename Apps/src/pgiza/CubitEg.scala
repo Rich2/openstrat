@@ -2,7 +2,13 @@
 package ostrat; package pgiza
 import geom.*
 
-case class CubitEg(cubitsNum: Double) extends AnyVal, LengthNotMetric
+trait CubitEgBase extends Any, LengthBased
+{ override def toPicometreNum: Double = ???
+  override def toMetresNum: Double = ???
+  override def toKilometresNum: Double = ???
+}
+
+case class CubitEg(cubitsNum: Double) extends AnyVal, LengthNotMetric, CubitEgBase
 {
   override def metresNum: Double = ???
 
@@ -11,14 +17,10 @@ case class CubitEg(cubitsNum: Double) extends AnyVal, LengthNotMetric
   override def -(operand: Length): Length = ???
   override def unary_- : Length = ???
   override def *(operand: Double): Length = ???
-
   override def /(operand: Double): Length = ???
-
   override def divByLength(operand: Length): Double = ???
   override def pos: Boolean = ???
   override def neg: Boolean = ???
-
   override def nonNeg: Boolean = ???
-
-  override def compare(that: _root_.ostrat.geom.Length): Int = ???
+  override def compare(that: Length): Int = ???
 }

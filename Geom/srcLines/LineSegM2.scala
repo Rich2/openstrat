@@ -95,7 +95,7 @@ class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtM2],
         Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen)
         var i = 0
         while (i < operand.arrayLen)
-        { newArray(arrayLen + i) = operand.arrayUnsafe(i) * unitToMetre
+        { newArray(arrayLen + i) = operand.arrayUnsafe(i) * toMetresNum
           i += 1
         }
         newArray

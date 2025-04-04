@@ -4,7 +4,7 @@ package ostrat; package geom; package impunits
 /** British Imperial system of measurement units. */
 trait ImperialUnits extends Any
 
-trait LengthImperial extends Any with LengthNotMetric with ImperialUnits
+trait LengthImperial extends Any, LengthNotMetric, ImperialUnits, LengthImperialBased
 { /** The number of yards in this length */
   def yardsNum: Double
 
@@ -24,7 +24,7 @@ trait LengthImperial extends Any with LengthNotMetric with ImperialUnits
 }
 
 /** [[Length]] measured in yards. Can be negative. */
-final class Yards(val yardsNum: Double) extends AnyVal with LengthImperial
+final class Yards(val yardsNum: Double) extends AnyVal, LengthImperial, YardBased
 { def typeStr: String = "Yards"
   import Yards.{ numFromLength => nfl }
   override def compare(that: Length): Int = yardsNum.compare(nfl(that))
@@ -59,7 +59,7 @@ object Yards
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
-final class Miles(val milesNum: Double) extends AnyVal with LengthImperial
+final class Miles(val milesNum: Double) extends AnyVal, LengthImperial, MileBased
 { def typeStr: String = "Miles"
   import Miles.{ numFromLength => nfl}
   override def compare(that: Length): Int = milesNum.compare(nfl(that))
@@ -70,7 +70,7 @@ final class Miles(val milesNum: Double) extends AnyVal with LengthImperial
   override def toRectArea(operand: Length): Mileares = Mileares(milesNum * nfl(operand))
   override def /(operand: Double): Miles = Miles(milesNum / operand)
   override def divByLength(operand: Length): Double = milesNum / nfl(operand)
-  override def metresNum: Double = milesNum * Yards.toMetres * Miles.toYards
+  override def metresNum: Double = milesNum * Yards.toMetres * toMetresNum
   override def yardsNum: Double = milesNum * Miles.toYards
   override def megaMilesNum: Double = milesNum / 1000000
   override def nonNeg: Boolean = milesNum >= 0
@@ -97,7 +97,7 @@ object Miles
 }
 
 /** [[Length]] measured in millions of miles. Can be negative. */
-final class MegaMiles(val megaMilesNum: Double) extends AnyVal with LengthImperial
+final class MegaMiles(val megaMilesNum: Double) extends AnyVal, LengthImperial, MegamileBased
 { def typeStr: String = "Miles"
   import MegaMiles.{ numFromLength => mmfl }
   override def compare(that: Length): Int = megaMilesNum.compare(mmfl(that))

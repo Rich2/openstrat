@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Measurement of length which can be defined in various units metric and non-metric. */
-trait Length extends Any, Ordered[Length]
+trait Length extends Any, Ordered[Length], LengthBased
 { /** The number of metres in this [[Length]]. */
   def metresNum: Double
 
