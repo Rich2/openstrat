@@ -291,7 +291,7 @@ object EllipseCompound
     override def slate(operand: VecPt2): EllipseCompoundImplement = EllipseCompoundImplement(shape.slate(operand), facets, children.slate(operand))
 
     override def slate(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.slate(xDelta, yDelta), facets, children.slateXY(xDelta, yDelta))
+      EllipseCompoundImplement(shape.slate(xDelta, yDelta), facets, children.slate(xDelta, yDelta))
 
     override def scale(operand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))

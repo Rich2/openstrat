@@ -73,7 +73,7 @@ trait RectCompound extends RectGraphic with RectangleCompound
   override def mainSvgElem: SvgRect = SvgRect(attribs)
   /** Translate geometric transformation. */
   override def slate(xOperand: Double, yOperand: Double): RectCompound =
-    RectCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+    RectCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

@@ -63,15 +63,15 @@ implicit class SlateExtensions[A](value: A)(implicit ev: Slate[A])
 
 /** Extension class for instances of the Slate type class. */
 class SlateXYExtensions[A](value: A, ev: SlateXY[A])
-{ /** Translate 2D geometric transformation extension method, along the X axis, on this object of type T, returning an object of Type T. */
+{ /** Translate 2D geometric transformation extension method, taking the X offset and Y offset as parameters, on this object of type T, returning an object of
+   * Type T. */
+  def slate(xOperand: Double, yOperand: Double): A = ev.slateXY(value, xOperand, yOperand)
+  
+  /** Translate 2D geometric transformation extension method, along the X axis, on this object of type T, returning an object of Type T. */
   def slateX(xOperand: Double): A = ev.slateXY(value, xOperand, 0)
 
   /** Translate 2D geometric transformation extension method, along the Y axis, on this object of type T, returning an object of Type T. */
-  def slateY(yOperand: Double): A = ev.slateXY(value, 0, yOperand)
-
-  /** Translate 2D geometric transformation extension method, taking the X offset and Y offset as parameters, on this object of type T, returning an object of
-   * Type T. */
-  def slateXY(xOperand: Double, yOperand: Double): A = ev.slateXY(value, xOperand, yOperand)
+  def slateY(yOperand: Double): A = ev.slateXY(value, 0, yOperand)  
 
   /** Translate 2D geometric transformation extension method, taking a 2-dimensional vector as its operand, specified in terms of its angle and magnitude
    * parameters, on this object of type T, returning an object of Type T. */

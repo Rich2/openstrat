@@ -24,3 +24,21 @@ object SqlignFill
 {
   def apply(shape: Sqlign, fillFacet: FillFacet): SqlignFill = new SqlignFill(shape, fillFacet)
 }
+
+class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[ChildGraphic[Sqlign]], val children: GraphicElems) extends
+  SqlignGraphic, RectCompound, ParentGraphic2[Sqlign]
+{ override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, childs, children.slate(operand))
+
+  override def slate(xOperand: Double, yOperand: Double): SqlignCompound =
+    SqlignCompound(shape.slate(xOperand, yOperand), facets, childs, children.slate(xOperand, yOperand))
+
+  override def scale(operand: Double): SqlignCompound = SqlignCompound(shape.scale(operand), facets, childs, children.scale(operand))
+  override def negX: SqlignCompound = SqlignCompound(shape.negX, facets, childs, children.negX)
+  override def negY: SqlignCompound = SqlignCompound(shape.negY, facets, childs, children.negY)
+}
+
+object SqlignCompound
+{
+  def apply(shape: Sqlign, facets: RArr[GraphicFacet], childs: RArr[ChildGraphic[Sqlign]], children: GraphicElems): SqlignCompound =
+    new SqlignCompound(shape, facets, childs, children)
+}

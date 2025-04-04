@@ -117,7 +117,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 { override def slate(operand: VecPt2): RectangleCompound = RectangleCompound(shape.slate(operand), facets, children.slate(operand))
   
   override def slate(xOperand: Double, yOperand: Double): RectangleCompound =
-    RectangleCompound(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+    RectangleCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
   
   override def scale(operand: Double): RectangleCompound = RectangleCompound(shape.scale(operand), facets, children.scale(operand))
   override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.negX)
@@ -144,7 +144,7 @@ object RectangleCompound
     override def slate(operand: VecPt2): RectangleCompoundImp = RectangleCompoundImp(shape.slate(operand), facets, children.slate(operand))
     
     override def slate(xOperand: Double, yOperand: Double): RectangleCompoundImp =
-      RectangleCompoundImp(shape.slate(xOperand, yOperand), facets, children.slateXY(xOperand, yOperand))
+      RectangleCompoundImp(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
     
     override def scale(operand: Double): RectangleCompoundImp = RectangleCompoundImp(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: ProlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))

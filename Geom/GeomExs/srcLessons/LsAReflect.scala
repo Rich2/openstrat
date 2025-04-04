@@ -38,10 +38,10 @@ object LsAReflect extends LessonStatic
   val cn1 = cn.slate(20, 50)
   val na = RArr(cl2, cn)
 
-  val na1 = na.slateXY(20, 20)
+  val na1 = na.slate(20, 20)
 
   val ca: RArr[Geom2Elem] = RArr(sq, cn)
-  val ca2 = ca.slateXY(20, 20)
+  val ca2 = ca.slate(20, 20)
   
   val la = List(sq, cn)
 
@@ -49,7 +49,7 @@ object LsAReflect extends LessonStatic
   
   val cab = cn
   val cc = RArr(cn, cab)
-  val cc1 = cc.slateXY(2, 3)
+  val cc1 = cc.slate(2, 3)
 
   val a1 = RArr(r2, cl2)
   
