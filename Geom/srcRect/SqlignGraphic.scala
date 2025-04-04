@@ -25,9 +25,11 @@ object SqlignFill
   def apply(shape: Sqlign, fillFacet: FillFacet): SqlignFill = new SqlignFill(shape, fillFacet)
 }
 
-class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[ChildGraphic[Sqlign]], val children: GraphicElems) extends
+class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[Sqlign => GraphicElems], val adopted: GraphicElems) extends
   SqlignGraphic, RectCompound, ParentGraphic2[Sqlign]
-{ override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, childs, children.slate(operand))
+{
+  override def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
+  override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, childs, children.slate(operand))
 
   override def slate(xOperand: Double, yOperand: Double): SqlignCompound =
     SqlignCompound(shape.slate(xOperand, yOperand), facets, childs, children.slate(xOperand, yOperand))
@@ -39,6 +41,6 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
 
 object SqlignCompound
 {
-  def apply(shape: Sqlign, facets: RArr[GraphicFacet], childs: RArr[ChildGraphic[Sqlign]], children: GraphicElems): SqlignCompound =
+  def apply(shape: Sqlign, facets: RArr[GraphicFacet], childs: RArr[Sqlign => GraphicElems], children: GraphicElems = RArr()): SqlignCompound =
     new SqlignCompound(shape, facets, childs, children)
 }

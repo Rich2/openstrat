@@ -41,10 +41,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
   def yAttrib: YXmlAtt = YXmlAtt(-v2y)
 
-  def diag1: LineSeg = LineSeg(v2, v0)
-  def diag2: LineSeg = LineSeg(v3, v1)
-  @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
-
+  
   override def slate(offset: VecPt2): Rectangle = vertsTrans(_.slate(offset))
   override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slate(xOperand, yOperand))
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
