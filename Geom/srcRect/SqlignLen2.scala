@@ -29,9 +29,9 @@ object SqlignLen2
 
 class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double) extends SqlignLen2[PtM2], RectM2
 { type ThisT = SqlignM2
-  override type SideT = LineSegM2
   override def typeStr: String = "SqlignM2"
   inline def heightMNum: Double = widthMNum
+  def hWidthMNum: Double = widthMNum / 2
 
   override def diags: LineSegM2Arr = LineSegM2Arr(lbrtDiag, ltrbDiag)
   override def slate(operand: VecPtLen2): SqlignM2 = SqlignM2(widthMNum, xCenMNum + operand.xMetresNum, yCenMNum + operand.yMetresNum)
@@ -50,7 +50,7 @@ class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double
   def rotate180IfNot(cond: Boolean): SqlignM2 = ???
   override def arrayUnsafe: Array[Double] = ???
   override def side(index: Int): LineSegM2 = ???
-  override def sides: Arr[LineSegM2] = ???
+
   override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
   override def verts: Arr[PtM2] = ???
   override def fromArray(array: Array[Double]): SqlignM2 = ???

@@ -5,6 +5,8 @@ package ostrat; package geom
 trait RectangleLen2[+VT <: PtLen2] extends PolygonLen2[VT]
 {
   def diags: LineSegLen2Arr[VT]
+  
+  def sidesDiags: LineSegLen2Arr[VT]
 
   override def slate(operand: VecPtLen2): RectangleLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): RectangleLen2[VT]

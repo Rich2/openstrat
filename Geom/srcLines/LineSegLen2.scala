@@ -50,7 +50,7 @@ object LineSegLen2
   implicit val drawerEv: Drawing[LineSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
-trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]], GeomLen2Elem, DrawableLen2
+trait LineSegLen2Arr[+VT <: PtLen2] extends Arr[LineSegLen2[VT]], GeomLen2Elem, DrawableLen2, ArrayDblBacked
 { type ThisT <: LineSegLen2Arr[VT]
   override def slate(operand: VecPtLen2): LineSegLen2Arr[VT]
   override def slate(xOperand: Length, yOperand: Length): LineSegLen2Arr[VT]

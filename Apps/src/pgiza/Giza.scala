@@ -11,7 +11,7 @@ trait Pyramid
 
   def baseFill: SqlignLen2Fill = basePositioned.fill(Wheat)
   def lbrtLine: LineSegLen2Draw = basePositioned.lbrtDiag.draw()
-  def diagsDraw: LineSegLen2ArrDraw = basePositioned.diags.draw()
+  def diagsDraw: LineSegLen2ArrDraw = basePositioned.sidesDiags.draw()
   def baseGraphics: RArr[GraphicLen2Elem] = RArr(baseFill, diagsDraw)
 
   def offset: VecLen2

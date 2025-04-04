@@ -15,7 +15,6 @@ trait SeqLikeDblN[+A <: DblNElem] extends Any with SeqLikeValueN[A] with ArrayDb
 { type ThisT <: SeqLikeDblN[A]
   def fromArray(array: Array[Double]): ThisT
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
-  @inline final def arrayLen: Int = arrayUnsafe.length
   
   /** Maps on the underlying [[Array]]. End users should rarely need this utility method.  */
   def arrayUnsafeMap(f: Double => Double): Array[Double] =

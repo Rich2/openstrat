@@ -5,7 +5,7 @@ import pWeb.*, Colour.Black
 /** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of polygons
  * such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the vertices in a
  * clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner with then end point of
- * side n sdn at vertex n. */
+ * side sd((n - 1) at vertex 0. */
 trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with Pt2SeqSpec with PolygonLikeDbl2[Pt2] with SeqSpecDbl2[Pt2]
 {
   override type SideT = LineSeg
