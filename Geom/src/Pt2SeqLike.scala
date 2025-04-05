@@ -27,6 +27,8 @@ trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
   protected def arraySlateX(xOperand: Double): Array[Double] = arrayD1Map(_ + xOperand)
   protected def arraySlateY(yOperand: Double): Array[Double] = arrayD2Map(_ + yOperand)
   protected def arrayScale(operand: Double): Array[Double] = arrayUnsafe.map(_ * operand)
+  protected def arrayNegX: Array[Double] = arrayD1Map(-_)
+  protected def arrayNegY: Array[Double] = arrayD2Map(-_)
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from

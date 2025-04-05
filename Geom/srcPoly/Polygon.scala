@@ -141,12 +141,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def slateX(xOperand: Double): Polygon = PolygonGen(arraySlateX(xOperand))
   override def slateY(yOperand: Double): Polygon = PolygonGen(arraySlateY(yOperand))
   override def scale(operand: Double): Polygon = PolygonGen(arrayScale(operand))
-
-  /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
-  override def negY: Polygon = map(_.negY)
-
-  /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
-  override def negX: Polygon = map(_.negX)
+  override def negX: Polygon = PolygonGen(arrayNegX)
+  override def negY: Polygon = PolygonGen(arrayNegY)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = map(_.prolign(matrix))

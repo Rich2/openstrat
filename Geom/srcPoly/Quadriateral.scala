@@ -1,6 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
 
 /** A 4 sided [[Polygon]]. */
 trait Quadrilateral extends Polygon4Plus
@@ -15,8 +14,11 @@ trait Quadrilateral extends Polygon4Plus
 
   override def slate(operand: VecPt2): Quadrilateral = QuadriateralGen(arraySlate(operand))
   override def slate(xOperand: Double, yOperand: Double): Quadrilateral = QuadriateralGen(arraySlateXY(xOperand, yOperand))
+  override def slateX(xOperand: Double): Quadrilateral = QuadriateralGen(arraySlateX(xOperand))
+  override def slateY(yOperand: Double): Quadrilateral = QuadriateralGen(arraySlateY(yOperand))
   override def scale(offset: Double): Quadrilateral = QuadriateralGen(arrayScale(offset))
-  
+  override def negX: Quadrilateral = QuadriateralGen(arrayNegX)
+  override def negY: Quadrilateral = QuadriateralGen(arrayNegY)
 }
 
 class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve
