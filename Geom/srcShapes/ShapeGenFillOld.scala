@@ -15,7 +15,7 @@ final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends Can
   override def slateY(yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateY(yOperand), colour)
   override def scale(operand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.scale(operand), colour)
   override def prolign(matrix: ProlignMatrix): ShapeGenFillOld = ShapeGenFillOld(shape.prolign(matrix), colour)
-  override def rotate(angle: AngleVec): ShapeGenFillOld = ShapeGenFillOld(shape.rotate(angle), colour)
+  override def rotate(rotation: AngleVec): ShapeGenFillOld = ShapeGenFillOld(shape.rotate(rotation), colour)
   override def reflect(lineLike: LineLike): ShapeGenFillOld = ShapeGenFillOld(shape.reflect(lineLike), colour)
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGenFillOld = ???
   override def shearX(operand: Double): ShapeGenFillOld = ???

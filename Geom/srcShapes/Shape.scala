@@ -34,7 +34,7 @@ trait Shape extends Any with Fillable with BoundedElem
   override def rotate90: Shape
   override def rotate180: Shape
   override def rotate270: Shape
-  override def rotate(angle: AngleVec): Shape
+  override def rotate(rotation: AngleVec): Shape
   override def reflect(lineLike: LineLike): Shape
   override def scaleXY(xOperand: Double, yOperand: Double): Shape
   override def shearX(operand: Double): Shape

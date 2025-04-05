@@ -12,7 +12,7 @@ trait CanvShapeFill extends ShapeFill with CanvElem
   override def rotate90: CanvShapeFill
   override def rotate180: CanvShapeFill
   override def rotate270: CanvShapeFill
-  override def rotate(angle: AngleVec): CanvShapeFill
+  override def rotate(rotation: AngleVec): CanvShapeFill
   override def reflect(lineLike: LineLike): CanvShapeFill
   override def scaleXY(xOperand: Double, yOperand: Double): CanvShapeFill
   override def shearX(operand: Double): CanvShapeFill

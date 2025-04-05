@@ -30,7 +30,7 @@ trait PhiRectangle extends Rectangle
 
   override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(sd0Cen.reflect(lineLike), sd2Cen.reflect(lineLike))
 
-  override def rotate(angle: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd0Cen.rotate(angle), sd2Cen.rotate(angle))
+  override def rotate(rotation: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd0Cen.rotate(rotation), sd2Cen.rotate(rotation))
 }
 
 /** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that

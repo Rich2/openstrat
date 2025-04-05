@@ -144,13 +144,10 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def negX: Polygon = PolygonGen(arrayNegX)
   override def negY: Polygon = PolygonGen(arrayNegY)
   override def prolign(matrix: ProlignMatrix): Polygon = PolygonGen(arrayProlign(matrix))
-  override def rotate90: Polygon = map(_.rotate90)
-  override def rotate180: Polygon = map(_.rotate180)
-  override def rotate270: Polygon = map(_.rotate270)
-
-  /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will be
-   * narrowed in some but not all sub traits / classes. */
-  override def rotate(angle: AngleVec): Polygon = map(_.rotate(angle))
+  override def rotate90: Polygon = PolygonGen(arrayRotate90)
+  override def rotate180: Polygon = PolygonGen(arrayRotate180)
+  override def rotate270: Polygon = PolygonGen(arrayRotate270)
+  override def rotate(rotation: AngleVec): Polygon = PolygonGen(arrayRotate(rotation))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in subclasses. */
   override def reflect(lineLike: LineLike): Polygon = map(_.reflect(lineLike))

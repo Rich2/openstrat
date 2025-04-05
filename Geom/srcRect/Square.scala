@@ -26,7 +26,7 @@ trait Square extends Rectangle
   override def rotate270: Square = vertsTrans(_.rotate270)
   override def prolign(matrix: ProlignMatrix): Square = vertsTrans(_.prolign(matrix))
   override def reflect(lineLike: LineLike): Square = vertsTrans(_.reflect(lineLike))
-  override def rotate(angle: AngleVec): Square = vertsTrans(_.rotate(angle))
+  override def rotate(rotation: AngleVec): Square = vertsTrans(_.rotate(rotation))
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */

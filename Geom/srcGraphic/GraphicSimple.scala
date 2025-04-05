@@ -33,7 +33,7 @@ trait GraphicSimple extends Graphic2Elem
 
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
-  override def rotate(angle: AngleVec): GraphicSimple
+  override def rotate(rotation: AngleVec): GraphicSimple
 
   override def reflect(lineLike: LineLike): GraphicSimple
 

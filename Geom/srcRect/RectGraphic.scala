@@ -49,7 +49,7 @@ object RectFill
     override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
     override def prolign(matrix: ProlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
     override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
-    override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
+    override def rotate(rotation: AngleVec): RectangleFill = RectangleFill(shape.rotate(rotation), fillFacet)
   }
 }
 

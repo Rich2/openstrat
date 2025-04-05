@@ -177,9 +177,9 @@ object India extends Flag
       BezierTail(-0.75, 0.4867, -0.754, 0.4533, -0.754, 0.4533), LineTail(-0.75, 0.3833),
       LineTail(-0.75, 0.3833)).slate(0.75, -0.5).fill(Colour(0xFF000080))
     
-    val spokes = iToMap(23){i => spoke.rotate(DegVec30/2*i)}
-    val rimNotch = Circle.d(0.875/75, 0, -17.5/150).rotate(DegVec30/4).fill(Colour(0xFF000080))
-    val rimNotches = iToMap(23){i => rimNotch.rotate(DegVec30/2*i)}
+    val spokes = iToMap(23){i => spoke.rotate(DegVec30 / 2 * i)}
+    val rimNotch = Circle.d(0.875 / 75, 0, -17.5 / 150).rotate(DegVec30 / 4).fill(Colour(0xFF000080))
+    val rimNotches = iToMap(23){i => rimNotch.rotate(DegVec30 / 2 * i)}
     val outerCircle = Circle.d(20.0/75).fill(Colour(0xFF000080))
     val middleCircle = Circle.d(17.5/75).fill(Colour(0xFFFFFFFF))
     val innerCircle = Circle.d(3.5/75).fill(Colour(0xFF000080))

@@ -6,6 +6,6 @@ import pWeb._
 trait RectangleStad extends ShapeCentred with ShapeSegs
 { type ThisT <: RectangleStad
   
-  override def rotate(angle: AngleVec): RectangleStad = ???
+  override def rotate(rotation: AngleVec): RectangleStad = ???
   
 }

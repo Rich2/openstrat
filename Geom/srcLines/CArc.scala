@@ -41,7 +41,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   override def rotate180: CArc = ???
   override def rotate270: CArc = ???
   override def prolign(matrix: ProlignMatrix): CArc = ???
-  override def rotate(angle: AngleVec): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), rotationsInt)
+  override def rotate(rotation: AngleVec): CArc = CArc(pStart.rotate(rotation), cen.rotate(rotation), pEnd.rotate(rotation), rotationsInt)
   override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
 
   /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */

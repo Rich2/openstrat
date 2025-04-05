@@ -31,7 +31,7 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   override def rotate180: RectangleDraw = ???
   override def rotate270: RectangleDraw = ???
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
-  override def rotate(angle: AngleVec): RectangleDraw = RectangleDraw(shape.rotate(angle), lineWidth, lineColour)
+  override def rotate(rotation: AngleVec): RectangleDraw = RectangleDraw(shape.rotate(rotation), lineWidth, lineColour)
   override def reflect(lineLike: LineLike): RectangleDraw = RectangleDraw(shape.reflect(lineLike), lineWidth, lineColour)
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
 }
@@ -59,7 +59,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def rotate180: RectangleFill
   override def rotate270: RectangleFill
   override def prolign(matrix: ProlignMatrix): RectangleFill
-  override def rotate(angle: AngleVec): RectangleFill
+  override def rotate(rotation: AngleVec): RectangleFill
   override def reflect(lineLike: LineLike): RectangleFill
   override def shearX(operand: Double): PolygonFill = PolygonFill(shape.shearX(operand), fillFacet)
   override def shearY(operand: Double): PolygonFill = PolygonFill(shape.shearY(operand), fillFacet)  
@@ -109,7 +109,7 @@ object RectangleFill
     override def rotate180: RectangleFillGen = RectangleFillGen(shape.rotate180, fillFacet)
     override def rotate270: RectangleFillGen = RectangleFillGen(shape.rotate270, fillFacet)
     override def prolign(matrix: ProlignMatrix): RectangleFillGen = RectangleFillGen(shape.prolign(matrix), fillFacet)
-    override def rotate(angle: AngleVec): RectangleFillGen = RectangleFillGen(shape.rotate(angle), fillFacet)
+    override def rotate(rotation: AngleVec): RectangleFillGen = RectangleFillGen(shape.rotate(rotation), fillFacet)
     override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
   }
 }
@@ -126,7 +126,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
   override def negY: RectangleCompound = RectangleCompound(shape.negY, facets, children.negY)
   override def prolign(matrix: ProlignMatrix): RectangleCompound = RectangleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
   override def rotate90: RectangleCompound = ???
-  override def rotate(angle: AngleVec): RectangleCompound = RectangleCompound(shape.rotate(angle), facets, children.rotate(angle))
+  override def rotate(rotation: AngleVec): RectangleCompound = RectangleCompound(shape.rotate(rotation), facets, children.rotate(rotation))
   override def reflect(lineLike: LineLike): RectangleCompound = ???
   override def scaleXY(xOperand: Double, yOperand: Double): RectangleCompound = ???
   override def shearX(operand: Double): PolygonCompound = ???
@@ -150,7 +150,7 @@ object RectangleCompound
     
     override def scale(operand: Double): RectangleCompoundImp = RectangleCompoundImp(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: ProlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
-    override def rotate(angle: AngleVec): RectangleCompoundImp = RectangleCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
+    override def rotate(rotation: AngleVec): RectangleCompoundImp = RectangleCompoundImp(shape.rotate(rotation), facets, children.rotate(rotation))
     override def reflect(lineLike: LineLike): RectangleCompoundImp = ???
     override def scaleXY(xOperand: Double, yOperand: Double): RectangleCompoundImp = ???
     override def shearX(operand: Double): PolygonCompound = ???

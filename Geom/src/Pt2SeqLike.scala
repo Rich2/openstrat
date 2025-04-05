@@ -30,10 +30,14 @@ trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
   protected def arrayNegX: Array[Double] = arrayD1Map(-_)
   protected def arrayNegY: Array[Double] = arrayD2Map(-_)
   protected def arrayProlign(matrix: ProlignMatrix): Array[Double] = arrayElemMap(_.prolign(matrix))
+  protected def arrayRotate90: Array[Double] = arrayElemMap(_.rotate90)
+  protected def arrayRotate180: Array[Double] = arrayElemMap(_.rotate180)
+  protected def arrayRotate270: Array[Double] = arrayElemMap(_.rotate270)
+  protected def arrayRotate(rotation: AngleVec): Array[Double] = arrayElemMap(_.rotate(rotation))
 }
 
-/** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
- *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
+/** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from [[Polygon]]
+ * class and [[LinePath]] class should not entail a runtime cost. */
 final class Pt2Arr(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2SeqLike with ArrDbl2[Pt2]
 { type ThisT = Pt2Arr
   def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
@@ -55,8 +59,8 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
 {
   override def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
 
-  /** Builder for [[Arr]] of [[Pt2]]s via the flatMap method. The call site does not need to know that the element type is [[Pt2]] hence why this type
-   *  class instance / evidence is in the [[Pt2Arr]] companion object, while the corresponding [[BuilderArrDbl2Map]] type class instance is in the
+  /** Builder for [[Arr]] of [[Pt2]]s via the flatMap method. The call site does not need to know that the element type is [[Pt2]] hence why this type class
+   * instance / evidence is in the [[Pt2Arr]] companion object, while the corresponding [[BuilderArrDbl2Map]] type class instance is in the
    *  [[Pt2]] companion object. */
   implicit val builderArrFlatEv: BuilderArrFlat[Pt2Arr] =  new BuilderArrDbl2Flat[Pt2Arr]
   { override type BuffT = Pt2Buff

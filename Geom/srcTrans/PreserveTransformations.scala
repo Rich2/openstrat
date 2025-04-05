@@ -27,7 +27,7 @@ trait SimilarPreserve extends Any with ProlignPreserve
   override def rotate180: ThisT = ptsTrans(_.rotate180)
   override def rotate270: ThisT = ptsTrans(_.rotate270)
   override def reflect(lineLike: LineLike): ThisT = ptsTrans(_.reflect(lineLike))
-  override def rotate(angle: AngleVec): ThisT = ptsTrans(_.rotate(angle))
+  override def rotate(rotation: AngleVec): ThisT = ptsTrans(_.rotate(rotation))
 }
 
 /** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other affine

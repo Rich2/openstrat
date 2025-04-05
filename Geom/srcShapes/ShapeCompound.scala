@@ -31,7 +31,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   override def rotate90: ShapeCompound
   override def rotate180: ShapeCompound
   override def rotate270: ShapeCompound
-  override def rotate(angle: AngleVec): ShapeCompound
+  override def rotate(rotation: AngleVec): ShapeCompound
   override def reflect(lineLike: LineLike): ShapeCompound
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeCompound
   override def shearX(operand: Double): ShapeCompound

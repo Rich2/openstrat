@@ -39,7 +39,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): HexReg = mapHexReg(_.prolign(matrix))
 
-  override def rotate(angle: AngleVec): HexReg = mapHexReg(_.rotate(angle))
+  override def rotate(rotation: AngleVec): HexReg = mapHexReg(_.rotate(rotation))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub traits /
    * classes. */

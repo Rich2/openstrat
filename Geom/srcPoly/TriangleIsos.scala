@@ -20,7 +20,7 @@ final case class TriangleIsosGen(arrayUnsafe: Array[Double]) extends TriangleIso
 
   override def attribs: RArr[XmlAtt] = ???
 
-  override def rotate(angle: AngleVec): TriangleIsosGen = ???
+  override def rotate(rotation: AngleVec): TriangleIsosGen = ???
 
   override def reflect(lineLike: LineLike): TriangleIsosGen = ???
 }

@@ -22,7 +22,7 @@ trait Drawable extends Any with Geom2Elem
   override def rotate90: Drawable
   override def rotate180: Drawable
   override def rotate270: Drawable
-  override def rotate(angle: AngleVec): Drawable
+  override def rotate(rotation: AngleVec): Drawable
   override def reflect(lineLike: LineLike): Drawable
   override def scaleXY(xOperand: Double, yOperand: Double): Drawable
   override def shearX(operand: Double): Drawable
@@ -91,7 +91,7 @@ trait Fillable extends Any with Drawable
   override def rotate90: Fillable
   override def rotate180: Fillable
   override def rotate270: Fillable
-  override def rotate(angle: AngleVec): Fillable
+  override def rotate(rotation: AngleVec): Fillable
   override def reflect(lineLike: LineLike): Fillable
   override def scaleXY(xOperand: Double, yOperand: Double): Fillable
   override def shearX(operand: Double): Fillable

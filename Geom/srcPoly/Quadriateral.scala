@@ -20,6 +20,10 @@ trait Quadrilateral extends Polygon4Plus
   override def negX: Quadrilateral = QuadriateralGen(arrayNegX)
   override def negY: Quadrilateral = QuadriateralGen(arrayNegY)
   override def prolign(matrix: ProlignMatrix): Quadrilateral = QuadriateralGen(arrayProlign(matrix))
+  override def rotate90: Quadrilateral = QuadriateralGen(arrayRotate90)
+  override def rotate180: Quadrilateral = QuadriateralGen(arrayRotate90)
+  override def rotate270: Quadrilateral = QuadriateralGen(arrayRotate90)
+  override def rotate(rotation: AngleVec): Quadrilateral = QuadriateralGen(arrayRotate(rotation))
 }
 
 class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve

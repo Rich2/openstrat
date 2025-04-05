@@ -19,7 +19,7 @@ trait GraphicBounded extends Graphic2Elem with BoundedElem
   override def rotate90: GraphicBounded
   override def rotate180: GraphicBounded
   override def rotate270: GraphicBounded
-  def rotate(angle: AngleVec): GraphicBounded
+  def rotate(rotation: AngleVec): GraphicBounded
   override def reflect(lineLike: LineLike): GraphicBounded
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicBounded
 

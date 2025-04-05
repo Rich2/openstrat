@@ -39,7 +39,7 @@ trait ShapeGraphic extends GraphicBounded
 
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
-  def rotate(angle: AngleVec): ShapeGraphic
+  def rotate(rotation: AngleVec): ShapeGraphic
 
   def reflect(lineLike: LineLike): ShapeGraphic
 

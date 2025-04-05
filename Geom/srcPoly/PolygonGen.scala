@@ -82,7 +82,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
 
   /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
    * be narrowed in some but not all sub traits / classes. */
-  override def rotate(angle: AngleVec): PolygonGen = map(_.rotate(angle))
+  override def rotate(rotation: AngleVec): PolygonGen = map(_.rotate(rotation))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
    * traits / classes. */

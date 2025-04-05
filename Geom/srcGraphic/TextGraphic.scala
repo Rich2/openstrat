@@ -57,7 +57,7 @@ TextGraphic
   override def rotate90: Textlign = ???
   override def rotate180: Textlign = ???
   override def rotate270: Textlign = ???
-  override def rotate(angle: AngleVec): Textlign = ???
+  override def rotate(rotation: AngleVec): Textlign = ???
   override def reflect(lineLike: LineLike): Textlign = ???
   override def scaleXY(xOperand: Double, yOperand: Double): Textlign = ???
   override def shearX(operand: Double): Textlign = ???

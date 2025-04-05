@@ -32,7 +32,7 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def slateY(yOperand: Double): Circle = Circle(radius, cenX, cenY + yOperand)
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
-  override def rotate(angle: AngleVec): Circle = Circle(radius, cen.rotate(angle))
+  override def rotate(rotation: AngleVec): Circle = Circle(radius, cen.rotate(rotation))
   override def reflect(lineLike: LineLike): Circle = Circle(radius, cen.reflect(lineLike))
   override def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)
   override def fill(fillfacet: FillFacet): CircleFill = CircleFill(this, fillfacet)
@@ -214,7 +214,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   override def slateY(yOperand: Double): CircleCompound = CircleCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
-  override def rotate(angle: AngleVec): CircleCompound = CircleCompound(shape.rotate(angle), facets, children.rotate(angle))
+  override def rotate(rotation: AngleVec): CircleCompound = CircleCompound(shape.rotate(rotation), facets, children.rotate(rotation))
   override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
   override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }

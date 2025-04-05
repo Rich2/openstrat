@@ -1,9 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
-/** A matrix for proportionate and aligned to X and Y axes transformations. This transformation set preserves Circles and Squares. It also
- * preserves the alignment of Squares and Rectangle to the axes. */
+/** A matrix for proportionate and aligned to X and Y axes transformations. This transformation set preserves Circles and Squares. It also preserves the
+ * alignment of Squares and Rectangle to the axes. */
 final case class ProlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xDelta: Double, yDelta: Double)
 { def vDelta: Pt2 = Pt2(xDelta, yDelta)
   def scale(operand: Double): ProlignMatrix = ProlignMatrix(vFactor * operand, negY, negX, xDelta * operand, yDelta * operand)

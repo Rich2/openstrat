@@ -54,7 +54,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   override def rotate180: Rectangle = vertsTrans(_.rotate180)
   override def rotate270: Rectangle = vertsTrans(_.rotate270)
   override def reflect(lineLike: LineLike): Rectangle = vertsTrans(_.reflect(lineLike))
-  override def rotate(angle: AngleVec): Rectangle = vertsTrans(_.rotate(angle))
+  override def rotate(rotation: AngleVec): Rectangle = vertsTrans(_.rotate(rotation))
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 }
 

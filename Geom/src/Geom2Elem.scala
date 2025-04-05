@@ -48,7 +48,7 @@ trait Geom2Elem extends Any
   def prolign(matrix: ProlignMatrix): Geom2Elem
 
   /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
-  def rotate(angle: AngleVec): Geom2Elem
+  def rotate(rotation: AngleVec): Geom2Elem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in subclasses and traits. */
   def reflect(lineLike: LineLike): Geom2Elem

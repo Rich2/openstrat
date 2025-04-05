@@ -77,8 +77,8 @@ trait EArc extends EllipseBased, CurveSeg
   override def prolign(matrix: ProlignMatrix): EArc =
     EArc(pStart.prolign(matrix), cen.prolign(matrix), axesPt1.prolign(matrix), axesPt4.prolign(matrix), pEnd.prolign(matrix), rotationsInt)
   
-  override def rotate(angle: AngleVec): EArc =
-    EArc(pStart.rotate(angle), cen.rotate(angle), axesPt1.rotate(angle), axesPt4.rotate(angle), pEnd.rotate(angle), rotationsInt)
+  override def rotate(rotation: AngleVec): EArc =
+    EArc(pStart.rotate(rotation), cen.rotate(rotation), axesPt1.rotate(rotation), axesPt4.rotate(rotation), pEnd.rotate(rotation), rotationsInt)
 
   override def rotate90: EArc = EArc(pStart.rotate90, cen.rotate90, axesPt1.rotate90, axesPt4.rotate90, pEnd.rotate90, rotationsInt)
   override def rotate180: EArc = EArc(pStart.rotate180, cen.rotate180, axesPt1.rotate180, axesPt4.rotate180, pEnd.rotate180, rotationsInt)

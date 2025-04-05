@@ -6,7 +6,7 @@ import Colour.Black, pWeb._
  * sequence of curve segments. */
 final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs with AxisFree
 { override type ThisT = ShapeGen
-  override def rotate(angle: AngleVec): ShapeGen = ???
+  override def rotate(rotation: AngleVec): ShapeGen = ???
   override def reflect(lineLike: LineLike): ShapeGen = ???
 }
 

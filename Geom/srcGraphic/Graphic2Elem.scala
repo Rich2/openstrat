@@ -19,7 +19,7 @@ trait Graphic2Elem extends Geom2Elem
   override def rotate180: Graphic2Elem  
   override def rotate270: Graphic2Elem
   override def prolign(matrix: ProlignMatrix): Graphic2Elem
-  override def rotate(angle: AngleVec): Graphic2Elem
+  override def rotate(rotation: AngleVec): Graphic2Elem
   override def reflect(lineLike: LineLike): Graphic2Elem
   override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
   override def shearX(operand: Double): Graphic2Elem
@@ -79,7 +79,7 @@ trait CanvElem extends Graphic2Elem
   override def rotate90: CanvElem
   override def rotate180: CanvElem
   override def rotate270: CanvElem
-  override def rotate(angle: AngleVec): CanvElem
+  override def rotate(rotation: AngleVec): CanvElem
   override def reflect(lineLike: LineLike): CanvElem
   override def scaleXY(xOperand: Double, yOperand: Double): CanvElem
   override def shearX(operand: Double): CanvElem

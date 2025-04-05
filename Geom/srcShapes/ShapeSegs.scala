@@ -26,7 +26,7 @@ trait ShapeSegs extends Shape
   override def slateY(yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateY(yOperand))
   override def scale(operand: Double): ShapeGen = new ShapeGen(unsafeArray.scale(operand))
   override def prolign(matrix: ProlignMatrix): ShapeGen = ???
-  override def rotate(angle: AngleVec): ShapeSegs = ???
+  override def rotate(rotation: AngleVec): ShapeSegs = ???
   override def reflect(lineLike: LineLike): ShapeGen = ???
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGen = ???
   override def shearX(operand: Double): ShapeGen = ???
