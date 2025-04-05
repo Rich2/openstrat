@@ -19,6 +19,7 @@ trait Quadrilateral extends Polygon4Plus
   override def scale(offset: Double): Quadrilateral = QuadriateralGen(arrayScale(offset))
   override def negX: Quadrilateral = QuadriateralGen(arrayNegX)
   override def negY: Quadrilateral = QuadriateralGen(arrayNegY)
+  override def prolign(matrix: ProlignMatrix): Quadrilateral = QuadriateralGen(arrayProlign(matrix))
 }
 
 class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve

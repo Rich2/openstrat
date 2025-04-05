@@ -143,10 +143,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def scale(operand: Double): Polygon = PolygonGen(arrayScale(operand))
   override def negX: Polygon = PolygonGen(arrayNegX)
   override def negY: Polygon = PolygonGen(arrayNegY)
-
-  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): Polygon = map(_.prolign(matrix))
-
+  override def prolign(matrix: ProlignMatrix): Polygon = PolygonGen(arrayProlign(matrix))
   override def rotate90: Polygon = map(_.rotate90)
   override def rotate180: Polygon = map(_.rotate180)
   override def rotate270: Polygon = map(_.rotate270)

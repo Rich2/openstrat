@@ -29,6 +29,7 @@ trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
   protected def arrayScale(operand: Double): Array[Double] = arrayUnsafe.map(_ * operand)
   protected def arrayNegX: Array[Double] = arrayD1Map(-_)
   protected def arrayNegY: Array[Double] = arrayD2Map(-_)
+  protected def arrayProlign(matrix: ProlignMatrix): Array[Double] = arrayElemMap(_.prolign(matrix))
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
