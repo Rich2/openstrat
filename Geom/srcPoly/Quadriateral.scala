@@ -13,21 +13,23 @@ trait Quadrilateral extends Polygon4Plus
 
   @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
 
-  override def slate(offset: VecPt2): Quadrilateral = new QuadriateralGen(arraySlate(offset))
-  override def slate(xOperand: Double, yOperand: Double): Quadrilateral = new QuadriateralGen(arraySlateXY(xOperand, yOperand))
+  override def slate(offset: VecPt2): Quadrilateral = QuadriateralGen(arraySlate(offset))
+  override def slate(xOperand: Double, yOperand: Double): Quadrilateral = QuadriateralGen(arraySlateXY(xOperand, yOperand))
+  override def scale(offset: Double): Quadrilateral = QuadriateralGen(arrayScale(offset))
 }
 
 class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve
-{
-  type ThisT = QuadriateralGen
-
-  override def typeStr: String = "QuadrilateralGen"
-
-
+{ type ThisT = QuadriateralGen
+  override def typeStr: String = "QuadrilateralGen"  
 
   override def ptsTrans(f: Pt2 => Pt2): QuadriateralGen = ???
 
   override def fromArray(array: Array[Double]): QuadriateralGen = new QuadriateralGen(array)
+}
+
+object QuadriateralGen
+{ /** Factory apply method to construct [[Quadrilateral]] from an [[Array]] of [[Double]]s. */
+  def apply(array: Array[Double]): QuadriateralGen = new QuadriateralGen(array)
 }
 
 trait QuadGraphic extends PolygonGraphic

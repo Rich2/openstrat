@@ -16,7 +16,7 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   override def slateX(xOperand: Length): PolygonM2 = dblsMap(_ + xOperand.metresNum, y => y)
   override def slateY(yOperand: Length): PolygonM2 = dblsMap(x => x, _ + yOperand.metresNum)
   override def scale(operand: Double): PolygonM2 = dblsMap(_ * operand, _ * operand)
-  override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafeMap(_ / operand.metresNum))
+  override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafe.map(_ / operand.metresNum))
   
   override def vertsForeach[U](f: PtM2 => U): Unit =
   { var count = 0

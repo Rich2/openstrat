@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
@@ -72,8 +72,27 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
     newArray
   }
 
+  /** Maps the [[Tuple2]][Double, Double]s to [[Tuple2]][Double, Double}. */
+  def arrayT2T2Map(f: (Double, Double) => (Double, Double)): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+    iUntilForeach(0, arrayLen, 2) { i =>
+      val (new1, new2) = f(arrayUnsafe(i), arrayUnsafe(i + 1))
+      newArray(i) = new1
+      newArray(i + 1) = new2
+    }
+    newArray
+  }
+
+  /** Maps the 1st [[Double]]s of each element to a [[double]] with one functions and then the second [[Doubles]] with a second [[Double]]. */
+  def arrayD1D2Map(f1: Double => Double)(f2: Double => Double): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+    iUntilForeach(0, arrayLen, 2) { i => newArray(i) = f1(arrayUnsafe(i)) }
+    iUntilForeach(1, arrayLen, 2) { i => newArray(i) = f2(arrayUnsafe(i)) }
+    newArray
+  }
+
   /** Maps the 1st [[Double]] of each element to a new [[Array]][Double], copies the 2nd elements. */
-  def arrayDblMap(f: Double => Double): Array[Double] =
+  def arrayD1Map(f: Double => Double): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
     iUntilForeach(1, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
@@ -81,7 +100,7 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
   }
 
   /** Maps the 2nd [[Double]] of each element with the parameter function to a new [[Array]][Double], copies the 1st [[Double]] of each element. */
-  def arrayDbl2Map(f: Double => Double): Array[Double] =
+  def arrayD2Map(f: Double => Double): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
     iUntilForeach(1, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
