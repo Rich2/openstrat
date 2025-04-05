@@ -56,14 +56,22 @@ object QuadriateralGen
   def uninitialised: QuadriateralGen = new QuadriateralGen(new Array[Double](8))
 }
 
+/** 2-dimensional graphic based ona quadrilateral */
 trait QuadGraphic extends PolygonGraphic
-{
-  override def shape: Quadrilateral
+{ override def shape: Quadrilateral
 }
 
 trait QuadCompound extends PolygonCompound, QuadGraphic
-{
+{ /** Graphic child elements of a quadrilateral. */
   def quadChilds: RArr[Quadrilateral => GraphicElems] = RArr()
+
+  def adopted: GraphicElems = RArr()
+
+  override def slate(operand: VecPt2): QuadCompound = QuadCompoundGen(shape.slate(operand), facets, quadChilds, adopted)
+  override def slate(xOperand: Double, yOperand: Double): QuadCompound = QuadCompoundGen(shape.slate(xOperand, yOperand), facets, quadChilds, adopted)
+  override def slateX(xOperand: Double): QuadCompound = QuadCompoundGen(shape.slateX(xOperand), facets, quadChilds, adopted)
+  override def slateY(yOperand: Double): QuadCompound = QuadCompoundGen(shape.slateY(yOperand), facets, quadChilds, adopted)
+  override def scale(operand: Double): QuadCompound = QuadCompoundGen(shape.scale(operand), facets, quadChilds, adopted)
 }
 
 class QuadCompoundGen(val shape: Quadrilateral, val facets: RArr[GraphicFacet], quadChilds: RArr[Quadrilateral => GraphicElems], adopted: RArr[Graphic2Elem])
