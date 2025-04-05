@@ -61,6 +61,12 @@ trait EArc extends EllipseBased, CurveSeg
   
   override def slate(xOperand: Double, yOperand: Double): EArc = EArc(pStart.slate(xOperand, yOperand), cen.slate(xOperand, yOperand),
     axesPt1.slate(xOperand, yOperand), axesPt4.slate(xOperand, yOperand), pEnd.slate(xOperand, yOperand), rotationsInt)
+
+  override def slateX(xOperand: Double): EArc = EArc(pStart.slateX(xOperand), cen.slateX(xOperand), axesPt1.slateX(xOperand), axesPt4.slateX(xOperand),
+    pEnd.slateX(xOperand), rotationsInt)
+
+  override def slateY(yOperand: Double): EArc = EArc(pStart.slateY(yOperand), cen.slateY(yOperand), axesPt1.slateY(yOperand), axesPt4.slateY(yOperand),
+    pEnd.slateY(yOperand), rotationsInt)
   
   override def scale(operand: Double): EArc =
     EArc(pStart.scale(operand), cen.scale(operand), axesPt1.scale(operand), axesPt4.scale(operand), pEnd.scale(operand), rotationsInt)

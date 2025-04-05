@@ -15,6 +15,8 @@ trait Ellipselign extends Ellipse
 
   override def slate(operand: VecPt2): Ellipselign = Ellipselign(xRadius, yRadius, cenX + operand.x, cenY + operand.y)
   override def slate(xOperand: Double, yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY + yOperand)
+  override def slateX(xOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY)
+  override def slateY(yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX, cenY + yOperand)
   override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, cenX * operand, cenY * operand)
   override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -cenX, cenY)
   override def negY: Ellipselign = Ellipselign(xRadius, yRadius, cenX, -cenY)
@@ -29,8 +31,7 @@ object Ellipselign
   def apply(xRadius: Double, yRadius: Double, xCen: Double, yCen: Double): Ellipselign = new EllipselignImp(xRadius, yRadius, xCen, yCen)
 
   class EllipselignImp(val xRadius: Double, val yRadius: Double, val cenX: Double, val cenY: Double) extends Ellipselign
-  {
-    override def rMajor: Double = ife(xRadius >= yRadius, xRadius, yRadius)
+  { override def rMajor: Double = ife(xRadius >= yRadius, xRadius, yRadius)
     override def rMinor: Double = ife(xRadius < yRadius, xRadius, yRadius)
 
     /** The h value of this ellipse. */

@@ -42,8 +42,10 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   def yAttrib: YXmlAtt = YXmlAtt(-v2y)
 
   
-  override def slate(offset: VecPt2): Rectangle = vertsTrans(_.slate(offset))
+  override def slate(operand: VecPt2): Rectangle = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): Rectangle = vertsTrans(_.slateX(xOperand))
+  override def slateY(yOperand: Double): Rectangle = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
   override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
   override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)

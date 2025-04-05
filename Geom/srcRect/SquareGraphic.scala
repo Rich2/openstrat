@@ -41,6 +41,8 @@ object SquareFill
   { override type ThisT = SquareFillGen
     override def slate(operand: VecPt2): SquareFillGen = SquareFillGen(shape.slate(operand), fillFacet)
     override def slate(xOperand: Double, yOperand: Double): SquareFillGen = SquareFillGen(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateX(xOperand: Double): SquareFillGen = SquareFillGen(shape.slateX(xOperand), fillFacet)
+    override def slateY(yOperand: Double): SquareFillGen = SquareFillGen(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): SquareFillGen = SquareFillGen(shape.scale(operand), fillFacet)
     override def negX: SquareFillGen = SquareFillGen(shape.negX, fillFacet)
     override def negY: SquareFillGen = SquareFillGen(shape.negY, fillFacet)

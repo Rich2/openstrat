@@ -13,7 +13,7 @@ trait Drawable extends Any with Geom2Elem
     case _ => draw(lineWidth, colour)
   }
 
-  override def slate(offset: VecPt2): Drawable
+  override def slate(operand: VecPt2): Drawable
   override def slate(xOperand: Double, yOperand: Double): Drawable
   override def scale(operand: Double): Drawable
   override def negY: Drawable
@@ -82,7 +82,7 @@ trait Fillable extends Any with Drawable
   /** Graphically fill and draws this object. */
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): Graphic2Elem
   
-  override def slate(offset: VecPt2): Fillable
+  override def slate(operand: VecPt2): Fillable
   override def slate(xOperand: Double, yOperand: Double): Fillable
   override def scale(operand: Double): Fillable
   override def negY: Fillable

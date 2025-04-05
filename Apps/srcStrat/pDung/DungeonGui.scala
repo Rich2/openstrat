@@ -16,7 +16,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   def sls: LineSegArrDraw = proj.sidesDraw(2, Colour.White)
   def players: RArr[PolygonCompound] = scen.characs.scSomesMap{ (sqc, cs) =>
     val poly1: Polygon = Rect(1.5, 1).insVertDbls(0, -0.25,0.5, 0,0.8, 0.25,0.5).rotate(cs.facing.angle - Angle.up)
-    val poly2: Polygon = poly1.scale( 0.75).slate(sqc.toPt2Reg)
+    val poly2: Polygon = poly1.scale(0.75).slate(sqc.toPt2Reg)
     poly2.fillActiveDrawText(cs.charac.colour, cs, cs.charac.iden.toString, 16, 2.0, cs.charac.colour.contrast)
   }
 

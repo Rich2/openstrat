@@ -9,15 +9,16 @@ trait RectGraphic extends RectangleGraphic with ShapeGraphicOrdinaled
 
 /** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphicSimple extends RectGraphic with RectangleGraphicSimple
-{
-  override def svgElem: SvgElem = SvgRect(attribs)
+{ override def svgElem: SvgElem = SvgRect(attribs)
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
 trait RectFill extends RectGraphicSimple with RectangleFill
 { type ThisT <: RectFill
   override def slate(operand: VecPt2): RectFill
-  override def slate(xDelta: Double, yDelta: Double): RectFill
+  override def slate(xOperand: Double, yOperand: Double): RectFill
+  override def slateX(xOperand: Double): RectFill
+  override def slateY(yOperand: Double): RectFill
   override def scale(operand: Double): RectFill
   override def negX: RectFill
   override def negY: RectFill
@@ -37,7 +38,9 @@ object RectFill
   case class RectFillImp(shape: Rect, fillFacet: FillFacet) extends RectFill
   { override type ThisT = RectFillImp
     override def slate(operand: VecPt2): RectFillImp = RectFillImp(shape.slate(operand), fillFacet)
-    override def slate(xDelta: Double, yDelta: Double): RectFillImp = RectFillImp(shape.slate(xDelta, yDelta), fillFacet)
+    override def slate(xOperand: Double, yOperand: Double): RectFillImp = RectFillImp(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateX(xOperand: Double): RectFillImp = RectFillImp(shape.slateX(xOperand), fillFacet)
+    override def slateY(yOperand: Double): RectFillImp = RectFillImp(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): RectFillImp = RectFillImp(shape.scale(operand), fillFacet)
     override def negX: RectFillImp = RectFillImp(shape.negX, fillFacet)
     override def negY: RectFillImp = RectFillImp(shape.negY, fillFacet)
@@ -71,26 +74,20 @@ trait RectCompound extends RectGraphic with RectangleCompound
   /*override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
     attribs ++ facets.flatMap(_.attribs))*/
   override def mainSvgElem: SvgRect = SvgRect(attribs)
-  /** Translate geometric transformation. */
+
+  override def slate(operand: VecPt2): RectCompound = RectCompound(shape.slate(operand), facets, children.slate(operand))
+  
   override def slate(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  override def slateX(xOperand: Double): RectCompound = RectCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): RectCompound = RectCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))  
   override def scale(operand: Double): RectCompound = RectCompound(shape.scale(operand), facets, children.scale(operand))
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
-
+  override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
   override def rotate90: RectCompound = RectCompound(shape.rotate90, facets, children.rotate90)
   override def rotate180: RectCompound = RectCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: RectCompound = RectCompound(shape.rotate270, facets, children.rotate270)
-
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def scaleXY(xOperand: Double, yOperand: Double): RectCompound =

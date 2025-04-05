@@ -11,6 +11,8 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 
   override def slate(operand: VecPt2): Ray = ???
   override def slate(xOperand: Double, yOperand: Double): Ray = Ray.v0Secs(p0.slate(xOperand, yOperand), angleSecs)
+  override def slateX(xOperand: Double): Ray = Ray.v0Secs(p0.slateX(xOperand), angleSecs)
+  override def slateY(yOperand: Double): Ray = Ray.v0Secs(p0.slateY(yOperand), angleSecs)
   override def scale(operand: Double): Ray = ???
   override def negY: Ray = ???
   override def negX: Ray = ???

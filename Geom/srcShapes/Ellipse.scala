@@ -38,6 +38,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def slate(operand: VecPt2): Ellipse
   override def slate(xDelta: Double, yDelta: Double): Ellipse
+  override def slateX(xOperand: Double): Ellipse
+  override def slateY(yOperand: Double): Ellipse
   override def scale(operand: Double): Ellipse
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
@@ -144,6 +146,8 @@ object Ellipse
 
     override def slate(operand: VecPt2): EllipseImp = EllipseImp(cenX + operand.x, cenY * operand.y, axesPt1x + operand.x, axesPt1y + operand.y, radius2)
     override def slate(xDelta: Double, yDelta: Double): EllipseImp = EllipseImp(cenX + xDelta, cenY + yDelta, axesPt1x + xDelta, axesPt1y + yDelta, radius2)
+    override def slateX(xOperand: Double): EllipseImp = EllipseImp(cenX + xOperand, cenY, axesPt1x + xOperand, axesPt1y, radius2)
+    override def slateY(yOperand: Double): EllipseImp = EllipseImp(cenX, cenY + yOperand, axesPt1x, axesPt1y + yOperand, radius2)
     override def scale(operand: Double): EllipseImp = EllipseImp(cenX * operand, cenY * operand, axesPt1x * operand, axesPt1y * operand, radius2 * operand)
     override def reflect(lineLike: LineLike): EllipseImp = EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), axesPt1.reflect(lineLike), axesPt4.reflect(lineLike))
     override def rotate(angle: AngleVec): EllipseImp = ???
@@ -293,6 +297,8 @@ object EllipseCompound
     override def slate(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
       EllipseCompoundImplement(shape.slate(xDelta, yDelta), facets, children.slate(xDelta, yDelta))
 
+    override def slateX(xOperand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.slateX(xOperand), facets, children.slateX(xOperand))
+    override def slateY(yOperand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.slateY(yOperand), facets, children.slateY(yOperand))
     override def scale(operand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(angle: AngleVec): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotate(angle), facets, children.rotate(angle))

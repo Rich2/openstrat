@@ -10,7 +10,9 @@ trait SqlignGraphicSimple extends SqlignGraphic, RectGraphicSimple, SquareGraphi
 /** A fill graphic for a square aligned to the X and Y axes. */
 class SqlignFill(val shape: Sqlign, val fillFacet: FillFacet) extends SqlignGraphicSimple, RectFill, SquareFill
 { override def slate(operand: VecPt2): SqlignFill = SqlignFill(shape.slate(operand), fillFacet)
-  override def slate(xDelta: Double, yDelta: Double): SqlignFill = SqlignFill(shape.slate(xDelta, yDelta), fillFacet)
+  override def slate(xOperand: Double, yOperand: Double): SqlignFill = SqlignFill(shape.slate(xOperand, yOperand), fillFacet)
+  override def slateX(xOperand: Double): SqlignFill = SqlignFill(shape.slateX(xOperand), fillFacet)
+  override def slateY(yOperand: Double): SqlignFill = SqlignFill(shape.slateY(yOperand), fillFacet)
   override def scale(operand: Double): SqlignFill = SqlignFill(shape.scale(operand), fillFacet)
   override def negX: SqlignFill = SqlignFill(shape.negX, fillFacet)
   override def negY: SqlignFill = SqlignFill(shape.negY, fillFacet)

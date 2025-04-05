@@ -20,8 +20,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
 
   override def attribs: RArr[XmlAtt] = ???
 
-  override def canEqual(that: Any): Boolean = that match {
-    case s: Shape => true
+  override def canEqual(that: Any): Boolean = that match
+  { case s: Shape => true
     case _ => false
   }
 
@@ -59,7 +59,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: VecPt2): PolygonGen = map(_.slate(offset))
+  override def slate(operand: VecPt2): PolygonGen = map(_.slate(operand))
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */

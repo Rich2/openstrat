@@ -46,9 +46,10 @@ object TextFixed
 final case class Textlign(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, textAlign: TextAlign, baseLine: BaseLine) extends
 TextGraphic
 { type ThisT = Textlign
-
   override def slate(operand: VecPt2): Textlign = copy(str, fontSize, xPosn + operand.x, yPosn + operand.y)
   override def slate(xOperand: Double, yOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn + yOperand)
+  override def slateX(xOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn)
+  override def slateY(yOperand: Double): Textlign = copy(str, fontSize, xPosn, yPosn + yOperand)
   override def scale(operand: Double): Textlign = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
   override def negY: Textlign = copy(str, fontSize, xPosn, -yPosn)
   override def negX: Textlign = copy(str, fontSize, -xPosn, yPosn)

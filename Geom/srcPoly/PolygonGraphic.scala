@@ -132,6 +132,8 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
 { override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   override def slate(operand: VecPt2): PolygonDraw = PolygonDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Double): PolygonDraw = PolygonDraw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Double): PolygonDraw = PolygonDraw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand), lineWidth, lineColour)
   override def negY: PolygonDraw = PolygonDraw(shape.negY, lineWidth, lineColour)
   override def negX: PolygonDraw = PolygonDraw(shape.negX, lineWidth, lineColour)
@@ -194,6 +196,8 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour): PolygonDraw = shape.draw(lineWidth, newColour)
   override def slate(operand: VecPt2): PolygonFill
   override def slate(xDelta: Double, yDelta: Double): PolygonFill
+  override def slateX(xOperand: Double): PolygonFill
+  override def slateY(yOperand: Double): PolygonFill
   override def scale(operand: Double): PolygonFill
   override def negX: PolygonFill
   override def negY: PolygonFill
@@ -251,6 +255,8 @@ object PolygonFill
   final case class PolygonFillGen(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
   { override def slate(operand: VecPt2): PolygonFill = PolygonFillGen(shape.slate(operand), fillFacet)
     override def slate(xDelta: Double, yDelta: Double): PolygonFillGen = PolygonFillGen(shape.slate(xDelta, yDelta), fillFacet)
+    override def slateX(xOperand: Double): PolygonFillGen = PolygonFillGen(shape.slateX(xOperand), fillFacet)
+    override def slateY(yOperand: Double): PolygonFillGen = PolygonFillGen(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): PolygonFillGen = PolygonFillGen(shape.scale(operand), fillFacet)
     override def negY: PolygonFillGen = PolygonFillGen(shape.negY, fillFacet)
     override def negX: PolygonFillGen = PolygonFillGen(shape.negX, fillFacet)
@@ -301,6 +307,9 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def slate(xOperand: Double, yOperand: Double): PolygonCompound =
     PolygonCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
+
+  override def slateX(xOperand: Double): PolygonCompound = PolygonCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): PolygonCompound = PolygonCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
   override def negY: PolygonCompound = PolygonCompound(shape.negY, facets, children.negY)
   override def negX: PolygonCompound = PolygonCompound(shape.negX, facets, children.negX)

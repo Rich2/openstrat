@@ -1,6 +1,5 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
 
 /** A square aligned to the X and Y axes. As this is a [[Polygon]] it is implemented using an [[Array]]. */
 final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square with Rect with Tell2[Double, Pt2]
@@ -21,8 +20,10 @@ final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square with R
   override def width2: Double = width
   override def height: Double = width
   override def rotation: AngleVec = 0.degsVec
-  override def slate(offset: VecPt2): Sqlign = Sqlign(width, cen.slate(offset))
+  override def slate(operand: VecPt2): Sqlign = Sqlign(width, cen.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY + yOperand)
+  override def slateX(xOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY)
+  override def slateY(yOperand: Double): Sqlign = Sqlign(width, cenX, cenY + yOperand)
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen.scale(operand))
   override def negX: Sqlign = Sqlign(width, -cenX, cenY)
   override def negY: Sqlign = Sqlign(width, cenX, -cenY)

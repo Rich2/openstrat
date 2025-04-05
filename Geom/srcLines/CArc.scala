@@ -31,7 +31,9 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   
   override def slate(xOperand: Double, yOperand: Double): CArc =
     CArc(pStart.slate(xOperand, yOperand), cen.slate(xOperand, yOperand), pEnd.slate(xOperand, yOperand), rotationsInt)
-  
+
+  override def slateX(xOperand: Double): CArc = CArc(pStart.slateX(xOperand), cen.slateX(xOperand), pEnd.slateX(xOperand), rotationsInt)
+  override def slateY(yOperand: Double): CArc = CArc(pStart.slateY(yOperand), cen.slateY(yOperand), pEnd.slateY(yOperand), rotationsInt)
   override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), rotationsInt)
   override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -rotationsInt)
   override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -rotationsInt)

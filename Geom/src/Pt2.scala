@@ -56,26 +56,19 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   @targetName("midPoint") def \/(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
-
-  /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
-  def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
-
-  /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
-  def slate(operand: VecPt2): Pt2 = Pt2(x + operand.x, y + operand.y)
-
-  /** 2D geometric translation transformation on this [[Pt2]], returns a new [[Pt2]] measured from the operand as new origin. */
+  
+  override def slate(operand: VecPt2): Pt2 = Pt2(x + operand.x, y + operand.y)  
+  override def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)  
+  override def slateX(xOperand: Double): Pt2 = Pt2(x + xOperand, y)
+  override def slateY(yOperand: Double): Pt2 = Pt2(x, y + yOperand)
   def slateFrom(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
-
-  /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
   def slateFrom(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)
-
-  @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
+  @inline override def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
   @inline def toMetres(factor: LengthMetric): PtM2 = PtM2.apply(x * factor.metresNum, y * factor.metresNum)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
-  def slateX(adj: Double): Pt2 = Pt2(x + adj, y)
-  def slateY(adj: Double): Pt2 = Pt2(x, y + adj)
+ 
   def slateXFrom(adj: Double): Pt2 = Pt2(x - adj, y)
   def slateYFrom(adj: Double): Pt2 = Pt2(x, y - adj)
 

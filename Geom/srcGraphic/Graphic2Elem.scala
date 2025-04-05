@@ -9,7 +9,9 @@ trait Graphic2Elem extends Geom2Elem
   def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 
   override def slate(operand: VecPt2): Graphic2Elem  
-  override def slate(xOperand: Double, yOperand: Double): Graphic2Elem  
+  override def slate(xOperand: Double, yOperand: Double): Graphic2Elem
+  override def slateX(xOperand: Double): Graphic2Elem
+  override def slateY(yOperand: Double): Graphic2Elem
   override def scale(operand: Double): Graphic2Elem
   override def negX: Graphic2Elem
   override def negY: Graphic2Elem

@@ -27,7 +27,9 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def boundingHeight: Double = diameter
 
   override def slate(operand: VecPt2): Circle = Circle(radius, cenX + operand.x, cenY + operand.y)
-  override def slate(xOperand: Double, yOperand: Double): Circle = Circle(radius, cen.slate(xOperand, yOperand))
+  override def slate(xOperand: Double, yOperand: Double): Circle = Circle(radius, cenX + xOperand, cenY + yOperand)
+  override def slateX(xOperand: Double): Circle = Circle(radius, cenX + xOperand, cenY)
+  override def slateY(yOperand: Double): Circle = Circle(radius, cenX, cenY + yOperand)
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
   override def rotate(angle: AngleVec): Circle = Circle(radius, cen.rotate(angle))
@@ -208,6 +210,8 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   override def slate(xOperand: Double, yOperand: Double): CircleCompound =
     CircleCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
+  override def slateX(xOperand: Double): CircleCompound = CircleCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): CircleCompound = CircleCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
   override def rotate(angle: AngleVec): CircleCompound = CircleCompound(shape.rotate(angle), facets, children.rotate(angle))

@@ -13,9 +13,10 @@ trait Quadrilateral extends Polygon4Plus
 
   @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
 
-  override def slate(offset: VecPt2): Quadrilateral = QuadriateralGen(arraySlate(offset))
+  override def slate(operand: VecPt2): Quadrilateral = QuadriateralGen(arraySlate(operand))
   override def slate(xOperand: Double, yOperand: Double): Quadrilateral = QuadriateralGen(arraySlateXY(xOperand, yOperand))
   override def scale(offset: Double): Quadrilateral = QuadriateralGen(arrayScale(offset))
+  
 }
 
 class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve

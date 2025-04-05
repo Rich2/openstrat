@@ -7,14 +7,10 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { type ThisT <: Rect
 
   override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
-
-  /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(offset: VecPt2): Rect = vertsTrans(_.slate(offset))
-
-  /** Translate geometric transformation on a Rect returns a Rect. */
+  override def slate(operand: VecPt2): Rect = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.slate(xOperand, yOperand))
-
-  /** Uniform scaling transformation on a Rect returns a Rect. */
+  override def slateX(xOperand: Double): Rect = vertsTrans(_.slateX(xOperand))
+  override def slateY(yOperand: Double): Rect = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): Rect = vertsTrans(_.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
@@ -176,7 +172,7 @@ object Rect
     override def slate(xOperand: Double, yOperand: Double): RectImp = mapRectImp(_.slate(xOperand, yOperand))
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slate(offset: VecPt2): RectImp = mapRectImp(_.slate(offset))
+    override def slate(operand: VecPt2): RectImp = mapRectImp(_.slate(operand))
 
     /** Uniform scaling transformation on a RectImp returns a RectImp. */
     override def scale(operand: Double): RectImp = mapRectImp(_.scale(operand))

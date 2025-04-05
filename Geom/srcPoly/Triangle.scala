@@ -10,8 +10,10 @@ trait Triangle extends Polygon3Plus
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
 	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))
 
-	override def slate(offset: VecPt2): Triangle = vertsTrans(_.slate(offset))
+	override def slate(operand: VecPt2): Triangle = vertsTrans(_.slate(operand))
 	override def slate(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.slate(xOperand, yOperand))
+	override def slateX(xOperand: Double): Triangle = vertsTrans(_.slateX(xOperand))
+	override def slateY(yOperand: Double): Triangle = vertsTrans(_.slateY(yOperand))
 	override def scale(operand: Double): Triangle = vertsTrans(_.scale(operand))
 	override def negX: Triangle = vertsTrans(_.negX)
 	override def negY: Triangle = vertsTrans(_.negY)
