@@ -13,7 +13,7 @@ trait Square extends Rectangle
   /** The roatation of this sqaure from alignment with the X and Y axes. */
   def rotation: AngleVec
 
-  override def vertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
   override def slate(offset: VecPt2): Square = vertsTrans(_.slate(offset))
   override def slate(xOperand: Double, yOperand: Double): Square = vertsTrans(_.slate(xOperand, yOperand))
   override def scale(operand: Double): Square = vertsTrans(_.scale(operand))

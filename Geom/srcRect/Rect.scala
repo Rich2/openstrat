@@ -6,7 +6,7 @@ import pWeb._, ostrat.Colour.Black
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { type ThisT <: Rect
 
-  override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: VecPt2): Rect = vertsTrans(_.slate(offset))
@@ -160,7 +160,7 @@ object Rect
     override def fromArray(array: Array[Double]): RectImp = new RectImp(array)
 
     override def typeStr: String = "Rect"
-    def mapRectImp(f: Pt2 => Pt2): RectImp = RectImp.fromArray(unsafeMap(f))
+    def mapRectImp(f: Pt2 => Pt2): RectImp = RectImp.fromArray(arrayElemMap(f))
 
     def width: Double = (v0x - v3x).abs
     def height: Double = (v0y - v1y).abs

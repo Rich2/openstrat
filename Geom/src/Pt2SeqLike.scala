@@ -22,6 +22,8 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
 
 trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
 { final override def ssElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+  protected def arraySlate(operand: VecPt2): Array[Double] = arrayElemMap(_.slate(operand))
+  protected def arraySlateXY(xOperand: Double, yOperand: Double): Array[Double] = arrayElemMap(_.slate(xOperand, yOperand))
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from

@@ -23,7 +23,7 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[
   override def tellDepth: Int = 3
 
   /** maps the vertices of this [[HexParrY]] to a new [[HexparrY]] instance. */
-  override def vertsTrans(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(arrayElemMap(f))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def slate(delta: VecPt2): HexParrY = vertsTrans(_.slate(delta))
@@ -42,14 +42,14 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[
 
   /** Rotate 90 degrees positively or anti clockwise  2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 270 degrees
    *  clockwise. */
-  override def rotate90: HexParrX = HexParrX.fromArray(unsafeMap(_.rotate90))
+  override def rotate90: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate90))
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. */
   override def rotate180: HexParrY = vertsTrans(_.rotate180)
 
   /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
    *  clockwise. */
-  override def rotate270: HexParrX = HexParrX.fromArray(unsafeMap(_.rotate270))
+  override def rotate270: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate270))
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes on this HexTlign returns a HexYlign. */
   override def prolign(matrix: ProlignMatrix): HexParrY = HexParrY(apoDiameter, cen.prolign(matrix))

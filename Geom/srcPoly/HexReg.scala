@@ -9,7 +9,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
   final override def cenX: Double = v0x \/ v3x
   final override def cenY: Double = v0y \/ v3y
   final override def cen: Pt2 = Pt2(cenX, cenY)
-  def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
+  def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(arrayElemMap(f))
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def apoDiameter: Double

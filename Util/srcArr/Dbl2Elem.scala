@@ -62,7 +62,7 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
   }
 
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
-  def unsafeMap(f: A => A @uncheckedVariance): Array[Double] =
+  def arrayElemMap(f: A => A @uncheckedVariance): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i =>
       val newElem = f(ssElem(arrayUnsafe(i), arrayUnsafe(i + 1)))
@@ -73,16 +73,16 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
   }
 
   /** Maps the 1st [[Double]] of each element to a new [[Array]][Double], copies the 2nd elements. */
-  def unsafeD1Map(f: Double => Double): Array[Double] = {
-    val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+  def arrayDblMap(f: Double => Double): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
     iUntilForeach(1, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
     newArray
   }
 
   /** Maps the 2nd [[Double]] of each element with the parameter function to a new [[Array]][Double], copies the 1st [[Double]] of each element. */
-  def unsafeD2Map(f: Double => Double): Array[Double] = {
-    val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+  def arrayDbl2Map(f: Double => Double): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
     iUntilForeach(1, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
     newArray

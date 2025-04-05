@@ -55,8 +55,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     acc
   }
 
-  def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
-  def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
+  def unsafeNegX: Array[Double] = arrayDblMap(d => -d)
+  def unsafeNegY: Array[Double] = arrayDbl2Map(d => -d)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   final def unsafeVert(rawIndex: Int): Pt2 = index(rawIndex)
@@ -136,13 +136,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     maxY - minY
   }
 
+  protected def arraySlate: Array[Double] = ???
+  def slate(offset: VecPt2): Polygon = map(_.slate(offset))
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant traits /
    * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(xOperand: Double, yOperand: Double): Polygon = map(_.slate(xOperand, yOperand))
-
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant traits /
-   * classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  def slate(offset: VecPt2): Polygon = map(_.slate(offset))
+  
+  
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The return
    * type of this method will be narrowed further in descendant traits / classes. */
