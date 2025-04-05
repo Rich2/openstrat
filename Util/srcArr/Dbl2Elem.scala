@@ -33,6 +33,20 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
   def dblsMap(f1: Double => Double, f2: Double => Double): ThisT = fromArray(arrayUnsafeMap2(f1, f2))
 }
 
+object SeqLikeDbl2
+{ /** Puts the elements into an [[Array]]. */
+  def array(elems: Dbl2Elem*): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](elems.length * 2)
+    var i = 0
+    while(i < elems.length)
+    { newArray(i * 2) = elems(i).dbl1
+      newArray(i * 2 + 1) = elems(i).dbl2
+      i += 1
+    }
+    newArray
+  }
+}
+
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
 trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
 { /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the

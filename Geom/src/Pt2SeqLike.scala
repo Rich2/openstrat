@@ -20,7 +20,7 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
   final override def fElemStr: Pt2 => String = _.str
 }
 
-trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
+trait Pt2SeqSpec extends Any, Pt2SeqLike, SeqSpecDbl2[Pt2]
 { final override def ssElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
   protected def arraySlate(operand: VecPt2): Array[Double] = arrayD1D2Map(_ + operand.x)(_ + operand.y)
   protected def arraySlateXY(xOperand: Double, yOperand: Double): Array[Double] = arrayD1D2Map(_ + xOperand)(_ + yOperand)
@@ -34,6 +34,8 @@ trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
   protected def arrayRotate180: Array[Double] = arrayElemMap(_.rotate180)
   protected def arrayRotate270: Array[Double] = arrayElemMap(_.rotate270)
   protected def arrayRotate(rotation: AngleVec): Array[Double] = arrayElemMap(_.rotate(rotation))
+  protected def arrayReflect(lineLike: LineLike): Array[Double] = arrayElemMap(_.reflect(lineLike))
+  protected def arrayScaleXY(xOperand: Double, yOperand: Double): Array[Double] = arrayD1D2Map(_ * xOperand)(_ * yOperand)
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from [[Polygon]]

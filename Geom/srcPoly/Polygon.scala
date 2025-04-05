@@ -7,7 +7,7 @@ import pWeb.*, Colour.Black
  * clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner with then end point of
  * side sd((n - 1) at vertex 0. */
 trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with Pt2SeqSpec with PolygonLikeDbl2[Pt2] with SeqSpecDbl2[Pt2]
-{
+{ type ThisT <: Polygon
   override type SideT = LineSeg
 
   def rightX: Double = verts.foldLeft(v0x)((acc, pt) => acc.max(pt.x))
@@ -148,13 +148,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def rotate180: Polygon = PolygonGen(arrayRotate180)
   override def rotate270: Polygon = PolygonGen(arrayRotate270)
   override def rotate(rotation: AngleVec): Polygon = PolygonGen(arrayRotate(rotation))
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in subclasses. */
-  override def reflect(lineLike: LineLike): Polygon = map(_.reflect(lineLike))
-
-  /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The return type
-   * will be narrowed in some, but not all descendant Polygon types. */
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = map(_.xyScale(xOperand, yOperand))
+  override def reflect(lineLike: LineLike): Polygon = PolygonGen(arrayReflect(lineLike))
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = PolygonGen(arrayScaleXY(xOperand, yOperand))
 
   /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all subclasses. */
   override def shearX(operand: Double): Polygon = map(_.xShear(operand))
