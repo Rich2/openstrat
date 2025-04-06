@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 final class Pt3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[Pt3]
 { type ThisT = Pt3Arr
   override def typeStr: String = "Vec3s"
-  def newElem(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)
+  def elemFromDbls(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)
   def fromArray(array: Array[Double]): Pt3Arr = new Pt3Arr(array)
   override def fElemStr: Pt3 => String = _.str
 }

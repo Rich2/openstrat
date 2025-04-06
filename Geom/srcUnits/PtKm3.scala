@@ -155,7 +155,7 @@ class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtKm3
   def fromArray(array: Array[Double]): ThisT = new PtKm3Arr(array)
   override def typeStr: String = "Metres3s"
   override def fElemStr: PtKm3 => String = _ => "Undefined" //_.str
-  override def newElem(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its on the side
    * of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative points are moved to the

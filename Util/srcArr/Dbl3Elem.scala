@@ -18,7 +18,10 @@ trait Dbl3Elem extends Any with DblNElem
 
 /** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
 trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDblN[A]
-{ override def elemProdSize = 3
+{ /** Method for creating new elements from 3 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double, d3: Double): A
+
+  override def elemProdSize = 3
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
@@ -40,11 +43,8 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] exten
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
 trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDblN[A]
-{ /** Method for creating new elements of the specifying-sequence from 3 [[Double]]s. */
-  def ssElem(d1: Double, d2: Double, d3: Double): A
-
-  override def ssElemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  override def index(index: Int): A = ssElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+{ override def ssElemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+  override def index(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
@@ -55,11 +55,8 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any with ArrDblN[A] with SeqLikeDbl3[A]
   def head3: Double = arrayUnsafe(2)
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
 
-  /** Method for creating new elements from 3 [[Double]]s. */
-  def newElem(d1: Double, d2: Double, d3: Double): A
-
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  final override def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+  final override def apply(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 3)

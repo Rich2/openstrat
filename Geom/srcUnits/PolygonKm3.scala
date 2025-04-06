@@ -8,7 +8,7 @@ import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtKm3]
 { override type ThisT = PolygonKm3
   override type SideT = LineSegKm3
-  override def ssElem(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
   override def fromArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtKm3 => String = _.toString
