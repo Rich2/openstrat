@@ -36,51 +36,10 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
   /** This maps from the final type to the final type by just using functions on the underlying [[Double]]s. */
   def dblsMap(f1: Double => Double, f2: Double => Double): ThisT = fromArray(arrayUnsafeMap2(f1, f2))
 
-  override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
-}
-
-object SeqLikeDbl2
-{ /** Puts the elements into an [[Array]]. */
-  def array(elems: Dbl2Elem*): Array[Double] =
-  { val newArray: Array[Double] = new Array[Double](elems.length * 2)
-    var i = 0
-    while(i < elems.length)
-    { newArray(i * 2) = elems(i).dbl1
-      newArray(i * 2 + 1) = elems(i).dbl2
-      i += 1
-    }
-    newArray
-  }
-}
-
-/** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
-trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
-{ override def index(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
-
-
-  def elem1sArray: Array[Double] =
-  { val res = new Array[Double](numElems)
-    var count = 0
-    while(count < numElems){ res(count) = arrayUnsafe(count * 2); count += 1 }
-    res
-  }
-
-  def elem2sArray: Array[Double] =
-  { val res = new Array[Double](numElems)
-    var count = 0
-    while(count < numElems){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
-    res
-  }
-
-  def ssForeachPairTail[U](f: (Double, Double) => U): Unit =
-  { var count = 1
-    while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
-  }
-
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
   def arrayElemMap(f: A => A @uncheckedVariance): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
-    iUntilForeach(0, arrayLen, 2){ i =>
+    iUntilForeach(0, arrayLen, 2) { i =>
       val newElem = f(elemFromDbls(arrayUnsafe(i), arrayUnsafe(i + 1)))
       newArray(i) = newElem.dbl1
       newArray(i + 1) = newElem.dbl2
@@ -110,17 +69,57 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
   /** Maps the 1st [[Double]] of each element to a new [[Array]][Double], copies the 2nd elements. */
   def arrayD1Map(f: Double => Double): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
-    iUntilForeach(0, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
-    iUntilForeach(1, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
+    iUntilForeach(0, arrayLen, 2) { i => newArray(i) = f(arrayUnsafe(i)) }
+    iUntilForeach(1, arrayLen, 2) { i => newArray(i) = arrayUnsafe(i) }
     newArray
   }
 
   /** Maps the 2nd [[Double]] of each element with the parameter function to a new [[Array]][Double], copies the 1st [[Double]] of each element. */
   def arrayD2Map(f: Double => Double): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
-    iUntilForeach(0, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
-    iUntilForeach(1, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
+    iUntilForeach(0, arrayLen, 2) { i => newArray(i) = arrayUnsafe(i) }
+    iUntilForeach(1, arrayLen, 2) { i => newArray(i) = f(arrayUnsafe(i)) }
     newArray
+  }
+
+  override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+}
+
+object SeqLikeDbl2
+{ /** Puts the elements into an [[Array]]. */
+  def array(elems: Dbl2Elem*): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](elems.length * 2)
+    var i = 0
+    while(i < elems.length)
+    { newArray(i * 2) = elems(i).dbl1
+      newArray(i * 2 + 1) = elems(i).dbl2
+      i += 1
+    }
+    newArray
+  }
+}
+
+/** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
+trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
+{ override def index(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+
+  def elem1sArray: Array[Double] =
+  { val res = new Array[Double](numElems)
+    var count = 0
+    while(count < numElems){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    res
+  }
+
+  def elem2sArray: Array[Double] =
+  { val res = new Array[Double](numElems)
+    var count = 0
+    while(count < numElems){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    res
+  }
+
+  def tailForeachPair[U](f: (Double, Double) => U): Unit =
+  { var count = 1
+    while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 }
 
@@ -162,14 +161,14 @@ trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2[B]] extends Builder
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2]] final classes. Instances for the [[BuilderArrMap]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
- *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+ * you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called B, because it corresponds to the
+ * B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait BuilderArrDbl2Map[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderSeqLikeDbl2Map[B, ArrB] with BuilderArrDblNMap[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderArrFlat] should go in the
- *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
- *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderArrFlat] should go in the companion object
+ * the ArrT final class. The first type parameter is called B, because it corresponds to the B in
+ * ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */

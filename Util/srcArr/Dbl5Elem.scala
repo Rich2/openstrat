@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
 /** An object that can be constructed from 5 [[Double]]s. These are used in [[ArrDbl5]] Array[Double] based collections. */
 trait Dbl5Elem extends Any with DblNElem
@@ -14,30 +14,30 @@ trait Dbl5Elem extends Any with DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append5(dbl1, dbl2, dbl3, dbl4, dbl5)
 }
 
-trait SeqLikeDbl5[A <: Dbl5Elem] extends Any with SeqLikeDblN[A]
-{ def elemProdSize: Int = 5
+trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any with SeqLikeDblN[A]
+{ /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[ArrDbl5]] this will be the type of the elements of the
+   * sequence. */
+  def elemFromDbls(d1: Double @uncheckedVariance, d2: Double @uncheckedVariance, d3: Double @uncheckedVariance, d4: Double @uncheckedVariance,
+    d5: Double @uncheckedVariance): A
 
-  final override def setElemUnsafe(index: Int, newElem: A): Unit =
+  override def elemProdSize: Int = 5
+
+  final override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit =
     arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
-trait SeqSpecDbl5[A <: Dbl5Elem] extends Any with SeqLikeDbl5[A] with SeqSpecDblN[A]
-{  /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[ArrDbl5]] this will be the type of the elements of the
-   * sequence. */
-  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-
-  def index(index: Int): A = ssElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
+trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any with SeqLikeDbl5[A] with SeqSpecDblN[A]
+{ def index(index: Int): A = elemFromDbls(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
 
-  override def elemEq(a1: A, a2: A): Boolean =
+  override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
 trait ArrDbl5[A <: Dbl5Elem] extends Any with ArrDblN[A] with SeqLikeDbl5[A]
-{ def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-  final override def length: Int = arrayUnsafe.length / 5
+{ final override def length: Int = arrayUnsafe.length / 5
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)

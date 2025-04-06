@@ -44,8 +44,7 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] exten
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
 trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDblN[A]
-{
-  override def index(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+{ override def index(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
