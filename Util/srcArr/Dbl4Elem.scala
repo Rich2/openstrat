@@ -15,19 +15,17 @@ trait Dbl4Elem extends Any with DblNElem
 
 /** [[SeqLike]] with [[Dbl4Elem]] elements. */
 trait SeqLikeDbl4[A <: Dbl4Elem] extends Any with SeqLikeDblN[A]
-{ override def elemProdSize: Int = 4
+{ /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
 
-  final override def setElemUnsafe(index: Int, newElem: A): Unit =
-    arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+  override def elemProdSize: Int = 4
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
 trait SeqSpecDbl4[A <: Dbl4Elem] extends Any with SeqLikeDbl4[A] with SeqSpecDblN[A]
-{ /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
-  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): A
-
-  override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
-  override def index(index: Int): A = ssElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+{ override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
+  override def index(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait ArrDbl4[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
@@ -38,13 +36,10 @@ trait ArrDbl4[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
   final override def length: Int = arrayUnsafe.length / 4
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 
-  /** Method for creating new elements from 4 [[Double]]s. */
-  def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
-
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 
   override def apply(index: Int): A =
-    newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+    elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 4)

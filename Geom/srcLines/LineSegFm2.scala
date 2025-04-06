@@ -83,7 +83,7 @@ class LineSegFm2Arr(val arrayUnsafe: Array[Double]) extends ArrDbl4[LineSegFm2]
   def fromArray(array: Array[Double]): LineSegFm2Arr = new LineSegFm2Arr(array)
   override def typeStr: String = "LineSegMArr"
   override def fElemStr: LineSegFm2 => String = _.toString
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegFm2 = new LineSegFm2(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSegFm2 = new LineSegFm2(d1, d2, d3, d4)
 }
 
 /** Companion object for the [[LineSegFm2]]s class. */

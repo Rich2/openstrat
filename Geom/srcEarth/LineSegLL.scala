@@ -34,7 +34,7 @@ class LineSegLLArr(val arrayUnsafe: Array[Double]) extends LineSegLikeDbl4Arr[La
   def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
   override def typeStr: String = "LineSegLLArr"
   override def fElemStr: LineSegLL => String = _.toString
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
 }
 
 /** Companion object for the LineSegLLs class. */

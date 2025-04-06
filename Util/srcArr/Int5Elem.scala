@@ -29,7 +29,7 @@ trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntN[A]
 /** A compound object that is not a sequence but is specified / defined by an [[Int5Elem]] sequence.  */
 trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecIntN[A]
 {
-  final def ssElemEq(a1: A, a2: A): Boolean =
+  final def elemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
   override def index(index: Int): A =

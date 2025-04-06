@@ -83,7 +83,7 @@ class LineSegKm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLen2A
   def fromArray(array: Array[Double]): LineSegKm2Arr = new LineSegKm2Arr(array)
   override def typeStr: String = "LineSegKm2Arr"
   override def fElemStr: LineSegKm2 => String = _.toString
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegKm2 = new LineSegKm2(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSegKm2 = new LineSegKm2(d1, d2, d3, d4)
 
   override def ++(operand: LineSegLen2Arr[?]): LineSegKm2Arr = ???
   override def slate(operand: _root_.ostrat.geom.VecPtLen2): LineSegKm2Arr = ???

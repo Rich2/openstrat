@@ -27,7 +27,7 @@ trait SeqLikeInt4[A <: Int4Elem] extends Any with SeqLikeIntN[A]
 /** A compound object defined / specified by a sequence of [[Int4Elem]]s. */
 trait SeqSpecInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with SeqSpecIntN[A]
 {
-  final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
+  final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
   override def index(index: Int): A =
     newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))

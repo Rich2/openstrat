@@ -12,17 +12,17 @@ trait SeqLikeValueN[+A <: ValueNElem] extends Any with SeqLike[A]
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection class. */
   def elemProdSize: Int
 
-  /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
+  /** The total  number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc in the backing Array. */
   def arrayLen: Int
+
+  /** Checks if 2 values of the specifying sequence are equal. */
+  def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean
 }
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant classes
  * include both [[Arr]]s and classes like polygons and lines. */
 trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqSpec[A]
 { type ThisT <: SeqSpecValueN[A]
-
-  /** Checks if 2 values of the specifying sequence are equal. */
-  def ssElemEq(a1: A  @uncheckedVariance, a2: A @uncheckedVariance): Boolean
 
   /** Reverses the order of the elements of the specifying sequence. */
   def reverse: ThisT
@@ -46,10 +46,7 @@ trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with Seq
 trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeValueN[A]
 { type ThisT <: ArrValueN[A]
 
-  /** Checks if 2 values of the specifying sequence are equal. */
-  def elemEq(a1: A, a2: A): Boolean
-
-  /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
+  /** The number of product elements in this collection. For example in a [[PolygonGen]], this is the number of [[Pt2]]s in the [[Polygon]] */
   override def length: Int = arrayLen / elemProdSize
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
@@ -62,7 +59,7 @@ trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeVal
     acc
   }
 
-  /** Find the index of the the first value of this sequence. */
+  /** Find the index of the first value of this sequence. */
   def findIndex(value: A): OptInt =
   { var count = 0
     var acc: OptInt = NoInt

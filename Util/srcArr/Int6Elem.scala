@@ -29,7 +29,7 @@ trait SeqLikeInt6[A <: Int6Elem] extends Any with SeqLikeIntN[A]
 /** Compound object defined / specified by [[Int6Elem]]s */
 trait SeqSpecInt6[A <: Int6Elem] extends Any with SeqLikeInt6[A] with SeqSpecIntN[A]
 {
-  final def ssElemEq(a1: A, a2: A): Boolean =
+  final def elemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5) & (a1.int6 == a2.int6)
 
   override def index(index: Int): A = newElem(arrayUnsafe(6 * index), arrayUnsafe(6 * index + 1), arrayUnsafe(6 * index + 2),

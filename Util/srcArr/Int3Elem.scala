@@ -24,7 +24,7 @@ trait SeqLikeInt3[A <: Int3Elem] extends Any with SeqLikeIntN[A]
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int3Elem]]s. */
 trait SeqSpecInt3[A <: Int3Elem] extends Any with SeqLikeInt3[A] with SeqSpecIntN[A]
 { final override def index(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
-  final override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */

@@ -136,7 +136,7 @@ class LineSegArr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLikeDbl4
   def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
   override def typeStr: String = "LineSegArr"
   override def fElemStr: LineSeg => String = _.str
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LineSegArr = map(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
   override def draw(lineWidth: Double = 2, colour: Colour = Black): LineSegArrDraw = LineSegArrDraw(this, lineWidth, colour)
   override def boundingRect: Rect = foldLeft(_ || _.boundingRect)

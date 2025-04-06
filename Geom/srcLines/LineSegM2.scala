@@ -105,7 +105,7 @@ class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtM2],
   }
   
   override def fElemStr: LineSegM2 => String = _.toString
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
   override def slate(operand: VecPtLen2): LineSegM2Arr = map(_.slate(operand))
   override def slate(xOperand: Length, yOperand: Length): LineSegM2Arr = map(_.slate(xOperand, yOperand))
   override def slateX(xOperand: Length): LineSegM2Arr = map(_.slateX(xOperand))
