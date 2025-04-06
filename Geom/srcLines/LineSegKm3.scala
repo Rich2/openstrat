@@ -82,7 +82,7 @@ class LineSegKm3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegKm3]
   override def typeStr: String = "LineSegKm3Arr"
   override def fElemStr: LineSegKm3 => String = _.toString
 
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegKm3 =
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegKm3 =
     new LineSegKm3(d1, d2, d3, d4, d5, d6)
 }
 

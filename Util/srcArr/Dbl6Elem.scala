@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
 /** An object that can be constructed from 6 [[Double]]s. These are used in [[ArrDbl6]] Array[Double] based collections. */
-trait Dbl6Elem extends Any with DblNElem
+trait Dbl6Elem extends Any, DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -11,33 +11,32 @@ trait Dbl6Elem extends Any with DblNElem
   def dbl5: Double
   def dbl6: Double
 
-  override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4); f(dbl5); f(dbl6) }
+  final override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4); f(dbl5); f(dbl6) }
 
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append6(dbl1, dbl2, dbl3, dbl4, dbl5, dbl6)
 }
 
 /** Sequence like class whose elements or sequence specifying elements [[Dbl6Elem]] can be constructed from 6 [[Double]]s. */
-trait SeqLikeDbl6[A <: Dbl6Elem] extends Any with SeqLikeDblN[A]
-{
-  def elemProdSize: Int = 6
+trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any with SeqLikeDblN[A]
+{ /** Constructs an element of the specifying-sequence from 6 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
-  def setElemUnsafe(index: Int, newElem: A): Unit =
+  final override def elemProdSize: Int = 6
+
+  final override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit =
     arrayUnsafe.setIndex6(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6)
+
+  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean =
+    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl6Elem]]s. */
-trait Dbl6SeqSpec[A <: Dbl6Elem] extends Any with SeqLikeDbl6[A] with SeqSpecDblN[A]
+trait Dbl6SeqSpec[+A <: Dbl6Elem] extends Any with SeqLikeDbl6[A] with SeqSpecDblN[A]
 {
-  override def elemEq(a1: A, a2: A): Boolean =
-    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
-
-  /** Constructs an element of the specifying-sequence from 6 [[Double]]s. */
-  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
-
   def index(index: Int): A =
   { val offset = index * 6
-    ssElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3),
-      arrayUnsafe(offset + 4), arrayUnsafe(offset + 5))
+    elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
+      arrayUnsafe(offset + 5))
   }
 }
 
@@ -45,11 +44,9 @@ trait Dbl6SeqSpec[A <: Dbl6Elem] extends Any with SeqLikeDbl6[A] with SeqSpecDbl
 trait ArrDbl6[A <: Dbl6Elem] extends Any with ArrDblN[A] with SeqLikeDbl6[A]
 { final override def length: Int = arrayUnsafe.length / 6
 
-  def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
-
   def apply(index: Int): A =
   { val offset = index * 6
-    newElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3),
+    elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3),
       arrayUnsafe(offset + 4), arrayUnsafe(offset + 5))
   }
 
@@ -57,9 +54,6 @@ trait ArrDbl6[A <: Dbl6Elem] extends Any with ArrDblN[A] with SeqLikeDbl6[A]
   def head5: Double = arrayUnsafe(4); def head6: Double = arrayUnsafe(5)
 
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
-
-  override def elemEq(a1: A, a2: A): Boolean =
-    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 6)

@@ -82,7 +82,21 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
     newArray
   }
 
-  override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+  def elem1sArray: Array[Double] =
+  { val res = new Array[Double](arrayLen / 2)
+    var count = 0
+    while (count < arrayLen / 2) {res(count) = arrayUnsafe(count * 2); count += 1 }
+    res
+  }
+
+  def elem2sArray: Array[Double] =
+  { val res = new Array[Double](arrayLen / 2)
+    var count = 0
+    while (count < arrayLen / 2) {res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    res
+  }
+
+  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 }
 
 object SeqLikeDbl2
@@ -102,20 +116,6 @@ object SeqLikeDbl2
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
 trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
 { override def index(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
-
-  def elem1sArray: Array[Double] =
-  { val res = new Array[Double](numElems)
-    var count = 0
-    while(count < numElems){ res(count) = arrayUnsafe(count * 2); count += 1 }
-    res
-  }
-
-  def elem2sArray: Array[Double] =
-  { val res = new Array[Double](numElems)
-    var count = 0
-    while(count < numElems){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
-    res
-  }
 
   def tailForeachPair[U](f: (Double, Double) => U): Unit =
   { var count = 1
