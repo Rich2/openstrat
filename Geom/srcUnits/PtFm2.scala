@@ -110,7 +110,7 @@ class PtFm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtFm2
 { type ThisT = PtFm2Arr
   override def fromArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
   override def typeStr: String = "PtFm2Arr"
-  override def seqDefElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fElemStr: PtFm2 => String = _.str
 }
 
@@ -176,7 +176,7 @@ object VecFm2
 /** Efficient Specialised [[Arr]] for [[VecFm2]]s. */
 class VecFm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecFm2]
 { override type ThisT = VecFm2Arr
-  override def seqDefElem(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
   override def fromArray(array: Array[Double]): VecFm2Arr = new VecFm2Arr(array)
   override def typeStr: String = "VecFm2Arr"
   override def fElemStr: VecFm2 => String = _.str

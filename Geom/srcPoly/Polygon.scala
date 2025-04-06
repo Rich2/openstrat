@@ -44,8 +44,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   final override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)
 
-  /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a* new
-   * transformed Polygon */
+  /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a new
+   * transformed [[Polygon]]. */
   def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
@@ -150,11 +150,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def rotate(rotation: AngleVec): Polygon = PolygonGen(arrayRotate(rotation))
   override def reflect(lineLike: LineLike): Polygon = PolygonGen(arrayReflect(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Polygon = PolygonGen(arrayScaleXY(xOperand, yOperand))
-
-  /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all subclasses. */
   override def shearX(operand: Double): Polygon = map(_.xShear(operand))
-
-  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in subclasses and traits. */
   override def shearY(operand: Double): Polygon = map(_.xShear(operand))
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =

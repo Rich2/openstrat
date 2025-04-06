@@ -29,7 +29,7 @@ final class Vec2Arr(val arrayUnsafe: Array[Double]) extends /*AffinePreserve wit
     newArray
   }
   override def fElemStr: Vec2 => String = _.str
-  final override def seqDefElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
+  final override def elemFromDbls(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
 }
 
 /** Companion object for the [[Vec2Arr]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */

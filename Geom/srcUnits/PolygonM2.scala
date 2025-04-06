@@ -8,7 +8,7 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   type SideT = LineSegM2
   override def typeStr: String = "PolygonM2"
   override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
-  override def ssElem(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
   override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
   override def slate(operand: VecPtLen2): PolygonM2 = dblsMap(_ + operand.xMetresNum, _ + operand.yMetresNum)

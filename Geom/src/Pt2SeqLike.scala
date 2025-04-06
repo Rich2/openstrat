@@ -18,10 +18,12 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
     newArray
   }
   final override def fElemStr: Pt2 => String = _.str
+
+
 }
 
 trait Pt2SeqSpec extends Any, Pt2SeqLike, SeqSpecDbl2[Pt2]
-{ final override def ssElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+{ final override def elemFromDbls(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
   protected def arraySlate(operand: VecPt2): Array[Double] = arrayD1D2Map(_ + operand.x)(_ + operand.y)
   protected def arraySlateXY(xOperand: Double, yOperand: Double): Array[Double] = arrayD1D2Map(_ + xOperand)(_ + yOperand)
   protected def arraySlateX(xOperand: Double): Array[Double] = arrayD1Map(_ + xOperand)
@@ -50,7 +52,7 @@ final class Pt2Arr(val arrayUnsafe: Array[Double]) extends AffinePreserve with P
   @inline def toLinePath: LinePath = new LinePath(arrayUnsafe)
 
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the sequence. */
-  override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def ptsTrans(f: Pt2 => Pt2): Pt2Arr =  new Pt2Arr(arrTrans(f))

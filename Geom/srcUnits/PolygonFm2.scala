@@ -8,7 +8,7 @@ final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   type SideT = LineSegFm2
   override def typeStr: String = "PolygonFm2"
   def fromArray(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
-  override def ssElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fElemStr: PtFm2 => String = _.toString
   override def verts: PtFm2Arr = new PtFm2Arr(arrayUnsafe)
   override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafe.map(_ / operand.femtometresNum))

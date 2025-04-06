@@ -54,7 +54,7 @@ class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double
   override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
   override def verts: Arr[PtM2] = ???
   override def fromArray(array: Array[Double]): SqlignM2 = ???
-  override def ssElem(d1: Double, d2: Double): PtM2 = ???
+  override def elemFromDbls(d1: Double, d2: Double): PtM2 = ???
 }
 
 object SqlignM2

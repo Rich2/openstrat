@@ -7,7 +7,7 @@ final class LinePathKm2(val arrayUnsafe: Array[Double]) extends AnyVal with Line
 { override type ThisT = LinePathKm2
   override type PolygonT = PolygonKm2
   override def typeStr: String = "LinePathKm2"
-  override def ssElem(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
   override def fromArray(array: Array[Double]): LinePathKm2 = new LinePathKm2(array)
   override def polygonFromArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
   override def fElemStr: PtKm2 => String = _.toString

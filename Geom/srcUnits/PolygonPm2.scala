@@ -8,7 +8,7 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   type SideT = LineSegPm2
   override def typeStr: String = "PolygonPm2"
   def fromArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
-  override def ssElem(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
+  override def elemFromDbls(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
   override def fElemStr: PtPm2 => String = _.toString
   override def verts: PtPm2Arr = new PtPm2Arr(arrayUnsafe)  
   override def slate(operand: VecPtLen2): PolygonPm2 = dblsMap(_ + operand.xPicometresNum, _ + operand.yPicometresNum)

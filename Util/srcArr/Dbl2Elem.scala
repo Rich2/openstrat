@@ -17,6 +17,10 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 2
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 
+  /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the
+   * sequence. */
+  def elemFromDbls(d1: Double, d2: Double): A
+
   /** Produces a new [[Array]][Double] of the same size, with the functions acting on the first and second [[Double]] of each element. */
   def arrayUnsafeMap2(f1: Double => Double, f2: Double => Double): Array[Double] =
   { val newArray = new Array[Double](arrayLen)
@@ -49,11 +53,7 @@ object SeqLikeDbl2
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
 trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
-{ /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the
-   *  sequence. */
-  def ssElem(d1: Double, d2: Double): A
-
-  override def index(index: Int): A = ssElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+{ override def index(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   override def ssElemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =
@@ -79,7 +79,7 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
   def arrayElemMap(f: A => A @uncheckedVariance): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2){ i =>
-      val newElem = f(ssElem(arrayUnsafe(i), arrayUnsafe(i + 1)))
+      val newElem = f(elemFromDbls(arrayUnsafe(i), arrayUnsafe(i + 1)))
       newArray(i) = newElem.dbl1
       newArray(i + 1) = newElem.dbl2
     }
@@ -136,7 +136,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
     while(count < length) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
-  override def apply(index: Int): A = seqDefElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+  override def apply(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
@@ -147,8 +147,6 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
     fromArray(newArray)
   }
 
-  /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the sequence. */
-  def seqDefElem(d1: Double, d2: Double): A
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2)))
 }
 
