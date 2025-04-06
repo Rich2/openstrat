@@ -23,6 +23,7 @@ trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDblN[A]
 
   override def elemProdSize = 3
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
+  override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
 }
 
 /** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
@@ -43,7 +44,7 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] exten
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
 trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDblN[A]
-{ override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+{
   override def index(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 }
 
@@ -54,8 +55,6 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any with ArrDblN[A] with SeqLikeDbl3[A]
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
-
-  final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   final override def apply(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
