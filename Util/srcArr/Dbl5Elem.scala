@@ -15,10 +15,8 @@ trait Dbl5Elem extends Any, DblNElem
 }
 
 trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDblN[A]
-{ /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[ArrDbl5]] this will be the type of the elements of the
-   * sequence. */
-  def elemFromDbls(d1: Double @uncheckedVariance, d2: Double @uncheckedVariance, d3: Double @uncheckedVariance, d4: Double @uncheckedVariance,
-    d5: Double @uncheckedVariance): A
+{ /** Method for creating new specifying sequence element from 5 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double @uncheckedVariance): A
 
   final override def elemProdSize: Int = 5
 

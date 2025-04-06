@@ -14,7 +14,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
   /** Checks if 2 values of the specifying sequence are equal. */
   override def elemEq(a1: CurveTailOld, a2: CurveTailOld): Boolean = ???
 
-  override def ssElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTailOld =
+  override def elemFromDbls(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTailOld =
     CurveTailOld(iMatch, d1, d2, d3, d4, d5, d6)
 
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =

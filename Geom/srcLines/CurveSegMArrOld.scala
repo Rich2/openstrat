@@ -10,7 +10,7 @@ class CurveSegMArrOld(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl
   //  new DistCurveTail(iMatch, d1, d2, d3, d4, d5, d6)
   override def fElemStr: CurveTailMOld => String = _.toString
 
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): CurveTailMOld = ???
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): CurveTailMOld = ???
 }
 
 object CurveSegMArrOld extends CompanionSeqLikeDbl7[CurveTailMOld, CurveSegMArrOld]

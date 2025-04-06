@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
 /** An object that can be constructed from 7 [[Double]]s. These are used in [[SeqSpecDbl7]] classes including [[ArrDbl7]] sequence collections. */
 trait Dbl7Elem extends Any with DblNElem
@@ -17,24 +17,25 @@ trait Dbl7Elem extends Any with DblNElem
 }
 
 /** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[ArrDbl7]]s and [[SeqSpecDbl7]] */
-trait SeqLikeDbl7[A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
-{ def elemProdSize: Int = 7
+trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
+{ /** Method for creating new specifying sequence element from 7 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
-  override def setElemUnsafe(index: Int, newElem: A): Unit =
+  def elemProdSize: Int = 7
+
+  override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit =
     arrayUnsafe.setIndex7(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
-trait SeqSpecDbl7[A <: Dbl7Elem] extends Any with SeqLikeDbl7[A] with SeqSpecDblN[A]
+trait SeqSpecDbl7[+A <: Dbl7Elem] extends Any with SeqLikeDbl7[A] with SeqSpecDblN[A]
 {
-  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
-
-  def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
-    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
+  def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) && (a1.dbl2 == a2.dbl2) && (a1.dbl3 == a2.dbl3) &&
+    (a1.dbl4 == a2.dbl4) && (a1.dbl5 == a2.dbl5) && (a1.dbl6 == a2.dbl6) && (a1.dbl7 == a2.dbl7)
 
   def index(index: Int): A =
   { val offset = 7 * index
-    ssElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
+    elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
       arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
   }
 }
@@ -48,11 +49,9 @@ trait ArrDbl7[A <: Dbl7Elem] extends Any with ArrDblN[A] with SeqLikeDbl7[A]
 
   def apply(index: Int): A =
   { val offset = 7 * index
-    newElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
+    elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
       arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
   }
-
-  def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
     (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
