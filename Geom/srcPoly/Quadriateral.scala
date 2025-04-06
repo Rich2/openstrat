@@ -61,10 +61,12 @@ trait QuadGraphic extends PolygonGraphic
 { override def shape: Quadrilateral
 }
 
+/** Compound graphic based on a quadrilateral. */
 trait QuadCompound extends PolygonCompound, QuadGraphic
 { /** Graphic child elements of a quadrilateral. */
   def quadChilds: RArr[Quadrilateral => GraphicElems] = RArr()
 
+  /** A sequence oo graphics that have been attached to this quadrilateral. */
   def adopted: GraphicElems = RArr()
 
   override def slate(operand: VecPt2): QuadCompound = QuadCompoundGen(shape.slate(operand), facets, quadChilds, adopted)
@@ -74,6 +76,12 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
   override def scale(operand: Double): QuadCompound = QuadCompoundGen(shape.scale(operand), facets, quadChilds, adopted)
 }
 
+object QuadCompound
+{
+  val slateEv: Slate[QuadCompound] = (obj, operand) => obj.slate(operand)
+}
+
+/** The implementation for the general case of a compound graphic based on a quadrilateral. */
 class QuadCompoundGen(val shape: Quadrilateral, val facets: RArr[GraphicFacet], quadChilds: RArr[Quadrilateral => GraphicElems], adopted: RArr[Graphic2Elem])
   extends QuadCompound
 {
