@@ -8,7 +8,7 @@ trait RefsSeqLike[+A] extends Any, SeqLike[A]
   def arrayUnsafe: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
   override final def fElemStr: A @uncheckedVariance => String = _.toString
-  override final def setElemUnsafe(i: Int, newElem: A @uncheckedVariance) : Unit = arrayUnsafe(i) = newElem
+  override final def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe(index) = newElem
 }
 
 /** The immutable Array based class for types without their own specialised [[Arr]] collection classes. It inherits the standard foreach, map, flatMap and fold
@@ -26,7 +26,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
   }
 
   override def apply(index: Int): A = arrayUnsafe(index)
-  override def index(i: Int): A = arrayUnsafe(i)
+  override def elem(index: Int): A = arrayUnsafe(index)
 
   /** Same map. Maps from this Arr[A] to a new Arr[A]. */
   def smap(f: A => A @uncheckedVariance): RArr[A] =
@@ -328,10 +328,10 @@ final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal with BuffS
 { override type ThisT = RBuff[A]
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = bufferUnsafe(index)
-  override def index(i: Int): A = bufferUnsafe(i)
+  override def elem(index: Int): A = bufferUnsafe(index)
   override def length: Int = bufferUnsafe.length
   override def numElems: Int = bufferUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: A => String = _.toString
   override def grow(newElem: A): Unit = bufferUnsafe.append(newElem)
 }

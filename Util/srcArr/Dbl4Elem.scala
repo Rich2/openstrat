@@ -19,7 +19,7 @@ trait SeqLikeDbl4[A <: Dbl4Elem] extends Any, SeqLikeDblN[A]
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   final override def elemProdSize: Int = 4
-  final override def index(i: Int): A = elemFromDbls(arrayUnsafe(4 * i), arrayUnsafe(4 * i + 1), arrayUnsafe(4 * i + 2), arrayUnsafe(4 * i + 3))
+  final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def numElems: Int = arrayLen / 4
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
@@ -108,6 +108,6 @@ trait BuffDbl4[A <: Dbl4Elem] extends Any, BuffDblN[A]
   final override def apply(index: Int): A =
     elemFromDbls(bufferUnsafe(index * 4), bufferUnsafe(index * 4 + 1), bufferUnsafe(index * 4 + 2), bufferUnsafe(index * 4 + 3))
 
-  final override def index(i: Int): A = elemFromDbls(bufferUnsafe(i * 4), bufferUnsafe(i * 4 + 1), bufferUnsafe(i * 4 + 2), bufferUnsafe(i * 4 + 3))
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex4(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+  final override def elem(index: Int): A = elemFromDbls(bufferUnsafe(index * 4), bufferUnsafe(index * 4 + 1), bufferUnsafe(index * 4 + 2), bufferUnsafe(index * 4 + 3))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }

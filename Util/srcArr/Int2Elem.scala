@@ -16,7 +16,7 @@ trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeIntN[A]
   def elemFromInts(i1: Int, i2: Int): A
   
   final override def elemProdSize: Int = 2
-  final override def index(i: Int): A = elemFromInts(arrayUnsafe(2 * i), arrayUnsafe(2 * i + 1))
+  final override def elem(index: Int): A = elemFromInts(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def numElems: Int = arrayUnsafe.length
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)  
 }
@@ -78,8 +78,8 @@ trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A]
   override def grow(newElem: A): Unit = bufferUnsafe.append2(newElem.int1, newElem.int2)
   def growInts(int1: Int, int2: Int): Unit = bufferUnsafe.append2(int1, int2)
   override def apply(index: Int): A = newElem(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
-  final override def index(i: Int): A = newElem(bufferUnsafe(i * 2), bufferUnsafe(i * 2 + 1))
-  override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex2(i, newElem.int1, newElem.int2)
+  final override def elem(index: Int): A = newElem(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex2(index, newElem.int1, newElem.int2)
 }
 
 /** Helper class for companion objects of final [[SeqSpecInt2]] classes. */

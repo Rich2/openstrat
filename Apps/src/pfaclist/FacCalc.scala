@@ -3,6 +3,16 @@ package ostrat; package pfaclist
 
 class FacCalc(val listLen: Int, val factions: RArr[Faction])
 {
+  val numFactions: Int = factions.length
+  val numVote: Int = factions.sumBy(_.weight)
+  
+  def assign1(facStates: IntArr): (Faction, IntArr) =
+  { val state1: IntArr = facStates.iMap{(i, v0) => v0 + factions(i).weight }
+    val indMax: Int = state1.indexOfMax
+    state1.mutateElemUnsafe(indMax, _ - numVote)
+    (factions(indMax), state1)
+  }
+
   def run: RPairArr[Int, String] =
   {
     var facState: IntArr = factions.map(_ => 0)
@@ -12,6 +22,7 @@ class FacCalc(val listLen: Int, val factions: RArr[Faction])
 }
 
 case class Faction(name: String, weight: Int)
+
 
 object Faction
 {

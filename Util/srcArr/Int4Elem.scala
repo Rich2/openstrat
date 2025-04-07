@@ -22,7 +22,7 @@ trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeIntN[A]
 
   final override def elemProdSize: Int = 4
   final override def numElems: Int = arrayUnsafe.length / 4
-  final override def index(i: Int): A = elemFromInts(arrayUnsafe(4 * i), arrayUnsafe(4 * i + 1), arrayUnsafe(4 * i + 2), arrayUnsafe(4 * i + 3))
+  final override def elem(index: Int): A = elemFromInts(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
@@ -68,8 +68,8 @@ trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A]
   final override def apply(index: Int): A = elemFromInts(bufferUnsafe(index * 4), bufferUnsafe(index * 4 + 1), bufferUnsafe(index * 4 + 2),
     bufferUnsafe(index * 4 + 3))
 
-  final override def index(i: Int): A = elemFromInts(bufferUnsafe(i * 4), bufferUnsafe(i * 4 + 1), bufferUnsafe(i * 4 + 2), bufferUnsafe(i * 4 + 3))
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
+  final override def elem(index: Int): A = elemFromInts(bufferUnsafe(index * 4), bufferUnsafe(index * 4 + 1), bufferUnsafe(index * 4 + 2), bufferUnsafe(index * 4 + 3))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 /** Base trait for builders of [[SeqLikeInt4]] objects via both map and flatMap methods. */

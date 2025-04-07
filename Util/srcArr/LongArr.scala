@@ -12,10 +12,10 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal, ArrNoParam[Long]
   override def typeStr: String = "Longs"
   override def unsafeSameSize(length: Int): LongArr = new LongArr(new Array[Long](length)) 
   override def apply(index: Int): Long = unsafeArray(index)
-  override def index(i: Int): Long = unsafeArray(i)
+  override def elem(index: Int): Long = unsafeArray(index)
   override def length: Int = unsafeArray.length
   override def numElems: Int = unsafeArray.length
-  override def setElemUnsafe(i: Int, newElem: Long): Unit = unsafeArray(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Long): Unit = unsafeArray(index) = newElem
   override def fElemStr: Long => String = _.toString
 
   @targetName("append") def ++(op: LongArr): LongArr =
@@ -75,10 +75,10 @@ class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal, BuffSequ[Lon
 { override type ThisT = LongBuff
   override def typeStr: String = "LongsBuff"
   override def apply(index: Int): Long = unsafeBuffer(index)
-  override def index(i: Int): Long = unsafeBuffer(i)
+  override def elem(index: Int): Long = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def numElems: Int = unsafeBuffer.length
-  override def setElemUnsafe(i: Int, newElem: Long): Unit = unsafeBuffer(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Long): Unit = unsafeBuffer(index) = newElem
   override def fElemStr: Long => String = _.toString
   override def grow(newElem: Long): Unit = unsafeBuffer.append(newElem)
 }

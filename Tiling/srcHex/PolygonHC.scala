@@ -58,7 +58,7 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal, HCoordSeqSpec, Poly
   def combine(operand: PolygonHC): Option[PolygonHC] =
   {
     var starts: Option[(Int, Int)] = None
-    val a = index(0)
+    val a = elem(0)
     ???
   }
 
@@ -97,7 +97,7 @@ class PolygonHCArr(val arrayOfArraysUnsafe:Array[Array[Int]]) extends ArrArrayIn
 class PolygonHCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal, ArrayIntBuff[PolygonHC]
 { override type ThisT = PolygonHCBuff
   override def typeStr: String = "PolygonHCBuff"
-  override def setElemUnsafe(i: Int, newElem: PolygonHC): Unit = unsafeBuffer(i) = newElem.arrayUnsafe
+  override def setElemUnsafe(index: Int, newElem: PolygonHC): Unit = unsafeBuffer(index) = newElem.arrayUnsafe
   override def fElemStr: PolygonHC => String = _.toString
   override def fromArrayInt(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }

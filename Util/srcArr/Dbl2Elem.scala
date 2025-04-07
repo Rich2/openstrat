@@ -96,7 +96,7 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
     res
   }
 
-  final override def index(i: Int): A = elemFromDbls(arrayUnsafe(2 * i), arrayUnsafe(2 * i + 1))
+  final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def numElems: Int = arrayUnsafe.length / 2
   final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 }
@@ -200,8 +200,8 @@ trait BuffDbl2[B <: Dbl2Elem] extends Any with BuffDblN[B]
   final override def elemProdSize: Int = 2
   final override def grow(newElem: B): Unit = bufferUnsafe.append2(newElem.dbl1, newElem.dbl2)
   final override def apply(index: Int): B = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
-  final override def index(i: Int): B = elemFromDbls(bufferUnsafe(i * 2), bufferUnsafe(i * 2 + 1))
-  final override def setElemUnsafe(i: Int, newElem: B): Unit = bufferUnsafe.setIndex2(i, newElem.dbl1, newElem.dbl2)
+  final override def elem(index: Int): B = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
+  final override def setElemUnsafe(index: Int, newElem: B): Unit = bufferUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
   override def fElemStr: B => String = _.toString
 }
 

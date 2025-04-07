@@ -15,7 +15,7 @@ trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A]
 { final override def elemProdSize: Int = 1
   def elemFromDbl(dblValue: Double): A  
   final override def apply(index: Int): A = elemFromDbl(arrayUnsafe(index))
-  final override def index(i: Int): A = elemFromDbl(arrayUnsafe(i))
+  final override def elem(index: Int): A = elemFromDbl(arrayUnsafe(index))
   final override def length: Int = arrayUnsafe.length
   final override def numElems: Int = arrayUnsafe.length
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe(index) = newElem.dbl1

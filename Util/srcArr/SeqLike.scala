@@ -13,17 +13,22 @@ trait SeqLike[+A] extends Any
   def foreach[U](f: A => U): Unit
 
   /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
-  @inline def index(i: Int): A
+  @inline def elem(index: Int): A
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
    * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
   def numElems: Int
 
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
-  def setElemUnsafe(i: Int, newElem: A @uncheckedVariance): Unit
+  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit
 
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
-  def setElemsUnsafe(index: Int, elems: A @uncheckedVariance*): Unit = elems.iForeach(index) { (i, a) => setElemUnsafe(i, a) }
+  def setElemsUnsafe(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach(index) { (i, a) => setElemUnsafe(i, a) }
+
+  /** Mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = ???
 
   def fElemStr: A@uncheckedVariance => String
 

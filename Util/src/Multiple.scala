@@ -121,11 +121,11 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
     res
   }
   
-  override def index(i: Int): Multiple[A] = new Multiple[A](values(i), arrayInt(i))
+  override def elem(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
   override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
   override def length: Int = arrayInt.length
   override def numElems: Int = arrayInt.length
-  override def setElemUnsafe(i: Int, newElem: Multiple[A]): Unit = { values(i) = newElem.value; arrayInt(i) =newElem.num }
+  override def setElemUnsafe(index: Int, newElem: Multiple[A]): Unit = { values(index) = newElem.value; arrayInt(index) =newElem.num }
   override def fElemStr: Multiple[A] => String = _.toString
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
 }
@@ -155,10 +155,10 @@ class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBu
   override def typeStr: String = "MultipleBuff"
   override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }
   override def apply(index: Int): Multiple[A] = new Multiple[A](valuesBuffer(index), numBuffer(index))
-  override def index(i: Int): Multiple[A] = new Multiple[A](valuesBuffer(i), numBuffer(i))
+  override def elem(index: Int): Multiple[A] = new Multiple[A](valuesBuffer(index), numBuffer(index))
   override def length: Int = numBuffer.length
   override def numElems: Int = numBuffer.length
-  override def setElemUnsafe(i: Int, newElem: Multiple[A]): Unit = { numBuffer(i) = newElem.num; valuesBuffer(i) = newElem.value }
+  override def setElemUnsafe(index: Int, newElem: Multiple[A]): Unit = { numBuffer(index) = newElem.num; valuesBuffer(index) = newElem.value }
   override def fElemStr: Multiple[A] => String = _.toString
 }
 

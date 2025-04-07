@@ -32,7 +32,7 @@ trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with Seq
   { var res = true
     var i = 0
     while (i < numElems & res)
-    { if (!f(index(i))) res = false
+    { if (!f(elem(i))) res = false
       i += 1
     }
   res

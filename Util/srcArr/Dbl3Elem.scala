@@ -22,7 +22,7 @@ trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any, SeqLikeDblN[A]
   def elemFromDbls(d1: Double, d2: Double, d3: Double): A
 
   final override def elemProdSize = 3
-  final override def index(i: Int): A = elemFromDbls(arrayUnsafe(3 * i), arrayUnsafe(3 * i + 1), arrayUnsafe(3 * i + 2))
+  final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayLen / 3
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
   override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
@@ -95,8 +95,8 @@ trait Dbl3Buff[A <: Dbl3Elem] extends Any with BuffDblN[A]
   override def elemProdSize: Int = 3
   override def grow(newElem: A): Unit = bufferUnsafe.append3(newElem.dbl1, newElem.dbl2, newElem.dbl3)
   final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
-  final override def index(i: Int): A = elemFromDbls(bufferUnsafe(i * 3), bufferUnsafe(i * 3 + 1), bufferUnsafe(i * 3 + 2))
+  final override def elem(index: Int): A = elemFromDbls(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
   final override def length: Int = bufferUnsafe.length / 3
   final override def numElems: Int = bufferUnsafe.length / 3
-  override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex3(i, newElem.dbl1, newElem.dbl2, newElem.dbl3)
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }

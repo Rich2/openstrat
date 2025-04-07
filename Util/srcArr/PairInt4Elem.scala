@@ -24,8 +24,8 @@ trait ArrPairInt4[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: PairInt4Elem[A1
   final override def apply(index: Int): A =
     newPair(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))
 
-  final override def index(i: Int): A = newPair(a1ArrayInt(i * 4), a1ArrayInt(i * 4 + 1), a1ArrayInt(i * 4 + 2), a1ArrayInt(i * 4 + 3), a2Array(i))
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { setA1Unsafe(i, newElem.a1);  a2Array(i) = newElem.a2 }
+  final override def elem(index: Int): A = newPair(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = { setA1Unsafe(index, newElem.a1);  a2Array(index) = newElem.a2 }
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayInt.setIndex4(index, value.int1, value.int2, value.int3, value.int4)
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
@@ -49,16 +49,16 @@ trait BuffPairInt4[B1 <: Int4Elem, B2, B <: PairInt4Elem[B1, B2]] extends BuffPa
   final override def apply(index: Int): B =
     newElem(b1IntBuffer (index * 4), b1IntBuffer(index * 4 + 1), b1IntBuffer(index * 4 + 2), b1IntBuffer(index * 4 + 3), b2Buffer(index))
 
-  final override def index(i: Int): B = newElem(b1IntBuffer (i * 4), b1IntBuffer(i * 4 + 1), b1IntBuffer(i * 4 + 2), b1IntBuffer(i * 4 + 3), b2Buffer(i)) 
+  final override def elem(index: Int): B = newElem(b1IntBuffer (index * 4), b1IntBuffer(index * 4 + 1), b1IntBuffer(index * 4 + 2), b1IntBuffer(index * 4 + 3), b2Buffer(index)) 
 
   override final def grow(newElem: B): Unit =
   { b1IntBuffer.append4(newElem.a1Int1, newElem.a1Int2, newElem.a1Int3, newElem.a1Int4)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(i: Int, newElem: B): Unit =
-  { b1IntBuffer.setIndex4(i, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3, newElem.a1Int4)
-    b2Buffer(i) = newElem.a2
+  override final def setElemUnsafe(index: Int, newElem: B): Unit =
+  { b1IntBuffer.setIndex4(index, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3, newElem.a1Int4)
+    b2Buffer(index) = newElem.a2
   }
 }
 

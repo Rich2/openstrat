@@ -8,10 +8,10 @@ class FloatArr(val arrayUnsafe: Array[Float]) extends AnyVal, ArrNoParam[Float]
   override def typeStr: String = "FloatArr"
   override def unsafeSameSize(length: Int): FloatArr = new FloatArr(new Array[Float](length))
   override def apply(index: Int): Float = arrayUnsafe(index)
-  override def index(i: Int): Float = arrayUnsafe(i)
+  override def elem(index: Int): Float = arrayUnsafe(index)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Float): Unit = arrayUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Float): Unit = arrayUnsafe(index) = newElem
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
@@ -71,10 +71,10 @@ class FloatBuff(val bufferUnsafe: ArrayBuffer[Float]) extends AnyVal, BuffSequ[F
 { override type ThisT = FloatBuff
   override def typeStr: String = "FloatsBuff"
   override def apply(index: Int): Float = bufferUnsafe(index)
-  override def index(i: Int): Float = bufferUnsafe(i)
+  override def elem(index: Int): Float = bufferUnsafe(index)
   override def length: Int = bufferUnsafe.length
   override def numElems: Int = bufferUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Float): Unit = bufferUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Float): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Float => String = _.toString
   override def grow(newElem: Float): Unit = bufferUnsafe.append(newElem)
 }

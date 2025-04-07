@@ -19,11 +19,11 @@ trait ArrArrayDbl[A <: ArrayDblBacked] extends Any, Arr[A]
   def fromArrayArray(array: Array[Array[Double]]): ThisT
   
   final override def apply(index: Int): A = elemFromArray(arrayOfArraysUnsafe(index))
-  final override def index(i: Int): A = elemFromArray(arrayOfArraysUnsafe(i))
+  final override def elem(index: Int): A = elemFromArray(arrayOfArraysUnsafe(index))
   final override def length: Int = arrayOfArraysUnsafe.length
   final override def numElems: Int = arrayOfArraysUnsafe.length  
   final def sameSizeUninitialised(length: Int): ThisT = fromArrayArray(new Array[Array[Double]](length))
-  final def setElemUnsafe(i: Int, newElem: A): Unit = arrayOfArraysUnsafe(i) = newElem.arrayUnsafe
+  final def setElemUnsafe(index: Int, newElem: A): Unit = arrayOfArraysUnsafe(index) = newElem.arrayUnsafe
 }
 
 /** This is the map builder for Arrays of Arrays of Double. It is not to be confused with the builder for Arrays of Double. It requires 3 members to be
@@ -54,10 +54,10 @@ trait BuffArrayDbl[A <: ArrayDblBacked] extends Any, BuffSequ[A]
 
   def bufferUnsafe: ArrayBuffer[Array[Double]]
   final override def apply(index: Int): A = fromArrayDbl(bufferUnsafe(index))
-  final override def index(i: Int): A = fromArrayDbl(bufferUnsafe(i))
+  final override def elem(index: Int): A = fromArrayDbl(bufferUnsafe(index))
   final override def length: Int = bufferUnsafe.length
   final override def numElems: Int = bufferUnsafe.length
   def grow(elem: A): Unit = bufferUnsafe.append(elem.arrayUnsafe)
   def arrayArrayDbl: Array[Array[Double]] = bufferUnsafe.toArray
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe(i) = newElem.arrayUnsafe
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem.arrayUnsafe
 }

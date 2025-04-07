@@ -99,11 +99,11 @@ object PolygonFm2Pair
 final class PolygonFm2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDbl2PairArr[PtFm2, PolygonFm2, PolygonFm2Arr, A2, PolygonFm2Pair[A2]]
 { override type ThisT = PolygonFm2PairArr[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonFm2Pair[A2]): Unit = { a1ArrayDbls(i) = newElem.a1ArrayDbl; a2Array(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonFm2Pair[A2]): Unit = { a1ArrayDbls(index) = newElem.a1ArrayDbl; a2Array(index) = newElem.a2 }
   override def fElemStr: PolygonFm2Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonMPairArray"
   override def apply(index: Int): PolygonFm2Pair[A2] = new PolygonFm2Pair[A2](a1ArrayDbls(index), a2Array(index))
-  override def index(i: Int): PolygonFm2Pair[A2] = new PolygonFm2Pair[A2](a1ArrayDbls(i), a2Array(i))
+  override def elem(index: Int): PolygonFm2Pair[A2] = new PolygonFm2Pair[A2](a1ArrayDbls(index), a2Array(index))
   override def a1Arr: PolygonFm2Arr = new PolygonFm2Arr(a1ArrayDbls)
   override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonFm2PairArr[A2] = new PolygonFm2PairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
@@ -131,9 +131,9 @@ final class PolygonFm2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
 class PolygonFm2PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeDblNPairBuff[PtFm2, PolygonFm2, A2, PolygonFm2Pair[A2]]
 { override type ThisT = PolygonFm2PairBuff[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonFm2Pair[A2]): Unit = { b1Buffer(i) = newElem.a1ArrayDbl; b2Buffer(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonFm2Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonFm2Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonFm2PairBuff"
   override def apply(index: Int): PolygonFm2Pair[A2] = new PolygonFm2Pair[A2](b1Buffer(index), b2Buffer(index))
-  override def index(i: Int): PolygonFm2Pair[A2] = new PolygonFm2Pair[A2](b1Buffer(i), b2Buffer(i))
+  override def elem(index: Int): PolygonFm2Pair[A2] = new PolygonFm2Pair[A2](b1Buffer(index), b2Buffer(index))
 }

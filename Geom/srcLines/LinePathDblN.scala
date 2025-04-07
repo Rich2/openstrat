@@ -16,7 +16,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     val res = fromArray(newArray)
     var i = 0
     while(i < newLen)
-    { res.setElemUnsafe(i, index(i + 1))
+    { res.setElemUnsafe(i, elem(i + 1))
       i += 1
     }
     res
@@ -29,7 +29,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     val res = fromArray(newArray)
     var i = 0
     while(i < newLen)
-    { res.setElemUnsafe(i, index(i))
+    { res.setElemUnsafe(i, elem(i))
       i += 1
     }
     res

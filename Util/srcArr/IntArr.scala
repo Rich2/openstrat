@@ -8,15 +8,16 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrNoParam[I
   override def typeStr: String = "IntArr"
   override def unsafeSameSize(length: Int): IntArr = new IntArr(new Array[Int](length))
   override def apply(index: Int): Int = arrayUnsafe(index)
-  override def index(i: Int): Int = arrayUnsafe(i)
+  override def elem(index: Int): Int = arrayUnsafe(index)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Int): Unit = arrayUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Int): Unit = arrayUnsafe(index) = newElem
+  override def mutateElemUnsafe(index: Int, f: Int => Int): Unit = arrayUnsafe(index) = f(apply(index))
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   override def reverse: IntArr = ???
 
-  /** appendArr. Apends the operand [[IntArr]] to this [[IntArr]]. */
+  /** appendArr. Appends the operand [[IntArr]] to this [[IntArr]]. */
   @targetName("append") override def ++(op: IntArr): IntArr = appendInts(op)
 
   /** append. Appends operand [[Int]] to this [[IntArr]]. */
@@ -42,8 +43,8 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrNoParam[I
     new IntArr(newArray)
   }
 
-  /** Functionally prepends the operand [[Int]] returning a new object. Note the operators %: and +% are used rather than the conventional +: and :+
-   * to ensure that prepend takes precedence over append. */
+  /** Functionally prepends the operand [[Int]] returning a new object. Note the operators %: and +% are used rather than the conventional +: and :+ to ensure
+   * that prepend takes precedence over append. */
   @inline @targetName("prepend") def %:(op: Int): IntArr =
   { val newArray = new Array[Int](length + 1)
     newArray(0) = op
@@ -59,13 +60,27 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrNoParam[I
     new IntArr(newArray)
   }
 
-  def take(n: Int): IntArr =
-    if (n >= length) this
-    else
-    { val newArray = new Array[Int](n)
+  def take(n: Int): IntArr = if (n >= length) this else
+  { val newArray = new Array[Int](n)
       arrayUnsafe.copyToArray(newArray)
       new IntArr(newArray)
+  }
+
+  /** Returns the index of the max value. */
+  def indexOfMax: Int =
+  { var index = -1
+    var i = 0
+    var acc = -1
+    while(i < length)
+    { val newVal = elem(i)
+      if(newVal > acc)
+      { index = i
+        acc = newVal
+      }
+      i += 1
     }
+    index
+  }
 }
 
 /** Companion object for the [[IntArr]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and
@@ -120,10 +135,10 @@ class IntBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, BuffSequ[Int]
 { override type ThisT = IntBuff
   override def typeStr: String = "IntBuff"
   override def apply(index: Int): Int = bufferUnsafe(index)
-  override def index(i: Int): Int = bufferUnsafe(i)
+  override def elem(index: Int): Int = bufferUnsafe(index)
   override def length: Int = bufferUnsafe.length
   override def numElems: Int = bufferUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Int): Unit = bufferUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Int): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Int => String = _.toString
   def grow(newElem: Int): Unit = bufferUnsafe.append(newElem)
   def growArray(operand: Array[Int]): Unit = bufferUnsafe.appendAll(operand)

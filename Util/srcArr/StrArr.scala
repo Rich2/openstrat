@@ -7,10 +7,10 @@ final class StrArr(val arrayUnsafe: Array[String]) extends AnyVal, ArrNoParam[St
 { override type ThisT = StrArr
   override def typeStr: String = "Strings"
   override def unsafeSameSize(length: Int): StrArr = new StrArr(new Array[String](length))
-  override def setElemUnsafe(i: Int, newElem: String): Unit = arrayUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: String): Unit = arrayUnsafe(index) = newElem
   override def fElemStr: String => String = s => s
   override def apply(index: Int): String = arrayUnsafe(index)
-  override def index(i: Int): String = arrayUnsafe(i)
+  override def elem(index: Int): String = arrayUnsafe(index)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
 
@@ -145,10 +145,10 @@ class StringBuff(val bufferUnsafe: ArrayBuffer[String]) extends AnyVal, BuffSequ
 { override type ThisT = StringBuff
   override def typeStr: String = "Stringsbuff"
   override def apply(index: Int): String = bufferUnsafe(index)
-  override def index(i: Int): String = bufferUnsafe(i)
+  override def elem(index: Int): String = bufferUnsafe(index)
   override def length: Int = bufferUnsafe.length
   override def numElems: Int = bufferUnsafe.length 
-  override def setElemUnsafe(i: Int, newElem: String): Unit = bufferUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: String): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: String => String = s => s
   override def grow(newElem: String): Unit = bufferUnsafe.append(newElem)
   def toArray: Array[String] = bufferUnsafe.toArray

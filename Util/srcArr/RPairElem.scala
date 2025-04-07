@@ -15,7 +15,7 @@ class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends A
   override def a1Index(index: Int): A1 = a1Array(index)
   override def setA1Unsafe(index: Int, value: A1): Unit = a1Array(index) = value
   override def apply(index: Int): RPairElem[A1, A2] = new RPairElem[A1, A2](a1Array(index), a2Array(index))
-  override def index(i: Int): RPairElem[A1, A2] = new RPairElem[A1, A2](a1Array(i), a2Array(i))
+  override def elem(index: Int): RPairElem[A1, A2] = new RPairElem[A1, A2](a1Array(index), a2Array(index))
 
   def replaceA1byA2(key: A2, newValue: A1)(implicit ct1: ClassTag[A1]): RPairArr[A1, A2] =
   { val newA1Array = new Array[A1](length)
@@ -44,7 +44,7 @@ class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends A
     new RPairArr(newA1Array, newA2Array)
   }
 
-  override def setElemUnsafe(i: Int, newElem: RPairElem[A1, A2]): Unit = { a1Array(i) = newElem.a1; a2Array(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: RPairElem[A1, A2]): Unit = { a1Array(index) = newElem.a1; a2Array(index) = newElem.a2 }
   override def fElemStr: RPairElem[A1, A2] => String = _.toString
 
   def init(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] = dropRight(1)
@@ -97,8 +97,8 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
   override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1); b2Buffer.append(b2) }
   override def grow(newElem: RPairElem[B1, B2]): Unit = { b1Buffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
   override def apply(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
-  override def index(i: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(i), b2Buffer(i))
-  override def setElemUnsafe(i: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(i) = newElem.a1; b2Buffer(i) = newElem.a2 }
+  override def elem(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
+  override def setElemUnsafe(index: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(index) = newElem.a1; b2Buffer(index) = newElem.a2 }
   def b1Buff: RBuff[B1] = RBuff(b1Buffer)
   def toArr(implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Buffer.toArray, b2Buffer.toArray)  
 }

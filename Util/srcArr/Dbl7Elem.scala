@@ -23,8 +23,8 @@ trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDblN[A]
 
   def elemProdSize: Int = 7
 
-  def index(i: Int): A =
-  { val offset = 7 * i
+  def elem(index: Int): A =
+  { val offset = 7 * index
     elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
       arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
   }

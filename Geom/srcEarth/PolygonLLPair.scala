@@ -13,11 +13,11 @@ object PolygonLLPair
 final class PolygonLLPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDblNPairArr[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairArr[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonLLPair[A2]): Unit = { a1ArrayDbls(i) = newElem.a1ArrayDbl; a2Array(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonLLPair[A2]): Unit = { a1ArrayDbls(index) = newElem.a1ArrayDbl; a2Array(index) = newElem.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairArray"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(index), a2Array(index))
-  override def index(i: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(i), a2Array(i))
+  override def elem(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(index), a2Array(index))
   override def a1Arr: PolygonLLArr = new PolygonLLArr(a1ArrayDbls)
   override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
@@ -45,9 +45,9 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 class PolygonLLPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeDblNPairBuff[LatLong, PolygonLL, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairBuff[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonLLPair[A2]): Unit = { b1Buffer(i) = newElem.a1ArrayDbl; b2Buffer(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonLLPair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairBuff"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](b1Buffer(index), b2Buffer(index))
-  override def index(i: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](b1Buffer(i), b2Buffer(i))
+  override def elem(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](b1Buffer(index), b2Buffer(index))
 }

@@ -9,7 +9,7 @@ trait BoolSeqLike extends Any with SeqLike[Boolean]
   /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
   def fromArray(array: Array[Boolean]): ThisT
 
-  override final def setElemUnsafe(i: Int, newElem: Boolean): Unit = arrayUnsafe(i) = newElem
+  override final def setElemUnsafe(index: Int, newElem: Boolean): Unit = arrayUnsafe(index) = newElem
 
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
@@ -17,7 +17,7 @@ trait BoolSeqLike extends Any with SeqLike[Boolean]
 
 trait BoolSeqSpec extends Any with BoolSeqLike with SeqSpec[Boolean]
 { override final def numElems: Int = arrayUnsafe.length
-  override final def index(i: Int): Boolean = arrayUnsafe(i)
+  override final def elem(index: Int): Boolean = arrayUnsafe(index)
 }
 
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
@@ -25,7 +25,7 @@ final class BoolArr(val arrayUnsafe: Array[Boolean]) extends AnyVal, ArrNoParam[
 { type ThisT = BoolArr
   override def typeStr: String = "Booleans"
   override def apply(index: Int): Boolean = arrayUnsafe(index)
-  override def index(i: Int): Boolean = arrayUnsafe(i)
+  override def elem(index: Int): Boolean = arrayUnsafe(index)
   override def fromArray(array: Array[Boolean]): BoolArr = new BoolArr(array)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
@@ -79,10 +79,10 @@ class BooleanBuff(val bufferUnsafe: ArrayBuffer[Boolean]) extends AnyVal, BuffSe
 { override type ThisT = BooleanBuff
   override def typeStr: String = "BooleanBuff"
   override def apply(index: Int): Boolean = bufferUnsafe(index)
-  override def index(i: Int): Boolean = bufferUnsafe(i)
+  override def elem(index: Int): Boolean = bufferUnsafe(index)
   override def length: Int = bufferUnsafe.length
   override def numElems: Int = bufferUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Boolean): Unit = bufferUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Boolean): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Boolean => String = _.toString
   override def grow(newElem: Boolean): Unit = bufferUnsafe.append(newElem)
 }

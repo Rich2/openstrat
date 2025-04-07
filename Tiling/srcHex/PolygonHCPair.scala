@@ -58,9 +58,9 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
 class PolygonHCPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Int]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeIntNPairBuff[HCoord, PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairBuff[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonHCPair[A2]): Unit = { b1Buffer(i) = newElem.a1ArrayInt; b2Buffer(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonHCPair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayInt; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairBuff"
   override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](b1Buffer(index), b2Buffer(index))
-  override def index(i: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](b1Buffer(i), b2Buffer(i))
+  override def elem(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](b1Buffer(index), b2Buffer(index))
 }

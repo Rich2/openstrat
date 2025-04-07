@@ -20,11 +20,11 @@ trait ArrArrayInt[A <: ArrayIntBacked] extends Any, Arr[A]
   def fromArrayArray(array: Array[Array[Int]]): ThisT
 
   final override def apply(index: Int): A = elemFromArray(arrayOfArraysUnsafe(index))
-  final override def index(i: Int): A = elemFromArray(arrayOfArraysUnsafe(i))
+  final override def elem(index: Int): A = elemFromArray(arrayOfArraysUnsafe(index))
   final override def length: Int = arrayOfArraysUnsafe.length
   final override def numElems: Int = arrayOfArraysUnsafe.length
   final def unsafeSameSize(length: Int): ThisT = fromArrayArray(new Array[Array[Int]](length))
-  final def setElemUnsafe(i: Int, newElem: A): Unit = arrayOfArraysUnsafe(i) = newElem.arrayUnsafe
+  final def setElemUnsafe(index: Int, newElem: A): Unit = arrayOfArraysUnsafe(index) = newElem.arrayUnsafe
 }
 
 /** This is the builder for Arrays Arrays of Int. It is not the builder for Arrays of Int.  */
@@ -56,7 +56,7 @@ trait ArrayIntBuff[A <: ArrayIntBacked] extends Any, BuffSequ[A]
   final override def numElems: Int = unsafeBuffer.length
   final override def grow(newElem: A): Unit = unsafeBuffer.append(newElem.arrayUnsafe)
   final override def apply(index: Int): A = fromArrayInt(unsafeBuffer(index))
-  final override def index(i: Int): A = fromArrayInt(unsafeBuffer(i))
+  final override def elem(index: Int): A = fromArrayInt(unsafeBuffer(index))
   def arrayArrayInt: Array[Array[Int]] = unsafeBuffer.toArray
 }
 
@@ -80,9 +80,9 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   def elemFromComponents(a1: Array[Int], a2: A2): A
 
   final override def a1Index(index: Int): A1 = a1FromArrayArrayInt(a1ArrayArrayInts(index))
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayArrayInts(i) = newElem.a1ArrayInt; a2Array(i) = newElem.a2 }
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = { a1ArrayArrayInts(index) = newElem.a1ArrayInt; a2Array(index) = newElem.a2 }
   final override def apply(index: Int): A = elemFromComponents(a1ArrayArrayInts(index), a2Array(index))
-  final override def index(i: Int): A = elemFromComponents(a1ArrayArrayInts(i), a2Array(i))
+  final override def elem(index: Int): A = elemFromComponents(a1ArrayArrayInts(index), a2Array(index))
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
   final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayArrayInts(index) = value.arrayUnsafe }

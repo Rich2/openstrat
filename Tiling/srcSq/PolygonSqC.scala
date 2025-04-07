@@ -43,7 +43,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, Po
 
   def combine(operand: PolygonSqC): Option[PolygonSqC] =
   { var starts: Option[(Int, Int)] = None
-    val a = index(0)
+    val a = elem(0)
     ???
   }
 
@@ -81,7 +81,7 @@ class PolygonSqCArr(val arrayOfArraysUnsafe: Array[Array[Int]]) extends ArrArray
 class PolygonSqCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal, ArrayIntBuff[PolygonSqC]
 { override type ThisT = PolygonSqCBuff
   override def typeStr: String = "PolygonSqCBuff"
-  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeBuffer(i) = newElem.arrayUnsafe
+  override def setElemUnsafe(index: Int, newElem: PolygonSqC): Unit = unsafeBuffer(index) = newElem.arrayUnsafe
   override def fElemStr: PolygonSqC => String = _.toString
   override def fromArrayInt(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 }

@@ -18,7 +18,7 @@ trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeIntN[A]
   final override def elemProdSize: Int = 1
   final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
   final override def numElems: Int = 1
-  final override def index(i: Int): A = elemFromInt(arrayUnsafe(i))
+  final override def elem(index: Int): A = elemFromInt(arrayUnsafe(index))
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
@@ -49,10 +49,10 @@ trait BuffInt1[A <: Int1Elem] extends Any with BuffIntN[A]
   final override def length: Int = bufferUnsafe.length
   final override def numElems: Int = bufferUnsafe.length
   final override def apply(i1: Int): A = newElem(bufferUnsafe(i1))
-  final override def index(i: Int): A = newElem(bufferUnsafe(i))
+  final override def elem(index: Int): A = newElem(bufferUnsafe(index))
   override def elemProdSize: Int = 1
   override def grow(newElem: A): Unit = { bufferUnsafe.append(newElem.int1); () }
-  override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe(i) = newElem.int1
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem.int1
 }
 
 /** Base trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */

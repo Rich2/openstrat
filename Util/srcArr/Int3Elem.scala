@@ -18,7 +18,7 @@ trait SeqLikeInt3[A <: Int3Elem] extends Any, SeqLikeIntN[A]
   def elemFromInts(i1: Int, i2: Int, i3: Int): A
 
   final override def elemProdSize: Int = 3
-  final override def index(i: Int): A = elemFromInts(arrayUnsafe(3 * i), arrayUnsafe(3 * i + 1), arrayUnsafe(3 * i + 2))
+  final override def elem(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayUnsafe.length / 3
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
@@ -58,8 +58,8 @@ trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A]
   final override def numElems: Int = bufferUnsafe.length / 3
   override def grow(newElem: A): Unit = bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
   final override def apply(index: Int): A = newElem(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
-  final override def index(i: Int): A = newElem(bufferUnsafe(i * 3), bufferUnsafe(i * 3 + 1), bufferUnsafe(i * 3 + 2))
-  override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex3(i, newElem.int1, newElem.int2, newElem.int3)
+  final override def elem(index: Int): A = newElem(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
 
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s. */

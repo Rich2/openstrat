@@ -131,11 +131,11 @@ object PolygonKm3Pair
 final class PolygonKm3PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDblNPairArr[PtKm3, PolygonKm3, PolygonKm3Arr, A2, PolygonKm3Pair[A2]]
 { override type ThisT = PolygonKm3PairArr[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonKm3Pair[A2]): Unit = { a1ArrayDbls(i) = newElem.a1ArrayDbl; a2Array(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonKm3Pair[A2]): Unit = { a1ArrayDbls(index) = newElem.a1ArrayDbl; a2Array(index) = newElem.a2 }
   override def fElemStr: PolygonKm3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonKm3PairArray"
   override def apply(index: Int): PolygonKm3Pair[A2] = new PolygonKm3Pair[A2](a1ArrayDbls(index), a2Array(index))
-  override def index(i: Int): PolygonKm3Pair[A2] = new PolygonKm3Pair[A2](a1ArrayDbls(i), a2Array(i))
+  override def elem(index: Int): PolygonKm3Pair[A2] = new PolygonKm3Pair[A2](a1ArrayDbls(index), a2Array(index))
   override def a1Arr: PolygonKm3Arr = new PolygonKm3Arr(a1ArrayDbls)
   override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
@@ -163,9 +163,9 @@ final class PolygonKm3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
 class PolygonKm3PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeDblNPairBuff[PtKm3, PolygonKm3, A2, PolygonKm3Pair[A2]]
 { override type ThisT = PolygonKm3PairBuff[A2]
-  override def setElemUnsafe(i: Int, newElem: PolygonKm3Pair[A2]): Unit = { b1Buffer(i) = newElem.a1ArrayDbl; b2Buffer(i) = newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PolygonKm3Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonKm3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonKm3PairBuff"
   override def apply(index: Int): PolygonKm3Pair[A2] = new PolygonKm3Pair[A2](b1Buffer(index), b2Buffer(index))
-  override def index(i: Int): PolygonKm3Pair[A2] = new PolygonKm3Pair[A2](b1Buffer(i), b2Buffer(i))
+  override def elem(index: Int): PolygonKm3Pair[A2] = new PolygonKm3Pair[A2](b1Buffer(index), b2Buffer(index))
 }

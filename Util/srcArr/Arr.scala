@@ -14,7 +14,7 @@ trait Arr[+A] extends Any with Sequ[A]
 
   /** Sets / mutates the last element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory
    * methods. */
-  def unsafeSetLast(value: A @uncheckedVariance): Unit = setElemUnsafe(length -1, value)
+  def unsafeSetLast(value: A @uncheckedVariance): Unit = setElemUnsafe(length - 1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => setElemUnsafe(i, a) }
 

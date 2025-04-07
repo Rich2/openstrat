@@ -26,8 +26,8 @@ trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeIntN[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit =
     arrayUnsafe.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 
-  final override def index(i: Int): A = elemFromInts(arrayUnsafe(6 * i), arrayUnsafe(6 * i + 1), arrayUnsafe(6 * i + 2), arrayUnsafe(6 * i + 3),
-    arrayUnsafe(6 * i + 4), arrayUnsafe(6 * i + 5))
+  final override def elem(index: Int): A = elemFromInts(arrayUnsafe(6 * index), arrayUnsafe(6 * index + 1), arrayUnsafe(6 * index + 2), arrayUnsafe(6 * index + 3),
+    arrayUnsafe(6 * index + 4), arrayUnsafe(6 * index + 5))
 }
 
 /** Compound object defined / specified by [[Int6Elem]]s */
@@ -76,11 +76,11 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A]
   final override def apply(index: Int): A = newElem(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2),
     bufferUnsafe(index * 6 + 3), bufferUnsafe(index * 6 + 4), bufferUnsafe(index * 6 + 5))
 
-  final override def index(i: Int): A = newElem(bufferUnsafe(i * 6), bufferUnsafe(i * 6 + 1), bufferUnsafe(i * 6 + 2), bufferUnsafe(i * 6 + 3),
-    bufferUnsafe(i * 6 + 4), bufferUnsafe(i * 6 + 5))
+  final override def elem(index: Int): A = newElem(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2), bufferUnsafe(index * 6 + 3),
+    bufferUnsafe(index * 6 + 4), bufferUnsafe(index * 6 + 5))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit =
-    bufferUnsafe.setIndex6(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
+    bufferUnsafe.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
 /** Builder for [[SeqLike]]s with [[Int6Elem]]s */

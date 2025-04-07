@@ -15,8 +15,8 @@ trait ArrPairInt1[A1 <: Int1Elem, ArrA1 <: ArrInt1[A1], A2, A <: PairInt1Elem[A1
   def newPair(int1: Int, a2: A2): A
 
   final override def apply(index: Int): A = newPair(a1ArrayInt(index), a2Array(index))
-  final override def index(i: Int): A = newPair(a1ArrayInt(i), a2Array(i))
-  final override def setElemUnsafe(i: Int, newElem: A): Unit ={ a1ArrayInt(i) = newElem.a1Int1; a2Array(i) = newElem.a2 }
+  final override def elem(index: Int): A = newPair(a1ArrayInt(index), a2Array(index))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit ={ a1ArrayInt(index) = newElem.a1Int1; a2Array(index) = newElem.a2 }
 
   def newA1(int1: Int): A1
 
@@ -45,9 +45,9 @@ trait BuffPairInt1[A1 <: Int1Elem, A2, A <: PairInt1Elem[A1, A2]] extends BuffPa
   def grow(newA1: A1, newA2: A2): Unit = { b1IntBuffer.append(newA1.int1); b2Buffer.append(newA2) }
   
   final override def apply(index: Int): A = newElem(b1IntBuffer (index), b2Buffer(index))
-  final override def index(i: Int): A = newElem(b1IntBuffer (i), b2Buffer(i))
+  final override def elem(index: Int): A = newElem(b1IntBuffer (index), b2Buffer(index))
   final override def grow(newElem: A): Unit = { b1IntBuffer.append(newElem.a1Int1); b2Buffer.append(newElem.a2) }  
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { b1IntBuffer(i) = newElem.a1Int1; b2Buffer(i) = newElem.a2 }
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = { b1IntBuffer(index) = newElem.a1Int1; b2Buffer(index) = newElem.a2 }
 }
 
 /** Builder for [[Arr]]s of [[PairInt1Elem]]s via the map f: A => PairB method. */

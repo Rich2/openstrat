@@ -24,8 +24,8 @@ trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SeqLikeDblN[A]
   final override def elemProdSize: Int = 6
   final override def numElems: Int = arrayLen / 6
 
-  final def index(i: Int): A =
-  { val offset = i * 6
+  final def elem(index: Int): A =
+  { val offset = index * 6
     elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
       arrayUnsafe(offset + 5))
   }
@@ -113,9 +113,9 @@ trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A]
   final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2),
     bufferUnsafe(index * 6 + 3), bufferUnsafe(index * 6 + 4), bufferUnsafe(index * 6 + 5))
 
-  final override def index(i: Int): A = elemFromDbls(bufferUnsafe(i * 6), bufferUnsafe(i * 6 + 1), bufferUnsafe(i * 6 + 2), bufferUnsafe(i * 6 + 3),
-    bufferUnsafe(i * 6 + 4), bufferUnsafe(i * 6 + 5))
+  final override def elem(index: Int): A = elemFromDbls(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2), bufferUnsafe(index * 6 + 3),
+    bufferUnsafe(index * 6 + 4), bufferUnsafe(index * 6 + 5))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit =
-    bufferUnsafe.setIndex6(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6)
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
+    bufferUnsafe.setIndex6(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6)
 }

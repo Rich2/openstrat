@@ -23,12 +23,12 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
   final override def apply(index: Int): A =
     pairFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
 
-  final override def index(i: Int): A = pairFromDbls(a1ArrayDbl(i * 4), a1ArrayDbl(i * 4 + 1), a1ArrayDbl(i * 4 + 2), a1ArrayDbl(i * 4 + 3), a2Array(i))
+  final override def elem(index: Int): A = pairFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayDbl.setIndex4(index, value.dbl1, value.dbl2, value.dbl3, value.dbl4)
 
-  override final def setElemUnsafe(i: Int, newElem: A): Unit =
-  { a1ArrayDbl.setIndex4(i, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
-    a2Array(i) = newElem.a2
+  override final def setElemUnsafe(index: Int, newElem: A): Unit =
+  { a1ArrayDbl.setIndex4(index, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
+    a2Array(index) = newElem.a2
   }
 
   override def a1NumDbl: Int = 4
@@ -54,16 +54,16 @@ trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPa
   final override def apply(index: Int): B =
     elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
-  final override def index(i: Int): B = elemFromDbls(b1DblBuffer (i * 4), b1DblBuffer(i * 4 + 1), b1DblBuffer(i * 4 + 2), b1DblBuffer(i * 4 + 3), b2Buffer(i))
+  final override def elem(index: Int): B = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
   override final def grow(newElem: B): Unit =
   { b1DblBuffer.append4(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(i: Int, newElem: B): Unit =
-  { b1DblBuffer.setIndex4(i, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
-    b2Buffer(i) = newElem.a2
+  override final def setElemUnsafe(index: Int, newElem: B): Unit =
+  { b1DblBuffer.setIndex4(index, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
+    b2Buffer(index) = newElem.a2
   }
 }
 

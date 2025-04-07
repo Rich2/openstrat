@@ -62,7 +62,7 @@ trait PolygonLike[+VT] extends Any with VertBased[VT]
   }
 
   /** Returns the vertex of the given index. Cycles around if the index is out of range, vert 3 retruns vert 0 on a triangle. */
-  def vert(vertNum: Int): VT = index(vertNum %% numVerts)
+  def vert(vertNum: Int): VT = elem(vertNum %% numVerts)
 
   /** This method should be overridden in final classes. */
   def vertsForAll(f: VT => Boolean): Boolean =

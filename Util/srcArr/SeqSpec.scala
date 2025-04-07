@@ -11,7 +11,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   override def foreach[U](f: A => U): Unit =
   { var i = 0
     while (i < numElems)
-    { f(index(i))
+    { f(elem(i))
       i = i + 1
     }
   }
@@ -20,7 +20,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def tailForeach[U](f: A => U): Unit =
   { var i = 1
     while (i < numElems)
-    { f(index(i))
+    { f(elem(i))
       i += 1
     }
   }
@@ -30,7 +30,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def innerForeach[U](f: A => U): Unit =
   { var i = 1
     while (i < numElems - 1)
-    { f(index(i));
+    { f(elem(i));
       i += 1
     }
   }
@@ -44,7 +44,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
     while (i < numElems)
-    { f(i, index(i))
+    { f(i, elem(i))
       i = i + 1
     }
   }
@@ -58,7 +58,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
     while (i < numElems)
-    { f(i + initIndex, index(i))
+    { f(i + initIndex, elem(i))
       i = i + 1
     }
   }
@@ -84,12 +84,12 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   { var i = numElems
     while (i > 0)
     { i -= 1
-      f(index(i))
+      f(elem(i))
     }
   }
 
   /** Last element of the specifying sequence. */
-  def last: A = index(numElems - 1)
+  def last: A = elem(numElems - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
   def tailFold[B](initial: B)(f: (B, A) => B) =

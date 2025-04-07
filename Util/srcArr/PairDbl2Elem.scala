@@ -16,11 +16,11 @@ trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1
   def newPair(dbl1: Double, dbl2: Double, a2: A2): A
 
   final override def apply(index: Int): A = newPair(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
-  final override def index(i: Int): A = newPair(a1ArrayDbl(i * 2), a1ArrayDbl(i * 2 + 1), a2Array(i))
+  final override def elem(index: Int): A = newPair(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit =
-  { a1ArrayDbl.setIndex2(i, newElem.a1Dbl1, newElem.a1Dbl2)
-    a2Array(i) = newElem.a2
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
+  { a1ArrayDbl.setIndex2(index, newElem.a1Dbl1, newElem.a1Dbl2)
+    a2Array(index) = newElem.a2
   }
 
   def newA1(dbl1: Double, dbl2: Double): A1
@@ -47,16 +47,16 @@ trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPa
   def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): A
 
   inline final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
-  final override def index(i: Int): A = elemFromDbls(b1DblBuffer (i * 2), b1DblBuffer(i * 2 + 1), b2Buffer(i))
+  final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
   { b1DblBuffer.append2(newElem.a1Dbl1, newElem.a1Dbl2)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(i: Int, newElem: A): Unit =
-  { b1DblBuffer.setIndex2(i, newElem.a1Dbl1, newElem.a1Dbl2)
-    b2Buffer(i) = newElem.a2
+  override final def setElemUnsafe(index: Int, newElem: A): Unit =
+  { b1DblBuffer.setIndex2(index, newElem.a1Dbl1, newElem.a1Dbl2)
+    b2Buffer(index) = newElem.a2
   }
 }
 

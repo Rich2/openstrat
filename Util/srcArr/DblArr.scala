@@ -9,10 +9,10 @@ class DblArr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrNoParam[Double]
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))
   override def apply(index: Int): Double = arrayUnsafe(index)
-  override def index(i: Int): Double = arrayUnsafe(i)
+  override def elem(index: Int): Double = arrayUnsafe(index)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Double): Unit = arrayUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Double): Unit = arrayUnsafe(index) = newElem
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
 
@@ -78,10 +78,10 @@ class BuffDbl(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffSequ[Do
 { override type ThisT = BuffDbl
   override def typeStr: String = "DblsBuff"
   override def apply(index: Int): Double = bufferUnsafe(index)
-  override def index(i: Int): Double = bufferUnsafe(i)
+  override def elem(index: Int): Double = bufferUnsafe(index)
   override def length: Int = bufferUnsafe.length
   override def numElems: Int = bufferUnsafe.length
-  override def setElemUnsafe(i: Int, newElem: Double): Unit = bufferUnsafe(i) = newElem
+  override def setElemUnsafe(index: Int, newElem: Double): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Double => String = _.toString
   override def grow(newElem: Double): Unit = bufferUnsafe.append(newElem)
 }
