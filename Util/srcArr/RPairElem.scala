@@ -99,11 +99,15 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
   override def apply(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
   override def index(i: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(i), b2Buffer(i))
   override def setElemUnsafe(i: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(i) = newElem.a1; b2Buffer(i) = newElem.a2 }
+  def b1Buff: RBuff[B1] = RBuff(b1Buffer)
+  def toArr(implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Buffer.toArray, b2Buffer.toArray)  
 }
 
 object RPairBuff
 { /** Factory apply method for [[RPairBuff]] class. Creates an empty [[BuffSequ]] class with a default buffer for expansion of 4 elements. */
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
+
+  implicit def mapBuildEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
 /** Map builder for [[RPairArr]]. */

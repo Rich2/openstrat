@@ -7,7 +7,7 @@ class FacCalc(val listLen: Int, val factions: RArr[Faction])
   {
     var facState: IntArr = factions.map(_ => 0)
     val res = RPairBuff[Int, String]()
-    ???
+    res.toArr
   }
 }
 
