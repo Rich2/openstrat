@@ -16,7 +16,8 @@ trait ArrPairInt3[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: PairInt3Elem[A1
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, int2: Int, int3: Int, a2: A2): A
 
-  override final def apply(index: Int): A = newPair(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2), a2Array(index))
+  final override def apply(index: Int): A = newPair(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2), a2Array(index))
+  final override def index(i: Int): A = newPair(a1ArrayInt(i * 3), a1ArrayInt(i * 3 + 1), a1ArrayInt(i * 3 + 2), a2Array(i))
 
   override final def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayInt.setIndex3(i, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)
     a2Array(i) = newElem.a2 }
@@ -46,7 +47,8 @@ trait BuffPairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends BuffPa
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, a2: A2): A
 
-  inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 3), b1IntBuffer(index * 3 + 1), b1IntBuffer(index * 3 + 2), b2Buffer(index))
+  final override def apply(index: Int): A = newElem(b1IntBuffer (index * 3), b1IntBuffer(index * 3 + 1), b1IntBuffer(index * 3 + 2), b2Buffer(index))
+  final override def index(i: Int): A = newElem(b1IntBuffer (i * 3), b1IntBuffer(i * 3 + 1), b1IntBuffer(i * 3 + 2), b2Buffer(i))
 
   override final def grow(newElem: A): Unit =
   { b1IntBuffer.append3(newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)

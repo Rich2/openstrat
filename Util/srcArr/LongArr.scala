@@ -1,18 +1,20 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
+class LongArr(val unsafeArray: Array[Long]) extends AnyVal, ArrNoParam[Long]
 { type ThisT = LongArr
 
   /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */
   def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
   override def typeStr: String = "Longs"
-  override def unsafeSameSize(length: Int): LongArr = new LongArr(new Array[Long](length))
-  override def length: Int = unsafeArray.length
+  override def unsafeSameSize(length: Int): LongArr = new LongArr(new Array[Long](length)) 
   override def apply(index: Int): Long = unsafeArray(index)
+  override def index(i: Int): Long = unsafeArray(i)
+  override def length: Int = unsafeArray.length
+  override def numElems: Int = unsafeArray.length
   override def setElemUnsafe(i: Int, newElem: Long): Unit = unsafeArray(i) = newElem
   override def fElemStr: Long => String = _.toString
 
@@ -59,7 +61,7 @@ object LongArr
     }
 }
 
-object LongArrBuilder extends BuilderArrMap[Long, LongArr] with BuilderArrFlat[LongArr]
+object LongArrBuilder extends BuilderArrMap[Long, LongArr], BuilderArrFlat[LongArr]
 { type BuffT = LongBuff
   override def uninitialised(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def indexSet(seqLike: LongArr, index: Int, newElem: Long): Unit = seqLike.unsafeArray(index) = newElem
@@ -69,11 +71,13 @@ object LongArrBuilder extends BuilderArrMap[Long, LongArr] with BuilderArrFlat[L
   override def buffGrowArr(buff: LongBuff, arr: LongArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
-class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with BuffSequ[Long]
+class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal, BuffSequ[Long]
 { override type ThisT = LongBuff
   override def typeStr: String = "LongsBuff"
   override def apply(index: Int): Long = unsafeBuffer(index)
+  override def index(i: Int): Long = unsafeBuffer(i)
   override def length: Int = unsafeBuffer.length
+  override def numElems: Int = unsafeBuffer.length
   override def setElemUnsafe(i: Int, newElem: Long): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: Long => String = _.toString
   override def grow(newElem: Long): Unit = unsafeBuffer.append(newElem)

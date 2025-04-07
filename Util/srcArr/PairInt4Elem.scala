@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag
+import annotation.*, reflect.ClassTag
 
 /** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
  * [[Int4Elem]] components are backed bya single [[Array]][Int]. */
@@ -15,7 +15,7 @@ trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
 trait ArrPairInt4[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: PairInt4Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairInt4[A1, ArrA1, A2, A]
 
-  /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
+  /** Constructs new pair element from 4 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A
 
   def newA1(int1: Int, int2: Int, int3: Int, int4: Int): A1
@@ -24,7 +24,8 @@ trait ArrPairInt4[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: PairInt4Elem[A1
   final override def apply(index: Int): A =
     newPair(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))
 
-  override final def setElemUnsafe(i: Int, newElem: A): Unit = { setA1Unsafe(i, newElem.a1);  a2Array(i) = newElem.a2 }
+  final override def index(i: Int): A = newPair(a1ArrayInt(i * 4), a1ArrayInt(i * 4 + 1), a1ArrayInt(i * 4 + 2), a1ArrayInt(i * 4 + 3), a2Array(i))
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = { setA1Unsafe(i, newElem.a1);  a2Array(i) = newElem.a2 }
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayInt.setIndex4(index, value.int1, value.int2, value.int3, value.int4)
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
@@ -45,8 +46,10 @@ trait BuffPairInt4[B1 <: Int4Elem, B2, B <: PairInt4Elem[B1, B2]] extends BuffPa
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): B
 
-  inline final override def apply(index: Int): B =
+  final override def apply(index: Int): B =
     newElem(b1IntBuffer (index * 4), b1IntBuffer(index * 4 + 1), b1IntBuffer(index * 4 + 2), b1IntBuffer(index * 4 + 3), b2Buffer(index))
+
+  final override def index(i: Int): B = newElem(b1IntBuffer (i * 4), b1IntBuffer(i * 4 + 1), b1IntBuffer(i * 4 + 2), b1IntBuffer(i * 4 + 3), b2Buffer(i)) 
 
   override final def grow(newElem: B): Unit =
   { b1IntBuffer.append4(newElem.a1Int1, newElem.a1Int2, newElem.a1Int3, newElem.a1Int4)

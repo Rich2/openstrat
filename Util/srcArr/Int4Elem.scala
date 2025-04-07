@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Int]]s. These are used in [[ArrInt4]] Array[Int] based collections. */
 trait Int4Elem extends Any with IntNElem
@@ -16,29 +16,27 @@ trait Int4Elem extends Any with IntNElem
 }
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
-trait SeqLikeInt4[A <: Int4Elem] extends Any with SeqLikeIntN[A]
-{ final override def elemProdSize: Int = 4
+trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeIntN[A]
+{ /** Constructs element from4 [[Double]]s */
+  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
-
-  override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
+  final override def elemProdSize: Int = 4
+  final override def numElems: Int = arrayUnsafe.length / 4
+  final override def index(i: Int): A = elemFromInts(arrayUnsafe(4 * i), arrayUnsafe(4 * i + 1), arrayUnsafe(4 * i + 2), arrayUnsafe(4 * i + 3))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 /** A compound object defined / specified by a sequence of [[Int4Elem]]s. */
-trait SeqSpecInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with SeqSpecIntN[A]
-{
-  final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
-
-  override def index(index: Int): A =
-    newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4[A], SeqSpecIntN[A]
+{ final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4)  
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait ArrInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with ArrIntN[A]
+trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4[A], ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 4
 
   override def apply(index: Int): A =
-    newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+    elemFromInts(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 
   def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
@@ -56,20 +54,22 @@ trait ArrInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
-trait BuffInt4[A <: Int4Elem] extends Any with BuffIntN[A]
+trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A]
 { type ThisT <: BuffInt4[A]
 
   /** Constructs a new element of this [[BuffSequ]] form 4 [[Int]]s. */
-  def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
+  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  override def elemProdSize: Int = 4
-  final override def length: Int = unsafeBuffer.length / 4
-  final override def grow(newElem: A): Unit = unsafeBuffer.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
+  final override def elemProdSize: Int = 4
+  final override def length: Int = bufferUnsafe.length / 4
+  final override def numElems: Int = bufferUnsafe.length / 4
+  final override def grow(newElem: A): Unit = bufferUnsafe.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 
-  final override def apply(index: Int): A = newElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2),
-    unsafeBuffer(index * 4 + 3))
+  final override def apply(index: Int): A = elemFromInts(bufferUnsafe(index * 4), bufferUnsafe(index * 4 + 1), bufferUnsafe(index * 4 + 2),
+    bufferUnsafe(index * 4 + 3))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
+  final override def index(i: Int): A = elemFromInts(bufferUnsafe(i * 4), bufferUnsafe(i * 4 + 1), bufferUnsafe(i * 4 + 2), bufferUnsafe(i * 4 + 3))
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 /** Base trait for builders of [[SeqLikeInt4]] objects via both map and flatMap methods. */
@@ -79,21 +79,21 @@ trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[?]] extends BuilderSeqLikeIntN[BB]
 }
 
 /** Builders for [[SeqLikeInt4]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB] with BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt4[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
     seqLike.arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 
-  final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrInt4]] final classes. Instances for the [[BuilderArrMap]] type
- *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
- *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLikeInt4Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+/** Trait for creating the ArrTBuilder type class instances for [[ArrInt4]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+ * you control, should go in the companion object of B. The first type parameter is called B a subclass of [[Int4Elem]], because to corresponds to the B in the
+ * ```map(f: A => B): ArrB``` function. */
+trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLikeInt4Map[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
-trait BuilderArrInt4Flat[ArrB <: ArrInt4[?]] extends BuilderSeqLikeInt4[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt4Flat[ArrB <: ArrInt4[?]] extends BuilderSeqLikeInt4[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
 trait CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]

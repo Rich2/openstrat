@@ -34,7 +34,7 @@ object SqCoord
 }
 
 trait SqCoordSeqLike extends Any with SeqLikeInt2[SqCoord]
-{ final override def newElem(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
+{ final override def elemFromInts(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
   final override def fElemStr: SqCoord => String = _.toString
 }
 
@@ -48,7 +48,7 @@ class SqCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[SqCoor
 }
 
 /** Specialised sequence buffer class for [[SqCoord]]. */
-class SqCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqCoord]
+class SqCoordBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqCoord]
 { type ArrT = SqCoordArr
   override def typeStr: String = "SqCoordBuff"
   override def newElem(i1: Int, i2: Int): SqCoord = SqCoord(i1, i2)

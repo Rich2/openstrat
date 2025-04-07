@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** [[PairElem]] where the first component of the pair is ant [[Int2Elem]]. */
 trait PairInt2Elem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
@@ -15,9 +15,9 @@ trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, int2: Int, a2: A2): A
 
-  override final def apply(index: Int): A = newPair(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1), a2Array(index))
-
-  override final def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayInt.setIndex2(i, newElem.a1Int1, newElem.a1Int2); a2Array(i) = newElem.a2 }
+  final override def apply(index: Int): A = newPair(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1), a2Array(index))
+  final override def index(i: Int): A = newPair(a1ArrayInt(i * 2), a1ArrayInt(i * 2 + 1), a2Array(i))
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayInt.setIndex2(i, newElem.a1Int1, newElem.a1Int2); a2Array(i) = newElem.a2 }
 
   def newA1(int1: Int, int2: Int): A1
 
@@ -57,7 +57,9 @@ trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1
 trait BuffPairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
-  inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
+  
+  final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
+  final override def index(i: Int): A = newElem(b1IntBuffer (i * 2), b1IntBuffer(i * 2 + 1), b2Buffer(i))
 
   override final def grow(newElem: A): Unit =
   { b1IntBuffer.append(newElem.a1Int1)

@@ -12,8 +12,14 @@ trait SeqLike[+A] extends Any
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   def foreach[U](f: A => U): Unit
 
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
+  /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
+  @inline def index(i: Int): A
+
+  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
+   * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
+  def numElems: Int
+
+  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
   def setElemUnsafe(i: Int, newElem: A @uncheckedVariance): Unit
 
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
@@ -51,8 +57,8 @@ object SeqLike
   }
 }
 
-/** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting
- *  from [[BuilderSeqLike]]. */
+/** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting from
+ * [[BuilderSeqLike]]. */
 trait BuffSequ[A] extends Any with Sequ[A]
 { def grow(newElem: A): Unit
 }

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -6,8 +6,8 @@ import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
  * reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 final class RPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
 
-/** R for stored by reference. The generalised default [[PAirArr]] for types that do not have there own specialised classes. Note although they are
- *  named as reference [[ArrPair]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */
+/** R for stored by reference. The generalised default [[PAirArr]] for types that do not have their own specialised classes. Note although they are named as
+ * reference [[ArrPair]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends ArrPair[A1, RArr[A1], A2, RPairElem[A1, A2]]
 { override type ThisT = RPairArr[A1, A2]
   override def typeStr: String = "RPairArr"
@@ -15,6 +15,7 @@ class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends A
   override def a1Index(index: Int): A1 = a1Array(index)
   override def setA1Unsafe(index: Int, value: A1): Unit = a1Array(index) = value
   override def apply(index: Int): RPairElem[A1, A2] = new RPairElem[A1, A2](a1Array(index), a2Array(index))
+  override def index(i: Int): RPairElem[A1, A2] = new RPairElem[A1, A2](a1Array(i), a2Array(i))
 
   def replaceA1byA2(key: A2, newValue: A1)(implicit ct1: ClassTag[A1]): RPairArr[A1, A2] =
   { val newA1Array = new Array[A1](length)
@@ -88,14 +89,15 @@ object RPairArr
   implicit def mapBuilderEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
-/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[BuffSequ]] for [[RPairElem]]s. Note although they are named as
- *  reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
+/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[BuffSequ]] for [[RPairElem]]s. Note although they are named as reference
+ * types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]
   override def typeStr: String = "GenPairBuff"
   override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1); b2Buffer.append(b2) }
   override def grow(newElem: RPairElem[B1, B2]): Unit = { b1Buffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
   override def apply(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
+  override def index(i: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(i), b2Buffer(i))
   override def setElemUnsafe(i: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(i) = newElem.a1; b2Buffer(i) = newElem.a2 }
 }
 
@@ -105,8 +107,8 @@ object RPairBuff
 }
 
 /** Map builder for [[RPairArr]]. */
-class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends
-  BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
+class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2],
+  RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]
   override def b1ArrBuilder: BuilderArrMap[B1, RArr[B1]] = BuilderArrMap.rMapImplicit
@@ -128,7 +130,7 @@ class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: Cla
   override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = buff.grow(newElem)
 
   override def arrFromBuffs(b1Buff: RBuff[B1], b2Buffer: ArrayBuffer[B2]): RPairArr[B1, B2] =
-    new RPairArr[B1, B2](b1Buff.unsafeBuffer.toArray, b2Buffer.toArray)
+    new RPairArr[B1, B2](b1Buff.bufferUnsafe.toArray, b2Buffer.toArray)
 
   override def newBuff(length: Int): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](length), new ArrayBuffer[B2](length))
   override def buffToSeqLike(buff: RPairBuff[B1, B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)

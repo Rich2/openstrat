@@ -29,6 +29,7 @@ class ArrPairStr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     new ArrPairStr[A2](new Array[String](length), new Array[A2](length))
 
   override def apply(index: Int): PairStrElem[A2] = new PairStrElem[A2](a1Array(index), a2Array(index))
+  override def index(i: Int): PairStrElem[A2] = new PairStrElem[A2](a1Array(i), a2Array(i))
   override def setElemUnsafe(i: Int, newElem: PairStrElem[A2]): Unit = { a1Array(i) = newElem.a1; a2Array(i) = newElem.a2 }
 
   override def fElemStr: PairStrElem[A2] => String = _.toString
@@ -116,7 +117,7 @@ class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends Bu
 { override type BuffT = BuffPairStr[B2]
   override type B1BuffT = StringBuff
   override def b1ArrBuilder: BuilderArrMap[String, StrArr] = BuilderArrString
-  override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): ArrPairStr[B2] = new ArrPairStr[B2](b1Arr.unsafeArray, b2s)
+  override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): ArrPairStr[B2] = new ArrPairStr[B2](b1Arr.arrayUnsafe, b2s)
 
   override def buffGrow(buff: BuffPairStr[B2], newElem: PairStrElem[B2]): Unit =
   { buff.strBuffer.append(newElem.a1)
@@ -144,6 +145,7 @@ class BuffPairStr[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuf
   override def pairGrow(b1: String, b2: B2): Unit = { strBuffer.append(b1); b2Buffer.append(b2) }
   override def grow(newElem: PairStrElem[B2]): Unit = { strBuffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
   override def apply(index: Int): PairStrElem[B2] = PairStrElem[B2](strBuffer(index), b2Buffer(index))
+  override def index(i: Int): PairStrElem[B2] = PairStrElem[B2](strBuffer(i), b2Buffer(i))
   override def setElemUnsafe(i: Int, newElem: PairStrElem[B2]): Unit = { strBuffer(i) = newElem.a1; b2Buffer(i) == newElem.a2 }
 }
 

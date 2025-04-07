@@ -102,9 +102,9 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class Pt2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[Pt2]
+final class Pt2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[Pt2]
 { override def typeStr: String = "BuffPt2"
-  def newElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
 object Pt2Buff extends CompanionBuffDbl2[Pt2, Pt2Buff]

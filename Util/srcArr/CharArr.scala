@@ -1,47 +1,49 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*
 
 /** Efficient immutable Array based collection for [[Char]]s. When parsing sequences of [[Char]]s, it is recommended to use this class in conjunction with the
  * [[CharsOff]], the Char Arr offset class, which allows the dropping of [[Char]] elements without having to rebuild a new Array. */
-final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam[Char]
+final class CharArr(val arrayUnsafe: Array[Char]) extends AnyVal, ArrNoParam[Char]
 { type ThisT = CharArr
 
   /** Copy's the backing Array[[Char]] to a new Array[char]. End users should rarely have to use this method */
-  def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
+  def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
 
   override def typeStr: String = "Chars"
   override def unsafeSameSize(length: Int): CharArr = new CharArr(new Array[Char](length))
-  override def length: Int = unsafeArray.length
-  override def apply(index: Int): Char = unsafeArray(index)
-  override def setElemUnsafe(i: Int, newElem: Char): Unit = unsafeArray(i) = newElem
+  override def apply(index: Int): Char = arrayUnsafe(index)
+  override def index(i: Int): Char = arrayUnsafe(i)
+  override def length: Int = arrayUnsafe.length
+  override def numElems: Int = arrayUnsafe.length
+  override def setElemUnsafe(i: Int, newElem: Char): Unit = arrayUnsafe(i) = newElem
   override def fElemStr: Char => String = _.toString
 
   /** append. Appends operand [[Char]] to this [[CharArr]]. */
   @targetName("appendElem") override def +%(operand: Char): CharArr =
   { val newArray = new Array[Char](length + 1)
-    unsafeArray.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand
     new CharArr(newArray)
   }
 
   @targetName("append") override def ++(op: CharArr): CharArr =
   { val newArray = new Array[Char](length + op.length)
-    unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, length)
+    arrayUnsafe.copyToArray(newArray)
+    op.arrayUnsafe.copyToArray(newArray, length)
     new CharArr(newArray)
   }
 
   override def reverse: CharArr =
   { val newArray = new Array[Char](length)
-    iUntilForeach(0, length){ i => newArray(i) = unsafeArray(length - 1 - i) }
+    iUntilForeach(0, length){ i => newArray(i) = arrayUnsafe(length - 1 - i) }
     new CharArr(newArray)
   }
 
   override def drop(n: Int): CharArr =
   { val nn = n.max0
     val newArray = new Array[Char]((length - nn).max0)
-    iUntilForeach(length){ i => newArray(i) = unsafeArray(i + nn) }
+    iUntilForeach(length){ i => newArray(i) = arrayUnsafe(i + nn) }
     new CharArr(newArray)
   }
 
@@ -50,7 +52,7 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
   @inline def offsetter1: CharsOff = new CharsOff(1)
   @inline def offsetter2: CharsOff = new CharsOff(2)
   @inline def offsetter3: CharsOff = new CharsOff(3)
-  @inline def mkString: String = unsafeArray.mkString
+  @inline def mkString: String = arrayUnsafe.mkString
 }
 
 /** Companion object of Chars class contains repeat parameter apply factor method. */

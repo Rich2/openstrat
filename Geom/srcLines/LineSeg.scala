@@ -159,9 +159,9 @@ object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
 }
 
 /** Efficient expandable buffer for [[LineSeg]]s. */
-class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSeg]
+class LineSegBuff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSeg]
 { override def typeStr: String = "Line2sBuff"
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
 
 /** Companion object for [[LineSegBuff]] trait, contains factory apply method. */

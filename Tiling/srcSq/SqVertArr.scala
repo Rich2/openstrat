@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
 trait SqVertSeqLike extends Any with SeqLikeInt2[SqVert]
-{ override def newElem(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
+{ override def elemFromInts(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
   def vertNum: Int = arrayUnsafe.length / 2
 }
@@ -34,7 +34,7 @@ object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
 }
 
 /** [[BuffSequ]] class for storing [[SqVert]]s in an [[ArrayBuffer]][Int]. */
-class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqVert]
+class SqVertBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqVert]
 { type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"
   override def newElem(i1: Int, i2: Int): SqVert = SqVert(i1, i2)

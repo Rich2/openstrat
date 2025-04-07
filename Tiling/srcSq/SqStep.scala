@@ -162,7 +162,7 @@ case class SqAndStep(r1: Int, c1: Int, step: SqStep)
 class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
 { override type ThisT = SqStepArr
   override def typeStr: String = "SqSteps"
-  override def newElem(intValue: Int): SqStep = SqStep.fromInt(intValue)
+  override def elemFromInt(intValue: Int): SqStep = SqStep.fromInt(intValue)
   override def fromArray(array: Array[Int]): SqStepArr = new SqStepArr(array)
   override def fElemStr: SqStep => String = _.toString
 
@@ -242,7 +242,7 @@ object SqStepArr
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with BuffInt1[SqStep]
+class SqDirnBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal with BuffInt1[SqStep]
 { override def typeStr: String = "SqDirnBuff"
   def newElem(i1: Int): SqStep = SqStep.fromInt(i1)
 }

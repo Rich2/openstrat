@@ -108,7 +108,7 @@ object LineSegFm2Arr extends CompanionSeqLikeDbl4[LineSegFm2, LineSegFm2Arr]
 }
 
 /** Efficient expandable buffer for [[LineSegFm2]]s. */
-class LineSegFm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl4[LineSegFm2]
+class LineSegFm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl4[LineSegFm2]
 { override def typeStr: String = "LineSegFm2Buff"
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegFm2 = new LineSegFm2(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSegFm2 = new LineSegFm2(d1, d2, d3, d4)
 }

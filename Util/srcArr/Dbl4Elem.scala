@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Double]]s. These are used in [[ArrDbl4]] Array[Double] based collections. */
 trait Dbl4Elem extends Any, DblNElem
@@ -19,14 +19,14 @@ trait SeqLikeDbl4[A <: Dbl4Elem] extends Any, SeqLikeDblN[A]
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   final override def elemProdSize: Int = 4
+  final override def index(i: Int): A = elemFromDbls(arrayUnsafe(4 * i), arrayUnsafe(4 * i + 1), arrayUnsafe(4 * i + 2), arrayUnsafe(4 * i + 3))
+  final override def numElems: Int = arrayLen / 4
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
 trait SeqSpecDbl4[A <: Dbl4Elem] extends Any, SeqLikeDbl4[A], SeqSpecDblN[A]
-{ override def index(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
-}
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SeqLikeDbl4[A]
@@ -99,13 +99,15 @@ abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait BuffDbl4[A <: Dbl4Elem] extends Any, BuffDblN[A]
 { type ArrT <: ArrDbl4[A]
-  def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
   override def elemProdSize: Int = 4
-  final override def length: Int = unsafeBuffer.length / 4
-  override def grow(newElem: A): Unit = unsafeBuffer.append4(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+  final override def length: Int = bufferUnsafe.length / 4
+  final override def numElems: Int = bufferUnsafe.length / 4
+  override def grow(newElem: A): Unit = bufferUnsafe.append4(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 
-  override def apply(index: Int): A =
-    newElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+  final override def apply(index: Int): A =
+    elemFromDbls(bufferUnsafe(index * 4), bufferUnsafe(index * 4 + 1), bufferUnsafe(index * 4 + 2), bufferUnsafe(index * 4 + 3))
 
-  override def setElemUnsafe(i: Int, newElem: A): Unit =unsafeBuffer.setIndex4(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+  final override def index(i: Int): A = elemFromDbls(bufferUnsafe(i * 4), bufferUnsafe(i * 4 + 1), bufferUnsafe(i * 4 + 2), bufferUnsafe(i * 4 + 3))
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe.setIndex4(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }

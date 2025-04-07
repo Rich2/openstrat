@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with HCoordSeqSpec with PolygonLikeInt2[HCoord] with ArrayIntBacked
+class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal, HCoordSeqSpec, PolygonLikeInt2[HCoord], ArrayIntBacked
 { override type ThisT = PolygonHC
   override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"
@@ -30,10 +30,9 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with HCoordSeqSpec w
     res
   }
 
-  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
-   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
-   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
-   * signature. */
+  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
+   * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
+   * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   override def vertsPrevForEach[U](f: (HCoord, HCoord) => U): Unit = ???
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */
@@ -76,26 +75,26 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with HCoordSeqSpec w
 object PolygonHC extends CompanionSeqLikeInt2[HCoord, PolygonHC]
 { override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 
-  implicit val arrBuildImplicit: BuilderArrMap[PolygonHC, PolygonHCArr] = new BuilderArrMap[PolygonHC, PolygonHCArr] {
-    override type BuffT = PolygonHCBuff
+  implicit val arrBuildImplicit: BuilderArrMap[PolygonHC, PolygonHCArr] = new BuilderArrMap[PolygonHC, PolygonHCArr]
+  { override type BuffT = PolygonHCBuff
     override def newBuff(length: Int): PolygonHCBuff = PolygonHCBuff(length)
     override def uninitialised(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
-    override def indexSet(seqLike: PolygonHCArr, index: Int, newElem: PolygonHC): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
+    override def indexSet(seqLike: PolygonHCArr, index: Int, newElem: PolygonHC): Unit = seqLike.arrayOfArraysUnsafe(index) = newElem.arrayUnsafe
     override def buffGrow(buff: PolygonHCBuff, newElem: PolygonHC): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
     override def buffToSeqLike(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuffer.toArray)
   }
 }
 
 /** Speialised [[Arr]] class for [[PolygonHC]]s. */
-class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntBackedArr[PolygonHC]
+class PolygonHCArr(val arrayOfArraysUnsafe:Array[Array[Int]]) extends ArrArrayInt[PolygonHC]
 { override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"
   override def fElemStr: PolygonHC => String = _.toString
-  override def apply(index: Int): PolygonHC = new PolygonHC(unsafeArrayOfArrays(index))
-  override def unsafeFromArrayArray(array: Array[Array[Int]]): PolygonHCArr = new PolygonHCArr(array)
+  override def fromArrayArray(array: Array[Array[Int]]): PolygonHCArr = new PolygonHCArr(array)
+  override def elemFromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }
 
-class PolygonHCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonHC]
+class PolygonHCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal, ArrayIntBuff[PolygonHC]
 { override type ThisT = PolygonHCBuff
   override def typeStr: String = "PolygonHCBuff"
   override def setElemUnsafe(i: Int, newElem: PolygonHC): Unit = unsafeBuffer(i) = newElem.arrayUnsafe

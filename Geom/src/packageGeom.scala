@@ -140,12 +140,12 @@ package object geom
 
   implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: BuffDblN[A])
   { /** Extension method to create Polygons from [[BuffDblN]]. Takes an implicit [[PolygonDblNBuilderMap]] parameter to return the [[PolygonLikeDblN]] */
-    def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNBuilderMap[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
+    def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNBuilderMap[A, PT]): PT = build.fromDblArray(thisBuff.bufferUnsafe.toArray)
   }
 
   implicit class BuffIntExtensionsImplicit[A <: IntNElem](val thisBuff: BuffIntN[A])
   { /** Extension method to create Polygons from [[BuffIntN]]. Takes an implicit [[PolygonIntNBuilderMap]] parameter to return the [[PolygonLikeIntN]] */
-    def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNBuilderMap[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
+    def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNBuilderMap[A, PT]): PT = build.fromIntArray(thisBuff.bufferUnsafe.toArray)
   }
 
   implicit class MetreExtensionsImplicit(thisMetres: Metres)

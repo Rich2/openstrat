@@ -17,6 +17,7 @@ final class PolygonLLPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Ar
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairArray"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(index), a2Array(index))
+  override def index(i: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(i), a2Array(i))
   override def a1Arr: PolygonLLArr = new PolygonLLArr(a1ArrayDbls)
   override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
@@ -36,7 +37,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 
   override def b1Builder: PolygonLikeBuilderMap[LatLong, PolygonLL] = LatLong.polygonBuildImplicit
   override def b1ArrBuilder: BuilderArrMap[PolygonLL, PolygonLLArr] = PolygonLL.mapBuilderArrEv
-  override def arrFromArrAndArray(b1Arr: PolygonLLArr, b2s: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
+  override def arrFromArrAndArray(b1Arr: PolygonLLArr, b2s: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonLLBuff = PolygonLLBuff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](arrayArrayDbl, a2Array)
 }
@@ -48,4 +49,5 @@ class PolygonLLPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buff
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairBuff"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](b1Buffer(index), b2Buffer(index))
+  override def index(i: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](b1Buffer(i), b2Buffer(i))
 }

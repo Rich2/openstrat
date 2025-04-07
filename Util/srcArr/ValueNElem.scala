@@ -9,7 +9,8 @@ trait ValueNElem extends Any with SpecialT
 
 trait SeqLikeValueN[+A <: ValueNElem] extends Any with SeqLike[A]
 { type ThisT <: SeqLikeValueN[A]
-  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection class. */
+  /** The number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc that specify / construct an element of this immutable flat Array based collection
+   *  class. */
   def elemProdSize: Int
 
   /** The total  number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc in the backing Array. */
@@ -26,9 +27,6 @@ trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with Seq
 
   /** Reverses the order of the elements of the specifying sequence. */
   def reverse: ThisT
-
-  /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  override def numElems: Int = arrayLen / elemProdSize
 
   def ssForAll(f: A => Boolean): Boolean =
   { var res = true

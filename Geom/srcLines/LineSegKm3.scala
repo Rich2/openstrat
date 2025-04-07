@@ -107,8 +107,8 @@ object LineSegKm3Arr extends CompanionSqLikeDbl6[LineSegKm3, LineSegKm3Arr]
 }
 
 /** Efficient expandable buffer for [[LineSegKm3]]s. */
-class LineSegKm3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl6[LineSegKm3]
+class LineSegKm3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl6[LineSegKm3]
 { override def typeStr: String = "LineSegKm3Buff"
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegKm3 =
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegKm3 =
     new LineSegKm3(d1, d2, d3, d4, d5, d6)
 }

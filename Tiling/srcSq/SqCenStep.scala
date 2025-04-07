@@ -40,7 +40,7 @@ object SqCenStep
 class SqCenStepArr(val arrayUnsafe: Array[Int]) extends ArrInt3[SqCenStep]
 { override type ThisT = SqCenStepArr
   override def typeStr: String = "SqCenStepArr"
-  override def newElem(int1: Int, int2: Int, int3: Int): SqCenStep = new SqCenStep(int1, int2, int3)
+  override def elemFromInts(int1: Int, int2: Int, int3: Int): SqCenStep = new SqCenStep(int1, int2, int3)
   override def fromArray(array: Array[Int]): SqCenStepArr = new SqCenStepArr(array)
   override def fElemStr: SqCenStep => String = _.toString
 }
@@ -55,7 +55,7 @@ object SqCenStepArr extends CompanionSeqLikeInt3[SqCenStep, SqCenStepArr]
   }
 }
 
-class SqCenStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[SqCenStep]
+class SqCenStepBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[SqCenStep]
 { override type ThisT = SqCenStepBuff
   override type ArrT = SqCenStepArr
   override def typeStr: String = "SqCenStepBuff"

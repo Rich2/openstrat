@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A polygon using vertices specified in [[PtPm2]] points rather than scalars. */
 final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLen2[PtPm2]
@@ -60,26 +60,27 @@ object PolygonPm2 extends CompanionSeqLikeDbl2[PtPm2, PolygonPm2]
   { override type BuffT = PolygonPm2Buff
     override def newBuff(length: Int): PolygonPm2Buff = PolygonPm2Buff(length)
     override def uninitialised(length: Int): PolygonPm2Arr = new PolygonPm2Arr(new Array[Array[Double]](length))
-    override def indexSet(seqLike: PolygonPm2Arr, index: Int, newElem: PolygonPm2): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
-    override def buffGrow(buff: PolygonPm2Buff, newElem: PolygonPm2): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
-    override def buffToSeqLike(buff: PolygonPm2Buff): PolygonPm2Arr = new PolygonPm2Arr(buff.unsafeBuffer.toArray)
+    override def indexSet(seqLike: PolygonPm2Arr, index: Int, newElem: PolygonPm2): Unit = seqLike.arrayOfArraysUnsafe(index) = newElem.arrayUnsafe
+    override def buffGrow(buff: PolygonPm2Buff, newElem: PolygonPm2): Unit = buff.bufferUnsafe.append(newElem.arrayUnsafe)
+    override def buffToSeqLike(buff: PolygonPm2Buff): PolygonPm2Arr = new PolygonPm2Arr(buff.bufferUnsafe.toArray)
   }
 
   /** Both [[Show]] amd [[Unshow]] type class instances / evidence for [[PolygonPm2]] objects. */
   implicit lazy val persistEv: PersistSeqSpecBoth[PtPm2, PolygonPm2] = PersistSeqSpecBoth[PtPm2, PolygonPm2]("PolygonPm2")
 }
 
-/** Arr of [[PolygonPm2]]s. */
-class PolygonPm2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonPm2]
+/** [[Arr]] of [[PolygonPm2]]s. */
+class PolygonPm2Arr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArrayDbl[PolygonPm2]
 { override type ThisT = PolygonPm2Arr
   override def typeStr: String = "PolygonPm2Arr"
   override def fElemStr: PolygonPm2 => String = _.toString
-  override def apply(index: Int): PolygonPm2 = new PolygonPm2(unsafeArrayOfArrays(index))
-  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonPm2Arr = new PolygonPm2Arr(array)
+
+  override def elemFromArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
+  override def fromArrayArray(array: Array[Array[Double]]): PolygonPm2Arr = new PolygonPm2Arr(array)
 }
 
 /** Buff of [[PolygonPm2]]s. */
-class PolygonPm2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonPm2]
+class PolygonPm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonPm2]
 { override type ThisT = PolygonPm2Buff
   override def typeStr: String = "PolygonPm2Buff"
   override def fElemStr: PolygonPm2 => String = _.toString
@@ -105,6 +106,7 @@ final class PolygonPm2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2A
   override def fElemStr: PolygonPm2Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonMPairArray"
   override def apply(index: Int): PolygonPm2Pair[A2] = new PolygonPm2Pair[A2](a1ArrayDbls(index), a2Array(index))
+  override def index(i: Int): PolygonPm2Pair[A2] = new PolygonPm2Pair[A2](a1ArrayDbls(i), a2Array(i))
   override def a1Arr: PolygonPm2Arr = new PolygonPm2Arr(a1ArrayDbls)
   override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonPm2PairArr[A2] = new PolygonPm2PairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
@@ -124,11 +126,12 @@ final class PolygonPm2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
 
   override def b1Builder: PolygonLikeBuilderMap[PtPm2, PolygonPm2] = PtPm2.polygonBuilderEv
   override def b1ArrBuilder: BuilderArrMap[PolygonPm2, PolygonPm2Arr] = PolygonPm2.arrBuildImplicit
-  override def arrFromArrAndArray(b1Arr: PolygonPm2Arr, b2s: Array[A2]): PolygonPm2PairArr[A2] = new PolygonPm2PairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
+  override def arrFromArrAndArray(b1Arr: PolygonPm2Arr, b2s: Array[A2]): PolygonPm2PairArr[A2] = new PolygonPm2PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonPm2Buff = PolygonPm2Buff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonPm2PairArr[A2] = new PolygonPm2PairArr[A2](arrayArrayDbl, a2Array)
 }
 
+/** Not sure if this class needs to exist. */
 class PolygonPm2PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeDblNPairBuff[PtPm2, PolygonPm2, A2, PolygonPm2Pair[A2]]
 { override type ThisT = PolygonPm2PairBuff[A2]
@@ -136,4 +139,5 @@ class PolygonPm2PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buf
   override def fElemStr: PolygonPm2Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonMPairBuff"
   override def apply(index: Int): PolygonPm2Pair[A2] = new PolygonPm2Pair[A2](b1Buffer(index), b2Buffer(index))
+  override def index(i: Int): PolygonPm2Pair[A2] = new PolygonPm2Pair[A2](b1Buffer(i), b2Buffer(i))
 }

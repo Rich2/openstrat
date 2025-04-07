@@ -1,23 +1,25 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, pParse._
+import annotation.*, collection.mutable.ArrayBuffer, pParse.*
 
 /** An immutable Array based class for [[Double]]s. Note the convention that for final classes The "Arr" part of the name is placed second, as opposed
  * to for example the non instantiable [[ArrDbl1]] and [[ArrDbl2]] traits. */
-class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrNoParam[Double]
+class DblArr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrNoParam[Double]
 { type ThisT = DblArr
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))
-  override def length: Int = unsafeArray.length
-  override def apply(index: Int): Double = unsafeArray(index)
-  override def setElemUnsafe(i: Int, newElem: Double): Unit = unsafeArray(i) = newElem
-  def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
+  override def apply(index: Int): Double = arrayUnsafe(index)
+  override def index(i: Int): Double = arrayUnsafe(i)
+  override def length: Int = arrayUnsafe.length
+  override def numElems: Int = arrayUnsafe.length
+  override def setElemUnsafe(i: Int, newElem: Double): Unit = arrayUnsafe(i) = newElem
+  def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
 
   @targetName("append") def ++ (op: DblArr): DblArr =
   { val newArray = new Array[Double](length + op.length)
-    unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, length)
+    arrayUnsafe.copyToArray(newArray)
+    op.arrayUnsafe.copyToArray(newArray, length)
     new DblArr(newArray)
   }
 
@@ -61,25 +63,25 @@ object DblArr
   }
 }
 
-object DblArrBuilder extends BuilderArrMap[Double, DblArr] with BuilderArrFlat[DblArr]
+object DblArrBuilder extends BuilderArrMap[Double, DblArr], BuilderArrFlat[DblArr]
 { type BuffT = BuffDbl
   override def uninitialised(length: Int): DblArr = new DblArr(new Array[Double](length))
-  override def indexSet(seqLike: DblArr, index: Int, newElem: Double): Unit = seqLike.unsafeArray(index) = newElem
+  override def indexSet(seqLike: DblArr, index: Int, newElem: Double): Unit = seqLike.arrayUnsafe(index) = newElem
   override def newBuff(length: Int = 4): BuffDbl = new BuffDbl(new ArrayBuffer[Double](length))
-  override def buffGrow(buff: BuffDbl, newElem: Double): Unit = buff.unsafeBuffer.append(newElem)
-  override def buffToSeqLike(buff: BuffDbl): DblArr = new DblArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: BuffDbl, arr: DblArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
+  override def buffGrow(buff: BuffDbl, newElem: Double): Unit = buff.bufferUnsafe.append(newElem)
+  override def buffToSeqLike(buff: BuffDbl): DblArr = new DblArr(buff.bufferUnsafe.toArray)
+  override def buffGrowArr(buff: BuffDbl, arr: DblArr): Unit = arr.arrayUnsafe.foreach(el => buff.bufferUnsafe.append(el))
 }
 
 /** Compile time wrapped Buff class for [[Double]]s, used to build [[DblArr]]. */
-class BuffDbl(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffSequ[Double]
+class BuffDbl(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffSequ[Double]
 { override type ThisT = BuffDbl
   override def typeStr: String = "DblsBuff"
-  override def apply(index: Int): Double = unsafeBuffer(index)
-  override def length: Int = unsafeBuffer.length
-  override def setElemUnsafe(i: Int, newElem: Double): Unit = unsafeBuffer(i) = newElem
+  override def apply(index: Int): Double = bufferUnsafe(index)
+  override def index(i: Int): Double = bufferUnsafe(i)
+  override def length: Int = bufferUnsafe.length
+  override def numElems: Int = bufferUnsafe.length
+  override def setElemUnsafe(i: Int, newElem: Double): Unit = bufferUnsafe(i) = newElem
   override def fElemStr: Double => String = _.toString
-  override def grow(newElem: Double): Unit = unsafeBuffer.append(newElem)
+  override def grow(newElem: Double): Unit = bufferUnsafe.append(newElem)
 }
-
-//class DblArrPair extends ArrPair[Double, DblArr, Double, (Double, Double)]

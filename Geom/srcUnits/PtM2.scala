@@ -123,9 +123,9 @@ object PtM2Arr extends CompanionSeqLikeDbl2[PtM2, PtM2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */
-final class BuffPtM2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtM2]
+final class BuffPtM2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtM2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
 }
 
 object BuffPtM2
@@ -176,7 +176,7 @@ class VecM2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecM2]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[VecM2]] collections. */
-final class VecM2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecM2]
+final class VecM2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecM2]
 { override def typeStr: String = "VecM2Buff"
-  def newElem(d1: Double, d2: Double): VecM2 = VecM2(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): VecM2 = VecM2(d1, d2)
 }

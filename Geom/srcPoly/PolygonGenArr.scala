@@ -1,13 +1,13 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
-final class PolygonGenArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonGen]
+final class PolygonGenArr(val arrayOfArraysUnsafe: Array[Array[Double]]) extends AnyVal, ArrArrayDbl[PolygonGen]
 { override type ThisT = PolygonGenArr
   override def typeStr: String = "PolygonArr"
-  override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonGenArr = new PolygonGenArr(aad)
-  override def apply(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
+  override def elemFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
+  override def fromArrayArray(aad: Array[Array[Double]]): PolygonGenArr = new PolygonGenArr(aad)  
   override def fElemStr: Polygon => String = _.toString
 }
 
@@ -48,7 +48,7 @@ object PolygonGenArr
   }
 }
 
-class PolygonGenBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonGen]
+class PolygonGenBuff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonGen]
 { override type ThisT = PolygonGenBuff
   override def typeStr: String = "PolygonBuff"
   override def fElemStr: PolygonGen => String = _.toString

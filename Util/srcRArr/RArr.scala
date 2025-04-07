@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, unchecked.uncheckedVariance, reflect.{ClassTag, TypeTest}, collection.mutable.ArrayBuffer
 
 /** This is a common trait for [[RArr]] and tiling data layer classes in the Tiling module. */
-trait RefsSeqLike[+A] extends Any with SeqLike[A]
+trait RefsSeqLike[+A] extends Any, SeqLike[A]
 { type ThisT <: RefsSeqLike[A]
   def arrayUnsafe: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
@@ -13,18 +13,20 @@ trait RefsSeqLike[+A] extends Any with SeqLike[A]
 
 /** The immutable Array based class for types without their own specialised [[Arr]] collection classes. It inherits the standard foreach, map, flatMap and fold
  * and their variations' methods from ArrayLike. As it stands in Scala 3.3.0 the Graphics module will not build for Scala3 for the Javascript target. */
-final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVal with Arr[A] with RefsSeqLike[A]
+final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVal, Arr[A], RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "RArr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
   override def length: Int = arrayUnsafe.length
-
+  override def numElems: Int = arrayUnsafe.length
+  
   def eqs(other: Any): Boolean = other match
   { case a: RArr[_] => arrayUnsafe.sameElements(a.arrayUnsafe)
     case _ => false
   }
 
   override def apply(index: Int): A = arrayUnsafe(index)
+  override def index(i: Int): A = arrayUnsafe(i)
 
   /** Same map. Maps from this Arr[A] to a new Arr[A]. */
   def smap(f: A => A @uncheckedVariance): RArr[A] =
@@ -311,23 +313,25 @@ case object RArr1Tail
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]] with BuilderArrFlat[RArr[B]]
+class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]], BuilderArrFlat[RArr[B]]
 { type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def indexSet(seqLike: RArr[B], index: Int, newElem: B): Unit = seqLike.arrayUnsafe(index) = newElem
   override def newBuff(length: Int = 4): RBuff[B] = new RBuff(new ArrayBuffer[B](length))
-  override def buffGrow(buff: RBuff[B], newElem: B): Unit = buff.unsafeBuffer.append(newElem)
-  override def buffToSeqLike(buff: RBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.arrayUnsafe.foreach(el => buff.unsafeBuffer.append(el))
+  override def buffGrow(buff: RBuff[B], newElem: B): Unit = buff.bufferUnsafe.append(newElem)
+  override def buffToSeqLike(buff: RBuff[B]): RArr[B] = new RArr(buff.bufferUnsafe.toArray)
+  override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.arrayUnsafe.foreach(el => buff.bufferUnsafe.append(el))
 }
 
 /** R for stored by reference. The default [[BuffSequ]] class for types without their own specialist sequence classes. */
-final class RBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with BuffSequ[A]
+final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal with BuffSequ[A]
 { override type ThisT = RBuff[A]
   override def typeStr: String = "AnyBuff"
-  override def apply(index: Int): A = unsafeBuffer(index)
-  override def length: Int = unsafeBuffer.length
-  override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem
+  override def apply(index: Int): A = bufferUnsafe(index)
+  override def index(i: Int): A = bufferUnsafe(i)
+  override def length: Int = bufferUnsafe.length
+  override def numElems: Int = bufferUnsafe.length
+  override def setElemUnsafe(i: Int, newElem: A): Unit = bufferUnsafe(i) = newElem
   override def fElemStr: A => String = _.toString
-  override def grow(newElem: A): Unit = unsafeBuffer.append(newElem)
+  override def grow(newElem: A): Unit = bufferUnsafe.append(newElem)
 }

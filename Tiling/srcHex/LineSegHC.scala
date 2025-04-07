@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -41,30 +41,20 @@ object LineSegHC
   implicit def pairArrMapBuider[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrMapBuilder[B2] = new LineSegHCPairArrMapBuilder[B2]
 }
 
-/** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what in
- *  common parlance is often just referred to as a line. */
+/** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what
+ * in common parlance is often just referred to as a line. */
 class LineSegHCArr(val arrayUnsafe: Array[Int]) extends ArrInt4[LineSegHC]
 { type ThisT = LineSegHCArr
   def fromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
   override def typeStr: String = "Line2s"
-  override def fElemStr: LineSegHC => String = _.toString
-  //override def toString: String = Line2s.PersistImplict.show(this)
-  override def newElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
+  override def fElemStr: LineSegHC => String = _.toString  
+  override def elemFromInts(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
 }
 
 /** Companion object for the LineSegHCs class. */
 object LineSegHCArr extends CompanionArrInt4[LineSegHC, LineSegHCArr]
 {
   implicit def pairArrFlatBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
-
-  /*implicit val persistImplicit: DataInt4sPersist[LineSegHC, LineSegHCs] = new DataDbl4sPersist[LineSegHC, LineSegHCs]("Line2s")
-  { override def fromArray(value: Array[Int]): LineSegHCs = new LineSegHCs(value)
-
-    override def showDecT(obj: LineSegHCs, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-  }*/
-
-
-  //implicit val transImplicit: AffineTrans[LineSegHCs] = (obj, f) => obj.dataMap(_.ptsTrans(f))
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   override def fromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
@@ -73,9 +63,9 @@ object LineSegHCArr extends CompanionArrInt4[LineSegHC, LineSegHCArr]
 }
 
 /** Efficient expandable buffer for Line2s. */
-class LineSegHCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with BuffInt4[LineSegHC]
-{ override def typeStr: String = "Line2sBuff"
-  override def newElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
+class LineSegHCBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, BuffInt4[LineSegHC]
+{ override def typeStr: String = "LineSegBuff"
+  override def elemFromInts(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
 }
 
 object LineSegHCBuff

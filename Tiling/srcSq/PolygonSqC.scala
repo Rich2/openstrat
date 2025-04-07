@@ -1,9 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec with PolygonLikeInt2[SqCoord]
+class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, PolygonLikeInt2[SqCoord]
 { override type ThisT = PolygonSqC
   override type SideT = LineSegSC
   override def typeStr: String = "PolygonSqC"
@@ -30,10 +30,9 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec
     res
   }
 
-  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
-   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
-   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
-   * signature. */
+  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
+   * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
+   * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   override def vertsPrevForEach[U](f: (SqCoord, SqCoord) => U): Unit = ???
 
   def toPolygon(f: SqCoord => Pt2): Polygon =
@@ -61,26 +60,25 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec
 object PolygonSqC extends CompanionSeqLikeInt2[SqCoord, PolygonSqC]
 { override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 
-  implicit val arrBuildImplicit: BuilderArrMap[PolygonSqC, PolygonSqCArr] = new BuilderArrMap[PolygonSqC, PolygonSqCArr] {
-    override type BuffT = PolygonSqCBuff
+  implicit val arrBuildImplicit: BuilderArrMap[PolygonSqC, PolygonSqCArr] = new BuilderArrMap[PolygonSqC, PolygonSqCArr]
+  { override type BuffT = PolygonSqCBuff
     override def newBuff(length: Int): PolygonSqCBuff = PolygonSqCBuff(length)
     override def uninitialised(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
-    override def indexSet(seqLike: PolygonSqCArr, index: Int, newElem: PolygonSqC): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
+    override def indexSet(seqLike: PolygonSqCArr, index: Int, newElem: PolygonSqC): Unit = seqLike.arrayOfArraysUnsafe(index) = newElem.arrayUnsafe
     override def buffGrow(buff: PolygonSqCBuff, newElem: PolygonSqC): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
     override def buffToSeqLike(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuffer.toArray)
   }
 }
 
-class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[PolygonSqC]
+class PolygonSqCArr(val arrayOfArraysUnsafe: Array[Array[Int]]) extends ArrArrayInt[PolygonSqC]
 { override type ThisT = PolygonSqCArr
-  override def typeStr: String = "PolygonSqCArr"
-  override def length: Int = unsafeArrayOfArrays.length
-  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeArrayOfArrays(i) = newElem.arrayUnsafe
-  override def fElemStr: PolygonSqC => String = _.toString
-  override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeArrayOfArrays(index))
+  override def typeStr: String = "PolygonSqCArr"  
+  override def fElemStr: PolygonSqC => String = _.toString  
+  override def fromArrayArray(array: Array[Array[Int]]): PolygonSqCArr = new PolygonSqCArr(array)
+  override def elemFromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 }
 
-class PolygonSqCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonSqC]
+class PolygonSqCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal, ArrayIntBuff[PolygonSqC]
 { override type ThisT = PolygonSqCBuff
   override def typeStr: String = "PolygonSqCBuff"
   override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeBuffer(i) = newElem.arrayUnsafe

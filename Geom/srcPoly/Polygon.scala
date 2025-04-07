@@ -136,7 +136,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     maxY - minY
   }
 
-  def slate(operand: VecPt2): Polygon = PolygonGen(arraySlate(operand))
+  override def slate(operand: VecPt2): Polygon = PolygonGen(arraySlate(operand))
   override def slate(xOperand: Double, yOperand: Double): Polygon = PolygonGen(arraySlateXY(xOperand, yOperand))
   override def slateX(xOperand: Double): Polygon = PolygonGen(arraySlateX(xOperand))
   override def slateY(yOperand: Double): Polygon = PolygonGen(arraySlateY(yOperand))

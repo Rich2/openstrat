@@ -62,4 +62,5 @@ class PolygonHCPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Int]], val b2Buffer:
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairBuff"
   override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](b1Buffer(index), b2Buffer(index))
+  override def index(i: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](b1Buffer(i), b2Buffer(i))
 }

@@ -105,13 +105,17 @@ object PtFm2
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonFm2PairBuilder[A2] = new PolygonFm2PairBuilder[A2]
 }
 
+trait PtFm2SeqLike extends Any, SeqLikeDbl2[PtFm2]
+{ final override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
+  final override def fElemStr: PtFm2 => String = _.str
+}
+
 /** Specialised immutable Array based collection class for [[PtFm2]]s. */
-class PtFm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtFm2]
+class PtFm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtFm2SeqLike, ArrDbl2[PtFm2]
 { type ThisT = PtFm2Arr
   override def fromArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
   override def typeStr: String = "PtFm2Arr"
-  override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
-  override def fElemStr: PtFm2 => String = _.str
+  
 }
 
 /** Companion object for the [[PtFm2Arr]] class. Contains implicit Instance for Persist type class. */
@@ -126,9 +130,9 @@ object PtFm2Arr extends CompanionSeqLikeDbl2[PtFm2, PtFm2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtFm2]]s collections. */
-final class BuffPtFm2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtFm2]
+final class BuffPtFm2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtFm2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
 }
 
 object BuffPtFm2
@@ -183,7 +187,7 @@ class VecFm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecFm2]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[VecFm2]] collections. */
-final class VecFm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecFm2]
+final class VecFm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecFm2]
 { override def typeStr: String = "VecFm2Buff"
-  def newElem(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
 }

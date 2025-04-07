@@ -41,7 +41,7 @@ object HCenStep
 class HCenStepArr(val arrayUnsafe: Array[Int]) extends ArrInt3[HCenStep]
 { override type ThisT = HCenStepArr
   override def typeStr: String = "HCenStepArr"
-  override def newElem(int1: Int, int2: Int, int3: Int): HCenStep = new HCenStep(int1, int2, int3)
+  override def elemFromInts(int1: Int, int2: Int, int3: Int): HCenStep = new HCenStep(int1, int2, int3)
   override def fromArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
   override def fElemStr: HCenStep => String = _.toString
 }
@@ -56,7 +56,7 @@ object HCenStepArr extends CompanionSeqLikeInt3[HCenStep, HCenStepArr]
   }
 }
 
-class HCenStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HCenStep]
+class HCenStepBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HCenStep]
 { override type ThisT = HCenStepBuff
   override type ArrT = HCenStepArr
   override def typeStr: String = "HCenStepBuff"

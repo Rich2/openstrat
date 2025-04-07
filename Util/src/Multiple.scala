@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import ostrat.pParse._, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
+import ostrat.pParse.*, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. To create a Multiple instance follow the
  * value by the "*" symbol followed by an integer. There is a n implicit conversion from an object of type to a Multiple of type T with quantity of 1. */
@@ -120,9 +120,11 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
     foreach{ m => iUntilForeach(m.num){ _ => res.setElemUnsafe(i, m.value); i += 1 } }
     res
   }
-
-  override def length: Int = arrayInt.length
+  
+  override def index(i: Int): Multiple[A] = new Multiple[A](values(i), arrayInt(i))
   override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
+  override def length: Int = arrayInt.length
+  override def numElems: Int = arrayInt.length
   override def setElemUnsafe(i: Int, newElem: Multiple[A]): Unit = { values(i) = newElem.value; arrayInt(i) =newElem.num }
   override def fElemStr: Multiple[A] => String = _.toString
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
@@ -152,8 +154,10 @@ class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBu
 { override type ThisT = MultipleBuff[A]
   override def typeStr: String = "MultipleBuff"
   override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }
-  override def length: Int = numBuffer.length
   override def apply(index: Int): Multiple[A] = new Multiple[A](valuesBuffer(index), numBuffer(index))
+  override def index(i: Int): Multiple[A] = new Multiple[A](valuesBuffer(i), numBuffer(i))
+  override def length: Int = numBuffer.length
+  override def numElems: Int = numBuffer.length
   override def setElemUnsafe(i: Int, newElem: Multiple[A]): Unit = { numBuffer(i) = newElem.num; valuesBuffer(i) = newElem.value }
   override def fElemStr: Multiple[A] => String = _.toString
 }

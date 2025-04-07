@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag
+import annotation.*, reflect.ClassTag
 
 /** [[PairElem]] where the first component of the pair is a [[Dbl4Elem]]. */
 trait PairDbl4Elem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
@@ -15,14 +15,15 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
 { type ThisT <: ArrPairDbl4[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def newPair(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
+  def pairFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
 
   def newA1(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): A1
   final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3))
 
-  override final def apply(index: Int): A =
-    newPair(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
+  final override def apply(index: Int): A =
+    pairFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
 
+  final override def index(i: Int): A = pairFromDbls(a1ArrayDbl(i * 4), a1ArrayDbl(i * 4 + 1), a1ArrayDbl(i * 4 + 2), a1ArrayDbl(i * 4 + 3), a2Array(i))
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayDbl.setIndex4(index, value.dbl1, value.dbl2, value.dbl3, value.dbl4)
 
   override final def setElemUnsafe(i: Int, newElem: A): Unit =
@@ -48,10 +49,12 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
 /** Efficient buffer class for [[PairDbl4]] elements. */
 trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPairDblN[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
+  def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
 
-  inline final override def apply(index: Int): B =
-    newElem(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
+  final override def apply(index: Int): B =
+    elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
+
+  final override def index(i: Int): B = elemFromDbls(b1DblBuffer (i * 4), b1DblBuffer(i * 4 + 1), b1DblBuffer(i * 4 + 2), b1DblBuffer(i * 4 + 3), b2Buffer(i))
 
   override final def grow(newElem: B): Unit =
   { b1DblBuffer.append4(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)

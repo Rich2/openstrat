@@ -96,6 +96,8 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
     res
   }
 
+  final override def index(i: Int): A = elemFromDbls(arrayUnsafe(2 * i), arrayUnsafe(2 * i + 1))
+  final override def numElems: Int = arrayUnsafe.length / 2
   final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 }
 
@@ -115,9 +117,7 @@ object SeqLikeDbl2
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
 trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
-{ override def index(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
-
-  def tailForeachPair[U](f: (Double, Double) => U): Unit =
+{ def tailForeachPair[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
@@ -193,14 +193,15 @@ trait BuffDbl2[B <: Dbl2Elem] extends Any with BuffDblN[B]
 { type ArrT <: ArrDbl2[B]
 
   /** Constructs a new element of this [[BuffSequ]] from 2 [[Double]]s. */
-  def newElem(d1: Double, d2: Double): B
+  def elemFromDbls(d1: Double, d2: Double): B
 
-  final override def length: Int = unsafeBuffer.length / 2
+  final override def length: Int = bufferUnsafe.length / 2
+  final override def numElems: Int = bufferUnsafe.length / 2
   final override def elemProdSize: Int = 2
-  final override def grow(newElem: B): Unit = unsafeBuffer.append2(newElem.dbl1, newElem.dbl2)
-
-  override def apply(index: Int): B = newElem(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  final override def setElemUnsafe(i: Int, newElem: B): Unit = unsafeBuffer.setIndex2(i, newElem.dbl1, newElem.dbl2)
+  final override def grow(newElem: B): Unit = bufferUnsafe.append2(newElem.dbl1, newElem.dbl2)
+  final override def apply(index: Int): B = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
+  final override def index(i: Int): B = elemFromDbls(bufferUnsafe(i * 2), bufferUnsafe(i * 2 + 1))
+  final override def setElemUnsafe(i: Int, newElem: B): Unit = bufferUnsafe.setIndex2(i, newElem.dbl1, newElem.dbl2)
   override def fElemStr: B => String = _.toString
 }
 

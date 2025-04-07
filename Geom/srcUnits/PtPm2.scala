@@ -130,9 +130,9 @@ object PtPm2Arr extends CompanionSeqLikeDbl2[PtPm2, PtPm2Arr]
 }
 
 /** A specialised flat [[ArrayBuffer]][Double] based class for [[PtPm2]]s collections. */
-final class PtPm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtPm2]
+final class PtPm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtPm2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
 }
 
 object PtPm2Buff
@@ -140,9 +140,8 @@ object PtPm2Buff
 }
 
 /** [[PairElem]] class for [[PtPm2]]s. Allows for the efficient storage of sequences in [[PtPm2PairArr]]s. */
-class PtPm2Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a2: A2) extends PairDbl2Elem[PtPm2, A2] {
-  override def a1: PtPm2 = PtPm2(a1Dbl1, a1Dbl2)
-
+class PtPm2Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a2: A2) extends PairDbl2Elem[PtPm2, A2]
+{ override def a1: PtPm2 = PtPm2(a1Dbl1, a1Dbl2)
   override def toString: String = s"$a2; $a1Dbl1, $a1Dbl2"
 }
 
@@ -173,27 +172,19 @@ object PtPm2PairArr
   def apply[A2](arr1: PtPm2Arr, rArr2: RArr[A2]): PtPm2PairArr[A2] = new PtPm2PairArr[A2](arr1.arrayUnsafe, rArr2.arrayUnsafe)
 }
 
-class PtPm2PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl2[PtPm2, B2, PtPm2Pair[B2]] {
-  override type ThisT = PtPm2PairBuff[B2]
-
+class PtPm2PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl2[PtPm2, B2, PtPm2Pair[B2]]
+{ override type ThisT = PtPm2PairBuff[B2]
   override def typeStr: String = "PtPm2PairBuff"
-
-  override def newElem(dbl1: Double, dbl2: Double, a2: B2): PtPm2Pair[B2] = new PtPm2Pair[B2](dbl1, dbl2, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, a2: B2): PtPm2Pair[B2] = new PtPm2Pair[B2](dbl1, dbl2, a2)
 }
 
-class PtPm2PairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairDbl2Map[PtPm2, PtPm2Arr, B2, PtPm2Pair[B2], PtPm2PairArr[B2]] {
-  override type BuffT = PtPm2PairBuff[B2]
+class PtPm2PairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairDbl2Map[PtPm2, PtPm2Arr, B2, PtPm2Pair[B2], PtPm2PairArr[B2]]
+{ override type BuffT = PtPm2PairBuff[B2]
   override type B1BuffT = PtPm2Buff
   override implicit val b2ClassTag: ClassTag[B2] = ct
-
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtPm2PairBuff[B2] = new PtPm2PairBuff[B2](a1Buffer, a2Buffer)
-
   override def b1ArrBuilder: BuilderArrMap[PtPm2, PtPm2Arr] = PtPm2.arrMapBuilderEv
-
   override def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): PtPm2PairArr[B2] = new PtPm2PairArr[B2](b1ArrayDbl, b2Array)
-
-  //override def arrFromArrAndArray(b1Arr: PtPm2Arr, b2s: Array[B2]): PtPm2PairArr[B2] = new PtPm2PairArr[B2]()
-
   override def newB1Buff(): PtPm2Buff = PtPm2Buff()
 }
 
@@ -244,7 +235,7 @@ class VecPm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecPm2]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[VecPm2]] collections. */
-final class VecPm2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[VecPm2]
+final class VecPm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[VecPm2]
 { override def typeStr: String = "VecPm2Buff"
-  def newElem(d1: Double, d2: Double): VecPm2 = VecPm2(d1, d2)
+  def elemFromDbls(d1: Double, d2: Double): VecPm2 = VecPm2(d1, d2)
 }

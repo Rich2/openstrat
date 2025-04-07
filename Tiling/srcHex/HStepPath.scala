@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import annotation._, geom._, reflect.ClassTag
+import geom.*, annotation.*, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
@@ -89,11 +89,11 @@ object HStepPath
 }
 
 /** An [[Arr]] of paths consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HStepPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntBackedArr[HStepPath]
+class HStepPathArr(val arrayOfArraysUnsafe: Array[Array[Int]]) extends ArrArrayInt[HStepPath]
 { override type ThisT = HStepPathArr
   override def typeStr: String = "HDirnPathArr"
-  override def unsafeFromArrayArray(array: Array[Array[Int]]): HStepPathArr = new HStepPathArr(array)
-  override def apply(index: Int): HStepPath = new HStepPath(unsafeArrayOfArrays(index))
+  override def fromArrayArray(array: Array[Array[Int]]): HStepPathArr = new HStepPathArr(array)
+  override def elemFromArray(array: Array[Int]): HStepPath = new HStepPath(array)
   override def fElemStr: HStepPath => String = _.toString
 }
 

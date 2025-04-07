@@ -149,13 +149,18 @@ object PtKm3
   implicit val lineSegBuildEv: LineSegLikeBuilderMap[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
+trait PtKm3SeqLike extends Any, SeqLikeDbl3[PtKm3]
+{ final override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
+  final override def fElemStr: PtKm3 => String = _.str
+}
+
+trait PtKm3SeqSpec extends PtKm3SeqLike, SeqSpecDbl3[PtKm3]
+
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */
-class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtKm3]
+class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtKm3SeqLike, ArrDbl3[PtKm3]
 { type ThisT = PtKm3Arr
   def fromArray(array: Array[Double]): ThisT = new PtKm3Arr(array)
-  override def typeStr: String = "Metres3s"
-  override def fElemStr: PtKm3 => String = _ => "Undefined" //_.str
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
+  override def typeStr: String = "PtKm3Arr"
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its on the side
    * of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative points are moved to the
@@ -211,9 +216,9 @@ object PtKm3Arr extends CompanionSeqLikeDbl3[PtKm3, PtKm3Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
-final class PtKm3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtKm3]
+final class PtKm3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtKm3]
 { override def typeStr: String = "BuffPtMetre3"
-  def newElem(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
+  def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
 }
 
 object PtKm3Buff
@@ -239,7 +244,7 @@ class PtKm3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ex
 class PtKm3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl3[PtKm3, B2, PtKm3Pair[B2]]
 { override type ThisT = PtKm3PairBuff[B2]
   override def typeStr: String = "PtKm3PairBuff"
-  override def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): PtKm3Pair[B2] = new PtKm3Pair[B2](dbl1, dbl2, dbl3, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): PtKm3Pair[B2] = new PtKm3Pair[B2](dbl1, dbl2, dbl3, a2)
 }
 
 /** Map builder for [[PtKm3PairArr]]s. */

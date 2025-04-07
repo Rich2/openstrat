@@ -1,13 +1,13 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import Colour._, collection.mutable.ArrayBuffer
+import Colour.*, collection.mutable.ArrayBuffer
 
 /** Specialist Arr, immutable sequence Array[Int] based class for [[Colour]]s. */
-final class ColourArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[Colour]
+final class ColourArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt1[Colour]
 { type ThisT = ColourArr
   override def fromArray(array: Array[Int]): ColourArr = new ColourArr(array)
   override def typeStr: String = "Colours"
-  override def newElem(intValue: Int): Colour = Colour(intValue)
+  override def elemFromInt(intValue: Int): Colour = Colour(intValue)
   override def fElemStr: Colour => String = _.str
 }
 
@@ -44,7 +44,7 @@ object ColourArr
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class ColourBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with BuffInt1[Colour]
+class ColourBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, BuffInt1[Colour]
 { override def typeStr: String = "ColourBuff"
   def newElem(i1: Int): Colour = new Colour(i1)
 }

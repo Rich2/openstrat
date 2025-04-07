@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag
+import annotation.*, reflect.ClassTag
 
 /** [[PairElem]] where the first component of the pair is a [[Dbl2Elem]]. */
 trait PairDbl2Elem[A1 <: Dbl2Elem, A2] extends PairDblNElem[A1, A2]
@@ -16,6 +16,7 @@ trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1
   def newPair(dbl1: Double, dbl2: Double, a2: A2): A
 
   final override def apply(index: Int): A = newPair(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
+  final override def index(i: Int): A = newPair(a1ArrayDbl(i * 2), a1ArrayDbl(i * 2 + 1), a2Array(i))
 
   final override def setElemUnsafe(i: Int, newElem: A): Unit =
   { a1ArrayDbl.setIndex2(i, newElem.a1Dbl1, newElem.a1Dbl2)
@@ -43,8 +44,10 @@ trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1
 /** Efficient buffer for [[PairDbl2Elem]]s. */
 trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPairDblN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
-  def newElem(dbl1: Double, dbl2: Double, a2: A2): A
-  inline final override def apply(index: Int): A = newElem(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
+  def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): A
+
+  inline final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
+  final override def index(i: Int): A = elemFromDbls(b1DblBuffer (i * 2), b1DblBuffer(i * 2 + 1), b2Buffer(i))
 
   override final def grow(newElem: A): Unit =
   { b1DblBuffer.append2(newElem.a1Dbl1, newElem.a1Dbl2)

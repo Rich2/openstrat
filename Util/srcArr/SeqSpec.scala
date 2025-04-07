@@ -6,14 +6,7 @@ import annotation.unchecked.uncheckedVariance
  * polygons and line paths that can be specified by a sequence of points. It is possible for the specifying sequence to be a reference type. */
 trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqSpec[A]
-
-  /** Accesses the specifying sequence element by a 0 based index. */
-  @inline def index(index: Int): A
-
-  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
-   * will be a multiple of this number. */
-  def numElems: Int
-
+  
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   override def foreach[U](f: A => U): Unit =
   { var i = 0

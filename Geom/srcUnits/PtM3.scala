@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import math.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** 3-dimensional point specified using [[Metres]] as units rather than pure numbers. */
 final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum: Double) extends PtLength3
@@ -125,11 +125,11 @@ object PtM3
   /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
   implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metreNum)
 
-  /** [[]] */
+  /** [[BuilderArrPair]] type class instance / evidence for [[PtM3]]. */
   implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
 
-  /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function
-   * where PtM3 is the type B parameter. */
+  /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function where
+   * [[PtM3]] is the type B parameter. */
   implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
   implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtM3, LinePathM3] = new LinePathDbl3MapBuilder[PtM3, LinePathM3]
@@ -148,16 +148,16 @@ object PtM3
 }
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */
-class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtM3]
+class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
 { type ThisT = PtM3Arr
   def fromArray(array: Array[Double]): ThisT = new PtM3Arr(array)
   override def typeStr: String = "Metres3s"
   override def fElemStr: PtM3 => String = _ => "Undefined" //_.str
   override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
 
-  /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
-   *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
-   *  points are moved to the horizon. */
+  /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its on the side
+   * of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative points are moved to the
+   * horizon. */
   def earthZPositive: OptEither[PtM2Arr, CurveSegMArrOld] =
   {
     existsCount(_.z.nonNeg) match
@@ -208,9 +208,9 @@ object PtM3Arr extends CompanionSeqLikeDbl3[PtM3, PtM3Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
-final class PtM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtM3]
+final class PtM3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, Dbl3Buff[PtM3]
 { override def typeStr: String = "BuffPtMetre3"
-  def newElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
+  def elemFromDbls(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
 }
 
 object PtM3Buff
@@ -235,7 +235,7 @@ class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ext
 class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl3[PtM3, B2, PtM3Pair[B2]]
 { override type ThisT = PtM3PairBuff[B2]
   override def typeStr: String = "PtM3PairBuff"
-  override def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): PtM3Pair[B2] = new PtM3Pair[B2](dbl1, dbl2, dbl3, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): PtM3Pair[B2] = new PtM3Pair[B2](dbl1, dbl2, dbl3, a2)
 }
 
 /** Map builder for [[PtM3PairArr]]s. */

@@ -83,7 +83,7 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
    * second components of the pairs. */
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
 
-  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.intForeach(buff.unsafeBuffer.append(_))
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.intForeach(buff.bufferUnsafe.append(_))
   final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Int](length), new ArrayBuffer[B2](length))
   final override def buffToSeqLike(buff: BuffT): ArrB = arrFromArrays(buff.b1IntBuffer.toArray, buff.b2Buffer.toArray)
   final override def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB = arrFromArrays(b1Buff.toArray, b2Buffer.toArray)

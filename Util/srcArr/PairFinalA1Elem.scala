@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -26,13 +26,14 @@ trait PairArrFinalA1[A1, A1Arr <: Arr[A1], A2, A <: PairFinalA1Elem[A1, A2]] ext
 
 /** An efficient [[BuffSequ]] for [[PairFinalA1Elem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
  * because these [[BuffSequ]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
-trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any with BuffSequ[B]
+trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any, BuffSequ[B]
 { /** ArrayBuffer for the B2 components of the pairs. */
   def b2Buffer: ArrayBuffer[B2]
 
   /** Grows a [[BuffPair]] by adding the elements of the pair to the b1 and b2 buffers. */
   def pairGrow(b1: B1, b2: B2): Unit
 
-  override def length: Int = b2Buffer.length
+  final override def length: Int = b2Buffer.length
+  final override def numElems: Int = b2Buffer.length
   override def fElemStr: B => String = _.toString
 }

@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer
 
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
-final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruct with TellInt3 with Int3Elem with SpecialT
+final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruct, TellInt3, Int3Elem, SpecialT
 { override def typeStr: String = "HCenRow"
   inline override def int1: Int = r
   inline override def int2: Int = cStart
@@ -76,15 +76,15 @@ object HCenRow
   }
 }
 
-class HCenRowArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt3[HCenRow]
+class HCenRowArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt3[HCenRow]
 { override type ThisT = HCenRowArr
   override def typeStr: String = "HCenRowArr"
-  override def newElem(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)
+  override def elemFromInts(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)
   override def fromArray(array: Array[Int]): HCenRowArr = new HCenRowArr(array)
   override def fElemStr: HCenRow => String = _.str
 }
 
-class HCenRowBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HCenRow]
+class HCenRowBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HCenRow]
 { override type ThisT = HCenRowBuff
   override type ArrT = HCenRowArr
   override def typeStr: String = "HCenRowBuff"

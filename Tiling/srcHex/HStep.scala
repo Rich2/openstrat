@@ -121,7 +121,7 @@ class HStepLikeArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HSte
 
   override def typeStr: String = "HStepLikeArr"
 
-  override def newElem(intValue: Int): HStepLike = HStepLike.fromInt(intValue)
+  override def elemFromInt(intValue: Int): HStepLike = HStepLike.fromInt(intValue)
 
   override def fromArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
 
@@ -139,7 +139,7 @@ object HStepLikeArr extends CompanionSeqLikeInt1[HStepLike, HStepLikeArr]
 }
 
 /** ArrayBuffer based buffer class for [[HStepLike]]s. */
-class HStepLikeBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with BuffInt1[HStepLike]
+class HStepLikeBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal with BuffInt1[HStepLike]
 { override def typeStr: String = "HStepLikeBuff"
   def newElem(i1: Int): HStepLike = HStepLike.fromInt(i1)
 }
@@ -152,7 +152,7 @@ object HStepLikeBuff
 class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
 { override type ThisT = HStepArr
   override def typeStr: String = "HSteps"
-  override def newElem(intValue: Int): HStep = HStep.fromInt(intValue)
+  override def elemFromInt(intValue: Int): HStep = HStep.fromInt(intValue)
   override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
   override def fElemStr: HStep => String = _.toString
   def segsNum: Int = arrayUnsafe.length
@@ -232,7 +232,7 @@ object HStepArr extends CompanionSeqLikeInt1[HStep, HStepArr]
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with BuffInt1[HStep]
+class HStepBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal with BuffInt1[HStep]
 { override def typeStr: String = "HStepBuff"
   def newElem(i1: Int): HStep = HStep.fromInt(i1)
 }
@@ -241,12 +241,12 @@ object HStepBuff
 { def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new ArrayBuffer[Int](initLen))
 }
 
-class HStepArrArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntBackedArr[HStepArr]
+class HStepArrArr(val arrayOfArraysUnsafe: Array[Array[Int]]) extends ArrArrayInt[HStepArr]
 { override type ThisT = HStepArrArr
   override def typeStr: String = "HStepArrArr"
-  override def apply(index: Int): HStepArr = new HStepArr(unsafeArrayOfArrays(index))
-  override def unsafeFromArrayArray(array: Array[Array[Int]]): HStepArrArr = new HStepArrArr(array)
-  override def fElemStr: HStepArr => String = ???
+  override def elemFromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+  override def fromArrayArray(array: Array[Array[Int]]): HStepArrArr = new HStepArrArr(array)
+  override def fElemStr: HStepArr => String = _.toString
 }
 
 class HStepArrPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HStepArr, A2]
@@ -260,5 +260,5 @@ class HStepArrPairArr[A2](val a1ArrayArrayInts: Array[Array[Int]], val a2Array: 
   override def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): HStepArrPairArr[A2] = new HStepArrPairArr[A2](array1, array2)
   override def elemFromComponents(a1: Array[Int], a2: A2): HStepArrPair[A2] = new HStepArrPair[A2](a1, a2)
   override def a1Arr: HStepArrArr = new HStepArrArr(a1ArrayArrayInts)
-  override def fElemStr: HStepArrPair[A2] => String = ???
+  override def fElemStr: HStepArrPair[A2] => String = _.toString
 }

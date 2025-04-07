@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag
+import annotation.*, reflect.ClassTag
 
 /** [[PairElem]] where the first component of the pair is a [[Dbl3Elem]]. */
 trait PairDbl3Elem[A1 <: Dbl3Elem, A2] extends PairDblNElem[A1, A2]
@@ -21,8 +21,8 @@ trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1
 
   final override def a1NumDbl: Int = 3
   final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
-  override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
-
+  final override def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
+  final override def index(i: Int): A = newPair(a1ArrayDbl(i * 3), a1ArrayDbl(i * 3 + 1), a1ArrayDbl(i * 3 + 2), a2Array(i))
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayDbl.setIndex3(index, value.dbl1, value.dbl2, value.dbl3)
 
   final override def setElemUnsafe(i: Int, newElem: A): Unit =
@@ -46,9 +46,10 @@ trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1
 /** Efficient buffer for [[PairDbl3Elem]]s.  */
 trait BuffPairDbl3[B1 <: Dbl3Elem, B2, B <: PairDbl3Elem[B1, B2]] extends BuffPairDblN[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): B
+  def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): B
 
-  inline final override def apply(index: Int): B = newElem(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
+  final override def apply(index: Int): B = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
+  final override def index(i: Int): B = elemFromDbls(b1DblBuffer (i * 3), b1DblBuffer(i * 3 + 1), b1DblBuffer(i * 3 + 2), b2Buffer(i))
 
   override final def grow(newElem: B): Unit =
   { b1DblBuffer.append3(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3)

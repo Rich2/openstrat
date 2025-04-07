@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, pgui._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import geom.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to
- *  as an [[HCen]] to distinguish it from [[HSep]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
- *  as the first parameter for example  f: (HCen, Pt2) => B. */
-class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
+/** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to as an
+ * [[HCen]] to distinguish it from [[HSep]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s as the first
+ * parameter for example  f: (HCen, Pt2) => B. */
+class HCen(val r: Int, val c: Int) extends HCenOrSep, TCen
 {
   override def equals(that: Any): Boolean = that match
   { case that: HCen if r == that.r & c == that.c => true
@@ -102,7 +102,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
   override def typeStr: String = "HCen"
 
   /** This method needs removal. Step to adjacent hex tile. Will throw exception on illegal value. */
-  def unsafeStepDepr(st: HStep)(implicit grider: HGridSys): HCen = grider.stepEndGet(this, st)// HCen(r + st.r, c + st.c)
+  def unsafeStepDepr(st: HStep)(implicit grider: HGridSys): HCen = grider.stepEndGet(this, st)
 
   /** Step to adjacent hex tile. */
   def stepOpt(st: HStep)(implicit grider: HGridSys): Option[HCen] = grider.stepEndFind(this, st)
@@ -116,9 +116,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
   def stepToUnsafe(step: HStep): HCen = new HCen(r + step.tr, c + step.tc)
 
   /** I don't like this method,at least with this operator. */
-  def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
-
- // def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
+  def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c) 
 
   def neibs: HCenArr = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
 }
@@ -162,9 +160,9 @@ object HCen
 }
 
 /** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
-class HCenArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HCen]
+class HCenArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt2[HCen]
 { type ThisT = HCenArr
-  override def newElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
+  override def elemFromInts(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
   override def typeStr: String = "HCenArr"
   override def fElemStr: HCen => String = _.toString
@@ -172,7 +170,8 @@ class HCenArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HCen]
   def ===(operand: HCenArr): Boolean = arrayUnsafe.sameElements(operand.arrayUnsafe)
 }
 
-/** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
+/** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and
+ * uninitialised methods.. */
 object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
 { def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
@@ -193,7 +192,7 @@ object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
 }
 
 /** Efficient buffer, mutable sequence without fixed length for [[HCen]]s. */
-class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HCen]
+class HCenBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal, BuffInt2[HCen]
 { type ArrT = HCenArr
   override def typeStr: String = "HCenBuff"
   override def newElem(i1: Int, i2: Int): HCen = HCen(i1, i2)

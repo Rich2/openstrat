@@ -70,18 +70,18 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
 }
 
 /** An [[Arr]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an Array of Arrays of
- * Doubles. */
-class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonLL]
+ * [[Double]]s. */
+class PolygonLLArr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLArr
   override def typeStr: String = "PolygonLLArr"
   override def fElemStr: PolygonLL => String = _.toString
-  override def apply(index: Int): PolygonLL = new PolygonLL(unsafeArrayOfArrays(index))
-  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
+  override def elemFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
+  override def fromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
 }
 
 /** An [[BuffSequ]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an ArrayBuffer of
  * Arrays of Doubles. */
-class PolygonLLBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonLL]
+class PolygonLLBuff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLBuff
   override def typeStr: String = "PolygonLLBuff"
   override def fElemStr: PolygonLL => String = _.toString

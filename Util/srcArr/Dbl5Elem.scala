@@ -20,6 +20,9 @@ trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDblN[A]
 
   final override def elemProdSize: Int = 5
 
+  final override def index(i: Int): A = elemFromDbls(arrayUnsafe(5 * i), arrayUnsafe(5 * i + 1), arrayUnsafe(5 * i + 2), arrayUnsafe(5 * i + 3),
+    arrayUnsafe(5 * i + 4))
+  
   final override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit =
     arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 
@@ -29,9 +32,6 @@ trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDblN[A]
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
 trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDbl5[A], SeqSpecDblN[A]
-{ def index(index: Int): A = elemFromDbls(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
-    arrayUnsafe(5 * index + 4))
-}
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
 trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeDbl5[A]
@@ -92,14 +92,17 @@ abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5[A]] exten
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */
 trait BuffDbl5[A <: Dbl5Elem] extends Any, BuffDblN[A]
 { type ArrT <: ArrDbl5[A]
-  override def elemProdSize: Int = 5
-  final override def length: Int = unsafeBuffer.length / 5
-  def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-  override def grow(newElem: A): Unit = unsafeBuffer.append5(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
+  final override def elemProdSize: Int = 5
+  final override def length: Int = bufferUnsafe.length / 5
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
+  override def grow(newElem: A): Unit = bufferUnsafe.append5(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 
-  override def apply(index: Int): A = newElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2),
-    unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
+  final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 5), bufferUnsafe(index * 5 + 1), bufferUnsafe(index * 5 + 2),
+    bufferUnsafe(index * 5 + 3), bufferUnsafe(index * 5 + 4))
 
-  override def setElemUnsafe(i: Int, newElem: A): Unit =
-    unsafeBuffer.setIndex5(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
+  final override def index(i: Int): A =
+    elemFromDbls(bufferUnsafe(i * 5), bufferUnsafe(i * 5 + 1), bufferUnsafe(i * 5 + 2), bufferUnsafe(i * 5 + 3), bufferUnsafe(i * 5 + 4))
+
+  final override def setElemUnsafe(i: Int, newElem: A): Unit =
+    bufferUnsafe.setIndex5(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }

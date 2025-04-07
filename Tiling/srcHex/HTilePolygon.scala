@@ -9,7 +9,7 @@ class HTilePolygon(override val arrayUnsafe: Array[Int]) extends SeqSpecInt2[HCe
   override def fromArray(array: Array[Int]): HTilePolygon = new HTilePolygon(array)
   override def fElemStr: HCen => String = _.toString
   override def elemsStr: String = typeStr
-  override def newElem(i1: Int, i2: Int): HCen = new HCen(i1, i2)
+  override def elemFromInts(i1: Int, i2: Int): HCen = new HCen(i1, i2)
 
   def perimeter: PolygonHC = numElems match
   { case 1 => index(0).hVertPolygon

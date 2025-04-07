@@ -13,8 +13,7 @@ trait SeqLikePairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: SeqLike
 
 /** A buffer of [[SeqLikePairElem]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
 trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends BuffPair[A1, A2, A]
-{ def b2Buffer: ArrayBuffer[A2]
-  override def length: Int = b2Buffer.length
+{ def b2Buffer: ArrayBuffer[A2]  
 }
 
 trait SeqLikePairArrBuilder[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikePairElem[B1E, B1, B2], ArrB <: PairArrFinalA1[B1, ArrB1, B2, B]] extends
@@ -87,7 +86,7 @@ trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], ArrB1 <
   /** Construct the final target [[Arr]] type from an Array of Arrays of Doubles and an Array of B2. */
   def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[B2]): ArrB
 
-  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.bufferUnsafe.append(newElem.arrayUnsafe)
   final override def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB = fromArrays(b1Buff.arrayArrayDbl, b2Buffer.toArray)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.b1Buffer.append(newElem.a1ArrayDbl); buff.b2Buffer.append(newElem.a2) }
 }

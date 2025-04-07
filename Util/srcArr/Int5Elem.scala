@@ -32,8 +32,8 @@ trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecInt
   final def elemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
-  override def index(index: Int): A =
-    newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
+  override def index(i: Int): A =
+    newElem(arrayUnsafe(5 * i), arrayUnsafe(5 * i + 1), arrayUnsafe(5 * i + 2), arrayUnsafe(5 * i + 3), arrayUnsafe(5 * i + 4))
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
@@ -67,14 +67,14 @@ trait BuffInt5[A <: Int5Elem] extends Any with BuffIntN[A]
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
   override def elemProdSize: Int = 5
-  final override def length: Int = unsafeBuffer.length / 5
-  final override def grow(newElem: A): Unit = unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
+  final override def length: Int = bufferUnsafe.length / 5
+  final override def grow(newElem: A): Unit = bufferUnsafe.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 
   final override def apply(index: Int): A =
-    newElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2), unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
+    newElem(bufferUnsafe(index * 5), bufferUnsafe(index * 5 + 1), bufferUnsafe(index * 5 + 2), bufferUnsafe(index * 5 + 3), bufferUnsafe(index * 5 + 4))
 
   final override def setElemUnsafe(i: Int, newElem: A): Unit =
-    unsafeBuffer.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
+    bufferUnsafe.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
@@ -92,7 +92,7 @@ trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends Builder
     seqLike.arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 
   final override def buffGrow(buff: BuffT, newElem: B): Unit =
-    buff.unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
+    buff.bufferUnsafe.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrInt5]] final classes. Instances for the [[BuilderArrMap]] type

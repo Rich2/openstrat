@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -12,10 +12,10 @@ trait PairElem[A1, A2] extends Any
 }
 
 /** An [[Arr]] of [[PairElem]]s. These classes allow convenient methods to map and filter on just one component of the pair. They and their associated
- *  [[BuilderArrPairMap]] and [[BuffPair]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather than one
- *  array of the pairs. It is particularly designed for efficient mapOnA1 operations, where we want to map over the first part of the pair while
- *  leaving the second component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
- *  filterMap methods. You must map then filter. */
+ *  [[BuilderArrPairMap]] and [[BuffPair]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather than one array of
+ *  the pairs. It is particularly designed for efficient mapOnA1 operations, where we want to map over the first part of the pair while leaving the second
+ *  component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no filterMap methods. You must map
+ *  then filter. */
 trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 { type ThisT <: ArrPair[A1, A1Arr, A2, A]
 
@@ -31,12 +31,12 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   /** The Array for the A2 components of the pairs. Should be rarely reuired by end user. The a2Arr and the a2RArr methods are generally preferred. */
   def a2Array: Array[A2]
 
-  /** Returns an [[RArr]] of the A2s, even if a better more specialist collection exists for the type. Probably not required most of the time but the
-   * method is included for completeness. */
+  /** Returns an [[RArr]] of the A2s, even if a better more specialist collection exists for the type. Probably not required most of the time but the method is
+   * included for completeness. */
   def a2RArr: RArr[A2] = new RArr[A2](a2Array)
 
-  /** Returns the specialist sequence collection for the A2s, as determined by implicit look up. Probably not required most of the time but the method
-   * is included for completeness. */
+  /** Returns the specialist sequence collection for the A2s, as determined by implicit look up. Probably not required most of the time but the method is
+   * included for completeness. */
   def a2Arr[A2Arr <: Arr[A2]](implicit build: BuilderArrMap[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
 
   /** Maps the first component of the pairs, dropping the second. */
@@ -45,11 +45,9 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   /** Maps the second component of the pairs, dropping the first. */
   def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = a2Array.mapArr(f)
 
-  def pairForeach(f: (A1, A2) => Unit): Unit = {
-    var i = 0
-    while (i < length) {
-      f(a1Index(i), a2Index(i)); i += 1
-    }
+  def pairForeach(f: (A1, A2) => Unit): Unit =
+  { var i = 0
+    while (i < length) { f(a1Index(i), a2Index(i)); i += 1 }
   }
 
   /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type B. */
@@ -81,17 +79,17 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
-  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrFinalA1]] of [[PairFinalA1Elem]][B1, A2]. Then flattens
-   * these new [[PairArrFinalA1]]s to make a single [[PairArrFinalA1]] */
-  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrFinalA1[B1, ArrB1, A2, ?]](f: A1 => ArrB1)(implicit
-    build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]): ArrB = {
-    val buff = build.newBuff()
+  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrFinalA1]] of [[PairFinalA1Elem]][B1, A2]. Then
+   * flattens these new [[PairArrFinalA1]]s to make a single [[PairArrFinalA1]] */
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrFinalA1[B1, ArrB1, A2, ?]](f: A1 => ArrB1)(implicit build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]):
+  ArrB =
+  { val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
   }
 
-  /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
-   * values to make the new pairs of type [[PairFinalA1Elem]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
+  /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2 values to
+   * make the new pairs of type [[PairFinalA1Elem]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairFinalA1Elem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: BuilderArrPairMap[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
@@ -107,23 +105,24 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
-  def filterOnA1(f: A1 => Boolean)(implicit build: BuilderArrPairMap[A1, A1Arr, A2, A, ThisT]): ThisT = {
-    val buff = build.newBuff()
+  def filterOnA1(f: A1 => Boolean)(implicit build: BuilderArrPairMap[A1, A1Arr, A2, A, ThisT]): ThisT =
+  { val buff = build.newBuff()
     pairForeach { (a1, a2) => if (f(a1)) buff.pairGrow(a1, a2) }
     build.buffToSeqLike(buff)
   }
 
   final override def length: Int = a2Array.length
+  final override def numElems: Int = a2Array.length
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you
-   * are uncertain whether this pair sequence contains the A2 key, use the safe a2FindA1 method. */
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you are
+   * uncertain whether this pair sequence contains the A2 key, use the safe a2FindA1 method. */
   def a2GetA1(key: A2): A1 = a2FindA1(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that
-   *  this pair sequence contains the A2 key, use the a2GetA1 method. */
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that this pair
+   * sequence contains the A2 key, use the a2GetA1 method. */
   def a2FindA1(key: A2): Option[A1] =
   { var i = 0
     var res: Option[A1] = None
@@ -134,15 +133,15 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you
-   * are uncertain whether this pair sequence contains the A1 key value, use the safe a1FindA2 method.*/
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you are
+   * uncertain whether this pair sequence contains the A1 key value, use the safe a1FindA2 method.*/
   def a1GetA2(key: A1): A2 = a1FindA2(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that
-   * this pair sequence contains the A1 key, use the a1GetA2 method. */
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that this pair
+   * sequence contains the A1 key, use the a1GetA2 method. */
   def a1FindA2(key: A1): Option[A2] =
   { var i = 0
     var res: Option[A2] = None
@@ -176,8 +175,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
 /** Base trait for building [[ArrPair]] objects via map and flatMap methods. */
 trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]] extends BuilderSeqLike[ArrB]
-{
-  type BuffT <: BuffPair[B1, B2, ?]
+{ type BuffT <: BuffPair[B1, B2, ?]
 
   /** The type of the [[BuffSequ]] for accumulating B1s. */
   type B1BuffT <: BuffSequ[B1]
@@ -197,8 +195,8 @@ trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]
   def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB
 }
 
-/** Builder for [[ArrPair]] objects via the map f: A => PairB, method. Hence the call site knows the type of the [[PairElem]]s that will make up the
- *  final [[Arr]] object. */
+/** Builder for [[ArrPair]] objects via the map f: A => PairB, method. Hence the call site knows the type of the [[PairElem]]s that will make up the final
+ * [[Arr]] object. */
 trait BuilderArrPairMap[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: ArrPair[B1, ArrB1, B2, B]] extends
   BuilderArrPair[B1, ArrB1, B2, ArrB] with BuilderArrMap[B, ArrB]
 {

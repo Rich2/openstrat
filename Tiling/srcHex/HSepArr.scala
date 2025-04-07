@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 /** An efficient array[Int] based collection for [[HSep]]s hex grid centre coordinates. */
 class HSepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HSep]
 { type ThisT = HSepArr
-  override def newElem(int1: Int, int2: Int): HSep = HSep(int1, int2)
+  override def elemFromInts(int1: Int, int2: Int): HSep = HSep(int1, int2)
 
   override def fromArray(array: Array[Int]): HSepArr = new HSepArr(array)
 
@@ -34,7 +34,7 @@ object HSepArr extends CompanionSeqLikeInt2[HSep, HSepArr]
 }
 
 /** Efficient buffer class for [[HSep]]s. */
-class HSepBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HSep]
+class HSepBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HSep]
 { type ArrT = HSepArr
   override def typeStr: String = "HSideBuff"
   override def newElem(i1: Int, i2: Int): HSep = HSep(i1, i2)

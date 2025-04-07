@@ -194,7 +194,7 @@ case object HVLt extends HVDirn
 class HVDirnArr(val arrayUnsafe: Array[Int]) extends ArrInt1[HVDirnOpt]
 { override type ThisT = HVDirnArr
   override def typeStr: String = "HDirnArr"
-  override def newElem(intValue: Int): HVDirnOpt = HVDirnOpt.fromInt(intValue)
+  override def elemFromInt(intValue: Int): HVDirnOpt = HVDirnOpt.fromInt(intValue)
   override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
   override def fElemStr: HVDirnOpt => String = _.toString
 }

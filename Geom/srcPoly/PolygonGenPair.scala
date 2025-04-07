@@ -18,9 +18,9 @@ final class PolygonGenPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2A
   override def fElemStr: PolygonGenPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairArray"
   override def apply(index: Int): PolygonGenPair[A2] = new PolygonGenPair[A2](a1ArrayDbls(index), a2Array(index))
+  override def index(i: Int): PolygonGenPair[A2] = new PolygonGenPair[A2](a1ArrayDbls(i), a2Array(i))
   override def a1Arr: PolygonGenArr = new PolygonGenArr(a1ArrayDbls)
-  override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](array1, array2)
- // override def a1Buff: PolygonBuff = PolygonBuff()
+  override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](array1, array2) 
   override def a1FromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 }
 
@@ -36,17 +36,19 @@ final class PolygonGenPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
   override def buffToSeqLike(buff: PolygonGenPairBuff[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
   override def b1Builder: PolygonLikeBuilderMap[Pt2, PolygonGen] = Pt2.polygonMapBuildEv
   override def b1ArrBuilder: BuilderArrMap[PolygonGen, PolygonGenArr] = PolygonGen.buildArrMapEv
-  override def arrFromArrAndArray(b1Arr: PolygonGenArr, b2s: Array[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
+  override def arrFromArrAndArray(b1Arr: PolygonGenArr, b2s: Array[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonGenBuff = PolygonGenBuff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](arrayArrayDbl, a2Array)
 }
 
-class PolygonGenPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends SeqLikeDblNPairBuff[Pt2, PolygonGen, A2, PolygonGenPair[A2]]
+class PolygonGenPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
+  SeqLikeDblNPairBuff[Pt2, PolygonGen, A2, PolygonGenPair[A2]]
 { override type ThisT = PolygonGenPairBuff[A2]
   override def setElemUnsafe(i: Int, newElem: PolygonGenPair[A2]): Unit = { b1Buffer(i) = newElem.a1ArrayDbl; b2Buffer(i) = newElem.a2 }
   override def fElemStr: PolygonGenPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairBuff"
   override def apply(index: Int): PolygonGenPair[A2] = new PolygonGenPair[A2](b1Buffer(index), b2Buffer(index))
+  override def index(i: Int): PolygonGenPair[A2] = new PolygonGenPair[A2](b1Buffer(i), b2Buffer(i))
 }
 
 object PolygonGenPairBuff
