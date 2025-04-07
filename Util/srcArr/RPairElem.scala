@@ -1,10 +1,13 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** R for stored by reference. The generalised default [[PairFinalA1Elem]], that can be stored in the default unspecialised. Note although they are named as
  * reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 final class RPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
+{
+  override def toString = "RPairElem".appendParenthSemis(a1.toString, a2.toString)
+}
 
 /** R for stored by reference. The generalised default [[PAirArr]] for types that do not have their own specialised classes. Note although they are named as
  * reference [[ArrPair]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */

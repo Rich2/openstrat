@@ -206,7 +206,7 @@ package object ostrat
   }
 
   /** Maps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step value is 1.
-   * Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
+   * Throws on non-termination. Method name overloaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
@@ -279,14 +279,13 @@ package object ostrat
   }
 
   /** Determines if the predicate applies all integers in the range. Returns true if the range integer is negative. */
-  def iUntilForall(iUntil: Int)(f: Int => Boolean): Boolean =
-    if (iUntil < 0) true
-    else
-    { var i: Int = 0
-      var res = true
-      while (i < iUntil && res == true) if(f(i)) i += 1 else res = false
-      res
-    }
+  def iUntilForall(iUntil: Int)(f: Int => Boolean): Boolean = if (iUntil < 0) true
+  else
+  { var i: Int = 0
+    var res = true
+    while (i < iUntil && res == true) if(f(i)) i += 1 else res = false
+    res
+  }
 
   /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or equal to)
    * the end value in integer steps. Default step value is 1. Throws on non-termination. */

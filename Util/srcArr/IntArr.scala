@@ -83,10 +83,12 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrNoParam[I
   }
 }
 
-/** Companion object for the [[IntArr]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and
- * implicit type class instances. */
+/** Companion object for the [[IntArr]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and implicit
+ * type class instances. */
 object IntArr
 { def apply(input: Int*): IntArr = new IntArr(input.toArray)
+
+  def uninitialised(length: Int): IntArr = new IntArr(new Array[Int](length))
 
   implicit val eqImplicit: EqT[IntArr] = (a1, a2) =>
     if(a1.length != a2.length) false
