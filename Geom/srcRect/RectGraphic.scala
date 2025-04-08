@@ -1,19 +1,19 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.Colour.Black, pWeb._
+import ostrat.Colour.Black, pWeb.*
 
 /** A graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
-trait RectGraphic extends RectangleGraphic with ShapeGraphicOrdinaled
+trait RectGraphic extends RectangleGraphic, ShapeGraphicOrdinaled
 { override def shape: Rect
 }
 
 /** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
-trait RectGraphicSimple extends RectGraphic with RectangleGraphicSimple
+trait RectGraphicSimple extends RectGraphic, RectangleGraphicSimple
 { override def svgElem: SvgElem = SvgRect(attribs)
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
-trait RectFill extends RectGraphicSimple with RectangleFill
+trait RectFill extends RectGraphicSimple, RectangleFill
 { type ThisT <: RectFill
   override def slate(operand: VecPt2): RectFill
   override def slate(xOperand: Double, yOperand: Double): RectFill
@@ -54,7 +54,7 @@ object RectFill
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
-trait RectDraw extends RectGraphicSimple with RectangleDraw
+trait RectDraw extends RectGraphicSimple, RectangleDraw
 
 /** Companion object for the [[RectDraw]] trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
 object RectDraw
@@ -67,7 +67,7 @@ object RectDraw
 }
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
-trait RectCompound extends RectGraphic with RectangleCompound
+trait RectCompound extends RectGraphic, RectangleCompound
 {
   override def shape: Rect
 

@@ -18,13 +18,12 @@ trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeIntN[A]
   final override def elemProdSize: Int = 2
   final override def elem(index: Int): A = elemFromInts(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def numElems: Int = arrayUnsafe.length
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)  
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)
+  final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
 }
 
 /** A specialised immutable, flat [[Array]][Int] based trait defined by a data sequence of a type of [[Int2Elem]]s. */
 trait SeqSpecInt2[A <: Int2Elem] extends Any, SeqLikeInt2[A], SeqSpecIntN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
-}
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
 trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SeqLikeInt2[A]
@@ -32,7 +31,6 @@ trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SeqLikeInt2[A]
   def head2: Int = arrayUnsafe(1)
   final override def length: Int = arrayUnsafe.length / 2
   final override def apply(index: Int): A = elemFromInts(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
-  override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
 
   @targetName("appendElem") final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 2)
