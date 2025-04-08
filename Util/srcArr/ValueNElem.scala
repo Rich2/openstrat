@@ -86,7 +86,6 @@ trait BuffValueN[A <: ValueNElem] extends Any, BuffSequ[A], SeqLikeValueN[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
-  override def fElemStr: A => String = _.toString
 }
 
 /** Base trait for all [[SeqLikeValueNImut]] builders. */

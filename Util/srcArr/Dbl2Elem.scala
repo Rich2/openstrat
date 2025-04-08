@@ -14,17 +14,17 @@ trait Dbl2Elem extends Any, DblNElem
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
 trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any, SeqLikeValueN[A]
-{ final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+{ /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double): A
+
+  final override def elemProdSize: Int = 2
+  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
 trait SeqLikeDbl2Imut[+A <: Dbl2Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl2[A]
-{ override def elemProdSize: Int = 2
+{
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
-
-  /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be the type of the elements of the
-   * sequence. */
-  def elemFromDbls(d1: Double, d2: Double): A
 
   /** Produces a new [[Array]][Double] of the same size, with the functions acting on the first and second [[Double]] of each element. */
   def arrayUnsafeMap2(f1: Double => Double, f2: Double => Double): Array[Double] =
@@ -193,20 +193,14 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2Imut[A]] extends Comp
 }
 
 /** [[BuffSequ]] class for building [[Dbl2Elem]]s collections. */
-trait BuffDbl2[B <: Dbl2Elem] extends Any, BuffDblN[B], SeqLikeDbl2[B]
-{ type ArrT <: ArrDbl2[B]
-
-  /** Constructs a new element of this [[BuffSequ]] from 2 [[Double]]s. */
-  def elemFromDbls(d1: Double, d2: Double): B
-
+trait BuffDbl2[A <: Dbl2Elem] extends Any, BuffDblN[A], SeqLikeDbl2[A]
+{ type ArrT <: ArrDbl2[A]
   final override def length: Int = bufferUnsafe.length / 2
   final override def numElems: Int = bufferUnsafe.length / 2
-  final override def elemProdSize: Int = 2
-  final override def grow(newElem: B): Unit = bufferUnsafe.append2(newElem.dbl1, newElem.dbl2)
-  final override def apply(index: Int): B = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
-  final override def elem(index: Int): B = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
-  final override def setElemUnsafe(index: Int, newElem: B): Unit = bufferUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
-  override def fElemStr: B => String = _.toString
+  final override def grow(newElem: A): Unit = bufferUnsafe.append2(newElem.dbl1, newElem.dbl2)
+  final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
+  final override def elem(index: Int): A = elemFromDbls(bufferUnsafe(index * 2), bufferUnsafe(index * 2 + 1))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 trait CompanionBuffDbl2[A <: Dbl2Elem, AA <: BuffDbl2[A]] extends CompanionBuffDblN[A, AA]

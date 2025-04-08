@@ -30,7 +30,7 @@ trait SeqLike[+A] extends Any
    * methods. */
   def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = ???
 
-  def fElemStr: A@uncheckedVariance => String
+  def fElemStr: A@uncheckedVariance => String = _.toString
 
   /** String specifying the type of this object. */
   def typeStr: String
