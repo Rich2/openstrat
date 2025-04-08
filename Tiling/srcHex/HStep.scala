@@ -141,7 +141,7 @@ object HStepLikeArr extends CompanionSeqLikeInt1[HStepLike, HStepLikeArr]
 /** ArrayBuffer based buffer class for [[HStepLike]]s. */
 class HStepLikeBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal with BuffInt1[HStepLike]
 { override def typeStr: String = "HStepLikeBuff"
-  def newElem(i1: Int): HStepLike = HStepLike.fromInt(i1)
+  def elemFromInt(i1: Int): HStepLike = HStepLike.fromInt(i1)
 }
 
 object HStepLikeBuff
@@ -234,7 +234,7 @@ object HStepArr extends CompanionSeqLikeInt1[HStep, HStepArr]
 /** ArrayBuffer based buffer class for Colours. */
 class HStepBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal with BuffInt1[HStep]
 { override def typeStr: String = "HStepBuff"
-  def newElem(i1: Int): HStep = HStep.fromInt(i1)
+  def elemFromInt(i1: Int): HStep = HStep.fromInt(i1)
 }
 
 object HStepBuff

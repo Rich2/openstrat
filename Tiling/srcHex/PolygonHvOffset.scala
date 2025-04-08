@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A polygon where the vertices are specified in [[HvOffset]]s. */
 class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, PolygonLikeInt3[HvOffset]
@@ -34,6 +34,6 @@ trait PolgonHVAndOffsetCommonBuilder extends BuilderSeqLikeInt3[PolygonHvOffset]
   override def fromIntBuffer(inp: ArrayBuffer[Int]): HvOffsetBuff = new HvOffsetBuff(inp)
 }
 
-class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3BuilderMap[HvOffset, PolygonHvOffset]
+class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder, PolygonInt3BuilderMap[HvOffset, PolygonHvOffset]
 
-class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3FlatBuilder[HvOffset, PolygonHvOffset]
+class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder, PolygonInt3FlatBuilder[HvOffset, PolygonHvOffset]

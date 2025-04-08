@@ -244,7 +244,7 @@ object SqStepArr
 /** ArrayBuffer based buffer class for Colours. */
 class SqDirnBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal with BuffInt1[SqStep]
 { override def typeStr: String = "SqDirnBuff"
-  def newElem(i1: Int): SqStep = SqStep.fromInt(i1)
+  def elemFromInt(i1: Int): SqStep = SqStep.fromInt(i1)
 }
 
 object SqDirnBuff

@@ -10,12 +10,12 @@ trait Int2Elem extends Any, IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = buffer.append2(int1, int2)
 }
 
-/** Specialised flat [[Array]][Int] based classes. */
+/** Common trait for [[SeqLike]] classes that have [[Int2Elem]] elements. They maybe backed by an [[Array]] or an [[ArrayBuffer]]. */
 trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeValueN[A]
 { final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
 }
 
-/** Specialised immutable flat [[Array]][Int] based classes. */
+/** Common trait for immutable [[Arr]] and [[SeqSpec]] classes specified by [[Int2Elem]]s with a backing [[Array]]. */
 trait SeqLikeInt2Imut[A <: Int2Elem] extends Any, SeqLikeInt2[A], SeqLikeIntNImut[A]
 { /** Constructs an element from 2 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int): A

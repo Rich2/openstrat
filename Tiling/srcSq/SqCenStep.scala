@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import geom.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A hex grid step representing the starting [[SqCen]] of the step as well as the [[SqStep]] singleton object itself. */
 class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem

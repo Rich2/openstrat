@@ -13,17 +13,17 @@ trait Int1Elem extends Any with IntNElem
 
 /** [[SeqLike]] trait for classes specified by a single [[Int]]. */
 trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeValueN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
-}
-
-/** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt1[A]
 { /** Constructs an element of the specifying sequence from an [[Int]] value. */
   def elemFromInt(intValue: Int): A
 
   final override def elemProdSize: Int = 1
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
-  final override def numElems: Int = 1
+  final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
+}
+
+/** [[SeqLike]] trait for classes specified by a single [[Int]]. */
+trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt1[A]
+{ final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
+  final override def numElems: Int = arrayLen
   final override def elem(index: Int): A = elemFromInt(arrayUnsafe(index))
 }
 
@@ -45,19 +45,15 @@ trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
-{ type ThisT <: BuffInt1[A]
-
-  /** Constructs a new element of this [[BuffSequ]] from a single [[Int]]. */
-  def newElem(value: Int): A
+trait BuffInt1[B <: Int1Elem] extends Any, BuffIntN[B], SeqLikeInt1[B]
+{ type ThisT <: BuffInt1[B]
 
   final override def length: Int = bufferUnsafe.length
   final override def numElems: Int = bufferUnsafe.length
-  final override def apply(i1: Int): A = newElem(bufferUnsafe(i1))
-  final override def elem(index: Int): A = newElem(bufferUnsafe(index))
-  override def elemProdSize: Int = 1
-  override def grow(newElem: A): Unit = { bufferUnsafe.append(newElem.int1); () }
-  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem.int1
+  final override def apply(i1: Int): B = elemFromInt(bufferUnsafe(i1))
+  final override def elem(index: Int): B = elemFromInt(bufferUnsafe(index))
+  override def grow(newElem: B): Unit = { bufferUnsafe.append(newElem.int1); () }
+  override def setElemUnsafe(index: Int, newElem: B): Unit = bufferUnsafe(index) = newElem.int1
 }
 
 /** Base trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */

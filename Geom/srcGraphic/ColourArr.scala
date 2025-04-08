@@ -46,7 +46,7 @@ object ColourArr
 /** ArrayBuffer based buffer class for Colours. */
 class ColourBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, BuffInt1[Colour]
 { override def typeStr: String = "ColourBuff"
-  def newElem(i1: Int): Colour = new Colour(i1)
+  def elemFromInt(i1: Int): Colour = new Colour(i1)
 }
 
 object ColourBuff {
