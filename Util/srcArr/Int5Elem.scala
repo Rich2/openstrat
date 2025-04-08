@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 5 [[Int]]s. These are used in [[ArrInt5]] Array[Int] based collections. */
-trait Int5Elem extends Any with IntNElem
+trait Int5Elem extends Any, IntNElem
 { def int1: Int
   def int2: Int
   def int3: Int
@@ -16,32 +16,38 @@ trait Int5Elem extends Any with IntNElem
     buffer.append(int4); buffer.append(int5) }
 }
 
+/** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s. */
+trait SeqLikeInt5[A <: Int5Elem] extends Any, SeqLikeValueN[A]
+{
+
+}
+
 /** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s.  */
-trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntNImut[A]
+trait SeqLikeInt5Imut[A <: Int5Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt5[A]
 { final override def elemProdSize: Int = 5
 
-  def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
+  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
     arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** A compound object that is not a sequence but is specified / defined by an [[Int5Elem]] sequence.  */
-trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecIntN[A]
+trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with SeqSpecIntN[A]
 {
   final def elemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
   override def elem(index: Int): A =
-    newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
+    elemFromInts(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with ArrIntN[A]
+trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 5
 
   override def apply(index: Int): A =
-    newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
+    elemFromInts(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 
   def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
@@ -64,28 +70,28 @@ trait BuffInt5[A <: Int5Elem] extends Any with BuffIntN[A]
 { type ThisT <: BuffInt5[A]
 
   /** Constructs a new element of this [[BuffSequ]] from 5 [[Int]]s. */
-  def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
+  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
   override def elemProdSize: Int = 5
   final override def length: Int = bufferUnsafe.length / 5
   final override def grow(newElem: A): Unit = bufferUnsafe.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 
   final override def apply(index: Int): A =
-    newElem(bufferUnsafe(index * 5), bufferUnsafe(index * 5 + 1), bufferUnsafe(index * 5 + 2), bufferUnsafe(index * 5 + 3), bufferUnsafe(index * 5 + 4))
+    elemFromInts(bufferUnsafe(index * 5), bufferUnsafe(index * 5 + 1), bufferUnsafe(index * 5 + 2), bufferUnsafe(index * 5 + 3), bufferUnsafe(index * 5 + 4))
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
     bufferUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
-trait BuilderSeqLikeInt5[BB <: SeqLikeInt5[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt5[BB <: SeqLikeInt5Imut[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt5[?]
   final override def elemProdSize: Int = 5
 }
 
 /** Builder for [[SeqLike]]s with [[Int5]] elements via the map method, where the call site knows the typeof th element, but not the type of compound
  * object. */
-trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5Imut[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =

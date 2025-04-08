@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 3 [[Int]]s. These are used in [[SeqSpecInt3]] based collections. */
-trait Int3Elem extends Any with IntNElem
+trait Int3Elem extends Any, IntNElem
 { def int1: Int
   def int2: Int
   def int3: Int
@@ -50,7 +50,6 @@ trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeInt3Imut[A]
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int3Elem]]s collections. */
 trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SeqLikeInt3[A]
 { type ThisT <: BuffInt3[A]
-
   final override def length: Int = bufferUnsafe.length / 3
   final override def numElems: Int = bufferUnsafe.length / 3
   override def grow(newElem: A): Unit = bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)

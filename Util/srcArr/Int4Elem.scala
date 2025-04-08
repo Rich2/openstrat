@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Int]]s. These are used in [[ArrInt4]] Array[Int] based collections. */
-trait Int4Elem extends Any with IntNElem
+trait Int4Elem extends Any, IntNElem
 { def int1: Int
   def int2: Int
   def int3: Int
@@ -17,23 +17,22 @@ trait Int4Elem extends Any with IntNElem
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
 trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeValueN[A]
-{ final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4)
+{ /** Constructs element [[Int4Elem]] from 4 [[Int]]s. */
+  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
+
+  final override def elemProdSize: Int = 4
+  final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4)
 }
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
 trait SeqLikeInt4Imut[A <: Int4Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt4[A]
-{ /** Constructs element from4 [[Double]]s */
-  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
-
-  final override def elemProdSize: Int = 4
-  final override def numElems: Int = arrayUnsafe.length / 4
+{ final override def numElems: Int = arrayUnsafe.length / 4
   final override def elem(index: Int): A = elemFromInts(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 /** A compound object defined / specified by a sequence of [[Int4Elem]]s. */
 trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], SeqSpecIntN[A]
-
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
 trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], ArrIntN[A]
@@ -58,11 +57,6 @@ trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], ArrIntN[A]
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
 trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SeqLikeInt4[A]
 { type ThisT <: BuffInt4[A]
-
-  /** Constructs a new element of this [[BuffSequ]] form 4 [[Int]]s. */
-  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
-
-  final override def elemProdSize: Int = 4
   final override def length: Int = bufferUnsafe.length / 4
   final override def numElems: Int = bufferUnsafe.length / 4
   final override def grow(newElem: A): Unit = bufferUnsafe.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)

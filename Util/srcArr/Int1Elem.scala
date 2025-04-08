@@ -45,15 +45,15 @@ trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait BuffInt1[B <: Int1Elem] extends Any, BuffIntN[B], SeqLikeInt1[B]
-{ type ThisT <: BuffInt1[B]
+trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
+{ type ThisT <: BuffInt1[A]
 
   final override def length: Int = bufferUnsafe.length
   final override def numElems: Int = bufferUnsafe.length
-  final override def apply(i1: Int): B = elemFromInt(bufferUnsafe(i1))
-  final override def elem(index: Int): B = elemFromInt(bufferUnsafe(index))
-  override def grow(newElem: B): Unit = { bufferUnsafe.append(newElem.int1); () }
-  override def setElemUnsafe(index: Int, newElem: B): Unit = bufferUnsafe(index) = newElem.int1
+  final override def apply(i1: Int): A = elemFromInt(bufferUnsafe(i1))
+  final override def elem(index: Int): A = elemFromInt(bufferUnsafe(index))
+  override def grow(newElem: A): Unit = { bufferUnsafe.append(newElem.int1); () }
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem.int1
 }
 
 /** Base trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
