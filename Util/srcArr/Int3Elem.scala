@@ -21,12 +21,11 @@ trait SeqLikeInt3[A <: Int3Elem] extends Any, SeqLikeIntN[A]
   final override def elem(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayUnsafe.length / 3
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
+  final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int3Elem]]s. */
 trait SeqSpecInt3[A <: Int3Elem] extends Any, SeqLikeInt3[A], SeqSpecIntN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3)
-}
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */
 trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeInt3[A]
@@ -34,8 +33,6 @@ trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeInt3[A]
   def head2: Int = arrayUnsafe(1)
   def head3: Int = arrayUnsafe(2)
   final override def length: Int = arrayUnsafe.length / 3
-
-  override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
   final override def apply(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
   @targetName("appendElem") final override def +%(operand: A): ThisT =
@@ -51,14 +48,14 @@ trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A]
 { type ThisT <: BuffInt3[A]
 
   /** Constructs a new element of this [[BuffSequ]] from 3 [[Int]]s. */
-  def newElem(i1: Int, i2: Int, i3: Int): A
+  def elemFromInts(i1: Int, i2: Int, i3: Int): A
 
   final override def elemProdSize: Int = 3
   final override def length: Int = bufferUnsafe.length / 3
   final override def numElems: Int = bufferUnsafe.length / 3
   override def grow(newElem: A): Unit = bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
-  final override def apply(index: Int): A = newElem(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
-  final override def elem(index: Int): A = newElem(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
+  final override def apply(index: Int): A = elemFromInts(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
+  final override def elem(index: Int): A = elemFromInts(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
   override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
 

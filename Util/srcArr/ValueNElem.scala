@@ -7,28 +7,33 @@ import annotation.unchecked.uncheckedVariance
  * product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is composed from 4 [[Double]] values. */
 trait ValueNElem extends Any with SpecialT
 
-trait SeqLikeValueN[+A <: ValueNElem] extends Any with SeqLike[A]
+trait SeqLikeValueN[+A <: ValueNElem] extends Any, SeqLike[A]
 { type ThisT <: SeqLikeValueN[A]
-  /** The number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc that specify / construct an element of this immutable flat Array based collection
-   *  class. */
-  def elemProdSize: Int
 
-  /** The total  number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc in the backing Array. */
-  def arrayLen: Int
+  /** The number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc that specify / construct an element of this immutable flat Array based collection
+   * class. */
+  def elemProdSize: Int
 
   /** Checks if 2 values of the specifying sequence are equal. */
   def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean
 }
 
+trait SeqLikeValueNImut[+A <: ValueNElem] extends Any, SeqLikeValueN[A]
+{ type ThisT <: SeqLikeValueNImut[A]
+  
+  /** The total  number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc in the backing Array. */
+  def arrayLen: Int
+}
+
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant classes
  * include both [[Arr]]s and classes like polygons and lines. */
-trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqSpec[A]
+trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueNImut[A] with SeqSpec[A]
 { type ThisT <: SeqSpecValueN[A]
 
   /** Reverses the order of the elements of the specifying sequence. */
   def reverse: ThisT
 
-  def ssForAll(f: A => Boolean): Boolean =
+  def elemsForAll(f: A => Boolean): Boolean =
   { var res = true
     var i = 0
     while (i < numElems & res)
@@ -41,7 +46,7 @@ trait SeqSpecValueN[+A <: ValueNElem] extends Any with SeqLikeValueN[A] with Seq
 
 /** An immutable Arr of homogeneous value products. Currently, there is no compelling use case for heterogeneous value products, but the homogeneous name is
  * being used to avoid having to change the name if and when homogeneous value product [[Arr]]s are implemented. */
-trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeValueN[A]
+trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeValueNImut[A]
 { type ThisT <: ArrValueN[A]
 
   /** The number of product elements in this collection. For example in a [[PolygonGen]], this is the number of [[Pt2]]s in the [[Polygon]] */
@@ -84,16 +89,16 @@ trait BuffValueN[A <: ValueNElem] extends Any, BuffSequ[A]
   override def fElemStr: A => String = _.toString
 }
 
-/** Base trait for all [[SeqLikeValueN]] builders. */
+/** Base trait for all [[SeqLikeValueNImut]] builders. */
 trait BuilderSeqLikeValueN[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
 { def elemProdSize: Int
 }
 
-/** Map builder for [[SeqLikeValueN]] classes. */
+/** Map builder for [[SeqLikeValueNImut]] classes. */
 trait BuilderSeqLikeValueNMap[B <: ValueNElem, BB <: SeqLike[B]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeMap[B, BB]
 
-/** Constructs [[SeqLikeValueN]] objects via flatMap method. Element type not known at call site. */
-trait BuilderSeqLikeValueNFlat[BB <: SeqLikeValueN[?]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeFlat[BB]
+/** Constructs [[SeqLikeValueNImut]] objects via flatMap method. Element type not known at call site. */
+trait BuilderSeqLikeValueNFlat[BB <: SeqLikeValueNImut[?]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeFlat[BB]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[BuilderArrMap]] type class, for classes / traits you control, should go in the companion object of
  * B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

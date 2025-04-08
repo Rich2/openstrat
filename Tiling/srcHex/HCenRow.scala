@@ -88,7 +88,7 @@ class HCenRowBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HCenRow]
 { override type ThisT = HCenRowBuff
   override type ArrT = HCenRowArr
   override def typeStr: String = "HCenRowBuff"
-  override def newElem(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)
+  override def elemFromInts(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)
 }
 
 class HCenRowPair[A]private (val r: Int, val cStart: Int, val cEnd: Int, val a2: A) extends PairElem[HCenRow, A]

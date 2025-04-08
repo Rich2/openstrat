@@ -11,7 +11,7 @@ trait DblNElem extends Any with ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
-trait SeqLikeDblN[+A <: DblNElem] extends Any, SeqLikeValueN[A], ArrayDblBacked
+trait SeqLikeDblN[+A <: DblNElem] extends Any, SeqLikeValueNImut[A], ArrayDblBacked
 { type ThisT <: SeqLikeDblN[A]
   def fromArray(array: Array[Double]): ThisT
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))

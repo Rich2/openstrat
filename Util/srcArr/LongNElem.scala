@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait LongNElem extends Any with ValueNElem
 
 /** [[SeqLike]] with [[LongN]] elements. */
-trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeValueN[A]
+trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeValueNImut[A]
 { type ThisT <: SeqLikeLongN[A]
   def unsafeArray: Array[Long]
 

@@ -13,7 +13,7 @@ trait IntNElem extends Any, ValueNElem
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
-trait SeqLikeIntN[A <: IntNElem] extends Any, SeqLikeValueN[A], ArrayIntBacked
+trait SeqLikeIntN[A <: IntNElem] extends Any, SeqLikeValueNImut[A], ArrayIntBacked
 { type ThisT <: SeqLikeIntN[A]
 
   /** Constructs the final type of these [[SeqLikeIntN]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the

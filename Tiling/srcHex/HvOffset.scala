@@ -148,5 +148,5 @@ class HvOffsetBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HvOffset
 { override type ThisT = HvOffsetBuff
   override type ArrT = HvOffsetArr
   override def typeStr: String = "HVAndoffsetBuff"
-  override def newElem(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
+  override def elemFromInts(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
 }

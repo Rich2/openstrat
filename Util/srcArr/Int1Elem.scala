@@ -11,6 +11,7 @@ trait Int1Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = { buffer.append(int1) }
 }
 
+/** [[SeqLike]] trait for classes specified by a single [[Int]]. */
 trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeIntN[A]
 { /** Constructs an element of the specifying sequence from an [[Int]] value. */
   def elemFromInt(intValue: Int): A
@@ -77,8 +78,7 @@ trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with Bu
 
 /** Helper class for companion objects of final [[SeqLikeInt1]] classes. */
 trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1[A]] extends CompanionSeqLikeIntN[A, ArrA]
-{
-  final override def elemNumInts: Int = 1
+{ final override def elemNumInts: Int = 1
 
   /** Apply factory method */
   final def apply(elems: A*): ArrA =

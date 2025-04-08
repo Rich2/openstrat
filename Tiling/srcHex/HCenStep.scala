@@ -60,7 +60,7 @@ class HCenStepBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HCenStep
 { override type ThisT = HCenStepBuff
   override type ArrT = HCenStepArr
   override def typeStr: String = "HCenStepBuff"
-  override def newElem(i1: Int, i2: Int, i3: Int): HCenStep = new HCenStep(i1, i2, i3)
+  override def elemFromInts(i1: Int, i2: Int, i3: Int): HCenStep = new HCenStep(i1, i2, i3)
 }
 
 object HCenStepBuff

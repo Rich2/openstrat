@@ -69,5 +69,5 @@ class HStepCenBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HStepCen
 { override type ThisT = HStepCenBuff
   override type ArrT = HStepCenArr
   override def typeStr: String = "HStepCenBuff"
-  override def newElem(i1: Int, i2: Int, i3: Int): HStepCen = new HStepCen(i1, i2, i3)
+  override def elemFromInts(i1: Int, i2: Int, i3: Int): HStepCen = new HStepCen(i1, i2, i3)
 }

@@ -59,7 +59,7 @@ class SqCenStepBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[SqCenSt
 { override type ThisT = SqCenStepBuff
   override type ArrT = SqCenStepArr
   override def typeStr: String = "SqCenStepBuff"
-  override def newElem(i1: Int, i2: Int, i3: Int): SqCenStep = new SqCenStep(i1, i2, i3)
+  override def elemFromInts(i1: Int, i2: Int, i3: Int): SqCenStep = new SqCenStep(i1, i2, i3)
 }
 
 object SqCenStepBuff
