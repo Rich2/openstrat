@@ -17,13 +17,16 @@ trait Dbl7Elem extends Any, DblNElem
 }
 
 /** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[ArrDbl7]]s and [[SeqSpecDbl7]] */
-trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDblNImut[A]
+trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SeqLikeValueN[A]
 { /** Method for creating new specifying sequence element from 7 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
-  def elemProdSize: Int = 7
+  final override def elemProdSize: Int = 7
+}
 
-  def elem(index: Int): A =
+/** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[ArrDbl7]]s and [[SeqSpecDbl7]] */
+trait SeqLikeDbl7Imut[+A <: Dbl7Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl7[A]
+{ def elem(index: Int): A =
   { val offset = 7 * index
     elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
       arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
@@ -39,10 +42,10 @@ trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDblNImut[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
-trait SeqSpecDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDbl7[A], SeqSpecDblN[A]
+trait SeqSpecDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDbl7Imut[A], SeqSpecDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
-trait ArrDbl7[A <: Dbl7Elem] extends Any, ArrDblN[A], SeqLikeDbl7[A]
+trait ArrDbl7[A <: Dbl7Elem] extends Any, ArrDblN[A], SeqLikeDbl7Imut[A]
 { def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2); def head4: Double = arrayUnsafe(3)
   def head5: Double = arrayUnsafe(4); def head6: Double = arrayUnsafe(5); def head7: Double = arrayUnsafe(6)
   final override def length: Int = arrayUnsafe.length / 7
@@ -63,7 +66,7 @@ trait ArrDbl7[A <: Dbl7Elem] extends Any, ArrDblN[A], SeqLikeDbl7[A]
 }
 
 /** Helper class for companion objects of final [[SeqSpecDbl7]] sequence-defined classes. */
-abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7[A]] extends CompanionSeqLikeDblN[A, ArrA]
+abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7Imut[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def numElemDbls: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)
 
