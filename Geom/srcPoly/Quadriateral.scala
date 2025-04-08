@@ -1,8 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-import ostrat.geom.QuadriateralGen.uninitialised
-
 /** A 4 sided [[Polygon]]. */
 trait Quadrilateral extends Polygon4Plus
 { type ThisT <: Quadrilateral
@@ -36,7 +34,7 @@ class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, Aff
   override def typeStr: String = "QuadrilateralGen"
 
   override def ptsTrans(f: Pt2 => Pt2): QuadriateralGen =
-  { val res = uninitialised
+  { val res = QuadriateralGen.uninitialised
     iForeach{ (i, el) => res.setElemUnsafe(i, f(el)) }
     res
   }
@@ -66,7 +64,7 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
 { /** Graphic child elements of a quadrilateral. */
   def quadChilds: RArr[Quadrilateral => GraphicElems] = RArr()
 
-  /** A sequence oo graphics that have been attached to this quadrilateral. */
+  /** A sequence of graphics that have been attached to this quadrilateral. */
   def adopted: GraphicElems = RArr()
 
   override def slate(operand: VecPt2): QuadCompound = QuadCompoundGen(shape.slate(operand), facets, quadChilds, adopted)
@@ -77,15 +75,14 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
 }
 
 object QuadCompound
-{
+{ /** Implicit [[Slate]] type class instance / evidence for [[QuadCompound]]. */
   val slateEv: Slate[QuadCompound] = (obj, operand) => obj.slate(operand)
 }
 
 /** The implementation for the general case of a compound graphic based on a quadrilateral. */
 class QuadCompoundGen(val shape: Quadrilateral, val facets: RArr[GraphicFacet], quadChilds: RArr[Quadrilateral => GraphicElems], adopted: RArr[Graphic2Elem])
   extends QuadCompound
-{
-  override def children: RArr[Graphic2Elem] = ???
+{ override def children: RArr[Graphic2Elem] = ???
   override def shearX(operand: Double): QuadCompoundGen = ???
   override def shearY(operand: Double): QuadCompoundGen = ???
 }

@@ -87,7 +87,8 @@ class PolygonKm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVa
 
 /** Companion object of the [[PolygonKm2Buff]] class, a Buff of [[PolygonKm2]]s, contains factory apply method. */
 object PolygonKm2Buff
-{ def apply(initLen: Int = 4): PolygonKm2Buff = new PolygonKm2Buff(new ArrayBuffer[Array[Double]](initLen))
+{ /** Factory apply method for empty [[PolygonKm2Buff]]. Not to be confused with [[PtKn2Buff]]. */
+  def apply(initLen: Int = 4): PolygonKm2Buff = new PolygonKm2Buff(new ArrayBuffer[Array[Double]](initLen))
 }
 class PolygonKm2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtKm2, PolygonKm2, A2]{
   override def a1: PolygonKm2 = new PolygonKm2(a1ArrayDbl)
