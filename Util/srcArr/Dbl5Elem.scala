@@ -14,27 +14,29 @@ trait Dbl5Elem extends Any, DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append5(dbl1, dbl2, dbl3, dbl4, dbl5)
 }
 
-trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDblNImut[A]
+trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeValueN[A]
 { /** Method for creating new specifying sequence element from 5 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double @uncheckedVariance): A
-
+  
   final override def elemProdSize: Int = 5
 
-  final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
+  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean =
+    (a1.dbl1 == a2.dbl1) && (a1.dbl2 == a2.dbl2) && (a1.dbl3 == a2.dbl3) && (a1.dbl4 == a2.dbl4) && (a1.dbl5 == a2.dbl5)
+}
+
+trait SeqLikeDbl5Imut[+A <: Dbl5Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl5[A]
+{ final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
   
   final override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit =
-    arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
-
-  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean =
-    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
+    arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)  
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
-trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDbl5[A], SeqSpecDblN[A]
+trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDbl5Imut[A], SeqSpecDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeDbl5[A]
+trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeDbl5Imut[A]
 { final override def length: Int = arrayUnsafe.length / 5
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
@@ -52,7 +54,7 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeDbl5[A]
   }
 }
 
-trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5[?]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5Imut[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl5[?]
   final override def elemProdSize: Int = 5
 }
@@ -74,7 +76,7 @@ trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLik
 trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNFlat[ArrB]
 
 /** Helper class for companion objects of final [[SeqSpecDbl5]] classes. */
-abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5[A]] extends CompanionSeqLikeDblN[A, ArrA]
+abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5Imut[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def numElemDbls: Int = 5
 
   def apply(elems: A*): ArrA =
@@ -90,11 +92,9 @@ abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5[A]] exten
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */
-trait BuffDbl5[A <: Dbl5Elem] extends Any, BuffDblN[A]
+trait BuffDbl5[A <: Dbl5Elem] extends Any, BuffDblN[A], SeqLikeDbl5[A]
 { type ArrT <: ArrDbl5[A]
-  final override def elemProdSize: Int = 5
   final override def length: Int = bufferUnsafe.length / 5
-  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
   override def grow(newElem: A): Unit = bufferUnsafe.append5(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 
   final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 5), bufferUnsafe(index * 5 + 1), bufferUnsafe(index * 5 + 2),

@@ -15,16 +15,16 @@ trait Dbl4Elem extends Any, DblNElem
 
 /** [[SeqLike]] with [[Dbl4Elem]] elements. */
 trait SeqLikeDbl4[A <: Dbl4Elem] extends Any, SeqLikeValueN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
+{ /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
+  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
+  final override def elemProdSize: Int = 4
+  
+  final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 }
 
 /** [[SeqLike]] with [[Dbl4Elem]] elements. */
 trait SeqLikeDbl4Imut[A <: Dbl4Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl4[A]
-{ /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
-  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
-
-  final override def elemProdSize: Int = 4
-  final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+{ final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def numElems: Int = arrayLen / 4
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
@@ -103,8 +103,6 @@ abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4Imut[A]] ext
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait BuffDbl4[A <: Dbl4Elem] extends Any, BuffDblN[A], SeqLikeDbl4[A]
 { type ArrT <: ArrDbl4[A]
-  def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
-  override def elemProdSize: Int = 4
   final override def length: Int = bufferUnsafe.length / 4
   final override def numElems: Int = bufferUnsafe.length / 4
   override def grow(newElem: A): Unit = bufferUnsafe.append4(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
