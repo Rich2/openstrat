@@ -76,7 +76,7 @@ class PolygonFm2Arr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArr
   override def fromArrayArray(array: Array[Array[Double]]): PolygonFm2Arr = new PolygonFm2Arr(array)
 }
 
-/** Buff of [[PolygonFm2]]s. */
+/** Buff of [[PolygonFm2]]s. Not to be confused with [[PtFm2Buff]]. */
 class PolygonFm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonFm2]
 { override type ThisT = PolygonFm2Buff
   override def typeStr: String = "PolygonFm2Buff"
@@ -86,7 +86,8 @@ class PolygonFm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVa
 
 /** Companion object of the [[PolygonFm2Buff]] class, a Buff of [[PolygonFm2]]s, contains factory apply method. */
 object PolygonFm2Buff
-{ def apply(initLen: Int = 4): PolygonFm2Buff = new PolygonFm2Buff(new ArrayBuffer[Array[Double]](initLen))
+{ /** Factory apply method for creating an empty [[PolygonFm2Buff]]. Not to ne confused with a [[PtFm2Buff]]. */
+  def apply(initLen: Int = 4): PolygonFm2Buff = new PolygonFm2Buff(new ArrayBuffer[Array[Double]](initLen))
 }
 class PolygonFm2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtFm2, PolygonFm2, A2]{
   override def a1: PolygonFm2 = new PolygonFm2(a1ArrayDbl)

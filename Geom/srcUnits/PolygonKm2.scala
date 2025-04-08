@@ -78,11 +78,10 @@ class PolygonKm2Arr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArr
   override def fromArrayArray(array: Array[Array[Double]]): PolygonKm2Arr = new PolygonKm2Arr(array)
 }
 
-/** Buff of [[PolygonKm2]]s. */
+/** Buff of [[PolygonKm2]]s. Not to be confused with [[Pt2Km2Buff]]. */
 class PolygonKm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonKm2]
 { override type ThisT = PolygonKm2Buff
   override def typeStr: String = "PolygonKm2Buff"
-  override def fElemStr: PolygonKm2 => String = _.toString
   override def fromArrayDbl(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
 }
 
