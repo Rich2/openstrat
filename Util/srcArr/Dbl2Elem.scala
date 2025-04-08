@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
 /** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[ArrDbl2]] Array[Double] based collections. */
-trait Dbl2Elem extends Any with DblNElem
+trait Dbl2Elem extends Any, DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
@@ -22,7 +22,7 @@ trait SeqLikeDbl2Imut[+A <: Dbl2Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDb
 { override def elemProdSize: Int = 2
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 
-  /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the
+  /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be the type of the elements of the
    * sequence. */
   def elemFromDbls(d1: Double, d2: Double): A
 

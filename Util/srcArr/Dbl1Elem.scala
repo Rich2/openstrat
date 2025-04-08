@@ -10,12 +10,12 @@ trait Dbl1Elem extends Any, DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]) : Unit = { buffer.append(dbl1) }
 }
 
-trait SeqLikeDbl1[A <: Dbl1Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeDbl1Imut[A <: Dbl1Elem] extends Any, SeqLikeDblNImut[A]
 { override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
 }
 
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
-trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SeqLikeDbl1[A]
+trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SeqLikeDbl1Imut[A]
 { final override def elemProdSize: Int = 1
   def elemFromDbl(dblValue: Double): A  
   final override def apply(index: Int): A = elemFromDbl(arrayUnsafe(index))
