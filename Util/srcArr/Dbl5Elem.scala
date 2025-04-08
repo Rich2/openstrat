@@ -14,7 +14,7 @@ trait Dbl5Elem extends Any, DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append5(dbl1, dbl2, dbl3, dbl4, dbl5)
 }
 
-trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDblN[A]
+trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDblNImut[A]
 { /** Method for creating new specifying sequence element from 5 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double @uncheckedVariance): A
 

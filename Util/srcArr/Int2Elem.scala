@@ -10,8 +10,13 @@ trait Int2Elem extends Any, IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = buffer.append2(int1, int2)
 }
 
+/** Specialised flat [[Array]][Int] based classes. */
+trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeValueN[A]
+{ final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
+}
+
 /** Specialised immutable flat [[Array]][Int] based classes. */
-trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeIntN[A]
+trait SeqLikeInt2Imut[A <: Int2Elem] extends Any, SeqLikeInt2[A], SeqLikeIntNImut[A]
 { /** Constructs an element from 2 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int): A
   
@@ -19,14 +24,14 @@ trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeIntN[A]
   final override def elem(index: Int): A = elemFromInts(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def numElems: Int = arrayUnsafe.length
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)
-  final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
+  
 }
 
 /** A specialised immutable, flat [[Array]][Int] based trait defined by a data sequence of a type of [[Int2Elem]]s. */
-trait SeqSpecInt2[A <: Int2Elem] extends Any, SeqLikeInt2[A], SeqSpecIntN[A]
+trait SeqSpecInt2[A <: Int2Elem] extends Any, SeqLikeInt2Imut[A], SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
-trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SeqLikeInt2[A]
+trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SeqLikeInt2Imut[A]
 { def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
   final override def length: Int = arrayUnsafe.length / 2
@@ -46,8 +51,8 @@ trait BuilderSeqLikeInt2[BB <: SeqLike[?]] extends BuilderSeqLikeIntN[BB]
   final override def elemProdSize: Int = 2
 }
 
-/** Builds [[SeqLikeInt2]] objects via the map method. */
-trait BuilderSeqLikeInt2Map[B <: Int2Elem, BB <: SeqLikeInt2[B]] extends BuilderSeqLikeInt2[BB], BuilderSeqLikeIntNMap[B, BB]
+/** Builds [[SeqLikeInt2Imut]] objects via the map method. */
+trait BuilderSeqLikeInt2Map[B <: Int2Elem, BB <: SeqLikeInt2Imut[B]] extends BuilderSeqLikeInt2[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt2[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append2(newElem.int1, newElem.int2)
@@ -64,7 +69,7 @@ trait BuilderArrInt2Map[B <: Int2Elem, ArrB <: ArrInt2[B]] extends BuilderSeqLik
 trait BuilderArrInt2Flat[ArrB <: ArrInt2[?]] extends BuilderSeqLikeInt2[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
-trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A]
+trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A], SeqLikeInt2[A]
 { type ThisT <: BuffInt2[A]
 
   /** Constructs a new element of this [[BuffSequ]] from 2 [[Int]]s. */
@@ -81,7 +86,7 @@ trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A]
 }
 
 /** Helper class for companion objects of final [[SeqSpecInt2]] classes. */
-trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: SeqLikeInt2[A]] extends CompanionSeqLikeIntN[A, ArrA]
+trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: SeqLikeInt2Imut[A]] extends CompanionSeqLikeIntN[A, ArrA]
 { override def elemNumInts: Int = 2
 
   /** Apply factory method */

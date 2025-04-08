@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
+trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2Imut[Pt2]
 {
   def arrTrans(f: Pt2 => Pt2): Array[Double] =
   { val newArray = new Array[Double](arrayUnsafe.length)

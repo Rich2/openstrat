@@ -2,7 +2,7 @@
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer
 
-trait LatLongSeqLike extends Any with SeqLikeDbl2[LatLong]
+trait LatLongSeqLike extends Any with SeqLikeDbl2Imut[LatLong]
 {  final override def fElemStr: LatLong => String = _.toString
 }
 

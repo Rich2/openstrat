@@ -10,8 +10,12 @@ trait Dbl1Elem extends Any, DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]) : Unit = { buffer.append(dbl1) }
 }
 
+trait SeqLikeDbl1[A <: Dbl1Elem] extends Any, SeqLikeValueN[A]
+{ override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
+}
+
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
-trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A]
+trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SeqLikeDbl1[A]
 { final override def elemProdSize: Int = 1
   def elemFromDbl(dblValue: Double): A  
   final override def apply(index: Int): A = elemFromDbl(arrayUnsafe(index))
@@ -19,7 +23,7 @@ trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A]
   final override def length: Int = arrayUnsafe.length
   final override def numElems: Int = arrayUnsafe.length
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe(index) = newElem.dbl1
-  override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
+  
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](length + 1)

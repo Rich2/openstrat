@@ -16,7 +16,13 @@ trait Int6Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] for [[Int6Elem]]s */
-trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeIntN[A]
+trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeValueN[A]
+{ final override def elemEq(a1: A, a2: A): Boolean =
+    (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5) && (a1.int6 == a2.int6)
+}
+
+/** [[SeqLike]] for [[Int6Elem]]s */
+trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt6[A]
 { final override def elemProdSize: Int = 6
 
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
@@ -31,20 +37,14 @@ trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeIntN[A]
 }
 
 /** Compound object defined / specified by [[Int6Elem]]s */
-trait SeqSpecInt6[A <: Int6Elem] extends Any, SeqLikeInt6[A], SeqSpecIntN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean =
-    (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5) && (a1.int6 == a2.int6)
-}
+trait SeqSpecInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6[A], ArrIntN[A]
+trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 6
 
   final override def apply(index: Int): A = elemFromInts(arrayUnsafe(6 * index), arrayUnsafe(6 * index + 1), arrayUnsafe(6 * index + 2),
     arrayUnsafe(6 * index + 3), arrayUnsafe(6 * index + 4), arrayUnsafe(6 * index + 5))
-
-  def elemEq(a1: A, a2: A): Boolean =
-    (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5) && (a1.int6 == a2.int6)
 
   def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
@@ -62,7 +62,7 @@ trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6[A], ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A]
+trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
 { type ThisT <: BuffInt6[A]
 
   /** Constructs a new element of this [[BuffSequ]] from 6 [[Int]]s. */
@@ -84,13 +84,13 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A]
 }
 
 /** Builder for [[SeqLike]]s with [[Int6Elem]]s */
-trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt6[BB <: SeqLikeInt6Imut[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
 
-/** Builder of [[SeqLikeInt6]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends BuilderSeqLikeInt6[BB], BuilderSeqLikeIntNMap[B, BB]
+/** Builder of [[SeqLikeInt6Imut]] objects via the map f: A => B method. */
+trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6Imut[B]] extends BuilderSeqLikeInt6[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =

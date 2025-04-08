@@ -91,7 +91,7 @@ object HCoord
   }
 }
 
-trait HCoordSeqLike extends Any with SeqLikeInt2[HCoord]
+trait HCoordSeqLike extends Any with SeqLikeInt2Imut[HCoord]
 { final override def elemFromInts(int1: Int, int2: Int): HCoord = HCoord(int1, int2)
   final override def fElemStr: HCoord => String = _.toString
 }

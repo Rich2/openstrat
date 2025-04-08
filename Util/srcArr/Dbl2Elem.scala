@@ -13,7 +13,12 @@ trait Dbl2Elem extends Any with DblNElem
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
-trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
+trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any, SeqLikeValueN[A]
+{ final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+}
+
+/** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
+trait SeqLikeDbl2Imut[+A <: Dbl2Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl2[A]
 { override def elemProdSize: Int = 2
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 
@@ -98,10 +103,9 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 
   final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def numElems: Int = arrayUnsafe.length / 2
-  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 }
 
-object SeqLikeDbl2
+object SeqLikeDbl2Imut
 { /** Puts the elements into an [[Array]]. */
   def array(elems: Dbl2Elem*): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](elems.length * 2)
@@ -116,7 +120,7 @@ object SeqLikeDbl2
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
-trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
+trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2Imut[A] with SeqSpecDblN[A]
 { def tailForeachPair[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
@@ -124,7 +128,7 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDb
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
-trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
+trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2Imut[A]
 { type ThisT <: ArrDbl2[A]
   final override def length: Int = arrayUnsafe.length / 2
   def head1: Double = arrayUnsafe(0)
@@ -150,13 +154,13 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
 }
 
 /** Base trait for Builders for [[SeqLike]]s with [[Dbl2Elem]] elements via both map and flatMap methods. */
-trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2[?]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2Imut[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl2[?]
   final override def elemProdSize = 2
 }
 
 /** Builder for [[SeqLike]]s with [[Dbl2Elem]] elements via the map method. Hence the type of the element is known at the call site. */
-trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2[B]] extends BuilderSeqLikeDbl2[BB] with BuilderSeqLikeDblNMap[B, BB]
+trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2Imut[B]] extends BuilderSeqLikeDbl2[BB] with BuilderSeqLikeDblNMap[B, BB]
 { type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
@@ -172,7 +176,7 @@ trait BuilderArrDbl2Map[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderSeqLik
 trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
-trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends CompanionSeqLikeDblN[A, AA]
+trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2Imut[A]] extends CompanionSeqLikeDblN[A, AA]
 { final def numElemDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
@@ -189,7 +193,7 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends Companio
 }
 
 /** [[BuffSequ]] class for building [[Dbl2Elem]]s collections. */
-trait BuffDbl2[B <: Dbl2Elem] extends Any with BuffDblN[B]
+trait BuffDbl2[B <: Dbl2Elem] extends Any, BuffDblN[B], SeqLikeDbl2[B]
 { type ArrT <: ArrDbl2[B]
 
   /** Constructs a new element of this [[BuffSequ]] from 2 [[Double]]s. */

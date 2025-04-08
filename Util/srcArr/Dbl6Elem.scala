@@ -17,7 +17,13 @@ trait Dbl6Elem extends Any, DblNElem
 }
 
 /** Sequence like class whose elements or sequence specifying elements [[Dbl6Elem]] can be constructed from 6 [[Double]]s. */
-trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SeqLikeDblN[A]
+trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SeqLikeValueN[A]
+{ final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean =
+    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
+}
+
+/** Sequence like class whose elements or sequence specifying elements [[Dbl6Elem]] can be constructed from 6 [[Double]]s. */
+trait SeqLikeDbl6Imut[+A <: Dbl6Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl6[A]
 { /** Constructs an element of the specifying-sequence from 6 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
@@ -32,16 +38,13 @@ trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SeqLikeDblN[A]
 
   final override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit =
     arrayUnsafe.setIndex6(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6)
-
-  final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean =
-    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl6Elem]]s. */
-trait Dbl6SeqSpec[+A <: Dbl6Elem] extends Any, SeqLikeDbl6[A], SeqSpecDblN[A]
+trait Dbl6SeqSpec[+A <: Dbl6Elem] extends Any, SeqLikeDbl6Imut[A], SeqSpecDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl6Elem]]s. */
-trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SeqLikeDbl6[A]
+trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SeqLikeDbl6Imut[A]
 { final override def length: Int = arrayUnsafe.length / 6
 
   def apply(index: Int): A =
@@ -64,7 +67,7 @@ trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SeqLikeDbl6[A]
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqSpec]] classes. */
-abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6[A]] extends CompanionSeqLikeDblN[A, ArrA]
+abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6Imut[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def numElemDbls: Int = 6
 
   def apply(elems: A*): ArrA =
@@ -79,7 +82,7 @@ abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6[A]] extend
   }
 }
 
-/** Builder for [[SeqLikeDbl6]] types. */
+/** Builder for [[SeqLikeDbl6Imut]] types. */
 trait BuilderSeqLikeDbl6[BB <: ArrDbl6[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl6[?]
   final override def elemProdSize = 6
@@ -102,7 +105,7 @@ trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLik
 trait BuilderArrDbl6Flat[ArrB <: ArrDbl6[?]] extends BuilderSeqLikeDbl6[ArrB], BuilderArrDblNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A]
+trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A], SeqLikeDbl6[A]
 { type ArrT <: ArrDbl6[A]
   override def elemProdSize: Int = 6
   final override def length: Int = bufferUnsafe.length / 6

@@ -105,7 +105,7 @@ object PtFm2
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonFm2PairBuilder[A2] = new PolygonFm2PairBuilder[A2]
 }
 
-trait PtFm2SeqLike extends Any, SeqLikeDbl2[PtFm2]
+trait PtFm2SeqLike extends Any, SeqLikeDbl2Imut[PtFm2]
 { final override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   final override def fElemStr: PtFm2 => String = _.str
 }

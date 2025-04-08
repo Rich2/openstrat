@@ -136,7 +136,7 @@ object LineSegPm2Arr extends CompanionSeqLikeDbl4[LineSegPm2, LineSegPm2Arr]
 }
 
 /** Efficient expandable buffer for [[LineSegPm2]]s. */
-class LineSegPm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSegPm2]
+class LineSegPm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl4[LineSegPm2]
 { override def typeStr: String = "LineSegPm2Buff"
   override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LineSegPm2 = new LineSegPm2(d1, d2, d3, d4)
 }

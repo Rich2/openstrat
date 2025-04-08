@@ -13,10 +13,11 @@ trait IntNElem extends Any, ValueNElem
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
-trait SeqLikeIntN[A <: IntNElem] extends Any, SeqLikeValueNImut[A], ArrayIntBacked
-{ type ThisT <: SeqLikeIntN[A]
+/** Common trait for the immutable Array[Int] backed classes that can be specified by [[IntNElem]]s. */
+trait SeqLikeIntNImut[A <: IntNElem] extends Any, SeqLikeValueNImut[A], ArrayIntBacked
+{ type ThisT <: SeqLikeIntNImut[A]
 
-  /** Constructs the final type of these [[SeqLikeIntN]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
+  /** Constructs the final type of these [[SeqLikeIntNImut]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
    * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
@@ -24,7 +25,7 @@ trait SeqLikeIntN[A <: IntNElem] extends Any, SeqLikeValueNImut[A], ArrayIntBack
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntN[A] with SeqSpecValueN[A] with ArrayIntBacked
+trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntNImut[A] with SeqSpecValueN[A] with ArrayIntBacked
 { type ThisT <: SeqSpecIntN[A]
 
   override def reverse: ThisT =
@@ -36,7 +37,7 @@ trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntN[A] with SeqSpecVal
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int]. */
-trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SeqLikeIntN[A]
+trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SeqLikeIntNImut[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ArrIntN[A]
 
@@ -96,17 +97,17 @@ trait BuilderSeqLikeIntN[BB <: SeqLike[?]] extends BuilderSeqLikeValueN[BB]
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-/** Constructs [[SeqLikeIntN]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
+/** Constructs [[SeqLikeIntNImut]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
  * companion object. */
-trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNMap[B, BB]
+trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntNImut[B]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNMap[B, BB]
 { type BuffT <:  BuffIntN[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.bufferUnsafe.toArray)
 }
 
-/** Constructs [[SeqLikeIntN]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
+/** Constructs [[SeqLikeIntNImut]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
  * in the [[SeqLike]]'s companion object. */
-trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntN[?]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNFlat[BB]
+trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntNImut[?]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderArrMap]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -131,7 +132,7 @@ trait BuffIntN[A <: IntNElem] extends Any, BuffValueN[A]
 }
 
 /** Helper trait for Companion objects of [[ArrIntN]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the collection class. */
-trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SeqLikeIntN[A]]
+trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SeqLikeIntNImut[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 

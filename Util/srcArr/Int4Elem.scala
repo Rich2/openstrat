@@ -16,7 +16,12 @@ trait Int4Elem extends Any with IntNElem
 }
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
-trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeIntN[A]
+trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeValueN[A]
+{ final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4)
+}
+
+/** [[SeqLike]] with [[Int4Elem]]s. */
+trait SeqLikeInt4Imut[A <: Int4Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt4[A]
 { /** Constructs element from4 [[Double]]s */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
 
@@ -27,18 +32,15 @@ trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeIntN[A]
 }
 
 /** A compound object defined / specified by a sequence of [[Int4Elem]]s. */
-trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4[A], SeqSpecIntN[A]
-{ final def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4)  
-}
+trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], SeqSpecIntN[A]
+
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4[A], ArrIntN[A]
+trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 4
 
   override def apply(index: Int): A =
     elemFromInts(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
-
-  def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
   def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
@@ -54,7 +56,7 @@ trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4[A], ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
-trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A]
+trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SeqLikeInt4[A]
 { type ThisT <: BuffInt4[A]
 
   /** Constructs a new element of this [[BuffSequ]] form 4 [[Int]]s. */
@@ -72,14 +74,14 @@ trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A]
   final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-/** Base trait for builders of [[SeqLikeInt4]] objects via both map and flatMap methods. */
-trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[?]] extends BuilderSeqLikeIntN[BB]
+/** Base trait for builders of [[SeqLikeInt4Imut]] objects via both map and flatMap methods. */
+trait BuilderSeqLikeInt4[BB <: SeqLikeInt4Imut[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt4[?]
   final override def elemProdSize: Int = 4
 }
 
-/** Builders for [[SeqLikeInt4]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB], BuilderSeqLikeIntNMap[B, BB]
+/** Builders for [[SeqLikeInt4Imut]] objects via the map f: A => B method. */
+trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4Imut[B]] extends BuilderSeqLikeInt4[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt4[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =

@@ -128,7 +128,7 @@ object HvOffset
   implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
-trait HvOffsetSeqLike extends Any with SeqLikeInt3[HvOffset]
+trait HvOffsetSeqLike extends Any with SeqLikeInt3Imut[HvOffset]
 { final override def elemFromInts(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
   final override def fElemStr: HvOffset => String = _.toString
 }

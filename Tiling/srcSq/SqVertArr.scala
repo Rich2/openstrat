@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait SqVertSeqLike extends Any with SeqLikeInt2[SqVert]
+trait SqVertSeqLike extends Any with SeqLikeInt2Imut[SqVert]
 { override def elemFromInts(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
   def vertNum: Int = arrayUnsafe.length / 2

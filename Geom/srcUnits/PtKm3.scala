@@ -149,7 +149,7 @@ object PtKm3
   implicit val lineSegBuildEv: LineSegLikeBuilderMap[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
-trait PtKm3SeqLike extends Any, SeqLikeDbl3[PtKm3]
+trait PtKm3SeqLike extends Any, SeqLikeDbl3Imut[PtKm3]
 { final override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
   final override def fElemStr: PtKm3 => String = _.str
 }

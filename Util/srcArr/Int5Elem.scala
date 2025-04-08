@@ -17,7 +17,7 @@ trait Int5Elem extends Any with IntNElem
 }
 
 /** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s.  */
-trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntN[A]
+trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntNImut[A]
 { final override def elemProdSize: Int = 5
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A

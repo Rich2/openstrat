@@ -12,7 +12,12 @@ trait Int1Elem extends Any with IntNElem
 }
 
 /** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeIntN[A]
+trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeValueN[A]
+{ final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
+}
+
+/** [[SeqLike]] trait for classes specified by a single [[Int]]. */
+trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt1[A]
 { /** Constructs an element of the specifying sequence from an [[Int]] value. */
   def elemFromInt(intValue: Int): A
 
@@ -23,10 +28,10 @@ trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeIntN[A]
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
-trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1[A] with SeqSpecIntN[A]
+trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1Imut[A] with SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1[A]
+trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
 { final override def length: Int = arrayUnsafe.length
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
@@ -37,11 +42,10 @@ trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1[A]
   }
 
   final override def apply(index: Int): A = elemFromInt(arrayUnsafe(index))
-  final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait BuffInt1[A <: Int1Elem] extends Any with BuffIntN[A]
+trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
 { type ThisT <: BuffInt1[A]
 
   /** Constructs a new element of this [[BuffSequ]] from a single [[Int]]. */
@@ -76,8 +80,8 @@ trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
  * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
 
-/** Helper class for companion objects of final [[SeqLikeInt1]] classes. */
-trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1[A]] extends CompanionSeqLikeIntN[A, ArrA]
+/** Helper class for companion objects of final [[SeqLikeInt1Imut]] classes. */
+trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1Imut[A]] extends CompanionSeqLikeIntN[A, ArrA]
 { final override def elemNumInts: Int = 1
 
   /** Apply factory method */

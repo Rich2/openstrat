@@ -50,7 +50,7 @@ object QuadriateralGen
   def apply(array: Array[Double]): QuadriateralGen = new QuadriateralGen(array)
 
   /** Apply factory method to construct [[Quadrilateral]] from its 4 vertices. */
-  def apply(pt0: Pt2, pt1: Pt2, pt2: Pt2, pt3: Pt2): QuadriateralGen = new QuadriateralGen(SeqLikeDbl2.array(pt0, pt1, pt2, pt3))
+  def apply(pt0: Pt2, pt1: Pt2, pt2: Pt2, pt3: Pt2): QuadriateralGen = new QuadriateralGen(SeqLikeDbl2Imut.array(pt0, pt1, pt2, pt3))
 
   /** Creates a new uninitialised [[QuadriateralGen]]. */
   def uninitialised: QuadriateralGen = new QuadriateralGen(new Array[Double](8))

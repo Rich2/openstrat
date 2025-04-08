@@ -33,7 +33,7 @@ object SqCoord
   implicit val unshowEv: UnshowInt2[SqCoord] = UnshowInt2[SqCoord]("SqCoord", "r", "c", apply)
 }
 
-trait SqCoordSeqLike extends Any with SeqLikeInt2[SqCoord]
+trait SqCoordSeqLike extends Any with SeqLikeInt2Imut[SqCoord]
 { final override def elemFromInts(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
   final override def fElemStr: SqCoord => String = _.toString
 }
