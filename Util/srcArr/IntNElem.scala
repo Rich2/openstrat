@@ -8,8 +8,8 @@ trait IntNElem extends Any, ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def intForeach(f: Int => Unit): Unit
 
-  /** Utility method to append this element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful for methods
-   *  like filter. */
+  /** Utility method to append this element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful for methods like
+   * filter. */
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 

@@ -14,16 +14,16 @@ trait Int3Elem extends Any with IntNElem
 
 /** Sequence like class that has [[Int3Elem]]s as its elements or its specifying sequence. */
 trait SeqLikeInt3[A <: Int3Elem] extends Any, SeqLikeValueN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3)
-}
-
-/** Sequence like class that has [[Int3Elem]]s as its elements or its specifying sequence. */
-trait SeqLikeInt3Imut[A <: Int3Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt3[A]
 { /** Constructs an element from 3 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int): A
 
   final override def elemProdSize: Int = 3
-  final override def elem(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+  final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3)
+}
+
+/** Sequence like class that has [[Int3Elem]]s as its elements or its specifying sequence. */
+trait SeqLikeInt3Imut[A <: Int3Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt3[A]
+{ final override def elem(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayUnsafe.length / 3
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
@@ -51,10 +51,6 @@ trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeInt3Imut[A]
 trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SeqLikeInt3[A]
 { type ThisT <: BuffInt3[A]
 
-  /** Constructs a new element of this [[BuffSequ]] from 3 [[Int]]s. */
-  def elemFromInts(i1: Int, i2: Int, i3: Int): A
-
-  final override def elemProdSize: Int = 3
   final override def length: Int = bufferUnsafe.length / 3
   final override def numElems: Int = bufferUnsafe.length / 3
   override def grow(newElem: A): Unit = bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
