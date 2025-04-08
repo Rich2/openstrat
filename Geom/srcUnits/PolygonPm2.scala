@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A polygon using vertices specified in [[PtPm2]] points rather than scalars. */
-final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLen2[PtPm2]
+final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtPm2]
 { type ThisT = PolygonPm2
   type SideT = LineSegPm2
   override def typeStr: String = "PolygonPm2"
@@ -79,7 +79,7 @@ class PolygonPm2Arr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArr
   override def fromArrayArray(array: Array[Array[Double]]): PolygonPm2Arr = new PolygonPm2Arr(array)
 }
 
-/** Buff of [[PolygonPm2]]s. */
+/** Buff of [[PolygonPm2]]s. Not to be confused with a [[PtPm2Buff]], that you would use to build an individual [[PolygonPm2]]. */
 class PolygonPm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonPm2]
 { override type ThisT = PolygonPm2Buff
   override def typeStr: String = "PolygonPm2Buff"
@@ -89,14 +89,17 @@ class PolygonPm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVa
 
 /** Companion object of the [[PolygonPm2Buff]] class, a Buff of [[PolygonPm2]]s, contains factory apply method. */
 object PolygonPm2Buff
-{ def apply(initLen: Int = 4): PolygonPm2Buff = new PolygonPm2Buff(new ArrayBuffer[Array[Double]](initLen))
+{ /** Factory apply method for Buff class for [[PolygonPm2]]s. Not to be confused with a [[PtPm2Buff]]. */
+  def apply(initLen: Int = 4): PolygonPm2Buff = new PolygonPm2Buff(new ArrayBuffer[Array[Double]](initLen))
 }
+
 class PolygonPm2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtPm2, PolygonPm2, A2]{
   override def a1: PolygonPm2 = new PolygonPm2(a1ArrayDbl)
 }
 
 object PolygonPm2Pair
-{ implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): BuilderArrMap[PolygonPm2Pair[A2], PolygonPm2PairArr[A2]] = new PolygonPm2PairBuilder[A2]
+{ /** Implicit [[BuilderArrMap]] type class instances / evidence for [[PolygonPm2Pair]]. */
+  implicit def buildArrMapEv[A2](implicit ct: ClassTag[A2]): BuilderArrMap[PolygonPm2Pair[A2], PolygonPm2PairArr[A2]] = new PolygonPm2PairBuilder[A2]
 }
 
 final class PolygonPm2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
