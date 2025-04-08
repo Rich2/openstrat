@@ -16,27 +16,30 @@ class FacCalc(val factions: RArr[Faction], val listLen: Int = 10)
     RPairElem(factions(indMax), state1)
   }
   
-  def assignN(num: Int): RPairArr[Faction, IntArr] ={
-    val num2 = num.max0
+  def assignN(num: Int): RPairArr[Faction, IntArr] =
+  { val num2 = num.max0
     var i = 0
     var state = facStateInit
-    
-    while(i < num2)
-    {
-      
-    }  
-    ???
+    iRepeatMap(num2){
+      val newRes = assign1(state)
+      state = newRes.a2
+      newRes
+    }
   }
 }
 
 case class Faction(name: String, weight: Int)
-{
-  override def toString: String = "Faction" + name
+{ override def toString: String = "Faction" + name
 }
 
 object Faction
-{
-  def apply(weights: IntArr): RArr[Faction] =  weights.iMap{ (i1, w) => Faction(String.valueOf(('A' + i1).toChar), w) }
-
+{ def apply(weights: IntArr): RArr[Faction] =  weights.iMap{ (i1, w) => Faction(String.valueOf(('A' + i1).toChar), w) }
   def apply(weights: Int *): RArr[Faction] = apply(weights.toArr)
+
+  extension(thisArr: Arr[Faction])
+  { def weightsStr =
+    {  val weights = thisArr.map(fac => fac.name + ": " + fac.weight).mkStr("; ")
+      "Vote weighting" -- weights + "; Total Votes: " + thisArr.sumBy(_.weight)
+    }
+  }
 }

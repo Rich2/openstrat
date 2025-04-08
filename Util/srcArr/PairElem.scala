@@ -171,6 +171,8 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     while (!res & i < length) if (value == a2Array(i)) res = true else i += 1
     res
   }
+
+  def strLines: String = mkStr(el => el.a1.toString + "; " + el.a2.toString, "\n")
 }
 
 /** Base trait for building [[ArrPair]] objects via map and flatMap methods. */

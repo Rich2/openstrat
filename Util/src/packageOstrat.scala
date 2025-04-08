@@ -238,10 +238,19 @@ package object ostrat
   /** Maps a range of Ints to returning a [[Arr]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non-termination. Method name overloaded
    * with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilMap[A, AA <: Arr[A]](iUntil: Int)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
-  { val iLen = (iUntil).max(0)
+  { val iLen = iUntil.max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
     iUntilForeach(iUntil){ count => ev.indexSet(res, index, f(count)); index += 1  }
+    res
+  }
+
+  /** Repeats the call by name parameter. */
+  def iRepeatMap[A, AA <: Arr[A]](iUntil: Int)(nextA: => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  { val iLen = iUntil.max(0)
+    val res: AA = ev.uninitialised(iLen)
+    var index = 0
+    iUntilForeach(iUntil) { count => ev.indexSet(res, index, nextA); index += 1 }
     res
   }
 

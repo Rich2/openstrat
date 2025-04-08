@@ -5,7 +5,15 @@ object FacApp
 {
   def main(args: Array[String]): Unit =
   {
-    val fc = new FacCalc(Faction(5, 4, 3))
-    println(fc.assign1Init)
+    val factions = Faction(5, 4, 3, 2)
+    val fc = new FacCalc(factions)
+    val res = fc.assignN(12)
+    val lines = res.iMap{ (i, pair) =>
+      val acc = pair.a2.iMap{(i, votes) => factions(i).name + ": " + votes }.mkStr("; ")
+      (i + 1).str -- pair.a1.toString + ": " + acc
+    }
+    val output = lines.mkStr("\n")
+    println(factions.weightsStr)
+    println(output)
   }
 }
