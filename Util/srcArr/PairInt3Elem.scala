@@ -15,6 +15,8 @@ trait SeqLikePairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends Seq
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, int3: Int, a2: A2): A
+
+  final override def a1NumInt: Int = 3
 }
 
 /** [[Arr]] for [[PairElem]]s where the first component of the pairs is an [[Int3Elem]]. */
@@ -27,11 +29,9 @@ trait ArrPairInt3[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: PairInt3Elem[A1
   override final def setElemUnsafe(index: Int, newElem: A): Unit = { a1ArrayInt.setIndex3(index, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)
     a2Array(index) = newElem.a2 }
 
-  def newA1(int1: Int, int2: Int, int3: Int): A1
+  def a1FromInts(int1: Int, int2: Int, int3: Int): A1
 
-  override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
-  override def a1NumInt: Int = 3
-
+  override def a1Index(index: Int): A1 = a1FromInts(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayInt.setIndex3(index, value.int1, value.int2, value.int3)
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)

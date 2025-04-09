@@ -4,17 +4,17 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Pair element where the first component is an [[IntNElem]]A class that can be constructed from a fixed number of [[Int]]s. Because of the fixed length of
  * these elements [[Arr]]s of them can be stored as and reconstructed from a single Array[Int] of primitive values */
-trait PairIntNElem[A1 <: IntNElem, A2] extends PairFinalA1Elem[A1, A2]
+trait PairIntNElem[A1 <: IntNElem, A2] extends PairValueNElem[A1, A2]
 
 /** Common trait for [[ArrPairIntN]] and [[BuffPairImtN]]s */
-trait SeqLikePairIntN[A1 <: IntNElem, A2, A <: PairIntNElem[A1, A2]] extends SeqLike[A]
+trait SeqLikePairIntN[A1 <: IntNElem, A2, A <: PairIntNElem[A1, A2]] extends SeqLikePairValueN[A1, A2, A]
+{ /** The number of [[Int]]s required to construct the first component of the pairs. */
+  def a1NumInt: Int
+}
 
 /** An [[Arr]] of [[PairIntN]] elements where the first component of the pairs is an [[IntNElem]]. */
-trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
+trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends ArrPairValueN[A1, ArrA1, A2, A], SeqLikePairIntN[A1, A2, A]
 { type ThisT <: ArrPairIntN[A1, ArrA1, A2, A]
-
-  /** The number of [[Int]]s required to construct the first component of the pairs. */
-  def a1NumInt: Int
 
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayInt: Array[Int]

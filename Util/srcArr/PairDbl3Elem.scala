@@ -13,6 +13,8 @@ trait PairDbl3Elem[A1 <: Dbl3Elem, A2] extends PairDblNElem[A1, A2]
 trait SeqLikePairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
+
+  final override def a1NumDbl: Int = 3
 }
 
 /** [[Arr]] of [[PairDbl3Elem]]s. */
@@ -21,8 +23,7 @@ trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1
 
   /** Constructs an object of type A1 type from 3 [[Double]]s.  */
   def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double): A1
-
-  final override def a1NumDbl: Int = 3
+  
   final override def a1Index(index: Int): A1 = a1FromDbls(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
   final override def apply(index: Int): A = elemFromDbls(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
   final override def elem(index: Int): A = elemFromDbls(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))

@@ -15,14 +15,16 @@ trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
 trait SeqLikePairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends SeqLikePairIntN[A1, A2, A]
 { /** Constructs new pair element from 4 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A
+
+  final override def a1NumInt: Int = 4
 }
 
 /** An [[Arr]] of [[PairElem]]s where the first component is an [[Int4Elem]]. */
 trait ArrPairInt4[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: PairInt4Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SeqLikePairInt4[A1, A2, A]
 { type ThisT <: ArrPairInt4[A1, ArrA1, A2, A]
 
-  def newA1(int1: Int, int2: Int, int3: Int, int4: Int): A1
-  final override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3))
+  def a1FromInts(int1: Int, int2: Int, int3: Int, int4: Int): A1
+  final override def a1Index(index: Int): A1 = a1FromInts(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3))
 
   final override def apply(index: Int): A =
     elemFromInts(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))

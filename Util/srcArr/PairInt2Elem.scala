@@ -11,6 +11,8 @@ trait PairInt2Elem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
 trait SeqLikePairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends SeqLikePairIntN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, a2: A2): A
+
+  final override def a1NumInt: Int = 2
 }
 
 /** An [[Arr]] of [[PairElem]] elements, where the first component of the pairs is a [[Int2Elem]]. */
@@ -23,8 +25,6 @@ trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1
   def a1FromDbls(int1: Int, int2: Int): A1
 
   final override def a1Index(index: Int): A1 = a1FromDbls(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1))
-  final override def a1NumInt: Int = 2
-
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayInt.setIndex2(index, value.int1, value.int2)
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)

@@ -3,16 +3,17 @@ package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** [[PairElem]] where the first component is a [[DblNElem]]. */
-trait PairDblNElem[A1 <: DblNElem, A2] extends PairFinalA1Elem[A1, A2]
+trait PairDblNElem[A1 <: DblNElem, A2] extends PairValueNElem[A1, A2]
 
 /** Common trait for [[ArrPairDblN]] and [[BuffPairDblN]]s */
-trait SeqLikePairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends SeqLike[A]
+trait SeqLikePairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends SeqLikePairValueN[A1, A2, A]
+{ /** Number of [[Double]]s to create an A!. */
+  def a1NumDbl: Int
+}
 
 /** [[Arr]] for [[PairDblNElem]]s. [[PairElem]]s where the first component of the pair is a [[DblNElem]]. */
-trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
+trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A], SeqLikePairDblN[A1, A2, A]
 { type ThisT <: ArrPairDblN[A1, ArrA1, A2, A]
-
-  def a1NumDbl: Int
 
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]

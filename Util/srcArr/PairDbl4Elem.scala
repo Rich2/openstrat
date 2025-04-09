@@ -13,6 +13,8 @@ trait PairDbl4Elem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
 trait SeqLikePairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
 { /** Constructs new pair element from 4 [[Double]]s and a third parameter of type A2. */
   def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
+
+  final override def a1NumDbl: Int = 4
 }
 
 /** [[Arr]] of [[PairDbl4]] elements. */
@@ -32,8 +34,6 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
   { a1ArrayDbl.setIndex4(index, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
     a2Array(index) = newElem.a2
   }
-
-  override def a1NumDbl: Int = 4
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 
