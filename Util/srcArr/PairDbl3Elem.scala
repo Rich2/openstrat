@@ -47,16 +47,16 @@ trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1
 }
 
 /** Efficient buffer for [[PairDbl3Elem]]s.  */
-trait BuffPairDbl3[B1 <: Dbl3Elem, B2, B <: PairDbl3Elem[B1, B2]] extends BuffPairDblN[B1, B2, B], SeqLikePairDbl3[B1, B2, B]
-{ final override def apply(index: Int): B = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
-  final override def elem(index: Int): B = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
+trait BuffPairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl3[A1, A2, A]
+{ final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
+  final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
 
-  override final def grow(newElem: B): Unit =
+  override final def grow(newElem: A): Unit =
   { b1DblBuffer.append3(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(index: Int, newElem: B): Unit =
+  override final def setElemUnsafe(index: Int, newElem: A): Unit =
   { b1DblBuffer.setIndex3(index, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3)
     b2Buffer(index) = newElem.a2
   }

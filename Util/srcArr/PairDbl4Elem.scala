@@ -10,20 +10,22 @@ trait PairDbl4Elem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
   def a1Dbl4: Double
 }
 
+trait SeqLikePairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
+{ /** Constructs new pair element from 4 [[Double]]s and a third parameter of type A2. */
+  def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
+}
+
 /** [[Arr]] of [[PairDbl4]] elements. */
-trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A]
+trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SeqLikePairDbl4[A1, A2, A]
 { type ThisT <: ArrPairDbl4[A1, ArrA1, A2, A]
 
-  /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def pairFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
-
-  def newA1(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): A1
-  final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3))
+  def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): A1
+  final override def a1Index(index: Int): A1 = a1FromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3))
 
   final override def apply(index: Int): A =
-    pairFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
+    elemFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
 
-  final override def elem(index: Int): A = pairFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
+  final override def elem(index: Int): A = elemFromDbls(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayDbl.setIndex4(index, value.dbl1, value.dbl2, value.dbl3, value.dbl4)
 
   override final def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -47,21 +49,19 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
 }
 
 /** Efficient buffer class for [[PairDbl4]] elements. */
-trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPairDblN[B1, B2, B]
-{ /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
+trait BuffPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl4[A1, A2, A]
+{ final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
+    b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
-  final override def apply(index: Int): B =
-    elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
+  final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
+    b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
-  final override def elem(index: Int): B = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
-
-  override final def grow(newElem: B): Unit =
+  override final def grow(newElem: A): Unit =
   { b1DblBuffer.append4(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(index: Int, newElem: B): Unit =
+  override final def setElemUnsafe(index: Int, newElem: A): Unit =
   { b1DblBuffer.setIndex4(index, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
     b2Buffer(index) = newElem.a2
   }

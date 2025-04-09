@@ -18,8 +18,8 @@ final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array
 { override type ThisT = LineSegPairArr[A2]
   override def typeStr: String = "LineSeqArrPair"
   override def a1Arr: LineSegArr = new LineSegArr(a1ArrayDbl)
-  override def pairFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): LineSegPair[A2] = new LineSegPair[A2](dbl1, dbl2, dbl3, dbl4, a2)
-  override def newA1(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): LineSeg = new LineSeg(dbl1, dbl2, dbl3, dbl4)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): LineSegPair[A2] = new LineSegPair[A2](dbl1, dbl2, dbl3, dbl4, a2)
+  override def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): LineSeg = new LineSeg(dbl1, dbl2, dbl3, dbl4)
   override def fElemStr: LineSegPair[A2] => String = _.toString
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): LineSegPairArr[A2] = new LineSegPairArr[A2](a1Array, a2Array)
 }
