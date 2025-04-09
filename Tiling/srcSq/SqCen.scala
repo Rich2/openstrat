@@ -109,8 +109,8 @@ class SqCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) exten
 { override type ThisT = SqCenPairArr[A2]
   override def typeStr: String = "SqCenPairArr"
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): SqCenPairArr[A2] = new SqCenPairArr[A2](newA1Array, newA2Array)
-  override def newPair(int1: Int, int2: Int, a2: A2): SqCenPair[A2] = new SqCenPair[A2](int1, int2, a2)
-  override def newA1(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
+  override def elemFromInts(int1: Int, int2: Int, a2: A2): SqCenPair[A2] = new SqCenPair[A2](int1, int2, a2)
+  override def a1FromDbls(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
   override def a1Arr: SqCenArr = new SqCenArr(a1ArrayInt)
   override def fElemStr: SqCenPair[A2] => String = _.toString
   def SqCenArr: SqCenArr = new SqCenArr(a1ArrayInt)

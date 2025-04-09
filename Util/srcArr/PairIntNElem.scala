@@ -1,10 +1,13 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** Pair element where the first component is an [[IntNElem]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed
- *  length of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
+/** Pair element where the first component is an [[IntNElem]]A class that can be constructed from a fixed number of [[Int]]s. Because of the fixed length of
+ * these elements [[Arr]]s of them can be stored as and reconstructed from a single Array[Int] of primitive values */
 trait PairIntNElem[A1 <: IntNElem, A2] extends PairFinalA1Elem[A1, A2]
+
+/** Common trait for [[ArrPairIntN]] and [[BuffPairImtN]]s */
+trait SeqLikePairIntN[A1 <: IntNElem, A2, A <: PairIntNElem[A1, A2]] extends SeqLike[A]
 
 /** An [[Arr]] of [[PairIntN]] elements where the first component of the pairs is an [[IntNElem]]. */
 trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
@@ -75,12 +78,12 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
 { type BuffT <: BuffPairIntN[B1, B2, ?]
   type B1BuffT <: BuffIntN[B1]
 
-  /** Constructs the [[Arr]] class from an [[Array]][Int] object for the first components of the pairs and an [[Array]][B2] for the second
-   *  components of the pairs. */
+  /** Constructs the [[Arr]] class from an [[Array]][Int] object for the first components of the pairs and an [[Array]][B2] for the second components of the
+   * pairs. */
   def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[BuffSequ]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
-   * second components of the pairs. */
+  /** Constructs the [[BuffSequ]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
+   * components of the pairs. */
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.intForeach(buff.bufferUnsafe.append(_))

@@ -8,20 +8,21 @@ trait PairInt2Elem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
   def a1Int2: Int
 }
 
+trait SeqLikePairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends SeqLikePairIntN[A1, A2, A]
+{ /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
+  def elemFromInts(int1: Int, int2: Int, a2: A2): A
+}
+
 /** An [[Arr]] of [[PairElem]] elements, where the first component of the pairs is a [[Int2Elem]]. */
-trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
+trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SeqLikePairInt2[A1, A2, A]
 { type ThisT <: ArrPairInt2[A1, ArrA1, A2, A]
-
-  /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
-  def newPair(int1: Int, int2: Int, a2: A2): A
-
-  final override def apply(index: Int): A = newPair(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1), a2Array(index))
-  final override def elem(index: Int): A = newPair(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1), a2Array(index))
+  final override def apply(index: Int): A = elemFromInts(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1), a2Array(index))
+  final override def elem(index: Int): A = elemFromInts(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1), a2Array(index))
   final override def setElemUnsafe(index: Int, newElem: A): Unit = { a1ArrayInt.setIndex2(index, newElem.a1Int1, newElem.a1Int2); a2Array(index) = newElem.a2 }
 
-  def newA1(int1: Int, int2: Int): A1
+  def a1FromDbls(int1: Int, int2: Int): A1
 
-  final override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1))
+  final override def a1Index(index: Int): A1 = a1FromDbls(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1))
   final override def a1NumInt: Int = 2
 
   final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayInt.setIndex2(index, value.int1, value.int2)
@@ -54,12 +55,9 @@ trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1
 }
 
 /** Efficient buffer for [[Int2Elem]]s. */
-trait BuffPairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
-{ /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
-  def newElem(int1: Int, int2: Int, a2: A2): A
-  
-  final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
-  final override def elem(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
+trait BuffPairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPairIntN[A1, A2, A], SeqLikePairInt2[A1, A2, A]
+{ final override def apply(index: Int): A = elemFromInts(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
+  final override def elem(index: Int): A = elemFromInts(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
   { b1IntBuffer.append(newElem.a1Int1)

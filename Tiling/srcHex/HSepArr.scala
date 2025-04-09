@@ -50,8 +50,8 @@ class HSepArrPair[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
 { override type ThisT = HSepArrPair[A2]
   override def typeStr: String = "HSidePairArr"
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HSepArrPair[A2] = new HSepArrPair[A2](newA1Array, newA2Array)
-  override def newPair(int1: Int, int2: Int, a2: A2): HSepPair[A2] = new HSepPair[A2](int1, int2, a2)
-  override def newA1(int1: Int, int2: Int): HSep = HSep(int1, int2)
+  override def elemFromInts(int1: Int, int2: Int, a2: A2): HSepPair[A2] = new HSepPair[A2](int1, int2, a2)
+  override def a1FromDbls(int1: Int, int2: Int): HSep = HSep(int1, int2)
   override def a1Arr: HSepArr = new HSepArr(a1ArrayInt)
   override def fElemStr: HSepPair[A2] => String = _.toString
   def hSideArr: HSepArr = new HSepArr(a1ArrayInt)
@@ -70,7 +70,7 @@ object HSepPairArr1
 class HSepBuffPair[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt2[HSep, B2, HSepPair[B2]]
 { override type ThisT = HSepBuffPair[B2]
   override def typeStr: String = "HSidePairBuff"
-  override def newElem(int1: Int, int2: Int, a2: B2): HSepPair[B2] = new HSepPair[B2](int1, int2, a2)
+  override def elemFromInts(int1: Int, int2: Int, a2: B2): HSepPair[B2] = new HSepPair[B2](int1, int2, a2)
 }
 
 /** [[BuilderArrPairMap]] class for [[HSepPair]]s. */

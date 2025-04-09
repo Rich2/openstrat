@@ -59,9 +59,9 @@ trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5Imut[?]] extends BuilderSeqLikeDblN[BB
   final override def elemProdSize: Int = 5
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
- *  traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. The first type parameter is called B, because to
- *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+ * you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. The first type parameter is called B, because to corresponds to the
+ * B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl5[B]
 
@@ -69,10 +69,9 @@ trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLik
     seqLike.arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for
- *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
- *  in ```map(f: A => B): ArrB``` function. */
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type class,
+ * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for [[BuilderArrFlat] should go in
+ * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNFlat[ArrB]
 
 /** Helper class for companion objects of final [[SeqSpecDbl5]] classes. */

@@ -221,8 +221,8 @@ class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
 { override type ThisT = HCenPairArr[A2]
   override def typeStr: String = "HCenPairArr"
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HCenPairArr[A2] = new HCenPairArr[A2](newA1Array, newA2Array)
-  override def newPair(int1: Int, int2: Int, a2: A2): HCenPair[A2] = new HCenPair[A2](int1, int2, a2)
-  override def newA1(int1: Int, int2: Int): HCen = HCen(int1, int2)
+  override def elemFromInts(int1: Int, int2: Int, a2: A2): HCenPair[A2] = new HCenPair[A2](int1, int2, a2)
+  override def a1FromDbls(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def a1Arr: HCenArr = new HCenArr(a1ArrayInt)
   override def fElemStr: HCenPair[A2] => String = _.toString
   def hCenArr: HCenArr = new HCenArr(a1ArrayInt)
@@ -240,7 +240,7 @@ object HCenPairArr1
 class HCenPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt2[HCen, B2, HCenPair[B2]]
 { override type ThisT = HCenPairBuff[B2]
   override def typeStr: String = "HCenPairBuff"
-  override def newElem(int1: Int, int2: Int, a2: B2): HCenPair[B2] = new HCenPair[B2](int1, int2, a2)
+  override def elemFromInts(int1: Int, int2: Int, a2: B2): HCenPair[B2] = new HCenPair[B2](int1, int2, a2)
 }
 
 class HCenPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt2Map[HCen, HCenArr, B2, HCenPair[B2], HCenPairArr[B2]]
