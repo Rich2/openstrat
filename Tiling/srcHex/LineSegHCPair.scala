@@ -17,7 +17,7 @@ class LineSegHCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
 { override type ThisT = LineSegHCPairArr[A2]
   override def typeStr: String = "LineSegHCPair"
   override def a1Arr: LineSegHCArr = new LineSegHCArr(a1ArrayInt)
-  override def newPair(int1: Int, int2: Int, int3: Int, int4: Int, a2: A2): LineSegHCPair[A2] = new LineSegHCPair[A2](int1, int2, int3, int4, a2)
+  override def elemFromInts(int1: Int, int2: Int, int3: Int, int4: Int, a2: A2): LineSegHCPair[A2] = new LineSegHCPair[A2](int1, int2, int3, int4, a2)
   override def newA1(int1: Int, int2: Int, int3: Int, int4: Int): LineSegHC = new LineSegHC(int1, int2, int3, int4)
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): LineSegHCPairArr[A2] = new LineSegHCPairArr[A2](newA1Array, newA2Array)
   override def fElemStr: LineSegHCPair[A2] => String = _.toString
@@ -27,7 +27,7 @@ class LineSegHCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
 class LineSegHCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt4[LineSegHC, B2, LineSegHCPair[B2]]
 { override type ThisT = LineSegHCPairBuff[B2]
   override def typeStr: String = "LineSegHCPairBuff"
-  override def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): LineSegHCPair[B2] = new LineSegHCPair[B2](int1, int2, int3, int4, a2)
+  override def elemFromInts(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): LineSegHCPair[B2] = new LineSegHCPair[B2](int1, int2, int3, int4, a2)
 }
 
 trait LineSegHCPairArrCommonBuilder[B2] extends BuilderArrPairInt4[LineSegHC, LineSegHCArr, B2, LineSegHCPairArr[B2]]
