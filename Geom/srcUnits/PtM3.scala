@@ -225,11 +225,11 @@ class PtM3Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, v
 class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends PointDbl3PairArr[PtM3, PtM3Arr, A2, PtM3Pair[A2]]
 { override type ThisT = PtM3PairArr[A2]
   override def typeStr: String = "PtM3PairArr"
-  override def newPair(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): PtM3Pair[A2] = new PtM3Pair[A2](dbl1, dbl2, dbl3, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): PtM3Pair[A2] = new PtM3Pair[A2](dbl1, dbl2, dbl3, a2)
   override def a1Arr: PtM3Arr = new PtM3Arr(a1ArrayDbl)
   override def fElemStr: PtM3Pair[A2] => String = _.toString
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtM3PairArr[A2] = new PtM3PairArr[A2](a1Array, a2Array)
-  override def newA1(dbl1: Double, dbl2: Double, dbl3: Double): PtM3 = PtM3.metreNum(dbl1, dbl2, dbl3)
+  override def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double): PtM3 = PtM3.metreNum(dbl1, dbl2, dbl3)
 }
 
 class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl3[PtM3, B2, PtM3Pair[B2]]

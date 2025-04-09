@@ -12,7 +12,7 @@ class Pt2Pair[A2](val x: Double, val y: Double, val a2: A2) extends PointDbl2Pai
 class Pt2PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2])extends PointDbl2PairArr[Pt2, Pt2Arr, A2, Pt2Pair[A2]]
 { override type ThisT = Pt2PairArr[A2]
   override def typeStr: String = "Pt2Arr"
-  override def pairElemFromDbls(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
   override def a1Arr: Pt2Arr = new Pt2Arr(a1ArrayDbl)
   override def fElemStr: Pt2Pair[A2] => String = _.toString
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](a1Array, a2Array)
@@ -32,7 +32,7 @@ object Pt2PairArr extends CompanionArrPairDbl2[Pt2, Pt2Arr]
 class Pt2PairBuff[A2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[A2]) extends BuffPairDbl2[Pt2, A2, Pt2Pair[A2]]
 { override type ThisT = Pt2PairBuff[A2]
   override def typeStr: String = "Pt2PairBuff"
-  override def pairElemFromDbls(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
 }
 
 /** Builder for [[Pt2PairArr]]s. */

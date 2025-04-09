@@ -13,7 +13,7 @@ class LatLongPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) 
   override def typeStr: String = "LatLongPairArr"
   override def a1Arr: LatLongArr = new LatLongArr(a1ArrayDbl)
 
-  override def pairElemFromDbls(dbl1: Double, dbl2: Double, a2: A2): LatLongPair[A2] = new LatLongPair[A2](dbl1, dbl2, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): LatLongPair[A2] = new LatLongPair[A2](dbl1, dbl2, a2)
 
   override def fElemStr: LatLongPair[A2] => String = _.toString
 
@@ -32,7 +32,7 @@ object LatLongPairArr extends CompanionArrPairDbl2 [LatLong, LatLongArr]{
 class LatLongPairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl2[LatLong, B2, LatLongPair[B2]]
 { override type ThisT = LatLongPairBuff[B2]
   override def typeStr: String = "LatLongPairBuff"
-  override def pairElemFromDbls(dbl1: Double, dbl2: Double, a2: B2): LatLongPair[B2] = new LatLongPair[B2](dbl1, dbl2, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, a2: B2): LatLongPair[B2] = new LatLongPair[B2](dbl1, dbl2, a2)
 }
 
 object LatLongPairBuff{

@@ -234,11 +234,11 @@ class PtKm3Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, 
 class PtKm3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends PointDbl3PairArr[PtKm3, PtKm3Arr, A2, PtKm3Pair[A2]]
 { override type ThisT = PtKm3PairArr[A2]
   override def typeStr: String = "PtKm3PairArr"
-  override def newPair(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): PtKm3Pair[A2] = new PtKm3Pair[A2](dbl1, dbl2, dbl3, a2)
+  override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): PtKm3Pair[A2] = new PtKm3Pair[A2](dbl1, dbl2, dbl3, a2)
   override def a1Arr: PtKm3Arr = new PtKm3Arr(a1ArrayDbl)
   override def fElemStr: PtKm3Pair[A2] => String = _.toString
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtKm3PairArr[A2] = new PtKm3PairArr[A2](a1Array, a2Array)
-  override def newA1(dbl1: Double, dbl2: Double, dbl3: Double): PtKm3 = new PtKm3(dbl1, dbl2, dbl3)
+  override def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double): PtKm3 = new PtKm3(dbl1, dbl2, dbl3)
 }
 
 class PtKm3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl3[PtKm3, B2, PtKm3Pair[B2]]
