@@ -17,17 +17,18 @@ trait Int6Elem extends Any, IntNElem
 
 /** [[SeqLike]] for [[Int6Elem]]s */
 trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeValueN[A]
-{ final override def elemEq(a1: A, a2: A): Boolean =
+{ /** Constructs a new element of this [[BuffSequ]] from 6 [[Int]]s. */
+  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
+
+  final override def elemProdSize: Int = 6
+
+  final override def elemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5) && (a1.int6 == a2.int6)
 }
 
 /** [[SeqLike]] for [[Int6Elem]]s */
 trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt6[A]
-{ final override def elemProdSize: Int = 6
-
-  def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
-
-  final override def numElems: Int = arrayUnsafe.length / 6
+{ final override def numElems: Int = arrayUnsafe.length / 6
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
     arrayUnsafe.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
@@ -64,19 +65,14 @@ trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], ArrIntN[A]
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
 trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
 { type ThisT <: BuffInt6[A]
-
-  /** Constructs a new element of this [[BuffSequ]] from 6 [[Int]]s. */
-  def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
-
-  final override def elemProdSize: Int = 6
   final override def length: Int = bufferUnsafe.length / 6
   final override def numElems: Int = bufferUnsafe.length / 6
   final override def grow(newElem: A): Unit = bufferUnsafe.append6(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 
-  final override def apply(index: Int): A = newElem(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2),
+  final override def apply(index: Int): A = elemFromInts(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2),
     bufferUnsafe(index * 6 + 3), bufferUnsafe(index * 6 + 4), bufferUnsafe(index * 6 + 5))
 
-  final override def elem(index: Int): A = newElem(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2), bufferUnsafe(index * 6 + 3),
+  final override def elem(index: Int): A = elemFromInts(bufferUnsafe(index * 6), bufferUnsafe(index * 6 + 1), bufferUnsafe(index * 6 + 2), bufferUnsafe(index * 6 + 3),
     bufferUnsafe(index * 6 + 4), bufferUnsafe(index * 6 + 5))
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =

@@ -27,7 +27,7 @@ class LineSegHvOffsetArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt6[Li
 class LineSegHvOffsetBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal, BuffInt6[LineSegHvOffset]
 { type ArrT = LineSegHvOffsetArr
   override def typeStr: String = "HvOffsetBuff"
-  override def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): LineSegHvOffset = new LineSegHvOffset(i1, i2, i3, i4, i5, i6)
+  override def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): LineSegHvOffset = new LineSegHvOffset(i1, i2, i3, i4, i5, i6)
 }
 
 object LineSegHvOffsetBuff extends CompanionBuffInt6[LineSegHvOffset, LineSegHvOffsetBuff]
