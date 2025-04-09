@@ -11,8 +11,8 @@ class HStepPair[A2](val a1Int1: Int, val a2: A2) extends PairInt1Elem[HStep, A2]
 class HStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt1[HStep, HStepArr, A2, HStepPair[A2]]
 { override type ThisT = HStepPairArr[A2]
   override def typeStr: String = "HDirnPairArr"
-  override def newPair(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
-  override def newA1(int1: Int): HStep = HStep.fromInt(int1)
+  override def elemFromInt(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
+  override def a1FromInt(int1: Int): HStep = HStep.fromInt(int1)
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HStepPairArr[A2] = new HStepPairArr[A2](a1ArrayInt, newA2Array)
   override def a1Arr: HStepArr = new HStepArr(a1ArrayInt)
   override def fElemStr: HStepPair[A2] => String = _.toString
@@ -29,7 +29,7 @@ object HStepPairArr1{
 class HStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends BuffPairInt1[HStep, A2, HStepPair[A2]]
 { override type ThisT = HStepPairBuff[A2]
   override def typeStr: String = "HDirnPairBuff"
-  override def newElem(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
+  override def elemFromInt(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
 }
 
 /** An [[BuilderArrMap]] for [[HStepPair]]s. */

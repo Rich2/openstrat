@@ -56,12 +56,12 @@ trait BuffPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends BuffPa
   final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
     b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
-  override final def grow(newElem: A): Unit =
+  final override def grow(newElem: A): Unit =
   { b1DblBuffer.append4(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(index: Int, newElem: A): Unit =
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
   { b1DblBuffer.setIndex4(index, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3, newElem.a1Dbl4)
     b2Buffer(index) = newElem.a2
   }
