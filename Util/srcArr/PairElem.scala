@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** These classes are for use in [[ArrPair]]s. */
 trait PairElem[A1, A2] extends Any
@@ -79,9 +79,9 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
-  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrFinalA1]] of [[PairFinalA1Elem]][B1, A2]. Then
-   * flattens these new [[PairArrFinalA1]]s to make a single [[PairArrFinalA1]] */
-  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrFinalA1[B1, ArrB1, A2, ?]](f: A1 => ArrB1)(implicit build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]):
+  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[ArrPairFinalA1]] of [[PairFinalA1Elem]][B1, A2]. Then
+   * flattens these new [[ArrPairFinalA1]]s to make a single [[ArrPairFinalA1]] */
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: ArrPairFinalA1[B1, ArrB1, A2, ?]](f: A1 => ArrB1)(implicit build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]):
   ArrB =
   { val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
@@ -114,14 +114,14 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   final override def length: Int = a2Array.length
   final override def numElems: Int = a2Array.length
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you are
+  /** Treats this [[ArrPairFinalA1]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you are
    * uncertain whether this pair sequence contains the A2 key, use the safe a2FindA1 method. */
   def a2GetA1(key: A2): A1 = a2FindA1(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that this pair
+  /** Treats this [[ArrPairFinalA1]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that this pair
    * sequence contains the A2 key, use the a2GetA1 method. */
   def a2FindA1(key: A2): Option[A1] =
   { var i = 0
@@ -133,14 +133,14 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you are
+  /** Treats this [[ArrPairFinalA1]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you are
    * uncertain whether this pair sequence contains the A1 key value, use the safe a1FindA2 method.*/
   def a1GetA2(key: A1): A2 = a1FindA2(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that this pair
+  /** Treats this [[ArrPairFinalA1]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that this pair
    * sequence contains the A1 key, use the a1GetA2 method. */
   def a1FindA2(key: A1): Option[A2] =
   { var i = 0
@@ -173,6 +173,21 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   def strLines: String = mkStr(el => el.a1.toString + "; " + el.a2.toString, "\n")
+}
+
+/** An efficient [[BuffSequ]] for [[PairFinalA1Elem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
+ * because these [[BuffSequ]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
+trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any, BuffSequ[B]
+{
+  /** ArrayBuffer for the B2 components of the pairs. */
+    def b2Buffer: ArrayBuffer[B2]
+
+  /** Grows a [[BuffPair]] by adding the elements of the pair to the b1 and b2 buffers. */
+  def pairGrow(b1: B1, b2: B2): Unit
+
+  final override def length: Int = b2Buffer.length
+  final override def numElems: Int = b2Buffer.length
+  override def fElemStr: B => String = _.toString
 }
 
 /** Base trait for building [[ArrPair]] objects via map and flatMap methods. */

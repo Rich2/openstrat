@@ -8,15 +8,17 @@ trait PairDbl2Elem[A1 <: Dbl2Elem, A2] extends PairDblNElem[A1, A2]
   def a1Dbl2: Double
 }
 
+/** Common trait for [[ArrPairDbl2]]s and [[BuffPairDbl2]]s. */
+trait SeqLikePairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
+{ /** Constructs new pair element from 2 [[Double]]s. */
+  def pairElemFromDbls(dbl1: Double, dbl2: Double, a2: A2): A
+}
+
 /** An [[Arr]] of [[PairElem]]s where the first component of the pairs is a [[Dbl2Elem]]. */
-trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A]
+trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SeqLikePairDbl2[A1, A2, A]
 { type ThisT <: ArrPairDbl2[A1, ArrA1, A2, A]
-
-  /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
-  def newPair(dbl1: Double, dbl2: Double, a2: A2): A
-
-  final override def apply(index: Int): A = newPair(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
-  final override def elem(index: Int): A = newPair(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
+  final override def apply(index: Int): A = pairElemFromDbls(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
+  final override def elem(index: Int): A = pairElemFromDbls(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
   { a1ArrayDbl.setIndex2(index, newElem.a1Dbl1, newElem.a1Dbl2)
@@ -42,19 +44,16 @@ trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1
 }
 
 /** Efficient buffer for [[PairDbl2Elem]]s. */
-trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPairDblN[A1, A2, A]
-{ /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
-  def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): A
+trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl2[A1, A2, A]
+{ final override def apply(index: Int): A = pairElemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
+  final override def elem(index: Int): A = pairElemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
 
-  inline final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
-  final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
-
-  override final def grow(newElem: A): Unit =
+  final override def grow(newElem: A): Unit =
   { b1DblBuffer.append2(newElem.a1Dbl1, newElem.a1Dbl2)
     b2Buffer.append(newElem.a2)
   }
 
-  override final def setElemUnsafe(index: Int, newElem: A): Unit =
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
   { b1DblBuffer.setIndex2(index, newElem.a1Dbl1, newElem.a1Dbl2)
     b2Buffer(index) = newElem.a2
   }

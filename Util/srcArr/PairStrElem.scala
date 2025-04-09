@@ -10,7 +10,7 @@ object PairStrElem
 }
 
 /** An [[Arr]] of [[PairElem]]s where the first component of the pair is a [[String]]. */
-class ArrPairStr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArrFinalA1[String, StrArr, A2, PairStrElem[A2]]
+class ArrPairStr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends ArrPairFinalA1[String, StrArr, A2, PairStrElem[A2]]
 { override type ThisT = ArrPairStr[A2]
   override def typeStr: String = "StringPairArr"
   override def a1Arr: StrArr = new StrArr(a1Array)

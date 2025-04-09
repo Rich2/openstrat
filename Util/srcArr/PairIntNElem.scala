@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 trait PairIntNElem[A1 <: IntNElem, A2] extends PairFinalA1Elem[A1, A2]
 
 /** An [[Arr]] of [[PairIntN]] elements where the first component of the pairs is an [[IntNElem]]. */
-trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends PairArrFinalA1[A1, ArrA1, A2, A]
+trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairIntN[A1, ArrA1, A2, A]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */

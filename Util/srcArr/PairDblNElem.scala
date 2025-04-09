@@ -1,12 +1,15 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** [[PairElem]] where the first component is a [[DblNElem]]. */
 trait PairDblNElem[A1 <: DblNElem, A2] extends PairFinalA1Elem[A1, A2]
 
+/** Common trait for [[ArrPairDblN]] and [[BuffPairDblN]]s */
+trait SeqLikePairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends SeqLike[A]
+
 /** [[Arr]] for [[PairDblNElem]]s. [[PairElem]]s where the first component of the pair is a [[DblNElem]]. */
-trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1, A2]] extends PairArrFinalA1[A1, ArrA1, A2, A]
+trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairDblN[A1, ArrA1, A2, A]
 
   def a1NumDbl: Int
@@ -31,7 +34,7 @@ trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }
 
-/** Efficent buffer classes for [[PairDblN]] elements. */
+/** Efficient buffer classes for [[PairDblN]] elements. */
 trait BuffPairDblN[B1 <: DblNElem, B2, B <: PairDblNElem[B1, B2]] extends BuffPair[B1, B2, B]
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]

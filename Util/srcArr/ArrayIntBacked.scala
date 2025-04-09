@@ -66,7 +66,7 @@ trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends PairFinalA1Elem[A1, A
   def a1ArrayInt: Array[Int]
 }
 
-trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends PairArrFinalA1[A1, ArrA1, A2, A]
+trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
 { /** The backing Array for the A1 components. */
   def a1ArrayArrayInts: Array[Array[Int]]
 

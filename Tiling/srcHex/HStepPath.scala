@@ -132,7 +132,7 @@ object HDirnPathPair
   }
 }
 
-/** A [[PairArrFinalA1]] where the first element is an [[HStepPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
+/** A [[ArrPairFinalA1]] where the first element is an [[HStepPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HStepPathPairArr[A2](val a1ArrayArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HStepPath, HStepPathArr, A2, HDirnPathPair[A2]]
 { override type ThisT = HStepPathPairArr[A2]
   override def typeStr: String = "HDirnPathPairArr"

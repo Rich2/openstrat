@@ -9,14 +9,14 @@ trait SeqLikePairElem[A1E, A1 <: SeqLike[A1E], A2] extends PairFinalA1Elem[A1, A
 }
 
 /** A sequence of [[SeqLikePairElem]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqLikePairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends PairArrFinalA1[A1, A1Arr, A2, A]
+trait SeqLikePairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends ArrPairFinalA1[A1, A1Arr, A2, A]
 
 /** A buffer of [[SeqLikePairElem]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
 trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends BuffPair[A1, A2, A]
 { def b2Buffer: ArrayBuffer[A2]  
 }
 
-trait SeqLikePairArrBuilder[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikePairElem[B1E, B1, B2], ArrB <: PairArrFinalA1[B1, ArrB1, B2, B]] extends
+trait SeqLikePairArrBuilder[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikePairElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
   BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: BuilderSeqLikeMap[B1E, B1]
@@ -78,7 +78,7 @@ trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], B2, B <: 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }
 }
 
-trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2], ArrB <: PairArrFinalA1[B1, ArrB1, B2, B]] extends
+trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeDblNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: BuffArrayDbl[B1]
@@ -108,7 +108,7 @@ trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], B2, B <: 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }
 }
 
-trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2], ArrB <: PairArrFinalA1[B1, ArrB1, B2, B]] extends
+trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeIntNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: ArrayIntBuff[B1]
