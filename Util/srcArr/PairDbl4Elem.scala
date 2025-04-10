@@ -52,7 +52,7 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
 /** Efficient buffer class for [[PairDbl4]] elements. */
 trait BuffPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl4[A1, A2, A]
 { final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
-    b1DblBuffer(index * 4 + 3), b2Buffer(index))
+  b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
   final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
     b1DblBuffer(index * 4 + 3), b2Buffer(index))
@@ -69,14 +69,13 @@ trait BuffPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends BuffPa
 }
 
 /** Common trait for builders of [[ArrPairDbl4]] objects via the map and flatMap methods. */
-trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
-BuilderArrPairDblN[B1, ArrB1, B2, ArrB]
+trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends BuilderArrPairDblN[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairDbl4[B1, B2, ?]
 }
 
 /** Builder for [[ArrPairDbl4]] objects via the map f: A => PairB method. */
 trait BuilderArrPairDbl4Map[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, B <: PairDbl4Elem[B1, B2], ArrB <: ArrPairDbl4[B1, ArrB1, B2, B]] extends
-BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  BuilderArrPairDblNMap[B1, ArrB1, B2, B, ArrB]
+  BuilderArrPairDbl4[B1, ArrB1, B2, ArrB], BuilderArrPairDblNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDbl4[B1, B2, B]
   override type B1BuffT <: BuffDbl4[B1]
   final override def a1DblNum: Int = 4
@@ -88,15 +87,15 @@ BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  BuilderArrPairDblNMap[B1, ArrB1, B
 }
 
 /** Builder for [[ArrPairDbl4]] objects via the flatMap f: A => ArrPairB method. */
-trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
-  BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with BuilderArrPairDblNFlat[B1, ArrB1, B2, ArrB]
+trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends BuilderArrPairDbl4[B1, ArrB1, B2, ArrB],
+  BuilderArrPairDblNFlat[B1, ArrB1, B2, ArrB]
 
 /** Helper trait for companion objects of [[ArrPairDbl4]] final classes. */
 trait CompanionArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1]] extends CompanionArrPairDblN[A1, ArrA1]
 { override def elemNumDbls: Int = 4
 
   def seqToArrays[A2](pairs: Seq[PairDbl4Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
-  {  val dblsArray = new Array[Double](pairs.length * 4)
+  { val dblsArray = new Array[Double](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
     pairs.foreach{p =>

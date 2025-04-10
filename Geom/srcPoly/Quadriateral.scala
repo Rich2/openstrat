@@ -29,8 +29,12 @@ trait Quadrilateral extends Polygon4Plus
 }
 
 object Quadrilateral
-{ /** Factroy apply method to create [[Quadrilateral]] from its 4 vertices. */
+{ /** Factory apply method to create [[Quadrilateral]] from its 4 vertices. */
   def apply (vt0: Pt2, vt1: Pt2, vt2: Pt2, vt3: Pt2): Quadrilateral = new QuadriateralGen(Array(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y, vt3.x, vt3.y))
+
+  /** Factory apply method to create [[Quadrilateral]] from the X and Y components of the 4 vertices. */
+  def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Quadrilateral =
+    new QuadriateralGen(Array(x0, y0, x1, y1, x2, y2, x3, y3))
 }
 
 /** The general case of a quadrilateral */
