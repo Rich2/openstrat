@@ -35,6 +35,15 @@ object Quadrilateral
   /** Factory apply method to create [[Quadrilateral]] from the X and Y components of the 4 vertices. */
   def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Quadrilateral =
     new QuadriateralGen(Array(x0, y0, x1, y1, x2, y2, x3, y3))
+    
+  /** Implicit [[Slate]] type class instance for [[Quadrilateral]] */  
+  implicit val slateEv: Slate[Quadrilateral] = (obj, operand) => obj.slate(operand)
+
+  /** Implicit [[SlateXY]] type class instance for [[Quadrilateral]] */
+  implicit val slateXYEv: SlateXY[Quadrilateral] = (obj, xOperand, yOperand) => obj.slate(xOperand, yOperand)
+
+  /** Implicit [[Scale]] type class instance for [[Quadrilateral]] */
+  implicit val scaleEv: Scale[Quadrilateral] = (obj, operand) => obj.scale(operand)
 }
 
 /** The general case of a quadrilateral */

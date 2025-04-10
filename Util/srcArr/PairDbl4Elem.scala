@@ -38,6 +38,7 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 
+  /** Appends an element to this [[Arr]], by taking the components of the pair as parameters. */
   final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
   { val newA1Array = new Array[Double](a1ArrayLength + 4)
     a1ArrayDbl.copyToArray(newA1Array)
@@ -51,10 +52,11 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
 
 /** Efficient buffer class for [[PairDbl4]] elements. */
 trait BuffPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl4[A1, A2, A]
-{ final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
-  b1DblBuffer(index * 4 + 3), b2Buffer(index))
+{
+  final override def apply(index: Int): A = elemFromDbls(b1DblBuffer(index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
+    b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
-  final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
+  final override def elem(index: Int): A = elemFromDbls(b1DblBuffer(index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
     b1DblBuffer(index * 4 + 3), b2Buffer(index))
 
   final override def grow(newElem: A): Unit =
