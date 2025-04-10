@@ -16,7 +16,7 @@ object LocationLL
 }
 
 class LocationLLArr(a1ArrayDbl: Array[Double], a2Array: Array[Place]) extends LatLongPairArr[Place](a1ArrayDbl, a2Array)
-{ override def newFromArrays(a1Array: Array[Double], a2Array: Array[Place]): LatLongPairArr[Place] = new LocationLLArr(a1Array, a2Array)
+{ override def fromArrays(a1Array: Array[Double], a2Array: Array[Place]): LatLongPairArr[Place] = new LocationLLArr(a1Array, a2Array)
 
   override def newA1(dbl1: Double, dbl2: Double): LatLong = LatLong.milliSecs(dbl1, dbl2)
 }

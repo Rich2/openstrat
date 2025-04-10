@@ -10,10 +10,11 @@ trait PairDbl4Elem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
   def a1Dbl4: Double
 }
 
+/** [[SeqLike]] trait for [[Dbl4Elem]]s, provides a common trait for [[ArrPairDbl4]] and [[BuffPairDbl4]]s. */
 trait SeqLikePairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
 { /** Constructs new pair element from 4 [[Double]]s and a third parameter of type A2. */
   def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
-
+  
   final override def a1NumDbl: Int = 4
 }
 
@@ -44,7 +45,7 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
-    newFromArrays(newA1Array, newA2Array)
+    fromArrays(newA1Array, newA2Array)
   }
 }
 
@@ -90,9 +91,9 @@ BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  BuilderArrPairDblNMap[B1, ArrB1, B
 trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
   BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with BuilderArrPairDblNFlat[B1, ArrB1, B2, ArrB]
 
-trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1]] extends CompanionArrPairDblN[A1, ArrA1]
-{
-  override def elemNumDbls: Int = 4
+/** Helper trait for companion objects of [[ArrPairDbl4]] final classes. */
+trait CompanionArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1]] extends CompanionArrPairDblN[A1, ArrA1]
+{ override def elemNumDbls: Int = 4
 
   def seqToArrays[A2](pairs: Seq[PairDbl4Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 4)

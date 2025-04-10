@@ -237,7 +237,7 @@ class PtKm3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ex
   override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): PtKm3Pair[A2] = new PtKm3Pair[A2](dbl1, dbl2, dbl3, a2)
   override def a1Arr: PtKm3Arr = new PtKm3Arr(a1ArrayDbl)
   override def fElemStr: PtKm3Pair[A2] => String = _.toString
-  override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtKm3PairArr[A2] = new PtKm3PairArr[A2](a1Array, a2Array)
+  override def fromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtKm3PairArr[A2] = new PtKm3PairArr[A2](a1Array, a2Array)
   override def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double): PtKm3 = new PtKm3(dbl1, dbl2, dbl3)
 }
 

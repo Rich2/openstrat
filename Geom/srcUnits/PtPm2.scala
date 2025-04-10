@@ -158,7 +158,7 @@ object PtPm2Pair
 class PtPm2PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends ArrPairDbl2[PtPm2, PtPm2Arr, A2, PtPm2Pair[A2]]
 { override type ThisT = PtPm2PairArr[A2]
   override def typeStr: String = "PtPm2PairArr"
-  override def newFromArrays(newA1Array: Array[Double], newA2Array: Array[A2]): PtPm2PairArr[A2] = new PtPm2PairArr[A2](newA1Array, newA2Array)
+  override def fromArrays(newA1Array: Array[Double], newA2Array: Array[A2]): PtPm2PairArr[A2] = new PtPm2PairArr[A2](newA1Array, newA2Array)
   override def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): PtPm2Pair[A2] = new PtPm2Pair[A2](dbl1, dbl2, a2)
   override def newA1(dbl1: Double, dbl2: Double): PtPm2 = PtPm2(dbl1, dbl2)
   override def a1Arr: PtPm2Arr = new PtPm2Arr(a1ArrayDbl)

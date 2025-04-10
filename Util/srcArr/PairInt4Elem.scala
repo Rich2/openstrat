@@ -68,15 +68,14 @@ trait BuffPairInt4[B1 <: Int4Elem, B2, B <: PairInt4Elem[B1, B2]] extends BuffPa
 }
 
 /** Base trait for builders of [[ArrPairInt4]] objects by both map and flatMap methods. */
-trait BuilderArrPairInt4[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends
-BuilderArrPairIntN[B1, ArrB1, B2, ArrB]
+trait BuilderArrPairInt4[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends BuilderArrPairIntN[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairInt4[B1, B2, ?]
   type B1BuffT <: BuffInt4[B1]
 }
 
 /** Builders for [[ArrPairInt4]] objects by map f: A => PairB method. */
-trait BuilderArrPairInt4Map[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, B <: PairInt4Elem[B1, B2], ArrB <: ArrPairInt4[B1, ArrB1, B2, B]] extends
-BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
+trait BuilderArrPairInt4Map[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, B <: PairInt4Elem[B1, B2], ArrB <: ArrPairInt4[B1, ArrB1, B2, B]] extends 
+  BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairInt4[B1, B2, B]
   final override def a1IntNum: Int = 4
 
@@ -87,12 +86,11 @@ BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNMap[B1, ArrB1, B
 }
 
 /** Builders for [[ArrPairInt4]] objects by flatMap f: A => ArrPairB method. */
-trait BuilderArrPairInt4Flat[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends
-  BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNFlat[B1, ArrB1, B2, ArrB]
+trait BuilderArrPairInt4Flat[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends BuilderArrPairInt4[B1, ArrB1, B2, ArrB],
+  BuilderArrPairIntNFlat[B1, ArrB1, B2, ArrB]
 
 trait Int4PairArrCompanion[A1 <: Int4Elem]
-{
-  def seqToArrays[A2](pairs: Seq[PairInt4Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+{ def seqToArrays[A2](pairs: Seq[PairInt4Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

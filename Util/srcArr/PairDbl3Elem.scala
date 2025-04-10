@@ -43,7 +43,7 @@ trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
-    newFromArrays(newA1Array, newA2Array)
+    fromArrays(newA1Array, newA2Array)
   }
 }
 

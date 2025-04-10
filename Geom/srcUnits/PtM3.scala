@@ -228,7 +228,7 @@ class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ext
   override def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): PtM3Pair[A2] = new PtM3Pair[A2](dbl1, dbl2, dbl3, a2)
   override def a1Arr: PtM3Arr = new PtM3Arr(a1ArrayDbl)
   override def fElemStr: PtM3Pair[A2] => String = _.toString
-  override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtM3PairArr[A2] = new PtM3PairArr[A2](a1Array, a2Array)
+  override def fromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtM3PairArr[A2] = new PtM3PairArr[A2](a1Array, a2Array)
   override def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double): PtM3 = PtM3.metreNum(dbl1, dbl2, dbl3)
 }
 

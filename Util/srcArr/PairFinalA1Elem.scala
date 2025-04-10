@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation.*, reflect.ClassTag
 
 /** These classes are for use in [[ArrPairFinalA1]]s. The A1 type is finalised in the instantiable classes */
-trait PairFinalA1Elem[A1, A2] extends Any with PairElem[A1, A2]
+trait PairFinalA1Elem[A1, A2] extends Any, PairElem[A1, A2]
 
 /** [[ArrPair]] where the A1 type is finalised in the instantiable classes. */
 trait ArrPairFinalA1[A1, A1Arr <: Arr[A1], A2, A <: PairFinalA1Elem[A1, A2]] extends ArrPair[A1, A1Arr, A2, A]
