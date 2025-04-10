@@ -28,6 +28,11 @@ trait Quadrilateral extends Polygon4Plus
   override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = QuadriateralGen(arrayScaleXY(xOperand, yOperand))
 }
 
+object Quadrilateral
+{ /** Factroy apply method to create [[Quadrilateral]] from its 4 vertices. */
+  def apply (vt0: Pt2, vt1: Pt2, vt2: Pt2, vt3: Pt2): Quadrilateral = new QuadriateralGen(Array(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y, vt3.x, vt3.y))
+}
+
 /** The general case of a quadrilateral */
 class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve
 { type ThisT = QuadriateralGen
