@@ -11,8 +11,8 @@ trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
   def a1Int4: Int
 }
 
-/** A [[SeqLike]] of [[PairElem]]s where the first component is an [[Int4Elem]]. */
-trait SeqLikePairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends SeqLikePairIntN[A1, A2, A]
+/** Common trait for [[ArrPairInt4]] and [[BuffPairInt4]], where the first component of the pairs is an [[Int4Elem]]. */
+trait SeqLikePairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends SequPairIntN[A1, A2, A]
 { /** Constructs new pair element from 4 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A
 

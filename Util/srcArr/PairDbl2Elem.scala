@@ -8,8 +8,8 @@ trait PairDbl2Elem[A1 <: Dbl2Elem, A2] extends PairDblNElem[A1, A2]
   def a1Dbl2: Double
 }
 
-/** Common trait for [[ArrPairDbl2]]s and [[BuffPairDbl2]]s. */
-trait SeqLikePairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
+/** Common trait for [[ArrPairDbl2]]s and [[BuffPairDbl2]]s, where the first component of the pairs is a [[Dbl2Elem]]. */
+trait SequPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends SequPairDblN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Double]]s. */
   def elemFromDbls(dbl1: Double, dbl2: Double, a2: A2): A
 
@@ -17,7 +17,7 @@ trait SeqLikePairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends Seq
 }
 
 /** An [[Arr]] of [[PairElem]]s where the first component of the pairs is a [[Dbl2Elem]]. */
-trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SeqLikePairDbl2[A1, A2, A]
+trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SequPairDbl2[A1, A2, A]
 { type ThisT <: ArrPairDbl2[A1, ArrA1, A2, A]
   final override def apply(index: Int): A = elemFromDbls(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
   final override def elem(index: Int): A = elemFromDbls(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
@@ -45,7 +45,7 @@ trait ArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1
 }
 
 /** Efficient buffer for [[PairDbl2Elem]]s. */
-trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl2[A1, A2, A]
+trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SequPairDbl2[A1, A2, A]
 { final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
   final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
 

@@ -9,9 +9,9 @@ trait PairInt3Elem[A1 <: Int3Elem, A2] extends PairIntNElem[A1, A2]
   def a1Int3: Int
 }
 
-/** [[SeqLike]] for [[PairElem]]s where the first component of the pairs is an [[Int3Elem]]. */
-trait SeqLikePairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends SeqLikePairIntN[A1, A2, A]
-{ type ThisT <: SeqLikePairInt3[A1, A2, A]
+/** Common trait for [[ArrPairInt2]] and [[BuffPairInt2]], where the first component of the pairs is an [[Int3Elem]]. */
+trait SequPairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends SequPairIntN[A1, A2, A]
+{ type ThisT <: SequPairInt3[A1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, int3: Int, a2: A2): A
@@ -20,7 +20,7 @@ trait SeqLikePairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends Seq
 }
 
 /** [[Arr]] for [[PairElem]]s where the first component of the pairs is an [[Int3Elem]]. */
-trait ArrPairInt3[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: PairInt3Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SeqLikePairInt3[A1, A2, A]
+trait ArrPairInt3[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: PairInt3Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SequPairInt3[A1, A2, A]
 { type ThisT <: ArrPairInt3[A1, ArrA1, A2, A]
 
   final override def apply(index: Int): A = elemFromInts(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2), a2Array(index))
@@ -48,7 +48,7 @@ trait ArrPairInt3[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: PairInt3Elem[A1
 }
 
 /** Efficient buffer for [[PairInt3Elem]]s. */
-trait BuffPairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends BuffPairIntN[A1, A2, A], SeqLikePairInt3[A1, A2, A]
+trait BuffPairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends BuffPairIntN[A1, A2, A], SequPairInt3[A1, A2, A]
 { final override def apply(index: Int): A = elemFromInts(b1IntBuffer (index * 3), b1IntBuffer(index * 3 + 1), b1IntBuffer(index * 3 + 2), b2Buffer(index))
   final override def elem(index: Int): A = elemFromInts(b1IntBuffer (index * 3), b1IntBuffer(index * 3 + 1), b1IntBuffer(index * 3 + 2), b2Buffer(index))
 

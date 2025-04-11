@@ -9,8 +9,8 @@ trait PairDbl3Elem[A1 <: Dbl3Elem, A2] extends PairDblNElem[A1, A2]
   def a1Dbl3: Double
 }
 
-/** Common trait for [[ArrPairDbl3]]s and [[BuffPairDbl3]]s. */
-trait SeqLikePairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends SeqLikePairDblN[A1, A2, A]
+/** Common trait for [[ArrPairDbl3]]s and [[BuffPairDbl3]]s, where the first component of the pairs is a [[Dbl3Elem]]. */
+trait SequPairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends SequPairDblN[A1, A2, A]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def elemFromDbls(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
 
@@ -18,7 +18,7 @@ trait SeqLikePairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends Seq
 }
 
 /** [[Arr]] of [[PairDbl3Elem]]s. */
-trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SeqLikePairDbl3[A1, A2, A]
+trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SequPairDbl3[A1, A2, A]
 { type ThisT <: ArrPairDbl3[A1, ArrA1, A2, A]
 
   /** Constructs an object of type A1 type from 3 [[Double]]s.  */
@@ -48,7 +48,7 @@ trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1
 }
 
 /** Efficient buffer for [[PairDbl3Elem]]s.  */
-trait BuffPairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SeqLikePairDbl3[A1, A2, A]
+trait BuffPairDbl3[A1 <: Dbl3Elem, A2, A <: PairDbl3Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SequPairDbl3[A1, A2, A]
 { final override def apply(index: Int): A = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
   final override def elem(index: Int): A = elemFromDbls(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
 
