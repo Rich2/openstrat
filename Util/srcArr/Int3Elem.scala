@@ -13,7 +13,7 @@ trait Int3Elem extends Any, IntNElem
 }
 
 /** Sequence like class that has [[Int3Elem]]s as its elements or its specifying sequence. */
-trait SeqLikeInt3[A <: Int3Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeInt3[A <: Int3Elem] extends Any, SlValueN[A]
 { /** Constructs an element from 3 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int): A
 

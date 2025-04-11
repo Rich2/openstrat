@@ -79,7 +79,7 @@ trait PolygonLike[+VT] extends Any, VertBased[VT]
   def sides: Arr[SideT]
 }
 
-trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonLike[VT], SeqSpecValueN[VT]
+trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonLike[VT], SsValueN[VT]
 { override def vertsForeach[U](f: VT  => U): Unit = foreach(f)
   override def numVerts: Int = numElems
 }

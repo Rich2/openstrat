@@ -16,7 +16,7 @@ trait Dbl6Elem extends Any, DblNElem
 }
 
 /** Sequence like class whose elements or sequence specifying elements [[Dbl6Elem]] can be constructed from 6 [[Double]]s. */
-trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SlValueN[A]
 { /** Constructs an element of the specifying-sequence from 6 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
   

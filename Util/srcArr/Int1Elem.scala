@@ -12,7 +12,7 @@ trait Int1Elem extends Any with IntNElem
 }
 
 /** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeValueN[A]
+trait SeqLikeInt1[A <: Int1Elem] extends Any with SlValueN[A]
 { /** Constructs an element of the specifying sequence from an [[Int]] value. */
   def elemFromInt(intValue: Int): A
 

@@ -14,7 +14,7 @@ trait IntNElem extends Any, ValueNElem
 }
 
 /** Common trait for the immutable Array[Int] backed classes that can be specified by [[IntNElem]]s. */
-trait SeqLikeIntNImut[A <: IntNElem] extends Any, SeqLikeValueNImut[A], ArrayIntBacked
+trait SeqLikeIntNImut[A <: IntNElem] extends Any, SlValueNImut[A], ArrayIntBacked
 { type ThisT <: SeqLikeIntNImut[A]
 
   /** Constructs the final type of these [[SeqLikeIntNImut]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
@@ -25,7 +25,7 @@ trait SeqLikeIntNImut[A <: IntNElem] extends Any, SeqLikeValueNImut[A], ArrayInt
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntNImut[A] with SeqSpecValueN[A] with ArrayIntBacked
+trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntNImut[A] with SsValueN[A] with ArrayIntBacked
 { type ThisT <: SeqSpecIntN[A]
 
   override def reverse: ThisT =

@@ -16,7 +16,7 @@ trait Int4Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
-trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeInt4[A <: Int4Elem] extends Any, SlValueN[A]
 { /** Constructs element [[Int4Elem]] from 4 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
 

@@ -11,7 +11,7 @@ trait Int2Elem extends Any, IntNElem
 }
 
 /** Common trait for [[SeqLike]] classes that have [[Int2Elem]] elements. They maybe backed by an [[Array]] or an [[ArrayBuffer]]. */
-trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeInt2[A <: Int2Elem] extends Any, SlValueN[A]
 { final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
 }
 

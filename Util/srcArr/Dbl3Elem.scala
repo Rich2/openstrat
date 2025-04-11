@@ -17,7 +17,7 @@ trait Dbl3Elem extends Any, DblNElem
 }
 
 /** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
-trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any, SlValueN[A]
 { /** Method for creating [[Dbl3Elem]]s from 3 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double): A
 

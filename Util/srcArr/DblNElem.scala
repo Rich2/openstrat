@@ -11,7 +11,7 @@ trait DblNElem extends Any with ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
-trait SeqLikeDblNImut[+A <: DblNElem] extends Any, SeqLikeValueNImut[A], ArrayDblBacked
+trait SeqLikeDblNImut[+A <: DblNElem] extends Any, SlValueNImut[A], ArrayDblBacked
 { type ThisT <: SeqLikeDblNImut[A]
   def fromArray(array: Array[Double]): ThisT
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
@@ -19,7 +19,7 @@ trait SeqLikeDblNImut[+A <: DblNElem] extends Any, SeqLikeValueNImut[A], ArrayDb
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As well as
  * [[ArrDblN]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait SeqSpecDblN[+A <: DblNElem] extends Any, SeqLikeDblNImut[A], SeqSpecValueN[A], ArrayDblBacked
+trait SeqSpecDblN[+A <: DblNElem] extends Any, SeqLikeDblNImut[A], SsValueN[A], ArrayDblBacked
 { type ThisT <: SeqSpecDblN[A]
 
   override def reverse: ThisT =

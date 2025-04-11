@@ -14,7 +14,7 @@ trait Dbl4Elem extends Any, DblNElem
 }
 
 /** [[SeqLike]] with [[Dbl4Elem]] elements. */
-trait SeqLikeDbl4[A <: Dbl4Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeDbl4[A <: Dbl4Elem] extends Any, SlValueN[A]
 { /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): A
   final override def elemProdSize: Int = 4

@@ -17,7 +17,7 @@ trait Dbl7Elem extends Any, DblNElem
 }
 
 /** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[ArrDbl7]]s and [[SeqSpecDbl7]] */
-trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SlValueN[A]
 { /** Method for creating new specifying sequence element from 7 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 

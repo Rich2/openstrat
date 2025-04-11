@@ -13,7 +13,7 @@ trait Dbl2Elem extends Any, DblNElem
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
-trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any, SlValueN[A]
 { /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double): A
 

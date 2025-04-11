@@ -42,7 +42,7 @@ trait PolygonLikeDbl2Pair[A1V <: Dbl2Elem, A1 <: PolygonLikeDbl2[A1V], A2] exten
 trait PolygonLikeDbl2PairArr[A1V <: Dbl2Elem, A1 <: PolygonLikeDbl2[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonLikeDbl2Pair[A1V, A1, A2]] extends
   PolygonLikeDblNPairArr[A1V, A1, ArrA1, A2, A]// with SeqSpecDbl2PairArr[A1V, A1, ArrA1, A2, A]
 
-trait PolygonLikeIntNPair[A1V <: IntNElem, A1 <: PolygonLikeIntN[A1V], A2] extends PolygonLikePair[A1V, A1, A2] with PairSeqLikeIntNElem[A1V, A1, A2]
+trait PolygonLikeIntNPair[A1V <: IntNElem, A1 <: PolygonLikeIntN[A1V], A2] extends PolygonLikePair[A1V, A1, A2] with PairSlIntNElem[A1V, A1, A2]
 { def a1ArrayInt: Array[Int]
 }
 

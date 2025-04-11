@@ -16,7 +16,7 @@ trait Int6Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] for [[Int6Elem]]s */
-trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeValueN[A]
+trait SeqLikeInt6[A <: Int6Elem] extends Any, SlValueN[A]
 { /** Constructs a new element of this [[Buff]] from 6 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
 
