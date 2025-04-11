@@ -75,7 +75,7 @@ object BooleanArrBuilder extends BuilderArrMap[Boolean, BoolArr], BuilderArrFlat
   override def buffGrowArr(buff: BooleanBuff, arr: BoolArr): Unit = arr.arrayUnsafe.foreach(el => buff.bufferUnsafe.append(el))
 }
 
-class BooleanBuff(val bufferUnsafe: ArrayBuffer[Boolean]) extends AnyVal, BuffSequ[Boolean]
+class BooleanBuff(val bufferUnsafe: ArrayBuffer[Boolean]) extends AnyVal, Buff[Boolean]
 { override type ThisT = BooleanBuff
   override def typeStr: String = "BooleanBuff"
   override def apply(index: Int): Boolean = bufferUnsafe(index)

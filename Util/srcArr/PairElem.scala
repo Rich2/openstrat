@@ -175,9 +175,9 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   def strLines: String = mkStr(el => el.a1.toString + "; " + el.a2.toString, "\n")
 }
 
-/** An efficient [[BuffSequ]] for [[PairFinalA1Elem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
- * because these [[BuffSequ]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
-trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any, BuffSequ[B]
+/** An efficient [[Buff]] for [[PairFinalA1Elem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
+ * because these [[Buff]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
+trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any, Buff[B]
 {
   /** ArrayBuffer for the B2 components of the pairs. */
     def b2Buffer: ArrayBuffer[B2]
@@ -194,21 +194,21 @@ trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any, BuffSequ[B]
 trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]] extends BuilderSeqLike[ArrB]
 { type BuffT <: BuffPair[B1, B2, ?]
 
-  /** The type of the [[BuffSequ]] for accumulating B1s. */
-  type B1BuffT <: BuffSequ[B1]
+  /** The type of the [[Buff]] for accumulating B1s. */
+  type B1BuffT <: Buff[B1]
 
   /** ClassTag for building Arrays and ArrayBuffers of B2s. */
   implicit def b2ClassTag: ClassTag[B2]
 
-  /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
+  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
   def newB1Buff(): B1BuffT
 
   def newB2Buffer(): ArrayBuffer[B2] = new ArrayBuffer[B2]()
 
-  /** Expands / appends the B1 [[BuffSequ]] with a single element of B1. */
+  /** Expands / appends the B1 [[Buff]] with a single element of B1. */
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
 
-  /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
+  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
   def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB
 }
 

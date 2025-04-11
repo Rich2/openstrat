@@ -1,34 +1,35 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** An element that pairs a [[SeqSpec]] with a second value. */
-trait SeqLikePairElem[A1E, A1 <: SeqLike[A1E], A2] extends PairFinalA1Elem[A1, A2] with SpecialT
+/** A [[PairElem]] whose first component is a [[SeqLike]]. */
+trait PairSeqLikeElem[A1E, A1 <: SeqLike[A1E], A2] extends PairFinalA1Elem[A1, A2] with SpecialT
 { def a1: A1
   def a2: A2
 }
 
-/** A sequence of [[SeqLikePairElem]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqLikePairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends ArrPairFinalA1[A1, A1Arr, A2, A]
+/** An [[Arr]] of [[PairElem]]s where the first component of each [[PairElem]] is a [[SeqLike]]. Stored in 2 [[Array]]s for efficiency. */
+trait ArrPairSeqLike[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: PairSeqLikeElem[A1E, A1, A2]] extends ArrPairFinalA1[A1, A1Arr, A2, A]
 
-/** A buffer of [[SeqLikePairElem]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
-trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends BuffPair[A1, A2, A]
+/** A [[Buff]] of [[PairElem]]s where the first component of each [[PairElem]] is a [[SeqLike]], stored in 2 [[ArrayBuffer]]s for efficiency. */
+trait BuffPairSeqLike[A1E, A1 <: SeqLike[A1E], A2, A <: PairSeqLikeElem[A1E, A1, A2]] extends BuffPair[A1, A2, A]
 { def b2Buffer: ArrayBuffer[A2]  
 }
 
-trait SeqLikePairArrBuilder[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikePairElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
+/** An [[Builder]] */
+trait BuilderArrMapPairSeqLike[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: PairSeqLikeElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
   BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: BuilderSeqLikeMap[B1E, B1]
 }
 
-trait SeqLikeDblNPairElem[A1E <: DblNElem, A1 <: SeqLikeDblNImut[A1E], A2] extends SeqLikePairElem[A1E, A1, A2]
+trait SeqLikeDblNPairElem[A1E <: DblNElem, A1 <: SeqLikeDblNImut[A1E], A2] extends PairSeqLikeElem[A1E, A1, A2]
 { /** The backing Array of Doubles for the A1 [[SeqLikeDblNImut]]. */
   def a1ArrayDbl: Array[Double]
 }
 
-trait SeqLikeDblNPairArr[A1E <: DblNElem, A1 <: SeqLikeDblNImut[A1E], A1Arr <: Arr[A1], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends
-  SeqLikePairArr[A1E, A1, A1Arr, A2, A]
+trait SeqLikeDblNPairArr[A1E <: DblNElem, A1 <: SeqLikeDblNImut[A1E], A1Arr <: Arr[A1], A2, A <: PairSeqLikeElem[A1E, A1, A2]] extends
+  ArrPairSeqLike[A1E, A1, A1Arr, A2, A]
 { type ThisT <: SeqLikeDblNPairArr[A1E, A1, A1Arr, A2, A]
 
   /** Backing [[Array]] for the A1 components of the pairs. In this case the elements of that array are themselves [[Array]]s of [[Double]]s. */
@@ -66,7 +67,7 @@ trait SeqLikeDblNPairArr[A1E <: DblNElem, A1 <: SeqLikeDblNImut[A1E], A1Arr <: A
   }
 }
 
-trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
+trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
 { /** Backing [[ArrayBuffer]] for the B1 components. */
   def b1Buffer: ArrayBuffer[Array[Double]]
 
@@ -79,7 +80,7 @@ trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], B2, B <: 
 }
 
 trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
-  SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
+  BuilderArrMapPairSeqLike[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeDblNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: BuffArrayDbl[B1]
 
@@ -91,14 +92,14 @@ trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblNImut[B1E], Arr
   final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.b1Buffer.append(newElem.a1ArrayDbl); buff.b2Buffer.append(newElem.a2) }
 }
 
-trait SeqLikeIntNPairElem[A1E <: IntNElem, A1 <: SeqLikeIntNImut[A1E], A2] extends SeqLikePairElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
+trait SeqLikeIntNPairElem[A1E <: IntNElem, A1 <: SeqLikeIntNImut[A1E], A2] extends PairSeqLikeElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
 
 trait SeqLikeIntNPairArr[A1E <: IntNElem, A1 <: SeqLikeIntNImut[A1E], ArrA1 <: Arr[A1], A2, A <: SeqLikeIntNPairElem[A1E, A1, A2]] extends
-  SeqLikePairArr[A1E, A1, ArrA1, A2, A] with ArrayIntBackedPairArr[A1, ArrA1, A2, A]
+  ArrPairSeqLike[A1E, A1, ArrA1, A2, A] with ArrayIntBackedPairArr[A1, ArrA1, A2, A]
 { type ThisT <: SeqLikeIntNPairArr[A1E, A1, ArrA1, A2, A]
 }
 
-trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
+trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
 { def b1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
 
@@ -109,7 +110,7 @@ trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], B2, B <: 
 }
 
 trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: SeqLikeIntNImut[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends
-  SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
+  BuilderArrMapPairSeqLike[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeIntNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: ArrayIntBuff[B1]
 

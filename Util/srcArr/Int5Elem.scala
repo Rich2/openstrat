@@ -18,7 +18,7 @@ trait Int5Elem extends Any, IntNElem
 
 /** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s. */
 trait SeqLikeInt5[A <: Int5Elem] extends Any, SeqLikeValueN[A]
-{ /** Constructs a new element of this [[BuffSequ]] from 5 [[Int]]s. */
+{ /** Constructs a new element of this [[Buff]] from 5 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
   final override def elemProdSize: Int = 5

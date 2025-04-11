@@ -56,7 +56,7 @@ trait BuilderArrPairDblN[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPa
    * pairs. */
   def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[BuffSequ]] class from an [[ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
+  /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
    * components of the pairs. */
   def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[B2]): BuffT
 

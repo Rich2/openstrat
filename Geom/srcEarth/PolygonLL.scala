@@ -79,7 +79,7 @@ class PolygonLLArr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArra
   override def fromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
 }
 
-/** An [[BuffSequ]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an ArrayBuffer of
+/** An [[Buff]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an ArrayBuffer of
  * Arrays of Doubles. */
 class PolygonLLBuff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLBuff

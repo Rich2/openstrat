@@ -192,7 +192,7 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2Imut[A]] extends Comp
   }
 }
 
-/** [[BuffSequ]] class for building [[Dbl2Elem]]s collections. */
+/** [[Buff]] class for building [[Dbl2Elem]]s collections. */
 trait BuffDbl2[A <: Dbl2Elem] extends Any, BuffDblN[A], SeqLikeDbl2[A]
 { type ArrT <: ArrDbl2[A]
   final override def length: Int = bufferUnsafe.length / 2

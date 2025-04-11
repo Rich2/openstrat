@@ -82,7 +82,7 @@ trait TellSeqLike[Ae] extends Tell
 trait UnshowSeqLike[Ae, A] extends Unshow[A]
 { /** [[Unshow]] type class instance for the elements of the seqLike. */
   def unshowAeEv: Unshow[Ae]
-  def build: BuilderCollMap[Ae, A]
+  def build: BuilderMap[Ae, A]
 
   override def fromExpr(expr: Expr): ExcMon[A] = expr match
   { case _: EmptyExprToken => Succ(build.empty)
@@ -99,24 +99,24 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
 
 object UnshowSeqLike
 { /** Factory apply method for creating [[Unshow]] type class instances for [[SeqLike]] objects. */
-  def apply[A, R](typeStr: String)(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSeqLike[A, R] =
+  def apply[A, R](typeStr: String)(implicit evA: Unshow[A], build: BuilderMap[A, R]): UnshowSeqLike[A, R] =
     new UnshowSeqLikeImp[A, R](typeStr, evA, build)
 
   /** Implementation class for the general cases of [[UnshowSeqLike]]. Use [[UnshowSeq]] for any actual sequence classes. */
-  class UnshowSeqLikeImp[A, R](val typeStr: String, val unshowAeEv: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
+  class UnshowSeqLikeImp[A, R](val typeStr: String, val unshowAeEv: Unshow[A], val build: BuilderMap[A, R]) extends UnshowSeqLike[A, R]
 }
 
 /** [[Unshow]] type class instances for sequences, both [[Sequ]] and standard library classes such as [[List]] and
  * [[Array]]. Uses the typeStr "Seq". As all these different types are persisted as logical sequences. Their in memory
  * storage structure is irrelevant. They can all be reconstructed / unshown from an RSON Seq. */
-class UnshowSeq[A, R](val unshowAeEv: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
+class UnshowSeq[A, R](val unshowAeEv: Unshow[A], val build: BuilderMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
   override def useMultiple: Boolean = false
 }
 
 object UnshowSeq
 { /** Factory apply method for creating [[Unshow]] type class instances / evidence for any type of sequence. */
-  def apply[A, R]()(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSeq[A, R] = new UnshowSeq[A, R](evA, build)
+  def apply[A, R]()(implicit evA: Unshow[A], build: BuilderMap[A, R]): UnshowSeq[A, R] = new UnshowSeq[A, R](evA, build)
 }
 
 /** [[Unshow]] type class instances for building classes from sequences through two builders. */

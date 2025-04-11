@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, collection.immutable.*, reflect.*, collection.mutable.ArrayBuffer
+import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time wrap the
  * platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an
@@ -276,7 +276,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Fail]] of the
-   * first error encountered implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
+   * first error encountered implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the
    * first parameter list. */
   def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(implicit ev: BuilderArrMap[B, ArrB]): ErrBi[E, ArrB] =
   { val acc = ev.newBuff()
@@ -291,7 +291,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
   
   /** Map from A => [[ErrBi]][E, B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
-  def mapErrBi[E <: Throwable, B, BB](ev: BuilderCollMap[B, BB])(f: A => ErrBi[E, B]): ErrBi[E, BB] =
+  def mapErrBi[E <: Throwable, B, BB](ev: BuilderMap[B, BB])(f: A => ErrBi[E, B]): ErrBi[E, BB] =
   { val acc = ev.newBuff()
     var count = 0
     var optErr: Option[E] = None
@@ -646,4 +646,10 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
     res
   }
+}
+
+/** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting from
+ * [[BuilderSeqLike]]. */
+trait Buff[A] extends Any, Sequ[A]
+{ def grow(newElem: A): Unit
 }

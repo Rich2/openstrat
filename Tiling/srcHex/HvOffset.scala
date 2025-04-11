@@ -143,7 +143,7 @@ object HvOffsetArr extends CompanionSeqLikeInt3 [HvOffset, HvOffsetArr]
 { override def fromArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
 }
 
-/** Specialised [[BuffSequ]] class for [[HvOffset]]s. The [[HVert]] with offset class. */
+/** Specialised [[Buff]] class for [[HvOffset]]s. The [[HVert]] with offset class. */
 class HvOffsetBuff(val bufferUnsafe: ArrayBuffer[Int]) extends BuffInt3[HvOffset]
 { override type ThisT = HvOffsetBuff
   override type ArrT = HvOffsetArr

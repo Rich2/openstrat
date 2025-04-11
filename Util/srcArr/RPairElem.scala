@@ -92,7 +92,7 @@ object RPairArr
   implicit def mapBuilderEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
-/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[BuffSequ]] for [[RPairElem]]s. Note although they are named as reference
+/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference
  * types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]
@@ -107,7 +107,7 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
 }
 
 object RPairBuff
-{ /** Factory apply method for [[RPairBuff]] class. Creates an empty [[BuffSequ]] class with a default buffer for expansion of 4 elements. */
+{ /** Factory apply method for [[RPairBuff]] class. Creates an empty [[Buff]] class with a default buffer for expansion of 4 elements. */
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 
   implicit def mapBuildEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]

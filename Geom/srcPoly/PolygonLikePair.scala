@@ -2,11 +2,11 @@
 package ostrat; package geom
 
 /** A [[PolygonLike]] object paired with an object of type A2.]] */
-trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends SeqLikePairElem[A1V, A1, A2]
+trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends PairSeqLikeElem[A1V, A1, A2]
 
 /** An [[Arr]] of [[PolygonLikePair]]s stored efficiently allowing maping between different [[PolygonLike]] types while keeping the A2 values unchanged. */
 trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends
-  SeqLikePairArr[A1V, A1, A1Arr, A2, A]
+  ArrPairSeqLike[A1V, A1, A1Arr, A2, A]
 {
   /** Maps this to a new [PolygonLikePairArr]] by mapping [[PolygonLike]]s to new [[PolygonLike]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
@@ -18,7 +18,7 @@ trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <:
 }
 
 trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: Arr[B1], B2, B <: PolygonLikePair[B1V, B1, B2],
-  ArrB <: PolygonLikePairArr[B1V, B1, ArrB1, B2, B]] extends SeqLikePairArrBuilder[B1V, B1, ArrB1, B2, B, ArrB]
+  ArrB <: PolygonLikePairArr[B1V, B1, ArrB1, B2, B]] extends BuilderArrMapPairSeqLike[B1V, B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
    * polygonMapPair method on [[PolygonLikePairArr]]. */
   override def b1Builder: PolygonLikeBuilderMap[B1V, B1]

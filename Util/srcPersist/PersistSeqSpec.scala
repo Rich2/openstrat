@@ -16,10 +16,10 @@ object ShowSeqSpec
 
 /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[SeqSpec]] objects. */
 class PersistSeqSpecBoth[Ae, A <: SeqSpec[Ae]](val typeStr: String, val showAeEv: Show[Ae],  val unshowAeEv: Unshow[Ae])(implicit
-  val build: BuilderCollMap[Ae, A]) extends PersistBoth[A] with ShowSeqSpec[Ae, A] with UnshowSeqLike[Ae, A]
+  val build: BuilderMap[Ae, A]) extends PersistBoth[A] with ShowSeqSpec[Ae, A] with UnshowSeqLike[Ae, A]
 
 object PersistSeqSpecBoth
 {  /** Factory apply method for constructing both [[Show]] and [[Unshow]] type class instances for [[SeqSpec]] types. */
-  def apply[Ae, A <: SeqSpec[Ae]](typeStr: String)(implicit showAeEv: Show[Ae],  unshowAeEv: Unshow[Ae], build: BuilderCollMap[Ae, A]):
+  def apply[Ae, A <: SeqSpec[Ae]](typeStr: String)(implicit showAeEv: Show[Ae],  unshowAeEv: Unshow[Ae], build: BuilderMap[Ae, A]):
     PersistSeqSpecBoth[Ae, A] = new PersistSeqSpecBoth[Ae, A](typeStr, showAeEv,  unshowAeEv)(build)
 }

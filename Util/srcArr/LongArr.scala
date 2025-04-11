@@ -71,7 +71,7 @@ object LongArrBuilder extends BuilderArrMap[Long, LongArr], BuilderArrFlat[LongA
   override def buffGrowArr(buff: LongBuff, arr: LongArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
-class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal, BuffSequ[Long]
+class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal, Buff[Long]
 { override type ThisT = LongBuff
   override def typeStr: String = "LongsBuff"
   override def apply(index: Int): Long = unsafeBuffer(index)

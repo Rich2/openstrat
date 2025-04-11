@@ -107,7 +107,7 @@ class PolygonKm3Arr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArr
   override def fromArrayArray(array: Array[Array[Double]]): PolygonKm3Arr = new PolygonKm3Arr(array)
 }
 
-/** Specialised [[BuffSequ]] class for [[PolygonKm3]]s. Polygon in a 3D space measured in metres. */
+/** Specialised [[Buff]] class for [[PolygonKm3]]s. Polygon in a 3D space measured in metres. */
 class PolygonKm3Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonKm3]
 { override type ThisT = PolygonKm3Buff
   override def typeStr: String = "PolygonKm3Buff"

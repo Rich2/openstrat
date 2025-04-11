@@ -133,7 +133,7 @@ object IntArrBuilder extends BuilderArrMap[Int, IntArr] with BuilderArrFlat[IntA
 }
 
 /** ArrayBuffer class for [[IntArr]]. End users should rarely have need to use this class */
-class IntBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, BuffSequ[Int]
+class IntBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, Buff[Int]
 { override type ThisT = IntBuff
   override def typeStr: String = "IntBuff"
   override def apply(index: Int): Int = bufferUnsafe(index)

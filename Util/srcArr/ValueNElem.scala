@@ -81,7 +81,7 @@ trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeVal
 }
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or [[Long]]. */
-trait BuffValueN[A <: ValueNElem] extends Any, BuffSequ[A], SeqLikeValueN[A]
+trait BuffValueN[A <: ValueNElem] extends Any, Buff[A], SeqLikeValueN[A]
 { type ArrT <: ArrValueN[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit

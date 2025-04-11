@@ -51,7 +51,7 @@ object Multiple
       res
     }
 
-    def toColl[R](builder: BuilderCollMap[A, R]): R =
+    def toColl[R](builder: BuilderMap[A, R]): R =
     { val buff = builder.newBuff()
       thisRefs.foreach { multi => iUntilForeach(multi.num) { _ => builder.buffGrow(buff, multi.value) } }
       builder.buffToSeqLike(buff)
@@ -93,18 +93,18 @@ object Multiple
     def fromArrExpr(inp: Arr[Expr]): ExcMon[RArr[Multiple[A]]] = inp.mapErrBi(fromExpr(_))
 
     /** Collection from [[Arr]] of [[Expr]]. */
-    def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): ExcMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
+    def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderMap[A, R]): ExcMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
 
     /** Collection from [[Arr]] of [[Statement]]. */
-    def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderCollMap[A, R]): ExcMon[R] = collFromArrExpr(inp.map(_.expr), builderColl)
+    def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderMap[A, R]): ExcMon[R] = collFromArrExpr(inp.map(_.expr), builderColl)
   }
 
   /** Collection from [[Arr]] of [[Expr]]. */
-  def collFromArrExpr[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderCollMap[Ae, A]): ExcMon[A] =
+  def collFromArrExpr[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderMap[Ae, A]): ExcMon[A] =
     unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
 
   /** Collection from [[Arr]] of [[Statement]]. */
-  def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): ExcMon[R] =
+  def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderMap[A, R]): ExcMon[R] =
     unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)  
 }
 
@@ -150,7 +150,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   }
 }
 
-class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends BuffSequ[Multiple[A]]
+class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
 { override type ThisT = MultipleBuff[A]
   override def typeStr: String = "MultipleBuff"
   override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }

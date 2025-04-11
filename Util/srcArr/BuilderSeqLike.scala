@@ -3,16 +3,16 @@ package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
-trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderColl[BB]
+trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderCollection[BB]
 { /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = [[IntArr]], or it can be a compile time wrapped Arraybuffer inheriting from
    * [[Buff]]. */
-  type BuffT <: BuffSequ[?]
+  type BuffT <: Buff[?]
 }
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
-trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderCollMap[B, BB] with BuilderSeqLike[BB]
-{ type BuffT <: BuffSequ[B]
+trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderMap[B, BB] with BuilderSeqLike[BB]
+{ type BuffT <: Buff[B]
 
   /** Creates a new uninitialised [[SeqLike]] of type BB of the given length. */
   def uninitialised(length: Int): BB
@@ -20,7 +20,7 @@ trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderCollMap[B, BB] with 
   /** Creates a new empty [[SeqLike]] of type BB. */
   override def empty: BB = uninitialised(0)
 
-  /** A mutable operation that extends the [[BuffSequ]] with the elements of the Iterable operand. */
+  /** A mutable operation that extends the [[Buff]] with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, newElems: Iterable[B]): Unit = newElems.foreach(buffGrow(buff, _))
 
   /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */

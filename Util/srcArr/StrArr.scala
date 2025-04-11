@@ -141,7 +141,7 @@ object StrArr
 }
 
 /** [[Buff]] class for [[String]]s. */
-class StringBuff(val bufferUnsafe: ArrayBuffer[String]) extends AnyVal, BuffSequ[String]
+class StringBuff(val bufferUnsafe: ArrayBuffer[String]) extends AnyVal, Buff[String]
 { override type ThisT = StringBuff
   override def typeStr: String = "Stringsbuff"
   override def apply(index: Int): String = bufferUnsafe(index)
