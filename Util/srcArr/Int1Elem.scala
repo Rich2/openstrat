@@ -28,7 +28,7 @@ trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SeqLikeInt1[A]
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
-trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1Imut[A] with SeqSpecIntN[A]
+trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1Imut[A] with SsIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
 trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
@@ -57,7 +57,7 @@ trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
 }
 
 /** Base trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
-trait BuilderArrInt1[ArrB <: ArrInt1[?]] extends BuilderSeqLikeIntN[ArrB]
+trait BuilderArrInt1[ArrB <: ArrInt1[?]] extends BuilderSlIntN[ArrB]
 { type BuffT <: BuffInt1[?]
   final override def elemProdSize: Int = 1
 }
@@ -77,7 +77,7 @@ trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
 trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
 
 /** Helper class for companion objects of final [[SeqLikeInt1Imut]] classes. */
-trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1Imut[A]] extends CompanionSeqLikeIntN[A, ArrA]
+trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
 { final override def elemNumInts: Int = 1
 
   /** Apply factory method */

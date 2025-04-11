@@ -38,7 +38,7 @@ trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SlImutIntN[A], SeqLikeInt6[A]
 }
 
 /** Compound object defined / specified by [[Int6Elem]]s */
-trait SeqSpecInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], SeqSpecIntN[A]
+trait SeqSpecInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], SsIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
 trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], ArrIntN[A]
@@ -80,13 +80,13 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
 }
 
 /** Builder for [[SeqLike]]s with [[Int6Elem]]s */
-trait BuilderSeqLikeInt6[BB <: SeqLikeInt6Imut[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt6[BB <: SeqLikeInt6Imut[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
 
 /** Builder of [[SeqLikeInt6Imut]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6Imut[B]] extends BuilderSeqLikeInt6[BB], BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6Imut[B]] extends BuilderSeqLikeInt6[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -105,7 +105,7 @@ trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLik
 trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt6]] final classes to extend. */
-abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSeqLikeIntN[A, M]
+abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSlIntN[A, M]
 { final override def elemNumInts: Int = 6
 
   def buff(initialSize: Int): BuffInt6[A]

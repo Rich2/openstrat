@@ -149,7 +149,7 @@ trait PolygonLikeDbl3[+VT <: Dbl3Elem] extends Any, PolygonLikeDblN[VT], SeqSpec
 }
 
 /** A polygon whose elements are defined by [[Int]]s. */
-trait PolygonLikeIntN[VT <: IntNElem] extends Any, PolygonValueN[VT], SeqSpecIntN[VT]
+trait PolygonLikeIntN[VT <: IntNElem] extends Any, PolygonValueN[VT], SsIntN[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   protected def arrayForSides: Array[Int]
 }

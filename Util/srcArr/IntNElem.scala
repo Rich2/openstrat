@@ -28,8 +28,9 @@ trait SlImutIntN[+A <: IntNElem] extends Any, SlIntN[A], SlImutValueN[A], ArrayI
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait SeqSpecIntN[A <: IntNElem] extends Any with SlImutIntN[A] with SsValueN[A] with ArrayIntBacked
-{ type ThisT <: SeqSpecIntN[A]
+/** [[SeqSpec]] trait with [[IntNElem]]s. */
+trait SsIntN[A <: IntNElem] extends Any, SlImutIntN[A], SsValueN[A]// with ArrayIntBacked
+{ type ThisT <: SsIntN[A]
 
   override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(numElems)
@@ -38,8 +39,7 @@ trait SeqSpecIntN[A <: IntNElem] extends Any with SlImutIntN[A] with SsValueN[A]
   }
 }
 
-/** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
- * Array[Int]. */
+/** [[Arr]] trait for [[IntNElem]]s. */
 trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SlImutIntN[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ArrIntN[A]
@@ -92,39 +92,38 @@ trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SlImutIntN[A]
   }
 }
 
-/** Common trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
-trait BuilderSeqLikeIntN[BB <: SlImutIntN[?]] extends BuilderSlValueN[BB]
+/** [[BuilderCollection]] trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
+trait BuilderSlIntN[BB <: SlImutIntN[?]] extends BuilderSlValueN[BB]
 { type BuffT <:  BuffIntN[?]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-/** Constructs [[SlImutIntN]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
- * companion object. */
-trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SlImutIntN[B]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNMap[B, BB]
+/** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects with [[IntNElem]]s via map method. Type of element known at call site. Hence, implicit look up
+ * will be in the element companion object. */
+trait BuilderSlIntNMap[B <: IntNElem, BB <: SlImutIntN[B]] extends BuilderSlIntN[BB], BuilderSlValueNMap[B, BB]
 { type BuffT <:  BuffIntN[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.bufferUnsafe.toArray)
 }
 
-/** Constructs [[SlImutIntN]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
- * in the [[SeqLike]]'s companion object. */
-trait BuilderSeqLikeIntNFlat[BB <: SlImutIntN[?]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNFlat[BB]
+/** [[BuilderFlat]] trait for [[SeqLikeImut]] objects with [[IntNElem]]s via flatMap method. Type of element known not known at call site. Henc,e implicit look
+ * up will be in the [[SeqLikeImut]]'s companion object. */
+trait BuilderSlIntNFlat[BB <: SlImutIntN[?]] extends BuilderSlIntN[BB], BuilderSlValueNFlat[BB]
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderArrMap]] type class, for classes
- *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
- *  ```map(f: A => B): ArrB``` function. */
-trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLikeIntNMap[B, ArrB], BuilderArrValueNMap[B, ArrB]
+/** [[BuilderMap]] Trait for [[Arr]] objects with [[IntNElems]]. Implicit instances for the [[BuilderArrMap]] type class, for classes / traits you control,
+ * should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSlIntNMap[B, ArrB], BuilderArrValueNMap[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[BuilderArrFlat] should go in the
- *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrIntNFlat[ArrB <: ArrIntN[?]] extends BuilderSeqLikeIntN[ArrB], BuilderArrValueNFlat[ArrB]
+/** [[BuilderFlat]] trait for creating [[Arr]] objects with [[IntNElem]]s by the flatMap method. Instances for [[BuilderArrFlat] should go in the companion
+ * object of the [[Arr]] final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait BuilderArrIntNFlat[ArrB <: ArrIntN[?]] extends BuilderSlIntN[ArrB], BuilderArrValueNFlat[ArrB]
 { final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.bufferUnsafe.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 
-/** Specialised flat ArrayBuffer[Int] based collection class. */
+/** Specialised flat [[ArrayBuffer]][Int] based collection class. */
 trait BuffIntN[A <: IntNElem] extends Any, BuffValueN[A]
 { type ArrT <: ArrIntN[A]
   def bufferUnsafe: ArrayBuffer[Int]
@@ -135,7 +134,7 @@ trait BuffIntN[A <: IntNElem] extends Any, BuffValueN[A]
 }
 
 /** Helper trait for Companion objects of [[ArrIntN]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the collection class. */
-trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SlImutIntN[A]]
+trait CompanionSlIntN[A <: IntNElem, AA <: SlImutIntN[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 

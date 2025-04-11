@@ -29,7 +29,7 @@ trait SeqLikeInt3Imut[A <: Int3Elem] extends Any, SlImutIntN[A], SeqLikeInt3[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int3Elem]]s. */
-trait SeqSpecInt3[A <: Int3Elem] extends Any, SeqLikeInt3Imut[A], SeqSpecIntN[A]
+trait SeqSpecInt3[A <: Int3Elem] extends Any, SeqLikeInt3Imut[A], SsIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */
 trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeInt3Imut[A]
@@ -59,19 +59,19 @@ trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SeqLikeInt3[A]
 }
 
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s. */
-trait BuilderSeqLikeInt3[BB <: SeqLikeInt3Imut[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt3[BB <: SeqLikeInt3Imut[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt3[?]
   final override def elemProdSize: Int = 3
 }
 
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s via the map method, meaning the element type is known at the call site.. */
-trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SeqLikeInt3Imut[B]] extends BuilderSeqLikeInt3[BB], BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SeqLikeInt3Imut[B]] extends BuilderSeqLikeInt3[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
 }
 
-trait BuilderSeqLikeInt3Flat[BB <: SeqLikeInt3Imut[?]] extends BuilderSeqLikeInt3[BB], BuilderSeqLikeIntNFlat[BB]
+trait BuilderSeqLikeInt3Flat[BB <: SeqLikeInt3Imut[?]] extends BuilderSeqLikeInt3[BB], BuilderSlIntNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrInt3]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
  * you control, should go in the companion object of B. The first type parameter is called B a subclass of Int3Elem, because to corresponds to the B in the
@@ -84,7 +84,7 @@ trait BuilderArrInt3Map[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderSeqLik
 trait BuilderArrInt3Flat[ArrB <: ArrInt3[?]] extends BuilderSeqLikeInt3[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** Helper class for companion objects of final [[SeqSpecInt3]] classes. */
-abstract class CompanionSeqLikeInt3[A <: Int3Elem, ArrA <: SeqLikeInt3Imut[A]] extends CompanionSeqLikeIntN[A, ArrA]
+abstract class CompanionSeqLikeInt3[A <: Int3Elem, ArrA <: SeqLikeInt3Imut[A]] extends CompanionSlIntN[A, ArrA]
 { override def elemNumInts: Int = 3
 
   /** Apply factory method for constructing [[SeqLike]] objects from [[Int3Elem]]s. */

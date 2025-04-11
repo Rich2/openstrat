@@ -32,7 +32,7 @@ trait SeqLikeInt4Imut[A <: Int4Elem] extends Any, SlImutIntN[A], SeqLikeInt4[A]
 }
 
 /** A compound object defined / specified by a sequence of [[Int4Elem]]s. */
-trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], SeqSpecIntN[A]
+trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], SsIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
 trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], ArrIntN[A]
@@ -69,13 +69,13 @@ trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SeqLikeInt4[A]
 }
 
 /** Base trait for builders of [[SeqLikeInt4Imut]] objects via both map and flatMap methods. */
-trait BuilderSeqLikeInt4[BB <: SeqLikeInt4Imut[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt4[BB <: SeqLikeInt4Imut[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt4[?]
   final override def elemProdSize: Int = 4
 }
 
 /** Builders for [[SeqLikeInt4Imut]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4Imut[B]] extends BuilderSeqLikeInt4[BB], BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4Imut[B]] extends BuilderSeqLikeInt4[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt4[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -92,7 +92,7 @@ trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLik
 trait BuilderArrInt4Flat[ArrB <: ArrInt4[?]] extends BuilderSeqLikeInt4[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
-trait CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
+trait CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSlIntN[A, M]
 { final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): BuffInt4[A]

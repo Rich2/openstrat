@@ -33,7 +33,7 @@ trait SeqLikeInt5Imut[A <: Int5Elem] extends Any, SlImutIntN[A], SeqLikeInt5[A]
 }
 
 /** A compound object that is not a sequence but is specified / defined by an [[Int5Elem]] sequence.  */
-trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with SeqSpecIntN[A]
+trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with SsIntN[A]
 { override def elem(index: Int): A =
     elemFromInts(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 }
@@ -74,14 +74,14 @@ trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SeqLikeInt5[A]
 }
 
 /** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
-trait BuilderSeqLikeInt5[BB <: SeqLikeInt5Imut[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt5[BB <: SeqLikeInt5Imut[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt5[?]
   final override def elemProdSize: Int = 5
 }
 
 /** Builder for [[SeqLike]]s with [[Int5]] elements via the map method, where the call site knows the typeof th element, but not the type of compound
  * object. */
-trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5Imut[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5Imut[B]] extends BuilderSeqLikeInt5[BB] with BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -100,7 +100,7 @@ trait BuilderArrInt5Map[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderSeqLik
 trait BuilderArrInt5Flat[ArrB <: ArrInt5[?]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt5]] final classes to extend. */
-abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSeqLikeIntN[A, M]
+abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSlIntN[A, M]
 { final override def elemNumInts: Int = 5
 
   def buff(initialSize: Int): BuffInt5[A]
