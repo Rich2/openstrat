@@ -42,7 +42,7 @@ final class PolygonGenPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
 }
 
 class PolygonGenPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  SeqLikeDblNPairBuff[Pt2, PolygonGen, A2, PolygonGenPair[A2]]
+  BuffPairSeqLikeDblN[Pt2, PolygonGen, A2, PolygonGenPair[A2]]
 { override type ThisT = PolygonGenPairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonGenPair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonGenPair[A2] => String = _.toString

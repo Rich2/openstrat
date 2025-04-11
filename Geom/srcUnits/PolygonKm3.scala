@@ -161,7 +161,7 @@ final class PolygonKm3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
 }
 
 class PolygonKm3PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  SeqLikeDblNPairBuff[PtKm3, PolygonKm3, A2, PolygonKm3Pair[A2]]
+  BuffPairSeqLikeDblN[PtKm3, PolygonKm3, A2, PolygonKm3Pair[A2]]
 { override type ThisT = PolygonKm3PairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonKm3Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonKm3Pair[A2] => String = _.toString
