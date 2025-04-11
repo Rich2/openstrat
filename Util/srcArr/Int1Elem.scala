@@ -21,7 +21,7 @@ trait SeqLikeInt1[A <: Int1Elem] extends Any with SlValueN[A]
 }
 
 /** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt1[A]
+trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SeqLikeInt1[A]
 { final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
   final override def numElems: Int = arrayLen
   final override def elem(index: Int): A = elemFromInt(arrayUnsafe(index))

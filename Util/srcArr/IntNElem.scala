@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
 /** A class that can be constructed from a fixed number of [[Int]]s. Because of the fixed length of these elements they can be stored as and reconstructed from
- * a single Array[Int] of primitive values. */
+ * a single [[Array]][Int]. */
 trait IntNElem extends Any, ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def intForeach(f: Int => Unit): Unit
@@ -13,11 +13,14 @@ trait IntNElem extends Any, ValueNElem
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
-/** Common trait for the immutable Array[Int] backed classes that can be specified by [[IntNElem]]s. */
-trait SeqLikeIntNImut[A <: IntNElem] extends Any, SlValueNImut[A], ArrayIntBacked
-{ type ThisT <: SeqLikeIntNImut[A]
+/** [[SeqLike]] trait for [[IntNElem]]s. */
+trait SlIntN[+A <: IntNElem] extends Any, SlValueN[A]
 
-  /** Constructs the final type of these [[SeqLikeIntNImut]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
+/** Common trait for the immutable Array[Int] backed classes that can be specified by [[IntNElem]]s. */
+trait SlImutIntN[+A <: IntNElem] extends Any, SlIntN[A], SlImutValueN[A], ArrayIntBacked
+{ type ThisT <: SlImutIntN[A]
+
+  /** Constructs the final type of these [[SlImutIntN]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
    * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
@@ -25,7 +28,7 @@ trait SeqLikeIntNImut[A <: IntNElem] extends Any, SlValueNImut[A], ArrayIntBacke
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntNImut[A] with SsValueN[A] with ArrayIntBacked
+trait SeqSpecIntN[A <: IntNElem] extends Any with SlImutIntN[A] with SsValueN[A] with ArrayIntBacked
 { type ThisT <: SeqSpecIntN[A]
 
   override def reverse: ThisT =
@@ -37,7 +40,7 @@ trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntNImut[A] with SsValu
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int]. */
-trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SeqLikeIntNImut[A]
+trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SlImutIntN[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ArrIntN[A]
 
@@ -90,24 +93,24 @@ trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SeqLikeIntNImut[A]
 }
 
 /** Common trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
-trait BuilderSeqLikeIntN[BB <: SeqLike[?]] extends BuilderSeqLikeValueN[BB]
+trait BuilderSeqLikeIntN[BB <: SlImutIntN[?]] extends BuilderSlValueN[BB]
 { type BuffT <:  BuffIntN[?]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-/** Constructs [[SeqLikeIntNImut]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
+/** Constructs [[SlImutIntN]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
  * companion object. */
-trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntNImut[B]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNMap[B, BB]
+trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SlImutIntN[B]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNMap[B, BB]
 { type BuffT <:  BuffIntN[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.bufferUnsafe.toArray)
 }
 
-/** Constructs [[SeqLikeIntNImut]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
+/** Constructs [[SlImutIntN]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
  * in the [[SeqLike]]'s companion object. */
-trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntNImut[?]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNFlat[BB]
+trait BuilderSeqLikeIntNFlat[BB <: SlImutIntN[?]] extends BuilderSeqLikeIntN[BB], BuilderSeqLikeValueNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderArrMap]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -132,7 +135,7 @@ trait BuffIntN[A <: IntNElem] extends Any, BuffValueN[A]
 }
 
 /** Helper trait for Companion objects of [[ArrIntN]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the collection class. */
-trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SeqLikeIntNImut[A]]
+trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SlImutIntN[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 

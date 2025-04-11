@@ -25,7 +25,7 @@ trait SeqLikeInt4[A <: Int4Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
-trait SeqLikeInt4Imut[A <: Int4Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt4[A]
+trait SeqLikeInt4Imut[A <: Int4Elem] extends Any, SlImutIntN[A], SeqLikeInt4[A]
 { final override def numElems: Int = arrayUnsafe.length / 4
   final override def elem(index: Int): A = elemFromInts(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)

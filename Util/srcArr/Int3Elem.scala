@@ -22,7 +22,7 @@ trait SeqLikeInt3[A <: Int3Elem] extends Any, SlValueN[A]
 }
 
 /** Sequence like class that has [[Int3Elem]]s as its elements or its specifying sequence. */
-trait SeqLikeInt3Imut[A <: Int3Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt3[A]
+trait SeqLikeInt3Imut[A <: Int3Elem] extends Any, SlImutIntN[A], SeqLikeInt3[A]
 { final override def elem(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayUnsafe.length / 3
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)

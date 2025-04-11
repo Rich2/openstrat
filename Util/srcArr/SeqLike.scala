@@ -61,3 +61,6 @@ object SeqLike
     }
   }
 }
+
+/** Immutable [[SeqLike]] Common trait for the immutable [[Arr]] and [[SeqSpec]] classes, but excludes the mutable [[ArraryBuffer]] based [[Buff]] classes. */
+trait SeqLikeImut[+A] extends Any, SeqLike[A]

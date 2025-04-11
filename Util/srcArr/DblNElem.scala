@@ -11,7 +11,7 @@ trait DblNElem extends Any with ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
-trait SeqLikeDblNImut[+A <: DblNElem] extends Any, SlValueNImut[A], ArrayDblBacked
+trait SeqLikeDblNImut[+A <: DblNElem] extends Any, SlImutValueN[A], ArrayDblBacked
 { type ThisT <: SeqLikeDblNImut[A]
   def fromArray(array: Array[Double]): ThisT
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
@@ -101,7 +101,7 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
 }
 
 /** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
-trait BuilderSeqLikeDblN[BB <: SeqLike[?]] extends BuilderSeqLikeValueN[BB]
+trait BuilderSeqLikeDblN[BB <: SeqLikeDblNImut[?]] extends BuilderSlValueN[BB]
 { type BuffT <: BuffDblN[?]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT

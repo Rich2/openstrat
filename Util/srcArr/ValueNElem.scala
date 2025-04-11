@@ -22,8 +22,8 @@ trait SlValueN[+A <: ValueNElem] extends Any, SeqLike[A]
 
 /** An immutable [[SeqLike]] object, that is a sequence or can be specified by a sequence, whose elements can be constructed from a fixed number of primitive
  * values. Hence, not a mutable [[Buff]]. */
-trait SlValueNImut[+A <: ValueNElem] extends Any, SlValueN[A]
-{ type ThisT <: SlValueNImut[A]
+trait SlImutValueN[+A <: ValueNElem] extends Any, SlValueN[A], SeqLikeImut[A]
+{ type ThisT <: SlImutValueN[A]
   
   /** The total  number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc in the backing Array. */
   def arrayLen: Int
@@ -31,7 +31,7 @@ trait SlValueNImut[+A <: ValueNElem] extends Any, SlValueN[A]
 
 /** A [[SeqSpec]]. An immutable object that is not a sequence, but that can be specified by one such as a polyogn, whose elements that can be constructed from a
  * fixed number of homogeneous primitive values such as [[Double]]s or [[Int]]s. */
-trait SsValueN[+A <: ValueNElem] extends Any with SlValueNImut[A] with SeqSpec[A]
+trait SsValueN[+A <: ValueNElem] extends Any, SlImutValueN[A], SeqSpec[A]
 { type ThisT <: SsValueN[A]
 
   /** Reverses the order of the elements of the specifying sequence. */
@@ -48,8 +48,8 @@ trait SsValueN[+A <: ValueNElem] extends Any with SlValueNImut[A] with SeqSpec[A
   }
 }
 
-/** An immutable [[Arr]] whose ellements can be constructed from a fixed number of homogeneous primitive values. */
-trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SlValueNImut[A]
+/** An immutable [[Arr]] whose elements can be constructed from a fixed number of homogeneous primitive values. */
+trait ArrValueN[A <: ValueNElem] extends Any, ArrNoParam[A], SlImutValueN[A]
 { type ThisT <: ArrValueN[A]
 
   /** The number of product elements in this collection. For example in a [[PolygonGen]], this is the number of [[Pt2]]s in the [[Polygon]] */
@@ -92,16 +92,16 @@ trait BuffValueN[A <: ValueNElem] extends Any, Buff[A], SlValueN[A]
   def grows(newElems: ArrT): Unit
 }
 
-/** Base trait for all [[SlValueNImut]] builders. */
-trait BuilderSeqLikeValueN[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
+/** [[BuilderCollection]], common trait for map and flatMap builders for [[SeqLike]]s with [[ValueNElem]]s. */
+trait BuilderSlValueN[BB <: SlValueN[?]] extends BuilderSeqLike[BB]
 { def elemProdSize: Int
 }
 
-/** Map builder for [[SlValueNImut]] classes. */
-trait BuilderSeqLikeValueNMap[B <: ValueNElem, BB <: SeqLike[B]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeMap[B, BB]
+/** Map builder for [[SlImutValueN]] classes. */
+trait BuilderSeqLikeValueNMap[B <: ValueNElem, BB <: SlValueN[B]] extends BuilderSlValueN[BB], BuilderSeqLikeMap[B, BB]
 
-/** Constructs [[SlValueNImut]] objects via flatMap method. Element type not known at call site. */
-trait BuilderSeqLikeValueNFlat[BB <: SlValueNImut[?]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeFlat[BB]
+/** Constructs [[SlImutValueN]] objects via flatMap method. Element type not known at call site. */
+trait BuilderSeqLikeValueNFlat[BB <: SlImutValueN[?]] extends BuilderSlValueN[BB], BuilderSeqLikeFlat[BB]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[BuilderArrMap]] type class, for classes / traits you control, should go in the companion object of
  * B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
@@ -111,4 +111,4 @@ trait BuilderArrValueNMap[B <: ValueNElem, ArrB <: ArrValueN[B]] extends Builder
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderArrFlat] should go in the companion
  * object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrValueNFlat[ArrB <: ArrValueN[?]] extends BuilderSeqLikeValueN[ArrB], BuilderArrFlat[ArrB]
+trait BuilderArrValueNFlat[ArrB <: ArrValueN[?]] extends BuilderSlValueN[ArrB], BuilderArrFlat[ArrB]

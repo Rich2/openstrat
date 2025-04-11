@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, unchecked.uncheckedVariance
+import annotation.*, unchecked.uncheckedVariance
 
 /** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable sequence classes backed by underlying Arrays. The final
  *  classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with
  *  no boxing run cost. */
-trait Arr[+A] extends Any with Sequ[A]
+trait Arr[+A] extends Any, Sequ[A], SeqLikeImut[A]
 { override type ThisT <: Arr[A]
 
   /** Sets / mutates the head element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory

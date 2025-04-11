@@ -27,7 +27,7 @@ trait SeqLikeInt6[A <: Int6Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLike]] for [[Int6Elem]]s */
-trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt6[A]
+trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SlImutIntN[A], SeqLikeInt6[A]
 { final override def numElems: Int = arrayUnsafe.length / 6
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =

@@ -11,7 +11,7 @@ trait PolygonLikeBuilderMap[B, +BB <: PolygonLike[B]] extends BuilderSeqLikeMap[
 
 /** Trait for creating the line path builder instances for the [[PolygonLikeBuilderMap]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait PolygonValueNBuilderMap[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonLikeBuilderMap[B, BB] with BuilderSeqLikeValueN[BB]
+trait PolygonValueNBuilderMap[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonLikeBuilderMap[B, BB] with BuilderSlValueN[BB]
 
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeBuilderMap]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -50,7 +50,7 @@ trait PolygonLikeFlatBuilder[VT, +BB <: PolygonLike[VT]] extends BuilderSeqLikeF
   def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit
 }
 
-trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extends PolygonLikeFlatBuilder[VT, BB] with BuilderSeqLikeValueN[BB]
+trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extends PolygonLikeFlatBuilder[VT, BB] with BuilderSlValueN[BB]
 
 trait PolygonIntNFlatBuilder[VT <: IntNElem, BB <: PolygonLikeIntN[VT]] extends PolygonValueNFlatBuilder[VT, BB] with BuilderSeqLikeIntNFlat[BB]
 {

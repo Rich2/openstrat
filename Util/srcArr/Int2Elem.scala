@@ -11,12 +11,12 @@ trait Int2Elem extends Any, IntNElem
 }
 
 /** Common trait for [[SeqLike]] classes that have [[Int2Elem]] elements. They maybe backed by an [[Array]] or an [[ArrayBuffer]]. */
-trait SeqLikeInt2[A <: Int2Elem] extends Any, SlValueN[A]
+trait SeqLikeInt2[A <: Int2Elem] extends Any, SlIntN[A]
 { final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
 }
 
 /** Common trait for immutable [[Arr]] and [[SeqSpec]] classes specified by [[Int2Elem]]s with a backing [[Array]]. */
-trait SeqLikeInt2Imut[A <: Int2Elem] extends Any, SeqLikeInt2[A], SeqLikeIntNImut[A]
+trait SeqLikeInt2Imut[A <: Int2Elem] extends Any, SeqLikeInt2[A], SlImutIntN[A]
 { /** Constructs an element from 2 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int): A
   
@@ -46,7 +46,7 @@ trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SeqLikeInt2Imut[A]
 }
 
 /** base trait for constructing [[SeqlikeInt2]] objects by both map and flatMap methods. */
-trait BuilderSeqLikeInt2[BB <: SeqLike[?]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt2[BB <: SeqLikeInt2Imut[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt2[?]
   final override def elemProdSize: Int = 2
 }

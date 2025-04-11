@@ -28,7 +28,7 @@ trait SeqLikeInt5[A <: Int5Elem] extends Any, SlValueN[A]
 }
 
 /** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s.  */
-trait SeqLikeInt5Imut[A <: Int5Elem] extends Any, SeqLikeIntNImut[A], SeqLikeInt5[A]
+trait SeqLikeInt5Imut[A <: Int5Elem] extends Any, SlImutIntN[A], SeqLikeInt5[A]
 { override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
