@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[ArrDblN]] Array[Double] based collections. */
-trait DblNElem extends Any with ValueNElem
+trait DblNElem extends Any, ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def dblForeach(f: Double => Unit): Unit
 
@@ -48,7 +48,7 @@ trait SsDblN[+A <: DblNElem] extends Any, SlImutDblN[A], SsValueN[A]
 }
 
 /** [[Arr]] trait with [[DblNElem]]s, backed by an underlying Array[Double]. */
-trait ArrDblN[A <: DblNElem] extends Any with SlImutDblN[A] with ArrValueN[A]
+trait ArrDblN[A <: DblNElem] extends Any, SlImutDblN[A], ArrValueN[A]
 { type ThisT <: ArrDblN[A]
 
   /** Not sure about this method. */
@@ -121,19 +121,17 @@ trait BuilderMapSlDblNMap[B <: DblNElem, BB <: SlImutDblN[B]] extends BuilderSlD
   }
 }
 
+/** [[BuilderCollection]] trait for constructing [[Arr]]s by the map and flatMap methods. */
 trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB]
 
-/** Trait for creating the sequence builder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderMapArr]] type class, for classes /
- * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
- * ```map(f: A => B): ArrB``` function. */
+/** [[BuilderMapArr]] trait for constructing [[Arr]]s with [[DblNElem]]s. Instances for the [[BuilderMapArr]] type class, for classes / traits you control,
+ * should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderMapArrDblN[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderMapSlDblNMap[B, ArrB], BuilderMapArrValueN[B, ArrB]
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderMapArr]] type class,
- * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
- * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+/** [[BuilderFlat]] Trait for constructing [[Arr]]s with [[DblNElem]]s via the flatMap method. Instances for the [[BuilderMapArr]] type class, for classes /
+ * traits you control, should go in the companion object of the final [[Arr]] class. */
 trait BuilderFlatArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB] with BuilderFlatArrValueN[ArrB]
-{ //final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
+{ override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 
 /** Helper trait for Companion objects of [[SeqLikeImut]] classes with [[DblNElem]]s. */
