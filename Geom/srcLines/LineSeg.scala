@@ -176,4 +176,4 @@ trait LineSegArrCommonBuilder extends BuilderArrDbl4[LineSegArr]
 }
 
 class LineSegArrMapBuilder extends LineSegArrCommonBuilder with BuilderArrDbl4Map[LineSeg, LineSegArr]
-class LineSegArrFlatBuilder extends LineSegArrCommonBuilder with BuilderArrDbl4Flat[LineSegArr]
+class LineSegArrFlatBuilder extends LineSegArrCommonBuilder with BuilderFlatArrDbl4[LineSegArr]

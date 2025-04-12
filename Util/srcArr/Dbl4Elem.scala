@@ -22,18 +22,20 @@ trait SlDbl4[A <: Dbl4Elem] extends Any, SlValueN[A]
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 }
 
-/** [[SeqLike]] with [[Dbl4Elem]] elements. */
-trait SeqLikeDbl4Imut[A <: Dbl4Elem] extends Any, SlImutDblN[A], SlDbl4[A]
-{ final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
-  final override def numElems: Int = arrayLen / 4
+/** [[SeqLikeImut]] with [[Dbl4Elem]] elements. */
+trait SlImutDbl4[A <: Dbl4Elem] extends Any, SlImutDblN[A], SlDbl4[A]
+{ final override def numElems: Int = arrayLen / 4
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+
+  final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2),
+    arrayUnsafe(4 * index + 3))
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
-trait SeqSpecDbl4[A <: Dbl4Elem] extends Any, SeqLikeDbl4Imut[A], SsDblN[A]
+/** [[SeqSpec]] with [[Dbl4Rlem]]s, backed by a flat [[Array]][Double]. */
+trait SsDbl4[A <: Dbl4Elem] extends Any, SlImutDbl4[A], SsDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
-trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SeqLikeDbl4Imut[A]
+trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SlImutDbl4[A]
 { def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)
@@ -52,27 +54,25 @@ trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SeqLikeDbl4Imut[A]
   }
 }
 
+/** [[BuilderCollection]] trait for constructing [[Arr]]s with [[Dbl4Elem]]s by the map and flatMap methods. */
 trait BuilderArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDblN[ArrB]
 { type BuffT <: BuffDbl4[?]
   final override def elemProdSize = 4
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
- * you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to corresponds to the
- * B in ```map(f: A => B): ArrB``` function. */
+/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl4Elem]]s. Ttype class instances for the builder, should go in the companion object of type B. */
 trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl4[ArrB], BuilderMapArrDblN[B, ArrB]
 { type BuffT <: BuffDbl4[B]
 
   final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
     seqLike.arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderMapArr]] type class,
- * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for [[BuilderFlatArr] should go in
- * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl4Flat[ArrB <: ArrDbl4[?]] extends BuilderArrDbl4[ArrB], BuilderFlatArrDblN[ArrB]
+/** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl4Elem]]s. Implicit type class instances for the builder classes that you control, should go in the
+ * companion object of type B. */
+trait BuilderFlatArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDbl4[ArrB], BuilderFlatArrDblN[ArrB]
 
-/** Class for the singleton companion objects of [[SeqSpecDbl4]] final classes to extend. */
-abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4Imut[A]] extends CompanionSlDblN[A, AA]
+/** Class for the singleton companion objects of [[SsDbl4]] final classes to extend. */
+abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SlImutDbl4[A]] extends CompanionSlDblN[A, AA]
 { /* Apply factory method for [[SeqLikeDbl4]]. If you are constructing the elements inline the [[Tuple4]]s factory method may be preferred. */
   final def apply(elems: A*): AA =
   { val length = elems.length
@@ -87,7 +87,7 @@ abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4Imut[A]] ext
 
   override def numElemDbls: Int = 4
 
-  /** Constructs the [[SeqLikeDbl4Imut]] from a sequence of [[Tuple4]]s. */
+  /** Constructs the [[SlImutDbl4]] from a sequence of [[Tuple4]]s. */
   def tuple4s(tuples: (Double, Double, Double, Double)*): AA =
   { val length = tuples.length
     val res = uninitialised(length)
