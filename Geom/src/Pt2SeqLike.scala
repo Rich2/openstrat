@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2Imut[Pt2]
+trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SlImutDbl2[Pt2]
 {
   def arrTrans(f: Pt2 => Pt2): Array[Double] =
   { val newArray = new Array[Double](arrayUnsafe.length)
@@ -22,7 +22,7 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2Imut[Pt2
 
 }
 
-trait Pt2SeqSpec extends Any, Pt2SeqLike, SeqSpecDbl2[Pt2]
+trait Pt2SeqSpec extends Any, Pt2SeqLike, SsDbl2[Pt2]
 { final override def elemFromDbls(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
   protected def arraySlate(operand: VecPt2): Array[Double] = arrayD1D2Map(_ + operand.x)(_ + operand.y)
   protected def arraySlateXY(xOperand: Double, yOperand: Double): Array[Double] = arrayD1D2Map(_ + xOperand)(_ + yOperand)
@@ -64,7 +64,7 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
   override def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
 
   /** Builder for [[Arr]] of [[Pt2]]s via the flatMap method. The call site does not need to know that the element type is [[Pt2]] hence why this type class
-   * instance / evidence is in the [[Pt2Arr]] companion object, while the corresponding [[BuilderArrDbl2Map]] type class instance is in the
+   * instance / evidence is in the [[Pt2Arr]] companion object, while the corresponding [[BuilderMapArrDbl2]] type class instance is in the
    *  [[Pt2]] companion object. */
   implicit val builderArrFlatEv: BuilderFlatArr[Pt2Arr] =  new BuilderArrDbl2Flat[Pt2Arr]
   { override type BuffT = Pt2Buff

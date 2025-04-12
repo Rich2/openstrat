@@ -80,7 +80,7 @@ object PtFm2
   implicit val unShowEv: UnshowDbl2[PtFm2] = UnshowDbl2[PtFm2]("PtFm2", "x", "y", new PtFm2(_, _))
 
   /** Implicit [[BuilderMapArr]] type class instance / evidence for [[PtFm2]] and [[PtFm2Arr]]. */
-  implicit val arrMapbuilderEv: BuilderArrDbl2Map[PtFm2, PtFm2Arr] = new BuilderArrDbl2Map[PtFm2, PtFm2Arr]
+  implicit val arrMapbuilderEv: BuilderMapArrDbl2[PtFm2, PtFm2Arr] = new BuilderMapArrDbl2[PtFm2, PtFm2Arr]
   { type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(buffer)
@@ -105,7 +105,7 @@ object PtFm2
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonFm2PairBuilder[A2] = new PolygonFm2PairBuilder[A2]
 }
 
-trait PtFm2SeqLike extends Any, SeqLikeDbl2Imut[PtFm2]
+trait PtFm2SeqLike extends Any, SlImutDbl2[PtFm2]
 { final override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   final override def fElemStr: PtFm2 => String = _.str
 }
@@ -170,7 +170,7 @@ object VecFm2
   def apply(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)
 
   /** Implicit [[BuilderMapArr]] type class instance / evidence for [[VecFm2]] and [[VecFm2Arr]]. */
-  implicit val arrMapBuilderEv: BuilderMapArr[VecFm2, VecFm2Arr] = new BuilderArrDbl2Map[VecFm2, VecFm2Arr]
+  implicit val arrMapBuilderEv: BuilderMapArr[VecFm2, VecFm2Arr] = new BuilderMapArrDbl2[VecFm2, VecFm2Arr]
   { override type BuffT = VecFm2Buff
     override def fromDblArray(array: Array[Double]): VecFm2Arr = new VecFm2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecFm2Buff = new VecFm2Buff(buffer)

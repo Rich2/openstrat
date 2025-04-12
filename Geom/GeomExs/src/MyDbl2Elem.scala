@@ -19,7 +19,7 @@ object MyDbl2Elem
 
   implicit val unshowEv: UnshowDbl2[MyDbl2Elem] = UnshowDbl2[MyDbl2Elem]("MyDbl2", "a", "b", MyDbl2Elem.apply)
 
-  implicit val arrBuilderImplicit: BuilderArrDbl2Map[MyDbl2Elem, MyDbl2Arr] = new BuilderArrDbl2Map[MyDbl2Elem, MyDbl2Arr]
+  implicit val arrBuilderImplicit: BuilderMapArrDbl2[MyDbl2Elem, MyDbl2Arr] = new BuilderMapArrDbl2[MyDbl2Elem, MyDbl2Arr]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): MinesBuff = new MinesBuff(buffer)

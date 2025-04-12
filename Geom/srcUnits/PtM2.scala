@@ -77,7 +77,7 @@ object PtM2
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
   /** Implicit [[BuilderMapArr]] instance / evidence for [[PtM2]] and [[Pt2M2Arr]]. */
-  implicit val builderImplicit: BuilderArrDbl2Map[PtM2, PtM2Arr] = new BuilderArrDbl2Map[PtM2, PtM2Arr]
+  implicit val builderImplicit: BuilderMapArrDbl2[PtM2, PtM2Arr] = new BuilderMapArrDbl2[PtM2, PtM2Arr]
   { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(buffer)
@@ -159,7 +159,7 @@ object VecM2
   def apply(xMetresNum: Double, yMetresNum: Double): VecM2 = new VecM2(xMetresNum, yMetresNum)
   
   /** [[BuilderMapArr]] type class instance for [[VecM2]] and [[VecM2Arr]]. */
-  val builderArrMapEv: BuilderMapArr[VecM2, VecM2Arr] = new BuilderArrDbl2Map[VecM2, VecM2Arr]
+  val builderArrMapEv: BuilderMapArr[VecM2, VecM2Arr] = new BuilderMapArrDbl2[VecM2, VecM2Arr]
   { override type BuffT = VecM2Buff
     override def fromDblArray(array: Array[Double]): VecM2Arr = new VecM2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecM2Buff = new VecM2Buff(buffer)

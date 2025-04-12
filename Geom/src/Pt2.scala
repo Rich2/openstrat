@@ -263,7 +263,7 @@ object Pt2
 
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
-  implicit val arrBuilderImplicit: BuilderArrDbl2Map[Pt2, Pt2Arr] = new BuilderArrDbl2Map[Pt2, Pt2Arr]
+  implicit val arrBuilderImplicit: BuilderMapArrDbl2[Pt2, Pt2Arr] = new BuilderMapArrDbl2[Pt2, Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
@@ -278,7 +278,7 @@ object Pt2
   }
 
   /** Implicit instance evidence for [[PolygonLike]] map builder. */
-  implicit val polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderSeqLikeDbl2Map[Pt2, PolygonGen]
+  implicit val polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderMapSlDbl2[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)

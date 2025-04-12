@@ -2,13 +2,13 @@
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer
 
-trait LatLongSeqLike extends Any with SeqLikeDbl2Imut[LatLong]
+trait LatLongSeqLike extends Any with SlImutDbl2[LatLong]
 {  final override def fElemStr: LatLong => String = _.toString
 }
 
 /** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongArr]], for a
  * a general collection of [[LatLong]] points. */
-trait LatLongSeqSpec extends Any with LatLongSeqLike with SeqSpecDbl2[LatLong]
+trait LatLongSeqSpec extends Any with LatLongSeqLike with SsDbl2[LatLong]
 { final override def elemFromDbls(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
 }
 

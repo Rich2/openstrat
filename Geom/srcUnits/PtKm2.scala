@@ -78,7 +78,7 @@ object PtKm2
   implicit val unShowEv: UnshowDbl2[PtKm2] = UnshowDbl2[PtKm2]("PtKm2", "x", "y", new PtKm2(_, _))
 
   /** Implicit [[BuilderArr]] type class instance / evidence for [[PtKm2]] and [[LinePathKm2]]. */
-  implicit val builderArrEv: BuilderArrDbl2Map[PtKm2, PtKm2Arr] = new BuilderArrDbl2Map[PtKm2, PtKm2Arr]
+  implicit val builderArrEv: BuilderMapArrDbl2[PtKm2, PtKm2Arr] = new BuilderMapArrDbl2[PtKm2, PtKm2Arr]
   { type BuffT = BuffPtKm2
     override def fromDblArray(array: Array[Double]): PtKm2Arr = new PtKm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(buffer)
@@ -162,7 +162,7 @@ object VecKm2
    * the X and Y [[Length]] components as parameters. */
   def apply(xKilometresNum: Double, yKilometresNum: Double): VecKm2 = new VecKm2(xKilometresNum, yKilometresNum)
 
-  val buildImplicit: BuilderMapArr[VecKm2, VecKm2Arr] = new BuilderArrDbl2Map[VecKm2, VecKm2Arr]
+  val buildImplicit: BuilderMapArr[VecKm2, VecKm2Arr] = new BuilderMapArrDbl2[VecKm2, VecKm2Arr]
   { override type BuffT = VecKm2Buff
     override def fromDblArray(array: Array[Double]): VecKm2Arr = new VecKm2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecKm2Buff = new VecKm2Buff(buffer)
