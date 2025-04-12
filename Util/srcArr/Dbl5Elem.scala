@@ -75,8 +75,8 @@ trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5
  * companion object of the [[SeqLikeImut]]. */
 trait BuilderFlatArrDbl5[ArrB <: ArrDbl5[?]] extends BuilderSlDbl5[ArrB], BuilderFlatArrDblN[ArrB]
 
-/** Helper class for companion objects of final [[SsDbl5]] classes. */
-abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SlImutDbl5[A]] extends CompanionSlDblN[A, ArrA]
+/** Helper class for companion objects of [[SeqLikeImut]] objects, with [[Dbl5Elem]]s. */
+abstract class CompanionSlDbl5[A <: Dbl5Elem, ArrA <: SlImutDbl5[A]] extends CompanionSlDblN[A, ArrA]
 { override def numElemDbls: Int = 5
 
   def apply(elems: A*): ArrA =

@@ -87,7 +87,7 @@ class LineSegKm3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegKm3]
 }
 
 /** Companion object for the LineSegKm3s class. */
-object LineSegKm3Arr extends CompanionSqLikeDbl6[LineSegKm3, LineSegKm3Arr]
+object LineSegKm3Arr extends CompanionSlDbl6[LineSegKm3, LineSegKm3Arr]
 {
   override def fromArray(array: Array[Double]): LineSegKm3Arr = new LineSegKm3Arr(array)
 
