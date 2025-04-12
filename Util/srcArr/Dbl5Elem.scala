@@ -62,20 +62,18 @@ trait BuilderSlDbl5[BB <: SlImutDbl5[?]] extends BuilderSlDblN[BB]
   final override def elemProdSize: Int = 5
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
- * you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. The first type parameter is called B, because to corresponds to the
- * B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5[ArrB], BuilderMapArrDblN[B, ArrB]
+/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl5Elem]]s, by the map method. Type class instances for the builder you control, should go in the
+ * companion object of type B. */
+trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5[ArrB], BuilderMapArrDblN[B, ArrB]
 { type BuffT <: BuffDbl5[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
     seqLike.arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderMapArr]] type class,
- * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for [[BuilderFlatArr] should go in
- * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSlDbl5[ArrB], BuilderFlatArrDblN[ArrB]
+/** [[BuilderFlat]] trait for constructing [[SeqLikeImut]]s with [[Dbl5Elem]]s by the faltMap method. The builder type class instances should go in the
+ * companion object of the [[SeqLikeImut]]. */
+trait BuilderFlatArrDbl5[ArrB <: ArrDbl5[?]] extends BuilderSlDbl5[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** Helper class for companion objects of final [[SsDbl5]] classes. */
 abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SlImutDbl5[A]] extends CompanionSlDblN[A, ArrA]
