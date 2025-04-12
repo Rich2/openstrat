@@ -68,26 +68,25 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SlImutDbl3[A]
   }
 }
 
-/** Constructs [[SlImutDbl3]] objects. */
-trait BuilderSeqLikeDbl3[BB <: SlImutDbl3[?]] extends BuilderSlDblN[BB]
+/** [[BuilderCollection]] trait for [[SeqLikeImut]] objects, with [[Dbl3Elem]]s via map and flatMap methods. */
+trait BuilderSlDbl3[BB <: SlImutDbl3[?]] extends BuilderSlDblN[BB]
 { type BuffT <: Dbl3Buff[?]
   final override def elemProdSize = 3
 }
 
-trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SlImutDbl3[B]] extends BuilderSeqLikeDbl3[BB], BuilderMapSlDblNMap[B, BB]
+/** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects with [[Dbl3Elem]]s via the map method. */
+trait BuilderMapSlDbl3[B <: Dbl3Elem, BB <: SlImutDbl3[B]] extends BuilderSlDbl3[BB], BuilderMapSlDblNMap[B, BB]
 { type BuffT <: Dbl3Buff[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
- * you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to corresponds to the
- * B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl3Map[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderSeqLikeDbl3Map[B, ArrB], BuilderMapArrDblN[B, ArrB]
+/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the map method. Instances for the [[BuilderMapArr]] type class, for classes / traits
+ * you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. */
+trait BuilderMapArrDbl3[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderMapSlDbl3[B, ArrB], BuilderMapArrDblN[B, ArrB]
 
-/** Trait for creating the [[BuilderFlatArr]] type class instances for [[ArrDbl3]] final classes. Instances for the  for classes / traits you control, should go
- * in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
- * function. */
-trait BuilderArrDbl3Flat[ArrB <: ArrDbl3[?]] extends BuilderSeqLikeDbl3[ArrB], BuilderFlatArrDblN[ArrB]
+/** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the flatMap method. [[BuilderFlatArr]] type class instances for [[ArrDbl3]] final
+ * classes1, should go in the companion object of the [[Arr]] final class. */
+trait BuilderFlatArrDbl3[ArrB <: ArrDbl3[?]] extends BuilderSlDbl3[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
 trait Dbl3Buff[A <: Dbl3Elem] extends Any, BuffDblN[A], SlDbl3[A]

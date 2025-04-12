@@ -113,7 +113,7 @@ object PtM3
   def metreNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 
   /** Implicit [[BuilderMapArr]] type class instance / evidence for [[PTM3]].  */
-  implicit val builderArrEv: BuilderArrDbl3Map[PtM3, PtM3Arr] = new BuilderArrDbl3Map[PtM3, PtM3Arr]
+  implicit val builderArrEv: BuilderMapArrDbl3[PtM3, PtM3Arr] = new BuilderMapArrDbl3[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
@@ -200,7 +200,7 @@ class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
 object PtM3Arr extends CompanionSlDbl3[PtM3, PtM3Arr]
 { override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
-  implicit val arrFlatBuilderImplicit: BuilderArrDbl3Flat[PtM3Arr] = new BuilderArrDbl3Flat[PtM3Arr]
+  implicit val arrFlatBuilderImplicit: BuilderFlatArrDbl3[PtM3Arr] = new BuilderFlatArrDbl3[PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)

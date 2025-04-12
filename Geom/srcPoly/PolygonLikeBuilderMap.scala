@@ -26,7 +26,7 @@ trait PolygonDbl2BuilderMap[B <: Dbl2Elem, BB <: PolygonLikeDbl2[B]] extends Pol
 /** Trait for creating the line path type class instances for [[PolygonLikeDbl3]] final classes. Instances for the [[PolygonDbl3BuilderMap]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait PolygonDbl3BuilderMap[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends PolygonDblNBuilderMap[B, BB] with BuilderSeqLikeDbl3Map[B, BB]
+trait PolygonDbl3BuilderMap[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends PolygonDblNBuilderMap[B, BB] with BuilderMapSlDbl3[B, BB]
 { type BuffT <: Dbl3Buff[B]
 }
 

@@ -113,7 +113,7 @@ object PtKm3
   def kilometres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
 
   /** [[BuilderMapArr]] type class instance / evidence for [[PtKm3]]. */
-  implicit val builderArrEv: BuilderArrDbl3Map[PtKm3, PtKm3Arr] = new BuilderArrDbl3Map[PtKm3, PtKm3Arr]
+  implicit val builderArrEv: BuilderMapArrDbl3[PtKm3, PtKm3Arr] = new BuilderMapArrDbl3[PtKm3, PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(buffer)
@@ -208,7 +208,7 @@ object PtKm3Arr extends CompanionSlDbl3[PtKm3, PtKm3Arr]
 { override def fromArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
 
   /** [[BuilderFlatArr]] type class instance / evidence for [[PtKm3]]s. Provides builder for flatMaps with A => [[PtKm3Arr]] functions. */
-  implicit val builderArrFlatEv: BuilderArrDbl3Flat[PtKm3Arr] = new BuilderArrDbl3Flat[PtKm3Arr]
+  implicit val builderArrFlatEv: BuilderFlatArrDbl3[PtKm3Arr] = new BuilderFlatArrDbl3[PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
