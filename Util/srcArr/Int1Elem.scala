@@ -11,8 +11,8 @@ trait Int1Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = { buffer.append(int1) }
 }
 
-/** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1[A <: Int1Elem] extends Any with SlValueN[A]
+/** [[SeqLike]] trait with [[Int1Elem]]s. */
+trait SlInt1[A <: Int1Elem] extends Any with SlValueN[A]
 { /** Constructs an element of the specifying sequence from an [[Int]] value. */
   def elemFromInt(intValue: Int): A
 
@@ -21,7 +21,7 @@ trait SeqLikeInt1[A <: Int1Elem] extends Any with SlValueN[A]
 }
 
 /** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SeqLikeInt1[A]
+trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SlInt1[A]
 { final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
   final override def numElems: Int = arrayLen
   final override def elem(index: Int): A = elemFromInt(arrayUnsafe(index))
@@ -45,7 +45,7 @@ trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
+trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SlInt1[A]
 { type ThisT <: BuffInt1[A]
 
   final override def length: Int = bufferUnsafe.length
@@ -56,16 +56,14 @@ trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem.int1
 }
 
-/** Base trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
+/** [[BuilderCollection]] trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
 trait BuilderArrInt1[ArrB <: ArrInt1[?]] extends BuilderSlIntN[ArrB]
 { type BuffT <: BuffInt1[?]
   final override def elemProdSize: Int = 1
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
- * you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
- * function. */
-trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt1[ArrT] with BuilderArrIntNMap[A, ArrT]
+/** [[BuilderMap]] trait for constructing [[Arr]]s of [[Int1Elem]]s. impliciit instances for the builder type class, should go in the companion object of B. */
+trait BuilderMapArrInt1[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt1[ArrT] with BuilderArrIntNMap[A, ArrT]
 { type BuffT <: BuffInt1[A]
   final override def indexSet(seqLike: ArrT, index: Int, newElem: A): Unit =  seqLike.arrayUnsafe(index) = newElem.int1
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.bufferUnsafe.append(newElem.int1); () }

@@ -60,7 +60,7 @@ object SqStep
     case _ => SqRt
   }
 
-  implicit val buildEv: BuilderArrInt1Map[SqStep, SqStepArr] = new BuilderArrInt1Map[SqStep, SqStepArr] {
+  implicit val buildEv: BuilderMapArrInt1[SqStep, SqStepArr] = new BuilderMapArrInt1[SqStep, SqStepArr] {
     override type BuffT = SqDirnBuff
 
     override def fromIntArray(array: Array[Int]): SqStepArr = new SqStepArr(array)

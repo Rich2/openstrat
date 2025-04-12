@@ -59,7 +59,7 @@ object HStep
 
   def full: HStepArr = HStepArr(HexUR, HexRt, HexDR, HexDL, HexLt, HexUL)
 
-  implicit val arrMapBuildEv: BuilderArrInt1Map[HStep, HStepArr] = new BuilderArrInt1Map[HStep, HStepArr]
+  implicit val arrMapBuildEv: BuilderMapArrInt1[HStep, HStepArr] = new BuilderMapArrInt1[HStep, HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
