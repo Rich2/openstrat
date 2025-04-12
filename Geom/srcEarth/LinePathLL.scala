@@ -12,6 +12,6 @@ final class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLo
   override def polygonFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 }
 
-object LinePathLL extends CompanionSeqLikeDbl2[LatLong, LinePathLL]
+object LinePathLL extends CompanionSlDbl2[LatLong, LinePathLL]
 { override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
 }

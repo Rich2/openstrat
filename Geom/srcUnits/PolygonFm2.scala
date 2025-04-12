@@ -51,7 +51,7 @@ final class PolygonFm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLe
 }
 
 /** The companion object for [[PolygonFm2]]. Provides an implicit builder. */
-object PolygonFm2 extends CompanionSeqLikeDbl2[PtFm2, PolygonFm2]
+object PolygonFm2 extends CompanionSlDbl2[PtFm2, PolygonFm2]
 { override def fromArray(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
 
   implicit val arrBuildImplicit: BuilderMapArr[PolygonFm2, PolygonFm2Arr] = new BuilderMapArr[PolygonFm2, PolygonFm2Arr]
@@ -130,7 +130,7 @@ final class PolygonFm2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
 }
 
 class PolygonFm2PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  BuffPairSeqLikeDblN[PtFm2, PolygonFm2, A2, PolygonFm2Pair[A2]]
+  BuffPairSlDblN[PtFm2, PolygonFm2, A2, PolygonFm2Pair[A2]]
 { override type ThisT = PolygonFm2PairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonFm2Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonFm2Pair[A2] => String = _.toString

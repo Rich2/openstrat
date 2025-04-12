@@ -2,16 +2,16 @@
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A [[PairElem]] where the component of the pair is a [[SeqLikeDblN]]. */
-trait PairSeqLikeDblNElem[A1E <: DblNElem, A1 <: SlImutDblN[A1E], A2] extends PairSeqLikeElem[A1E, A1, A2]
+/** A [[PairElem]] where the first component of the pair is a [[SeqLikeDblN]]. */
+trait PairSlDblNElem[A1E <: DblNElem, A1 <: SlImutDblN[A1E], A2] extends PairSeqLikeElem[A1E, A1, A2]
 { /** The backing Array of Doubles for the A1 [[SlImutDblN]]. */
   def a1ArrayDbl: Array[Double]
 }
 
 /** An [[Arr]] of [[PairElem]]s where the first compnent of each pair is a [[SeqLikeDblN]]. */
-trait ArrPairSeqLikeDblN[A1E <: DblNElem, A1 <: SlImutDblN[A1E], A1Arr <: Arr[A1], A2, A <: PairSeqLikeDblNElem[A1E, A1, A2]] extends
+trait ArrPairSlDblN[A1E <: DblNElem, A1 <: SlImutDblN[A1E], A1Arr <: Arr[A1], A2, A <: PairSlDblNElem[A1E, A1, A2]] extends
   ArrPairSeqLike[A1E, A1, A1Arr, A2, A]
-{ type ThisT <: ArrPairSeqLikeDblN[A1E, A1, A1Arr, A2, A]
+{ type ThisT <: ArrPairSlDblN[A1E, A1, A1Arr, A2, A]
 
   /** Backing [[Array]] for the A1 components of the pairs. In this case the elements of that array are themselves [[Array]]s of [[Double]]s. */
   def a1ArrayDbls: Array[Array[Double]]
@@ -48,23 +48,23 @@ trait ArrPairSeqLikeDblN[A1E <: DblNElem, A1 <: SlImutDblN[A1E], A1Arr <: Arr[A1
   }
 }
 
-/** A [[Buff]] for [[PairElem]]s where the frist component of each of the pairs is a [[SeqLikeDblN]]. */
-trait BuffPairSeqLikeDblN[B1E <: DblNElem, B1 <: SlImutDblN[B1E], B2, B <: PairSeqLikeDblNElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
+/** A [[Buff]] for [[PairElem]]s where the first component of each of the pairs is a [[SlImutDblN]]. */
+trait BuffPairSlDblN[B1E <: DblNElem, B1 <: SlImutDblN[B1E], B2, B <: PairSlDblNElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
 { /** Backing [[ArrayBuffer]] for the B1 components. */
   def b1Buffer: ArrayBuffer[Array[Double]]
 
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayDbl); b2Buffer.append(newElem.a2) }
 
-  final def growArr(newElems: ArrPairSeqLikeDblN[B1E, B1, ?, B2, B]): Unit = { newElems.a1ArrayDbls.foreach(b1Buffer.append(_))
+  final def growArr(newElems: ArrPairSlDblN[B1E, B1, ?, B2, B]): Unit = { newElems.a1ArrayDbls.foreach(b1Buffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }
 }
 
-/** A [[BuilderMap]] for an [[Arr]] of [[PairElem]]s where the first component of each pair is a [[SeqLikeDblN]]. */
-trait BuilderMapArrPairSeqLikeDblN[B1E <: DblNElem, B1 <: SlImutDblN[B1E], ArrB1 <: Arr[B1], B2, B <: PairSeqLikeDblNElem[B1E, B1, B2],
+/** A [[BuilderMap]] for an [[Arr]] of [[PairElem]]s where the first component of each pair is a [[SlImutDblN]]. */
+trait BuilderMapArrPairSlDblN[B1E <: DblNElem, B1 <: SlImutDblN[B1E], ArrB1 <: Arr[B1], B2, B <: PairSlDblNElem[B1E, B1, B2],
   ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends BuilderArrMapPairSeqLike[B1E, B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: BuffPairSeqLikeDblN[B1E, B1, B2, B]
+{ type BuffT <: BuffPairSlDblN[B1E, B1, B2, B]
   type B1BuffT <: BuffArrayDbl[B1]
 
   /** Construct the final target [[Arr]] type from an Array of Arrays of Doubles and an Array of B2. */

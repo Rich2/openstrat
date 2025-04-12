@@ -329,7 +329,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 }
 
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */
-object Polygon extends CompanionSeqLikeDbl2[Pt2, Polygon]
+object Polygon extends CompanionSlDbl2[Pt2, Polygon]
 { override def fromArray(array: Array[Double]): Polygon = new PolygonGen(array)
 
   /** Implicit [[EqT]] type class instance / evidence for [[Polygon]]. */

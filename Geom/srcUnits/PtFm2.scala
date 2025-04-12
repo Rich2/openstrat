@@ -119,7 +119,7 @@ class PtFm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtFm2SeqLike, Arr
 }
 
 /** Companion object for the [[PtFm2Arr]] class. Contains implicit Instance for Persist type class. */
-object PtFm2Arr extends CompanionSeqLikeDbl2[PtFm2, PtFm2Arr]
+object PtFm2Arr extends CompanionSlDbl2[PtFm2, PtFm2Arr]
 { override def fromArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
 
   /** [[Show]] type class instance / evidence for [[PtFm2Arr]]. */

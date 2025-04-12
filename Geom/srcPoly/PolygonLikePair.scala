@@ -24,18 +24,18 @@ trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: Arr[B1], B
   override def b1Builder: PolygonLikeBuilderMap[B1V, B1]
 }
 
-trait PolygonLikeDblNPair[A1V <: DblNElem, A1 <: PolygonLikeDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2] with PairSeqLikeDblNElem[A1V, A1, A2]
+trait PolygonLikeDblNPair[A1V <: DblNElem, A1 <: PolygonLikeDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2] with PairSlDblNElem[A1V, A1, A2]
 { def a1ArrayDbl: Array[Double]
 }
 
 trait PolygonLikeDblNPairArr[A1V <: DblNElem, A1 <: PolygonLikeDblN[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonLikeDblNPair[A1V, A1, A2]] extends
-  PolygonLikePairArr[A1V, A1, ArrA1, A2, A] with ArrPairSeqLikeDblN[A1V, A1, ArrA1, A2, A]
+  PolygonLikePairArr[A1V, A1, ArrA1, A2, A] with ArrPairSlDblN[A1V, A1, ArrA1, A2, A]
 { type ThisT <: PolygonLikeDblNPairArr[A1V, A1, ArrA1, A2, A]
 }
 
 trait PolygonLikeDblNPairArrBuilder[B1V <: DblNElem, B1 <: PolygonLikeDblN[B1V], ArrB1 <: Arr[B1], A2, B <: PolygonLikeDblNPair[B1V, B1, A2],
   ArrB <: PolygonLikeDblNPairArr[B1V, B1, ArrB1, A2, B]] extends PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB] with
-  BuilderMapArrPairSeqLikeDblN[B1V, B1, ArrB1, A2, B, ArrB]
+  BuilderMapArrPairSlDblN[B1V, B1, ArrB1, A2, B, ArrB]
 
 trait PolygonLikeDbl2Pair[A1V <: Dbl2Elem, A1 <: PolygonLikeDbl2[A1V], A2] extends PolygonLikeDblNPair[A1V, A1, A2] //with SeqSpecDbl2Pair[A1V, A1, A2]
 

@@ -33,10 +33,10 @@ final class Vec2Arr(val arrayUnsafe: Array[Double]) extends /*AffinePreserve wit
 }
 
 /** Companion object for the [[Vec2Arr]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
-object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
+object Vec2Arr extends CompanionSlDbl2[Vec2, Vec2Arr]
 {  override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
 
-  implicit val arrFlatBuilderImplicit: BuilderFlatArr[Vec2Arr] =  new BuilderArrDbl2Flat[Vec2Arr]
+  implicit val arrFlatBuilderImplicit: BuilderFlatArr[Vec2Arr] =  new BuilderFlatArrDbl2[Vec2Arr]
   { override type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)

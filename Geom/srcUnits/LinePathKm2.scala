@@ -14,7 +14,7 @@ final class LinePathKm2(val arrayUnsafe: Array[Double]) extends AnyVal with Line
 }
 
 /** Companion object for [[LinePathKm2]]s. Contains apply factory method fromArrayDbl and Persist Implicit. */
-object LinePathKm2 extends CompanionSeqLikeDbl2[PtKm2, LinePathKm2]
+object LinePathKm2 extends CompanionSlDbl2[PtKm2, LinePathKm2]
 { override def fromArray(array: Array[Double]): LinePathKm2 = new LinePathKm2(array)
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePathKm2]] objects. */

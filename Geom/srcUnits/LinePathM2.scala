@@ -13,7 +13,7 @@ final class LinePathM2(val arrayUnsafe: Array[Double]) extends AnyVal, LinePathD
   override def fElemStr: PtM2 => String = _.toString
 }
 /** Companion object for [[LinePathM2]]s. Contains apply factory method fromArrayDbl and [[Persist]] Implicit. */
-object LinePathM2 extends CompanionSeqLikeDbl2[PtM2, LinePathM2]
+object LinePathM2 extends CompanionSlDbl2[PtM2, LinePathM2]
 { override def fromArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePathM2]] objects. */

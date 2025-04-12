@@ -41,7 +41,7 @@ final class LinePath(val arrayUnsafe: Array[Double]) extends AnyVal, AffinePrese
 }
 
 /** Companion object for LinePath contains apply factory object and Persist type class instance. */
-object LinePath extends CompanionSeqLikeDbl2[Pt2, LinePath]
+object LinePath extends CompanionSlDbl2[Pt2, LinePath]
 { override def fromArray(array: Array[Double]): LinePath = new LinePath(array)
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePath]]. */

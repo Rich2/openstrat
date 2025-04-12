@@ -168,12 +168,12 @@ trait BuilderMapSlDbl2[B <: Dbl2Elem, BB <: SlImutDbl2[B]] extends BuilderSlDbl2
  * object of type B. */
 trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB], BuilderMapArrDblN[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderFlatArr] should go in the companion object
- * the ArrT final class. */
-trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSlDbl2[ArrB] with BuilderFlatArrDblN[ArrB]
+/** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl2Elem]]s. Implicit type class instances for the builder should go in the companion object of the
+ * [[Arr]] class. */
+trait BuilderFlatArrDbl2[ArrB <: ArrDbl2[?]] extends BuilderSlDbl2[ArrB], BuilderFlatArrDblN[ArrB]
 
-/** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
-trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SlImutDbl2[A]] extends CompanionSlDblN[A, AA]
+/** Helper trait for the singleton companion objects of [[SeqLikeImut]] classes with [[Dbl2Elem]]s. */
+trait CompanionSlDbl2[A <: Dbl2Elem, AA <: SlImutDbl2[A]] extends CompanionSlDblN[A, AA]
 { final def numElemDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
@@ -200,9 +200,9 @@ trait BuffDbl2[A <: Dbl2Elem] extends Any, BuffDblN[A], SlDbl2[A]
   final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
+/** Helper trait for companion objects of [[Buff]] classes with [[Dbl2Elem]]s. */
 trait CompanionBuffDbl2[A <: Dbl2Elem, AA <: BuffDbl2[A]] extends CompanionBuffDblN[A, AA]
-{
-  override def apply(elems: A*): AA =
+{ override def apply(elems: A*): AA =
   { val buffer: ArrayBuffer[Double] =  new ArrayBuffer[Double](elems.length * 2 + 6)
     elems.foreach{ elem => buffer.append2(elem.dbl1, elem.dbl2) }
     fromBuffer(buffer)

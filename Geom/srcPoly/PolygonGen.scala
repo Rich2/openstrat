@@ -95,7 +95,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
 }
 
 /** Companion object for [[PolygonGen]]. */
-object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
+object PolygonGen extends CompanionSlDbl2[Pt2, PolygonGen]
 { /** Factory apply method to construct a [[PolygonGen]] from an [[Array]] of [[Double]]s */
   def apply(array: Array[Double]): PolygonGen = new PolygonGen(array)
   

@@ -52,7 +52,7 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
+object PolygonM2 extends CompanionSlDbl2[PtM2, PolygonM2]
 { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 
   /** Implicit [[BuilderMapArr]] type class instance for [[PolygonM2]]s. */
@@ -136,7 +136,7 @@ final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 
 /** [[BuffPair]] class for [[PolygonM2]]s. */
 class PolygonM2PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  BuffPairSeqLikeDblN[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]
+  BuffPairSlDblN[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonM2Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonM2Pair[A2] => String = _.toString
