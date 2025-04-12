@@ -111,7 +111,7 @@ object HCenArrLayer extends HCenArrLayerLowPrioity
 trait HCenArrLayerLowPrioity
 {
   implicit def RArrBuilderEv[B](implicit ct: ClassTag[B]): HCenArrLayerBuilder[B, RArr[B], LayerHcRArr[B]] = new HCenArrLayerBuilder[B, RArr[B], LayerHcRArr[B]]
-  { override val arrBBuild: BuilderMapArr[B, RArr[B]] = BuilderMapArr.rMapImplicit
+  { override val arrBBuild: BuilderMapArr[B, RArr[B]] = BuilderMapArr.anyEv
     override def uninitialised(gridSys: HGridSys): LayerHcRArr[B] = new LayerHcRArr(new Array[Array[B]](gridSys.numTiles), gridSys)
     override def iSet(layer: LayerHcRArr[B], i: Int, arr: RArr[B]): Unit = layer.outerArrayUnsafe(i) = arr.arrayUnsafe
   }

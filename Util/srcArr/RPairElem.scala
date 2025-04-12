@@ -118,7 +118,7 @@ class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: Cla
   RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]
-  override def b1ArrBuilder: BuilderMapArr[B1, RArr[B1]] = BuilderMapArr.rMapImplicit
+  override def b1ArrBuilder: BuilderMapArr[B1, RArr[B1]] = BuilderMapArr.anyEv
   override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.arrayUnsafe, b2s)
 
   override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit =

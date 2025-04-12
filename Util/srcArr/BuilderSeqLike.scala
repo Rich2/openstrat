@@ -47,24 +47,36 @@ trait BuilderMapArr[B, ArrB <: Arr[B]] extends BuilderMapSeqLike[B, ArrB]
   }
 }
 
-/** The companion object for [[BuilderMapArr]] contains implicit instances for common types. */
-object BuilderMapArr extends BuilderArrMapPriority2
-{ implicit val intsImplicit: BuilderMapArr[Int, IntArr] = IntArrBuilder
-  implicit val doublesImplicit: BuilderMapArr[Double, DblArr] = DblArrBuilder
-  implicit val longImplicit: BuilderMapArr[Long, LongArr] = LongArrBuilder
-  implicit val floatImplicit: BuilderMapArr[Float, FloatArr] = FloatArrBuilder
-  implicit val stringImplicit: BuilderMapArr[String, StrArr] = BuilderArrString
-  implicit val booleansImplicit: BuilderMapArr[Boolean, BoolArr] = BooleanArrBuilder
+/** The companion object for [[BuilderMapArr]] type class, contains implicit instances for common types. */
+object BuilderMapArr extends BuilderMapArrPriority2
+{ /** 1st priority implicit [[BuilderMapArr]] type class instance evidence for [[Int]] and [[IntArr]]. */
+  implicit val intEv: BuilderMapArr[Int, IntArr] = IntArrBuilder
+
+  /** 1st priority implicit [[BuilderMapArr]] type class instance evidence for [[Double]] and [[DblArr]]. */
+  implicit val doubleEv: BuilderMapArr[Double, DblArr] = DblArrBuilder
+
+  /** 1st priority implicit [[BuilderMapArr]] type class instance evidence for [[Long]] and [[LongArr]]. */
+  implicit val longEv: BuilderMapArr[Long, LongArr] = LongArrBuilder
+
+  /** 1st priority implicit [[BuilderMapArr]] type class instance evidence for [[Float]] and [[FloatArr]]. */
+  implicit val floatEv: BuilderMapArr[Float, FloatArr] = FloatArrBuilder
+
+  /** 1st priority implicit [[BuilderMapArr]] type class instance evidence for [[String]] and [[StringArr]]. */
+  implicit val stringEv: BuilderMapArr[String, StrArr] = BuilderArrString
+
+  /** 1st priority implicit [[BuilderMapArr]] type class instance evidence for [[Boolean]] and [[BooleanArr]]. */
+  implicit val booleanEv: BuilderMapArr[Boolean, BoolArr] = BooleanArrBuilder
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from the implicit
  * instance for [[RArr]]. */
 trait SpecialT extends Any
 
-trait BuilderArrMapPriority2
-{ /** This is the fallback builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait to give
-   * those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own specialist Arr classes. */
-  implicit def rMapImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): BuilderMapArr[B, RArr[B]] = new RArrAllBuilder[B]
+trait BuilderMapArrPriority2
+{ /** 2nd priority implicit [[BuilderMapArr]] instances evidence for [[Any]] and [[RArr]]. This is the fallback builder implicit for [[Arr]]s that do not have
+   * their own specialist [[Arr]] classes. It is placed in this low priority trait to give those specialist Arr classes implicit priority. The notA implicit
+   * parameter is to exclude user defined types that have their own specialist Arr classes. */
+  implicit def anyEv[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): BuilderMapArr[B, RArr[B]] = new RArrAllBuilder[B]
 }
 
 /** Builds [[SeqLike]] objects via flatMap methods. Hence, the type of the element of the sequence or specifiying sequence is not known at the call site. */
@@ -80,11 +92,21 @@ trait BuilderFlatArr[ArrB <: Arr[?]] extends BuilderFlatSeqLike[ArrB]
 
 /** Companion object for [[BuilderFlatArr]], contains implicit instances for atomic value classes. */
 object BuilderFlatArr extends BuilderArrFlatPriority2
-{ implicit val intsImplicit: BuilderFlatArr[IntArr] = IntArrBuilder
-  implicit val dblsImplicit: BuilderFlatArr[DblArr] = DblArrBuilder
-  implicit val longsImplicit: BuilderFlatArr[LongArr] = LongArrBuilder
-  implicit val floatImplicit: BuilderFlatArr[FloatArr] = FloatArrBuilder
-  implicit val booleansImplicit: BuilderFlatArr[BoolArr] = BooleanArrBuilder
+{
+  /** Implicit [[BuilderFlatArr]] type class instance / evidence for [[IntArr]]. */
+  implicit val intArrEv: BuilderFlatArr[IntArr] = IntArrBuilder
+
+  /** Implicit [[BuilderFlatArr]] type class instance / evidence for [[DblArr]]. */
+  implicit val dblArrEv: BuilderFlatArr[DblArr] = DblArrBuilder
+
+  /** Implicit [[BuilderFlatArr]] type class instance / evidence for [[LongArr]]. */
+  implicit val longArrEv: BuilderFlatArr[LongArr] = LongArrBuilder
+
+  /** Implicit [[BuilderFlatArr]] type class instance / evidence for [[FloatArr]]. */
+  implicit val floatArrEv: BuilderFlatArr[FloatArr] = FloatArrBuilder
+
+  /** Implicit [[BuilderFlatArr]] type class instance / evidence for [[BoolArr]]. */
+  implicit val boolArrEv: BuilderFlatArr[BoolArr] = BooleanArrBuilder
 }
 
 /** if you create your own specialist [[Arr]] class for a type T, make sure that type T extends [[SpecialArrUser]]. This invalidates the implicit to build an
@@ -92,14 +114,8 @@ object BuilderFlatArr extends BuilderArrFlatPriority2
 trait SpecialArrUser extends Any
 
 trait BuilderArrFlatPriority2
-{ /** This is the fallback builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait to give
- those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own specialist Arr classes. */
-  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): BuilderFlatArr[RArr[A]] = new RArrAllBuilder[A]
-}
-
-/** Builds [[SeqSpec]] objects via flatMap methods. Hence, the type of the element of the specifying sequence is not known at the call site. */
-trait BuilderSeqSpecFlat[ArrB <: Arr[?], BB <: SeqSpec[?]] extends BuilderSeqLike[BB]
-{
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: BB): Unit
+{ /** [[BuilderFlatArr]] type class instances / evidence for [[RArr]] This is the fallback builder implicit for types that do not have their own specialist
+   * [[Arr]] and [[BuilderFlatArr]] classes. It is placed in this low priority trait to give those specialist Arr classes implicit priority. The notA implicit
+   * parameter is to exclude user defined types that have their own specialist Arr classes. */
+  implicit def anyRArrEv[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): BuilderFlatArr[RArr[A]] = new RArrAllBuilder[A]
 }
