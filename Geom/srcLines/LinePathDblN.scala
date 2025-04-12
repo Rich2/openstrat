@@ -180,7 +180,7 @@ trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with SsDbl2
 }
 
 /**[[LinePathLike]] whose points are[[Dbl3Elem]]s. */
-trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl3[VT]
+trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with SsDbl3[VT]
 { type ThisT <: LinePathDbl3[VT]
   type PolygonT <: PolygonLikeDbl3[VT]
 }

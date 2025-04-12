@@ -16,8 +16,8 @@ trait Dbl3Elem extends Any, DblNElem
   final override def dblBufferAppend(buffer: ArrayBuffer[Double]) : Unit = buffer.append3(dbl1, dbl2, dbl3)
 }
 
-/** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
-trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any, SlValueN[A]
+/** [[SeqLike]] with [[Dbl3Elem]]s, elements that can be constructed from 3 [[Double]]s. */
+trait SlDbl3[+A <: Dbl3Elem] extends Any, SlValueN[A]
 { /** Method for creating [[Dbl3Elem]]s from 3 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double): A
 
@@ -25,15 +25,15 @@ trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any, SlValueN[A]
   final override def elemEq(a1: A @uncheckedVariance, a2: A @uncheckedVariance): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
 }
 
-/** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
-trait SeqLikeDbl3Imut[+A <: Dbl3Elem] extends Any, SlImutDblN[A], SeqLikeDbl3[A]
+/** [[SeqLikeImut]] of [[Dbl3Elem]]s, elements that can be constructed from 3 [[Double]]s. */
+trait SlImutDbl3[+A <: Dbl3Elem] extends Any, SlImutDblN[A], SlDbl3[A]
 { final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayLen / 3
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
-/** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
-abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3Imut[A]] extends CompanionSlDblN[A, ArrA]
+/** Helper trait for companion objects of [[SeqLikeImut]] final classes, with [[Dbl3Elem]]s. */
+abstract class CompanionSlDbl3[A <: Dbl3Elem, ArrA <: SlImutDbl3[A]] extends CompanionSlDblN[A, ArrA]
 { final override def numElemDbls: Int = 3
 
   def apply(elems: A*): ArrA =
@@ -48,11 +48,11 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3Imut[A]] e
   }
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
-trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any, SeqLikeDbl3Imut[A], SsDblN[A]
+/** [[SeqSpec]] trait with [[Dbl3Elem]]s backed by a flat [[Array]][Double]. */
+trait SsDbl3[+A <: Dbl3Elem] extends Any, SlImutDbl3[A], SsDblN[A]
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
-trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SeqLikeDbl3Imut[A]
+trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SlImutDbl3[A]
 { final override def length: Int = arrayUnsafe.length / 3
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
@@ -68,13 +68,13 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SeqLikeDbl3Imut[A]
   }
 }
 
-/** Constructs [[SeqLikeDbl3Imut]] objects. */
-trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3Imut[?]] extends BuilderSlDblN[BB]
+/** Constructs [[SlImutDbl3]] objects. */
+trait BuilderSeqLikeDbl3[BB <: SlImutDbl3[?]] extends BuilderSlDblN[BB]
 { type BuffT <: Dbl3Buff[?]
   final override def elemProdSize = 3
 }
 
-trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SeqLikeDbl3Imut[B]] extends BuilderSeqLikeDbl3[BB], BuilderMapSlDblNMap[B, BB]
+trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SlImutDbl3[B]] extends BuilderSeqLikeDbl3[BB], BuilderMapSlDblNMap[B, BB]
 { type BuffT <: Dbl3Buff[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
@@ -90,7 +90,7 @@ trait BuilderArrDbl3Map[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderSeqLik
 trait BuilderArrDbl3Flat[ArrB <: ArrDbl3[?]] extends BuilderSeqLikeDbl3[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
-trait Dbl3Buff[A <: Dbl3Elem] extends Any, BuffDblN[A], SeqLikeDbl3[A]
+trait Dbl3Buff[A <: Dbl3Elem] extends Any, BuffDblN[A], SlDbl3[A]
 { type ArrT <: ArrDbl3[A]
   override def grow(newElem: A): Unit = bufferUnsafe.append3(newElem.dbl1, newElem.dbl2, newElem.dbl3)
   final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))

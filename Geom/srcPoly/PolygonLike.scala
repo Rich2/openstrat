@@ -117,7 +117,7 @@ trait PolygonLikeDbl2[+VT <: Dbl2Elem] extends Any, PolygonLikeDblN[VT], SsDbl2[
 }
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
-trait PolygonLikeDbl3[+VT <: Dbl3Elem] extends Any, PolygonLikeDblN[VT], SeqSpecDbl3[VT]
+trait PolygonLikeDbl3[+VT <: Dbl3Elem] extends Any, PolygonLikeDblN[VT], SsDbl3[VT]
 {
   protected override def arrayForSides: Array[Double] =
   { val newLen = numVerts * 6

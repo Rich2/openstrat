@@ -13,7 +13,7 @@ class LinePathKm3(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDb
   override def fElemStr: PtKm3 => String = _.toString
 }
 /** Companion object for LinePathKm3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
-object LinePathKm3 extends CompanionSeqLikeDbl3[PtKm3, LinePathKm3]
+object LinePathKm3 extends CompanionSlDbl3[PtKm3, LinePathKm3]
 { override def fromArray(array: Array[Double]): LinePathKm3 = new LinePathKm3(array)
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePathKm3]]. */

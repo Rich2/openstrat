@@ -197,7 +197,7 @@ class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
   }
 }
 
-object PtM3Arr extends CompanionSeqLikeDbl3[PtM3, PtM3Arr]
+object PtM3Arr extends CompanionSlDbl3[PtM3, PtM3Arr]
 { override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
   implicit val arrFlatBuilderImplicit: BuilderArrDbl3Flat[PtM3Arr] = new BuilderArrDbl3Flat[PtM3Arr]

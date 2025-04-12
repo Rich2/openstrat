@@ -23,10 +23,7 @@ trait SlDbl2[+A <: Dbl2Elem] extends Any, SlValueN[A]
 
 /** A [[SeqLikeImut]] of [[Dbl2Elem]]s, elements that can be constructed from 2 [[Double]]s. */
 trait SlImutDbl2[+A <: Dbl2Elem] extends Any, SlImutDblN[A], SlDbl2[A]
-{
-  override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
-
-  /** Produces a new [[Array]][Double] of the same size, with the functions acting on the first and second [[Double]] of each element. */
+{ /** Produces a new [[Array]][Double] of the same size, with the functions acting on the first and second [[Double]] of each element. */
   def arrayUnsafeMap2(f1: Double => Double, f2: Double => Double): Array[Double] =
   { val newArray = new Array[Double](arrayLen)
     var i = 0
@@ -103,6 +100,7 @@ trait SlImutDbl2[+A <: Dbl2Elem] extends Any, SlImutDblN[A], SlDbl2[A]
 
   final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def numElems: Int = arrayUnsafe.length / 2
+  override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 object SlImutDbl2
@@ -120,7 +118,7 @@ object SlImutDbl2
 }
 
 /** A [[SeqSpec]] of [[Dbl2Elem]]s, elements that can be constructed from 2 [[Double]]s. */
-trait SsDbl2[+A <: Dbl2Elem] extends Any with SlImutDbl2[A] with SsDblN[A]
+trait SsDbl2[+A <: Dbl2Elem] extends Any, SlImutDbl2[A], SsDblN[A]
 { def tailForeachPair[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
@@ -171,8 +169,7 @@ trait BuilderMapSlDbl2[B <: Dbl2Elem, BB <: SlImutDbl2[B]] extends BuilderSlDbl2
 trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB], BuilderMapArrDblN[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderFlatArr] should go in the companion object
- * the ArrT final class. The first type parameter is called B, because it corresponds to the B in
- * ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+ * the ArrT final class. */
 trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSlDbl2[ArrB] with BuilderFlatArrDblN[ArrB]
 
 /** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
