@@ -97,7 +97,7 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
   def toArray: Array[Double] = bufferUnsafe.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { bufferUnsafe.addAll(newElems.arrayUnsafe); () }
-  def toArr(implicit build: BuilderArrDblNMap[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)
+  def toArr(implicit build: BuilderMapArrDblN[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)
 }
 
 /** A [[BuilderCollection]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
@@ -126,18 +126,18 @@ trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB]
 /** Trait for creating the sequence builder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderMapArr]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderMapSlDblNMap[B, ArrB] with BuilderMapArrValueN[B, ArrB]
+trait BuilderMapArrDblN[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderMapSlDblNMap[B, ArrB], BuilderMapArrValueN[B, ArrB]
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderMapArr]] type class,
  * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
  * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDblNFlat[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB] with BuilderFlatArrValueN[ArrB]
+trait BuilderFlatArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB] with BuilderFlatArrValueN[ArrB]
 { //final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 
-/** Helper trait for Companion objects of [[ArrDblN]] classes. */
-trait CompanionSeqLikeDblN[A <: DblNElem, AA <: SlImutDblN[A]]
+/** Helper trait for Companion objects of [[SeqLikeImut]] classes with [[DblNElem]]s. */
+trait CompanionSlDblN[A <: DblNElem, AA <: SlImutDblN[A]]
 { /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def numElemDbls: Int
 
@@ -167,7 +167,7 @@ trait CompanionSeqLikeDblN[A <: DblNElem, AA <: SlImutDblN[A]]
   }
 }
 
-/** Helper trait for [[BuffDblN]] companion objects. Facilitates factory apply methods. */
+/** Helper trait for companion objects of [[Buff]] classes with [[DblNElem]]s. Facilitates factory apply methods. */
 trait CompanionBuffDblN[A <: DblNElem, AA <: BuffDblN[A]]
 { /** apply factory method for [[BuffDblN]] final classes */
   def apply(elems: A*): AA

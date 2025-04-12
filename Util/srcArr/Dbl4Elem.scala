@@ -60,7 +60,7 @@ trait BuilderArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDblN[ArrB]
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to corresponds to the
  * B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl4[ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl4[ArrB], BuilderMapArrDblN[B, ArrB]
 { type BuffT <: BuffDbl4[B]
 
   final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
@@ -69,10 +69,10 @@ trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderMapArr]] type class,
  * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for [[BuilderFlatArr] should go in
  * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl4Flat[ArrB <: ArrDbl4[?]] extends BuilderArrDbl4[ArrB], BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl4Flat[ArrB <: ArrDbl4[?]] extends BuilderArrDbl4[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** Class for the singleton companion objects of [[SeqSpecDbl4]] final classes to extend. */
-abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4Imut[A]] extends CompanionSeqLikeDblN[A, AA]
+abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4Imut[A]] extends CompanionSlDblN[A, AA]
 { /* Apply factory method for [[SeqLikeDbl4]]. If you are constructing the elements inline the [[Tuple4]]s factory method may be preferred. */
   final def apply(elems: A*): AA =
   { val length = elems.length

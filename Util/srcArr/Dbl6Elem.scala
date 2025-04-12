@@ -67,7 +67,7 @@ trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SeqLikeDbl6Imut[A]
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqSpec]] classes. */
-abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6Imut[A]] extends CompanionSeqLikeDblN[A, ArrA]
+abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6Imut[A]] extends CompanionSlDblN[A, ArrA]
 { override def numElemDbls: Int = 6
 
   def apply(elems: A*): ArrA =
@@ -91,7 +91,7 @@ trait BuilderSeqLikeDbl6[BB <: ArrDbl6[?]] extends BuilderSlDblN[BB]
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl6]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. The first type parameter is called B, because to corresponds to the
  * B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB], BuilderMapArrDblN[B, ArrB]
 { type BuffT <: BuffDbl6[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
@@ -102,7 +102,7 @@ trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLik
  * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. Instances for [[BuilderFlatArr]] should go in
  * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait BuilderArrDbl6Flat[ArrB <: ArrDbl6[?]] extends BuilderSeqLikeDbl6[ArrB], BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl6Flat[ArrB <: ArrDbl6[?]] extends BuilderSeqLikeDbl6[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A], SeqLikeDbl6[A]

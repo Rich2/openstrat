@@ -168,15 +168,15 @@ trait BuilderMapSlDbl2[B <: Dbl2Elem, BB <: SlImutDbl2[B]] extends BuilderSlDbl2
 
 /** [[BuilderMap]] Trait for constructing [[Arr]]s with [[Dbl2Elem]]s. Implicit instances for, for classes / traits you control, should go in the companion
  * object of type B. */
-trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB] with BuilderArrDblNMap[B, ArrB]
+trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB], BuilderMapArrDblN[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderFlatArr] should go in the companion object
  * the ArrT final class. The first type parameter is called B, because it corresponds to the B in
  * ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSlDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSlDbl2[ArrB] with BuilderFlatArrDblN[ArrB]
 
 /** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
-trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SlImutDbl2[A]] extends CompanionSeqLikeDblN[A, AA]
+trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SlImutDbl2[A]] extends CompanionSlDblN[A, AA]
 { final def numElemDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */

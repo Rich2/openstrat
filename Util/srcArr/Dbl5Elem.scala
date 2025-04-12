@@ -62,7 +62,7 @@ trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5Imut[?]] extends BuilderSlDblN[BB]
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. The first type parameter is called B, because to corresponds to the
  * B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLikeDbl5[ArrB], BuilderMapArrDblN[B, ArrB]
 { type BuffT <: BuffDbl5[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
@@ -72,10 +72,10 @@ trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLik
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderMapArr]] type class,
  * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for [[BuilderFlatArr] should go in
  * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** Helper class for companion objects of final [[SeqSpecDbl5]] classes. */
-abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5Imut[A]] extends CompanionSeqLikeDblN[A, ArrA]
+abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5Imut[A]] extends CompanionSlDblN[A, ArrA]
 { override def numElemDbls: Int = 5
 
   def apply(elems: A*): ArrA =
