@@ -24,7 +24,7 @@ trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SlValueN[A]
     (a1.dbl1 == a2.dbl1) && (a1.dbl2 == a2.dbl2) && (a1.dbl3 == a2.dbl3) && (a1.dbl4 == a2.dbl4) && (a1.dbl5 == a2.dbl5)
 }
 
-trait SeqLikeDbl5Imut[+A <: Dbl5Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl5[A]
+trait SeqLikeDbl5Imut[+A <: Dbl5Elem] extends Any, SlImutDblN[A], SeqLikeDbl5[A]
 { final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
   
@@ -33,7 +33,7 @@ trait SeqLikeDbl5Imut[+A <: Dbl5Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDb
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
-trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDbl5Imut[A], SeqSpecDblN[A]
+trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any, SeqLikeDbl5Imut[A], SsDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
 trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeDbl5Imut[A]
@@ -54,12 +54,12 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeDbl5Imut[A]
   }
 }
 
-trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5Imut[?]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5Imut[?]] extends BuilderSlDblN[BB]
 { type BuffT <: BuffDbl5[?]
   final override def elemProdSize: Int = 5
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. The first type parameter is called B, because to corresponds to the
  * B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNMap[B, ArrB]
@@ -69,8 +69,8 @@ trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLik
     seqLike.arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type class,
- * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for [[BuilderArrFlat] should go in
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderMapArr]] type class,
+ * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for [[BuilderFlatArr] should go in
  * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNFlat[ArrB]
 

@@ -98,17 +98,18 @@ trait BuilderSlValueN[BB <: SlImutValueN[?]] extends BuilderSeqLike[BB]
 }
 
 /** Map builder for [[SlImutValueN]] classes. */
-trait BuilderSlValueNMap[B <: ValueNElem, BB <: SlImutValueN[B]] extends BuilderSlValueN[BB], BuilderSeqLikeMap[B, BB]
+trait BuilderMapSlValueN[B <: ValueNElem, BB <: SlImutValueN[B]] extends BuilderSlValueN[BB], BuilderMapSeqLike[B, BB]
 
 /** Constructs [[SlImutValueN]] objects via flatMap method. Element type not known at call site. */
-trait BuilderSlValueNFlat[BB <: SlImutValueN[?]] extends BuilderSlValueN[BB], BuilderSeqLikeFlat[BB]
+trait BuilderFlatSlValueN[BB <: SlImutValueN[?]] extends BuilderSlValueN[BB], BuilderFlatSeqLike[BB]
 
-/** Trait for creating the ArrTBuilder. Instances for the [[BuilderArrMap]] type class, for classes / traits you control, should go in the companion object of
- * B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrValueNMap[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderSlValueNMap[B, ArrB], BuilderArrMap[B, ArrB]
+/** [[BuilderMap]] trait for creating [[Arr]] classes with [[ValueNElem]]s via the map method. Instances for the [[BuilderMapArr]] type class, for classes /
+ * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in 
+ * ```map(f: A => B): ArrB``` function. */
+trait BuilderMapArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderMapSlValueN[B, ArrB], BuilderMapArr[B, ArrB]
 { type BuffT <: BuffValueN[B]
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderArrFlat] should go in the companion
- * object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrValueNFlat[ArrB <: ArrValueN[?]] extends BuilderSlValueN[ArrB], BuilderArrFlat[ArrB]
+/** [[BuilderFlat]] for constructing [[Arr]]s with [[ValueNElem]]s. Instances for the [[BuilderFlatArr] should go in the companion object of the [[Arr]] final
+ * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait BuilderFlatArrValueN[ArrB <: ArrValueN[?]] extends BuilderSlValueN[ArrB], BuilderFlatArr[ArrB]

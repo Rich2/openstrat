@@ -166,7 +166,7 @@ class HVertArr(val arrayUnsafe: Array[Int]) extends AnyVal with HVertSeqLike wit
 object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]
 { def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
 
-  implicit val arrArrayImplicit: BuilderArrFlat[HVertArr] = new BuilderArrInt2Flat[HVertArr]
+  implicit val arrArrayImplicit: BuilderFlatArr[HVertArr] = new BuilderArrInt2Flat[HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)

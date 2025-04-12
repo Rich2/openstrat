@@ -22,7 +22,7 @@ trait TGridSys extends TCenStruct
   def allRsforeach(f: Int => Unit): Unit
 
   /** maps over each r row coordinate number. */
-  final def allRsMap[B, BB <: Arr[B]](f: Int => B)(implicit build: BuilderArrMap[B, BB]): BB =
+  final def allRsMap[B, BB <: Arr[B]](f: Int => B)(implicit build: BuilderMapArr[B, BB]): BB =
   { val res = build.uninitialised(numTileRows)
     var index = 0
     allRsforeach{r => res.setElemUnsafe(index, f(r)); index += 1 }
@@ -30,7 +30,7 @@ trait TGridSys extends TCenStruct
   }
 
   /** flatMaps over each r row coordinate number. */
-  final def allRsFlatMap[ArrT <: Arr[?]](f: Int => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def allRsFlatMap[ArrT <: Arr[?]](f: Int => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     allRsforeach{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToSeqLike(buff)

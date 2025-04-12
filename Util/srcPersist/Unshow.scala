@@ -25,11 +25,11 @@ trait Unshow[+T] extends Persist
   }
 
   /** Produces an [[ArrImut]] of the UnShow type from Statements RArr[Statement]. */
-  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance): ArrT =
+  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderMapArr[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectSuccs(fromStatement)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderMapArr[T, ArrT] @uncheckedVariance):
   ExcMon[T] = valuesFromStatements(sts) match
   {
     case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
@@ -248,9 +248,9 @@ object Unshow extends UnshowPriority2
 trait UnshowPriority2 extends UnshowPriority3
 {
   /** Implicit method for creating Vector[A: UnShow] instances. */
-  implicit def vectorImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: BuilderArrMap[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
+  implicit def vectorImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: BuilderMapArr[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
   { val evA: Unshow[A] = evIn
-    val build: BuilderArrMap[A, ArrA] = buildIn
+    val build: BuilderMapArr[A, ArrA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[Vector[A]] = expr match

@@ -148,7 +148,7 @@ trait Drawing[+A, +B]
 /** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */
 object Drawing
 { /** Implicit [[Drawing]] type class instances / evidence for [[Arr]]. */
-  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Drawing[A, B], build: BuilderArrMap[B, ArrB]): Drawing[Arr[A], Arr[B]] =
+  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Drawing[A, B], build: BuilderMapArr[B, ArrB]): Drawing[Arr[A], Arr[B]] =
     (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
 
   /** Implicit [[Drawing]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
@@ -171,7 +171,7 @@ trait Filling[+A, +B]
 /** Companion object for the [[Filling]] type class. Contains implicit instances for collections and other container classes. */
 object Filling
 { /** Implicit [[Filling]] type class instances / evidence for [[Arr]]. */
-  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Filling[A, B], build: BuilderArrMap[B, ArrB]): Filling[Arr[A], Arr[B]] =
+  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Filling[A, B], build: BuilderMapArr[B, ArrB]): Filling[Arr[A], Arr[B]] =
     (obj, ff) => obj.map(evA.fillT(_, ff))
 
   /** Implicit [[Filling]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */

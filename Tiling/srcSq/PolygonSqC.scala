@@ -20,7 +20,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, Po
     }
   }
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: SqCoord => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: SqCoord => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
@@ -60,7 +60,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, Po
 object PolygonSqC extends CompanionSeqLikeInt2[SqCoord, PolygonSqC]
 { override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 
-  implicit val arrBuildImplicit: BuilderArrMap[PolygonSqC, PolygonSqCArr] = new BuilderArrMap[PolygonSqC, PolygonSqCArr]
+  implicit val arrBuildImplicit: BuilderMapArr[PolygonSqC, PolygonSqCArr] = new BuilderMapArr[PolygonSqC, PolygonSqCArr]
   { override type BuffT = PolygonSqCBuff
     override def newBuff(length: Int): PolygonSqCBuff = PolygonSqCBuff(length)
     override def uninitialised(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))

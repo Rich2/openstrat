@@ -83,7 +83,7 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
   }
 
   /** FlatMaps the elements of each [[Arr]] with the corresponding [[HCen]] to a [[Arr]]. */
-  def mapHcFlatMap[ArrT <: Arr[?]](f: (A, HCen) => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  def mapHcFlatMap[ArrT <: Arr[?]](f: (A, HCen) => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       apply(hc).foreach { a =>
@@ -111,14 +111,14 @@ object HCenArrLayer extends HCenArrLayerLowPrioity
 trait HCenArrLayerLowPrioity
 {
   implicit def RArrBuilderEv[B](implicit ct: ClassTag[B]): HCenArrLayerBuilder[B, RArr[B], LayerHcRArr[B]] = new HCenArrLayerBuilder[B, RArr[B], LayerHcRArr[B]]
-  { override val arrBBuild: BuilderArrMap[B, RArr[B]] = BuilderArrMap.rMapImplicit
+  { override val arrBBuild: BuilderMapArr[B, RArr[B]] = BuilderMapArr.rMapImplicit
     override def uninitialised(gridSys: HGridSys): LayerHcRArr[B] = new LayerHcRArr(new Array[Array[B]](gridSys.numTiles), gridSys)
     override def iSet(layer: LayerHcRArr[B], i: Int, arr: RArr[B]): Unit = layer.outerArrayUnsafe(i) = arr.arrayUnsafe
   }
 }
 
 trait HCenArrLayerBuilder[B, ArrB <: Arr[B], LayerB <: HCenArrLayer[B, ArrB]]
-{ def arrBBuild: BuilderArrMap[B, ArrB]
+{ def arrBBuild: BuilderMapArr[B, ArrB]
   def uninitialised(gridSys: HGridSys): LayerB
   def iSet(layer: LayerB, i: Int, arr: ArrB): Unit
 }

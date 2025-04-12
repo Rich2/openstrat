@@ -22,7 +22,7 @@ trait PolygonLike[+VT] extends Any, VertBased[VT]
    * @tparam B The element type of the returned sequence.
    * @tparam ArrB The type of the immutable Array like sequence of B.
    * @return the immutable sequence collection by applying the supplied function to each vertex. */
-  def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = mapArr(f)
+  def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB = mapArr(f)
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
    * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
@@ -85,7 +85,7 @@ trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonLike[VT], SsValueN[VT
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */
-trait PolygonLikeDblN[+VT <: DblNElem] extends Any, PolygonValueN[VT], SeqSpecDblN[VT]
+trait PolygonLikeDblN[+VT <: DblNElem] extends Any, PolygonValueN[VT], SsDblN[VT]
 { /** Creates the [[Array]][Double] need to implement the sides method. */
   protected def arrayForSides: Array[Double]
 }

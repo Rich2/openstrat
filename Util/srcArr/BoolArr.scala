@@ -65,7 +65,7 @@ object BoolArr
   def ofLength(length: Int): BoolArr = new BoolArr(new Array[Boolean](length))
 }
 
-object BooleanArrBuilder extends BuilderArrMap[Boolean, BoolArr], BuilderArrFlat[BoolArr]
+object BooleanArrBuilder extends BuilderMapArr[Boolean, BoolArr], BuilderFlatArr[BoolArr]
 { type BuffT = BooleanBuff
   override def uninitialised(length: Int): BoolArr = new BoolArr(new Array[Boolean](length))
   override def indexSet(seqLike: BoolArr, index: Int, newElem: Boolean): Unit = seqLike.arrayUnsafe(index) = newElem

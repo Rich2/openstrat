@@ -66,7 +66,7 @@ object HCoord
     case _ => new HCoordOther(r, c)
   }
 
-  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[BuilderArrMap]]. */
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[BuilderMapArr]]. */
   implicit val arrBuildEv: BuilderArrInt2Map[HCoord, HCoordArr] = new BuilderArrInt2Map[HCoord, HCoordArr] {
     override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): HCoordArr = new HCoordArr(array)

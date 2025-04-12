@@ -158,7 +158,7 @@ package object ostrat
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
 
   /** Not sure if this correct. This might throw on iStep = 0. */
-  def iDblToMap[A, AA <: Arr[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iDblToMap[A, AA <: Arr[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
     val res: AA = ev.uninitialised(iLen.toInt)
     var count = 0
@@ -207,7 +207,7 @@ package object ostrat
 
   /** Maps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step value is 1.
    * Throws on non-termination. Method name overloaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
-  def iToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -217,7 +217,7 @@ package object ostrat
 
   /** Maps over a range of Ints returning a [[Arr]][A]. From 0 to to the iTo value in steps of 1. Throws on non-termination. Method name overloaded with a range
    * of integers from parameter 1 to parameter 2 in steps of parameter 3. */
-  def iToMap[A, AA <: Arr[A]](iTo: Int)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iToMap[A, AA <: Arr[A]](iTo: Int)(f: Int => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -227,7 +227,7 @@ package object ostrat
 
   /** Maps a range of Ints returning a [[Arr]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws on
    * non-termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
-  def iUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -237,7 +237,7 @@ package object ostrat
 
   /** Maps a range of Ints to returning a [[Arr]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non-termination. Method name overloaded
    * with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
-  def iUntilMap[A, AA <: Arr[A]](iUntil: Int)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iUntilMap[A, AA <: Arr[A]](iUntil: Int)(f: Int => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = iUntil.max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -246,7 +246,7 @@ package object ostrat
   }
 
   /** Repeats the call by name parameter. */
-  def iRepeatMap[A, AA <: Arr[A]](iUntil: Int)(nextA: => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iRepeatMap[A, AA <: Arr[A]](iUntil: Int)(nextA: => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = iUntil.max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -256,7 +256,7 @@ package object ostrat
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in steps of iStep parameter. Default step
    * value is 1. Throws on non termination. Method name over loaded with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
-  def iToFlatMap[AA <: Arr[?]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iToFlatMap[AA <: Arr[?]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderFlatArr[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
@@ -264,7 +264,7 @@ package object ostrat
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 to the iTo parameter value steps of 1. Throws on non-termination.Method name overloaded with
    * a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
-  def iToFlatMap[AA <: Arr[?]](iTo: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iToFlatMap[AA <: Arr[?]](iTo: Int)(f: Int => AA)(implicit ev: BuilderFlatArr[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iTo){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
@@ -273,7 +273,7 @@ package object ostrat
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value until the iUntil paraemter value in integer steps of iStep. Default
    * step value is 1. Throws on non-termination. Method name overloaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is
    * 1. */
-  def iUntilFlatMap[AA <: Arr[?]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iUntilFlatMap[AA <: Arr[?]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderFlatArr[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iFrom, iUntil, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
@@ -281,7 +281,7 @@ package object ostrat
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 until the iUntil parameter value in integer steps of 1. Throws on non-termination. Method
    * name overloaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
-  def iUntilFlatMap[AA <: Arr[?]](iUntil: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iUntilFlatMap[AA <: Arr[?]](iUntil: Int)(f: Int => AA)(implicit ev: BuilderFlatArr[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iUntil){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
@@ -325,7 +325,7 @@ package object ostrat
   }
 
   /** Maps over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non-termination. */
-  def iLoopToMap[A, AA <: Arr[A]](loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def iLoopToMap[A, AA <: Arr[A]](loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -361,7 +361,7 @@ package object ostrat
   /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of [[Int]]s to an ArrBase[A]. From
    * the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit
-    ev: BuilderArrMap[A, AA]): AA =
+    ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
@@ -377,7 +377,7 @@ package object ostrat
 
   /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of [[Int]]s to an ArrBase[A]. From
    * the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
-  def ijToMap[A, AA <: Arr[A]](iTo: Int)(jTo: Int)(f: (Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def ijToMap[A, AA <: Arr[A]](iTo: Int)(jTo: Int)(f: (Int, Int) => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
     val jLen = (jTo + 1).max(0)
     val arrLen = iLen * jLen
@@ -394,7 +394,7 @@ package object ostrat
   /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
    * start value until (while index is less than) the end value in integer steps. Default step values are 1. */
   def ijUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit
-    ev: BuilderArrMap[A, AA]): AA =
+    ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val jLen = (jUntil - jFrom).max(0) / jStep
     val arrLen = iLen * jLen
@@ -410,7 +410,7 @@ package object ostrat
 
   /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
    * start value until (while index is less than) the end value in integer steps. Default step values are 1. */
-  def ijUntilMap[A, AA <: Arr[A]](iUntil: Int)(jUntil: Int)(f: (Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  def ijUntilMap[A, AA <: Arr[A]](iUntil: Int)(jUntil: Int)(f: (Int, Int) => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iUntil).max(0)
     val jLen = (jUntil).max(0)
     val arrLen = iLen * jLen
@@ -432,7 +432,7 @@ package object ostrat
   /** 2-dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
    * start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijkToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
-    (f: (Int, Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+    (f: (Int, Int, Int) => A)(implicit ev: BuilderMapArr[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val kLen = (kTo - kFrom + kStep).max(0) / jStep
@@ -520,7 +520,7 @@ package object ostrat
   implicit class RangeExtensions(range: Range)
   {
     /** maps to a [[Arr]] rather than a standard Scala collection class. */
-    def mapArr[B <: ValueNElem , M <: Arr[B]](f: Int => B)(implicit build: BuilderArrMap[B, M]): M =
+    def mapArr[B <: ValueNElem , M <: Arr[B]](f: Int => B)(implicit build: BuilderMapArr[B, M]): M =
     { val res = build.uninitialised(range.size)
       var count: Int = 0
       range.foreach { orig =>

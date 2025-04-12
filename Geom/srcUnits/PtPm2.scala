@@ -83,7 +83,7 @@ object PtPm2
   /** [[Unshow]] type class instance / evidence for [[PTPm2]]. */
   implicit val unShowEv: UnshowDbl2[PtPm2] = UnshowDbl2[PtPm2]("PtPm2", "x", "y", new PtPm2(_, _))
 
-  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtPm2]] and [[PtPm2Arr]]. */
+  /** Implicit [[BuilderMapArr]] type class instance / evidence for [[PtPm2]] and [[PtPm2Arr]]. */
   implicit val arrMapBuilderEv: BuilderArrDbl2Map[PtPm2, PtPm2Arr] = new BuilderArrDbl2Map[PtPm2, PtPm2Arr]
   { type BuffT = PtPm2Buff
     override def fromDblArray(array: Array[Double]): PtPm2Arr = new PtPm2Arr(array)
@@ -183,7 +183,7 @@ class PtPm2PairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPa
   override type B1BuffT = PtPm2Buff
   override implicit val b2ClassTag: ClassTag[B2] = ct
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtPm2PairBuff[B2] = new PtPm2PairBuff[B2](a1Buffer, a2Buffer)
-  override def b1ArrBuilder: BuilderArrMap[PtPm2, PtPm2Arr] = PtPm2.arrMapBuilderEv
+  override def b1ArrBuilder: BuilderMapArr[PtPm2, PtPm2Arr] = PtPm2.arrMapBuilderEv
   override def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): PtPm2PairArr[B2] = new PtPm2PairArr[B2](b1ArrayDbl, b2Array)
   override def newB1Buff(): PtPm2Buff = PtPm2Buff()
 }
@@ -217,8 +217,8 @@ object VecPm2
    * the X and Y [[Length]] components as parameters.*/
   def apply(xPicometresNum: Double, yPicometresNum: Double): VecPm2 = new VecPm2(xPicometresNum, yPicometresNum)
 
-  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[VecPm2]] and [[VecPm2Arr]]. */
-  implicit val ArrMapBuilderEv: BuilderArrMap[VecPm2, VecPm2Arr] = new BuilderArrDbl2Map[VecPm2, VecPm2Arr]
+  /** Implicit [[BuilderMapArr]] type class instance / evidence for [[VecPm2]] and [[VecPm2Arr]]. */
+  implicit val ArrMapBuilderEv: BuilderMapArr[VecPm2, VecPm2Arr] = new BuilderArrDbl2Map[VecPm2, VecPm2Arr]
   { override type BuffT = VecPm2Buff
     override def fromDblArray(array: Array[Double]): VecPm2Arr = new VecPm2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecPm2Buff = new VecPm2Buff(buffer)

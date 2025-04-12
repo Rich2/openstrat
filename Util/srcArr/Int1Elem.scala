@@ -62,7 +62,7 @@ trait BuilderArrInt1[ArrB <: ArrInt1[?]] extends BuilderSlIntN[ArrB]
   final override def elemProdSize: Int = 1
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+/** Trait for creating the ArrTBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  * function. */
 trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt1[ArrT] with BuilderArrIntNMap[A, ArrT]
@@ -71,8 +71,8 @@ trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.bufferUnsafe.append(newElem.int1); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderArrMap]] type class,
- * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderArrFlat] should go in the companion object the ArrT final
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderMapArr]] type class,
+ * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
  * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
 

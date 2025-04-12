@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._
 
-trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSpecDblN[VT]
+trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SsDblN[VT]
 { type ThisT <: LinePathDblN[VT]
   type PolygonT <: PolygonLikeDblN[VT]
 

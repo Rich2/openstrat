@@ -48,7 +48,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    * transformed [[Polygon]]. */
   def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val acc = build.uninitialised(numVerts)
     var i = 0
     vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
@@ -85,7 +85,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: BuilderArrMap[A, AA]): AA =
+  def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: BuilderMapArr[A, AA]): AA =
   { var i: Int = 0
     val res = build.uninitialised(numVerts)
     while (i < numVerts)

@@ -22,7 +22,7 @@ trait SeqLikeDbl2[+A <: Dbl2Elem] extends Any, SlValueN[A]
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
-trait SeqLikeDbl2Imut[+A <: Dbl2Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl2[A]
+trait SeqLikeDbl2Imut[+A <: Dbl2Elem] extends Any, SlImutDblN[A], SeqLikeDbl2[A]
 {
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 
@@ -120,7 +120,7 @@ object SeqLikeDbl2Imut
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
-trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2Imut[A] with SeqSpecDblN[A]
+trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any with SeqLikeDbl2Imut[A] with SsDblN[A]
 { def tailForeachPair[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < numElems) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
@@ -154,23 +154,23 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2Imut[A]
 }
 
 /** Base trait for Builders for [[SeqLike]]s with [[Dbl2Elem]] elements via both map and flatMap methods. */
-trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2Imut[?]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2Imut[?]] extends BuilderSlDblN[BB]
 { type BuffT <: BuffDbl2[?]
   final override def elemProdSize = 2
 }
 
 /** Builder for [[SeqLike]]s with [[Dbl2Elem]] elements via the map method. Hence the type of the element is known at the call site. */
-trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2Imut[B]] extends BuilderSeqLikeDbl2[BB] with BuilderSeqLikeDblNMap[B, BB]
+trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2Imut[B]] extends BuilderSeqLikeDbl2[BB] with BuilderMapSlDblNMap[B, BB]
 { type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called B, because it corresponds to the
  * B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait BuilderArrDbl2Map[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderSeqLikeDbl2Map[B, ArrB] with BuilderArrDblNMap[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderArrFlat] should go in the companion object
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderFlatArr] should go in the companion object
  * the ArrT final class. The first type parameter is called B, because it corresponds to the B in
  * ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]

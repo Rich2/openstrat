@@ -25,7 +25,7 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongSeqSp
   }
 
   /** Maps the [[LatLong]] values of each vertex to an immutable Array like sequence of type B. */
-  override def vertsMap[B, ArrB <: Arr[B]](f: LatLong => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: LatLong => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>

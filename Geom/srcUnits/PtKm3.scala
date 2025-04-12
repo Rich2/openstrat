@@ -112,7 +112,7 @@ object PtKm3
    * [[Length]] classes components use the apply method. */
   def kilometres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
 
-  /** [[BuilderArrMap]] type class instance / evidence for [[PtKm3]]. */
+  /** [[BuilderMapArr]] type class instance / evidence for [[PtKm3]]. */
   implicit val builderArrEv: BuilderArrDbl3Map[PtKm3, PtKm3Arr] = new BuilderArrDbl3Map[PtKm3, PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
@@ -207,7 +207,7 @@ class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtKm3SeqLike, Arr
 object PtKm3Arr extends CompanionSeqLikeDbl3[PtKm3, PtKm3Arr]
 { override def fromArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
 
-  /** [[BuilderArrFlat]] type class instance / evidence for [[PtKm3]]s. Provides builder for flatMaps with A => [[PtKm3Arr]] functions. */
+  /** [[BuilderFlatArr]] type class instance / evidence for [[PtKm3]]s. Provides builder for flatMaps with A => [[PtKm3Arr]] functions. */
   implicit val builderArrFlatEv: BuilderArrDbl3Flat[PtKm3Arr] = new BuilderArrDbl3Flat[PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
@@ -251,7 +251,7 @@ class PtKm3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Arra
 class PtKm3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairDbl3[PtKm3, PtKm3Arr, B2, PtKm3Pair[B2], PtKm3PairArr[B2]]
 { override type BuffT = PtKm3PairBuff[B2]
   override type B1BuffT = PtKm3Buff
-  override def b1ArrBuilder: BuilderArrMap[PtKm3, PtKm3Arr] = PtKm3.builderArrEv
+  override def b1ArrBuilder: BuilderMapArr[PtKm3, PtKm3Arr] = PtKm3.builderArrEv
   override def arrFromArrAndArray(b1Arr: PtKm3Arr, b2s: Array[B2]): PtKm3PairArr[B2] = new PtKm3PairArr[B2](b1Arr.arrayUnsafe, b2s)
   override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): PtKm3PairArr[B2] = new PtKm3PairArr[B2](a1ArrayDbl, a2Array)
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtKm3PairBuff[B2] = new PtKm3PairBuff[B2](a1Buffer, a2Buffer)

@@ -23,14 +23,14 @@ trait SeqLikeDbl4[A <: Dbl4Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLike]] with [[Dbl4Elem]] elements. */
-trait SeqLikeDbl4Imut[A <: Dbl4Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl4[A]
+trait SeqLikeDbl4Imut[A <: Dbl4Elem] extends Any, SlImutDblN[A], SeqLikeDbl4[A]
 { final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def numElems: Int = arrayLen / 4
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
-trait SeqSpecDbl4[A <: Dbl4Elem] extends Any, SeqLikeDbl4Imut[A], SeqSpecDblN[A]
+trait SeqSpecDbl4[A <: Dbl4Elem] extends Any, SeqLikeDbl4Imut[A], SsDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SeqLikeDbl4Imut[A]
@@ -57,7 +57,7 @@ trait BuilderArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDblN[ArrB]
   final override def elemProdSize = 4
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to corresponds to the
  * B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl4[ArrB], BuilderArrDblNMap[B, ArrB]
@@ -66,8 +66,8 @@ trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl
   final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
     seqLike.arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderArrMap]] type class,
- * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for [[BuilderArrFlat] should go in
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl4]] final classes. Instances for the [[BuilderMapArr]] type class,
+ * for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for [[BuilderFlatArr] should go in
  * the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl4Flat[ArrB <: ArrDbl4[?]] extends BuilderArrDbl4[ArrB], BuilderArrDblNFlat[ArrB]
 

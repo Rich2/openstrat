@@ -14,7 +14,7 @@ object Scale
 { implicit def transSimerImplicit[T <: SimilarPreserve]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
 
   /** Implicit [[Scale]] type class instances / evidence for [[Arr]]. */
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderArrMap[A, AA], ev: Scale[A]): Scale[AA] = (obj, offset) => obj.map(ev.scaleT(_, offset))
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: Scale[A]): Scale[AA] = (obj, offset) => obj.map(ev.scaleT(_, offset))
 
   /** Implicit [[Scale]] type class instances / evidence for [[Functor]]. Provides instances for [[List]], [[Option]] etc. */
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Scale[A]): Scale[F[A]] = (obj, operand) => evF.mapT(obj, evA.scaleT(_, operand))

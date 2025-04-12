@@ -26,7 +26,7 @@ trait SeqLikeDbl3[+A <: Dbl3Elem] extends Any, SlValueN[A]
 }
 
 /** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
-trait SeqLikeDbl3Imut[+A <: Dbl3Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl3[A]
+trait SeqLikeDbl3Imut[+A <: Dbl3Elem] extends Any, SlImutDblN[A], SeqLikeDbl3[A]
 { final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayLen / 3
   override def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
@@ -49,7 +49,7 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3Imut[A]] e
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
-trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any, SeqLikeDbl3Imut[A], SeqSpecDblN[A]
+trait SeqSpecDbl3[+A <: Dbl3Elem] extends Any, SeqLikeDbl3Imut[A], SsDblN[A]
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
 trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SeqLikeDbl3Imut[A]
@@ -69,22 +69,22 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SeqLikeDbl3Imut[A]
 }
 
 /** Constructs [[SeqLikeDbl3Imut]] objects. */
-trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3Imut[?]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3Imut[?]] extends BuilderSlDblN[BB]
 { type BuffT <: Dbl3Buff[?]
   final override def elemProdSize = 3
 }
 
-trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SeqLikeDbl3Imut[B]] extends BuilderSeqLikeDbl3[BB], BuilderSeqLikeDblNMap[B, BB]
+trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SeqLikeDbl3Imut[B]] extends BuilderSeqLikeDbl3[BB], BuilderMapSlDblNMap[B, BB]
 { type BuffT <: Dbl3Buff[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderArrMap]] type class, for classes / traits
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to corresponds to the
  * B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDbl3Map[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderSeqLikeDbl3Map[B, ArrB], BuilderArrDblNMap[B, ArrB]
 
-/** Trait for creating the [[BuilderArrFlat]] type class instances for [[ArrDbl3]] final classes. Instances for the  for classes / traits you control, should go
+/** Trait for creating the [[BuilderFlatArr]] type class instances for [[ArrDbl3]] final classes. Instances for the  for classes / traits you control, should go
  * in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  * function. */
 trait BuilderArrDbl3Flat[ArrB <: ArrDbl3[?]] extends BuilderSeqLikeDbl3[ArrB], BuilderArrDblNFlat[ArrB]

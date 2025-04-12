@@ -96,7 +96,7 @@ object HSep
     case _ => None
   }
 
-  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HSep]] and [[HSepArr]]. */
+  /** Implicit [[BuilderMapArr]] type class instance / evidence for [[HSep]] and [[HSepArr]]. */
   implicit val arrMapBuilderEv: BuilderArrInt2Map[HSep, HSepArr] = new BuilderArrInt2Map[HSep, HSepArr]
   { type BuffT = HSepBuff
     override def fromIntArray(array: Array[Int]): HSepArr = new HSepArr(array)

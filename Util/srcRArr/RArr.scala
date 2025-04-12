@@ -313,7 +313,7 @@ case object RArr1Tail
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]], BuilderArrFlat[RArr[B]]
+class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderMapArr[B, RArr[B]], BuilderFlatArr[RArr[B]]
 { type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def indexSet(seqLike: RArr[B], index: Int, newElem: B): Unit = seqLike.arrayUnsafe(index) = newElem

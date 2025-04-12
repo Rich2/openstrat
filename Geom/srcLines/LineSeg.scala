@@ -121,7 +121,7 @@ object LineSeg
 
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
-  /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
+  /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
   implicit val arrMapbuilderEv: LineSegArrMapBuilder = new LineSegArrMapBuilder
 
   implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegPairArrMapBuilder[B2] = new LineSegPairArrMapBuilder[B2]
@@ -146,8 +146,8 @@ class LineSegArr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLikeDbl4
 object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
 { override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
 
-  /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
-  implicit val arrFlatBuildEv: BuilderArrFlat[LineSegArr] = new LineSegArrFlatBuilder
+  /** Implicit instance /evidence for [[BuilderFlatArr]] type class instance. */
+  implicit val arrFlatBuildEv: BuilderFlatArr[LineSegArr] = new LineSegArrFlatBuilder
 
   /** [[Show]] type class instance / evidence for [[LineSegArr]]. */
   implicit lazy val showEv: ShowSequ[LineSeg, LineSegArr] = ShowSequ[LineSeg, LineSegArr]()

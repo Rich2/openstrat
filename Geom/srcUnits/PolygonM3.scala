@@ -34,7 +34,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
     }
   }
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: PtM3 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: PtM3 => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
@@ -82,7 +82,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
 object PolygonM3 extends CompanionSeqLikeDbl3[PtM3, PolygonM3]
 { override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
-  implicit val arrBuildImplicit: BuilderArrMap[PolygonM3, PolygonM3Arr] = new BuilderArrMap[PolygonM3, PolygonM3Arr]
+  implicit val arrBuildImplicit: BuilderMapArr[PolygonM3, PolygonM3Arr] = new BuilderMapArr[PolygonM3, PolygonM3Arr]
   { override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
@@ -160,7 +160,7 @@ final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def buffToSeqLike(buff: PolygonM3PairBuff[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
   override def b1Builder: PolygonLikeBuilderMap[PtM3, PolygonM3] = PtM3.polygonBuildImplicit
-  override def b1ArrBuilder: BuilderArrMap[PolygonM3, PolygonM3Arr] = PolygonM3.arrBuildImplicit
+  override def b1ArrBuilder: BuilderMapArr[PolygonM3, PolygonM3Arr] = PolygonM3.arrBuildImplicit
   override def arrFromArrAndArray(b1Arr: PolygonM3Arr, b2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonM3Buff = PolygonM3Buff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](arrayArrayDbl, a2Array)

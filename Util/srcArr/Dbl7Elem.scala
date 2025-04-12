@@ -25,7 +25,7 @@ trait SeqLikeDbl7[+A <: Dbl7Elem] extends Any, SlValueN[A]
 }
 
 /** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[ArrDbl7]]s and [[SeqSpecDbl7]] */
-trait SeqLikeDbl7Imut[+A <: Dbl7Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDbl7[A]
+trait SeqLikeDbl7Imut[+A <: Dbl7Elem] extends Any, SlImutDblN[A], SeqLikeDbl7[A]
 { def elem(index: Int): A =
   { val offset = 7 * index
     elemFromDbls(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
@@ -42,7 +42,7 @@ trait SeqLikeDbl7Imut[+A <: Dbl7Elem] extends Any, SeqLikeDblNImut[A], SeqLikeDb
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
-trait SeqSpecDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDbl7Imut[A], SeqSpecDblN[A]
+trait SeqSpecDbl7[+A <: Dbl7Elem] extends Any, SeqLikeDbl7Imut[A], SsDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
 trait ArrDbl7[A <: Dbl7Elem] extends Any, ArrDblN[A], SeqLikeDbl7Imut[A]

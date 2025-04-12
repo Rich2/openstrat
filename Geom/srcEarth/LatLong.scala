@@ -169,7 +169,7 @@ object LatLong
   /** Implicit [[EqT]] evidence / instance for [[LatLong]]. */
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
-  /** Implicit [[BuilderArrMap]] evidence / instance for [[LatLong]]. Builds [[LatLongArr]]s through map methods. */
+  /** Implicit [[BuilderMapArr]] evidence / instance for [[LatLong]]. Builds [[LatLongArr]]s through map methods. */
   implicit val builderArrMapEv: BuilderArrDbl2Map[LatLong, LatLongArr] = new BuilderArrDbl2Map[LatLong, LatLongArr]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)

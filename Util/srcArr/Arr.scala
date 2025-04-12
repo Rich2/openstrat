@@ -21,7 +21,7 @@ trait Arr[+A] extends Any, Sequ[A], SeqLikeImut[A]
   def headOrNone: Any = ife(length ==0, None, apply(0))
 
   /** Returns a new [[Arr]] sorted from least to greatest. Takes a function detrmining if the first value is greater than the second. */
-  def sortBy(f: (A, A) => Boolean)(implicit build: BuilderArrMap[A, ThisT] @uncheckedVariance): ThisT =
+  def sortBy(f: (A, A) => Boolean)(implicit build: BuilderMapArr[A, ThisT] @uncheckedVariance): ThisT =
   { val res = build.uninitialised(length)
     val placed = new Array[Boolean](length)
 

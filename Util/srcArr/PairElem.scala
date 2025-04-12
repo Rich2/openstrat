@@ -37,13 +37,13 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   /** Returns the specialist sequence collection for the A2s, as determined by implicit look up. Probably not required most of the time but the method is
    * included for completeness. */
-  def a2Arr[A2Arr <: Arr[A2]](implicit build: BuilderArrMap[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
+  def a2Arr[A2Arr <: Arr[A2]](implicit build: BuilderMapArr[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
 
   /** Maps the first component of the pairs, dropping the second. */
-  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = a1Arr.map(f)
+  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB = a1Arr.map(f)
 
   /** Maps the second component of the pairs, dropping the first. */
-  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = a2Array.mapArr(f)
+  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB = a2Array.mapArr(f)
 
   def pairForeach(f: (A1, A2) => Unit): Unit =
   { var i = 0
@@ -51,7 +51,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type B. */
-  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
+  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
   { var i = 0
     val res = builder.uninitialised(length)
     while (i < length)
@@ -63,7 +63,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Just a flatMap method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type ArrB. */
-  def pairFlatMap[ArrB <: Arr[?]](f: (A1, A2) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB = {
+  def pairFlatMap[ArrB <: Arr[?]](f: (A1, A2) => ArrB)(implicit build: BuilderFlatArr[ArrB]): ArrB = {
     val buff = build.newBuff()
     pairForeach { (a1, a2) =>
       val newBs = f(a1, a2)
@@ -215,12 +215,12 @@ trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]
 /** Builder for [[ArrPair]] objects via the map f: A => PairB, method. Hence the call site knows the type of the [[PairElem]]s that will make up the final
  * [[Arr]] object. */
 trait BuilderArrPairMap[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: ArrPair[B1, ArrB1, B2, B]] extends
-  BuilderArrPair[B1, ArrB1, B2, ArrB] with BuilderArrMap[B, ArrB]
+  BuilderArrPair[B1, ArrB1, B2, ArrB] with BuilderMapArr[B, ArrB]
 {
   type BuffT <: BuffPair[B1, B2, B]
 
   /** Builder for an Arr of the first element of the pair. */
-  def b1ArrBuilder: BuilderArrMap[B1, ArrB1]
+  def b1ArrBuilder: BuilderMapArr[B1, ArrB1]
 
   final def b1Uninitialised(length: Int): ArrB1 = b1ArrBuilder.uninitialised(length)
 
@@ -242,4 +242,4 @@ trait BuilderArrPairMapPriority2
 /** Builder for [[ArrPair]] objects via the flatMap f: A => ArrPairB, method. Hence the call site doesn't know the type of the [[PairElem]]s that will
  *  make up the final [[Arr]] object. */
 trait BuilderArrPairFlat[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]] extends BuilderArrPair[B1, ArrB1, B2, ArrB] with
-  BuilderArrFlat[ArrB]
+  BuilderFlatArr[ArrB]

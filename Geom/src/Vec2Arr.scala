@@ -36,7 +36,7 @@ final class Vec2Arr(val arrayUnsafe: Array[Double]) extends /*AffinePreserve wit
 object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
 {  override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
 
-  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Vec2Arr] =  new BuilderArrDbl2Flat[Vec2Arr]
+  implicit val arrFlatBuilderImplicit: BuilderFlatArr[Vec2Arr] =  new BuilderArrDbl2Flat[Vec2Arr]
   { override type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)

@@ -11,16 +11,16 @@ trait DblNElem extends Any with ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
-trait SeqLikeDblNImut[+A <: DblNElem] extends Any, SlImutValueN[A], ArrayDblBacked
-{ type ThisT <: SeqLikeDblNImut[A]
+/** [[SeqLikeImut]] with [[DblNElem]]s. */
+trait SlImutDblN[+A <: DblNElem] extends Any, SlImutValueN[A], ArrayDblBacked
+{ type ThisT <: SlImutDblN[A]
   def fromArray(array: Array[Double]): ThisT
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
 }
 
-/** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As well as
- * [[ArrDblN]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait SeqSpecDblN[+A <: DblNElem] extends Any, SeqLikeDblNImut[A], SsValueN[A], ArrayDblBacked
-{ type ThisT <: SeqSpecDblN[A]
+/** [[SeqSpec]] with [[DblNElem]]s. */
+trait SsDblN[+A <: DblNElem] extends Any, SlImutDblN[A], SsValueN[A]
+{ type ThisT <: SsDblN[A]
 
   override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(numElems)
@@ -47,8 +47,8 @@ trait SeqSpecDblN[+A <: DblNElem] extends Any, SeqLikeDblNImut[A], SsValueN[A], 
   }
 }
 
-/** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait ArrDblN[A <: DblNElem] extends Any with SeqLikeDblNImut[A] with ArrValueN[A]
+/** [[Arr]] trait with [[DblNElem]]s, backed by an underlying Array[Double]. */
+trait ArrDblN[A <: DblNElem] extends Any with SlImutDblN[A] with ArrValueN[A]
 { type ThisT <: ArrDblN[A]
 
   /** Not sure about this method. */
@@ -100,8 +100,8 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
   def toArr(implicit build: BuilderArrDblNMap[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)
 }
 
-/** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
-trait BuilderSeqLikeDblN[BB <: SeqLikeDblNImut[?]] extends BuilderSlValueN[BB]
+/** A [[BuilderCollection]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
+trait BuilderSlDblN[BB <: SlImutDblN[?]] extends BuilderSlValueN[BB]
 { type BuffT <: BuffDblN[?]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
@@ -109,7 +109,8 @@ trait BuilderSeqLikeDblN[BB <: SeqLikeDblNImut[?]] extends BuilderSlValueN[BB]
   final override def buffToSeqLike(buff: BuffT): BB = fromDblArray(buff.bufferUnsafe.toArray)
 }
 
-trait BuilderSeqLikeDblNMap[B <: DblNElem, BB <: SeqLikeDblNImut[B]] extends BuilderSeqLikeDblN[BB] with BuilderSeqLikeMap[B, BB]
+/** [[BuilderMap]] trait for building [[SeqLikeImut]]s with [[DblNElem]]s, by the map method. */
+trait BuilderMapSlDblNMap[B <: DblNElem, BB <: SlImutDblN[B]] extends BuilderSlDblN[BB], BuilderMapSlValueN[B, BB]
 { type BuffT <: BuffDblN[B]
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, newElem: B): Unit = newElem.dblForeach(buff.bufferUnsafe.append(_))
@@ -120,23 +121,23 @@ trait BuilderSeqLikeDblNMap[B <: DblNElem, BB <: SeqLikeDblNImut[B]] extends Bui
   }
 }
 
-trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB]
+trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB]
 
-/** Trait for creating the sequence builder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
+/** Trait for creating the sequence builder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderMapArr]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderSeqLikeDblNMap[B, ArrB] with BuilderArrValueNMap[B, ArrB]
+trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderMapSlDblNMap[B, ArrB] with BuilderMapArrValueN[B, ArrB]
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderArrMap]] type class,
- * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderArrFlat] should go in the companion object the ArrT final
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderMapArr]] type class,
+ * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
  * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDblNFlat[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB] with BuilderArrValueNFlat[ArrB]
+trait BuilderArrDblNFlat[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB] with BuilderFlatArrValueN[ArrB]
 { //final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 
 /** Helper trait for Companion objects of [[ArrDblN]] classes. */
-trait CompanionSeqLikeDblN[A <: DblNElem, AA <: SeqLikeDblNImut[A]]
+trait CompanionSeqLikeDblN[A <: DblNElem, AA <: SlImutDblN[A]]
 { /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def numElemDbls: Int
 

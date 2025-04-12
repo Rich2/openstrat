@@ -10,7 +10,7 @@ trait Dbl1Elem extends Any, DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]) : Unit = { buffer.append(dbl1) }
 }
 
-trait SeqLikeDbl1Imut[A <: Dbl1Elem] extends Any, SeqLikeDblNImut[A]
+trait SeqLikeDbl1Imut[A <: Dbl1Elem] extends Any, SlImutDblN[A]
 { override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
 }
 
