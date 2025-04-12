@@ -71,7 +71,7 @@ trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl
  * companion object of type B. */
 trait BuilderFlatArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDbl4[ArrB], BuilderFlatArrDblN[ArrB]
 
-/** Class for the singleton companion objects of [[SsDbl4]] final classes to extend. */
+/** Helper class for the singleton companion objects of [[SeqSpec]] classes with [[Dbl4Elem]]s. */
 abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SlImutDbl4[A]] extends CompanionSlDblN[A, AA]
 { /* Apply factory method for [[SeqLikeDbl4]]. If you are constructing the elements inline the [[Tuple4]]s factory method may be preferred. */
   final def apply(elems: A*): AA =
