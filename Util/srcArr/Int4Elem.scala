@@ -84,14 +84,15 @@ trait BuilderMapSlInt4[B <: Int4Elem, BB <: SlInt4Imut[B]] extends BuilderSlInt4
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrInt4]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
- * you control, should go in the companion object of B. The first type parameter is called B a subclass of [[Int4Elem]], because to corresponds to the B in the
- * ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderMapSlInt4[B, ArrB], BuilderArrIntNMap[B, ArrB]
+/** [[BuilderMap]] trait for cronstructing [[Arr]]s with [[Int4Elem]]s. Implcit type class instances for classes  you control, should go in the companion object
+ * of the type B class. */
+trait BuilderMapArrInt4[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderMapSlInt4[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
-trait BuilderArrInt4Flat[ArrB <: ArrInt4[?]] extends BuilderSlInt4[ArrB], BuilderArrIntNFlat[ArrB]
+/** [[BuilderFlat]] traitfor constucting [[Arr]]s with [[Int4Elem]]s, via the flatMpa method. Implicit type class instances for classes you control should go in
+ * the companion object of the [[Arr]] class. */
+trait BuilderFlatArrInt4[ArrB <: ArrInt4[?]] extends BuilderSlInt4[ArrB], BuilderArrIntNFlat[ArrB]
 
-/** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
+/** Helper trait for companion objects of [[Arr]] classes with [[Int4Elem]]s. */
 trait CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSlIntN[A, M]
 { final override def elemNumInts: Int = 4
 

@@ -58,7 +58,7 @@ object LineSegSCBuff
 { def apply(initLen: Int = 4): LineSegSCBuff = new LineSegSCBuff(new ArrayBuffer[Int](initLen * 4))
 }
 
-class LineSegSCMapBuilder extends BuilderArrInt4Map[LineSegSC, LineSegSCArr]
+class LineSegSCMapBuilder extends BuilderMapArrInt4[LineSegSC, LineSegSCArr]
 { type BuffT = LineSegSCBuff
   override def fromIntArray(array: Array[Int]): LineSegSCArr = new LineSegSCArr(array)
   def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegSCBuff = new LineSegSCBuff(buffer)

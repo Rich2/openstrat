@@ -72,7 +72,7 @@ object LineSegHCBuff
 { def apply(initLen: Int = 4): LineSegHCBuff = new LineSegHCBuff(new ArrayBuffer[Int](initLen * 4))
 }
 
-class LineSegHCMapBuilder extends BuilderArrInt4Map[LineSegHC, LineSegHCArr]
+class LineSegHCMapBuilder extends BuilderMapArrInt4[LineSegHC, LineSegHCArr]
 { type BuffT = LineSegHCBuff
   override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
   def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
