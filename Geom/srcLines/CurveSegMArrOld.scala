@@ -13,7 +13,7 @@ class CurveSegMArrOld(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl
   override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): CurveTailMOld = ???
 }
 
-object CurveSegMArrOld extends CompanionSeqLikeDbl7[CurveTailMOld, CurveSegMArrOld]
+object CurveSegMArrOld extends CompanionSlDbl7[CurveTailMOld, CurveSegMArrOld]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   override def fromArray(array: Array[Double]): CurveSegMArrOld = new CurveSegMArrOld(array)
 }
