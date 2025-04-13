@@ -64,19 +64,22 @@ trait BuilderSlInt3[BB <: SlImutInt3[?]] extends BuilderSlIntN[BB]
   final override def elemProdSize: Int = 3
 }
 
-/** Builder for [[SeqLike]]s with [[Int3Elem]]s via the map method, meaning the element type is known at the call site.. */
-trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SlImutInt3[B]] extends BuilderSlInt3[BB], BuilderSlIntNMap[B, BB]
+/** [[BuilderMap]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the map method. Implicit type class instances should go in the companion
+ * object of type B. */
+trait BuilderMapSlInt3[B <: Int3Elem, BB <: SlImutInt3[B]] extends BuilderSlInt3[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
 }
 
-trait BuilderSeqLikeInt3Flat[BB <: SlImutInt3[?]] extends BuilderSlInt3[BB], BuilderSlIntNFlat[BB]
+/** [[BuilderFlat]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the flatMap method. Implicit type class instances should go in the companion
+ * object of the [[SeqLikeImut]]. */
+trait BuilderFlatSlInt3[BB <: SlImutInt3[?]] extends BuilderSlInt3[BB], BuilderSlIntNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrInt3]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
  * you control, should go in the companion object of B. The first type parameter is called B a subclass of Int3Elem, because to corresponds to the B in the
  * ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt3Map[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderSeqLikeInt3Map[B, ArrB], BuilderArrIntNMap[B, ArrB]
+trait BuilderArrInt3Map[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderMapSlInt3[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt3]] final classes. Instances for the [[BuilderMapArr]] type class,
  * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
