@@ -68,7 +68,7 @@ trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SlInt4[A]
   final override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-/** [[BuilderCollection]] trait for constructing [[SeqLikeImut]] objects, with [[Int4Elem]]s, via both map and flatMap methods. */
+/** [[BuilderBoth]] trait for constructing [[SeqLikeImut]] objects, with [[Int4Elem]]s, via both map and flatMap methods. */
 trait BuilderSlInt4[BB <: SlInt4Imut[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt4[?]
   final override def elemProdSize: Int = 4

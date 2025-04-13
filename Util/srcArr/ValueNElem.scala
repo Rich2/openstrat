@@ -92,7 +92,7 @@ trait BuffValueN[A <: ValueNElem] extends Any, Buff[A], SlValueN[A]
   def grows(newElems: ArrT): Unit
 }
 
-/** [[BuilderCollection]], common trait for map and flatMap builders for [[SeqLike]]s with [[ValueNElem]]s. */
+/** [[BuilderBoth]], common trait for map and flatMap builders for [[SeqLike]]s with [[ValueNElem]]s. */
 trait BuilderSlValueN[BB <: SlImutValueN[?]] extends BuilderSeqLike[BB]
 { def elemProdSize: Int
 }

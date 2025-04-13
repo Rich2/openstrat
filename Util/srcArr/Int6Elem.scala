@@ -16,7 +16,7 @@ trait Int6Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] for [[Int6Elem]]s */
-trait SeqLikeInt6[A <: Int6Elem] extends Any, SlValueN[A]
+trait SlInt6[A <: Int6Elem] extends Any, SlValueN[A]
 { /** Constructs a new element of this [[Buff]] from 6 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
 
@@ -26,8 +26,8 @@ trait SeqLikeInt6[A <: Int6Elem] extends Any, SlValueN[A]
     (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5) && (a1.int6 == a2.int6)
 }
 
-/** [[SeqLike]] for [[Int6Elem]]s */
-trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SlImutIntN[A], SeqLikeInt6[A]
+/** [[SeqLikeImut]] for [[Int6Elem]]s */
+trait SeqLikeImutInt6[A <: Int6Elem] extends Any, SlImutIntN[A], SlInt6[A]
 { final override def numElems: Int = arrayUnsafe.length / 6
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -37,11 +37,11 @@ trait SeqLikeInt6Imut[A <: Int6Elem] extends Any, SlImutIntN[A], SeqLikeInt6[A]
     arrayUnsafe(6 * index + 4), arrayUnsafe(6 * index + 5))
 }
 
-/** Compound object defined / specified by [[Int6Elem]]s */
-trait SeqSpecInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], SsIntN[A]
+/** [[SeqSpec]] trait with [[Int6Elem]]s */
+trait SsInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], SsIntN[A]
 
-/** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], ArrIntN[A]
+/** A specialised immutable, flat Array[Int] based collection of a type of [[Int6Elem]]s. */
+trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 6
 
   final override def apply(index: Int): A = elemFromInts(arrayUnsafe(6 * index), arrayUnsafe(6 * index + 1), arrayUnsafe(6 * index + 2),
@@ -62,8 +62,8 @@ trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeInt6Imut[A], ArrIntN[A]
   }
 }
 
-/** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
+/** A specialised flat ArrayBuffer[Int] based trait for [[Int6Elem]]s collections. */
+trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SlInt6[A]
 { type ThisT <: BuffInt6[A]
   final override def length: Int = bufferUnsafe.length / 6
   final override def numElems: Int = bufferUnsafe.length / 6
@@ -79,14 +79,14 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
     bufferUnsafe.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-/** Builder for [[SeqLike]]s with [[Int6Elem]]s */
-trait BuilderSeqLikeInt6[BB <: SeqLikeInt6Imut[?]] extends BuilderSlIntN[BB]
+/** [[BuilderBoth]] for [[SeqLikeImut]]s with [[Int6Elem]]s */
+trait BuilderSlInt6[BB <: SeqLikeImutInt6[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
 
-/** Builder of [[SeqLikeInt6Imut]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6Imut[B]] extends BuilderSeqLikeInt6[BB], BuilderSlIntNMap[B, BB]
+/** Builder of [[SeqLikeImutInt6]] objects via the map f: A => B method. */
+trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSlInt6[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -102,7 +102,7 @@ trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6Imut[B]] extends Bui
 trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** Builder of [[ArrInt6]] objects via the flatMap f: A => ArrB method. */
-trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSlInt6[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt6]] final classes to extend. */
 abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSlIntN[A, M]

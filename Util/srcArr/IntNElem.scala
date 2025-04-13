@@ -92,7 +92,7 @@ trait ArrIntN[A <: IntNElem] extends Any, ArrValueN[A], SlImutIntN[A]
   }
 }
 
-/** [[BuilderCollection]] trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
+/** [[BuilderBoth]] trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
 trait BuilderSlIntN[BB <: SlImutIntN[?]] extends BuilderSlValueN[BB]
 { type BuffT <:  BuffIntN[?]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT

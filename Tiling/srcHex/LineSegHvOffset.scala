@@ -12,7 +12,7 @@ object LineSegHvOffset
 { def apply(v1: HvOffset, v2: HvOffset): LineSegHvOffset = new LineSegHvOffset(v1.int1, v1.int2, v1.int3, v2.int1, v2.int2, v2.int3)
 }
 
-trait LineSegHvOffsetSeqLike extends Any with SeqLikeInt6Imut[LineSegHvOffset]
+trait LineSegHvOffsetSeqLike extends Any with SeqLikeImutInt6[LineSegHvOffset]
 
 /** Specialised sequence class for [[HvOffset]]. */
 class LineSegHvOffsetArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt6[LineSegHvOffset], LineSegHvOffsetSeqLike

@@ -56,7 +56,7 @@ trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SlInt1[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem.int1
 }
 
-/** [[BuilderCollection]] trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
+/** [[BuilderBoth]] trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
 trait BuilderArrInt1[ArrB <: ArrInt1[?]] extends BuilderSlIntN[ArrB]
 { type BuffT <: BuffInt1[?]
   final override def elemProdSize: Int = 1

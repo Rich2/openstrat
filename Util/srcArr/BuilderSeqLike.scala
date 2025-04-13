@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
-trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderCollection[BB]
+trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderBoth[BB]
 { /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = [[IntArr]], or it can be a compile time wrapped Arraybuffer inheriting from
    * [[Buff]]. */
   type BuffT <: Buff[?]

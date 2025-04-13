@@ -151,7 +151,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SlImutDbl2[A]
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2)))
 }
 
-/** [[BuilderCollection]] trait for constructing [[SeqLike]]s with [[Dbl2Elem]]s, via both map and flatMap methods. */
+/** [[BuilderBoth]] trait for constructing [[SeqLike]]s with [[Dbl2Elem]]s, via both map and flatMap methods. */
 trait BuilderSlDbl2[BB <: SlImutDbl2[?]] extends BuilderSlDblN[BB]
 { type BuffT <: BuffDbl2[?]
   final override def elemProdSize = 2

@@ -100,7 +100,7 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
   def toArr(implicit build: BuilderMapArrDblN[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)
 }
 
-/** A [[BuilderCollection]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
+/** A [[BuilderBoth]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
 trait BuilderSlDblN[BB <: SlImutDblN[?]] extends BuilderSlValueN[BB]
 { type BuffT <: BuffDblN[?]
   def fromDblArray(array: Array[Double]): BB
@@ -121,7 +121,7 @@ trait BuilderMapSlDblNMap[B <: DblNElem, BB <: SlImutDblN[B]] extends BuilderSlD
   }
 }
 
-/** [[BuilderCollection]] trait for constructing [[Arr]]s by the map and flatMap methods. */
+/** [[BuilderBoth]] trait for constructing [[Arr]]s by the map and flatMap methods. */
 trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB]
 
 /** [[BuilderMapArr]] trait for constructing [[Arr]]s with [[DblNElem]]s. Instances for the [[BuilderMapArr]] type class, for classes / traits you control,

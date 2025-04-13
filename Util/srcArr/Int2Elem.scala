@@ -45,7 +45,7 @@ trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SlImutInt2[A]
   }
 }
 
-/** [[BuilderCollection]] trait for constructing [[SeqlikeImut]] objects, with [[Int2Elem]]s, by both map and flatMap methods. */
+/** [[BuilderBoth]] trait for constructing [[SeqlikeImut]] objects, with [[Int2Elem]]s, by both map and flatMap methods. */
 trait BuilderSlInt2[BB <: SlImutInt2[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt2[?]
   final override def elemProdSize: Int = 2
