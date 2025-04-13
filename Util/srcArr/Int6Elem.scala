@@ -79,14 +79,15 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SlInt6[A]
     bufferUnsafe.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-/** [[BuilderBoth]] for [[SeqLikeImut]]s with [[Int6Elem]]s */
+/** [[BuilderBoth]] for [[SeqLikeImut]]s with [[Int6Elem]]s by map and flatMpa methods. */
 trait BuilderSlInt6[BB <: SeqLikeImutInt6[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
 
-/** Builder of [[SeqLikeImutInt6]] objects via the map f: A => B method. */
-trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSlInt6[BB], BuilderSlIntNMap[B, BB]
+/** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects, with [[Int6Elem]]s, via the map method. Implicit type class instances, for types you control
+ * should go in the companion object of the B claas */
+trait BuilderMapSlInt6[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSlInt6[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -96,10 +97,9 @@ trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends Bui
     buff.bufferUnsafe.append6(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrInt5]] final classes. Instances for the [[BuilderMapArr]] type class, for classes / traits
- * you control, should go in the companion object of B. The first type parameter is called B a subclass of [[Int5Elem]], because to corresponds to the B in the
- * ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB], BuilderArrIntNMap[B, ArrB]
+/** [[BuilderMap]] trait for constructing [[Arr]]s, with [[Int6Elem]]s via the map method. Implicit type class instances for classes you control, should go in
+ * the companion object of the type B class. */
+trait BuilderMapArrInt6[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderMapSlInt6[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** Builder of [[ArrInt6]] objects via the flatMap f: A => ArrB method. */
 trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSlInt6[ArrB] with BuilderArrIntNFlat[ArrB]
