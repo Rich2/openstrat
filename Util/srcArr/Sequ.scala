@@ -148,8 +148,9 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     if (iStep > 0) while (i <= iTo) {
       f(apply(i)); i += iStep
     }
-    else while (i >= iTo) {
-      f(apply(i)); i += iStep
+    else while (i >= iTo)
+    { f(apply(i))
+      i += iStep
     }
   }
 

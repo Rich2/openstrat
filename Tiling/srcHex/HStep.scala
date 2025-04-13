@@ -128,10 +128,10 @@ class HStepLikeArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HSte
   override def fElemStr: HStepLike => String = _.toString
 }
 
-object HStepLikeArr extends CompanionSeqLikeInt1[HStepLike, HStepLikeArr]
+object HStepLikeArr extends CompanionSlInt1[HStepLike, HStepLikeArr]
 { override def fromArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
 
-  implicit val flatBuilder: BuilderFlatArr[HStepLikeArr] = new BuilderArrIn1Flat[HStepLikeArr]
+  implicit val flatBuilder: BuilderFlatArr[HStepLikeArr] = new BuilderFlatArrIn1[HStepLikeArr]
   { override type BuffT = HStepLikeBuff
     override def fromIntArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepLikeBuff = new HStepLikeBuff(buffer)
@@ -221,10 +221,10 @@ class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
   }
 }
 
-object HStepArr extends CompanionSeqLikeInt1[HStep, HStepArr]
+object HStepArr extends CompanionSlInt1[HStep, HStepArr]
 { override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
 
-  implicit val flatBuilder: BuilderFlatArr[HStepArr] = new BuilderArrIn1Flat[HStepArr]
+  implicit val flatBuilder: BuilderFlatArr[HStepArr] = new BuilderFlatArrIn1[HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)

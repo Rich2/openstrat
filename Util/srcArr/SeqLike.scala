@@ -2,9 +2,10 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, pParse._
 
-/** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as classes such as
- * polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by a sequence of points, but
- * is a different type to the [[Pt2Arr]] class which is the immutable sequence class for 2-dimensional points. includes expandable buffers. */
+/** Common trait for immutable [[Sequ]]s, mutable [[Buff]]s and [[SeqSpec]] classes that are not sequences but can be specified by a sqequence, for example a
+ *  sequence of points can specify a polygon. Designed as a compromise between type safety and effciency. Using backing [[Array]]s for use facing types, but
+ *  using backing [[ArrayBuffer]]s behind the scenes keeping mutation encapsulated. Many methods and properties are common to all three [[Sequ]]s, [[Buff]]s and
+ *  [[SeqSpec]]s. */
 trait SeqLike[+A] extends Any
 { /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]

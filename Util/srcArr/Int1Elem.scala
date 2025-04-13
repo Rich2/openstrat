@@ -69,13 +69,12 @@ trait BuilderMapArrInt1[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.bufferUnsafe.append(newElem.int1); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderMapArr]] type class,
- * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
- * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
+/** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Int1Elem]]s via the flatMap method. implicit type class instances for types, should go in the
+ * companion object of the [[Arr]]s. */
+trait BuilderFlatArrIn1[ArrB <: ArrInt1[?]] extends BuilderArrInt1[ArrB] with BuilderArrIntNFlat[ArrB]
 
-/** Helper class for companion objects of final [[SlInt1Imut]] classes. */
-trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SlInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
+/** Helper trait for companion objects of [[SeqLikeImut]]s, with [[Int1Elem]]s. */
+trait CompanionSlInt1[A <: Int1Elem, ArrA <: SlInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
 { final override def elemNumInts: Int = 1
 
   /** Apply factory method */

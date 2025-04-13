@@ -199,6 +199,6 @@ class HVDirnArr(val arrayUnsafe: Array[Int]) extends ArrInt1[HVDirnOpt]
   override def fElemStr: HVDirnOpt => String = _.toString
 }
 
-object HVDirnArr extends CompanionSeqLikeInt1[HVDirnOpt, HVDirnArr]
+object HVDirnArr extends CompanionSlInt1[HVDirnOpt, HVDirnArr]
 { override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
 }
