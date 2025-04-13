@@ -16,8 +16,8 @@ trait Int5Elem extends Any, IntNElem
     buffer.append(int4); buffer.append(int5) }
 }
 
-/** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s. */
-trait SeqLikeInt5[A <: Int5Elem] extends Any, SlValueN[A]
+/** [[SeqLike]] with [[Int5Elem]]s. */
+trait SlInt5[A <: Int5Elem] extends Any, SlValueN[A]
 { /** Constructs a new element of this [[Buff]] from 5 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
@@ -27,19 +27,19 @@ trait SeqLikeInt5[A <: Int5Elem] extends Any, SlValueN[A]
     (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5)
 }
 
-/** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s.  */
-trait SeqLikeInt5Imut[A <: Int5Elem] extends Any, SlImutIntN[A], SeqLikeInt5[A]
+/** [[SeqLikeImut]] with [[Int5Elem]]s, can be specified by a backing [[Array]][Int].  */
+trait SlimutInt5[A <: Int5Elem] extends Any, SlImutIntN[A], SlInt5[A]
 { override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** A compound object that is not a sequence but is specified / defined by an [[Int5Elem]] sequence.  */
-trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with SsIntN[A]
+/** [[SeqSpec]] with [[Int5Elem]]s, can be specified with a backing [[Array]][Int]. */
+trait SsInt5[A <: Int5Elem] extends Any, SlimutInt5[A], SsIntN[A]
 { override def elem(index: Int): A =
     elemFromInts(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 }
 
-/** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with ArrIntN[A]
+/** [[Arr]] with [[Int5Elem]]s, can be specified by a flat [[Array]][Int]. */
+trait ArrInt5[A <: Int5Elem] extends Any, SlimutInt5[A], ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 5
 
   override def apply(index: Int): A =
@@ -60,7 +60,7 @@ trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5Imut[A] with ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SeqLikeInt5[A]
+trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SlInt5[A]
 { type ThisT <: BuffInt5[A]
 
   final override def length: Int = bufferUnsafe.length / 5
@@ -73,15 +73,15 @@ trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SeqLikeInt5[A]
     bufferUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
-trait BuilderSeqLikeInt5[BB <: SeqLikeInt5Imut[?]] extends BuilderSlIntN[BB]
+/** [[BuilderBoth]] for constructing [[SeqLikeImut]] objects, with [[Int5Elem]]s, by the map and flatMap methods. */
+trait BuilderSlInt5[BB <: SlimutInt5[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt5[?]
   final override def elemProdSize: Int = 5
 }
 
-/** Builder for [[SeqLike]]s with [[Int5]] elements via the map method, where the call site knows the typeof th element, but not the type of compound
- * object. */
-trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5Imut[B]] extends BuilderSeqLikeInt5[BB] with BuilderSlIntNMap[B, BB]
+/** [[BuilderMap]] for constructing [[SeqLikeImut]] objects, with [[Int5Elem]]s via the map method. Implicit type class instances, that you control, should go
+ * 1n the companion object of the type B class. */
+trait BuilderMapSlInt5[B <: Int5Elem, BB <: SlimutInt5[B]] extends BuilderSlInt5[BB] with BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -91,13 +91,13 @@ trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5Imut[B]] extends Bui
     buff.bufferUnsafe.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrInt5]] final classes. Instances for the [[BuilderMapArr]] type
- *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
- *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt5Map[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderSeqLikeInt5Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int5Elem]]s. Implicit type class instances for classes you control, should go in the companion object
+ * of the type B class. */
+trait BuilderMapArrInt5[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderMapSlInt5[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-/** Builder for [[Arr]]s with [[Int5]] elements via the flatMap method. */
-trait BuilderArrInt5Flat[ArrB <: ArrInt5[?]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
+/** [[BuilderFlat]] for constructing [[Arr]]s with [[Int5Elem]]s via the flatMap method. Implicit type class instances for classes you control should go in the
+ * [[Arr]] class's companion object. */
+trait BuilderFlatArrInt5[ArrB <: ArrInt5[?]] extends BuilderSlInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt5]] final classes to extend. */
 abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSlIntN[A, M]
