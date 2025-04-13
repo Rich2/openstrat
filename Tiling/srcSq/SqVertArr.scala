@@ -17,7 +17,7 @@ class SqVertArr(val arrayUnsafe: Array[Int]) extends AnyVal with SqVertSeqLike w
   def toPolygon: PolygonSqC = new PolygonSqC(arrayUnsafe)
 }
 
-object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
+object SqVertArr extends CompanionSlInt2[SqVert, SqVertArr]
 { def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
 
   /** Implicit [[Show]] type class instance / evidence for [[SqVertArr]]. */
@@ -26,7 +26,7 @@ object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
   /** Implicit [[Unshow]] type class instance / evidence for [[SqVertArr]]. */
   implicit val unshowEv: UnshowSeq[SqVert, SqVertArr] = UnshowSeq[SqVert, SqVertArr]()
 
-  implicit val arrArrayImplicit: BuilderFlatArr[SqVertArr] = new BuilderArrInt2Flat[SqVertArr]
+  implicit val arrArrayImplicit: BuilderFlatArr[SqVertArr] = new BuilderFlatArrInt2[SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)

@@ -172,11 +172,11 @@ class HCenArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt2[HCen]
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and
  * uninitialised methods.. */
-object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
+object HCenArr extends CompanionSlInt2[HCen, HCenArr]
 { def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
-  implicit val flatBuilderEv: BuilderArrInt2Flat[HCenArr] = new BuilderArrInt2Flat[HCenArr]
+  implicit val flatBuilderEv: BuilderFlatArrInt2[HCenArr] = new BuilderFlatArrInt2[HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)

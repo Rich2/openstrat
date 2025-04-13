@@ -16,11 +16,11 @@ class HSepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HSep]
 
 /** Companion object for [[HSepArr]] trait efficient array[Int] based collection for [[HSep]]s hex grid centre coordinates, contains factory apply and
  *  uninitialised methods. */
-object HSepArr extends CompanionSeqLikeInt2[HSep, HSepArr]
+object HSepArr extends CompanionSlInt2[HSep, HSepArr]
 { override def fromArray(array: Array[Int]): HSepArr = new HSepArr(array)
 
   /** Implicit flatMap builder instance / evidence for [[HSepArr]]. */
-  implicit val flatBuilderEv: BuilderFlatArr[HSepArr] = new BuilderArrInt2Flat[HSepArr]
+  implicit val flatBuilderEv: BuilderFlatArr[HSepArr] = new BuilderFlatArrInt2[HSepArr]
   { type BuffT = HSepBuff
     override def fromIntArray(array: Array[Int]): HSepArr = new HSepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSepBuff = new HSepBuff(buffer)

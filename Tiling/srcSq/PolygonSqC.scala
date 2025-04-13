@@ -57,7 +57,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, Po
 }
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonSqC]] trait. */
-object PolygonSqC extends CompanionSeqLikeInt2[SqCoord, PolygonSqC]
+object PolygonSqC extends CompanionSlInt2[SqCoord, PolygonSqC]
 { override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 
   implicit val arrBuildImplicit: BuilderMapArr[PolygonSqC, PolygonSqCArr] = new BuilderMapArr[PolygonSqC, PolygonSqCArr]

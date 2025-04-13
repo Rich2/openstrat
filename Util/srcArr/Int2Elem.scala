@@ -63,10 +63,9 @@ trait BuilderMapSlInt2[B <: Int2Elem, BB <: SlImutInt2[B]] extends BuilderSlInt2
  * B class. */
 trait BuilderMapArrInt2[B <: Int2Elem, ArrB <: ArrInt2[B]] extends BuilderMapSlInt2[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt2]] final classes. Instances for the [[BuilderMapArr]] type class,
- * for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion object the ArrT final
- * class. The first type parameter is called B a subclass of Int2Elem, because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt2Flat[ArrB <: ArrInt2[?]] extends BuilderSlInt2[ArrB], BuilderArrIntNFlat[ArrB]
+/** [[BuilderFlat]] Trait for constructing [[Arr]]s with [[Int2Elem]]s via the flatMap method. Implicit type class instances for classes you control, should go
+ * in the companion object of the [[Arr]] class. */
+trait BuilderFlatArrInt2[ArrB <: ArrInt2[?]] extends BuilderSlInt2[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
 trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A], SlInt2[A]
@@ -85,8 +84,8 @@ trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A], SlInt2[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex2(index, newElem.int1, newElem.int2)
 }
 
-/** Helper class for companion objects of final [[SsInt2]] classes. */
-trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: SlImutInt2[A]] extends CompanionSlIntN[A, ArrA]
+/** Helper trait for companion objects of [[SeqLikeImut]]s with [[Int2Elem]]s. */
+trait CompanionSlInt2[A <: Int2Elem, ArrA <: SlImutInt2[A]] extends CompanionSlIntN[A, ArrA]
 { override def elemNumInts: Int = 2
 
   /** Apply factory method */

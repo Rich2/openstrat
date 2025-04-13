@@ -26,6 +26,6 @@ final class LinePathHC(val arrayUnsafe: Array[Int]) extends AnyVal with HCoordSe
   }
 }
 
-object LinePathHC extends CompanionSeqLikeInt2[HCoord, LinePathHC]
+object LinePathHC extends CompanionSlInt2[HCoord, LinePathHC]
 { override def fromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
 }
