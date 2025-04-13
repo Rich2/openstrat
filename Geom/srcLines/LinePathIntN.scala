@@ -181,7 +181,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SsInt
   }
 }
 
-trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with SeqSpecInt2[VT]
+trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with SsInt2[VT]
 { type ThisT <: LinePathInt2[VT]
   type PolygonT <: PolygonLikeInt2[VT]
 }

@@ -20,18 +20,18 @@ trait SlInt1[A <: Int1Elem] extends Any with SlValueN[A]
   final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
-/** [[SeqLike]] trait for classes specified by a single [[Int]]. */
-trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SlInt1[A]
+/** [[SeqLikeImut]] trait for classes specified by a single [[Int]]. */
+trait SlInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SlInt1[A]
 { final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
   final override def numElems: Int = arrayLen
   final override def elem(index: Int): A = elemFromInt(arrayUnsafe(index))
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
-trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1Imut[A] with SsIntN[A]
+trait SeqSpecInt1[A <: Int1Elem] extends Any with SlInt1Imut[A] with SsIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
+trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SlInt1Imut[A]
 { final override def length: Int = arrayUnsafe.length
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
@@ -74,8 +74,8 @@ trait BuilderMapArrInt1[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
  * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
 
-/** Helper class for companion objects of final [[SeqLikeInt1Imut]] classes. */
-trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
+/** Helper class for companion objects of final [[SlInt1Imut]] classes. */
+trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SlInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
 { final override def elemNumInts: Int = 1
 
   /** Apply factory method */

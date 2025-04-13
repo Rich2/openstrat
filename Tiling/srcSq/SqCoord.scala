@@ -33,12 +33,12 @@ object SqCoord
   implicit val unshowEv: UnshowInt2[SqCoord] = UnshowInt2[SqCoord]("SqCoord", "r", "c", apply)
 }
 
-trait SqCoordSeqLike extends Any with SeqLikeInt2Imut[SqCoord]
+trait SqCoordSeqLike extends Any with SlImutInt2[SqCoord]
 { final override def elemFromInts(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
   final override def fElemStr: SqCoord => String = _.toString
 }
 
-trait SqCoordSeqSpec extends Any with SqCoordSeqLike with SeqSpecInt2[SqCoord]
+trait SqCoordSeqSpec extends Any with SqCoordSeqLike with SsInt2[SqCoord]
 
 /** Specialised sequence class for [[SqCoord]]. */
 class SqCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[SqCoord] with SqCoordSeqLike
