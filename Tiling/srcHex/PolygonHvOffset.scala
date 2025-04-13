@@ -23,7 +23,7 @@ class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, Poly
   def project(proj: HSysProjection): Polygon = map{ _.toPt2(proj.transCoord(_))(proj.parent) }
 }
 
-object PolygonHvOffset extends CompanionSeqLikeInt3[HvOffset, PolygonHvOffset]
+object PolygonHvOffset extends CompanionSlInt3[HvOffset, PolygonHvOffset]
 {
   override def fromArray(array: Array[Int]): PolygonHvOffset = new PolygonHvOffset(array)
 }

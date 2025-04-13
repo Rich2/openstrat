@@ -30,7 +30,7 @@ object SqCenStep
 { def apply(hCen: SqCen, step: SqStep): SqCenStep = new SqCenStep(hCen.r, hCen.c, step.int1)
   def apply(r: Int, c: Int, step: SqStep): SqCenStep = new SqCenStep(r, c, step.int1)
 
-  implicit val arrMapBuilderEv: BuilderArrInt3Map[SqCenStep, SqCenStepArr] = new BuilderArrInt3Map[SqCenStep, SqCenStepArr]{
+  implicit val arrMapBuilderEv: BuilderMapArrInt3[SqCenStep, SqCenStepArr] = new BuilderMapArrInt3[SqCenStep, SqCenStepArr]{
     override type BuffT = SqCenStepBuff
     override def fromIntArray(array: Array[Int]): SqCenStepArr = new SqCenStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenStepBuff = SqCenStepBuff()
@@ -45,10 +45,10 @@ class SqCenStepArr(val arrayUnsafe: Array[Int]) extends ArrInt3[SqCenStep]
   override def fElemStr: SqCenStep => String = _.toString
 }
 
-object SqCenStepArr extends CompanionSeqLikeInt3[SqCenStep, SqCenStepArr]
+object SqCenStepArr extends CompanionSlInt3[SqCenStep, SqCenStepArr]
 { override def fromArray(array: Array[Int]): SqCenStepArr = new SqCenStepArr(array)
 
-  implicit val flatBuildEv: BuilderArrInt3Flat[SqCenStepArr] = new BuilderArrInt3Flat[SqCenStepArr]{
+  implicit val flatBuildEv: BuilderFlatArrInt3[SqCenStepArr] = new BuilderFlatArrInt3[SqCenStepArr]{
     override type BuffT = SqCenStepBuff
     override def fromIntArray(array: Array[Int]): SqCenStepArr = new SqCenStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenStepBuff = new SqCenStepBuff(buffer)

@@ -69,7 +69,7 @@ object HCenRow
   /** [[Show]] type class instance / evidence for [[HCenRow]]. */
   implicit val unshowEv: UnshowInt3[HCenRow] = UnshowInt3[HCenRow]("HCenRow", "r", "cStart", "cEnd", apply)
 
-  implicit val buildMapEv: BuilderArrInt3Map[HCenRow, HCenRowArr] {type BuffT = HCenRowBuff} = new BuilderArrInt3Map[HCenRow, HCenRowArr]
+  implicit val buildMapEv: BuilderMapArrInt3[HCenRow, HCenRowArr] {type BuffT = HCenRowBuff} = new BuilderMapArrInt3[HCenRow, HCenRowArr]
   { override type BuffT = HCenRowBuff
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenRowBuff = new HCenRowBuff(buffer)
     override def fromIntArray(array: Array[Int]): HCenRowArr = new HCenRowArr(array)

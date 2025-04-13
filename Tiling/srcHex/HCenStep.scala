@@ -31,7 +31,7 @@ object HCenStep
 { def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.int1)
   def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.int1)
 
-  implicit val arrMapBuilderEv: BuilderArrInt3Map[HCenStep, HCenStepArr] = new BuilderArrInt3Map[HCenStep, HCenStepArr]{
+  implicit val arrMapBuilderEv: BuilderMapArrInt3[HCenStep, HCenStepArr] = new BuilderMapArrInt3[HCenStep, HCenStepArr]{
     override type BuffT = HCenStepBuff
     override def fromIntArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenStepBuff = HCenStepBuff()
@@ -46,10 +46,10 @@ class HCenStepArr(val arrayUnsafe: Array[Int]) extends ArrInt3[HCenStep]
   override def fElemStr: HCenStep => String = _.toString
 }
 
-object HCenStepArr extends CompanionSeqLikeInt3[HCenStep, HCenStepArr]
+object HCenStepArr extends CompanionSlInt3[HCenStep, HCenStepArr]
 { override def fromArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
 
-  implicit val flatBuildEv: BuilderArrInt3Flat[HCenStepArr] = new BuilderArrInt3Flat[HCenStepArr]{
+  implicit val flatBuildEv: BuilderFlatArrInt3[HCenStepArr] = new BuilderFlatArrInt3[HCenStepArr]{
     override type BuffT = HCenStepBuff
     override def fromIntArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenStepBuff = new HCenStepBuff(buffer)
