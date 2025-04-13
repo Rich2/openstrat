@@ -51,15 +51,16 @@ trait BuilderSlInt2[BB <: SlImutInt2[?]] extends BuilderSlIntN[BB]
   final override def elemProdSize: Int = 2
 }
 
-/** Builds [[SlImutInt2]] objects via the map method. */
+/** [[BuilderMap]] trait for constructing [[SeqLikeImut]]s with [[Int2Elem]]s, via the map method. Implicit type class instances for classses you control should
+ * go in the companion object of the type B class. */
 trait BuilderMapSlInt2[B <: Int2Elem, BB <: SlImutInt2[B]] extends BuilderSlInt2[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt2[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append2(newElem.int1, newElem.int2)
 }
 
-/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int2Elem]]s via the map method. Implicit type class instances should go in the companion object of
- * B. */
+/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int2Elem]]s via the map method. Implicit type class instances should go in the companion object of the
+ * B class. */
 trait BuilderMapArrInt2[B <: Int2Elem, ArrB <: ArrInt2[B]] extends BuilderMapSlInt2[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt2]] final classes. Instances for the [[BuilderMapArr]] type class,
