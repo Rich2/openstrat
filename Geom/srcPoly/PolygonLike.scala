@@ -181,7 +181,7 @@ trait PolygonLikeInt2[VT <: Int2Elem] extends Any, PolygonLikeIntN[VT], SsInt2[V
 }
 
 /** A polygon whose elements are defined by 3 [[int]]s. */
-trait PolygonLikeInt3[VT <: Int3Elem] extends Any, PolygonLikeIntN[VT], SeqSpecInt3[VT]
+trait PolygonLikeInt3[VT <: Int3Elem] extends Any, PolygonLikeIntN[VT], SsInt3[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   override protected def arrayForSides: Array[Int] =
   { val newLen = numVerts * 6
