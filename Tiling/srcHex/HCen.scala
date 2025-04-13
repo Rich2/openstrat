@@ -150,7 +150,7 @@ object HCen
   implicit val persistEv: PersistInt2Both[HCen] = PersistInt2Both[HCen]("HCen", "r", _.r, "c", _.c, HCen.apply)
 
   /** Implicit [[BuilderMapArr]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
-  implicit val arrMapBuilderEv: BuilderArrInt2Map[HCen, HCenArr] = new BuilderArrInt2Map[HCen, HCenArr]
+  implicit val arrMapBuilderEv: BuilderMapArrInt2[HCen, HCenArr] = new BuilderMapArrInt2[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)

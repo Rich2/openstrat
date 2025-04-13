@@ -41,7 +41,7 @@ object SqVert
 
 
 
-  implicit val sqVertsBuildImplicit: BuilderArrInt2Map[SqVert, SqVertArr] = new BuilderArrInt2Map[SqVert, SqVertArr]
+  implicit val sqVertsBuildImplicit: BuilderMapArrInt2[SqVert, SqVertArr] = new BuilderMapArrInt2[SqVert, SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)

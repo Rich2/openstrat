@@ -58,7 +58,7 @@ object HVert
     case _ => excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
   }
 
-  implicit val buildArrMapEv: BuilderArrInt2Map[HVert, HVertArr] = new BuilderArrInt2Map[HVert, HVertArr]
+  implicit val buildArrMapEv: BuilderMapArrInt2[HVert, HVertArr] = new BuilderMapArrInt2[HVert, HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)

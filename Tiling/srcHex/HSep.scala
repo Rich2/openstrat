@@ -97,7 +97,7 @@ object HSep
   }
 
   /** Implicit [[BuilderMapArr]] type class instance / evidence for [[HSep]] and [[HSepArr]]. */
-  implicit val arrMapBuilderEv: BuilderArrInt2Map[HSep, HSepArr] = new BuilderArrInt2Map[HSep, HSepArr]
+  implicit val arrMapBuilderEv: BuilderMapArrInt2[HSep, HSepArr] = new BuilderMapArrInt2[HSep, HSepArr]
   { type BuffT = HSepBuff
     override def fromIntArray(array: Array[Int]): HSepArr = new HSepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSepBuff = new HSepBuff(buffer)
