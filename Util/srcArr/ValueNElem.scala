@@ -5,7 +5,7 @@ import annotation.unchecked.uncheckedVariance
 /** A class that can be constructed from a fixed number of homogeneous primitive values such as [[Int]]s, [[Double]]s or [[Long]]s. Note the classes that extend
  * this trait do not extend [[Product]] or its numbered sub traits, because the logical size of the product may not be the same as the number of primitive
  * values, for example a [[LineSeg]] is a product of 2 [[Pt2]]s, but is composed from 4 [[Double]] values. */
-trait ValueNElem extends Any with SpecialT
+trait ValueNElem extends Any, SpecialT
 
 /** A [[SeqLike]], a sequence or an object that can be specified by a sequence such as a polygon, composed of elements that can be constructed from a fixed
  * number of homgenious primitive values such as [[Double]]s or [[Int]]s. */

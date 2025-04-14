@@ -88,8 +88,8 @@ trait BuilderArrPairDbl4Map[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, B <: PairD
   }
 }
 
-/** Builder for [[ArrPairDbl4]] objects via the flatMap f: A => ArrPairB method. */
-trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends BuilderArrPairDbl4[B1, ArrB1, B2, ArrB],
+/** [[BuilderFlat]] trait to construct [[Arr]]s of [[PairElem]]s, where the first component of each of the pairs is a [[Dbl4Elem]], via the flatMap method. */
+trait BuilderFlatArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: ArrDbl4[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends BuilderArrPairDbl4[B1, ArrB1, B2, ArrB],
   BuilderArrPairDblNFlat[B1, ArrB1, B2, ArrB]
 
 /** Helper trait for companion objects of [[ArrPairDbl4]] final classes. */

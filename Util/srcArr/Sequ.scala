@@ -277,8 +277,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Fail]] of the
-   * first error encountered implicitly takes a [[BuilderMapArr]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the
-   * first parameter list. */
+   * first error encountered implicitly takes a [[BuilderMapArr]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
+   * parameter list. */
   def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(implicit ev: BuilderMapArr[B, ArrB]): ErrBi[E, ArrB] =
   { val acc = ev.newBuff()
     var count = 0

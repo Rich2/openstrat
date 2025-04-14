@@ -2,8 +2,8 @@
 package ostrat
 import annotation.*, reflect.ClassTag
 
-/** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
- * [[Int4Elem]] components are backed bya single [[Array]][Int]. */
+/** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficiently in [[Int4PAirArr]]s, where the first
+ * [[Int4Elem]] components are backed by a single [[Array]][Int]. */
 trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
@@ -11,8 +11,8 @@ trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
   def a1Int4: Int
 }
 
-/** Common trait for [[ArrPairInt4]] and [[BuffPairInt4]], where the first component of the pairs is an [[Int4Elem]]. */
-trait SeqLikePairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends SequPairIntN[A1, A2, A]
+/** [[SeqLike]] of [[PairElems]] where the first component of each of the pairs is an [[Int4Elem]]. */
+trait SlPairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends SequPairIntN[A1, A2, A]
 { /** Constructs new pair element from 4 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A
 
@@ -20,7 +20,7 @@ trait SeqLikePairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends Seq
 }
 
 /** An [[Arr]] of [[PairElem]]s where the first component is an [[Int4Elem]]. */
-trait ArrPairInt4[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: PairInt4Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SeqLikePairInt4[A1, A2, A]
+trait ArrPairInt4[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: PairInt4Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SlPairInt4[A1, A2, A]
 { type ThisT <: ArrPairInt4[A1, ArrA1, A2, A]
 
   def a1FromInts(int1: Int, int2: Int, int3: Int, int4: Int): A1
