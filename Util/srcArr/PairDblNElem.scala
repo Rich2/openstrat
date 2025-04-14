@@ -68,7 +68,7 @@ trait BuilderArrPairDblN[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPa
 
 /** Builder for [[ArrPairDblN]] objects by both map f: A => pairB methods. */
 trait BuilderArrPairDblNMap[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, B <: PairDblNElem[B1, B2], ArrB <: ArrPairDblN[B1, ArrB1, B2, B]] extends
-  BuilderArrPairDblN[B1, ArrB1, B2, ArrB], BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]
+  BuilderArrPairDblN[B1, ArrB1, B2, ArrB], BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDblN[B1, B2, B]
 
   /** The number of [[Double]]s required to construct the first component of the pairs. */
@@ -82,7 +82,7 @@ trait BuilderArrPairDblNMap[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, B <: PairD
 
 /** Builder for [[ArrPairDblN]] objects by both flatMap f: A => ArrpairB methods. */
 trait BuilderArrPairDblNFlat[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPairDblN[B1, ArrB1, B2, ?]] extends BuilderArrPairDblN[B1, ArrB1, B2, ArrB],
-  BuilderArrPairFlat[B1, ArrB1, B2, ArrB]
+  BuilderFlatArrPair[B1, ArrB1, B2, ArrB]
 { final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayDbl.foreach(buff.b1DblBuffer.append(_))
     arr.a2Arr.foreach(buff.b2Buffer.append(_)) }
 }

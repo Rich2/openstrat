@@ -113,7 +113,7 @@ object ArrPairStr
 }
 
 /** Builder for [[Arr]]s of [[PairStrElem]]s via map method. */
-class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[String, StrArr, B2, PairStrElem[B2], ArrPairStr[B2]]
+class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderMapArrPair[String, StrArr, B2, PairStrElem[B2], ArrPairStr[B2]]
 { override type BuffT = BuffPairStr[B2]
   override type B1BuffT = StringBuff
   override def b1ArrBuilder: BuilderMapArr[String, StrArr] = BuilderArrString

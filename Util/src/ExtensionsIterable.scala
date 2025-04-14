@@ -143,7 +143,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 
   /** Maps to a [[ArrPairFinalA1]] of B1 and B2. */
   def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairFinalA1Elem[B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]](f1: A => B1, f2: A => B2)(
-  implicit build: BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]): ArrB =
+  implicit build: BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val buff1 = build.newB1Buff()
     val buffer2 = build.newB2Buffer()
     thisIter.foreach { a =>
@@ -156,7 +156,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   /** FlatMaps to an [[Arr]] of B1, but maps to a single element of B2. The elements of the [[Arr]][B1] are paired with copies of B2. These are
    *  logically flattened to a [[ArrPairFinalA1]][B1, B2]. */
   def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: ArrPairFinalA1[B1, ArrB1, B2, ?]](f1: A => ArrB1, f2: A => B2)(implicit
-    build: BuilderArrPairFlat[B1, ArrB1, B2, BB]): BB =
+    build: BuilderFlatArrPair[B1, ArrB1, B2, BB]): BB =
   { val buff1 = build.newB1Buff()
     val buffer2 = build.newB2Buffer()
     thisIter.foreach{ a =>
@@ -201,7 +201,7 @@ class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) e
 class IterablePairExtensions[A1, A2](thisIter: Iterable[(A1, A2)])
 { /** Extension method converts this [[Iterable]] of [[Tuple2]]s to a [[ArrPair]]. */
   def toPairArr[ArrA1 <: Arr[A1], A <: PairElem[A1, A2], ArrA <: ArrPair[A1, ArrA1, A2, A]](implicit
-  builder: BuilderArrPairMap[A1, ArrA1, A2, A, ArrA]): ArrA =
+  builder: BuilderMapArrPair[A1, ArrA1, A2, A, ArrA]): ArrA =
   { val buff = builder.newBuff()
     thisIter.foreach{pair => buff.pairGrow(pair._1, pair._2)}
     builder.buffToSeqLike(buff)

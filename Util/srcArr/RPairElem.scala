@@ -114,7 +114,7 @@ object RPairBuff
 }
 
 /** Map builder for [[RPairArr]]. */
-class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2],
+class RPairArrMapBuilder[B1, B2](implicit ct1: ClassTag[B1], val b2ClassTag: ClassTag[B2]) extends BuilderMapArrPair[B1, RArr[B1], B2, RPairElem[B1, B2],
   RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]

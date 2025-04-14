@@ -115,7 +115,7 @@ final class PolygonM2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Ar
   override def a1FromArrayDbl(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 }
 
-/** [[BuilderArrPairMap]] class for [[PolygonM2]]s. */
+/** [[BuilderMapArrPair]] class for [[PolygonM2]]s. */
 final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikeDblNPairArrBuilder[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2], PolygonM2PairArr[A2]]
 { override type BuffT = PolygonM2PairBuff[A2]

@@ -99,7 +99,7 @@ trait BuilderMapArrInt5[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderMapSlI
  * [[Arr]] class's companion object. */
 trait BuilderFlatArrInt5[ArrB <: ArrInt5[?]] extends BuilderSlInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
-/** Class for the singleton companion objects of [[ArrInt5]] final classes to extend. */
+/** Helper traitClass for the companion objects of [[Arr]]s with [[Int5Elem]]s. */
 abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSlIntN[A, M]
 { final override def elemNumInts: Int = 5
 

@@ -73,7 +73,7 @@ class HSepBuffPair[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuf
   override def elemFromInts(int1: Int, int2: Int, a2: B2): HSepPair[B2] = new HSepPair[B2](int1, int2, a2)
 }
 
-/** [[BuilderArrPairMap]] class for [[HSepPair]]s. */
+/** [[BuilderMapArrPair]] class for [[HSepPair]]s. */
 class HSepBuilderArrPairMap[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt2Map[HSep, HSepArr, B2, HSepPair[B2], HSepArrPair[B2]]
 { override type BuffT = HSepBuffPair[B2]
   override type B1BuffT = HSepBuff
