@@ -278,12 +278,11 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   def inRect(ratio: Double): Rect =
-  {
-    val bd: Rect = boundingRect
+  { val bd: Rect = boundingRect
     val cens = bd.spacedPts(5, 5)
     cens.foldLeft{(acc, cen) =>
-      if (bd.ptInside(cen)) {
-        val newRect = inRectFrom(cen, ratio)
+      if (bd.ptInside(cen))
+      { val newRect = inRectFrom(cen, ratio)
         ife(newRect.widthHeightMin(ratio) > acc.widthHeightMin(ratio), newRect, acc)
       }
       else acc
@@ -307,23 +306,14 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var bottom: Double = bounds.bottom
     var top: Double = bounds.top
 
-    verts3.foreach{vt => vt match
-      {
-        case vt if (cen >> vt).isTopRight && vt.x < right && vt.y < top =>
-          if ((vt.x - cx) > (vt.y - cy) * ratio) right = vt.x else top = vt.y
-
-        case vt if (cen >> vt).isBottomRight && vt.x < right && vt.y > bottom =>
-          if ((vt.x - cx) > (cy - vt.y) * ratio) right = vt.x else bottom = vt.y
-
-        case vt if (cen >> vt).isTopleft && vt.x > left && vt.y < top =>
-          if ((cx - vt.x) > (vt.y - cy) * ratio) left = vt.x else top = vt.y
-
-        case vt if (cen >> vt).isBottomLeft && vt.x > left && vt.y > bottom =>
-          if ((cx - vt.x) > (cy - vt.y) * ratio) left = vt.x else bottom = vt.y
-
-        case _ =>
-      }
+    verts3.foreach{
+      case vt if (cen >> vt).isTopRight && vt.x < right && vt.y < top => if ((vt.x - cx) > (vt.y - cy) * ratio) right = vt.x else top = vt.y
+      case vt if (cen >> vt).isBottomRight && vt.x < right && vt.y > bottom => if ((vt.x - cx) > (cy - vt.y) * ratio) right = vt.x else bottom = vt.y
+      case vt if (cen >> vt).isTopleft && vt.x > left && vt.y < top => if ((cx - vt.x) > (vt.y - cy) * ratio) left = vt.x else top = vt.y
+      case vt if (cen >> vt).isBottomLeft && vt.x > left && vt.y > bottom => if ((cx - vt.x) > (cy - vt.y) * ratio) left = vt.x else bottom = vt.y
+      case _ =>
     }
+
     Rect.lrbt(left, right, bottom, top)
   }
 }
@@ -335,8 +325,11 @@ object Polygon extends CompanionSlDbl2[Pt2, Polygon]
   /** Implicit [[EqT]] type class instance / evidence for [[Polygon]]. */
   implicit val eqTEv: EqT[Polygon] = (p1, p2) => p1.arrayUnsafe.sameElements(p2.arrayUnsafe)
 
+  /** Implicit [[Slate]] type class instance / evidence for [[Polygon]]. */
+  implicit val slateEv: Slate[Polygon] = (obj, operand) => obj.slate(operand)
+
   /** Implicit [[SlateXY]] type class instance / evidence for [[Polygon]]. */
-  implicit val slateEv: SlateXY[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateXYEv: SlateXY[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[Polygon]]. */
   implicit val scaleEv: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
