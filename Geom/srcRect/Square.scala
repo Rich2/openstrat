@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
+import pWeb.*
 
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
@@ -10,7 +10,7 @@ trait Square extends Rectangle
   /** The width of this square. */
   def width: Double
 
-  /** The roatation of this sqaure from alignment with the X and Y axes. */
+  /** The rotation of this square from alignment with the X and Y axes. */
   def rotation: AngleVec
 
   override def vertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
