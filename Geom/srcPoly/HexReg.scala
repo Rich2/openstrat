@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon. a = √3 * r / 2. r = 2 * √3 * a. */
-trait HexReg extends ShapeCentred with Polygon6Plus with Tell
+trait HexReg extends ShapeCentred, Polygon6Plus, Tell
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 
@@ -131,5 +131,16 @@ object HexReg
     override def diameter: Double = v5.distTo(v2)
 
     @inline override def apoDiameter: Double = diameter * 3.sqrt / 2
+
+    override def v0x: Double = arrayUnsafe(0)
+    override def v0y: Double = arrayUnsafe(1)
+    override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+    override def vLastX: Double = arrayUnsafe(numVerts - 2)
+    override def vLastY: Double = arrayUnsafe(numVerts - 1)
+    override def vLast: Pt2 = Pt2(vLastX, vLastY)
+    override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+    override def sd0CenX: Double = v0x \/ vertX(1)
+    override def sd0CenY: Double = v0y \/ vertY(1)
+    override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   }
 }

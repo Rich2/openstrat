@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Golden rectangle, a rectangle whose side lengths are in the golden ratio, 1 : 1 + 5 2 {\displaystyle 1:{\tfrac {1+{\sqrt {5}}}{2}}} 1:{\tfrac
@@ -51,6 +51,17 @@ object PhiRectangle
     override def fromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
+
+    override def v0x: Double = arrayUnsafe(0)
+    override def v0y: Double = arrayUnsafe(1)
+    override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+    override def vLastX: Double = arrayUnsafe(numVerts - 2)
+    override def vLastY: Double = arrayUnsafe(numVerts - 1)
+    override def vLast: Pt2 = Pt2(vLastX, vLastY)
+    override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+    override def sd0CenX: Double = v0x \/ vertX(1)
+    override def sd0CenY: Double = v0y \/ vertY(1)
+    override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   }
 }
 
@@ -80,6 +91,17 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect with PhiRectangle
   override def negX: PhiRect = PhiRect(height, cen.negX)
 
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+
+  override def v0x: Double = arrayUnsafe(0)
+  override def v0y: Double = arrayUnsafe(1)
+  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+  override def vLastX: Double = arrayUnsafe(numVerts - 2)
+  override def vLastY: Double = arrayUnsafe(numVerts - 1)
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+  override def sd0CenX: Double = v0x \/ vertX(1)
+  override def sd0CenY: Double = v0y \/ vertY(1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 }
 
 object PhiRect
@@ -120,6 +142,17 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect with PhiRectan
   { val v = cen.vecTo(newCen)
     slate(v.x, v.y)
   }*/
+
+  override def v0x: Double = arrayUnsafe(0)
+  override def v0y: Double = arrayUnsafe(1)
+  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+  override def vLastX: Double = arrayUnsafe(numVerts - 2)
+  override def vLastY: Double = arrayUnsafe(numVerts - 1)
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+  override def sd0CenX: Double = v0x \/ vertX(1)
+  override def sd0CenY: Double = v0y \/ vertY(1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 }
 
 object PhiRectY

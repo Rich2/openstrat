@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[Double, Pt2]
+final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Double, Pt2]
 { override type ThisT = HexParrX
   override def fromArray(array: Array[Double]): HexParrX = new HexParrX(array)
 
@@ -35,6 +35,16 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[
   override def rotate180: HexParrX = vertsTrans(_.rotate180)
   override def rotate270: HexParrY = HexParrY.fromArray(arrayElemMap(_.rotate270))
   override def prolign(matrix: ProlignMatrix): HexParrX = HexParrX(apoDiameter, cen.prolign(matrix))
+  override def v0x: Double = arrayUnsafe(0)
+  override def v0y: Double = arrayUnsafe(1)
+  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+  override def vLastX: Double = arrayUnsafe(numVerts - 2)
+  override def vLastY: Double = arrayUnsafe(numVerts - 1)
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+  override def sd0CenX: Double = v0x \/ vertX(1)
+  override def sd0CenY: Double = v0y \/ vertY(1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 }
 
 /** Companion object for the regular hexagon aligned to the X Axis class. It has a limited set of 2D geometric transformation type class instances as

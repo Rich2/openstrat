@@ -1,12 +1,12 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
+import pWeb.*
 
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned to the X
  * and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However, if your rectangle is a aligned to the X and Y
  * axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. For SVG purposes this will be output as a polygon to avoid the
  * transforms to rotate a rectangle.W */
-trait Rectangle extends ShapeCentred with Quadrilateral
+trait Rectangle extends ShapeCentred, Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
 
@@ -131,6 +131,16 @@ object Rectangle
   { override type ThisT = RectangleImp
     override def fromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
+    override def v0x: Double = arrayUnsafe(0)
+    override def v0y: Double = arrayUnsafe(1)
+    override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+    override def vLastX: Double = arrayUnsafe(numVerts - 2)
+    override def vLastY: Double = arrayUnsafe(numVerts - 1)
+    override def vLast: Pt2 = Pt2(vLastX, vLastY)
+    override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+    override def sd0CenX: Double = v0x \/ vertX(1)
+    override def sd0CenY: Double = v0y \/ vertY(1)
+    override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   }
 
   object RectangleImp

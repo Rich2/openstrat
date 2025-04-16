@@ -35,6 +35,17 @@ final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square, Rect,
 
   /** Adds a margin to this [[Sqlign]], square aligned with the XY axes, moving the sides out by the given parameter. */
   override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY)
+
+  override def v0x: Double = arrayUnsafe(0)
+  override def v0y: Double = arrayUnsafe(1)
+  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+  override def vLastX: Double = arrayUnsafe(numVerts - 2)
+  override def vLastY: Double = arrayUnsafe(numVerts - 1)
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+  override def sd0CenX: Double = v0x \/ vertX(1)
+  override def sd0CenY: Double = v0y \/ vertY(1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */

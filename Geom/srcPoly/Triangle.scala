@@ -52,6 +52,17 @@ object Triangle
 		/** A method to perform all the [[AffinePreserve]] transformations with a function from PT2 => PT2. This is delegated to the VertsTrans method as
 		 * a TriangleImp is specified by its vertices. This is not the case for all Polygons. */
 		override def ptsTrans(f: Pt2 => Pt2): TriangleGen = vertsTrans(f)
+
+		override def v0x: Double = arrayUnsafe(0)
+		override def v0y: Double = arrayUnsafe(1)
+		override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+		override def vLastX: Double = arrayUnsafe(numVerts - 2)
+		override def vLastY: Double = arrayUnsafe(numVerts - 1)
+		override def vLast: Pt2 = Pt2(vLastX, vLastY)
+		override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+		override def sd0CenX: Double = v0x \/ vertX(1)
+		override def sd0CenY: Double = v0y \/ vertY(1)
+		override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 	}
 
 	object TriangleGen
