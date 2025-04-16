@@ -13,20 +13,21 @@ trait Square extends Rectangle
   /** The rotation of this square from alignment with the X and Y axes. */
   def rotation: AngleVec
 
-  override def vertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
-  override def slate(operand: VecPt2): Square = vertsTrans(_.slate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Square = vertsTrans(_.slate(xOperand, yOperand))
-  override def slateX(xOperand: Double): Square = vertsTrans(_.slateX(xOperand))
-  override def slateY(yOperand: Double): Square = vertsTrans(_.slateY(yOperand))
-  override def scale(operand: Double): Square = vertsTrans(_.scale(operand))
+  override def vertsTrans(f: Pt2 => Pt2): Rectangle// = Square.fromArray(arrayElemMap(f))
+  def squareVertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
+  override def slate(operand: VecPt2): Square = squareVertsTrans(_.slate(operand))
+  override def slate(xOperand: Double, yOperand: Double): Square = squareVertsTrans(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): Square = squareVertsTrans(_.slateX(xOperand))
+  override def slateY(yOperand: Double): Square = squareVertsTrans(_.slateY(yOperand))
+  override def scale(operand: Double): Square = squareVertsTrans(_.scale(operand))
   override def negX: Square = Square.fromArray(unsafeNegX)
   override def negY: Square = Square.fromArray(unsafeNegY)
-  override def rotate90: Square = vertsTrans(_.rotate90)
-  override def rotate180: Square = vertsTrans(_.rotate180)
-  override def rotate270: Square = vertsTrans(_.rotate270)
-  override def prolign(matrix: ProlignMatrix): Square = vertsTrans(_.prolign(matrix))
-  override def reflect(lineLike: LineLike): Square = vertsTrans(_.reflect(lineLike))
-  override def rotate(rotation: AngleVec): Square = vertsTrans(_.rotate(rotation))
+  override def rotate90: Square = squareVertsTrans(_.rotate90)
+  override def rotate180: Square = squareVertsTrans(_.rotate180)
+  override def rotate270: Square = squareVertsTrans(_.rotate270)
+  override def prolign(matrix: ProlignMatrix): Square = squareVertsTrans(_.prolign(matrix))
+  override def reflect(lineLike: LineLike): Square = squareVertsTrans(_.reflect(lineLike))
+  override def rotate(rotation: AngleVec): Square = squareVertsTrans(_.rotate(rotation))
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
@@ -72,6 +73,7 @@ object Square extends ShapeIcon
 
     override def fromArray(array: Array[Double]): SquareImp = new SquareImp(array)
 
+    override def vertsTrans(f: Pt2 => Pt2) = fromArray(arrayElemMap(f))
     @inline override def width: Double = width1
     @inline override def width2: Double = width1
 

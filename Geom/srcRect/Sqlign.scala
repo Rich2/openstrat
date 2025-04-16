@@ -6,7 +6,7 @@ final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square, Rect,
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
   override def fromArray(array: Array[Double]): Sqlign = new Sqlign(array)
-  override def vertsTrans(f: Pt2 => Pt2): Sqlign = Sqlign.fromArray(arrayElemMap(f))
+  //override def vertsTrans(f: Pt2 => Pt2): Sqlign = Sqlign.fromArray(arrayElemMap(f))
   def width: Double = v1x - v0x
   override def name1: String = "width"
   override def name2: String = "cen"
