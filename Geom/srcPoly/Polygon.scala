@@ -10,32 +10,30 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
 { type ThisT <: Polygon
   override type SideT = LineSeg
 
-  def rightX: Double = verts.foldLeft(v0x)((acc, pt) => acc.max(pt.x))
-
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
-  def v0x: Double// = arrayUnsafe(0)
+  def v0x: Double
 
   /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
-  def v0y: Double// = arrayUnsafe(1)
+  def v0y: Double
 
   /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
    * the vertex immediately anti-clockwise if there is no vertex in this position. */
-  def v0: Pt2// = Pt2(v0x, v0y)
+  def v0: Pt2
 
-  def vLastX: Double// = ???//arrayUnsafe(numVerts - 2)
-  def vLastY: Double// = ???//arrayUnsafe(numVerts - 1)
+  def vLastX: Double
+  def vLastY: Double
 
   /** The last vertex. The default convention places this just anti-clockwise of 12 o'clock. */
-  def vLast: Pt2// = ???//Pt2(vLastX, vLastY)
+  def vLast: Pt2
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
-  def side0: LineSeg// = LineSeg(v0, vert(1))
+  def side0: LineSeg
 
   /** The X component of the centre or halfway point of side 0 of this polygon. */
-  def sd0CenX: Double// = v0x \/ vertX(1)
+  def sd0CenX: Double
 
   /** The Y component of the centre or halfway point of side 0 of this polygon. */
-  def sd0CenY: Double// = v0y \/ vertY(1)
+  def sd0CenY: Double
 
   /** The centre or halfway point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as vertex 0.5. */
   def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)

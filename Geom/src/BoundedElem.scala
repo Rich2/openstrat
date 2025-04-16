@@ -13,6 +13,8 @@ trait BoundedElem extends Any with Geom2Elem
   /** The height of the [[BoundingRect]] of this object. */
   def boundingHeight: Double = boundingRect.height
 
+  def boundRight: Double = boundingRect.right
+
   def boundTopRight: Pt2 = boundingRect.topRight
   def brBounding: Pt2 = boundingRect.bottomRight
   def tlBounding: Pt2 = boundingRect.topLeft

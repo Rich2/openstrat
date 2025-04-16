@@ -79,6 +79,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 }
 
 /** Companion object for [[PolygonGen]]. */

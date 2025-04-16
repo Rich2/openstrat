@@ -21,7 +21,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
     var rowFirst: Boolean = true
     flagsArr.map{ flag =>
       val res1: PolygonCompound = flag.compound().scale(smallScale)
-      val dx = res1.rightX
+      val dx = res1.boundRight
       if (!rowFirst && (x + dx * 2> canv.right))
       { y -= (smallScale + margin)
         x = canv.left
