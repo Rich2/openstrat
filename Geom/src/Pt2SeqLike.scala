@@ -18,8 +18,6 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SlImutDbl2[Pt2]
     newArray
   }
   final override def fElemStr: Pt2 => String = _.str
-
-
 }
 
 trait Pt2SeqSpec extends Any, Pt2SeqLike, SsDbl2[Pt2]
