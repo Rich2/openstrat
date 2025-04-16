@@ -2,21 +2,31 @@
 package ostrat; package geom
 import pWeb.*, Colour.Black
 
-/** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of polygons
- * such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the vertices in a
- * clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner with then end point of
- * side sd((n - 1) at vertex 0. */
+/** A mathematical simple closed polygon, with at least 1 vertex. The general case can be instantiated with [[PolygonGen]], but it provides the interface for
+ * particular sub sets of polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to
+ * number the vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
+ * with then end point of side sd((n - 1) at vertex 0. */
 trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, PolygonLikeDbl2[Pt2]
 { type ThisT <: Polygon
   override type SideT = LineSeg
 
   def rightX: Double = verts.foldLeft(v0x)((acc, pt) => acc.max(pt.x))
 
-  final def vLastX: Double = arrayUnsafe(numVerts - 2)
-  final def vLastY: Double = arrayUnsafe(numVerts - 1)
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
+  def v0x: Double = arrayUnsafe(0)
+
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
+  def v0y: Double = arrayUnsafe(1)
+
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
+   * the vertex immediately anti-clockwise if there is no vertex in this position. */
+  def v0: Pt2 = Pt2(v0x, v0y)
+
+  def vLastX: Double = ???//arrayUnsafe(numVerts - 2)
+  def vLastY: Double = ???//arrayUnsafe(numVerts - 1)
 
   /** The last vertex. The default convention places this just anti-clockwise of 12 o'clock. */
-  def vLast: Pt2 = Pt2(vLastX, vLastY)
+  def vLast: Pt2 = ???//Pt2(vLastX, vLastY)
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
   final def side0: LineSeg = LineSeg(v0, vert(1))
@@ -94,16 +104,6 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
     }
     res
   }
-
-  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
-  final def v0x: Double = arrayUnsafe(0)
-
-  /** The Y component of vertex v1, will throw on a 0 vertices polygon.  */
-  final def v0y: Double = arrayUnsafe(1)
-
-  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
-   * the vertex immediately anti-clockwise if there is no vertex in this position. */
-  final def v0: Pt2 = Pt2(v0x, v0y)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points. */
   override def boundingRect: Rect =

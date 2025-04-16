@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pWeb._
 
-/** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
- *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
+/** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a sequence of
+ * plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2SeqLike with AffinePreserve with SsDbl2[Pt2]
 { override type ThisT = PolygonGen
 
@@ -53,45 +53,24 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
 
   def distScale(distRatio: Metres): PolygonM2 = map[PtM2, PolygonM2](p => p.toMetres(distRatio))
 
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(xOperand: Double, yOperand: Double): PolygonGen = map(_.slate(xOperand, yOperand))
-
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(operand: VecPt2): PolygonGen = map(_.slate(operand))
-
-  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
-   * return type of this method will be narrowed further in descendant traits / classes. */
   override def scale(operand: Double): PolygonGen = map(_.scale(operand))
-
-  /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
-  override def negY: PolygonGen = map(_.negY)
-
-  /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
   override def negX: PolygonGen = map(_.negX)
-
-  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
+  override def negY: PolygonGen = map(_.negY)
   override def prolign(matrix: ProlignMatrix): PolygonGen = map(_.prolign(matrix))
-
   override def rotate90: PolygonGen = map(_.rotate90)
-
   override def rotate180: PolygonGen = map(_.rotate180)
-
   override def rotate270: PolygonGen = map(_.rotate270)
-
-  /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
-   * be narrowed in some but not all sub traits / classes. */
   override def rotate(rotation: AngleVec): PolygonGen = map(_.rotate(rotation))
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
-   * traits / classes. */
   override def reflect(lineLike: LineLike): PolygonGen = map(_.reflect(lineLike))
-
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGen = map(_.xyScale(xOperand, yOperand))
   override def shearX(operand: Double): PolygonGen = map(_.xShear(operand))
   override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))
   override def verts: Pt2Arr = new Pt2Arr(arrayUnsafe)
+
+  override def v0x: Double = arrayUnsafe(0)
+  override def v0y: Double = arrayUnsafe(1)
 }
 
 /** Companion object for [[PolygonGen]]. */
