@@ -6,12 +6,13 @@ import pWeb.*, ostrat.Colour.Black
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { type ThisT <: Rect
 
-  override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
-  override def slate(operand: VecPt2): Rect = vertsTrans(_.slate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.slate(xOperand, yOperand))
-  override def slateX(xOperand: Double): Rect = vertsTrans(_.slateX(xOperand))
-  override def slateY(yOperand: Double): Rect = vertsTrans(_.slateY(yOperand))
-  override def scale(operand: Double): Rect = vertsTrans(_.scale(operand))
+  //override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
+  def rectVertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
+  override def slate(operand: VecPt2): Rect = rectVertsTrans(_.slate(operand))
+  override def slate(xOperand: Double, yOperand: Double): Rect = rectVertsTrans(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): Rect = rectVertsTrans(_.slateX(xOperand))
+  override def slateY(yOperand: Double): Rect = rectVertsTrans(_.slateY(yOperand))
+  override def scale(operand: Double): Rect = rectVertsTrans(_.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negY: Rect = Rect.fromArray(unsafeNegY)
@@ -19,12 +20,12 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect.fromArray(unsafeNegX)
 
-  override def rotate90: Rect = vertsTrans(_.rotate90)
-  override def rotate180: Rect = vertsTrans(_.rotate180)
-  override def rotate270: Rect = vertsTrans(_.rotate270)
+  override def rotate90: Rect = rectVertsTrans(_.rotate90)
+  override def rotate180: Rect = rectVertsTrans(_.rotate180)
+  override def rotate270: Rect = rectVertsTrans(_.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Rect = vertsTrans(_.prolign(matrix))
-  override def scaleXY(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.xyScale(xOperand, yOperand))
+  override def prolign(matrix: ProlignMatrix): Rect = rectVertsTrans(_.prolign(matrix))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rect = rectVertsTrans(_.xyScale(xOperand, yOperand))
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, RArr(), active(id) %: children)
   final override def boundingRect: Rect = this
@@ -79,7 +80,7 @@ object Rect
   def apply(width: Double, height: Double = 1, cen: Pt2 = Pt2Z): Rect = RectGen(width, height, cen.x, cen.y)
 
   /** Factory apply method for a rectangle aligned with the X and Y axes. There is a name overload that has a default height of 1 and takes a [[Pt2]] centre
-   * point paremeter wth a default of x = 0, y = 0. */
+   * point parameter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, cenX: Double, cenY: Double): Rect = RectGen(width, height, cenX, cenY)
 
   /** The implicit [[DefaultValue]] type class instace / evidence for [[Rect]] is the [[NoBounds]] object. */
