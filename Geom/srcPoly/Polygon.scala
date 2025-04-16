@@ -29,16 +29,16 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
   def vLast: Pt2 = ???//Pt2(vLastX, vLastY)
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
-  final def side0: LineSeg = LineSeg(v0, vert(1))
+  def side0: LineSeg = LineSeg(v0, vert(1))
 
   /** The X component of the centre or halfway point of side 0 of this polygon. */
-  final def sd0CenX: Double = v0x \/ vertX(1)
+  def sd0CenX: Double = v0x \/ vertX(1)
 
   /** The Y component of the centre or halfway point of side 0 of this polygon. */
-  final def sd0CenY: Double = v0y \/ vertY(1)
+  def sd0CenY: Double = v0y \/ vertY(1)
 
   /** The centre or halfway point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as vertex 0.5. */
-  final def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 
   override def verts: Pt2Arr =
   { val newArray: Array[Double] = new Array[Double](numVerts * 2)
