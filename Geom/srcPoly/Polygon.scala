@@ -148,8 +148,8 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
   override def rotate(rotation: AngleVec): Polygon = PolygonGen(arrayRotate(rotation))
   override def reflect(lineLike: LineLike): Polygon = PolygonGen(arrayReflect(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Polygon = PolygonGen(arrayScaleXY(xOperand, yOperand))
-  override def shearX(operand: Double): Polygon = map(_.xShear(operand))
-  override def shearY(operand: Double): Polygon = map(_.xShear(operand))
+  override def shearX(operand: Double): Polygon = PolygonGen(arrayShearX(operand))
+  override def shearY(operand: Double): Polygon = PolygonGen(arrayShearY(operand))
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
   { var acc: A = init

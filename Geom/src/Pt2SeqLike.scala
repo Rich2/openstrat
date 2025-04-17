@@ -36,6 +36,8 @@ trait Pt2SeqSpec extends Any, Pt2SeqLike, SsDbl2[Pt2]
   protected def arrayRotate(rotation: AngleVec): Array[Double] = arrayElemMap(_.rotate(rotation))
   protected def arrayReflect(lineLike: LineLike): Array[Double] = arrayElemMap(_.reflect(lineLike))
   protected def arrayScaleXY(xOperand: Double, yOperand: Double): Array[Double] = arrayD1D2Map(_ * xOperand)(_ * yOperand)
+  protected def arrayShearX(operand: Double): Array[Double] = arrayElemMap(_.xShear(operand))
+  protected def arrayShearY(operand: Double): Array[Double] = arrayElemMap(_.yShear(operand))
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from [[Polygon]]
