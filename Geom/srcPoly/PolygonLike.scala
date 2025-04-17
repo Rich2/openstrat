@@ -5,7 +5,7 @@ package ostrat; package geom
  * values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a [[PolygonM3]] it
  *    would be a [[PtM3]]. */
-trait PolygonLike[+VT] extends Any, VertBased[VT]
+trait PolygonLike[+VT] extends Any, VertSeqSpec[VT]
 { type ThisT <: PolygonLike[VT]
   type SideT <: LineSegLike[VT]
 

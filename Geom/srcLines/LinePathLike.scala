@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation._
 
 /** A generalisation of a line path where the type of the vertices is not restricted to [[Pt2]]. */
-trait LinePathLike[VT] extends Any with VertBased[VT]
+trait LinePathLike[VT] extends Any with VertSeqSpec[VT]
 { type ThisT <: LinePathLike[VT]
   type PolygonT <: PolygonLike[VT]
   type LineSegT <: LineSegLike[VT]
