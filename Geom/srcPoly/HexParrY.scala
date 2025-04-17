@@ -25,33 +25,14 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   /** maps the vertices of this [[HexParrY]] to a new [[HexparrY]] instance. */
   override def vertsTrans(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(arrayElemMap(f))
 
-  /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def slate(delta: VecPt2): HexParrY = vertsTrans(_.slate(delta))
-
-  /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def slate(xOperand: Double, yOperand: Double): HexParrY = vertsTrans(_.slate(xOperand, yOperand))
-
-  /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def scale(operand: Double): HexParrY = vertsTrans(_.scale(operand))
-
-  /** Mirror, reflection 2D geometric transformation of this HexYlign across the X axis, negates Y, returns a HexYlign. */
-  override def negY: HexParrY = HexParrY.fromArray(unsafeNegY)
-
-  /** Mirror, reflection 2D geometric transformation of this HexYlign across the Y axis, negates X, returns a HexYlign. */
   override def negX: HexParrY = HexParrY.fromArray(unsafeNegX)
-
-  /** Rotate 90 degrees positively or anti clockwise  2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 270 degrees
-   *  clockwise. */
+  override def negY: HexParrY = HexParrY.fromArray(unsafeNegY)
   override def rotate90: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate90))
-
-  /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. */
   override def rotate180: HexParrY = vertsTrans(_.rotate180)
-
-  /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
-   *  clockwise. */
   override def rotate270: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate270))
-
-  /** Prolign 2d transformations, similar transformations that retain alignment with the axes on this HexTlign returns a HexYlign. */
   override def prolign(matrix: ProlignMatrix): HexParrY = HexParrY(apoDiameter, cen.prolign(matrix))
 
   override def v0x: Double = arrayUnsafe(0)
@@ -64,6 +45,10 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 }
 
 /** Companion object for the regular hexagon aligned to the Y Axis class. It has a limited set of 2D geometric transformation type class instances as

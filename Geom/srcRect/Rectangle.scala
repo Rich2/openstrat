@@ -58,8 +58,8 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 }
 
-/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also contains
- * various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
+/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non specialised rectangles. It also contains
+ * various factory methods that delegate to the [[Rectangle.RectangleGen]] class. */
 object Rectangle
 {  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the the centre
    * point is the origin. */
@@ -75,16 +75,16 @@ object Rectangle
     val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
     val cen = sd4Cen \/ sd2Cen
     val verts = Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
-    new RectangleImp(verts.arrayUnsafe)
+    new RectangleGen(verts.arrayUnsafe)
   }
 
-  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = new RectangleImp(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
+  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = new RectangleGen(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
 
   /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
   def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] =
     Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).arrayUnsafe
 
-  def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
+  def fromArray(array: Array[Double]): Rectangle = new RectangleGen(array)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
   { val w = width / 2
@@ -127,10 +127,10 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val arrayUnsafe: Array[Double]) extends Rectangle//S2S4
-  { override type ThisT = RectangleImp
-    override def fromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
-    override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
+  final class RectangleGen(val arrayUnsafe: Array[Double]) extends Rectangle//S2S4
+  { override type ThisT = RectangleGen
+    override def fromArray(array: Array[Double]): RectangleGen = new RectangleGen(array)
+    override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
     override def v0x: Double = arrayUnsafe(0)
     override def v0y: Double = arrayUnsafe(1)
     override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
@@ -141,11 +141,15 @@ object Rectangle
     override def sd0CenX: Double = v0x \/ vertX(1)
     override def sd0CenY: Double = v0y \/ vertY(1)
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+    override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+    override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
   }
 
-  object RectangleImp
+  object RectangleGen
   {
-    def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): RectangleImp =
+    def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): RectangleGen =
       ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
   }
 }

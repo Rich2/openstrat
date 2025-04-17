@@ -10,31 +10,19 @@ trait PhiRectangle extends Rectangle
 { type ThisT <: PhiRectangle
   override def typeStr: String = "PhiRectangle"
   //def width1: Double = width2 * Phi
-
-  /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
+  
   override def slate(xOperand: Double, yOperand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.slate(xOperand, yOperand), sd2Cen.slate(xOperand, yOperand))
-
-  /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
   override def slate(operand: VecPt2): PhiRectangle = PhiRectangle.s1s3(sd0Cen.slate(operand), sd2Cen.slate(operand))
-
-  /** Uniform scaling transformation on a PhiRectangle returns a PhiRectangle. */
   override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.scale(operand), sd2Cen.scale(operand))
-
-  /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
+  override def negX: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negX, sd2Cen.negX)  
   override def negY: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negY, sd2Cen.negY)
-
-  /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
-  override def negX: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negX, sd2Cen.negX)
-
   override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(sd0Cen.prolign(matrix), sd2Cen.prolign(matrix))
-
   override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(sd0Cen.reflect(lineLike), sd2Cen.reflect(lineLike))
-
   override def rotate(rotation: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd0Cen.rotate(rotation), sd2Cen.rotate(rotation))
 }
 
-/** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
- *  delegates to it. */
+/** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that delegates to
+ * it. */
 object PhiRectangle
 {
   def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle =
@@ -62,6 +50,10 @@ object PhiRectangle
     override def sd0CenX: Double = v0x \/ vertX(1)
     override def sd0CenY: Double = v0y \/ vertY(1)
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+    override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+    override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
   }
 }
 
@@ -75,21 +67,11 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect with PhiRectangle
   override def width: Double = width1
   override def width2: Double = height
 
-  /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(xOperand: Double, yOperand: Double): PhiRect = PhiRect(height, cenX + xOperand, cenY + yOperand)
-
-  /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(operand: VecPt2): PhiRect = PhiRect(height, cen.slate(operand))
-
-  /** Uniform scaling transformation on a PhiRect returns a PhiRect. */
   override def scale(operand: Double): PhiRect = PhiRect(height * operand, cen.scale(operand))
-
-  /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
-  override def negY: PhiRect = PhiRect(height, cen.negY)
-
-  /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
   override def negX: PhiRect = PhiRect(height, cen.negX)
-
+  override def negY: PhiRect = PhiRect(height, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
   override def v0x: Double = arrayUnsafe(0)
@@ -102,6 +84,10 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect with PhiRectangle
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 }
 
 object PhiRect
@@ -120,22 +106,11 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect with PhiRectan
 
   override def height: Double = width1
   override def width2: Double = width
-
-  /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
   override def slate(xOperand: Double, yOperand: Double): PhiRectY = PhiRectY(width, cenX + xOperand, cenY + yOperand)
-
-  /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
   override def slate(operand: VecPt2): PhiRectY = PhiRectY(width, cen.slate(operand))
-
-  /** Uniform scaling transformation on a PhiRectY returns a PhiRectY. */
   override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen.scale(operand))
-
-  /** Mirror, reflection transformation across the X axis on a PhiRectY, returns a PhiRectY. */
+  override def negX: PhiRectY = PhiRectY(width, cen.negX)  
   override def negY: PhiRectY = PhiRectY(width, cen.negY)
-
-  /** Mirror, reflection transformation across the X axis on a PhiRectY, returns a PhiRectY. */
-  override def negX: PhiRectY = PhiRectY(width, cen.negX)
-
   override def prolign(matrix: ProlignMatrix): PhiRectY = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
   /*override def slateTo(newCen: Pt2): PhiRectY =
@@ -153,6 +128,10 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect with PhiRectan
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 }
 
 object PhiRectY

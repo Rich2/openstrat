@@ -16,6 +16,10 @@ class DoDeclign(val arrayUnsafe: Array[Double]) extends AnyVal, Polygon6Plus
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 }
 
 object DoDeclign

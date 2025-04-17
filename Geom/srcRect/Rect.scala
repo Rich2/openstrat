@@ -13,17 +13,11 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def slateX(xOperand: Double): Rect = rectVertsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): Rect = rectVertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): Rect = rectVertsTrans(_.scale(operand))
-
-  /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-  override def negY: Rect = Rect.fromArray(unsafeNegY)
-
-  /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect.fromArray(unsafeNegX)
-
+  override def negY: Rect = Rect.fromArray(unsafeNegY)
   override def rotate90: Rect = rectVertsTrans(_.rotate90)
   override def rotate180: Rect = rectVertsTrans(_.rotate180)
   override def rotate270: Rect = rectVertsTrans(_.rotate270)
-
   override def prolign(matrix: ProlignMatrix): Rect = rectVertsTrans(_.prolign(matrix))
   override def scaleXY(xOperand: Double, yOperand: Double): Rect = rectVertsTrans(_.xyScale(xOperand, yOperand))
 
@@ -168,24 +162,13 @@ object Rect
     override def width2: Double = height
 
     override def attribs: RArr[XmlAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
-
-    /** Translate geometric transformation on a RectImp returns a RectImp. */
+    
     override def slate(xOperand: Double, yOperand: Double): RectGen = mapRectImp(_.slate(xOperand, yOperand))
-
-    /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(operand: VecPt2): RectGen = mapRectImp(_.slate(operand))
-
-    /** Uniform scaling transformation on a RectImp returns a RectImp. */
     override def scale(operand: Double): RectGen = mapRectImp(_.scale(operand))
-
-    /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-    override def negY: RectGen = RectGen.fromArray(unsafeNegY)
-
-    /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negX: RectGen = RectGen.fromArray(unsafeNegX)
-
+    override def negY: RectGen = RectGen.fromArray(unsafeNegY)
     override def prolign(matrix: ProlignMatrix): Rect = vertsTrans(_.prolign(matrix))
-
     override def scaleXY(xOperand: Double, yOperand: Double): RectGen = mapRectImp(_.xyScale(xOperand, yOperand))
 
     override def v0x: Double = arrayUnsafe(0)
@@ -198,6 +181,10 @@ object Rect
     override def sd0CenX: Double = v0x \/ vertX(1)
     override def sd0CenY: Double = v0y \/ vertY(1)
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+    override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+    override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
@@ -252,4 +239,8 @@ object NoBounds extends Rect
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 }

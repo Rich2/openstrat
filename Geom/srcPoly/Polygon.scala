@@ -63,8 +63,8 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
     acc
   }
 
-  def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  def unsafeNegX: Array[Double]
+  def unsafeNegY: Array[Double]
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   final def unsafeVert(rawIndex: Int): Pt2 = elem(rawIndex)
@@ -77,11 +77,11 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
   }
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  def vertX(index: Int): Double
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency override
    * the implementation in subclasses. */
-  def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  def vertY(index: Int): Double
 
   @inline override def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
