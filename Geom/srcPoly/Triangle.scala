@@ -8,7 +8,7 @@ trait Triangle extends Polygon3Plus
 	override def numVerts: Int = 3
 
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
-	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))
+	def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))
 
 	override def slate(operand: VecPt2): Triangle = vertsTrans(_.slate(operand))
 	override def slate(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.slate(xOperand, yOperand))
@@ -67,6 +67,7 @@ object Triangle
 		override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 		override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
 		override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+		override def sides: LineSegArr = new LineSegArr(arrayForSides)
 	}
 
 	object TriangleGen

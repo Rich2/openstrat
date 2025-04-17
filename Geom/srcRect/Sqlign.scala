@@ -50,6 +50,7 @@ final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square, Rect,
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
@@ -71,7 +72,7 @@ object Sqlign
 
   def fromArray(array: Array[Double]) = new Sqlign(array)
 
-  implicit val ShowTImplicit: Show[Sqlign] = new Show[Sqlign]
+  implicit val showEv: Show[Sqlign] = new Show[Sqlign]
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str
     override def show(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tell(way, maxPlaces, 0)

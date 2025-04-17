@@ -6,7 +6,7 @@ import pWeb.*, Colour.Black
  * particular sub sets of polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to
  * number the vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  * with then end point of side sd((n - 1) at vertex 0. */
-trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, PolygonLikeDbl2[Pt2]
+trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { type ThisT <: Polygon
   override type SideT = LineSeg
 
@@ -54,7 +54,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
 
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a new
    * transformed [[Polygon]]. */
-  def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
+  //def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val acc = build.uninitialised(numVerts)
@@ -85,7 +85,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], Pt2SeqSpec, Polyg
 
   @inline override def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
+  override def sides: LineSegArr
 
   override def sidesForeach[U](f: LineSeg => U): Unit =
   { var i = 0

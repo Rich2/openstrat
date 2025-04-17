@@ -13,7 +13,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
   override def fill(fillfacet: FillFacet): PolygonFill = PolygonFill(this, fillfacet)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
-  override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
+  def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
@@ -82,7 +82,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)  
+  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
 /** Companion object for [[PolygonGen]]. */

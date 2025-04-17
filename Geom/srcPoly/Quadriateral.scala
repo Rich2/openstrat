@@ -73,6 +73,7 @@ class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, Aff
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
 /** Companion object for [[QuadriateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */

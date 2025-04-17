@@ -185,6 +185,7 @@ object Rect
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
     override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
     override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+    override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
@@ -243,4 +244,5 @@ object NoBounds extends Rect
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }

@@ -22,7 +22,7 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def tellDepth: Int = 3
 
   /** maps the vertices of this [[HexParrX]] to a new [[HexparrX]] instance. */
-  override def vertsTrans(f: Pt2 => Pt2): HexParrX = HexParrX.fromArray(arrayElemMap(f))
+  def vertsTrans(f: Pt2 => Pt2): HexParrX = HexParrX.fromArray(arrayElemMap(f))
 
   override def slate(delta: VecPt2): HexParrX = vertsTrans(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexParrX = vertsTrans(_.slate(xOperand, yOperand))
@@ -49,6 +49,7 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
 /** Companion object for the regular hexagon aligned to the X Axis class. It has a limited set of 2D geometric transformation type class instances as

@@ -10,7 +10,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
 
-  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(arrayElemMap(f))
+  def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(arrayElemMap(f))
 
   /** The X component of the centre. */
   override def cenX: Double = v0x \/ v2x
@@ -145,6 +145,7 @@ object Rectangle
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
     override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
     override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+    override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 
   object RectangleGen
