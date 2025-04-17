@@ -43,7 +43,7 @@ object Triangle
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleGen(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
 	/** Implementation for the general case of triangle */
-	final class TriangleGen(val arrayUnsafe: Array[Double]) extends Triangle with AffinePreserve
+	final class TriangleGen(val arrayUnsafe: Array[Double]) extends Triangle, AffinePreserve, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 	{ override type ThisT = TriangleGen
 		override def fromArray(array: Array[Double]): TriangleGen = new TriangleGen(arrayUnsafe)
 

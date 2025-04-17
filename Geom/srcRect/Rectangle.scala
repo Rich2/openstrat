@@ -127,7 +127,7 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleGen(val arrayUnsafe: Array[Double]) extends Rectangle//S2S4
+  final class RectangleGen(val arrayUnsafe: Array[Double]) extends Rectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   { override type ThisT = RectangleGen
     override def fromArray(array: Array[Double]): RectangleGen = new RectangleGen(array)
     override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))

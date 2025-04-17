@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Double, Pt2]
+final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Double, Pt2], PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { override type ThisT = HexParrX
   override def fromArray(array: Array[Double]): HexParrX = new HexParrX(array)
 

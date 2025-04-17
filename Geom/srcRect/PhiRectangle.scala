@@ -34,7 +34,7 @@ object PhiRectangle
 
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = ???//PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
-  class PhiRectangleImp(val arrayUnsafe: Array[Double]) extends PhiRectangle
+  class PhiRectangleImp(val arrayUnsafe: Array[Double]) extends PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   { override type ThisT = PhiRectangleImp
     override def fromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
 
@@ -58,7 +58,7 @@ object PhiRectangle
   }
 }
 
-class PhiRect(val arrayUnsafe: Array[Double]) extends Rect with PhiRectangle
+class PhiRect(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { override type ThisT = PhiRect
   override def fromArray(array: Array[Double]): PhiRect = new PhiRect(array)
 
@@ -99,7 +99,7 @@ object PhiRect
 }
 
 /** Not sure what this class is. */
-final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect with PhiRectangle
+final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { override type ThisT = PhiRectY
   override def fromArray(array: Array[Double]): PhiRectY = new PhiRectY(array)
   override def typeStr: String = "PhiRectY"

@@ -4,7 +4,7 @@ import annotation._
 
 trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SsDblN[VT]
 { type ThisT <: LinePathDblN[VT]
-  type PolygonT <: PolygonLikeDblN[VT]
+  //type PolygonT <: PolygonLikeDblN[VT]
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
   def polygonFromArray(array: Array[Double]): PolygonT
@@ -176,7 +176,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SsDbl
 /** [[LinePathLike]] whose points are [[Dbl2Elem]]s. Includes the [[LinePath]] class. */
 trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with SsDbl2[VT]
 { type ThisT <: LinePathDbl2[VT]
-  type PolygonT <: PolygonLikeDbl2[VT]
+  //type PolygonT <: PolygonLikeDbl2[VT]
 }
 
 /**[[LinePathLike]] whose points are[[Dbl3Elem]]s. */

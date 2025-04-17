@@ -18,8 +18,8 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 
   /** Checks for 3 or more vertices */
   def ifv3: Boolean = shape.numVerts >= 3
-  def xVertsArray: Array[Double] = shape.elem1sArray
-  def yVertsArray: Array[Double] = shape.elem2sArray
+  def xVertsArray: Array[Double] = shape.xVertsArray
+  def yVertsArray: Array[Double] = shape.yVertsArray
   @inline def vertsForeach(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
   @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: BuilderMapArr[A, ArrT]): ArrT = shape.vertsMap(f)
 

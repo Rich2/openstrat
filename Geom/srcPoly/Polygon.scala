@@ -6,9 +6,14 @@ import pWeb.*, Colour.Black
  * particular sub sets of polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to
  * number the vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  * with then end point of side sd((n - 1) at vertex 0. */
-trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[Pt2], Pt2SeqSpec
+trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]//, Pt2SeqSpec
 { type ThisT <: Polygon
   override type SideT = LineSeg
+
+  def arrayUnsafe: Array[Double]
+  //def arrayLen: Int = arrayUnsafe.length
+  def xVertsArray: Array[Double]
+  def yVertsArray: Array[Double]
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   def v0x: Double
@@ -50,7 +55,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[P
   }
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  final override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)
+  override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)
 
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a new
    * transformed [[Polygon]]. */
@@ -134,22 +139,22 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[P
     maxY - minY
   }
 
-  override def slate(operand: VecPt2): Polygon = PolygonGen(arraySlate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Polygon = PolygonGen(arraySlateXY(xOperand, yOperand))
-  override def slateX(xOperand: Double): Polygon = PolygonGen(arraySlateX(xOperand))
-  override def slateY(yOperand: Double): Polygon = PolygonGen(arraySlateY(yOperand))
-  override def scale(operand: Double): Polygon = PolygonGen(arrayScale(operand))
-  override def negX: Polygon = PolygonGen(arrayNegX)
-  override def negY: Polygon = PolygonGen(arrayNegY)
-  override def prolign(matrix: ProlignMatrix): Polygon = PolygonGen(arrayProlign(matrix))
-  override def rotate90: Polygon = PolygonGen(arrayRotate90)
-  override def rotate180: Polygon = PolygonGen(arrayRotate180)
-  override def rotate270: Polygon = PolygonGen(arrayRotate270)
-  override def rotate(rotation: AngleVec): Polygon = PolygonGen(arrayRotate(rotation))
-  override def reflect(lineLike: LineLike): Polygon = PolygonGen(arrayReflect(lineLike))
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = PolygonGen(arrayScaleXY(xOperand, yOperand))
-  override def shearX(operand: Double): Polygon = PolygonGen(arrayShearX(operand))
-  override def shearY(operand: Double): Polygon = PolygonGen(arrayShearY(operand))
+  override def slate(operand: VecPt2): Polygon = ??? // PolygonGen(arraySlate(operand))
+  override def slate(xOperand: Double, yOperand: Double): Polygon = ??? // PolygonGen(arraySlateXY(xOperand, yOperand))
+  override def slateX(xOperand: Double): Polygon = ??? // PolygonGen(arraySlateX(xOperand))
+  override def slateY(yOperand: Double): Polygon = ??? // PolygonGen(arraySlateY(yOperand))
+  override def scale(operand: Double): Polygon = ??? // PolygonGen(arrayScale(operand))
+  override def negX: Polygon = ??? // PolygonGen(arrayNegX)
+  override def negY: Polygon = ??? // PolygonGen(arrayNegY)
+  override def prolign(matrix: ProlignMatrix): Polygon = ??? // PolygonGen(arrayProlign(matrix))
+  override def rotate90: Polygon = ??? // PolygonGen(arrayRotate90)
+  override def rotate180: Polygon = ??? // PolygonGen(arrayRotate180)
+  override def rotate270: Polygon = ??? // PolygonGen(arrayRotate270)
+  override def rotate(rotation: AngleVec): Polygon = ??? // PolygonGen(arrayRotate(rotation))
+  override def reflect(lineLike: LineLike): Polygon = ??? // PolygonGen(arrayReflect(lineLike))
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ??? // PolygonGen(arrayScaleXY(xOperand, yOperand))
+  override def shearX(operand: Double): Polygon = ??? // PolygonGen(arrayShearX(operand))
+  override def shearY(operand: Double): Polygon = ??? // PolygonGen(arrayShearY(operand))
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
   { var acc: A = init
@@ -243,11 +248,11 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[P
   def insVertDbls(insertionPoint: Int, newPts: Double*): Polygon =
   { val exLen = newPts.length
     ifExcep(exLen.isOdd, "Odd number of Doubles supplied for Pt2 insertion.")
-    val newArray = new Array[Double](arrayLen + exLen)
+    val newArray = new Array[Double](numVerts * 2 + exLen)
     val inp2 = (insertionPoint %% numVerts) * 2
     Array.copy(arrayUnsafe, 0, newArray, 0, inp2)
     Array.copy(newPts.toArray, 0, newArray, inp2, exLen)
-    val remLen = arrayLen - inp2
+    val remLen = numVerts * 2 - inp2
     Array.copy(arrayUnsafe, inp2, newArray, inp2 + exLen, remLen)
     Polygon.fromArray(newArray)
   }
@@ -267,7 +272,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[P
 
   /** Increase the number of vertices and [[LineSeg]]s by breaking up the [[LineSeg]]s into parts. */
   def vertsMultiply(n: Int): Polygon = if (n < 2) this else
-  { val res = Polygon.uninitialised(numVerts * n)
+  { val res = PolygonGen.uninitialised(numVerts * n)
     iUntilForeach(numVerts){ i =>
       val ls: LineSeg = vert(i).lineSegTo(vert(i + 1))
       iUntilForeach(n) { j => res.setElemUnsafe(i * n + j, ls.fractionalPoint(j.toDouble / n)) }
@@ -317,8 +322,40 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLikeDbl2[P
 }
 
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */
-object Polygon extends CompanionSlDbl2[Pt2, Polygon]
-{ override def fromArray(array: Array[Double]): Polygon = new PolygonGen(array)
+object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
+{
+  /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
+  def apply(elems: Pt2*): Polygon =
+  { val length = elems.length
+    val array = new Array[Double](length * 2)
+    var i: Int = 0
+    while (i < length)
+    {array(i * 2) = elems(i).dbl1
+      array(i * 2 + 1) = elems(i).dbl2
+      i += 1
+    }
+    new PolygonGen(array)
+  }
+
+
+  /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is incorrect. */
+  def dbls(inp: Double*): Polygon =
+  { val arrLen: Int = inp.length
+    if (arrLen %% 2 != 0) excep(
+      s"$arrLen Double values is not a correct number for the creation of this objects defining sequence, must be a multiple of 2")
+
+    val array = new Array[Double](inp.length)
+    var i: Int = 0
+
+    while (i < arrLen) {
+      val newEl = inp(i)
+      array(i) = newEl
+      i += 1
+    }
+    new PolygonGen(array)
+  }
+
+  def fromArray(array: Array[Double]): Polygon = new PolygonGen(array)
 
   /** Implicit [[EqT]] type class instance / evidence for [[Polygon]]. */
   implicit val eqTEv: EqT[Polygon] = (p1, p2) => p1.arrayUnsafe.sameElements(p2.arrayUnsafe)

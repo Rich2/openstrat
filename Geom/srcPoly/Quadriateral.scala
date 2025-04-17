@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A 4 sided [[Polygon]]. */
-trait Quadrilateral extends Polygon4Plus
+trait Quadrilateral extends Polygon4Plus, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { type ThisT <: Quadrilateral
   final override def numVerts: Int = 4
 

@@ -145,7 +145,7 @@ object Rect
   }
 
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final class RectGen(val arrayUnsafe: Array[Double]) extends Rect
+  final class RectGen(val arrayUnsafe: Array[Double]) extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   { type ThisT = RectGen
 
     override def fromArray(array: Array[Double]): RectGen = new RectGen(array)
@@ -219,7 +219,7 @@ object Rect
   }
 }
 
-object NoBounds extends Rect
+object NoBounds extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { override type ThisT = Rect
   override def width: Double = -1
   override def height: Double = -1
