@@ -139,22 +139,22 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]/
     maxY - minY
   }
 
-  override def slate(operand: VecPt2): Polygon = ??? // PolygonGen(arraySlate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Polygon = ??? // PolygonGen(arraySlateXY(xOperand, yOperand))
-  override def slateX(xOperand: Double): Polygon = ??? // PolygonGen(arraySlateX(xOperand))
-  override def slateY(yOperand: Double): Polygon = ??? // PolygonGen(arraySlateY(yOperand))
-  override def scale(operand: Double): Polygon = ??? // PolygonGen(arrayScale(operand))
-  override def negX: Polygon = ??? // PolygonGen(arrayNegX)
-  override def negY: Polygon = ??? // PolygonGen(arrayNegY)
-  override def prolign(matrix: ProlignMatrix): Polygon = ??? // PolygonGen(arrayProlign(matrix))
-  override def rotate90: Polygon = ??? // PolygonGen(arrayRotate90)
-  override def rotate180: Polygon = ??? // PolygonGen(arrayRotate180)
-  override def rotate270: Polygon = ??? // PolygonGen(arrayRotate270)
-  override def rotate(rotation: AngleVec): Polygon = ??? // PolygonGen(arrayRotate(rotation))
-  override def reflect(lineLike: LineLike): Polygon = ??? // PolygonGen(arrayReflect(lineLike))
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ??? // PolygonGen(arrayScaleXY(xOperand, yOperand))
-  override def shearX(operand: Double): Polygon = ??? // PolygonGen(arrayShearX(operand))
-  override def shearY(operand: Double): Polygon = ??? // PolygonGen(arrayShearY(operand))
+  override def slate(operand: VecPt2): Polygon = map(_.slate(operand))
+  override def slate(xOperand: Double, yOperand: Double): Polygon = map(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): Polygon = map(_.slateX(xOperand))
+  override def slateY(yOperand: Double): Polygon = map(_.slateY(yOperand))
+  override def scale(operand: Double): Polygon = map(_.scale(operand))
+  override def negX: Polygon = map(_.negX)
+  override def negY: Polygon = map(_.negY)
+  override def prolign(matrix: ProlignMatrix): Polygon = map(_.prolign(matrix))
+  override def rotate90: Polygon = map(_.rotate90)
+  override def rotate180: Polygon = map(_.rotate180)
+  override def rotate270: Polygon = map(_.rotate270)
+  override def rotate(rotation: AngleVec): Polygon = map(_.rotate(rotation))
+  override def reflect(lineLike: LineLike): Polygon = map(_.reflect(lineLike))
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = map(_.scaleXY(xOperand, yOperand))
+  override def shearX(operand: Double): Polygon = map(_.shearX(operand))
+  override def shearY(operand: Double): Polygon = map(_.shearY(operand))
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
   { var acc: A = init

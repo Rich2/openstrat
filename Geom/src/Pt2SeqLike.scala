@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SlImutDbl2[Pt2]
+trait Pt2SeqLike extends Any, PointDbl2SeqLike[Pt2], SlImutDbl2[Pt2]
 {
   def arrTrans(f: Pt2 => Pt2): Array[Double] =
   { val newArray = new Array[Double](arrayUnsafe.length)
@@ -44,7 +44,7 @@ trait Pt2SeqSpec extends Any, Pt2SeqLike, SsDbl2[Pt2]
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from [[Polygon]]
  * class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2Arr(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2SeqLike with ArrDbl2[Pt2]
+final class Pt2Arr(val arrayUnsafe: Array[Double]) extends AffinePreserve, Pt2SeqLike, ArrDbl2[Pt2]
 { type ThisT = Pt2Arr
   def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
   override def typeStr: String = "Pt2s"
