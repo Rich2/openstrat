@@ -3,23 +3,21 @@ package ostrat; package geom
 import pWeb.*, ostrat.Colour.Black
 
 /** A Rectangle aligned to the X and Y axes. */
-trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled, SsDbl2[Pt2]
+trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
 
-  //override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
-  def rectVertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))
-  override def slate(operand: VecPt2): Rect = rectVertsTrans(_.slate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Rect = rectVertsTrans(_.slate(xOperand, yOperand))
-  override def slateX(xOperand: Double): Rect = rectVertsTrans(_.slateX(xOperand))
-  override def slateY(yOperand: Double): Rect = rectVertsTrans(_.slateY(yOperand))
-  override def scale(operand: Double): Rect = rectVertsTrans(_.scale(operand))
-  override def negX: Rect = Rect.fromArray(unsafeNegX)
-  override def negY: Rect = Rect.fromArray(unsafeNegY)
-  override def rotate90: Rect = rectVertsTrans(_.rotate90)
-  override def rotate180: Rect = rectVertsTrans(_.rotate180)
-  override def rotate270: Rect = rectVertsTrans(_.rotate270)
-  override def prolign(matrix: ProlignMatrix): Rect = rectVertsTrans(_.prolign(matrix))
-  override def scaleXY(xOperand: Double, yOperand: Double): Rect = rectVertsTrans(_.xyScale(xOperand, yOperand))
+  override def slate(operand: VecPt2): Rect = Rect(width, height, cen.slate(operand))
+  override def slate(xOperand: Double, yOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY + yOperand)
+  override def slateX(xOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY)
+  override def slateY(yOperand: Double): Rect = Rect(width, height, cenX, cenY + yOperand)
+  override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cenX * operand, cenY * operand)
+  override def negX: Rect = Rect(width, height, -cenX, cenY)
+  override def negY: Rect = Rect(width, height, cenX, -cenY)
+  override def rotate90: Rect = Rect(height, width, cen.rotate90)
+  override def rotate180: Rect = Rect(width, height, -cenX, -cenY)
+  override def rotate270: Rect = Rect(height, width, cen.rotate270)
+  override def prolign(matrix: ProlignMatrix): Rect = Rect(width, height, cen.prolign(matrix))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect(width * xOperand, height * yOperand, cenX * xOperand, cenY * yOperand)
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, RArr(), active(id) %: children)
   final override def boundingRect: Rect = this
@@ -145,7 +143,7 @@ object Rect
   }
 
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final class RectGen(val arrayUnsafe: Array[Double]) extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+  final class RectGen(val arrayUnsafe: Array[Double]) extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec, SsDbl2[Pt2]
   { type ThisT = RectGen
 
     override def fromArray(array: Array[Double]): RectGen = new RectGen(array)
@@ -219,11 +217,10 @@ object Rect
   }
 }
 
-object NoBounds extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+object NoBounds extends Rect, PolygonLike[Pt2]
 { override type ThisT = Rect
   override def width: Double = -1
   override def height: Double = -1
-  override def fromArray(array: Array[Double]): Rect = new Rect.RectGen(array)
 
   override val arrayUnsafe: Array[Double] =
   { import Double.{MaxValue => v }
@@ -245,7 +242,11 @@ object NoBounds extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
+  override def unsafeNegX: Array[Double] = Array()
+  override def unsafeNegY: Array[Double] = Array()
+  override def xVertsArray: Array[Double] = Array()
+  override def yVertsArray: Array[Double] = Array()
+  override def elem(index: Int): Pt2 = ???
+  override def numElems: Int = 0
+  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 }

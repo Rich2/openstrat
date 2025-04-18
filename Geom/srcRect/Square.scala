@@ -30,12 +30,12 @@ trait Square extends Rectangle, SsDbl2[Pt2]
   override def rotate(rotation: AngleVec): Square = squareVertsTrans(_.rotate(rotation))
 }
 
-/** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
+/** Companion object for the Square trait. However its apply methods delegate to the [[SquareGen]] implementation class. */
 object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
 
-  def fromArray(array: Array[Double]) = new SquareImp(array)
+  def fromArray(array: Array[Double]) = new SquareGen(array)
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
@@ -49,7 +49,7 @@ object Square extends ShapeIcon
     val p2 = cen + rtVec - upVec
     val p3 = cen - rtVec - upVec
     val array: Array[Double] = Array[Double](p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
-    new SquareImp(array)
+    new SquareGen(array)
   }
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
@@ -68,10 +68,10 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and rotated while
    * remaining a Square. */
-  final class SquareImp(val arrayUnsafe: Array[Double]) extends Square, PolygonLikeDbl2[Pt2], Pt2SeqSpec
-  { override type ThisT = SquareImp
+  final class SquareGen(val arrayUnsafe: Array[Double]) extends Square, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+  { override type ThisT = SquareGen
 
-    override def fromArray(array: Array[Double]): SquareImp = new SquareImp(array)
+    override def fromArray(array: Array[Double]): SquareGen = new SquareGen(array)
 
     override def vertsTrans(f: Pt2 => Pt2) = fromArray(arrayElemMap(f))
     @inline override def width: Double = width1

@@ -28,6 +28,8 @@ trait Quadrilateral extends Polygon4Plus
   override def rotate(rotation: AngleVec): Quadrilateral = vertsTrans(_.rotate(rotation))
   override def reflect(lineLike: LineLike): Quadrilateral = vertsTrans(_.reflect(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.scaleXY(xOperand, yOperand))
+
+  override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
 }
 
 object Quadrilateral
