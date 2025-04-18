@@ -69,6 +69,9 @@ trait Polygon4Plus extends Any with Polygon3Plus with SsDbl2[Pt2]
   /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 1 immediately clockwise from 12 o'clock. */
   final def v3: Pt2 = Pt2(v3x, v3y)
 
+  /** Polygon side 3 from vertex 2 to vertex 3. */
+  final def side3: LineSeg = LineSeg(v3, vert(4))
+
   /** The X component of the centre or halfway point of side 3 of this polygon. */
   final def sd3CenX: Double = v2x \/ v3x
 

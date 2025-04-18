@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb.*, ostrat.Colour.Black
 
 /** A Rectangle aligned to the X and Y axes. */
-trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
+trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
 
   //override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(arrayElemMap(f))

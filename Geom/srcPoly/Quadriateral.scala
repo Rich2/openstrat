@@ -2,9 +2,9 @@
 package ostrat; package geom
 
 /** A 4 sided [[Polygon]]. */
-trait Quadrilateral extends Polygon4Plus, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+trait Quadrilateral extends Polygon4Plus//, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { type ThisT <: Quadrilateral
-  final override def numVerts: Int = 4
+  override def numVerts: Int = 4
 
   def diag1: LineSeg = LineSeg(v2, v0)
 
@@ -12,20 +12,22 @@ trait Quadrilateral extends Polygon4Plus, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 
   @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
 
-  override def slate(operand: VecPt2): Quadrilateral = QuadriateralGen(arraySlate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Quadrilateral = QuadriateralGen(arraySlateXY(xOperand, yOperand))
-  override def slateX(xOperand: Double): Quadrilateral = QuadriateralGen(arraySlateX(xOperand))
-  override def slateY(yOperand: Double): Quadrilateral = QuadriateralGen(arraySlateY(yOperand))
-  override def scale(offset: Double): Quadrilateral = QuadriateralGen(arrayScale(offset))
-  override def negX: Quadrilateral = QuadriateralGen(arrayNegX)
-  override def negY: Quadrilateral = QuadriateralGen(arrayNegY)
-  override def prolign(matrix: ProlignMatrix): Quadrilateral = QuadriateralGen(arrayProlign(matrix))
-  override def rotate90: Quadrilateral = QuadriateralGen(arrayRotate90)
-  override def rotate180: Quadrilateral = QuadriateralGen(arrayRotate90)
-  override def rotate270: Quadrilateral = QuadriateralGen(arrayRotate90)
-  override def rotate(rotation: AngleVec): Quadrilateral = QuadriateralGen(arrayRotate(rotation))
-  override def reflect(lineLike: LineLike): Quadrilateral = QuadriateralGen(arrayReflect(lineLike))
-  override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = QuadriateralGen(arrayScaleXY(xOperand, yOperand))
+  def vertsTrans(f: Pt2 => Pt2): Quadrilateral = Quadrilateral(f(v0), f(v1), f(v2), f(v3))
+
+  override def slate(operand: VecPt2): Quadrilateral = vertsTrans(_.slate(operand))
+  override def slate(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): Quadrilateral = vertsTrans(_.slateX(xOperand))
+  override def slateY(yOperand: Double): Quadrilateral = vertsTrans(_.slateY(yOperand))
+  override def scale(offset: Double): Quadrilateral = vertsTrans(_.scale(offset))
+  override def negX: Quadrilateral = vertsTrans(_.negX)
+  override def negY: Quadrilateral = vertsTrans(_.negY)
+  override def prolign(matrix: ProlignMatrix): Quadrilateral = vertsTrans(_.prolign(matrix))
+  override def rotate90: Quadrilateral = vertsTrans(_.rotate90)
+  override def rotate180: Quadrilateral = vertsTrans(_.rotate90)
+  override def rotate270: Quadrilateral = vertsTrans(_.rotate90)
+  override def rotate(rotation: AngleVec): Quadrilateral = vertsTrans(_.rotate(rotation))
+  override def reflect(lineLike: LineLike): Quadrilateral = vertsTrans(_.reflect(lineLike))
+  override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.scaleXY(xOperand, yOperand))
 }
 
 object Quadrilateral
@@ -47,7 +49,7 @@ object Quadrilateral
 }
 
 /** The general case of a quadrilateral */
-class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve
+class QuadriateralGen(val arrayUnsafe: Array[Double]) extends Quadrilateral, AffinePreserve, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 { type ThisT = QuadriateralGen
   override def typeStr: String = "QuadrilateralGen"
 

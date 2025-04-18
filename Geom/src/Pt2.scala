@@ -249,7 +249,7 @@ object Pt2
   { def * (operand: Metres): PtM2 = PtM2.apply(thisPt.x * operand.metresNum, thisPt.y * operand.metresNum)
   }
 
-  /** Returns point on a circle of radius 1 from the angle in radians. Gives an anti clockwise effect. */
+  /** Returns point on a circle of radius 1 from the angle in radians. Gives an anti-clockwise effect. */
   def circlePt(radiansNum: Double): Pt2 = Pt2(cos(radiansNum), sin(radiansNum))
 
   /** Returns point on a circle of radius 1 from the negative of the angle in radians. Gives a clockwise effect. */

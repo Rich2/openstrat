@@ -2,7 +2,8 @@
 package ostrat; package geom
 
 /** A square aligned to the X and Y axes. As this is a [[Polygon]] it is implemented using an [[Array]]. */
-final class Sqlign private(val width: Double, override val cenX: Double, override val cenY: Double, val rtNum: Int, val clockwise: Boolean) extends Square, Rect, Tell2[Double, Pt2]//, PolygonLike[Pt2], Pt2SeqSpec
+final class Sqlign private(val width: Double, override val cenX: Double, override val cenY: Double, val rtNum: Int, val clockwise: Boolean) extends Square,
+  Rect, Tell2[Double, Pt2], PolygonLike[Pt2], Pt2SeqSpec
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
 
@@ -68,7 +69,7 @@ final class Sqlign private(val width: Double, override val cenX: Double, overrid
 
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
+  override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
 
   override def arrayUnsafe: Array[Double] = rtNum match
   { case 0 if clockwise => Array[Double](right, top, right, bottom, left, bottom, left, top)
