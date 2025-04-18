@@ -10,7 +10,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
 
-  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(arrayElemMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle(f(v0), f(v1), f(v2), f(v3))
   
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double = v3.distTo(v0)
@@ -62,6 +62,9 @@ object Rectangle
     val upVec = (rotation + 90.degsVec).toVec(height / 2)
     vecsCen(rtVec, upVec, cen)
   }
+
+  /** Factory apply method to create [[Quadrilateral]] from its 4 vertices. */
+  def apply(vt0: Pt2, vt1: Pt2, vt2: Pt2, vt3: Pt2): Rectangle = new RectangleGen(Array(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y, vt3.x, vt3.y))
 
   /** Creates a [[Rectangle]] from axis 1. The default for axis 1 is the left right axis. */
   def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle =

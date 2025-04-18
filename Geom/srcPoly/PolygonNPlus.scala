@@ -55,7 +55,7 @@ trait Polygon3Plus extends Any with Polygon
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
-trait Polygon4Plus extends Any with Polygon3Plus with SsDbl2[Pt2]
+trait Polygon4Plus extends Any, Polygon3Plus
 { type ThisT <: Polygon4Plus
 
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with vertex 1 immediately clockwise from
