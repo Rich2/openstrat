@@ -230,6 +230,9 @@ object NoBounds extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec
     Array[Double](-v, -v, -v, v, v, v, v, -v)
   }
 
+  override def cenX: Double = v0x \/ v2x
+  override def cenY: Double = v0y \/ v2y
+
   override def v0x: Double = arrayUnsafe(0)
   override def v0y: Double = arrayUnsafe(1)
   override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))

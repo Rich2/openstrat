@@ -2,8 +2,8 @@
 package ostrat; package geom
 
 /** A square aligned to the X and Y axes. As this is a [[Polygon]] it is implemented using an [[Array]]. */
-final class Sqlign private(val width: Double, override val cenX: Double, override val cenY: Double, val rtNum: Int, val clockwise: Boolean) extends Square,
-  Rect, Tell2[Double, Pt2], PolygonLike[Pt2], Pt2SeqSpec
+final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val rtNum: Int, val clockwise: Boolean) extends Square, Rect,
+  Tell2[Double, Pt2]
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
 
@@ -35,15 +35,28 @@ final class Sqlign private(val width: Double, override val cenX: Double, overrid
   /** Adds a margin to this [[Sqlign]], square aligned with the XY axes, moving the sides out by the given parameter. */
   override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY)
 
-  override def v0x: Double = rtNum match {
-    case 0 => right
+  override def xVertsArray: Array[Double] = Array[Double](v0x, v1x, v2x, v3x)
+  override def yVertsArray: Array[Double] = Array[Double](v0y, v1y, v2y, v3y)
+
+  override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
+
+  override def v0x: Double = rtNum match
+  { case 0 => right
     case 1 if clockwise => right
     case 1 => left
     case 2 => left
     case 3 if clockwise => left
     case _ => right
   }
-  override def v0y: Double = arrayUnsafe(1)
+
+  override def v0y: Double =  rtNum match
+  { case 0 => top
+    case 1 if clockwise => bottom
+    case 1 => top
+    case 2 => bottom
+    case 3 if clockwise => top
+    case _ => bottom
+  }
 
   override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
 

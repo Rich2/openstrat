@@ -83,6 +83,9 @@ object Square extends ShapeIcon
 
     override def toString: String = s"SquareClass($v0x, $v0y; $v1x, $v1y)"
 
+    override def cenX: Double = v0x \/ v2x
+    override def cenY: Double = v0y \/ v2y
+
     override def v0x: Double = arrayUnsafe(0)
     override def v0y: Double = arrayUnsafe(1)
     override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))

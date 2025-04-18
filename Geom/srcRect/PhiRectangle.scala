@@ -40,6 +40,9 @@ object PhiRectangle
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
 
+    override def cenX: Double = v0x \/ v2x
+    override def cenY: Double = v0y \/ v2y
+
     override def v0x: Double = arrayUnsafe(0)
     override def v0y: Double = arrayUnsafe(1)
     override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
@@ -67,6 +70,9 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, Polygo
   def height: Double = ???
   override def width: Double = width1
   override def width2: Double = height
+
+  override def cenX: Double = v0x \/ v2x
+  override def cenY: Double = v0y \/ v2y
 
   override def slate(xOperand: Double, yOperand: Double): PhiRect = PhiRect(height, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRect = PhiRect(height, cen.slate(operand))
@@ -108,6 +114,10 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle,
 
   override def height: Double = width1
   override def width2: Double = width
+
+  override def cenX: Double = v0x \/ v2x
+  override def cenY: Double = v0y \/ v2y
+
   override def slate(xOperand: Double, yOperand: Double): PhiRectY = PhiRectY(width, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRectY = PhiRectY(width, cen.slate(operand))
   override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen.scale(operand))
