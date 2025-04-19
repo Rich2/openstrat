@@ -3,9 +3,13 @@ package ostrat; package geom
 import pWeb.*, ostrat.Colour.Black
 
 /** A Rectangle aligned to the X and Y axes. It has a leftTop, leftBottom, rightBottom and right Top vertices. The convention is for these to align with
- * vertices 0, 1, 2, 3. However this can be changed by rotations and reflections.  */
+ * vertices 0, 1, 2, 3. However, this can be changed by rotations and reflections.  */
 trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
+
+  def vertOrder: Int
+
+
 
   override def slate(operand: VecPt2): Rect = Rect(width, height, cen.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY + yOperand)
@@ -64,6 +68,37 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
     val y = (bottom * j + top * (ny + 1 - j)) / (ny + 1)
     Pt2(x, y)
   }
+
+  final override def v0x: Double = vertOrder match
+  { case 0 | 1 | -3 | -4 => right
+    case _ => left
+  }
+
+  final override def v0y: Double = vertOrder match
+  { case 0 | 3 | -1 | -4 => top
+    case _ => bottom
+  }
+
+  final override def v0: Pt2 = Pt2(v0x, v0y)
+
+  final override def vLastX: Double = arrayUnsafe(numVerts - 2)
+  final override def vLastY: Double = arrayUnsafe(numVerts - 1)
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  final override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
+
+  override def arrayUnsafe: Array[Double] = vertOrder match
+  { case 0 => Array[Double](right, top, right, bottom, left, bottom, left, top)
+    case -4 => Array[Double](right, top, left, top, left, bottom, right, bottom)
+    case 1 => Array[Double](right, bottom, left, bottom, left, top, right, top)
+    case -1 => Array[Double](right, bottom, right, top, left, top, left, bottom)
+    case 2 => Array[Double](left, bottom, left, top, right, top, right, bottom)
+    case -2 => Array[Double](left, bottom, right, bottom, right, top, left, top)
+    case 3 => Array[Double](left, top, right, top, right, bottom, left, bottom)
+    case _ => Array[Double](left, top, left, bottom, right, bottom, right, top)
+  }
+
+  override def xVertsArray: Array[Double] = Array[Double](v0x, v1x, v2x, v3x)
+  override def yVertsArray: Array[Double] = Array[Double](v0y, v1y, v2y, v3y)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectGen]] class. */
@@ -82,7 +117,7 @@ object Rect
   }
 
   /** Creates a [[Rect]] from an Array[Double] */
-  def fromArray(array: Array[Double]): Rect = new RectGen(array)
+  def fromArray(array: Array[Double]): Rect = ??? // new RectGen(array)
 
   /** Construct a [[Rect]] from the left, right, bottom and top values." */
   def lrbt(left: Double, right: Double, bottom: Double, top: Double): Rect = Rect(right -left, top - bottom, (left + right) / 2, (bottom + top) / 2)
@@ -144,37 +179,43 @@ object Rect
   }
 
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final class RectGen(val arrayUnsafe: Array[Double]) extends Rect, PolygonLikeDbl2[Pt2], Pt2SeqSpec, SsDbl2[Pt2]
+  final class RectGen private(val width: Double, val height: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends Rect, PolygonLike[Pt2]
   { type ThisT = RectGen
-
-    override def fromArray(array: Array[Double]): RectGen = new RectGen(array)
-
     override def typeStr: String = "Rect"
-    def mapRectImp(f: Pt2 => Pt2): RectGen = RectGen.fromArray(arrayElemMap(f))
 
-    def width: Double = (v0x - v3x).abs
-    def height: Double = (v0y - v1y).abs
-    override def cenX: Double = v0x \/ v2x
-    override def cenY: Double = v0y \/ v2y
-    override def vertsTrans(f: Pt2 => Pt2): RectGen = mapRectImp(f)
+    /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
+    override def elem(index: Int): Pt2 = index match
+    { case 0 => v0
+      case 1 => v1
+      case 2 => v2
+      case _ => v3
+    }
+
+    /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
+     * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
+    override def numElems: Int = ???
+
+    /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+     * methods. */
+    override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
+
+//    override def vertsTrans(f: Pt2 => Pt2): RectGen = ??? // mapRectImp(f)
     override def width1: Double = width
     override def width2: Double = height
 
     override def attribs: RArr[XmlAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
-    
-    override def slate(xOperand: Double, yOperand: Double): RectGen = mapRectImp(_.slate(xOperand, yOperand))
-    override def slate(operand: VecPt2): RectGen = mapRectImp(_.slate(operand))
-    override def scale(operand: Double): RectGen = mapRectImp(_.scale(operand))
-    override def negX: RectGen = RectGen.fromArray(unsafeNegX)
-    override def negY: RectGen = RectGen.fromArray(unsafeNegY)
-    override def prolign(matrix: ProlignMatrix): Rect = vertsTrans(_.prolign(matrix))
-    override def scaleXY(xOperand: Double, yOperand: Double): RectGen = mapRectImp(_.xyScale(xOperand, yOperand))
 
-    override def v0x: Double = arrayUnsafe(0)
-    override def v0y: Double = arrayUnsafe(1)
-    override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
-    override def vLastX: Double = arrayUnsafe(numVerts - 2)
-    override def vLastY: Double = arrayUnsafe(numVerts - 1)
+    override def slate(operand: VecPt2): RectGen = new RectGen(width, height, cenX + operand.x, cenY + operand.y, vertOrder)
+    override def slate(xOperand: Double, yOperand: Double): RectGen = new RectGen(width, height, cenX + xOperand, cenY + yOperand, vertOrder)
+
+    override def scale(operand: Double): RectGen = new RectGen(width * operand, height * operand, cenX * operand, cenY * operand, vertOrder)
+    override def negX: RectGen = new RectGen(width, height, -cenX, cenY, 0)
+    override def negY: RectGen = new RectGen(width, height, cenX, -cenY, 0)
+    override def prolign(matrix: ProlignMatrix): Rect = ??? // vertsTrans(_.prolign(matrix))
+
+    override def scaleXY(xOperand: Double, yOperand: Double): RectGen =
+      new RectGen(width * xOperand, height * yOperand, cenX * xOperand, cenY * yOperand, vertOrder)
+
     override def vLast: Pt2 = Pt2(vLastX, vLastY)
     override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
     override def sd0CenX: Double = v0x \/ vertX(1)
@@ -182,16 +223,15 @@ object Rect
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
-    override def sides: LineSegArr = new LineSegArr(arrayForSides)
+    override def unsafeNegX: Array[Double] = ??? // arrayD1Map(d => -d)
+    override def unsafeNegY: Array[Double] = ??? // arrayD2Map(d => -d)
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
   object RectGen
   { /** Factory method for Rect.RectImp class. */
-    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectGen =
-    { val w: Double = width / 2
+    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectGen = new RectGen(width, height, cen.x, cen.y, 0)
+    /*{ val w: Double = width / 2
       val h: Double = height / 2
       val array: Array[Double] = Array[Double](
         cen.x + w, cen.y + h,
@@ -200,10 +240,10 @@ object Rect
         cen.x - w, cen.y + h
       )
       new RectGen(array)
-    }
+    }*/
 
-    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectGen =
-    { val w: Double = width / 2
+    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectGen = new RectGen(width, height, cenX, cenY, 0)
+    /*{ val w: Double = width / 2
       val h: Double = height / 2
       val array: Array[Double] = Array[Double](
         cenX + w, cenY + h,
@@ -212,9 +252,9 @@ object Rect
         cenX - w, cenY + h,
       )
       new RectGen(array)
-    }
+    }*/
 
-    def fromArray(array: Array[Double]): RectGen = new RectGen(array)
+    //def fromArray(array: Array[Double]): RectGen = new RectGen(array)
   }
 }
 
@@ -223,20 +263,18 @@ object NoBounds extends Rect, PolygonLike[Pt2]
   override def width: Double = -1
   override def height: Double = -1
 
-  override val arrayUnsafe: Array[Double] =
-  { import Double.{MaxValue => v }
-    Array[Double](-v, -v, -v, v, v, v, v, -v)
-  }
 
   override def cenX: Double = v0x \/ v2x
   override def cenY: Double = v0y \/ v2y
 
-  override def v0x: Double = arrayUnsafe(0)
-  override def v0y: Double = arrayUnsafe(1)
-  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
+//  override def v0x: Double = arrayUnsafe(0)
+//  override def v0y: Double = arrayUnsafe(1)
+//  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+//  override def vLastX: Double = arrayUnsafe(numVerts - 2)
+//  override def vLastY: Double = arrayUnsafe(numVerts - 1)
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
+
+  override def vertOrder: Int = 0
   override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
@@ -245,8 +283,6 @@ object NoBounds extends Rect, PolygonLike[Pt2]
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = Array()
   override def unsafeNegY: Array[Double] = Array()
-  override def xVertsArray: Array[Double] = Array()
-  override def yVertsArray: Array[Double] = Array()
   override def elem(index: Int): Pt2 = ???
   override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???

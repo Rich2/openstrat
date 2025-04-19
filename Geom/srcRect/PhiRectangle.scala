@@ -61,14 +61,20 @@ object PhiRectangle
   }
 }
 
-class PhiRect(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+class PhiRect(val width: Double) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2]//, Pt2SeqSpec
 { override type ThisT = PhiRect
-  override def fromArray(array: Array[Double]): PhiRect = new PhiRect(array)
+  override def fromArray(array: Array[Double]): PhiRect = ??? // new PhiRect(array)
 
   override def typeStr: String = "PhiRect"
 
   def height: Double = ???
-  override def width: Double = width1
+
+  override def vertOrder: Int = ???
+
+  /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
+  override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
+
+  //override def width: Double = width1
   override def width2: Double = height
 
   override def cenX: Double = v0x \/ v2x
@@ -81,11 +87,6 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, Polygo
   override def negY: PhiRect = PhiRect(height, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def v0x: Double = arrayUnsafe(0)
-  override def v0y: Double = arrayUnsafe(1)
-  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
@@ -95,7 +96,6 @@ class PhiRect(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, Polygo
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
 object PhiRect
@@ -105,15 +105,20 @@ object PhiRect
 }
 
 /** Not sure what this class is. */
-final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+final class PhiRectY(val width: Double) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2]//, Pt2SeqSpec
 { override type ThisT = PhiRectY
-  override def fromArray(array: Array[Double]): PhiRectY = new PhiRectY(array)
+  override def fromArray(array: Array[Double]): PhiRectY = ??? // new PhiRectY(array)
   override def typeStr: String = "PhiRectY"
 
-  def width: Double = ???
+  //def width: Double = ???
 
   override def height: Double = width1
   override def width2: Double = width
+
+  override def vertOrder: Int = ???
+
+  /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
+  override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
 
   override def cenX: Double = v0x \/ v2x
   override def cenY: Double = v0y \/ v2y
@@ -130,11 +135,6 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle,
     slate(v.x, v.y)
   }*/
 
-  override def v0x: Double = arrayUnsafe(0)
-  override def v0y: Double = arrayUnsafe(1)
-  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
@@ -144,7 +144,7 @@ final class PhiRectY(val arrayUnsafe: Array[Double]) extends Rect, PhiRectangle,
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
+
 }
 
 object PhiRectY

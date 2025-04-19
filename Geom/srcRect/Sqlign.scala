@@ -4,8 +4,7 @@ package ostrat; package geom
 /** A square aligned to the X and Y axes. So these squares can be defined by their widths and their centre points. However, the postion of the vertices 0, 1, 2
  * and 3 are not fixed. they can be changed by rotations and reflections. The clockwise, anticlockwise ordering of the vertices can be changed by reflections.
  * The convention is for vertex 0 to be left top but this can change. */
-final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val rtPattern: Int) extends Square, Rect,
-  Tell2[Double, Pt2]
+final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends Square, Rect, Tell2[Double, Pt2]
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
 
@@ -37,28 +36,7 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
   /** Adds a margin to this [[Sqlign]], square aligned with the XY axes, moving the sides out by the given parameter. */
   override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY)
 
-  override def xVertsArray: Array[Double] = Array[Double](v0x, v1x, v2x, v3x)
-  override def yVertsArray: Array[Double] = Array[Double](v0y, v1y, v2y, v3y)
-
   override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
-
-  override def v0x: Double = rtPattern match
-  { case 0 | 1 | - 3 | -4 => right
-    case _  => left   
-  }
-
-  override def v0y: Double =  rtPattern match
-  { case 0 | 3 | -1 | -4 => top    
-    case _ => bottom
-  }
-
-  override def v0: Pt2 = Pt2(v0x, v0y)
-
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
-
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
 
   override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
 
@@ -73,21 +51,7 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-
   override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
-
-  override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
-
-  override def arrayUnsafe: Array[Double] = rtPattern match
-  { case 0 => Array[Double](right, top, right, bottom, left, bottom, left, top)
-    case -4 => Array[Double](right, top, left, top, left, bottom, right, bottom)
-    case 1 => Array[Double](right, bottom, left, bottom, left, top, right, top)
-    case -1 => Array[Double](right, bottom, right, top, left, top, left, bottom)
-    case 2 => Array[Double](left, bottom, left, top, right, top, right, bottom)
-    case -2 => Array[Double](left, bottom, right, bottom, right, top, left, top)
-    case 3 => Array[Double](left, top, right, top, right, bottom, left, bottom)
-    case _ => Array[Double](left, top, left, bottom, right, bottom, right, top)
-  }
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
