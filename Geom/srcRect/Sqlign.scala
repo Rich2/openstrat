@@ -4,7 +4,7 @@ package ostrat; package geom
 /** A square aligned to the X and Y axes. So these squares can be defined by their widths and their centre points. However, the postion of the vertices 0, 1, 2
  * and 3 are not fixed. they can be changed by rotations and reflections. The clockwise, anticlockwise ordering of the vertices can be changed by reflections.
  * The convention is for vertex 0 to be left top but this can change. */
-final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val rtNum: Int, val clockwise: Boolean) extends Square, Rect,
+final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val rtPattern: Int) extends Square, Rect,
   Tell2[Double, Pt2]
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
@@ -42,25 +42,17 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
 
   override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
 
-  override def v0x: Double = rtNum match
-  { case 0 => right
-    case 1 if clockwise => right
-    case 1 => left
-    case 2 => left
-    case 3 if clockwise => left
-    case _ => right
+  override def v0x: Double = rtPattern match
+  { case 0 | 1 | - 3 | -4 => right
+    case _  => left   
   }
 
-  override def v0y: Double =  rtNum match
-  { case 0 => top
-    case 1 if clockwise => bottom
-    case 1 => top
-    case 2 => bottom
-    case 3 if clockwise => top
+  override def v0y: Double =  rtPattern match
+  { case 0 | 3 | -1 | -4 => top    
     case _ => bottom
   }
 
-  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+  override def v0: Pt2 = Pt2(v0x, v0y)
 
   override def vLastX: Double = arrayUnsafe(numVerts - 2)
 
@@ -86,14 +78,14 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
 
   override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
 
-  override def arrayUnsafe: Array[Double] = rtNum match
-  { case 0 if clockwise => Array[Double](right, top, right, bottom, left, bottom, left, top)
-    case 0 => Array[Double](right, top, left, top, left, bottom, right, bottom)
-    case 1 if clockwise => Array[Double](right, bottom, left, bottom, left, top, right, top)
-    case 1 => Array[Double](right, bottom, right, top, left, top, left, bottom)
-    case 2 if clockwise => Array[Double](left, bottom, left, top, right, top, right, bottom)
-    case 2 => Array[Double](left, bottom, right, bottom, right, top, left, top)
-    case 3 if clockwise => Array[Double](left, top, right, top, right, bottom, left, bottom)
+  override def arrayUnsafe: Array[Double] = rtPattern match
+  { case 0 => Array[Double](right, top, right, bottom, left, bottom, left, top)
+    case -4 => Array[Double](right, top, left, top, left, bottom, right, bottom)
+    case 1 => Array[Double](right, bottom, left, bottom, left, top, right, top)
+    case -1 => Array[Double](right, bottom, right, top, left, top, left, bottom)
+    case 2 => Array[Double](left, bottom, left, top, right, top, right, bottom)
+    case -2 => Array[Double](left, bottom, right, bottom, right, top, left, top)
+    case 3 => Array[Double](left, top, right, top, right, bottom, left, bottom)
     case _ => Array[Double](left, top, left, bottom, right, bottom, right, top)
   }
 }
@@ -101,21 +93,11 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
 object Sqlign
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign = new Sqlign(width, cen.x, cen.y, 0, true)
-//  { val cx = cen.x
-//    val cy = cen.y
-//    val w = width / 2
-//    val array = Array[Double](cx - w, cy + w, cx + w, cy + w, cx + w, cy - w, cx - w, cy - w)
-//    new Sqlign(array)
-//  }
+  def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign = new Sqlign(width, cen.x, cen.y, 0)
 
-  def apply(width: Double, cenX: Double, cenY: Double): Sqlign = new Sqlign(width, cenX, cenY, 0, true)
-//  { val w = width / 2
-//    val array = Array[Double](cenX - w, cenY + w, cenX + w, cenY + w, cenX + w, cenY - w, cenX - w, cenY - w)
-//    new Sqlign(array)
-//  }
 
-  //def fromArray(array: Array[Double]) = new Sqlign(array)
+  def apply(width: Double, cenX: Double, cenY: Double): Sqlign = new Sqlign(width, cenX, cenY, 0)
+  
 
   implicit val showEv: Show[Sqlign] = new Show[Sqlign]
   { override def typeStr: String = "Sqlign"
