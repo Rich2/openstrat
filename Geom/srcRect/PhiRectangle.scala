@@ -37,8 +37,8 @@ object PhiRectangle
   class PhiRectangleGen(val arrayUnsafe: Array[Double]) extends PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   { override type ThisT = PhiRectangleGen
     override def fromArray(array: Array[Double]): PhiRectangleGen = new PhiRectangleGen(array)
-    
-    
+
+    override def rotation: AngleVec = ???
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
 
@@ -77,7 +77,6 @@ trait PhiRect extends Rect, PhiRectangle
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
@@ -113,13 +112,7 @@ final class PhiRectWide(val width: Double, val cenX: Double, val cenY: Double, v
   override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  /*override def slateTo(newCen: Pt2): PhiRectY =
-  { val v = cen.vecTo(newCen)
-    slate(v.x, v.y)
-  }*/
-
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
@@ -162,13 +155,7 @@ final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, v
   override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  /*override def slateTo(newCen: Pt2): PhiRectY =
-  { val v = cen.vecTo(newCen)
-    slate(v.x, v.y)
-  }*/
-
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)

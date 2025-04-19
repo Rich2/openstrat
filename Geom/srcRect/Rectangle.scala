@@ -20,6 +20,9 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 
   @inline final override def cen: Pt2 = Pt2(cenX, cenY)
 
+  /** The rotation of this square from alignment with the X and Y axes. */
+  def rotation: AngleVec
+
   override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
@@ -131,6 +134,9 @@ object Rectangle
 
     override def cenX: Double = v0x \/ v2x
     override def cenY: Double = v0y \/ v2y
+
+    
+    override def rotation: AngleVec = ???
 
     override def v0x: Double = arrayUnsafe(0)
     override def v0y: Double = arrayUnsafe(1)

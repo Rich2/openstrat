@@ -20,7 +20,6 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
   override def width1: Double = width
   override def width2: Double = width
   override def height: Double = width
-  override def rotation: AngleVec = 0.degsVec
   override def slate(operand: VecPt2): Sqlign = Sqlign(width, cen.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY + yOperand)
   override def slateX(xOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY)
@@ -38,16 +37,7 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
 
   override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
 
-  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
-
-  override def sd0CenX: Double = v0x \/ vertX(1)
-
-  override def sd0CenY: Double = v0y \/ vertY(1)
-
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 
   override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)

@@ -10,9 +10,6 @@ trait Square extends Rectangle, SsDbl2[Pt2]
   /** The width of this square. */
   def width: Double
 
-  /** The rotation of this square from alignment with the X and Y axes. */
-  def rotation: AngleVec
-
   override def vertsTrans(f: Pt2 => Pt2): Rectangle// = Square.fromArray(arrayElemMap(f))
   def squareVertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
   override def slate(operand: VecPt2): Square = squareVertsTrans(_.slate(operand))
