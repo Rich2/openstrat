@@ -63,24 +63,11 @@ object PhiRectangle
   }
 }
 
-class PhiRect(val width: Double) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2]//, Pt2SeqSpec
-{ override type ThisT = PhiRect
-  override def fromArray(array: Array[Double]): PhiRect = ??? // new PhiRect(array)
-
+trait PhiRect extends Rect, PhiRectangle
+{ override type ThisT <: PhiRect
   override def typeStr: String = "PhiRect"
 
-  def height: Double = ???
-
-  override def vertOrder: Int = ???
-
-  /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
-  override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
-
-  //override def width: Double = width1
   override def width2: Double = height
-
-  override def cenX: Double = v0x \/ v2x
-  override def cenY: Double = v0y \/ v2y
 
   override def slate(xOperand: Double, yOperand: Double): PhiRect = PhiRect(height, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRect = PhiRect(height, cen.slate(operand))
@@ -96,8 +83,6 @@ class PhiRect(val width: Double) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
 }
 
 object PhiRect
@@ -107,30 +92,26 @@ object PhiRect
 }
 
 /** Not sure what this class is. */
-final class PhiRectY(val width: Double) extends Rect, PhiRectangle, PolygonLikeDbl2[Pt2]//, Pt2SeqSpec
-{ override type ThisT = PhiRectY
-  override def fromArray(array: Array[Double]): PhiRectY = ??? // new PhiRectY(array)
+final class PhiRectWide(val width: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends PhiRect
+{ override type ThisT = PhiRectWide
   override def typeStr: String = "PhiRectY"
 
-  //def width: Double = ???
+  /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
+  override def elem(index: Int): Pt2 = ???
+
+  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 
   override def height: Double = width1
   override def width2: Double = width
 
-  override def vertOrder: Int = ???
-
-  /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
-  override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
-
-  override def cenX: Double = v0x \/ v2x
-  override def cenY: Double = v0y \/ v2y
-
-  override def slate(xOperand: Double, yOperand: Double): PhiRectY = PhiRectY(width, cenX + xOperand, cenY + yOperand)
-  override def slate(operand: VecPt2): PhiRectY = PhiRectY(width, cen.slate(operand))
-  override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen.scale(operand))
-  override def negX: PhiRectY = PhiRectY(width, cen.negX)  
-  override def negY: PhiRectY = PhiRectY(width, cen.negY)
-  override def prolign(matrix: ProlignMatrix): PhiRectY = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+  override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)
+  override def slate(operand: VecPt2): PhiRectHigh = PhiRectHigh(width, cen.slate(operand))
+  override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
+  override def negX: PhiRectHigh = PhiRectHigh(width, cen.negX)
+  override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
+  override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
   /*override def slateTo(newCen: Pt2): PhiRectY =
   { val v = cen.vecTo(newCen)
@@ -144,13 +125,62 @@ final class PhiRectY(val width: Double) extends Rect, PhiRectangle, PolygonLikeD
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
+  override def unsafeNegX: Array[Double] = ???// arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = ???//arrayD2Map(d => -d)
 
 }
 
-object PhiRectY
+object PhiRectWide
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectY = ???// PhiRectY(width, cen.x, cen.y)
-  def apply(width: Double, cenX: Double, cenY: Double): PhiRectY = ???
+  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectHigh = ???// PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cenX: Double, cenY: Double): PhiRectHigh = ???
+}
+
+/** Not sure what this class is. */
+final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends PhiRect
+{ override type ThisT = PhiRectHigh
+  override def typeStr: String = "PhiRectY"
+
+  /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
+  override def elem(index: Int): Pt2 = ???
+
+  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
+
+  override def height: Double = width1
+  override def width2: Double = width
+
+
+  /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
+  //override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
+
+  override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)
+  override def slate(operand: VecPt2): PhiRectHigh = PhiRectHigh(width, cen.slate(operand))
+  override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
+  override def negX: PhiRectHigh = PhiRectHigh(width, cen.negX)
+  override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
+  override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+
+  /*override def slateTo(newCen: Pt2): PhiRectY =
+  { val v = cen.vecTo(newCen)
+    slate(v.x, v.y)
+  }*/
+
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+  override def sd0CenX: Double = v0x \/ vertX(1)
+  override def sd0CenY: Double = v0y \/ vertY(1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
+  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def unsafeNegX: Array[Double] = ??? // arrayD1Map(d => -d)
+  override def unsafeNegY: Array[Double] = ??? // arrayD2Map(d => -d)
+
+}
+
+object PhiRectHigh
+{
+  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectHigh = ???// PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cenX: Double, cenY: Double): PhiRectHigh = ???
 }
