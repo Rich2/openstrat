@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.pWeb._
+import ostrat.pWeb.*
 
 /** Base trait for a compound shape graphic in various geometries */
 trait ShapeGeomlessCompound
@@ -41,11 +41,10 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   def addChildren(newChildren: Arr[Graphic2Elem]): ShapeCompound
 }
 
-/** Companion object for the [[ShapeCompound]] trait, contains implicit instances for 2D geometric transoframtion type classes for common collection
- *  and other containner classes. */
+/** Companion object for the [[ShapeCompound]] trait, contains implicit instances for 2D geometric transformation type classes for common collection and other
+ * container classes. */
 object ShapeCompound
-{
-  /** Implicit [[Slate]] type class instance / instance for [[ShapeCompound]]. */
+{ /** Implicit [[Slate]] type class instance / instance for [[ShapeCompound]]. */
   implicit val slateEv: Slate[ShapeCompound] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / instance for [[ShapeCompound]]. */

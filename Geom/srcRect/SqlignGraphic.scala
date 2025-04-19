@@ -43,6 +43,6 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
 
 object SqlignCompound
 {
-  def apply(shape: Sqlign, facets: RArr[GraphicFacet], childs: RArr[Sqlign => GraphicElems], children: GraphicElems = RArr()): SqlignCompound =
-    new SqlignCompound(shape, facets, childs, children)
+  def apply(shape: Sqlign, facets: RArr[GraphicFacet], childs: RArr[Sqlign => GraphicElems], adopted: GraphicElems = RArr()): SqlignCompound =
+    new SqlignCompound(shape, facets, childs, adopted)
 }

@@ -1,7 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A square aligned to the X and Y axes. As this is a [[Polygon]] it is implemented using an [[Array]]. */
+/** A square aligned to the X and Y axes. So these squares can be defined by their widths and their centre points. However, the postion of the vertices 0, 1, 2
+ * and 3 are not fixed. they can be changed by rotations and reflections. The clockwise, anticlockwise ordering of the vertices can be changed by reflections.
+ * The convention is for vertex 0 to be left top but this can change. */
 final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val rtNum: Int, val clockwise: Boolean) extends Square, Rect,
   Tell2[Double, Pt2]
 { override type ThisT = Sqlign

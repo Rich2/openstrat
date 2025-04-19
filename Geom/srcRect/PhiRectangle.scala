@@ -21,7 +21,7 @@ trait PhiRectangle extends Rectangle
   override def rotate(rotation: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd0Cen.rotate(rotation), sd2Cen.rotate(rotation))
 }
 
-/** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that delegates to
+/** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleGen]] implementation class an apply factory method that delegates to
  * it. */
 object PhiRectangle
 {
@@ -29,14 +29,14 @@ object PhiRectangle
   { val rtVec = rotation.toVec(height * Phi / 2)
     val upVec = (rotation + 90.degsVec).toVec(height / 2)
     val array = Rectangle.unsafeVecsCen(rtVec, upVec, cen)
-    new PhiRectangleImp(array)
+    new PhiRectangleGen(array)
   }
 
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = ???//PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
-  class PhiRectangleImp(val arrayUnsafe: Array[Double]) extends PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
-  { override type ThisT = PhiRectangleImp
-    override def fromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
+  class PhiRectangleGen(val arrayUnsafe: Array[Double]) extends PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+  { override type ThisT = PhiRectangleGen
+    override def fromArray(array: Array[Double]): PhiRectangleGen = new PhiRectangleGen(array)
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
 

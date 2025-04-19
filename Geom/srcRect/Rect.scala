@@ -2,7 +2,8 @@
 package ostrat; package geom
 import pWeb.*, ostrat.Colour.Black
 
-/** A Rectangle aligned to the X and Y axes. */
+/** A Rectangle aligned to the X and Y axes. It has a leftTop, leftBottom, rightBottom and right Top vertices. The convention is for these to align with
+ * vertices 0, 1, 2, 3. However this can be changed by rotations and reflections.  */
 trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
 
