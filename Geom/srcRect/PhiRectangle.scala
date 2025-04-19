@@ -37,6 +37,8 @@ object PhiRectangle
   class PhiRectangleGen(val arrayUnsafe: Array[Double]) extends PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   { override type ThisT = PhiRectangleGen
     override def fromArray(array: Array[Double]): PhiRectangleGen = new PhiRectangleGen(array)
+    
+    
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
 

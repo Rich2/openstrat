@@ -193,7 +193,7 @@ object Rect
 
     /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
      * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
-    override def numElems: Int = ???
+    
 
     /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
      * methods. */
@@ -284,6 +284,6 @@ object NoBounds extends Rect, PolygonLike[Pt2]
   override def unsafeNegX: Array[Double] = Array()
   override def unsafeNegY: Array[Double] = Array()
   override def elem(index: Int): Pt2 = ???
-  override def numElems: Int = 0
+//  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 }
