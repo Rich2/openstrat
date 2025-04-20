@@ -20,20 +20,18 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
   override def width1: Double = width
   override def width2: Double = width
   override def height: Double = width
-  override def slate(operand: VecPt2): Sqlign = Sqlign(width, cen.slate(operand))
-  override def slate(xOperand: Double, yOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY + yOperand)
-  override def slateX(xOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY)
-  override def slateY(yOperand: Double): Sqlign = Sqlign(width, cenX, cenY + yOperand)
-  override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen.scale(operand))
+  override def slate(operand: VecPt2): Sqlign = Sqlign(width, cen.slate(operand), vertOrder)
+  override def slate(xOperand: Double, yOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY + yOperand, vertOrder)
+  override def slateX(xOperand: Double): Sqlign = Sqlign(width, cenX + xOperand, cenY, vertOrder)
+  override def slateY(yOperand: Double): Sqlign = Sqlign(width, cenX, cenY + yOperand, vertOrder)
+  override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen.scale(operand), vertOrder)
   override def negX: Sqlign = Sqlign(width, -cenX, cenY)
   override def negY: Sqlign = Sqlign(width, cenX, -cenY)
   override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
   override def rotate180: Sqlign = Sqlign(width, cen.rotate180)
   override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
-
-  /** Adds a margin to this [[Sqlign]], square aligned with the XY axes, moving the sides out by the given parameter. */
-  override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY)
+  override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY, vertOrder)
 
   override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
 
@@ -46,12 +44,17 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
 object Sqlign
-{
-  def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign = new Sqlign(width, cen.x, cen.y, 0)
+{ /** Factory apply method to construct a square aligned to the Xand Y axes, from its width and centre point. There are apply name overloads to specify the
+   * centre position by its X and Y components. */
+  def apply(width: Double, cen: Pt2 = Pt2Z, vertOrder: Int = 0): Sqlign = new Sqlign(width, cen.x, cen.y, vertOrder)
 
-
+  /** Factory apply method to construct a square aligned to the Xand Y axes, from its width and centre point. There is an apply name overloads to specify the
+   * centre position by a single [[Pt2]] parameter and a name pverload for the rare occasions when you need to change the vertex order from the default.. */
   def apply(width: Double, cenX: Double, cenY: Double): Sqlign = new Sqlign(width, cenX, cenY, 0)
-  
+
+  /** Factory apply method to construct a square aligned to the Xand Y axes, from its width and centre point. There are apply name overloads to specify the
+   * centre position by a single [[Pt2]] parameter and a name overload with the default vertex order. */
+  def apply(width: Double, cenX: Double, cenY: Double, vertOrder: Int): Sqlign = new Sqlign(width, cenX, cenY, vertOrder)
 
   implicit val showEv: Show[Sqlign] = new Show[Sqlign]
   { override def typeStr: String = "Sqlign"
