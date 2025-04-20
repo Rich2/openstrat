@@ -2,7 +2,7 @@
 package ostrat; package geom
 import pWeb.*
 
-/** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
+/** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareGen]], a general square. */
 trait Square extends Rectangle, SsDbl2[Pt2]
 { type ThisT <: Square
   override def typeStr: String = "Square"

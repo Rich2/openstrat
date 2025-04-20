@@ -7,7 +7,6 @@ package ostrat; package geom
 final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends Square, Rect, Tell2[Double, Pt2]
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
-
   override def fromArray(array: Array[Double]): Sqlign = ??? // new Sqlign(array)
   override def name1: String = "width"
   override def name2: String = "cen"

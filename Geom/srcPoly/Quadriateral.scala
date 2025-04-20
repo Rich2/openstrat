@@ -64,10 +64,8 @@ class QuadrilateralGen(val arrayUnsafe: Array[Double]) extends PolygonLike[Pt2],
     res
   }
 
-//  override def fromArray(array: Array[Double]): QuadriateralGen = new QuadriateralGen(array)
 
   override def xVertsArray: Array[Double] = ???
-
   override def yVertsArray: Array[Double] = ???
 
   /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */

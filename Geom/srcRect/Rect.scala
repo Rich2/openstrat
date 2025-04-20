@@ -244,7 +244,7 @@ object Rect
 
   /** Companion object for the [[Rect.RectGen]] class. */
   object RectGen
-  { /** Factory method for Rect.RectImp class. */
+  { /** Factory method for constructing [[RectGen]] class, a general case of a [[Rect]]. */
     def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectGen = new RectGen(width, height, cen.x, cen.y, 0)
 
     def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectGen = new RectGen(width, height, cenX, cenY, 0)
