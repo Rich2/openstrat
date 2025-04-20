@@ -34,9 +34,6 @@ final class Sqlign private(val width: Double, val cenX: Double, val cenY: Double
   override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY, vertOrder)
 
   override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
-
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */

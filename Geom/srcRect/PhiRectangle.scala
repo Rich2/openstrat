@@ -77,9 +77,7 @@ trait PhiRect extends Rect, PhiRectangle
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)  
 }
 
 object PhiRect
@@ -113,9 +111,7 @@ final class PhiRectWide(val width: Double, val cenX: Double, val cenY: Double, v
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)  
 }
 
 object PhiRectWide
@@ -139,10 +135,6 @@ final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, v
   override def height: Double = width1
   override def width2: Double = width
 
-
-  /** Constructs a [[Dbl2Elem]] from 2 [[Double]]s. */
-  //override def elemFromDbls(d1: Double, d2: Double): Pt2 = ???
-
   override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRectHigh = PhiRectHigh(width, cen.slate(operand))
   override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
@@ -153,9 +145,7 @@ final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, v
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)  
 }
 
 object PhiRectHigh

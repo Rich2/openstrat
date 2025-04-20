@@ -99,6 +99,20 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   override def xVertsArray: Array[Double] = Array[Double](v0x, v1x, v2x, v3x)
   override def yVertsArray: Array[Double] = Array[Double](v0y, v1y, v2y, v3y)
 
+  final override def vertX(index: Int): Double = index %% 4 match
+  { case 0 => v0x
+    case 1 => v1x
+    case 2 => v2x
+    case _ => v3x
+  }
+
+  final override def vertY(index: Int): Double = index %% 4 match
+  { case 0 => v0y
+    case 1 => v1y
+    case 2 => v2y
+    case _ => v3y
+  }
+
   final override def side0: LineSeg = LineSeg(v0x, v0y, v1x, v1y)
   override def sd0CenX: Double = v0x \/ vertX(1)
 
@@ -226,8 +240,6 @@ object Rect
     override def sd0CenX: Double = v0x \/ vertX(1)
     override def sd0CenY: Double = v0y \/ vertY(1)
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-    override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-    override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
@@ -253,8 +265,6 @@ object NoBounds extends Rect, PolygonLike[Pt2]
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def elem(index: Int): Pt2 = ???
 //  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
