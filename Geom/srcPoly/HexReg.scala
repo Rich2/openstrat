@@ -27,11 +27,13 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell, PolygonLikeDbl2[Pt2], Pt2
 
   /** A Hexagon has 6 vertices. */
   final override def numVerts: Int = 6
+  
   override def slate(delta: VecPt2): HexReg = mapHexReg(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexReg = mapHexReg(_.slate(xOperand, yOperand))
   override def scale(operand: Double): HexReg = mapHexReg(_.scale(operand))
-  override def negY: HexReg = HexReg.fromArray(unsafeNegY)
-  override def negX: HexReg = HexReg.fromArray(unsafeNegX)
+  override def negX: HexReg = mapHexReg(_.negX)
+  override def negY: HexReg = mapHexReg(_.negY)
+  
   override def rotate90: HexReg = mapHexReg(_.rotate90)
   override def rotate180: HexReg = mapHexReg(_.rotate180)
   override def rotate270: HexReg = mapHexReg(_.rotate270)
@@ -144,8 +146,6 @@ object HexReg
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
     override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 }

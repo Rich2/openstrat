@@ -29,8 +29,8 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def slateX(xOperand: Double): HexParrX = vertsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): HexParrX = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): HexParrX = vertsTrans(_.scale(operand))
-  override def negX: HexParrX = HexParrX.fromArray(unsafeNegX)
-  override def negY: HexParrX = HexParrX.fromArray(unsafeNegY)
+  override def negX: HexParrX = vertsTrans(_.negX)
+  override def negY: HexParrX = vertsTrans(_.negY)
   override def rotate90: HexParrY = HexParrY.fromArray(arrayElemMap(_.rotate90))
   override def rotate180: HexParrX = vertsTrans(_.rotate180)
   override def rotate270: HexParrY = HexParrY.fromArray(arrayElemMap(_.rotate270))
@@ -47,13 +47,11 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
   override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
-/** Companion object for the regular hexagon aligned to the X Axis class. It has a limited set of 2D geometric transformation type class instances as
- * the type can not be maintained through all affine transformations. */
+/** Companion object for the regular hexagon aligned to the X Axis class. It has a limited set of 2D geometric transformation type class instances as the type
+ * can not be maintained through all affine transformations. */
 object HexParrX
 { /** Apply factory method for HexXlign, Creates a regular hexagon with 2 of its side aligned to the X axis. */
   def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = apply(height, cen.x, cen.y)

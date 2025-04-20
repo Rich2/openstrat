@@ -28,8 +28,8 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def slate(delta: VecPt2): HexParrY = vertsTrans(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexParrY = vertsTrans(_.slate(xOperand, yOperand))
   override def scale(operand: Double): HexParrY = vertsTrans(_.scale(operand))
-  override def negX: HexParrY = HexParrY.fromArray(unsafeNegX)
-  override def negY: HexParrY = HexParrY.fromArray(unsafeNegY)
+  override def negX: HexParrY = vertsTrans(_.negX)
+  override def negY: HexParrY = vertsTrans(_.negY)
   override def rotate90: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate90))
   override def rotate180: HexParrY = vertsTrans(_.rotate180)
   override def rotate270: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate270))
@@ -47,21 +47,18 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
   override def sides: LineSegArr = new LineSegArr(arrayForSides)
 }
 
 /** Companion object for the regular hexagon aligned to the Y Axis class. It has a limited set of 2D geometric transformation type class instances as
  * the type can not be maintained through all affine transformations. */
 object HexParrY
-{
-  /** Apply factory method for the [[HexParrY]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]]
-   *  or 2 [[Double]]s. */
+{ /** Apply factory method for the [[HexParrY]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]] or 2
+[[Double]]s. */
   def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = apply(width, cen.x, cen .y)
 
-  /** Apply factory method for the [[HexParrY]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]]
-   *  or 2 [[Double]]s. */
+  /** Apply factory method for the [[HexParrY]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]] or 2
+   * [[Double]]s. */
   def apply(width: Double, xCen: Double, yCen: Double): HexParrY =
   { val dsq3 = width / 3.sqrt
     val d2sq3: Double = width /(3.sqrt * 2)

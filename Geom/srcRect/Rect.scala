@@ -228,8 +228,6 @@ object Rect
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def unsafeNegX: Array[Double] = ??? // arrayD1Map(d => -d)
-    override def unsafeNegY: Array[Double] = ??? // arrayD2Map(d => -d)
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
@@ -257,8 +255,6 @@ object NoBounds extends Rect, PolygonLike[Pt2]
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = Array()
-  override def unsafeNegY: Array[Double] = Array()
   override def elem(index: Int): Pt2 = ???
 //  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???

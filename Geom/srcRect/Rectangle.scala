@@ -37,15 +37,14 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 
   /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
   def yAttrib: YXmlAtt = YXmlAtt(-v2y)
-
   
   override def slate(operand: VecPt2): Rectangle = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slate(xOperand, yOperand))
   override def slateX(xOperand: Double): Rectangle = vertsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): Rectangle = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
-  override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
-  override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)
+  override def negX: Rectangle = vertsTrans(_.negX)
+  override def negY: Rectangle = vertsTrans(_.negY)
   override def prolign(matrix: ProlignMatrix): Rectangle = vertsTrans(_.prolign(matrix))
   override def rotate90: Rectangle = vertsTrans(_.rotate90)
   override def rotate180: Rectangle = vertsTrans(_.rotate180)
@@ -55,7 +54,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 }
 
-/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non specialised rectangles. It also contains
+/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non-specialised rectangles. It also contains
  * various factory methods that delegate to the [[Rectangle.RectangleGen]] class. */
 object Rectangle
 {  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the the centre
@@ -150,8 +149,6 @@ object Rectangle
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
     override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 

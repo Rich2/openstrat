@@ -57,8 +57,6 @@ object PhiRectangle
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
     override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 }
@@ -118,9 +116,6 @@ final class PhiRectWide(val width: Double, val cenX: Double, val cenY: Double, v
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = ???// arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = ???//arrayD2Map(d => -d)
-
 }
 
 object PhiRectWide
@@ -161,9 +156,6 @@ final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, v
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def unsafeNegX: Array[Double] = ??? // arrayD1Map(d => -d)
-  override def unsafeNegY: Array[Double] = ??? // arrayD2Map(d => -d)
-
 }
 
 object PhiRectHigh

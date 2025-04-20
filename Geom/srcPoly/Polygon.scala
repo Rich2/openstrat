@@ -68,9 +68,6 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
     acc
   }
 
-  def unsafeNegX: Array[Double]
-  def unsafeNegY: Array[Double]
-
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   final def unsafeVert(rawIndex: Int): Pt2 = elem(rawIndex)
 

@@ -17,8 +17,8 @@ trait Square extends Rectangle, SsDbl2[Pt2]
   override def slateX(xOperand: Double): Square = squareVertsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): Square = squareVertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): Square = squareVertsTrans(_.scale(operand))
-  override def negX: Square = Square.fromArray(unsafeNegX)
-  override def negY: Square = Square.fromArray(unsafeNegY)
+  override def negX: Square = squareVertsTrans(_.negX)
+  override def negY: Square = squareVertsTrans(_.negY)
   override def rotate90: Square = squareVertsTrans(_.rotate90)
   override def rotate180: Square = squareVertsTrans(_.rotate180)
   override def rotate270: Square = squareVertsTrans(_.rotate270)
@@ -27,7 +27,7 @@ trait Square extends Rectangle, SsDbl2[Pt2]
   override def rotate(rotation: AngleVec): Square = squareVertsTrans(_.rotate(rotation))
 }
 
-/** Companion object for the Square trait. However its apply methods delegate to the [[SquareGen]] implementation class. */
+/** Companion object for the Square trait. However, its apply methods delegate to the [[SquareGen]] implementation class. */
 object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
@@ -37,7 +37,7 @@ object Square extends ShapeIcon
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
    * axes centre. Otherwise, the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre. If you want to create a
-   * square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
+   * square aligned to the axes, then you are probably better using the [[Sqlign]] factory apply method. */
   def apply(width: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Square =
   { val rtVec = xVec2(width / 2).rotate(rotation)
     val upVec = yVec2(width / 2).rotate(rotation)
@@ -95,8 +95,6 @@ object Square extends ShapeIcon
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def unsafeNegX: Array[Double] = arrayD1Map(d => -d)
-    override def unsafeNegY: Array[Double] = arrayD2Map(d => -d)
     override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 }
