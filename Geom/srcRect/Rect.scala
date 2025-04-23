@@ -71,25 +71,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def rotation: AngleVec = 0.degsVec
 
-  final override def vertX(index: Int): Double = index %% 4 match
-  { case 0 => v0x
-    case 1 => v1x
-    case 2 => v2x
-    case _ => v3x
-  }
-
-  final override def vertY(index: Int): Double = index %% 4 match
-  { case 0 => v0y
-    case 1 => v1y
-    case 2 => v2y
-    case _ => v3y
-  }
-
   final override def side0: LineSeg = LineSeg(v0x, v0y, v1x, v1y)
-  override def sd0CenX: Double = v0x \/ vertX(1)
-
-  override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectGen]] class. */
@@ -198,11 +180,6 @@ object Rect
       new RectGen(v0x * xOperand, v0y * yOperand, v1x * xOperand, v1y * yOperand, v2x * xOperand, v2y * yOperand)
 
     final override def vLast: Pt2 = Pt2(vLastX, vLastY)
-    override def sd0CenX: Double = v0x \/ vertX(1)
-    override def sd0CenY: Double = v0y \/ vertY(1)
-    override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-    
-    
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
@@ -230,9 +207,7 @@ object NoBounds extends Rect
   override def height: Double = -1
 
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def sd0CenX: Double = v0x \/ vertX(1)
-  override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+
 //  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 

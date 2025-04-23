@@ -10,7 +10,7 @@ trait Square extends Rectangle
   /** The width of this square. */
   def width: Double
 
-  override def vertsTrans(f: Pt2 => Pt2): Square = Square(f(v0), f(v1), f(v2))
+  override def vertsTrans(f: Pt2 => Pt2): Square = Square.from3(f(v0), f(v1), f(v2))
 //  def squareVertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
   override def slate(operand: VecPt2): Square = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Square = vertsTrans(_.slate(xOperand, yOperand))
@@ -32,7 +32,7 @@ object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
 
-  def fromArray(array: Array[Double]) = ???// new SquareGen(array)
+  //def fromArray(array: Array[Double]) = ???// new SquareGen(array)
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
@@ -46,7 +46,7 @@ object Square extends ShapeIcon
     new SquareGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
   }
   
-  def apply(v0: Pt2, v1: Pt2, v2: Pt2): Square = ???
+  def from3(v0: Pt2, v1: Pt2, v2: Pt2): Square = ???
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
@@ -62,33 +62,25 @@ object Square extends ShapeIcon
 
   override def fill(colour: Colour): ShapeGraphicIcon = ???
 
-  /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and rotated while
-   * remaining a Square. */
-  final class SquareGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Square
-  { override type ThisT = SquareGen
+}
 
-    override def vertsTrans(f: Pt2 => Pt2): SquareGen = SquareGen(f(v0), f(v1), f(v2))
-    @inline override def width: Double = width1
-    @inline override def width2: Double = width1
+/** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and rotated while
+ * remaining a Square. */
+final class SquareGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Square
+{ override type ThisT = SquareGen
+  override def vertsTrans(f: Pt2 => Pt2): SquareGen = SquareGen.from3(f(v0), f(v1), f(v2))
+  @inline override def width: Double = width1
+  @inline override def width2: Double = width1
+  override def attribs: RArr[XmlAtt] = ???
+  override def rotation: AngleVec = ???
+  override def toString: String = s"SquareClass($v0x, $v0y; $v1x, $v1y)"
+  override def vLastX: Double = arrayUnsafe(numVerts - 2)
+  override def vLastY: Double = arrayUnsafe(numVerts - 1)
+  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
+}
 
-    override def attribs: RArr[XmlAtt] = ???
-
-    override def rotation: AngleVec = ???
-
-    override def toString: String = s"SquareClass($v0x, $v0y; $v1x, $v1y)"
-    override def vLastX: Double = arrayUnsafe(numVerts - 2)
-    override def vLastY: Double = arrayUnsafe(numVerts - 1)
-    override def vLast: Pt2 = Pt2(vLastX, vLastY)
-    override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
-    override def sd0CenX: Double = v0x \/ vertX(1)
-    override def sd0CenY: Double = v0y \/ vertY(1)
-    override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-    override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-    override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  }
-
-  object SquareGen
-  {
-    def apply(v0: Pt2, v1: Pt2, v2: Pt2): SquareGen = new SquareGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
-  }
+object SquareGen
+{
+  def from3(v0: Pt2, v1: Pt2, v2: Pt2): SquareGen = new SquareGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 }

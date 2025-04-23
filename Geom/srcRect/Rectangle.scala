@@ -63,13 +63,31 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   final override def v0: Pt2 = Pt2(v0x, v0y)
   final override def v3x: Double = v0x + v2x - v1x
   final override def v3y: Double = v0y + v2y - v1y
+
+  final override def sd0CenX: Double = v0x \/ v1x
+  final override def sd0CenY: Double = v0y \/ v1y
+  final override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   final override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
 
-  final override def elem(index: Int): Pt2 = index match
+  final override def elem(index: Int): Pt2 = index %% 4 match
   { case 0 => Pt2(v0x, v0y)
     case 1 => Pt2(v1x, v1y)
     case 2 => Pt2(v2x, v2y)
     case _ => v3
+  }
+
+  final override def vertX(index: Int): Double = index %% 4 match
+  { case 0 => v0x
+    case 1 => v1x
+    case 2 => v2x
+    case _ => v3x
+  }
+
+  final override def vertY(index: Int): Double = index %% 4 match
+  { case 0 => v0y
+    case 1 => v1y
+    case 2 => v2y
+    case _ => v3y
   }
 }
 
@@ -156,11 +174,6 @@ object Rectangle
     override def vLastY: Double = arrayUnsafe(numVerts - 1)
     override def vLast: Pt2 = Pt2(vLastX, vLastY)
     override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
-    override def sd0CenX: Double = v0x \/ vertX(1)
-    override def sd0CenY: Double = v0y \/ vertY(1)
-    override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-    override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-    override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   }
 
   object RectangleGen
