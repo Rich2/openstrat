@@ -18,7 +18,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.18.2"
+{ def scalaJSVersion = "1.19.0"
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.8.0")
 }
 
@@ -50,7 +50,7 @@ object UtilJs extends CommonJs
 object Geom extends CommonJvm
 {
   def sources1 = T.sources(
-    Seq("src", "srcLines", "srcShapes", "srcPoly", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcUnits", "srcWeb", "srcEarth").
+    Seq("src", "srcLines", "srcShapes", "srcPoly", "srcRect", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcUnits", "srcWeb", "srcEarth").
     map(name => PathRef(millSourcePath / name)))
 
   def sources2 = T.sources(millSourcePath / "JvmSrc")
