@@ -6,6 +6,12 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell, PolygonLikeDbl2[Pt2], Pt2
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 
+  override def v1x: Double = xVertsArray(1)
+  override def v1y: Double = yVertsArray(1)
+  override def v2x: Double = xVertsArray(2)
+  override def v2y: Double = yVertsArray(2)
+  final override def v3x: Double = arrayUnsafe(6)
+  final override def v3y: Double = arrayUnsafe(7)
   final override def cenX: Double = v0x \/ v3x
   final override def cenY: Double = v0y \/ v3y
   final override def cen: Pt2 = Pt2(cenX, cenY)

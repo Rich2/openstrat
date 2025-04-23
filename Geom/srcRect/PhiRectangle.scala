@@ -25,29 +25,21 @@ trait PhiRectangle extends Rectangle
  * it. */
 object PhiRectangle
 {
-  def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle =
-  { val rtVec = rotation.toVec(height * Phi / 2)
+  def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle = ???
+  /*{ val rtVec = rotation.toVec(height * Phi / 2)
     val upVec = (rotation + 90.degsVec).toVec(height / 2)
     val array = Rectangle.unsafeVecsCen(rtVec, upVec, cen)
     new PhiRectangleGen(array)
-  }
+  }*/
 
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = ???//PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
-  class PhiRectangleGen(val arrayUnsafe: Array[Double]) extends PhiRectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+  class PhiRectangleGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends PhiRectangle
   { override type ThisT = PhiRectangleGen
-    override def fromArray(array: Array[Double]): PhiRectangleGen = new PhiRectangleGen(array)
-
     override def rotation: AngleVec = ???
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
-
-    override def cenX: Double = v0x \/ v2x
-    override def cenY: Double = v0y \/ v2y
-
-    override def v0x: Double = arrayUnsafe(0)
-    override def v0y: Double = arrayUnsafe(1)
-    override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+    
     override def vLastX: Double = arrayUnsafe(numVerts - 2)
     override def vLastY: Double = arrayUnsafe(numVerts - 1)
     override def vLast: Pt2 = Pt2(vLastX, vLastY)
@@ -57,7 +49,6 @@ object PhiRectangle
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 }
 
@@ -87,12 +78,9 @@ object PhiRect
 }
 
 /** Not sure what this class is. */
-final class PhiRectWide(val width: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends PhiRect
+final class PhiRectWide(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends PhiRect
 { override type ThisT = PhiRectWide
   override def typeStr: String = "PhiRectY"
-
-  /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
-  override def elem(index: Int): Pt2 = ???
 
   /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
@@ -100,7 +88,7 @@ final class PhiRectWide(val width: Double, val cenX: Double, val cenY: Double, v
 
   override def height: Double = width1
   override def width2: Double = width
-
+  
   override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRectHigh = PhiRectHigh(width, cen.slate(operand))
   override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
@@ -121,12 +109,9 @@ object PhiRectWide
 }
 
 /** Not sure what this class is. */
-final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends PhiRect
+final class PhiRectHigh(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends PhiRect
 { override type ThisT = PhiRectHigh
   override def typeStr: String = "PhiRectY"
-
-  /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
-  override def elem(index: Int): Pt2 = ???
 
   /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
@@ -134,7 +119,6 @@ final class PhiRectHigh(val width: Double, val cenX: Double, val cenY: Double, v
 
   override def height: Double = width1
   override def width2: Double = width
-
   override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRectHigh = PhiRectHigh(width, cen.slate(operand))
   override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))

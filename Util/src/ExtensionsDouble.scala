@@ -5,6 +5,8 @@ import math.Pi, annotation.targetName
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
+  def average(operands: Double*): Double = (thisDouble + operands.sum) / (1 + operands.length)
+  
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =
   { val r = thisDouble % divisor

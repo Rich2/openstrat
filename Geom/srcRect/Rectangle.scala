@@ -10,7 +10,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
 
-  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle(f(v0), f(v1), f(v2), f(v3))
+  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle(f(v0), f(v1), f(v2))
   
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double = v3.distTo(v0)
@@ -23,6 +23,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   /** The rotation of this square from alignment with the X and Y axes. */
   def rotation: AngleVec
 
+  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
   override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
@@ -52,6 +53,24 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def reflect(lineLike: LineLike): Rectangle = vertsTrans(_.reflect(lineLike))
   override def rotate(rotation: AngleVec): Rectangle = vertsTrans(_.rotate(rotation))
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
+
+  final override def arrayUnsafe: Array[Double] = Array(v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
+  final override def xVertsArray: Array[Double] = Array(v0x, v1x, v2x, v3x)
+  final override def yVertsArray: Array[Double] = Array(v0y, v1y, v2y, v3y)
+
+  final override def cenX: Double = v2x \/ v0x
+  final override def cenY: Double = v2y \/ v0y
+  final override def v0: Pt2 = Pt2(v0x, v0y)
+  final override def v3x: Double = v0x + v2x - v1x
+  final override def v3y: Double = v0y + v2y - v1y
+  final override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
+
+  final override def elem(index: Int): Pt2 = index match
+  { case 0 => Pt2(v0x, v0y)
+    case 1 => Pt2(v1x, v1y)
+    case 2 => Pt2(v2x, v2y)
+    case _ => v3
+  }
 }
 
 /** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non-specialised rectangles. It also contains
@@ -65,25 +84,25 @@ object Rectangle
     vecsCen(rtVec, upVec, cen)
   }
 
-  /** Factory apply method to create [[Quadrilateral]] from its 4 vertices. */
-  def apply(vt0: Pt2, vt1: Pt2, vt2: Pt2, vt3: Pt2): Rectangle = new RectangleGen(Array(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y, vt3.x, vt3.y))
+  /** Factory apply method to create [[Rectangle]] from its first 3 vertices. */
+  def apply(vt0: Pt2, vt1: Pt2, vt2: Pt2): Rectangle = new RectangleGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y)
 
   /** Creates a [[Rectangle]] from axis 1. The default for axis 1 is the left right axis. */
-  def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle =
-  { val rtVec: Vec2 = sd4Cen >/> sd2Cen
+  def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle = ???
+  /*{ val rtVec: Vec2 = sd4Cen >/> sd2Cen
     val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
     val cen = sd4Cen \/ sd2Cen
     val verts = Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
     new RectangleGen(verts.arrayUnsafe)
-  }
+  }*/
 
-  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = new RectangleGen(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
+  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = ???// new RectangleGen(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
 
   /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
   def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] =
     Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).arrayUnsafe
 
-  def fromArray(array: Array[Double]): Rectangle = new RectangleGen(array)
+//  def fromArray(array: Array[Double]): Rectangle = new RectangleGen(array)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
   { val w = width / 2
@@ -126,20 +145,13 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleGen(val arrayUnsafe: Array[Double]) extends Rectangle, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+  final class RectangleGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rectangle
   { override type ThisT = RectangleGen
-    override def fromArray(array: Array[Double]): RectangleGen = new RectangleGen(array)
-    override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
+//    override def fromArray(array: Array[Double]): RectangleGen = new RectangleGen(array)
+    override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.from3(f(v0), f(v1), f(v2))
 
-    override def cenX: Double = v0x \/ v2x
-    override def cenY: Double = v0y \/ v2y
-
-    
     override def rotation: AngleVec = ???
-
-    override def v0x: Double = arrayUnsafe(0)
-    override def v0y: Double = arrayUnsafe(1)
-    override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
+    
     override def vLastX: Double = arrayUnsafe(numVerts - 2)
     override def vLastY: Double = arrayUnsafe(numVerts - 1)
     override def vLast: Pt2 = Pt2(vLastX, vLastY)
@@ -149,12 +161,11 @@ object Rectangle
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-    override def sides: LineSegArr = new LineSegArr(arrayForSides)
+//    override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 
   object RectangleGen
-  {
-    def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): RectangleGen =
-      ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  { /** Factory method to construct [[RectangleGen]] from the vertices 0, 1 and 2. */
+    def from3(v0: Pt2, v1: Pt2, v2: Pt2): RectangleGen = new RectangleGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)    
   }
 }

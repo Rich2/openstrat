@@ -7,6 +7,11 @@ trait Triangle extends Polygon3Plus
 	override def typeStr: String = "Triangle"
 	override def numVerts: Int = 3
 
+	override def v1x: Double = arrayUnsafe(2)
+	override def v1y: Double = arrayUnsafe(3)
+	override def v2x: Double = arrayUnsafe(4)
+	override def v2y: Double = arrayUnsafe(5)
+
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
 	def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))
 

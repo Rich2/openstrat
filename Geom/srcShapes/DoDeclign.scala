@@ -19,6 +19,13 @@ class DoDeclign(val arrayUnsafe: Array[Double]) extends AnyVal, Polygon6Plus, Po
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
   override def sides: LineSegArr = new LineSegArr(arrayForSides)
+
+  override def v1x: Double = ???
+  override def v1y: Double = ???
+  override def v2x: Double = ???
+  override def v2y: Double = ???
+  override def v3x: Double = ???
+  override def v3y: Double = ???
 }
 
 object DoDeclign

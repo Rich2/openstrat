@@ -64,6 +64,17 @@ class QuadrilateralGen(val arrayUnsafe: Array[Double]) extends PolygonLike[Pt2],
     res
   }
 
+  override def v1x: Double = ???
+
+  override def v1y: Double = ???
+
+  override def v2x: Double = ???
+
+  override def v2y: Double = ???
+
+  override def v3x: Double = ???
+
+  override def v3y: Double = ???
 
   override def xVertsArray: Array[Double] = ???
   override def yVertsArray: Array[Double] = ???

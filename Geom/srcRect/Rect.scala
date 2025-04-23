@@ -7,8 +7,6 @@ import pWeb.*, ostrat.Colour.Black
 trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
 
-  def vertOrder: Int
-
   override def slate(operand: VecPt2): Rect = Rect(width, height, cen.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY + yOperand)
   override def slateX(xOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY)
@@ -66,38 +64,12 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
     val y = (bottom * j + top * (ny + 1 - j)) / (ny + 1)
     Pt2(x, y)
   }
-
-  final override def v0x: Double = vertOrder match
-  { case 0 | 1 | -3 | -4 => right
-    case _ => left
-  }
-
-  final override def v0y: Double = vertOrder match
-  { case 0 | 3 | -1 | -4 => top
-    case _ => bottom
-  }
-
-  final override def v0: Pt2 = Pt2(v0x, v0y)
-
+  
+  final override def width: Double = (v0x - v2x).abs
   final override def vLastX: Double = arrayUnsafe(numVerts - 2)
   final override def vLastY: Double = arrayUnsafe(numVerts - 1)
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def rotation: AngleVec = 0.degsVec
-  final override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
-
-  override def arrayUnsafe: Array[Double] = vertOrder match
-  { case 0 => Array[Double](right, top, right, bottom, left, bottom, left, top)
-    case -4 => Array[Double](right, top, left, top, left, bottom, right, bottom)
-    case 1 => Array[Double](right, bottom, left, bottom, left, top, right, top)
-    case -1 => Array[Double](right, bottom, right, top, left, top, left, bottom)
-    case 2 => Array[Double](left, bottom, left, top, right, top, right, bottom)
-    case -2 => Array[Double](left, bottom, right, bottom, right, top, left, top)
-    case 3 => Array[Double](left, top, right, top, right, bottom, left, bottom)
-    case _ => Array[Double](left, top, left, bottom, right, bottom, right, top)
-  }
-
-  override def xVertsArray: Array[Double] = Array[Double](v0x, v1x, v2x, v3x)
-  override def yVertsArray: Array[Double] = Array[Double](v0y, v1y, v2y, v3y)
 
   final override def vertX(index: Int): Double = index %% 4 match
   { case 0 => v0x
@@ -117,7 +89,6 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   override def sd0CenX: Double = v0x \/ vertX(1)
 
   override def sd0CenY: Double = v0y \/ vertY(1)
-
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 }
 
@@ -199,73 +170,76 @@ object Rect
   }
 
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final class RectGen private(val width: Double, val height: Double, val cenX: Double, val cenY: Double, val vertOrder: Int) extends Rect, PolygonLike[Pt2]
+  final class RectGen private(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rect
   { type ThisT = RectGen
     override def typeStr: String = "Rect"
-
-    /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
-    override def elem(index: Int): Pt2 = index match
-    { case 0 => v0
-      case 1 => v1
-      case 2 => v2
-      case _ => v3
-    }
-
-    /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying Array
-     * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
-    
 
     /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
      * methods. */
     override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
 //    override def vertsTrans(f: Pt2 => Pt2): RectGen = ??? // mapRectImp(f)
     override def width1: Double = width
     override def width2: Double = height
+    override def height: Double = (v0y - v2y).abs
 
     override def attribs: RArr[XmlAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
 
-    override def slate(operand: VecPt2): RectGen = new RectGen(width, height, cenX + operand.x, cenY + operand.y, vertOrder)
-    override def slate(xOperand: Double, yOperand: Double): RectGen = new RectGen(width, height, cenX + xOperand, cenY + yOperand, vertOrder)
+    override def slate(operand: VecPt2): RectGen = slate(operand.x, operand.y)
+    
+    override def slate(xOperand: Double, yOperand: Double): RectGen =
+      new RectGen(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
 
-    override def scale(operand: Double): RectGen = new RectGen(width * operand, height * operand, cenX * operand, cenY * operand, vertOrder)
-    override def negX: RectGen = new RectGen(width, height, -cenX, cenY, 0)
-    override def negY: RectGen = new RectGen(width, height, cenX, -cenY, 0)
+    override def scale(operand: Double): RectGen = new RectGen(v0x * operand, v0y + operand, v1x * operand, v1y * operand, v2x * operand, v2y * operand)    
+    override def negX: RectGen = new RectGen(-v0x, v0y, -v1x, v1y, -v2x, v2y)
+    override def negY: RectGen = new RectGen(v0x, -v0y, v1x, -v1y, v2x, -v2y)
     override def prolign(matrix: ProlignMatrix): Rect = ??? // vertsTrans(_.prolign(matrix))
 
     override def scaleXY(xOperand: Double, yOperand: Double): RectGen =
-      new RectGen(width * xOperand, height * yOperand, cenX * xOperand, cenY * yOperand, vertOrder)
+      new RectGen(v0x * xOperand, v0y * yOperand, v1x * xOperand, v1y * yOperand, v2x * xOperand, v2y * yOperand)
 
     final override def vLast: Pt2 = Pt2(vLastX, vLastY)
     override def sd0CenX: Double = v0x \/ vertX(1)
     override def sd0CenY: Double = v0y \/ vertY(1)
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+    
+    
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
   object RectGen
   { /** Factory method for constructing [[RectGen]] class, a general case of a [[Rect]]. */
-    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectGen = new RectGen(width, height, cen.x, cen.y, 0)
+    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z, vertOrder: Int = 0): RectGen =
+    { val hw = width / 2
+      val hh = height / 2
+      new RectGen(cen.x + hw, cen.y + hh, cen.x + hw, cen.y - hh, cen.x - hw, cen.y - hh)
+    }
+    
+    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectGen =
+    { val hw = width / 2
+      val hh = height / 2
+      new RectGen(cenX + hw, cenY + hh, cenX + hw, cenY - hh, cenX - hw, cenY - hh)
+    }
 
-    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectGen = new RectGen(width, height, cenX, cenY, 0)
+    def apply(width: Double, height: Double, cenX: Double, cenY: Double, vertOrder: Int): RectGen = ???
   }
 }
 
-object NoBounds extends Rect, PolygonLike[Pt2]
+object NoBounds extends Rect
 { override type ThisT = Rect
-  override def width: Double = -1
+
   override def height: Double = -1
 
-  override def cenX: Double = v0x \/ v2x
-  override def cenY: Double = v0y \/ v2y
-
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-
-  override def vertOrder: Int = 0
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def elem(index: Int): Pt2 = ???
 //  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
+
+  override def v0x: Double = 0
+  override def v0y: Double = 0
+  override def v1x: Double = 0
+  override def v1y: Double = 0
+  override def v2x: Double = 0
+  override def v2y: Double = 0
 }
