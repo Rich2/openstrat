@@ -10,7 +10,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
 
-  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle(f(v0), f(v1), f(v2))
+  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle.from3(f(v0), f(v1), f(v2))
   
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double = v3.distTo(v0)
@@ -76,7 +76,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 /** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non-specialised rectangles. It also contains
  * various factory methods that delegate to the [[Rectangle.RectangleGen]] class. */
 object Rectangle
-{  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the the centre
+{  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the centre
    * point is the origin. */
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
   { val rtVec = rotation.toVec(width / 2)
@@ -85,7 +85,7 @@ object Rectangle
   }
 
   /** Factory apply method to create [[Rectangle]] from its first 3 vertices. */
-  def apply(vt0: Pt2, vt1: Pt2, vt2: Pt2): Rectangle = new RectangleGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y)
+  def from3(vt0: Pt2, vt1: Pt2, vt2: Pt2): Rectangle = new RectangleGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y)
 
   /** Creates a [[Rectangle]] from axis 1. The default for axis 1 is the left right axis. */
   def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle = ???
@@ -99,8 +99,8 @@ object Rectangle
   def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = ???// new RectangleGen(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
 
   /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
-  def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] =
-    Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).arrayUnsafe
+  //def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] = ???
+    //Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).arrayUnsafe
 
 //  def fromArray(array: Array[Double]): Rectangle = new RectangleGen(array)
 
@@ -161,7 +161,6 @@ object Rectangle
     override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
     override def vertX(index: Int): Double = arrayUnsafe(index * 2)
     override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-//    override def sides: LineSegArr = new LineSegArr(arrayForSides)
   }
 
   object RectangleGen
