@@ -63,7 +63,10 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   final override def v0: Pt2 = Pt2(v0x, v0y)
   final override def v3x: Double = v0x + v2x - v1x
   final override def v3y: Double = v0y + v2y - v1y
-
+  final override def vLastX: Double = v3x
+  final override def vLastY: Double = v3y
+  final override def vLast: Pt2 = Pt2(v3x, v3y)
+  final override def side0: LineSeg = LineSeg(v0x, v0y, v1x, v1y)
   final override def sd0CenX: Double = v0x \/ v1x
   final override def sd0CenY: Double = v0y \/ v1y
   final override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
@@ -169,11 +172,6 @@ object Rectangle
     override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.from3(f(v0), f(v1), f(v2))
 
     override def rotation: AngleVec = ???
-    
-    override def vLastX: Double = arrayUnsafe(numVerts - 2)
-    override def vLastY: Double = arrayUnsafe(numVerts - 1)
-    override def vLast: Pt2 = Pt2(vLastX, vLastY)
-    override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   }
 
   object RectangleGen

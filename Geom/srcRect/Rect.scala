@@ -66,12 +66,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   }
   
   final override def width: Double = (v0x - v2x).abs
-  final override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  final override def vLastY: Double = arrayUnsafe(numVerts - 1)
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
   override def rotation: AngleVec = 0.degsVec
-
-  final override def side0: LineSeg = LineSeg(v0x, v0y, v1x, v1y)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectGen]] class. */
@@ -178,8 +173,6 @@ object Rect
 
     override def scaleXY(xOperand: Double, yOperand: Double): RectGen =
       new RectGen(v0x * xOperand, v0y * yOperand, v1x * xOperand, v1y * yOperand, v2x * xOperand, v2y * yOperand)
-
-    final override def vLast: Pt2 = Pt2(vLastX, vLastY)
   }
 
   /** Companion object for the [[Rect.RectGen]] class. */
@@ -205,8 +198,6 @@ object NoBounds extends Rect
 { override type ThisT = Rect
 
   override def height: Double = -1
-
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
 
 //  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???

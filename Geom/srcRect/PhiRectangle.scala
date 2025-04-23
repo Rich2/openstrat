@@ -39,11 +39,6 @@ object PhiRectangle
     override def rotation: AngleVec = ???
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
-    
-    override def vLastX: Double = arrayUnsafe(numVerts - 2)
-    override def vLastY: Double = arrayUnsafe(numVerts - 1)
-    override def vLast: Pt2 = Pt2(vLastX, vLastY)
-    override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   }
 }
 
@@ -59,8 +54,6 @@ trait PhiRect extends Rect, PhiRectangle
   override def negX: PhiRect = PhiRect(height, cen.negX)
   override def negY: PhiRect = PhiRect(height, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
-
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
 }
 
 object PhiRect
@@ -87,8 +80,6 @@ final class PhiRectWide(val v0x: Double, val v0y: Double, val v1x: Double, val v
   override def negX: PhiRectHigh = PhiRectHigh(width, cen.negX)
   override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
-
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
 }
 
 object PhiRectWide
@@ -114,8 +105,6 @@ final class PhiRectHigh(val v0x: Double, val v0y: Double, val v1x: Double, val v
   override def negX: PhiRectHigh = PhiRectHigh(width, cen.negX)
   override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
   override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
-
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
 }
 
 object PhiRectHigh

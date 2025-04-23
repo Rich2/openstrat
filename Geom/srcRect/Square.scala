@@ -74,10 +74,6 @@ final class SquareGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y
   override def attribs: RArr[XmlAtt] = ???
   override def rotation: AngleVec = ???
   override def toString: String = s"SquareClass($v0x, $v0y; $v1x, $v1y)"
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
 }
 
 object SquareGen
