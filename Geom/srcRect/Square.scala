@@ -45,8 +45,9 @@ object Square extends ShapeIcon
     val v2: Pt2 = Pt2(-hw, -hw).rotate(rotation)
     new SquareGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
   }
-  
-  def from3(v0: Pt2, v1: Pt2, v2: Pt2): Square = ???
+
+  /** Factory method for constructing a [[Square]] from its first 3 vertices. */
+  def from3(v0: Pt2, v1: Pt2, v2: Pt2): Square = new SquareGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the
@@ -65,7 +66,7 @@ object Square extends ShapeIcon
 
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and rotated while
  * remaining a Square. */
-final class SquareGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Square
+final class SquareGen (val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Square
 { override type ThisT = SquareGen
   override def vertsTrans(f: Pt2 => Pt2): SquareGen = SquareGen.from3(f(v0), f(v1), f(v2))
   @inline override def width: Double = width1

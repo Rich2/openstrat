@@ -6,7 +6,6 @@ import pWeb.*, ostrat.Colour.Black
  * vertices 0, 1, 2, 3. However, this can be changed by rotations and reflections.  */
 trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
-
   override def slate(operand: VecPt2): Rect = Rect(width, height, cen.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY + yOperand)
   override def slateX(xOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY)
@@ -200,8 +199,6 @@ object NoBounds extends Rect
 { override type ThisT = Rect
 
   override def height: Double = -1
-
-//  override def numElems: Int = 0
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 
   override def v0x: Double = 0
