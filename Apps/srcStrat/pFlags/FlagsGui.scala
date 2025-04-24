@@ -4,7 +4,8 @@ import geom._, pgui._, Colour._
 
 /** A shortcut application to display some flags. */
 case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
-{ backColour = Gray
+{ deb("FlagsGui")
+  backColour = Gray
   var big: Flag = UnitedStates
   val bigScale:Double = 600
   val smallScale: Double = 100
@@ -20,8 +21,8 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
     var x: Double = canv.left
     var rowFirst: Boolean = true
     flagsArr.map{ flag =>
-      val res1: PolygonCompound = flag.compound().scale(smallScale)
-      val dx = res1.boundRight
+      val scaledFlag: PolygonCompound = flag.compound().scale(smallScale)
+      val dx = scaledFlag.boundRight
       if (!rowFirst && (x + dx * 2> canv.right))
       { y -= (smallScale + margin)
         x = canv.left
@@ -31,7 +32,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
       { x += margin
         rowFirst = false
       }
-      val res2 = res1.slate(x + dx, y)
+      val res2 = scaledFlag.slate(x + dx, y)
       x += dx * 2
       res2
     }

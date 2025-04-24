@@ -143,11 +143,11 @@ object Rectangle
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
-  def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
-  { val hAngle: Angle = centreLine.angle
-    val offset = (hAngle + 90.degsVec).toVec2(height * 0.5)
-    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
-  }
+  def fromAxis(centreLine: LineSeg, height: Double): PolygonGen = ???
+//  { val hAngle: Angle = centreLine.angle
+//    val offset = (hAngle + 90.degsVec).toVec2(height * 0.5)
+//    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
+//  }
 
   def fromAxisRatio(centreLine: LineSeg, ratio: Double): PolygonGen = fromAxis(centreLine, centreLine.length * ratio)
 
@@ -168,9 +168,7 @@ object Rectangle
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rectangle
   { override type ThisT = RectangleGen
-//    override def fromArray(array: Array[Double]): RectangleGen = new RectangleGen(array)
     override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.from3(f(v0), f(v1), f(v2))
-
     override def rotation: AngleVec = ???
   }
 

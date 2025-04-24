@@ -15,9 +15,9 @@ object Belgium extends Flag
 }
 
 trait EnglandLike extends Flag
-{ def ratio = 2
+{ def ratio: Double = 2// 5.0 / 3.0
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
-  def redCross: RArr[PolygonFill] = Rect.cross(2, 1, 0.2).map(_.fill(englishRed))
+  def redCross: RArr[PolygonFill] = Rect.cross(ratio, 1, 0.2).map(_.fill(englishRed))
   def common = rect.fill(White) %: redCross
 }
 
@@ -30,10 +30,10 @@ object UnitedKingdom extends EnglandLike
 { val name = "United Kingdom"
 
   def apply(): GraphicElems =
-  { val xd = hypotenuse(2,1) / 30.0
-    val yd = hypotenuse(1,0.5) / 30.0
+  { val xd = hypotenuse(ratio, 1) / 30.0
+    val yd = hypotenuse(1, 0.5) / 30.0
 
-    /** Top of White cross bar */
+    /** Top of White crossbar */
     val ywc = 5.0 / 30
 
     /** ywc * 2 where diag crosses ywc */

@@ -10,8 +10,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
 { type ThisT <: Polygon
   override type SideT = LineSeg
 
-  def arrayUnsafe: Array[Double]
-  //def arrayLen: Int = arrayUnsafe.length
+  def arrayUnsafe: Array[Double] 
   def xVertsArray: Array[Double]
   def yVertsArray: Array[Double]
 
@@ -55,11 +54,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   }
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)
-
-  /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a new
-   * transformed [[Polygon]]. */
-  //def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
+  override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)  
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val acc = build.uninitialised(numVerts)

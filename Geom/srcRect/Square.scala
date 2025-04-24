@@ -61,7 +61,6 @@ object Square extends ShapeIcon
   override def reify(scale: Double, cen: Pt2 = Pt2Z): Sqlign = Sqlign(scale, cen)
 
   override def fill(colour: Colour): ShapeGraphicIcon = ???
-
 }
 
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and rotated while
@@ -77,6 +76,6 @@ final class SquareGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y
 }
 
 object SquareGen
-{
+{ /** Factory method to create [[Square]] from the first 3 vertices. */
   def from3(v0: Pt2, v1: Pt2, v2: Pt2): SquareGen = new SquareGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 }

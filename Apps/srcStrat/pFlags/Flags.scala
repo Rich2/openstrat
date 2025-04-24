@@ -8,7 +8,7 @@ trait Flag
   override def toString: String = name -- "flag"
   def ratio: Double
   def apply(): GraphicElems
-  def rect: Rect = Rect(ratio, 1)
+  def rect: Rect = Rect(ratio)
 
   def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
 

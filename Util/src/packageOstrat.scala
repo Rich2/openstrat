@@ -69,7 +69,7 @@ package object ostrat
   /** The square root of 3. */
   val Sqrt3: Double = 3.sqrt
 
-  /** Gives the scalar hypotenuse length for a right angled triangle form the paramter lengths of the other 2 sides. */
+  /** Gives the scalar hypotenuse length for a right-angled triangle from the parameter lengths of the other 2 sides. */
   def hypotenuse(side1: Double, side2: Double): Double = (side1.squared + side2.squared).sqrt
 
   /** Gives the average of the supplied values. */

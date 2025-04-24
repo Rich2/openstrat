@@ -71,7 +71,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectGen]] class. */
 object Rect
-{ /** Factory apply method for a rectangle aligned with the X and Y axes. Default height is 1 and default cebtre point is at x = 0, y = 0. There is a name
+{ /** Factory apply method for a rectangle aligned with the X and Y axes. Default height is 1 and default centre point is at x = 0, y = 0. There is a name
    * overload that takes the X and Y centre coordinates as [[Double]]s. */
   def apply(width: Double, height: Double = 1, cen: Pt2 = Pt2Z): Rect = RectGen(width, height, cen.x, cen.y)
 
@@ -79,7 +79,7 @@ object Rect
    * point parameter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, cenX: Double, cenY: Double): Rect = RectGen(width, height, cenX, cenY)
 
-  /** The implicit [[DefaultValue]] type class instace / evidence for [[Rect]] is the [[NoBounds]] object. */
+  /** The implicit [[DefaultValue]] type class instance / evidence for [[Rect]] is the [[NoBounds]] object. */
   implicit lazy val defaultEv: DefaultValue[Rect] = new DefaultValue[Rect]
   { override def default: Rect = NoBounds
   }
@@ -88,15 +88,17 @@ object Rect
   def fromArray(array: Array[Double]): Rect = ??? // new RectGen(array)
 
   /** Construct a [[Rect]] from the left, right, bottom and top values." */
-  def lrbt(left: Double, right: Double, bottom: Double, top: Double): Rect = Rect(right -left, top - bottom, (left + right) / 2, (bottom + top) / 2)
+  def lrbt(left: Double, right: Double, bottom: Double, top: Double): Rect = new RectGen(right, top, right, bottom, left, bottom)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top right
    * vertex of the Rect at the origin. */
-  def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect = RectGen(width, height, topRight.x - width / 2, topRight.y - height / 2)
+  def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect =
+    new RectGen(topRight.x, topRight.y, topRight.x, topRight.y - height, topRight.x - width, topRight.y - height)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top left vertex
    * of the Rect at the origin. */
-  def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect = RectGen(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
+  def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect =
+    new RectGen(topLeft.x + width, topLeft.y, topLeft.x + width, topLeft.y - height, topLeft.x, topLeft.y - height)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. */
   def tl(width: Double, height: Double, xTopLeft: Double, yTopLeft: Double): Rect = RectGen(width, height, xTopLeft + width / 2, yTopLeft - height / 2)
@@ -147,14 +149,14 @@ object Rect
   }
 
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final class RectGen private(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rect
+  final class RectGen (val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rect
   { type ThisT = RectGen
     override def typeStr: String = "Rect"
 
     /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
      * methods. */
     override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-//    override def vertsTrans(f: Pt2 => Pt2): RectGen = ??? // mapRectImp(f)
+
     override def width1: Double = width
     override def width2: Double = height
     override def height: Double = (v0y - v2y).abs
@@ -166,7 +168,7 @@ object Rect
     override def slate(xOperand: Double, yOperand: Double): RectGen =
       new RectGen(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
 
-    override def scale(operand: Double): RectGen = new RectGen(v0x * operand, v0y + operand, v1x * operand, v1y * operand, v2x * operand, v2y * operand)    
+    override def scale(operand: Double): RectGen = new RectGen(v0x * operand, v0y * operand, v1x * operand, v1y * operand, v2x * operand, v2y * operand)
     override def negX: RectGen = new RectGen(-v0x, v0y, -v1x, v1y, -v2x, v2y)
     override def negY: RectGen = new RectGen(v0x, -v0y, v1x, -v1y, v2x, -v2y)
     override def prolign(matrix: ProlignMatrix): Rect = ??? // vertsTrans(_.prolign(matrix))
