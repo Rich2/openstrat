@@ -22,7 +22,7 @@ trait Square extends Rectangle
   override def rotate90: Square = vertsTrans(_.rotate90)
   override def rotate180: Square = vertsTrans(_.rotate180)
   override def rotate270: Square = vertsTrans(_.rotate270)
-  override def prolign(matrix: ProlignMatrix): Square = vertsTrans(_.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): Square = vertsTrans(_.prolign(matrix))
   override def reflect(lineLike: LineLike): Square = vertsTrans(_.reflect(lineLike))
   override def rotate(rotation: AngleVec): Square = vertsTrans(_.rotate(rotation))
 }

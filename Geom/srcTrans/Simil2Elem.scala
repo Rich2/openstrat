@@ -16,7 +16,7 @@ trait Simil2Trans[T] extends TransAlign[T]
   def rotate(obj: T, angle: AngleVec): T
 }
 
-/** Companion object for the TranSim transformation type class trait. */
+/** Companion object for the [[Simil2Trans]] geometric transformation set type class trait. */
 object Simil2Trans
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Simil2Trans[T] = new Simil2Trans[T]

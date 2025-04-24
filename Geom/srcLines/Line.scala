@@ -15,8 +15,8 @@ sealed trait Line extends LineLike
   override def negY: Line = ???
   override def negX: Line = ???
 
-  /** Transforms this Line using a [[ProlignMatrix]]. */
-  override def prolign(matrix: ProlignMatrix): Line = ???
+  /** Transforms this Line using a [[AxlignMatrix]]. */
+  override def prolign(matrix: AxlignMatrix): Line = ???
 
   override def rotate90: Line = ???
   override def rotate180: Line = ???

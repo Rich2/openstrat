@@ -16,7 +16,7 @@ trait PhiRectangle extends Rectangle
   override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.scale(operand), sd2Cen.scale(operand))
   override def negX: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negX, sd2Cen.negX)  
   override def negY: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negY, sd2Cen.negY)
-  override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(sd0Cen.prolign(matrix), sd2Cen.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): PhiRectangle = PhiRectangle.s1s3(sd0Cen.prolign(matrix), sd2Cen.prolign(matrix))
   override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(sd0Cen.reflect(lineLike), sd2Cen.reflect(lineLike))
   override def rotate(rotation: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd0Cen.rotate(rotation), sd2Cen.rotate(rotation))
 }
@@ -53,7 +53,7 @@ trait PhiRect extends Rect, PhiRectangle
   override def scale(operand: Double): PhiRect = PhiRect(height * operand, cen.scale(operand))
   override def negX: PhiRect = PhiRect(height, cen.negX)
   override def negY: PhiRect = PhiRect(height, cen.negY)
-  override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 }
 
 object PhiRect
@@ -79,7 +79,7 @@ final class PhiRectWide(val v0x: Double, val v0y: Double, val v1x: Double, val v
   override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
   override def negX: PhiRectHigh = PhiRectHigh(width, cen.negX)
   override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
-  override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 }
 
 object PhiRectWide
@@ -104,7 +104,7 @@ final class PhiRectHigh(val v0x: Double, val v0y: Double, val v1x: Double, val v
   override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
   override def negX: PhiRectHigh = PhiRectHigh(width, cen.negX)
   override def negY: PhiRectHigh = PhiRectHigh(width, cen.negY)
-  override def prolign(matrix: ProlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): PhiRectHigh = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 }
 
 object PhiRectHigh

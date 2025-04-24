@@ -30,7 +30,7 @@ trait Shape extends Any with Fillable with BoundedElem
   override def scale(operand: Double): Shape
   override def negY: Shape
   override def negX: Shape
-  override def prolign(matrix: ProlignMatrix): Shape
+  override def prolign(matrix: AxlignMatrix): Shape
   override def rotate90: Shape
   override def rotate180: Shape
   override def rotate270: Shape

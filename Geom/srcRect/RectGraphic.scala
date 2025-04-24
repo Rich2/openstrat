@@ -25,7 +25,7 @@ trait RectFill extends RectGraphicSimple, RectangleFill
   override def rotate90: RectFill
   override def rotate180: RectFill
   override def rotate270: RectFill
-  override def prolign(matrix: ProlignMatrix): RectFill
+  override def prolign(matrix: AxlignMatrix): RectFill
 }
 
 /** Companion object for the RectFill trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
@@ -47,7 +47,7 @@ object RectFill
     override def rotate90: RectFillImp = RectFillImp(shape.rotate90, fillFacet)
     override def rotate180: RectFillImp = RectFillImp(shape.rotate180, fillFacet)
     override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
-    override def prolign(matrix: ProlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
+    override def prolign(matrix: AxlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
     override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
     override def rotate(rotation: AngleVec): RectangleFill = RectangleFill(shape.rotate(rotation), fillFacet)
   }
@@ -88,7 +88,7 @@ trait RectCompound extends RectGraphic, RectangleCompound
   override def rotate90: RectCompound = RectCompound(shape.rotate90, facets, children.rotate90)
   override def rotate180: RectCompound = RectCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: RectCompound = RectCompound(shape.rotate270, facets, children.rotate270)
-  override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def scaleXY(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand) )

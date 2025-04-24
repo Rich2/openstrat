@@ -138,7 +138,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   override def scale(operand: Double): Polygon = map(_.scale(operand))
   override def negX: Polygon = map(_.negX)
   override def negY: Polygon = map(_.negY)
-  override def prolign(matrix: ProlignMatrix): Polygon = map(_.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): Polygon = map(_.prolign(matrix))
   override def rotate90: Polygon = map(_.rotate90)
   override def rotate180: Polygon = map(_.rotate180)
   override def rotate270: Polygon = map(_.rotate270)

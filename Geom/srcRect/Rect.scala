@@ -16,7 +16,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   override def rotate90: Rect = Rect(height, width, cen.rotate90)
   override def rotate180: Rect = Rect(width, height, -cenX, -cenY)
   override def rotate270: Rect = Rect(height, width, cen.rotate270)
-  override def prolign(matrix: ProlignMatrix): Rect = Rect(width, height, cen.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): Rect = Rect(width, height, cen.prolign(matrix))
   override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect(width * xOperand, height * yOperand, cenX * xOperand, cenY * yOperand)
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, RArr(), active(id) %: children)
@@ -179,7 +179,7 @@ object Rect
     override def scale(operand: Double): RectGen = new RectGen(v0x * operand, v0y * operand, v1x * operand, v1y * operand, v2x * operand, v2y * operand)
     override def negX: RectGen = new RectGen(-v0x, v0y, -v1x, v1y, -v2x, v2y)
     override def negY: RectGen = new RectGen(v0x, -v0y, v1x, -v1y, v2x, -v2y)
-    override def prolign(matrix: ProlignMatrix): Rect = ??? // vertsTrans(_.prolign(matrix))
+    override def prolign(matrix: AxlignMatrix): Rect = ??? // vertsTrans(_.prolign(matrix))
 
     override def scaleXY(xOperand: Double, yOperand: Double): RectGen =
       new RectGen(v0x * xOperand, v0y * yOperand, v1x * xOperand, v1y * yOperand, v2x * xOperand, v2y * yOperand)

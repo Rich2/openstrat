@@ -29,7 +29,7 @@ trait Pt2SeqSpec extends Any, Pt2SeqLike, SsDbl2[Pt2]
   protected def arrayScale(operand: Double): Array[Double] = arrayUnsafe.map(_ * operand)
   protected def arrayNegX: Array[Double] = arrayD1Map(-_)
   protected def arrayNegY: Array[Double] = arrayD2Map(-_)
-  protected def arrayProlign(matrix: ProlignMatrix): Array[Double] = arrayElemMap(_.prolign(matrix))
+  protected def arrayProlign(matrix: AxlignMatrix): Array[Double] = arrayElemMap(_.prolign(matrix))
   protected def arrayRotate90: Array[Double] = arrayElemMap(_.rotate90)
   protected def arrayRotate180: Array[Double] = arrayElemMap(_.rotate180)
   protected def arrayRotate270: Array[Double] = arrayElemMap(_.rotate270)

@@ -115,7 +115,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def xShear(operand: Double): Pt2 = Pt2(x, y * operand)
   def yShear(operand: Double): Pt2 = Pt2(x * operand, y)
 
-  @inline def prolign(m: ProlignMatrix): Pt2 = m.vecTrans(this)
+  @inline def prolign(m: AxlignMatrix): Pt2 = m.vecTrans(this)
 
   /** Reverses the y coordinate. Useful for translating between canvases where the y-axis measures down and coordinate systems where y is up */
   def inverseY: Pt2 = Pt2(x, -y)

@@ -30,8 +30,8 @@ trait EArclign extends EArc
 
   override def rotate90: EArclign = ???
 
-  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
-  override def prolign(matrix: ProlignMatrix): EArclign =
+  /** 2D Transformation using a [[AxlignMatrix]]. The return type will be narrowed in sub classes / traits. */
+  override def prolign(matrix: AxlignMatrix): EArclign =
     EArclign(pStart.prolign(matrix), cen.prolign(matrix), xRadius, yRadius, pEnd.prolign(matrix), rotationsInt)
 }
 

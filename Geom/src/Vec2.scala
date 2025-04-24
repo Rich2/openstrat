@@ -102,7 +102,7 @@ class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
   override def shearY(operand: Double): Vec2 = Vec2(x, y * operand)
   override def negX: Vec2 = Vec2(-x, y)
   override def negY: Vec2 = Vec2(x, -y)
-  override def prolign(matrix: ProlignMatrix): Vec2 = ???
+  override def prolign(matrix: AxlignMatrix): Vec2 = ???
   override def reflect(lineLike: ostrat.geom.LineLike): Vec2 = ???
 }
 

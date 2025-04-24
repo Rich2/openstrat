@@ -23,9 +23,9 @@ trait EArcDraw extends CurveSegDraw with CanvElem
    * sub traits / classes. */
   override def negX: EArcDraw = EArcDraw(curveSeg.negX, colour, lineWidth)
 
-  /** 2D geometric transformation using a [[ProlignMatrix]] on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits /
+  /** 2D geometric transformation using a [[AxlignMatrix]] on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): EArcDraw = EArcDraw(curveSeg.prolign(matrix), colour, lineWidth)
+  override def prolign(matrix: AxlignMatrix): EArcDraw = EArcDraw(curveSeg.prolign(matrix), colour, lineWidth)
 
   override def rotate90: EArcDraw = EArcDraw(curveSeg.rotate90, colour, lineWidth)
   override def rotate180: EArcDraw = EArcDraw(curveSeg.rotate180, colour, lineWidth)

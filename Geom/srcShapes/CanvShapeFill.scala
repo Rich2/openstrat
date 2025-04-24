@@ -8,7 +8,7 @@ trait CanvShapeFill extends ShapeFill with CanvElem
   override def scale(operand: Double): CanvShapeFill
   override def negY: CanvShapeFill
   override def negX: CanvShapeFill
-  override def prolign(matrix: ProlignMatrix): CanvShapeFill
+  override def prolign(matrix: AxlignMatrix): CanvShapeFill
   override def rotate90: CanvShapeFill
   override def rotate180: CanvShapeFill
   override def rotate270: CanvShapeFill

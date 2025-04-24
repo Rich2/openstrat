@@ -19,7 +19,7 @@ class SqlignFill(val shape: Sqlign, val fillFacet: FillFacet) extends SqlignGrap
   override def rotate90: SqlignFill = SqlignFill(shape.rotate90, fillFacet)
   override def rotate180: SqlignFill = SqlignFill(shape.rotate180, fillFacet)
   override def rotate270: SqlignFill = SqlignFill(shape.rotate270, fillFacet)
-  override def prolign(matrix: ProlignMatrix): SqlignFill = SqlignFill(shape.prolign(matrix), fillFacet)
+  override def prolign(matrix: AxlignMatrix): SqlignFill = SqlignFill(shape.prolign(matrix), fillFacet)
 }
 
 object SqlignFill

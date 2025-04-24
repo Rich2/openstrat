@@ -18,7 +18,7 @@ trait Drawable extends Any with Aff2Elem
   override def scale(operand: Double): Drawable
   override def negY: Drawable
   override def negX: Drawable
-  override def prolign(matrix: ProlignMatrix): Drawable
+  override def prolign(matrix: AxlignMatrix): Drawable
   override def rotate90: Drawable
   override def rotate180: Drawable
   override def rotate270: Drawable
@@ -87,7 +87,7 @@ trait Fillable extends Any with Drawable
   override def scale(operand: Double): Fillable
   override def negY: Fillable
   override def negX: Fillable
-  override def prolign(matrix: ProlignMatrix): Fillable
+  override def prolign(matrix: AxlignMatrix): Fillable
   override def rotate90: Fillable
   override def rotate180: Fillable
   override def rotate270: Fillable

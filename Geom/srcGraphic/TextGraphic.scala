@@ -53,7 +53,7 @@ TextGraphic
   override def scale(operand: Double): Textlign = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
   override def negY: Textlign = copy(str, fontSize, xPosn, -yPosn)
   override def negX: Textlign = copy(str, fontSize, -xPosn, yPosn)
-  override def prolign(matrix: ProlignMatrix): Textlign = ???
+  override def prolign(matrix: AxlignMatrix): Textlign = ???
   override def rotate90: Textlign = ???
   override def rotate180: Textlign = ???
   override def rotate270: Textlign = ???

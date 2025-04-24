@@ -7,15 +7,16 @@ trait TriangleIsos extends Triangle
 { type ThisT <: TriangleIsos
   override def typeStr: String = "TriangleIsos"
 
-  /** The height of this isosceles triangle from the bisection of the thrid side to the vertex where the 2 euql length sides meet. */
+  /** The height of this isosceles triangle from the bisection of the thrid side to the vertex where the 2 equal length sides meet. */
   def height: Double = ???
 }
 
 /** The general case of an isosceles triangle. */
-final case class TriangleIsosGen(arrayUnsafe: Array[Double]) extends TriangleIsos, AxisFree, PolygonLikeDbl2[Pt2], Pt2SeqSpec
+final class TriangleIsosGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriangleIsos,
+AxisFree//, PolygonLikeDbl2[Pt2], Pt2SeqSpec
 {	type ThisT = TriangleIsosGen
 
-  override def fromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
+  //override def fromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
   override def vertsTrans(f: Pt2 => Pt2): TriangleIsosGen = ???
 
   override def attribs: RArr[XmlAtt] = ???
@@ -24,17 +25,10 @@ final case class TriangleIsosGen(arrayUnsafe: Array[Double]) extends TriangleIso
 
   override def reflect(lineLike: LineLike): TriangleIsosGen = ???
 
-  override def v0x: Double = arrayUnsafe(0)
-  override def v0y: Double = arrayUnsafe(1)
-  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
+  
   override def side0: LineSeg = LineSeg(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)  
+  
 }

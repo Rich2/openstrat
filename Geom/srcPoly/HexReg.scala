@@ -45,7 +45,7 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell, PolygonLikeDbl2[Pt2], Pt2
   override def rotate270: HexReg = mapHexReg(_.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): HexReg = mapHexReg(_.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): HexReg = mapHexReg(_.prolign(matrix))
 
   override def rotate(rotation: AngleVec): HexReg = mapHexReg(_.rotate(rotation))
 

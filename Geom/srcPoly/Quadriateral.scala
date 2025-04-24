@@ -21,7 +21,7 @@ trait Quadrilateral extends Polygon4Plus
   override def scale(offset: Double): Quadrilateral = vertsTrans(_.scale(offset))
   override def negX: Quadrilateral = vertsTrans(_.negX)
   override def negY: Quadrilateral = vertsTrans(_.negY)
-  override def prolign(matrix: ProlignMatrix): Quadrilateral = vertsTrans(_.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): Quadrilateral = vertsTrans(_.prolign(matrix))
   override def rotate90: Quadrilateral = vertsTrans(_.rotate90)
   override def rotate180: Quadrilateral = vertsTrans(_.rotate90)
   override def rotate270: Quadrilateral = vertsTrans(_.rotate90)

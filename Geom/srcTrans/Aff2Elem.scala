@@ -31,7 +31,7 @@ trait Aff2Elem extends Any, Simil2Elem
   override def rotate90: Aff2Elem
   override def rotate180: Aff2Elem
   override def rotate270: Aff2Elem
-  override def prolign(matrix: ProlignMatrix): Aff2Elem
+  override def prolign(matrix: AxlignMatrix): Aff2Elem
   override def rotate(rotation: AngleVec): Aff2Elem
   def reflect(lineLike: LineLike): Aff2Elem
 }

@@ -36,7 +36,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   override def scale(operand: Double): PolygonGraphic
   override def negY: PolygonGraphic
   override def negX: PolygonGraphic
-  override def prolign(matrix: ProlignMatrix): PolygonGraphic
+  override def prolign(matrix: AxlignMatrix): PolygonGraphic
   override def rotate90: PolygonGraphic
   override def rotate180: PolygonGraphic
   override def rotate270: PolygonGraphic
@@ -88,7 +88,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def reflect(lineLike: LineLike): PolygonGraphicSimple
   override def negY: PolygonGraphicSimple
   override def negX: PolygonGraphicSimple
-  override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
+  override def prolign(matrix: AxlignMatrix): PolygonGraphicSimple
   override def rotate90: PolygonGraphicSimple
   override def rotate180: PolygonGraphicSimple
   override def rotate270: PolygonGraphicSimple
@@ -140,7 +140,7 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
   override def rotate90: PolygonDraw = PolygonDraw(shape.rotate90, lineWidth, lineColour)
   override def rotate180: PolygonDraw = PolygonDraw(shape.rotate180, lineWidth, lineColour)
   override def rotate270: PolygonDraw = PolygonDraw(shape.rotate270, lineWidth, lineColour)
-  override def prolign(matrix: ProlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)
+  override def prolign(matrix: AxlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)
   override def rotate(rotation: AngleVec): PolygonDraw = PolygonDraw(shape.rotate(rotation), lineWidth, lineColour)
   override def reflect(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.reflect(lineLike), lineWidth, lineColour)
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
@@ -204,7 +204,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def rotate90: PolygonFill
   override def rotate180: PolygonFill
   override def rotate270: PolygonFill
-  override def prolign(matrix: ProlignMatrix): PolygonFill
+  override def prolign(matrix: AxlignMatrix): PolygonFill
   override def rotate(rotation: AngleVec): PolygonFill
   override def reflect(lineLike: LineLike): PolygonFill
   override def shearX(operand: Double): PolygonFill
@@ -263,7 +263,7 @@ object PolygonFill
     override def rotate90: PolygonFillGen = PolygonFillGen(shape.rotate90, fillFacet)
     override def rotate180: PolygonFillGen = PolygonFillGen(shape.rotate180, fillFacet)
     override def rotate270: PolygonFill = PolygonFillGen(shape.rotate270, fillFacet)
-    override def prolign(matrix: ProlignMatrix): PolygonFillGen = PolygonFillGen(shape.prolign(matrix), fillFacet)
+    override def prolign(matrix: AxlignMatrix): PolygonFillGen = PolygonFillGen(shape.prolign(matrix), fillFacet)
     override def rotate(rotation: AngleVec): PolygonFillGen = PolygonFillGen(shape.rotate(rotation), fillFacet)
     override def reflect(lineLike: LineLike): PolygonFillGen = PolygonFillGen(shape.reflect(lineLike), fillFacet)
     override def shearX(operand: Double): PolygonFillGen = PolygonFillGen(shape.shearX(operand), fillFacet)
@@ -313,7 +313,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
   override def negY: PolygonCompound = PolygonCompound(shape.negY, facets, children.negY)
   override def negX: PolygonCompound = PolygonCompound(shape.negX, facets, children.negX)
-  override def prolign(matrix: ProlignMatrix): PolygonCompound = PolygonCompound(shape.prolign(matrix), facets, children.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): PolygonCompound = PolygonCompound(shape.prolign(matrix), facets, children.prolign(matrix))
   override def rotate90: PolygonCompound = PolygonCompound(shape.rotate90, facets, children.rotate90)
   override def rotate180: PolygonCompound = PolygonCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: PolygonCompound = PolygonCompound(shape.rotate270, facets, children.rotate270)
@@ -399,7 +399,7 @@ object PolygonCompound
       PolygonCompoundImp(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
     override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
-    override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
+    override def prolign(matrix: AxlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(rotation: AngleVec): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(rotation), facets, children.rotate(rotation))
     override def reflect(lineLike: LineLike): PolygonCompoundImp = PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
 

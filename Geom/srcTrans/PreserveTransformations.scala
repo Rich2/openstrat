@@ -17,7 +17,7 @@ trait ProlignPreserve extends Any with Aff2Elem {
   override def scale(operand: Double): ThisT = ptsTrans(_.scale(operand))
   override def negX: ThisT = ptsTrans(_.negX)
   override def negY: ThisT = ptsTrans(_.negY)
-  override def prolign(matrix: ProlignMatrix): ThisT = ptsTrans(_.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): ThisT = ptsTrans(_.prolign(matrix))
 }
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */

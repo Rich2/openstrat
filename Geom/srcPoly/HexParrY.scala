@@ -33,7 +33,7 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def rotate90: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate90))
   override def rotate180: HexParrY = vertsTrans(_.rotate180)
   override def rotate270: HexParrX = HexParrX.fromArray(arrayElemMap(_.rotate270))
-  override def prolign(matrix: ProlignMatrix): HexParrY = HexParrY(apoDiameter, cen.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): HexParrY = HexParrY(apoDiameter, cen.prolign(matrix))
 
   override def v0x: Double = arrayUnsafe(0)
   override def v0y: Double = arrayUnsafe(1)

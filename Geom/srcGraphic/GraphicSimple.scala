@@ -31,7 +31,7 @@ trait GraphicSimple extends Graphic2Elem
    *  return type will be narrowed in sub traits / classes. */
   override def rotate270: GraphicSimple
 
-  override def prolign(matrix: ProlignMatrix): GraphicSimple
+  override def prolign(matrix: AxlignMatrix): GraphicSimple
 
   override def rotate(rotation: AngleVec): GraphicSimple
 

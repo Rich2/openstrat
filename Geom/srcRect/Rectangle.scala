@@ -46,7 +46,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
   override def negX: Rectangle = vertsTrans(_.negX)
   override def negY: Rectangle = vertsTrans(_.negY)
-  override def prolign(matrix: ProlignMatrix): Rectangle = vertsTrans(_.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): Rectangle = vertsTrans(_.prolign(matrix))
   override def rotate90: Rectangle = vertsTrans(_.rotate90)
   override def rotate180: Rectangle = vertsTrans(_.rotate180)
   override def rotate270: Rectangle = vertsTrans(_.rotate270)

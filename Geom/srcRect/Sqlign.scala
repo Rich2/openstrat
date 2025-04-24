@@ -32,7 +32,7 @@ final class Sqlign private(val v0x: Double, val v0y: Double, val v1x: Double, va
   override def rotate90: Sqlign = new Sqlign(-v0y, v0x, -v1y, v1x, -v2y, v2x)
   override def rotate180: Sqlign = new Sqlign(-v0x, -v0y, -v1x, -v1y, -v2x, -v2y)
   override def rotate270: Sqlign = new Sqlign(v0y, v0x, v1y, -v1x, v2y, -v2x)
-  override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign.from3(v0.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
+  override def prolign(matrix: AxlignMatrix): Sqlign = Sqlign.from3(v0.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
   override def addMargin(delta: Double): Sqlign = ??? // Sqlign(width + 2 * delta, cenX, cenY, vertOrder)  
 }
 

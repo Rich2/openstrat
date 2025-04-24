@@ -14,7 +14,7 @@ trait GraphicBounded extends Graphic2Elem with BoundedElem
   def negY: GraphicBounded
   def negX: GraphicBounded
 
-  def prolign(matrix: ProlignMatrix): GraphicBounded
+  def prolign(matrix: AxlignMatrix): GraphicBounded
 
   override def rotate90: GraphicBounded
   override def rotate180: GraphicBounded

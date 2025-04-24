@@ -31,7 +31,7 @@ trait CurveSeg extends Drawable
   override def scale(operand: Double): CurveSeg
   override def negX: CurveSeg
   override def negY: CurveSeg
-  override def prolign(matrix: ProlignMatrix): CurveSeg
+  override def prolign(matrix: AxlignMatrix): CurveSeg
   override def rotate(rotation: AngleVec): CurveSeg
   override def rotate90: CurveSeg
   override def rotate180: CurveSeg

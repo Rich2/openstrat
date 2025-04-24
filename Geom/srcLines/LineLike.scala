@@ -16,7 +16,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   override def scale(operand: Double): Ray = ???
   override def negY: Ray = ???
   override def negX: Ray = ???
-  override def prolign(matrix: ProlignMatrix): Ray = ???
+  override def prolign(matrix: AxlignMatrix): Ray = ???
   override def rotate90: Ray = ???
   override def rotate180: Ray = ???
   override def rotate270: Ray = ???

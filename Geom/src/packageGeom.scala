@@ -46,7 +46,7 @@ package object geom
     new OrdinaledExtensions[T](value)(ev)
 
   implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
-  { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
+  { def prolign(matrix: AxlignMatrix): T = ev.prolignObj(value, matrix)
   }  
     
   /** The number of arc seconds in a degree = 3600. */

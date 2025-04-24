@@ -40,6 +40,6 @@ trait Axlign2Elem extends Any
    * subclasses and traits. */
   def rotate270: Axlign2Elem
 
-  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in subclasses / traits. */
-  def prolign(matrix: ProlignMatrix): Axlign2Elem
+  /** 2D Transformation using a [[AxlignMatrix]]. The return type will be narrowed in subclasses / traits. */
+  def prolign(matrix: AxlignMatrix): Axlign2Elem
 }

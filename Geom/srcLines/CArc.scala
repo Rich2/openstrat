@@ -40,7 +40,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   override def rotate90: CArc = ???
   override def rotate180: CArc = ???
   override def rotate270: CArc = ???
-  override def prolign(matrix: ProlignMatrix): CArc = ???
+  override def prolign(matrix: AxlignMatrix): CArc = ???
   override def rotate(rotation: AngleVec): CArc = CArc(pStart.rotate(rotation), cen.rotate(rotation), pEnd.rotate(rotation), rotationsInt)
   override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
 

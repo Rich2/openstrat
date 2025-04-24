@@ -21,7 +21,7 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill  
   override def negY: ShapeFill
   override def negX: ShapeFill
-  override def prolign(matrix: ProlignMatrix): ShapeFill
+  override def prolign(matrix: AxlignMatrix): ShapeFill
   override def rotate90: ShapeFill
   override def rotate180: ShapeFill
   override def rotate270: ShapeFill

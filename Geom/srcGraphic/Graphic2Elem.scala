@@ -18,7 +18,7 @@ trait Graphic2Elem extends Aff2Elem
   override def rotate90: Graphic2Elem
   override def rotate180: Graphic2Elem  
   override def rotate270: Graphic2Elem
-  override def prolign(matrix: ProlignMatrix): Graphic2Elem
+  override def prolign(matrix: AxlignMatrix): Graphic2Elem
   override def rotate(rotation: AngleVec): Graphic2Elem
   override def reflect(lineLike: LineLike): Graphic2Elem
   override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
@@ -75,7 +75,7 @@ trait CanvElem extends Graphic2Elem
   override def scale(operand: Double): CanvElem
   override def negY: CanvElem
   override def negX: CanvElem
-  override def prolign(matrix: ProlignMatrix): CanvElem
+  override def prolign(matrix: AxlignMatrix): CanvElem
   override def rotate90: CanvElem
   override def rotate180: CanvElem
   override def rotate270: CanvElem

@@ -9,7 +9,7 @@ trait CanvShapeDraw extends ShapeDraw with CanvElem
   override def scale(operand: Double): CanvShapeDraw
   override def negX: CanvShapeDraw
   override def negY: CanvShapeDraw
-  override def prolign(matrix: ProlignMatrix): CanvShapeDraw
+  override def prolign(matrix: AxlignMatrix): CanvShapeDraw
   override def rotate90: CanvShapeDraw
   override def rotate180: CanvShapeDraw
   override def rotate270: CanvShapeDraw
