@@ -6,7 +6,7 @@ import geom.*, pWeb.*, Colour.*
 object GeomPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses, LinePathNames)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists)
 
   def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
     geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
@@ -109,4 +109,15 @@ object LinePathNames extends HtmlSection
   | characters indicates that this line segement is reversed. The < character after the 2nd + charcters indicates that the operand is also
   | reversed""".stripMargin)
   )
+}
+
+object LessonLists extends HtmlSection
+{
+  import learn.*
+  val aList = LessonsLaunch.aList.iMap((i, ls) => HtmlLi("A" + (i + 1).str -- ls.title))
+  val bList = LessonsLaunch.bList.iMap((i, ls) => HtmlLi("B" + (i + 1).str -- ls.title))
+  val cList = LessonsLaunch.cList.iMap((i, ls) => HtmlLi("C" + (i + 1).str -- ls.title))
+  val dList = LessonsLaunch.dList.iMap((i, ls) => HtmlLi("D" + (i + 1).str -- ls.title))
+  val eList = LessonsLaunch.eList.iMap((i, ls) => HtmlLi("E" + (i + 1).str -- ls.title))
+  override val contents: RArr[XCon] = RArr(HtmlUl(aList), HtmlUl(bList), HtmlUl(cList), HtmlUl(dList), HtmlUl(eList))
 }
