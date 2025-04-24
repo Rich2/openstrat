@@ -135,11 +135,20 @@ object Rect
     }
   }
 
-  implicit val slateImplicit: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
-  implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
+  /** Implicit [[Slate]] type class instance / evidence for [[Rect]]. */
+  implicit val slateEv: Slate[Rect] = (obj, operand) => obj.slate(operand)
 
-  implicit val reflectAxesImplicit: TransAxes[Rect] = new TransAxes[Rect]
+  /** Implicit [[SlateXY]] type class instance / evidence for [[Rect]]. */
+  implicit val slateXYEv: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)
+
+  /** Implicit [[Scale]] type class instance / evidence for [[Rect]]. */
+  implicit val scaleEv: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[Rect]]. */
+  implicit val prolignEv: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[TransAxes]] type class instance / evidence for [[Rect]]. */
+  implicit val transAxesEv: TransAxes[Rect] = new TransAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
     override def negXT(obj: Rect): Rect = obj.negX
     override def rotate90(obj: Rect): Rect = obj.rotate90
