@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and graphics.
- * Of particular note are the [[Pt2]], [[Geom2Elem]] and [[Graphic2Elem]] class /traits. These are the foundation of the API and the library. A number of
+ * Of particular note are the [[Pt2]], [[Aff2Elem]] and [[Graphic2Elem]] class /traits. These are the foundation of the API and the library. A number of
  * implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of particular use
  * for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
@@ -22,7 +22,7 @@ package object geom
   implicit def sequExtension[A](value: Sequ[A]): SequExtensions[A] = new SequExtensions[A](value)
   implicit def seqDefExtension[A](value: SeqSpec[A]): SeqSpecExtensions[A] = new SeqSpecExtensions[A](value)
 
-  implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
+  implicit def transSimToExtension[T](value: T)(implicit ev: Simil2Trans[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   implicit def slateToExtensions[T](value: T)(implicit ev: SlateXY[T]): SlateXYExtensions[T] = new SlateXYExtensions[T](value, ev)
   implicit def boundedToExtensions[T <: BoundedElem](value: T): BoundedExtensions[T] = new BoundedExtensions[T](value)
   implicit def boundingExtensions[A](value: A)(implicit evA: Bounding[A]): BoundingExtensions[A] = new BoundingExtensions[A](value, evA)

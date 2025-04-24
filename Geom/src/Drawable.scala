@@ -3,7 +3,7 @@ package ostrat; package geom
 import Colour.Black, reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
-trait Drawable extends Any with Geom2Elem
+trait Drawable extends Any with Aff2Elem
 { /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed.  */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): Graphic2Elem
 

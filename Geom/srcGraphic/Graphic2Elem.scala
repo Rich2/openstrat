@@ -4,7 +4,7 @@ import pWeb.*
 
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element in a
  * display or both. So I think the self type will force all [[Graphic2Elem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
-trait Graphic2Elem extends Geom2Elem
+trait Graphic2Elem extends Aff2Elem
 { /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 

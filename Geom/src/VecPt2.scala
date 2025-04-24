@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
-trait VecPt2 extends Any, Geom2Elem, TellElemDbl2, ApproxDbl
+trait VecPt2 extends Any, Aff2Elem, TellElemDbl2, ApproxDbl
 { /** The x component of this 2D vector / point. */
   def x: Double
 

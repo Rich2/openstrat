@@ -126,7 +126,7 @@ object LineSeg
 
   implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegPairArrMapBuilder[B2] = new LineSegPairArrMapBuilder[B2]
 
-  implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
+  implicit def transimplicit: Aff2Trans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. [[LineSeg]] is the library's term for a mathematical straight line segment, but
@@ -155,7 +155,7 @@ object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
   /** [[Unshow]] type class instance / evidence for [[LineSegArr]]. */
   implicit lazy val unshowEv: UnshowSeq[LineSeg, LineSegArr] = UnshowSeq[LineSeg, LineSegArr]()
 
-  implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
+  implicit val transImplicit: Aff2Trans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for [[LineSeg]]s. */
