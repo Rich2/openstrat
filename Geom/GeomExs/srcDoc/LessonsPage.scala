@@ -6,5 +6,5 @@ object LessonsPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Geom Lessons", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Lessons"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", "Some text")
+  def central: HtmlDiv = HtmlDiv.classAtt("central", "Some text", HtmlCanvas(), "Some more text")
 }

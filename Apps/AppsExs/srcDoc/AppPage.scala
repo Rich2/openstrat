@@ -41,8 +41,8 @@ object AppPage
    * [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the lower
    * case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
    * parameter. */
-  def apply(jsMainStem: String, dirPath: DirsRel, htmlTitleIn: String = "", htmlFileNameStem: String = ""/*, jsFileStem: String = ""*/): AppPage =
-    new AppPage(jsMainStem, dirPath, htmlTitleIn, htmlFileNameStem/*, htmlFileStem*/)
+  def apply(jsMainStem: String, dirPath: DirsRel, htmlTitleIn: String = "", htmlFileNameStem: String = ""): AppPage =
+    new AppPage(jsMainStem, dirPath, htmlTitleIn, htmlFileNameStem)
 
   val egameDir: DirsRel = DirsRel("earthgames")
   val mapDir: DirsRel = DirsRel("egrids")
