@@ -50,10 +50,10 @@ object HtmlDiv
   def apply(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
 
   /** Factory method to create Div element with an ID attribute. */
-  def id(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.toArr, RArr(IdAtt(id)))
+  def id(id: String, contents: XConLike*): HtmlDiv = new HtmlDiv(contents.xCons, RArr(IdAtt(id)))
 
   /** Factory method to create Div element with a class attribute. */
-  def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.toArr, RArr(ClassAtt(id)))
+  def classAtt(id: String, contents: XConLike *): HtmlDiv = new HtmlDiv(contents.xCons, RArr(ClassAtt(id)))
 }
 
 /** An HTML Canvas element. */

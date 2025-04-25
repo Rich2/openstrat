@@ -1,9 +1,18 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** I'm just trying out a new package, not sure whether will use pWeb. */
+/** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pWeb
 {
+  type XConLike = XCon | String
+
+  extension (thisSeq: Seq[XCon | String])
+  { def xCons: RArr[XCon] = thisSeq.mapArr{
+      case xc: XCon => xc
+      case st: String => st.xCon
+    }
+  }
+
   implicit class StringExtension(thisString: String)
   { /** This implicit method allows Strings to be used as XML content. */
     def xCon: XConText = XConText(thisString)

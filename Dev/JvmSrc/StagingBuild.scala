@@ -33,6 +33,7 @@ trait StagingBuild
       htmlFileWrite(docPath / "apps", AppsPage.out),
       htmlFileWrite(docPath / "util", UtilPage.out),
       htmlFileWrite(docPath / "geom", GeomPage.out),
+      htmlFileWrite(docPath / "lessons", LessonsPage.out),
       htmlFileWrite(docPath / "tiling", TilingPage.out),
       htmlFileWrite(docPath / "earth", pEarth.EarthPage.out),
       htmlFileWrite(docPath / "egrid", EGridPage.out),

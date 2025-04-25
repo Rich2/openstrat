@@ -9,10 +9,10 @@ object GeomPage extends HtmlPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists)
 
   def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
-    geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
+    geomItem, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
 
-  def geomItme: HtmlLi = HtmlLi("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections" +
-    " from the Util module.")
+  def geomItem: HtmlLi = HtmlLi(
+    "Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections from the Util module.")
 
   def colourItem: HtmlLi = HtmlLi("Colour class. A 32 bit integer class that can be built from rgba and named values.")
 
