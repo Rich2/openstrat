@@ -212,18 +212,18 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
  * extends AnyRef. */
 object RArr
 { /** Factory apply method for [[RArr]] class. */
-  def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
+  def apply[A](input: A*)(using ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
 
   /** Creates new uninitialised [[RArr]] of the given length. */
-  def uninitialised[A](length: Int)(implicit ct: ClassTag[A]): RArr[A] = new RArr[A](new Array[A](length))
+  def uninitialised[A](length: Int)(using ct: ClassTag[A]): RArr[A] = new RArr[A](new Array[A](length))
 
   /** Implicit [[Show]] type class instance / evidence for [[RArr]]. */
-  implicit def showEv[A](implicit evAIn: Show[A]): Show[RArr[A]] = ShowSequ[A, RArr[A]]()
+  given showEv[A](using evAIn: Show[A]): Show[RArr[A]] = ShowSequ[A, RArr[A]]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[RArr]]. */
-  implicit def unshowEv[A](implicit evA: Unshow[A], ct: ClassTag[A]): UnshowSeq[A, RArr[A]] = UnshowSeq[A, RArr[A]]()(evA, new RArrAllBuilder[A])
+  given unshowEv[A](using evA: Unshow[A], ct: ClassTag[A]): UnshowSeq[A, RArr[A]] = UnshowSeq[A, RArr[A]]()(evA, new RArrAllBuilder[A])
 
-  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
+  given eqTEv[A](using evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
   { var i = 0
     var res = true
     while(i < arr1.length & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
