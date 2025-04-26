@@ -193,10 +193,10 @@ trait DrawableLen2 extends Any, GeomLen2Elem
 
 object DrawableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
-  implicit val slateLen2Ev: SlateLen2[DrawableLen2] = (obj, op) => obj.slate(op)
-  
-  /** [[SlateLenXY]] type class instance / evidence for [[DrawableLen2]]. */
-  implicit val slateLenXY: SlateLenXY[DrawableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
+  implicit val slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
+  { override def slateT(obj: DrawableLen2, delta: VecPtLen2): DrawableLen2 = obj.slate(delta)
+    override def slateXYT(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
+  }
   
   /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
   implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
@@ -220,10 +220,10 @@ trait FillableLen2 extends DrawableLen2
 
 object FillableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[FillableLen2]]. */
-  implicit val slateLen2Ev: SlateLen2[FillableLen2] = (obj, op) => obj.slate(op)
-
-  /** [[SlateLenXY]] type class instance / evidence for [[FillableLen2]]. */
-  implicit val slateLenXY: SlateLenXY[FillableLen2] = (obj, dx, dy) => obj.slate(dx, dy)
+  implicit val slateLen2Ev: SlateLen2[FillableLen2] = new SlateLen2[FillableLen2]
+  { override def slateT(obj: FillableLen2, delta: VecPtLen2): FillableLen2 = obj.slate(delta)
+    override def slateXYT(obj: FillableLen2, xDelta: Length, yDelta: Length): FillableLen2 = obj.slate(xDelta, yDelta)
+  }
 
   /** [[Scale]] type class instance / evidence for [[FillableLen2]]. */
   implicit val scaleEv: Scale[FillableLen2] = (obj, operand) => obj.scale(operand)

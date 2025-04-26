@@ -77,10 +77,10 @@ trait PtLen2 extends VecPtLen2, PointDbl2
 
 object PtLen2
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[PtLen2]]. */
-  implicit val slateEv: SlateLen2[PtLen2] = (obj, delta) => obj.slate(delta)
-
-  /** Implicit [[SlateLenXY]] type class instance / evidence for [[PtLen2]]. */
-  implicit val slateXYEv: SlateLenXY[PtLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
+  implicit val slateEv: SlateLen2[PtLen2] = new SlateLen2[PtLen2]
+  { override def slateT(obj: PtLen2, delta: VecPtLen2): PtLen2 = obj.slate(delta)
+    override def slateXYT(obj: PtLen2, xDelta: Length, yDelta: Length): PtLen2 = obj.slate(xDelta, yDelta)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[PtLen2]]. */
   implicit val scaleEv: Scale[PtLen2] = (obj, operand) => obj.scale(operand)
@@ -112,11 +112,10 @@ trait VecLen2 extends VecPtLen2
 /** Companion object for 2-dimensional vector specified in [[Length]] units. Contains various [[GeomLen2Elem]] type classes for [[VecLen2]] */
 object VecLen2
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[VecLen2]]. */
-  implicit val slateEv: SlateLen2[VecLen2] = (obj, delta) => obj.slate(delta)
-
-  /** Implicit [[SlateLenXY]] type class instance / evidence for [[VecLen2]]. */
-  implicit val slateXYEv: SlateLenXY[VecLen2] = (obj, xDelta, yDelta) => obj.slate(xDelta, yDelta)
-
+  implicit val slateEv: SlateLen2[VecLen2] = new SlateLen2[VecLen2]
+  { override def slateT(obj: VecLen2, delta: VecPtLen2): VecLen2 = obj.slate(delta)
+    override def slateXYT(obj: VecLen2, xDelta: Length, yDelta: Length): VecLen2 = obj.slate(xDelta, yDelta)
+  }
   /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
   implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)
 

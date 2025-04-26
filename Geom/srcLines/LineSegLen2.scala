@@ -39,10 +39,10 @@ trait LineSegLen2[+VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
 
 object LineSegLen2
 { /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
-  implicit val slateEv: SlateLen2[LineSegLen2[PtLen2]] = (obj, delta) => obj.slate(delta)
-
-  /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
-  implicit val slateXYEv: SlateLenXY[LineSegLen2[PtLen2]] = (obj, dx, dy) => obj.slate(dx, dy)
+  implicit val slateEv: SlateLen2[LineSegLen2[PtLen2]] = new SlateLen2[LineSegLen2[PtLen2]]
+  { override def slateT(obj: LineSegLen2[PtLen2], delta: VecPtLen2): LineSegLen2[PtLen2] = obj.slate(delta)
+    override def slateXYT(obj: LineSegLen2[PtLen2], xDelta: Length, yDelta: Length): LineSegLen2[PtLen2] = obj.slate(xDelta, yDelta)
+  }
   
   /** [[Scale]] type class instances / evidence for [[PtLen2]]. */
   implicit val scaleEv: Scale[LineSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)

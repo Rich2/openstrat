@@ -83,36 +83,28 @@ class SlateXYExtensions[A](value: A, ev: SlateXY[A])
 trait SlateLen2[A]
 { /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
   def slateT(obj: A, delta: VecPtLen2): A
-}
 
-/** Companion object for the [[SlateLen2]] type class. Contains implicit instances for collections and other container classes. */
-object SlateLen2
-{ /** Implicit [[SlateLen2]] type class instances / evidence for [[RArr]]. */
-  given rArrEv[A](using ev: SlateLen2[A]): SlateLen2[RArr[A]] = (obj, delta) => obj.smap(ev.slateT(_, delta))
-
-  /** Implicit [[SlateLen2]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
-  given functorEv[A, F[_]](using evF: Functor[F], evA: SlateLen2[A]): SlateLen2[F[A]] = (obj, op) => evF.mapT(obj, evA.slateT(_, op))
-
-  /** using [[SlateLen2]] type class instances / evidence for [[Array]]. */
-  given arrayEv[A](using ct: ClassTag[A], ev: SlateLen2[A]): SlateLen2[Array[A]] = (obj, op) => obj.map(ev.slateT(_, op))
-}
-
-/** Type class for translate with X and Y parameters, 2 [[Length]] dimensional point and vector transformations. */
-trait SlateLenXY[A]
-{ /** Translate 2 [[Length]] dimension, geometric transformation, taking the xOffset and yOffset [[Length]]s as parameters, on an object of type T, returning an
+  /** Translate 2 [[Length]] dimension, geometric transformation, taking the xOffset and yOffset [[Length]]s as parameters, on an object of type T, returning an
    * object of type T. For many types * the implementation of this method will delegate to the object itself. */
   def slateXYT(obj: A, xDelta: Length, yDelta: Length): A
 }
 
-/** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
-object SlateLenXY
-{ /** Implicit [[SlateLenXY]] type class instances / evidence for [[RArr]]. */
-  given rArrEv[A](using ev: SlateLenXY[A]): SlateLenXY[RArr[A]] = (obj, dx, dy) => obj.smap(ev.slateXYT(_, dx, dy))
+/** Companion object for the [[SlateLen2]] type class. Contains implicit instances for collections and other container classes. */
+object SlateLen2
+{ /** Implicit [[SlateLen2]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  given functorEv[A, F[_]](using evF: Functor[F], evA: SlateLen2[A]): SlateLen2[F[A]] = new SlateLen2[F[A]]
+  { override def slateT(obj: F[A], delta: VecPtLen2): F[A] = evF.mapT(obj, evA.slateT(_, delta))
+    override def slateXYT(obj: F[A], xDelta: Length, yDelta: Length): F[A] = evF.mapT(obj, evA.slateXYT(_, xDelta, yDelta))
+  }
 
-  /** Implicit [[SlateLenXY]] type class instances / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  given functorEv[A, F[_]](using evF: Functor[F], evA: SlateLenXY[A]): SlateLenXY[F[A]] =
-    (obj, dx, dy) => evF.mapT(obj, evA.slateXYT(_, dx, dy))
+  /** Implicit [[SlateLen2]] type class instances / evidence for [[Array]]. */
+  given arrayEv[A](using ct: ClassTag[A], ev: SlateLen2[A]): SlateLen2[Array[A]] = new SlateLen2[Array[A]]
+  { override def slateT(obj: Array[A], delta: VecPtLen2): Array[A] = obj.map(ev.slateT(_, delta))
+    override def slateXYT(obj: Array[A], xDelta: Length, yDelta: Length): Array[A] = obj.map(ev.slateXYT(_, xDelta, yDelta))
+  }
 
-  /** Implicit [[SlateLenXY]] type class instances / evidence for [[Array]]. */
-  given arrayEv[A](using ct: ClassTag[A], ev: SlateLenXY[A]): SlateLenXY[Array[A]] = (obj, dx, dy) => obj.map(ev.slateXYT(_, dx, dy))
+  extension[A](thisArr: RArr[A])(using evA: SlateLen2[A])
+  { /** Extension method to translate the elements of this [[RArr]]. */
+    def slate(delta: VecPtLen2)(using ClassTag[A]): RArr[A] = thisArr.map(evA.slateT(_, delta))
+  }
 }

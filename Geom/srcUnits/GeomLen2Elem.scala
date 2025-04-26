@@ -63,10 +63,10 @@ trait GraphicLen2Elem extends GeomLen2Elem
 
 object GraphicLen2Elem
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[GraphicLen2Elem]]. */
-  implicit val slateLenEv: SlateLen2[GraphicLen2Elem] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateLenXY]] type class instance / evidence for [[GraphicLen2Elem]]. */
-  implicit val slateLenXYEv: SlateLenXY[GraphicLen2Elem] = (obj, xOp, yOp) => obj.slate(xOp, yOp)
+  implicit val slateLenEv: SlateLen2[GraphicLen2Elem] = new SlateLen2[GraphicLen2Elem]
+  { override def slateT(obj: GraphicLen2Elem, delta: VecPtLen2): GraphicLen2Elem = obj.slate(delta)
+    override def slateXYT(obj: GraphicLen2Elem, xDelta: Length, yDelta: Length): GraphicLen2Elem = obj.slate(xDelta, yDelta)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[GraphicLen2Elem]]. */
   implicit val scaleEv: Scale[GraphicLen2Elem] = (obj, operand) => obj.scale(operand)
