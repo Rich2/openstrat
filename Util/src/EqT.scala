@@ -12,21 +12,35 @@ trait EqT[A]
  * reasons. */
 object EqT
 {
-  implicit val intImplicit: EqT[Int] = (a1, a2) => a1 == a2
-  implicit val doubleImplicit: EqT[Double] =  (a1, a2) => a1 == a2
-  implicit val booleanImplicit: EqT[Boolean] = (a1, a2) => a1 == a2
-  implicit val stringImplicit: EqT[String] = (a1, a2) => a1 == a2
-  implicit val charImplicit: EqT[Char] = (a1, a2) => a1 == a2
-  implicit val noneImplicit: EqT[None.type] = (_, _) => true
-  implicit def someImplicit[A](implicit ev: EqT[A]): EqT[Some[A]]= (s1, s2) => ev.eqT(s1.value, s2.value)
+  /** Implicit [[EqT]] type class instance for [[Int]]. */
+  given intEv: EqT[Int] = (a1, a2) => a1 == a2
 
-  implicit def optionImplicit[A](implicit ev: EqT[A]): EqT[Option[A]] = (a1, a2) => (a1, a2) match
+  /** Implicit [[EqT]] type class instance for [[Double]]. */
+  given doubleEv: EqT[Double] =  (a1, a2) => a1 == a2
+
+  /** Implicit [[EqT]] type class instance / evidence for [[Boolean]]. */
+  given booleanEv: EqT[Boolean] = (a1, a2) => a1 == a2
+
+  /** Implicit [[EqT]] type class instance / evidence for [[String]]. */
+  given stringEv: EqT[String] = (a1, a2) => a1 == a2
+
+  /** Implicit [[EqT]] type class instance / evidence for [[Char]]. */
+  given charEv: EqT[Char] = (a1, a2) => a1 == a2
+
+  /** Implicit [[EqT]] type class instance / evidence for [[None]]. */
+  given noneEv: EqT[None.type] = (_, _) => true
+
+  /** Implicit [[EqT]] type class instance / evidence for [[Some]]. */
+  given someEv[A](using ev: EqT[A]): EqT[Some[A]]= (s1, s2) => ev.eqT(s1.value, s2.value)
+
+  /** Implicit [[EqT]] type class instances / evidence for [[Option]]. */
+  given optionEv[A](using ev: EqT[A]): EqT[Option[A]] = (a1, a2) => (a1, a2) match
   { case (None, None) => true
     case (Some(v1), Some(v2)) => ev.eqT(v1, v2)
     case _ => false
   }
 
-  implicit def listImplicit[A](implicit ev: EqT[A]): EqT[List[A]] = (l1, l2) =>
+  implicit def listEv[A](implicit ev: EqT[A]): EqT[List[A]] = (l1, l2) =>
   { def loop(rem1: List[A], rem2: List[A]): Boolean = (rem1, rem2) match
     { case (Nil, Nil) => true
       case (::(h1, t1) , ::(h2, t2)) if ev.eqT(h1, h2) => loop(t1, t2)
@@ -35,7 +49,7 @@ object EqT
     loop(l1, l2)
   }
 
-  implicit def arrayImplicit[A](implicit ev: EqT[A]): EqT[Array[A]] = (a1, a2) =>
+  implicit def arrayEv[A](implicit ev: EqT[A]): EqT[Array[A]] = (a1, a2) =>
     if(a1.length != a2.length) false
     else
     { var count = 0
@@ -49,11 +63,11 @@ object EqT
       acc
     }
 
-  implicit def seqImplicit[A](implicit ev: EqT[A]): EqT[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
+  implicit def seqEv[A](implicit ev: EqT[A]): EqT[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
 
-  implicit def vectorImplicit[A](implicit ev: EqT[A]): EqT[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
+  implicit def vectorEv[A](implicit ev: EqT[A]): EqT[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
 
-  implicit def tuple2Implicit[A1, A2](implicit eq1: EqT[A1], eq2: EqT[A2]): EqT[(A1, A2)] = (p1, p2) => eq1.eqT(p1._1, p2._1) & eq2.eqT(p1._2, p2._2)
+  implicit def tuple2Ev[A1, A2](implicit eq1: EqT[A1], eq2: EqT[A2]): EqT[(A1, A2)] = (p1, p2) => eq1.eqT(p1._1, p2._1) & eq2.eqT(p1._2, p2._2)
 }
 
 class Eq1T[A1, A](val fArg1: A => A1)(implicit eq1: EqT[A1]) extends EqT[A]
@@ -80,8 +94,8 @@ object Eq2T
 }
 
 case class Eq2DblsT[A](fArg1: A => Double, fArg2: A => Double) extends Eq2T[Double, Double, A]
-{ override implicit def eq1: EqT[Double] = EqT.doubleImplicit
-  override implicit def eq2: EqT[Double] = EqT.doubleImplicit
+{ override implicit def eq1: EqT[Double] = EqT.doubleEv
+  override implicit def eq2: EqT[Double] = EqT.doubleEv
 }
 
 /** Equality type class trait for Product 3. */
