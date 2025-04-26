@@ -352,8 +352,8 @@ object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
   /** Implicit [[EqT]] type class instance / evidence for [[Polygon]]. */
   implicit val eqTEv: EqT[Polygon] = (p1, p2) => p1.arrayUnsafe.sameElements(p2.arrayUnsafe)
 
-  /** Implicit [[Slate]] type class instance / evidence for [[Polygon]]. */
-  implicit val slateEv: Slate[Polygon] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[Polygon]]. */
+  implicit val slateEv: Slate2[Polygon] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Polygon]]. */
   implicit val slateXYEv: SlateXY[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slate(dx, dy)

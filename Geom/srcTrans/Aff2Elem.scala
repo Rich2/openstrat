@@ -38,8 +38,8 @@ trait Aff2Elem extends Any, Simil2Elem
 
 /** Companion object for the [[Aff2Elem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
 object Aff2Elem
-{ /** Implicit [[Slate]] type class instance / evidence for [[Aff2Elem]]. */
-  given slateEv: Slate[Aff2Elem] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[Aff2Elem]]. */
+  given slateEv: Slate2[Aff2Elem] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Aff2Elem]]. */
   given slateXYEv: SlateXY[Aff2Elem] = (obj: Aff2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)

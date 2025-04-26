@@ -30,8 +30,8 @@ trait Graphic2Elem extends Aff2Elem
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object Graphic2Elem
-{ /** Implicit [[Slate]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val slateEv: Slate[Graphic2Elem] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[Graphic2Elem]]. */
+  implicit val slateEv: Slate2[Graphic2Elem] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Graphic2Elem]]. */
   implicit val slateXYEv: SlateXY[Graphic2Elem] = (obj: Graphic2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -88,8 +88,8 @@ trait CanvElem extends Graphic2Elem
 
 /** Companion object for the [[CanvElem]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object CanvElem
-{ /** Implicit [[Slate]] type class instance / evidence for [[CanvElem]]. */
-  implicit val slateEv: Slate[CanvElem] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[CanvElem]]. */
+  implicit val slateEv: Slate2[CanvElem] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[CanvElem]]. */
   implicit val slateXYEv: SlateXY[CanvElem] = (obj: CanvElem, dx: Double, dy: Double) => obj.slate(dx, dy)

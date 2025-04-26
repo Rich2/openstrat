@@ -40,8 +40,8 @@ object Quadrilateral
   def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Quadrilateral =
     new QuadrilateralGen(Array(x0, y0, x1, y1, x2, y2, x3, y3))
     
-  /** Implicit [[Slate]] type class instance for [[Quadrilateral]] */  
-  implicit val slateEv: Slate[Quadrilateral] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance for [[Quadrilateral]] */  
+  implicit val slateEv: Slate2[Quadrilateral] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance for [[Quadrilateral]] */
   implicit val slateXYEv: SlateXY[Quadrilateral] = (obj, xOperand, yOperand) => obj.slate(xOperand, yOperand)
@@ -134,8 +134,8 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
 }
 
 object QuadCompound
-{ /** Implicit [[Slate]] type class instance / evidence for [[QuadCompound]]. */
-  val slateEv: Slate[QuadCompound] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[QuadCompound]]. */
+  val slateEv: Slate2[QuadCompound] = (obj, operand) => obj.slate(operand)
 }
 
 /** The implementation for the general case of a compound graphic based on a quadrilateral. */

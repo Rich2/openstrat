@@ -72,8 +72,8 @@ object RectangleFill
 { /** Factory apply method to construct a [[RectangleFill]] graphic element. */
   def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillGen(shape, fillFacet)
 
-  /** Implicit [[Slate]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val slateEv: Slate[RectangleFill] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[RectangleFill]]. */
+  implicit val slateEv: Slate2[RectangleFill] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[RectangleFill]]. */
   implicit val slateXYEv: SlateXY[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.slate(dx, dy)

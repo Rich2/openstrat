@@ -31,8 +31,8 @@ trait Drawable extends Any with Aff2Elem
 
 /** Companion object for the [[Drawable]] trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
-{ /** [[Slate]] type class instance / evidence for [[Drawable]]. */
-  implicit val slateEv: Slate[Drawable] = (obj: Drawable, operand: VecPt2) => obj.slate(operand)
+{ /** [[Slate2]] type class instance / evidence for [[Drawable]]. */
+  implicit val slateEv: Slate2[Drawable] = (obj: Drawable, operand: VecPt2) => obj.slate(operand)
 
   /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
   implicit val slateXYEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -99,8 +99,8 @@ trait Fillable extends Any with Drawable
 }
 
 object Fillable
-{ /** [[Slate]] type class instance / evidence for [[Fillable]]. */
-  implicit val slateEv: Slate[Fillable] = (obj: Fillable, operand: VecPt2) => obj.slate(operand)
+{ /** [[Slate2]] type class instance / evidence for [[Fillable]]. */
+  implicit val slateEv: Slate2[Fillable] = (obj: Fillable, operand: VecPt2) => obj.slate(operand)
 
   /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
   implicit val slateXYEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -195,7 +195,7 @@ object DrawableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
   implicit val slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
   { override def slateT(obj: DrawableLen2, delta: VecPtLen2): DrawableLen2 = obj.slate(delta)
-    override def slateXYT(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
+    override def slateT(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
   }
   
   /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
@@ -222,7 +222,7 @@ object FillableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[FillableLen2]]. */
   implicit val slateLen2Ev: SlateLen2[FillableLen2] = new SlateLen2[FillableLen2]
   { override def slateT(obj: FillableLen2, delta: VecPtLen2): FillableLen2 = obj.slate(delta)
-    override def slateXYT(obj: FillableLen2, xDelta: Length, yDelta: Length): FillableLen2 = obj.slate(xDelta, yDelta)
+    override def slateT(obj: FillableLen2, xDelta: Length, yDelta: Length): FillableLen2 = obj.slate(xDelta, yDelta)
   }
 
   /** [[Scale]] type class instance / evidence for [[FillableLen2]]. */

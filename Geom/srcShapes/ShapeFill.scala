@@ -32,8 +32,8 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
 }
 
 object ShapeFill
-{ /** Implicit [[Slate]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val slateEv: Slate[ShapeFill] = (obj: ShapeFill, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[ShapeFill]]. */
+  implicit val slateEv: Slate2[ShapeFill] = (obj: ShapeFill, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[ShapeFill]]. */
   implicit val slateXYEv: SlateXY[ShapeFill] = (obj: ShapeFill, dx: Double, dy: Double) => obj.slate(dx, dy)

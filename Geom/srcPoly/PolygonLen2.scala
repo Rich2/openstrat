@@ -26,7 +26,7 @@ object PolygonLen2
 { /** implicit [[StateLen2]] type class instance / evidence for [[PolygonLen2]]. */
   implicit val slateLen2Ev: SlateLen2[PolygonLen2[PtLen2]] = new SlateLen2[PolygonLen2[PtLen2]]
   { override def slateT(obj: PolygonLen2[PtLen2], delta: VecPtLen2): PolygonLen2[PtLen2] = obj.slate(delta)
-    override def slateXYT(obj: PolygonLen2[PtLen2], xDelta: Length, yDelta: Length): PolygonLen2[PtLen2] = obj.slate(xDelta, yDelta)
+    override def slateT(obj: PolygonLen2[PtLen2], xDelta: Length, yDelta: Length): PolygonLen2[PtLen2] = obj.slate(xDelta, yDelta)
   }
 
   /** implicit [[Scale]] type class instance / evidence for [[PolygonLen2]]. */

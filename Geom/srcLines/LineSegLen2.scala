@@ -41,7 +41,7 @@ object LineSegLen2
 { /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
   implicit val slateEv: SlateLen2[LineSegLen2[PtLen2]] = new SlateLen2[LineSegLen2[PtLen2]]
   { override def slateT(obj: LineSegLen2[PtLen2], delta: VecPtLen2): LineSegLen2[PtLen2] = obj.slate(delta)
-    override def slateXYT(obj: LineSegLen2[PtLen2], xDelta: Length, yDelta: Length): LineSegLen2[PtLen2] = obj.slate(xDelta, yDelta)
+    override def slateT(obj: LineSegLen2[PtLen2], xDelta: Length, yDelta: Length): LineSegLen2[PtLen2] = obj.slate(xDelta, yDelta)
   }
   
   /** [[Scale]] type class instances / evidence for [[PtLen2]]. */

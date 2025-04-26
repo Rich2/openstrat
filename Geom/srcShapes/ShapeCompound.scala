@@ -44,8 +44,8 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
 /** Companion object for the [[ShapeCompound]] trait, contains implicit instances for 2D geometric transformation type classes for common collection and other
  * container classes. */
 object ShapeCompound
-{ /** Implicit [[Slate]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val slateEv: Slate[ShapeCompound] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / instance for [[ShapeCompound]]. */
+  implicit val slateEv: Slate2[ShapeCompound] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / instance for [[ShapeCompound]]. */
   implicit val slateXYEv: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)

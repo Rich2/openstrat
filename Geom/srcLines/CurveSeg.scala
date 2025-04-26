@@ -43,8 +43,8 @@ trait CurveSeg extends Drawable
 }
 
 object CurveSeg
-{ /** Implicit [[Slate]] type class instance for [[CurveSeg]]. */
-  implicit val slateEv: Slate[CurveSeg] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance for [[CurveSeg]]. */
+  implicit val slateEv: Slate2[CurveSeg] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance for [[CurveSeg]]. */
   implicit val slateXYEv: SlateXY[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slate(dx, dy)

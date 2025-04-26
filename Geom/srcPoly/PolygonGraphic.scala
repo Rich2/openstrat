@@ -49,8 +49,8 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
 object PolygonGraphic
-{ /** Implicit [[Slate]] type class instance / evidence for [[PolygonGraphic]]. */
-  implicit val slateEv: Slate[PolygonGraphic] = (obj, operand) => obj.slate(operand)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[PolygonGraphic]]. */
+  implicit val slateEv: Slate2[PolygonGraphic] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[PolygonGraphic]]. */
   implicit val slateXYEv: SlateXY[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -99,8 +99,8 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
 {
-  /** Implicit [[Slate]] type class instance / evidence for [[PolygonGraphicSimple]]. */
-  implicit val slateEv: Slate[PolygonGraphicSimple] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[PolygonGraphicSimple]]. */
+  implicit val slateEv: Slate2[PolygonGraphicSimple] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[PolygonGraphicSimple]]. */
   implicit val slateXYEv: SlateXY[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -152,8 +152,8 @@ object PolygonDraw
 {
   def apply(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDrawGen(shape, lineWidth, lineColour)
 
-  /** Implicit [[Slate]] type class instance / evidence for [[PolygonDraw]]. */
-  implicit val slateEv: Slate[PolygonDraw] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[PolygonDraw]]. */
+  implicit val slateEv: Slate2[PolygonDraw] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[PolygonDraw]]. */
   implicit val slateXYEv: SlateXY[PolygonDraw] = (obj: PolygonDraw, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -219,8 +219,8 @@ object PolygonFill
   def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillGen(shape, fillFacet)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
-  /** Implicit [[Slate]] type class instance / evidence for [[PolygonFill]]. */
-  implicit val slateEv: Slate[PolygonFill] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[PolygonFill]]. */
+  implicit val slateEv: Slate2[PolygonFill] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[PolygonFill]]. */
   implicit val slateXYEv: SlateXY[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slate(xDelta, yDelta)
@@ -340,8 +340,8 @@ object PolygonCompound
 
   //implicit val showTImplicit: Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound] = Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound]()
 
-  /** Implicit [[Slate]] type class instance evidence for [[PolygonCompound]]. */
-  implicit val slateEv: Slate[PolygonCompound] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance evidence for [[PolygonCompound]]. */
+  implicit val slateEv: Slate2[PolygonCompound] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance evidence for [[PolygonCompound]]. */
   implicit val slateXYEv: SlateXY[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slate(dx, dy)

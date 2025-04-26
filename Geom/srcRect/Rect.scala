@@ -135,8 +135,8 @@ object Rect
     }
   }
 
-  /** Implicit [[Slate]] type class instance / evidence for [[Rect]]. */
-  implicit val slateEv: Slate[Rect] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[Rect]]. */
+  implicit val slateEv: Slate2[Rect] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Rect]]. */
   implicit val slateXYEv: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)

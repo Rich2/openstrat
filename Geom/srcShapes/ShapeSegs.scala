@@ -65,8 +65,8 @@ object ShapeSegs
 
   }
 
-  /** Implicit [[Slate]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val slateEv: Slate[ShapeSegs] = (obj, operand) => obj.slate(operand)
+  /** Implicit [[Slate2]] type class instance / evidence for [[ShapeSegs]]. */
+  implicit val slateEv: Slate2[ShapeSegs] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[ShapeSegs]]. */
   implicit val slateXYEv: SlateXY[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slate(dx, dy)

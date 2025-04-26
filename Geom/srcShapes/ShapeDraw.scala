@@ -34,7 +34,7 @@ object ShapeLen2Draw
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[ShapeLen2Draw]]. */
   implicit val slateLen2Ev: SlateLen2[ShapeLen2Draw] = new SlateLen2[ShapeLen2Draw]
   { override def slateT(obj: ShapeLen2Draw, delta: VecPtLen2): ShapeLen2Draw = obj.slate(delta)
-    override def slateXYT(obj: ShapeLen2Draw, xDelta: Length, yDelta: Length): ShapeLen2Draw = obj.slate(xDelta, yDelta)
+    override def slateT(obj: ShapeLen2Draw, xDelta: Length, yDelta: Length): ShapeLen2Draw = obj.slate(xDelta, yDelta)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeLen2Draw]]. */
