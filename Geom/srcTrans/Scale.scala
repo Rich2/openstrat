@@ -23,8 +23,8 @@ object Scale
   given arrayImplicit[A](using ct: ClassTag[A], ev: Scale[A]): Scale[Array[A]] = (obj, operand) => obj.map(ev.scaleT(_, operand))
 }
 
-/** Extension methods for the Scale type class. */
-class ScaleExtensions[T](val value: T, ev: Scale[T])
+/** Extension methods for the [[Scale]] type class. */
+extension[T](value: T)(using ev: Scale[T])
 { /** Performs 2d vector scale transformation on objects of type T. */
   def scale(operand: Double): T = ev.scaleT(value, operand)
   def scale2: T = ev.scaleT(value, 2)

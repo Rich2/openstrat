@@ -26,7 +26,6 @@ package object geom
   implicit def slateToExtensions[T](value: T)(implicit ev: SlateXY[T]): SlateXYExtensions[T] = new SlateXYExtensions[T](value, ev)
   implicit def boundedToExtensions[T <: BoundedElem](value: T): BoundedExtensions[T] = new BoundedExtensions[T](value)
   implicit def boundingExtensions[A](value: A)(implicit evA: Bounding[A]): BoundingExtensions[A] = new BoundingExtensions[A](value, evA)
-  implicit def scaleToExtensions[T](value: T)(implicit ev: Scale[T]): ScaleExtensions[T] = new ScaleExtensions[T](value, ev)
   implicit def transAxesToExtensions[T](value: T)(implicit ev: TransAxes[T]): TransAxesExtensions[T] = new TransAxesExtensions[T](value)(ev)
 
   implicit def transAxesSlateToExtensions[T](value: T)(implicit evR: TransAxes[T], evS: SlateXY[T]): TransAxesSlateExtensions[T] =
