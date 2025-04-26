@@ -10,15 +10,13 @@ trait Rotate[T]
 /** Companion object for the Rotate[T] type class, contains implicit instances for collections and other container classes. */
 object Rotate
 {
-  implicit def transSimerImplicit[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
+  given transSimerImplicit[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
 
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: Rotate[A]): Rotate[AA] =
-    (obj, angle) => obj.map(ev.rotateT(_, angle))
+  given arrImplicit[A, AA <: Arr[A]](using build: BuilderMapArr[A, AA], ev: Rotate[A]): Rotate[AA] = (obj, angle) => obj.map(ev.rotateT(_, angle))
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] =
-    (obj, radians) => evF.mapT(obj, evA.rotateT(_, radians))
+  given functorImplicit[A, F[_]](using evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] = (obj, radians) => evF.mapT(obj, evA.rotateT(_, radians))
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Rotate[A]): Rotate[Array[A]] = (obj, radians) => obj.map(ev.rotateT(_, radians))
+  given arrayImplicit[A](using ct: ClassTag[A], ev: Rotate[A]): Rotate[Array[A]] = (obj, radians) => obj.map(ev.rotateT(_, radians))
 }
 
 /** Extension class for instances of the Rotate type class. */
