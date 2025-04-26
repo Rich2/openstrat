@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
@@ -14,17 +14,17 @@ trait Shear[T]
 /** Companion object for the Shear type class. Contains implicit instances for common types. */
 object Shear
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: Shear[A]): Shear[AA] = new Shear[AA]
+  given arrImplicit[A, AA <: Arr[A]](using build: BuilderMapArr[A, AA], ev: Shear[A]): Shear[AA] = new Shear[AA]
   { def shearXT(obj: AA, yFactor: Double): AA = obj.map(ev.shearXT(_, yFactor))
     def shearYT(obj: AA, xFactor: Double): AA = obj.map(ev.shearXT(_, xFactor))
   }
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Shear[A]): Shear[F[A]] = new Shear[F[A]]
+  given functorImplicit[A, F[_]](using evF: Functor[F], evA: Shear[A]): Shear[F[A]] = new Shear[F[A]]
   { def shearXT(obj: F[A], yFactor: Double): F[A] = evF.mapT(obj, evA.shearXT(_, yFactor))
     def shearYT(obj: F[A], xFactor: Double): F[A] = evF.mapT(obj, evA.shearXT(_, xFactor))
   }
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Shear[A]): Shear[Array[A]] = new Shear[Array[A]]
+  given arrayImplicit[A](using ct: ClassTag[A], ev: Shear[A]): Shear[Array[A]] = new Shear[Array[A]]
   { def shearXT(obj: Array[A], yFactor: Double): Array[A] = obj.map(ev.shearXT(_, yFactor))
     def shearYT(obj: Array[A], xFactor: Double): Array[A] = obj.map(ev.shearXT(_, xFactor))
   }

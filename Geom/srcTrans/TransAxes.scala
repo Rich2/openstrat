@@ -1,8 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
-/** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate typeclass to
+/** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate type class to
  * [[TransAxes]], as these transformations may preserve types that ReflectAxisOffset's transformations can not. */
 trait TransAxes[T]
 { /** Reflect, mirror an object of type T across the X axis, by negating Y. */
@@ -24,7 +24,7 @@ trait TransAxes[T]
 /** Companion object for the [[TransAxes]] typeclass trait, contains instances for common container objects including Functor instances. */
 object TransAxes
 {
-  implicit def transAlignerImplicit[T <: SimilarPreserve]: TransAxes[T] = new TransAxes[T]
+  given transAlignerImplicit[T <: SimilarPreserve]: TransAxes[T] = new TransAxes[T]
   { override def negYT(obj: T): T = obj.negY.asInstanceOf[T]
     override def negXT(obj: T): T = obj.negX.asInstanceOf[T]
     override def rotate90(obj: T): T = obj.rotate90.asInstanceOf[T]
@@ -32,7 +32,7 @@ object TransAxes
     override def rotate270(obj: T): T = obj.rotate270.asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
+  given arrImplicit[A, AA <: Arr[A]](using build: BuilderMapArr[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
   { override def negYT(obj: AA): AA = obj.map(evA.negYT(_))
     override def negXT(obj: AA): AA = obj.map(evA.negXT(_))
     override def rotate90(obj: AA): AA = obj.map(evA.rotate90)
@@ -40,7 +40,7 @@ object TransAxes
     override def rotate270(obj: AA): AA = obj.map(evA.rotate270)
   }
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAxes[A]): TransAxes[F[A]] = new TransAxes[F[A]]
+  given functorImplicit[A, F[_]](using evF: Functor[F], evA: TransAxes[A]): TransAxes[F[A]] = new TransAxes[F[A]]
   { override def negYT(obj: F[A]): F[A] = evF.mapT(obj, evA.negYT(_))
     override def negXT(obj: F[A]): F[A] = evF.mapT(obj, evA.negXT(_))
     override def rotate90(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate90)
@@ -48,7 +48,7 @@ object TransAxes
     override def rotate270(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate270)
   }
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransAxes[A]): TransAxes[Array[A]] = new TransAxes[Array[A]]
+  given arrayImplicit[A](using ct: ClassTag[A], ev: TransAxes[A]): TransAxes[Array[A]] = new TransAxes[Array[A]]
   { override def negYT(obj: Array[A]): Array[A] = obj.map(ev.negYT(_))
     override def negXT(obj: Array[A]): Array[A] = obj.map(ev.negXT(_))
     override def rotate90(obj: Array[A]): Array[A] = obj.map(ev.rotate90)
@@ -59,7 +59,7 @@ object TransAxes
 
 /** Class to provide extension methods for TransAxes type class. */
 class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
-{  @inline def negY: T = ev.negYT(thisT)
+{ @inline def negY: T = ev.negYT(thisT)
   @inline def negX: T = ev.negXT(thisT)
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
   @inline def rotate90: T = ev.rotate90(thisT)
