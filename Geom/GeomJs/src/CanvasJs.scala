@@ -93,7 +93,7 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(pf.x1, pf.y1)
     pf.shape.verts.tailPairsForeach(gc.lineTo)
     gc.closePath()
-    setFill(pf.fill)
+    setFill(pf.fillFacet)
     gc.fill()
   }
 
@@ -136,7 +136,7 @@ object CanvasJs extends CanvasTopLeft
     gc.setLineDash(scalajs.js.Array())
   }
 
-  /** Web canvases view of anti clockwise is itself mirrored. */
+  /** Web canvases view of anti-clockwise is itself mirrored. */
   override protected def tlCArcDraw(cad: CArcDraw): Unit =
   { /*val ca = cad.arc
     gc.beginPath()
@@ -150,7 +150,7 @@ object CanvasJs extends CanvasTopLeft
 
   override protected def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
-    setFill(cf.fill)
+    setFill(cf.fillFacet)
     gc.arc(cf.cenX, cf.cenY, cf.radius, 0, Pi * 2)
     gc.fill()
   }
@@ -174,7 +174,7 @@ object CanvasJs extends CanvasTopLeft
   
   override protected def tlEllipseFill(ef: EllipseFill): Unit =
   { gc.beginPath()
-    setFill(ef.fill)
+    setFill(ef.fillFacet)
     gc.ellipse(ef.cenX, ef.cenY, ef.shape.radius1, ef.shape.radius2, ef.shape.alignAngle.radians, 0, Pi * 2)
     gc.fill()
   }
@@ -187,7 +187,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected def tlLinesDraw(lsd: LinesDraw): Unit =
+  override protected def tlLinesDraw(lsd: LineSegArrDraw): Unit =
   { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.lineWidth = lsd.lineWidth

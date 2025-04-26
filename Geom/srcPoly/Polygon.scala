@@ -8,7 +8,7 @@ import pWeb.*, Colour.Black
  * with then end point of side sd((n - 1) at vertex 0. */
 trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
 { type ThisT <: Polygon
-  override type SideT = LineSeg
+  override type SideT = LSeg
 
   def arrayUnsafe: Array[Double] 
   def xVertsArray: Array[Double]
@@ -31,7 +31,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   def vLast: Pt2
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
-  def side0: LineSeg
+  def side0: LSeg
 
   /** The X component of the centre or halfway point of side 0 of this polygon. */
   def sd0CenX: Double
@@ -80,17 +80,17 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
    * the implementation in subclasses. */
   def vertY(index: Int): Double
 
-  @inline override def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSeg = LSeg(vert(index), vert(index + 1))
 
   override def sides: LineSegArr
 
-  override def sidesForeach[U](f: LineSeg => U): Unit =
+  override def sidesForeach[U](f: LSeg => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }
 
-  /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: BuilderMapArr[A, AA]): AA =
+  /** maps over the sides or edges of the Polygon These are of type [[LSeg]]. */
+  def sidesMap[A, AA <: Arr[A]](f: LSeg => A)(implicit build: BuilderMapArr[A, AA]): AA =
   { var i: Int = 0
     val res = build.uninitialised(numVerts)
     while (i < numVerts)
@@ -148,7 +148,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   override def shearX(operand: Double): Polygon = map(_.shearX(operand))
   override def shearY(operand: Double): Polygon = map(_.shearY(operand))
 
-  def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
+  def sidesFold[A](init: A)(f: (A, LSeg) => A): A =
   { var acc: A = init
     sidesForeach{ s => acc = f(acc, s) }
     acc
@@ -163,9 +163,9 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   def cenPt: Pt2 = boundingRect.cen
   def cenVec: Vec2 = boundingRect.cenVec
 
-  def sline(index: Int): LineSeg =
+  def sline(index: Int): LSeg =
   { val startVertNum: Int = ife(index == 1, numVerts, index - 1)
-    LineSeg(vert(startVertNum), vert(index))
+    LSeg(vert(startVertNum), vert(index))
   }
 
   def active(id: AnyRef): PolygonActive = PolygonActive(this, id)
@@ -262,11 +262,11 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   /** The SVG attributes for this polygon. */
   override def attribs: RArr[XmlAtt] = RArr(pointsAttrib)
 
-  /** Increase the number of vertices and [[LineSeg]]s by breaking up the [[LineSeg]]s into parts. */
+  /** Increase the number of vertices and [[LSeg]]s by breaking up the [[LSeg]]s into parts. */
   def vertsMultiply(n: Int): Polygon = if (n < 2) this else
   { val res = PolygonGen.uninitialised(numVerts * n)
     iUntilForeach(numVerts){ i =>
-      val ls: LineSeg = vert(i).lineSegTo(vert(i + 1))
+      val ls: LSeg = vert(i).lineSegTo(vert(i + 1))
       iUntilForeach(n) { j => res.setElemUnsafe(i * n + j, ls.fractionalPoint(j.toDouble / n)) }
     }
     res

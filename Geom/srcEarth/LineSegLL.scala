@@ -27,7 +27,7 @@ object LineSegLL
   implicit val buildEv: BuilderArrDbl4Map[LineSegLL, LineSegLLArr] = new LineSegLLArrMapBuilder
 }
 
-/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
+/** Compact immutable Array[Double] based collection class for [[LSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
 class LineSegLLArr(val arrayUnsafe: Array[Double]) extends LineSegLikeDbl4Arr[LatLong, LineSegLL]
 { type ThisT = LineSegLLArr

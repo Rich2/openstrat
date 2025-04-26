@@ -16,7 +16,7 @@ case class LineSegSC(int1: Int, int2: Int, int3: Int, int4: Int) extends LineSeg
   override def endPt: SqCoord = SqCoord(endR, endC)
 
   /** Method needs removing. Uses the implicit [[SqGridSysFlat]] parameter to convert from [[SqCen]]s to [[Pt2]]s. */
-  def oldLineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
+  def oldLineSeg: LSeg = LSeg(startPt.toPt2Reg, endPt.toPt2Reg)
 }
 
 /** companion object for [[LineSegSC]] class contains factory apply method. */

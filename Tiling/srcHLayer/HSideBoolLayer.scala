@@ -51,38 +51,38 @@ final class HSideBoolLayer(val arrayUnsafe: Array[Boolean]) extends AnyVal with 
   }
 
   /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projTruesLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
+  def projTruesLineSegMap[B, ArrB <: Arr[B]](f: LSeg => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projTruesLineSegMap(proj)(f)(build)
 
   /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LSeg => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
     proj.gChild.sepsOptMap { hs => if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
       else None
     }
 
   /** Maps across all the link trues in this Side Layer that exist in the projection. */
-  def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
+  def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](f: LSeg => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projLinkTruesLineSegMap(proj)(f)(build)
 
   /** Maps across all the link trues in this Side Layer that exist in the projection. */
-  def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LSeg => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
     proj.gChild.linksOptMap { hs =>
       if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
       else None
     }
 
   /** Maps across all the falses in this Side Layer that exist in the projection. */
-  def projFalsesLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
+  def projFalsesLineSegMap[B, ArrB <: Arr[B]](f: LSeg => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projFalsesLineSegMap(proj)(f)
 
   /** Maps across all the falses in this Side Layer that exist in the projection. */
-  def projFalsesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  def projFalsesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LSeg => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
     proj.gChild.sepsOptMap { hs =>
       if (!apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
       else None
     }
 
-  def projFalsesHsLineSegOptMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HSep, LineSeg) => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  def projFalsesHsLineSegOptMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HSep, LSeg) => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.sepsForeach { hs =>
       if (!apply(hs)(proj.parent))
@@ -91,12 +91,12 @@ final class HSideBoolLayer(val arrayUnsafe: Array[Boolean]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  /** Projection OptMaps over the [[HSep]] and [[LineSeg]] of eahc false [[HSep]] link. */
-  def projFalseLinksHsLineSegOptMap[B, ArrB <: Arr[B]](f: (HSep, LineSeg) => Option[B])(
+  /** Projection OptMaps over the [[HSep]] and [[LSeg]] of eahc false [[HSep]] link. */
+  def projFalseLinksHsLineSegOptMap[B, ArrB <: Arr[B]](f: (HSep, LSeg) => Option[B])(
     implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB = projFalseLinksHsLineSegOptMap(proj)(f)(build)
 
-  /** Projection OptMaps over the [[HSep]] and [[LineSeg]] of eahc false [[HSep]] link. */
-  def projFalseLinksHsLineSegOptMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HSep, LineSeg) => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB = {
+  /** Projection OptMaps over the [[HSep]] and [[LSeg]] of eahc false [[HSep]] link. */
+  def projFalseLinksHsLineSegOptMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HSep, LSeg) => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB = {
     val buff = build.newBuff()
     proj.gChild.linksForeach { hs =>
       if (!apply(hs)(proj.parent))

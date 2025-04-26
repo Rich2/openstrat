@@ -16,15 +16,15 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4
   def endPt: HCoord = HCoord(r2, c2)
 
   /** Uses the implicit [[HGridSysProjecton]] parameter to convert from [[HCoord]]s to [[Pt2]]s. */
-  def projLineSeg(implicit proj: HSysProjection): LineSeg = LineSeg(startPt.projPt2, endPt.projPt2)
+  def projLineSeg(implicit proj: HSysProjection): LSeg = LSeg(startPt.projPt2, endPt.projPt2)
 
   /** Transforms from  [[HCoord]]s to [[Pt2]]s. */
-  def lineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
+  def lineSeg: LSeg = LSeg(startPt.toPt2Reg, endPt.toPt2Reg)
 
-  def transLineSeg(scale: Double, rOrigin: Int, cOrigin: Int): LineSeg = transLineSeg(scale, HCoord(rOrigin, cOrigin))
+  def transLineSeg(scale: Double, rOrigin: Int, cOrigin: Int): LSeg = transLineSeg(scale, HCoord(rOrigin, cOrigin))
 
   /** Incorrect. */
-  def transLineSeg(scale: Double, origin: HCoord = HCen(0, 0)): LineSeg =
+  def transLineSeg(scale: Double, origin: HCoord = HCen(0, 0)): LSeg =
   { val offset = -origin.toPt2Reg.toVec
     map(_.toPt2Reg.slate(offset).scale(scale))
   }

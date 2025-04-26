@@ -16,7 +16,7 @@ final class TriangleEqui(val v0x: Double, val v0y: Double, val v1x: Double, val 
 
   override def reflect(lineLike: LineLike): TriangleEqui = ???
   
-  override def side0: LineSeg = LineSeg(v0x, v0y, v1x, v1y)
+  override def side0: LSeg = LSeg(v0x, v0y, v1x, v1y)
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)  

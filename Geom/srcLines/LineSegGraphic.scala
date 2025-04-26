@@ -3,7 +3,7 @@ package ostrat; package geom
 import pgui.*, Colour.Black, pWeb.*
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
-case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic, AffinePreserve, CanvElem, GraphicSvgElem
+case class LineSegDraw(curveSeg: LSeg, width: Double, colour: Colour) extends CurveSegGraphic, AffinePreserve, CanvElem, GraphicSvgElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
   override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), width, colour)
@@ -18,11 +18,11 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
 
 object LineSegDraw
 {
-  def apply(lineSeg: LineSeg, lineWidth: Double, colour: Colour) = new LineSegDraw(lineSeg, lineWidth, colour)
-  def apply(pStart: Pt2, pEnd: Pt2, lineWidth: Double = 2.0, colour: Colour = Black): LineSegDraw = LineSeg(pStart, pEnd).draw(lineWidth, colour)
+  def apply(lineSeg: LSeg, lineWidth: Double, colour: Colour) = new LineSegDraw(lineSeg, lineWidth, colour)
+  def apply(pStart: Pt2, pEnd: Pt2, lineWidth: Double = 2.0, colour: Colour = Black): LineSegDraw = LSeg(pStart, pEnd).draw(lineWidth, colour)
   
   def dbls(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double = 2.0, colour: Colour = Black): LineSegDraw =
-    LineSeg(xStart, yStart, xEnd, yEnd).draw(lineWidth, colour)
+    LSeg(xStart, yStart, xEnd, yEnd).draw(lineWidth, colour)
   
   implicit val showEv: Show4[Pt2, Pt2, Double, Colour, LineSegDraw] =
     Show4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, Some(Black), Some(1.0))
@@ -64,7 +64,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
 }
 
 /** This class will be replaced but extends [[CanvElem]] as a temporary measure. */
-case class DashedLineDraw(curveSeg: LineSeg, lineWidth: Double, colour: Colour, dashArr: Array[Double]) extends CurveSegGraphic with
+case class DashedLineDraw(curveSeg: LSeg, lineWidth: Double, colour: Colour, dashArr: Array[Double]) extends CurveSegGraphic with
   AffinePreserve with CanvElem
 { override type ThisT = DashedLineDraw
 
@@ -78,7 +78,7 @@ case class DashedLineDraw(curveSeg: LineSeg, lineWidth: Double, colour: Colour, 
 
 object DashedLineDraw
 {
-  def apply(curveSeg: LineSeg, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black):
+  def apply(curveSeg: LSeg, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black):
   DashedLineDraw = new DashedLineDraw(curveSeg, lineWidth, colour, Array[Double](dashLength, gapLength))
 
   /*implicit val persistImplicit: Persist6[Vec2, Vec2, Double, Double, Double, Colour, DashedLineDraw] =

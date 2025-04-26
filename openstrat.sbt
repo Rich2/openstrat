@@ -86,22 +86,14 @@ def utilSett = List(
 )
 
 lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
-  name := "rutil",
-  Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
+  name := "rutil",  
   Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
 )
 
 lazy val UtilExs = jvmExsProj("Util").dependsOn(Geom)
 
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
-  name := "rutiljs",
-  Compile / sourceGenerators += Def.task {
-    val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
-    val str2 = str.replaceAll("AnyVal with ", "")
-    val arr = (Compile / sourceManaged).value / "Js" / "RArr.scala"
-    IO.write(arr, str2)
-    Seq(arr)
-  }.taskValue,
+  name := "rutiljs",  
 )
 
 lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(utilSett).settings(

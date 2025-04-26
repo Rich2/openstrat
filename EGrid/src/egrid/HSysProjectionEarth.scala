@@ -85,10 +85,10 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   }
 
   /** Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
-  override def transLineSeg(seg: LineSegHC): LineSeg = seg.map(transCoord(_))
+  override def transLineSeg(seg: LineSegHC): LSeg = seg.map(transCoord(_))
 
   /** Optionally Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
-  override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] = seg.mapOpt(transOptCoord(_).rotate180If(southUp))
+  override def transOptLineSeg(seg: LineSegHC): Option[LSeg] = seg.mapOpt(transOptCoord(_).rotate180If(southUp))
 
   def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
   { val rotated = inp.fromLatLongFocus(focus)

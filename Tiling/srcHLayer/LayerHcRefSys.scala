@@ -182,13 +182,13 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
   /** Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid, that takes the
    * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    * tile data values. */
-  def projLinksLineOptMap[B, BB <: Arr[B]](f: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderMapArr[B, BB]): BB =
+  def projLinksLineOptMap[B, BB <: Arr[B]](f: (LSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderMapArr[B, BB]): BB =
     projLinksLineOptMap(proj)(f)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    * tile data values. */
-  def projLinksLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (LineSeg, A, A) => Option[B])(implicit build: BuilderMapArr[B, BB]): BB =
+  def projLinksLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (LSeg, A, A) => Option[B])(implicit build: BuilderMapArr[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
       hs.unsafeTiles match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
@@ -198,13 +198,13 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
   /** Comment no correct, Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid, that takes the
    * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    * tile data values. */
-  def projLinksHsLineOptMap[B, BB <: Arr[B]](f: (HSep, LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderMapArr[B, BB]): BB =
+  def projLinksHsLineOptMap[B, BB <: Arr[B]](f: (HSep, LSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderMapArr[B, BB]): BB =
     projLinksHsLineOptMap(proj)(f)
 
   /** implementation not correct, Comment not correct, Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    * tile data values. */
-  def projLinksHsLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (HSep, LineSeg, A, A) => Option[B])(implicit build: BuilderMapArr[B, BB]): BB =
+  def projLinksHsLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (HSep, LSeg, A, A) => Option[B])(implicit build: BuilderMapArr[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
       hs.unsafeTiles match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs, hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))

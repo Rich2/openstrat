@@ -35,7 +35,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
     sTerrs(hs) match
     {
       case WSepNone if t1.colour == t2.colour =>
-      { val ls1: Option[LineSeg] = hs.projCornersSideLine(proj, corners)
+      { val ls1: Option[LSeg] = hs.projCornersSideLine(proj, corners)
         ls1.map(_.draw(lineColour = t1.contrastBW))
       }
       case _: WSepSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))
@@ -72,7 +72,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
       sTerrs(hs) match
       {
         case WSepNone if t1.colour == t2.colour =>
-        { val ls1: Option[LineSeg] = hs.projCornersSideLine(proj, corners)
+        { val ls1: Option[LSeg] = hs.projCornersSideLine(proj, corners)
           ls1.map(_.draw(lineColour = t1.contrastBW))
         }
         case _: WSepSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))

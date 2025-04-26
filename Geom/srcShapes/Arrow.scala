@@ -9,14 +9,14 @@ object Arrow
   def paint(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 20, colour: Colour = Black, lineWidth: Double = 2):
     RArr[GraphicSvgElem] =
   {
-    val mainLine = LineSeg(startPt, endPt)
+    val mainLine = LSeg(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
     RArr(mainLine.draw(lineWidth, colour), Triangle(leftVert, endPt, rightVert).fill(colour))
   }
   
   def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 20): (Pt2, Pt2) =
   {
-    val mainLine = LineSeg(startPt, endPt)
+    val mainLine = LSeg(startPt, endPt)
     val hl2 = hypLength.min(mainLine.length / 2)
     val ang: Angle = mainLine.angle
     val leftAng: Angle = ang + 180.degsVec - headAngle

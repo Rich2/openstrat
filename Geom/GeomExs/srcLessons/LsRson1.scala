@@ -27,7 +27,7 @@ object LsRson1 extends LessonGraphics
     val t4 = v1.str
 
     val v2: Pt2 = Pt2(4.6, 78.4)
-    val l1 = LineSeg(v1, v2)
+    val l1 = LSeg(v1, v2)
 
     /** So note how there is a semicolon between the two points but a comma between the x and y values of each point. */
     val t5 = l1.str

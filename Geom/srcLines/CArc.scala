@@ -17,7 +17,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   def radius: Double = cen.distTo(pStart)
 
   /** The chord of this Arc */
-  def chord: LineSeg = pStart.lineSegTo(pEnd)
+  def chord: LSeg = pStart.lineSegTo(pEnd)
 
   /** The mid-point of the chord of this arc. */
   def chordCen: Pt2 = pStart.\/(pEnd)

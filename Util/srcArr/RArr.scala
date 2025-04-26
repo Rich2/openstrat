@@ -13,7 +13,7 @@ trait RefsSeqLike[+A] extends Any, SeqLike[A]
 
 /** The immutable Array based class for types without their own specialised [[Arr]] collection classes. It inherits the standard foreach, map, flatMap and fold
  * and their variations' methods from ArrayLike. As it stands in Scala 3.3.0 the Graphics module will not build for Scala3 for the Javascript target. */
-final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVal, Arr[A], RefsSeqLike[A]
+final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A], RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "RArr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)

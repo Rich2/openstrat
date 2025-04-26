@@ -28,7 +28,7 @@ class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   def xy: LineSegKm2 = new LineSegKm2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
-  def xyLineSeg(scale: LengthMetric): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
+  def xyLineSeg(scale: LengthMetric): LSeg = LSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
 
   override def xStartMetresNum: Double = ???
 
@@ -74,7 +74,7 @@ object LineSegKm3
   }*/
 }
 
-/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
+/** Compact immutable Array[Double] based collection class for [[LSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
 class LineSegKm3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegKm3]
 { type ThisT = LineSegKm3Arr

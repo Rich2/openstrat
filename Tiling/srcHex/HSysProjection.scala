@@ -64,10 +64,10 @@ trait HSysProjection extends TSysProjection
   def transPolygonHVOffset(inp: PolygonHvOffset): Polygon = inp.toPolygon(transCoord)(parent)
   def transOptPolygonHVOffset(inp: PolygonHvOffset): Option[Polygon] = inp.optMap(transOptHVOffset(_))
 
-  def transOptLineSeg(seg: LineSegHC): Option[LineSeg]
-  def transLineSeg(seg: LineSegHC): LineSeg
+  def transOptLineSeg(seg: LineSegHC): Option[LSeg]
+  def transLineSeg(seg: LineSegHC): LSeg
 
-  def lineSeg(hs: HSep): LineSeg = transLineSeg(hs.lineSegHC)
+  def lineSeg(hs: HSep): LSeg = transLineSeg(hs.lineSegHC)
 
   /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */
   def hCoordOptStr(hc: HCoord): Option[String] = None
@@ -81,6 +81,6 @@ trait HSysProjection extends TSysProjection
 
   def linksOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB = gChild.linksOptMap(f)
 
-  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSep, LineSeg) => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSep, LSeg) => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
     gChild.linksOptMap{hs => f(hs, lineSeg(hs)) }
 }
