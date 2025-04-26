@@ -24,7 +24,7 @@ trait TransAxes[T]
 /** Companion object for the [[TransAxes]] type class trait, contains instances for common container objects including Functor instances. */
 object TransAxes
 {
-  given transAlignerImplicit[T <: SimilarPreserve]: TransAxes[T] = new TransAxes[T]
+  given transAlignerEv[T <: SimilarPreserve]: TransAxes[T] = new TransAxes[T]
   { override def negYT(obj: T): T = obj.negY.asInstanceOf[T]
     override def negXT(obj: T): T = obj.negX.asInstanceOf[T]
     override def rotate90(obj: T): T = obj.rotate90.asInstanceOf[T]
@@ -32,7 +32,7 @@ object TransAxes
     override def rotate270(obj: T): T = obj.rotate270.asInstanceOf[T]
   }
 
-  given arrImplicit[A, AA <: Arr[A]](using build: BuilderMapArr[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
+  given arrEv[A, AA <: Arr[A]](using build: BuilderMapArr[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
   { override def negYT(obj: AA): AA = obj.map(evA.negYT(_))
     override def negXT(obj: AA): AA = obj.map(evA.negXT(_))
     override def rotate90(obj: AA): AA = obj.map(evA.rotate90)
@@ -40,7 +40,7 @@ object TransAxes
     override def rotate270(obj: AA): AA = obj.map(evA.rotate270)
   }
 
-  given functorImplicit[A, F[_]](using evF: Functor[F], evA: TransAxes[A]): TransAxes[F[A]] = new TransAxes[F[A]]
+  given functorEv[A, F[_]](using evF: Functor[F], evA: TransAxes[A]): TransAxes[F[A]] = new TransAxes[F[A]]
   { override def negYT(obj: F[A]): F[A] = evF.mapT(obj, evA.negYT(_))
     override def negXT(obj: F[A]): F[A] = evF.mapT(obj, evA.negXT(_))
     override def rotate90(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate90)
@@ -48,7 +48,7 @@ object TransAxes
     override def rotate270(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate270)
   }
 
-  given arrayImplicit[A](using ct: ClassTag[A], ev: TransAxes[A]): TransAxes[Array[A]] = new TransAxes[Array[A]]
+  given arrayEv[A](using ct: ClassTag[A], ev: TransAxes[A]): TransAxes[Array[A]] = new TransAxes[Array[A]]
   { override def negYT(obj: Array[A]): Array[A] = obj.map(ev.negYT(_))
     override def negXT(obj: Array[A]): Array[A] = obj.map(ev.negXT(_))
     override def rotate90(obj: Array[A]): Array[A] = obj.map(ev.rotate90)
@@ -57,8 +57,8 @@ object TransAxes
   }
 }
 
-/** Class to provide extension methods for TransAxes type class. */
-class TransAxesExtensions[T](thisT: T)(using ev: TransAxes[T])
+/** Extension methods for [[TransAxes]] type class. */
+extension[T](thisT: T)(using ev: TransAxes[T])
 { @inline def negY: T = ev.negYT(thisT)
   @inline def negX: T = ev.negXT(thisT)
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
