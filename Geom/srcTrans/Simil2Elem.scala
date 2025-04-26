@@ -50,7 +50,7 @@ object Simil2Trans
 
 class TransSimExtension[T](value: T, ev: Simil2Trans[T])
 { def reflect(line: Line) = ev.reflectT(value, line)
-  def reflect(lineSeg: LSeg): T = ev.reflectT(value, lineSeg)
+  def reflect(lineSeg: LSeg2): T = ev.reflectT(value, lineSeg)
 
   /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]

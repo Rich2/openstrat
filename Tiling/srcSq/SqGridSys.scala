@@ -83,7 +83,7 @@ trait SqGridSys extends TGridSys
   /** foreach Hex side's coordinate HSide, calls the effectual function. */
   def sidesForeach(f: SqSep => Unit): Unit = ???
 
-  def sideLines: LineSegArr
+  def sideLines: LSeg2Arr
 
   /** The line segments of the sides defined in [[SqCoord]] vertices. */
   //def sideLineSegSqCs: LineSegSqCArr = sidesMap(_.lineSegSqC)

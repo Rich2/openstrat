@@ -46,9 +46,9 @@ object LsAArcs2 extends LessonStatic
   val e2 = EArclign.neg(e1St, e1Cen, 200, 100, c1End).draw(lineColour = Green)
 
   val stuff = RArr(
-    LSeg(0, 0, 160, 100).draw(),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
-    LSeg(0, 50, 150, 200).draw(lineWidth = 3),
-    LSeg(50, -50, 200, -50).draw(2, Red),//Note if you don't include a Colour you get Black
+    LSeg2(0, 0, 160, 100).draw(),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
+    LSeg2(0, 50, 150, 200).draw(lineWidth = 3),
+    LSeg2(50, -50, 200, -50).draw(2, Red),//Note if you don't include a Colour you get Black
 
     LinePath.dbls(0,-50, 50,-100, -25,-75, 200,-60).draw(2, Orange),
 

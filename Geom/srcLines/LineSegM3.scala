@@ -28,7 +28,7 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
   def xy: LineSegM2 = new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
-  def xyLineSeg(scale: LengthMetric): LSeg = LSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
+  def xyLineSeg(scale: LengthMetric): LSeg2 = LSeg2(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
 }
 
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */
@@ -62,7 +62,7 @@ object LineSegM3
   }
 }
 
-/** Compact immutable Array[Double] based collection class for [[LSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
+/** Compact immutable Array[Double] based collection class for [[LSeg2]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
 class LineSegM3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegM3]
 { type ThisT = LineSegM3Arr

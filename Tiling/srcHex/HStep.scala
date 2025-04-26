@@ -191,10 +191,10 @@ class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
     res
   }
 
-  def projLineSegs(startCen: HCen, proj: HSysProjection): LineSegArr = projLineSegs(startCen. r, startCen.c, proj)
+  def projLineSegs(startCen: HCen, proj: HSysProjection): LSeg2Arr = projLineSegs(startCen. r, startCen.c, proj)
 
-  def projLineSegs(startR: Int, startC: Int, proj: HSysProjection): LineSegArr =
-  { val res = LineSegArr.uninitialised(segsNum)
+  def projLineSegs(startR: Int, startC: Int, proj: HSysProjection): LSeg2Arr =
+  { val res = LSeg2Arr.uninitialised(segsNum)
     var count = 0
     segHCsForeach(startR, startC) { lh =>
       val ols = proj.transOptLineSeg(lh)

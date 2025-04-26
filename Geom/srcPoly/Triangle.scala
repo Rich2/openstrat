@@ -39,7 +39,7 @@ trait Triangle extends Polygon3Plus
 	final override def vLastY: Double = v2y
 	final override def vLast: Pt2 = Pt2(v2x, v2y)
 
-	final override def sides: LineSegArr = ??? // new LineSegArr(Array(v0x, v0y,))
+	final override def sides: LSeg2Arr = ??? // new LineSegArr(Array(v0x, v0y,))
 
 	final override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 
@@ -85,7 +85,7 @@ object Triangle
 		 * TriangleImp is specified by its vertices. This is not the case for all Polygons. */
 		override def ptsTrans(f: Pt2 => Pt2): TriangleGen = vertsTrans(f)
 
-		override def side0: LSeg = LSeg(v0x, v0y, vertX(1), vertY(1))
+		override def side0: LSeg2 = LSeg2(v0x, v0y, vertX(1), vertY(1))
 		override def sd0CenX: Double = v0x \/ vertX(1)
 		override def sd0CenY: Double = v0y \/ vertY(1)
 		override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)

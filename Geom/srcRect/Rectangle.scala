@@ -66,11 +66,11 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   final override def vLastX: Double = v3x
   final override def vLastY: Double = v3y
   final override def vLast: Pt2 = Pt2(v3x, v3y)
-  final override def side0: LSeg = LSeg(v0x, v0y, v1x, v1y)
+  final override def side0: LSeg2 = LSeg2(v0x, v0y, v1x, v1y)
   final override def sd0CenX: Double = v0x \/ v1x
   final override def sd0CenY: Double = v0y \/ v1y
   final override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  final override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
+  final override def sides: LSeg2Arr = LSeg2Arr(side0, side1, side2, side3)
 
   final override def elem(index: Int): Pt2 = index %% 4 match
   { case 0 => Pt2(v0x, v0y)
@@ -143,13 +143,13 @@ object Rectangle
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
-  def fromAxis(centreLine: LSeg, height: Double): PolygonGen = ???
+  def fromAxis(centreLine: LSeg2, height: Double): PolygonGen = ???
 //  { val hAngle: Angle = centreLine.angle
 //    val offset = (hAngle + 90.degsVec).toVec2(height * 0.5)
 //    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
 //  }
 
-  def fromAxisRatio(centreLine: LSeg, ratio: Double): PolygonGen = fromAxis(centreLine, centreLine.length * ratio)
+  def fromAxisRatio(centreLine: LSeg2, ratio: Double): PolygonGen = fromAxis(centreLine, centreLine.length * ratio)
 
   implicit val slateImplicit: SlateXY[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)

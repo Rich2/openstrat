@@ -19,18 +19,18 @@ final class LineSeg3(val dbl1: Double, val dbl2: Double, val dbl3: Double, val d
   /** The end [[Pt3]]. */
   def endPt: Pt3 = Pt3(endX, endY, endZ)
 
-  /** Drops the z components of this 3D line segment, returns a 2D [[LSeg]] with just the X and Y components. */
-  def toXY: LSeg = LSeg(startPt.toXY, endPt.toXY)
+  /** Drops the z components of this 3D line segment, returns a 2D [[LSeg2]] with just the X and Y components. */
+  def toXY: LSeg2 = LSeg2(startPt.toXY, endPt.toXY)
 }
 
 /** Companion object for LineSeg3 contains factory apply methods. */
 object LineSeg3
 {
-  /** Factory apply method to create a line segment in 3 dimensions from 2 [[Pt3]] points. There is also a name overload to create a [[LSeg]] from
+  /** Factory apply method to create a line segment in 3 dimensions from 2 [[Pt3]] points. There is also a name overload to create a [[LSeg2]] from
    * its 4 consituent [[Double]]s. */
   def apply(pStart: Pt3, pEnd: Pt3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)
 
-  /** Factory apply method to create a line segment in 3 dimensions from 4 [[Double]]s. There is also a name overload to create a [[LSeg]] from its
+  /** Factory apply method to create a line segment in 3 dimensions from 4 [[Double]]s. There is also a name overload to create a [[LSeg2]] from its
    * [[Pt3]] start and end points. */
   def apply(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double): LineSeg3 =
     new LineSeg3(xStart, yStart, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double)

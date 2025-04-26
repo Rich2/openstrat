@@ -66,7 +66,7 @@ trait HSep extends HCenOrSep with TSep
     corners.sepLineHVAndOffset(cs._1, cs._2, cs._3)
   }
 
-  def projCornersSideLine(proj: HSysProjection, corners: HCornerLayer): Option[LSeg] = {
+  def projCornersSideLine(proj: HSysProjection, corners: HCornerLayer): Option[LSeg2] = {
     val ls1: LineSegHvOffset = sideLineHVAndOffSet(corners)(proj.parent)
     ls1.mapOpt(proj.transOptHVOffset(_))
   }

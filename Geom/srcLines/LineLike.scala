@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Common base trait for [[Line]], [[LSeg]] and [[Ray]]. */
+/** Common base trait for [[Line]], [[LSeg2]] and [[Ray]]. */
 trait LineLike extends Aff2Elem
 
 /** Geometrical Ray. */

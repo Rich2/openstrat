@@ -4,9 +4,9 @@ import pWeb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Straight line segment. A straight line in everyday terminology. Mathematically: 2-dimensional directed, line segment. The name was chosen to avoid
  * ambiguity. */
-final class LSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2], LineLike, CurveSeg,
+final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2], LineLike, CurveSeg,
   Tell2[Pt2, Pt2], AffinePreserve, BoundedElem
-{ override type ThisT = LSeg
+{ override type ThisT = LSeg2
   override def typeStr: String = "LSeg"
   override def name1: String = "start"
   override def name2: String = "end"
@@ -22,7 +22,7 @@ final class LSeg(val startX: Double, val startY: Double, val endX: Double, val e
   def startPt: Pt2 = Pt2(startX, startY)
   def endPt: Pt2 = Pt2(endX, endY)
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(startX, startY, endX, endY)
-  def ptsTrans(f: Pt2 => Pt2): LSeg = LSeg(f(pStart), f(pEnd))
+  def ptsTrans(f: Pt2 => Pt2): LSeg2 = LSeg2(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(startX.toShort, startY.toShort, endX.toShort, endY.toShort)
   def isHorizontal: Boolean = startY == endY
   def isVertical: Boolean = startX == endX
@@ -103,77 +103,77 @@ final class LSeg(val startX: Double, val startY: Double, val endX: Double, val e
   override def boundingRect: Rect = Rect.lrbt(startX.min(endX), startX.max(endX), startY.min(endY), startY.max(endY))
 }
 
-/** Companion object for the LineSeg class. Contains factory apply methods and implicit instances for [[LSeg]]s. */
-object LSeg
+/** Companion object for the LineSeg class. Contains factory apply methods and implicit instances for [[LSeg2]]s. */
+object LSeg2
 { /** Factory apply method for LineSeg. */
-  @inline def apply(pStart: Pt2, pEnd: Pt2): LSeg = new LSeg(pStart.x, pStart.y, pEnd.x, pEnd.y)
+  @inline def apply(pStart: Pt2, pEnd: Pt2): LSeg2 = new LSeg2(pStart.x, pStart.y, pEnd.x, pEnd.y)
 
-  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): LSeg = new LSeg(xStart, yStart, xEnd, yEnd)
+  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): LSeg2 = new LSeg2(xStart, yStart, xEnd, yEnd)
 
   /** Creates a horizontal LineSeg. */
-  def horr(y: Double, xStart: Double, yEnd: Double): LSeg = new LSeg(xStart, y, xStart, y)
+  def horr(y: Double, xStart: Double, yEnd: Double): LSeg2 = new LSeg2(xStart, y, xStart, y)
 
   /** Creates a vertical LineSeg. */
-  @inline def vert(x: Double, yStart: Double, yEnd: Double): LSeg = new LSeg(x, yStart, x, yEnd)
+  @inline def vert(x: Double, yStart: Double, yEnd: Double): LSeg2 = new LSeg2(x, yStart, x, yEnd)
 
-  /** [[Show]] and [[Unshow]] type class instance / evidence for [[LSeg]]. */
-  implicit val persistEv: Persist2Both[Pt2, Pt2, LSeg] =  Persist2Both[Pt2, Pt2, LSeg]("Line2", "start", _.startPt, "end", _.endPt, apply)
+  /** [[Show]] and [[Unshow]] type class instance / evidence for [[LSeg2]]. */
+  implicit val persistEv: Persist2Both[Pt2, Pt2, LSeg2] =  Persist2Both[Pt2, Pt2, LSeg2]("Line2", "start", _.startPt, "end", _.endPt, apply)
 
-  implicit val eqTImplicit: EqT[LSeg] = Eq2T[Pt2, Pt2, LSeg](_.pStart, _.pEnd)
+  implicit val eqTImplicit: EqT[LSeg2] = Eq2T[Pt2, Pt2, LSeg2](_.pStart, _.pEnd)
 
   /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
-  implicit val arrMapbuilderEv: LineSegArrMapBuilder = new LineSegArrMapBuilder
+  implicit val arrMapbuilderEv: LSeg2ArrMapBuilder = new LSeg2ArrMapBuilder
 
   implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegPairArrMapBuilder[B2] = new LineSegPairArrMapBuilder[B2]
 
-  implicit def transimplicit: Aff2Trans[LSeg] = (obj: LSeg, f: Pt2 => Pt2) => LSeg(f(obj.pStart), f(obj.pEnd))
+  implicit def transimplicit: Aff2Trans[LSeg2] = (obj: LSeg2, f: Pt2 => Pt2) => LSeg2(f(obj.pStart), f(obj.pEnd))
 }
 
-/** Compact immutable Array[Double] based collection class for [[LSeg]]s. [[LSeg]] is the library's term for a mathematical straight line segment, but
+/** Compact immutable Array[Double] based collection class for [[LSeg2]]s. [[LSeg2]] is the library's term for a mathematical straight line segment, but
  * what in common parlance is often just referred to as a line. */
-class LineSegArr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLikeDbl4Arr[Pt2, LSeg], ArrDbl4[LSeg], AffinePreserve, Drawable, BoundedElem
-{ type ThisT = LineSegArr
-  def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
+class LSeg2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLikeDbl4Arr[Pt2, LSeg2], ArrDbl4[LSeg2], AffinePreserve, Drawable, BoundedElem
+{ type ThisT = LSeg2Arr
+  def fromArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
   override def typeStr: String = "LineSegArr"
-  override def fElemStr: LSeg => String = _.str
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LSeg = new LSeg(d1, d2, d3, d4)
-  override def ptsTrans(f: Pt2 => Pt2): LineSegArr = map(orig => LSeg(f(orig.pStart), f(orig.pEnd)))
+  override def fElemStr: LSeg2 => String = _.str
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LSeg2 = new LSeg2(d1, d2, d3, d4)
+  override def ptsTrans(f: Pt2 => Pt2): LSeg2Arr = map(orig => LSeg2(f(orig.pStart), f(orig.pEnd)))
   override def draw(lineWidth: Double = 2, colour: Colour = Black): LineSegArrDraw = LineSegArrDraw(this, lineWidth, colour)
   override def boundingRect: Rect = foldLeft(_ || _.boundingRect)
 }
 
-/** Companion object for the specialised [[Arr]] class for [[LSeg]]s. Contains factory methods and type class instances. */
-object LineSegArr extends CompanionSeqLikeDbl4[LSeg, LineSegArr]
-{ override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
+/** Companion object for the specialised [[Arr]] class for [[LSeg2]]s. Contains factory methods and type class instances. */
+object LSeg2Arr extends CompanionSeqLikeDbl4[LSeg2, LSeg2Arr]
+{ override def fromArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
 
   /** Implicit instance /evidence for [[BuilderFlatArr]] type class instance. */
-  implicit val arrFlatBuildEv: BuilderFlatArr[LineSegArr] = new LineSegArrFlatBuilder
+  implicit val arrFlatBuildEv: BuilderFlatArr[LSeg2Arr] = new LineSegArrFlatBuilder
 
-  /** [[Show]] type class instance / evidence for [[LineSegArr]]. */
-  implicit lazy val showEv: ShowSequ[LSeg, LineSegArr] = ShowSequ[LSeg, LineSegArr]()
+  /** [[Show]] type class instance / evidence for [[LSeg2Arr]]. */
+  implicit lazy val showEv: ShowSequ[LSeg2, LSeg2Arr] = ShowSequ[LSeg2, LSeg2Arr]()
 
-  /** [[Unshow]] type class instance / evidence for [[LineSegArr]]. */
-  implicit lazy val unshowEv: UnshowSeq[LSeg, LineSegArr] = UnshowSeq[LSeg, LineSegArr]()
+  /** [[Unshow]] type class instance / evidence for [[LSeg2Arr]]. */
+  implicit lazy val unshowEv: UnshowSeq[LSeg2, LSeg2Arr] = UnshowSeq[LSeg2, LSeg2Arr]()
 
-  implicit val transImplicit: Aff2Trans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
+  implicit val transImplicit: Aff2Trans[LSeg2Arr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
 
-/** Efficient expandable buffer for [[LSeg]]s. */
-class LineSegBuff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LSeg]
+/** Efficient expandable buffer for [[LSeg2]]s. */
+class LSeg2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LSeg2]
 { override def typeStr: String = "Line2sBuff"
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LSeg = new LSeg(d1, d2, d3, d4)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LSeg2 = new LSeg2(d1, d2, d3, d4)
 }
 
-/** Companion object for [[LineSegBuff]] trait, contains factory apply method. */
-object LineSegBuff
-{ def apply(length: Int = 4): LineSegBuff = new LineSegBuff(new ArrayBuffer[Double](length))
+/** Companion object for [[LSeg2Buff]] trait, contains factory apply method. */
+object LSeg2Buff
+{ def apply(length: Int = 4): LSeg2Buff = new LSeg2Buff(new ArrayBuffer[Double](length))
 }
 
-trait LineSegArrCommonBuilder extends BuilderArrDbl4[LineSegArr]
-{ type BuffT = LineSegBuff
-  override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
-  def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
+trait LSeg2ArrCommonBuilder extends BuilderArrDbl4[LSeg2Arr]
+{ type BuffT = LSeg2Buff
+  override def fromDblArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
+  def buffFromBufferDbl(inp: ArrayBuffer[Double]): LSeg2Buff = new LSeg2Buff(inp)
 }
 
-class LineSegArrMapBuilder extends LineSegArrCommonBuilder with BuilderArrDbl4Map[LSeg, LineSegArr]
-class LineSegArrFlatBuilder extends LineSegArrCommonBuilder with BuilderFlatArrDbl4[LineSegArr]
+class LSeg2ArrMapBuilder extends LSeg2ArrCommonBuilder with BuilderArrDbl4Map[LSeg2, LSeg2Arr]
+class LineSegArrFlatBuilder extends LSeg2ArrCommonBuilder with BuilderFlatArrDbl4[LSeg2Arr]

@@ -66,13 +66,13 @@ trait TSysProjection
   def tileActives: RArr[PolygonActive]
 
   /** The visible hex sides. */
-  def sideLines: LineSegArr
+  def sideLines: LSeg2Arr
 
   /** The visible inner hex sides. */
-  def innerSideLines: LineSegArr
+  def innerSideLines: LSeg2Arr
 
   /** The visible outer hex sides. */
-  def outerSideLines: LineSegArr
+  def outerSideLines: LSeg2Arr
 
   /** Draws visible hex sides. */
   def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LineSegArrDraw = sideLines.draw(lineWidth, colour)

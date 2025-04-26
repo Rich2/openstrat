@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A 2-dimensional line segment measured in [[Femtometres]], equivalent of the [[LSeg]] class. A straight line between two points on a 2-dimensional flat
+/** A 2-dimensional line segment measured in [[Femtometres]], equivalent of the [[LSeg2]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Double, val xEndFemtometresNum: Double, val yEndFemtometresNum: Double) extends
   LineSegLen2[PtFm2], LineSegLikeDbl4[PtFm2], Dbl4Elem
@@ -28,7 +28,7 @@ class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Dou
   override def scale(operand: Double): LineSegFm2 =
     LineSegFm2(xStartFemtometresNum * operand, yStartFemtometresNum * operand, xEndFemtometresNum * operand, yEndFemtometresNum * operand)
 
-  override def mapGeom2(operand: Length): LSeg = LSeg(xStartFemtometresNum / operand.femtometresNum, yStartFemtometresNum / operand.femtometresNum,
+  override def mapGeom2(operand: Length): LSeg2 = LSeg2(xStartFemtometresNum / operand.femtometresNum, yStartFemtometresNum / operand.femtometresNum,
     xEndFemtometresNum / operand.femtometresNum, yEndFemtometresNum / operand.femtometresNum)
 
   override def xStartPicometresNum: Double = xStartFemtometresNum * 1e-3

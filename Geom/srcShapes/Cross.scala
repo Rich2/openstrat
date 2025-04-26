@@ -4,12 +4,12 @@ package ostrat; package geom
 /** Utility object, contains various methods for creating crosses. */
 object Cross
 { /** apply method ofr square cross with a width and height of the scale parameter. */
-  def apply(cen: Pt2 = Pt2Z, scale: Double = 10): LineSegArr = apply(cen.x, cen.y, scale)
+  def apply(cen: Pt2 = Pt2Z, scale: Double = 10): LSeg2Arr = apply(cen.x, cen.y, scale)
 
   /** apply method for square cross with a width and height of the scale parameter. */
-  def apply(cenX: Double, cenY: Double, scale: Double): LineSegArr =
+  def apply(cenX: Double, cenY: Double, scale: Double): LSeg2Arr =
   { val delta = scale / 2
-    LineSegArr.tuple4s((cenX - delta, cenY, cenX + delta, cenY), (cenX, cenY - delta, cenX, cenY + delta))
+    LSeg2Arr.tuple4s((cenX - delta, cenY, cenX + delta, cenY), (cenX, cenY - delta, cenX, cenY + delta))
   }
 
   /** Draws a square cross with a width and height of the scale parameter. */
@@ -21,12 +21,12 @@ object Cross
     apply(cenX, cenY, scale).draw(lineWidth, colour)
 
   /** Diagonal cross with a width and height of the scale parameter. */
-  def diag(cen: Pt2 = Pt2Z, scale: Double = 10): LineSegArr = diag(cen.x, cen.y, scale)
+  def diag(cen: Pt2 = Pt2Z, scale: Double = 10): LSeg2Arr = diag(cen.x, cen.y, scale)
 
   /** Diagonal cross with a width and height of the scale parameter.. */
-  def diag(cenX: Double, cenY: Double, scale: Double): LineSegArr =
+  def diag(cenX: Double, cenY: Double, scale: Double): LSeg2Arr =
   { val delta = scale / 2
-    LineSegArr.tuple4s((cenX - delta, cenY - delta, cenX + delta, cenY + delta), (cenX - delta, cenY + delta, cenX + delta, cenY - delta))
+    LSeg2Arr.tuple4s((cenX - delta, cenY - delta, cenX + delta, cenY + delta), (cenX - delta, cenY + delta, cenX + delta, cenY - delta))
   }
 
   /** Draws a diagonal cross with a width and height of the scale parameter. */

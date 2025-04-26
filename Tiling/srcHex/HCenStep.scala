@@ -16,7 +16,7 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
   def lineSegHC(implicit gridSys: HGridSys): Option[LineSegHC] = gridSys.cenStepEndFind(this).map(LineSegHC(startHC, _))
 
-  def projLineSeg(implicit proj: HSysProjection): Option[LSeg] =
+  def projLineSeg(implicit proj: HSysProjection): Option[LSeg2] =
   { val lhc: Option[LineSegHC] = lineSegHC(proj.gChild)
     lhc.flatMap(proj.transOptLineSeg(_))
   }

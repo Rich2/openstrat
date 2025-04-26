@@ -202,10 +202,10 @@ class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
     res
   }
 
-  def projLineSegs(startCen: SqCen, proj: SqSysProjection): LineSegArr = projLineSegs(startCen. r, startCen.c, proj)
+  def projLineSegs(startCen: SqCen, proj: SqSysProjection): LSeg2Arr = projLineSegs(startCen. r, startCen.c, proj)
 
-  def projLineSegs(startR: Int, startC: Int, proj: SqSysProjection): LineSegArr =
-  { val res = LineSegArr.uninitialised(segsNum)
+  def projLineSegs(startR: Int, startC: Int, proj: SqSysProjection): LSeg2Arr =
+  { val res = LSeg2Arr.uninitialised(segsNum)
     var count = 0
     segSqCsForeach(startR, startC) { lh =>
       val ols = proj.transOptLineSeg(lh)

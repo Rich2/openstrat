@@ -6,11 +6,11 @@ trait Quadrilateral extends Polygon4Plus
 { type ThisT <: Quadrilateral
   override def numVerts: Int = 4
   override def numElems: Int = 4
-  def diag1: LSeg = LSeg(v2, v0)
+  def diag1: LSeg2 = LSeg2(v2, v0)
 
-  def diag2: LSeg = LSeg(v3, v1)
+  def diag2: LSeg2 = LSeg2(v3, v1)
 
-  @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
+  @inline def diags: LSeg2Arr = LSeg2Arr(diag1, diag2)
 
   def vertsTrans(f: Pt2 => Pt2): Quadrilateral = Quadrilateral(f(v0), f(v1), f(v2), f(v3))
 
@@ -29,7 +29,7 @@ trait Quadrilateral extends Polygon4Plus
   override def reflect(lineLike: LineLike): Quadrilateral = vertsTrans(_.reflect(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.scaleXY(xOperand, yOperand))
 
-  override def sides: LineSegArr = LineSegArr(side0, side1, side2, side3)
+  override def sides: LSeg2Arr = LSeg2Arr(side0, side1, side2, side3)
 }
 
 object Quadrilateral
@@ -92,13 +92,13 @@ class QuadrilateralGen(val arrayUnsafe: Array[Double]) extends PolygonLike[Pt2],
   override def vLastX: Double = arrayUnsafe(numVerts - 2)
   override def vLastY: Double = arrayUnsafe(numVerts - 1)
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LSeg = LSeg(v0x, v0y, vertX(1), vertY(1))
+  override def side0: LSeg2 = LSeg2(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def sides: LineSegArr = ??? // new LineSegArr(arrayForSides)
+  override def sides: LSeg2Arr = ??? // new LineSegArr(arrayForSides)
 }
 
 /** Companion object for [[QuadrilateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */

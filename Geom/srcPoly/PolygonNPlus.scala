@@ -30,10 +30,10 @@ trait Polygon3Plus extends Any with Polygon
   final def v2: Pt2 = Pt2(v2x, v2y)
 
   /** Polygon side 1 from vertex 0 to vertex 1. */
-  final def side1: LSeg = LSeg(v1, v2)
+  final def side1: LSeg2 = LSeg2(v1, v2)
 
   /** Polygon side 2 from vertex 1 to vertex 2. */
-  final def side2: LSeg = LSeg(v2, vert(3))
+  final def side2: LSeg2 = LSeg2(v2, vert(3))
 
   /** The X component of the centre or halfway point of side 1 of this polygon. The midway point between v0 and v1. */
   final def sd1CenX: Double = v0x \/ v1x
@@ -70,7 +70,7 @@ trait Polygon4Plus extends Any, Polygon3Plus
   final def v3: Pt2 = Pt2(v3x, v3y)
 
   /** Polygon side 3 from vertex 2 to vertex 3. */
-  final def side3: LSeg = LSeg(v3, vert(4))
+  final def side3: LSeg2 = LSeg2(v3, vert(4))
 
   /** The X component of the centre or halfway point of side 3 of this polygon. */
   final def sd3CenX: Double = v2x \/ v3x

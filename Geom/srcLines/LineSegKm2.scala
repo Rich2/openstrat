@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A 2-dimensional line segment measured in kilometres, equivalent of the [[LSeg]] class. A straight line between two points on a 2-dimensional flat
+/** A 2-dimensional line segment measured in kilometres, equivalent of the [[LSeg2]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val xEndKilometresNum: Double, val yEndKilometresNum: Double) extends
   LineSegLen2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem
@@ -28,7 +28,7 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def scale(operand: Double): LineSegKm2 =
     LineSegKm2(xStartKilometresNum * operand, yStartKilometresNum * operand, xEndKilometresNum * operand, yEndKilometresNum * operand)
   
-  override def mapGeom2(operand: Length): LSeg = LSeg(xStartKilometresNum / operand.kilometresNum, yStartKilometresNum / operand.kilometresNum,
+  override def mapGeom2(operand: Length): LSeg2 = LSeg2(xStartKilometresNum / operand.kilometresNum, yStartKilometresNum / operand.kilometresNum,
     xEndKilometresNum / operand.kilometresNum, yEndKilometresNum / operand.kilometresNum)
 
   override def xStartFemtometresNum: Double = xStartKilometresNum * 1e15
@@ -91,7 +91,7 @@ class LineSegKm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLen2A
   override def slateX(xOperand: _root_.ostrat.geom.Length): LineSegKm2Arr = ???
   override def slateY(yOperand: _root_.ostrat.geom.Length): LineSegKm2Arr = ???
   override def scale(operand: Double): LineSegKm2Arr = ???
-  override def mapGeom2(operand: Length): LineSegArr = ???
+  override def mapGeom2(operand: Length): LSeg2Arr = ???
 }
 
 /** Companion object for the [[LineSegKm2]]s class. */

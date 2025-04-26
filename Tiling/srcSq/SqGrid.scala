@@ -27,8 +27,8 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val g
   override def bottom: Double = bottomSepR
   override def coordCen: SqCoord = SqCoord(rCen, cCen)
   override def yCen: Double = (bottomCenR + topCenR) / 2
-  def horrSideLines: LineSegArr = iToMap(bottomSepR, topSepRow, 2){ r => LSeg(leftSideC, r, rightSideC, r) }
-  def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LSeg(c, bottomSepR, c, topSepRow) }
+  def horrSideLines: LSeg2Arr = iToMap(bottomSepR, topSepRow, 2){ r => LSeg2(leftSideC, r, rightSideC, r) }
+  def vertSideLines: LSeg2Arr = iToMap(leftSideC, rightSideC, 2){ c => LSeg2(c, bottomSepR, c, topSepRow) }
 
   override def sidesForeach(f: SqSep => Unit): Unit = iToForeach(bottomSepR, topSepRow){ r =>
     if (r.isOdd) iToForeach(gridLeftCenC, gridRightCenC, 2)(c => f(SqSep(r, c)))
@@ -59,10 +59,10 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val g
 
   override def defaultView(pxScale: Double = 50): SGView = coordCen.view(pxScale)
 
-  /** The line segments [[LSeg]]s for the sides of the tiles.
+  /** The line segments [[LSeg2]]s for the sides of the tiles.
  *
    *  @group SidesGroup */
-  override def sideLines: LineSegArr = horrSideLines ++ vertSideLines
+  override def sideLines: LSeg2Arr = horrSideLines ++ vertSideLines
 
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */

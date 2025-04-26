@@ -38,7 +38,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     LineSegHvOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
   /** Not sure about the safety of this method. */
-  def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LSeg =
+  def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LSeg2 =
     sepLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
 
   /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] by row and column. */

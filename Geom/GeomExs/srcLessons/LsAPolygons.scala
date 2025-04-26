@@ -14,7 +14,7 @@ object LsAPolygons extends LessonStatic
   val rg: RectangleFill = Rect(200, 100, 100, 50).fill(Green)
   val rd: RectangleDraw = Rect(200, 100, 100, 160).draw()
   val pr: Polygon = Polygon.dbls(100,-100, 385,-100, 385,-200, 100,-200)
-  val ls: LSeg = LSeg(100, -220, 500, -310)
+  val ls: LSeg2 = LSeg2(100, -220, 500, -310)
   val prr = pr.reflect(ls)
 
   def output = RArr(

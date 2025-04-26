@@ -16,7 +16,7 @@ class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   /** Returns the destination [[SqCen]] if one exists within the [[SqGridSys]]. */
   def lineSegSqC(implicit gridSys: SqGridSys): Option[LineSegSC] = gridSys.stepEndFind(this).map(LineSegSC(startSC, _))
 
-  def projLineSeg(implicit proj: SqSysProjection): Option[LSeg] =
+  def projLineSeg(implicit proj: SqSysProjection): Option[LSeg2] =
   { val lhc: Option[LineSegSC] = lineSegSqC(proj.gChild)
     lhc.flatMap(proj.transOptLineSeg(_))
   }

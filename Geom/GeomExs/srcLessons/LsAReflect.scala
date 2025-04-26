@@ -9,7 +9,7 @@ object LsAReflect extends LessonStatic
 
   override def bodyStr: String = "Reflection transformation"
 
-  val line1 = LSeg(-300, 0, 300, 400)
+  val line1 = LSeg2(-300, 0, 300, 400)
   val redLine = line1.draw(0.25, Red)
   val p1 = Pt2(-100, 200)
 

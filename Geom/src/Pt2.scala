@@ -7,7 +7,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, a
  * translate the point. */
 final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTailMax6
 { override type ThisT = Pt2
-  override type LineSegT = LSeg
+  override type LineSegT = LSeg2
   override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
 
@@ -83,7 +83,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
     case yl: YLine => reflectYLine(yl)
     case r: Ray => ???
 
-    case lineSeg: LSeg =>
+    case lineSeg: LSeg2 =>
     { val v1 = lineSeg.pStart
       val v2 = lineSeg.pEnd
       val lineDelta = v2 << v1
@@ -131,17 +131,17 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
   @inline def rotate270: Pt2 = Pt2(y, -x)
 
-  /** Line segment [[LSeg]] from this point to the parameter point. */
-  def lineSegTo(endPt: Pt2): LSeg = LSeg(this, endPt)
+  /** Line segment [[LSeg2]] from this point to the parameter point. */
+  def lineSegTo(endPt: Pt2): LSeg2 = LSeg2(this, endPt)
 
-  /** Line segment [[LSeg]] from the parameter point to this point. */
-  def lineSegFrom(startPt: Pt2): LSeg = LSeg(startPt, this)
-
-  /** Line segment from this point to along the given angle for the given magnitude to point 2. */
-  def angleToLine(angle: Angle, magnitude: Double): LSeg = LSeg(this, this + angle.toVec2(magnitude))
+  /** Line segment [[LSeg2]] from the parameter point to this point. */
+  def lineSegFrom(startPt: Pt2): LSeg2 = LSeg2(startPt, this)
 
   /** Line segment from this point to along the given angle for the given magnitude to point 2. */
-  def angleFromLine(angle: Angle, magnitude: Double): LSeg = LSeg(this + angle.toVec2(magnitude), this)
+  def angleToLine(angle: Angle, magnitude: Double): LSeg2 = LSeg2(this, this + angle.toVec2(magnitude))
+
+  /** Line segment from this point to along the given angle for the given magnitude to point 2. */
+  def angleFromLine(angle: Angle, magnitude: Double): LSeg2 = LSeg2(this + angle.toVec2(magnitude), this)
 
   /** Rotates this vector through the given angle around the origin. */
   def rotate(a: AngleVec): Pt2 = a match
@@ -189,12 +189,12 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
     arcCentre + resultAngle.toVec2(radius / alphaAngle.cos)
   }*/
 
-  def linesCross(armLength: Double = 5): Seq[LSeg] = Seq( new LSeg(x - armLength, y , x + armLength, y),
-    new LSeg(x, y - armLength, x, y + armLength))
+  def linesCross(armLength: Double = 5): Seq[LSeg2] = Seq( new LSeg2(x - armLength, y , x + armLength, y),
+    new LSeg2(x, y - armLength, x, y + armLength))
 
   /** Not sure about this method */
   def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LineSegArrDraw =
-    LineSegArr.dbls(x - armLength, y, x + armLength, y,
+    LSeg2Arr.dbls(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
@@ -228,7 +228,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   def boundingRect: Rect = Rect(0, 0, this)
 
-  override def curveSeg(startPt: Pt2): CurveSeg = LSeg(startPt, this)
+  override def curveSeg(startPt: Pt2): CurveSeg = LSeg2(startPt, this)
   override def endPt: Pt2 = this
 
   override def scaleXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
@@ -287,7 +287,7 @@ object Pt2
   /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function where
    * [[Pt2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
-  implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LSeg] = LSeg(_, _)
+  implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LSeg2] = LSeg2(_, _)
   implicit val slateImplicit: SlateXY[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)

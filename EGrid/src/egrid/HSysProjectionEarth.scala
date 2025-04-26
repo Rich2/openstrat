@@ -74,23 +74,23 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   override def tileActives: RArr[PolygonActive] = gChild.map(p => p.hVertPolygon.map(transCoord(_)).active(p))
 
-  override def sideLines: LineSegArr = transLineSegM3Arr(parent.sideLineM3s)
-  override def innerSideLines: LineSegArr = transLineSegM3Arr(parent.innerSideLineM3s)
-  override def outerSideLines: LineSegArr = transLineSegM3Arr(parent.outerSideLineM3s)
+  override def sideLines: LSeg2Arr = transLineSegM3Arr(parent.sideLineM3s)
+  override def innerSideLines: LSeg2Arr = transLineSegM3Arr(parent.innerSideLineM3s)
+  override def outerSideLines: LSeg2Arr = transLineSegM3Arr(parent.outerSideLineM3s)
 
-  override def transHSeps(inp: HSepArr): LineSegArr =
+  override def transHSeps(inp: HSepArr): LSeg2Arr =
   { val lls: LineSegLLArr = inp.map(_.lineSegHC.map(parent.hCoordLL(_)))
     val m3s = lls.map(_.map(_.toMetres3))
     transLineSegM3Arr(m3s)
   }
 
   /** Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
-  override def transLineSeg(seg: LineSegHC): LSeg = seg.map(transCoord(_))
+  override def transLineSeg(seg: LineSegHC): LSeg2 = seg.map(transCoord(_))
 
   /** Optionally Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
-  override def transOptLineSeg(seg: LineSegHC): Option[LSeg] = seg.mapOpt(transOptCoord(_).rotate180If(southUp))
+  override def transOptLineSeg(seg: LineSegHC): Option[LSeg2] = seg.mapOpt(transOptCoord(_).rotate180If(southUp))
 
-  def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
+  def transLineSegM3Arr(inp: LineSegM3Arr): LSeg2Arr =
   { val rotated = inp.fromLatLongFocus(focus)
     val visible = rotated.filter(_.zsPos)
     visible.map(_.xyLineSeg(metresPerPixel))

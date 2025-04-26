@@ -18,7 +18,7 @@ trait SqSysProjection extends TSysProjection
   /** only use for projection's known [[SqCoord]]s. */
   def transCoord(sc: SqCoord): Pt2
   def transOptCoord(sc: SqCoord): Option[Pt2] = ???
-  def transOptLineSeg(seg: LineSegSC): Option[LSeg] = ???
+  def transOptLineSeg(seg: LineSegSC): Option[LSeg2] = ???
 
   /** Set the perspective, The position of the view. the rotation and the scale. */
   def setView(view: Any): Unit
@@ -43,16 +43,16 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
     gChild.map(hc => hc.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixelsPerC).active(hc))
 
   /** The visible hex sides. */
-  override def sideLines: LineSegArr = gChild.sideLines.slate(-focus).scale(pixelsPerC)//LineSegArr()
+  override def sideLines: LSeg2Arr = gChild.sideLines.slate(-focus).scale(pixelsPerC)//LineSegArr()
     //gChild.sideLineSegSqCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
   /** The visible inner hex sides. */
-  override def innerSideLines: LineSegArr = LineSegArr()
+  override def innerSideLines: LSeg2Arr = LSeg2Arr()
 
   /** The visible outer hex sides. */
-  override def outerSideLines: LineSegArr = LineSegArr()
+  override def outerSideLines: LSeg2Arr = LSeg2Arr()
 
-  override def transOptLineSeg(seg: LineSegSC): Option[LSeg] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)) { (p1, p2) => LSeg(p1, p2) }
+  override def transOptLineSeg(seg: LineSegSC): Option[LSeg2] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)) { (p1, p2) => LSeg2(p1, p2) }
 
   override def setView(view: Any): Unit = view match {
     case hv: SGView => {

@@ -41,13 +41,13 @@ final class HexParrX(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override def vLastX: Double = arrayUnsafe(numVerts - 2)
   override def vLastY: Double = arrayUnsafe(numVerts - 1)
   override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LSeg = LSeg(v0x, v0y, vertX(1), vertY(1))
+  override def side0: LSeg2 = LSeg2(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
   override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
   override def vertX(index: Int): Double = arrayUnsafe(index * 2)
   override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def sides: LineSegArr = new LineSegArr(arrayForSides)
+  override def sides: LSeg2Arr = new LSeg2Arr(arrayForSides)
 }
 
 /** Companion object for the regular hexagon aligned to the X Axis class. It has a limited set of 2D geometric transformation type class instances as the type

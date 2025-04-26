@@ -63,8 +63,8 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     res
   }
 
-  def projLineSegs(implicit proj: HSysProjection): LineSegArr =
-  { val res = LineSegArr.uninitialised(length)
+  def projLineSegs(implicit proj: HSysProjection): LSeg2Arr =
+  { val res = LSeg2Arr.uninitialised(length)
     var count = 0
     segHCsForeach{ lh =>
       val ols = proj.transOptLineSeg(lh)

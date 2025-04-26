@@ -20,7 +20,7 @@ trait EArc extends EllipseBased, CurveSeg
   def startDegsYDown: Double = startAngleYDown.degs
 
   /** The line segment [LineSeg] from the centre of the arc to the start point of the arc. */
-  def lsCenStart: LSeg = cen.lineSegTo(pStart)
+  def lsCenStart: LSeg2 = cen.lineSegTo(pStart)
 
   /** The vector [Vec2] from the centre of the arc to the end point of the arc. */
   def cenEnd: Vec2 = cen >> pEnd
@@ -35,7 +35,7 @@ trait EArc extends EllipseBased, CurveSeg
   def endDegs: Double = endAngle.degs
 
   /** The line segment [LineSeg] from the centre of the arc to the end point of the arc. */
-  def lsCenEnd: LSeg = cen.lineSegTo(pEnd)
+  def lsCenEnd: LSeg2 = cen.lineSegTo(pEnd)
 
   def addRotations(delta: Int): EArc
 

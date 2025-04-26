@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A segment of a curve that could be used in a closed shape or curve path. The names start and end are used in CurveSeg and its subclasses to provide
- * consistent naming across line segments [[LSeg]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic Béziers [[Bezier]]s, which
+ * consistent naming across line segments [[LSeg2]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic Béziers [[Bezier]]s, which
  * require different numbers of points in their specification. */
 trait CurveSeg extends Drawable
 { 

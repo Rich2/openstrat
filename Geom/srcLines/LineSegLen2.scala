@@ -15,7 +15,7 @@ trait LineSegLen2[+VT <: PtLen2] extends LineSegLike[VT], DrawableLen2
   override def slateX(xOperand: Length): LineSegLen2[VT]
   override def slateY(xOperand: Length): LineSegLen2[VT]
   def scale(operand: Double): LineSegLen2[VT]  
-  def mapGeom2 (operand: Length): LSeg
+  def mapGeom2 (operand: Length): LSeg2
 
   override def draw(lineWidth: Double, lineColour: Colour): LineSegLen2Draw = LineSegLen2Draw(this, lineWidth, lineColour)
 
@@ -61,7 +61,7 @@ trait LineSegLen2Arr[+VT <: PtLen2] extends Any, Arr[LineSegLen2[VT]], GeomLen2E
   override def slateX(xOperand: Length): LineSegLen2Arr[VT]
   override def slateY(yOperand: Length): LineSegLen2Arr[VT]
   override def scale(operand: Double): LineSegLen2Arr[VT]
-  override def mapGeom2(operand: Length): LineSegArr
+  override def mapGeom2(operand: Length): LSeg2Arr
   override def draw(lineWidth: Double, lineColour: Colour): LineSegLen2ArrDraw = LineSegLen2ArrDraw(this, lineWidth, lineColour)
 }
 

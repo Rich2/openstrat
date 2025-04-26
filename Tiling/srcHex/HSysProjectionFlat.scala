@@ -86,9 +86,9 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
 
   override def hCenSizedMap(hexScale: Double)(f: (HCen, Pt2) => Graphic2Elem): GraphicElems = ifTileScale(hexScale, hCenPtMap(f))
 
-  override def sideLines: LineSegArr = gChild.sepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
-  override def innerSideLines: LineSegArr = gChild.innerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
-  override def outerSideLines: LineSegArr = gChild.outerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
+  override def sideLines: LSeg2Arr = gChild.sepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
+  override def innerSideLines: LSeg2Arr = gChild.innerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
+  override def outerSideLines: LSeg2Arr = gChild.outerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
 
   override def transOptCoord(hc: HCoord): Option[Pt2] = Some(parent.flatHCoordToPt2(hc).slate(-focus).scale(pixelsPerC))
   override def transCoord(hc: HCoord): Pt2 = parent.flatHCoordToPt2(hc).slate(-focus).scale(pixelsPerC)
@@ -97,9 +97,9 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
 
   override def transTile(hc: HCen): Option[Polygon] = Some(hc.hVertPolygon.map(transCoord(_)))
 
-  override def transOptLineSeg(seg: LineSegHC): Option[LSeg] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)){ (p1, p2) => LSeg(p1, p2) }
+  override def transOptLineSeg(seg: LineSegHC): Option[LSeg2] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)){ (p1, p2) => LSeg2(p1, p2) }
 
-  override def transLineSeg(seg: LineSegHC): LSeg = seg.map(transCoord)
+  override def transLineSeg(seg: LineSegHC): LSeg2 = seg.map(transCoord)
 
-  override def transHSeps(inp: HSepArr): LineSegArr = LineSegArr()// ???//.slate(-focus).scale(cPScale)
+  override def transHSeps(inp: HSepArr): LSeg2Arr = LSeg2Arr()// ???//.slate(-focus).scale(cPScale)
 }

@@ -88,7 +88,7 @@ object Regiment extends LuUniLevel
 { override val int1: Int = 10
   override def topStr: String = "|||"
   override def toString: String = "Regiment"
-  override def drawables: RArr[Drawable] = RArr(iToMap(-2, 2, 2){ i => LSeg(0, -9.75, 0, 0.75).slateX(i) })
+  override def drawables: RArr[Drawable] = RArr(iToMap(-2, 2, 2){ i => LSeg2(0, -9.75, 0, 0.75).slateX(i) })
 }
 
 /** 500 - 1000 men. Battalion. Roman Cohort 600: 480 fighting men + 120 slaves. */
@@ -96,7 +96,7 @@ object Battalion extends LuUniLevel
 { override val int1: Int = 9
   override def topStr: String = "||"
   override def toString: String = "Battalion"
-  override def drawables: RArr[Drawable] = RArr[Drawable](LSeg(0, -9.75, 0, 0.75))
+  override def drawables: RArr[Drawable] = RArr[Drawable](LSeg2(0, -9.75, 0, 0.75))
 }
 
 /** 200 - 500 men. Small Battalion or large company. */
@@ -104,7 +104,7 @@ object Battalette extends LuUniLevel
 { override val int1: Int = 9
   override def topStr: String = "||"
   override def toString: String = "Battalion"
-  override def drawables: RArr[Drawable] = RArr[Drawable](LSeg(0, -9.75, 0, 0.75))
+  override def drawables: RArr[Drawable] = RArr[Drawable](LSeg2(0, -9.75, 0, 0.75))
 }
 
 /** 100 - 200 men. */
@@ -112,7 +112,7 @@ object Company extends LuUniLevel
 { override val int1: Int = 8
   override def topStr: String = "|"
   override def toString: String = "Company"
-  override def drawables: RArr[Drawable] = RArr(LSeg(0, -9.75, 0, 0.75))
+  override def drawables: RArr[Drawable] = RArr(LSeg2(0, -9.75, 0, 0.75))
 }
 
 /** 50 - 100 men. Roman Century 80 fighting men + 20 slaves. */
@@ -164,7 +164,7 @@ object FirePair extends LunitSoleLike
 }
 
 trait LunitSoleLike extends LuUniLevel
-{ def dashDrawable: LSeg = LSeg(-0.25, 0, 0.25, 0)
+{ def dashDrawable: LSeg2 = LSeg2(-0.25, 0, 0.25, 0)
 }
 
 /** Individual soldier. */
