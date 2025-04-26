@@ -2,8 +2,8 @@
 package ostrat; package geom
 import reflect.ClassTag
 
-/** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate type class to
- * [[TransAxes]], as these transformations may preserve types that ReflectAxisOffset's transformations can not. */
+/** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate type class to [[TransAxes]], as
+ * these transformations may preserve types that ReflectAxisOffset's transformations can not. */
 trait TransAxes[T]
 { /** Reflect, mirror an object of type T across the X axis, by negating Y. */
   def negYT(obj: T): T
@@ -17,11 +17,11 @@ trait TransAxes[T]
   /** Rotate an object of type T by 180 degrees or in an anti clockwise direction. */
   def rotate180(obj: T): T
 
-  /** Rotate an object of type T by positive 270 degrees or in an anti clockwise direction. */
+  /** Rotate an object of type T by positive 270 degrees or in an anti-clockwise direction. */
   def rotate270(obj: T): T
 }
 
-/** Companion object for the [[TransAxes]] typeclass trait, contains instances for common container objects including Functor instances. */
+/** Companion object for the [[TransAxes]] type class trait, contains instances for common container objects including Functor instances. */
 object TransAxes
 {
   given transAlignerImplicit[T <: SimilarPreserve]: TransAxes[T] = new TransAxes[T]
@@ -58,7 +58,7 @@ object TransAxes
 }
 
 /** Class to provide extension methods for TransAxes type class. */
-class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
+class TransAxesExtensions[T](thisT: T)(using ev: TransAxes[T])
 { @inline def negY: T = ev.negYT(thisT)
   @inline def negX: T = ev.negXT(thisT)
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
@@ -66,11 +66,11 @@ class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
   @inline def rotate180: T = ev.rotate180(thisT)
   @inline def rotate270: T = ev.rotate270(thisT)
   @inline def rotate180If(cond: Boolean): T = ife(cond, ev.rotate180(thisT), thisT)
-  def rotateQuadrants(implicit ct: ClassTag[T]): RArr[T] = RArr(thisT, rotate270, rotate180, rotate90)
+  def rotateQuadrants(using ct: ClassTag[T]): RArr[T] = RArr(thisT, rotate270, rotate180, rotate90)
 }
 
 /** Extension class for types that fulfill the type class interface for [[TransAxes]] and [[SlateXY]]. */
-class TransAxesSlateExtensions[T](thisT: T)(implicit evR: TransAxes[T], evS: SlateXY[T])
+class TransAxesSlateExtensions[T](thisT: T)(using evR: TransAxes[T], evS: SlateXY[T])
 {
   /** Reflect across a line parallel to the X axis. */
   def reflectXParallel(yValue: Double): T =

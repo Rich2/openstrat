@@ -494,7 +494,7 @@ package object ostrat
     def f2[B](f: (A1, A2) => B): B = f(thisTuple._1, thisTuple._2)
   }
 
-  implicit class EqerImplicit[T](thisT: T)(implicit ev: EqT[T])
+  implicit class EqerImplicit[T](thisT: T)(using ev: EqT[T])
   { /** Equals. An alternative type class based equals method. */
     def ===(operand: T): Boolean = ev.eqT(thisT, operand)
 
@@ -503,7 +503,7 @@ package object ostrat
   }
 
   /** Extension methods for approximation type class. */
-  implicit class ApproxImplicitClass[D, T](thisT: T)(implicit ev: ApproxT[D, T])
+  implicit class ApproxImplicitClass[D, T](thisT: T)(using ev: ApproxT[D, T])
   { /** tests if operand is approximately equal. */
     def =~(operand: T, precision: D = ev.precisionDefault): Boolean = ev.approxT(thisT, operand, precision)
 
@@ -511,7 +511,7 @@ package object ostrat
     def !=~(operand: T, precision: D = ev.precisionDefault): Boolean = !ev.approxT(thisT, operand, precision)
   }
   
-  implicit class ArrayBufferExtensions[A](thisBuff: ArrayBuffer[A])(implicit ct: ClassTag[A])
+  implicit class ArrayBufferExtensions[A](thisBuff: ArrayBuffer[A])(using ct: ClassTag[A])
   { /** If length of this ArrayBuffer is one, perform side effecting function on the sole element. */
     def foreachLen1(f: A => Unit): Unit = if (thisBuff.length == 1) f(thisBuff(0))
   }
@@ -519,7 +519,7 @@ package object ostrat
   implicit class RangeExtensions(range: Range)
   {
     /** maps to a [[Arr]] rather than a standard Scala collection class. */
-    def mapArr[B <: ValueNElem , M <: Arr[B]](f: Int => B)(implicit build: BuilderMapArr[B, M]): M =
+    def mapArr[B <: ValueNElem , M <: Arr[B]](f: Int => B)(using build: BuilderMapArr[B, M]): M =
     { val res = build.uninitialised(range.size)
       var count: Int = 0
       range.foreach { orig =>
@@ -554,9 +554,9 @@ package object ostrat
   implicit def longToImplicit(i: Long): LongExtensions = new LongExtensions(i)
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
-  implicit def showTToExtensions[A](thisVal: A)(implicit ev: Show[A]): ShowingExtensions[A] = new ShowingExtensions[A](ev, thisVal)
+  implicit def showTToExtensions[A](thisVal: A)(using ev: Show[A]): ShowingExtensions[A] = new ShowingExtensions[A](ev, thisVal)
   
-  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
+  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(using ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
     new Show2Extensions[A1, A2, T](ev, thisVal)
     
   implicit def stringToExtensions(s: String): ExtensionsString = new ExtensionsString(s)
