@@ -11,16 +11,16 @@ trait Slate[A]
 
 /** Companion object for the [[Slate]] type class. Contains implicit instances for collections and other container classes. */
 object Slate
-{ implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj, op) => obj.slate(op).asInstanceOf[T]
+{ given transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj, op) => obj.slate(op).asInstanceOf[T]
 
   /** Implicit [[SlateXY]] instance / evidence for [[RArr]]. */
-  implicit def rArrImplicit[A](implicit ev: Slate[A]): Slate[RArr[A]] = (obj, op) => obj.smap(ev.slate(_, op))
+  given rArrImplicit[A](using ev: Slate[A]): Slate[RArr[A]] = (obj, op) => obj.smap(ev.slate(_, op))
 
   /** Implicit [[SlateXY]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, op) => evF.mapT(obj, evA.slate(_, op))
+  given functorImplicit[A, F[_]](using evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, op) => evF.mapT(obj, evA.slate(_, op))
 
   /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, op) => obj.map(ev.slate(_, op))
+  given arrayImplicit[A](using ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, op) => obj.map(ev.slate(_, op))
 }
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.

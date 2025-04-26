@@ -39,28 +39,28 @@ trait Aff2Elem extends Any, Simil2Elem
 /** Companion object for the [[Aff2Elem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
 object Aff2Elem
 { /** Implicit [[Slate]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val slateEv: Slate[Aff2Elem] = (obj, operand) => obj.slate(operand)
+  given slateEv: Slate[Aff2Elem] = (obj, operand) => obj.slate(operand)
 
   /** Implicit [[SlateXY]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val slateXYEv: SlateXY[Aff2Elem] = (obj: Aff2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slateXYEv: SlateXY[Aff2Elem] = (obj: Aff2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)
 
   /** Implicit [[Scale]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val scaleEv: Scale[Aff2Elem] = (obj: Aff2Elem, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[Aff2Elem] = (obj: Aff2Elem, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val rotateEv: Rotate[Aff2Elem] = (obj: Aff2Elem, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[Aff2Elem] = (obj: Aff2Elem, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[Prolign]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val prolignEv: Prolign[Aff2Elem] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[Aff2Elem] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val scaleXYEv: ScaleXY[Aff2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Aff2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Reflect]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val ReflectEv: Reflect[Aff2Elem] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[Aff2Elem] = (obj, lineLike) => obj.reflect(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val transAxesEv: TransAxes[Aff2Elem] = new TransAxes[Aff2Elem]
+  given transAxesEv: TransAxes[Aff2Elem] = new TransAxes[Aff2Elem]
   { override def negYT(obj: Aff2Elem): Aff2Elem = obj.negY
     override def negXT(obj: Aff2Elem): Aff2Elem = obj.negX
     override def rotate90(obj: Aff2Elem): Aff2Elem = obj.rotate90
@@ -69,7 +69,7 @@ object Aff2Elem
   }
 
   /** Implicit [[Shear]] type class instance / evidence for [[Aff2Elem]]. */
-  implicit val shearEv: Shear[Aff2Elem] = new Shear[Aff2Elem]
+  given shearEv: Shear[Aff2Elem] = new Shear[Aff2Elem]
   { override def shearXT(obj: Aff2Elem, yFactor: Double): Aff2Elem = obj.shearX(yFactor)
     override def shearYT(obj: Aff2Elem, xFactor: Double): Aff2Elem = obj.shearY(xFactor)
   }
