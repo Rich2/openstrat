@@ -2,7 +2,7 @@
 package ostrat; package geom
 import Colour.*, ostrat.pWeb.SvgElem
 
-case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw with AxisFree
+case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw, AxisFree
 {
   override type ThisT = CArcDraw
 

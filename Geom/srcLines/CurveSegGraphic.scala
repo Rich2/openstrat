@@ -1,9 +1,8 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 /** Graphic based on a [[CurveSeg]]. */
-trait CurveSegGraphic extends Graphic2Elem
+trait CurveSegGraphic extends Graphic2Elem, Aff2Elem
 {
   def curveSeg: CurveSeg
   /** the x component of the start point often called x1 */

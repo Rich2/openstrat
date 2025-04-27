@@ -4,7 +4,7 @@ import pgui.*, pWeb.*, Colour.Black
 
 /** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as [[Rectangle]], [[Square]] or [[Triangle]]
  * use the implementation class [[PolygonCompound]]. */
-trait PolygonGraphic extends ShapeGraphic with GraphicBounded
+trait PolygonGraphic extends ShapeGraphic//, Aff2Elem
 { override def shape: Polygon
 
   def x1: Double = shape.v0x
@@ -40,11 +40,11 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   override def rotate90: PolygonGraphic
   override def rotate180: PolygonGraphic
   override def rotate270: PolygonGraphic
-  override def rotate(rotation: AngleVec): PolygonGraphic
-  override def reflect(lineLike: LineLike): PolygonGraphic
-  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
-  override def shearX(operand: Double): PolygonGraphic
-  override def shearY(operand: Double): PolygonGraphic
+//  override def rotate(rotation: AngleVec): PolygonGraphic
+//  override def reflect(lineLike: LineLike): PolygonGraphic
+//  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
+//  override def shearX(operand: Double): PolygonGraphic
+//  override def shearY(operand: Double): PolygonGraphic
 }
 
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
@@ -288,7 +288,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
 }
 
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-trait PolygonCompound extends ShapeCompound with PolygonGraphic
+trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
 {
   override def mainSvgElem: SvgElem = SvgPolygon(attribs)
 

@@ -26,7 +26,7 @@ trait GeomLen2Elem extends Any
   def scale(operand: Double): GeomLen2Elem
 
   /** Divides by a [[Length]] to produce an equivalent [[Aff2Elem]] without [[Length]] units. */
-  def mapGeom2(operand: Length): Aff2Elem
+  def mapGeom2(operand: Length): Axlign2Elem
 }
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
@@ -58,7 +58,7 @@ trait GraphicLen2Elem extends GeomLen2Elem
   override def slateX(xOperand: Length): GraphicLen2Elem
   override def slateY(yOperand: Length): GraphicLen2Elem
   override def scale(operand: Double): GraphicLen2Elem
-  override def mapGeom2(operand: Length): Graphic2Elem
+  override def mapGeom2(operand: Length): Graphic2Elem// & Simil2Elem
 }
 
 object GraphicLen2Elem

@@ -47,7 +47,7 @@ case class CircleLen2Draw(shape: CircleLen2, lineWidth: Double = 2.0, lineColour
   override def slateX(xOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateX(xOperand), lineWidth, lineColour)
   override def slateY(yOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): CircleLen2Draw = CircleLen2Draw(shape.scale(operand), lineWidth, lineColour)
-  override def mapGeom2(operand: Length): Graphic2Elem = CircleDraw(shape.mapGeom2(operand))
+  override def mapGeom2(operand: Length): CircleDraw = CircleDraw(shape.mapGeom2(operand))
 }
 
 case class CircleLen2Fill(shape: CircleLen2, fillFacet: FillFacet) extends ShapeLen2Fill with CircleLen2Graphic
@@ -56,7 +56,7 @@ case class CircleLen2Fill(shape: CircleLen2, fillFacet: FillFacet) extends Shape
   override def slateX(xOperand: Length): CircleLen2Fill = CircleLen2Fill(shape.slateX(xOperand), fillFacet)
   override def slateY(yOperand: Length): CircleLen2Fill = CircleLen2Fill(shape.slateY(yOperand), fillFacet)
   override def scale(operand: Double): CircleLen2Fill = CircleLen2Fill(shape.scale(operand), fillFacet)
-  override def mapGeom2(operand: Length): Graphic2Elem = CircleFill(shape.mapGeom2(operand), fillFacet)
+  override def mapGeom2(operand: Length): CircleFill = CircleFill(shape.mapGeom2(operand), fillFacet)
 }
 
 case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet]) extends CircleLen2Graphic, ShapeLen2Compound

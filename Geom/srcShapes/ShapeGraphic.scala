@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
+import pWeb.*
 
 /** A shape based graphic. */
 trait ShapeGraphic extends GraphicBounded
@@ -15,8 +15,8 @@ trait ShapeGraphic extends GraphicBounded
 
   final def svgInlineStr: String = svgInline.out(0, 150)
   
-  def slate(offset: VecPt2): ShapeGraphic
-  def slate(xOperand: Double, yOperand: Double): ShapeGraphic  
+  override def slate(offset: VecPt2): ShapeGraphic
+  def slate(xOperand: Double, yOperand: Double): ShapeGraphic
   def scale(operand: Double): ShapeGraphic
   def negX: ShapeGraphic
   def negY: ShapeGraphic
@@ -24,9 +24,9 @@ trait ShapeGraphic extends GraphicBounded
   override def rotate180: ShapeGraphic
   override def rotate270: ShapeGraphic
   def prolign(matrix: AxlignMatrix): ShapeGraphic
-  def rotate(rotation: AngleVec): ShapeGraphic
-  def reflect(lineLike: LineLike): ShapeGraphic
-  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
+//  def rotate(rotation: AngleVec): ShapeGraphic
+//  def reflect(lineLike: LineLike): ShapeGraphic
+//  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
 }
 
 /** Companion object for the ShapeGraphic class. */
