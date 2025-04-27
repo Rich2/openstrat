@@ -193,7 +193,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
     new LSeg2(x, y - armLength, x, y + armLength))
 
   /** Not sure about this method */
-  def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LineSegArrDraw =
+  def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LSeg2ArrDraw =
     LSeg2Arr.dbls(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 

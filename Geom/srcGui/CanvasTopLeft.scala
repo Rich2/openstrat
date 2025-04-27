@@ -11,12 +11,12 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def pPolyFill(pf: PolygonFill): Unit = tlPolyFill(pf.negY.slate(width / 2, height / 2))
   final override def pPolyDraw(pd: PolygonDraw): Unit = tlPolyDraw(pd.negY.slate(width / 2, height / 2))
   final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.ptsTrans(tlCen))
-  final override def lineSegDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.ptsTrans(tlCen))
+  final override def lineSegDraw(ld: LSeg2Draw): Unit = tlLineDraw(ld.ptsTrans(tlCen))
   final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw(cad.negY.slate(width / 2, height / 2))
   final override def eArcDraw(ead: EArcDraw): Unit = tlEArcDraw(ead.negY.slate(width / 2, height / 2))
 
   final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.ptsTrans(tlCen))
-  final override def lineSegsDraw(lsd: LineSegArrDraw): Unit = tlLinesDraw(lsd.ptsTrans(tlCen)): Unit
+  final override def lineSegsDraw(lsd: LSeg2ArrDraw): Unit = tlLinesDraw(lsd.ptsTrans(tlCen)): Unit
   final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.ptsTrans(tlCen))
 
   final override def pShapeGenFill(sgf: ShapeGenFillOld): Unit = tlShapeFill(sgf.negY.slate(width / 2, height / 2))
@@ -43,12 +43,12 @@ trait CanvasTopLeft extends CanvasPlatform
   protected def tlPolyDraw(pd: PolygonDraw): Unit
   protected def tlLinePathDraw(pod: LinePathDraw): Unit
 
-  protected def tlLineDraw(ld: LineSegDraw): Unit
+  protected def tlLineDraw(ld: LSeg2Draw): Unit
 
   protected def tlCArcDraw(cad: CArcDraw): Unit
   protected def tlEArcDraw(ead: EArcDraw): Unit
 
-  protected def tlLinesDraw(lsd: LineSegArrDraw): Unit
+  protected def tlLinesDraw(lsd: LSeg2ArrDraw): Unit
   protected def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
   protected def tlShapeFill(sgf: ShapeGenFillOld): Unit

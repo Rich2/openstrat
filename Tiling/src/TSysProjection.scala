@@ -75,11 +75,11 @@ trait TSysProjection
   def outerSideLines: LSeg2Arr
 
   /** Draws visible hex sides. */
-  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LineSegArrDraw = sideLines.draw(lineWidth, colour)
+  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LSeg2ArrDraw = sideLines.draw(lineWidth, colour)
 
   /** Draws visible inner hex sides. */
-  def innerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LineSegArrDraw = innerSideLines.draw(lineWidth, colour)
+  def innerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LSeg2ArrDraw = innerSideLines.draw(lineWidth, colour)
 
   /** Draws visible outer hex sides. */
-  def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LineSegArrDraw = outerSideLines.draw(lineWidth, colour)
+  def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LSeg2ArrDraw = outerSideLines.draw(lineWidth, colour)
 }

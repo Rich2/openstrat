@@ -76,12 +76,12 @@ case class LineSegLen2Draw(lineSeg: LineSegLen2[?], width: Double, colour: Colou
   override def slateX(xOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slateX(xOperand), width, colour)
   override def slateY(yOperand: Length): LineSegLen2Draw = LineSegLen2Draw(lineSeg.slateY(yOperand), width, colour)
   override def scale(operand: Double): LineSegLen2Draw = LineSegLen2Draw(lineSeg.scale(operand), width, colour)
-  override def mapGeom2(operand: Length): LineSegDraw = LineSegDraw(lineSeg.mapGeom2(operand), width, colour)
+  override def mapGeom2(operand: Length): LSeg2Draw = LSeg2Draw(lineSeg.mapGeom2(operand), width, colour)
 }
 
 object LineSegLen2Draw
 {
-  implicit val mapGeom2Ev: MapGeom2[LineSegLen2Draw, LineSegDraw] = (obj, operand) => obj.mapGeom2(operand)
+  implicit val mapGeom2Ev: MapGeom2[LineSegLen2Draw, LSeg2Draw] = (obj, operand) => obj.mapGeom2(operand)
 }
 
 class LineSegLen2ArrDraw(val lineSegArr: LineSegLen2Arr[PtLen2], lineWidth: Double, colour: Colour) extends GraphicLen2Elem
@@ -90,12 +90,12 @@ class LineSegLen2ArrDraw(val lineSegArr: LineSegLen2Arr[PtLen2], lineWidth: Doub
   override def slateX(xOperand: Length): LineSegLen2ArrDraw = LineSegLen2ArrDraw(lineSegArr.slateX(xOperand), lineWidth, colour)
   override def slateY(yOperand: Length): LineSegLen2ArrDraw = LineSegLen2ArrDraw(lineSegArr.slateY(yOperand), lineWidth, colour)
   override def scale(operand: Double): LineSegLen2ArrDraw = LineSegLen2ArrDraw(lineSegArr.scale(operand), lineWidth, colour)
-  override def mapGeom2(operand: Length): LineSegArrDraw = LineSegArrDraw(lineSegArr.mapGeom2(operand), lineWidth, colour)
+  override def mapGeom2(operand: Length): LSeg2ArrDraw = LSeg2ArrDraw(lineSegArr.mapGeom2(operand), lineWidth, colour)
 }
 
 object LineSegLen2ArrDraw
 {
   def apply(lineSegArr: LineSegLen2Arr[PtLen2], lineWidth: Double, colour: Colour): LineSegLen2ArrDraw = new LineSegLen2ArrDraw(lineSegArr, lineWidth, colour)
   
-  implicit val mapGeom2Ev: MapGeom2[LineSegLen2ArrDraw, LineSegArrDraw] = (obj, operand) => obj.mapGeom2(operand)
+  implicit val mapGeom2Ev: MapGeom2[LineSegLen2ArrDraw, LSeg2ArrDraw] = (obj, operand) => obj.mapGeom2(operand)
 }

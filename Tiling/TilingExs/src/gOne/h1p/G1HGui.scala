@@ -44,10 +44,10 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
     val actives: RArr[PolygonActive] = proj.tileActives
 
     /** Draws the tiles sides (or edges). */
-    def innerSidesDraw: LineSegArrDraw = proj.innerSidesDraw()
+    def innerSidesDraw: LSeg2ArrDraw = proj.innerSidesDraw()
 
     /** Draws the tiles sides (or edges). */
-    def outerSidesDraw: LineSegArrDraw = proj.outerSidesDraw(2, Colour.Gold)
+    def outerSidesDraw: LSeg2ArrDraw = proj.outerSidesDraw(2, Colour.Gold)
 
     def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 

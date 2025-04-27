@@ -91,7 +91,7 @@ trait SqGridSys extends TGridSys
   /** This gives the all tile grid lines in a single colour and line width.
    *
    * @group SidesGroup */
-  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LineSegArrDraw = sideLines.draw(lineWidth, colour)
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LSeg2ArrDraw = sideLines.draw(lineWidth, colour)
   /** The line segments of the sides defined in [[SqCoord]] vertices. */
   //def sideLineSegSqCs: LineSegSqCArr = sidesMap(_.lineSegSqC)
 }

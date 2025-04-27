@@ -28,30 +28,30 @@ trait RectCenlign extends Rectangularlign
   @inline final override def yBottomLeft: Double = cenY - height / 2
   @inline final override def bottomLeft: Pt2 = Pt2(xBottomLeft, yBottomLeft)
 
-  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LineSegArrDraw = LSeg2Arr.dbls(
+  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LSeg2ArrDraw = LSeg2Arr.dbls(
     left, 0, right, 0,
     0, top, 0, bottom).draw(lineWidth, lineColour)
 
   /** Not sure why spacing has got a minus sign */
-  def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): LineSegArrDraw =
+  def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): LSeg2ArrDraw =
   { //val xl: List[Double] = doubleFromToOld(-spacing, left, - spacing) ::: 0.0.fromToOld(right, spacing)
     //val xlc: Line2s = xl.pMap(x => new Line2(x, bottom, x, top))
     val xlc: LSeg2Arr = ???
     //val yl: List[Double] = doubleFromToOld(-spacing, bottom, - spacing) ::: 0.0.fromToOld(top, spacing)
     //val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
     val ylc: LSeg2Arr = ???
-    LineSegArrDraw(xlc ++ ylc, lineWidth, colour)
+    LSeg2ArrDraw(xlc ++ ylc, lineWidth, colour)
   }
   
   /** Badly named I think, not sure why spacing has got a minus sign */  
   def gridLines2Colours(spacing: Double = 100, cenColour: Colour = Colour.DarkRed, otherColour: Colour = Black, lineWidth: Double = 1.0):
-    RArr[LineSegArrDraw] =
+    RArr[LSeg2ArrDraw] =
   { //val xl = doubleFromToOld(-spacing, left, - spacing) ::: spacing.fromToOld(right, spacing)
     //val xlc: Line2s = xl.pMap(x => new  Line2(x, bottom, x, top))
     val xlc: LSeg2Arr = ???
     //val yl = doubleFromToOld(-spacing, bottom, - spacing) ::: spacing.fromToOld(top, spacing)
     //val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
     val ylc: LSeg2Arr = ???
-    RArr(LineSegArrDraw(xlc ++ ylc, lineWidth, otherColour), crossHairs(1, cenColour))
+    RArr(LSeg2ArrDraw(xlc ++ ylc, lineWidth, otherColour), crossHairs(1, cenColour))
   }
 }

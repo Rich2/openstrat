@@ -92,7 +92,7 @@ final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val 
    * to the point. The Vec2 of that point is returned by this method. */
   def midPtToLeft(distFromMidPt: Double): Pt2 = midPt + left90.toVec2(distFromMidPt)
 
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black): LineSegDraw = LineSegDraw(this, lineWidth, lineColour)
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): LSeg2Draw = LSeg2Draw(this, lineWidth, lineColour)
   def withArrow(colour: Colour = Black, lineWidth: Double = 2): RArr[GraphicSvgElem] = Arrow.paint(startPt, endPt, DegVec25, 20, colour, lineWidth)
 
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
@@ -138,7 +138,7 @@ class LSeg2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLikeDbl4Ar
   override def fElemStr: LSeg2 => String = _.str
   override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LSeg2 = new LSeg2(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LSeg2Arr = map(orig => LSeg2(f(orig.pStart), f(orig.pEnd)))
-  override def draw(lineWidth: Double = 2, colour: Colour = Black): LineSegArrDraw = LineSegArrDraw(this, lineWidth, colour)
+  override def draw(lineWidth: Double = 2, colour: Colour = Black): LSeg2ArrDraw = LSeg2ArrDraw(this, lineWidth, colour)
   override def boundingRect: Rect = foldLeft(_ || _.boundingRect)
 }
 

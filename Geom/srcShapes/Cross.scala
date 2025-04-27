@@ -13,11 +13,11 @@ object Cross
   }
 
   /** Draws a square cross with a width and height of the scale parameter. */
-  def draw(cen: Pt2 = Pt2Z, scale: Double = 10, lineWidth: Double = 2, colour: Colour = Colour.Black): LineSegArrDraw =
+  def draw(cen: Pt2 = Pt2Z, scale: Double = 10, lineWidth: Double = 2, colour: Colour = Colour.Black): LSeg2ArrDraw =
     apply(cen.x, cen.y, scale).draw(lineWidth, colour)
 
   /** Draws a square cross with a width and height of the scale parameter. */
-  def draw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LineSegArrDraw =
+  def draw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LSeg2ArrDraw =
     apply(cenX, cenY, scale).draw(lineWidth, colour)
 
   /** Diagonal cross with a width and height of the scale parameter. */
@@ -30,10 +30,10 @@ object Cross
   }
 
   /** Draws a diagonal cross with a width and height of the scale parameter. */
-  def diagDraw(cen: Pt2 = Pt2Z, scale: Double = 10, lineWidth: Double = 2, colour: Colour = Colour.Black): LineSegArrDraw =
+  def diagDraw(cen: Pt2 = Pt2Z, scale: Double = 10, lineWidth: Double = 2, colour: Colour = Colour.Black): LSeg2ArrDraw =
     diag(cen.x, cen.y, scale).draw(lineWidth, colour)
 
   /** Draws a diagonal cross with a width and height of the scale parameter. */
-  def diagDraw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LineSegArrDraw =
+  def diagDraw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LSeg2ArrDraw =
     diag(cenX, cenY, scale).draw(lineWidth, colour)
 }

@@ -81,7 +81,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
    
-  override protected def tlLineDraw(ld: LineSegDraw): Unit =
+  override protected def tlLineDraw(ld: LSeg2Draw): Unit =
   { gc.beginPath
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
@@ -191,7 +191,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
    
-  protected def tlLinesDraw(lsd: LineSegArrDraw): Unit =
+  protected def tlLinesDraw(lsd: LSeg2ArrDraw): Unit =
   { gc.beginPath
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.setLineWidth(lsd.lineWidth)

@@ -30,7 +30,7 @@ case class G4HGui(canv: CanvasPlatform, scenStart: G4HScen, viewIn: HGView) exte
     def actives: RArr[PolygonActive] = proj.tileActives
 
     /** Draws the tiles sides (or edges). */
-    def sidesDraw: LineSegArrDraw = proj.sidesDraw()
+    def sidesDraw: LSeg2ArrDraw = proj.sidesDraw()
 
     def unitGraphics: RArr[PolygonCompound] = ??? /*lunits.projSomesHcPtMap { (rarr, hc, pt) =>
       val str: String = rarr.head.team.toString --- rarr.foldStr(us => us.lunit.num.str, ", ") --- hc.rcStr

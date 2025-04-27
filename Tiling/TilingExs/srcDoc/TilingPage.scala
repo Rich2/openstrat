@@ -106,7 +106,7 @@ object GridGraphic1 extends RectCompound
 { val grid: HGridRect = HGridRect(3, 6)
   val seps: LineSegHCArr = grid.sepLineSegHCs
   val sc = 60
-  val seps2: LineSegArrDraw = seps.map(_.lineSeg).draw(2).scale(sc)
+  val seps2: LSeg2ArrDraw = seps.map(_.lineSeg).draw(2).scale(sc)
   val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
   val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
   val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }

@@ -36,7 +36,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
     def actives: RArr[PolygonActive] = proj.tileActives
 
     /** Draws the tiles sides (or edges). */
-    def sidesDraw: LineSegArrDraw = proj.sidesDraw()
+    def sidesDraw: LSeg2ArrDraw = proj.sidesDraw()
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moves.somesHcFlatMap { (ps, hc) =>
