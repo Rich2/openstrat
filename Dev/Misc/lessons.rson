@@ -7,18 +7,20 @@ A2 Squares
 A3 Circles 2
 A4 Polygons
 A5 Rotation
-A6 Shape creation
-A7 Shapes Reproduction
-A8 Beziers
-A9 Diagram
-A10 Reflection
-A11 Hexagon enumeration
-A12 Tiling
-A13 Arcs
-A14 Ellipses
-A15 Inner Rect
-A16 Polygon Sides
-A17 Text
+A6 Arcs 1
+A7 Arcs 2
+A8 Shape creation
+A9 Shapes Reproduction
+A10 Beziers
+A11 Diagram
+A12 Reflection
+A13 Hexagon enumeration
+A14 Tiling
+A15 Ellipses
+A16 Inner Rect
+A17 Polygon Sides
+A18 Text
+
 B1 Timer Lesson
 B2 Moving Rectangle
 B3 Moving Rectangles 2

@@ -10,6 +10,8 @@ trait ShapeGraphicSimple extends ShapeGraphic, GraphicSimple, GraphicSvgElem
   final override def attribs: RArr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
   override def slate(operand: VecPt2): ShapeGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): ShapeGraphicSimple
+  override def slateX(xOperand: Double): ShapeGraphicSimple
+  override def slateY(yOperand: Double): ShapeGraphicSimple
   override def scale(operand: Double): ShapeGraphicSimple
   override def negY: ShapeGraphicSimple
   override def negX: ShapeGraphicSimple

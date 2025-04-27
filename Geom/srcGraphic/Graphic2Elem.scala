@@ -4,11 +4,11 @@ import pWeb.*
 
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element in a
  * display or both. So I think the self type will force all [[Graphic2Elem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
-trait Graphic2Elem extends Aff2Elem
+trait Graphic2Elem extends Axlign2Elem
 { /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 
-  override def slate(operand: VecPt2): Graphic2Elem  
+  override def slate(operand: VecPt2): Graphic2Elem
   override def slate(xOperand: Double, yOperand: Double): Graphic2Elem
   override def slateX(xOperand: Double): Graphic2Elem
   override def slateY(yOperand: Double): Graphic2Elem
@@ -16,14 +16,14 @@ trait Graphic2Elem extends Aff2Elem
   override def negX: Graphic2Elem
   override def negY: Graphic2Elem
   override def rotate90: Graphic2Elem
-  override def rotate180: Graphic2Elem  
+  override def rotate180: Graphic2Elem
   override def rotate270: Graphic2Elem
   override def prolign(matrix: AxlignMatrix): Graphic2Elem
-  override def rotate(rotation: AngleVec): Graphic2Elem
-  override def reflect(lineLike: LineLike): Graphic2Elem
-  override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
-  override def shearX(operand: Double): Graphic2Elem
-  override def shearY(operand: Double): Graphic2Elem
+//  override def rotate(rotation: AngleVec): Graphic2Elem
+//  override def reflect(lineLike: LineLike): Graphic2Elem
+//  override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
+//  override def shearX(operand: Double): Graphic2Elem
+//  override def shearY(operand: Double): Graphic2Elem
 
   def svgElems: RArr[SvgElem]
 }
@@ -69,8 +69,7 @@ object Graphic2Elem
 
 /** A canvas element that can be rendered by the [[pgui.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the library. */
 trait CanvElem extends Graphic2Elem
-{
-  override def slate(operand: VecPt2): CanvElem
+{ override def slate(operand: VecPt2): CanvElem
   override def slate(xOperand: Double, yOperand: Double): CanvElem
   override def scale(operand: Double): CanvElem
   override def negY: CanvElem
@@ -79,11 +78,11 @@ trait CanvElem extends Graphic2Elem
   override def rotate90: CanvElem
   override def rotate180: CanvElem
   override def rotate270: CanvElem
-  override def rotate(rotation: AngleVec): CanvElem
-  override def reflect(lineLike: LineLike): CanvElem
-  override def scaleXY(xOperand: Double, yOperand: Double): CanvElem
-  override def shearX(operand: Double): CanvElem
-  override def shearY(operand: Double): CanvElem
+//  override def rotate(rotation: AngleVec): CanvElem
+//  override def reflect(lineLike: LineLike): CanvElem
+//  override def scaleXY(xOperand: Double, yOperand: Double): CanvElem
+//  override def shearX(operand: Double): CanvElem
+//  override def shearY(operand: Double): CanvElem
 }
 
 /** Companion object for the [[CanvElem]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */

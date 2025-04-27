@@ -14,7 +14,7 @@ final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Lengt
   override def fill(fillFacet: FillFacet): CircleLen2Fill = CircleLen2Fill(this, fillFacet)
 
   override def fillDraw(fillFacet: FillFacet, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleLen2Compound =
-    CircleLen2Compound(this, RArr(fillFacet, DrawFacet(lineColour, lineWidth)))
+    CircleLen2Compound(this, RArr(fillFacet, DrawFacet(lineColour, lineWidth)), RArr())
 }
 
 object CircleLen2
@@ -47,7 +47,7 @@ case class CircleLen2Draw(shape: CircleLen2, lineWidth: Double = 2.0, lineColour
   override def slateX(xOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateX(xOperand), lineWidth, lineColour)
   override def slateY(yOperand: Length): CircleLen2Draw = CircleLen2Draw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): CircleLen2Draw = CircleLen2Draw(shape.scale(operand), lineWidth, lineColour)
-  override def mapGeom2(operand: Length): Graphic2Elem = CircleDraw(shape.mapGeom2(operand))
+  override def mapGeom2(operand: Length): CircleDraw = CircleDraw(shape.mapGeom2(operand))
 }
 
 case class CircleLen2Fill(shape: CircleLen2, fillFacet: FillFacet) extends ShapeLen2Fill with CircleLen2Graphic
@@ -56,14 +56,14 @@ case class CircleLen2Fill(shape: CircleLen2, fillFacet: FillFacet) extends Shape
   override def slateX(xOperand: Length): CircleLen2Fill = CircleLen2Fill(shape.slateX(xOperand), fillFacet)
   override def slateY(yOperand: Length): CircleLen2Fill = CircleLen2Fill(shape.slateY(yOperand), fillFacet)
   override def scale(operand: Double): CircleLen2Fill = CircleLen2Fill(shape.scale(operand), fillFacet)
-  override def mapGeom2(operand: Length): Graphic2Elem = CircleFill(shape.mapGeom2(operand), fillFacet)
+  override def mapGeom2(operand: Length): CircleFill = CircleFill(shape.mapGeom2(operand), fillFacet)
 }
 
-case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet]) extends CircleLen2Graphic, ShapeLen2Compound
-{ override def slate(operand: VecPtLen2): CircleLen2Compound = CircleLen2Compound(shape.slate(operand), facets)
-  override def slate(xOperand: Length, yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xOperand, yOperand), facets)
-  override def slateX(xOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(xOperand), facets)
-  override def slateY(yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(yOperand), facets)
-  override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets)
-  override def mapGeom2(operand: Length): CircleCompound = CircleCompound(shape.mapGeom2(operand), facets)
+case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet], fChilds: RArr[Circle => Graphic2Elem]) extends CircleLen2Graphic, ShapeLen2Compound
+{ override def slate(operand: VecPtLen2): CircleLen2Compound = CircleLen2Compound(shape.slate(operand), facets, fChilds)
+  override def slate(xOperand: Length, yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xOperand, yOperand), facets, fChilds)
+  override def slateX(xOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(xOperand), facets, fChilds)
+  override def slateY(yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(yOperand), facets, fChilds)
+  override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets, fChilds)
+  override def mapGeom2(operand: Length): CircleCompound = CircleCompound(shape.mapGeom2(operand), facets, fChilds)
 }

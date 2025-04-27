@@ -1,19 +1,27 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb._
+import Colour.Black, pWeb.*
 
-trait TextGraphic extends CanvElem{
-  def str: String
+trait TextGraphic extends CanvElem, Aff2Elem
+{ def str: String
   def fontSize: Double
   def xPosn: Double
   def yPosn: Double
   def colour: Colour
   def textAlign: TextAlign
   def baseLine: BaseLine
-
-  override def slate(xOperand: Double, yOperand: Double): TextGraphic
-  override def negY: TextGraphic
   def posn: Pt2 = Pt2(xPosn, yPosn)
+  override def slate(operand: VecPt2): TextGraphic
+  override def slate(xOperand: Double, yOperand: Double): TextGraphic
+  override def slateX(xOperand: Double): TextGraphic
+  override def slateY(yOperand: Double): TextGraphic
+  override def scale(operand: Double): TextGraphic
+  override def negX: TextGraphic
+  override def negY: TextGraphic
+  override def rotate90: TextGraphic
+  override def rotate180: TextGraphic
+  override def rotate270: TextGraphic
+  override def prolign(matrix: AxlignMatrix): TextGraphic  
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 

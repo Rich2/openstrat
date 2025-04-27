@@ -38,25 +38,21 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def fill(fillfacet: FillFacet): CircleFill = CircleFill(this, fillfacet)
   override def fillInt(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
 
-  def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound = CircleCompound(this, RArr(FillRadial(cenColour, outerColour)), RArr())
+  def fillRadial(cenColour: Colour, outerColour: Colour): EllipseCompound = EllipseCompound(this, RArr(FillRadial(cenColour, outerColour)), RArr())
   
   override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
   /** Returns a [[CircleCompound]] with a [[FillFacet]] and a [[DrawFact]]. */
-  override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleCompound =
-    CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
+  override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): EllipseCompound =
+    EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
 
-  override def fillActive(fillColour: Colour, pointerID: Any): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
+  override def fillActive(fillColour: Colour, pointerID: Any): EllipseCompound = EllipseCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
 
-  def fillActiveTextAbs(fillColour: Colour, pointerID: Any, str: String, fontSize: Double, fontColour: Colour = Black): CircleCompound =
-    CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID), TextFixed(str, fontSize, cen, fontColour)))
+  def fillActiveTextAbs(fillColour: Colour, pointerID: Any, str: String, fontSize: Double, fontColour: Colour = Black): EllipseCompound =
+    EllipseCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID), TextFixed(str, fontSize, cen, fontColour)))
 
   def fillActiveTextlign(fillColour: Colour, pointerEv: Any, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
-  CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
-
-  override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): CircleCompound =
-    CircleCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)), RArr(CircleActive(this, pointerEv)))
+  EllipseCompound = EllipseCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
 
   def rAttrib: XmlAtt = XmlAtt("r", radius.toString)
   override def attribs: RArr[XmlAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
@@ -198,8 +194,10 @@ case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
 }
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound, CircleGraphic, AxisFree
-{ override type ThisT = CircleCompound
+class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val fChilds: RArr[Circle => Graphic2Elem], val adopted: RArr[Graphic2Elem]) extends
+  ShapeCompound, CircleGraphic, Simil2Elem
+{
+  def children: RArr[Graphic2Elem] = fChilds.map(f => f(shape)) ++ adopted
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
@@ -216,22 +214,32 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
   final override def mainSvgElem: SvgCircle = SvgCircle(attribs)
 
-  override def slate(operand: VecPt2): CircleCompound = CircleCompound(shape.slate(operand), facets, children.slate(operand))
+  override def slate(operand: VecPt2): CircleCompound = CircleCompound(shape.slate(operand), facets, fChilds, children.slate(operand))
 
   override def slate(xOperand: Double, yOperand: Double): CircleCompound =
-    CircleCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+    CircleCompound(shape.slate(xOperand, yOperand), facets, fChilds, children.slate(xOperand, yOperand))
 
-  override def slateX(xOperand: Double): CircleCompound = CircleCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
-  override def slateY(yOperand: Double): CircleCompound = CircleCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
-  override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
-  override def prolign(matrix: AxlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
-  override def rotate(rotation: AngleVec): CircleCompound = CircleCompound(shape.rotate(rotation), facets, children.rotate(rotation))
-  override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
-  override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
+  override def slateX(xOperand: Double): CircleCompound = CircleCompound(shape.slateX(xOperand), facets, fChilds, children.slateX(xOperand))
+  override def slateY(yOperand: Double): CircleCompound = CircleCompound(shape.slateY(yOperand), facets, fChilds, children.slateY(yOperand))
+  override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, fChilds, children.scale(operand))
+  override def negX: CircleCompound = CircleCompound(shape.negX, facets, fChilds, children.negX)
+  override def negY: CircleCompound = CircleCompound(shape.negY, facets, fChilds, children.negY)
+  override def rotate90: CircleCompound = CircleCompound(shape.rotate90, facets, fChilds, children.rotate90)
+  override def rotate180: CircleCompound = CircleCompound(shape.rotate180, facets, fChilds, children.rotate180)
+  override def rotate270: CircleCompound = CircleCompound(shape.rotate270, facets, fChilds, children.rotate270)
+  override def prolign(matrix: AxlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, fChilds, children.prolign(matrix))
+  override def rotate(rotation: AngleVec): CircleCompound = CircleCompound(shape.rotate(rotation), facets, fChilds, children.rotate(rotation))
+  override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, fChilds, children.reflect(lineLike))
+  override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, fChilds, children ++ newChildren)
 }
 
 object CircleCompound
-{ /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
+{ 
+  
+  def apply(shape: Circle, facets: RArr[GraphicFacet], fChilds: RArr[Circle => Graphic2Elem] = RArr(), adopted: RArr[Graphic2Elem] = RArr()): CircleCompound =
+    new CircleCompound(shape, facets, fChilds, adopted)
+  
+  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given slate2Ev: Slate2[CircleCompound] = new Slate2[CircleCompound]
   { override def slate(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
     override def slateXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slate(xOperand, yOperand)
