@@ -58,7 +58,7 @@ trait GraphicLen2Elem extends GeomLen2Elem
   override def slateX(xOperand: Length): GraphicLen2Elem
   override def slateY(yOperand: Length): GraphicLen2Elem
   override def scale(operand: Double): GraphicLen2Elem
-  override def mapGeom2(operand: Length): Graphic2Elem// & Simil2Elem
+  override def mapGeom2(operand: Length): Graphic2Elem
 }
 
 object GraphicLen2Elem
