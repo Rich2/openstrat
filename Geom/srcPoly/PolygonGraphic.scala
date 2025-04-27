@@ -327,8 +327,6 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def shearY(operand: Double): PolygonCompound
 
   def addChildren(newChildren: Arr[Graphic2Elem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
-
-//  def rightX: Double = shape.rightX
 }
 
 /** Companion object for the PolygonCompound trait contains factory apply method and implicit instances for the 2D geometric transformation type

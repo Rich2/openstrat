@@ -118,17 +118,24 @@ object Circle extends ShapeIcon
 
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
-  
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[Circle]] */
   given slate2Ev: Slate2[Circle] = new Slate2[Circle]
   { override def slate(obj: Circle, operand: VecPt2): Circle = obj.slate(operand)
     override def slateXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slate(xOperand, yOperand)
   }
 
+  /** Implicit [[Scale]] type class instance / evidence for [[Circle]] */
   given scaleEv: Scale[Circle] = (obj, operand) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[Circle]] */
   given rotateEv: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[Circle]] */
   given prolignEv: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
 
-  given reflectAxesEv: TransAxes[Circle] = new TransAxes[Circle]
+  /** Implicit [[TransAxes]] type class instance / evidence for [[Circle]] */
+  given transAxesEv: TransAxes[Circle] = new TransAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
     override def rotate90(obj: Circle): Circle = obj.rotate90
@@ -224,25 +231,25 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 }
 
 object CircleCompound
-{ /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
+{ /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given slate2Ev: Slate2[CircleCompound] = new Slate2[CircleCompound]
   { override def slate(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
     override def slateXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slate(xOperand, yOperand)
   }
 
-  /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
+  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given scaleEv: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
+  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given rotateEv: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
+  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given prolignEv: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
+  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given reflectEv: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
+  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given reflectAxesEv: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
   { override def negYT(obj: CircleCompound): CircleCompound = obj.negY
     override def negXT(obj: CircleCompound): CircleCompound = obj.negX
