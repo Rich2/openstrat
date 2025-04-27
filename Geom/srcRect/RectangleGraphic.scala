@@ -73,22 +73,22 @@ object RectangleFill
   def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillGen(shape, fillFacet)
 
   /** Implicit [[Slate2]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val slateEv: Slate2[RectangleFill] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val slateXYEv: SlateXY[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[RectangleFill] = new Slate2[RectangleFill]
+  { override def slate(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slate(operand)
+    override def slateXY(obj: RectangleFill, xOperand: Double, yOperand: Double): RectangleFill = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val scaleEv: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val rotateEv: Rotate[RectangleFill] = (obj: RectangleFill, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[RectangleFill] = (obj: RectangleFill, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[Prolign]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val prolignEv: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[RectangleFill]]. */
-  implicit val transAxesEv: TransAxes[RectangleFill] = new TransAxes[RectangleFill]
+  given transAxesEv: TransAxes[RectangleFill] = new TransAxes[RectangleFill]
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
     override def rotate90(obj: RectangleFill): RectangleFill = obj.rotate90

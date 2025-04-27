@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, Colour.Black
+import pWeb.*, Colour.Black
 
-/** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. Shape does not extend CurvePath but it does
- *  extend [[Fillable]] which extends [[Drawable]].Not sure if [[Shape]] and [[Fillable]] should be separate classes. */
+/** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. Shape does not extend CurvePath, but it does extend
+ * [[Fillable]] which extends [[Drawable]].Not sure if [[Shape]] and [[Fillable]] should be separate classes. */
 trait Shape extends Any with Fillable with BoundedElem
 { /** Determines if the parameter point lies inside this [[Circle]]. */
   def ptInside(pt: Pt2): Boolean
@@ -26,6 +26,7 @@ trait Shape extends Any with Fillable with BoundedElem
     case _ => false
   }
 
+  override def slate(operand: VecPt2): Shape
   override def slate(xDelta: Double, yDelta: Double): Shape
   override def scale(operand: Double): Shape
   override def negY: Shape
@@ -43,8 +44,11 @@ trait Shape extends Any with Fillable with BoundedElem
 
 /** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
 object Shape
-{ /** Implicit [[SlateXY]] type class instance / evidence for [[Shape]] */
-  implicit val slateEv: SlateXY[Shape] = (obj: Shape, dx: Double, dy: Double) => obj.slate(dx, dy)
+{ /** Implicit [[Slate2]] type class instance / evidence for [[Shape]] */
+  implicit val slate2Ev: Slate2[Shape] = new Slate2[Shape]
+  { override def slate(obj: Shape, operand: VecPt2): Shape = obj.slate(operand)
+    override def slateXY(obj: Shape, xOperand: Double, yOperand: Double): Shape = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Shape]] */
   implicit val scaleEv: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)

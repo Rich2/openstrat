@@ -32,28 +32,28 @@ trait Drawable extends Any, Aff2Elem
 /** Companion object for the [[Drawable]] trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
 { /** [[Slate2]] type class instance / evidence for [[Drawable]]. */
-  implicit val slateEv: Slate2[Drawable] = (obj: Drawable, operand: VecPt2) => obj.slate(operand)
-
-  /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
-  implicit val slateXYEv: SlateXY[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[Drawable] = new Slate2[Drawable]
+  { override def slate(obj: Drawable, operand: VecPt2): Drawable = obj.slate(operand)
+    override def slateXY(obj: Drawable, xOperand: Double, yOperand: Double): Drawable = obj.slate(xOperand, yOperand)
+  }
 
   /** [[Scale]] type class instance / evidence for [[Drawable]]. */
-  implicit val scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
 
   /** [[Rotate]] type class instance / evidence for [[Drawable]]. */
-  implicit val rotateEv: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
 
   /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
-  implicit val prolignEv: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[ScaleXY]] type class instance / evidence for [[Drawable]]. */
-  implicit val scaleXYEv: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** [[Reflect]] type class instance / evidence for [[Drawable]]. */
-  implicit val ReflectEv: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
 
   /** [[TransAxes]] type class instance / evidence for [[Drawable]]. */
-  implicit val transAxesEv: TransAxes[Drawable] = new TransAxes[Drawable]
+  given transAxesEv: TransAxes[Drawable] = new TransAxes[Drawable]
   { override def negYT(obj: Drawable): Drawable = obj.negY
     override def negXT(obj: Drawable): Drawable = obj.negX
     override def rotate90(obj: Drawable): Drawable = obj.rotate90
@@ -62,11 +62,11 @@ object Drawable
   }
   
   /** [[Shear]] type class instance / evidence for [[Drawable]]. */
-  implicit val shearEv: Shear[Drawable] = new Shear[Drawable]
+  given shearEv: Shear[Drawable] = new Shear[Drawable]
   { override def shearXT(obj: Drawable, yFactor: Double): Drawable = obj.shearX(yFactor)
     override def shearYT(obj: Drawable, xFactor: Double): Drawable = obj.shearY(xFactor)
   }
   
   /** [[Drawing]] type class instance / evidence for [[Drawable]]. */
-  implicit val drawTEv: Drawing[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
+  given drawTEv: Drawing[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
 }

@@ -116,7 +116,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected def tlLineDraw(ld: LineSegDraw): Unit =
+  override protected def tlLineDraw(ld: LSeg2Draw): Unit =
   { gc.beginPath()
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
@@ -187,7 +187,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected def tlLinesDraw(lsd: LineSegArrDraw): Unit =
+  override protected def tlLinesDraw(lsd: LSeg2ArrDraw): Unit =
   { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.lineWidth = lsd.lineWidth

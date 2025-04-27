@@ -39,10 +39,10 @@ trait Aff2Elem extends Any, Simil2Elem
 /** Companion object for the [[Aff2Elem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
 object Aff2Elem
 { /** Implicit [[Slate2]] type class instance / evidence for [[Aff2Elem]]. */
-  given slateEv: Slate2[Aff2Elem] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[Aff2Elem]]. */
-  given slateXYEv: SlateXY[Aff2Elem] = (obj: Aff2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[Aff2Elem] = new Slate2[Aff2Elem]
+  { override def slate(obj: Aff2Elem, operand: VecPt2): Aff2Elem = obj.slate(operand)
+    override def slateXY(obj: Aff2Elem, xOperand: Double, yOperand: Double): Aff2Elem = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Aff2Elem]]. */
   given scaleEv: Scale[Aff2Elem] = (obj: Aff2Elem, operand: Double) => obj.scale(operand)
@@ -88,15 +88,11 @@ trait Aff2Trans[T] extends Simil2Trans[T]
 /** The companion object for the Trans[T] type class, containing instances for common classes. */
 object Aff2Trans
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderArrMap[A, AA], ev: Aff2Trans[A]): Aff2Trans[AA] =
-    (obj, f) => obj.map(el => ev.trans(el, f))
+  given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Aff2Trans[A]): Aff2Trans[AA] = (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: AffinePreserve]: Aff2Trans[T] =
-    (obj, f) => obj.ptsTrans(f).asInstanceOf[T]
+  given fromTranserAllEv[T <: AffinePreserve]: Aff2Trans[T] = (obj, f) => obj.ptsTrans(f).asInstanceOf[T]
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Aff2Trans[A]): Aff2Trans[F[A]] =
-    (obj, f) => evF.mapT(obj, el => evA.trans(el, f))
+  given functorEv[A, F[_]](using evF: Functor[F], evA: Aff2Trans[A]): Aff2Trans[F[A]] = (obj, f) => evF.mapT(obj, el => evA.trans(el, f))
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Aff2Trans[A]): Aff2Trans[Array[A]] =
-    (obj, f) => obj.map(el => ev.trans(el, f))
+  given arrayEv[A](using ct: ClassTag[A], ev: Aff2Trans[A]): Aff2Trans[Array[A]] = (obj, f) => obj.map(el => ev.trans(el, f))
 }

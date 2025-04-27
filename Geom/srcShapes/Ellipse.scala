@@ -88,17 +88,23 @@ object Ellipse
 
   def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = new EllipseImp(xCen, yCen, xAxes1, yAxes1, radius2)
 
-  implicit val slateImplicit: SlateXY[Ellipse] = (ell, dx, dy) => cenAxes1axes4(ell.cen.slate(dx, dy), ell.axesPt1.slate(dx, dy), ell.axesPt4.slate(dx, dy))
-  implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
+  given slateEv: Slate2[Ellipse] = new Slate2[Ellipse]
+  { override def slate(obj: Ellipse, operand: VecPt2): Ellipse = cenAxes1axes4(obj.cen.slate(operand), obj.axesPt1.slate(operand), obj.axesPt4.slate(operand))
 
-  implicit val rotateImplicit: Rotate[Ellipse] =
+    override def slateXY(obj: Ellipse, xOperand: Double, yOperand: Double): Ellipse =
+      cenAxes1axes4(obj.cen.slate(xOperand, yOperand), obj.axesPt1.slate(xOperand, yOperand), obj.axesPt4.slate(xOperand, yOperand))
+  }
+  
+  given scaleEv: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
+
+  given rotateEv: Rotate[Ellipse] =
     (ell: Ellipse, angle: AngleVec) => Ellipse.cenAxes1axes4(ell.cen.rotate(angle), ell.axesPt1.rotate(angle), ell.axesPt4.rotate(angle))
 
-  implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val xyScaleImplicit: ScaleXY[Ellipse] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given xyScaleEv: ScaleXY[Ellipse] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  implicit val reflectAxesImplicit: TransAxes[Ellipse] = new TransAxes[Ellipse]
+  given reflectAxesEv: TransAxes[Ellipse] = new TransAxes[Ellipse]
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
     override def negXT(obj: Ellipse): Ellipse = obj.negX
     override def rotate90(obj: Ellipse): Ellipse = obj.rotate90
@@ -106,7 +112,7 @@ object Ellipse
     override def rotate270(obj: Ellipse): Ellipse = obj.rotate270
   }
 
-  implicit val shearImplicit: Shear[Ellipse] = new Shear[Ellipse]
+  given shearEv: Shear[Ellipse] = new Shear[Ellipse]
   { override def shearXT(obj: Ellipse, yFactor: Double): Ellipse = obj.shearX(yFactor)
     override def shearYT(obj: Ellipse, xFactor: Double): Ellipse = obj.shearY(xFactor)
   }

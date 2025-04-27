@@ -23,7 +23,7 @@ package object geom
   implicit def seqDefExtension[A](value: SeqSpec[A]): SeqSpecExtensions[A] = new SeqSpecExtensions[A](value)
 
   implicit def transSimToExtension[T](value: T)(implicit ev: Simil2Trans[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
-  implicit def slateToExtensions[T](value: T)(implicit ev: SlateXY[T]): SlateXYExtensions[T] = new SlateXYExtensions[T](value, ev)
+  //implicit def slateToExtensions[T](value: T)(implicit ev: Slate2[T]): Slate2Extensions[T] = new Slate2Extensions[T](value, ev)
   implicit def boundedToExtensions[T <: BoundedElem](value: T): BoundedExtensions[T] = new BoundedExtensions[T](value)
   implicit def boundingExtensions[A](value: A)(implicit evA: Bounding[A]): BoundingExtensions[A] = new BoundingExtensions[A](value, evA)
 
@@ -34,10 +34,10 @@ package object geom
   implicit def xyScaleToExtensions[T](value: T)(implicit ev: ScaleXY[T]): XYScaleExtensions[T] = new XYScaleExtensions[T](value, ev)
   implicit def shearToExtensions[T](value: T)(implicit ev: Shear[T]): ShearExtensions[T] = new ShearExtensions[T](value, ev)
 
-  implicit def slateTransAxesToExtension[T](value: T)(implicit evS: SlateXY[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
+  implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate2[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
     new SlateTransAxesExtensions[T](value)(evS, evR)
 
-  implicit def OrdinaledElemToExtensions[T <: OrdinaledElem](value: T)(implicit ev: SlateXY[T]): OrdinaledExtensions[T] =
+  implicit def OrdinaledElemToExtensions[T <: OrdinaledElem](value: T)(implicit ev: Slate2[T]): OrdinaledExtensions[T] =
     new OrdinaledExtensions[T](value)(ev)
 
   implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])

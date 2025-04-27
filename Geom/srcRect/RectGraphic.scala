@@ -108,12 +108,22 @@ object RectCompound
   def apply(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): RectCompound =
     RectCompoundImp(shape, facets, children)
 
-  implicit val slateImplicit: SlateXY[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
-  implicit val XYScaleImplicit: ScaleXY[RectCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
+  /** [[Slate2]] type class instance / evidence for [[RectCompound]]. */
+  given slate2Ev: Slate2[RectCompound] = new Slate2[RectCompound]
+  { override def slate(obj: RectCompound, operand: VecPt2): RectCompound = obj.slate(operand)
+    override def slateXY(obj: RectCompound, xOperand: Double, yOperand: Double): RectCompound = obj.slate(xOperand, yOperand)
+  }
+  /** [[Scale]] type class instance / evidence for [[RectCompound]]. */
+  given scaleEv: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
+  
+  /** [[ScaleXY]] type class instance / evidence for [[RectCompound]]. */
+  given scaleXYEv: ScaleXY[RectCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  
+  /** [[Prolign]] type class instance / evidence for [[RectCompound]]. */
+  given prolignEv: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[RectCompound] = new TransAxes[RectCompound]
+  /** [[TransAxed]] type class instance / evidence for [[RectCompound]]. */
+  given transAxesEv: TransAxes[RectCompound] = new TransAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
     override def rotate90(obj: RectCompound): RectCompound = obj.rotate90

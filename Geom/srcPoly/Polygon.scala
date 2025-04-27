@@ -350,31 +350,31 @@ object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
   def fromArray(array: Array[Double]): Polygon = new PolygonGen(array)
 
   /** Implicit [[EqT]] type class instance / evidence for [[Polygon]]. */
-  implicit val eqTEv: EqT[Polygon] = (p1, p2) => p1.arrayUnsafe.sameElements(p2.arrayUnsafe)
+  given eqTEv: EqT[Polygon] = (p1, p2) => p1.arrayUnsafe.sameElements(p2.arrayUnsafe)
 
   /** Implicit [[Slate2]] type class instance / evidence for [[Polygon]]. */
-  implicit val slateEv: Slate2[Polygon] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[Polygon]]. */
-  implicit val slateXYEv: SlateXY[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[Polygon] = new Slate2[Polygon]
+  { override def slate(obj: Polygon, operand: VecPt2): Polygon = obj.slate(operand)
+    override def slateXY(obj: Polygon, xOperand: Double, yOperand: Double): Polygon = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Polygon]]. */
-  implicit val scaleEv: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[Polygon]]. */
-  implicit val rotateEv: Rotate[Polygon] = (obj: Polygon, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[Polygon] = (obj: Polygon, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[Prolign]] type class instance / evidence for [[Polygon]]. */
-  implicit val prolignEv: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Polygon]]. */
-  implicit val scaleXYEv: ScaleXY[Polygon] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Polygon] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Reflect]] type class instance / evidence for [[Polygon]]. */
-  implicit val reflectEv: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
+  given reflectEv: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Polygon]]. */
-  implicit val transAxesEv: TransAxes[Polygon] = new TransAxes[Polygon]
+  given transAxesEv: TransAxes[Polygon] = new TransAxes[Polygon]
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
     override def rotate90(obj: Polygon): Polygon = obj.rotate90
@@ -383,11 +383,11 @@ object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
   }
 
   /** Implicit [[Shear]] type class instance / evidence for [[Polygon]]. */
-  implicit val shearEv: Shear[Polygon] = new Shear[Polygon]
+  given shearEv: Shear[Polygon] = new Shear[Polygon]
   { override def shearXT(obj: Polygon, yFactor: Double): Polygon = obj.shearX(yFactor)
     override def shearYT(obj: Polygon, xFactor: Double): Polygon = obj.shearY(xFactor)
   }
 
   /** Implicit [[Drawing]] type class instance / evidence for [[Polygon]]. */
-  implicit val drawerEv: Drawing[Polygon, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  given drawerEv: Drawing[Polygon, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }

@@ -78,12 +78,16 @@ object HexParrY
   def fromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 
   /** [[Show]] type class instance / evidence for [[HexParrY]]. */
-  implicit val showEv: Show2[Double, Pt2, HexParrY] = Show2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen)
+  given showEv: Show2[Double, Pt2, HexParrY] = Show2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen)
 
   /** [[Unshow]] type class instance / evidence for [[HexParrY]]. */
-  implicit val unshowEv: Unshow[HexParrY] = Unshow2[Double, Pt2, HexParrY]("HexYlign", "width", "cen", apply)
+  given unshowEv: Unshow[HexParrY] = Unshow2[Double, Pt2, HexParrY]("HexYlign", "width", "cen", apply)
 
-  implicit val slateImplicit: SlateXY[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
-  implicit val prolignImplicit: Prolign[HexParrY] = (obj, matrix) => obj.prolign(matrix)
+  given slate2Ev: Slate2[HexParrY] = new Slate2[HexParrY]
+  { override def slate(obj: HexParrY, operand: VecPt2): HexParrY = obj.slate(operand)
+    override def slateXY(obj: HexParrY, xOperand: Double, yOperand: Double): HexParrY = obj.slate(xOperand, yOperand)
+  }  
+  
+  given scaleEv: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
+  given prolignEv: Prolign[HexParrY] = (obj, matrix) => obj.prolign(matrix)
 }

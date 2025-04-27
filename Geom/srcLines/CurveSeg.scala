@@ -44,28 +44,28 @@ trait CurveSeg extends Drawable
 
 object CurveSeg
 { /** Implicit [[Slate2]] type class instance for [[CurveSeg]]. */
-  implicit val slateEv: Slate2[CurveSeg] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance for [[CurveSeg]]. */
-  implicit val slateXYEv: SlateXY[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[CurveSeg] = new Slate2[CurveSeg]
+  { override def slate(obj: CurveSeg, operand: VecPt2): CurveSeg = obj.slate(operand)
+    override def slateXY(obj: CurveSeg, xOperand: Double, yOperand: Double): CurveSeg = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance for [[CurveSeg]]. */
-  implicit val scaleEv: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance for [[CurveSeg]]. */
-  implicit val rotateEv: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[prolign]] type class instance for [[CurveSeg]]. */
-  implicit val prolignEv: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[ScaleXY]] type class instance for [[CurveSeg]]. */
-  implicit val scaleXYEv: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Refelect]] type class instance for [[CurveSeg]]. */
-  implicit val ReflectEv: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
   
   /** Implicit [[TransAxes]] type class instance for [[CurveSeg]]. */
-  implicit val transAxesEv: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
+  given transAxesEv: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
   { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
     override def negXT(obj: CurveSeg): CurveSeg = obj.negX
     override def rotate90(obj: CurveSeg): CurveSeg = obj.rotate90
@@ -73,7 +73,7 @@ object CurveSeg
     override def rotate270(obj: CurveSeg): CurveSeg = obj.rotate270
   }
   /** Implicit [[Shear]] type class instance for [[CurveSeg]]. */
-  implicit val shearEv: Shear[CurveSeg] = new Shear[CurveSeg]
+  given shearEv: Shear[CurveSeg] = new Shear[CurveSeg]
   { override def shearXT(obj: CurveSeg, yFactor: Double): CurveSeg = obj.shearX(yFactor)
     override def shearYT(obj: CurveSeg, xFactor: Double): CurveSeg = obj.shearY(xFactor)
   }

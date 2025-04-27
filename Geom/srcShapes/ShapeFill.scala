@@ -33,25 +33,25 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
 
 object ShapeFill
 { /** Implicit [[Slate2]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val slateEv: Slate2[ShapeFill] = (obj: ShapeFill, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val slateXYEv: SlateXY[ShapeFill] = (obj: ShapeFill, dx: Double, dy: Double) => obj.slate(dx, dy)
-
+  given slate2Ev: Slate2[ShapeFill] = new Slate2[ShapeFill]
+  { override def slate(obj: ShapeFill, operand: VecPt2): ShapeFill = obj.slate(operand)    
+    override def slateXY(obj: ShapeFill, xOperand: Double, yOperand: Double): ShapeFill = obj.slate(xOperand, yOperand)
+  }
+  
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val scaleEv: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val rotateEv: Rotate[ShapeFill] = (obj: ShapeFill, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[ShapeFill] = (obj: ShapeFill, angle: AngleVec) => obj.rotate(angle)
 
   /** implicit [[ScaleXY]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val scaleXYEv: ScaleXY[ShapeFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[ShapeFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** implicit [[Prolign]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val prolignEv: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 
   /** implicit [[TransAxes]] type class instance / evidence for [[ShapeFill]]. */
-  implicit val transAxesEv: TransAxes[ShapeFill] = new TransAxes[ShapeFill]
+  given transAxesEv: TransAxes[ShapeFill] = new TransAxes[ShapeFill]
   { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
     override def rotate90(obj: ShapeFill): ShapeFill = obj.rotate90

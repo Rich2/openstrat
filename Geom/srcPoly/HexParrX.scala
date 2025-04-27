@@ -78,9 +78,13 @@ object HexParrX
   def fromArray(array: Array[Double]): HexParrX = new HexParrX(array)
 
   /** [[Show]] and [[Unshow]] type class instances / evidence for [[HexParrX]]. */
-  implicit val persistEv: Persist2Both[Double, Pt2, HexParrX] = Persist2Both[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
+  given persistEv: Persist2Both[Double, Pt2, HexParrX] = Persist2Both[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
-  implicit val slateImplicit: SlateXY[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
-  implicit val prolignImplicit: Prolign[HexParrX] = (obj, matrix) => obj.prolign(matrix)
+  given slate2Ev: Slate2[HexParrX] = new Slate2[HexParrX]
+  { override def slate(obj: HexParrX, operand: VecPt2): HexParrX = obj.slate(operand) 
+    override def slateXY(obj: HexParrX, xOperand: Double, yOperand: Double): HexParrX = obj.slate(xOperand, yOperand)
+  }
+  
+  given scaleEv: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
+  given prolignEv: Prolign[HexParrX] = (obj, matrix) => obj.prolign(matrix)
 }

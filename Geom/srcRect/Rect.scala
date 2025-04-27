@@ -136,10 +136,10 @@ object Rect
   }
 
   /** Implicit [[Slate2]] type class instance / evidence for [[Rect]]. */
-  implicit val slateEv: Slate2[Rect] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[Rect]]. */
-  implicit val slateXYEv: SlateXY[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slate2Ev: Slate2[Rect] = new Slate2[Rect]
+  { override def slate(obj: Rect, operand: VecPt2): Rect = obj.slate(operand)
+    override def slateXY(obj: Rect, xOperand: Double, yOperand: Double): Rect = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Rect]]. */
   implicit val scaleEv: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)

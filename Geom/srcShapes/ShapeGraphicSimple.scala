@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
+import pWeb.*
 
 trait ShapeGraphicSimple extends ShapeGraphic, GraphicSimple, GraphicSvgElem
 { final def svgJustElem: SvgElem = svgElem
@@ -8,6 +8,7 @@ trait ShapeGraphicSimple extends ShapeGraphic, GraphicSimple, GraphicSvgElem
   final def svgInline: HtmlSvg = HtmlSvg.bounds(shape.boundingRect, RArr(svgJustElem))
   def nonShapeAttribs: RArr[XmlAtt]
   final override def attribs: RArr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
+  override def slate(operand: VecPt2): ShapeGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): ShapeGraphicSimple
   override def scale(operand: Double): ShapeGraphicSimple
   override def negY: ShapeGraphicSimple

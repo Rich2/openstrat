@@ -26,24 +26,24 @@ object PolygonGenArr
     new PolygonGenArr(array)
   }
 
-  implicit val eqImplicit: EqT[PolygonGenArr] = ArrArrayDblEq[PolygonGen, PolygonGenArr]
+  given eqEv: EqT[PolygonGenArr] = ArrArrayDblEq[PolygonGen, PolygonGenArr]
 
-  implicit val slateImplicit: SlateXY[PolygonGenArr] = (obj: PolygonGenArr, dx: Double, dy: Double) => obj.map(_.slate(dx, dy))
-  implicit val scaleImplicit: Scale[PolygonGenArr] = (obj: PolygonGenArr, operand: Double) => obj.map(_.scale(operand))
-  implicit val rotateImplicit: Rotate[PolygonGenArr] = (obj: PolygonGenArr, angle: AngleVec) => obj.map(_.rotate(angle))
-  implicit val prolignImplicit: Prolign[PolygonGenArr] = (obj, matrix) => obj.map(_.prolign(matrix))
-  implicit val XYScaleImplicit: ScaleXY[PolygonGenArr] = (obj, xOperand, yOperand) => obj.map(_.scaleXY(xOperand, yOperand))
-  implicit val reflectImplicit: Reflect[PolygonGenArr] = (obj: PolygonGenArr, lineLike: LineLike) => obj.map(_.reflect(lineLike))
+  given slateEv: Slate2[PolygonGenArr] = new Slate2[PolygonGenArr]
+  { override def slate(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slate(operand)
+    override def slateXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slate(Pt2(xOperand, yOperand))
+  }
 
-  implicit val reflectAxesImplicit: TransAxes[PolygonGenArr] = new TransAxes[PolygonGenArr] {
+  given scaleEv: Scale[PolygonGenArr] = (obj: PolygonGenArr, operand: Double) => obj.map(_.scale(operand))
+  given rotateEv: Rotate[PolygonGenArr] = (obj: PolygonGenArr, angle: AngleVec) => obj.map(_.rotate(angle))
+  given prolignEv: Prolign[PolygonGenArr] = (obj, matrix) => obj.map(_.prolign(matrix))
+  given XYScaleEv: ScaleXY[PolygonGenArr] = (obj, xOperand, yOperand) => obj.map(_.scaleXY(xOperand, yOperand))
+  given reflectEv: Reflect[PolygonGenArr] = (obj: PolygonGenArr, lineLike: LineLike) => obj.map(_.reflect(lineLike))
+
+  given reflectAxesEv: TransAxes[PolygonGenArr] = new TransAxes[PolygonGenArr]
+  { override def negXT(obj: PolygonGenArr): PolygonGenArr = obj.negX
     override def negYT(obj: PolygonGenArr): PolygonGenArr = obj.negY
-
-    override def negXT(obj: PolygonGenArr): PolygonGenArr = obj.negX
-
     override def rotate90(obj: PolygonGenArr): PolygonGenArr = obj.rotate90
-
     override def rotate180(obj: PolygonGenArr): PolygonGenArr = obj.rotate180
-
     override def rotate270(obj: PolygonGenArr): PolygonGenArr = obj.rotate270
   }
 }

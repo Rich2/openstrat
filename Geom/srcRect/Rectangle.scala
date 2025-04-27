@@ -151,13 +151,26 @@ object Rectangle
 
   def fromAxisRatio(centreLine: LSeg2, ratio: Double): PolygonGen = fromAxis(centreLine, centreLine.length * ratio)
 
-  implicit val slateImplicit: SlateXY[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
-  implicit val reflectImplicit: Reflect[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.reflect(lineLike)
+  /** Implicit [[Slate2]] type class instance evidence for [[Rectangle]]. */
+  given slate2Ev: Slate2[Rectangle] = new Slate2[Rectangle]
+  { override def slate(obj: Rectangle, operand: VecPt2): Rectangle = obj.slate(operand)
+    override def slateXY(obj: Rectangle, xOperand: Double, yOperand: Double): Rectangle = obj.slate(xOperand, yOperand)
+  }
 
-  implicit val reflectAxesImplicit: TransAxes[Rectangle] = new TransAxes[Rectangle]
+  /** Implicit [[Scale]] type class instance evidence for [[Rectangle]]. */ 
+  given scaleEv: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
+  
+  /** Implicit [[Rotate]] type class instance evidence for [[Rectangle]]. */
+  given rotateEv: Rotate[Rectangle] = (obj: Rectangle, angle: AngleVec) => obj.rotate(angle)
+  
+  /** Implicit [[Prolign]] type class instance evidence for [[Rectangle]]. */
+  given prolignEv: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
+  
+  /** Implicit [[Reflect]] type class instance evidence for [[Rectangle]]. */
+  given reflectEv: Reflect[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.reflect(lineLike)
+
+  /** Implicit [[TransAxes]] type class instance evidence for [[Rectangle]]. */
+  given transAxesEv: TransAxes[Rectangle] = new TransAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
     override def rotate90(obj: Rectangle): Rectangle = obj.rotate90

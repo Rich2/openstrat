@@ -66,28 +66,28 @@ object ShapeSegs
   }
 
   /** Implicit [[Slate2]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val slateEv: Slate2[ShapeSegs] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val slateXYEv: SlateXY[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[ShapeSegs] = new Slate2[ShapeSegs]
+  { override def slate(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slate(operand)
+    override def slateXY(obj: ShapeSegs, xOperand: Double, yOperand: Double): ShapeSegs = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val scaleEv: Scale[ShapeSegs] = (obj: ShapeSegs, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[ShapeSegs] = (obj: ShapeSegs, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val rotateEv: Rotate[ShapeSegs] = (obj: ShapeSegs, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[ShapeSegs] = (obj: ShapeSegs, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[Prolign]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val prolignEv: Prolign[ShapeSegs] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[ShapeSegs] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val scaleXYEv: ScaleXY[ShapeSegs] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[ShapeSegs] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Reflect]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val ReflectEv: Reflect[ShapeSegs] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[ShapeSegs] = (obj, lineLike) => obj.reflect(lineLike)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val transAxesEv: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs]
+  given transAxesEv: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs]
   { override def negXT(obj: ShapeSegs): ShapeSegs = obj.negX
     override def negYT(obj: ShapeSegs): ShapeSegs = obj.negY
     override def rotate90(obj: ShapeSegs): ShapeSegs = obj.rotate90
@@ -96,7 +96,7 @@ object ShapeSegs
   }
   
   /** Implicit [[Shear]] type class instance / evidence for [[ShapeSegs]]. */
-  implicit val shearEv: Shear[ShapeSegs] = new Shear[ShapeSegs]
+  given shearEv: Shear[ShapeSegs] = new Shear[ShapeSegs]
   { override def shearXT(obj: ShapeSegs, yFactor: Double): ShapeSegs = obj.shearX(yFactor)
     override def shearYT(obj: ShapeSegs, xFactor: Double): ShapeSegs = obj.shearY(xFactor)
   }

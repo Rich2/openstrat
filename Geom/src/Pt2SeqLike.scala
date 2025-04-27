@@ -82,7 +82,11 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
 
   implicit val eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
 
-  implicit val slateImplicit: SlateXY[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate2[Pt2Arr] = new Slate2[Pt2Arr]
+  { override def slate(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slate(operand)
+    override def slateXY(obj: Pt2Arr, xOperand: Double, yOperand: Double): Pt2Arr = obj.slate(xOperand, yOperand)
+  }
+
   implicit val scaleImplicit: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2Arr] = (obj: Pt2Arr, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2Arr] = (obj, matrix) => obj.prolign(matrix)

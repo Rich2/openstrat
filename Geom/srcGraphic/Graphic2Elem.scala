@@ -31,28 +31,28 @@ trait Graphic2Elem extends Aff2Elem
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object Graphic2Elem
 { /** Implicit [[Slate2]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val slateEv: Slate2[Graphic2Elem] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val slateXYEv: SlateXY[Graphic2Elem] = (obj: Graphic2Elem, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[Graphic2Elem] = new Slate2[Graphic2Elem]
+  { override def slate(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slate(operand)
+    override def slateXY(obj: Graphic2Elem, xOperand: Double, yOperand: Double): Graphic2Elem = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val scaleEv: Scale[Graphic2Elem] = (obj: Graphic2Elem, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[Graphic2Elem] = (obj: Graphic2Elem, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val rotateEv: Rotate[Graphic2Elem] = (obj: Graphic2Elem, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[Graphic2Elem] = (obj: Graphic2Elem, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val scaleXYEv: ScaleXY[Graphic2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Graphic2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Prolign]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val prolignEv: Prolign[Graphic2Elem] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[Graphic2Elem] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Reflect]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val ReflectEv: Reflect[Graphic2Elem] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[Graphic2Elem] = (obj, lineLike) => obj.reflect(lineLike)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val transAxesEv: TransAxes[Graphic2Elem] = new TransAxes[Graphic2Elem]
+  given transAxesEv: TransAxes[Graphic2Elem] = new TransAxes[Graphic2Elem]
   { override def negYT(obj: Graphic2Elem): Graphic2Elem = obj.negY
     override def negXT(obj: Graphic2Elem): Graphic2Elem = obj.negX
     override def rotate90(obj: Graphic2Elem): Graphic2Elem = obj.rotate90
@@ -61,7 +61,7 @@ object Graphic2Elem
   }
 
   /** Implicit [[Shear]] type class instance / evidence for [[Graphic2Elem]]. */
-  implicit val shearEv: Shear[Graphic2Elem] = new Shear[Graphic2Elem]
+  given shearEv: Shear[Graphic2Elem] = new Shear[Graphic2Elem]
   { override def shearXT(obj: Graphic2Elem, yFactor: Double): Graphic2Elem = obj.shearX(yFactor)
     override def shearYT(obj: Graphic2Elem, xFactor: Double): Graphic2Elem = obj.shearY(xFactor)
   }
@@ -89,28 +89,28 @@ trait CanvElem extends Graphic2Elem
 /** Companion object for the [[CanvElem]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object CanvElem
 { /** Implicit [[Slate2]] type class instance / evidence for [[CanvElem]]. */
-  implicit val slateEv: Slate2[CanvElem] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / evidence for [[CanvElem]]. */
-  implicit val slateXYEv: SlateXY[CanvElem] = (obj: CanvElem, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[CanvElem] = new Slate2[CanvElem]
+  { override def slate(obj: CanvElem, operand: VecPt2): CanvElem = obj.slate(operand)
+    override def slateXY(obj: CanvElem, xOperand: Double, yOperand: Double): CanvElem = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance / evidence for [[CanvElem]]. */
-  implicit val scaleEv: Scale[CanvElem] = (obj: CanvElem, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[CanvElem] = (obj: CanvElem, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[CanvElem]]. */
-  implicit val rotateEv: Rotate[CanvElem] = (obj: CanvElem, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[CanvElem] = (obj: CanvElem, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[CanvElem]]. */
-  implicit val scaleXYEv: ScaleXY[CanvElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[CanvElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Prologn]] type class instance / evidence for [[CanvElem]]. */
-  implicit val prolignEv: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Reflect]] type class instance / evidence for [[CanvElem]]. */
-  implicit val ReflectEv: Reflect[CanvElem] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[CanvElem] = (obj, lineLike) => obj.reflect(lineLike)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[CanvElem]]. */
-  implicit val transAxisEv: TransAxes[CanvElem] = new TransAxes[CanvElem]
+  given transAxisEv: TransAxes[CanvElem] = new TransAxes[CanvElem]
   { override def negYT(obj: CanvElem): CanvElem = obj.negY
     override def negXT(obj: CanvElem): CanvElem = obj.negX
     override def rotate90(obj: CanvElem): CanvElem = obj.rotate90

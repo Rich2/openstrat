@@ -119,12 +119,16 @@ object Circle extends ShapeIcon
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
-  implicit val slateImplicit: SlateXY[Circle] = (obj, dx, dy) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
+  given slate2Ev: Slate2[Circle] = new Slate2[Circle]
+  { override def slate(obj: Circle, operand: VecPt2): Circle = obj.slate(operand)
+    override def slateXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slate(xOperand, yOperand)
+  }
 
-  implicit val reflectAxesImplicit: TransAxes[Circle] = new TransAxes[Circle]
+  given scaleEv: Scale[Circle] = (obj, operand) => obj.scale(operand)
+  given rotateEv: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
+  given prolignEv: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
+
+  given reflectAxesEv: TransAxes[Circle] = new TransAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
     override def rotate90(obj: Circle): Circle = obj.rotate90
@@ -219,28 +223,27 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }
 
-
 object CircleCompound
 { /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val slateEv: Slate2[CircleCompound] = (obj, operand) => obj.slate(operand)
+  given slate2Ev: Slate2[CircleCompound] = new Slate2[CircleCompound]
+  { override def slate(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
+    override def slateXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val slateXYEv: SlateXY[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
-
-  /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val scaleEv: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val rotateEv: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val prolignEv: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val reflectEv: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
+  given reflectEv: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CirlceCompound]]. */
-  implicit val reflectAxesEv: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
+  given reflectAxesEv: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
   { override def negYT(obj: CircleCompound): CircleCompound = obj.negY
     override def negXT(obj: CircleCompound): CircleCompound = obj.negX
     override def rotate90(obj: CircleCompound): CircleCompound = obj.rotate90

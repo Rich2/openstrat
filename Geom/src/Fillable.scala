@@ -31,10 +31,10 @@ trait Fillable extends Any, Drawable
 
 object Fillable
 { /** [[Slate2]] type class instance / evidence for [[Fillable]]. */
-  implicit val slateEv: Slate2[Fillable] = (obj: Fillable, operand: VecPt2) => obj.slate(operand)
-
-  /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
-  implicit val slateXYEv: SlateXY[Fillable] = (obj: Fillable, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slate2Ev: Slate2[Fillable] = new Slate2[Fillable]
+  { override def slate(obj: Fillable, operand: VecPt2): Fillable = obj.slate(operand)
+    override def slateXY(obj: Fillable, xOperand: Double, yOperand: Double): Fillable = obj.slate(xOperand, yOperand)
+  }
 
   /** [[Scale]] type class instance / evidence for [[Fillable]]. */
   implicit val scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)

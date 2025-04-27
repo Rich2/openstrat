@@ -88,19 +88,23 @@ object HexReg
 
   def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
 
-  implicit val showImplicit: Show[HexReg] = new Show[HexReg]
+  given showEv: Show[HexReg] = new Show[HexReg]
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
     override def show(obj: HexReg, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = obj.tell(way, maxPlaces, minPlaces)
     override def syntaxDepth(obj: HexReg): Int = 2
   }
 
-  implicit val slateImplicit: SlateXY[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)
+  given slate2Ev: Slate2[HexReg] = new Slate2[HexReg]
+  { override def slate(obj: HexReg, operand: VecPt2): HexReg = obj.slate(operand)    
+    override def slateXY(obj: HexReg, xOperand: Double, yOperand: Double): HexReg = obj.slate(xOperand, yOperand)
+  }  
+  
+  given scaleEv: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
+  given rotateEv: Rotate[HexReg] = (obj: HexReg, angle: AngleVec) => obj.rotate(angle)
+  given prolignEv: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[HexReg] = new TransAxes[HexReg]
+  given reflectAxesEv: TransAxes[HexReg] = new TransAxes[HexReg]
   { override def negYT(obj: HexReg): HexReg = obj.negY
     override def negXT(obj: HexReg): HexReg = obj.negX
     override def rotate90(obj: HexReg): HexReg = obj.rotate90

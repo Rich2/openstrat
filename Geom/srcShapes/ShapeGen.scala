@@ -26,26 +26,38 @@ object ShapeGen
 
     }
 
-  implicit val slateImplicit: SlateXY[ShapeGen] = (obj: ShapeGen, dx: Double, dy: Double) => obj.slate(dx, dy)
-  implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[ShapeGen] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[ShapeGen] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[ShapeGen] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Slate2]] type class instance / evidence for [[ShapeGen]]. */
+  given slate2Ev: Slate2[ShapeGen] = new Slate2[ShapeGen]
+  { override def slate(obj: ShapeGen, operand: VecPt2): ShapeGen = obj.slate(operand)
+    override def slateXY(obj: ShapeGen, xOperand: Double, yOperand: Double): ShapeGen = obj.slate(xOperand, yOperand)
+  }
 
-  implicit val transAxesImplicit: TransAxes[ShapeGen] = new TransAxes[ShapeGen] {
+  /** Implicit [[Scale]] type class instance / evidence for [[ShapeGen]]. */
+  given scaleEv: Scale[ShapeGen] = (obj: ShapeGen, operand: Double) => obj.scale(operand)
+  
+  /** Implicit [[Rotate]] type class instance / evidence for [[ShapeGen]]. */
+  given rotateEv: Rotate[ShapeGen] = (obj: ShapeGen, angle: AngleVec) => obj.rotate(angle)
+  
+  /** Implicit [[Prolign]] type class instance / evidence for [[ShapeGen]]. */
+  given prolignEv: Prolign[ShapeGen] = (obj, matrix) => obj.prolign(matrix)
+  
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[ShapeGen]]. */
+  given scaleXYEv: ScaleXY[ShapeGen] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  
+  /** Implicit [[Reflect]] type class instance / evidence for [[ShapeGen]]. */
+  given ReflectEv: Reflect[ShapeGen] = (obj, lineLike) => obj.reflect(lineLike)
+
+  /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeGen]]. */
+  given transAxesEv: TransAxes[ShapeGen] = new TransAxes[ShapeGen]
+  { override def negXT(obj: ShapeGen): ShapeGen = obj.negX
     override def negYT(obj: ShapeGen): ShapeGen = obj.negY
-
-    override def negXT(obj: ShapeGen): ShapeGen = obj.negX
-
     override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90
-
     override def rotate180(obj: ShapeGen): ShapeGen = obj.rotate180
-
     override def rotate270(obj: ShapeGen): ShapeGen = obj.rotate270
   }
 
-  implicit val shearImplicit: Shear[ShapeGen] = new Shear[ShapeGen]
+  /** Implicit [[Shear]] type class instance / evidence for [[ShapeGen]]. */
+  given shearEv: Shear[ShapeGen] = new Shear[ShapeGen]
   { override def shearXT(obj: ShapeGen, yFactor: Double): ShapeGen = obj.shearX(yFactor)
     override def shearYT(obj: ShapeGen, xFactor: Double): ShapeGen = obj.shearY(xFactor)
   }

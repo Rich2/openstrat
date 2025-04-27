@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import geom._
+import geom.*
 
 /** The tile grid package, replacing the old pGrid package. This package works with hexagonal and Square tile grids. There are separate class for the
  * different types of Coordinates [[HCen]], [[SqCen]], [[HSide]], etc. The tile objects themselves will not in the general case the contain grid
@@ -13,7 +13,7 @@ import geom._
  * The package name prid, short for package grid, was chosen to allow you to use the name "grid" in your code. */
 package object prid
 {
-  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TGrid, evSlate: SlateXY[T], evScale: Scale[T])
+  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TGrid, evSlate: Slate2[T], evScale: Scale[T])
   {
     /** Translates Vec2s relative to focus and then scales. */
     def gridCoordScale(focus: TCoord, scale: Double): T =

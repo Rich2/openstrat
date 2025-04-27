@@ -45,19 +45,19 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
  * container classes. */
 object ShapeCompound
 { /** Implicit [[Slate2]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val slateEv: Slate2[ShapeCompound] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val slateXYEv: SlateXY[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
+  given slate2Ev: Slate2[ShapeCompound] = new Slate2[ShapeCompound]
+  { override def slate(obj: ShapeCompound, operand: VecPt2): ShapeCompound = obj.slate(operand)
+    override def slateXY(obj: ShapeCompound, xOperand: Double, yOperand: Double): ShapeCompound = ???
+  }
   
   /** Implicit [[Scale]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val scaleEv: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   
   /** Implicit [[Rotate]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val rotateEv: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
   
   /** Implicit [[TrabsAxes]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val transAxesEv: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
+  given transAxesEv: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
     override def rotate90(obj: ShapeCompound): ShapeCompound = obj.rotate90
@@ -66,7 +66,7 @@ object ShapeCompound
   }
   
   /** Implicit [[Prolign]] type class instance / instance for [[ShapeCompound]]. */
-  implicit val prolignEv: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
+  given prolignEv: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
 }
 
 /** A compound shape graphic specified in [[Length]] units. */

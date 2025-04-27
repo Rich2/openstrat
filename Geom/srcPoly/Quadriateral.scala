@@ -41,13 +41,13 @@ object Quadrilateral
     new QuadrilateralGen(Array(x0, y0, x1, y1, x2, y2, x3, y3))
     
   /** Implicit [[Slate2]] type class instance for [[Quadrilateral]] */  
-  implicit val slateEv: Slate2[Quadrilateral] = (obj, operand) => obj.slate(operand)
-
-  /** Implicit [[SlateXY]] type class instance for [[Quadrilateral]] */
-  implicit val slateXYEv: SlateXY[Quadrilateral] = (obj, xOperand, yOperand) => obj.slate(xOperand, yOperand)
+  given slate2Ev: Slate2[Quadrilateral] = new Slate2[Quadrilateral]
+  { override def slate(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slate(operand)
+    override def slateXY(obj: Quadrilateral, xOperand: Double, yOperand: Double): Quadrilateral = obj.slate(xOperand, yOperand)
+  }
 
   /** Implicit [[Scale]] type class instance for [[Quadrilateral]] */
-  implicit val scaleEv: Scale[Quadrilateral] = (obj, operand) => obj.scale(operand)
+  given scaleEv: Scale[Quadrilateral] = (obj, operand) => obj.scale(operand)
 }
 
 /** The general case of a quadrilateral */
@@ -135,7 +135,10 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
 
 object QuadCompound
 { /** Implicit [[Slate2]] type class instance / evidence for [[QuadCompound]]. */
-  val slateEv: Slate2[QuadCompound] = (obj, operand) => obj.slate(operand)
+  given slate2Ev: Slate2[QuadCompound] = new Slate2[QuadCompound]
+  { override def slate(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slate(operand)    
+    override def slateXY(obj: QuadCompound, xOperand: Double, yOperand: Double): QuadCompound = obj.slate(xOperand, yOperand)
+  }
 }
 
 /** The implementation for the general case of a compound graphic based on a quadrilateral. */

@@ -70,17 +70,17 @@ extension[T](thisT: T)(using ev: TransAxes[T])
 }
 
 /** Extension class for types that fulfill the type class interface for [[TransAxes]] and [[SlateXY]]. */
-class TransAxesSlateExtensions[T](thisT: T)(using evR: TransAxes[T], evS: SlateXY[T])
+class TransAxesSlateExtensions[T](thisT: T)(using evR: TransAxes[T], evS: Slate2[T])
 {
   /** Reflect across a line parallel to the X axis. */
   def reflectXParallel(yValue: Double): T =
   { val res1 = evR.negYT(thisT)
-    evS.SlateY(res1, 2 * yValue)
+    evS.slateY(res1, 2 * yValue)
   }
 
   /** Reflect across a line parallel to the Y axis. */
   def reflectYParallel(xValue: Double): T =
   { val res1 = evR.negXT(thisT)
-    evS.SlateX(res1, 2 * xValue)
+    evS.slateX(res1, 2 * xValue)
   }
 }
