@@ -149,7 +149,7 @@ object HCen
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HCen]]. */
   implicit val persistEv: PersistInt2Both[HCen] = PersistInt2Both[HCen]("HCen", "r", _.r, "c", _.c, HCen.apply)
 
-  /** Implicit [[BuilderMapArr]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
   implicit val arrMapBuilderEv: BuilderMapArrInt2[HCen, HCenArr] = new BuilderMapArrInt2[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
@@ -248,7 +248,7 @@ class HCenPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPai
   override type B1BuffT = HCenBuff
   override implicit val b2ClassTag: ClassTag[B2] = ct
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HCenPairBuff[B2] = new HCenPairBuff[B2](a1Buffer, a2Buffer)
-  override def b1ArrBuilder: BuilderMapArr[HCen, HCenArr] = HCen.arrMapBuilderEv
+  override def b1ArrBuilder: BuilderArrMap[HCen, HCenArr] = HCen.arrMapBuilderEv
   override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): HCenPairArr[B2] = new HCenPairArr[B2](b1ArrayInt, b2Array)
   override def newB1Buff(): HCenBuff = HCenBuff()
 }

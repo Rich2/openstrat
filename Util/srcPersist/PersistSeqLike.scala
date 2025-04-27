@@ -121,7 +121,7 @@ object UnshowSeq
 
 /** [[Unshow]] type class instances for building classes from sequences through two builders. */
 class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae],
-  build1: BuilderMapArr[Ae, ArrAe]) extends Unshow[A]
+  build1: BuilderArrMap[Ae, ArrAe]) extends Unshow[A]
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
   val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)(evA, build1)
   
@@ -130,6 +130,6 @@ class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)
 
 object UnshowFromArr
 {
-  def apply[Ae, ArrAe <: Arr[Ae], A](typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae], build1: BuilderMapArr[Ae, ArrAe]):
+  def apply[Ae, ArrAe <: Arr[Ae], A](typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae], build1: BuilderArrMap[Ae, ArrAe]):
     UnshowFromArr[Ae, ArrAe, A] = new UnshowFromArr[Ae, ArrAe, A](typeStr, f)
 }

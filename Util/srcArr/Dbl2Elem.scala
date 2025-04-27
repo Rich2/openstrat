@@ -159,14 +159,14 @@ trait BuilderSlDbl2[BB <: SlImutDbl2[?]] extends BuilderSlDblN[BB]
 
 /** [[BuilderMap]] trait for constructing [[SeqLike]]s with [[Dbl2Elem]] elements via the map method. Hence, the type of the element is known at the call site.
  * So implicit type class instances should be placed in the companion object of the element. */
-trait BuilderMapSlDbl2[B <: Dbl2Elem, BB <: SlImutDbl2[B]] extends BuilderSlDbl2[BB] with BuilderMapSlDblNMap[B, BB]
+trait BuilderMapSlDbl2[B <: Dbl2Elem, BB <: SlImutDbl2[B]] extends BuilderSlDbl2[BB] with BuilderMapSlDblN[B, BB]
 { type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 /** [[BuilderMap]] Trait for constructing [[Arr]]s with [[Dbl2Elem]]s. Implicit instances for, for classes / traits you control, should go in the companion
  * object of type B. */
-trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB], BuilderMapArrDblN[B, ArrB]
+trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB], BuilderArrDblNMap[B, ArrB]
 
 /** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl2Elem]]s. Implicit type class instances for the builder should go in the companion object of the
  * [[Arr]] class. */

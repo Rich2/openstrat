@@ -56,7 +56,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   override def vertsForeach[U](f: Pt2 => U): Unit = foreach(f)  
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val acc = build.uninitialised(numVerts)
     var i = 0
     vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
@@ -90,7 +90,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonLike[Pt2]
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LSeg2]]. */
-  def sidesMap[A, AA <: Arr[A]](f: LSeg2 => A)(implicit build: BuilderMapArr[A, AA]): AA =
+  def sidesMap[A, AA <: Arr[A]](f: LSeg2 => A)(implicit build: BuilderArrMap[A, AA]): AA =
   { var i: Int = 0
     val res = build.uninitialised(numVerts)
     while (i < numVerts)

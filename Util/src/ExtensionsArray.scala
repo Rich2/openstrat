@@ -11,7 +11,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def headElseMap[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
 
   /** maps to this [[Array]] to an [[Arr]] of B. if this Array is null the Arr will have length 0. */
-  def mapArr[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderMapArr[B, ArrB]): ArrB =
+  def mapArr[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val len: Int = if(thisArray == null) 0 else thisArray.length
     val res: ArrB = ev.uninitialised(len)
     var i = 0

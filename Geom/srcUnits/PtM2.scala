@@ -76,7 +76,7 @@ object PtM2
   /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
-  /** Implicit [[BuilderMapArr]] instance / evidence for [[PtM2]] and [[Pt2M2Arr]]. */
+  /** Implicit [[BuilderArrMap]] instance / evidence for [[PtM2]] and [[Pt2M2Arr]]. */
   implicit val builderImplicit: BuilderMapArrDbl2[PtM2, PtM2Arr] = new BuilderMapArrDbl2[PtM2, PtM2Arr]
   { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
@@ -158,8 +158,8 @@ object VecM2
   /** Factory method for creating 2-dimensional vectors defined in [[Metres]] from the 2 [[Double]] values. */
   def apply(xMetresNum: Double, yMetresNum: Double): VecM2 = new VecM2(xMetresNum, yMetresNum)
   
-  /** [[BuilderMapArr]] type class instance for [[VecM2]] and [[VecM2Arr]]. */
-  val builderArrMapEv: BuilderMapArr[VecM2, VecM2Arr] = new BuilderMapArrDbl2[VecM2, VecM2Arr]
+  /** [[BuilderArrMap]] type class instance for [[VecM2]] and [[VecM2Arr]]. */
+  val builderArrMapEv: BuilderArrMap[VecM2, VecM2Arr] = new BuilderMapArrDbl2[VecM2, VecM2Arr]
   { override type BuffT = VecM2Buff
     override def fromDblArray(array: Array[Double]): VecM2Arr = new VecM2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecM2Buff = new VecM2Buff(buffer)

@@ -159,7 +159,7 @@ object StringBuff
 { def apply(startSize: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](startSize))
 }
 
-object BuilderArrString extends BuilderMapArr[String, StrArr], BuilderFlatArr[StrArr]
+object BuilderArrString extends BuilderArrMap[String, StrArr], BuilderArrFlat[StrArr]
 { type BuffT = StringBuff
   override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
   override def indexSet(seqLike: StrArr, index: Int, newElem: String): Unit = seqLike.arrayUnsafe(index) = newElem

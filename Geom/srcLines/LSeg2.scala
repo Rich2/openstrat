@@ -121,7 +121,7 @@ object LSeg2
 
   implicit val eqTImplicit: EqT[LSeg2] = Eq2T[Pt2, Pt2, LSeg2](_.pStart, _.pEnd)
 
-  /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
+  /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
   implicit val arrMapbuilderEv: LSeg2ArrMapBuilder = new LSeg2ArrMapBuilder
 
   implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegPairArrMapBuilder[B2] = new LineSegPairArrMapBuilder[B2]
@@ -146,8 +146,8 @@ class LSeg2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, LineSegLikeDbl4Ar
 object LSeg2Arr extends CompanionSeqLikeDbl4[LSeg2, LSeg2Arr]
 { override def fromArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
 
-  /** Implicit instance /evidence for [[BuilderFlatArr]] type class instance. */
-  implicit val arrFlatBuildEv: BuilderFlatArr[LSeg2Arr] = new LineSegArrFlatBuilder
+  /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
+  implicit val arrFlatBuildEv: BuilderArrFlat[LSeg2Arr] = new LineSegArrFlatBuilder
 
   /** [[Show]] type class instance / evidence for [[LSeg2Arr]]. */
   implicit lazy val showEv: ShowSequ[LSeg2, LSeg2Arr] = ShowSequ[LSeg2, LSeg2Arr]()
@@ -169,11 +169,15 @@ object LSeg2Buff
 { def apply(length: Int = 4): LSeg2Buff = new LSeg2Buff(new ArrayBuffer[Double](length))
 }
 
-trait LSeg2ArrCommonBuilder extends BuilderArrDbl4[LSeg2Arr]
+/** Common base trait for building [[LSeg2Arr]]s by both the map and flatMap methods. */
+trait LSeg2ArrBuilder extends BuilderArrDbl4[LSeg2Arr]
 { type BuffT = LSeg2Buff
   override def fromDblArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): LSeg2Buff = new LSeg2Buff(inp)
 }
 
-class LSeg2ArrMapBuilder extends LSeg2ArrCommonBuilder with BuilderArrDbl4Map[LSeg2, LSeg2Arr]
-class LineSegArrFlatBuilder extends LSeg2ArrCommonBuilder with BuilderFlatArrDbl4[LSeg2Arr]
+/** [[BuilderArrMap]] for constructing [[LSeg2Arr]]s via the flatMap method. */
+class LSeg2ArrMapBuilder extends LSeg2ArrBuilder, BuilderArrDbl4Map[LSeg2, LSeg2Arr]
+
+/** [[BuilderArrFlat]] for constructing [[LSeg2Arr]]s via the flatMap method. */
+class LineSegArrFlatBuilder extends LSeg2ArrBuilder, BuilderFlatArrDbl4[LSeg2Arr]

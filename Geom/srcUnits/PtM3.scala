@@ -112,7 +112,7 @@ object PtM3
    * [[Length]] classes components use the apply method. */
   def metreNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 
-  /** Implicit [[BuilderMapArr]] type class instance / evidence for [[PTM3]].  */
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PTM3]].  */
   implicit val builderArrEv: BuilderMapArrDbl3[PtM3, PtM3Arr] = new BuilderMapArrDbl3[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
@@ -242,7 +242,7 @@ class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Array
 class PtM3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairDbl3[PtM3, PtM3Arr, B2, PtM3Pair[B2], PtM3PairArr[B2]]
 { override type BuffT = PtM3PairBuff[B2]
   override type B1BuffT = PtM3Buff
-  override def b1ArrBuilder: BuilderMapArr[PtM3, PtM3Arr] = PtM3.builderArrEv
+  override def b1ArrBuilder: BuilderArrMap[PtM3, PtM3Arr] = PtM3.builderArrEv
   override def arrFromArrAndArray(b1Arr: PtM3Arr, b2s: Array[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](b1Arr.arrayUnsafe, b2s)
   override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](a1ArrayDbl, a2Array)
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtM3PairBuff[B2] = new PtM3PairBuff[B2](a1Buffer, a2Buffer)

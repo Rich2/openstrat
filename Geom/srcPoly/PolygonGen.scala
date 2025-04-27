@@ -93,7 +93,7 @@ object PolygonGen extends CompanionSlDbl2[Pt2, PolygonGen]
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayEv[Double].eqT(p1.arrayUnsafe, p2.arrayUnsafe)
 
-  implicit val buildArrMapEv: BuilderMapArr[PolygonGen, PolygonGenArr] = new BuilderMapArrArrayDbl[PolygonGen, PolygonGenArr]
+  implicit val buildArrMapEv: BuilderArrMap[PolygonGen, PolygonGenArr] = new BuilderMapArrArrayDbl[PolygonGen, PolygonGenArr]
   { override type BuffT = PolygonGenBuff
     override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonGenArr = new PolygonGenArr(array)
     override def newBuff(length: Int): PolygonGenBuff = PolygonGenBuff(length)

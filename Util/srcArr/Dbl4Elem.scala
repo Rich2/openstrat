@@ -61,7 +61,7 @@ trait BuilderArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDblN[ArrB]
 }
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl4Elem]]s. Ttype class instances for the builder, should go in the companion object of type B. */
-trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl4[ArrB], BuilderMapArrDblN[B, ArrB]
+trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: ArrDbl4[B]] extends BuilderArrDbl4[ArrB], BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl4[B]
 
   final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =

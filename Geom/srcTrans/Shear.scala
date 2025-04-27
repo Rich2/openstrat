@@ -14,7 +14,7 @@ trait Shear[T]
 /** Companion object for the Shear type class. Contains implicit instances for common types. */
 object Shear
 {
-  given arrImplicit[A, AA <: Arr[A]](using build: BuilderMapArr[A, AA], ev: Shear[A]): Shear[AA] = new Shear[AA]
+  given arrImplicit[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Shear[A]): Shear[AA] = new Shear[AA]
   { def shearXT(obj: AA, yFactor: Double): AA = obj.map(ev.shearXT(_, yFactor))
     def shearYT(obj: AA, xFactor: Double): AA = obj.map(ev.shearXT(_, xFactor))
   }

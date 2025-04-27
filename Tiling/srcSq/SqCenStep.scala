@@ -108,6 +108,6 @@ class SqCenStepPairArrMapBuilder[A2](implicit val b2ClassTag: ClassTag[A2]) exte
   override type B1BuffT = SqCenStepBuff
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[A2]): SqCenStepPairBuff[A2] = new SqCenStepPairBuff[A2](a1Buffer, a2Buffer)
   override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[A2]): SqCenStepPairArr[A2] = new SqCenStepPairArr[A2](b1ArrayInt, b2Array)
-  override def b1ArrBuilder: BuilderMapArr[SqCenStep, SqCenStepArr] = SqCenStep.arrMapBuilderEv
+  override def b1ArrBuilder: BuilderArrMap[SqCenStep, SqCenStepArr] = SqCenStep.arrMapBuilderEv
   override def newB1Buff(): SqCenStepBuff = SqCenStepBuff()
 }

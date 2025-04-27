@@ -116,7 +116,7 @@ object ArrPairStr
 class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderMapArrPair[String, StrArr, B2, PairStrElem[B2], ArrPairStr[B2]]
 { override type BuffT = BuffPairStr[B2]
   override type B1BuffT = StringBuff
-  override def b1ArrBuilder: BuilderMapArr[String, StrArr] = BuilderArrString
+  override def b1ArrBuilder: BuilderArrMap[String, StrArr] = BuilderArrString
   override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): ArrPairStr[B2] = new ArrPairStr[B2](b1Arr.arrayUnsafe, b2s)
 
   override def buffGrow(buff: BuffPairStr[B2], newElem: PairStrElem[B2]): Unit =

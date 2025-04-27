@@ -88,7 +88,7 @@ trait Aff2Trans[T] extends Simil2Trans[T]
 /** The companion object for the Trans[T] type class, containing instances for common classes. */
 object Aff2Trans
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: Aff2Trans[A]): Aff2Trans[AA] =
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderArrMap[A, AA], ev: Aff2Trans[A]): Aff2Trans[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
   implicit def fromTranserAllImplicit[T <: AffinePreserve]: Aff2Trans[T] =

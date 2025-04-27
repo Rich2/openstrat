@@ -119,6 +119,6 @@ class HCenStepPairArrMapBuilder[A2](implicit val b2ClassTag: ClassTag[A2]) exten
   override type B1BuffT = HCenStepBuff
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[A2]): HCenStepPairBuff[A2] = new HCenStepPairBuff[A2](a1Buffer, a2Buffer)
   override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[A2]): HCenStepPairArr[A2] = new HCenStepPairArr[A2](b1ArrayInt, b2Array)
-  override def b1ArrBuilder: BuilderMapArr[HCenStep, HCenStepArr] = HCenStep.arrMapBuilderEv
+  override def b1ArrBuilder: BuilderArrMap[HCenStep, HCenStepArr] = HCenStep.arrMapBuilderEv
   override def newB1Buff(): HCenStepBuff = HCenStepBuff()
 }

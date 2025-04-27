@@ -26,7 +26,7 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
     }
   }
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: PtM2 => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: PtM2 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
@@ -55,8 +55,8 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
 object PolygonM2 extends CompanionSlDbl2[PtM2, PolygonM2]
 { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 
-  /** Implicit [[BuilderMapArr]] type class instance for [[PolygonM2]]s. */
-  implicit val arrBuildImplicit: BuilderMapArr[PolygonM2, PolygonM2Arr] = new BuilderMapArr[PolygonM2, PolygonM2Arr]
+  /** Implicit [[BuilderArrMap]] type class instance for [[PolygonM2]]s. */
+  implicit val arrBuildImplicit: BuilderArrMap[PolygonM2, PolygonM2Arr] = new BuilderArrMap[PolygonM2, PolygonM2Arr]
   { override type BuffT = PolygonM2Buff
     override def newBuff(length: Int): PolygonM2Buff = PolygonM2Buff(length)
     override def uninitialised(length: Int): PolygonM2Arr = new PolygonM2Arr(new Array[Array[Double]](length))
@@ -97,8 +97,8 @@ class PolygonM2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends Polyg
 }
 
 object PolygonM2Pair
-{ /** Implicit [[BuilderMapArr]] instances / evidence for [[PolygonM2PairArr]]s. */
-  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): BuilderMapArr[PolygonM2Pair[A2], PolygonM2PairArr[A2]] = new PolygonM2PairBuilder[A2]
+{ /** Implicit [[BuilderArrMap]] instances / evidence for [[PolygonM2PairArr]]s. */
+  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): BuilderArrMap[PolygonM2Pair[A2], PolygonM2PairArr[A2]] = new PolygonM2PairBuilder[A2]
 }
 
 /** Specialist [[ArrPair]] class for [[PolygonM2]]s. */
@@ -128,7 +128,7 @@ final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
   override def b1Builder: PolygonLikeBuilderMap[PtM2, PolygonM2] = PtM2.polygonBuildImplicit
-  override def b1ArrBuilder: BuilderMapArr[PolygonM2, PolygonM2Arr] = PolygonM2.arrBuildImplicit
+  override def b1ArrBuilder: BuilderArrMap[PolygonM2, PolygonM2Arr] = PolygonM2.arrBuildImplicit
   override def arrFromArrAndArray(b1Arr: PolygonM2Arr, b2s: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonM2Buff = PolygonM2Buff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Array)

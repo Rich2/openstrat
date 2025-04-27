@@ -29,7 +29,7 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
     }
   }
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: PtKm3 => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: PtKm3 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
@@ -78,7 +78,7 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
 object PolygonKm3 extends CompanionSlDbl3[PtKm3, PolygonKm3]
 { override def fromArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
 
-  implicit val arrBuildImplicit: BuilderMapArr[PolygonKm3, PolygonKm3Arr] = new BuilderMapArr[PolygonKm3, PolygonKm3Arr] {
+  implicit val arrBuildImplicit: BuilderArrMap[PolygonKm3, PolygonKm3Arr] = new BuilderArrMap[PolygonKm3, PolygonKm3Arr] {
     override type BuffT = PolygonKm3Buff
     override def newBuff(length: Int): PolygonKm3Buff = PolygonKm3Buff(length)
     override def uninitialised(length: Int): PolygonKm3Arr = new PolygonKm3Arr(new Array[Array[Double]](length))
@@ -154,7 +154,7 @@ final class PolygonKm3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
   override def buffToSeqLike(buff: PolygonKm3PairBuff[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
   override def b1Builder: PolygonLikeBuilderMap[PtKm3, PolygonKm3] = PtKm3.polygonBuildMapEv
-  override def b1ArrBuilder: BuilderMapArr[PolygonKm3, PolygonKm3Arr] = PolygonKm3.arrBuildImplicit
+  override def b1ArrBuilder: BuilderArrMap[PolygonKm3, PolygonKm3Arr] = PolygonKm3.arrBuildImplicit
   override def arrFromArrAndArray(b1Arr: PolygonKm3Arr, b2s: Array[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonKm3Buff = PolygonKm3Buff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](arrayArrayDbl, a2Array)

@@ -64,7 +64,7 @@ trait BuilderSlDbl5[BB <: SlImutDbl5[?]] extends BuilderSlDblN[BB]
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl5Elem]]s, by the map method. Type class instances for the builder you control, should go in the
  * companion object of type B. */
-trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5[ArrB], BuilderMapArrDblN[B, ArrB]
+trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5[ArrB], BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl5[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =

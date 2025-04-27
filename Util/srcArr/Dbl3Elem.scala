@@ -75,16 +75,16 @@ trait BuilderSlDbl3[BB <: SlImutDbl3[?]] extends BuilderSlDblN[BB]
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects with [[Dbl3Elem]]s via the map method. */
-trait BuilderMapSlDbl3[B <: Dbl3Elem, BB <: SlImutDbl3[B]] extends BuilderSlDbl3[BB], BuilderMapSlDblNMap[B, BB]
+trait BuilderMapSlDbl3[B <: Dbl3Elem, BB <: SlImutDbl3[B]] extends BuilderSlDbl3[BB], BuilderMapSlDblN[B, BB]
 { type BuffT <: Dbl3Buff[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
-/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the map method. Instances for the [[BuilderMapArr]] type class, for classes / traits
+/** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the map method. Instances for the [[BuilderArrMap]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. */
-trait BuilderMapArrDbl3[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderMapSlDbl3[B, ArrB], BuilderMapArrDblN[B, ArrB]
+trait BuilderMapArrDbl3[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderMapSlDbl3[B, ArrB], BuilderArrDblNMap[B, ArrB]
 
-/** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the flatMap method. [[BuilderFlatArr]] type class instances for [[ArrDbl3]] final
+/** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the flatMap method. [[BuilderArrFlat]] type class instances for [[ArrDbl3]] final
  * classes1, should go in the companion object of the [[Arr]] final class. */
 trait BuilderFlatArrDbl3[ArrB <: ArrDbl3[?]] extends BuilderSlDbl3[ArrB], BuilderFlatArrDblN[ArrB]
 

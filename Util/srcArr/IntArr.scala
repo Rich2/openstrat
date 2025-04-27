@@ -122,7 +122,7 @@ object IntArr
 }
 
 /** Builder object for [[IntArr]]. */
-object IntArrBuilder extends BuilderMapArr[Int, IntArr] with BuilderFlatArr[IntArr]
+object IntArrBuilder extends BuilderArrMap[Int, IntArr] with BuilderArrFlat[IntArr]
 { type BuffT = IntBuff
   override def uninitialised(length: Int): IntArr = new IntArr(new Array[Int](length))
   override def indexSet(seqLike: IntArr, index: Int, newElem: Int): Unit = seqLike.arrayUnsafe(index) = newElem

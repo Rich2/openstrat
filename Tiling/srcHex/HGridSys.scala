@@ -174,7 +174,7 @@ trait HGridSys extends HexStruct with TGridSys
   def edgesForeach(f: HSep => Unit): Unit
 
   /** maps over each Hex Separator's coordinate [[HSep]] in the hex grid system. */
-  final def sepsMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
+  final def sepsMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numSeps)
     var i = 0
     sepsForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -182,7 +182,7 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** maps over each the grid systems link / inner side's coordinate [[HSep]]. */
-  final def linksMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
+  final def linksMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numInnerSeps)
     var i = 0
     linksForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -190,7 +190,7 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** maps over each the grid systems outer side's coordinate [[HSep]]. */
-  final def edgesMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
+  final def edgesMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numOuterSeps)
     var i = 0
     edgesForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -198,14 +198,14 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** flatMaps over each Hex Separator's coordinate [[HSep]]. */
-  final def sepsFlatMap[ArrT <: Arr[?]](f: HSep => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
+  final def sepsFlatMap[ArrT <: Arr[?]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     sepsForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
   /** Optionally maps over each Hex Separator's coordinate [[HSep]]. */
-  final def sepsOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  final def sepsOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     sepsForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
     build.buffToSeqLike(buff)
@@ -219,14 +219,14 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** flatMaps  over each inner hex Separator's coordinate [[HSep]].. */
-  final def linksFlatMap[ArrT <: Arr[?]](f: HSep => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
+  final def linksFlatMap[ArrT <: Arr[?]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
   /** OptMaps over each inner hex Side's coordinate [[HSep]]. */
-  final def linksOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  final def linksOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     linksForeach { hs => f(hs).foreach(build.buffGrow(buff, _)) }
     build.buffToSeqLike(buff)
@@ -269,7 +269,7 @@ trait HGridSys extends HexStruct with TGridSys
   def vertsForeach(f: HVert => Unit): Unit = ???
 
   /** maps over each Hex Separator's coordinate [[HSep]] in the hex grid system. */
-  final def vertsMap[B, ArrT <: Arr[B]](f: HVert => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
+  final def vertsMap[B, ArrT <: Arr[B]](f: HVert => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numSeps)
     var i = 0
     vertsForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -277,7 +277,7 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** flatMaps over each Hex vertex's coordinate [[HVert]]. */
-  final def vertsFlatMap[ArrT <: Arr[?]](f: HVert => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
+  final def vertsFlatMap[ArrT <: Arr[?]](f: HVert => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     vertsForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)

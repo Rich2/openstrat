@@ -69,7 +69,7 @@ object LineSegFm2
   implicit val persistEv: Persist2Both[PtFm2, PtFm2, LineSegFm2] =
     Persist2Both[PtFm2, PtFm2, LineSegFm2]("LineSegKM2", "start", _.startPt, "end", _.endPt, LineSegFm2(_, _))
 
-  /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
+  /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
   implicit val buildEv: BuilderArrDbl4Map[LineSegFm2, LineSegFm2Arr] = new BuilderArrDbl4Map[LineSegFm2, LineSegFm2Arr]
   { type BuffT = LineSegFm2Buff
     override def fromDblArray(array: Array[Double]): LineSegFm2Arr = new LineSegFm2Arr(array)
@@ -90,8 +90,8 @@ class LineSegFm2Arr(val arrayUnsafe: Array[Double]) extends ArrDbl4[LineSegFm2]
 object LineSegFm2Arr extends CompanionSeqLikeDbl4[LineSegFm2, LineSegFm2Arr]
 { override def fromArray(array: Array[Double]): LineSegFm2Arr = new LineSegFm2Arr(array)
 
-  /** Implicit instance /evidence for [[BuilderFlatArr]] type class instance. */
-  implicit val flatBuildEv: BuilderFlatArr[LineSegFm2Arr] = new BuilderFlatArrDbl4[LineSegFm2Arr]
+  /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
+  implicit val flatBuildEv: BuilderArrFlat[LineSegFm2Arr] = new BuilderFlatArrDbl4[LineSegFm2Arr]
   { type BuffT = LineSegFm2Buff
     override def fromDblArray(array: Array[Double]): LineSegFm2Arr = new LineSegFm2Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegFm2Buff = new LineSegFm2Buff(inp)

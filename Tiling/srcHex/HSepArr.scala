@@ -20,7 +20,7 @@ object HSepArr extends CompanionSlInt2[HSep, HSepArr]
 { override def fromArray(array: Array[Int]): HSepArr = new HSepArr(array)
 
   /** Implicit flatMap builder instance / evidence for [[HSepArr]]. */
-  implicit val flatBuilderEv: BuilderFlatArr[HSepArr] = new BuilderFlatArrInt2[HSepArr]
+  implicit val flatBuilderEv: BuilderArrFlat[HSepArr] = new BuilderFlatArrInt2[HSepArr]
   { type BuffT = HSepBuff
     override def fromIntArray(array: Array[Int]): HSepArr = new HSepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSepBuff = new HSepBuff(buffer)
@@ -79,7 +79,7 @@ class HSepBuilderArrPairMap[B2](implicit ct: ClassTag[B2]) extends BuilderArrPai
   override type B1BuffT = HSepBuff
   override implicit val b2ClassTag: ClassTag[B2] = ct
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HSepBuffPair[B2] = new HSepBuffPair[B2](a1Buffer, a2Buffer)
-  override def b1ArrBuilder: BuilderMapArr[HSep, HSepArr] = HSep.arrMapBuilderEv
+  override def b1ArrBuilder: BuilderArrMap[HSep, HSepArr] = HSep.arrMapBuilderEv
   override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): HSepArrPair[B2] = new HSepArrPair[B2](b1ArrayInt, b2Array)
   override def newB1Buff(): HSepBuff = HSepBuff()
 }

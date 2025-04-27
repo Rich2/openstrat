@@ -26,7 +26,7 @@ object Simil2Trans
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: Simil2Trans[A]): Simil2Trans[AA] = new Simil2Trans[AA]
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderArrMap[A, AA], ev: Simil2Trans[A]): Simil2Trans[AA] = new Simil2Trans[AA]
   { override def slate(obj: AA, offset: VecPt2): AA = obj.map(ev.slate(_, offset))
     override def rotate(obj: AA, angle: AngleVec): AA = obj.map(ev.rotate(_, angle))
     override def reflectT(obj: AA, line: LineLike): AA = obj.map(ev.reflectT(_, line))
