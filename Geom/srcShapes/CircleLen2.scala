@@ -2,7 +2,7 @@
 package ostrat; package geom
 import math.Pi, Colour.Black
 
-final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Length) extends ShapeLen2, FillableLen2
+final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Length) extends EllipseLen2
 { type ThisT = CircleLen2
   override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2(radius, cenX + operand.x, cenY + operand.y)
   override def slate(xOperand: Length, yOperand: Length): CircleLen2 = CircleLen2(radius, cenX + xOperand, cenY + yOperand)
