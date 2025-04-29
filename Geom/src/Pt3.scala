@@ -5,7 +5,7 @@ import math._
 /** A 3 dimensional point. Right-handed coordinate system is the default. */
 final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 with Vec3Like
 { override type ThisT = Pt3
-  override type LineSegT = LineSeg3
+  override type LineSegT = LSeg3
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
@@ -47,11 +47,11 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 w
     Pt3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 
-  /** [[LineSeg3]] from this point to the parameter point. */
-  def lineSegTo(endPt: Pt3): LineSeg3 = LineSeg3(this, endPt)
+  /** [[LSeg3]] from this point to the parameter point. */
+  def lineSegTo(endPt: Pt3): LSeg3 = LSeg3(this, endPt)
 
-  /** [[LineSeg3]] from the parameter point to this point. */
-  def lineSegFrom(startPt: Pt3): LineSeg3 = LineSeg3(startPt, this)
+  /** [[LSeg3]] from the parameter point to this point. */
+  def lineSegFrom(startPt: Pt3): LSeg3 = LSeg3(startPt, this)
 }
 
 /** Companion object for [[Pt3]] class. Contains apply, unapply factory methods and Persist type class instance. */

@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-trait LineSegLength3[VT <: PtLength3] extends LineSegLike[VT] with Dbl6Elem
+trait LineSegLength3[VT <: PtLength3] extends LSegBase[VT] with Dbl6Elem
 {
   def xStartMetresNum: Double
   def yStartMetresNum: Double

@@ -5,7 +5,7 @@ import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 /** A polygon where the vertices are specified in [[Metres]] rather than scalars. */
 final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtM2]
 { type ThisT = PolygonM2
-  type SideT = LineSegM2
+  type SideT = LSegM2
   override def typeStr: String = "PolygonM2"
   override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
@@ -36,10 +36,10 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
     res
   }
 
-  @inline override def side(index: Int): LineSegM2 = LineSegM2(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSegM2 = LSegM2(vert(index), vert(index + 1))
   override def sides: LineSegM2Arr = new LineSegM2Arr(arrayForSides)
 
-  override def sidesForeach[U](f: LineSegM2 => U): Unit =
+  override def sidesForeach[U](f: LSegM2 => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }

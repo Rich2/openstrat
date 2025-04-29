@@ -1,27 +1,27 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A [[LineSegLike]] object paired with an object of type A2.]] */
-trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends PairFinalA1Elem[A1, A2]
+/** A [[LSegBase]] object paired with an object of type A2.]] */
+trait LineSegLikePair[VT, A1 <: LSegBase[VT], A2] extends PairFinalA1Elem[A1, A2]
 
-/** An [[Arr]] of [[LineSegLikePair]]s stored efficiently allowing maping between different [[LineSegLike]] types while keeping the A2 values unchanged. */
-trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
-{ /** Maps this to a new [LineSegLikePairArr]] by mapping [[LineSegLike]]s to new [[LineSegLike]]s of type B1 leaving the second parts of the pairs
+/** An [[Arr]] of [[LineSegLikePair]]s stored efficiently allowing maping between different [[LSegBase]] types while keeping the A2 values unchanged. */
+trait LineSegLikePairArr[VT, A1 <: LSegBase[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A]
+{ /** Maps this to a new [LineSegLikePairArr]] by mapping [[LSegBase]]s to new [[LSegBase]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
-  def lineSegMapToPair[B1V <: ValueNElem, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B <: LineSegLikePair[B1V, B1, A2],
+  def lineSegMapToPair[B1V <: ValueNElem, B1 <: LSegBase[B1V], ArrB1 <: Arr[B1], B <: LineSegLikePair[B1V, B1, A2],
     ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, A2, B]](f: VT => B1V)(implicit build: LineSegLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
   { val lineSegs = a1Arr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
     build.arrFromArrAndArray(lineSegs, a2Array)
   }
 }
 
-trait LineSegLikePairBuff[VT, B1 <: LineSegLike[VT], B2, B <: LineSegLikePair[VT, B1, B2]] extends BuffPair[B1, B2, B]
+trait LineSegLikePairBuff[VT, B1 <: LSegBase[VT], B2, B <: LineSegLikePair[VT, B1, B2]] extends BuffPair[B1, B2, B]
 
-trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B2, B <: LineSegLikePair[B1V, B1, B2],
+trait LineSegLikePairArrBuilder[B1V, B1 <: LSegBase[B1V], ArrB1 <: Arr[B1], B2, B <: LineSegLikePair[B1V, B1, B2],
   ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: LineSegLikePairBuff[B1V, B1, B2, B]
 
-  /** Builder for the first element of the pair of type B1, in this case a [[LineSegLike]]. The return type has been narrowed as it is needed for the
+  /** Builder for the first element of the pair of type B1, in this case a [[LSegBase]]. The return type has been narrowed as it is needed for the
    * polygonMapPair method on [[LineSegLikePairArr]]. */
   def b1Builder: LineSegLikeBuilderMap[B1V, B1]
 }

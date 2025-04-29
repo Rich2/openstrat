@@ -49,9 +49,9 @@ class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double
   def rotate180If(cond: Boolean): SqlignM2 = ???
   def rotate180IfNot(cond: Boolean): SqlignM2 = ???
   override def arrayUnsafe: Array[Double] = ???
-  override def side(index: Int): LineSegM2 = ???
+  override def side(index: Int): LSegM2 = ???
 
-  override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
+  override def sidesForeach[U](f: LSegM2 => U): Unit = ???
   override def verts: Arr[PtM2] = ???
   override def fromArray(array: Array[Double]): SqlignM2 = ???
   override def elemFromDbls(d1: Double, d2: Double): PtM2 = ???

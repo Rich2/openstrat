@@ -42,7 +42,7 @@ trait RectLen2[+VT <: PtLen2] extends RectangleLen2[VT]
 
 trait RectM2 extends RectLen2[PtM2]
 { type ThisT <: RectM2
-  override type SideT = LineSegM2
+  override type SideT = LSegM2
   def widthMNum: Double
   def heightMNum: Double
   def xCenMNum: Double
@@ -68,8 +68,8 @@ trait RectM2 extends RectLen2[PtM2]
   override def rb: PtM2 = PtM2(rightMNum, bottomMNum)
   override def lb: PtM2 = PtM2(leftMNum, bottomMNum)
   override def lt: PtM2 = PtM2(leftMNum, topMNum)
-  override def lbrtDiag: LineSegM2 = LineSegM2(leftMNum, bottomMNum, rightMNum, topMNum)
-  override def ltrbDiag: LineSegM2 = LineSegM2(leftMNum, topMNum, rightMNum, bottomMNum)
+  override def lbrtDiag: LSegM2 = LSegM2(leftMNum, bottomMNum, rightMNum, topMNum)
+  override def ltrbDiag: LSegM2 = LSegM2(leftMNum, topMNum, rightMNum, bottomMNum)
 
   override def sidesDiags: LineSegLen2Arr[PtM2] = sides ++ diags
 

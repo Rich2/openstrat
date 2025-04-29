@@ -6,8 +6,8 @@ trait Point extends Any
 { /** The type of this point for the purposes of LineSegT. May not be the final type. */
   type ThisT <: Point
 
-  /** The type of [[LineSegLike]] that this [[Point]] can start or ends. */
-  type LineSegT <: LineSegLike[ThisT]
+  /** The type of [[LSegBase]] that this [[Point]] can start or ends. */
+  type LineSegT <: LSegBase[ThisT]
 }
 
 trait PointSeqLike[PT <: Point] extends Any with SeqLike[PT]

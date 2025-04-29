@@ -7,7 +7,7 @@ package ostrat; package geom
  *    would be a [[PtM3]]. */
 trait PolygonLike[+VT] extends Any, VertSeqSpec[VT]
 { type ThisT <: PolygonLike[VT]
-  type SideT <: LineSegLike[VT]
+  type SideT <: LSegBase[VT]
 
 
   /** Checks this polygon has at least 3 vertices. */

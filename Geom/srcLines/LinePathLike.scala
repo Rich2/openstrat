@@ -6,7 +6,7 @@ import annotation._
 trait LinePathLike[VT] extends Any with VertSeqSpec[VT]
 { type ThisT <: LinePathLike[VT]
   type PolygonT <: PolygonLike[VT]
-  type LineSegT <: LineSegLike[VT]
+  type LineSegT <: LSegBase[VT]
   type LineSegArrT <: Arr[LineSegT]
 
   /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
@@ -83,7 +83,7 @@ trait LinePathLike[VT] extends Any with VertSeqSpec[VT]
    * that this line is reversed. The | characters at the begining and the end indicate to close to a polygon. */
   @targetName("reverseAppendToPolygon") def |+<+|(operand: ThisT): PolygonT
 
-  /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
+  /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LSegBase]] from the last vertex to the first. */
   def toPolygon: PolygonT
 
   final def numVerts: Int = numElems

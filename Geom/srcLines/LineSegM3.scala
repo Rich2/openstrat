@@ -25,7 +25,7 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
   def zsPos: Boolean = zStart.nonNeg && zEnd.nonNeg
 
   /** Takes the X and Y components. */
-  def xy: LineSegM2 = new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
+  def xy: LSegM2 = new LSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
   def xyLineSeg(scale: LengthMetric): LSeg2 = LSeg2(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)

@@ -1,7 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math.Pi, Colour.Black
+import Colour.Black
 
+/** A circle defined in [[Length]] units. */
 final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Length) extends EllipseLen2
 { type ThisT = CircleLen2
   override def slate(operand: VecPtLen2): CircleLen2 = CircleLen2(radius, cenX + operand.x, cenY + operand.y)
@@ -17,6 +18,7 @@ final class CircleLen2 protected[geom](radius: Length, cenX: Length, cenY: Lengt
     CircleLen2Compound(this, RArr(fillFacet, DrawFacet(lineColour, lineWidth)), RArr())
 }
 
+/** Companion object for circle defined in [[Length]] units, contains factory methods. */
 object CircleLen2
 { /** Factory apply method for creating a circle with [[Length]] units. The first parameter gives the radius of the circle. The default centre is at the origin.
  * There is an apply name overload that takes the X and Y centre [[Length]] values as parameters There are corresponding d methods that take a diameter as the
