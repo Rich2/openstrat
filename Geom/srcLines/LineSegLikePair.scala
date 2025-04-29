@@ -26,9 +26,9 @@ trait LineSegLikePairArrBuilder[B1V, B1 <: LSegBase[B1V], ArrB1 <: Arr[B1], B2, 
   def b1Builder: BuilderMapLSegBase[B1V, B1]
 }
 
-trait LineSegLikeIntNPair[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with PairIntNElem[A1, A2]
+trait LineSegLikeIntNPair[VT <: IntNElem, A1 <: LSegIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with PairIntNElem[A1, A2]
 
-trait LineSegLikeIntNPairArr[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], ArrA1 <: ArrIntN[A1], A2, A <: LineSegLikeIntNPair[VT, A1, A2]] extends
+trait LineSegLikeIntNPairArr[VT <: IntNElem, A1 <: LSegIntN[VT], ArrA1 <: ArrIntN[A1], A2, A <: LineSegLikeIntNPair[VT, A1, A2]] extends
   LineSegLikePairArr[VT, A1, ArrA1, A2, A] with ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A]
 }

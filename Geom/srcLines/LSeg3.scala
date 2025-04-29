@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A 3-dimensional line segment. A straight line between two points in a 3d space. */
-final class LSeg3(val dbl1: Double, val dbl2: Double, val dbl3: Double, val dbl4: Double, val dbl5: Double, val dbl6: Double) extends LineSegLikeDbl6[Pt3]
+final class LSeg3(val dbl1: Double, val dbl2: Double, val dbl3: Double, val dbl4: Double, val dbl5: Double, val dbl6: Double) extends LSegDbl6[Pt3]
 { def typeStr: String = "LSeg3"
 
   inline def startX: Double = dbl1

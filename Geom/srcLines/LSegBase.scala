@@ -47,14 +47,16 @@ trait LSegDbl4[VT <: Dbl2Elem] extends LSegDblN[VT] with Dbl4Elem
 /** Specialist [[Arr]] trait for line segments whose start and end points are defined in [[Dbl2Elem]] vertices. */
 trait ArrLSegDbl4[VT <: Dbl2Elem, A <: LSegDbl4[VT]] extends Any with ArrLSegDblN[VT, A] with ArrDbl4[A]
 
-/** A line segment where the start and end points are defined in [[Dbl3Elem]] vertices. Theis will be the case for 3D space line segment and 3D line segment
- * specified in metres. */
-trait LineSegLikeDbl6[VT <: Dbl3Elem] extends LSegDblN[VT] with Dbl6Elem
+/** A line segment where the start and end points are defined in [[Dbl3Elem]] vertices. Theis will be the case for 3-dimensional scalar line segments and
+ * 3-dimensional line segments specified in [[Length]] units. */
+trait LSegDbl6[VT <: Dbl3Elem] extends LSegDblN[VT] with Dbl6Elem
 
-trait LineSegLikeDbl6Arr[VT <: Dbl3Elem, A <: LineSegLikeDbl6[VT]] extends Any with ArrLSegDblN[VT, A] with ArrDbl6[A]
+/** Specialist [[Arr]] trait for line segments with [[Dbl3Elem]] vertices. */
+trait ArrLSegDbl6[VT <: Dbl3Elem, A <: LSegDbl6[VT]] extends Any with ArrLSegDblN[VT, A] with ArrDbl6[A]
 
-trait LineSegLikeIntN[VT <: IntNElem] extends LSegBase[VT] with IntNElem
+/** Line segments with vertices that are [[IntN]] elements. Used in the Tiling module. */
+trait LSegIntN[VT <: IntNElem] extends LSegBase[VT] with IntNElem
 
-trait LineSegLikeInt4[VT <: Int2Elem] extends LineSegLikeIntN[VT] with Int4Elem
+trait LineSegLikeInt4[VT <: Int2Elem] extends LSegIntN[VT] with Int4Elem
 
-trait LineSegLikeInt6[VT <: Int3Elem] extends LineSegLikeIntN[VT] with Int6Elem
+trait LineSegLikeInt6[VT <: Int3Elem] extends LSegIntN[VT] with Int6Elem
