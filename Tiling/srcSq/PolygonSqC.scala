@@ -5,7 +5,7 @@ import geom.*, collection.mutable.ArrayBuffer
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
 class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, PolygonLikeInt2[SqCoord]
 { override type ThisT = PolygonSqC
-  override type SideT = LineSegSC
+  override type SideT = LSegSC
   override def typeStr: String = "PolygonSqC"
   override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
   def vertNum: Int = arrayUnsafe.length / 2
@@ -47,10 +47,10 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal, SqCoordSeqSpec, Po
     ???
   }
 
-  @inline override def side(index: Int): LineSegSC = LineSegSC(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSegSC = LSegSC(vert(index), vert(index + 1))
   override def sides: LineSegSCArr = new LineSegSCArr(arrayForSides)
 
-  override def sidesForeach[U](f: LineSegSC => U): Unit =
+  override def sidesForeach[U](f: LSegSC => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }

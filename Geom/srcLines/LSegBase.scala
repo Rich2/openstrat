@@ -54,9 +54,11 @@ trait LSegDbl6[VT <: Dbl3Elem] extends LSegDblN[VT] with Dbl6Elem
 /** Specialist [[Arr]] trait for line segments with [[Dbl3Elem]] vertices. */
 trait ArrLSegDbl6[VT <: Dbl3Elem, A <: LSegDbl6[VT]] extends Any with ArrLSegDblN[VT, A] with ArrDbl6[A]
 
-/** Line segments with vertices that are [[IntN]] elements. Used in the Tiling module. */
+/** Line segments with vertices that are [[IntNElem]]s. Used in the Tiling module. */
 trait LSegIntN[VT <: IntNElem] extends LSegBase[VT] with IntNElem
 
-trait LineSegLikeInt4[VT <: Int2Elem] extends LSegIntN[VT] with Int4Elem
+/** Line segments with vertices that are [[Int4Elem]]s. */
+trait LSegInt4[VT <: Int2Elem] extends LSegIntN[VT] with Int4Elem
 
-trait LineSegLikeInt6[VT <: Int3Elem] extends LSegIntN[VT] with Int6Elem
+/** Line segments with vertices that are [[Int6Elem]]s. */
+trait LSegInt6[VT <: Int3Elem] extends LSegIntN[VT] with Int6Elem

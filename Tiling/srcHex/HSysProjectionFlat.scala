@@ -97,9 +97,9 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
 
   override def transTile(hc: HCen): Option[Polygon] = Some(hc.hVertPolygon.map(transCoord(_)))
 
-  override def transOptLineSeg(seg: LineSegHC): Option[LSeg2] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)){ (p1, p2) => LSeg2(p1, p2) }
+  override def transOptLineSeg(seg: LSegHC): Option[LSeg2] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)){ (p1, p2) => LSeg2(p1, p2) }
 
-  override def transLineSeg(seg: LineSegHC): LSeg2 = seg.map(transCoord)
+  override def transLineSeg(seg: LSegHC): LSeg2 = seg.map(transCoord)
 
   override def transHSeps(inp: HSepArr): LSeg2Arr = LSeg2Arr()// ???//.slate(-focus).scale(cPScale)
 }

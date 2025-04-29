@@ -3,34 +3,34 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** [[SqCood]] defined [[LSegBase]] [[PairFinalA1Elem]]. */
-class LineSegHCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends LineSegLikeInt4Pair[HCoord, LineSegHC, A2]
+class LineSegHCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends LineSegLikeInt4Pair[HCoord, LSegHC, A2]
 { /** The first component of this pair. */
-  override def a1: LineSegHC = new LineSegHC(a1Int1, a1Int2, a1Int3, a1Int4)
+  override def a1: LSegHC = new LSegHC(a1Int1, a1Int2, a1Int3, a1Int4)
 }
 
 object LineSegHCPair
-{ def apply[A2](ls: LineSegHC, a2: A2): LineSegHCPair[A2] = new LineSegHCPair[A2](ls.int1, ls.int2, ls.int3, ls.int4, a2)
+{ def apply[A2](ls: LSegHC, a2: A2): LineSegHCPair[A2] = new LineSegHCPair[A2](ls.int1, ls.int2, ls.int3, ls.int4, a2)
 }
 
 class LineSegHCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends
-  LineSegLikeInt4PairArr[HCoord, LineSegHC, LineSegHCArr, A2, LineSegHCPair[A2]]
+  LineSegLikeInt4PairArr[HCoord, LSegHC, LineSegHCArr, A2, LineSegHCPair[A2]]
 { override type ThisT = LineSegHCPairArr[A2]
   override def typeStr: String = "LineSegHCPair"
   override def a1Arr: LineSegHCArr = new LineSegHCArr(a1ArrayInt)
   override def elemFromInts(int1: Int, int2: Int, int3: Int, int4: Int, a2: A2): LineSegHCPair[A2] = new LineSegHCPair[A2](int1, int2, int3, int4, a2)
-  override def a1FromInts(int1: Int, int2: Int, int3: Int, int4: Int): LineSegHC = new LineSegHC(int1, int2, int3, int4)
+  override def a1FromInts(int1: Int, int2: Int, int3: Int, int4: Int): LSegHC = new LSegHC(int1, int2, int3, int4)
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): LineSegHCPairArr[A2] = new LineSegHCPairArr[A2](newA1Array, newA2Array)
   override def fElemStr: LineSegHCPair[A2] => String = _.toString
 }
 
 /** Specialised [[Buff]] class for [[LineSegHCPair]]s, that uses two backing [[ArrayBuffer]]s. */
-class LineSegHCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt4[LineSegHC, B2, LineSegHCPair[B2]]
+class LineSegHCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt4[LSegHC, B2, LineSegHCPair[B2]]
 { override type ThisT = LineSegHCPairBuff[B2]
   override def typeStr: String = "LineSegHCPairBuff"
   override def elemFromInts(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): LineSegHCPair[B2] = new LineSegHCPair[B2](int1, int2, int3, int4, a2)
 }
 
-trait LineSegHCPairArrCommonBuilder[B2] extends BuilderArrPairInt4[LineSegHC, LineSegHCArr, B2, LineSegHCPairArr[B2]]
+trait LineSegHCPairArrCommonBuilder[B2] extends BuilderArrPairInt4[LSegHC, LineSegHCArr, B2, LineSegHCPairArr[B2]]
 { override type BuffT = LineSegHCPairBuff[B2]
   override type B1BuffT = LineSegHCBuff
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): LineSegHCPairBuff[B2] = new LineSegHCPairBuff[B2](a1Buffer, a2Buffer)
@@ -39,9 +39,9 @@ trait LineSegHCPairArrCommonBuilder[B2] extends BuilderArrPairInt4[LineSegHC, Li
 }
 
 class LineSegHCPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends LineSegHCPairArrCommonBuilder[B2],
-  BuilderMapArrPairInt4[LineSegHC, LineSegHCArr, B2, LineSegHCPair[B2], LineSegHCPairArr[B2]]
-{ override def b1ArrBuilder: BuilderArrMap[LineSegHC, LineSegHCArr] = LineSegHC.arrMapBuilderEv
+  BuilderMapArrPairInt4[LSegHC, LineSegHCArr, B2, LineSegHCPair[B2], LineSegHCPairArr[B2]]
+{ override def b1ArrBuilder: BuilderArrMap[LSegHC, LineSegHCArr] = LSegHC.arrMapBuilderEv
 }
 
 class LineSegHCPairArrFlatBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends LineSegHCPairArrCommonBuilder[B2],
-  BuilderArrPairInt4Flat[LineSegHC, LineSegHCArr, B2, LineSegHCPairArr[B2]]
+  BuilderArrPairInt4Flat[LSegHC, LineSegHCArr, B2, LineSegHCPairArr[B2]]

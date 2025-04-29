@@ -168,9 +168,9 @@ class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
 
   def segsNum: Int = arrayUnsafe.length
 
-  def segSqCsForeach(start: SqCen)(f: LineSegSC => Unit): Unit = segSqCsForeach(start.r, start.c)(f)
+  def segSqCsForeach(start: SqCen)(f: LSegSC => Unit): Unit = segSqCsForeach(start.r, start.c)(f)
 
-  def segSqCsForeach(startR: Int, startC: Int)(f: LineSegSC => Unit): Unit =
+  def segSqCsForeach(startR: Int, startC: Int)(f: LSegSC => Unit): Unit =
   { var count = 0
     var r1 = startR
     var c1 = startC
@@ -181,7 +181,7 @@ class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
     { val step = SqStep.fromInt(arrayUnsafe(count))
       r2 = r1 + step.tr
       c2 = c1 + step.tc
-      val hls = LineSegSC(r1, c1, r2, c2)
+      val hls = LSegSC(r1, c1, r2, c2)
       f(hls)
       count += 1
       r1 = r2
@@ -189,10 +189,10 @@ class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
     }
   }
 
-  def segSqCsMap[B, ArrB <: Arr[B]](start: SqCen)(f: LineSegSC => B)(implicit build: BuilderArrMap[B, ArrB], gridSys: SqGridSys): ArrB =
+  def segSqCsMap[B, ArrB <: Arr[B]](start: SqCen)(f: LSegSC => B)(implicit build: BuilderArrMap[B, ArrB], gridSys: SqGridSys): ArrB =
     segSqCsMap(start.r, start.c)(f)(build, gridSys)
 
-  def segSqCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSegSC => B)(implicit build: BuilderArrMap[B, ArrB], grider: SqGridSys): ArrB = {
+  def segSqCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LSegSC => B)(implicit build: BuilderArrMap[B, ArrB], grider: SqGridSys): ArrB = {
     val res = build.uninitialised(segsNum)
     var count = 0
     segSqCsForeach(startR, startC) { s =>

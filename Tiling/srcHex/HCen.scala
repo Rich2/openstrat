@@ -110,8 +110,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep, TCen
   /** HCenStep for this [[HCen]] and the parameter [[HStep]]. */
   def andStep(step: HStep): HCenStep = HCenStep(r, c, step)
 
-  /** Returns the [[LineSegHC]], a line segment specified in [[HCoord]]s, given by the step. */
-  def segStepTo(st: HStep): LineSegHC = new LineSegHC(r, c, r + st.tr, c + st.tc)
+  /** Returns the [[LSegHC]], a line segment specified in [[HCoord]]s, given by the step. */
+  def segStepTo(st: HStep): LSegHC = new LSegHC(r, c, r + st.tr, c + st.tc)
 
   def stepToUnsafe(step: HStep): HCen = new HCen(r + step.tr, c + step.tc)
 

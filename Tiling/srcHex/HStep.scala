@@ -157,9 +157,9 @@ class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
   override def fElemStr: HStep => String = _.toString
   def segsNum: Int = arrayUnsafe.length
 
-  def segHCsForeach(start: HCen)(f: LineSegHC => Unit): Unit = segHCsForeach(start.r, start.c)(f)
+  def segHCsForeach(start: HCen)(f: LSegHC => Unit): Unit = segHCsForeach(start.r, start.c)(f)
 
-  def segHCsForeach(startR: Int, startC: Int)(f: LineSegHC => Unit): Unit =
+  def segHCsForeach(startR: Int, startC: Int)(f: LSegHC => Unit): Unit =
   { var count = 0
     var r1 = startR
     var c1 = startC
@@ -170,7 +170,7 @@ class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
     { val step = HStep.fromInt(arrayUnsafe(count))
       r2 = r1 + step.tr
       c2 = c1 + step.tc
-      val hls = LineSegHC(r1, c1, r2, c2)
+      val hls = LSegHC(r1, c1, r2, c2)
       f(hls)
       count += 1
       r1 = r2
@@ -178,10 +178,10 @@ class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
     }
   }
 
-  def segHCsMap[B, ArrB <: Arr[B]](start: HCen)(f: LineSegHC => B)(implicit build: BuilderArrMap[B, ArrB], gridSys: HGridSys): ArrB =
+  def segHCsMap[B, ArrB <: Arr[B]](start: HCen)(f: LSegHC => B)(implicit build: BuilderArrMap[B, ArrB], gridSys: HGridSys): ArrB =
     segHCsMap(start.r, start.c)(f)(build, gridSys)
 
-  def segHCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB = {
+  def segHCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB = {
     val res = build.uninitialised(segsNum)
     var count = 0
     segHCsForeach(startR, startC) { s =>

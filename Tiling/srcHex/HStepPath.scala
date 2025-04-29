@@ -23,7 +23,7 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     new HStepPath(newArray)
   }
 
-  def segHCsForeach(f: LineSegHC => Unit)(implicit gSys: HGridSys): Unit =
+  def segHCsForeach(f: LSegHC => Unit)(implicit gSys: HGridSys): Unit =
   { var i: Int = 0
     var hc1: HCen = startCen
     var o2: Option[HCen] = Some(startCen)
@@ -32,7 +32,7 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     {
       o2 = gSys.stepEndFind(hc1, index(i))
       o2.foreach { hc2 =>
-        val hls = LineSegHC(hc1, hc2)
+        val hls = LSegHC(hc1, hc2)
         f(hls)
         i += 1
         hc1 = hc2
@@ -56,7 +56,7 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
 
   //def SegHCLast: Option[LineSegHC] = if (length >= 0) Some(index(length - 1)) else None
 
-  def segHCsMap[B, ArrB <: Arr[B]](f: LineSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB =
+  def segHCsMap[B, ArrB <: Arr[B]](f: LSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.uninitialised(length)
     var count = 0
     segHCsForeach{ s => res.setElemUnsafe(count, f(s)); count += 1 }

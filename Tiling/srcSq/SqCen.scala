@@ -17,8 +17,8 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSep with TCen
   /** The polygon of this tile, specified in [[SqVert]] coordinates. */
   def sqVertPolygon: PolygonSqC = verts.toPolygon
 
-  /** Needs replcing as doesn't take [[SqGridSys]]. Returns the [[LineSegSC]], a line segment specified in [[SqCoord]]s, given by the step. */
-  def segStepToOld(st: SqStep): LineSegSC = new LineSegSC(r, c, r + st.tr, c + st.tc)
+  /** Needs replcing as doesn't take [[SqGridSys]]. Returns the [[LSegSC]], a line segment specified in [[SqCoord]]s, given by the step. */
+  def segStepToOld(st: SqStep): LSegSC = new LSegSC(r, c, r + st.tr, c + st.tc)
 
   /** [[SqCenStep]] for this [[HCen]] and the parameter [[SqStep]]. */
   def andStep(dirn: SqStep): SqCenStep = SqCenStep(r, c, dirn)

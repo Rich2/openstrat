@@ -5,16 +5,16 @@ import geom.*, collection.mutable.ArrayBuffer
 /** A polygon where the vertices are specified in [[HvOffset]]s. */
 class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, PolygonLikeInt3[HvOffset]
 { override type ThisT = PolygonHvOffset
-  override type SideT = LineSegHvOffset
+  override type SideT = LSegHvOffset
   override def typeStr: String = "HVAndOffsetPolygon"
   override def fromArray(array: Array[Int]): PolygonHvOffset = new PolygonHvOffset(array)
   override def verts: HvOffsetArr = new HvOffsetArr(arrayUnsafe)
 
-  override def sides: Arr[LineSegHvOffset] = new LineSegHvOffsetArr(arrayForSides)
+  override def sides: Arr[LSegHvOffset] = new LineSegHvOffsetArr(arrayForSides)
 
-  @inline def side(index: Int): LineSegHvOffset = LineSegHvOffset(vert(index), ife(index == numVerts - 1, vert(0), vert(index + 1)))
+  @inline def side(index: Int): LSegHvOffset = LSegHvOffset(vert(index), ife(index == numVerts - 1, vert(0), vert(index + 1)))
 
-  override def sidesForeach[U](f: LineSegHvOffset => U): Unit =
+  override def sidesForeach[U](f: LSegHvOffset => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }

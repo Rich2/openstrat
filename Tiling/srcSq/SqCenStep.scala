@@ -14,10 +14,10 @@ class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   def endSqC(implicit gridSys: SqGridSys): Option[SqCen] = gridSys.stepEndFind(this)
 
   /** Returns the destination [[SqCen]] if one exists within the [[SqGridSys]]. */
-  def lineSegSqC(implicit gridSys: SqGridSys): Option[LineSegSC] = gridSys.stepEndFind(this).map(LineSegSC(startSC, _))
+  def lineSegSqC(implicit gridSys: SqGridSys): Option[LSegSC] = gridSys.stepEndFind(this).map(LSegSC(startSC, _))
 
   def projLineSeg(implicit proj: SqSysProjection): Option[LSeg2] =
-  { val lhc: Option[LineSegSC] = lineSegSqC(proj.gChild)
+  { val lhc: Option[LSegSC] = lineSegSqC(proj.gChild)
     lhc.flatMap(proj.transOptLineSeg(_))
   }
 

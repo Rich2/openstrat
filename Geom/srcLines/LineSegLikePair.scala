@@ -33,9 +33,9 @@ trait LineSegLikeIntNPairArr[VT <: IntNElem, A1 <: LSegIntN[VT], ArrA1 <: ArrInt
 { type ThisT <: LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A]
 }
 
-trait LineSegLikeInt4Pair[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with PairInt4Elem[A1, A2]
+trait LineSegLikeInt4Pair[VT <: Int2Elem, A1 <: LSegInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with PairInt4Elem[A1, A2]
 
-trait LineSegLikeInt4PairArr[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], ArrA1 <: ArrInt4[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
+trait LineSegLikeInt4PairArr[VT <: Int2Elem, A1 <: LSegInt4[VT], ArrA1 <: ArrInt4[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
 LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A] with ArrPairInt4[A1, ArrA1, A2, A]
 
 trait LineSegLikeDblNPair[VT <: DblNElem, A1 <: LSegDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with PairDblNElem[A1, A2]

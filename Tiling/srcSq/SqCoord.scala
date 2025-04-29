@@ -5,17 +5,17 @@ import geom._, collection.mutable.ArrayBuffer
 /** A square grid integer tile coordinate. */
 trait SqCoord extends Any with TCoord
 { override type ThisT = SqCoord
-  override type LineSegT = LineSegSC
+  override type LineSegT = LSegSC
 
   def view(pxScale: Double = 50): SGView = SGView(r, c, pxScale)
   override def toVecReg: Vec2 = Vec2(c, r)
   override def toPt2Reg: Pt2 = Pt2(c, r)
 
-  /** [[LineSegSC]] from this point to the parameter point. */
-  def lineSegTo(endPt: SqCoord): LineSegSC = LineSegSC(this, endPt)
+  /** [[LSegSC]] from this point to the parameter point. */
+  def lineSegTo(endPt: SqCoord): LSegSC = LSegSC(this, endPt)
 
   /** [[LinSegLike]] from the parameter point to this point. */
-  def lineSegFrom(startPt: SqCoord): LineSegSC = LineSegSC(startPt, this)
+  def lineSegFrom(startPt: SqCoord): LSegSC = LSegSC(startPt, this)
 }
 
 object SqCoord

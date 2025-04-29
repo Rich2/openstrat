@@ -5,13 +5,13 @@ import geom._, collection.mutable.ArrayBuffer
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSep]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord with Ordered[HCoord]
 { override type ThisT = HCoord
-  override type LineSegT = LineSegHC
+  override type LineSegT = LSegHC
 
-  /** [[LineSegHC]] from this [[HCoord]] to the parameter [[HCoord]]. */
-  def lineSegTo(endPt: HCoord): LineSegHC = LineSegHC(this, endPt)
+  /** [[LSegHC]] from this [[HCoord]] to the parameter [[HCoord]]. */
+  def lineSegTo(endPt: HCoord): LSegHC = LSegHC(this, endPt)
 
   /** [[LinSegHC]] from the parameter [[HCoord]] to this [[HCoord]]. */
-  def lineSegFrom(startPt: HCoord): LineSegHC = LineSegHC(startPt, this)
+  def lineSegFrom(startPt: HCoord): LSegHC = LSegHC(startPt, this)
 
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true

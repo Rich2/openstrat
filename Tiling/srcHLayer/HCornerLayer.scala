@@ -34,8 +34,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def sepExtra(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).sepExtra
 
   /** Produces an [[HSep]]'s line segment specified in [[HvOffset]] coordinates. */
-  def sepLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHvOffset =
-    LineSegHvOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
+  def sepLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LSegHvOffset =
+    LSegHvOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
   /** Not sure about the safety of this method. */
   def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LSeg2 =
