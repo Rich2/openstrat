@@ -28,17 +28,42 @@ trait Quadrilateral extends Polygon4Plus
   override def rotate(rotation: AngleVec): Quadrilateral = vertsTrans(_.rotate(rotation))
   override def reflect(lineLike: LineLike): Quadrilateral = vertsTrans(_.reflect(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.scaleXY(xOperand, yOperand))
+  final override def sides: LSeg2Arr = LSeg2Arr(side0, side1, side2, side3)
+  final override def v0: Pt2 = Pt2(v0x, v0y)
+  final override def vLastX: Double = v3x
+  final override def vLastY: Double = v3y
+  final override def vLast: Pt2 = Pt2(v3x, v3y)
+  final override def side0: LSeg2 = LSeg2(v0x, v0y, v1x, v1y)
+  final override def sd0CenX: Double = v0x \/ v1x
+  final override def sd0CenY: Double = v0y \/ v1y
 
-  override def sides: LSeg2Arr = LSeg2Arr(side0, side1, side2, side3)
+  final override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+  final override def arrayUnsafe: Array[Double] = Array(v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
+  final override def xVertsArray: Array[Double] = Array(v0x, v1x, v2x, v3x)
+  final override def yVertsArray: Array[Double] = Array(v0y, v1y, v2y, v3y)
+
+  final override def vertX(index: Int): Double = index %% 4 match
+  { case 0 => v0x
+    case 1 => v1x
+    case 2 => v2x
+    case _ => v3x
+  }
+
+  final override def vertY(index: Int): Double = index %% 4 match
+  { case 0 => v0y
+    case 1 => v1y
+    case 2 => v2y
+    case _ => v3y
+  }
 }
 
 object Quadrilateral
 { /** Factory apply method to create [[Quadrilateral]] from its 4 vertices. */
-  def apply (vt0: Pt2, vt1: Pt2, vt2: Pt2, vt3: Pt2): Quadrilateral = new QuadrilateralGen(Array(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y, vt3.x, vt3.y))
+  def apply (vt0: Pt2, vt1: Pt2, vt2: Pt2, vt3: Pt2): Quadrilateral = new QuadrilateralGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y, vt3.x, vt3.y)
 
   /** Factory apply method to create [[Quadrilateral]] from the X and Y components of the 4 vertices. */
   def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Quadrilateral =
-    new QuadrilateralGen(Array(x0, y0, x1, y1, x2, y2, x3, y3))
+    new QuadrilateralGen(x0, y0, x1, y1, x2, y2, x3, y3)
     
   /** Implicit [[Slate2]] type class instance for [[Quadrilateral]] */  
   given slate2Ev: Slate2[Quadrilateral] = new Slate2[Quadrilateral]
@@ -51,66 +76,34 @@ object Quadrilateral
 }
 
 /** The general case of a quadrilateral */
-class QuadrilateralGen(val arrayUnsafe: Array[Double]) extends PolygonLike[Pt2], Quadrilateral
+class QuadrilateralGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double, val v3x: Double, val v3y: Double)
+  extends Quadrilateral
 { type ThisT = QuadrilateralGen
   override def typeStr: String = "QuadrilateralGen"
 
-  override def slate(operand: VecPt2): QuadrilateralGen = ???
-  override def slate(xOperand: Double, yOperand: Double): QuadrilateralGen = ???
-
-  def ptsTrans(f: Pt2 => Pt2): QuadrilateralGen =
-  { val res = QuadrilateralGen.uninitialised
-    iForeach{ (i, el) => res.setElemUnsafe(i, f(el)) }
-    res
+  def ptsTrans(f: Pt2 => Pt2): QuadrilateralGen = QuadrilateralGen(f(v0), f(v1), f(v2), f(v3))
+  override def elem(index: Int): Pt2 = index %% 4 match
+  { case 0 => Pt2(v0x, v0y)
+    case 1 => Pt2(v1x, v1y)
+    case 2 => Pt2(v2x, v2y)
+    case _ => Pt2(v3x, v3y)
   }
-
-  override def v1x: Double = ???
-
-  override def v1y: Double = ???
-
-  override def v2x: Double = ???
-
-  override def v2y: Double = ???
-
-  override def v3x: Double = ???
-
-  override def v3y: Double = ???
-
-  override def xVertsArray: Array[Double] = ???
-  override def yVertsArray: Array[Double] = ???
-
-  /** Accesses the specifying sequence element by a 0 based index. For [[Sequ]]s this will an alternative name for apply. */
-  override def elem(index: Int): Pt2 = ???
 
   /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
   override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
-  override def v0x: Double = arrayUnsafe(0)
-  override def v0y: Double = arrayUnsafe(1)
-  override def v0: Pt2 = Pt2(arrayUnsafe(0), arrayUnsafe(1))
-  override def vLastX: Double = arrayUnsafe(numVerts - 2)
-  override def vLastY: Double = arrayUnsafe(numVerts - 1)
-  override def vLast: Pt2 = Pt2(vLastX, vLastY)
-  override def side0: LSeg2 = LSeg2(v0x, v0y, vertX(1), vertY(1))
-  override def sd0CenX: Double = v0x \/ vertX(1)
-  override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  override def vertX(index: Int): Double = arrayUnsafe(index * 2)
-  override def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  override def sides: LSeg2Arr = ??? // new LineSegArr(arrayForSides)
 }
 
 /** Companion object for [[QuadrilateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */
 object QuadrilateralGen
 { /** Apply factory method to construct [[Quadrilateral]] from an [[Array]] of [[Double]]s. */
-  def apply(array: Array[Double]): QuadrilateralGen = new QuadrilateralGen(array)
+  def apply(array: Array[Double]): QuadrilateralGen = ??? // new QuadrilateralGen(array)
 
   /** Apply factory method to construct [[Quadrilateral]] from its 4 vertices. */
-  def apply(pt0: Pt2, pt1: Pt2, pt2: Pt2, pt3: Pt2): QuadrilateralGen = new QuadrilateralGen(SlImutDbl2.array(pt0, pt1, pt2, pt3))
+  def apply(pt0: Pt2, pt1: Pt2, pt2: Pt2, pt3: Pt2): QuadrilateralGen = ??? // new QuadrilateralGen(SlImutDbl2.array(pt0, pt1, pt2, pt3))
 
   /** Creates a new uninitialised [[QuadrilateralGen]]. */
-  def uninitialised: QuadrilateralGen = new QuadrilateralGen(new Array[Double](8))
+//  def uninitialised: QuadrilateralGen = new QuadrilateralGen(new Array[Double](8))
 }
 
 /** 2-dimensional graphic based ona quadrilateral */

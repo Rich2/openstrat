@@ -54,23 +54,10 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def rotate(rotation: AngleVec): Rectangle = vertsTrans(_.rotate(rotation))
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 
-  final override def arrayUnsafe: Array[Double] = Array(v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
-  final override def xVertsArray: Array[Double] = Array(v0x, v1x, v2x, v3x)
-  final override def yVertsArray: Array[Double] = Array(v0y, v1y, v2y, v3y)
-
   final override def cenX: Double = v2x \/ v0x
   final override def cenY: Double = v2y \/ v0y
-  final override def v0: Pt2 = Pt2(v0x, v0y)
   final override def v3x: Double = v0x + v2x - v1x
   final override def v3y: Double = v0y + v2y - v1y
-  final override def vLastX: Double = v3x
-  final override def vLastY: Double = v3y
-  final override def vLast: Pt2 = Pt2(v3x, v3y)
-  final override def side0: LSeg2 = LSeg2(v0x, v0y, v1x, v1y)
-  final override def sd0CenX: Double = v0x \/ v1x
-  final override def sd0CenY: Double = v0y \/ v1y
-  final override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-  final override def sides: LSeg2Arr = LSeg2Arr(side0, side1, side2, side3)
 
   final override def elem(index: Int): Pt2 = index %% 4 match
   { case 0 => Pt2(v0x, v0y)
@@ -79,19 +66,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
     case _ => v3
   }
 
-  final override def vertX(index: Int): Double = index %% 4 match
-  { case 0 => v0x
-    case 1 => v1x
-    case 2 => v2x
-    case _ => v3x
-  }
 
-  final override def vertY(index: Int): Double = index %% 4 match
-  { case 0 => v0y
-    case 1 => v1y
-    case 2 => v2y
-    case _ => v3y
-  }
 }
 
 /** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non-specialised rectangles. It also contains
