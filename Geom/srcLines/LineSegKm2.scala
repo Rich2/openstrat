@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A 2-dimensional line segment measured in kilometres, equivalent of the [[LSeg2]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val xEndKilometresNum: Double, val yEndKilometresNum: Double) extends
-  LineSegLen2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem
+  LineSegLen2[PtKm2] with LSegDbl4[PtKm2] with Dbl4Elem
 { def xStart: Kilometres = Kilometres(xStartKilometresNum)
   def yStart: Kilometres = Kilometres(yStartKilometresNum)
   def xEnd: Kilometres = Kilometres(xEndKilometresNum)

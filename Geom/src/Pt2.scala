@@ -287,7 +287,7 @@ object Pt2
   /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function where
    * [[Pt2]] is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
-  implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LSeg2] = LSeg2(_, _)
+  implicit val lineSegBuildEv: BuilderMapLSegBase[Pt2, LSeg2] = LSeg2(_, _)
   
   implicit val slateImplicit: Slate2[Pt2] = new Slate2[Pt2]
   { override def slate(obj: Pt2, operand: VecPt2): Pt2 = obj.slate(operand)   

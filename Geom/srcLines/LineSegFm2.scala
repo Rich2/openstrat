@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A 2-dimensional line segment measured in [[Femtometres]], equivalent of the [[LSeg2]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegFm2(val xStartFemtometresNum: Double, val yStartFemtometresNum: Double, val xEndFemtometresNum: Double, val yEndFemtometresNum: Double) extends
-  LineSegLen2[PtFm2], LineSegLikeDbl4[PtFm2], Dbl4Elem
+  LineSegLen2[PtFm2], LSegDbl4[PtFm2], Dbl4Elem
 { def xStart: Femtometres = Femtometres(xStartFemtometresNum)
   def yStart: Femtometres = Femtometres(yStartFemtometresNum)
   def xEnd: Femtometres = Femtometres(xEndFemtometresNum)

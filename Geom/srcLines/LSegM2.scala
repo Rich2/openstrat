@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** A 2-dimensional line segment measured in metres, equivalent of the [[LSeg2]] class. A straight line between two points on a 2-dimensional flat surface. */
 class LSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double) extends LineSegLen2[PtM2],
-  LineSegLikeDbl4[PtM2], Dbl4Elem
+  LSegDbl4[PtM2], Dbl4Elem
 { override def xStart: Metres = Metres(xStartMetresNum)
   override def yStart: Metres = Metres(yStartMetresNum)
   override def xEnd: Metres = Metres(xEndMetresNum)

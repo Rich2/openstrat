@@ -144,9 +144,9 @@ object PtKm3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
-  /** Implicit [[LineSegLikeBuilderMap]] type class instance / evidence for [[PtKm3]] points. Note rhis is used to map to a [[LineSegKm3]] not a
+  /** Implicit [[BuilderMapLSegBase]] type class instance / evidence for [[PtKm3]] points. Note rhis is used to map to a [[LineSegKm3]] not a
    * [[LinsSegKm3Arr]]. */
-  implicit val lineSegBuildEv: LineSegLikeBuilderMap[PtKm3, LineSegKm3] = LineSegKm3(_, _)
+  implicit val lineSegBuildEv: BuilderMapLSegBase[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
 trait PtKm3SeqLike extends Any, SlImutDbl3[PtKm3]

@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A 2-dimensional line segment measured in [[Picometres]], equivalent of the [[LSeg2]] class. A straight line between two points on a 2-dimensional flat
  *  surface. */
 class LineSegPm2(val xStartPicometresNum: Double, val yStartPicometresNum: Double, val xEndPicometresNum: Double, val yEndPicometresNum: Double) extends
-  LineSegLen2[PtPm2] with LineSegLikeDbl4[PtPm2] with Dbl4Elem
+  LineSegLen2[PtPm2] with LSegDbl4[PtPm2] with Dbl4Elem
 { def xStart: Picometres = Picometres(xStartPicometresNum)
   def yStart: Picometres = Picometres(yStartPicometresNum)
   def xEnd: Picometres = Picometres(xEndPicometresNum)

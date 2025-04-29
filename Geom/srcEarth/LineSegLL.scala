@@ -3,7 +3,7 @@ package ostrat; package geom; package pglobe
 import geom._, collection.mutable.ArrayBuffer
 
 /** A 2 dimensional line segment defined in units of latitude and longitude rather than scalars in X and Y. A line on the service of the earth. */
-final case class LineSegLL(val dbl1: Double, val dbl2: Double, val dbl3: Double, val dbl4: Double) extends LineSegLikeDbl4[LatLong]
+final case class LineSegLL(val dbl1: Double, val dbl2: Double, val dbl3: Double, val dbl4: Double) extends LSegDbl4[LatLong]
 {
 //  inline def startSecsLat: Double = dbl1
 //  inline def startSecsLong: Double = dbl2
@@ -29,7 +29,7 @@ object LineSegLL
 
 /** Compact immutable Array[Double] based collection class for [[LSeg2]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegLLArr(val arrayUnsafe: Array[Double]) extends LineSegLikeDbl4Arr[LatLong, LineSegLL]
+class LineSegLLArr(val arrayUnsafe: Array[Double]) extends ArrLSegDbl4[LatLong, LineSegLL]
 { type ThisT = LineSegLLArr
   def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
   override def typeStr: String = "LineSegLLArr"
