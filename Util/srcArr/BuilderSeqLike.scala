@@ -11,7 +11,7 @@ trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderBoth[BB]
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
-trait BuilderMapSeqLike[B, BB <: SeqLikeImut[B]] extends BuilderMap[B, BB], BuilderSeqLike[BB]
+trait BuilderMapSeqLike[B, BB <: SeqLike[B]] extends BuilderMap[B, BB], BuilderSeqLike[BB]
 { type BuffT <: Buff[B]
 
   /** Creates a new uninitialised [[SeqLike]] of type BB of the given length. */

@@ -22,7 +22,7 @@ trait SlValueN[+A <: ValueNElem] extends Any, SeqLike[A]
 
 /** An immutable [[SeqLike]] object, that is a sequence or can be specified by a sequence, whose elements can be constructed from a fixed number of primitive
  * values. Hence, not a mutable [[Buff]]. */
-trait SlImutValueN[+A <: ValueNElem] extends Any, SlValueN[A], SeqLikeImut[A]
+trait SlImutValueN[+A <: ValueNElem] extends Any, SlValueN[A], SeqLikeBacked[A]
 { type ThisT <: SlImutValueN[A]
   
   /** The total  number of atomic values, [[Int]]s, [[Double]]s, [[Long]]s etc in the backing Array. */

@@ -27,10 +27,6 @@ trait SeqLike[+A] extends Any
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
   def setElemsUnsafe(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach(index) { (i, a) => setElemUnsafe(i, a) }
 
-  /** Mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = ???
-
   def fElemStr: A@uncheckedVariance => String = _.toString
 
   /** String specifying the type of this object. */
@@ -45,7 +41,7 @@ trait SeqLike[+A] extends Any
 object SeqLike
 {
   /** Implicit method for creating [[SeqLike]] instances. */
-  implicit def unshowEv[A, AA <: SeqLikeImut[A]](implicit evIn: Unshow[A], buildIn: BuilderMapSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
+  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: BuilderMapSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
   { val evA: Unshow[A] = evIn
     val build: BuilderMapSeqLike[A, AA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
@@ -63,5 +59,9 @@ object SeqLike
   }
 }
 
-/** Immutable [[SeqLike]] Common trait for the immutable [[Arr]] and [[SeqSpec]] classes, but excludes the mutable [[ArraryBuffer]] based [[Buff]] classes. */
-trait SeqLikeImut[+A] extends Any, SeqLike[A]
+trait SeqLikeBacked[+A] extends Any, SeqLike[A]
+{
+  /** Mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = ???
+}

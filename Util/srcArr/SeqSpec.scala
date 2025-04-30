@@ -4,7 +4,7 @@ import annotation.unchecked.uncheckedVariance
 
 /** Sequence specified objects. An immutable class that can be specified by a sequence of elements. Uses a backing Array for efficient storage. Examples include
  * polygons and line paths that can be specified by a sequence of points. It is possible for the specifying sequence to be a reference type. */
-trait SeqSpec[+A] extends Any with SeqLikeImut[A @uncheckedVariance]
+trait SeqSpec[+A] extends Any, SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqSpec[A]
   
   /** Performs a side effecting function on each element of the specifying sequence in order. */

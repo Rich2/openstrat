@@ -17,7 +17,7 @@ trait BuffPairSeqLike[A1E, A1 <: SeqLike[A1E], A2, A <: PairSeqLikeElem[A1E, A1,
 }
 
 /** A [[BuilderMap]] for an [[Arr]] of [[PairSeqLike]]s. */
-trait BuilderArrMapPairSeqLike[B1E, B1 <: SeqLikeImut[B1E], ArrB1 <: Arr[B1], B2, B <: PairSeqLikeElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]]
+trait BuilderArrMapPairSeqLike[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: PairSeqLikeElem[B1E, B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]]
   extends BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: BuilderMapSeqLike[B1E, B1]
