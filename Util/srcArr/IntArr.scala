@@ -15,7 +15,13 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrNoParam[Int]
   override def mutateElemUnsafe(index: Int, f: Int => Int): Unit = arrayUnsafe(index) = f(apply(index))
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
-  override def reverse: IntArr = ???
+
+  override def reverse: IntArr =
+  { val newArray = new Array[Int](length)
+    var i = 0
+    while(i < length) { newArray(length - 1 - i) = arrayUnsafe(i); i += 1 }
+    new IntArr(newArray)
+  }
 
   /** appendArr. Appends the operand [[IntArr]] to this [[IntArr]]. */
   @targetName("append") override def ++(op: IntArr): IntArr = appendInts(op)

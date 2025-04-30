@@ -1,9 +1,9 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pfaclist
 
+/** Not usre what this does. */
 class FacCalc(val factions: RArr[Faction], val listLen: Int = 10)
-{
-  val numFactions: Int = factions.length
+{ val numFactions: Int = factions.length
   val numVote: Int = factions.sumBy(_.weight)
   val facStateInit: IntArr = IntArr.uninitialised(numFactions)
 
