@@ -14,6 +14,7 @@ class FloatArr(val arrayUnsafe: Array[Float]) extends AnyVal, ArrNoParam[Float]
   override def setElemUnsafe(index: Int, newElem: Float): Unit = arrayUnsafe(index) = newElem
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
+  override def mutateElemUnsafe(index: Int, f: Float => Float): Unit = { arrayUnsafe(index) = f(arrayUnsafe(index)) }
 
   /** append. Appends operand [[Float]] to this [[FloatArr]]. */
   @targetName("appendElem") override def +%(operand: Float): FloatArr =
@@ -77,4 +78,5 @@ class FloatBuff(val bufferUnsafe: ArrayBuffer[Float]) extends AnyVal, Buff[Float
   override def setElemUnsafe(index: Int, newElem: Float): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Float => String = _.toString
   override def grow(newElem: Float): Unit = bufferUnsafe.append(newElem)
+  override def mutateElemUnsafe(index: Int, f: Float => Float): Unit = { bufferUnsafe(index) = f(bufferUnsafe(index)) }
 }

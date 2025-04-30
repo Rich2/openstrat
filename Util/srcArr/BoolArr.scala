@@ -30,6 +30,7 @@ final class BoolArr(val arrayUnsafe: Array[Boolean]) extends AnyVal, ArrNoParam[
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
+  override def mutateElemUnsafe(index: Int, f: Boolean => Boolean): Unit = { arrayUnsafe(index) = f(arrayUnsafe(index)) }
 
   /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
@@ -89,4 +90,5 @@ class BooleanBuff(val bufferUnsafe: ArrayBuffer[Boolean]) extends AnyVal, Buff[B
   override def setElemUnsafe(index: Int, newElem: Boolean): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Boolean => String = _.toString
   override def grow(newElem: Boolean): Unit = bufferUnsafe.append(newElem)
+  override def mutateElemUnsafe(index: Int, f: Boolean => Boolean): Unit = ( bufferUnsafe(index) = f(bufferUnsafe(index)) )
 }

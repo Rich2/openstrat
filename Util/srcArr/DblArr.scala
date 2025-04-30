@@ -84,4 +84,5 @@ class BuffDbl(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, Buff[Double
   override def setElemUnsafe(index: Int, newElem: Double): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: Double => String = _.toString
   override def grow(newElem: Double): Unit = bufferUnsafe.append(newElem)
+  override def mutateElemUnsafe(index: Int, f: Double => Double): Unit = { bufferUnsafe(index) = f(bufferUnsafe(index)) }
 }
