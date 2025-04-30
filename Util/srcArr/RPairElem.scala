@@ -62,6 +62,12 @@ class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends A
     }
     new RPairArr[A1, A2](newA1s, newA2s)
   }
+
+  override def mutateElemUnsafe(index: Int, f: RPairElem[A1, A2] => RPairElem[A1, A2]): Unit =
+  { val newPair = f(apply(index))
+    a1Array(index) = newPair.a1
+    a2Array(index) = newPair.a2
+  }
 }
 
 /** Companion object for [[RPairArr]], an un-specialised default [[Arr]] class for [[PairElem]]s contains factory methods for construction. */
@@ -92,8 +98,8 @@ object RPairArr
   implicit def mapBuilderEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
-/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference
- * types the A1 type parameter does not have to inherit from [[AnyRef]]. */
+/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference types
+ * the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]
   override def typeStr: String = "GenPairBuff"

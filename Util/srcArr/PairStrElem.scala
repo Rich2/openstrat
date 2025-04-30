@@ -146,7 +146,7 @@ class BuffPairStr[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuf
   override def grow(newElem: PairStrElem[B2]): Unit = { strBuffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
   override def apply(index: Int): PairStrElem[B2] = PairStrElem[B2](strBuffer(index), b2Buffer(index))
   override def elem(index: Int): PairStrElem[B2] = PairStrElem[B2](strBuffer(index), b2Buffer(index))
-  override def setElemUnsafe(index: Int, newElem: PairStrElem[B2]): Unit = { strBuffer(index) = newElem.a1; b2Buffer(index) == newElem.a2 }
+  override def setElemUnsafe(index: Int, newElem: PairStrElem[B2]): Unit = { strBuffer(index) = newElem.a1; b2Buffer(index) = newElem.a2 }
 }
 
 object BuffPairStr

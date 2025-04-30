@@ -19,6 +19,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
+  override def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = arrayUnsafe(index) = f(arrayUnsafe(index))
   
   def eqs(other: Any): Boolean = other match
   { case a: RArr[_] => arrayUnsafe.sameElements(a.arrayUnsafe)
@@ -324,7 +325,7 @@ class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[
 }
 
 /** R for stored by reference. The default [[Buff]] class for types without their own specialist sequence classes. */
-final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal with Buff[A]
+final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal, Buff[A]
 { override type ThisT = RBuff[A]
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = bufferUnsafe(index)
@@ -334,4 +335,5 @@ final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal with Buff[
   override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: A => String = _.toString
   override def grow(newElem: A): Unit = bufferUnsafe.append(newElem)
+  override def mutateElemUnsafe(index: Int, f: A => A): Unit = bufferUnsafe(index) = f(bufferUnsafe(index))
 }
