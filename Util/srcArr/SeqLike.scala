@@ -20,7 +20,6 @@ trait SeqLike[+A] extends Any
    * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
   def numElems: Int
 
-  
   def fElemStr: A@uncheckedVariance => String = _.toString
 
   /** String specifying the type of this object. */
@@ -33,12 +32,9 @@ trait SeqLike[+A] extends Any
 }
 
 object SeqLike
-{
-  /** Implicit method for creating [[SeqLike]] instances. */
-  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: BuilderMapSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
-  { val evA: Unshow[A] = evIn
-    val build: BuilderMapSeqLike[A, AA] = buildIn
-    override def typeStr: String = "Seq" + evA.typeStr.enSquare
+{ /** Implicit method for creating [[SeqLike]] instances. */
+  given unshowEv[A, AA <: SeqLike[A]](using evA: Unshow[A], build: BuilderMapSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
+  { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[AA] = expr match
     { case _: EmptyExprToken => Succ(build.uninitialised(0))
@@ -53,6 +49,8 @@ object SeqLike
   }
 }
 
+/** A [[SeqLike]] class that is backed by an [[Array]] or an [[ArrayBuffer]] which can be mutated. This mutation will mostly be used by builders rather than end
+ * users. There are other cases where it can be useful, for example in simulataneous game turn resolution. */
 trait SeqLikeBacked[+A] extends Any, SeqLike[A]
 { /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
