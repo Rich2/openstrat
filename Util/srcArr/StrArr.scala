@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation.*, collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[String]]s. */
 final class StrArr(val arrayUnsafe: Array[String]) extends AnyVal, ArrNoParam[String]
@@ -13,6 +13,7 @@ final class StrArr(val arrayUnsafe: Array[String]) extends AnyVal, ArrNoParam[St
   override def elem(index: Int): String = arrayUnsafe(index)
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
+  override def mutateElemUnsafe(index: Int, f: String => String): Unit = arrayUnsafe(index) = f(arrayUnsafe(index))
 
   /** Make 1 string, by appending with separator from this collection of strings. */
   override def mkStr(separator: String = ""): String = if(empty) "" else
@@ -151,6 +152,8 @@ class StringBuff(val bufferUnsafe: ArrayBuffer[String]) extends AnyVal, Buff[Str
   override def setElemUnsafe(index: Int, newElem: String): Unit = bufferUnsafe(index) = newElem
   override def fElemStr: String => String = s => s
   override def grow(newElem: String): Unit = bufferUnsafe.append(newElem)
+  override def mutateElemUnsafe(index: Int, f: String => String): Unit = bufferUnsafe(index) = f(bufferUnsafe(index))
+
   def toArray: Array[String] = bufferUnsafe.toArray
   def toArr: StrArr = new StrArr(toArray)
 }
