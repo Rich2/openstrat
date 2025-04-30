@@ -90,6 +90,12 @@ class ArrPairStr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
 
   /** filters out elements of this sequence using a predicate upon the A2 components of the pairs. */
   def filterNotOnA2(f: A2 => Boolean)(implicit ct: ClassTag[A2]): ThisT = filterOnA2(a2 => !f(a2))
+
+  override def mutateElemUnsafe(index: Int, f: PairStrElem[A2] => PairStrElem[A2]): Unit =
+  { val newPair = f(apply(index))
+    a1Array(index) = newPair.a1
+    a2Array(index) = newPair.a2
+  }
 }
 
 object ArrPairStr
@@ -147,6 +153,12 @@ class BuffPairStr[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuf
   override def apply(index: Int): PairStrElem[B2] = PairStrElem[B2](strBuffer(index), b2Buffer(index))
   override def elem(index: Int): PairStrElem[B2] = PairStrElem[B2](strBuffer(index), b2Buffer(index))
   override def setElemUnsafe(index: Int, newElem: PairStrElem[B2]): Unit = { strBuffer(index) = newElem.a1; b2Buffer(index) = newElem.a2 }
+
+  override def mutateElemUnsafe(index: Int, f: PairStrElem[B2] => PairStrElem[B2]): Unit =
+  { val newPair = f(apply(index))
+    strBuffer(index) = newPair.a1
+    b2Buffer(index) = newPair.a2
+  }
 }
 
 object BuffPairStr

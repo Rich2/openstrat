@@ -151,6 +151,7 @@ class IntBuff(val bufferUnsafe: ArrayBuffer[Int]) extends AnyVal, Buff[Int]
   def grow(newElem: Int): Unit = bufferUnsafe.append(newElem)
   def growArray(operand: Array[Int]): Unit = bufferUnsafe.appendAll(operand)
   def toInts: IntArr = new IntArr(bufferUnsafe.toArray)
+  override def mutateElemUnsafe(index: Int, f: Int => Int): Unit = { bufferUnsafe(index) = f(bufferUnsafe(index)) }
 }
 
 object IntBuff
