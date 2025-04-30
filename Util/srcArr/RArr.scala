@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, unchecked.uncheckedVariance, reflect.{ClassTag, TypeTest}, collection.mutable.ArrayBuffer
 
 /** This is a common trait for [[RArr]] and tiling data layer classes in the Tiling module. */
-trait RefsSeqLike[+A] extends Any, SeqLike[A]
+trait RefsSeqLike[+A] extends Any, SeqLikeBacked[A]
 { type ThisT <: RefsSeqLike[A]
   def arrayUnsafe: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT

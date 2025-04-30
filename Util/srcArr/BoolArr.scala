@@ -2,14 +2,14 @@
 package ostrat
 import annotation._, scala.collection.mutable.ArrayBuffer
 
-trait BoolSeqLike extends Any with SeqLike[Boolean]
+trait BoolSeqLike extends Any, SeqLikeBacked[Boolean]
 { type ThisT <: BoolSeqLike
   def arrayUnsafe: Array[Boolean]
 
   /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
   def fromArray(array: Array[Boolean]): ThisT
 
-  override final def setElemUnsafe(index: Int, newElem: Boolean): Unit = arrayUnsafe(index) = newElem
+//  override final def setElemUnsafe(index: Int, newElem: Boolean): Unit = arrayUnsafe(index) = newElem
 
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
@@ -30,6 +30,10 @@ final class BoolArr(val arrayUnsafe: Array[Boolean]) extends AnyVal, ArrNoParam[
   override def length: Int = arrayUnsafe.length
   override def numElems: Int = arrayUnsafe.length
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
+
+  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def setElemUnsafe(index: Int, newElem: Boolean): Unit = ???
 
   /** append. Appends operand [[Boolean]] to this [[BoolArr]]. */
   @targetName("appendElem") override def +%(operand: Boolean): BoolArr =

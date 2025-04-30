@@ -41,8 +41,6 @@ trait Triangle extends Polygon3Plus
 
 	final override def sides: LSeg2Arr = ??? // new LineSegArr(Array(v0x, v0y,))
 
-	final override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
 	final override def elem(index: Int): Pt2 = index %% 3 match
 	{ case 0 => v0
 		case 1 => v1

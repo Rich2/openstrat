@@ -20,13 +20,7 @@ trait SeqLike[+A] extends Any
    * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
   def numElems: Int
 
-  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit
-
-  /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
-  def setElemsUnsafe(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach(index) { (i, a) => setElemUnsafe(i, a) }
-
+  
   def fElemStr: A@uncheckedVariance => String = _.toString
 
   /** String specifying the type of this object. */
@@ -60,7 +54,13 @@ object SeqLike
 }
 
 trait SeqLikeBacked[+A] extends Any, SeqLike[A]
-{
+{ /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  def setElemUnsafe(index: Int, newElem: A @uncheckedVariance): Unit
+
+  /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
+  def setElemsUnsafe(index: Int, elems: A @uncheckedVariance*): Unit = elems.iForeach(index) { (i, a) => setElemUnsafe(i, a) }
+  
   /** Mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
   def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = ???

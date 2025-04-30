@@ -8,7 +8,7 @@ final class LinePath(val arrayUnsafe: Array[Double]) extends AnyVal, AffinePrese
   override type PolygonT = Polygon
   override def typeStr: String = "LinePath"
   def fromArray(array: Array[Double]): LinePath = new LinePath(array)
-  override def polygonFromArray(array: Array[Double]): Polygon = new PolygonGen(array)
+  override def polygonFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   @inline def xStart: Double = arrayUnsafe(0)
   @inline def yStart: Double = arrayUnsafe(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)

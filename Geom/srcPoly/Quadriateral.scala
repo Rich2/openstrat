@@ -88,10 +88,6 @@ class QuadrilateralGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1
     case 2 => Pt2(v2x, v2y)
     case _ => Pt2(v3x, v3y)
   }
-
-  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
 }
 
 /** Companion object for [[QuadrilateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */
@@ -101,9 +97,6 @@ object QuadrilateralGen
 
   /** Apply factory method to construct [[Quadrilateral]] from its 4 vertices. */
   def apply(pt0: Pt2, pt1: Pt2, pt2: Pt2, pt3: Pt2): QuadrilateralGen = ??? // new QuadrilateralGen(SlImutDbl2.array(pt0, pt1, pt2, pt3))
-
-  /** Creates a new uninitialised [[QuadrilateralGen]]. */
-//  def uninitialised: QuadrilateralGen = new QuadrilateralGen(new Array[Double](8))
 }
 
 /** 2-dimensional graphic based ona quadrilateral */

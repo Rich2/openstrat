@@ -22,8 +22,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 
   /** The rotation of this square from alignment with the X and Y axes. */
   def rotation: AngleVec
-
-  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
+  
   override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)

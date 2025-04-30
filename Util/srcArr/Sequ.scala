@@ -651,6 +651,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting from
  * [[BuilderSeqLike]]. */
-trait Buff[A] extends Any, Sequ[A]
+trait Buff[A] extends Any, Sequ[A], SeqLikeBacked[A]
 { def grow(newElem: A): Unit
 }

@@ -8,6 +8,9 @@ import annotation.unchecked.uncheckedVariance
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
 trait PolygonLikeBuilderMap[B, +BB <: PolygonLike[B]] extends BuilderMapSeqLike[B, BB @uncheckedVariance]
+{
+  override def uninitialised(length: Int): BB & SeqLikeBacked[B]
+}
 
 /** Trait for creating the line path builder instances for the [[PolygonLikeBuilderMap]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

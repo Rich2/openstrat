@@ -4,10 +4,9 @@ import annotation.*
 
 trait LinePathDblN[VT <: DblNElem] extends Any, LinePathLike[VT], SsDblN[VT]
 { type ThisT <: LinePathDblN[VT]
-  //type PolygonT <: PolygonLikeDblN[VT]
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
-  def polygonFromArray(array: Array[Double]): PolygonT
+  def polygonFromArray(array: Array[Double]): PolygonT & SeqLikeBacked[VT]
 
   override def tail: ThisT =
   { val newLen = (numVerts - 1).max0

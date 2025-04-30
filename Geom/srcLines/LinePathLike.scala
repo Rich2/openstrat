@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation._
+import annotation.*
 
 /** A generalisation of a line path where the type of the vertices is not restricted to [[Pt2]]. */
-trait LinePathLike[VT] extends Any with VertSeqSpec[VT]
+trait LinePathLike[VT] extends Any, VertSeqSpec[VT], SeqLikeBacked[VT]
 { type ThisT <: LinePathLike[VT]
   type PolygonT <: PolygonLike[VT]
   type LineSegT <: LSegBase[VT]

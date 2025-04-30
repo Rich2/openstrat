@@ -66,14 +66,8 @@ object PhiRect
 final class PhiRectWide(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends PhiRect
 { override type ThisT = PhiRectWide
   override def typeStr: String = "PhiRectY"
-
-  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
   override def height: Double = width1
-  override def width2: Double = width
-  
+  override def width2: Double = width  
   override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)
   override def slate(operand: VecPt2): PhiRectHigh = PhiRectHigh(width, cen.slate(operand))
   override def scale(operand: Double): PhiRectHigh = PhiRectHigh(width * operand, cen.scale(operand))
@@ -92,11 +86,6 @@ object PhiRectWide
 final class PhiRectHigh(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends PhiRect
 { override type ThisT = PhiRectHigh
   override def typeStr: String = "PhiRectY"
-
-  /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
   override def height: Double = width1
   override def width2: Double = width
   override def slate(xOperand: Double, yOperand: Double): PhiRectHigh = PhiRectHigh(width, cenX + xOperand, cenY + yOperand)

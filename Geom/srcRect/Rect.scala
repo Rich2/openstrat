@@ -160,11 +160,6 @@ object Rect
   final class RectGen (val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rect
   { type ThisT = RectGen
     override def typeStr: String = "Rect"
-
-    /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
-     * methods. */
-    override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
     override def width1: Double = width
     override def width2: Double = height
     override def height: Double = (v0y - v2y).abs
@@ -206,10 +201,7 @@ object Rect
 
 object NoBounds extends Rect
 { override type ThisT = Rect
-
   override def height: Double = -1
-  override def setElemUnsafe(index: Int, newElem: Pt2): Unit = ???
-
   override def v0x: Double = 0
   override def v0y: Double = 0
   override def v1x: Double = 0

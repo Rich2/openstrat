@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
+import geom.*
 
 /** Boolean data corresponding to the sides of a [[HGridSys]] hex grid system , stored using an underlying Array[Boolean]. Thhese classes should be
  *  created, initalised and used using an [HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
@@ -10,6 +10,8 @@ final class HSideBoolLayer(val arrayUnsafe: Array[Boolean]) extends AnyVal with 
   override def fromArray(array: Array[Boolean]): HSideBoolLayer = new HSideBoolLayer(array)
 
   def apply(hs: HSep)(implicit gridSys: HGridSys): Boolean = arrayUnsafe(gridSys.sepLayerArrayIndex(hs))
+
+  override def setElemUnsafe(index: Int, newElem: Boolean): Unit = ???
 
   /** Foreach true value applies the side effecting function to the corresponding [[HSep]]
    *  value.  */
