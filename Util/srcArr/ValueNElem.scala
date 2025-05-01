@@ -93,23 +93,23 @@ trait BuffValueN[A <: ValueNElem] extends Any, Buff[A], SeqLikeValueN[A]
 }
 
 /** [[BuilderBoth]], common trait for map and flatMap builders for [[SeqLike]]s with [[ValueNElem]]s. */
-trait BuilderSlValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLike[BB]
+trait BuilderSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLike[BB]
 { def elemProdSize: Int
 }
 
 /** Map builder for [[SeqLikeImutValueN]] classes. */
-trait BuilderMapSlValueN[B <: ValueNElem, BB <: SeqLikeImutValueN[B]] extends BuilderSlValueN[BB], BuilderMapSeqLike[B, BB]
+trait BuilderMapSeqLikeValueN[B <: ValueNElem, BB <: SeqLikeImutValueN[B]] extends BuilderSeqLikeValueN[BB], BuilderMapSeqLike[B, BB]
 
 /** Constructs [[SeqLikeImutValueN]] objects via flatMap method. Element type not known at call site. */
-trait BuilderFlatSlValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSlValueN[BB], BuilderFlatSeqLike[BB]
+trait BuilderFlatSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLikeValueN[BB], BuilderFlatSeqLike[BB]
 
 /** [[BuilderMap]] trait for creating [[Arr]] classes with [[ValueNElem]]s via the map method. Instances for the [[BuilderArrMap]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in 
  * ```map(f: A => B): ArrB``` function. */
-trait BuilderMapArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderMapSlValueN[B, ArrB], BuilderArrMap[B, ArrB]
+trait BuilderMapArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderMapSeqLikeValueN[B, ArrB], BuilderArrMap[B, ArrB]
 { type BuffT <: BuffValueN[B]
 }
 
 /** [[BuilderFlat]] for constructing [[Arr]]s with [[ValueNElem]]s. Instances for the [[BuilderArrFlat] should go in the companion object of the [[Arr]] final
  * class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderFlatArrValueN[ArrB <: ArrValueN[?]] extends BuilderSlValueN[ArrB], BuilderArrFlat[ArrB]
+trait BuilderFlatArrValueN[ArrB <: ArrValueN[?]] extends BuilderSeqLikeValueN[ArrB], BuilderArrFlat[ArrB]

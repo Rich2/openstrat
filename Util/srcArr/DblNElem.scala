@@ -101,7 +101,7 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
 }
 
 /** A [[BuilderBoth]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
-trait BuilderSlDblN[BB <: SeqLikeImutDblN[?]] extends BuilderSlValueN[BB]
+trait BuilderSeqLikeDblN[BB <: SeqLikeImutDblN[?]] extends BuilderSeqLikeValueN[BB]
 { type BuffT <: BuffDblN[?]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
@@ -110,7 +110,7 @@ trait BuilderSlDblN[BB <: SeqLikeImutDblN[?]] extends BuilderSlValueN[BB]
 }
 
 /** [[BuilderMap]] trait for building [[SeqLikeImut]]s with [[DblNElem]]s, by the map method. */
-trait BuilderMapSlDblN[B <: DblNElem, BB <: SeqLikeImutDblN[B]] extends BuilderSlDblN[BB], BuilderMapSlValueN[B, BB]
+trait BuilderMapSeqLikeDblN[B <: DblNElem, BB <: SeqLikeImutDblN[B]] extends BuilderSeqLikeDblN[BB], BuilderMapSeqLikeValueN[B, BB]
 { type BuffT <: BuffDblN[B]
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, newElem: B): Unit = newElem.dblForeach(buff.bufferUnsafe.append(_))
@@ -122,15 +122,15 @@ trait BuilderMapSlDblN[B <: DblNElem, BB <: SeqLikeImutDblN[B]] extends BuilderS
 }
 
 /** [[BuilderBoth]] trait for constructing [[Arr]]s by the map and flatMap methods. */
-trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB]
+trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB]
 
 /** [[BuilderArrMap]] trait for constructing [[Arr]]s with [[DblNElem]]s. Instances for the [[BuilderArrMap]] type class, for classes / traits you control,
  * should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderMapSlDblN[B, ArrB], BuilderMapArrValueN[B, ArrB]
+trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderMapSeqLikeDblN[B, ArrB], BuilderMapArrValueN[B, ArrB]
 
 /** [[BuilderFlat]] Trait for constructing [[Arr]]s with [[DblNElem]]s via the flatMap method. Instances for the [[BuilderArrMap]] type class, for classes /
  * traits you control, should go in the companion object of the final [[Arr]] class. */
-trait BuilderFlatArrDblN[ArrB <: ArrDblN[?]] extends BuilderSlDblN[ArrB] with BuilderFlatArrValueN[ArrB]
+trait BuilderFlatArrDblN[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB] with BuilderFlatArrValueN[ArrB]
 { override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 

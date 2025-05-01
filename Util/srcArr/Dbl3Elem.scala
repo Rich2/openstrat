@@ -69,24 +69,24 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SeqLikeImutDbl3[A]
 }
 
 /** [[BuilderBoth]] trait for [[SeqLikeImut]] objects, with [[Dbl3Elem]]s via map and flatMap methods. */
-trait BuilderSlDbl3[BB <: SeqLikeImutDbl3[?]] extends BuilderSlDblN[BB]
+trait BuilderSeqLikeDbl3[BB <: SeqLikeImutDbl3[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: Dbl3Buff[?]
   final override def elemProdSize = 3
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects with [[Dbl3Elem]]s via the map method. */
-trait BuilderMapSlDbl3[B <: Dbl3Elem, BB <: SeqLikeImutDbl3[B]] extends BuilderSlDbl3[BB], BuilderMapSlDblN[B, BB]
+trait BuilderMapSeqLikeDbl3[B <: Dbl3Elem, BB <: SeqLikeImutDbl3[B]] extends BuilderSeqLikeDbl3[BB], BuilderMapSeqLikeDblN[B, BB]
 { type BuffT <: Dbl3Buff[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the map method. Instances for the [[BuilderArrMap]] type class, for classes / traits
  * you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. */
-trait BuilderMapArrDbl3[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderMapSlDbl3[B, ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderMapArrDbl3[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderMapSeqLikeDbl3[B, ArrB], BuilderArrDblNMap[B, ArrB]
 
 /** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl3Elem]]s via the flatMap method. [[BuilderArrFlat]] type class instances for [[ArrDbl3]] final
  * classes1, should go in the companion object of the [[Arr]] final class. */
-trait BuilderFlatArrDbl3[ArrB <: ArrDbl3[?]] extends BuilderSlDbl3[ArrB], BuilderFlatArrDblN[ArrB]
+trait BuilderFlatArrDbl3[ArrB <: ArrDbl3[?]] extends BuilderSeqLikeDbl3[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
 trait Dbl3Buff[A <: Dbl3Elem] extends Any, BuffDblN[A], SeqLikeDbl3[A]

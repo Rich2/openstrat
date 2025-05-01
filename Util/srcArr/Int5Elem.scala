@@ -74,14 +74,14 @@ trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SeqLikeInt5[A]
 }
 
 /** [[BuilderBoth]] for constructing [[SeqLikeImut]] objects, with [[Int5Elem]]s, by the map and flatMap methods. */
-trait BuilderSlInt5[BB <: SlimutInt5[?]] extends BuilderSlIntN[BB]
+trait BuilderSeqLikeInt5[BB <: SlimutInt5[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt5[?]
   final override def elemProdSize: Int = 5
 }
 
 /** [[BuilderMap]] for constructing [[SeqLikeImut]] objects, with [[Int5Elem]]s via the map method. Implicit type class instances, that you control, should go
  * 1n the companion object of the type B class. */
-trait BuilderMapSlInt5[B <: Int5Elem, BB <: SlimutInt5[B]] extends BuilderSlInt5[BB] with BuilderSlIntNMap[B, BB]
+trait BuilderMapSeqLikeInt5[B <: Int5Elem, BB <: SlimutInt5[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -93,11 +93,11 @@ trait BuilderMapSlInt5[B <: Int5Elem, BB <: SlimutInt5[B]] extends BuilderSlInt5
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int5Elem]]s. Implicit type class instances for classes you control, should go in the companion object
  * of the type B class. */
-trait BuilderMapArrInt5[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderMapSlInt5[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait BuilderMapArrInt5[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderMapSeqLikeInt5[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
 /** [[BuilderFlat]] for constructing [[Arr]]s with [[Int5Elem]]s via the flatMap method. Implicit type class instances for classes you control should go in the
  * [[Arr]] class's companion object. */
-trait BuilderFlatArrInt5[ArrB <: ArrInt5[?]] extends BuilderSlInt5[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderFlatArrInt5[ArrB <: ArrInt5[?]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Helper traitClass for the companion objects of [[Arr]]s with [[Int5Elem]]s. */
 abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSlIntN[A, M]

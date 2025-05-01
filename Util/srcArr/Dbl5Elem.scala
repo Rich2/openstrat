@@ -57,14 +57,14 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeImutDbl5[A]
 }
 
 /** [[BuilderBoth]] trait for constructing [[SeqLikeImut]]s with [[Dbl5Elem]]s by map and flatMap methods. */
-trait BuilderSlDbl5[BB <: SeqLikeImutDbl5[?]] extends BuilderSlDblN[BB]
+trait BuilderSeqLikeDbl5[BB <: SeqLikeImutDbl5[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl5[?]
   final override def elemProdSize: Int = 5
 }
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl5Elem]]s, by the map method. Type class instances for the builder you control, should go in the
  * companion object of type B. */
-trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5[ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLikeDbl5[ArrB], BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl5[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
@@ -73,7 +73,7 @@ trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5
 
 /** [[BuilderFlat]] trait for constructing [[SeqLikeImut]]s with [[Dbl5Elem]]s by the faltMap method. The builder type class instances should go in the
  * companion object of the [[SeqLikeImut]]. */
-trait BuilderFlatArrDbl5[ArrB <: ArrDbl5[?]] extends BuilderSlDbl5[ArrB], BuilderFlatArrDblN[ArrB]
+trait BuilderFlatArrDbl5[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** Helper class for companion objects of [[SeqLikeImut]] objects, with [[Dbl5Elem]]s. */
 abstract class CompanionSlDbl5[A <: Dbl5Elem, ArrA <: SeqLikeImutDbl5[A]] extends CompanionSlDblN[A, ArrA]

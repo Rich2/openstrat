@@ -152,25 +152,25 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeImutDbl2[A]
 }
 
 /** [[BuilderBoth]] trait for constructing [[SeqLike]]s with [[Dbl2Elem]]s, via both map and flatMap methods. */
-trait BuilderSlDbl2[BB <: SeqLikeImutDbl2[?]] extends BuilderSlDblN[BB]
+trait BuilderSeqLikeDbl2[BB <: SeqLikeImutDbl2[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl2[?]
   final override def elemProdSize = 2
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLike]]s with [[Dbl2Elem]] elements via the map method. Hence, the type of the element is known at the call site.
  * So implicit type class instances should be placed in the companion object of the element. */
-trait BuilderMapSlDbl2[B <: Dbl2Elem, BB <: SeqLikeImutDbl2[B]] extends BuilderSlDbl2[BB] with BuilderMapSlDblN[B, BB]
+trait BuilderMapSeqLikeDbl2[B <: Dbl2Elem, BB <: SeqLikeImutDbl2[B]] extends BuilderSeqLikeDbl2[BB] with BuilderMapSeqLikeDblN[B, BB]
 { type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 /** [[BuilderMap]] Trait for constructing [[Arr]]s with [[Dbl2Elem]]s. Implicit instances for, for classes / traits you control, should go in the companion
  * object of type B. */
-trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSlDbl2[B, ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderMapArrDbl2[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderMapSeqLikeDbl2[B, ArrB], BuilderArrDblNMap[B, ArrB]
 
 /** [[BuilderFlat]] trait for constructing [[Arr]]s with [[Dbl2Elem]]s. Implicit type class instances for the builder should go in the companion object of the
  * [[Arr]] class. */
-trait BuilderFlatArrDbl2[ArrB <: ArrDbl2[?]] extends BuilderSlDbl2[ArrB], BuilderFlatArrDblN[ArrB]
+trait BuilderFlatArrDbl2[ArrB <: ArrDbl2[?]] extends BuilderSeqLikeDbl2[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** Helper trait for the singleton companion objects of [[SeqLikeImut]] classes with [[Dbl2Elem]]s. */
 trait CompanionSlDbl2[A <: Dbl2Elem, AA <: SeqLikeImutDbl2[A]] extends CompanionSlDblN[A, AA]

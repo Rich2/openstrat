@@ -59,14 +59,14 @@ trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SeqLikeInt3[A]
 }
 
 /** [[BuilderBoth]] for constructing [[SeqLikeImut]]s with [[Int3Elem]]s, via the map or flatMap methods. */
-trait BuilderSlInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSlIntN[BB]
+trait BuilderSeqLikeInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt3[?]
   final override def elemProdSize: Int = 3
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the map method. Implicit type class instances should go in the companion
  * object of the type B class. */
-trait BuilderMapSlInt3[B <: Int3Elem, BB <: SeqLikeImutInt3[B]] extends BuilderSlInt3[BB], BuilderSlIntNMap[B, BB]
+trait BuilderMapSeqLikeInt3[B <: Int3Elem, BB <: SeqLikeImutInt3[B]] extends BuilderSeqLikeInt3[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
@@ -74,15 +74,15 @@ trait BuilderMapSlInt3[B <: Int3Elem, BB <: SeqLikeImutInt3[B]] extends BuilderS
 
 /** [[BuilderFlat]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the flatMap method. Implicit type class instances should go in the companion
  * object of the [[SeqLikeImut]] class. */
-trait BuilderFlatSlInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSlInt3[BB], BuilderSlIntNFlat[BB]
+trait BuilderFlatSeqLikeInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSeqLikeInt3[BB], BuilderSeqLikeIntNFlat[BB]
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int3Elem]]s by the map method. Implicit Type class instances, for classes you control, should go in
  * the companion object of the type B class. */
-trait BuilderMapArrInt3[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderMapSlInt3[B, ArrB], BuilderArrIntNMap[B, ArrB]
+trait BuilderMapArrInt3[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderMapSeqLikeInt3[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** [[BuilderFlat]] trait for constructing  [[Arr]]s with [[Int3Elem]]s via the flatMap method. Implicit type class instances for classes you control, should go
  * in the companion object of the [[Arr]] class. */
-trait BuilderFlatArrInt3[ArrB <: ArrInt3[?]] extends BuilderSlInt3[ArrB], BuilderArrIntNFlat[ArrB]
+trait BuilderFlatArrInt3[ArrB <: ArrInt3[?]] extends BuilderSeqLikeInt3[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** Helper class for companion objects of [[SeqLikeImut]] classes, with [[Int3Elem]]s. */
 abstract class CompanionSlInt3[A <: Int3Elem, ArrA <: SeqLikeImutInt3[A]] extends CompanionSlIntN[A, ArrA]

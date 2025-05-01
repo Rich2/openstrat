@@ -83,14 +83,14 @@ abstract class CompanionSlDbl6[A <: Dbl6Elem, ArrA <: SeqLikeImutDbl6[A]] extend
 }
 
 /** [[BuilderBoth]] trait to construct [[SeqLikeImut]]s with [[Dbl6Elem]]s via the map or flatMap methods. */
-trait BuilderSlDbl6[BB <: ArrDbl6[?]] extends BuilderSlDblN[BB]
+trait BuilderSeqLikeDbl6[BB <: ArrDbl6[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl6[?]
   final override def elemProdSize = 6
 }
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Dbl6Elem]]s via the map method. Type class instances for the builder, for classes you control, should
  * go in the companion object of type B. */
-trait BuilderMapArrDbl6[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSlDbl6[ArrB], BuilderArrDblNMap[B, ArrB]
+trait BuilderMapArrDbl6[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB], BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl6[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
@@ -99,7 +99,7 @@ trait BuilderMapArrDbl6[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSlDbl6
 
 /** [[BuilderFlat]] Trait for constructing [[Arr]]s with [[Dbl6Elem]]s. Type class instances for final classes you control, should go in the companion object of
  * type B, */
-trait BuilderFlatArrDbl6[ArrB <: ArrDbl6[?]] extends BuilderSlDbl6[ArrB], BuilderFlatArrDblN[ArrB]
+trait BuilderFlatArrDbl6[ArrB <: ArrDbl6[?]] extends BuilderSeqLikeDbl6[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A], SeqLikeDbl6[A]

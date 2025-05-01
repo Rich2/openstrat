@@ -80,14 +80,14 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
 }
 
 /** [[BuilderBoth]] for [[SeqLikeImut]]s with [[Int6Elem]]s by map and flatMpa methods. */
-trait BuilderSlInt6[BB <: SeqLikeImutInt6[?]] extends BuilderSlIntN[BB]
+trait BuilderSeqLikeInt6[BB <: SeqLikeImutInt6[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects, with [[Int6Elem]]s, via the map method. Implicit type class instances, for types you control
  * should go in the companion object of the B claas */
-trait BuilderMapSlInt6[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSlInt6[BB], BuilderSlIntNMap[B, BB]
+trait BuilderMapSeqLikeInt6[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSeqLikeInt6[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -99,10 +99,10 @@ trait BuilderMapSlInt6[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderS
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s, with [[Int6Elem]]s via the map method. Implicit type class instances for classes you control, should go in
  * the companion object of the type B class. */
-trait BuilderMapArrInt6[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderMapSlInt6[B, ArrB], BuilderArrIntNMap[B, ArrB]
+trait BuilderMapArrInt6[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderMapSeqLikeInt6[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** Builder of [[ArrInt6]] objects via the flatMap f: A => ArrB method. */
-trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSlInt6[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt6]] final classes to extend. */
 abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSlIntN[A, M]
