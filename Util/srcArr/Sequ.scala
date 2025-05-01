@@ -7,7 +7,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
  * immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently, this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal
  * type. Note there is no generalised sumBy[B](f: A => B): B, method included, as it is more runtime efficient to include this as an extension method in the
  * B companion object of the user created types. */
-trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
+trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 { /** The final type of this object. */
   type ThisT <: Sequ[A]
 

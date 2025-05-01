@@ -15,7 +15,7 @@ trait DblNElem extends Any, ValueNElem
 trait SeqLikeImutDblN[+A <: DblNElem] extends Any, SeqLikeImutValueN[A], ArrayDblBacked
 { type ThisT <: SeqLikeImutDblN[A]
   def fromArray(array: Array[Double]): ThisT
-  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
+  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))  
 }
 
 /** [[SeqSpec]] with [[DblNElem]]s. */
@@ -90,14 +90,14 @@ trait ArrDblN[A <: DblNElem] extends Any, SeqLikeImutDblN[A], ArrValueN[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
+trait BuffDblN[A <: DblNElem] extends Any, BuffValueN[A]
 { type ArrT <: ArrDblN[A]
   def bufferUnsafe: ArrayBuffer[Double]
   def length: Int = bufferUnsafe.length / elemProdSize
   def toArray: Array[Double] = bufferUnsafe.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { bufferUnsafe.addAll(newElems.arrayUnsafe); () }
-  def toArr(implicit build: BuilderArrDblNMap[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)
+  def toArr(implicit build: BuilderArrDblNMap[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)  
 }
 
 /** A [[BuilderBoth]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */

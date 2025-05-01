@@ -9,6 +9,8 @@ trait PairDblNElem[A1 <: DblNElem, A2] extends PairFinalA1Elem[A1, A2]
 trait SequPairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends Sequ[A]
 { /** Number of [[Double]]s to create an A!. */
   def a1NumDbl: Int
+
+
 }
 
 /** [[Arr]] for [[PairDblNElem]]s. [[PairElem]]s where the first component of the pair is a [[DblNElem]]. */
@@ -37,14 +39,14 @@ trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1
 }
 
 /** Efficient buffer classes for [[PairDblN]] elements. */
-trait BuffPairDblN[B1 <: DblNElem, B2, B <: PairDblNElem[B1, B2]] extends BuffPair[B1, B2, B]
+trait BuffPairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends BuffPair[A1, A2, A]
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]
 
-  final def growArr(newElems: ArrPairDblN[B1, ?, B2, B]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
+  final def growArr(newElems: ArrPairDblN[A1, ?, A2, A]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
 
-  final override def pairGrow(b1: B1, b2: B2): Unit = { b1.dblForeach(b1DblBuffer.append(_)); b2Buffer.append(b2) }
+  final override def pairGrow(b1: A1, b2: A2): Unit = { b1.dblForeach(b1DblBuffer.append(_)); b2Buffer.append(b2) }
 }
 
 /** Base trait for builders of [[ArrPairDblN]] objects by both map and flatMap methods. */

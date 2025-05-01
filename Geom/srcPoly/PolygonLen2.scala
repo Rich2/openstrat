@@ -17,7 +17,7 @@ trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT],
   def revYIf(cond: Boolean): PolygonLen2[VT]
   def rotate180: PolygonLen2[VT]
   def rotate180If(cond: Boolean): PolygonLen2[VT]
-  def rotate180IfNot(cond: Boolean): PolygonLen2[VT]
+  def rotate180IfNot(cond: Boolean): PolygonLen2[VT]  
 }
 
 /** Companion object for [[PolygonLen2]]. Does not provide factory methods. Use the specific [[Length]] unit classes such as [[PolyonM2]] and [[PolygonKm2]].

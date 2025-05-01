@@ -50,7 +50,7 @@ object SeqLike
 }
 
 /** A [[SeqLike]] class that is backed by an [[Array]] or an [[ArrayBuffer]] which can be mutated. This mutation will mostly be used by builders rather than end
- * users. There are other cases where it can be useful, for example in simulataneous game turn resolution. */
+ * users. There are other cases where it can be useful, for example in simultaneous game turn resolution. */
 trait SeqLikeBacked[+A] extends Any, SeqLike[A]
 { /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
@@ -61,5 +61,5 @@ trait SeqLikeBacked[+A] extends Any, SeqLike[A]
   
   /** Mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
-  def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = ???
+  def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = setElemsUnsafe(index, f(elem(index)))
 }

@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A [[PolygonLike]] with [[PtLength3]] vertices. */
-trait PolygonLength3[VT <: PtLength3] extends Any with PolygonLikeDbl3[VT]
+trait PolygonLength3[VT <: PtLength3] extends Any, PolygonLikeDbl3[VT]
 { type ThisT <: PolygonLength3[VT]
   type SideY <: LineSegLength3[VT]
 }

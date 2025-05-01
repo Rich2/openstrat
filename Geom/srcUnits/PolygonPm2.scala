@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag, unchecked.uncheckedVariance
 
 /** A polygon using vertices specified in [[PtPm2]] points rather than scalars. */
 final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtPm2]
@@ -16,7 +16,8 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLe
   override def slateX(xOperand: Length): PolygonPm2 = dblsMap(_ + xOperand.picometresNum, y => y)
   override def slateY(yOperand: Length): PolygonPm2 = dblsMap(x => x, _ + yOperand.picometresNum)
   override def scale(operand: Double): PolygonPm2 = dblsMap(_ * operand, _ * operand)
-  override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafe.map(_ / operand.picometresNum))  
+  override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafe.map(_ / operand.picometresNum))
+  override def mutateElemUnsafe(index: Int, f: PtPm2 => PtPm2 @uncheckedVariance): Unit = setElemsUnsafe(index, f(vert(index)))
 
   /** Performs the side effecting function on the [[PtPm2]] value of each vertex. */
   override def vertsForeach[U](f: PtPm2 => U): Unit =

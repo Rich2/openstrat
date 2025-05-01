@@ -96,5 +96,5 @@ trait Dbl3Buff[A <: Dbl3Elem] extends Any, BuffDblN[A], SeqLikeDbl3[A]
   final override def elem(index: Int): A = elemFromDbls(bufferUnsafe(index * 3), bufferUnsafe(index * 3 + 1), bufferUnsafe(index * 3 + 2))
   final override def length: Int = bufferUnsafe.length / 3
   final override def numElems: Int = bufferUnsafe.length / 3
-  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
+  override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)   
 }

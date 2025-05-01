@@ -128,12 +128,6 @@ class MultipleArr[A](intArray: Array[Int], valueArray: Array[A]) extends Arr[Mul
   override def setElemUnsafe(index: Int, newElem: Multiple[A]): Unit = { valueArray(index) = newElem.value; intArray(index) =newElem.num }
   override def fElemStr: Multiple[A] => String = _.toString
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
-
-  override def mutateElemUnsafe(index: Int, f: Multiple[A] => Multiple[A]): Unit =
-  { val newMulti = f(apply(index))
-    intArray(index) = newMulti.num
-    valueArray(index) = newMulti.value
-  }
 }
 
 class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])

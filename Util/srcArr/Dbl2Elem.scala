@@ -126,7 +126,7 @@ trait SeqSpecDbl2[+A <: Dbl2Elem] extends Any, SeqLikeImutDbl2[A], SeqSpecDblN[A
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
-trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeImutDbl2[A]
+trait ArrDbl2[A <: Dbl2Elem] extends Any, ArrDblN[A], SeqLikeImutDbl2[A]
 { type ThisT <: ArrDbl2[A]
   final override def length: Int = arrayUnsafe.length / 2
   def head1: Double = arrayUnsafe(0)
