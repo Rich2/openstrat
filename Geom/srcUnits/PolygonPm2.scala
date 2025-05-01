@@ -17,7 +17,6 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLe
   override def slateY(yOperand: Length): PolygonPm2 = dblsMap(x => x, _ + yOperand.picometresNum)
   override def scale(operand: Double): PolygonPm2 = dblsMap(_ * operand, _ * operand)
   override def mapGeom2(operand: Length): Polygon = Polygon.fromArray(arrayUnsafe.map(_ / operand.picometresNum))
-  override def mutateElemUnsafe(index: Int, f: PtPm2 => PtPm2 @uncheckedVariance): Unit = setElemsUnsafe(index, f(vert(index)))
 
   /** Performs the side effecting function on the [[PtPm2]] value of each vertex. */
   override def vertsForeach[U](f: PtPm2 => U): Unit =

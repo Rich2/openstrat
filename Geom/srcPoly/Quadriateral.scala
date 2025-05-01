@@ -92,11 +92,12 @@ class QuadrilateralGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1
 
 /** Companion object for [[QuadrilateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */
 object QuadrilateralGen
-{ /** Apply factory method to construct [[Quadrilateral]] from an [[Array]] of [[Double]]s. */
-  def apply(array: Array[Double]): QuadrilateralGen = ??? // new QuadrilateralGen(array)
+{ /** Apply factory method to construct [[QuadrilateralGen]] from its 4 vertices. */
+  def apply(v0: Pt2, v1: Pt2, v2: Pt2, v3: Pt2): QuadrilateralGen =  new QuadrilateralGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
-  /** Apply factory method to construct [[Quadrilateral]] from its 4 vertices. */
-  def apply(pt0: Pt2, pt1: Pt2, pt2: Pt2, pt3: Pt2): QuadrilateralGen = ??? // new QuadrilateralGen(SlImutDbl2.array(pt0, pt1, pt2, pt3))
+  /** Apply factory method to construct [[QuadrilateralGen]] from its the X and Y componeents of its 4 vertices. */
+  def apply(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double, v3x: Double, v3y: Double): QuadrilateralGen =
+    new QuadrilateralGen(v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
 }
 
 /** 2-dimensional graphic based ona quadrilateral */

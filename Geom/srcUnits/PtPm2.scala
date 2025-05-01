@@ -155,6 +155,7 @@ object PtPm2Pair
   }
 }
 
+/** Specialised [[Arr]] for [[PairElem]]s where the first component of the pairs is a [[PtPm2]]. */
 class PtPm2PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends ArrPairDbl2[PtPm2, PtPm2Arr, A2, PtPm2Pair[A2]]
 { override type ThisT = PtPm2PairArr[A2]
   override def typeStr: String = "PtPm2PairArr"
