@@ -3,7 +3,7 @@ package ostrat
 import annotation.unchecked.uncheckedVariance, pParse._
 
 /** Common trait for immutable [[Sequ]]s, mutable [[Buff]]s and [[SeqSpec]] classes that are not sequences but can be specified by a sequence, for example a
- *  sequence of points can specify a polygon. Designed as a compromise between type safety and effciency. Using backing [[Array]]s for use facing types, but
+ *  sequence of points can specify a polygon. Designed as a compromise between type safety and efficiency. Using backing [[Array]]s for use facing types, but
  *  using backing [[ArrayBuffer]]s behind the scenes keeping mutation encapsulated. Many methods and properties are common to all three [[Sequ]]s, [[Buff]]s and
  *  [[SeqSpec]]s. */
 trait SeqLike[+A] extends Any
@@ -20,6 +20,7 @@ trait SeqLike[+A] extends Any
    * will be a multiple of this number. For [[Sequ]]s this will be an alternative name for length. */
   def numElems: Int
 
+  /** [[String]] for element, can be overridden. */
   def fElemStr: A@uncheckedVariance => String = _.toString
 
   /** String specifying the type of this object. */

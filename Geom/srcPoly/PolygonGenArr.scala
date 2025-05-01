@@ -28,18 +28,29 @@ object PolygonGenArr
 
   given eqEv: EqT[PolygonGenArr] = ArrArrayDblEq[PolygonGen, PolygonGenArr]
 
+  /** Implicit [[Slate]] type class instance / evidence for [[PolygonGenArr]]. */
   given slateEv: Slate2[PolygonGenArr] = new Slate2[PolygonGenArr]
   { override def slate(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slate(operand)
     override def slateXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slate(Pt2(xOperand, yOperand))
   }
 
+  /** Implicit [[Scale]] type class instance / evidence for [[PolygonGenArr]]. */
   given scaleEv: Scale[PolygonGenArr] = (obj: PolygonGenArr, operand: Double) => obj.map(_.scale(operand))
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[PolygonGenArr]]. */
   given rotateEv: Rotate[PolygonGenArr] = (obj: PolygonGenArr, angle: AngleVec) => obj.map(_.rotate(angle))
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[PolygonGenArr]]. */
   given prolignEv: Prolign[PolygonGenArr] = (obj, matrix) => obj.map(_.prolign(matrix))
-  given XYScaleEv: ScaleXY[PolygonGenArr] = (obj, xOperand, yOperand) => obj.map(_.scaleXY(xOperand, yOperand))
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[PolygonGenArr]]. */
+  given scaleXYEv: ScaleXY[PolygonGenArr] = (obj, xOperand, yOperand) => obj.map(_.scaleXY(xOperand, yOperand))
+
+  /** Implicit [[Reflect]] type class instance / evidence for [[PolygonGenArr]]. */
   given reflectEv: Reflect[PolygonGenArr] = (obj: PolygonGenArr, lineLike: LineLike) => obj.map(_.reflect(lineLike))
 
-  given reflectAxesEv: TransAxes[PolygonGenArr] = new TransAxes[PolygonGenArr]
+  /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonGenArr]]. */
+  given transAxesEv: TransAxes[PolygonGenArr] = new TransAxes[PolygonGenArr]
   { override def negXT(obj: PolygonGenArr): PolygonGenArr = obj.negX
     override def negYT(obj: PolygonGenArr): PolygonGenArr = obj.negY
     override def rotate90(obj: PolygonGenArr): PolygonGenArr = obj.rotate90
