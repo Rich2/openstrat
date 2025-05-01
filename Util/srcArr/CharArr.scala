@@ -18,6 +18,7 @@ final class CharArr(val arrayUnsafe: Array[Char]) extends AnyVal, ArrNoParam[Cha
   override def numElems: Int = arrayUnsafe.length
   override def setElemUnsafe(index: Int, newElem: Char): Unit = arrayUnsafe(index) = newElem
   override def fElemStr: Char => String = _.toString
+  override def mutateElemUnsafe(index: Int, f: Char => Char): Unit = { arrayUnsafe(index) = f(arrayUnsafe(index)) }
 
   /** append. Appends operand [[Char]] to this [[CharArr]]. */
   @targetName("appendElem") override def +%(operand: Char): CharArr =

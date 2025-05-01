@@ -91,12 +91,12 @@ object HCoord
   }
 }
 
-trait HCoordSeqLike extends Any with SlImutInt2[HCoord]
+trait HCoordSeqLike extends Any with SeqLikeImutInt2[HCoord]
 { final override def elemFromInts(int1: Int, int2: Int): HCoord = HCoord(int1, int2)
   final override def fElemStr: HCoord => String = _.toString
 }
 
-trait HCoordSeqSpec extends Any with HCoordSeqLike with SsInt2[HCoord]
+trait HCoordSeqSpec extends Any with HCoordSeqLike with SeqSpecInt2[HCoord]
 
 /** Specialised sequence class for [[HCoord]]. */
 class HCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HCoord] with HCoordSeqLike

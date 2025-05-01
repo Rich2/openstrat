@@ -12,7 +12,7 @@ trait Int1Elem extends Any with IntNElem
 }
 
 /** [[SeqLike]] trait with [[Int1Elem]]s. */
-trait SlInt1[A <: Int1Elem] extends Any with SlValueN[A]
+trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeValueN[A]
 { /** Constructs an element of the specifying sequence from an [[Int]] value. */
   def elemFromInt(intValue: Int): A
 
@@ -21,17 +21,17 @@ trait SlInt1[A <: Int1Elem] extends Any with SlValueN[A]
 }
 
 /** [[SeqLikeImut]] trait for classes specified by a single [[Int]]. */
-trait SlInt1Imut[A <: Int1Elem] extends Any, SlImutIntN[A], SlInt1[A]
+trait SeqLikeInt1Imut[A <: Int1Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt1[A]
 { final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
   final override def numElems: Int = arrayLen
   final override def elem(index: Int): A = elemFromInt(arrayUnsafe(index))
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
-trait SeqSpecInt1[A <: Int1Elem] extends Any with SlInt1Imut[A] with SsIntN[A]
+trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1Imut[A] with SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SlInt1Imut[A]
+trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
 { final override def length: Int = arrayUnsafe.length
 
   @targetName("appendElem") inline final override def +%(operand: A): ThisT =
@@ -45,7 +45,7 @@ trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SlInt1Imut[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SlInt1[A]
+trait BuffInt1[A <: Int1Elem] extends Any, BuffIntN[A], SeqLikeInt1[A]
 { type ThisT <: BuffInt1[A]
 
   final override def length: Int = bufferUnsafe.length
@@ -74,7 +74,7 @@ trait BuilderMapArrInt1[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
 trait BuilderFlatArrIn1[ArrB <: ArrInt1[?]] extends BuilderArrInt1[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Helper trait for companion objects of [[SeqLikeImut]]s, with [[Int1Elem]]s. */
-trait CompanionSlInt1[A <: Int1Elem, ArrA <: SlInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
+trait CompanionSlInt1[A <: Int1Elem, ArrA <: SeqLikeInt1Imut[A]] extends CompanionSlIntN[A, ArrA]
 { final override def elemNumInts: Int = 1
 
   /** Apply factory method */

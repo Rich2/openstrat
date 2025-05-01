@@ -2,7 +2,7 @@
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 3 [[Int]]s. These are used in [[SsInt3]] based collections. */
+/** An object that can be constructed from 3 [[Int]]s. These are used in [[SeqSpecInt3]] based collections. */
 trait Int3Elem extends Any, IntNElem
 { def int1: Int
   def int2: Int
@@ -13,7 +13,7 @@ trait Int3Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] with [[Int3Elem]]s. */
-trait SlInt3[A <: Int3Elem] extends Any, SlValueN[A]
+trait SeqLikeInt3[A <: Int3Elem] extends Any, SeqLikeValueN[A]
 { /** Constructs an element from 3 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int): A
 
@@ -22,17 +22,17 @@ trait SlInt3[A <: Int3Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLikeImut]] with [[Int3Elem]]s that be specified by a backing [[Array]][Double]. */
-trait SlImutInt3[A <: Int3Elem] extends Any, SlImutIntN[A], SlInt3[A]
+trait SeqLikeImutInt3[A <: Int3Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt3[A]
 { final override def elem(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def numElems: Int = arrayUnsafe.length / 3
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
 
 /** [[SeqSpec]] with [[Int3Elems]]. Can be specified by a flat [[Array]][Double]. */
-trait SsInt3[A <: Int3Elem] extends Any, SlImutInt3[A], SsIntN[A]
+trait SeqSpecInt3[A <: Int3Elem] extends Any, SeqLikeImutInt3[A], SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */
-trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SlImutInt3[A]
+trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeImutInt3[A]
 { def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
   def head3: Int = arrayUnsafe(2)
@@ -48,7 +48,7 @@ trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SlImutInt3[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int3Elem]]s collections. */
-trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SlInt3[A]
+trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SeqLikeInt3[A]
 { type ThisT <: BuffInt3[A]
   final override def length: Int = bufferUnsafe.length / 3
   final override def numElems: Int = bufferUnsafe.length / 3
@@ -59,14 +59,14 @@ trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SlInt3[A]
 }
 
 /** [[BuilderBoth]] for constructing [[SeqLikeImut]]s with [[Int3Elem]]s, via the map or flatMap methods. */
-trait BuilderSlInt3[BB <: SlImutInt3[?]] extends BuilderSlIntN[BB]
+trait BuilderSlInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt3[?]
   final override def elemProdSize: Int = 3
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the map method. Implicit type class instances should go in the companion
  * object of the type B class. */
-trait BuilderMapSlInt3[B <: Int3Elem, BB <: SlImutInt3[B]] extends BuilderSlInt3[BB], BuilderSlIntNMap[B, BB]
+trait BuilderMapSlInt3[B <: Int3Elem, BB <: SeqLikeImutInt3[B]] extends BuilderSlInt3[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
@@ -74,7 +74,7 @@ trait BuilderMapSlInt3[B <: Int3Elem, BB <: SlImutInt3[B]] extends BuilderSlInt3
 
 /** [[BuilderFlat]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the flatMap method. Implicit type class instances should go in the companion
  * object of the [[SeqLikeImut]] class. */
-trait BuilderFlatSlInt3[BB <: SlImutInt3[?]] extends BuilderSlInt3[BB], BuilderSlIntNFlat[BB]
+trait BuilderFlatSlInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSlInt3[BB], BuilderSlIntNFlat[BB]
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int3Elem]]s by the map method. Implicit Type class instances, for classes you control, should go in
  * the companion object of the type B class. */
@@ -85,7 +85,7 @@ trait BuilderMapArrInt3[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderMapSlI
 trait BuilderFlatArrInt3[ArrB <: ArrInt3[?]] extends BuilderSlInt3[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** Helper class for companion objects of [[SeqLikeImut]] classes, with [[Int3Elem]]s. */
-abstract class CompanionSlInt3[A <: Int3Elem, ArrA <: SlImutInt3[A]] extends CompanionSlIntN[A, ArrA]
+abstract class CompanionSlInt3[A <: Int3Elem, ArrA <: SeqLikeImutInt3[A]] extends CompanionSlIntN[A, ArrA]
 { override def elemNumInts: Int = 3
 
   /** Apply factory method for constructing [[SeqLike]] objects from [[Int3Elem]]s. */

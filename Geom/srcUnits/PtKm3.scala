@@ -149,12 +149,12 @@ object PtKm3
   implicit val lineSegBuildEv: BuilderMapLSegBase[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
-trait PtKm3SeqLike extends Any, SlImutDbl3[PtKm3]
+trait PtKm3SeqLike extends Any, SeqLikeImutDbl3[PtKm3]
 { final override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
   final override def fElemStr: PtKm3 => String = _.str
 }
 
-trait PtKm3SeqSpec extends PtKm3SeqLike, SsDbl3[PtKm3]
+trait PtKm3SeqSpec extends PtKm3SeqLike, SeqSpecDbl3[PtKm3]
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */
 class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtKm3SeqLike, ArrDbl3[PtKm3]

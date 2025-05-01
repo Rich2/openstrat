@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait LongNElem extends Any with ValueNElem
 
 /** [[SeqLike]] with [[LongN]] elements. */
-trait SeqLikeLongN[A <: LongNElem] extends Any with SlImutValueN[A]
+trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeImutValueN[A]
 { type ThisT <: SeqLikeLongN[A]
   def unsafeArray: Array[Long]
 
@@ -20,7 +20,7 @@ trait SeqLikeLongN[A <: LongNElem] extends Any with SlImutValueN[A]
 }
 
 /** A compound object defined / specified by a sequence of [[LongN]] elements. */
-trait SeqSpecLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with SsValueN[A]
+trait SeqSpecLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with SeqSpecValueN[A]
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
 trait ArrLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with ArrValueN[A]

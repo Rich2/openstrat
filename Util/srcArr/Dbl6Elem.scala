@@ -16,7 +16,7 @@ trait Dbl6Elem extends Any, DblNElem
 }
 
 /** [[SeqLike]] with [[Dbl6Elem]]s, which can be constructed from 6 [[Double]]s. */
-trait SlDbl6[+A <: Dbl6Elem] extends Any, SlValueN[A]
+trait SeqLikeDbl6[+A <: Dbl6Elem] extends Any, SeqLikeValueN[A]
 { /** Constructs an element of the specifying-sequence from 6 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
   
@@ -27,7 +27,7 @@ trait SlDbl6[+A <: Dbl6Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLikeImut]] with [[Dbl6Elem]]s, that can be constructed from 6 [[Double]]s. */
-trait SlImutDbl6[+A <: Dbl6Elem] extends Any, SlImutDblN[A], SlDbl6[A]
+trait SeqLikeImutDbl6[+A <: Dbl6Elem] extends Any, SeqLikeImutDblN[A], SeqLikeDbl6[A]
 { final override def numElems: Int = arrayLen / 6
 
   final def elem(index: Int): A =
@@ -41,10 +41,10 @@ trait SlImutDbl6[+A <: Dbl6Elem] extends Any, SlImutDblN[A], SlDbl6[A]
 }
 
 /** [[SeqSpec]] with [[Dbl6Elem]]s. */
-trait SsDbl6[+A <: Dbl6Elem] extends Any, SlImutDbl6[A], SsDblN[A]
+trait SeqSpecDbl6[+A <: Dbl6Elem] extends Any, SeqLikeImutDbl6[A], SeqSpecDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl6Elem]]s. */
-trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SlImutDbl6[A]
+trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SeqLikeImutDbl6[A]
 { final override def length: Int = arrayUnsafe.length / 6
 
   def apply(index: Int): A =
@@ -67,7 +67,7 @@ trait ArrDbl6[A <: Dbl6Elem] extends Any, ArrDblN[A], SlImutDbl6[A]
 }
 
 /** Helper class for companion objects of [[SeqLikeImut]]s, with [[Dbl6Elem]]s. */
-abstract class CompanionSlDbl6[A <: Dbl6Elem, ArrA <: SlImutDbl6[A]] extends CompanionSlDblN[A, ArrA]
+abstract class CompanionSlDbl6[A <: Dbl6Elem, ArrA <: SeqLikeImutDbl6[A]] extends CompanionSlDblN[A, ArrA]
 { override def numElemDbls: Int = 6
 
   def apply(elems: A*): ArrA =
@@ -102,7 +102,7 @@ trait BuilderMapArrDbl6[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSlDbl6
 trait BuilderFlatArrDbl6[ArrB <: ArrDbl6[?]] extends BuilderSlDbl6[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A], SlDbl6[A]
+trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A], SeqLikeDbl6[A]
 { type ArrT <: ArrDbl6[A]
   final override def length: Int = bufferUnsafe.length / 6
   final override def numElems: Int = bufferUnsafe.length / 6

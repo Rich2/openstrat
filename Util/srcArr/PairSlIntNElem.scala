@@ -2,17 +2,17 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** A [[PairElem]] whose first component is a [[SlIntN]]. */
-trait PairSlIntNElem[A1E <: IntNElem, A1 <: SlImutIntN[A1E], A2] extends PairSeqLikeElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
+/** A [[PairElem]] whose first component is a [[SeqLikeIntN]]. */
+trait PairSlIntNElem[A1E <: IntNElem, A1 <: SeqLikeImutIntN[A1E], A2] extends PairSeqLikeElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
 
-/** An [[Arr]] of [[PairElem]]s where the first component of each pair is a [[SlIntN]]. */
-trait ArrPairSeqLikeIntN[A1E <: IntNElem, A1 <: SlImutIntN[A1E], ArrA1 <: Arr[A1], A2, A <: PairSlIntNElem[A1E, A1, A2]] extends
+/** An [[Arr]] of [[PairElem]]s where the first component of each pair is a [[SeqLikeIntN]]. */
+trait ArrPairSeqLikeIntN[A1E <: IntNElem, A1 <: SeqLikeImutIntN[A1E], ArrA1 <: Arr[A1], A2, A <: PairSlIntNElem[A1E, A1, A2]] extends
   ArrPairSeqLike[A1E, A1, ArrA1, A2, A], ArrayIntBackedPairArr[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairSeqLikeIntN[A1E, A1, ArrA1, A2, A]
 }
 
-/** A [[Buff]] of [[PairElem]]s where the first component of each pair is a [[SlIntN]] */
-trait BuffPairSlIntN[B1E <: IntNElem, B1 <: SlImutIntN[B1E], B2, B <: PairSlIntNElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
+/** A [[Buff]] of [[PairElem]]s where the first component of each pair is a [[SeqLikeIntN]] */
+trait BuffPairSlIntN[B1E <: IntNElem, B1 <: SeqLikeImutIntN[B1E], B2, B <: PairSlIntNElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
 { def b1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
 
@@ -22,8 +22,8 @@ trait BuffPairSlIntN[B1E <: IntNElem, B1 <: SlImutIntN[B1E], B2, B <: PairSlIntN
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }
 }
 
-/** [[BuilderMap]] for [[Arr]]s of [[PairElem]]s, where the first component of each pair is a [[SlIntN]]. */
-trait BuilderMapArrPairSeqLikeIntN[B1E <: IntNElem, B1 <: SlImutIntN[B1E], ArrB1 <: Arr[B1], B2, B <: PairSlIntNElem[B1E, B1, B2],
+/** [[BuilderMap]] for [[Arr]]s of [[PairElem]]s, where the first component of each pair is a [[SeqLikeIntN]]. */
+trait BuilderMapArrPairSeqLikeIntN[B1E <: IntNElem, B1 <: SeqLikeImutIntN[B1E], ArrB1 <: Arr[B1], B2, B <: PairSlIntNElem[B1E, B1, B2],
   ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]] extends BuilderArrMapPairSeqLike[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairSlIntN[B1E, B1, B2, B]
   type B1BuffT <: ArrayIntBuff[B1]

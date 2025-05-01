@@ -17,7 +17,7 @@ trait Int5Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] with [[Int5Elem]]s. */
-trait SlInt5[A <: Int5Elem] extends Any, SlValueN[A]
+trait SeqLikeInt5[A <: Int5Elem] extends Any, SeqLikeValueN[A]
 { /** Constructs a new element of this [[Buff]] from 5 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
@@ -28,12 +28,12 @@ trait SlInt5[A <: Int5Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLikeImut]] with [[Int5Elem]]s, can be specified by a backing [[Array]][Int].  */
-trait SlimutInt5[A <: Int5Elem] extends Any, SlImutIntN[A], SlInt5[A]
+trait SlimutInt5[A <: Int5Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt5[A]
 { override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** [[SeqSpec]] with [[Int5Elem]]s, can be specified with a backing [[Array]][Int]. */
-trait SsInt5[A <: Int5Elem] extends Any, SlimutInt5[A], SsIntN[A]
+trait SeqSpecInt5[A <: Int5Elem] extends Any, SlimutInt5[A], SeqSpecIntN[A]
 { override def elem(index: Int): A =
     elemFromInts(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 }
@@ -60,7 +60,7 @@ trait ArrInt5[A <: Int5Elem] extends Any, SlimutInt5[A], ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SlInt5[A]
+trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SeqLikeInt5[A]
 { type ThisT <: BuffInt5[A]
 
   final override def length: Int = bufferUnsafe.length / 5

@@ -11,12 +11,12 @@ trait Dbl1Elem extends Any, DblNElem
 }
 
 /** A [[SeqLikeImut]] of [[Dbl1Elem]]s. */
-trait SlImutDbl1[A <: Dbl1Elem] extends Any, SlImutDblN[A]
+trait SeqLikeImutDbl1[A <: Dbl1Elem] extends Any, SeqLikeImutDblN[A]
 { override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
 }
 
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
-trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SlImutDbl1[A]
+trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SeqLikeImutDbl1[A]
 { final override def elemProdSize: Int = 1
   def elemFromDbl(dblValue: Double): A  
   final override def apply(index: Int): A = elemFromDbl(arrayUnsafe(index))

@@ -16,7 +16,7 @@ trait Int6Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] for [[Int6Elem]]s */
-trait SlInt6[A <: Int6Elem] extends Any, SlValueN[A]
+trait SeqLikeInt6[A <: Int6Elem] extends Any, SeqLikeValueN[A]
 { /** Constructs a new element of this [[Buff]] from 6 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
 
@@ -27,7 +27,7 @@ trait SlInt6[A <: Int6Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLikeImut]] for [[Int6Elem]]s */
-trait SeqLikeImutInt6[A <: Int6Elem] extends Any, SlImutIntN[A], SlInt6[A]
+trait SeqLikeImutInt6[A <: Int6Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt6[A]
 { final override def numElems: Int = arrayUnsafe.length / 6
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -38,7 +38,7 @@ trait SeqLikeImutInt6[A <: Int6Elem] extends Any, SlImutIntN[A], SlInt6[A]
 }
 
 /** [[SeqSpec]] trait with [[Int6Elem]]s */
-trait SsInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], SsIntN[A]
+trait SeqSpecInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int6Elem]]s. */
 trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], ArrIntN[A]
@@ -63,7 +63,7 @@ trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int6Elem]]s collections. */
-trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SlInt6[A]
+trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
 { type ThisT <: BuffInt6[A]
   final override def length: Int = bufferUnsafe.length / 6
   final override def numElems: Int = bufferUnsafe.length / 6

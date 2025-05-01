@@ -83,7 +83,7 @@ trait Polygon4Plus extends Any, Polygon3Plus
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
-trait Polygon5Plus extends Any with Polygon4Plus with SsDbl2[Pt2]
+trait Polygon5Plus extends Any with Polygon4Plus with SeqSpecDbl2[Pt2]
 { type ThisT <: Polygon5Plus
 
   /** The X component of the vertex 4. */

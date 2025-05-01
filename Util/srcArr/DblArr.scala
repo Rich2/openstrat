@@ -15,6 +15,7 @@ class DblArr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrNoParam[Double]
   override def setElemUnsafe(index: Int, newElem: Double): Unit = arrayUnsafe(index) = newElem
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
+  override def mutateElemUnsafe(index: Int, f: Double => Double): Unit = { arrayUnsafe(index) = f(arrayUnsafe(index)) }
 
   @targetName("append") def ++ (op: DblArr): DblArr =
   { val newArray = new Array[Double](length + op.length)

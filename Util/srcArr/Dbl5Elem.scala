@@ -15,7 +15,7 @@ trait Dbl5Elem extends Any, DblNElem
 }
 
 /** [[SeqLike]] with [[Dbl5Elem]]s. */
-trait SlDbl5[+A <: Dbl5Elem] extends Any, SlValueN[A]
+trait SeqLikeDbl5[+A <: Dbl5Elem] extends Any, SeqLikeValueN[A]
 { /** Method for creating new specifying sequence element from 5 [[Double]]s. */
   def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double @uncheckedVariance): A
   
@@ -26,7 +26,7 @@ trait SlDbl5[+A <: Dbl5Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLikeImut]] with [[Dbl5Elem]]s. */
-trait SlImutDbl5[+A <: Dbl5Elem] extends Any, SlImutDblN[A], SlDbl5[A]
+trait SeqLikeImutDbl5[+A <: Dbl5Elem] extends Any, SeqLikeImutDblN[A], SeqLikeDbl5[A]
 { final override def elem(index: Int): A = elemFromDbls(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
   
@@ -35,10 +35,10 @@ trait SlImutDbl5[+A <: Dbl5Elem] extends Any, SlImutDblN[A], SlDbl5[A]
 }
 
 /** [[SeqSpec]] with [[Dbl5Elem]]s can be backed by a flat [[Array]][Double]. */
-trait SsDbl5[+A <: Dbl5Elem] extends Any, SlImutDbl5[A], SsDblN[A]
+trait SeqSpecDbl5[+A <: Dbl5Elem] extends Any, SeqLikeImutDbl5[A], SeqSpecDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SlImutDbl5[A]
+trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeImutDbl5[A]
 { final override def length: Int = arrayUnsafe.length / 5
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
@@ -57,7 +57,7 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SlImutDbl5[A]
 }
 
 /** [[BuilderBoth]] trait for constructing [[SeqLikeImut]]s with [[Dbl5Elem]]s by map and flatMap methods. */
-trait BuilderSlDbl5[BB <: SlImutDbl5[?]] extends BuilderSlDblN[BB]
+trait BuilderSlDbl5[BB <: SeqLikeImutDbl5[?]] extends BuilderSlDblN[BB]
 { type BuffT <: BuffDbl5[?]
   final override def elemProdSize: Int = 5
 }
@@ -76,7 +76,7 @@ trait BuilderMapArrDbl5[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSlDbl5
 trait BuilderFlatArrDbl5[ArrB <: ArrDbl5[?]] extends BuilderSlDbl5[ArrB], BuilderFlatArrDblN[ArrB]
 
 /** Helper class for companion objects of [[SeqLikeImut]] objects, with [[Dbl5Elem]]s. */
-abstract class CompanionSlDbl5[A <: Dbl5Elem, ArrA <: SlImutDbl5[A]] extends CompanionSlDblN[A, ArrA]
+abstract class CompanionSlDbl5[A <: Dbl5Elem, ArrA <: SeqLikeImutDbl5[A]] extends CompanionSlDblN[A, ArrA]
 { override def numElemDbls: Int = 5
 
   def apply(elems: A*): ArrA =
@@ -92,7 +92,7 @@ abstract class CompanionSlDbl5[A <: Dbl5Elem, ArrA <: SlImutDbl5[A]] extends Com
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */
-trait BuffDbl5[A <: Dbl5Elem] extends Any, BuffDblN[A], SlDbl5[A]
+trait BuffDbl5[A <: Dbl5Elem] extends Any, BuffDblN[A], SeqLikeDbl5[A]
 { type ArrT <: ArrDbl5[A]
   final override def length: Int = bufferUnsafe.length / 5
   override def grow(newElem: A): Unit = bufferUnsafe.append5(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)

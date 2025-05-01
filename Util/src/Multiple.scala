@@ -108,7 +108,7 @@ object Multiple
     unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)  
 }
 
-class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
+class MultipleArr[A](intArray: Array[Int], valueArray: Array[A]) extends Arr[Multiple[A]]
 { type ThisT = MultipleArr[A]
   override def typeStr: String = "MultipleArr"
 
@@ -121,13 +121,19 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
     res
   }
   
-  override def elem(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
-  override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
-  override def length: Int = arrayInt.length
-  override def numElems: Int = arrayInt.length
-  override def setElemUnsafe(index: Int, newElem: Multiple[A]): Unit = { values(index) = newElem.value; arrayInt(index) =newElem.num }
+  override def elem(index: Int): Multiple[A] = new Multiple[A](valueArray(index), intArray(index))
+  override def apply(index: Int): Multiple[A] = new Multiple[A](valueArray(index), intArray(index))
+  override def length: Int = intArray.length
+  override def numElems: Int = intArray.length
+  override def setElemUnsafe(index: Int, newElem: Multiple[A]): Unit = { valueArray(index) = newElem.value; intArray(index) =newElem.num }
   override def fElemStr: Multiple[A] => String = _.toString
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
+
+  override def mutateElemUnsafe(index: Int, f: Multiple[A] => Multiple[A]): Unit =
+  { val newMulti = f(apply(index))
+    intArray(index) = newMulti.num
+    valueArray(index) = newMulti.value
+  }
 }
 
 class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
@@ -150,6 +156,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   }
 }
 
+/** Specialised buffer class for [[Multiple]] elements. */
 class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
 { override type ThisT = MultipleBuff[A]
   override def typeStr: String = "MultipleBuff"
@@ -160,6 +167,12 @@ class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBu
   override def numElems: Int = numBuffer.length
   override def setElemUnsafe(index: Int, newElem: Multiple[A]): Unit = { numBuffer(index) = newElem.num; valuesBuffer(index) = newElem.value }
   override def fElemStr: Multiple[A] => String = _.toString
+
+  override def mutateElemUnsafe(index: Int, f: Multiple[A] => Multiple[A]): Unit =
+  { val newMulti = f(apply(index))
+    numBuffer(index) = newMulti.num
+    valuesBuffer(index) = newMulti.value
+  }
 }
 
 object MultipleBuff

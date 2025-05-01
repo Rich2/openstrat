@@ -148,7 +148,7 @@ object HVertLow
 }
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait HVertSeqLike extends Any with SlImutInt2[HVert]
+trait HVertSeqLike extends Any with SeqLikeImutInt2[HVert]
 { override def elemFromInts(int1: Int, int2: Int): HVert = HVert.apply(int1, int2)
   override def fElemStr: HVert => String = _.str
   def vertNum: Int = arrayUnsafe.length / 2

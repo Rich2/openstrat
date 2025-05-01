@@ -16,7 +16,7 @@ trait Int4Elem extends Any, IntNElem
 }
 
 /** [[SeqLike]] with [[Int4Elem]]s. */
-trait SlInt4[A <: Int4Elem] extends Any, SlValueN[A]
+trait SeqLikeInt4[A <: Int4Elem] extends Any, SeqLikeValueN[A]
 { /** Constructs element [[Int4Elem]] from 4 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int, i3: Int, i4: Int): A
 
@@ -25,17 +25,17 @@ trait SlInt4[A <: Int4Elem] extends Any, SlValueN[A]
 }
 
 /** [[SeqLikeImut]] with [[Int4Elem]]s. */
-trait SlInt4Imut[A <: Int4Elem] extends Any, SlImutIntN[A], SlInt4[A]
+trait SeqLikeInt4Imut[A <: Int4Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt4[A]
 { final override def numElems: Int = arrayUnsafe.length / 4
   final override def elem(index: Int): A = elemFromInts(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 /** A [[SeqSpec]] with [[Int4Elem]]s can be specified by a backiing [[Array]][Int]. */
-trait SsInt4[A <: Int4Elem] extends Any, SlInt4Imut[A], SsIntN[A]
+trait SeqSpecInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], SeqSpecIntN[A]
 
 /** [[Arr]] trait for [[Int4Elem]]s, can be specified by a flat [[Array]][Int]. */
-trait ArrInt4[A <: Int4Elem] extends Any, SlInt4Imut[A], ArrIntN[A]
+trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], ArrIntN[A]
 { final override def length: Int = arrayUnsafe.length / 4
 
   override def apply(index: Int): A =
@@ -55,7 +55,7 @@ trait ArrInt4[A <: Int4Elem] extends Any, SlInt4Imut[A], ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
-trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SlInt4[A]
+trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SeqLikeInt4[A]
 { type ThisT <: BuffInt4[A]
   final override def length: Int = bufferUnsafe.length / 4
   final override def numElems: Int = bufferUnsafe.length / 4
@@ -69,13 +69,13 @@ trait BuffInt4[A <: Int4Elem] extends Any, BuffIntN[A], SlInt4[A]
 }
 
 /** [[BuilderBoth]] trait for constructing [[SeqLikeImut]] objects, with [[Int4Elem]]s, via both map and flatMap methods. */
-trait BuilderSlInt4[BB <: SlInt4Imut[?]] extends BuilderSlIntN[BB]
+trait BuilderSlInt4[BB <: SeqLikeInt4Imut[?]] extends BuilderSlIntN[BB]
 { type BuffT <: BuffInt4[?]
   final override def elemProdSize: Int = 4
 }
 
 /** [[BuilderMap]] for constructing [[SeqLikeImut]] objects, with [[Int4Elem]]s, via the map method. */
-trait BuilderMapSlInt4[B <: Int4Elem, BB <: SlInt4Imut[B]] extends BuilderSlInt4[BB], BuilderSlIntNMap[B, BB]
+trait BuilderMapSlInt4[B <: Int4Elem, BB <: SeqLikeInt4Imut[B]] extends BuilderSlInt4[BB], BuilderSlIntNMap[B, BB]
 { type BuffT <: BuffInt4[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
