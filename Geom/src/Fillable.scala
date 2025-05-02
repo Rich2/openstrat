@@ -119,6 +119,8 @@ trait DrawableLen2 extends Any, GeomLen2Elem
 
   override def slate(operand: VecPtLen2): DrawableLen2
   override def slate(xOperand: Length, yOperand: Length): DrawableLen2
+  override def slateX(xOperand: Length): DrawableLen2
+  override def slateY(yOperand: Length): DrawableLen2
   override def scale(operand: Double): DrawableLen2
 }
 
@@ -126,7 +128,9 @@ object DrawableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
   implicit val slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
   { override def slateT(obj: DrawableLen2, delta: VecPtLen2): DrawableLen2 = obj.slate(delta)
-    override def slateT(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
+    override def slateXY(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
+    override def slateX(obj: DrawableLen2, xDelta: Length): DrawableLen2 = obj.slateX(xDelta)
+    override def slateY(obj: DrawableLen2, yDelta: Length): DrawableLen2 = obj.slateY(yDelta)
   }
 
   /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
@@ -146,6 +150,8 @@ trait FillableLen2 extends DrawableLen2
 
   override def slate(operand: VecPtLen2): FillableLen2
   override def slate(xOperand: Length, yOperand: Length): FillableLen2
+  override def slateX(xOperand: Length): FillableLen2
+  override def slateY(yOperand: Length): FillableLen2
   override def scale(operand: Double): FillableLen2
 }
 
@@ -153,7 +159,9 @@ object FillableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[FillableLen2]]. */
   implicit val slateLen2Ev: SlateLen2[FillableLen2] = new SlateLen2[FillableLen2]
   { override def slateT(obj: FillableLen2, delta: VecPtLen2): FillableLen2 = obj.slate(delta)
-    override def slateT(obj: FillableLen2, xDelta: Length, yDelta: Length): FillableLen2 = obj.slate(xDelta, yDelta)
+    override def slateXY(obj: FillableLen2, xDelta: Length, yDelta: Length): FillableLen2 = obj.slate(xDelta, yDelta)
+    override def slateX(obj: FillableLen2, xDelta: Length): FillableLen2 = obj.slateX(xDelta)
+    override def slateY(obj: FillableLen2, yDelta: Length): FillableLen2 = obj.slateY(yDelta)
   }
 
   /** [[Scale]] type class instance / evidence for [[FillableLen2]]. */

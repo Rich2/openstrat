@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A line segment whose coordinates are specified in [[Length]] units. */
@@ -11,7 +11,6 @@ trait LineSegLen2[+VT <: PtLen2] extends LSegBase[VT], DrawableLen2
   def endPt: VT
   override def slate(operand: VecPtLen2): LineSegLen2[VT]  
   override def slate(xOperand: Length, yOperand: Length): LineSegLen2[VT]
-
   override def slateX(xOperand: Length): LineSegLen2[VT]
   override def slateY(xOperand: Length): LineSegLen2[VT]
   def scale(operand: Double): LineSegLen2[VT]  
@@ -41,7 +40,9 @@ object LineSegLen2
 { /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
   implicit val slateEv: SlateLen2[LineSegLen2[PtLen2]] = new SlateLen2[LineSegLen2[PtLen2]]
   { override def slateT(obj: LineSegLen2[PtLen2], delta: VecPtLen2): LineSegLen2[PtLen2] = obj.slate(delta)
-    override def slateT(obj: LineSegLen2[PtLen2], xDelta: Length, yDelta: Length): LineSegLen2[PtLen2] = obj.slate(xDelta, yDelta)
+    override def slateXY(obj: LineSegLen2[PtLen2], xDelta: Length, yDelta: Length): LineSegLen2[PtLen2] = obj.slate(xDelta, yDelta)
+    override def slateX(obj: LineSegLen2[PtLen2], xDelta: Length): LineSegLen2[PtLen2] = obj.slateX(xDelta)
+    override def slateY(obj: LineSegLen2[PtLen2], yDelta: Length): LineSegLen2[PtLen2] = obj.slateY(yDelta)
   }
   
   /** [[Scale]] type class instances / evidence for [[PtLen2]]. */

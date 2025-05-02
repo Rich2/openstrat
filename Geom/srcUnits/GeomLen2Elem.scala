@@ -65,7 +65,9 @@ object GraphicLen2Elem
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[GraphicLen2Elem]]. */
   implicit val slateLenEv: SlateLen2[GraphicLen2Elem] = new SlateLen2[GraphicLen2Elem]
   { override def slateT(obj: GraphicLen2Elem, delta: VecPtLen2): GraphicLen2Elem = obj.slate(delta)
-    override def slateT(obj: GraphicLen2Elem, xDelta: Length, yDelta: Length): GraphicLen2Elem = obj.slate(xDelta, yDelta)
+    override def slateXY(obj: GraphicLen2Elem, xDelta: Length, yDelta: Length): GraphicLen2Elem = obj.slate(xDelta, yDelta)
+    override def slateX(obj: GraphicLen2Elem, xDelta: Length): GraphicLen2Elem = obj.slateX(xDelta)
+    override def slateY(obj: GraphicLen2Elem, yDelta: Length): GraphicLen2Elem = obj.slateY(yDelta)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[GraphicLen2Elem]]. */

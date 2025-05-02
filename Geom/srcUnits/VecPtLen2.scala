@@ -79,7 +79,9 @@ object PtLen2
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[PtLen2]]. */
   implicit val slateEv: SlateLen2[PtLen2] = new SlateLen2[PtLen2]
   { override def slateT(obj: PtLen2, delta: VecPtLen2): PtLen2 = obj.slate(delta)
-    override def slateT(obj: PtLen2, xDelta: Length, yDelta: Length): PtLen2 = obj.slate(xDelta, yDelta)
+    override def slateXY(obj: PtLen2, xDelta: Length, yDelta: Length): PtLen2 = obj.slate(xDelta, yDelta)
+    override def slateX(obj: PtLen2, xDelta: Length): PtLen2 = obj.slateX(xDelta)
+    override def slateY(obj: PtLen2, yDelta: Length): PtLen2 = obj.slateY(yDelta)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[PtLen2]]. */
@@ -114,7 +116,9 @@ object VecLen2
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[VecLen2]]. */
   implicit val slateEv: SlateLen2[VecLen2] = new SlateLen2[VecLen2]
   { override def slateT(obj: VecLen2, delta: VecPtLen2): VecLen2 = obj.slate(delta)
-    override def slateT(obj: VecLen2, xDelta: Length, yDelta: Length): VecLen2 = obj.slate(xDelta, yDelta)
+    override def slateXY(obj: VecLen2, xDelta: Length, yDelta: Length): VecLen2 = obj.slate(xDelta, yDelta)
+    override def slateX(obj: VecLen2, xDelta: Length): VecLen2 = obj.slateX(xDelta)
+    override def slateY(obj: VecLen2, yDelta: Length): VecLen2 = obj.slateY(yDelta)
   }
   /** Implicit [[Scale]] type class instance / evidence for [[VecLen2]]. */
   implicit val scaleEv: Scale[VecLen2] = (obj, operand) => obj.scale(operand)

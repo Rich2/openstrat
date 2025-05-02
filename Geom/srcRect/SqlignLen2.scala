@@ -1,11 +1,10 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
+/** Square defined in [[Length]] units, aligned to the X and Y axes. */
 trait SqlignLen2[+VT <: PtLen2]() extends SquareLen2[VT], RectLen2[VT]
 { type ThisT <: SqlignLen2[VT]
   type SideT <: LineSegLen2[VT]
-
-
   override def slate(operand: VecPtLen2): SqlignLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): SqlignLen2[VT]
   override def slateX(xOperand: Length): SqlignLen2[VT]
@@ -25,8 +24,16 @@ trait SqlignLen2[+VT <: PtLen2]() extends SquareLen2[VT], RectLen2[VT]
 
 object SqlignLen2
 {
+  /** Implicit [[SlateLen2]] type class instance evidence for [[SqlignLen2]]. */
+  given slateLen2Ev: SlateLen2[SqlignLen2[PtLen2]] = new SlateLen2[SqlignLen2[PtLen2]]
+  { override def slateT(obj: SqlignLen2[PtLen2], delta: VecPtLen2): SqlignLen2[PtLen2] = obj.slate(delta)
+    override def slateXY(obj: SqlignLen2[PtLen2], xDelta: Length, yDelta: Length): SqlignLen2[PtLen2] = obj.slate(xDelta, yDelta)
+    override def slateX(obj: SqlignLen2[PtLen2], xDelta: Length): SqlignLen2[PtLen2] = obj.slateX(xDelta)
+    override def slateY(obj: SqlignLen2[PtLen2], yDelta: Length): SqlignLen2[PtLen2] = obj.slateY(yDelta)
+  }
 }
 
+/** Square specified in metres aligned to the X and Y axes. */
 class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double) extends SqlignLen2[PtM2], RectM2
 { type ThisT = SqlignM2
   override def typeStr: String = "SqlignM2"
