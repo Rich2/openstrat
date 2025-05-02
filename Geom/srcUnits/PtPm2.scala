@@ -136,7 +136,8 @@ final class PtPm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, Buf
 }
 
 object PtPm2Buff
-{ def apply(initSize: Int = 4): PtPm2Buff = new PtPm2Buff(new ArrayBuffer[Double](initSize * 2))
+{ /** Factory apply method for constructing buffers for [[PtPm2]]s. Points specified in picometres. */
+  def apply(initSize: Int = 4): PtPm2Buff = new PtPm2Buff(new ArrayBuffer[Double](initSize * 2))
 }
 
 /** [[PairElem]] class for [[PtPm2]]s. Allows for the efficient storage of sequences in [[PtPm2PairArr]]s. */
@@ -169,16 +170,18 @@ class PtPm2PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ex
 }
 
 object PtPm2PairArr
-{
+{ /** Factory apply method to construct an [[Arr]] of [[PairElem]]s whose first components are [[PtPm2]]s. */
   def apply[A2](arr1: PtPm2Arr, rArr2: RArr[A2]): PtPm2PairArr[A2] = new PtPm2PairArr[A2](arr1.arrayUnsafe, rArr2.arrayUnsafe)
 }
 
+/** Specialist buffer class for [[PtPm2]]s, [[PairElem]]s whose first components are [[PtPm2]]s. */
 class PtPm2PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl2[PtPm2, B2, PtPm2Pair[B2]]
 { override type ThisT = PtPm2PairBuff[B2]
   override def typeStr: String = "PtPm2PairBuff"
   override def elemFromDbls(dbl1: Double, dbl2: Double, a2: B2): PtPm2Pair[B2] = new PtPm2Pair[B2](dbl1, dbl2, a2)
 }
 
+/** Builder construting  [[PtPm2PairArr]]s by the map method. With [[PairElem]]s whose first components are [[PtPm2]]s. */
 class PtPm2PairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairDbl2Map[PtPm2, PtPm2Arr, B2, PtPm2Pair[B2], PtPm2PairArr[B2]]
 { override type BuffT = PtPm2PairBuff[B2]
   override type B1BuffT = PtPm2Buff
