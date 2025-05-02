@@ -2,10 +2,10 @@
 package ostrat; package geom
 import annotation.*
 
-trait LinePathDblN[VT <: DblNElem] extends Any, LinePathLike[VT], SeqSpecDblN[VT]
+trait LinePathDblN[VT <: DblNElem] extends Any, LinePathBase[VT], SeqSpecDblN[VT]
 { type ThisT <: LinePathDblN[VT]
 
-  /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
+  /** Constructs a [[PolygonBase]] for this vertex type from an [[Array]][Double]. */
   def polygonFromArray(array: Array[Double]): PolygonT & SeqLikeBacked[VT]
 
   override def tail: ThisT =
@@ -172,14 +172,14 @@ trait LinePathDblN[VT <: DblNElem] extends Any, LinePathLike[VT], SeqSpecDblN[VT
   }
 }
 
-/** [[LinePathLike]] whose points are [[Dbl2Elem]]s. Includes the [[LinePath]] class. */
+/** [[LinePathBase]] whose points are [[Dbl2Elem]]s. Includes the [[LinePath]] class. */
 trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl2[VT]
 { type ThisT <: LinePathDbl2[VT]
   //type PolygonT <: PolygonLikeDbl2[VT]
 }
 
-/**[[LinePathLike]] whose points are[[Dbl3Elem]]s. */
+/**[[LinePathBase]] whose points are[[Dbl3Elem]]s. */
 trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl3[VT]
 { type ThisT <: LinePathDbl3[VT]
-  type PolygonT <: PolygonLikeDbl3[VT]
+  type PolygonT <: PolygonDbl3[VT]
 }

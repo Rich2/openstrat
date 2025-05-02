@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A polygon specified in [[Length]] units. */
-trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonLikeDbl2[VT], ShapeLen2
+trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonDbl2[VT], ShapeLen2
 { type ThisT <: PolygonLen2[VT]
   type SideT <: LineSegLen2[VT]
 

@@ -5,8 +5,8 @@ package ostrat; package geom
  * values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a [[PolygonM3]] it
  *    would be a [[PtM3]]. */
-trait PolygonLike[+VT] extends Any, VertSeqSpec[VT]
-{ type ThisT <: PolygonLike[VT]
+trait PolygonBase[+VT] extends Any, VertSeqSpec[VT]
+{ type ThisT <: PolygonBase[VT]
   type SideT <: LSegBase[VT]
 
 
@@ -25,7 +25,7 @@ trait PolygonLike[+VT] extends Any, VertSeqSpec[VT]
   def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = mapArr(f)
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
-   * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
+   * vertex to the first vertex is the last vertex of the [[PolygonBase]]. Note the function signature (previous, vertex) => U follows the foreach based
    * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   def vertsPrevForEach[U](f: (VT, VT) => U): Unit = if (numVerts >= 2)
   { f(last, vert(0))
@@ -36,23 +36,23 @@ trait PolygonLike[+VT] extends Any, VertSeqSpec[VT]
     }
   }
 
-  /** Maps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
-  def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
+  /** Maps the vertices of this [[PolygonBase]] to a new to PolygonLike class of type BB. */
+  def map[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
   { val res = build.uninitialised(numVerts)
     verts.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
-  /** FlatMaps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
-  def flatMap[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => SeqLike[B])(implicit build: PolygonLikeFlatBuilder[B, BB]): BB =
+  /** FlatMaps the vertices of this [[PolygonBase]] to a new to PolygonLike class of type BB. */
+  def flatMap[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => SeqLike[B])(implicit build: PolygonLikeFlatBuilder[B, BB]): BB =
   { val buff = build.newBuff()
     vertsForeach(a => build.buffGrowSeqLike(buff, f(a)))
     build.buffToSeqLike(buff)
   }
 
-  /** Optionally maps the vertices of this [[PolygonLike]] to vertices of a new to PolygonLike class of type BB. If the new [[PolygonLike]] has at least 3
+  /** Optionally maps the vertices of this [[PolygonBase]] to vertices of a new to PolygonLike class of type BB. If the new [[PolygonBase]] has at least 3
    * vertices returns [[Some]] else returns [[None]]. */
-  def optMap[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => Option[B])(implicit build: PolygonLikeBuilderMap[B, BB]): Option[BB] =
+  def optMap[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => Option[B])(implicit build: PolygonLikeBuilderMap[B, BB]): Option[BB] =
   { val buff = build.newBuff()
     vertsForeach(a =>f(a).foreach(v => build.buffGrow(buff, v)))
     if(buff.length >= 3) Some(build.buffToSeqLike(buff)) else None
@@ -72,26 +72,26 @@ trait PolygonLike[+VT] extends Any, VertSeqSpec[VT]
     res
   }
 
-  /** Returns a side of the appropriate type for the [[PolygonLike]] from the given index. The index cycles. */
+  /** Returns a side of the appropriate type for the [[PolygonBase]] from the given index. The index cycles. */
   def side(index: Int): SideT
 
   def sidesForeach[U](f: SideT => U): Unit
   def sides: Arr[SideT]
 }
 
-trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonLike[VT], SeqSpecValueN[VT]
+trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonBase[VT], SeqSpecValueN[VT]
 { override def vertsForeach[U](f: VT  => U): Unit = foreach(f)
   override def numVerts: Int = numElems
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */
-trait PolygonLikeDblN[+VT <: DblNElem] extends Any, PolygonValueN[VT], SeqSpecDblN[VT]
+trait PolygonDblN[+VT <: DblNElem] extends Any, PolygonValueN[VT], SeqSpecDblN[VT]
 { /** Creates the [[Array]][Double] need to implement the sides method. */
   protected def arrayForSides: Array[Double]
 }
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
-trait PolygonLikeDbl2[+VT <: Dbl2Elem] extends Any, PolygonLikeDblN[VT], SeqSpecDbl2[VT]
+trait PolygonDbl2[+VT <: Dbl2Elem] extends Any, PolygonDblN[VT], SeqSpecDbl2[VT]
 {
   protected override def arrayForSides: Array[Double] =
   { val newLen = numVerts * 4
@@ -117,7 +117,7 @@ trait PolygonLikeDbl2[+VT <: Dbl2Elem] extends Any, PolygonLikeDblN[VT], SeqSpec
 }
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
-trait PolygonLikeDbl3[+VT <: Dbl3Elem] extends Any, PolygonLikeDblN[VT], SeqSpecDbl3[VT]
+trait PolygonDbl3[+VT <: Dbl3Elem] extends Any, PolygonDblN[VT], SeqSpecDbl3[VT]
 {
   protected override def arrayForSides: Array[Double] =
   { val newLen = numVerts * 6
@@ -149,13 +149,13 @@ trait PolygonLikeDbl3[+VT <: Dbl3Elem] extends Any, PolygonLikeDblN[VT], SeqSpec
 }
 
 /** A polygon whose elements are defined by [[Int]]s. */
-trait PolygonLikeIntN[VT <: IntNElem] extends Any, PolygonValueN[VT], SeqSpecIntN[VT]
+trait PolygonIntN[VT <: IntNElem] extends Any, PolygonValueN[VT], SeqSpecIntN[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   protected def arrayForSides: Array[Int]
 }
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
-trait PolygonLikeInt2[VT <: Int2Elem] extends Any, PolygonLikeIntN[VT], SeqSpecInt2[VT]
+trait PolygonInt2[VT <: Int2Elem] extends Any, PolygonIntN[VT], SeqSpecInt2[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   override protected def arrayForSides: Array[Int] =
   { val newLen = numVerts * 4
@@ -181,7 +181,7 @@ trait PolygonLikeInt2[VT <: Int2Elem] extends Any, PolygonLikeIntN[VT], SeqSpecI
 }
 
 /** A polygon whose elements are defined by 3 [[int]]s. */
-trait PolygonLikeInt3[VT <: Int3Elem] extends Any, PolygonLikeIntN[VT], SeqSpecInt3[VT]
+trait PolygonInt3[VT <: Int3Elem] extends Any, PolygonIntN[VT], SeqSpecInt3[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   override protected def arrayForSides: Array[Int] =
   { val newLen = numVerts * 6

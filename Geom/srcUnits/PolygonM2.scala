@@ -136,7 +136,7 @@ final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 
 /** [[BuffPair]] class for [[PolygonM2]]s. */
 class PolygonM2PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  BuffPairSlDblN[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]
+  BuffPairSeqLikeDblN[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonM2Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonM2Pair[A2] => String = _.toString

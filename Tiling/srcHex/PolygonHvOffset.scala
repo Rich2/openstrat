@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom.*, collection.mutable.ArrayBuffer
 
 /** A polygon where the vertices are specified in [[HvOffset]]s. */
-class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, PolygonLikeInt3[HvOffset]
+class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, PolygonInt3[HvOffset]
 { override type ThisT = PolygonHvOffset
   override type SideT = LSegHvOffset
   override def typeStr: String = "HVAndOffsetPolygon"

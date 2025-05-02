@@ -334,7 +334,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     hVert.adjHCenCorners.foreach{pair => setCorner(pair._1, pair._2, dirn2, mag3)}
   }
 
-  /** Returns the [[PolygonHvOffset]] [[PolygonLike]] for the given [[HSep]]. */
+  /** Returns the [[PolygonHvOffset]] [[PolygonBase]] for the given [[HSep]]. */
   def sepPoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHvOffset = hs.tileLtOpt match
   {
     case None => //There is a tile to the right of the separator, but not one to the left

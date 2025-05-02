@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom.*, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal, HCoordSeqSpec, PolygonLikeInt2[HCoord], ArrayIntBacked
+class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal, HCoordSeqSpec, PolygonInt2[HCoord], ArrayIntBacked
 { override type ThisT = PolygonHC
   override type SideT = LSegHC
   override def typeStr: String = "PolygonHC"
@@ -31,7 +31,7 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal, HCoordSeqSpec, Poly
   }
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
-   * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
+   * vertex to the first vertex is the last vertex of the [[PolygonBase]]. Note the function signature (previous, vertex) => U follows the foreach based
    * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   override def vertsPrevForEach[U](f: (HCoord, HCoord) => U): Unit = ???
 

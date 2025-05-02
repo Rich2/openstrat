@@ -5,14 +5,14 @@ import collection.mutable.ArrayBuffer
 /** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a view, ie
  * into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90 degrees as this may
  * break the algorithms. preferably keep the arcs significantly smaller. */
-class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongSeqSpec with PolygonLikeDbl2[LatLong]
+class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongSeqSpec with PolygonDbl2[LatLong]
 { type ThisT = PolygonLL
   type SideT = LineSegLL
   override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
   override def typeStr: String = "PolygonLL"
   override def verts: LatLongArr = new LatLongArr(arrayUnsafe)
 
-  /** maps the vertices of this [[PolygonLike]] from [[LatLong]]s to [[PtM3]]s. */
+  /** maps the vertices of this [[PolygonBase]] from [[LatLong]]s to [[PtM3]]s. */
   def toMetres3: PolygonM3 = map(_.toMetres3)
 
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
@@ -36,7 +36,7 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongSeqSp
   }
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The previous
-   * vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the foreach based
+   * vertex to the first vertex is the last vertex of the [[PolygonBase]]. Note the function signature (previous, vertex) => U follows the foreach based
    * convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B signature. */
   override def vertsPrevForEach[U](f: (LatLong, LatLong) => U): Unit = ???
 

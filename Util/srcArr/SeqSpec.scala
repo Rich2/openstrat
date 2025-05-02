@@ -64,7 +64,7 @@ trait SeqSpec[+A] extends Any, SeqLike[A @uncheckedVariance]
   }
 
   /** Specialised map to an immutable [[Arr]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for example a
-   *  PolygonLike will map to another PolygonLike. */
+   *  [[PolygonLike]] will map to another [[PolygonLike]]. */
   def mapArr[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(numElems)
     iForeach((i, a) => ev.indexSet(res, i, f(a)))

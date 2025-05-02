@@ -2,8 +2,8 @@
 package ostrat; package geom
 import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** A [[PolygonLike]] with [[PtLength3]] vertices. */
-trait PolygonLength3[VT <: PtLength3] extends Any, PolygonLikeDbl3[VT]
+/** A [[PolygonBase]] with [[PtLength3]] vertices. */
+trait PolygonLength3[VT <: PtLength3] extends Any, PolygonDbl3[VT]
 { type ThisT <: PolygonLength3[VT]
   type SideY <: LineSegLength3[VT]
 }
@@ -167,7 +167,7 @@ final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 }
 
 class PolygonM3PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  BuffPairSlDblN[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
+  BuffPairSeqLikeDblN[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonM3Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString

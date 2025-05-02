@@ -277,7 +277,7 @@ object Pt2
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
-  /** Implicit instance evidence for [[PolygonLike]] map builder. */
+  /** Implicit instance evidence for [[PolygonBase]] map builder. */
   implicit val polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderMapSeqLikeDbl2[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)

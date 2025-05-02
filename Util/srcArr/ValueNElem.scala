@@ -8,7 +8,7 @@ import annotation.unchecked.uncheckedVariance
 trait ValueNElem extends Any, SpecialT
 
 /** A [[SeqLike]], a sequence or an object that can be specified by a sequence such as a polygon, composed of elements that can be constructed from a fixed
- * number of homgenious primitive values such as [[Double]]s or [[Int]]s. */
+ * number of homogeneous primitive values such as [[Double]]s or [[Int]]s. */
 trait SeqLikeValueN[+A <: ValueNElem] extends Any, SeqLike[A]
 { type ThisT <: SeqLikeValueN[A]
 
@@ -104,7 +104,7 @@ trait BuilderMapSeqLikeValueN[B <: ValueNElem, BB <: SeqLikeImutValueN[B]] exten
 trait BuilderFlatSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLikeValueN[BB], BuilderFlatSeqLike[BB]
 
 /** [[BuilderMap]] trait for creating [[Arr]] classes with [[ValueNElem]]s via the map method. Instances for the [[BuilderArrMap]] type class, for classes /
- * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in 
+ * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
 trait BuilderMapArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderMapSeqLikeValueN[B, ArrB], BuilderArrMap[B, ArrB]
 { type BuffT <: BuffValueN[B]

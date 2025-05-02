@@ -9,8 +9,6 @@ trait PairDblNElem[A1 <: DblNElem, A2] extends PairFinalA1Elem[A1, A2]
 trait SequPairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends Sequ[A]
 { /** Number of [[Double]]s to create an A!. */
   def a1NumDbl: Int
-
-
 }
 
 /** [[Arr]] for [[PairDblNElem]]s. [[PairElem]]s where the first component of the pair is a [[DblNElem]]. */
@@ -26,6 +24,7 @@ trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1
   /** Constructs the final class from an [[Array]] [[Double]] and an [[Array]] of A2. */
   def fromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 
+  /** Replace the A1 values of all pairs with the given A2 value. Does not mutate. */
   override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Double](length * a1NumDbl)
     a1ArrayDbl.copyToArray(newA1s)
