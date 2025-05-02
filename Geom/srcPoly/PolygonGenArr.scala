@@ -13,10 +13,9 @@ final class PolygonGenArr(val arrayOfArraysUnsafe: Array[Array[Double]]) extends
 
 /** Companion object for the [[PolygonGenArr]] class. */
 object PolygonGenArr
-{
+{ /** Factory apply method for creating [[PolyenArr]]. */
   def apply(input: PolygonGen*): PolygonGenArr =
-  {
-    val array: Array[Array[Double]] = new Array[Array[Double]](input.length)
+  { val array: Array[Array[Double]] = new Array[Array[Double]](input.length)
     var count = 0
 
     while (count < input.length)
@@ -26,6 +25,7 @@ object PolygonGenArr
     new PolygonGenArr(array)
   }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[PolygonGenArr]]. */
   given eqEv: EqT[PolygonGenArr] = ArrArrayDblEq[PolygonGen, PolygonGenArr]
 
   /** Implicit [[Slate]] type class instance / evidence for [[PolygonGenArr]]. */
@@ -59,7 +59,8 @@ object PolygonGenArr
   }
 }
 
-class PolygonGenBuff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonGen]
+/** Specialist buffer for [[PolygonGen]]s. Note this is not a buffer for building [[PolygonGen]]s, but for building [[PolygonGenArr]]s. */
+class PolygonGenBuff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonGen]
 { override type ThisT = PolygonGenBuff
   override def typeStr: String = "PolygonBuff"
   override def fElemStr: PolygonGen => String = _.toString
@@ -67,5 +68,6 @@ class PolygonGenBuff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVa
 }
 
 object PolygonGenBuff
-{ def apply(initLen: Int = 4): PolygonGenBuff = new PolygonGenBuff(new ArrayBuffer[Array[Double]](initLen))
+{ /** Factory apply method for constructing empty [[PolygonGenBuff]]s. */
+  def apply(initLen: Int = 4): PolygonGenBuff = new PolygonGenBuff(new ArrayBuffer[Array[Double]](initLen))
 }

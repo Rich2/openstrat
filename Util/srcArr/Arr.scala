@@ -2,9 +2,9 @@
 package ostrat
 import annotation.*, unchecked.uncheckedVariance
 
-/** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable sequence classes backed by underlying Arrays. The final
- *  classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with
- *  no boxing run cost. */
+/** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable sequence classes backed by underlying Arrays. The final classes
+ * extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with no boxing run
+ * cost. */
 trait Arr[+A] extends Any, Sequ[A], SeqLikeBacked[A]
 { override type ThisT <: Arr[A]
 
@@ -12,15 +12,14 @@ trait Arr[+A] extends Any, Sequ[A], SeqLikeBacked[A]
    * methods. */
   def unsafeSetHead(value: A @uncheckedVariance): Unit = setElemUnsafe(0, value)
 
-  /** Sets / mutates the last element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory
-   * methods. */
+  /** Sets / mutates the last element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory methods. */
   def unsafeSetLast(value: A @uncheckedVariance): Unit = setElemUnsafe(length - 1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => setElemUnsafe(i, a) }
 
   def headOrNone: Any = ife(length ==0, None, apply(0))
 
-  /** Returns a new [[Arr]] sorted from least to greatest. Takes a function detrmining if the first value is greater than the second. */
+  /** Returns a new [[Arr]] sorted from least to greatest. Takes a function determining if the first value is greater than the second. */
   def sortBy(f: (A, A) => Boolean)(implicit build: BuilderArrMap[A, ThisT] @uncheckedVariance): ThisT =
   { val res = build.uninitialised(length)
     val placed = new Array[Boolean](length)
