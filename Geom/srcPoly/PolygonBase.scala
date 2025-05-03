@@ -79,6 +79,8 @@ trait PolygonBase[+VT] extends Any, VertSeqSpec[VT]
   def sides: Arr[SideT]
 }
 
+/** Polygon with [[ValueNElem]] vertices. [[Polygon]] does not extend this trait because special polygons such as triangles, quadrilaterals, hexagons etc are
+ * not implemented with a backing [[Array]]. */
 trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonBase[VT], SeqSpecValueN[VT]
 { override def vertsForeach[U](f: VT  => U): Unit = foreach(f)
   override def numVerts: Int = numElems

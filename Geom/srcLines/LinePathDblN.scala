@@ -173,13 +173,12 @@ trait LinePathDblN[VT <: DblNElem] extends Any, LinePathBase[VT], SeqSpecDblN[VT
 }
 
 /** [[LinePathBase]] whose points are [[Dbl2Elem]]s. Includes the [[LinePath]] class. */
-trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl2[VT]
+trait LinePathDbl2[VT <: Dbl2Elem] extends Any, LinePathDblN[VT], SeqSpecDbl2[VT]
 { type ThisT <: LinePathDbl2[VT]
-  //type PolygonT <: PolygonLikeDbl2[VT]
 }
 
 /**[[LinePathBase]] whose points are[[Dbl3Elem]]s. */
-trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl3[VT]
+trait LinePathDbl3[VT <: Dbl3Elem] extends Any, LinePathDblN[VT], SeqSpecDbl3[VT]
 { type ThisT <: LinePathDbl3[VT]
   type PolygonT <: PolygonDbl3[VT]
 }
