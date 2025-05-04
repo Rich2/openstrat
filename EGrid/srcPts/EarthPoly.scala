@@ -14,12 +14,12 @@ abstract class EarthPoly(val name: String, val cen: LatLong, val terr: WTile) ex
 
   def places: LocationLLArr = LocationLLArr()
 
-  /** Returns a pair of this [[EarthPoly]] and the [[PolygonM2]] from the given focus and orientation. The polygonM only has points form the side of the earth
+  /** Returns a pair of this [[EarthPoly]] and the [[PolygonM2Gen]] from the given focus and orientation. The polygonM only has points form the side of the earth
    * that faces the focus. */
-  def withPolygonM2(focus: LatLongDirn): (EarthPoly, PolygonM2) =
+  def withPolygonM2(focus: LatLongDirn): (EarthPoly, PolygonM2Gen) =
   { val p3s0: PolygonM3 = polygonLL.toMetres3
     val p3s1: PolygonM3 = p3s0.fromLatLongFocus(focus)
-    val p3s3: PolygonM2 = p3s1.earthZPosXYModify
+    val p3s3: PolygonM2Gen = p3s1.earthZPosXYModify
     val p3s4 = p3s3.rotate180IfNot(focus.dirn.northUp)
     (this, p3s4)
   }

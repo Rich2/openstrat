@@ -119,15 +119,15 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   override def transTile(hc: HCen): Option[Polygon] =
   { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
-    val opt: Option[PolygonM2] = ife(p1.vert(0).zNonNeg, Some(p1.map(_.xy)), None)
+    val opt: Option[PolygonM2Gen] = ife(p1.vert(0).zNonNeg, Some(p1.map(_.xy)), None)
     opt.map{poly => poly.map(_.rotate180If(southUp).mapGeom2(metresPerPixel)) }
   }
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
 
   val eas: RArr[EarthPoly] = earthAllRegions.flatMap(_.ePolys)
-  def irr0: RArr[(EarthPoly, PolygonM2)] = eas.map(_.withPolygonM2(focus))
-  def irr1: RArr[(EarthPoly, PolygonM2)] = irr0.filter(_._2.vertsMin3)
+  def irr0: RArr[(EarthPoly, PolygonM2Gen)] = eas.map(_.withPolygonM2(focus))
+  def irr1: RArr[(EarthPoly, PolygonM2Gen)] = irr0.filter(_._2.vertsMin3)
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair

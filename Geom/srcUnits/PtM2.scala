@@ -91,9 +91,9 @@ object PtM2
   }
 
   /** Implicit [[PolygonLikeBuilderMap]] instance / evidence for [[PtM2]] and [[PolyognM2]]. */
-  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtM2, PolygonM2] = new PolygonDbl2BuilderMap[PtM2, PolygonM2]
+  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtM2, PolygonM2Gen] = new PolygonDbl2BuilderMap[PtM2, PolygonM2Gen]
   { override type BuffT = BuffPtM2
-    override def fromDblArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
+    override def fromDblArray(array: Array[Double]): PolygonM2Gen = new PolygonM2Gen(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 

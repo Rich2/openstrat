@@ -35,7 +35,7 @@ object SqlignLen2
 
 /** Square specified in metres aligned to the X and Y axes. */
 class SqlignM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, val v1yMNum: Double, val v2xMNum: Double, val v2yMNum: Double) extends
-  SqlignLen2[PtM2], RectM2
+  SqlignLen2[PtM2], RectM2, PolygonM2P4
 { type ThisT = SqlignM2
   override def typeStr: String = "SqlignM2"
   def widthMNum: Double = (v2xMNum - v0xMNum).abs
@@ -45,9 +45,6 @@ class SqlignM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, va
   inline def heightMNum: Double = widthMNum
   def hWidthMNum: Double = widthMNum / 2
   override def diags: LineSegM2Arr = LineSegM2Arr(lbrtDiag, ltrbDiag)
-  override def v0x: Metres = Metres(v0xMNum)
-  override def v0y: Metres = Metres(v0yMNum)
-  def v0: PtLen2 = PtM2(v0xMNum, v0yMNum)
 
   override def slate(operand: VecPtLen2): SqlignM2 = new SqlignM2(v0xMNum + operand.xMetresNum, v0yMNum + operand.yMetresNum, v1xMNum + operand.xMetresNum,
     v1yMNum + operand.yMetresNum, v2xMNum + operand.xMetresNum, v2yMNum + operand.yMetresNum)

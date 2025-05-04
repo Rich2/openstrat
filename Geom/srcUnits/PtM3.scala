@@ -147,7 +147,7 @@ object PtM3
   implicit val lineSegBuildEv: BuilderMapLSegBase[PtM3, LineSegM3] = LineSegM3(_, _)
 }
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2Gen]] and[[LinePathMs]] classes are not appropriate. */
 class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
 { type ThisT = PtM3Arr
   def fromArray(array: Array[Double]): ThisT = new PtM3Arr(array)

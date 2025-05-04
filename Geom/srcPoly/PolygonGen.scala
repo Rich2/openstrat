@@ -51,7 +51,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon, Pt2SeqLi
     res
   }
 
-  def distScale(distRatio: Metres): PolygonM2 = map[PtM2, PolygonM2](p => p.toMetres(distRatio))
+  def distScale(distRatio: Metres): PolygonM2Gen = map[PtM2, PolygonM2Gen](p => p.toMetres(distRatio))
 
   override def slate(xOperand: Double, yOperand: Double): PolygonGen = map(_.slate(xOperand, yOperand))
   override def slate(operand: VecPt2): PolygonGen = map(_.slate(operand))

@@ -2,11 +2,7 @@
 package ostrat; package geom
 
 trait TriangleLen2[+VT <: PtLen2] extends PolygonLen2P3[VT]
-{ def v1x: Length
-  def v1y: Length
-  def v2x: Length
-  def v2y: Length
-  override def slate(operand: VecPtLen2): TriangleLen2[VT]
+{ override def slate(operand: VecPtLen2): TriangleLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): TriangleLen2[VT]
   override def slateX(xOperand: Length): TriangleLen2[VT]
   override def slateY(yOperand: Length): TriangleLen2[VT]
@@ -15,17 +11,10 @@ trait TriangleLen2[+VT <: PtLen2] extends PolygonLen2P3[VT]
 }
 
 class TriangleM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, val v1yMNum: Double, val v2xMNum: Double, val v2yMNum: Double) extends
-  TriangleLen2[PtM2]
+  TriangleLen2[PtM2], PolygonM2P3
 { override type ThisT = TriangleM2
   override type SideT = LSegM2
   override def typeStr: String = "TriangleM2"
-  override def v0x: Metres = Metres(v0xMNum)
-  override def v0y: Metres = Metres(v0yMNum)
-  override def v0: PtLen2 = PtM2(v0xMNum, v0yMNum)
-  override def v1x: Metres = Metres(v1xMNum)
-  override def v1y: Metres = Metres(v1yMNum)
-  override def v2x: Metres = Metres(v2xMNum)
-  override def v2y: Metres = Metres(v2yMNum)
 
   override def slate(operand: VecPtLen2): TriangleM2 = new TriangleM2(v0xMNum + operand.xMetresNum, v0yMNum + operand.yMetresNum, v1xMNum + operand.xMetresNum,
     v1yMNum + operand.yMetresNum, v2xMNum + operand.xMetresNum, v2yMNum + operand.yMetresNum)

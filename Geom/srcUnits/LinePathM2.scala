@@ -5,11 +5,11 @@ package ostrat; package geom
  * converting from [[LinePathLL]]s to [[LinePath]]s on world maps. */
 final class LinePathM2(val arrayUnsafe: Array[Double]) extends AnyVal, LinePathDbl2[PtM2]
 { override type ThisT = LinePathM2
-  override type PolygonT = PolygonM2
+  override type PolygonT = PolygonM2Gen
   override def typeStr: String = "LinePathM2"
   override def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
   override def fromArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
-  override def polygonFromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
+  override def polygonFromArray(array: Array[Double]): PolygonM2Gen = new PolygonM2Gen(array)
   override def fElemStr: PtM2 => String = _.toString
 }
 /** Companion object for [[LinePathM2]]s. Contains apply factory method fromArrayDbl and [[Persist]] Implicit. */

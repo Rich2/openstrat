@@ -156,7 +156,7 @@ trait PtKm3SeqLike extends Any, SeqLikeImutDbl3[PtKm3]
 
 trait PtKm3SeqSpec extends PtKm3SeqLike, SeqSpecDbl3[PtKm3]
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2Gen]] and[[LinePathMs]] classes are not appropriate. */
 class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtKm3SeqLike, ArrDbl3[PtKm3]
 { type ThisT = PtKm3Arr
   def fromArray(array: Array[Double]): ThisT = new PtKm3Arr(array)

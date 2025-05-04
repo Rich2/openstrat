@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
- *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2]]s on world
+ *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2Gen]]s on world
  *  maps. */
 final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtKm3]
 { override type ThisT = PolygonKm3
@@ -12,7 +12,7 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
   override def fromArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtKm3 => String = _.toString
-  def xyPlane: PolygonM2 = map(_.xy)
+  def xyPlane: PolygonM2Gen = map(_.xy)
 
   /** All vertices have a non negative Z component. */
   def zAllNonNeg: Boolean = vertsForAll(_.zMetresNum >= 0)
@@ -63,7 +63,7 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
    * override the implementation in sub classes. */
   def vertZ(index: Int): Double = arrayUnsafe(index * 3 + 2)
 
-  def toXY: PolygonM2 = map(_.xy)
+  def toXY: PolygonM2Gen = map(_.xy)
 
   override def sidesForeach[U](f: LineSegKm3 => U): Unit =
   { var i = 0

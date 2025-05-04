@@ -9,7 +9,7 @@ trait PolygonLength3[VT <: PtLength3] extends Any, PolygonDbl3[VT]
 }
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not sure how useful
- * this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2]]s on world maps. */
+ * this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2Gen]]s on world maps. */
 final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLength3[PtM3]
 { override type ThisT = PolygonM3
   override type SideT = LineSegM3
@@ -17,7 +17,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtM3 => String = _.toString
-  def xyPlane: PolygonM2 = map(_.xy)
+  def xyPlane: PolygonM2Gen = map(_.xy)
 
   /** All vertices have a non negative Z component. */
   def zAllNonNeg: Boolean = vertsForAll(_.zMetresNum >= 0)
@@ -67,7 +67,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
    * the implementation in subclasses. */
   def vertZ(index: Int): Double = arrayUnsafe(index * 3 + 2)
 
-  def toXY: PolygonM2 = map(_.xy)
+  def toXY: PolygonM2Gen = map(_.xy)
 
   override def sidesForeach[U](f: LineSegM3 => U): Unit =
   { var i = 0
