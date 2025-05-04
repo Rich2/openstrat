@@ -5,11 +5,11 @@ package ostrat; package geom
  * structures. */
 final class LinePathFm2(val arrayUnsafe: Array[Double]) extends AnyVal, LinePathDbl2[PtFm2]
 { override type ThisT = LinePathFm2
-  override type PolygonT = PolygonFm2
+  override type PolygonT = PolygonFm2Gen
   override def typeStr: String = "LinePathFm2"
   override def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
   override def fromArray(array: Array[Double]): LinePathFm2 = new LinePathFm2(array)
-  override def polygonFromArray(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
+  override def polygonFromArray(array: Array[Double]): PolygonFm2Gen = new PolygonFm2Gen(array)
   override def fElemStr: PtFm2 => String = _.toString
 }
 

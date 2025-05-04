@@ -39,8 +39,17 @@ class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double
   override def typeStr: String = "SqlignM2"
   inline def heightMNum: Double = widthMNum
   def hWidthMNum: Double = widthMNum / 2
-
   override def diags: LineSegM2Arr = LineSegM2Arr(lbrtDiag, ltrbDiag)
+
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
+  def v0x: Length = ???
+
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
+  def v0y: Length = ???
+
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
+   * the vertex immediately anti-clockwise if there is no vertex in this position. */
+  def v0: PtLen2 = ???
   override def slate(operand: VecPtLen2): SqlignM2 = SqlignM2(widthMNum, xCenMNum + operand.xMetresNum, yCenMNum + operand.yMetresNum)
   override def slate(xOperand: Length, yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum + yOperand.metresNum)
   override def slateX(xOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum)

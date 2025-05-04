@@ -6,6 +6,16 @@ trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonDbl2[VT], Sha
 { type ThisT <: PolygonLen2[VT]
   type SideT <: LineSegLen2[VT]
 
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
+  def v0x: Length
+
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
+  def v0y: Length
+
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
+   * the vertex immediately anti-clockwise if there is no vertex in this position. */
+  def v0: PtLen2
+
   override def slate(operand: VecPtLen2): PolygonLen2[VT]  
   override def slate(xOperand: Length, yOperand: Length): PolygonLen2[VT]
   override def slateX(xOperand: Length): PolygonLen2[VT]

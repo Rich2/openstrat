@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag, unchecked.uncheckedVariance
+import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A polygon using vertices specified in [[PtPm2]] points rather than scalars. */
 final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtPm2]
@@ -10,7 +10,18 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLe
   def fromArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
   override def elemFromDbls(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)
   override def fElemStr: PtPm2 => String = _.toString
-  override def verts: PtPm2Arr = new PtPm2Arr(arrayUnsafe)  
+  override def verts: PtPm2Arr = new PtPm2Arr(arrayUnsafe)
+
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
+  override def v0x: Length = ???
+
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
+  override def v0y: Length = ???
+
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
+   * the vertex immediately anti-clockwise if there is no vertex in this position. */
+  override def v0: PtLen2 = ???
+
   override def slate(operand: VecPtLen2): PolygonPm2 = dblsMap(_ + operand.xPicometresNum, _ + operand.yPicometresNum)
   override def slate(xOperand: Length, yOperand: Length): PolygonPm2 = dblsMap(_ + xOperand.picometresNum, _ + yOperand.picometresNum)
   override def slateX(xOperand: Length): PolygonPm2 = dblsMap(_ + xOperand.picometresNum, y => y)

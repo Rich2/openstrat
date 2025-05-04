@@ -11,6 +11,17 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
   override def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
   override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
+
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
+  override def v0x: Length = ???
+
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
+  override def v0y: Length = ???
+
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
+   * the vertex immediately anti-clockwise if there is no vertex in this position. */
+  override def v0: PtLen2 = ???
+
   override def slate(operand: VecPtLen2): PolygonM2 = dblsMap(_ + operand.xMetresNum, _ + operand.yMetresNum)
   override def slate(xOperand: Length, yOperand: Length): PolygonM2 = dblsMap(_ + xOperand.metresNum, _ + yOperand.metresNum)
   override def slateX(xOperand: Length): PolygonM2 = dblsMap(_ + xOperand.metresNum, y => y)

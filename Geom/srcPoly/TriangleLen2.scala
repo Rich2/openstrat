@@ -1,13 +1,17 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait TriangleLen2[+VT <: PtLen2] extends PolygonLen2[VT]
-{ def v0x: Length
-  def v0y: Length
-  def v1x: Length
+trait TriangleLen2[+VT <: PtLen2] extends PolygonLen2P3[VT]
+{ def v1x: Length
   def v1y: Length
   def v2x: Length
   def v2y: Length
+  override def slate(operand: VecPtLen2): TriangleLen2[VT]
+  override def slate(xOperand: Length, yOperand: Length): TriangleLen2[VT]
+  override def slateX(xOperand: Length): TriangleLen2[VT]
+  override def slateY(yOperand: Length): TriangleLen2[VT]
+  override def scale(operand: Double): TriangleLen2[VT]
+  def mapGeom2(operand: Length): Triangle
 }
 
 class TriangleM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, val v1yMNum: Double, val v2xMNum: Double, val v2yMNum: Double) extends
@@ -15,12 +19,13 @@ class TriangleM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, 
 { override type ThisT = TriangleM2
   override type SideT = LSegM2
   override def typeStr: String = "TriangleM2"
-  override def v0x = Metres(v0xMNum)
-  override def v0y = Metres(v0yMNum)
-  override def v1x = Metres(v1xMNum)
-  override def v1y = Metres(v1yMNum)
-  override def v2x = Metres(v2xMNum)
-  override def v2y = Metres(v2yMNum)
+  override def v0x: Metres = Metres(v0xMNum)
+  override def v0y: Metres = Metres(v0yMNum)
+  override def v0: PtLen2 = PtM2(v0xMNum, v0yMNum)
+  override def v1x: Metres = Metres(v1xMNum)
+  override def v1y: Metres = Metres(v1yMNum)
+  override def v2x: Metres = Metres(v2xMNum)
+  override def v2y: Metres = Metres(v2yMNum)
 
   override def slate(operand: VecPtLen2): TriangleM2 = new TriangleM2(v0xMNum + operand.xMetresNum, v0yMNum + operand.yMetresNum, v1xMNum + operand.xMetresNum,
     v1yMNum + operand.yMetresNum, v2xMNum + operand.xMetresNum, v2yMNum + operand.yMetresNum)
@@ -60,4 +65,23 @@ class TriangleM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, 
   override def sides: Arr[LSegM2] = ???
   override def elemFromDbls(d1: Double, d2: Double): PtM2 = ???
   override def fromArray(array: Array[Double]): TriangleM2 = ???
+}
+
+trait TriangleLen2Graphic extends PolygonLen2Graphic
+{ override def shape: TriangleLen2[PtLen2]
+  override def slate(operand: VecPtLen2): TriangleLen2Graphic
+  override def slate(xOperand: Length, yOperand: Length): TriangleLen2Graphic
+  override def slateX(xOperand: Length): TriangleLen2Graphic
+  override def slateY(yOperand: Length): TriangleLen2Graphic
+  override def scale(operand: Double): TriangleLen2Graphic
+  override def mapGeom2(operand: Length): TriangleGraphic
+}
+
+case class TriangleLen2Fill(shape: TriangleLen2[PtLen2], fillFacet: FillFacet) extends TriangleLen2Graphic, PolygonLen2Fill
+{ override def slate(operand: VecPtLen2): TriangleLen2Fill = TriangleLen2Fill(shape.slate(operand), fillFacet)
+  override def slate(xOperand: Length, yOperand: Length): TriangleLen2Fill = TriangleLen2Fill(shape.slate(xOperand, yOperand), fillFacet)
+  override def slateX(xOperand: Length): TriangleLen2Fill = TriangleLen2Fill(shape.slateX(xOperand), fillFacet)
+  override def slateY(yOperand: Length): TriangleLen2Fill = TriangleLen2Fill(shape.slateY(yOperand), fillFacet)
+  override def scale(operand: Double): TriangleLen2Fill = TriangleLen2Fill(shape.scale(operand), fillFacet)
+  override def mapGeom2(operand: Length): TriangleFill = TriangleFill(shape.mapGeom2(operand), fillFacet)
 }
