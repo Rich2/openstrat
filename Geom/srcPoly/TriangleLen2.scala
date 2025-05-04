@@ -21,19 +21,21 @@ class TriangleM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, 
   override def v1y = Metres(v1yMNum)
   override def v2x = Metres(v2xMNum)
   override def v2y = Metres(v2yMNum)
+
   override def slate(operand: VecPtLen2): TriangleM2 = new TriangleM2(v0xMNum + operand.xMetresNum, v0yMNum + operand.yMetresNum, v1xMNum + operand.xMetresNum,
     v1yMNum + operand.yMetresNum, v2xMNum + operand.xMetresNum, v2yMNum + operand.yMetresNum)
 
   override def slate(xOperand: Length, yOperand: Length): TriangleM2 = new TriangleM2(v0xMNum + xOperand.metresNum, v0yMNum + yOperand.metresNum,
     v1xMNum + xOperand.metresNum, v1yMNum + yOperand.metresNum, v2xMNum + xOperand.metresNum, v2yMNum + yOperand.metresNum)
 
-  override def slateX(xOperand: Length): TriangleM2 = ???
+  override def slateX(xOperand: Length): TriangleM2 = new TriangleM2(v0xMNum + xOperand.metresNum, v0yMNum, v1xMNum + xOperand.metresNum, v1yMNum,
+    v2xMNum + xOperand.metresNum, v2yMNum)
 
-  override def slateY(yOperand: Length): TriangleM2 = ???
+  override def slateY(yOperand: Length): TriangleM2 = new TriangleM2(v0xMNum, v0yMNum + yOperand.metresNum, v1xMNum, v1yMNum + yOperand.metresNum, v2xMNum,
+    v2yMNum + yOperand.metresNum)
 
-  override def scale(operand: Double): TriangleM2 = ???
-
-  override def mapGeom2(operand: Length): Triangle = ???
+  override def scale(operand: Double): TriangleM2 = new TriangleM2(v0xMNum * operand, v0yMNum * operand, v1xMNum * operand, v1yMNum * operand,
+    v2xMNum * operand, v2yMNum * operand)
 
   override def revY: TriangleM2 = ???
 
@@ -44,6 +46,9 @@ class TriangleM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, 
   override def rotate180If(cond: Boolean): TriangleM2 = ???
 
   override def rotate180IfNot(cond: Boolean): TriangleM2 = ???
+
+  override def mapGeom2(operand: Length): Triangle = Triangle(v0xMNum / operand.metresNum, v0yMNum / operand.metresNum, v1xMNum / operand.metresNum,
+    v1yMNum / operand.metresNum, v2xMNum / operand.metresNum, v2yMNum / operand.metresNum)
 
   override def arrayUnsafe: Array[Double] = ???
 

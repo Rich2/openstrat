@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A Rectangle defined in [[Length]] units. */
-trait RectangleLen2[+VT <: PtLen2] extends PolygonLen2[VT]
+trait RectangleLen2[+VT <: PtLen2] extends QuadLen2[VT]
 {
   def diags: LineSegLen2Arr[VT]
   
