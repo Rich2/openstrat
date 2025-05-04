@@ -1,15 +1,13 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
-class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double,
+/** A line segment in 3-dimensional space specified in metres. A straight line between two points in 3D. */
+class LSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double,
   val zEndMetresNum: Double) extends LineSegLength3[PtM3]
-{ def typeStr: String = "LineDist3"
-  //def str: String = persist2(pStart, pEnd)
+{ def typeStr: String = "LineDist3"  
   def startPt: PtM3 = PtM3.metreNum(xStartMetresNum, yStartMetresNum, zStartMetresNum)
   def endPt: PtM3 = PtM3.metreNum(xEndMetresNum, yEndMetresNum, zEndMetresNum)
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
   override def dbl1: Double = xStartMetresNum
   override def dbl2: Double = yStartMetresNum
   override def dbl3: Double = zStartMetresNum
@@ -31,51 +29,51 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
   def xyLineSeg(scale: LengthMetric): LSeg2 = LSeg2(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
 }
 
-/** Companion object for [[LineSegM3]] trait contains apply factory method. */
-object LineSegM3
+/** Companion object for [[LSegM3]] trait contains apply factory method. */
+object LSegM3
 {
-   def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetresNum, pStart.yMetresNum, pStart.zMetresNum, pEnd.xMetresNum, pEnd.yMetresNum,
+   def apply(pStart: PtM3, pEnd: PtM3): LSegM3 = new LSegM3(pStart.xMetresNum, pStart.yMetresNum, pStart.zMetresNum, pEnd.xMetresNum, pEnd.yMetresNum,
      pEnd.zMetresNum)
 
   def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, zStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double, zEndMetresNum: Double):
-    LineSegM3 = new LineSegM3(xStartMetresNum, yStartMetresNum, zStartMetresNum, xEndMetresNum, yEndMetresNum, zEndMetresNum)
+    LSegM3 = new LSegM3(xStartMetresNum, yStartMetresNum, zStartMetresNum, xEndMetresNum, yEndMetresNum, zEndMetresNum)
 
-  /** Implicit instance / evidence for [[BuilderArrMap]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
-  implicit val buildEv: BuilderMapArrDbl6[LineSegM3, LineSegM3Arr] = new BuilderMapArrDbl6[LineSegM3, LineSegM3Arr]
+  /** Implicit instance / evidence for [[BuilderArrMap]] for [[LSegM3]], [[LineSegM3Arr]] type class. */
+  implicit val buildEv: BuilderMapArrDbl6[LSegM3, LineSegM3Arr] = new BuilderMapArrDbl6[LSegM3, LineSegM3Arr]
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
   }
 
-  implicit val rotateM3TEv: RotateM3T[LineSegM3] = new RotateM3T[LineSegM3] {
+  implicit val rotateM3TEv: RotateM3T[LSegM3] = new RotateM3T[LSegM3] {
     /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
-    override def rotateXT(obj: LineSegM3, angle: AngleVec): LineSegM3 = LineSegM3(obj.startPt.rotateX(angle), obj.endPt.rotateX(angle))
+    override def rotateXT(obj: LSegM3, angle: AngleVec): LSegM3 = LSegM3(obj.startPt.rotateX(angle), obj.endPt.rotateX(angle))
 
     /** Rotates this vector around the Y axis, viewed form positive Y through the given angle around the origin. */
-    override def rotateYT(obj: LineSegM3, angle: AngleVec): LineSegM3 = LineSegM3(obj.startPt.rotateY(angle), obj.endPt.rotateY(angle))
+    override def rotateYT(obj: LSegM3, angle: AngleVec): LSegM3 = LSegM3(obj.startPt.rotateY(angle), obj.endPt.rotateY(angle))
 
     /** Rotate around the Z axis, viewed from positive Z. A positive angle is anti clockwise. */
-    override def rotateZT(obj: LineSegM3, angle: AngleVec): LineSegM3 = LineSegM3(obj.startPt.rotateZ(angle), obj.endPt.rotateZ(angle))
+    override def rotateZT(obj: LSegM3, angle: AngleVec): LSegM3 = LSegM3(obj.startPt.rotateZ(angle), obj.endPt.rotateZ(angle))
 
     /** Rotate 180 degrees around the Z axis. */
-    override def rotateZ180T(obj: LineSegM3): LineSegM3 = LineSegM3(obj.startPt.rotateZ180, obj.endPt.rotateZ180)
+    override def rotateZ180T(obj: LSegM3): LSegM3 = LSegM3(obj.startPt.rotateZ180, obj.endPt.rotateZ180)
   }
 }
 
 /** Compact immutable Array[Double] based collection class for [[LSeg2]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegM3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegM3]
+class LineSegM3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LSegM3]
 { type ThisT = LineSegM3Arr
   def fromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
   override def typeStr: String = "LineSegM3Arr"
-  override def fElemStr: LineSegM3 => String = _.toString
+  override def fElemStr: LSegM3 => String = _.toString
 
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegM3 =
-    new LineSegM3(d1, d2, d3, d4, d5, d6)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LSegM3 =
+    new LSegM3(d1, d2, d3, d4, d5, d6)
 }
 
 /** Companion object for the LineSegM3s class. */
-object LineSegM3Arr extends CompanionSlDbl6[LineSegM3, LineSegM3Arr]
+object LineSegM3Arr extends CompanionSlDbl6[LSegM3, LineSegM3Arr]
 {
   override def fromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
 
@@ -94,9 +92,9 @@ object LineSegM3Arr extends CompanionSlDbl6[LineSegM3, LineSegM3Arr]
   }
 }
 
-/** Efficient expandable buffer for [[LineSegM3]]s. */
-class LineSegM3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl6[LineSegM3]
+/** Efficient expandable buffer for [[LSegM3]]s. */
+class LineSegM3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl6[LSegM3]
 { override def typeStr: String = "LineSegM3Buff"
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegM3 =
-    new LineSegM3(d1, d2, d3, d4, d5, d6)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LSegM3 =
+    new LSegM3(d1, d2, d3, d4, d5, d6)
 }

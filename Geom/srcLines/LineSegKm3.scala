@@ -25,7 +25,7 @@ class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   def zsPos: Boolean = zStart.nonNeg && zEnd.nonNeg
 
   /** Takes the X and Y components. */
-  def xy: LineSegKm2 = new LineSegKm2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)
+  def xy: LSegKm2 = new LSegKm2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
   def xyLineSeg(scale: LengthMetric): LSeg2 = LSeg2(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)

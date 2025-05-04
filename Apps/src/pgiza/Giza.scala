@@ -12,7 +12,7 @@ trait Pyramid
   def baseFill: SqlignLen2Fill = basePositioned.fill(Wheat)
   def lbrtLine: LineSegLen2Draw = basePositioned.lbrtDiag.draw()
   def diagsDraw: LineSegLen2ArrDraw = basePositioned.sidesDiags.draw()
-  def baseGraphics: RArr[GraphicLen2Elem] = RArr(baseFill, diagsDraw)
+  def baseGraphics: RArr[GraphicLen2Elem] = RArr(baseFill, diagsDraw, basePositioned.diagTriangle0.fill(Red))
 
   def offset: VecLen2
   val axisOffsetNum = 300

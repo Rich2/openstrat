@@ -5,7 +5,7 @@ import math.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** 3-dimensional point specified using [[Metres]] as units rather than pure numbers. */
 final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum: Double) extends PtLength3
 { override type ThisT = PtM3
-  override type LineSegT = LineSegM3
+  override type LineSegT = LSegM3
   def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetresNum.str2, yMetresNum.str2, zMetresNum.str2)
   def kmStr: String = typeStr.appendParenthSemis((xMetresNum / 1000).str2, (yMetresNum / 1000).str2, (zMetresNum / 1000).str2)
@@ -95,11 +95,11 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
     Metres(sq.sqrt)
   }
 
-  override def lineSegTo(endPt: PtLength3): LineSegM3 =
-    LineSegM3.metresNum(xMetresNum, yMetresNum, zMetresNum, endPt.xMetresNum, endPt.yMetresNum, endPt.zMetresNum)
+  override def lineSegTo(endPt: PtLength3): LSegM3 =
+    LSegM3.metresNum(xMetresNum, yMetresNum, zMetresNum, endPt.xMetresNum, endPt.yMetresNum, endPt.zMetresNum)
 
-  override def lineSegFrom(startPt: PtLength3): LineSegM3 =
-    LineSegM3.metresNum(startPt.xMetresNum, startPt.yMetresNum, startPt.zMetresNum, xMetresNum, yMetresNum, zMetresNum)
+  override def lineSegFrom(startPt: PtLength3): LSegM3 =
+    LSegM3.metresNum(startPt.xMetresNum, startPt.yMetresNum, startPt.zMetresNum, xMetresNum, yMetresNum, zMetresNum)
 }
 
 /** Companion object for the [[PtM3]] class. the 3D point measure in metres length. */
@@ -144,7 +144,7 @@ object PtM3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
-  implicit val lineSegBuildEv: BuilderMapLSegBase[PtM3, LineSegM3] = LineSegM3(_, _)
+  implicit val lineSegBuildEv: BuilderMapLSegBase[PtM3, LSegM3] = LSegM3(_, _)
 }
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2Gen]] and[[LinePathMs]] classes are not appropriate. */

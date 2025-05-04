@@ -4,7 +4,7 @@ package ostrat; package geom
 /** Square defined in [[Length]] units, aligned to the X and Y axes. */
 trait SqlignLen2[+VT <: PtLen2]() extends SquareLen2[VT], RectLen2[VT]
 { type ThisT <: SqlignLen2[VT]
-  type SideT <: LineSegLen2[VT]
+  type SideT <: LSegLen2[VT]
   override def slate(operand: VecPtLen2): SqlignLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): SqlignLen2[VT]
   override def slateX(xOperand: Length): SqlignLen2[VT]
@@ -19,7 +19,7 @@ trait SqlignLen2[+VT <: PtLen2]() extends SquareLen2[VT], RectLen2[VT]
   def rotate180IfNot(cond: Boolean): SqlignLen2[VT]
   override def arrayUnsafe: Array[Double]
 
-  def fill(fillFacet: FillFacet): SqlignLen2Fill = SqlignLen2Fill(this, fillFacet)
+  override def fill(fillFacet: FillFacet): SqlignLen2Fill = SqlignLen2Fill(this, fillFacet)
 }
 
 object SqlignLen2

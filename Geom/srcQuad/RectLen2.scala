@@ -10,9 +10,6 @@ trait RectLen2[+VT <: PtLen2] extends RectangleLen2[VT]
   /** The height of this rectangle in [[Length]] units. */
   def height: Length
 
-  def cenX: Length
-
-  def cenY: Length
 
   /** Right top point. */
   def rt: PtLen2
@@ -27,10 +24,10 @@ trait RectLen2[+VT <: PtLen2] extends RectangleLen2[VT]
   def lt: PtLen2
 
   /** leftBottom => topRight diagonal */
-  def lbrtDiag: LineSegLen2[VT]
+  def lbrtDiag: LSegLen2[VT]
 
   /** leftTop => bottomRight diagonal */
-  def ltrbDiag: LineSegLen2[VT]
+  def ltrbDiag: LSegLen2[VT]
   
   override def slate(operand: VecPtLen2): RectLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): RectLen2[VT]

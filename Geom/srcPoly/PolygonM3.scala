@@ -12,7 +12,7 @@ trait PolygonLength3[VT <: PtLength3] extends Any, PolygonDbl3[VT]
  * this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2Gen]]s on world maps. */
 final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLength3[PtM3]
 { override type ThisT = PolygonM3
-  override type SideT = LineSegM3
+  override type SideT = LSegM3
   override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
   override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMetre3"
@@ -69,12 +69,12 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
 
   def toXY: PolygonM2Gen = map(_.xy)
 
-  override def sidesForeach[U](f: LineSegM3 => U): Unit =
+  override def sidesForeach[U](f: LSegM3 => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }
 
-  @inline override def side(index: Int): LineSegM3 = LineSegM3(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSegM3 = LSegM3(vert(index), vert(index + 1))
   override def sides: LineSegM3Arr = new LineSegM3Arr(arrayForSides)
 }
 

@@ -5,7 +5,7 @@ import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** A polygon using vertices specified in [[PtFm2]] points rather than scalars. */
 final class PolygonFm2Gen(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtFm2], PtFm2SeqLike
 { type ThisT = PolygonFm2Gen
-  type SideT = LineSegFm2
+  type SideT = LSegFm2
   override def typeStr: String = "PolygonFm2"
   def fromArray(array: Array[Double]): PolygonFm2Gen = new PolygonFm2Gen(array)
   override def verts: PtFm2Arr = new PtFm2Arr(arrayUnsafe)
@@ -37,10 +37,10 @@ final class PolygonFm2Gen(val arrayUnsafe: Array[Double]) extends AnyVal, Polygo
     res
   }
 
-  @inline override def side(index: Int): LineSegFm2 = LineSegFm2(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSegFm2 = LSegFm2(vert(index), vert(index + 1))
   override def sides: LineSegFm2Arr = new LineSegFm2Arr(arrayForSides)
 
-  override def sidesForeach[U](f: LineSegFm2 => U): Unit =
+  override def sidesForeach[U](f: LSegFm2 => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }

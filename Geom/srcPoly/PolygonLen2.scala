@@ -4,7 +4,7 @@ package ostrat; package geom
 /** A polygon specified in [[Length]] units. */
 trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonDbl2[VT], ShapeLen2
 { type ThisT <: PolygonLen2[VT]
-  type SideT <: LineSegLen2[VT]
+  type SideT <: LSegLen2[VT]
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   def v0x: Length
@@ -16,6 +16,11 @@ trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonDbl2[VT], Sha
    * the vertex immediately anti-clockwise if there is no vertex in this position. */
   def v0: PtLen2
 
+  override def fill(fillFacet: FillFacet): PolygonLen2Fill = PolygonLen2Fill(this, fillFacet)
+
+  override def draw(lineWidth: Double, lineColour: Colour): GraphicLen2Elem = ???
+
+  override def fillDraw(fillFacet: FillFacet, lineColour: Colour, lineWidth: Double): GraphicLen2Elem = ???
   override def slate(operand: VecPtLen2): PolygonLen2[VT]  
   override def slate(xOperand: Length, yOperand: Length): PolygonLen2[VT]
   override def slateX(xOperand: Length): PolygonLen2[VT]
@@ -27,7 +32,7 @@ trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonDbl2[VT], Sha
   def revYIf(cond: Boolean): PolygonLen2[VT]
   def rotate180: PolygonLen2[VT]
   def rotate180If(cond: Boolean): PolygonLen2[VT]
-  def rotate180IfNot(cond: Boolean): PolygonLen2[VT]  
+  def rotate180IfNot(cond: Boolean): PolygonLen2[VT]
 }
 
 /** Companion object for [[PolygonLen2]]. Does not provide factory methods. Use the specific [[Length]] unit classes such as [[PolyonM2]] and [[PolygonKm2]].
@@ -73,4 +78,17 @@ trait PolygonLen2Fill extends PolygonLen2Graphic, ShapeLen2Fill
   override def slateY(yOperand: Length): PolygonLen2Fill
   override def scale(operand: Double): PolygonLen2Fill
   override def mapGeom2(operand: Length): PolygonFill
+}
+
+object PolygonLen2Fill
+{ def apply(shape: PolygonLen2[?], fillFacet: FillFacet): PolygonLen2Fill = PolygonLen2FillGen(shape, fillFacet)
+}
+
+case class PolygonLen2FillGen(shape: PolygonLen2[?], fillFacet: FillFacet) extends PolygonLen2Fill
+{ override def slate(operand: VecPtLen2): PolygonLen2Fill = ???
+  override def slate(xOperand: Length, yOperand: Length): PolygonLen2Fill = ???
+  override def slateX(xOperand: Length): PolygonLen2Fill = ???
+  override def slateY(yOperand: Length): PolygonLen2Fill = ???
+  override def scale(operand: Double): PolygonLen2Fill = ???
+  override def mapGeom2(operand: Length): PolygonFill = PolygonFill(shape.mapGeom2(operand), fillFacet)
 }

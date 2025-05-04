@@ -58,8 +58,8 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   
   def revY: PtLen2
   def revYIf(cond: Boolean): PtLen2
-  def lineSegTo(endPt: PtLen2): LineSegLen2[? <: PtLen2]
-  def lineSegFrom(startPt: PtLen2): LineSegLen2[? <: PtLen2]
+  def lineSegTo(endPt: PtLen2): LSegLen2[? <: PtLen2]
+  def lineSegFrom(startPt: PtLen2): LSegLen2[? <: PtLen2]
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
   def rotate180: PtLen2

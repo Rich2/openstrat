@@ -27,7 +27,7 @@ trait VecPtKm2 extends VecPtLen2, TellElemDbl2
 /** A 2-dimensional point specified in [[Kilometres]] as units rather than pure scalar numbers. */
 final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLen2, VecPtKm2
 { override type ThisT = PtKm2
-  override type LineSegT = LineSegKm2
+  override type LineSegT = LSegKm2
   override def typeStr: String = "PtKm2"
   override def slate(xOperand: Length, yOperand: Length): PtKm2 = PtKm2(xKilometresNum + xOperand.kilometresNum, yKilometresNum + yOperand.kilometresNum)
   override def slate(operand: VecPtLen2): PtKm2 = new PtKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
@@ -56,8 +56,8 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
     new PtKm2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtLen2): LineSegKm2 = LineSegKm2(xKilometresNum, yKilometresNum, endPt.xKilometresNum, endPt.yKilometresNum)
-  override def lineSegFrom(startPt: PtLen2): LineSegKm2 = LineSegKm2(startPt.xKilometresNum, startPt.yKilometresNum, xKilometresNum, yKilometresNum)
+  override def lineSegTo(endPt: PtLen2): LSegKm2 = LSegKm2(xKilometresNum, yKilometresNum, endPt.xKilometresNum, endPt.yKilometresNum)
+  override def lineSegFrom(startPt: PtLen2): LSegKm2 = LSegKm2(startPt.xKilometresNum, startPt.yKilometresNum, xKilometresNum, yKilometresNum)
 }
 
 /** Companion object for [[PtKm2]] class contains factory apply methods, extension methods and type class instances. */

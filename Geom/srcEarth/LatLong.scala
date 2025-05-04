@@ -88,7 +88,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   def fromFocusMetres(focus: LatLong): PtM3 = //focus.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
     subLong(focus.longVec).toMetres3.xRotateRadians(-focus.latRadians)
 
-  def fromFocusLineDist3(inp: LineSegLL): LineSegM3 = LineSegM3(
+  def fromFocusLineDist3(inp: LineSegLL): LSegM3 = LSegM3(
     inp.startPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians),
     inp.endPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians))
 

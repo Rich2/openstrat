@@ -5,7 +5,7 @@ import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** A polygon using vertices specified in [[PtKm2]] points rather than scalars. */
 final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen2[PtKm2]
 { type ThisT = PolygonKm2
-  type SideT = LineSegKm2
+  type SideT = LSegKm2
   override def typeStr: String = "PolygonKm2"
   def fromArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
   override def elemFromDbls(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
@@ -48,10 +48,10 @@ final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLe
     res
   }
 
-  @inline override def side(index: Int): LineSegKm2 = LineSegKm2(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSegKm2 = LSegKm2(vert(index), vert(index + 1))
   override def sides: LineSegKm2Arr = new LineSegKm2Arr(arrayForSides)
 
-  override def sidesForeach[U](f: LineSegKm2 => U): Unit =
+  override def sidesForeach[U](f: LSegKm2 => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }

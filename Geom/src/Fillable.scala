@@ -141,7 +141,7 @@ object DrawableLen2
 }
 
 /** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
-trait FillableLen2 extends DrawableLen2
+trait FillableLen2 extends Any, DrawableLen2
 {  /** Graphically fills this object. */
   def fill(fillFacet: FillFacet): GraphicLen2Elem
 

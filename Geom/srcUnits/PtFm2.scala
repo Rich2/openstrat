@@ -27,7 +27,7 @@ trait VecPtFm2 extends VecPtLen2, TellElemDbl2
 /** A 2-dimensional point specified in [[Femtometres]] as units rather than pure scalar numbers. */
 final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Double) extends PtLen2, VecPtFm2
 { override type ThisT = PtFm2
-  override type LineSegT = LineSegFm2
+  override type LineSegT = LSegFm2
   override def typeStr: String = "PtFm2"
   override def slate(operand: VecPtLen2): PtFm2 = new PtFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
   override def slate(xOperand: Length, yOperand: Length): PtFm2 = PtFm2(xFemtometresNum + xOperand.femtometresNum, yFemtometresNum + yOperand.femtometresNum)
@@ -55,8 +55,8 @@ final class PtFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Doub
     new PtFm2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtLen2): LineSegFm2 = LineSegFm2(xFemtometresNum, yFemtometresNum, endPt.xFemtometresNum, endPt.yFemtometresNum)
-  override def lineSegFrom(startPt: PtLen2): LineSegFm2 = LineSegFm2(startPt.xFemtometresNum, startPt.yFemtometresNum, xFemtometresNum, yFemtometresNum)
+  override def lineSegTo(endPt: PtLen2): LSegFm2 = LSegFm2(xFemtometresNum, yFemtometresNum, endPt.xFemtometresNum, endPt.yFemtometresNum)
+  override def lineSegFrom(startPt: PtLen2): LSegFm2 = LSegFm2(startPt.xFemtometresNum, startPt.yFemtometresNum, xFemtometresNum, yFemtometresNum)
 }
 
 /** Companion object for [[PtFm2]] class contains factory methods and various type class instances. The [[GeomLen2Elem]] type class instances are in the
