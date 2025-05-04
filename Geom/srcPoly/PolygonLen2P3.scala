@@ -14,9 +14,7 @@ trait PolygonLen2P3[+VT <: PtLen2] extends Any, PolygonLen2[VT]
 }
 
 trait PolygonM2P3 extends Any, PolygonLen2P3[PtM2], PolygonM2
-{
-  
-  def v1xMNum: Double
+{ def v1xMNum: Double
   def v1yMNum: Double
   def v2xMNum: Double
   def v2yMNum: Double
@@ -31,5 +29,15 @@ trait PolygonM2P3 extends Any, PolygonLen2P3[PtM2], PolygonM2
 
 /** A polygon with at least 4 vertices, defined in [[Length]] units. */
 trait PolygonLen2P4[+VT <: PtLen2] extends Any, PolygonLen2P3[VT]
+{ def v3x: Length
+  def v3y: Length
+  def v3: PtLen2
+}
 
 trait PolygonM2P4 extends Any, PolygonLen2P4[PtM2], PolygonM2P3
+{ def v3xMNum: Double
+  def v3yMNum: Double
+  final override def v3x: Metres = Metres(v3xMNum)
+  final override def v3y: Metres = Metres(v3yMNum)
+  final override def v3: PtM2 = PtM2(v3xMNum, v3yMNum)
+}

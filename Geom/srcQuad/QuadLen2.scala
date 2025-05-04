@@ -6,4 +6,4 @@ trait QuadLen2[+VT <: PtLen2] extends PolygonLen2P4[VT]
 
 }
 
-trait QuadM2 extends QuadLen2[PtM2]
+trait QuadM2 extends QuadLen2[PtM2], PolygonM2P4

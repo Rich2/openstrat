@@ -35,12 +35,15 @@ object SqlignLen2
 
 /** Square specified in metres aligned to the X and Y axes. */
 class SqlignM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, val v1yMNum: Double, val v2xMNum: Double, val v2yMNum: Double) extends
-  SqlignLen2[PtM2], RectM2, PolygonM2P4
+  SqlignLen2[PtM2], RectM2
 { type ThisT = SqlignM2
   override def typeStr: String = "SqlignM2"
   def widthMNum: Double = (v2xMNum - v0xMNum).abs
   def xCenMNum: Double = v0xMNum \/ v2xMNum
   def yCenMNum: Double = v0yMNum \/ v2yMNum
+
+  override def v3xMNum: Double = 2 * xCenMNum - v1xMNum
+  override def v3yMNum: Double = 2 * yCenMNum - v1yMNum
 
   inline def heightMNum: Double = widthMNum
   def hWidthMNum: Double = widthMNum / 2

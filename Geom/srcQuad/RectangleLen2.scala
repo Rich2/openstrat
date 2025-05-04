@@ -16,6 +16,8 @@ trait RectangleLen2[+VT <: PtLen2] extends QuadLen2[VT]
   override def mapGeom2(operand: Length): Rectangle
 }
 
+trait RectangleM2 extends RectangleLen2[PtM2], QuadM2
+
 /** A polygon graphic where the point are specified in [[Length]] units. */
 trait RectangleLen2Graphic extends PolygonLen2Graphic
 { override def shape: RectangleLen2[PtLen2]

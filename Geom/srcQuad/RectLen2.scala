@@ -40,7 +40,7 @@ trait RectLen2[+VT <: PtLen2] extends RectangleLen2[VT]
   override def mapGeom2(operand: Length): Rect
 }
 
-trait RectM2 extends RectLen2[PtM2]
+trait RectM2 extends RectLen2[PtM2], RectangleM2
 { type ThisT <: RectM2
   override type SideT = LSegM2
   def widthMNum: Double
