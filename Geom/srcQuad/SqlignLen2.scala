@@ -34,22 +34,20 @@ object SqlignLen2
 }
 
 /** Square specified in metres aligned to the X and Y axes. */
-class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double) extends SqlignLen2[PtM2], RectM2
+class SqlignM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, val v1yMNum: Double, val v2xMNum: Double, val v2yMNum: Double) extends
+  SqlignLen2[PtM2], RectM2
 { type ThisT = SqlignM2
   override def typeStr: String = "SqlignM2"
+  def widthMNum: Double = (v2xMNum - v0xMNum).abs
+  def xCenMNum: Double = v0xMNum \/ v2xMNum
+  def yCenMNum: Double = v0yMNum \/ v2yMNum
+
   inline def heightMNum: Double = widthMNum
   def hWidthMNum: Double = widthMNum / 2
   override def diags: LineSegM2Arr = LineSegM2Arr(lbrtDiag, ltrbDiag)
-
-  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
-  def v0x: Length = ???
-
-  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
-  def v0y: Length = ???
-
-  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the polygon or
-   * the vertex immediately anti-clockwise if there is no vertex in this position. */
-  def v0: PtLen2 = ???
+  override def v0x: Metres = Metres(v0xMNum)
+  override def v0y: Metres = Metres(v0yMNum)
+  def v0: PtLen2 = PtM2(v0xMNum, v0yMNum)
   override def slate(operand: VecPtLen2): SqlignM2 = SqlignM2(widthMNum, xCenMNum + operand.xMetresNum, yCenMNum + operand.yMetresNum)
   override def slate(xOperand: Length, yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum + yOperand.metresNum)
   override def slateX(xOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum)
@@ -75,24 +73,39 @@ class SqlignM2(val widthMNum: Double, val xCenMNum: Double, val yCenMNum: Double
 
 object SqlignM2
 { /** Factory apply method to create a square defined in metres that is aligned to the X and Y axes. There are 3 other apply name overloads. */
-  def apply(width: Double, cenX: Double, cenY: Double): SqlignM2 = new SqlignM2(width, cenX, cenY)
+  def apply(width: Double, cenX: Double, cenY: Double): SqlignM2 = new SqlignM2(cenX + width/2, cenY + width/2, cenX + width/2, cenY - width/2, cenX - width/2,
+    cenY - width/2)
 
   /** Factory apply method to create a square defined in metres that is aligned to the X and Y axes, with its centre at the origin. There are 3 other apply name
    * overloads. */
-  def apply(width: Double): SqlignM2 = new SqlignM2(width, 0, 0)
+  def apply(width: Double): SqlignM2 = new SqlignM2(width/2, width/2, width/2, -width/2, -width/2, -width/2)
 
   /** Factory apply method to create a square defined in metres is aligned to the X and Y axes. The default centre is the origin. There are 3 other apply name
    *  overloads. */
-  def apply(width: Length, cen: PtLen2 = PtM2.origin): SqlignM2 =  new SqlignM2(width.metresNum, cen.xMetresNum, cen.yMetresNum)
+  def apply(width: Length, cen: PtLen2 = PtM2.origin): SqlignM2 =
+  { val hw = width.metresNum / 2
+    val cx = cen.xMetresNum
+    val cy = cen.yMetresNum
+    new SqlignM2(cx + hw, cy + hw, cx + hw, cy - hw, cx - hw, cy - hw)
+  }
 
   /** Factory apply method to create a square defined in metres that is aligned to the X and Y axes. There are 3 other apply name overloads. */
-  def apply(width: Length, cenX: Length, cenY: Length): SqlignM2 = new SqlignM2(width.metresNum, cenX.metresNum, cenY.metresNum)
+  def apply(width: Length, cenX: Length, cenY: Length): SqlignM2 =
+  { val hw = width.metresNum / 2
+    val cx = cenX.metresNum
+    val cy = cenY.metresNum
+    new SqlignM2(cx + hw, cy + hw, cx + hw, cy - hw, cx - hw, cy - hw)
+  }
 
   /** Factory method to create a square defined in metres that is aligned to the X and Y axes from its right-bottom vertex. */
-  def rb(width: Double, right: Double, bottom: Double): SqlignM2 = new SqlignM2(width, right - width / 2, bottom + width / 2)
+  def rb(width: Double, right: Double, bottom: Double): SqlignM2 = new SqlignM2(right, bottom + width, right, bottom, right - width, bottom)
 
   /** Factory method to create a square defined in metres, that is aligned to the X and y axes from its right-bottom vertex. The default value places the
    * right-bottom corner at the origin. */
-  def rb(width: Length, bottomRight: PtLen2 = PtM2.origin): SqlignM2 =
-    new SqlignM2(width.metresNum, bottomRight.xMetresNum - width.metresNum / 2, bottomRight.yMetresNum + width.metresNum / 2)
+  def rb(width: Length, rightBottom: PtLen2 = PtM2.origin): SqlignM2 =
+  { val wm = width.metresNum
+    val rbx = rightBottom.xMetresNum
+    val rby = rightBottom.yMetresNum
+    new SqlignM2(rbx, rby + wm, rbx, rby, rbx - wm, rby)
+  }
 }
