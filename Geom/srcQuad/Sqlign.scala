@@ -62,6 +62,9 @@ object Sqlign
   /** Factory method for constructing [[Sqlign]] from the first three vertices. */
   def from3(v0: Pt2, v1: Pt2, v2: Pt2): Sqlign = new Sqlign(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 
+  /** Factory method for constructing [[Sqlign]] from the first three vertices, given as X and Y parameters. */
+  def from3(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double): Sqlign = new Sqlign(v0x, v0y, v1x, v1y, v2x, v2y)
+
   implicit val showEv: Show[Sqlign] = new Show[Sqlign]
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str

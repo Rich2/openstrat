@@ -48,12 +48,24 @@ class SqlignM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, va
   override def v0x: Metres = Metres(v0xMNum)
   override def v0y: Metres = Metres(v0yMNum)
   def v0: PtLen2 = PtM2(v0xMNum, v0yMNum)
-  override def slate(operand: VecPtLen2): SqlignM2 = SqlignM2(widthMNum, xCenMNum + operand.xMetresNum, yCenMNum + operand.yMetresNum)
-  override def slate(xOperand: Length, yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum + yOperand.metresNum)
-  override def slateX(xOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum + xOperand.metresNum, yCenMNum)
-  override def slateY(yOperand: Length): SqlignM2 = SqlignM2(widthMNum, xCenMNum, yCenMNum + yOperand.metresNum)
-  override def scale(operand: Double): SqlignM2 = SqlignM2(widthMNum * operand, xCenMNum * operand, yCenMNum * operand)
-  override def mapGeom2(operand: Length): Sqlign = Sqlign(width / operand, cenX / operand, cenY / operand)
+
+  override def slate(operand: VecPtLen2): SqlignM2 = new SqlignM2(v0xMNum + operand.xMetresNum, v0yMNum + operand.yMetresNum, v1xMNum + operand.xMetresNum,
+    v1yMNum + operand.yMetresNum, v2xMNum + operand.xMetresNum, v2yMNum + operand.yMetresNum)
+
+  override def slate(xOperand: Length, yOperand: Length): SqlignM2 = new SqlignM2(v0xMNum + xOperand.metresNum, v0yMNum + yOperand.metresNum,
+    v1xMNum + xOperand.metresNum, v1yMNum + yOperand.metresNum, v2xMNum + xOperand.metresNum, v2yMNum + yOperand.metresNum)
+
+  override def slateX(xOperand: Length): SqlignM2 = new SqlignM2(v0xMNum + xOperand.metresNum, v0yMNum, v1xMNum + xOperand.metresNum, v1yMNum,
+    v2xMNum + xOperand.metresNum, v2yMNum)
+
+  override def slateY(yOperand: Length): SqlignM2 = new SqlignM2(v0xMNum, v0yMNum + yOperand.metresNum, v1xMNum, v1yMNum + yOperand.metresNum, v2xMNum,
+    v2yMNum + yOperand.metresNum)
+
+  override def scale(operand: Double): SqlignM2 = new SqlignM2(v0xMNum * operand, v0yMNum * operand, v1xMNum * operand, v1yMNum * operand, v2xMNum * operand,
+    v2yMNum * operand)
+
+  override def mapGeom2(operand: Length): Sqlign = Sqlign.from3(v0xMNum / operand.metresNum, v0yMNum / operand.metresNum, v1xMNum / operand.metresNum,
+    v1yMNum / operand.metresNum, v2xMNum / operand.metresNum, v2yMNum / operand.metresNum)
 
   override def fElemStr: PtM2 => String = ???
   override def elemsStr: String = ???
