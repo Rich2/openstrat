@@ -75,19 +75,25 @@ object Quadrilateral
   given scaleEv: Scale[Quadrilateral] = (obj, operand) => obj.scale(operand)
 }
 
-/** The general case of a quadrilateral */
-class QuadrilateralGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double, val v3x: Double, val v3y: Double)
-  extends Quadrilateral
-{ type ThisT = QuadrilateralGen
-  override def typeStr: String = "QuadrilateralGen"
-
-  def ptsTrans(f: Pt2 => Pt2): QuadrilateralGen = QuadrilateralGen(f(v0), f(v1), f(v2), f(v3))
+/** Quadrialateral where the 4 vertices X and Y components are fields */
+trait QuadrilateralFields extends Quadrilateral
+{
   override def elem(index: Int): Pt2 = index %% 4 match
   { case 0 => Pt2(v0x, v0y)
     case 1 => Pt2(v1x, v1y)
     case 2 => Pt2(v2x, v2y)
     case _ => Pt2(v3x, v3y)
   }
+}
+
+/** The general case of a quadrilateral */
+class QuadrilateralGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double, val v3x: Double, val v3y: Double)
+  extends QuadrilateralFields
+{ type ThisT = QuadrilateralGen
+  override def typeStr: String = "QuadrilateralGen"
+
+  def ptsTrans(f: Pt2 => Pt2): QuadrilateralGen = QuadrilateralGen(f(v0), f(v1), f(v2), f(v3))
+
 }
 
 /** Companion object for [[QuadrilateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */
