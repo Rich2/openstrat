@@ -47,7 +47,7 @@ class SqlignM2(val v0xMNum: Double, val v0yMNum: Double, val v1xMNum: Double, va
 
   inline def heightMNum: Double = widthMNum
   def hWidthMNum: Double = widthMNum / 2
-  override def diags: LineSegM2Arr = LineSegM2Arr(lbrtDiag, ltrbDiag)
+  override def diags: LineSegM2Arr = LineSegM2Arr(diag0, diag1)
 
   override def slate(operand: VecPtLen2): SqlignM2 = new SqlignM2(v0xMNum + operand.xMetresNum, v0yMNum + operand.yMetresNum, v1xMNum + operand.xMetresNum,
     v1yMNum + operand.yMetresNum, v2xMNum + operand.xMetresNum, v2yMNum + operand.yMetresNum)

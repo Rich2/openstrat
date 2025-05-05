@@ -13,8 +13,7 @@ trait Pyramid
 
   def triFills(colour: Colour = Wheat) = RArr(basePositioned.diagTriangle0.fill(colour.darken(1.2)), basePositioned.diagTriangle1.fill(colour),
     basePositioned.diagTriangle2.fill(colour.lighten(1.4)), basePositioned.diagTriangle3.fill(colour))
-
-  def lbrtLine: LineSegLen2Draw = basePositioned.lbrtDiag.draw()
+  
   def diagsDraw: LineSegLen2ArrDraw = (basePositioned.sides ++ basePositioned.diags).draw()
   def baseGraphics: RArr[GraphicLen2Elem] = triFills() +% diagsDraw
 

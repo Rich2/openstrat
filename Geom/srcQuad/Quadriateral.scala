@@ -75,7 +75,7 @@ object Quadrilateral
   given scaleEv: Scale[Quadrilateral] = (obj, operand) => obj.scale(operand)
 }
 
-/** Quadrialateral where the 4 vertices X and Y components are fields */
+/** Quadrilateral where the 4 vertices X and Y components are fields */
 trait QuadrilateralFields extends Quadrilateral
 {
   override def elem(index: Int): Pt2 = index %% 4 match

@@ -3,8 +3,7 @@ package ostrat; package geom
 
 /**  */
 trait SqlignLen2Graphic extends SquareLen2Graphic, RectLen2Graphic
-{
-  override def shape: SqlignLen2[PtLen2]
+{ override def shape: SqlignLen2[PtLen2]
 }
 
 case class SqlignLen2Fill(shape: SqlignLen2[PtLen2], fillFacet: FillFacet) extends SqlignLen2Graphic, SquareLen2Fill, RectLen2Fill

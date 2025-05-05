@@ -41,3 +41,8 @@ trait QuadM2 extends QuadLen2[PtM2], PolygonM2P4
   override def diagTriangle2: TriangleM2 = TriangleM2(v2xMNum, v2yMNum, cenXMNum, cenYMNum, v1xMNum, v1yMNum)
   override def diagTriangle3: TriangleM2 = TriangleM2(v3xMNum, v3yMNum, cenXMNum, cenYMNum, v2xMNum, v2yMNum)
 }
+
+/** 2-dimensional graphic based ona quadrilateral */
+trait QuadLen2Graphic extends PolygonLen2Graphic
+{ override def shape: QuadLen2[PtLen2]
+}

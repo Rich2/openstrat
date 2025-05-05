@@ -4,7 +4,7 @@ import pgui.*, pWeb.*, Colour.Black
 
 /** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as [[Rectangle]], [[Square]] or [[Triangle]]
  * use the implementation class [[PolygonCompound]]. */
-trait PolygonGraphic extends ShapeGraphic//, Aff2Elem
+trait PolygonGraphic extends ShapeGraphic
 { override def shape: Polygon
 
   def x1: Double = shape.v0x
