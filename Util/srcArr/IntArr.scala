@@ -49,6 +49,13 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrNoParam[Int]
     new IntArr(newArray)
   }
 
+  override def dropRight(n: Int): IntArr =
+  { val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[Int](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)
+    new IntArr(newArray)
+  }
+
   /** Functionally prepends the operand [[Int]] returning a new object. Note the operators %: and +% are used rather than the conventional +: and :+ to ensure
    * that prepend takes precedence over append. */
   @inline @targetName("prepend") def %:(op: Int): IntArr =

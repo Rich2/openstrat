@@ -24,7 +24,18 @@ class DblArr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrNoParam[Double]
     new DblArr(newArray)
   }
 
-  override def drop(n: Int): DblArr = ???
+  override def drop(n: Int): DblArr =
+  { val nn = n.max0
+    val newArray = new Array[Double]((length - nn).max0)
+    iUntilForeach(length) { i => newArray(i) = arrayUnsafe(i + nn) }
+    new DblArr(newArray)
+  }
+  override def dropRight(n: Int): DblArr =
+  { val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[Double](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)
+    new DblArr(newArray)
+  }
 
   /** Reverses the order of the elements of this sequence. */
   override def reverse: DblArr = ???

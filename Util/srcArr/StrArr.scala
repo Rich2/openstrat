@@ -70,12 +70,18 @@ final class StrArr(val arrayUnsafe: Array[String]) extends AnyVal, ArrNoParam[St
     iUntilForeach(0, length) { i => newArray(i) = arrayUnsafe(length - 1 - i) }
     new StrArr(newArray)
   }
-
-  /** Returns new [[StrArr]] with the first N [[String]]s dropped. */
+  
   override def drop(n: Int): StrArr =
   { val nn = n.max0
     val newArray = new Array[String]((length - nn).max0)
     iUntilForeach(length - nn) { i => newArray(i) = arrayUnsafe(i + nn) }
+    new StrArr(newArray)
+  }
+
+  override def dropRight(n: Int): StrArr =
+  { val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[String](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)    
     new StrArr(newArray)
   }
 

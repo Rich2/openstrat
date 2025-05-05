@@ -48,6 +48,13 @@ final class CharArr(val arrayUnsafe: Array[Char]) extends AnyVal, ArrNoParam[Cha
     new CharArr(newArray)
   }
 
+  override def dropRight(n: Int): CharArr =
+  { val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[Char](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)
+    new CharArr(newArray)
+  }
+
   @inline def offsetter(i: Int): CharsOff = new CharsOff(i)
   @inline def offsetter0: CharsOff = new CharsOff(0)
   @inline def offsetter1: CharsOff = new CharsOff(1)

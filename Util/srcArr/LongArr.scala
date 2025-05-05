@@ -47,6 +47,13 @@ class LongArr(val arrayUnsafe: Array[Long]) extends AnyVal, ArrNoParam[Long]
     iUntilForeach(length - nn) { i => newArray(i) = arrayUnsafe(i + nn) }
     new LongArr(newArray)
   }
+
+  override def dropRight(n: Int): LongArr = {
+    val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[Long](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)
+    new LongArr(newArray)
+  }
 }
 
 object LongArr

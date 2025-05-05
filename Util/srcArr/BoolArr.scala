@@ -58,6 +58,13 @@ final class BoolArr(val arrayUnsafe: Array[Boolean]) extends AnyVal, ArrNoParam[
     new BoolArr(newArray)
   }
 
+  override def dropRight(n: Int): BoolArr =
+  { val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[Boolean](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)
+    new BoolArr(newArray)
+  }
+
   override def reverse: BoolArr =
   { val newArray = new Array[Boolean](length)
     iUntilForeach(0, length) { i => newArray(i) = arrayUnsafe(length - 1 - i) }

@@ -38,6 +38,13 @@ class FloatArr(val arrayUnsafe: Array[Float]) extends AnyVal, ArrNoParam[Float]
     new FloatArr(newArray)
   }
 
+  override def dropRight(n: Int): FloatArr =
+  { val newLen: Int = (length - n.max0).max0
+    val newArray = new Array[Float](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, newLen)
+    new FloatArr(newArray)
+  }
+
   override def reverse: FloatArr =
   { val newArray = new Array[Float](length)
     iUntilForeach(0, length) { i => newArray(i) = arrayUnsafe(length - 1 - i) }
