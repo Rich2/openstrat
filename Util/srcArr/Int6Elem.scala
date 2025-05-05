@@ -54,7 +54,7 @@ trait ArrInt6[A <: Int6Elem] extends Any, SeqLikeImutInt6[A], ArrIntN[A]
   def head5: Int = arrayUnsafe(4)
   def head6: Int = arrayUnsafe(5)
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 6)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex6(length, operand.int1, operand.int2, operand.int3, operand.int4, operand.int5, operand.int6)

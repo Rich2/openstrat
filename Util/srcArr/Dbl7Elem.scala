@@ -57,7 +57,7 @@ trait ArrDbl7[A <: Dbl7Elem] extends Any, ArrDblN[A], SeqLikeImutDbl7[A]
       arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
   }
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 7)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex7(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4, operand.dbl5, operand.dbl6, operand.dbl7)

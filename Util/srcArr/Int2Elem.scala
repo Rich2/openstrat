@@ -37,7 +37,7 @@ trait ArrInt2[A <: Int2Elem] extends Any, ArrIntN[A], SeqLikeImutInt2[A]
   final override def length: Int = arrayUnsafe.length / 2
   final override def apply(index: Int): A = elemFromInts(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
-  @targetName("appendElem") final override def +%(operand: A): ThisT =
+  @targetName("appendElem") final def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 2)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex2(length, operand.int1, operand.int2)

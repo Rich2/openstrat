@@ -39,7 +39,7 @@ trait ArrInt3[A <: Int3Elem] extends Any, ArrIntN[A], SeqLikeImutInt3[A]
   final override def length: Int = arrayUnsafe.length / 3
   final override def apply(index: Int): A = elemFromInts(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
-  @targetName("appendElem") final override def +%(operand: A): ThisT =
+  @targetName("appendElem") final def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 3)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex3(length, operand.int1, operand.int2, operand.int3)

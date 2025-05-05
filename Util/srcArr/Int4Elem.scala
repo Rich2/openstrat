@@ -46,7 +46,7 @@ trait ArrInt4[A <: Int4Elem] extends Any, SeqLikeInt4Imut[A], ArrIntN[A]
   def head3: Int = arrayUnsafe(2)
   def head4: Int = arrayUnsafe(3)
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 4)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex4(length, operand.int1, operand.int2, operand.int3, operand.int4)

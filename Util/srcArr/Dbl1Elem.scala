@@ -26,7 +26,7 @@ trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SeqLikeImutDbl1[A]
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe(index) = newElem.dbl1
   
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline def +%(operand: A): ThisT =
   { val newArray = new Array[Double](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand.dbl1

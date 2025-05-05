@@ -37,7 +37,7 @@ final class BoolArr(val arrayUnsafe: Array[Boolean]) extends AnyVal, ArrNoParam[
   override def setElemUnsafe(index: Int, newElem: Boolean): Unit = ???
 
   /** append. Appends operand [[Boolean]] to this [[BoolArr]]. */
-  @targetName("appendElem") override def +%(operand: Boolean): BoolArr =
+  @targetName("appendElem") def +%(operand: Boolean): BoolArr =
   { val newArray = new Array[Boolean](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand

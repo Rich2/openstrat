@@ -34,7 +34,7 @@ trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1Imut[A] with SeqSpe
 trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1Imut[A]
 { final override def length: Int = arrayUnsafe.length
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Int](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand.int1

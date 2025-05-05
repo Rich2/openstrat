@@ -27,7 +27,7 @@ final class IntArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrNoParam[Int]
   @targetName("append") def ++(op: IntArr): IntArr = appendInts(op)
 
   /** append. Appends operand [[Int]] to this [[IntArr]]. */
-  @targetName("appendElem") override def +%(operand: Int): IntArr =
+  @targetName("appendElem") def +%(operand: Int): IntArr =
   { val newArray = new Array[Int](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand

@@ -141,7 +141,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any, ArrDblN[A], SeqLikeImutDbl2[A]
 
   override def apply(index: Int): A = elemFromDbls(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 2)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex2(length, operand.dbl1, operand.dbl2)

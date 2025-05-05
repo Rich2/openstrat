@@ -2,8 +2,8 @@
 package ostrat
 import annotation.*
 
-/** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this trait have no type parameters. The primary
- *  motivation of this trait is to allow common extractors. */
+/** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this trait have no type parameters. The primary motivation of this
+ * trait is to allow common extractors. */
 trait ArrNoParam[A] extends Any, Arr[A]
 { /** The final type of this class many method operands and return values take this type. */
   type ThisT <: ArrNoParam[A]
@@ -18,9 +18,6 @@ trait ArrNoParam[A] extends Any, Arr[A]
 
   /** Reverses the order of the elements of this sequence. */
   def reverse: ThisT
-
-  /** append. appends element to this [[Arr]]. */
-  @targetName("appendElem") def +%(operand: A): ThisT
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   def unsafeSameSize(length: Int): ThisT

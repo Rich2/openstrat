@@ -17,7 +17,7 @@ class FloatArr(val arrayUnsafe: Array[Float]) extends AnyVal, ArrNoParam[Float]
   override def mutateElemUnsafe(index: Int, f: Float => Float): Unit = { arrayUnsafe(index) = f(arrayUnsafe(index)) }
 
   /** append. Appends operand [[Float]] to this [[FloatArr]]. */
-  @targetName("appendElem") override def +%(operand: Float): FloatArr =
+  @targetName("appendElem") def +%(operand: Float): FloatArr =
   { val newArray = new Array[Float](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand

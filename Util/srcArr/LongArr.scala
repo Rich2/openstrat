@@ -28,7 +28,7 @@ class LongArr(val arrayUnsafe: Array[Long]) extends AnyVal, ArrNoParam[Long]
 
 
   /** append. Appends operand [[Long]] to this [[LongArr]]. */
-  @targetName("appendElem") override def +%(operand: Long): LongArr =
+  @targetName("appendElem") def +%(operand: Long): LongArr =
   { val newArray = new Array[Long](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand

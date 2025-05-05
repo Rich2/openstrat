@@ -48,7 +48,7 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeImutDbl5[A]
 
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 5)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex5(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4, operand.dbl5)

@@ -46,7 +46,7 @@ trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SeqLikeImutDbl4[A]
   override def apply(index: Int): A =
     elemFromDbls(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 
-  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 4)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex4(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4)

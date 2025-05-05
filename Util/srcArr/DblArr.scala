@@ -28,9 +28,6 @@ class DblArr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrNoParam[Double]
 
   /** Reverses the order of the elements of this sequence. */
   override def reverse: DblArr = ???
-
-  /** append. appends element to this [[Arr]]. */
-  @targetName("appendElem") override def +%(operand: Double): DblArr = ???
 }
 
 /** Companion object for the Dbls Array based class for Doubles, contains a repeat parameter factory method. */
