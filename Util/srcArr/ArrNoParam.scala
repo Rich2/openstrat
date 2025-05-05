@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*
 
@@ -18,9 +18,6 @@ trait ArrNoParam[A] extends Any, Arr[A]
 
   /** Reverses the order of the elements of this sequence. */
   def reverse: ThisT
-
-  /** append. Appends an [[Arr]] of the same final type of this [[Arr]]. */
-  @targetName("append") def ++(operand: ThisT): ThisT
 
   /** append. appends element to this [[Arr]]. */
   @targetName("appendElem") def +%(operand: A): ThisT

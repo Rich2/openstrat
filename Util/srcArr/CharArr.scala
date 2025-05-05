@@ -28,7 +28,7 @@ final class CharArr(val arrayUnsafe: Array[Char]) extends AnyVal, ArrNoParam[Cha
     new CharArr(newArray)
   }
 
-  @targetName("append") override def ++(op: CharArr): CharArr =
+  @targetName("append") def ++(op: CharArr): CharArr =
   { val newArray = new Array[Char](length + op.length)
     arrayUnsafe.copyToArray(newArray)
     op.arrayUnsafe.copyToArray(newArray, length)

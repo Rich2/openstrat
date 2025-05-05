@@ -24,7 +24,7 @@ class FloatArr(val arrayUnsafe: Array[Float]) extends AnyVal, ArrNoParam[Float]
     new FloatArr(newArray)
   }
 
-  @targetName("append") override def ++(op: FloatArr): FloatArr =
+  @targetName("append") def ++(op: FloatArr): FloatArr =
   { val newArray = new Array[Float](length + op.length)
     arrayUnsafe.copyToArray(newArray)
     op.arrayUnsafe.copyToArray(newArray, length)
