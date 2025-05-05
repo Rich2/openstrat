@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
+import pWeb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag, annotation.targetName
 
 /** Straight line segment. A straight line in everyday terminology. Mathematically: 2-dimensional directed, line segment. The name was chosen to avoid
  * ambiguity. */
@@ -129,12 +129,16 @@ object LSeg2
   implicit def transimplicit: Aff2Trans[LSeg2] = (obj: LSeg2, f: Pt2 => Pt2) => LSeg2(f(obj.pStart), f(obj.pEnd))
 }
 
-/** Compact immutable Array[Double] based collection class for [[LSeg2]]s. [[LSeg2]] is the library's term for a mathematical straight line segment, but
- * what in common parlance is often just referred to as a line. */
+/** Compact immutable Array[Double] based collection class for [[LSeg2]]s. [[LSeg2]] is the library's term for a mathematical straight line segment, but what in
+ * common parlance is often just referred to as a line. */
 class LSeg2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrLSegDbl4[Pt2, LSeg2], ArrDbl4[LSeg2], AffinePreserve, Drawable, BoundedElem
 { type ThisT = LSeg2Arr
   def fromArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
   override def typeStr: String = "LineSegArr"
+
+  /** Appends an operand [[LSegArr]]. */
+  @targetName("append") final def ++(operand: LSeg2Arr): LSeg2Arr = new LSeg2Arr(arrayAppend(operand))
+
   override def fElemStr: LSeg2 => String = _.str
   override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double): LSeg2 = new LSeg2(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LSeg2Arr = map(orig => LSeg2(f(orig.pStart), f(orig.pEnd)))

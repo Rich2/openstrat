@@ -80,12 +80,12 @@ trait ArrDblN[A <: DblNElem] extends Any, SeqLikeImutDblN[A], ArrValueN[A]
     iUntilForeach(arrayLen - elemProdSize * nn) { i => newArray(i) = arrayUnsafe(i) }
     fromArray(newArray)
   }
-
-  @targetName("append") final def ++(operand: ThisT): ThisT =
+  
+  final def arrayAppend(operand: ThisT): Array[Double] =
   { val newArray: Array[Double] = new Array(arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     operand.arrayUnsafe.copyToArray(newArray, arrayLen)
-    fromArray(newArray)
+    newArray
   }
 }
 
