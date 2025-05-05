@@ -78,8 +78,7 @@ object LSegM2
   }
 }
 
-/** Compact immutable Array[Double] based collection class for [[LSegM2]]s. A mathematical
- *  straight line segment measured in metres. */
+/** Compact immutable Array[Double] based collection class for [[LSegM2]]s. A mathematical straight line segment measured in metres. */
 class LineSegM2Arr(val arrayUnsafe: Array[Double]) extends LineSegLen2Arr[PtM2], ArrDbl4[LSegM2], MetresBased
 { type ThisT = LineSegM2Arr
   def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)

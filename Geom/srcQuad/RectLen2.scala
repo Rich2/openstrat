@@ -10,7 +10,6 @@ trait RectLen2[+VT <: PtLen2] extends RectangleLen2[VT]
   /** The height of this rectangle in [[Length]] units. */
   def height: Length
 
-
   /** Right top point. */
   def rt: PtLen2
   
@@ -67,8 +66,6 @@ trait RectM2 extends RectLen2[PtM2], RectangleM2
   override def lt: PtM2 = PtM2(leftMNum, topMNum)
   override def lbrtDiag: LSegM2 = LSegM2(leftMNum, bottomMNum, rightMNum, topMNum)
   override def ltrbDiag: LSegM2 = LSegM2(leftMNum, topMNum, rightMNum, bottomMNum)
-
-  override def sidesDiags: LineSegLen2Arr[PtM2] = sides ++ diags
 
   override def sides: LineSegM2Arr =
   { val newArray = Array[Double](rightMNum, topMNum, rightMNum, bottomMNum, rightMNum, bottomMNum, leftMNum, bottomMNum,

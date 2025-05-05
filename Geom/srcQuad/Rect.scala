@@ -156,7 +156,7 @@ object Rect
     override def rotate270(obj: Rect): Rect = obj.rotate270
   }
 
-  /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
+  /** General implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final class RectGen (val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rect
   { type ThisT = RectGen
     override def typeStr: String = "Rect"

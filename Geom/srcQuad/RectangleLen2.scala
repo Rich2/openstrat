@@ -3,12 +3,7 @@ package ostrat; package geom
 
 /** A Rectangle defined in [[Length]] units. */
 trait RectangleLen2[+VT <: PtLen2] extends QuadLen2[VT]
-{
-  def diags: LineSegLen2Arr[VT]
-  
-  def sidesDiags: LineSegLen2Arr[VT]
-
-  override def slate(operand: VecPtLen2): RectangleLen2[VT]
+{ override def slate(operand: VecPtLen2): RectangleLen2[VT]
   override def slate(xOperand: Length, yOperand: Length): RectangleLen2[VT]
   override def slateX(xOperand: Length): RectangleLen2[VT]
   override def slateY(yOperand: Length): RectangleLen2[VT]
@@ -16,6 +11,7 @@ trait RectangleLen2[+VT <: PtLen2] extends QuadLen2[VT]
   override def mapGeom2(operand: Length): Rectangle
 }
 
+/** Rectangle defined in [[Metres]]. */
 trait RectangleM2 extends RectangleLen2[PtM2], QuadM2
 
 /** A polygon graphic where the point are specified in [[Length]] units. */
@@ -29,6 +25,7 @@ trait RectangleLen2Graphic extends PolygonLen2Graphic
   override def mapGeom2(operand: Length): RectangleGraphic
 }
 
+/** A fill graphic for a rectangle defined in [[Length]] units. */
 trait RectangleLen2Fill extends RectangleLen2Graphic, PolygonLen2Fill
 { override def slate(operand: VecPtLen2): RectangleLen2Fill
   override def slate(xOperand: Length, yOperand: Length): RectangleLen2Fill
