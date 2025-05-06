@@ -2,7 +2,7 @@
 package ostrat; package geom
 import ostrat.pWeb.*, pgui.*
 
-trait SqlignGraphic extends ShapeGraphic//, SquareGraphic
+trait SqlignGraphic extends RectGraphic, SquareGraphic
 { override def shape: Sqlign
 }
 
@@ -28,10 +28,10 @@ object SqlignFill
   def apply(shape: Sqlign, fillFacet: FillFacet): SqlignFill = new SqlignFill(shape, fillFacet)
 }
 
+/** A compound graphic based on a [[Sqlign]]. Can only execute limited geometric transfomations, that preserve the [[Sqlign]] shape. */
 class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[Sqlign => GraphicElems], val adopted: GraphicElems) extends
   SqlignGraphic, ParentGraphic2[Sqlign]
-{
-  def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
+{ def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
   override def attribs: RArr[XmlAtt] = ???
   override def svgInline: HtmlSvg = ???
   override def svgElems: RArr[SvgElem] = ???
@@ -46,9 +46,9 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
   override def scale(operand: Double): SqlignCompound = SqlignCompound(shape.scale(operand), facets, childs, children.scale(operand))
   override def negX: SqlignCompound = SqlignCompound(shape.negX, facets, childs, children.negX)
   override def negY: SqlignCompound = SqlignCompound(shape.negY, facets, childs, children.negY)
-  override def rotate90: ShapeGraphic = SqlignCompound(shape.rotate90, facets, childs, children.rotate90)
-  override def rotate180: ShapeGraphic = SqlignCompound(shape.rotate180, facets, childs, children.rotate180)
-  override def rotate270: ShapeGraphic = SqlignCompound(shape.rotate270, facets, childs, children.rotate270)
+  override def rotate90: SqlignCompound = SqlignCompound(shape.rotate90, facets, childs, children.rotate90)
+  override def rotate180: SqlignCompound = SqlignCompound(shape.rotate180, facets, childs, children.rotate180)
+  override def rotate270: SqlignCompound = SqlignCompound(shape.rotate270, facets, childs, children.rotate270)
   override def prolign(matrix: AxlignMatrix): SqlignCompound = SqlignCompound(shape.prolign(matrix), facets, childs, children.prolign(matrix))
 }
 

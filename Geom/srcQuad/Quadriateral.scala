@@ -93,7 +93,6 @@ class QuadrilateralGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1
   override def typeStr: String = "QuadrilateralGen"
 
   def ptsTrans(f: Pt2 => Pt2): QuadrilateralGen = QuadrilateralGen(f(v0), f(v1), f(v2), f(v3))
-
 }
 
 /** Companion object for [[QuadrilateralGen]], the general case of a [[Quadrilateral]], contains factory methods. */
@@ -119,11 +118,15 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
   /** A sequence of graphics that have been attached to this quadrilateral. */
   def adopted: GraphicElems = RArr()
 
-  override def slate(operand: VecPt2): QuadCompound = QuadCompoundGen(shape.slate(operand), facets, quadChilds, adopted)
-  override def slate(xOperand: Double, yOperand: Double): QuadCompound = QuadCompoundGen(shape.slate(xOperand, yOperand), facets, quadChilds, adopted)
-  override def slateX(xOperand: Double): QuadCompound = QuadCompoundGen(shape.slateX(xOperand), facets, quadChilds, adopted)
-  override def slateY(yOperand: Double): QuadCompound = QuadCompoundGen(shape.slateY(yOperand), facets, quadChilds, adopted)
-  override def scale(operand: Double): QuadCompound = QuadCompoundGen(shape.scale(operand), facets, quadChilds, adopted)
+  override def slate(operand: VecPt2): QuadCompound = QuadCompoundGen(shape.slate(operand), facets, quadChilds, adopted.slate(operand))
+
+  override def slate(xOperand: Double, yOperand: Double): QuadCompound =
+    QuadCompoundGen(shape.slate(xOperand, yOperand), facets, quadChilds, adopted.slate(xOperand, yOperand))
+
+  override def slateX(xOperand: Double): QuadCompound = QuadCompoundGen(shape.slateX(xOperand), facets, quadChilds, adopted.slateX(xOperand))
+  override def slateY(yOperand: Double): QuadCompound = QuadCompoundGen(shape.slateY(yOperand), facets, quadChilds, adopted.slateY(yOperand))
+  override def scale(operand: Double): QuadCompound = QuadCompoundGen(shape.scale(operand), facets, quadChilds, adopted.scale(operand))
+  override def rotate(rotation: AngleVec): QuadCompound = QuadCompoundGen(shape.rotate(rotation), facets, quadChilds, adopted.rotate(rotation))
 }
 
 object QuadCompound
