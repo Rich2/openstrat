@@ -19,12 +19,6 @@ trait GraphicBounded extends Graphic2Elem, BoundedElem
   override def rotate90: GraphicBounded
   override def rotate180: GraphicBounded
   override def rotate270: GraphicBounded
-//  def rotate(rotation: AngleVec): GraphicBounded
-//  override def reflect(lineLike: LineLike): GraphicBounded
-//  override def scaleXY(xOperand: Double, yOperand: Double): GraphicBounded
-//
-//  override def shearX(operand: Double): GraphicBounded
-//  override def shearY(operand: Double): GraphicBounded
 }
 
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
