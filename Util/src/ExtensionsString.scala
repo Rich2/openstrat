@@ -74,7 +74,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asBase32Int: ErrBi[Exception, Int] = asType(using Unshow.base32IntEv)
 
   /** Tries to parse this String as a natural non-negative [[Int]] in base32 format expression. */
-  def asBase32Nat: ErrBi[Exception, Int] = asType(Unshow.base32NatEv)
+  def asBase32Nat: ErrBi[Exception, Int] = asType(using Unshow.base32NatEv)
 
   /** Tries to parse this String as a [[Boolean]] expression. */
   def asBool: ErrBi[Exception, Boolean] = asType[Boolean]
