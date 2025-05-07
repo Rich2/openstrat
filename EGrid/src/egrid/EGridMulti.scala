@@ -155,8 +155,8 @@ trait EGridMulti extends EGridSys with HGridMulti
     gridMansForeach { m =>
       m.sidesForeach { hs =>
         val dGrid: HSideBoolLayer = sideLayers(m.thisInd)
-        val value: Boolean = dGrid.apply(hs)(m.grid)
-        res.set(hs, value)(ThisMulti)
+        val value: Boolean = dGrid.apply(hs)(using m.grid)
+        res.set(hs, value)(using ThisMulti)
       }
     }
     res
