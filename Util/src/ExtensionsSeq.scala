@@ -30,10 +30,10 @@ class ExtensionsSeq[A](thisSeq: Seq[A])
     thisSeq(prevIndex)
   }
    
-  def foldMin[B](f: A => B)(implicit cmp: Ordering[B]): B = thisSeq.tail.foldLeft(f(thisSeq.head))((acc, el) => cmp.min(acc, f(el)))
-  def foldMax[B](f: A => B)(implicit cmp: Ordering[B]): B = thisSeq.tail.foldLeft(f(thisSeq.head))((acc, el) => cmp.max(acc, f(el)))
+  def foldMin[B](f: A => B)(using cmp: Ordering[B]): B = thisSeq.tail.foldLeft(f(thisSeq.head))((acc, el) => cmp.min(acc, f(el)))
+  def foldMax[B](f: A => B)(using cmp: Ordering[B]): B = thisSeq.tail.foldLeft(f(thisSeq.head))((acc, el) => cmp.max(acc, f(el)))
   
-  def foldMinMax[B](f: A => B)(implicit cmp: Ordering[B]): (B, B) =
+  def foldMinMax[B](f: A => B)(using cmp: Ordering[B]): (B, B) =
   { val initVal = f(thisSeq.head)
     thisSeq.tail.foldLeft((initVal, initVal)){ (acc, el) =>
       val (accMin, accMax) = acc
@@ -44,8 +44,8 @@ class ExtensionsSeq[A](thisSeq: Seq[A])
     }
   }
   
-  def mapMinMaxStr[B](f: A => B)(implicit cmp: Ordering[B]): String =
-  { val (min, max) = thisSeq.foldMinMax(f)(cmp)
+  def mapMinMaxStr[B](f: A => B)(using cmp: Ordering[B]): String =
+  { val (min, max) = thisSeq.foldMinMax(f)(using cmp)
     min.toString.appendCommas(max.toString)
   }
   
@@ -65,7 +65,7 @@ class ExtensionsSeq[A](thisSeq: Seq[A])
   }
 
   /** Specialised map to an immutable ArrImut for type B. */
-  def mapSpec[B, BB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, BB]): BB =
+  def mapSpec[B, BB <: Arr[B]](f: A => B)(using ev: BuilderArrMap[B, BB]): BB =
   { val res = ev.uninitialised(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig =>
@@ -77,7 +77,7 @@ class ExtensionsSeq[A](thisSeq: Seq[A])
   }
 
   /** Converts this sequence to a specialised ArrImut for the type. */
-  def valueProducts[AA <: Arr[A]](implicit ev: BuilderArrMap[A, AA]): AA =
+  def valueProducts[AA <: Arr[A]](using ev: BuilderArrMap[A, AA]): AA =
   { val res = ev.uninitialised(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig => res.setElemUnsafe(count, orig); count += 1 }

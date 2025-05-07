@@ -40,7 +40,7 @@ trait ZugScenStart extends ZugScen
 object Zug1 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridRect.minMax(2, 14, 2, 48)
   val terrs: LayerHcRefSys[ZugTerr] = LayerHcRefSys[ZugTerr](Plain)
-  def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues*)(gridSys)
+  def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues*)(using gridSys)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
   cr(10, 2, WheatField * 2, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
   cr(8, 4, WheatField * 3, StoneBuilding * 1, WheatField * 2, Lake, Plain * 5)
@@ -82,7 +82,7 @@ object Zug1 extends ZugScenStart
 object Zug2 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridRect.minMax(2, 10, 4, 38)
   val terrs = LayerHcRefSys[ZugTerr](Lake)
-  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues*)(gridSys)
+  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues*)(using gridSys)
   gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
   gs(8, 4 , Plain * 4, Lake * 2, Plain * 3 )
   gs(6, 6 , Plain * 4, Lake, Plain * 4)
