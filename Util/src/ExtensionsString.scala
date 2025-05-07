@@ -56,24 +56,24 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asDbl: ErrBi[Exception, Double] = asType[Double]
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asPosDbl = asType[Double](Unshow.posDoubleEv)
+  def asPosDbl = asType[Double](using Unshow.posDoubleEv)
 
   /** Tries to parse this String as an [[Int]] expression. */
   def asInt: ErrBi[Exception, Int] = asType[Int]
 
   /** Tries to parse this String as a natural non-negative [[Int]] expression. */
-  def asNat: ErrBi[Exception, Int] = asType[Int](Unshow.natEv)
+  def asNat: ErrBi[Exception, Int] = asType[Int](using Unshow.natEv)
 
   /** Tries to parse this String as an [[Int]] in hexadecimal format expression. */
-  def asHexaInt: ErrBi[Exception, Int] = asType(Unshow.hexaIntEv)
+  def asHexaInt: ErrBi[Exception, Int] = asType(using Unshow.hexaIntEv)
 
   /** Tries to parse this String as a natural non-negative [[Int]] in hexadecimal format expression. */
-  def asHexaNat = asType(Unshow.hexaNatEv)
+  def asHexaNat: ErrBi[Exception, Int] = asType(using Unshow.hexaNatEv)
 
   /** Tries to parse this String as an [[Int]] in base32 format expression. */
-  def asBase32Int: ErrBi[Exception, Int] = asType(Unshow.base32IntEv)
+  def asBase32Int: ErrBi[Exception, Int] = asType(using Unshow.base32IntEv)
 
-  /** Tries to parse this String as a natural non negative [[Int]] in base32 format expression. */
+  /** Tries to parse this String as a natural non-negative [[Int]] in base32 format expression. */
   def asBase32Nat: ErrBi[Exception, Int] = asType(Unshow.base32NatEv)
 
   /** Tries to parse this String as a [[Boolean]] expression. */
