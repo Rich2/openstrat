@@ -75,7 +75,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   /** Maps the sequence of pairs to a new sequence of pairs, but leaving the second component of the pairs unchanged. */
   def mapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
     build: BuilderMapArrPair[B1, ArrB1, A2, B, ArrB]): ArrB =
-  { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
+  { val b1Arr: ArrB1 = a1Arr.map(f)(using build.b1ArrBuilder)
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 

@@ -314,7 +314,7 @@ trait HGrid extends TGrid with HGridSys with Tell
     array
   }
 
-  /** Array of indexs for separator data Arrs giving the index value for the start of each separator row. */
+  /** Array of indexes for separator data Arrs giving the index value for the start of each separator row. */
   lazy val sepRowIndexArray: Array[Int] =
   { val array = new Array[Int](numOfSepRows)
     var count = 0

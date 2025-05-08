@@ -61,10 +61,10 @@ object Multiple
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
 
   /** [[Show]] type class instance / evidence for full show of [[Multiple]] class. */
-  def showFullEv[A](implicit evA: Show[A]): Show2[A, Int, Multiple[A]] = Show2[A, Int, Multiple[A]]("Multiple", "value", _.value, "num", _.num)
+  def showFullEv[A](using evA: Show[A]): Show2[A, Int, Multiple[A]] = Show2[A, Int, Multiple[A]]("Multiple", "value", _.value, "num", _.num)
 
   /** [[Unshow]] type class instance / evidence for [[Multiple]] class. */
-  implicit def unshowEv[A](implicit evA: Unshow[A]): UnshowMultiple[A] = new UnshowMultiple[A]()(evA)
+  given unshowEv[A](using evA: Unshow[A]): UnshowMultiple[A] = new UnshowMultiple[A]()
 
   class UnshowMultiple[A]()(implicit val evA: Unshow[A]) extends Unshow[Multiple[A]]
   { override def typeStr: String = "Multiple"
@@ -86,12 +86,12 @@ object Multiple
   }
 
   /** Collection from [[Arr]] of [[Expr]]. */
-  def collFromArrExpr[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderMap[Ae, A]): ExcMon[A] =
-    unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
+  def collFromArrExpr[Ae, A](inp: Arr[Expr])(using evA: Unshow[Ae], builderColl: BuilderMap[Ae, A]): ExcMon[A] =
+    unshowEv.fromArrExpr(inp).map(_.toColl(builderColl))
 
   /** Collection from [[Arr]] of [[Statement]]. */
   def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderMap[A, R]): ExcMon[R] =
-    unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)  
+    unshowEv(using evA).collFromArrExpr(inp.map(_.expr), builderColl)  
 }
 
 class MultipleArr[A](intArray: Array[Int], valueArray: Array[A]) extends Arr[Multiple[A]]

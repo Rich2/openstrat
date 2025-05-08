@@ -222,7 +222,7 @@ object RArr
   given showEv[A](using evAIn: Show[A]): Show[RArr[A]] = ShowSequ[A, RArr[A]]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[RArr]]. */
-  given unshowEv[A](using evA: Unshow[A], ct: ClassTag[A]): UnshowSeq[A, RArr[A]] = UnshowSeq[A, RArr[A]]()(evA, new RArrAllBuilder[A])
+  given unshowEv[A](using evA: Unshow[A], ct: ClassTag[A]): UnshowSeq[A, RArr[A]] = UnshowSeq[A, RArr[A]]()(using evA, new RArrAllBuilder[A])
 
   given eqTEv[A](using evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
   { var i = 0

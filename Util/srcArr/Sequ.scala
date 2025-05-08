@@ -163,10 +163,10 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Specialised map to an immutable [[ArrPairFinalA1]] of B. Applies the supplied function to every element of this sequence. */
-  def mapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairFinalA1Elem[B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]](f1: A => B1)(f2: A => B2)(
-  implicit build: BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]): ArrB =
-  { val b1Res = map(f1)(build.b1ArrBuilder)
-    val b2Array = mapArray(f2)(build.b2ClassTag)
+  def mapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairFinalA1Elem[B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]](f1: A => B1)(f2: A => B2)(using
+    build: BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]): ArrB =
+  { val b1Res = map(f1)(using build.b1ArrBuilder)
+    val b2Array = mapArray(f2)(using build.b2ClassTag)
     build.arrFromArrAndArray(b1Res, b2Array)
   }
 

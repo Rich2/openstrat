@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import geom.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A hex grid step representing the starting [[HCen]] of the step as well as the [[HStep]] singleton object itself. */
 class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
@@ -11,13 +11,13 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   def step: HStep = HStep.fromInt(stepInt)
 
   /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
-  def endHC(implicit gridSys: HGridSys): Option[HCen] = gridSys.cenStepEndFind(this)
+  def endHC(using gridSys: HGridSys): Option[HCen] = gridSys.cenStepEndFind(this)
 
   /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
-  def lineSegHC(implicit gridSys: HGridSys): Option[LSegHC] = gridSys.cenStepEndFind(this).map(LSegHC(startHC, _))
+  def lineSegHC(using gridSys: HGridSys): Option[LSegHC] = gridSys.cenStepEndFind(this).map(LSegHC(startHC, _))
 
   def projLineSeg(implicit proj: HSysProjection): Option[LSeg2] =
-  { val lhc: Option[LSegHC] = lineSegHC(proj.gChild)
+  { val lhc: Option[LSegHC] = lineSegHC(using proj.gChild)
     lhc.flatMap(proj.transOptLineSeg(_))
   }
 

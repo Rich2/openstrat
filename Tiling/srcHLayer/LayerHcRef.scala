@@ -109,6 +109,4 @@ object HCenRowLayer
 
   /** [[Show]] type class instances / evidence for [[HCenRowLayer]] */
   implicit def showEv[A <: AnyRef]: ShowTell[HCenRowLayer[A]] = ShowTell[HCenRowLayer[A]]("HRow")
-
-  //def unshowEv[A <: AnyRef] = Unshow2Re
 }

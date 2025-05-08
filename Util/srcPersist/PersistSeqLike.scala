@@ -90,7 +90,7 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
     case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if (unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(unshowAeEv, build)
     else sts.mapErrBi(build)(s => unshowAeEv.fromExpr(s.expr))
 
-    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(unshowAeEv, build)
+    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(using unshowAeEv, build)
     else mems.mapErrBi(build)(e => unshowAeEv.fromExpr(e))
 
     case e => expr.failExc(expr.toString + " unknown Expression for this sequence based class.")
