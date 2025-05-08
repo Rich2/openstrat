@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag
+import geom.*, reflect.ClassTag
 
 /** Reference data layer for [[HGridSys]]. An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array.
- *  No run time information distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid
+ *  No run time information distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non-game application the data of the grid
  *  tiles is likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
 trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[A]
@@ -30,15 +30,14 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
-  /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed explicitly as the first
-   *  parameter. */
+  /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed explicitly as the first parameter. */
   inline def setRowSame(row: Int, value: A)(implicit grid: HGrid): Unit = setRowSame(grid, row, value)
 
   /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed implicitly. */
   def setRowSame(grid: HGrid, row: Int, value: A): Unit =  grid.rowForeach(row){hc => arrayUnsafe(grid.layerArrayIndex(hc)) = value}
 
-  /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens
-   * overflows the row end. */
+  /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens overflows
+   * the row end. */
   final def setRowPartSame(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
   { val rightC = cStart + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
@@ -47,8 +46,8 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     HCen(row, rightC)
   }
 
-  /** Sets the given row from the start of the row, for the given number of tile centre values. An exception is thrown if the numOfCens overflows the
-   *  row end. */
+  /** Sets the given row from the start of the row, for the given number of tile centre values. An exception is thrown if the numOfCens overflows the row
+   * end. */
   final def setRowStartSame(row: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
   { val rightC = grid.rowLeftCenC(row) + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
@@ -66,26 +65,28 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
   def projRowsCombinePolygons(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonGenPairArr[A] =
     projRowsCombine.map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
 
-  def projPtMap(proj: HSysProjection)(f: (Pt2, A) => Graphic2Elem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(pt2, apply(hc)(proj.gChild)) }
+  def projPtMap(proj: HSysProjection)(f: (Pt2, A) => Graphic2Elem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(pt2, apply(proj.gChild, hc)) }
 
-  /** Maps the visible [[HCen]]s in the projection with their respective projection [[Pt2]] tile centre points and the data layer element form this collection to [[GraphicElems]]. This method name overload takes the [[HSysProjection]] as an implicit
-   *  parameter. The other name overload takes it as an explicit first parameter list. In practice this method may be of limited utility. It may be better to use the the [[HSysProjection]] or another class as the dispatching object and access these
-   *  data layer elements by the [[HCen]] apply methods. */
+  /** Maps the visible [[HCen]]s in the projection with their respective projection [[Pt2]] tile centre points and the data layer element form this collection
+   * to [[GraphicElems]]. This method name overload takes the [[HSysProjection]] as an implicit  parameter. The other name overload takes it as an explicit
+   * first parameter list. In practice this method may be of limited utility. It may be better to use the the [[HSysProjection]] or another class as the
+   * dispatching object and access the data layer elements by the [[HCen]] apply methods. */
   def projHCenPtMap(f: (HCen, Pt2, A) => Graphic2Elem)(implicit proj: HSysProjection): GraphicElems = projHCenPtMap(proj)(f)
 
-  /** Maps the visible [[HCen]]s in the projection with their respective projection [[Pt2]] tile centre points and the data layer element form this collection to [[GraphicElems]]. This method name overload takes the [[HSysProjection]] as an explicit
-   *  first parameter  list. The other name overload takes it as an implicit parameter.In practice this method may be of limited utility. It may be better to use the the [[HSysProjection]] or another class as the dispatching object and access these
-   * data layer elements by the [[HCen]] apply methods. */
-  def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => Graphic2Elem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(hc, pt2, apply(hc)(proj.gChild)) }
+  /** Maps the visible [[HCen]]s in the projection with their respective projection [[Pt2]] tile centre points and the data layer element form this collection
+   * to [[GraphicElems]]. This method name overload takes the [[HSysProjection]] as an explicit first parameter  list. The other name overload takes it as an
+   * implicit parameter.In practice this method may be of limited utility. It may be better to use the [[HSysProjection]] or another class as the dispatching
+   * object and access these data layer elements by the [[HCen]] apply methods. */
+  def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => Graphic2Elem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(hc, pt2, apply(proj.gChild, hc)) }
 
   def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => Graphic2Elem): GraphicElems = proj.hCenMap{hc =>
-    val terr = apply(hc)(proj.parent)
+    val terr = apply(proj.parent, hc)
     val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(poly2, terr)
   }
 
   def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => Graphic2Elem): GraphicElems = proj.hCenMap { hc =>
-    val terr = apply(hc)(proj.parent)
+    val terr = apply(proj.parent, hc)
     val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(hc, poly2, terr)
   }
@@ -120,9 +121,8 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     new LayerHcRefMulti[A](array)
   }*/
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   *  [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   *  tile data values. */
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the [[HSep]] and
+   * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def sideMap[B, BB <: Arr[B]](f1: (HSep, A) => B, f2: (HSep, A, A) => B)(implicit grid: HGrid, build: BuilderArrMap[B, BB]): BB =
     grid.sepsMap{ hs => hs.unsafeTiles match
       { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
@@ -131,17 +131,16 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
       }
     }
 
-  /** Maps the links or inner sides to an immutable Array, using the data of this HCenArr. It takes a function for the links or inner sides of the
-   *  grid that takes the [[HSep]] and the two adjacent hex tile data values. */
+  /** Maps the links or inner sides to an immutable Array, using the data of this HCenArr. It takes a function for the links or inner sides of the grid that
+   * takes the [[HSep]] and the two adjacent hex tile data values. */
   def linksMap[B, BB <: Arr[B]](f: (HSep, A, A) => B)(implicit grid: HGridSys, build: BuilderArrMap[B, BB]): BB =
     grid.linksMap{ hs => hs.unsafeTiles match
     { case (c1, c2)  => f(hs, apply(c1), apply(c2))
     }
     }
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   *  [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   *  tile data values. */
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the [[HSep]] and
+   * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def sideFlatMap[BB <: Arr[?]](f1: (HSep, A) => BB, f2: (HSep, A, A) => BB)(implicit grid: HGridSys, build: BuilderArrFlat[BB]): BB =
     grid.sepsFlatMap{ hs => hs.unsafeTiles match
       { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
@@ -150,14 +149,13 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
       }
     }
 
-  /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSep]] and the
-   *  two adjacent hex tile data values. */
+  /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSep]] and the two adjacent
+   * hex tile data values. */
   def linksFlatMap[BB <: Arr[?]](f: (HSep, A, A) => BB)(implicit grid: HGridSys, build: BuilderArrFlat[BB]): BB =
     grid.linksFlatMap { hs => f(hs, apply(hs.tileLtReg), apply(hs.tileRtReg)) }
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the [[HSep]] and
+   * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def projSideFlatMap[BB <: Arr[?]](proj: HSysProjection)(f1: (HSep, A) => BB, f2: (HSep, A, A) => BB)(implicit build: BuilderArrFlat[BB]): BB =
     proj.gChild.sepsFlatMap { hs =>
       hs.unsafeTiles match {
@@ -167,27 +165,24 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
       }
     }
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the [[HSep]] and
+   * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def projLinksFlatMap[BB <: Arr[?]](f2: (HSep, A, A) => BB)(implicit proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
     projLinksFlatMap(proj)(f2)
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the [[HSep]] and
+   * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def projLinksFlatMap[BB <: Arr[?]](proj: HSysProjection)(f: (HSep, A, A) => BB)(implicit build: BuilderArrFlat[BB]): BB =
     proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tileLtReg), apply(proj.parent, hs.tileRtReg)) }
 
   /** Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data
+   * values. */
   def projLinksLineOptMap[B, BB <: Arr[B]](f: (LSeg2, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderArrMap[B, BB]): BB =
     projLinksLineOptMap(proj)(f)
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the [[HSep]] and
+   * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def projLinksLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (LSeg2, A, A) => Option[B])(implicit build: BuilderArrMap[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
       hs.unsafeTiles match {
@@ -195,15 +190,15 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
       }
     }
 
-  /** Comment no correct, Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+  /** Comment no correct, Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid,
+   * that takes the [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent
+   * hex tile data values. */
   def projLinksHsLineOptMap[B, BB <: Arr[B]](f: (HSep, LSeg2, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderArrMap[B, BB]): BB =
     projLinksHsLineOptMap(proj)(f)
 
-  /** implementation not correct, Comment not correct, Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
-   * tile data values. */
+  /** implementation not correct, Comment not correct, Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the
+   * edges of the grid, that takes the [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and
+   * the two adjacent hex tile data values. */
   def projLinksHsLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (HSep, LSeg2, A, A) => Option[B])(implicit build: BuilderArrMap[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
       hs.unsafeTiles match {
@@ -242,19 +237,15 @@ object LayerHcRefSys
 }
 
 class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerHcRefSys[A] //with LayerTcRef[A]
-{
-  //override type KeyT = HGrid
-
-  /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
+{ /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
    *  that passes the child [[HGridSys]] implicitly. */
   override def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
   { val array: Array[A] = new Array[A](childGridSys.numTiles)
-    childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(hc)(parentGridSys) }
+    childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(parentGridSys, hc) }
     new LayerHcRefMulti[A](array)
   }
 
-  /** Fills in the whole given row. An exception is thrown if the tile values don't match with the
-   *  end of the row. */
+  /** Fills in the whole given row. An exception is thrown if the tile values don't match with the end of the row. */
   final def setRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
     val cStart: Int = grid.rowLeftCenC(row)
@@ -270,7 +261,8 @@ class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with
 object LayerHcRefGrid
 {
   /** Apply factory method for [[LayerHcRefSys]]. */
-  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGrid, defaultValue: DefaultValue[A]): LayerHcRefGrid[A] = apply(gridSys, defaultValue.default)(ct)
+  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGrid, defaultValue: DefaultValue[A]): LayerHcRefGrid[A] =
+    apply(gridSys, defaultValue.default)(ct)
 
   /** Apply factory method for [[LayerHcRefSys]]. */
   def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGrid): LayerHcRefGrid[A] = apply(gridSys, value)(ct)
@@ -284,15 +276,12 @@ object LayerHcRefGrid
   }
 }
 
-class LayerHcRefMulti[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerHcRefSys[A] //with LayerTcRef[A]
-{
-  //override type KeyT = HGridSys
-
-  /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
+class LayerHcRefMulti[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal, LayerHcRefSys[A]
+{ /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
    *  that passes the child [[HGridSys]] implicitly. */
   override def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
   { val array: Array[A] = new Array[A](childGridSys.numTiles)
-    childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(hc)(parentGridSys) }
+    childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(parentGridSys, hc) }
     new LayerHcRefMulti[A](array)
   }
 }

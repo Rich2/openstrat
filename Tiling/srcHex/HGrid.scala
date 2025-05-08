@@ -230,14 +230,14 @@ trait HGrid extends TGrid with HGridSys with Tell
       { var currStart: Int = rowLeftCenC(r)
         var currEnd: Int = rowRightCenC(r)
         var currC: Int = currStart
-        var currVal: A = layer.rc(r, currStart)(indexingGSys)
+        var currVal: A = layer.rc(indexingGSys, r, currStart)
         var list: List[HCenRowPair[A]] = Nil
         rowForeach(r){ hc =>
           currC = hc.c
-          if (layer(hc)(indexingGSys) != currVal)
+          if (layer(indexingGSys, hc) != currVal)
           { val newHCenRowValue = HCenRowPair(r, currStart, currC + 4, currVal)
             list :+= newHCenRowValue
-            currVal = layer(hc)(indexingGSys)
+            currVal = layer(indexingGSys, hc)
             currStart = hc.c
           }
         }
