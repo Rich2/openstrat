@@ -203,43 +203,41 @@ object UnshowDbl2
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 components. */
 class Persist2Both[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-  val shortKeys: ArrPairStr[A], val newT: (A1, A2) => A, override val opt2: Option[A2], opt1In: Option[A1])(implicit val show1Ev: Show[A1],
-  val show2Ev: Show[A2], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
+  val shortKeys: ArrPairStr[A], val newT: (A1, A2) => A, override val opt2: Option[A2], opt1In: Option[A1], val show1Ev: Show[A1],
+  val show2Ev: Show[A2], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2]) extends PersistBoth[A], Show2[A1, A2, A], Unshow2[A1, A2, A]
 { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 }
 
 object Persist2Both
-{ /** Factory apply method for creating both [[Show[[ and [[Unshow2 type type class instances / evidence. */
+{ /** Factory apply method for creating both [[Show[[ and [[Unshow2 type class instances / evidence. */
   def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, opt2: Option[A2] = None,
-    opt1: Option[A1] = None)(implicit show1Ev: Show[A1], show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], classTag: ClassTag[A]):
-    Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), newT, opt2, opt1)
+    opt1: Option[A1] = None)(using show1Ev: Show[A1], show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], ctA: ClassTag[A]):
+    Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), newT, opt2, opt1, show1Ev, show2Ev, unshow1Ev,
+    unshow2Ev)
 
-  /** Factory method for creating both [[Show]] and [[Unshow2]] type type class instances / evidence with short labels. */
+  /** Factory method for creating both [[Show]] and [[Unshow2]] type class instances / evidence with short labels. */
   def shorts[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, shorts: ArrPairStr[A], newT: (A1, A2) => A,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1Ev: Show[A1], show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2],
-    classTag: ClassTag[A]):
-    Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, shorts, newT, opt2, opt1)
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(using show1Ev: Show[A1], show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2],
+    ctA: ClassTag[A]): Persist2Both[A1, A2, A] =
+    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, shorts, newT, opt2, opt1, show1Ev, show2Ev, unshow1Ev, unshow2Ev)
 
   /** Factory method for creating [[Show]] and [[Unshow2]] component type class instances / evidence, by explicitly passing the [[PersistBoth]] type class
    * instances for the two components. */
-  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A,
-    persist1Ev: PersistBoth[A1], persist2Ev: PersistBoth[A2], opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit classTag: ClassTag[A]):
-    Persist2Both[A1, A2, A] =
-    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), newT, opt2, opt1In)(persist1Ev, persist2Ev, persist1Ev,
-    persist2Ev)
+  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, persist1Ev: PersistBoth[A1],
+    persist2Ev: PersistBoth[A2], opt2: Option[A2] = None, opt1In: Option[A1] = None)(using ct: ClassTag[A]): Persist2Both[A1, A2, A] =
+    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), newT, opt2, opt1In, persist1Ev, persist2Ev, persist1Ev, persist2Ev)
 
   /** Factory method for creating [[Show]] and [[Unshow2]] component type class instances / evidence, by explicitly passing the [[Show]] and [[Unshow]] type
-   *  class instances for the two components. */
+   *  class instances for the two components. Only the [[ClassTag]] for type A is passed implicitly. */
   def explicitFull[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, show1Ev: Show[A1],
-    show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], opt2: Option[A2] = None,opt1: Option[A1] = None)(implicit ct: ClassTag[A]):
-    Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), newT, opt2, opt1)(show1Ev, show2Ev,
-    unshow1Ev, unshow2Ev)
+    show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], opt2: Option[A2] = None,opt1: Option[A1] = None)(using ct: ClassTag[A]):
+    Persist2Both[A1, A2, A] =
+    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), newT, opt2, opt1, show1Ev, show2Ev, unshow1Ev, unshow2Ev)
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances with 2 [[Int]] components. */
-class PersistInt2Both[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int,
-  val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Int], opt1In: Option[Int]) extends
-  PersistBoth[A] with ShowInt2[A] with UnshowInt2[A]
+class PersistInt2Both[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int, val newT: (Int, Int) => A,
+  val shortKeys: ArrPairStr[A], override val opt2: Option[Int], opt1In: Option[Int]) extends PersistBoth[A], ShowInt2[A], UnshowInt2[A]
 { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 
