@@ -25,8 +25,8 @@ trait Unshow[+T] extends Persist
   }
 
   /** Produces an [[ArrImut]] of the UnShow type from Statements RArr[Statement]. */
-  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance): ArrT =
-    sts.mapCollectSuccs(fromStatement)(arrBuild)
+  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(using arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance): ArrT =
+    sts.mapCollectSuccs(fromStatement)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
@@ -233,16 +233,16 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Array]][Int]. */
-  implicit val arrayIntImplicit: Unshow[Array[Int]] = UnshowSeq[Int, Array[Int]]()
+  given arrayIntEv: Unshow[Array[Int]] = UnshowSeq[Int, Array[Int]]()
 
   /** Implicit [[Unshow]] instance / evidence for [[Array]][A]. */
-  implicit def arrayRefEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow[Array[A]] = UnshowSeq[A, Array[A]]()
+  given arrayRefEv[A <: AnyRef](using evA: Unshow[A], ct: ClassTag[A]): Unshow[Array[A]] = UnshowSeq[A, Array[A]]()
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A]): Unshow[List[A]] = UnshowSeq[A, List[A]]()
+  given listEv[A, ArrA <: Arr[A]](using evA: Unshow[A]): Unshow[List[A]] = UnshowSeq[A, List[A]]()
 
   /** [[Unshow]] type class instance for [[Option]] */
-  implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA), noneUnEv)
+  given optionEv[A](using evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A], noneUnEv)
 }
 
 trait UnshowPriority2 extends UnshowPriority3

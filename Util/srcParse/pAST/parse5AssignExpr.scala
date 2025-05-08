@@ -12,13 +12,13 @@ object parse5AssignExpr
 
     def leftLoop(rem: ArrOff[StatementMem]): ErrBi[ExcAst, Expr] = rem match
     { case ArrOff0() => parse6ColonExpr(leftAcc.toArr)
-      case ArrOff1Tail(at@AsignToken(_), tail) => parse6ColonExpr(leftAcc.toArr).flatMap(gLs => rightLoop(tail).map { gRs => AsignExpr(gLs, at, gRs) })
+      case ArrOff1Tail(at@AsignToken(_), tail) => parse6ColonExpr(using leftAcc.toArr).flatMap(gLs => rightLoop(tail).map { gRs => AsignExpr(gLs, at, gRs) })
       case ArrOff1Tail(h: AssignMem, tail) => { leftAcc.append(h); leftLoop(tail) }
       case ArrOff1Tail(h, tail) => debexc(h.toString + " is not AssignMemExpr.")
     }
 
-    def rightLoop(rem: ArrOff[StatementMem])(implicit seg: RArr[StatementMem]): ErrBi[ExcAst, AssignMemExpr] = rem match
-    { case ArrOff0() => parse6ColonExpr(rightAcc.toArr)
+    def rightLoop(rem: ArrOff[StatementMem])(using seg: RArr[StatementMem]): ErrBi[ExcAst, AssignMemExpr] = rem match
+    { case ArrOff0() => parse6ColonExpr(using rightAcc.toArr)
       case ArrOffHead(at: AsignToken) => at.startPosn.failAst("Prefix operator not followed by expression")
       case ArrOff1Tail(am: AssignMem, tail) => { rightAcc.append(am); rightLoop(tail) }
     }

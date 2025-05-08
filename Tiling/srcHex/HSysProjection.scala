@@ -58,7 +58,7 @@ trait HSysProjection extends TSysProjection
   /** Generally unsafe. Transforms an [[HCoord]] to a [[Pt2]]. Only use for [[HCoord]]s that are guaranteed displayed by the projection. */
   def transCoord(hc: HCoord): Pt2
 
-  def transHVOffset(hvo: HvOffset): Pt2 = hvo.toPt2(transCoord)(parent)
+  def transHVOffset(hvo: HvOffset): Pt2 = hvo.toPt2(parent)(transCoord)
   def transOptHVOffset(hvo: HvOffset): Option[Pt2]
 
   def transPolygonHVOffset(inp: PolygonHvOffset): Polygon = inp.toPolygon(transCoord)(parent)

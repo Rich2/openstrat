@@ -14,7 +14,7 @@ object parse7Clauses
     val acc: ArrayBuffer[Clause] = Buffer()
 
     def loop(rem: ArrOff[ColonOpMem]): ErrBi[ExcAst, ColonMemExpr] = rem match
-    { case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)
+    { case ArrOff0() if acc.isEmpty => parse8ClauseMem(using subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Succ(ClausesExpr(acc.toArr))
       case ArrOff0() => parse8ClauseMem(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, None)).toArr) }
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }

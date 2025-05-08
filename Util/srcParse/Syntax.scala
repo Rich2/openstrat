@@ -3,8 +3,8 @@ package ostrat; package pParse
 
 trait Syntax
 {
-  def outLines(indent: Int)(implicit prefs: SyntaxPrefs): RArr[String]
-  def out(using prefs: SyntaxPrefs): String = outLines(0)(prefs).foldLeft("")(_ + '\n' + _)
+  def outLines(indent: Int)(using prefs: SyntaxPrefs): RArr[String]
+  def out(using prefs: SyntaxPrefs): String = outLines(0).foldLeft("")(_ + '\n' + _)
 }
 
 case class SyntaxPrefs(maxLineLength: Int = 150, multiStatement: Boolean = false)

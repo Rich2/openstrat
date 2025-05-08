@@ -20,7 +20,7 @@ class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, Poly
   }
 
   def toPolygon(f: HCoord => Pt2)(implicit sys: HGridSys): Polygon = map(_.toPt2(f))
-  def project(proj: HSysProjection): Polygon = map{ _.toPt2(proj.transCoord(_))(proj.parent) }
+  def project(proj: HSysProjection): Polygon = map{_.toPt2(proj.parent)(proj.transCoord(_)) }
 }
 
 object PolygonHvOffset extends CompanionSlInt3[HvOffset, PolygonHvOffset]

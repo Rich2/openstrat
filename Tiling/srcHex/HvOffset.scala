@@ -48,7 +48,10 @@ class HvOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   }
 
   /** Converts this offset [[HVert]] to [[Pt2]]. */
-  def toPt2(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 = hvDirn match
+  def toPt2(f: HCoord => Pt2)(using hSys: HGridSys): Pt2 = toPt2(hSys)(f)
+  
+  /** Converts this offset [[HVert]] to [[Pt2]]. */
+  def toPt2(hSys: HGridSys)(f: HCoord => Pt2): Pt2 = hvDirn match
   { case HVExact => f(vert)
     case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match
     { case Some(hc2) =>

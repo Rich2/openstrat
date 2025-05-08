@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, prid._, phex._
+import geom.*, prid.*, phex.*
 
-abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
+abstract class EGridBaseGui(title: String) extends HGridSysGui(title)
 { implicit val gridSys: HGridSys
   def terrs: LayerHcRefSys[WTile]
   def sTerrs: LayerHSOptSys[WSep, WSepSome]
@@ -12,7 +12,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   /** tile [[HCen]] - [[Polygon]]  pairs. */
   def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
-  def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+  def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(gridSys, hc).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
   /** The [[HSep]] separator polygons. */
@@ -58,7 +58,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
     val child: HGridSys = proj.gChild
     lazy val tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
-    def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+    def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(gridSys, hc).colour) }
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
     lazy val sidePolys: HSepArrPair[Polygon] = proj.hSepPolygons(sTerrs(_).nonEmpty, corners)
