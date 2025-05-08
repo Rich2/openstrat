@@ -146,8 +146,8 @@ object Unshow2
     opt1: Option[A1] = None)(implicit ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, shorts, opt2, opt1)
 
-  /** Factory method for producing [[Unshow]] type class instances for objects with 2 components. Explicitly applies the unshow1 and unshow2 type
-   *  class instances at the end of the first parameter list. The [[ClassTag]] can still be found implicitly. */
+  /** Factory method for producing [[Unshow]] type class instances for objects with 2 components. Explicitly applies the unshow1 and unshow2 type class
+   * instances at the end of the first parameter list. The [[ClassTag]] can still be found implicitly. */
   def explicit[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, unshow1: Unshow[A1], unshow2: Unshow[A2],
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)(unshow1, unshow2)
@@ -167,12 +167,12 @@ trait UnshowInt2[A] extends Unshow2[Int, Int, A]
 
 object UnshowInt2
 { /** Factory apply method for creating [[Unshow2]] with 2 [[Int]] component type class instances. */
-  def apply[A](typeStr: String, name1: String, name2: String, newT: (Int, Int) => A, opt2: Option[Int] = None, opt1In: Option[Int] = None)(implicit
+  def apply[A](typeStr: String, name1: String, name2: String, newT: (Int, Int) => A, opt2: Option[Int] = None, opt1In: Option[Int] = None)(using
     ct: ClassTag[A]): UnshowInt2[A] = new UnshowInt2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 
   /** [[Unshow2]] with 2 [[Int]] components type class instances. */
   class UnshowInt2Imp[A](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A],
-    override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[A]
+    val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[A]
   { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -185,9 +185,8 @@ trait UnshowDbl2[A] extends Unshow2[Double, Double, A]
 
 object UnshowDbl2
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
-  def apply[A](typeStr: String, name1: String, name2: String, newT: (Double, Double) => A, opt2: Option[Double] = None,
-    opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): UnshowDbl2[A] =
-    new UnshowDbl2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
+  def apply[A](typeStr: String, name1: String, name2: String, newT: (Double, Double) => A, opt2: Option[Double] = None, opt1In: Option[Double] = None)(using
+    ct: ClassTag[A]): UnshowDbl2[A] = new UnshowDbl2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 
   /** [[Unshow2]] with 2 [[Double]] components type class instances. */
   class UnshowDbl2Imp[A](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A],
@@ -197,9 +196,9 @@ object UnshowDbl2
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 components. */
-class Persist2Both[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-  val shortKeys: ArrPairStr[A], val newT: (A1, A2) => A, override val opt2: Option[A2], opt1In: Option[A1], val show1Ev: Show[A1],
-  val show2Ev: Show[A2], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2]) extends PersistBoth[A], Show2[A1, A2, A], Unshow2[A1, A2, A]
+class Persist2Both[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2, val shortKeys: ArrPairStr[A],
+  val newT: (A1, A2) => A, val opt2: Option[A2], opt1In: Option[A1], val show1Ev: Show[A1], val show2Ev: Show[A2], val unshow1Ev: Unshow[A1],
+  val unshow2Ev: Unshow[A2]) extends PersistBoth[A], Show2[A1, A2, A], Unshow2[A1, A2, A]
 { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 }
 
@@ -239,20 +238,20 @@ class PersistInt2Both[A](val typeStr: String, val name1: String, val fArg1: A =>
 object PersistInt2Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IInt]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, newT: (Int, Int) => A, opt2: Option[Int] = None,
-    opt1In: Option[Int] = None)(implicit classTag: ClassTag[A]): PersistInt2Both[A] =
+    opt1In: Option[Int] = None)(using classTag: ClassTag[A]): PersistInt2Both[A] =
     new PersistInt2Both[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances with 2 [[Double]] components. */
 class PersistDbl2Both[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,
-  val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Double], opt1In: Option[Double]) extends
-  PersistBoth[A] with ShowDbl2[A] with UnshowDbl2[A]
+  val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Double], opt1In: Option[Double]) extends PersistBoth[A], ShowDbl2[A],
+  UnshowDbl2[A]
 { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
 
 object PersistDbl2Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, newT: (Double, Double) => A, opt2: Option[Double] = None,
-    opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): PersistDbl2Both[A] =
+    opt1In: Option[Double] = None)(using ctA: ClassTag[A]): PersistDbl2Both[A] =
     new PersistDbl2Both[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }

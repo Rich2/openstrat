@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-2% Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag
+import pParse.*, reflect.ClassTag
 
 trait Persist1Plus[A1]  extends Any with PersistN
 { /** 1st parameter name. */
@@ -22,22 +22,22 @@ trait Show1Plus[A1, A] extends Persist1Plus[A1]
   def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = show1Ev.show(fArg1(obj), way, maxPlaces, minPlaces)
 }
 
-trait Show1PlusFixed[A1, A] extends ShowNFixed[A] with Show1Plus[A1, A]
+trait Show1PlusFixed[A1, A] extends ShowNFixed[A], Show1Plus[A1, A]
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show1PlusRepeat[A1, Ar, A] extends ShowNRepeat[Ar, A] with Show1Plus[A1, A]
+trait Show1PlusRepeat[A1, Ar, A] extends ShowNRepeat[Ar, A], Show1Plus[A1, A]
 
-trait Show1PlusOptRepeat[A1, Ar, A] extends ShowNOptRepeat[Ar, A] with Show1Plus[A1, A]
+trait Show1PlusOptRepeat[A1, Ar, A] extends ShowNOptRepeat[Ar, A], Show1Plus[A1, A]
 
-trait Persist1PlusRepeat[A1, Ar] extends Persist1Plus[A1] with PersistNRepeat[Ar]
+trait Persist1PlusRepeat[A1, Ar] extends Persist1Plus[A1], PersistNRepeat[Ar]
 
-trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar] with PersistNRepeat[Ar]
+trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar], PersistNRepeat[Ar]
 { override def numFixedParams: Int = 1
   override def paramFixedNames: StrArr = StrArr(name1)
 }
 
 /** [[Show]] type class instances / evidence for objects with 1 fixed component and a repeated parameter. */
-trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
+trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A], Persist1Repeat[A1, Ar, A]
 {
   override def fixedfieldShows: RArr[Show[?]] = RArr(show1Ev)
 
@@ -58,7 +58,7 @@ trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Rep
 }
 
 class Show1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, fArrayR: A => Array[Ar],
-  val opt1: Option[A1] = None)(implicit val show1Ev: Show[A1], val showEvR: Show[Ar]) extends Show1PlusOptRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
+  val opt1: Option[A1] = None, val show1Ev: Show[A1], val showEvR: Show[Ar]) extends Show1PlusOptRepeat[A1, Ar, A], Persist1Repeat[A1, Ar, A]
 {
   override def fixedfieldShows: RArr[Show[?]] = RArr(show1Ev)
   override def showForeach(obj: A, f: Ar => Unit): Unit = fArrayR(obj).foreach(f)
@@ -81,25 +81,26 @@ class Show1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg
 
 object Show1OptRepeat
 {
-  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArrayR: A => Array[Ar], opt1: Option[A1] = None)(implicit
-    showEv1: Show[A1], showEvR: Show[Ar]): Show1OptRepeat[A1, Ar, A] = new Show1OptRepeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArrayR, opt1)
+  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArrayR: A => Array[Ar], opt1: Option[A1] = None)(using
+    showEv1: Show[A1], showEvR: Show[Ar]): Show1OptRepeat[A1, Ar, A] = new Show1OptRepeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArrayR, opt1, showEv1,
+    showEvR)
 }
 
 class Show1ArrayRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, fArrayR: A => Array[Ar],
-  val opt1: Option[A1] = None)(implicit val show1Ev: Show[A1], val showEvR: Show[Ar]) extends Show1Repeat[A1, Ar, A]
+  val opt1: Option[A1] = None, val show1Ev: Show[A1], val showEvR: Show[Ar]) extends Show1Repeat[A1, Ar, A]
 { override def showForeach(obj: A, f: Ar => Unit): Unit = fArrayR(obj).foreach(f)
 }
 
 object Show1ArrayRepeat
 {
-  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArrayR: A => Array[Ar], opt1: Option[A1] = None)(implicit
+  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArrayR: A => Array[Ar], opt1: Option[A1] = None)(using
     showEv1: Show[A1], showEvR: Show[Ar]): Show1ArrayRepeat[A1, Ar, A] =
-    new Show1ArrayRepeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArrayR, opt1)
+    new Show1ArrayRepeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArrayR, opt1, showEv1, showEvR)
 }
 
 /** [[Unshow]] type class instances / evidence for objects with 1 fixed component and 1 repeat parameter. */
-class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Seq[Ar]) => A, val opt1: Option[A1] = None)(
-  implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
+class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Seq[Ar]) => A, val opt1: Option[A1] = None)(using
+  val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar]) extends Unshow[A], Persist1Repeat[A1, Ar, A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[Ar]) => A = f
 
@@ -128,13 +129,13 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
 
 object Unshow1Repeat
 { /** Factory apply method for [[Unshow]] type class instances of 2 components where the final parameter repeats. */
-  def apply[A1, Ar, A](typeStr: String, name1: String, repeatName: String, f: (A1, Seq[Ar]) => A)(implicit unshowA1: Unshow[A1], unshowA2: Unshow[Ar]) =
+  def apply[A1, Ar, A](typeStr: String, name1: String, repeatName: String, f: (A1, Seq[Ar]) => A)(using unshowA1: Unshow[A1], unshowA2: Unshow[Ar]) =
     new Unshow1Repeat[A1, Ar, A](typeStr, name1, repeatName, f)
 }
 
 /** [[Unshow]] type class instances / evidence for objects with 1 fixed component and 1 repeat parameter. */
-class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Array[Ar]) => A, val opt1: Option[A1] = None)(
-  implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar], ct: ClassTag[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
+class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Array[Ar]) => A, val opt1: Option[A1] = None)(using
+  val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar], ct: ClassTag[Ar]) extends Unshow[A], Persist1Repeat[A1, Ar, A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Array[Ar]) => A = f
 
@@ -164,6 +165,6 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
 object Unshow1OptRepeat
 {
   /** Factory apply method for [[Unshow]] type class instances of 2 components where the final parameter repeats. */
-    def apply[A1, Ar, A](typeStr: String, name1: String, repeatName: String, f: (A1, Array[Ar]) => A)(implicit unshowA1: Unshow[A1],
-      unshowA2: Unshow[Ar], ct: ClassTag[Ar]): Unshow1OptRepeat[A1, Ar, A] = new Unshow1OptRepeat[A1, Ar, A](typeStr, name1, repeatName, f)
+    def apply[A1, Ar, A](typeStr: String, name1: String, repeatName: String, f: (A1, Array[Ar]) => A)(using unshowA1: Unshow[A1], unshowA2: Unshow[Ar],
+      ct: ClassTag[Ar]): Unshow1OptRepeat[A1, Ar, A] = new Unshow1OptRepeat[A1, Ar, A](typeStr, name1, repeatName, f)
 }
