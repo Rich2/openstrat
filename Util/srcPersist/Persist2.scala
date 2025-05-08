@@ -1,10 +1,10 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag
+import pParse.*, reflect.ClassTag
 
-/** Base trait for [[Persist2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
- *  for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to the [[Tell2]] object to implement their interfaces. */
-trait Persist2Plus[A1, A2] extends Any with  Persist1Plus[A1] with PersistNFixed
+/** Base trait for [[Persist2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
+ * [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to the [[Tell2]] object to implement their interfaces. */
+trait Persist2Plus[A1, A2] extends Any, Persist1Plus[A1], PersistNFixed
 { /** 2nd parameter name. */
   def name2: String
 
@@ -12,15 +12,15 @@ trait Persist2Plus[A1, A2] extends Any with  Persist1Plus[A1] with PersistNFixed
   def opt2: Option[A2]
 }
 
-/** A base trait for [[Tell2]] and [[UnShow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can
- *  delegate to the [[Tell2]] object to implement their interfaces. */
-trait Persist2[A1, A2] extends Any with Persist2Plus[A1, A2]
+/** A base trait for [[Tell2]] and [[UnShow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to
+ * the [[Tell2]] object to implement their interfaces. */
+trait Persist2[A1, A2] extends Any, Persist2Plus[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   override def numParams: Int = 2
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2PlusFixed[A1, A2, A] extends Show1PlusFixed[A1, A] with Persist2Plus[A1, A2]
+trait Show2PlusFixed[A1, A2, A] extends Show1PlusFixed[A1, A], Persist2Plus[A1, A2]
 { /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg2: A => A2
 
@@ -32,7 +32,7 @@ trait Show2PlusFixed[A1, A2, A] extends Show1PlusFixed[A1, A] with Persist2Plus[
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
+trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A], Persist2[A1, A2]
 { override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
@@ -46,22 +46,21 @@ trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
 object Show2
 { /** Factory apply method for creating general cases of [[Show2]] type class instances / evidence. */
-  def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, opt2: Option[A2] = None,
-    opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], ct: ClassTag[A]): Show2[A1, A2, A] =
-    new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
+  def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, opt2: Option[A2] = None, opt1: Option[A1] = None)(using
+    show1: Show[A1], show2: Show[A2], ctA: ClassTag[A]): Show2[A1, A2, A] =
+    new Show2Gen[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1, show1, show2)
 
-  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, show1: Show[A1], show2: Show[A2],
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[A]): Show2[A1, A2, A] =
-    new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)(show1, show2)
+  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, show1Ev: Show[A1], show2Ev: Show[A2],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(using ctA: ClassTag[A]): Show2[A1, A2, A] =
+    new Show2Gen[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1, show1Ev, show2Ev)
 
-  def shorts[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, shortKeys: ArrPairStr[A],
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1Ev: Show[A1], show2Ev: Show[A2]): Show2[A1, A2, A] =
-    new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, shortKeys, opt2, opt1)
+  def shorts[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, shortKeys: ArrPairStr[A], opt2: Option[A2] = None,
+    opt1: Option[A1] = None)(using show1Ev: Show[A1], show2Ev: Show[A2]): Show2[A1, A2, A] =
+    new Show2Gen[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, shortKeys, opt2, opt1, show1Ev, show2Ev)
 
   /** Implementation class for the general cases of [[Show2]] trait. */
-  class Show2Imp[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-    val shortKeys: ArrPairStr[A], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val show1Ev: Show[A1],
-    val show2Ev: Show[A2]) extends Show2[A1, A2, A]
+  class Show2Gen[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2, val shortKeys: ArrPairStr[A],
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None, val show1Ev: Show[A1], val show2Ev: Show[A2]) extends Show2[A1, A2, A]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -83,12 +82,12 @@ trait ShowInt2[A] extends Show2[Int, Int, A]
 
 object ShowInt2
 { /** Factory apply method to create [[Show2]] with [[Int]] components type class instances. */
-  def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(
-    implicit ct: ClassTag[A]): ShowInt2[A] = new ShowInt2Imp[A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
+  def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(using
+    ct: ClassTag[A]): ShowInt2[A] = new ShowInt2Gen[A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
-  class ShowInt2Imp[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int,
-    val shortKeys: ArrPairStr[A], val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt2[A]
+  class ShowInt2Gen[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int, val shortKeys: ArrPairStr[A],
+    val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt2[A]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -103,19 +102,18 @@ trait ShowDbl2[A] extends Show2[Double, Double, A]
 
 object ShowDbl2
 {
-  def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, opt2: Option[Double] = None,
-    opt1: Option[Double] = None)(implicit ct :ClassTag[A]): ShowDbl2[A] =
-    new ShowDbl2Imp[A](typeStr, name1, fArg1, name2, fArg2, opt2, ArrPairStr[A](), opt1)
+  def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, opt2: Option[Double] = None, opt1: Option[Double] = None)(
+    using ctA :ClassTag[A]): ShowDbl2[A] = new ShowDbl2Imp[A](typeStr, name1, fArg1, name2, fArg2, opt2, ArrPairStr[A](), opt1)
 
   /** Implementation class for the general cases of [[ShowDbl2]] trait. */
-  class ShowDbl2Imp[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val opt2: Option[Double] = None,
-    val shortKeys: ArrPairStr[A], opt1In: Option[Double] = None) extends ShowDbl2[A]
+  class ShowDbl2Imp[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,
+    val opt2: Option[Double] = None, val shortKeys: ArrPairStr[A], opt1In: Option[Double] = None) extends ShowDbl2[A]
   { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 /** common trait for [[Unshow]] type class instances for sum types with 2 or more components. */
-trait Unshow2Plus[A1, A2, A] extends UnshowN[A] with Persist2Plus[A1, A2]
+trait Unshow2Plus[A1, A2, A] extends UnshowN[A], Persist2Plus[A1, A2]
 { /** The [[Unshow]] type class instance for type A1. */
   def unshow1Ev: Unshow[A1]
 
@@ -129,20 +127,17 @@ trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
   def newT: (A1, A2) => A
 
   protected override def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[A] =
-  {
-    val len: Int = sortedExprs.length
+  { val len: Int = sortedExprs.length
     val e1: ExcMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
-
     def e2: ExcMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
-
     ErrBi.map2(e1, e2)(newT)
   }
 }
 
 object Unshow2
-{ /** Factory apply method for producing [[Unshow]] type class instances for objects with 2 components. Implicitly finds the evidience for the 2 type
-   * parameters and the [[ClassTag]] for the whole object. If you want to explicitly apply the unshow1 and unshow2 type class instances, then use the
-   * explicit method instead.  */
+{ /** Factory apply method for producing [[Unshow]] type class instances for objects with 2 components. Implicitly finds the evidence for the 2 type parameters
+   * and the [[ClassTag]] for the whole object. If you want to explicitly apply the unshow1 and unshow2 type class instances, then use the explicit method
+   * instead. */
   def apply[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
     ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)
