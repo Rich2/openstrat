@@ -252,8 +252,8 @@ trait UnshowPriority2 extends UnshowPriority3
 
     override def fromExpr(expr: Expr): ExcMon[Vector[A]] = expr match
     { case _: EmptyExprToken => Succ(Vector[A]())
-      case AlphaSquareParenth("Seq", ts, sts) => sts.mapErrBi(s => evA.fromExpr(s.expr))(build).map(_.toVector)
-      case AlphaParenth("Seq", sts) => sts.mapErrBi(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.mapErrBi(s => evA.fromExpr(s.expr)).map(_.toVector)
+      case AlphaParenth("Seq", sts) => sts.mapErrBi(s => evA.fromExpr(s.expr)).map(_.toVector)
       case e => expr.failExc("Unknown Expression for Vector")
     }
   }

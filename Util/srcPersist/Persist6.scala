@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag
+import pParse.*, reflect.ClassTag
 
-/** A base trait for Show6+ and Unshow6+ classses. Declares the common properties of name1 - 6 and opt1 - 6. */
-trait Persist6Plus[A1, A2, A3, A4, A5, A6] extends Any with Persist5Plus[A1, A2, A3, A4, A5]
+/** A base trait for Show6+ and Unshow6+ classes. Declares the common properties of name1 - 6 and opt1 - 6. */
+trait Persist6Plus[A1, A2, A3, A4, A5, A6] extends Any, Persist5Plus[A1, A2, A3, A4, A5]
 { /** 6th parameter name. */
   def name6: String
 
@@ -11,13 +11,13 @@ trait Persist6Plus[A1, A2, A3, A4, A5, A6] extends Any with Persist5Plus[A1, A2,
   def opt6: Option[A6]
 }
 
-trait Persist6[A1, A2, A3, A4, A5, A6] extends Any with Persist6Plus[A1, A2, A3, A4, A5, A6]
+trait Persist6[A1, A2, A3, A4, A5, A6] extends Any, Persist6Plus[A1, A2, A3, A4, A5, A6]
 { override def paramNames: StrArr = StrArr(name1, name2, name3, name4, name5, name6)
   override def numParams: Int = 6
 }
 
 /** [[Show]] type class for 6 field product types. */
-trait Show6Plus[A1, A2, A3, A4, A5, A6, A] extends Show5Plus[A1, A2, A3, A4, A5, A] with Persist6Plus[A1, A2, A3, A4, A5, A6]
+trait Show6Plus[A1, A2, A3, A4, A5, A6, A] extends Show5Plus[A1, A2, A3, A4, A5, A], Persist6Plus[A1, A2, A3, A4, A5, A6]
 { /** Gets the 6th show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg6: A => A6
 
@@ -29,27 +29,27 @@ trait Show6Plus[A1, A2, A3, A4, A5, A6, A] extends Show5Plus[A1, A2, A3, A4, A5,
 }
 
 /** [[Show]] type class for 6 parameter case classes. */
-trait Show6[A1, A2, A3, A4, A5, A6, A] extends Show6Plus[A1, A2, A3, A4, A5, A6, A] with Persist6[A1, A2, A3, A4, A5, A6]
+trait Show6[A1, A2, A3, A4, A5, A6, A] extends Show6Plus[A1, A2, A3, A4, A5, A6, A], Persist6[A1, A2, A3, A4, A5, A6]
 { override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev, show3Ev, showEv4, showEv5, showEv6)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt5 match {
-    case Some(a6) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) &&
-      opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) => StrArr()
+    case Some(a6) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) &&
+      a6 == fArg6(obj) => StrArr()
 
-    case Some(a6) if opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) &&
-      a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
+    case Some(a6) if opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) =>
+      StrArr(show1(obj, way, maxPlaces, minPlaces))
 
     case Some(a6) if opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) =>
       StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces))
 
-    case Some(a6) if opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces),
-      show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces))
+    case Some(a6) if opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) =>
+      StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces))
 
     case Some(a6) if opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
       show4(obj, way, maxPlaces, minPlaces))
 
-    case Some(a6) if a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
-      show4(obj, way, maxPlaces, minPlaces), show5(obj, way, maxPlaces, minPlaces))
+    case Some(a6) if a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces),
+      show3(obj, way, maxPlaces, minPlaces), show4(obj, way, maxPlaces, minPlaces), show5(obj, way, maxPlaces, minPlaces))
 
     case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
       show4(obj, way, maxPlaces, minPlaces), show5(obj, way, maxPlaces, minPlaces), show6(obj, way, maxPlaces, minPlaces))
@@ -64,15 +64,14 @@ object Show6
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2],
     show3: Show[A3], show4: Show[A4], show5: Show[A5], show6: Show[A6], ct: ClassTag[A]): Show6[A1, A2, A3, A4, A5, A6, A] =
     new Show6Imp[A1, A2, A3, A4, A5, A6, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
-      ArrPairStr[A](), opt6, opt5, opt4, opt3, opt2, opt1)(show1, show2, show3, show4, show5, show6)
+      ArrPairStr[A](), opt6, opt5, opt4, opt3, opt2, opt1)
 
   /** Implementation class for general cases of [[Show6]] type class. */
   class Show6Imp[A1, A2, A3, A4, A5, A6, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-    val name3: String, val fArg3: A => A3, val name4: String, val fArg4: A => A4, val name5: String, val fArg5: A => A5, val name6: String,
-    val fArg6: A => A6, val shortKeys: ArrPairStr[A], val opt6: Option[A6], val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val show1Ev: Show[A1], val show2Ev: Show[A2], val show3Ev: Show[A3], val showEv4: Show[A4], val showEv5: Show[A5],
-    val showEv6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, A] with ShowNFixed[A]
+    val name3: String, val fArg3: A => A3, val name4: String, val fArg4: A => A4, val name5: String, val fArg5: A => A5, val name6: String, val fArg6: A => A6,
+    val shortKeys: ArrPairStr[A], val opt6: Option[A6], val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(using val show1Ev: Show[A1], val show2Ev: Show[A2], val show3Ev: Show[A3], val showEv4: Show[A4],
+    val showEv5: Show[A5], val showEv6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, A], ShowNFixed[A]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
@@ -85,13 +84,13 @@ object Show6
 }
 
 /** Common trait for [[Unshow]] type class instances for sum types with 6 or more components. */
-trait Unshow6Plus[A1, A2, A3, A4, A5, A6, A] extends Unshow5Plus[A1, A2, A3, A4, A5, A] with Persist6Plus[A1, A2, A3, A4, A5, A6]
+trait Unshow6Plus[A1, A2, A3, A4, A5, A6, A] extends Unshow5Plus[A1, A2, A3, A4, A5, A], Persist6Plus[A1, A2, A3, A4, A5, A6]
 { /** The [[Unshow]] type class instance for type A6. */
   def unshow6: Unshow[A6]
 }
 
 /** [[UnShow]] trait for 6 parameter / product / component classes. */
-trait Unshow6[A1, A2, A3, A4, A5, A6, A] extends Unshow6Plus[A1, A2, A3, A4, A5, A6, A] with Persist6[A1, A2, A3, A4, A5, A6]
+trait Unshow6[A1, A2, A3, A4, A5, A6, A] extends Unshow6Plus[A1, A2, A3, A4, A5, A6, A], Persist6[A1, A2, A3, A4, A5, A6]
 { /** Allows this [[Unshow]] instance to create object from it's 6 components. */
   val newT: (A1, A2, A3, A4, A5, A6) => A
 
