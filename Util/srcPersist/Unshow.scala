@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, annotation.unchecked.uncheckedVariance, reflect.ClassTag
+import pParse.*, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends Persist
@@ -246,12 +246,9 @@ object Unshow extends UnshowPriority2
 }
 
 trait UnshowPriority2 extends UnshowPriority3
-{
-  /** Implicit method for creating Vector[A: UnShow] instances. */
-  implicit def vectorImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: BuilderArrMap[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
-  { val evA: Unshow[A] = evIn
-    val build: BuilderArrMap[A, ArrA] = buildIn
-    override def typeStr: String = "Seq" + evA.typeStr.enSquare
+{ /** Implicit [[Unshow]] type class instances / evidence for [[Vector]]. */
+  given vectorEv[A, ArrA <: Arr[A]](using evA: Unshow[A], build: BuilderArrMap[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
+  { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[Vector[A]] = expr match
     { case _: EmptyExprToken => Succ(Vector[A]())
@@ -272,9 +269,10 @@ trait UnshowPriority2 extends UnshowPriority3
   }
 }
 
+/** Third priority [[Unshow]] type class instances' trait. Allows the [[Option]] instance to take implicit priority over the [[None]] instance. */
 trait UnshowPriority3
-{
-  implicit val noneUnEv: Unshow[None.type] = new Unshow[None.type]
+{ /** Implicit [[Unshow]] type class instance / evidence for [[None]] type. */
+  given noneUnEv: Unshow[None.type] = new Unshow[None.type]
   { override def typeStr: String = "None"
 
     override def fromExpr(expr: Expr): ExcMon[None.type] = expr match
