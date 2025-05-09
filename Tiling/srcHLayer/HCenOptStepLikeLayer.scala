@@ -1,10 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** Optional [[HStepLike]] data layer  for Hex grid systems. */
-class HCenOptStepLikeLayer(val arrayInt: Array[Int])(implicit val gridSys: HGridSys)
-{
-  def numCens: Int = arrayInt.length
+class HCenOptStepLikeLayer(val gridSys: HGridSys, val arrayInt: Array[Int])
+{ def numCens: Int = arrayInt.length
   def step(hc: HCen): HStepLike = HStepLike.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
   def index(hc: HCen): Int = gridSys.layerArrayIndex(hc)
 
@@ -28,8 +27,5 @@ class HCenOptStepLikeLayer(val arrayInt: Array[Int])(implicit val gridSys: HGrid
 
 object HCenOptStepLikeLayer
 { /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
-  def apply(gSys: HGridSys): HCenOptStepLikeLayer = new HCenOptStepLikeLayer(new Array[Int](gSys.numTiles))(gSys)
-
-  /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
-//  def apply()(implicit gSys: HGridSys): HCenOptStepLikeLayer = new HCenOptStepLikeLayer(new Array[Int](gSys.numTiles))
+  def apply(using gSys: HGridSys): HCenOptStepLikeLayer = new HCenOptStepLikeLayer(gSys, new Array[Int](gSys.numTiles))
 }

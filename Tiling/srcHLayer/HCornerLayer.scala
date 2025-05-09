@@ -25,21 +25,31 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     new HCorner(unsafeArray(gridSys.layerArrayIndex(hCenR, hCenC) * 6 + vertNum))
 
   /** Returns the first and possibly only single [[HvOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
-  def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HvOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
+  def cornerV1(hCen: HCen, vertNum: Int)(using gridSys: HGridSys): HvOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
+
+  /** Returns the first and possibly only single [[HvOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
+  def cornerV1(gridSys: HGridSys, hCen: HCen, vertNum: Int): HvOffset = corner(hCen, vertNum)(using gridSys).v1(hCen.verts(vertNum))
 
   /** Returns the last [[HvOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
-  def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HvOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
+  def cornerVLast(hCen: HCen, vertNum: Int)(using gridSys: HGridSys): HvOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
+
+  /** Returns the last [[HvOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
+  def cornerVLast(gridSys: HGridSys, hCen: HCen, vertNum: Int): HvOffset = corner(hCen, vertNum)(using gridSys).vLast(hCen.verts(vertNum))
 
   /** The separator that shares meets this corner has an extra vertex. */
   def sepExtra(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).sepExtra
 
   /** Produces an [[HSep]]'s line segment specified in [[HvOffset]] coordinates. */
-  def sepLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LSegHvOffset =
-    LSegHvOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
+  def sepLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(using gridSys: HGridSys): LSegHvOffset =
+    sepLineHVAndOffset(gridSys, hCen, vertNum1, vertNum2)
+
+  /** Produces an [[HSep]]'s line segment specified in [[HvOffset]] coordinates. */
+  def sepLineHVAndOffset(gridSys: HGridSys, hCen: HCen, vertNum1: Int, vertNum2: Int): LSegHvOffset =
+    LSegHvOffset(cornerVLast(gridSys, hCen, vertNum1), cornerV1(gridSys, hCen, vertNum2))
 
   /** Not sure about the safety of this method. */
   def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LSeg2 =
-    sepLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
+    sepLineHVAndOffset(proj.parent, hCen, vertNum1, vertNum2).map(proj.transHVOffset)
 
   /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] by row and column. */
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
