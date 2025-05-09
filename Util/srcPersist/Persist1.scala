@@ -122,7 +122,7 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
       }
 
       case AlphaMaybeSquareParenth(name, _) => expr.failExc(s"Wrong name: $name not $typeStr.")
-      case _ => expr.exprParseErr[A](this)
+      case _ => expr.exprParseErr[A](using this)
     }
   }
 }
@@ -157,7 +157,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
       }
 
       case AlphaMaybeSquareParenth(name, _) => expr.failExc(s"Wrong name: $name not $typeStr.")
-      case _ => expr.exprParseErr[A](this)
+      case _ => expr.exprParseErr[A](using this)
     }
   }  
 }

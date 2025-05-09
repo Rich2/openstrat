@@ -10,10 +10,10 @@ object parse8ClauseMem
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
     def loop(rem: ArrOff[ClauseMem]): ErrBiArr[ExcAst, ClauseMem] = rem match
-    { case ArrOff0() => parse9PrefixPlus(acc.toArr)
+    { case ArrOff0() => parse9PrefixPlus(using acc.toArr)
 
-      case ArrOff2Tail(at: IdentifierToken, bb: BracketedStructure, t2) => {
-        val (newExpr, newRem) = parseAlphaBrackets(t2, at, bb)
+      case ArrOff2Tail(at: IdentifierToken, bb: BracketedStructure, t2) =>
+      { val (newExpr, newRem) = parseAlphaBrackets(t2, at, bb)
         acc.append(newExpr)
         loop(newRem)
       }

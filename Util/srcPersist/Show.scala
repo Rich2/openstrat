@@ -48,23 +48,23 @@ object Show
   }
 
   /** Implicit [[Show]] instance / evidence for [[Double]]. */
-  implicit val doubleEv: Show[Double] = PersistBoth.doubleEv
+  given doubleEv: Show[Double] = PersistBoth.doubleEv
 
   /** Implicit [[Show]] type class instance / evidence for [[Long]]. */
-  implicit val longEv: Show[Long] = ShowSimple[Long]("Long", _.toString)
+  given longEv: Show[Long] = ShowSimple[Long]("Long", _.toString)
 
   /** Implicit [[Show]] type class instance / evidence for [[Long]]. */
-  implicit val floatEv: Show[Float] = ShowSimple[Float]("SFloat", _.toString)
+  given floatEv: Show[Float] = ShowSimple[Float]("SFloat", _.toString)
 
   /** Implicit [[Show]] type class instance / evidence for [[Boolean]]. */
-  implicit val booleanEv: Show[Boolean] = ShowSimple[Boolean]("Bool", _.toString)
+  given booleanEv: Show[Boolean] = ShowSimple[Boolean]("Bool", _.toString)
 
 
   /** Implicit [[Show]] type class instance / evidence for [[String]]. */
-  implicit val stringEv: Show[String] = ShowSimple[String]("Str", _.enquote)
+  given stringEv: Show[String] = ShowSimple[String]("Str", _.enquote)
 
   /** Implicit [[Show]] type class instance / evidence for [[Char]]. */
-  implicit val charEv: Show[Char] = ShowSimple[Char]("Char", _.toString.enquote1)
+  given charEv: Show[Char] = ShowSimple[Char]("Char", _.toString.enquote1)
 
   class ShowIterableClass[A, R <: Iterable[A]](val showAeEv: Show[A]) extends ShowIterable[A, R] with Show[R]{}
 
@@ -76,7 +76,7 @@ object Show
 
   implicit def vectorImplicit[A](implicit ev: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val arrayIntImplicit: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
+  given arrayIntEv: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
   { override def showAeEv: Show[Int] = Show.intEv
     override def syntaxDepth(obj: Array[Int]): Int = 2
     override def showForeach(obj: Array[Int], f: Int => Unit): Unit = obj.foreach(f)
@@ -103,7 +103,7 @@ object Show
   }
 
   /** [[Show]] type class instance evidence for [[None.type]]. */
-  implicit val noneEv: Show[None.type] = new Show[None.type]
+  given noneEv: Show[None.type] = new Show[None.type]
   { override def typeStr: String = "Option"
     override def strT(obj: None.type): String = "None"
     override def syntaxDepth(obj: None.type): Int = 1

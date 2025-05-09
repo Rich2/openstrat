@@ -36,14 +36,14 @@ package object pParse
   }
 
   /** Tries to parse a sequence of [[Token]]s to [[Statement]]s. */
-  def tokensToStatements(tokens: RArr[Token]): ErrBiArr[ExcParse, Statement] = pAST.parse1BlockStructure(tokens).flatMap { g => blockMemsToStatements(g) }
+  def tokensToStatements(tokens: RArr[Token]): ErrBiArr[ExcParse, Statement] = pAST.parse1BlockStructure(using tokens).flatMap { g => blockMemsToStatements(g) }
 
   /** Tries to parse a sequence of block members [[BlockMem]]s to a sequence of [[Statement]]s. */
-  def blockMemsToStatements(inp: RArr[BlockMem]): ErrBiArr[ExcAst, Statement] = pAST.parse3Statements(inp).map{
+  def blockMemsToStatements(inp: RArr[BlockMem]): ErrBiArr[ExcAst, Statement] = pAST.parse3Statements(using inp).map{
     case StringStatements(sts) => sts
     case e => RArr(StatementNoneEmpty(e, None))
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExpr(tokens: RArr[Token]): ErrBi[ExcParse, Expr] = pAST.parse1BlockStructure(tokens).flatMap { g => pAST.parse3Statements(g) }
+  def tokensToExpr(tokens: RArr[Token]): ErrBi[ExcParse, Expr] = pAST.parse1BlockStructure(using tokens).flatMap { g => pAST.parse3Statements(using g) }
 }

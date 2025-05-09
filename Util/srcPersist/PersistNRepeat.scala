@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse.*, collection.mutable.ArrayBuffer
 
 /** Base trait for [[ShowNFixed]] and [[UnshowN]]. */
 trait PersistNRepeat[AR] extends Any with PersistN
@@ -16,7 +16,7 @@ trait PersistNRepeat[AR] extends Any with PersistN
   override def paramNames: StrArr = paramFixedNames +% repeatName
 }
 
-trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
+trait ShowNRepeat[Ar, A] extends ShowCompound[A], PersistNRepeat[Ar]
 { /** Show type class instance for the 2nd Show field. */
   implicit def showEvR: Show[Ar]
 
@@ -76,7 +76,7 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes where the last parameter repeats.. */
-trait ShowNOptRepeat[Ar, A] extends ShowNRepeat[Ar, A]//ShowCompound[A] with PersistNRepeat[Ar]
+trait ShowNOptRepeat[Ar, A] extends ShowNRepeat[Ar, A]
 {
   /** Shows parameter 2 of the object. */
   override def showR(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
