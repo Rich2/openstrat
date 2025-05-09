@@ -61,7 +61,7 @@ trait HSysProjection extends TSysProjection
   def transHVOffset(hvo: HvOffset): Pt2 = hvo.toPt2(parent)(transCoord)
   def transOptHVOffset(hvo: HvOffset): Option[Pt2]
 
-  def transPolygonHVOffset(inp: PolygonHvOffset): Polygon = inp.toPolygon(transCoord)(parent)
+  def transPolygonHVOffset(inp: PolygonHvOffset): Polygon = inp.toPolygon(parent)(transCoord)
   def transOptPolygonHVOffset(inp: PolygonHvOffset): Option[Polygon] = inp.optMap(transOptHVOffset(_))
 
   def transOptLineSeg(seg: LSegHC): Option[LSeg2]

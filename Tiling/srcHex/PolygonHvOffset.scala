@@ -19,7 +19,8 @@ class PolygonHvOffset(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, Poly
     while (i < numVerts) { f(side(i)); i += 1 }
   }
 
-  def toPolygon(f: HCoord => Pt2)(implicit sys: HGridSys): Polygon = map(_.toPt2(f))
+  def toPolygon(f: HCoord => Pt2)(using gSys: HGridSys): Polygon = map(_.toPt2(f))
+  def toPolygon(gSys: HGridSys)(f: HCoord => Pt2): Polygon = map(_.toPt2(gSys)(f))
   def project(proj: HSysProjection): Polygon = map{_.toPt2(proj.parent)(proj.transCoord(_)) }
 }
 

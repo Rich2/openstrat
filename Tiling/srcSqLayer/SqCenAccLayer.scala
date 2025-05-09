@@ -3,10 +3,8 @@ package ostrat; package prid; package psq
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** This is a helper class for turn / segment resolution. It accumulates all actions along with the origin of the action, upon a hex tile. */
-class SqCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: SqGridSys)(implicit
-  val ct: ClassTag[A])
-{
-  implicit val gSys: SqGridSys = gSysIn
+class SqCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: SqGridSys)(using val ct: ClassTag[A])
+{ implicit val gSys: SqGridSys = gSysIn
   def index(hc: SqCen): Int = gSys.layerArrayIndex(hc)
 
   /** Appends an origin-action pair to this given target hex's accumulator. */
@@ -30,9 +28,9 @@ class SqCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBu
 
 object SqCenAccLayer
 {
-  def apply[A]()(implicit ct: ClassTag[A], gSys: SqGridSys): SqCenAccLayer[A] = apply[A](gSys)(ct)
+  def apply[A]()(using ctA: ClassTag[A], gSys: SqGridSys): SqCenAccLayer[A] = apply[A](gSys)(using ctA)
 
-  def apply[A](gSys: SqGridSys)(implicit ct: ClassTag[A]): SqCenAccLayer[A] =
+  def apply[A](gSys: SqGridSys)(using ctA: ClassTag[A]): SqCenAccLayer[A] =
   { val numCens: Int = gSys.numTiles
     val origBuff = new Array[ArrayBuffer[Int]](numCens)
     val actionBuff = new Array[ArrayBuffer[A]](numCens)

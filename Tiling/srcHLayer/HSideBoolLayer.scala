@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom.*
 
-/** Boolean data corresponding to the sides of a [[HGridSys]] hex grid system , stored using an underlying Array[Boolean]. Thhese classes should be
- *  created, initalised and used using an [HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
+/** Boolean data corresponding to the sides of a [[HGridSys]] hex grid system , stored using an underlying Array[Boolean]. These classes should be created,
+ * initialised and using an [[HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
 final class HSideBoolLayer(val arrayUnsafe: Array[Boolean]) extends AnyVal with BoolSeqSpec
 { override type ThisT = HSideBoolLayer
   override def typeStr: String = "HSideBoolDGrid"
@@ -53,14 +53,11 @@ final class HSideBoolLayer(val arrayUnsafe: Array[Boolean]) extends AnyVal with 
   }
 
   /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projTruesLineSegMap[B, ArrB <: Arr[B]](f: LSeg2 => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
-    projTruesLineSegMap(proj)(f)(build)
+  def projTruesLineSegMap[B, ArrB <: Arr[B]](f: LSeg2 => B)(using proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB = projTruesLineSegMap(proj)(f)
 
   /** Maps across all the trues in this Side Layer that exist in the projection. */
   def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LSeg2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
-    proj.gChild.sepsOptMap { hs => if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
-      else None
-    }
+    proj.gChild.sepsOptMap { hs => if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f) else None }
 
   /** Maps across all the link trues in this Side Layer that exist in the projection. */
   def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](f: LSeg2 => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
