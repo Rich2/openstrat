@@ -3,8 +3,8 @@ package ostrat; package prid; package phex
 import reflect.ClassTag
 
 /** Optional [[HStep]] pair data layer for Hex grid systems. */
-class HCenOptStepPairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
-{
+class HCenOptStepPairLayer[A](gridSysIn: HGridSys, val arrayInt: Array[Int], val arrayA: Array[A])(using val ctA: ClassTag[A])
+{ given gridSys: HGridSys = gridSysIn
   def numCens: Int = arrayA.length
   def step(hc: HCen): HStep = HStep.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
   def index(hc: HCen): Int = gridSys.layerArrayIndex(hc)
@@ -29,12 +29,13 @@ class HCenOptStepPairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(im
   }
 }
 
-/** Companion object for [[HCenOptStepLikePairLayer]] class, an Optional [[HStepLike]] pair data layer for Hex grid systems. Contains factory apply
- *  methods. */
+/** Companion object for [[HCenOptStepLikePairLayer]] class, an Optional [[HStepLike]] pair data layer for Hex grid systems. Contains factory apply methods. */
 object HCenOptStepPairLayer
 { /** Factory apply method for [[HCenOptStepLikePairLayer]], an optional [[HStepLike]] pair data layer for Hex grid systems. */
-  def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptStepPairLayer[A] = new HCenOptStepPairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
+  def apply[A](gSys: HGridSys)(implicit ctA: ClassTag[A]): HCenOptStepPairLayer[A] =
+    new HCenOptStepPairLayer[A](gSys, new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 
   /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
-  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptStepPairLayer[A] = new HCenOptStepPairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
+  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptStepPairLayer[A] =
+    new HCenOptStepPairLayer[A](gSys, new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 }

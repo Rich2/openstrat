@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** This is a helper class for turn / segment resolution. It accumulates all actions along with the origin of the action, upon a hex tile. */
-class HCenAccPairLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: HGridSys)(implicit
-  val ct: ClassTag[A])
+class HCenAccPairLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: HGridSys)(using
+  val ctA: ClassTag[A])
 {
   implicit val gSys: HGridSys = gSysIn
   def index(hc: HCen): Int = gSys.layerArrayIndex(hc)
@@ -30,9 +30,9 @@ class HCenAccPairLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val action
 
 object HCenAccPairLayer
 {
-  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenAccPairLayer[A] = apply[A](gSys)(ct)
+  def apply[A]()(using ctA: ClassTag[A], gSys: HGridSys): HCenAccPairLayer[A] = apply[A](gSys)
 
-  def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenAccPairLayer[A] =
+  def apply[A](gSys: HGridSys)(using ctA: ClassTag[A]): HCenAccPairLayer[A] =
   { val numCens: Int = gSys.numTiles
     val origBuff = new Array[ArrayBuffer[Int]](numCens)
     val actionBuff = new Array[ArrayBuffer[A]](numCens)

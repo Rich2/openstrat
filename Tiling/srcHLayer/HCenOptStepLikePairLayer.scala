@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
 /** Optional [[HStepLike]] pair data layer for Hex grid systems. */
-class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
-{
+class HCenOptStepLikePairLayer[A](gridSysIn: HGridSys, val arrayInt: Array[Int], val arrayA: Array[A])(using val ctA: ClassTag[A])
+{ given gridSys: HGridSys = gridSysIn
   def numCens: Int = arrayA.length
   def step(hc: HCen): HStepLike = HStepLike.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
   def index(hc: HCen): Int = gridSys.layerArrayIndex(hc)
@@ -29,12 +29,13 @@ class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A]
   }
 }
 
-/** Companion object for [[HCenOptStepLikePairLayer]] class, an Optional [[HStepLike]] pair data layer for Hex grid systems. Contains factory apply
- *  methods. */
+/** Companion object for [[HCenOptStepLikePairLayer]] class, an Optional [[HStepLike]] pair data layer for Hex grid systems. Contains factory apply methods. */
 object HCenOptStepLikePairLayer
 { /** Factory apply method for [[HCenOptStepLikePairLayer]], an optional [[HStepLike]] pair data layer for Hex grid systems. */
-  def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptStepLikePairLayer[A] = new HCenOptStepLikePairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
+  def apply[A](gSys: HGridSys)(using ctA: ClassTag[A]): HCenOptStepLikePairLayer[A] =
+    new HCenOptStepLikePairLayer[A](gSys, new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 
   /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
-  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptStepLikePairLayer[A] = new HCenOptStepLikePairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
+  def apply[A]()(using ct: ClassTag[A], gSys: HGridSys): HCenOptStepLikePairLayer[A] =
+    new HCenOptStepLikePairLayer[A](gSys, new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 }

@@ -29,7 +29,10 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
   }
 
   /** Note set RowBack starts with the r (row) parameter. */
-  final def setRowBack(r: Int, cStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
+  final def setRowBack(r: Int, cStart: Int, multiValues: Multiple[A]*)(using grid: SqGrid): SqCen = setRowBack(grid, r, cStart, multiValues*)
+
+  /** Note set RowBack starts with the r (row) parameter. */
+  final def setRowBack(grid: SqGrid, r: Int, cStart: Int, multiValues: Multiple[A]*): SqCen =
   {
     multiValues.iForeachSingle{(i, el) =>
       val c = cStart - i * 2
@@ -39,7 +42,8 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
     SqCen(r, cStart - (multiValues.numSingles - 1) * 2)
   }
 
-  final def setRowBack(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRowBack(startCen.r, startCen.c, multiValues*)(grid)
+  final def setRowBack(grid: SqGrid, startCen: SqCen, multiValues: Multiple[A]*): SqCen = setRowBack(grid, startCen.r, startCen.c, multiValues*)
+  final def setRowBack(startCen: SqCen, multiValues: Multiple[A]*)(using grid: SqGrid): SqCen = setRowBack(grid, startCen.r, startCen.c, multiValues*)
 
   /** Set part column of data. */
   final def setColumn[ArrA <: Arr[A]](c: Int, rStart: Int, multiValues: Multiple[A]*)(using grid: SqGrid): SqCen = setColumn(grid, c, rStart, multiValues*)
@@ -59,7 +63,9 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
 
   final def setColumn(grid: SqGrid, startCen: SqCen, multis: Multiple[A]*): SqCen = setColumn(grid, startCen.c, startCen.r, multis *)
 
-  final def setColumnDown(c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
+  final def setColumnDown(c: Int, rStart: Int, multiValues: Multiple[A]*)(using grid: SqGrid): SqCen = setColumnDown(grid, c, rStart, multiValues*)
+
+  final def setColumnDown(grid: SqGrid, c: Int, rStart: Int, multiValues: Multiple[A]*): SqCen =
   {
     multiValues.iForeachSingle{(i, el) =>
       val r = rStart - i * 2
@@ -69,7 +75,8 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
     SqCen(c, rStart - (multiValues.numSingles - 1) * 2)
   }
 
-  def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumnDown(startCen.c, startCen.r, tileValues*)(grid)
+  def setColumnDown(grid: SqGrid, startCen: SqCen, tileValues: Multiple[A]*): SqCen = setColumnDown(grid, startCen.c, startCen.r, tileValues*)
+  def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(using grid: SqGrid): SqCen = setColumnDown(grid, startCen.c, startCen.r, tileValues*)
 
   def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(SqCen(startR, startC), value, dirns*)
 
