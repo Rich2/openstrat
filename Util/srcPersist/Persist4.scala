@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag
+import pParse.*, reflect.ClassTag
 
 /** A base trait for [[Show4]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
 trait Persist4Plus[A1, A2, A3, A4] extends Any with Persist3Plus[A1, A2, A3]
@@ -12,13 +12,13 @@ trait Persist4Plus[A1, A2, A3, A4] extends Any with Persist3Plus[A1, A2, A3]
 }
 
 /** Base trait for [[Tell4]], [[Show4]] and [[Unshow4]]. */
-trait Persist4[A1, A2, A3, A4] extends Any with Persist4Plus[A1, A2, A3, A4]
+trait Persist4[A1, A2, A3, A4] extends Any, Persist4Plus[A1, A2, A3, A4]
 { final override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def numParams: Int = 4
 }
 
 /** [[Show]] type class for 4 field product types. */
-trait Show4Plus[A1, A2, A3, A4, A] extends Show3Plus[A1, A2, A3, A] with Persist4Plus[A1, A2, A3, A4]
+trait Show4Plus[A1, A2, A3, A4, A] extends Show3Plus[A1, A2, A3, A], Persist4Plus[A1, A2, A3, A4]
 { /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg4: A => A4
 
@@ -30,16 +30,17 @@ trait Show4Plus[A1, A2, A3, A4, A] extends Show3Plus[A1, A2, A3, A] with Persist
 }
 
 /** Show type class for 4 parameter case classes. */
-trait Show4[A1, A2, A3, A4, A] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1, A2, A3, A4, A]
+trait Show4[A1, A2, A3, A4, A] extends Persist4[A1,A2, A3, A4], Show4Plus[A1, A2, A3, A4, A]
 { override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev, show3Ev, showEv4)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt4 match
   { case Some(a4) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr()
     case Some(a4) if opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
-    case Some(a4) if opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces),
-      show2(obj, way, maxPlaces, minPlaces))
+    case Some(a4) if opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces))
+
     case Some(a4) if a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces),
       show3(obj, way, maxPlaces, minPlaces))
+
     case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
       show4(obj, way, maxPlaces, minPlaces))
   }
@@ -47,16 +48,16 @@ trait Show4[A1, A2, A3, A4, A] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1
 
 object Show4
 { /** Factory apply method for general cases of [[Show4]] type class instances / evidence. */
-  def apply[A1, A2, A3, A4, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
-    name4: String, fArg4: A => A4, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4], ct: ClassTag[A]): Show4[A1, A2, A3, A4, A] =
-    new Show4Imp[A1, A2, A3, A4, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, ArrPairStr[A](), opt4, opt3, opt2, opt1)(show1,
-      show2, show3, show4: Show[A4])
+  def apply[A1, A2, A3, A4, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3, name4: String,
+    fArg4: A => A4, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(using show1: Show[A1], show2: Show[A2],
+    show3: Show[A3], show4: Show[A4], ct: ClassTag[A]): Show4[A1, A2, A3, A4, A] =
+    new Show4Imp[A1, A2, A3, A4, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, ArrPairStr[A](), opt4, opt3, opt2, opt1, show1, show2,
+    show3, show4: Show[A4])
 
   /** Implementation class for the general cases of [[Show4]] trait. */
   class Show4Imp[A1, A2, A3, A4, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
     val name3: String, val fArg3: A => A3, val name4: String, val fArg4: A => A4, val shortKeys: ArrPairStr[A],  override val opt4: Option[A4] = None,
-    opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val show1Ev: Show[A1], val show2Ev: Show[A2],
+    opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None, val show1Ev: Show[A1], val show2Ev: Show[A2],
     val show3Ev: Show[A3], val showEv4: Show[A4]) extends Show4[A1, A2, A3, A4, A]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -78,9 +79,9 @@ trait ShowInt4[A] extends Show4[Int, Int, Int, Int, A]
 
 object ShowInt4
 { /** Factory apply method for creating quick ShowDecT instances for products of 4 Ints. */
-  def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, name3: String, fArg3: A => Int, name4: String,
-    fArg4: A => Int, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit ct: ClassTag[A]):
-  ShowInt4Imp[A] = new ShowInt4Imp[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, ArrPairStr[A](), opt4, opt3, opt2, opt1)
+  def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, name3: String, fArg3: A => Int, name4: String, fArg4: A => Int,
+    opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit ct: ClassTag[A]): ShowInt4Imp[A] =
+    new ShowInt4Imp[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, ArrPairStr[A](), opt4, opt3, opt2, opt1)
 
   class ShowInt4Imp[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int, val name3: String,
     val fArg3: A => Int, val name4: String, val fArg4: A => Int, val shortKeys: ArrPairStr[A], override val opt4: Option[Int],
@@ -131,11 +132,11 @@ object Unshow4
   def apply[A1, A2, A3, A4, A](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (A1, A2, A3, A4) => A,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None,  opt1: Option[A1] = None)(implicit unshow1: Unshow[A1],
     unshow2: Unshow[A2], unshow3: Unshow[A3], unshow4: Unshow[A4], ct: ClassTag[A]): Unshow4[A1, A2, A3, A4, A] =
-    new Unshow4Imp(typeStr, name1, name2, name3, name4, newT, ArrPairStr[A](), opt4, opt3, opt2, opt1)(unshow1, unshow2, unshow3, unshow4)
+    new Unshow4Imp(typeStr, name1, name2, name3, name4, newT, ArrPairStr[A](), opt4, opt3, opt2, opt1, unshow1, unshow2, unshow3, unshow4)
 
   class Unshow4Imp[A1, A2, A3, A4, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
     val newT: (A1, A2, A3, A4) => A, val shortKeys: ArrPairStr[A], override val opt4: Option[A4] = None, val opt3In: Option[A3] = None,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3],
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None, val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3],
     val unshow4: Unshow[A4]) extends Unshow4[A1, A2, A3, A4, A]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)

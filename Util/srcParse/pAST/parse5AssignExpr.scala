@@ -1,13 +1,12 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
 /** Function object to parse assignment expressions. */
 object parse5AssignExpr
 { /** Function apply method parses assignment expressions. */
-  def apply (implicit inp: RArr[StatementMem]): ErrBi[ExcAst, Expr] =
-  {
-    val leftAcc: ArrayBuffer[AssignMem] = Buffer()
+  def apply(using inp: RArr[StatementMem]): ErrBi[ExcAst, Expr] =
+  { val leftAcc: ArrayBuffer[AssignMem] = Buffer()
     val rightAcc: ArrayBuffer[AssignMem] = Buffer()
 
     def leftLoop(rem: ArrOff[StatementMem]): ErrBi[ExcAst, Expr] = rem match

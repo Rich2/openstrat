@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
@@ -13,7 +13,7 @@ object parse3Statements
 
     def loop(rem: ArrOff[BlockMem]): ErrBi[ExcAst, Expr] = rem match
     { case ArrOff0() if subAcc.isEmpty => Succ(StringStatements(acc.toArr))
-      case ArrOff0() if acc.isEmpty => parse5AssignExpr(subAcc.toArr)
+      case ArrOff0() if acc.isEmpty => parse5AssignExpr(using subAcc.toArr)
       case ArrOff0() => parse4Statement(subAcc.toArr, None).map(acc :+ _).map(g => StringStatements(g.toArr))
       case ArrOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(StatementEmpty(st)); loop(tail) }
 

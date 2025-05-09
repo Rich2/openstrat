@@ -86,7 +86,7 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
   override def fromExpr(expr: Expr): ExcMon[A] = expr match
   { case _: EmptyExprToken => Succ(build.empty)
 
-    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if (unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(unshowAeEv, build)
+    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if (unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(using unshowAeEv, build)
     else sts.mapErrBi(build)(s => unshowAeEv.fromExpr(s.expr))
 
     case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(using unshowAeEv, build)
