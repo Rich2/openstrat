@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse.*, collection.mutable.ArrayBuffer
 
-/** Base traits for all [[Show]] type classs instances for sequence like objectss including not only [[SeqLike]]s but also standard library
- *  collections like [[Iterable]] and [[Array]]s. */
+/** Base traits for all [[Show]] type classs instances for sequence like objectss including not only [[SeqLike]]s but also standard library collections like
+ * [[Iterable]] and [[Array]]s. */
 trait ShowSeqLike[Ae, A] extends ShowCompound[A]
 { def showAeEv: Show[Ae]
 
@@ -37,18 +37,17 @@ trait ShowSeqLike[Ae, A] extends ShowCompound[A]
 }
 
 object ShowSeqLike
-{ /** Factory apply method for the prducing the general cases of [[ShowSeqLike]] type class instances / evidence. */
-  def apply[Ae, A](typeStr: String, fForeach: (A, Ae => Unit) => Unit)(implicit evA: Show[Ae]): ShowSeqLike[Ae, A] =
-    new ShowSeqLikeImp[Ae, A](typeStr, fForeach)(evA)
+{ /** Factory apply method for the producing the general cases of [[ShowSeqLike]] type class instances / evidence. */
+  def apply[Ae, A](typeStr: String, fForeach: (A, Ae => Unit) => Unit)(using evA: Show[Ae]): ShowSeqLike[Ae, A] = new ShowSeqLikeImp[Ae, A](typeStr, fForeach)
 
   /** Implementation class for the general case of [[ShowSeqLike]] type class instances. */
-  class ShowSeqLikeImp[Ae, A](val typeStr: String, fForeach: (A, Ae => Unit) => Unit)(implicit val showAeEv: Show[Ae]) extends ShowSeqLike[Ae, A]
+  class ShowSeqLikeImp[Ae, A](val typeStr: String, fForeach: (A, Ae => Unit) => Unit)(using val showAeEv: Show[Ae]) extends ShowSeqLike[Ae, A]
   { override def showForeach(obj: A, f: Ae => Unit): Unit = fForeach(obj, f)
   }
 }
 
-/** [[Tell]] trait for seequence like objects. The type parameter is named Ae, to correpond to the Ae type class in the corresponding [[Show]] and
- * [[Unshow]] type class instances for the type of this object. */
+/** [[Tell]] trait for seequence like objects. The type parameter is named Ae, to correpond to the Ae type class in the corresponding [[Show]] and [[Unshow]]
+ * type class instances for the type of this object. */
 trait TellSeqLike[Ae] extends Tell
 { /** The most basic Show method, paralleling the show method on [[Show]] type class instances. */
   override def str: String = tell(ShowStdNoSpace)
@@ -99,16 +98,15 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
 
 object UnshowSeqLike
 { /** Factory apply method for creating [[Unshow]] type class instances for [[SeqLike]] objects. */
-  def apply[A, R](typeStr: String)(implicit evA: Unshow[A], build: BuilderMap[A, R]): UnshowSeqLike[A, R] =
-    new UnshowSeqLikeImp[A, R](typeStr, evA, build)
+  def apply[A, R](typeStr: String)(using evA: Unshow[A], build: BuilderMap[A, R]): UnshowSeqLike[A, R] = new UnshowSeqLikeImp[A, R](typeStr, evA, build)
 
   /** Implementation class for the general cases of [[UnshowSeqLike]]. Use [[UnshowSeq]] for any actual sequence classes. */
   class UnshowSeqLikeImp[A, R](val typeStr: String, val unshowAeEv: Unshow[A], val build: BuilderMap[A, R]) extends UnshowSeqLike[A, R]
 }
 
-/** [[Unshow]] type class instances for sequences, both [[Sequ]] and standard library classes such as [[List]] and
- * [[Array]]. Uses the typeStr "Seq". As all these different types are persisted as logical sequences. Their in memory
- * storage structure is irrelevant. They can all be reconstructed / unshown from an RSON Seq. */
+/** [[Unshow]] type class instances for sequences, both [[Sequ]] and standard library classes such as [[List]] and [[Array]]. Uses the typeStr "Seq". As all
+ * these different types are persisted as logical sequences. Their in memory storage structure is irrelevant. They can all be reconstructed / unshown from an
+ * RSON Seq. */
 class UnshowSeq[A, R](val unshowAeEv: Unshow[A], val build: BuilderMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
   override def useMultiple: Boolean = false
@@ -120,16 +118,15 @@ object UnshowSeq
 }
 
 /** [[Unshow]] type class instances for building classes from sequences through two builders. */
-class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae],
-  build1: BuilderArrMap[Ae, ArrAe]) extends Unshow[A]
+class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)(using evA: Unshow[Ae], build1: BuilderArrMap[Ae, ArrAe]) extends Unshow[A]
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
-  val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)(evA, build1)
+  val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)
   
   override def fromExpr(expr: Expr): ExcMon[A] = stage.fromExpr(expr).map(f)
 }
 
 object UnshowFromArr
 {
-  def apply[Ae, ArrAe <: Arr[Ae], A](typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae], build1: BuilderArrMap[Ae, ArrAe]):
+  def apply[Ae, ArrAe <: Arr[Ae], A](typeStr: String, f: ArrAe => A)(using evAe: Unshow[Ae], build1: BuilderArrMap[Ae, ArrAe]):
     UnshowFromArr[Ae, ArrAe, A] = new UnshowFromArr[Ae, ArrAe, A](typeStr, f)
 }
