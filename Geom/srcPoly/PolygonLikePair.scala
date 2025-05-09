@@ -11,8 +11,8 @@ trait PolygonLikePairArr[A1V, A1 <: PolygonBase[A1V], A1Arr <: Arr[A1], A2, A <:
   /** Maps this to a new [PolygonLikePairArr]] by mapping [[PolygonBase]]s to new [[PolygonBase]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
   def polygonMapToPair[B1V <: ValueNElem, B1 <: PolygonBase[B1V], ArrB1 <: Arr[B1], B <: PolygonLikePair[B1V, B1, A2],
-    ArrB <: PolygonLikePairArr[B1V, B1, ArrB1, A2, B]](f: A1V => B1V)(implicit build: PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
-  { val polygons: ArrB1 = a1Arr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
+    ArrB <: PolygonLikePairArr[B1V, B1, ArrB1, A2, B]](f: A1V => B1V)(using build: PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
+  { val polygons: ArrB1 = a1Arr.map(p => p.map[B1V, B1](f)(using build.b1Builder))(using build.b1ArrBuilder)
     build.arrFromArrAndArray(polygons, a2Array)
   }
 }

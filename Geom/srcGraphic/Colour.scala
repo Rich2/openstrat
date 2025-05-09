@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import geom._, pWeb._, collection.mutable.ArrayBuffer, pParse._
+import geom.*, pWeb.*, collection.mutable.ArrayBuffer, pParse.*
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
@@ -134,9 +134,9 @@ object Colour
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
       case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStructure(Arr1(st), Parentheses, _, _))) => st.expr match {
         case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))
-        case _ => expr.exprParseErr[Colour](this)
+        case _ => expr.exprParseErr[Colour](using this)
       }
-      case _ => expr.exprParseErr[Colour](this)
+      case _ => expr.exprParseErr[Colour](using this)
     }
 
     def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStrX)(c => c)

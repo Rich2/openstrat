@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
-import geom._, Colour._
+import geom.*, Colour.*
 
 /** An abstract Canvas interface implemented and to be implemented on various platforms. A concrete implementation will utilise canvas like an HTML canvas or a
  * Scalafx canvas. This concrete implementation class must (can?) be mixed in with a particular use trait like CanvSimple or CanvMulti. The default methods take
@@ -122,17 +122,17 @@ trait CanvasPlatform extends RectCenlign
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
   def loadFile(fileName: String): ErrBi[Throwable, String]
-  def fromFileFind[A](fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findType(ev)
-  def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
+  def fromFileFind[A](fileName: String)(using evA: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findType
+  def fromFileFindElse[A](fileName: String, elseValue: => A)(using evA: Unshow[A]): A = fromFileFind(fileName).getElse(elseValue)
   
   /** Attempts to find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls procedure (Unit returning
    * function) with that object of type A */
-  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Unshow[A]): Unit = fromFileFind(fileName)(ev).forSucc(f)
+  def fromFileFindForeach[A](fileName: String, f: A => Unit)(using evA: Unshow[A]): Unit = fromFileFind(fileName).forSucc(f)
 
-  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findSetting(settingStr)(ev)  
+  def fromFileFindSetting[A](settingStr: String, fileName: String)(using evA: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findSetting(settingStr)
     
-  def fromFileFindSettingElseOld[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A =
-    fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
+  def fromFileFindSettingElseOld[A](settingStr: String, fileName: String, elseValue: => A)(implicit evA: Unshow[A]): A =
+    fromFileFindSetting(settingStr, fileName).getElse(elseValue)
 
   def rendElems(elems: RArr[Graphic2Elem]): Unit = elems.foreach(_.rendToCanvas(this))
 }

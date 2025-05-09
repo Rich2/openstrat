@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -34,12 +34,11 @@ package object geom
   implicit def shearToExtensions[T](value: T)(implicit ev: Shear[T]): ShearExtensions[T] = new ShearExtensions[T](value, ev)
 
   implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate2[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
-    new SlateTransAxesExtensions[T](value)(evS, evR)
+    new SlateTransAxesExtensions[T](value)
 
-  implicit def OrdinaledElemToExtensions[T <: OrdinaledElem](value: T)(implicit ev: Slate2[T]): OrdinaledExtensions[T] =
-    new OrdinaledExtensions[T](value)(ev)
+  implicit def OrdinaledElemToExtensions[T <: OrdinaledElem](value: T)(using evT: Slate2[T]): OrdinaledExtensions[T] = new OrdinaledExtensions[T](value)
 
-  implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
+  implicit class ProlignMatrixExtension[T](val value: T)(using ev: Prolign[T])
   { def prolign(matrix: AxlignMatrix): T = ev.prolignObj(value, matrix)
   }  
     
