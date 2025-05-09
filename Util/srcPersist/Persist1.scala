@@ -16,7 +16,7 @@ trait Show1Plus[A1, A] extends Persist1Plus[A1]
   def fArg1: A => A1
 
   /** Show type class instance for the 1st Show field. */
-  implicit def show1Ev: Show[A1]
+  def show1Ev: Show[A1]
 
   /** Shows parameter 1 of the object. */
   def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = show1Ev.show(fArg1(obj), way, maxPlaces, minPlaces)

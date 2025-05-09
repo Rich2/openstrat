@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, reflect.ClassTag
+import geom.*, reflect.ClassTag
 
-/** A layer of immutable optional [[SqCen]] data for a [[SqGridSys]] square grid system, This is specialised for OptRef[A]. The tileGrid can map the
- *  [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGridSys]] square grid system parameter. */
+/** A layer of immutable optional [[SqCen]] data for a [[SqGridSys]] square grid system, This is specialised for OptRef[A]. The tileGrid can map the [[SqCen]]
+ * coordinate of the tile to the index of the Arr. Hence, most methods take an implicit [[SqGridSys]] square grid system parameter. */
 class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerTcOpt[A]
 {override type ThisT = SqCenOptLayer[A]
   override def typeStr: String = "SqCenOptLayer"
@@ -82,6 +82,7 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
     if (a != null) f(a, hc)
   }
+  
   /** The tile is a None at the given hex grid centre coordinate [[SqCen]]. */
   def emptyTile(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = arrayUnsafe(gridSys.layerArrayIndex(sc)) == null
 
@@ -121,8 +122,8 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     new SqCenOptLayer[B](newArray)
   }
 
-  /** [[SqCen]] with Some map. Maps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type B, the first type
-   *  parameter B.  Returns an immutable Array based collection of type ArrT, the second type parameter. */
+  /** [[SqCen]] with Some map. Maps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type B, the first type parameter B.
+   * Returns an immutable Array based collection of type ArrT, the second type parameter. */
   def scSomesMap[B, ArrB <: Arr[B]](f: (SqCen, A) => B)(implicit gridSys: SqGridSys, build: BuilderArrMap[B, ArrB]): ArrB =
   { val len = somesLen
     val res = build.uninitialised(len)
@@ -140,8 +141,8 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     res
   }
 
-  /** [[SqCen]] with Some flatMap. FlatMaps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type ArrB. Returns an
-   *  immutable Array based collection of type ArrB. */
+  /** [[SqCen]] with Some flatMap. FlatMaps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type ArrB. Returns an immutable
+   * Array based collection of type ArrB. */
   def scSomesFlatMap[ArrB <: Arr[?]](f: (SqCen, A) => ArrB)(implicit gridSys: SqGridSys, build: BuilderArrFlat[ArrB]): ArrB =
   { var buff = build.newBuff()
 
@@ -156,11 +157,11 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairFinalA1Elem[B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]](f1: (SqCen, A) => B1)(f2: (SqCen, A) => B2)(
-  implicit gridSys: SqGridSys, build: BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]): ArrB =
+  def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairFinalA1Elem[B1, B2], ArrB <: ArrPairFinalA1[B1, ArrB1, B2, B]](f1: (SqCen, A) => B1)(
+    f2: (SqCen, A) => B2)(using gridSys: SqGridSys, build: BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val len = somesLen
     val res1 = build.b1Uninitialised(len)
-    val res2 = new Array[B2](len)(build.b2ClassTag)
+    val res2 = new Array[B2](len)(using build.b2ClassTag)
     var i = 0
 
     gridSys.foreach { sc =>
@@ -175,8 +176,8 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.arrFromArrAndArray(res1, res2)
   }
 
-  /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[SqCen]] to an [[option]] of a [[Arr]], collects only the
-   * [[Some]]'s values returned by the function. */
+  /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[SqCen]] to an [[option]] of a [[Arr]], collects only the [[Some]]'s values
+   * returned by the function. */
   def someSCOptFlatMap[ArrB <: Arr[?]](f: (A, SqCen) => Option[ArrB])(implicit gridSys: SqGridSys, build: BuilderArrFlat[ArrB]): ArrB =
   { val buff = build.newBuff()
 
@@ -189,8 +190,8 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the
-   * function. Returns a [[Seqimut]] of length 0 to the length of this [[SqCenOptLayer]]. */
+  /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the function.
+   * Returns a [[Seqimut]] of length 0 to the length of this [[SqCenOptLayer]]. */
   def projSomeScPtMap[B, ArrB <: Arr[B]](f: (A, SqCen, Pt2) => B)(implicit proj: SqSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
     projSomeScPtMap(proj)(f)(build)
 
@@ -205,8 +206,8 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
-   *  an immutable Array based collection of type ArrT, the second type parameter. */
+  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns an
+   * immutable Array based collection of type ArrT, the second type parameter. */
   def scNoneMap[B, ArrT <: Arr[B]](f: SqCen => B)(implicit gridSys: SqGridSys, build: BuilderArrMap[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
@@ -220,12 +221,12 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
-   * an immutable Array based collection of type ArrT, the second type parameter. */
+  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns an
+   * immutable Array based collection of type ArrT, the second type parameter. */
   def projNoneScPtMap[B, ArrB <: Arr[B]](f: (SqCen, Pt2) => B)(implicit proj: SqSysProjection, build: BuilderArrMap[B, ArrB]): ArrB = projNoneScPtMap(proj)(f)
 
-  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
-   * an immutable Array based collection of type ArrT, the second type parameter. */
+  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns an
+   * immutable Array based collection of type ArrT, the second type parameter. */
   def projNoneScPtMap[B, ArrB <: Arr[B]](proj: SqSysProjection)(f: (SqCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.foreach { sc =>
@@ -244,15 +245,15 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     arrayUnsafe(gridSys.layerArrayIndex(s1)) = null.asInstanceOf[A]
   }
 
-  /** coordinate-foreach-Some. Foreach Some element and its associated [[SqCen]] coordinate applies the side effecting parameter function. It ignores
-   *  the None values. */
+  /** coordinate-foreach-Some. Foreach Some element and its associated [[SqCen]] coordinate applies the side effecting parameter function. It ignores the None
+   * values. */
   def someScForeach(f: (SqCen, A) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
     val a = arrayUnsafe(gridSys.layerArrayIndex(sc))
     if (a != null) f(sc, a)
   }
 
-  /** Maps the Somes of this [[SqCenArrOpt]] and the Some values of a second [[SqCenOptLayer]]. Returns an immutable Array based collection of type
-   *  ArrC, the second type parameter. */
+  /** Maps the Somes of this [[SqCenArrOpt]] and the Some values of a second [[SqCenOptLayer]]. Returns an immutable Array based collection of type ArrC, the
+   * second type parameter. */
   def some2sMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: SqCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: SqGridSys, build: BuilderArrMap[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
@@ -273,8 +274,7 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
     build.result
   }
 
-  /** Moves the object in the array location given by the 1st [[SqCen]] to the 2nd [[SqCen]], by setting sc2 to the value of sc1 and setting sc1 to
-   *  None. */
+  /** Moves the object in the array location given by the 1st [[SqCen]] to the 2nd [[SqCen]], by setting sc2 to the value of sc1 and setting sc1 to None. */
   def unsafeMove(sc1: SqCen, sc2: SqCen)(implicit gridSys: SqGridSys): Unit =
   { arrayUnsafe(gridSys.layerArrayIndex(sc2)) = arrayUnsafe(gridSys.layerArrayIndex(sc1))
     arrayUnsafe(gridSys.layerArrayIndex(sc1)) = null.asInstanceOf[A]

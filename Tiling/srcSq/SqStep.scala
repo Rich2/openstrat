@@ -189,11 +189,11 @@ class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
     }
   }
 
-  def segSqCsMap[B, ArrB <: Arr[B]](start: SqCen)(f: LSegSC => B)(implicit build: BuilderArrMap[B, ArrB], gridSys: SqGridSys): ArrB =
-    segSqCsMap(start.r, start.c)(f)(build, gridSys)
+  def segSqCsMap[B, ArrB <: Arr[B]](start: SqCen)(f: LSegSC => B)(using build: BuilderArrMap[B, ArrB], gridSys: SqGridSys): ArrB =
+    segSqCsMap(start.r, start.c)(f)
 
-  def segSqCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LSegSC => B)(implicit build: BuilderArrMap[B, ArrB], grider: SqGridSys): ArrB = {
-    val res = build.uninitialised(segsNum)
+  def segSqCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LSegSC => B)(implicit build: BuilderArrMap[B, ArrB], grider: SqGridSys): ArrB =
+  { val res = build.uninitialised(segsNum)
     var count = 0
     segSqCsForeach(startR, startC) { s =>
       res.setElemUnsafe(count, f(s))
