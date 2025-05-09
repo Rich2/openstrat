@@ -93,7 +93,7 @@ trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => FailExc(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
-    case _ => expr.exprParseErr[A](this)
+    case _ => expr.exprParseErr[A](using this)
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
