@@ -9,10 +9,16 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
   def apply(sc: SqCen)(implicit gSys: SqGridSys): A = arrayUnsafe(gSys.layerArrayIndex(sc))
 
   /** Set tile row from the [[SqCen]]. */
-  final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(startCen.r, startCen.c, multiValues*)(grid)
+  final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(grid, startCen.r, startCen.c, multiValues*)
+
+  /** Set tile row from the [[SqCen]]. */
+  final def setRow(grid: SqGrid, startCen: SqCen, multiValues: Multiple[A]*): SqCen = setRow(grid, startCen.r, startCen.c, multiValues *)
 
   /** Note set Row starts with the r (row) parameter. */
-  final def setRow(r: Int, cStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
+  final def setRow(r: Int, cStart: Int, multiValues: Multiple[A]*)(using grid: SqGrid): SqCen = setRow(grid, r, cStart, multiValues*)
+
+  /** Note set Row starts with the r (row) parameter. */
+  final def setRow(grid: SqGrid, r: Int, cStart: Int, multiValues: Multiple[A]*): SqCen =
   {
     multiValues.iForeachSingle { (i, e) =>
       val c = cStart + i * 2
@@ -36,7 +42,10 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
   final def setRowBack(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRowBack(startCen.r, startCen.c, multiValues*)(grid)
 
   /** Set part column of data. */
-  final def setColumn[ArrA <: Arr[A]](c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
+  final def setColumn[ArrA <: Arr[A]](c: Int, rStart: Int, multiValues: Multiple[A]*)(using grid: SqGrid): SqCen = setColumn(grid, c, rStart, multiValues*)
+
+  /** Set part column of data. */
+  final def setColumn[ArrA <: Arr[A]](grid: SqGrid, c: Int, rStart: Int, multiValues: Multiple[A]*): SqCen =
   {
     multiValues.iForeachSingle{(i, el) =>
       val r: Int = rStart + i * 2
@@ -46,7 +55,9 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
     SqCen(rStart + (multiValues.numSingles - 1) * 2, c)
   }
 
-  final def setColumn(startCen: SqCen, multis: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumn(startCen.c, startCen.r, multis*)(grid)
+  final def setColumn(startCen: SqCen, multis: Multiple[A]*)(using grid: SqGrid): SqCen = setColumn(grid, startCen.c, startCen.r, multis*)
+
+  final def setColumn(grid: SqGrid, startCen: SqCen, multis: Multiple[A]*): SqCen = setColumn(grid, startCen.c, startCen.r, multis *)
 
   final def setColumnDown(c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
   {
