@@ -82,7 +82,7 @@ trait Unshow[+T] extends Persist
 object Unshow extends UnshowPriority2
 {
   /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
-  implicit val intEv: Unshow[Int] = new IntEvClass
+  given intEv: Unshow[Int] = new IntEvClass
 
   class IntEvClass extends Unshow[Int]
   { override def typeStr: String = "Int"
@@ -161,7 +161,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
-  implicit val doubleEv: Unshow[Double] = PersistBoth.doubleEv
+  given doubleEv: Unshow[Double] = PersistBoth.doubleEv
 
   /** [[Unshow]] instance / evidence for positive, non-negative [[Double]]. This must be passed explicitly. */
   val posDoubleEv: Unshow[Double] = new Unshow[Double]
@@ -176,7 +176,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Float]]. */
-  implicit val floatEv: Unshow[Float] = new Unshow[Float]
+  given floatEv: Unshow[Float] = new Unshow[Float]
   { override def typeStr: String = "SFloat"
 
     override def fromExpr(expr: Expr): ExcMon[Float] = expr match
@@ -189,7 +189,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Long]]. */
-  implicit val longEv: Unshow[Long] = new Unshow[Long]
+  given longEv: Unshow[Long] = new Unshow[Long]
   { override def typeStr = "Long"
 
     override def fromExpr(expr: Expr): ExcMon[Long] = expr match
@@ -202,7 +202,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Boolean]]. */
-  implicit val booleanEv: Unshow[Boolean] = new Unshow[Boolean]
+  given booleanEv: Unshow[Boolean] = new Unshow[Boolean]
   { override def typeStr: String = "Bool"
 
     override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
@@ -213,7 +213,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[String]]. */
-  implicit val stringEv: Unshow[String] = new Unshow[String]
+  given stringEv: Unshow[String] = new Unshow[String]
   { override def typeStr: String = "Str"
 
     override def fromExpr(expr: Expr): ExcMon[String] = expr match
@@ -223,7 +223,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Char]]. */
-  implicit val charEv: Unshow[Char] = new Unshow[Char]
+  given charEv: Unshow[Char] = new Unshow[Char]
   { override def typeStr: String = "Char"
 
     override def fromExpr(expr: Expr): ExcMon[Char] = expr match

@@ -7,8 +7,7 @@ trait ShowType[-A] extends Persist
 object ShowType
 {
   implicit val anyEv: ShowType[Any] = new ShowType[Any]
-  {
-    override val typeStr: String = "Any"
+  { override val typeStr: String = "Any"
   }
 }
 
@@ -16,12 +15,12 @@ object ShowType
  * decimal place precision and explicit typing for numbers are placed defined here and in the corresponding [[Tell]] trait, although they have no meaning /
  * purpose for many types, as separating them adds enormous complexity for very little gain. */
 trait Show[-A] extends ShowType[A]
-{ /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
-   * rather than a method on the object being shown. */
+{ /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object rather than
+ a method on the object being shown. */
   def strT(obj: A): String
 
-  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-   * should always be determined at compile time or if sometimes it should be determined at runtime. */
+  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this should always
+   * be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepth(obj: A): Int
 
   def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String
@@ -35,7 +34,7 @@ trait Show[-A] extends ShowType[A]
  * will be placed in the Persist companion object. */
 object Show
 { /** Implicit [[Show]] type class instance / evidence for [[Int]]. */
-  implicit val intEv: Show[Int] = ShowSimple("Int", _.toString)
+  given intEv: Show[Int] = ShowSimple("Int", _.toString)
 
   val hexadecimal: Show[Int] = new ShowSimple[Int]
   { override def typeStr: String = "Int"
@@ -59,7 +58,6 @@ object Show
   /** Implicit [[Show]] type class instance / evidence for [[Boolean]]. */
   given booleanEv: Show[Boolean] = ShowSimple[Boolean]("Bool", _.toString)
 
-
   /** Implicit [[Show]] type class instance / evidence for [[String]]. */
   given stringEv: Show[String] = ShowSimple[String]("Str", _.enquote)
 
@@ -68,13 +66,13 @@ object Show
 
   class ShowIterableClass[A, R <: Iterable[A]](val showAeEv: Show[A]) extends ShowIterable[A, R] with Show[R]{}
 
-  implicit def ShowIterableImplicit[A](implicit evA: Show[A]): Show[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
-  implicit def ShowSeqImplicit[A](implicit evA: Show[A]): Show[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
+  given ShowIterableImplicit[A](using evA: Show[A]): Show[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
+  given ShowSeqImplicit[A](using evA: Show[A]): Show[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
 
   /** Implicit method for creating List[A: Show] instances. */
-  implicit def listImplicit[A](implicit ev: Show[A]): Show[List[A]] = new ShowIterableClass[A, List[A]](ev)
+  given listImplicit[A](using evA: Show[A]): Show[List[A]] = new ShowIterableClass[A, List[A]](evA)
 
-  implicit def vectorImplicit[A](implicit ev: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
+  given vectorImplicit[A](using evA: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](evA)
 
   given arrayIntEv: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
   { override def showAeEv: Show[Int] = Show.intEv
@@ -83,22 +81,21 @@ object Show
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeq[A, ArraySeq[A]]
+  given arraySeqImplicit[A](using evA: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeq[A, ArraySeq[A]]
   { override def syntaxDepth(obj: ArraySeq[A]): Int = ???
-    override def showAeEv: Show[A] = ev
+    override def showAeEv: Show[A] = evA
     override def showForeach(obj: ArraySeq[A], f: A => Unit): Unit = obj.foreach(f)
   }
 
   /** [[Show]] type class instance evidence for [[Some]]. */
-  implicit def someEv[A](implicit ev: Show[A]): Show[Some[A]] = new  Show[Some[A]]
-  { override def typeStr: String = "Some" + ev.typeStr.enSquare
-    override def syntaxDepth(obj: Some[A]): Int = ev.syntaxDepth(obj.value)
-    override def strT(obj: Some[A]): String = ev.strT(obj.value)
+  given someEv[A](using evA: Show[A]): Show[Some[A]] = new Show[Some[A]]
+  { override def typeStr: String = "Some" + evA.typeStr.enSquare
+    override def syntaxDepth(obj: Some[A]): Int = evA.syntaxDepth(obj.value)
+    override def strT(obj: Some[A]): String = evA.strT(obj.value)
 
     override def show(obj: Some[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
-    { case ShowTyped => "Some" + ev.show(obj.value, ShowStd)
-      case _ => ev.show(obj.value, style)
-
+    { case ShowTyped => "Some" + evA.show(obj.value, ShowStd)
+      case _ => evA.show(obj.value, style)
     }
   }
 
