@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** [[Show]] type class for showing [[Sequ]][Ae] objects. */
@@ -8,15 +8,15 @@ trait ShowSeqSpec[Ae, A <: SeqSpec[Ae]] extends ShowSeqLike[Ae, A]
 
 object ShowSeqSpec
 { /** Factory apply method for constructing [[Show]] type class instances / evidence for [[SeqSpec]] objects. */
-  def apply[Ae, A <: SeqSpec[Ae]](typeStrIn: String)(implicit evAIn: Show[Ae]): ShowSeqSpec[Ae, A] = new ShowSeqSpec[Ae, A]
+  def apply[Ae, A <: SeqSpec[Ae]](typeStrIn: String)(using evAeIn: Show[Ae]): ShowSeqSpec[Ae, A] = new ShowSeqSpec[Ae, A]
   { override val typeStr: String = typeStrIn
-    override val showAeEv: Show[Ae] = evAIn
+    override val showAeEv: Show[Ae] = evAeIn
   }
 }
 
 /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[SeqSpec]] objects. */
 class PersistSeqSpecBoth[Ae, A <: SeqSpec[Ae]](val typeStr: String, val showAeEv: Show[Ae],  val unshowAeEv: Unshow[Ae])(implicit
-  val build: BuilderMap[Ae, A]) extends PersistBoth[A] with ShowSeqSpec[Ae, A] with UnshowSeqLike[Ae, A]
+  val build: BuilderMap[Ae, A]) extends PersistBoth[A], ShowSeqSpec[Ae, A], UnshowSeqLike[Ae, A]
 
 object PersistSeqSpecBoth
 {  /** Factory apply method for constructing both [[Show]] and [[Unshow]] type class instances for [[SeqSpec]] types. */

@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import Colour._
+import Colour.*
 
 trait WTileHelper
 
@@ -62,27 +62,27 @@ case object Lake extends Water
   override def colour: Colour = Blue
 }
 
-object TerrainNone extends WTile with TellSimple
+object TerrainNone extends WTile, TellSimple
 { override def str = "NoTerrain"
   override def colour = Gray
   override def isLand: Boolean = false
 }
 
 /** Winter sea ice. */
-object SeaIceWinter extends Water with TellSimple
+object SeaIceWinter extends Water, TellSimple
 { override def str = "SeaIceWinter"
   override def colour = LightSkyBlue
 }
 
 /** All year round sea ice sheet. */
-case object SeaIcePerm extends WTile with Water with TellSimple
+case object SeaIcePerm extends WTile, Water, TellSimple
 { override def str = "SeaIce"
   override def colour = White
   override def isLand: Boolean = false
 }
 
 /** Winter lake ice. */
-object LakeIceWinter extends Water with TellSimple
+object LakeIceWinter extends Water, TellSimple
 { override def str = "SeaIceWinter"
   override def colour = Lake.colour
 }
