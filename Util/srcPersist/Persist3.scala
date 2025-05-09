@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*, reflect.ClassTag
 
@@ -147,8 +147,7 @@ object Unshow3
   class Unshow3Imp[A1, A2, A3, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val shortKeys: ArrPairStr[A],
     val newT: (A1, A2, A3) => A, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(using val unshow1Ev: Unshow[A1],
     val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3]) extends Unshow3[A1, A2, A3, A]
-  {
-    override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
+  { override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
     override def opt1: Option[A1] = ife(opt2.nonEmpty , opt1In, None)
   }
 }
@@ -156,8 +155,7 @@ object Unshow3
 /** [[Unshow]] type class instances with 3 [[Int]] components. */
 class UnshowInt3[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Int, Int, Int) => A, val shortKeys: ArrPairStr[A],
   val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow3[Int, Int, Int, A]
-{
-  override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+{ override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
   override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   override def unshow1Ev: Unshow[Int] = Unshow.intEv
   override def unshow2Ev: Unshow[Int] = Unshow.intEv
@@ -173,9 +171,8 @@ class UnshowInt3[A](val typeStr: String, val name1: String, val name2: String, v
 
 /** Companion object for [[UnshowInt3]] trait contains factory apply method. */
 object UnshowInt3
-{ def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Int, Int, Int) => A, opt3: Option[Int] = None,
-    opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit classTag: ClassTag[A]): UnshowInt3[A] =
-    new UnshowInt3(typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
+{ def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Int, Int, Int) => A, opt3: Option[Int] = None, opt2: Option[Int] = None,
+    opt1: Option[Int] = None)(using ctA: ClassTag[A]): UnshowInt3[A] = new UnshowInt3(typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 }
 
 /** [[Unshow]] type class instances with 3 [[Double]] components. */
@@ -188,7 +185,7 @@ trait UnshowDbl3[A] extends Unshow3[Double, Double, Double, A]
 object UnshowDbl3
 { /** Factory apply method for [[Unshow]] type class instances with 3 [[Double]] components. */
   def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => A, opt3: Option[Double] = None,
-    opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit ct: ClassTag[A]): UnshowDbl3[A] =
+    opt2: Option[Double] = None, opt1: Option[Double] = None)(using ctA: ClassTag[A]): UnshowDbl3[A] =
     new UnshowDbl3Imp[A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 
   /** [[Unshow]] type class instances with 3 [[Double]] components. */
@@ -201,47 +198,44 @@ object UnshowDbl3
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 [[Double]] components. */
-class Persist3Both[A1, A2, A3, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-  val name3: String, val fArg3: A => A3, val shortKeys: ArrPairStr[A], val newT: (A1, A2, A3) => A, override val opt3: Option[A3], opt2In: Option[A2],
-  opt1In: Option[A1])(implicit val show1Ev: Show[A1], val show2Ev: Show[A2], val show3Ev: Show[A3], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2],
-  val unshow3Ev: Unshow[A3]) extends PersistBoth[A] with Show3[A1, A2, A3, A] with Unshow3[A1, A2, A3, A]
+class Persist3Both[A1, A2, A3, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2, val name3: String,
+  val fArg3: A => A3, val shortKeys: ArrPairStr[A], val newT: (A1, A2, A3) => A, override val opt3: Option[A3], opt2In: Option[A2], opt1In: Option[A1],
+  val show1Ev: Show[A1], val show2Ev: Show[A2], val show3Ev: Show[A3], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3]) extends
+  PersistBoth[A], Show3[A1, A2, A3, A], Unshow3[A1, A2, A3, A]
 { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
 }
 
 object Persist3Both
-{ /** Factory apply method for creating both [[Show3]] and [[Unshow3]] type type class instances / evidence. */
+{ /** Factory apply method for creating both [[Show3]] and [[Unshow3]] type class instances / evidence. */
   def apply[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
-    newT: (A1, A2, A3) => A, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1Ev: Show[A1],
-    show2Ev: Show[A2], show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], unshow3Ev: Unshow[A3], classTag: ClassTag[A]):
-    Persist3Both[A1, A2, A3, A] = new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT,opt3, opt2,
-    opt1)
+    newT: (A1, A2, A3) => A, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(using show1Ev: Show[A1], show2Ev: Show[A2],
+    show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], unshow3Ev: Unshow[A3], ctA: ClassTag[A]): Persist3Both[A1, A2, A3, A] =
+    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT,opt3, opt2, opt1, show1Ev, show2Ev, show3Ev,
+      unshow1Ev, unshow2Ev, unshow3Ev)
 
-  /** Factory method for creating both [[Show3]] and [[Unshow3]] type type class instances / evidence with short hand labels. */
+  /** Factory method for creating both [[Show3]] and [[Unshow3]] type class instances / evidence with shorthand labels. */
   def shorts[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
-    shorts: ArrPairStr[A], newT: (A1, A2, A3) => A, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    show1Ev: Show[A1], show2Ev: Show[A2], show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], unshow3Ev: Unshow[A3],
-    classTag: ClassTag[A]):
-    Persist3Both[A1, A2, A3, A] = new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, shorts, newT, opt3,
-    opt2, opt1)
+    shorts: ArrPairStr[A], newT: (A1, A2, A3) => A, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(using show1Ev: Show[A1],
+    show2Ev: Show[A2], show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], unshow3Ev: Unshow[A3], ctA: ClassTag[A]):
+    Persist3Both[A1, A2, A3, A] = new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, shorts, newT, opt3, opt2, opt1, show1Ev,
+    show2Ev, show3Ev, unshow1Ev, unshow2Ev, unshow3Ev)
 
-  /** Factory method for creating both [[Show3]] and [[Unshow3]] type class instances / evidence, by explicitly passing the [[PersistBoth]] type class
-   * instances for the two components. */
+  /** Factory method for creating both [[Show3]] and [[Unshow3]] type class instances / evidence, by explicitly passing the [[PersistBoth]] type class instances
+   * for the two components. */
   def explicit[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
     newT: (A1, A2, A3) => A, persist1Ev: PersistBoth[A1], persist2Ev: PersistBoth[A2], persist3Ev: PersistBoth[A3], opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit classTag: ClassTag[A]): Persist3Both[A1, A2, A3, A] =
-    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT, opt3, opt2, opt1)(persist1Ev,
-      persist2Ev, persist3Ev, persist1Ev, persist2Ev, persist3Ev)
+    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT, opt3, opt2, opt1, persist1Ev,
+    persist2Ev, persist3Ev, persist1Ev, persist2Ev, persist3Ev)
 
-  /** Factory method for creating both [[Show3]] and [[Unshow3]] type class instances / evidence, by explicitly passing the [[Show]] and [[Unshow]]
-   *  type class instances for the two components. */
+  /** Factory method for creating both [[Show3]] and [[Unshow3]] type class instances / evidence, by explicitly passing the [[Show]] and [[Unshow]] type class
+   * instances for the two components. */
   def explicitFull[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
     newT: (A1, A2, A3) => A, show1Ev: Show[A1], show2Ev: Show[A2], show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2],
-    unshow3Ev: Unshow[A3], opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[A]):
-    Persist3Both[A1, A2, A3, A] =
-    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT, opt3, opt2, opt1)(show1Ev, show2Ev,
-    show3Ev, unshow1Ev, unshow2Ev, unshow3Ev)
+    unshow3Ev: Unshow[A3], opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[A]): Persist3Both[A1, A2, A3, A] =
+    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT, opt3, opt2, opt1, show1Ev, show2Ev, show3Ev,
+    unshow1Ev, unshow2Ev, unshow3Ev)
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances with 3 [[Double]] components. */
