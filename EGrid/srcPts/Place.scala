@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import geom.*, pglobe.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 case class Place(name: String, level: Int)
 
@@ -28,7 +28,7 @@ object LocationLLArr extends CompanionArrPairDbl2[Pt2, Pt2Arr]
     new LocationLLArr(arrays._1, arrays._2)
   }
 
-  implicit def flatArrBuilderImplicit(implicit ct: ClassTag[Place]): BuilderArrPairDblNFlat[LatLong, LatLongArr, Place, LocationLLArr] =
+  given BuilderFlatArrEv(using ct: ClassTag[Place]): BuilderArrPairDblNFlat[LatLong, LatLongArr, Place, LocationLLArr] =
   new BuilderArrPairDblNFlat[LatLong, LatLongArr, Place, LocationLLArr]
   { override type BuffT = LatLongPairBuff[Place]
     override type B1BuffT = LatLongBuff

@@ -86,7 +86,7 @@ trait EGridMulti extends EGridSys, HGridMulti
   }
 
   /** Spawns a new [[HSepLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideLayer pairs. */
-  def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSepLayer[A])], defaultA: A)(implicit ct: ClassTag[A]): HSepLayer[A] =
+  def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSepLayer[A])], defaultA: A)(using ctA: ClassTag[A]): HSepLayer[A] =
   { val res = HSepLayer[A](this, defaultA)
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
@@ -101,7 +101,7 @@ trait EGridMulti extends EGridSys, HGridMulti
   }
 
   /** Spawns a new [[LayerHSOptSys]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
-  def sidesOptFromPairsSpawn[A, SA <: HSepSome](sidePairs: RArr[(HGrid, LayerHSOptSys[A, SA])])(implicit ct: ClassTag[A], noneTC: DefaultValue[A]):
+  def sidesOptFromPairsSpawn[A, SA <: HSepSome](sidePairs: RArr[(HGrid, LayerHSOptSys[A, SA])])(using ctA: ClassTag[A], noneTC: DefaultValue[A]):
   LayerHSOptSys[A, SA] =
   { val res = LayerHSOptSys[A, SA](this, noneTC)
     gridMansForeach { m =>
@@ -118,14 +118,14 @@ trait EGridMulti extends EGridSys, HGridMulti
 
   /** Spawns a new [[HSideBoolLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
   def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer =
-  { val res = HSideBoolLayer()(this)
+  { val res = HSideBoolLayer()(using this)
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
       val lay: HSideBoolLayer = pair._2
       m.sidesForeach { hs =>
         val value: Boolean = lay(origGrid, hs)
-        res.set(hs, value)(ThisMulti)
+        res.set(ThisMulti, hs, value)
       }
     }
     res
@@ -147,7 +147,7 @@ trait EGridMulti extends EGridSys, HGridMulti
   override final def edgesForeach(f: HSep => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
   def sideBoolsFromGrids[A <: AnyRef](sideLayers: RArr[HSideBoolLayer]): HSideBoolLayer =
-  { val res = HSideBoolLayer()(this)
+  { val res = HSideBoolLayer()(using this)
     gridMansForeach { m =>
       m.sidesForeach { hs =>
         val dGrid: HSideBoolLayer = sideLayers(m.thisInd)

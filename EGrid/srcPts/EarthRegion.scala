@@ -6,7 +6,7 @@ import geom._, pglobe._
 abstract class EarthRegion(val name: String, val cen: LatLong) extends GeographicSymbolKey
 { def neighbs: RArr[EarthRegion] = RArr()
   def ePolys: RArr[EarthPoly]
-  def places: LocationLLArr = ePolys.flatMap(_.places)(LocationLLArr.flatArrBuilderImplicit)
+  def places: LocationLLArr = ePolys.flatMap(_.places)(using LocationLLArr.BuilderFlatArrEv)
   def lakes: RArr[LakePoly] = ePolys.lakeFilter
 }
 

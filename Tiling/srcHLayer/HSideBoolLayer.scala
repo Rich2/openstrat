@@ -101,8 +101,10 @@ final class HSideBoolLayer(val arrayUnsafe: Array[Boolean]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  def set(hs: HSep, value: Boolean)(implicit grid: HGridSys): Unit = {
-    val i = grid.sepLayerArrayIndex(hs)
+  def set(hs: HSep, value: Boolean)(using gSys: HGridSys): Unit = set(gSys, hs, value)
+  
+  def set(gSys: HGridSys, hs: HSep, value: Boolean): Unit =
+  { val i = gSys.sepLayerArrayIndex(hs)
     if (i >= arrayUnsafe.length) deb(s"$hs")
     arrayUnsafe(i) = value
   }
