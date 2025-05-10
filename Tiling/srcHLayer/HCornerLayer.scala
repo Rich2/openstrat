@@ -413,7 +413,7 @@ object HCornerLayer
 { /** Factory apply method to construct a layer of [[HCorner]]s with all values set to no offset. */
   def apply()(using gridSys: HGridSys): HCornerLayer = new HCornerLayer(new Array[Int](gridSys.numCorners))
 
-  implicit class RArrHCornerLayerExtension(val thisArr: RArr[HCornerLayer])
+  extension (thisArr: RArr[HCornerLayer])
   { /** Combines by appending the data grids to produce a single layer. */
     def combine: HCornerLayer =
     { val newLen: Int = thisArr.sumBy(_.numCorners)
