@@ -210,13 +210,14 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
 
 /** Companion object for the [[LayerHcRArr]] class, contains factory apply methods that take the [[HGridSys]] implicitly or explicitly. */
 object LayerHcRArr
-{  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is
-   * passed explicitly as the sole paramter of the first parameter list. */
-  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGridSys): LayerHcRArr[A] = apply(gridSys)(ct)
+{  
+  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is passed
+   * implicitly. */
+  def apply[A <: AnyRef](gridSys: HGridSys)(using ctA: ClassTag[A]): LayerHcRArr[A] = apply()(using ctA, gridSys)
 
-  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is
-   * passed implicitly. */
-  def apply[A <: AnyRef](gridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHcRArr[A] =
+  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is passed
+   * explicitly as the sole paramter of the first parameter list */
+  def apply[A <: AnyRef]()(using ct: ClassTag[A], gridSys: HGridSys): LayerHcRArr[A] =
   { val newArray = new Array[Array[A]](gridSys.numTiles)
     val init: Array[A] = Array()
     iUntilForeach(gridSys.numTiles)(newArray(_) = init)
