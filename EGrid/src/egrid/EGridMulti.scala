@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom.*, pglobe.*, prid.phex.*, reflect.ClassTag
 
 /** A system of hex grids for the earth containing multiple grids. */
-trait EGridMulti extends EGridSys with HGridMulti
+trait EGridMulti extends EGridSys, HGridMulti
 { ThisMulti =>
   override type GridT = EGrid
   type ManT <: EGridMan
@@ -93,7 +93,7 @@ trait EGridMulti extends EGridSys with HGridMulti
       val origGrid = pair._1
       val lay: HSepLayer[A] = pair._2
       m.sidesForeach { hs =>
-        val value: A = lay(hs)(origGrid)
+        val value: A = lay(origGrid, hs)
         res.set(ThisMulti, hs, value)
       }
     }
@@ -109,7 +109,7 @@ trait EGridMulti extends EGridSys with HGridMulti
       val origGrid = pair._1
       val lay: LayerHSOptSys[A, SA] = pair._2
       m.sidesForeach { hs =>
-        val value: A = lay(hs)(origGrid)
+        val value: A = lay(origGrid, hs)
         res.set(ThisMulti, hs, value)
       }
     }

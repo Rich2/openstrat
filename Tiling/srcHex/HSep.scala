@@ -1,12 +1,12 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer, geom._, pgui._, reflect.ClassTag
+import collection.mutable.ArrayBuffer, geom.*, reflect.ClassTag
 
 /** A Hex separator coordinate in a Hex Grid.
  * So [[HSepA]] on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
  * So [[HSepB]] on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
  * So [[HSepC]] on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
-trait HSep extends HCenOrSep with TSep
+trait HSep extends HCenOrSep, TSep
 { override def typeStr: String = "HSep"
 
   /** Is a side that goes from top left to bottom right. */
@@ -64,7 +64,7 @@ trait HSep extends HCenOrSep with TSep
   def sideLineHVAndOffSet(corners: HCornerLayer)(using gSys: HGridSys): LSegHvOffset = sideLineHVAndOffSet(gSys, corners)
     
   def sideLineHVAndOffSet(gSys: HGridSys, corners: HCornerLayer): LSegHvOffset =
-  { val cs: (HCen, Int, Int) = cornerNums(gSys)
+  { val cs: (HCen, Int, Int) = cornerNums(using gSys)
     corners.sepLineHVAndOffset(gSys, cs._1, cs._2, cs._3)
   }
 
@@ -106,7 +106,7 @@ object HSep
   }
 
   /** Implicit [[BuilderArrPair]] type class instances / evidence for [[HSep]]. */
-  implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): HSepBuilderArrPairMap[B2] = new HSepBuilderArrPairMap[B2]
+  implicit def builderArrPairEv[B2](using ct2: ClassTag[B2]): HSepBuilderArrPairMap[B2] = new HSepBuilderArrPairMap[B2]
 
   /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSep]]. */
   implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSep", "r", _.r, "c", _.c, apply)
@@ -135,13 +135,13 @@ class HSepA(val r: Int, val c: Int) extends HSep
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
 
   /** This seems to work. */
-  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LSegHvOffset =
-    if(sys.hCenExists(tileLt)) LSegHvOffset(corners.cornerVLast(tileLt, 0), corners.cornerV1(tileLt, 1))
+  override def leftCorners(corners: HCornerLayer)(using gSys: HGridSys): LSegHvOffset =
+    if(gSys.hCenExists(tileLt)) LSegHvOffset(corners.cornerVLast(tileLt, 0), corners.cornerV1(tileLt, 1))
     else LSegHvOffset(tileLt.v0Exact, tileLt.v1Exact)
 
   /** The vLast doesn't seem to make any difference. */
-  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LSegHvOffset =
-    if (sys.hCenExists(tileRt)) LSegHvOffset(corners.cornerVLast(tileRt, 3), corners.cornerV1(tileRt, 4))
+  override def rightCorners(corners: HCornerLayer)(using gSys: HGridSys): LSegHvOffset =
+    if (gSys.hCenExists(tileRt)) LSegHvOffset(corners.cornerVLast(tileRt, 3), corners.cornerV1(tileRt, 4))
     else LSegHvOffset(tileRt.v3Exact, tileRt.v4Exact)
 
   override def anglePerpRt: Angle = 60.degs
@@ -204,7 +204,7 @@ class HSepC(val r: Int, val c: Int) extends HSep
   override def tileRtReg: HCen = HCen(r - 1, c + 1)
   override def tileLtAndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
 
-  override def tileLtAndVertFromRt(rtCenR: Int)(implicit gSys: HGridSys): (HCen, Int) =
+  override def tileLtAndVertFromRt(rtCenR: Int)(using gSys: HGridSys): (HCen, Int) =
   { val hCen = tileLt
     val i = ife(hCen.r == rtCenR + 2, 2, 0)
     (hCen, i)
@@ -215,13 +215,13 @@ class HSepC(val r: Int, val c: Int) extends HSep
   override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt),(tileRt, 5, 0),  (tileLt, 2, 3))
 
-  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LSegHvOffset =
-    if (sys.hCenExists(tileLt)) LSegHvOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))
+  override def leftCorners(corners: HCornerLayer)(using gSys: HGridSys): LSegHvOffset =
+    if (gSys.hCenExists(tileLt)) LSegHvOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))
     else LSegHvOffset(tileLt.v2Exact, tileLt.v3Exact)
 
   /** I think this is now correct. */
-  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LSegHvOffset =
-    if (sys.hCenExists(tileRt)) LSegHvOffset(corners.cornerVLast(tileRt, 5), corners.cornerV1(tileRt, 0))
+  override def rightCorners(corners: HCornerLayer)(using gSys: HGridSys): LSegHvOffset =
+    if (gSys.hCenExists(tileRt)) LSegHvOffset(corners.cornerVLast(tileRt, 5), corners.cornerV1(tileRt, 0))
     else LSegHvOffset(tileRt.v5Exact, tileRt.v0Exact)
 
   override def anglePerpRt: Angle = -60.degs

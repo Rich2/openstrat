@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom.*, annotation.*, reflect.ClassTag
+import geom.*, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
@@ -29,8 +29,7 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     var o2: Option[HCen] = Some(startCen)
 
     while (i < length & o2.nonEmpty)
-    {
-      o2 = gSys.stepEndFind(hc1, index(i))
+    { o2 = gSys.stepEndFind(hc1, index(i))
       o2.foreach { hc2 =>
         val hls = LSegHC(hc1, hc2)
         f(hls)
@@ -40,14 +39,14 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     }
   }
 
-  def segHCs(implicit gSys: HGridSys): LineSegHCArr =
+  def segHCs(using gSys: HGridSys): LineSegHCArr =
   { val res = LineSegHCArr.uninitialised(length)
     var i = 0
     segHCsForeach{ s => res.setElemUnsafe(i, s); i += 1 }
     res
   }
 
-  def segHCsInit(implicit gSys: HGridSys): LineSegHCArr =
+  def segHCsInit(using gSys: HGridSys): LineSegHCArr =
   { val res = LineSegHCArr.uninitialised((length - 1).max0)
     var i = 0
     segHCsForeach { s => if (i != 0) res.setElemUnsafe(i, s); i += 1 }
@@ -56,7 +55,7 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
 
   //def SegHCLast: Option[LineSegHC] = if (length >= 0) Some(index(length - 1)) else None
 
-  def segHCsMap[B, ArrB <: Arr[B]](f: LSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB =
+  def segHCsMap[B, ArrB <: Arr[B]](f: LSegHC => B)(using build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.uninitialised(length)
     var count = 0
     segHCsForeach{ s => res.setElemUnsafe(count, f(s)); count += 1 }
