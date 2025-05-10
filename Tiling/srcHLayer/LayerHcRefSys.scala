@@ -6,12 +6,12 @@ import geom.*, reflect.ClassTag
  *  No run time information distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non-game application the data of the grid
  *  tiles is likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
-trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[A]
+trait LayerHcRefSys[A <: AnyRef] extends Any, LayerHcRef[A], LayerTcRef[A]
 {  //override type KeyT <: HGridSys
 
-  /** Completes the given row from the given starting c column value to the end of the row. An exception is
-   *  thrown if the tile values don't match with the end of the row. */
-  final def setRowEnd(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  /** Completes the given row from the given starting c column value to the end of the row. An exception is thrown if the tile values don't match with the end
+   * of the row. */
+  final def setRowEnd(row: Int, cStart: Int, tileMultis: Multiple[A]*)(using grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
@@ -20,7 +20,7 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
-  final def setRowEndUnchecked(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  final def setRowEndUnchecked(row: Int, tileMultis: Multiple[A]*)(using grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
     val cStart = grid.rowRightCenC(row) - numTiles * 4 + 4
     val endValues = cStart + numTiles * 4 - 4
@@ -30,15 +30,15 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
-  /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed explicitly as the first parameter. */
+  /** Fills in the whole given row, with the same given value. This method has name overload where the grid is passed explicitly as the first parameter. */
   inline def setRowSame(row: Int, value: A)(implicit grid: HGrid): Unit = setRowSame(grid, row, value)
 
-  /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed implicitly. */
+  /** Fills in the whole given row, with the same given value. This method has name overload where the grid is passed implicitly. */
   def setRowSame(grid: HGrid, row: Int, value: A): Unit =  grid.rowForeach(row){hc => arrayUnsafe(grid.layerArrayIndex(hc)) = value}
 
   /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens overflows
    * the row end. */
-  final def setRowPartSame(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
+  final def setRowPartSame(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(using grid: HGrid): HCen =
   { val rightC = cStart + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
@@ -48,7 +48,7 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
 
   /** Sets the given row from the start of the row, for the given number of tile centre values. An exception is thrown if the numOfCens overflows the row
    * end. */
-  final def setRowStartSame(row: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
+  final def setRowStartSame(row: Int, numOfCens: Int, tileValue: A)(using grid: HGrid): HCen =
   { val rightC = grid.rowLeftCenC(row) + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if (rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
@@ -56,9 +56,9 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     HCen(row, rightC)
   }
 
-  def rowsCombine(implicit grider: HGridSys): RArr[HCenRowPair[A]] = grider.rowsCombine(this, grider)
+  def rowsCombine(using grider: HGridSys): RArr[HCenRowPair[A]] = grider.rowsCombine(this, grider)
 
-  def projRowsCombine(implicit proj: HSysProjection): RArr[HCenRowPair[A]] = proj.gChild.rowsCombine(this, proj.parent)
+  def projRowsCombine(using proj: HSysProjection): RArr[HCenRowPair[A]] = proj.gChild.rowsCombine(this, proj.parent)
 
   def projRowsCombinePolygonHCs(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonHCPairArr[A] = projRowsCombine.map(_.polygonHCTuple)
 
@@ -111,7 +111,7 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
 
   /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]], passed as implicit parameter. There is a
    * name overload for this method that passes the child [[HGridSys]] explicitly. */
-  def spawn(parentGridSys: HGridSys)(implicit ct: ClassTag[A], childGridSys: HGridSys): LayerHcRefSys[A] = spawn(parentGridSys, childGridSys)(ct)
+  def spawn(parentGridSys: HGridSys)(using ctA: ClassTag[A], childGridSys: HGridSys): LayerHcRefSys[A] = spawn(parentGridSys, childGridSys)
 
   /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
    *  that passes the child [[HGridSys]] implicitly. */
@@ -215,10 +215,10 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
 /** Companion object for [[LayerHcRefSys]], contains factory apply methods. */
 object LayerHcRefSys
 { /** Apply factory method for [[LayerHcRefSys]]. */
-  def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGridSys): LayerHcRefSys[A] = apply(gridSys, value)(ct)
+  def apply[A <: AnyRef](value: A)(using ctA: ClassTag[A], gridSys: HGridSys): LayerHcRefSys[A] = apply(gridSys, value)
 
   /** Apply factory method for [[LayerHcRefSys]]. */
-  def apply[A <: AnyRef](gridSys: HGridSys, value: A)(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
+  def apply[A <: AnyRef](gridSys: HGridSys, value: A)(using ctA: ClassTag[A]): LayerHcRefSys[A] =
   { val newArray = new Array[A](gridSys.numTiles)
     iUntilForeach(gridSys.numTiles)(i => newArray(i) = value)
     new LayerHcRefMulti[A](newArray)
@@ -261,16 +261,14 @@ class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with
 object LayerHcRefGrid
 {
   /** Apply factory method for [[LayerHcRefSys]]. */
-  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGrid, defaultValue: DefaultValue[A]): LayerHcRefGrid[A] =
-    apply(gridSys, defaultValue.default)(ct)
+  def apply[A <: AnyRef]()(using ctA: ClassTag[A], gridSys: HGrid, defaultValue: DefaultValue[A]): LayerHcRefGrid[A] = apply(gridSys, defaultValue.default)
 
   /** Apply factory method for [[LayerHcRefSys]]. */
-  def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGrid): LayerHcRefGrid[A] = apply(gridSys, value)(ct)
+  def apply[A <: AnyRef](value: A)(using ctA: ClassTag[A], gridSys: HGrid): LayerHcRefGrid[A] = apply(gridSys, value)
 
   /** Apply factory method for [[LayerHcRefSys]]. */
-  def apply[A <: AnyRef](gridSys: HGrid, value: A)(implicit ct: ClassTag[A]): LayerHcRefGrid[A] =
-  {
-    val newArray = new Array[A](gridSys.numTiles)
+  def apply[A <: AnyRef](gridSys: HGrid, value: A)(using ctA: ClassTag[A]): LayerHcRefGrid[A] =
+  { val newArray = new Array[A](gridSys.numTiles)
     iUntilForeach(gridSys.numTiles)(i => newArray(i) = value)
     new LayerHcRefGrid[A](newArray)
   }
@@ -279,7 +277,7 @@ object LayerHcRefGrid
 class LayerHcRefMulti[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal, LayerHcRefSys[A]
 { /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
    *  that passes the child [[HGridSys]] implicitly. */
-  override def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
+  override def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(using ctA: ClassTag[A]): LayerHcRefSys[A] =
   { val array: Array[A] = new Array[A](childGridSys.numTiles)
     childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(parentGridSys, hc) }
     new LayerHcRefMulti[A](array)
