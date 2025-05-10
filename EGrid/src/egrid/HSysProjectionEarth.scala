@@ -1,11 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-2% Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
+import geom.*, prid.phex.*, pglobe.*, pgui.*, pEarth.*, Colour.*
 
-/** Creates a 2D projection from hex grids projected on on to the Earth */
+/** Creates a 2D projection from hex grids projected on to the Earth */
 case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProjection
-{
-  override type SysT = EGridSys
+{ override type SysT = EGridSys
   var focus: LatLongDirn = LatLongDirn.degs(0, 0)
   var irrOn: Boolean = false
   
@@ -111,7 +110,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   }
 
   override def transOptHVOffset(hvo: HvOffset): Option[Pt2] =
-  { val m3 = hvo.toPtM3(hCoord => parent.hCoordLL(hCoord).toMetres3)(parent)
+  { val m3 = hvo.toPtM3(parent){hCoord => parent.hCoordLL(hCoord).toMetres3}
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zNonNeg, Some(rotated.xy.rotate180If(southUp)), None)
     opt.map(_.mapGeom2(metresPerPixel))

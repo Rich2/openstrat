@@ -7,9 +7,7 @@ import geom.*, reflect.ClassTag
  *  tiles is likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
 trait LayerHcRefSys[A <: AnyRef] extends Any, LayerHcRef[A], LayerTcRef[A]
-{  //override type KeyT <: HGridSys
-
-  /** Completes the given row from the given starting c column value to the end of the row. An exception is thrown if the tile values don't match with the end
+{ /** Completes the given row from the given starting c column value to the end of the row. An exception is thrown if the tile values don't match with the end
    * of the row. */
   final def setRowEnd(row: Int, cStart: Int, tileMultis: Multiple[A]*)(using grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
@@ -184,8 +182,11 @@ trait LayerHcRefSys[A <: AnyRef] extends Any, LayerHcRef[A], LayerTcRef[A]
    * the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex tile data values. */
   def projLinksLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (LSeg2, A, A) => Option[B])(using build: BuilderArrMap[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
-      hs.unsafeTiles match {
-        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
+      hs.unsafeTiles match
+      { case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) =>
+          f(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
+        
+      case (c1, c2) => excep(s"$c1 or $c2 don't exist")
       }
     }
 
@@ -200,8 +201,9 @@ trait LayerHcRefSys[A <: AnyRef] extends Any, LayerHcRef[A], LayerTcRef[A]
    * the two adjacent hex tile data values. */
   def projLinksHsLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (HSep, LSeg2, A, A) => Option[B])(using build: BuilderArrMap[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
-      hs.unsafeTiles match {
-        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs, hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
+      hs.unsafeTiles match
+      { case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs, hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
+        case (c1, c2) => excep(s"$c1 or $c2 don't exist")
       }
     }
 
@@ -258,8 +260,7 @@ class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with
 
 /** Companion object for [[LayerHcRefGrid]], contains factory apply methods. */
 object LayerHcRefGrid
-{
-  /** Apply factory method for [[LayerHcRefSys]]. */
+{ /** Apply factory method for [[LayerHcRefSys]]. */
   def apply[A <: AnyRef]()(using ctA: ClassTag[A], gridSys: HGrid, defaultValue: DefaultValue[A]): LayerHcRefGrid[A] = apply(gridSys, defaultValue.default)
 
   /** Apply factory method for [[LayerHcRefSys]]. */

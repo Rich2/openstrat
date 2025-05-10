@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A point in [[HCoord]] space offset from an [[HVert]] towards a neighbouring [[HCen]] or [[HVert]], defined in [[Int]]s. */
 class HvOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
@@ -68,12 +68,15 @@ class HvOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     }
   }
 
+  /** Converts this [[HvOffset]] to a [[PtM3]] using an [[HVert]] to [[PtM3]] function. */
+  def toPtM3(f: HCoord => PtM3)(using gSys: HGridSys): PtM3 = toPtM3(gSys)(f)
+  
   /** Converts this [[HvOffset]] to a [[PtM3]] using an [[HVert]] to [[PtM3]] function.  */
-  def toPtM3(f: HCoord => PtM3)(implicit hSys: HGridSys): PtM3 = hvDirn match {
-    case HVExact => f(vert)
-    case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match {
-      case Some(hc2) => {
-        val p2 = f(hc2)
+  def toPtM3(gSys: HGridSys)(f: HCoord => PtM3): PtM3 = hvDirn match
+  { case HVExact => f(vert)
+    case hd: HVDirn => gSys.vertToCoordFind(vert, hd) match
+    { case Some(hc2) =>
+      { val p2 = f(hc2)
         val frac: Int = hd match {
           case HVLt | HVRt => 32
           case _ => 16
@@ -88,8 +91,7 @@ class HvOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   }
 }
 
-  /** Companion object for [[HvOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor
- * directly. */
+  /** Companion object for [[HvOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor directly. */
 object HvOffset
 {
   def apply(hVert: HVert, hvDirn: HVDirnOpt, offset: Int): HvOffset = apply(hVert.r, hVert.c, hvDirn, offset)
@@ -131,12 +133,12 @@ object HvOffset
   implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
-trait HvOffsetSeqLike extends Any with SeqLikeImutInt3[HvOffset]
+trait HvOffsetSeqLike extends Any, SeqLikeImutInt3[HvOffset]
 { final override def elemFromInts(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
   final override def fElemStr: HvOffset => String = _.toString
 }
 
-class HvOffsetArr(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike with ArrInt3[HvOffset]
+class HvOffsetArr(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike, ArrInt3[HvOffset]
 { override type ThisT = HvOffsetArr
   override def typeStr: String = "HVvOffsetArr"
   override def fromArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
