@@ -23,7 +23,7 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     new HStepPath(newArray)
   }
 
-  def segHCsForeach(f: LSegHC => Unit)(implicit gSys: HGridSys): Unit =
+  def segHCsForeach(f: LSegHC => Unit)(using gSys: HGridSys): Unit =
   { var i: Int = 0
     var hc1: HCen = startCen
     var o2: Option[HCen] = Some(startCen)
@@ -63,14 +63,14 @@ class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
     res
   }
 
-  def projLineSegs(implicit proj: HSysProjection): LSeg2Arr =
+  def projLineSegs(using proj: HSysProjection): LSeg2Arr =
   { val res = LSeg2Arr.uninitialised(length)
     var count = 0
     segHCsForeach{ lh =>
       val ols = proj.transOptLineSeg(lh)
       ols.foreach(res.setElemUnsafe(count, _))
       count += 1
-    }(proj.parent)
+    }(using proj.parent)
     res
   }
 }
