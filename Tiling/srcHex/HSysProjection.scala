@@ -43,7 +43,7 @@ trait HSysProjection extends TSysProjection
 
   /** Produces the [[HSep]] separator polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
   def hSepPolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sepOptMapPair { hs =>
-    if(f(hs)) corners.sepPoly(hs)(parent).optMap(transOptHVOffset(_))
+    if(f(hs)) corners.sepPoly(parent, hs).optMap(transOptHVOffset(_))
     else None
     }
 

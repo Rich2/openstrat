@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pglobe._, prid._, phex._, reflect.ClassTag
+import geom.*, pglobe.*, prid.phex.*, reflect.ClassTag
 
 /** A system of hex grids for the earth containing multiple grids. */
 trait EGridMulti extends EGridSys with HGridMulti
@@ -128,7 +128,7 @@ trait EGridMulti extends EGridSys with HGridMulti
       val origGrid = pair._1
       val lay: HSideBoolLayer = pair._2
       m.sidesForeach { hs =>
-        val value: Boolean = lay(hs)(origGrid)
+        val value: Boolean = lay(origGrid, hs)
         res.set(hs, value)(ThisMulti)
       }
     }

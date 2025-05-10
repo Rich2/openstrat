@@ -345,7 +345,10 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Returns the [[PolygonHvOffset]] [[PolygonBase]] for the given [[HSep]]. */
-  def sepPoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHvOffset = hs.tileLtOpt match
+  def sepPoly(gridSys: HGridSys, hs: HSep): PolygonHvOffset = sepPoly(hs)(using gridSys)
+    
+  /** Returns the [[PolygonHvOffset]] [[PolygonBase]] for the given [[HSep]]. */
+  def sepPoly(hs: HSep)(using gridSys: HGridSys): PolygonHvOffset = hs.tileLtOpt match
   {
     case None => //There is a tile to the right of the separator, but not one to the left
     { val (hcRt, vi) = hs.tileRtAndVert
