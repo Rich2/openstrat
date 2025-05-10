@@ -18,16 +18,13 @@ trait EGridMulti extends EGridSys with HGridMulti
   /** Finds the most appropriate [[HGridMan]] for the [[HCoord]] or returns [[None]]. */
   def manFind(r: Int, c: Int): Option[ManT]
 
-  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws
-   *  if [[HCoord]] doesn't exist. */
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws if [[HCoord]] doesn't exist. */
   final def manGetex(hc: HCoord): ManT = manGetex(hc.r, hc.c)
 
-  /** Gets the appropriate [[HGridMan]] for the [[HCoord]].ex abbreviation for [[Exception]]. Throws
-   *  if [[HCoord]] doesn't exist. */
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]].ex abbreviation for [[Exception]]. Throws if [[HCoord]] doesn't exist. */
   def manGetex(r: Int, c: Int): ManT
 
-  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws if
-   *  [[HCoord]] doesn't exist. */
+  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws if [[HCoord]] doesn't exist. */
   def gridGetex(r: Int, c: Int): GridT = manGetex(r, c).grid
 
   /** Gets the appropriate [[HGrid]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws if
@@ -37,8 +34,7 @@ trait EGridMulti extends EGridSys with HGridMulti
   /** Maps the appropriate [[EGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
   def manMapex[A](hc: HCoord)(f: ManT => A): A = f(manGetex(hc))
 
-  /** Maps the appropriate [[EGridMan]] for the [[HCoord]]. ex abbreviation for [[Exception]].Throws
-   *  if [[HCoord]] doesn't exist. */
+  /** Maps the appropriate [[EGridMan]] for the [[HCoord]]. ex abbreviation for [[Exception]].Throws if [[HCoord]] doesn't exist. */
   def manMapex[A](r: Int, c: Int)(f: ManT => A): A = f(manGetex(r, c))
 
   /** OptMaps the appropriate [[EGridMan]] for the [[HCoord]] to [[Option]] of A. */

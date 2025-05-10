@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
@@ -82,7 +82,7 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
     }
   }
 
-  /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
+  /** Maps over the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
   def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: BuilderArrMap[B, BB]): BB =
   { val buff = build.newBuff()
     gSys.foreach { r =>
@@ -114,13 +114,13 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
     build.buffToSeqLike(buff)
   }
 
-  /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[Graphic2Elem]] or a subtype. */
+  /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In most
+   * cases B will be a [[Graphic2Elem]] or a subtype. */
   def projHeadsHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
     projHeadsHcPtMap(proj)(f)
 
-  /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[Graphic2Elem]] or a subtype. */
+  /** Uses projection to map the [[Some]] head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In most
+   * cases B will be a [[Graphic2Elem]] or a subtype. */
   def projHeadsHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
@@ -136,8 +136,8 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
   def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (RArr[A], HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderArrMap[B, ArrB]): ArrB =
     projSomesHcPtMap(proj)(f)
 
-  /** Uses projection to map the non empty ArrSome head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
-   * most cases B will be a [[Graphic2Elem]] or a subtype. */
+  /** Uses projection to map the non empty ArrSome head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B.
+   * In most cases B will be a [[Graphic2Elem]] or a subtype. */
   def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
@@ -216,11 +216,11 @@ object LayerHcRArr
   def apply[A <: AnyRef](gridSys: HGridSys)(using ctA: ClassTag[A]): LayerHcRArr[A] = apply()(using ctA, gridSys)
 
   /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is passed
-   * explicitly as the sole paramter of the first parameter list */
+   * explicitly as the sole parameter of the first parameter list */
   def apply[A <: AnyRef]()(using ct: ClassTag[A], gridSys: HGridSys): LayerHcRArr[A] =
   { val newArray = new Array[Array[A]](gridSys.numTiles)
     val init: Array[A] = Array()
     iUntilForeach(gridSys.numTiles)(newArray(_) = init)
-    new LayerHcRArr[A](newArray, gridSys)(ct)
+    new LayerHcRArr[A](newArray, gridSys)
   }
 }

@@ -104,7 +104,7 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
 
     // case hi: HIndent1 => iUntilPolygonLikeMap(6) { i => ife((i + 5) %% 6 == hi.indentStartIndex, hc.vIn(i, 7), hc.vExact(i)) }
 
-    case _ => corners.tilePoly(hc)(proj.parent)
+    case _ => corners.tilePoly(proj.parent, hc)
   }
     proj.transPolygonHVOffset(poly1)
   }

@@ -37,15 +37,13 @@ trait HSysProjection extends TSysProjection
 
   /** Produces the hex tile polygons modified by the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
   def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] = gChild.optMapPair{hc =>
-    val poly: PolygonHvOffset = corners.tilePoly(hc)(parent)
+    val poly: PolygonHvOffset = corners.tilePoly(parent, hc)
     poly.optMap(transOptHVOffset(_))
   }
 
   /** Produces the [[HSep]] separator polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
-  def hSepPolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sepOptMapPair { hs =>
-    if(f(hs)) corners.sepPoly(parent, hs).optMap(transOptHVOffset(_))
-    else None
-    }
+  def hSepPolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] =
+    gChild.sepOptMapPair { hs => if(f(hs)) corners.sepPoly(parent, hs).optMap(transOptHVOffset(_)) else None }
 
   /** transforms and filters out non-visible [[HSep]]s. */
   def transHSeps(inp: HSepArr): LSeg2Arr

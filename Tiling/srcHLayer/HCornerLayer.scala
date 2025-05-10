@@ -12,10 +12,16 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def numTiles: Int = unsafeArray.length / 6
 
   /** Returns the [[HCorner]] encoded as an [[Int]]. */
+  def indexUnsafe(gridSys: HGridSys, hCen: HCen, vertNum: Int): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
+
+  /** Returns the [[HCorner]] encoded as an [[Int]]. */
   def indexUnsafe(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
 
   /** Returns the [[HCorner]] encoded as an [[Int]]. */
   def indexUnsafe(cenR: Int, cenC: Int, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(cenR, cenC) * 6 + vertNum
+
+  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HvOffset]]s. */
+  def corner(gridSys: HGridSys, hCen: HCen, vertNum: Int): HCorner = new HCorner(unsafeArray(indexUnsafe(gridSys, hCen, vertNum)))
 
   /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HvOffset]]s. */
   def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(indexUnsafe(hCen, vertNum)))
@@ -52,13 +58,19 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     sepLineHVAndOffset(proj.parent, hCen, vertNum1, vertNum2).map(proj.transHVOffset)
 
   /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] by row and column. */
+  def tileCorners(gridSys: HGridSys, hCen: HCen): RArr[HCorner] = iUntilMap(6) { i => corner(gridSys, hCen, i) } 
+
+  /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] by row and column. */
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
 
   /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] asa single parameter. */
   def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }
 
   /** Returns the polygon of the [[HCen]] in [[HvOffset]]s. There is a name overload to specify the [[HCen]] asa single parameter. */
-  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHvOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
+  def tilePoly(gridSys: HGridSys, hCen: HCen): PolygonHvOffset = tileCorners(gridSys, hCen).iFlatMapPolygon { (i, corn) => corn.verts(hCen.verts(i)) }
+  
+  /** Returns the polygon of the [[HCen]] in [[HvOffset]]s. There is a name overload to specify the [[HCen]] asa single parameter. */
+  def tilePoly(hCen: HCen)(using gridSys: HGridSys): PolygonHvOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
 
   /** Returns the polygon of the [[HCen]] in [[HvOffset]]s. There is a name overload to specify the [[HCen]] by row and column. */
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHvOffset = tilePoly(HCen(cenR, cenC))

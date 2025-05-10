@@ -241,23 +241,20 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
       ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
     }
 
-    /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-    def apply(gridSys: HGridSys, hc: HCen): Option[A] = apply(hc)(using gridSys)
+  /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
+  def apply(gridSys: HGridSys, hc: HCen): Option[A] = apply(hc)(using gridSys)
 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-  def apply(hc: HCen)(using gridSys: HGridSys): Option[A] =
-  { if (!gridSys.hCenExists(hc)) None else
-      { val elem = arrayUnsafe(gridSys.layerArrayIndex(hc))
-        if (elem == null) None else Some(elem)
-      }
+  def apply(hc: HCen)(using gridSys: HGridSys): Option[A] = if (!gridSys.hCenExists(hc)) None else
+  { val elem = arrayUnsafe(gridSys.layerArrayIndex(hc))
+    if (elem == null) None else Some(elem)
   }
 
+
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] = {
-    if (!gridSys.hCenExists(r, c)) None else {
-      val elem = arrayUnsafe(gridSys.layerArrayIndex(r, c))
-      if (elem == null) None else Some(elem)
-    }
+  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] = if (!gridSys.hCenExists(r, c)) None else
+  { val elem = arrayUnsafe(gridSys.layerArrayIndex(r, c))
+    if (elem == null) None else Some(elem)
   }
 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, returns the raw value which might be a [[null]]. */
