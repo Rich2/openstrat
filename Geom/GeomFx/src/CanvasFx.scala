@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import geom._, pgui._, utiljvm._, javafx._, scene._
+import geom.*, pgui.*, utiljvm.*, javafx.*, scene.*
 
 /** A JavaFx implementation of [[CanvasPlatform]]. <a href="https://openjfx.io/index.html">JavaFx 15 documentation</a><br>
  * <a href="https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/canvas/GraphicsContext.html">GraphicContext</a>*/
@@ -10,8 +10,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def height = canvFx.getHeight.max(100)
   
   def getButton(e: input.MouseEvent): MouseButton = 
-  { 
-    import input.MouseButton._
+  { import input.MouseButton._
     e.getButton match
     { case PRIMARY => LeftButton
       case MIDDLE => MiddleButton
@@ -19,7 +18,6 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
       case NONE => NoButton
       case BACK => BackButton
       case FORWARD => ForwardButton
-      case _ => UnknownButton
     }     
   }
   
@@ -66,8 +64,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   /** Needs mod */
   override protected def tlPolyDraw(pd: PolygonDraw): Unit =
-  { //gc.beginPath
-    gc.setStroke(toFxColor(pd.lineColour))
+  { gc.setStroke(toFxColor(pd.lineColour))
     gc.setLineWidth(pd.lineWidth)
     gc.strokePolygon(pd.xVertsArray, pd.yVertsArray, pd.vertsNum)
   }
@@ -180,8 +177,6 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.bezierCurveTo(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)
     gc.stroke()
   }
-   
-// baseline - VPos with values of Top, Center, Baseline, or Bottom or null.
 
   override protected def tlTextGraphic(tg: TextGraphic): Unit =
   { gc.setTextAlign(fxAlign(tg.textAlign))
