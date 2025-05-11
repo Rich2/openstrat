@@ -1,14 +1,14 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg120
-import geom._, egrid._, prid.phex._
+import geom.*, egrid.*, prid.phex.*
 
-/** An Earth grid system where the hex tiles are 120km across. A C scale of 55km. Maybe a single hrx or multiple hex grids. */
+/** An Earth grid system where the hex tiles are 120km across. A C scale of 30km. Maybe a single grid or multiple hex grids. */
 trait EGrid120Sys extends EGridSys
 { override val cScale: LengthMetric = 30.kilometres
 }
 
 /** Grid systems for 120km [[EGrid]]s. */
-trait EGrid120LongMulti extends EGridLongMulti with EGrid120Sys
+trait EGrid120LongMulti extends EGridLongMulti, EGrid120Sys
 {
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of the tile of
    * departure and the tile of arrival. */
@@ -21,8 +21,8 @@ object EGrid120LongMulti
   {
     override def grids: RArr[EGridLongFull] = startLong match
     { case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid120LongFull(rBottomCen, rTopCen, i))
-      case sl => {
-        val len = endLong - startLong + 13
+      case sl =>
+      { val len = endLong - startLong + 13
         iUntilMap(len)(i => EGrid120LongFull(rBottomCen, rTopCen, (i + startLong) %% 12))
       }
     }

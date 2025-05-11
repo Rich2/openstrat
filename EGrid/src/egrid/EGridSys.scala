@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pgui._, pglobe._, prid._, phex._
+import geom.*, pgui.*, pglobe.*, prid.phex.*
 
 /** A hex grid system on the surface of the earth. */
 trait EGridSys extends HGridSys
@@ -25,5 +25,4 @@ trait EGridSys extends HGridSys
 }
 
 /** A hex grid on the surface of the earth. */
-abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: LengthMetric) extends HGridGen(bottomTileRow, unsafeRowsArray) with
-  EGridSys
+abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: LengthMetric) extends HGridGen(bottomTileRow, unsafeRowsArray), EGridSys

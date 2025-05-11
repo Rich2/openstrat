@@ -123,19 +123,19 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   /** Returns an empty [[RArr]] if this is empty else returns an [[RArr]] containing only the last element. */
   def lasts(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = if(length == 0) RArr[A]() else RArr(last)
 
-  /** Concatenates the elements of the operand [[RArr]], if the condition is true, else returns the original [[RArr]]. The return type is the super type of
-   *  the original [[RArr]] and the operand [[RArr]]. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
-   *  method, but concatsIf allows type widening. */
+  /** Concatenates the elements of the operand [[RArr]], if the condition is true, else returns the original [[RArr]]. The return type is the super type of the
+   * original [[RArr]] and the operand [[RArr]]. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
+   * method, but concatsIf allows type widening. */
   def concatArrIf[AA >: A](b: Boolean, newElems: => RArr[AA])(implicit ct: ClassTag[AA]): RArr[AA] =
     ife(b,this ++ newElems, this)
 
-  /** Appends the element if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be evaluated if the condition
-   *  is true. This is similar to the concats If method, but appendsIf does not allow type widening. */
+  /** Appends the element if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be evaluated if the condition is true.
+   * This is similar to the concats If method, but appendsIf does not allow type widening. */
   def appendIf(b: Boolean, newElem: => A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
     ife(b,this +% newElem, this)
 
-  /** Appends the elements of the operand [[RArr]] if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be
-   *  evaluated if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
+  /** Appends the elements of the operand [[RArr]] if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be evaluated
+   * if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
   def appendArrIf(b: Boolean, newElems: => RArr[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
     ife(b,this ++ newElems, this)
 
@@ -166,8 +166,8 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
     new RArr[A](newArray)
   }
 
-  /** Takes the first n elements, starting from the second [[Int]] parameter that takes the default value of 0, looping back to the head when it
-   *  reaches the end of this sequence. */
+  /** Takes the first n elements, starting from the second [[Int]] parameter that takes the default value of 0, looping back to the head when it reaches the end
+   * of this sequence. */
   def takeLoop(n: Int, start: Int = 0)(implicit ct: ClassTag[A]@uncheckedVariance): RArr[A] =
   { val newArray = new Array[A](n)
     var i = 0
@@ -176,23 +176,6 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
       i += 1
     }
     new RArr[A](newArray)
-  }
-
-  /** Partitions this [[RArr]] with the first part taking all the elements while they are of type AA. */
-  def partitionType[AA <: A @uncheckedVariance](implicit ct1: ClassTag[A] @uncheckedVariance, ct2: ClassTag[AA]): (RArr[AA], RArr[A]) =
-  { val buff = Buffer[AA]()
-    var continue = true
-    var i = 0
-    while(i < length && continue) apply(i) match
-    { case el if el.isInstanceOf[AA] => {
-        buff.append(el.asInstanceOf[AA])
-        i += 1
-      }
-      case _ => continue = false
-    }
-    val array2 = new Array[A](length - i)
-    Array.copy(arrayUnsafe, i, array2, 0, length - i)
-    (buff.toArr, new RArr[A](array2))
   }
 
   /** Partitions this [[RArr]] into 2 parts each with a subtype pf this sequence. */
@@ -209,8 +192,8 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 }
 
-/** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A
- * extends AnyRef. */
+/** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A extends
+ * AnyRef. */
 object RArr
 { /** Factory apply method for [[RArr]] class. */
   def apply[A](input: A*)(using ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
@@ -297,7 +280,7 @@ case object RArr2
   }
 }
 
-/** Extractor object [[RArr]] head. RReturns the first / head element if non empty. */
+/** Extractor object [[RArr]] head. RReturns the first / head element if non-empty. */
 object RArrHead
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
   def unapply(arr: RArr[Any]): Option[Any] = ife(arr.nonEmpty, Some(arr(0)), None)

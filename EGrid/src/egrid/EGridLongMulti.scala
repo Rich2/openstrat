@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pglobe._, prid._, phex._
+import geom.*, pglobe.*, prid.phex.*
 
-/** A hex grid system consisting of multiple non polar [[EGrid]]s. */
-trait EGridLongMulti extends EGridSys with EGridMulti
+/** A hex grid system consisting of multiple non-polar [[EGrid]]s. */
+trait EGridLongMulti extends EGridSys, EGridMulti
 { override type ManT = EGridLongMan
   override def grids: RArr[EGridLong]
 
