@@ -285,6 +285,7 @@ implicit class ExcBi3Extensions[E <: Throwable, A1, A2, A3](val thisEE3: ErrBi3[
   def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ErrBi3[E, B1, B2, B3]): ErrBi3[E, B1, B2, B3] = thisEE3 match
   { case Succ3(a1, a2, a3) => f(a1, a2, a3)
     case Fail(err) => Fail(err)
+    case eb => excep(s"$eb This case was unexpected")
   }
 }
 

@@ -26,6 +26,7 @@ object lexSrc
           posn = tp
         }
         case Fail(err) => acc2 = Fail(err)
+        case eb => excep(s"$eb This case was unexpected")
       }
     }
 
