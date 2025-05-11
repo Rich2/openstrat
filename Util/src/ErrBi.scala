@@ -253,11 +253,12 @@ type ExcMonRArr[Ae] = ErrBi[Exception, RArr[Ae]]
 type ErrBi2[E <: Throwable, A1, A2] = ErrBi[E, (A1, A2)]
 
 /** Extension class for [[Exception]] bifunctor for [[Tuple2]]s. */
-implicit class ExcBi2Extensions[E <: Throwable, A1, A2](val thisEE2: ErrBi2[E, A1, A2])
+extension [E <: Throwable, A1, A2](thisEE2: ErrBi2[E, A1, A2])
 {
   def t2FlatMap[B1, B2](f: (A1, A2) => ErrBi2[E, B1, B2]): ErrBi2[E, B1, B2] = thisEE2 match
   { case Succ2(a1, a2) => f(a1, a2)
     case Fail(err) => Fail(err)
+    case eb => excep(s"$eb This case was unexpected")
   }
 }
 
