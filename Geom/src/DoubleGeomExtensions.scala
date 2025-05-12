@@ -74,7 +74,4 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Degrees rotation clockwise. Converts this Double into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees and less
    * than -360 degrees. */
   def degsClk: AngleVec = AngleVec(-thisDouble)
-
-  /** Multiplication of a 2-dimensional vector by this scalar [[Double]]. */
-  def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
 }

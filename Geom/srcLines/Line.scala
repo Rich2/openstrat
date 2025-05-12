@@ -43,7 +43,7 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
     val v2: Pt2 = Pt2(1, xFactor + offset)
     val lineDelta: Vec2 = yIntersection >> v2
     val lineUnitVector: Vec2 = lineDelta / lineDelta.magnitude
-    val r1: Vec2 = (pt >> yIntersection) - 2 * (pt >> yIntersection).dot(lineUnitVector) * lineUnitVector
+    val r1: Vec2 = (pt >> yIntersection) - lineUnitVector * 2 * (pt >> yIntersection).dot(lineUnitVector)
     yIntersection + r1
   }
   
@@ -65,7 +65,7 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
   { val v2: Pt2 = Pt2(yFactor + offset, 1)
     val lineDelta =  xIntersection >> v2
     val lineUnitVector = lineDelta / lineDelta.magnitude
-    val r1 = (pt >> xIntersection) - 2 * (pt >> xIntersection).dot(lineUnitVector) * lineUnitVector
+    val r1 = (pt >> xIntersection) - lineUnitVector * 2 * (pt >> xIntersection).dot(lineUnitVector) 
     xIntersection + r1
   }
   

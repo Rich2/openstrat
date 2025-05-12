@@ -72,7 +72,4 @@ class IntGeomExtensions(thisInt: Int)
   /** Degrees rotation clockwise. Converts this Int into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees and less than
    * -360 degrees. */
   def degsClk: AngleVec = AngleVec(-thisInt)
-
-  /** Multiplication of a 2-dimensional vector by this scalar [[Int]]. */
-  def *(operand: Vec2): Vec2 = new Vec2(thisInt * operand.x, thisInt * operand.y)
 }

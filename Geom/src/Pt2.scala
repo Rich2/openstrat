@@ -89,8 +89,9 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
       val lineDelta = v2 << v1
       val lineUnitVector = lineDelta / lineDelta.magnitude
       val r1 = v1 << this
-      val r2 = r1 - 2 * v1.<<(this).dot(lineUnitVector) * lineUnitVector
-      v1 + r2
+      val r2 = 2 * v1.<<(this).dot(lineUnitVector)
+      val r3 = r1 - lineUnitVector * r2
+      v1 + r3
     }
   }
 
