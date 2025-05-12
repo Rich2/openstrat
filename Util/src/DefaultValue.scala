@@ -9,8 +9,8 @@ trait DefaultValue[T]
 
 /** Companion object for the [[DefaultValue]] type class trait, contains instances for common types. */
 object DefaultValue
-{ implicit val intImplicit: DefaultValue[Int] = new DefaultValue[Int] { override def default: Int = 0 }
-  implicit val doubleImplicit: DefaultValue[Double] = new DefaultValue[Double] { override def default: Double = 0 }
-  implicit val stringImplicit: DefaultValue[String] = new DefaultValue[String] { override def default: String = "" }
-  implicit def listImplicit[A]: DefaultValue[List[A]] = new DefaultValue[List[A]] { override def default: List[A] = Nil }
+{ given intEv: DefaultValue[Int] = new DefaultValue[Int] { override def default: Int = 0 }
+  given doubleEv: DefaultValue[Double] = new DefaultValue[Double] { override def default: Double = 0 }
+  given stringEv: DefaultValue[String] = new DefaultValue[String] { override def default: String = "" }
+  given listEv[A]: DefaultValue[List[A]] = new DefaultValue[List[A]] { override def default: List[A] = Nil }
 }

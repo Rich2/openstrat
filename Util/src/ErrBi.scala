@@ -17,7 +17,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
   }
 
   /** If this [[ErrBi]] is a [[Succ]] produce and [[ErrBi]] accumulator with the parameter function. */
-  def flatMapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
+  def flatMapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
     ErrBiAcc[EE, B]
 
   /** True if this is a successful [[Succ]] value. */
@@ -86,29 +86,29 @@ object ErrBi
     eb6: ErrBi[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): ErrBi[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
 
-  implicit def eqTEv[E <: Throwable, A](implicit evA: EqT[A]): EqT[ErrBi[E, A]] = (em1, em2) => (em1, em2) match
+  given eqTEv[E <: Throwable, A](using evA: EqT[A]): EqT[ErrBi[E, A]] = (em1, em2) => (em1, em2) match
   { case (Succ(a1), Succ(a2)) => evA.eqT(a1, a2)
     case (Fail(err1), Fail(err2)) => err1 == err2
     case _ => false
   }
 
-  implicit class ErrBiStringImplicit[E <: Throwable](thisErrBi: ErrBi[E, String])
+  extension[E <: Throwable](thisErrBi: ErrBi[E, String])
   { /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON. */
-    def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisErrBi.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
+    def findType[A](using ev: Unshow[A]): ErrBi[Throwable, A] = thisErrBi.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
 
     /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON or return the elseValue if that fails. */
-    def findTypeElse[A](elseValue: => A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: => A)(using ev: Unshow[A]): A = findType[A].getElse(elseValue)
 
     /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON and then perform a foreach on the value
      *  if successful. */
     def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forSucc(f)
 
-    def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] =
+    def findSetting[A](settingStr: String)(using ev: Unshow[A]): ErrBi[Throwable, A] =
       thisErrBi.flatMap(str => stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
 
     def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
 
-    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(using ev: Persist[A]): EMon[A]
 
     def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
@@ -123,7 +123,7 @@ case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
     case fail: Fail[EE] => fail
   }
 
-  override def flatMapAcc[EE <: Throwable, B](f: A => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
+  override def flatMapAcc[EE <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
     ErrBiAcc[EE, B] = f(value)
   
   override def isSucc: Boolean = true
@@ -154,7 +154,7 @@ object Succ
   }
 
   /** Implicit evidence for [[EqT]] for type [[Succ]]. */
-  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[Succ[A]] = (su1, su2) => evA.eqT(su1.value, su2.value)
+  implicit def eqTEv[A](using evA: EqT[A]): EqT[Succ[A]] = (su1, su2) => evA.eqT(su1.value, su2.value)
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
@@ -162,7 +162,7 @@ class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
 { override def map[B](f: Nothing => B): ErrBi[E, B] = this
   override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this
   
-  override def flatMapAcc[EE >: E <: Throwable, B](f: Nothing => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance,
+  override def flatMapAcc[EE >: E <: Throwable, B](f: Nothing => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance,
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[EE, B] = new ErrBiAcc[EE, B](Array[EE](error), Array[B]())
   
   override def isSucc: Boolean = false

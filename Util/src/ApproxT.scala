@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 trait ApproxT[D, T]
@@ -8,12 +8,12 @@ trait ApproxT[D, T]
 
 object ApproxT
 {
-  implicit val doubleImplicit: ApproxT[Double, Double] = new ApproxT[Double, Double]
+  given doubleEv: ApproxT[Double, Double] = new ApproxT[Double, Double]
   {  override def precisionDefault: Double = 1e-12
     override def approxT(op1: Double, op2: Double, precision: Double): Boolean =  (op1 - op2).abs <= precision
   }
 
-  implicit def optionImplicit[D, A](implicit ev: ApproxT[D, A]): ApproxT[D, Option[A]] = new ApproxT[D, Option[A]]
+  given optionEv[D, A](using ev: ApproxT[D, A]): ApproxT[D, Option[A]] = new ApproxT[D, Option[A]]
   { override def precisionDefault: D = ev.precisionDefault
 
     override def approxT(op1: Option[A], op2: Option[A], precision: D): Boolean = (op1, op2) match {
@@ -23,7 +23,7 @@ object ApproxT
     }
   }
 
-  implicit def arrayDblImplicit: ApproxT[Double, Array[Double]] = new ApproxT[Double, Array[Double]]
+  given arrayDblEv: ApproxT[Double, Array[Double]] = new ApproxT[Double, Array[Double]]
   {
     override def precisionDefault: Double = 1e-12
 
