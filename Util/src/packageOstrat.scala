@@ -530,8 +530,7 @@ package object ostrat
       res
     }
   }
-
-  implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
+  
   implicit def AnyRefTypeToExtensions[T <: AnyRef](thisT: T): AnyRefTypeExtensions[T] = new AnyRefTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](array: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](array)
   implicit def arrayValueNElemToExtensions[A <: ValueNElem](array: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](array)

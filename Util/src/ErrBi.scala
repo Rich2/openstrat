@@ -154,7 +154,7 @@ object Succ
   }
 
   /** Implicit evidence for [[EqT]] for type [[Succ]]. */
-  implicit def eqTEv[A](using evA: EqT[A]): EqT[Succ[A]] = (su1, su2) => evA.eqT(su1.value, su2.value)
+  given eqTEv[A](using evA: EqT[A]): EqT[Succ[A]] = (su1, su2) => evA.eqT(su1.value, su2.value)
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
@@ -280,7 +280,7 @@ object Succ2
 type ErrBi3[E <: Throwable, A1, A2, A3] = ErrBi[E, (A1, A2, A3)]
 
 /** Extension class for [[Exception]] bifunctor for [[Tuple3]]s. */
-implicit class ExcBi3Extensions[E <: Throwable, A1, A2, A3](val thisEE3: ErrBi3[E, A1, A2, A3])
+extension[E <: Throwable, A1, A2, A3](thisEE3: ErrBi3[E, A1, A2, A3])
 {
   def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ErrBi3[E, B1, B2, B3]): ErrBi3[E, B1, B2, B3] = thisEE3 match
   { case Succ3(a1, a2, a3) => f(a1, a2, a3)

@@ -34,10 +34,10 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errNum: Int = errsArray.length
   override def succNum: Int = succsArray.length
   override def toString: String = s"$succNum successes, $errNum failures."
-  def summaryLine(implicit evST: ShowType[B]): String = s"$succNum ${evST.typeStr} successes, $errNum failures."
-  def errsSummary(implicit evST: ShowType[B]): String = errsArray.foldLeft(summaryLine)(_ --- _.toString)
+  def summaryLine(using evST: ShowType[B]): String = s"$succNum ${evST.typeStr} successes, $errNum failures."
+  def errsSummary(using evST: ShowType[B]): String = errsArray.foldLeft(summaryLine)(_ --- _.toString)
 
-  def msgErrsSummary(succMsg: String)(implicit evST: ShowType[B]): String =
+  def msgErrsSummary(succMsg: String)(using evST: ShowType[B]): String =
   { val sumLine = evST match
     { case sde: ShowEffectReport[_] => s"$succNum ${sde.actionStr(succNum) } $succMsg, $errNum failures."
       case _ => s"$succNum ${evST.typeStr} successes $succMsg, $errNum failures."
@@ -45,7 +45,7 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
     errsArray.foldLeft(sumLine)(_ --- _.toString)
   }
 
-  def msg2ErrsSummary(succMsg1: String, succMsg2: String)(implicit evST: ShowType[B]): String =
+  def msg2ErrsSummary(succMsg1: String, succMsg2: String)(using evST: ShowType[B]): String =
   { val sumLine: String = evST match
   { case sde: ShowEffectReport[_] => s"$succNum $succMsg1 ${sde.actionStr(succNum) } $succMsg2, $errNum failures."
     case _ => s"$succNum $succMsg1 ${evST.typeStr} successes $succMsg2, $errNum failures."
@@ -57,18 +57,18 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 
   /** Appends [[ErrBi]] element to this accumulator. Order of successes and fails is preserved but not the overall order. */
-  @targetName("append") @inline def ++(operand: ErrBiAcc[E, B] @uncheckedVariance)(implicit ctE: ClassTag[E] @uncheckedVariance,
+  @targetName("append") @inline def ++(operand: ErrBiAcc[E, B] @uncheckedVariance)(using ctE: ClassTag[E] @uncheckedVariance,
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc[E, B](errsArray ++ operand.errsArray, succsArray ++ operand.succsArray)
 
   /** Appends [[ErrBiAcc]] to this accumulator. Order of successes and fails is preserved but not the overall order. */
-  @targetName("appendElem") @inline def +%(newElem: ErrBi[E, B] @uncheckedVariance)(implicit ctE: ClassTag[E] @uncheckedVariance,
+  @targetName("appendElem") @inline def +%(newElem: ErrBi[E, B] @uncheckedVariance)(using ctE: ClassTag[E] @uncheckedVariance,
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
     newElem.fold{ err => new ErrBiAcc[E, B](errsArray :+ err, succsArray)}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
 }
 
 object ErrBiAcc
 { /** Factory apply method to construct an [[ErrBiAcc]]. */
-  def apply[E <: Throwable, B](input: ErrBi[E, B]*)(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
+  def apply[E <: Throwable, B](input: ErrBi[E, B]*)(using ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
     ErrBiAccBuff.fromSeq(input).unbuff
 }
 
@@ -81,7 +81,7 @@ class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVaria
   def growAcc(newElems: ErrBiAcc[E, B] @uncheckedVariance): Unit = {newElems.errs.foreach(errs.append(_)); newElems.succs.foreach(succs.append(_)) }
 
   /** Converts from a buffer to an immutable [[ErrBiAcc]]. */
-  def unbuff(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc(errs.toArray, succs.toArray)
+  def unbuff(using ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc(errs.toArray, succs.toArray)
 
   override def errNum: Int = errs.length
   override def succNum: Int = succs.length
