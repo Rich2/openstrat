@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 1300km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. A hex tile area of 1.463582932 million km²
  *  [[Isle7]] 241548.355km² => 321588.046km², British Isles combined 315159km²

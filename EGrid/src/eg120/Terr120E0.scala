@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg120
-import prid.phex.*, egrid.*, WTiles.*
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** [[WTile]] terrain for 15° west to 15° east, centred on 0° east.
  * [[Isle13]] 7611.551km² => 8878.113km². Corsica 8680km².

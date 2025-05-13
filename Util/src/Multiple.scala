@@ -94,6 +94,14 @@ object Multiple
     unshowEv(using evA).collFromArrExpr(inp.map(_.expr), builderColl)  
 }
 
+object MultExt
+{
+  extension [A](thisA: A)    
+  { /** Extension method on any type creates Multiple class of that type. */
+    def *(operand: Int): Multiple[A] = Multiple(thisA, operand)
+  }
+}
+
 class MultipleArr[A](intArray: Array[Int], valueArray: Array[A]) extends Arr[Multiple[A]]
 { type ThisT = MultipleArr[A]
   override def typeStr: String = "MultipleArr"
