@@ -34,13 +34,11 @@ sealed trait Line extends LineLike
 sealed case class YLine(xFactor: Double, offset: Double) extends Line
 { def y(x: Double): Double = xFactor * x + offset
 
-  /** The point at which the line crosses the Y Axis, unless this YLine is the YAxis in which case it is merely a point where the line intersects the
-   * Y axis. */
+  /** The point at which the line crosses the Y Axis, unless this YLine is the YAxis in which case it is merely a point where the line intersects the Y axis. */
   def yIntersection: Pt2 = Pt2(0, offset)
 
   override def reflectPt(pt: Pt2): Pt2 =
-  {
-    val v2: Pt2 = Pt2(1, xFactor + offset)
+  { val v2: Pt2 = Pt2(1, xFactor + offset)
     val lineDelta: Vec2 = yIntersection >> v2
     val lineUnitVector: Vec2 = lineDelta / lineDelta.magnitude
     val r1: Vec2 = (pt >> yIntersection) - lineUnitVector * 2 * (pt >> yIntersection).dot(lineUnitVector)
@@ -83,8 +81,7 @@ sealed class YParallel(offset: Double) extends YLine(0, offset )
 
 /** An infinite length 2-dimensional straight line that is parallel to the X Axis. It is defined for all values of X, but for only 1 value of Y. */
 sealed class XParallel(offset: Double) extends XLine(0, offset )
-{
-  /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
+{ /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def slate(xOperand: Double, yOperand: Double): XLine = ???
 }
 

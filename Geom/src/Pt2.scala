@@ -67,7 +67,6 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   @inline def toMetres(factor: LengthMetric): PtM2 = PtM2.apply(x * factor.metresNum, y * factor.metresNum)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
-
  
   def slateXFrom(adj: Double): Pt2 = Pt2(x - adj, y)
   def slateYFrom(adj: Double): Pt2 = Pt2(x, y - adj)
@@ -78,8 +77,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   /** Reflects or mirrors this Vec2 across a line, returning new Vec2. */
   def reflect(lineLike: LineLike): Pt2 = lineLike match
-  {
-    case xl: XLine => reflectXLine(xl)
+  { case xl: XLine => reflectXLine(xl)
     case yl: YLine => reflectYLine(yl)
     case r: Ray => ???
 
@@ -161,10 +159,9 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   /** Rotates this vector through the given angle around the centre of rotation passed as the first parameter. */
   def rotateAbout(centre: Pt2, a: AngleVec): Pt2 =
-  {
-    val rel: Vec2 = this << centre
-    val rel2: Vec2 = a match {
-      case Deg0 => rel
+  { val rel: Vec2 = this << centre
+    val rel2: Vec2 = a match
+    { case Deg0 => rel
       case DegVec90 => rel.rotate90
       case DegVec180 => rel.rotate180
       case DegVec270 => rel.rotate270
@@ -287,21 +284,21 @@ object Pt2
 
   /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function where
    * [[Pt2]] is the type B parameter. */
-  implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
+  implicit def polygonPairBuildEv[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
   implicit val lineSegBuildEv: BuilderMapLSegBase[Pt2, LSeg2] = LSeg2(_, _)
   
-  implicit val slateImplicit: Slate2[Pt2] = new Slate2[Pt2]
+  implicit val slateEv: Slate2[Pt2] = new Slate2[Pt2]
   { override def slate(obj: Pt2, operand: VecPt2): Pt2 = obj.slate(operand)   
     override def slateXY(obj: Pt2, xOperand: Double, yOperand: Double): Pt2 = obj.slate(xOperand, yOperand)
   }
     
-  implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-  implicit val reflectImplicit: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
+  implicit val scaleEv: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
+  implicit val rotateEv: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignEv: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleEv: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val reflectEv: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxesImplicit: TransAxes[Pt2] = new TransAxes[Pt2]
+  implicit val reflectAxesEv: TransAxes[Pt2] = new TransAxes[Pt2]
   { override def negYT(obj: Pt2): Pt2 = obj.negY
     override def negXT(obj: Pt2): Pt2 = obj.negX
     override def rotate90(obj: Pt2): Pt2 = obj.rotate90
@@ -309,7 +306,7 @@ object Pt2
     override def rotate270(obj: Pt2): Pt2 = obj.rotate270
   }
 
-  implicit val shearImplicit: Shear[Pt2] = new Shear[Pt2]
+  implicit val shearEv: Shear[Pt2] = new Shear[Pt2]
   { override def shearXT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
     override def shearYT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }

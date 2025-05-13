@@ -20,7 +20,7 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   def z: Metres = Metres(zMetresNum)
 
   /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
-  @inline def dot(operand: PtM3): Metrares = x * operand.x + y * operand.y + z * operand.z
+  @inline def dot(operand: PtM3): Metrares = ???// operand.x * x + operand.y * y + operand.z * z
   
   def xy: PtM2 = PtM2.apply(xMetresNum, yMetresNum)
   def xNonNeg: Boolean = x.nonNeg
@@ -46,7 +46,7 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
       case _ => atan(y / z)//This operates on the standard atan range -Pi/2 to pi/2
     }
     val ang1 = ang0 + rotationRadians
-    PtM3(x, sin(ang1) * scalar, cos(ang1) * scalar)
+    PtM3(x, scalar * sin(ang1), scalar * cos(ang1))
   }
 
   /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */

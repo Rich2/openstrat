@@ -4,7 +4,7 @@ import reflect.ClassTag
 
 /** A [[SqGridSys]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGridSys]] as an implicit
  * parameter. */
-class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerTcRef[A]
+class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal, LayerTcRef[A]
 { def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
   def apply(sc: SqCen)(implicit gSys: SqGridSys): A = arrayUnsafe(gSys.layerArrayIndex(sc))
 
@@ -99,5 +99,5 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
 }
 
 object SqCenLayer
-{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenLayer[A] = new SqCenLayer[A](new Array[A](length))
+{ def apply[A <: AnyRef](length: Int)(using ctA: ClassTag[A]): SqCenLayer[A] = new SqCenLayer[A](new Array[A](length))
 }

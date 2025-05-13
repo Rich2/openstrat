@@ -77,13 +77,13 @@ class HvOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case hd: HVDirn => gSys.vertToCoordFind(vert, hd) match
     { case Some(hc2) =>
       { val p2 = f(hc2)
-        val frac: Int = hd match {
-          case HVLt | HVRt => 32
+        val frac: Int = hd match
+        { case HVLt | HVRt => 32
           case _ => 16
         }
-        val x = ((frac - magnitude) * f(vert).x + magnitude * p2.x) / frac
-        val y = ((frac - magnitude) * f(vert).y + magnitude * p2.y) / frac
-        val z = ((frac - magnitude) * f(vert).z + magnitude * p2.z) / frac
+        val x = (f(vert).x * (frac - magnitude) + p2.x * magnitude) / frac
+        val y = (f(vert).y * (frac - magnitude) + p2.y * magnitude) / frac
+        val z = (f(vert).z * (frac - magnitude) + p2.z * magnitude) / frac
         PtM3(x, y, z)
       }
       case _ => f(vert)

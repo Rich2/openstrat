@@ -49,7 +49,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def toStr: String = "Arr" + toStrsSemiParenth()
 
   /** Extension method. Removes element at given index and returns a new Array.  */
-  def removeAt(i: Int)(implicit ct: ClassTag[A]): Array[A] =
+  def removeAt(i: Int)(using ctA: ClassTag[A]): Array[A] =
   { val oldLength = thisArray.length
     ifExcep(i >= oldLength | i < 0, s"$i index is out or range for this Array")
     val newLength = (oldLength - 1).max0
@@ -66,7 +66,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
 /** Extension methods for Array[A <: ValueNElem] class */
 class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extends AnyVal
 {
-  def valueProducts[B <: ArrValueN[A]](implicit factory: Int => B): B =
+  def valueProducts[B <: ArrValueN[A]](using factory: Int => B): B =
   { val length = thisArray.length
     val valProds = factory(length)
     var count = 0
