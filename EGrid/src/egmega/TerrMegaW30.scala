@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egmega
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles._, MultExt.*
 
 /** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 1000km.
  * [[Isle6]] 102333.079km² => 142928.020km². Iceland 103125km².

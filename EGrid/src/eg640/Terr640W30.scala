@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 640km [[WTile]] terrain terrain for 45° west to 15° west, centred on 30° wast. Hex tile area of 354724.005km².
  * [[Isle9]] 100112.536km² => 125054.068km². Iceland 103125km².

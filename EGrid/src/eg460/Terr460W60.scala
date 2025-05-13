@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.
  * [[Isle10]] 64603.127km² => 78919.609km². Hispaniola 76192km².

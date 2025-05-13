@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egmega
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 1Mm [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile ares of 866025.403 km².
  * [[Isle5]] 68503.962km² => 102333.079km². Salakhin 72,492 km².

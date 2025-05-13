@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 640km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile area of 354724.005km².
  * [[Isle12]] 183250.975km² => 216506.350km². Sulawesi 186216.16km².

@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid._, phex._, egrid._, WTiles._
+import prid.*, phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 640km.
  * [[Isle8]] 77942.286km² => 100112.536km². (Hispaniola 76192km²) + (Puerto Rico 8897km²) = 85089km².

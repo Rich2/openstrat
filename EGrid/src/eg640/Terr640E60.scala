@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 640km scale [[WTile]] terrain for 45° east to 75° east, centred on 60° east. Hex tile scale 640km.
  * [[Isle6]] 41915.629km² => 58543.317km². Severny Island 48904 km². */

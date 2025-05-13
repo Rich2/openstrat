@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid.phex.*, egrid.{WTerrSetter, _}, WTiles.*
+import prid.phex.*, egrid.{WTerrSetter, _}, WTiles.*, MultExt.*
 
 /** 640km [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile area of 709448.010km² .
  *  [[Isle3]] 8660.254km² => 16974.097km². (Crete 8450km²) + (Rhodes 1401km²) = 9851km²

@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** [[WTile]] terrain for 165° west to 135° wast, centred on 150° west. Hex tile scale of 320km.
  * [[Tile6]] 10478.907km² => 14635.829km². Kodiak archipelago 13890km². */

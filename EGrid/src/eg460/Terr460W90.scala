@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 460km [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile area 183250.975km².
  * [[Isle4]] 8768.845km² => 14495.438km². Jamaica 10,991 km². */

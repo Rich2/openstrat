@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDung
-import prid._, psq._
+import prid.psq.*, MultExt.*
 
 /** Dungeon game scenario. */
 trait DungeonScen
