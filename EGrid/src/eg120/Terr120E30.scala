@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg120
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** [[WTile]] 120km scale terrain for 15° east to 45° east, centred on 30° east.
  * [[Isle13]] 7611.551km² => 8878.113km². Crete 8450km².

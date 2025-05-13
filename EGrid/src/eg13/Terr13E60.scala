@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
-import prid.*, phex.*, egrid.*, WTiles.*
+import prid.*, phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** [[WTile]] terrain for 45° East to 75°, centred on 60° east. Hex tile scale 1300km. */
 object Terr13E60 extends Long13Terrs

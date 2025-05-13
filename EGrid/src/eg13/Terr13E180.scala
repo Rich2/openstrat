@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
-import prid._, phex._, egrid._, WTiles._
+import prid.phex.*, egrid.*, WTiles.*, MultExt.*
 
 /** 1300km [[WTile]] terrain for 175° east to 175° west, centred on 180° east. Hex tile area 1.463582932 million km²,
  *  [[Isle7]] 241548.355km² => 321588.046km². New Zealand has a land area of 268021km2*/
