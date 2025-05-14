@@ -40,8 +40,3 @@ trait Apply[F[_]] extends Functor[F]
 
   def map2[A1, A2, B](fa1: F[A1], fa2: F[A2])(f: (A1, A2) => B): F[B]
 }
-
-object Apply
-{
-  
-}

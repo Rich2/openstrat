@@ -29,11 +29,9 @@ case class Multiple[+A](value: A, num: Int)
 /** Companion object for the [[Multiple]][+A] type class. */
 object Multiple
 {
-  implicit def arrMapBuilderEv[A](using ctA: ClassTag[A]): MultipleArrMapBuilder[A] = new MultipleArrMapBuilder[A]
+  given arrMapBuilderEv[A](using ctA: ClassTag[A]): MultipleArrMapBuilder[A] = new MultipleArrMapBuilder[A]
 
-  implicit def eqTEv[A](using evA: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) && evA.eqT(a1.value, a2.value)
-
-  implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
+  given eqTEv[A](using evA: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) && evA.eqT(a1.value, a2.value)
 
   implicit class RefsImplicit[A](thisRefs: RArr[Multiple[A]])
   { /** The total number of elements in this sequence of [[Multiple]]s. */
@@ -57,8 +55,6 @@ object Multiple
       builder.buffToSeqLike(buff)
     }
   }
-
-  implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
 
   /** [[Show]] type class instance / evidence for full show of [[Multiple]] class. */
   def showFullEv[A](using evA: Show[A]): Show2[A, Int, Multiple[A]] = Show2[A, Int, Multiple[A]]("Multiple", "value", _.value, "num", _.num)
@@ -100,6 +96,8 @@ object MultExt
   { /** Extension method on any type creates Multiple class of that type. */
     def *(operand: Int): Multiple[A] = Multiple(thisA, operand)
   }
+
+  implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 }
 
 class MultipleArr[A](intArray: Array[Int], valueArray: Array[A]) extends Arr[Multiple[A]]
@@ -124,7 +122,7 @@ class MultipleArr[A](intArray: Array[Int], valueArray: Array[A]) extends Arr[Mul
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
 }
 
-class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
+extension[A](thisSeq: Seq[Multiple[A]])
 { /** Extension method. The number of single values of type A in this [[Seq]] of [[Multiple]]s. */
   def numSingles: Int = thisSeq.sumBy (_.num)
 
