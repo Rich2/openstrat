@@ -67,7 +67,6 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
     case a if a == DegVec90 => rotateY90
     case a if a == DegVec180 => rotateY180
     case a if a == DegVec270 => rotateY270
-    //Pt2(x1 * a.cos - y1 * a.sin, x1 * a.sin + y1 * a.cos)
     case a => PtM3(z * a.sin + x * a.cos, y, z * a.cos - x * a.sin)
   }
 
@@ -77,10 +76,10 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   /** Rotates the vector around the Z axis 180 degrees or Pi radians. */
   @inline def rotateZ180: PtM3 = PtM3(-x, -y, z)
 
-  /** rotates the vector around the Z axis 270 degrees anti clockwise or, 90 degrees or Pi/2 radians, clockwise. */
+  /** rotates the vector around the Z axis 270 degrees anti-clockwise or, 90 degrees or Pi/2 radians, clockwise. */
   @inline def rotateZ270: PtM3 = PtM3(y, -x, z)
 
-  /** Rotate around the Z axis, viewed from positive Z. A positive angle is anti clockwise. */
+  /** Rotate around the Z axis, viewed from positive Z. A positive angle is anti-clockwise. */
   def rotateZ(a: AngleVec): PtM3 = a match
   { case a if a == Deg0 => this
     case a if a == DegVec90 => rotateZ90
@@ -90,13 +89,9 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   }
 
   /** The distance in the XY plane from an operand [[PtM2]], the default being from the origin. */
-  def xyLengthFrom(operand: PtM2 = PtM2.origin): Metres = {
-    val sq = xMetresNum.squared + yMetresNum.squared
-    Metres(sq.sqrt)
-  }
+  def xyLengthFrom(operand: PtM2 = PtM2.origin): Metres = Metres((xMetresNum.squared + yMetresNum.squared).sqrt)
 
-  override def lineSegTo(endPt: PtLength3): LSegM3 =
-    LSegM3.metresNum(xMetresNum, yMetresNum, zMetresNum, endPt.xMetresNum, endPt.yMetresNum, endPt.zMetresNum)
+  override def lineSegTo(endPt: PtLength3): LSegM3 = LSegM3.metresNum(xMetresNum, yMetresNum, zMetresNum, endPt.xMetresNum, endPt.yMetresNum, endPt.zMetresNum)
 
   override def lineSegFrom(startPt: PtLength3): LSegM3 =
     LSegM3.metresNum(startPt.xMetresNum, startPt.yMetresNum, startPt.zMetresNum, xMetresNum, yMetresNum, zMetresNum)
@@ -126,19 +121,19 @@ object PtM3
   implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metreNum)
 
   /** [[BuilderArrPair]] type class instance / evidence for [[PtM3]]. */
-  implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
+  given builderArrPairEv[B2](using ctA: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
 
   /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function where
    * [[PtM3]] is the type B parameter. */
-  implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
+  given polygonPairBuilderEv[A2](using ctA: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
-  implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtM3, LinePathM3] = new LinePathDbl3MapBuilder[PtM3, LinePathM3]
+  implicit val linePathBuildEv: LinePathDbl3MapBuilder[PtM3, LinePathM3] = new LinePathDbl3MapBuilder[PtM3, LinePathM3]
   { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl3BuilderMap[PtM3, PolygonM3] = new PolygonDbl3BuilderMap[PtM3, PolygonM3]
+  implicit val polygonBuildEv: PolygonDbl3BuilderMap[PtM3, PolygonM3] = new PolygonDbl3BuilderMap[PtM3, PolygonM3]
   { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
@@ -200,7 +195,7 @@ class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
 object PtM3Arr extends CompanionSlDbl3[PtM3, PtM3Arr]
 { override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
-  implicit val arrFlatBuilderImplicit: BuilderFlatArrDbl3[PtM3Arr] = new BuilderFlatArrDbl3[PtM3Arr]
+  implicit val arrFlatBuilderEv: BuilderFlatArrDbl3[PtM3Arr] = new BuilderFlatArrDbl3[PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
