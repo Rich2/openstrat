@@ -2,8 +2,8 @@
 package ostrat
 import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
-/** An instant of time specified to the nearest minute. By default uees Gregorian Calender */
-class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
+/** An instant of time specified to the nearest minute. By default uees Gregorian Calendar */
+class MTime(val int1: Int) extends AnyVal, Ordered[MTime], Int1Elem
 { import MTime.lastMonthDay
   def minute: Int = int1 %% 60
   def hour: Int = (int1 %% 1440) / 60
@@ -88,8 +88,8 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def subYears(num: Int): MTime = MTime(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
 
 
-  /** Adds a month to this [[MTime]]. If the new month does not contain the day number, the day number is reduced to the last dasy fp the month. Eg
-   *  2023 May 31st goes to 2023 June 30th. */
+  /** Adds a month to this [[MTime]]. If the new month does not contain the day number, the day number is reduced to the last dasy fp the month. Eg 2023 May
+   * 31st goes to 2023 June 30th. */
   def addMonth: MTime = if(monthNum == 12) MTime(yearInt + 1, 1, dayNum, hour, minute)
     else MTime(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hour, minute)
 
@@ -218,9 +218,9 @@ object MTime2Opt
   }
 }
 
-/** Matches values of type A to periods in historical time. Each value has a start time. It is optional if there is a final end time, allowing the
- * final value of the series to continue into the indefinite future. For example in principle we know the start date of each of our Prime Minsters,
- * but we can never know for certain the end date of the current Prime Minister.  */
+/** Matches values of type A to periods in historical time. Each value has a start time. It is optional if there is a final end time, allowing the final value
+ * of the series to continue into the indefinite future. For example in principle we know the start date of each of our Prime Minsters, but we can never know
+ * for certain the end date of the current Prime Minister.  */
 class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
 {
   def seriesNum: Int = arrayA.length

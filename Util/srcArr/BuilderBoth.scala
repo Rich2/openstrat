@@ -32,16 +32,16 @@ trait BuilderMap[B, BB] extends BuilderBoth[BB]
 /** Companion object for [[BuilderMap]] type class, contains various type class instances for common standard library types. */
 object BuilderMap
 { /** [[BuilderMap]] type class instance / evidence for the [[List]] class. */
-  implicit def listEv[A]: ListBuilder[A] = new ListBuilder[A]
+  given listEv[A]: ListBuilder[A] = new ListBuilder[A]
 
   /** [[BuilderMap]] type class instance / evidence for the [[Vector]] class. */
-  implicit def vectorEv[A]: VectorBuilder[A] = new VectorBuilder[A]
+  given vectorEv[A]: VectorBuilder[A] = new VectorBuilder[A]
 
   /** [[BuilderMap]] type class instance / evidence for the [[Array]][Int] class. */
   implicit val arrayIntEv: ArrayIntBuilder = new ArrayIntBuilder
 
   /** [[BuilderMap]] type class instance / evidence for the [[Array]][A] class. */
-  implicit def arrayEv[A <: AnyRef](implicit ct: ClassTag[A]): BuilderMapStd[A, Array[A]] = new ArrayBuilder[A]
+  given arrayEv[A <: AnyRef](using ctA: ClassTag[A]): BuilderMapStd[A, Array[A]] = new ArrayBuilder[A]
 }
 
 /** [[BuilderMap]] that uses the standard library [[ArrayBuffer]] directly as its Buff type. */

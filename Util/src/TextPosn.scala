@@ -71,8 +71,7 @@ trait TextSpanCompound extends TextSpan
 }
 
 object TextSpanCompound
-{
-  /** needs adjusting for empty Seq */
+{ /** needs adjusting for empty Seq */
   implicit class FilePosnSeqImplicit(thisSeq: Seq[TextSpan]) extends TextSpanCompound
   { override def startMem = thisSeq.head
     override def endMem = thisSeq.last
