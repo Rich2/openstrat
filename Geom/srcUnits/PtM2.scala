@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
+import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
 /** Common trait for [[VecM2]] and [[PtM2]]. */
 trait VecPtM2 extends VecPtLen2
@@ -25,7 +25,7 @@ trait VecPtM2 extends VecPtLen2
 }
 
 /** A 2-dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
-final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLen2 with VecPtM2 with TellElemDbl2
+final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLen2, VecPtM2, TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LSegM2
   override def typeStr: String = "PtM2"
@@ -71,13 +71,13 @@ object PtM2
   def origin: PtM2 = new PtM2(0, 0)
 
   /** [[Show]] type class instance / evidence for [[PTM2]]. */
-  implicit val persistEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
+  given persistEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
 
   /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
-  implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
+  given unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
   /** Implicit [[BuilderArrMap]] instance / evidence for [[PtM2]] and [[Pt2M2Arr]]. */
-  implicit val builderImplicit: BuilderMapArrDbl2[PtM2, PtM2Arr] = new BuilderMapArrDbl2[PtM2, PtM2Arr]
+  given builderMapEv: BuilderMapArrDbl2[PtM2, PtM2Arr] = new BuilderMapArrDbl2[PtM2, PtM2Arr]
   { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(buffer)

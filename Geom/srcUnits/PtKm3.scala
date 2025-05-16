@@ -118,25 +118,25 @@ object PtKm3
   }
 
   /** [[Show]] type class instance / evidence for [[PTKm3]]. */
-  implicit lazy val showEv: ShowDbl3[PtKm3] = ShowDbl3[PtKm3]("PtKm3", "x", _.xKilometresNum, "y", _.yKilometresNum, "z", _.zKilometresNum)
+  given showEv: ShowDbl3[PtKm3] = ShowDbl3[PtKm3]("PtKm3", "x", _.xKilometresNum, "y", _.yKilometresNum, "z", _.zKilometresNum)
 
   /** [[Unshow]] type class instance / evidence for [[PTKm3]]. */
-  implicit lazy val unshowEv: UnshowDbl3[PtKm3] = UnshowDbl3[PtKm3]("PtKm3", "x", "y", "z", kilometres)
+  given unshowEv: UnshowDbl3[PtKm3] = UnshowDbl3[PtKm3]("PtKm3", "x", "y", "z", kilometres)
 
-  implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtKm3PairArrMapBuilder[B2] = new PtKm3PairArrMapBuilder[B2]
+  given pairArrBuiderEv[B2](using ctA: ClassTag[B2]): PtKm3PairArrMapBuilder[B2] = new PtKm3PairArrMapBuilder[B2]
 
   /** Implicit instance for the [[PolygonKm3Pair]] builder. This has to go in the [[PtKm3]] companion object so it can be found by an A => B function where
    * [[PtKm3]] is the type B parameter. */
-  implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonKm3PairBuilder[A2] = new PolygonKm3PairBuilder[A2]
+  given polygonPairBuilderEv[A2](using ctA: ClassTag[A2]): PolygonKm3PairBuilder[A2] = new PolygonKm3PairBuilder[A2]
 
-  implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtKm3, LinePathKm3] = new LinePathDbl3MapBuilder[PtKm3, LinePathKm3]
+  given linePathBuildEv: LinePathDbl3MapBuilder[PtKm3, LinePathKm3] = new LinePathDbl3MapBuilder[PtKm3, LinePathKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): LinePathKm3 = new LinePathKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
   /** [[PolygonLikeBuilderMap]] type class instance evidence for [[PtKm3]]. This is used to map to a [[PolygonKm3]]. */
-  implicit val polygonBuildMapEv: PolygonDbl3BuilderMap[PtKm3, PolygonKm3] = new PolygonDbl3BuilderMap[PtKm3, PolygonKm3]
+  given polygonBuildMapEv: PolygonDbl3BuilderMap[PtKm3, PolygonKm3] = new PolygonDbl3BuilderMap[PtKm3, PolygonKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
@@ -144,7 +144,7 @@ object PtKm3
 
   /** Implicit [[BuilderMapLSegBase]] type class instance / evidence for [[PtKm3]] points. Note rhis is used to map to a [[LineSegKm3]] not a
    * [[LinsSegKm3Arr]]. */
-  implicit val lineSegBuildEv: BuilderMapLSegBase[PtKm3, LineSegKm3] = LineSegKm3(_, _)
+  given lineSegBuildEv: BuilderMapLSegBase[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
 trait PtKm3SeqLike extends Any, SeqLikeImutDbl3[PtKm3]

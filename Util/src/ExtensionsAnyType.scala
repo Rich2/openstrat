@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Extension methods for Any type A. */
@@ -31,10 +31,10 @@ class AnyRefTypeExtensions[A <: AnyRef](thisA: A)
   /** If the condition is true thisA unmodified else apply the function to this value of type A and return a modified value of type A. */
   def ifNotMod(b: Boolean, fTrue: A => A): A = if (b) thisA else fTrue(thisA)
 
-  /** Short hand alternative to a 2 case match statement. */
+  /** Shorthand alternative to a 2 case match statement. */
   def match2[B](f1: A => Boolean, v1: => B, v2: => B): B = if (f1(thisA)) v1 else v2
 
-  /** Short hand alternative to a 3 case match statement. */
+  /** Shorthand alternative to a 3 case match statement. */
   def match3[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B, v3: => B): B =
     if (f1(thisA)) v1 else if (f2(thisA)) v2 else v3
 

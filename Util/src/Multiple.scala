@@ -33,12 +33,12 @@ object Multiple
 
   given eqTEv[A](using evA: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) && evA.eqT(a1.value, a2.value)
 
-  implicit class RefsImplicit[A](thisRefs: RArr[Multiple[A]])
+  extension [A](thisRefs: RArr[Multiple[A]])
   { /** The total number of elements in this sequence of [[Multiple]]s. */
     def numSingles: Int = thisRefs.sumBy(_.num)
 
     /** Converts this sequence of [[Multiple]]s to an [[Arr]] of the type of the [[Multiple]]. */
-    def toArr[R <: Arr[A]](implicit builder: BuilderArrMap[A, R]): R =
+    def toArr[R <: Arr[A]](using builder: BuilderArrMap[A, R]): R =
     { val newLen = thisRefs.numSingles
       val res = builder.uninitialised(newLen)
       var i = 0
@@ -62,7 +62,7 @@ object Multiple
   /** [[Unshow]] type class instance / evidence for [[Multiple]] class. */
   given unshowEv[A](using evA: Unshow[A]): UnshowMultiple[A] = new UnshowMultiple[A]()
 
-  class UnshowMultiple[A]()(implicit val evA: Unshow[A]) extends Unshow[Multiple[A]]
+  class UnshowMultiple[A]()(using val evA: Unshow[A]) extends Unshow[Multiple[A]]
   { override def typeStr: String = "Multiple"
     override def useMultiple: Boolean = false
 
@@ -128,7 +128,7 @@ extension[A](thisSeq: Seq[Multiple[A]])
 
   /** Extension method. Converts this [[Seq]] of [[Multiple]]s, to an [[Arr]] of the Single values
    * of type A. The appropriate Arr type is found by implicit look up for type A. */
-  def toSinglesArr[ArrA <: Arr[A]](implicit build: BuilderArrMap[A, ArrA]): ArrA =
+  def toSinglesArr[ArrA <: Arr[A]](using build: BuilderArrMap[A, ArrA]): ArrA =
   { val res = build.uninitialised(numSingles)
     var i = 0
     thisSeq.foreach { m => iUntilForeach(m.num) { _ => res.setElemUnsafe(i, m.value); i += 1 } }
@@ -165,7 +165,7 @@ object MultipleBuff
 { def apply[A](initLen: Int = 4): MultipleBuff[A] = new MultipleBuff[A](new ArrayBuffer[Int](initLen), new ArrayBuffer[A](initLen))
 }
 
-class MultipleArrMapBuilder[A](implicit ct: ClassTag[A]) extends BuilderArrMap[Multiple[A], MultipleArr[A]]
+class MultipleArrMapBuilder[A](using ctA: ClassTag[A]) extends BuilderArrMap[Multiple[A], MultipleArr[A]]
 { override type BuffT = MultipleBuff[A]
   override def buffGrow(buff: MultipleBuff[A], newElem: Multiple[A]): Unit = buff.grow(newElem)
   override def uninitialised(length: Int): MultipleArr[A] = new MultipleArr[A](new Array[Int](length), new Array[A](length))
