@@ -108,17 +108,17 @@ object PtM3
   def metreNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PTM3]].  */
-  implicit val builderArrEv: BuilderMapArrDbl3[PtM3, PtM3Arr] = new BuilderMapArrDbl3[PtM3, PtM3Arr]
+  given builderArrEv: BuilderMapArrDbl3[PtM3, PtM3Arr] = new BuilderMapArrDbl3[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
   }
 
   /** [[Show]] type class instance / evidence for [[PTM3]]. */
-  implicit lazy val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetresNum, "y", _.yMetresNum, "z", _.zMetresNum)
+  given showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetresNum, "y", _.yMetresNum, "z", _.zMetresNum)
 
   /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
-  implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metreNum)
+  given unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metreNum)
 
   /** [[BuilderArrPair]] type class instance / evidence for [[PtM3]]. */
   given builderArrPairEv[B2](using ctA: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
@@ -127,19 +127,19 @@ object PtM3
    * [[PtM3]] is the type B parameter. */
   given polygonPairBuilderEv[A2](using ctA: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
-  implicit val linePathBuildEv: LinePathDbl3MapBuilder[PtM3, LinePathM3] = new LinePathDbl3MapBuilder[PtM3, LinePathM3]
+  given linePathBuildEv: LinePathDbl3MapBuilder[PtM3, LinePathM3] = new LinePathDbl3MapBuilder[PtM3, LinePathM3]
   { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
-  implicit val polygonBuildEv: PolygonDbl3BuilderMap[PtM3, PolygonM3] = new PolygonDbl3BuilderMap[PtM3, PolygonM3]
+  given polygonBuildEv: PolygonDbl3BuilderMap[PtM3, PolygonM3] = new PolygonDbl3BuilderMap[PtM3, PolygonM3]
   { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
-  implicit val lineSegBuildEv: BuilderMapLSegBase[PtM3, LSegM3] = LSegM3(_, _)
+  given lineSegBuildEv: BuilderMapLSegBase[PtM3, LSegM3] = LSegM3(_, _)
 }
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2Gen]] and[[LinePathMs]] classes are not appropriate. */
