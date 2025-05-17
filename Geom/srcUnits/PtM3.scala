@@ -195,7 +195,8 @@ class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
 object PtM3Arr extends CompanionSlDbl3[PtM3, PtM3Arr]
 { override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
-  implicit val arrFlatBuilderEv: BuilderFlatArrDbl3[PtM3Arr] = new BuilderFlatArrDbl3[PtM3Arr]
+  /** Builder for [[Arr]]s of [[PtM3]]s by the flatMap method. */
+  given builderFlatEv: BuilderFlatArrDbl3[PtM3Arr] = new BuilderFlatArrDbl3[PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
@@ -209,14 +210,16 @@ final class PtM3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, Dbl3
 }
 
 object PtM3Buff
-{
+{ /** Factory apply method for specialised buffer for [[PtM3]]s. */
   def apply(initSize: Int = 4): PtM3Buff = new PtM3Buff(new ArrayBuffer[Double](initSize * 3))
 }
 
+/** Specialised [[PairElem]] class for [[PtM3]]s.  */
 class PtM3Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, val a2: A2) extends PointDbl3Pair[PtM3, A2]
 { override def a1: PtM3 = PtM3.metreNum(a1Dbl1, a1Dbl2, a1Dbl3)
 }
 
+/** Specialised  [[Arr]] class for [[PtM3Pair]]w. */
 class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends PointDbl3PairArr[PtM3, PtM3Arr, A2, PtM3Pair[A2]]
 { override type ThisT = PtM3PairArr[A2]
   override def typeStr: String = "PtM3PairArr"
@@ -227,6 +230,7 @@ class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ext
   override def a1FromDbls(dbl1: Double, dbl2: Double, dbl3: Double): PtM3 = PtM3.metreNum(dbl1, dbl2, dbl3)
 }
 
+/** Specialised buffer class for [[PtM3Pair]]s. */
 class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl3[PtM3, B2, PtM3Pair[B2]]
 { override type ThisT = PtM3PairBuff[B2]
   override def typeStr: String = "PtM3PairBuff"

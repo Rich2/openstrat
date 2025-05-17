@@ -126,22 +126,22 @@ final class PolygonM2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Ar
 }
 
 /** [[BuilderMapArrPair]] class for [[PolygonM2Gen]]s. */
-final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
-  PolygonLikeDblNPairArrBuilder[PtM2, PolygonM2Gen, PolygonM2Arr, A2, PolygonM2Pair[A2], PolygonM2PairArr[A2]]
-{ override type BuffT = PolygonM2PairBuff[A2]
+final class PolygonM2PairBuilder[B2](using val b2ClassTag: ClassTag[B2], @unused notB: Not[SpecialT]#L[B2]) extends
+  PolygonLikeDblNPairArrBuilder[PtM2, PolygonM2Gen, PolygonM2Arr, B2, PolygonM2Pair[B2], PolygonM2PairArr[B2]]
+{ override type BuffT = PolygonM2PairBuff[B2]
   override type B1BuffT = PolygonM2Buff
-  override def uninitialised(length: Int): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
+  override def uninitialised(length: Int): PolygonM2PairArr[B2] = new PolygonM2PairArr[B2](new Array[Array[Double]](length), new Array[B2](length))
 
-  override def indexSet(seqLike: PolygonM2PairArr[A2], index: Int, newElem: PolygonM2Pair[A2]): Unit = { seqLike.a1ArrayDbls(index) = newElem.a1ArrayDbl
+  override def indexSet(seqLike: PolygonM2PairArr[B2], index: Int, newElem: PolygonM2Pair[B2]): Unit = { seqLike.a1ArrayDbls(index) = newElem.a1ArrayDbl
     seqLike.a2Array(index) = newElem.a2 }
 
-  override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
-  override def buffToSeqLike(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
+  override def newBuff(length: Int): PolygonM2PairBuff[B2] = new PolygonM2PairBuff[B2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[B2](4))
+  override def buffToSeqLike(buff: PolygonM2PairBuff[B2]): PolygonM2PairArr[B2] = new PolygonM2PairArr[B2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
   override def b1Builder: PolygonLikeBuilderMap[PtM2, PolygonM2Gen] = PtM2.polygonBuildMapEv
   override def b1ArrBuilder: BuilderArrMap[PolygonM2Gen, PolygonM2Arr] = PolygonM2Gen.arrBuildImplicit
-  override def arrFromArrAndArray(b1Arr: PolygonM2Arr, b2s: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
+  override def arrFromArrAndArray(b1Arr: PolygonM2Arr, b2s: Array[B2]): PolygonM2PairArr[B2] = new PolygonM2PairArr[B2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonM2Buff = PolygonM2Buff()
-  override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Array)
+  override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[B2]): PolygonM2PairArr[B2] = new PolygonM2PairArr[B2](arrayArrayDbl, a2Array)
 }
 
 /** [[BuffPair]] class for [[PolygonM2Gen]]s. */
