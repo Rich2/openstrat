@@ -99,14 +99,14 @@ object PtM2
 
   /** Implicit instance for the [[PolygonM2Pair]] builder. This has to go in the [[PtM2]] companion object so it can be found by an A => B function where
    * [[PtM2]] is the type B parameter. */
-  implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM2PairBuilder[A2] = new PolygonM2PairBuilder[A2]
+  given polygonPairBuildEv[A2](using ctA: ClassTag[A2]): PolygonM2PairBuilder[A2] = new PolygonM2PairBuilder[A2]
 }
 
 /** Specialised immutable Array based collection class for [[PtM2]]s. */
-class PtM2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtM2]
+class PtM2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl2[PtM2]
 { type ThisT = PtM2Arr
   override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
-  override def typeStr: String = "Metres2s"
+  override def typeStr: String = "PtM2Arr"
   override def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
   override def fElemStr: PtM2 => String = _.str
 }
@@ -116,14 +116,14 @@ object PtM2Arr extends CompanionSlDbl2[PtM2, PtM2Arr]
 { override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
 
   /** [[Show]] type class instance / evidence for [[PtM2Arr]]. */
-  implicit lazy val showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
+  given showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[PtM2Arr]]. */
-  implicit lazy val unshowEv: UnshowSeq[PtM2, PtM2Arr] = UnshowSeq[PtM2, PtM2Arr]()
+  given unshowEv: UnshowSeq[PtM2, PtM2Arr] = UnshowSeq[PtM2, PtM2Arr]()
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */
-final class BuffPtM2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtM2]
+final class BuffPtM2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtM2]
 { override def typeStr: String = "BuffPtMetre2"
   def elemFromDbls(d1: Double, d2: Double): PtM2 = PtM2.apply(d1, d2)
 }
@@ -134,7 +134,7 @@ object BuffPtM2
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecLen2 with VecPtM2
+final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecLen2, VecPtM2
 { override def typeStr: String = "VecM2"
   override def + (operand: VecLen2): VecM2 = new VecM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLen2): VecM2 = new VecM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
@@ -176,7 +176,7 @@ class VecM2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecM2]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[VecM2]] collections. */
-final class VecM2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecM2]
+final class VecM2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[VecM2]
 { override def typeStr: String = "VecM2Buff"
   def elemFromDbls(d1: Double, d2: Double): VecM2 = VecM2(d1, d2)
 }

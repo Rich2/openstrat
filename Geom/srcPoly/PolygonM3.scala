@@ -82,7 +82,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
 object PolygonM3 extends CompanionSlDbl3[PtM3, PolygonM3]
 { override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
-  implicit val arrBuildImplicit: BuilderArrMap[PolygonM3, PolygonM3Arr] = new BuilderArrMap[PolygonM3, PolygonM3Arr]
+  given arrBuildImplicit: BuilderArrMap[PolygonM3, PolygonM3Arr] = new BuilderArrMap[PolygonM3, PolygonM3Arr]
   { override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
@@ -92,7 +92,7 @@ object PolygonM3 extends CompanionSlDbl3[PtM3, PolygonM3]
   }
 
 
-  implicit val rotateM3TImplicit: RotateM3T[PolygonM3] = new RotateM3T[PolygonM3]
+  given rotateM3TImplicit: RotateM3T[PolygonM3] = new RotateM3T[PolygonM3]
   { override def rotateXT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateX(angle))
     override def rotateYT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateY(angle))
     override def rotateZT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateZ(angle))
@@ -147,8 +147,8 @@ final class PolygonM3PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Ar
   override def a1FromArrayDbl(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 }
 
-final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
-  PolygonLikeDblNPairArrBuilder[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2], PolygonM3PairArr[A2]]
+final class PolygonM3PairBuilder[A2](using val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends PolygonLikeDblNPairArrBuilder[PtM3,
+  PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2], PolygonM3PairArr[A2]]
 { override type BuffT = PolygonM3PairBuff[A2]
   override type B1BuffT = PolygonM3Buff
   override def uninitialised(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
