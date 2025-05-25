@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon. a = √3 * r / 2. r = 2 * √3 * a. */
-trait HexReg extends ShapeCentred, Polygon6Plus, Tell, PolygonDbl2[Pt2], Pt2SeqSpec
+trait HexReg extends ShapeCentred, Polygon6Plus, Tell
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 

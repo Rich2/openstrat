@@ -78,12 +78,12 @@ trait Polygon4Plus extends Any, Polygon3Plus
   /** The Y component of the centre or halfway point of side 3 of this polygon. */
   final def sd3CenY: Double = v2y \/ v3y
 
-  /** The centre or half way point of side 3 of this polygon. */
+  /** The centre or halfway point of side 3 of this polygon. */
   final def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
-trait Polygon5Plus extends Any with Polygon4Plus with SeqSpecDbl2[Pt2]
+trait Polygon5Plus extends Any, Polygon4Plus, PolygonDbl2[Pt2], Pt2SeqSpec
 { type ThisT <: Polygon5Plus
 
   /** The X component of the vertex 4. */
@@ -109,7 +109,7 @@ trait Polygon5Plus extends Any with Polygon4Plus with SeqSpecDbl2[Pt2]
 }
 
 /** A [[Polygon]] with at least 6 vertices. */
-trait Polygon6Plus extends Any with Polygon5Plus
+trait Polygon6Plus extends Any, Polygon5Plus
 { type ThisT <: Polygon6Plus
 
   /** The X component of the 6th Vertex. */

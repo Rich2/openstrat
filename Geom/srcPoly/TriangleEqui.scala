@@ -5,7 +5,6 @@ import pWeb.*
 /** Equilateral triangle. will become a trait. */
 final class TriangleEqui(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriangleIsos, AxisFree
 { type ThisT = TriangleEqui
-
   override def typeStr: String = "TriangleEqui"
 
   override def height: Double = ???

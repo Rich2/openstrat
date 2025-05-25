@@ -134,8 +134,8 @@ object PolygonM3Pair
 { def apply[A2](poly: PolygonM3, a2: A2): PolygonM3Pair[A2] = new PolygonM3Pair[A2](poly.arrayUnsafe, a2)
 }
 
-final class PolygonM3PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonLikeDblNPairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
+final class PolygonM3PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends PolygonLikeDblNPairArr[PtM3, PolygonM3, PolygonM3Arr,
+  A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairArr[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonM3Pair[A2]): Unit = { a1ArrayDbls(index) = newElem.a1ArrayDbl; a2Array(index) = newElem.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
@@ -166,8 +166,8 @@ final class PolygonM3PairBuilder[A2](using val b2ClassTag: ClassTag[A2], @unused
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](arrayArrayDbl, a2Array)
 }
 
-class PolygonM3PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
-  BuffPairSeqLikeDblN[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
+class PolygonM3PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends BuffPairSeqLikeDblN[PtM3, PolygonM3, A2,
+  PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairBuff[A2]
   override def setElemUnsafe(index: Int, newElem: PolygonM3Pair[A2]): Unit = { b1Buffer(index) = newElem.a1ArrayDbl; b2Buffer(index) = newElem.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
