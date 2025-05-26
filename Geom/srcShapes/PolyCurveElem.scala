@@ -1,10 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._
-import Colour.Black
-import ostrat.pWeb.SvgElem
+import pgui.*, Colour.Black, pWeb.SvgElem
 
-trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
+trait PolyCurveElem extends GraphicAffineElem, GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
   def shape: ShapeGenOld
   def segsLen: Int = shape.numElems
@@ -52,8 +50,8 @@ case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour:
   override def svgElems: RArr[SvgElem] = ???
 }
 
-case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black,
-                                 lineWidth: Double = 2) extends PolyCurveElem
+case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black, lineWidth: Double = 2)
+  extends PolyCurveElem
 { override type ThisT = PolyCurveFillDrawText
   override def ptsTrans(f: Pt2 => Pt2) = PolyCurveFillDrawText(shape.ptsTrans(f), fillColour, str, fontSize, lineColour, lineWidth)
   def textOnly: TextFixed = TextFixed(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
@@ -71,7 +69,7 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
 }
 
 case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
-                           lineWidth: Double = 2) extends PolyCurveElem with PolyCurveActive
+  lineWidth: Double = 2) extends PolyCurveElem, PolyCurveActive
 { override type ThisT = PolyCurveAllOld
   override def ptsTrans(f: Pt2 => Pt2) = PolyCurveAllOld(shape.ptsTrans(f), pointerId, str, fillColour, fontSize, lineColour, lineWidth)
   def textOnly: TextFixed = TextFixed(str, fontSize, shape.boundingRect.cen, Black, CenAlign)

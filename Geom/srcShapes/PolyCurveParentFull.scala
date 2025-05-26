@@ -1,12 +1,13 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, pgui._
+import pWeb.*, pgui.*
 
-case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, children: RArr[GraphicAffineElem]) extends GraphicParentFull with
-  PolyCurveActive
+case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, children: RArr[GraphicAffineElem]) extends GraphicParentFull, PolyCurveActive
 { override type ThisT = PolyCurveParentFull
-  def ptsTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.ptsTrans(f), pointerId,
-    children.map[GraphicAffineElem, RArr[GraphicAffineElem]](el => el.ptsTrans(f)))
+  
+  def ptsTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.ptsTrans(f), pointerId, children.map[GraphicAffineElem,
+    RArr[GraphicAffineElem]](el => el.ptsTrans(f)))
+  
   override def addElems(newElems: RArr[GraphicAffineElem]): PolyCurveParentFull = PolyCurveParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: AnyRef): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
 

@@ -45,25 +45,25 @@ trait Shape extends Any, Aff2Elem, Fillable, BoundedElem
 /** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
 object Shape
 { /** Implicit [[Slate2]] type class instance / evidence for [[Shape]] */
-  implicit val slate2Ev: Slate2[Shape] = new Slate2[Shape]
+  given slate2Ev: Slate2[Shape] = new Slate2[Shape]
   { override def slate(obj: Shape, operand: VecPt2): Shape = obj.slate(operand)
     override def slateXY(obj: Shape, xOperand: Double, yOperand: Double): Shape = obj.slate(xOperand, yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Shape]] */
-  implicit val scaleEv: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[Shape]] */
-  implicit val rotateEv: Rotate[Shape] = (obj: Shape, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[Shape] = (obj: Shape, angle: AngleVec) => obj.rotate(angle)
 
   /** Implicit [[Prolign]] type class instance / evidence for [[Shape]] */
-  implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
+  given prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Shape]] */
-  implicit val scaleXYEv: ScaleXY[Shape] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Shape] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Shape]] */
-  implicit val transAxesEv: TransAxes[Shape] = new TransAxes[Shape]
+  given transAxesEv: TransAxes[Shape] = new TransAxes[Shape]
   { override def negYT(obj: Shape): Shape = obj.negY
     override def negXT(obj: Shape): Shape = obj.negX
     override def rotate90(obj: Shape): Shape = obj.rotate90
@@ -71,7 +71,7 @@ object Shape
     override def rotate270(obj: Shape): Shape = obj.rotate270
   }
   /** Implicit [[Shear]] type class instance / evidence for [[Shape]] */
-  implicit val shearImplicit: Shear[Shape] = new Shear[Shape]
+  given shearEv: Shear[Shape] = new Shear[Shape]
   { override def shearXT(obj: Shape, yFactor: Double): Shape = obj.shearX(yFactor)
     override def shearYT(obj: Shape, xFactor: Double): Shape = obj.shearY(xFactor)
   }
