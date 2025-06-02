@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.pWeb.*
+import pWeb.*
 
 /** Base trait for a compound shape graphic in various geometries */
 trait ShapeGeomlessCompound
@@ -22,6 +22,8 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
 
   override def slate(operand: VecPt2): ShapeCompound
   override def slate(xOperand: Double, yOperand: Double): ShapeCompound
+  override def slateX(xOperand: Double): ShapeCompound
+  override def slateY(yOperand: Double): ShapeCompound
   override def scale(operand: Double): ShapeCompound
   override def negY: ShapeCompound
   override def negX: ShapeCompound
@@ -41,7 +43,9 @@ object ShapeCompound
 { /** Implicit [[Slate2]] type class instance / instance for [[ShapeCompound]]. */
   given slate2Ev: Slate2[ShapeCompound] = new Slate2[ShapeCompound]
   { override def slate(obj: ShapeCompound, operand: VecPt2): ShapeCompound = obj.slate(operand)
-    override def slateXY(obj: ShapeCompound, xOperand: Double, yOperand: Double): ShapeCompound = ???
+    override def slateXY(obj: ShapeCompound, xOperand: Double, yOperand: Double): ShapeCompound = obj.slate(xOperand, yOperand)
+    override def slateX(obj: ShapeCompound, xOperand: Double): ShapeCompound = obj.slateX(xOperand)
+    override def slateY(obj: ShapeCompound, yOperand: Double): ShapeCompound = obj.slateY(yOperand)
   }
   
   /** Implicit [[Scale]] type class instance / instance for [[ShapeCompound]]. */

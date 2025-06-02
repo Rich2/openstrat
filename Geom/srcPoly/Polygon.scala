@@ -356,6 +356,8 @@ object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
   given slate2Ev: Slate2[Polygon] = new Slate2[Polygon]
   { override def slate(obj: Polygon, operand: VecPt2): Polygon = obj.slate(operand)
     override def slateXY(obj: Polygon, xOperand: Double, yOperand: Double): Polygon = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Polygon, xOperand: Double): Polygon = obj.slateX(xOperand)
+    override def slateY(obj: Polygon, yOperand: Double): Polygon = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Polygon]]. */
