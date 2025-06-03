@@ -10,13 +10,15 @@ trait ShapeGeomlessFill
 
 /** A simple plain colour fill graphic. */
 trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
-{ override def nonShapeAttribs: RArr[XmlAtt] = fillFacet.attribs// Arr(fillAttrib)
+{ override def nonShapeAttribs: RArr[XmlAtt] = fillFacet.attribs
 
   /** Converts this fill graphic into a draw. */
   def toDraw(lineWidth: Double = 2, newColour: Colour = Black): ShapeDraw
 
   override def slate(offset: VecPt2): ShapeFill
-  override def slate(xDelta: Double, yDelta: Double): ShapeFill
+  override def slate(xOperand: Double, yOperand: Double): ShapeFill
+  override def slateX(xOperand: Double): ShapeFill
+  override def slateY(yOperand: Double): ShapeFill
   override def scale(operand: Double): ShapeFill
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill  
   override def negY: ShapeFill
@@ -36,6 +38,8 @@ object ShapeFill
   given slate2Ev: Slate2[ShapeFill] = new Slate2[ShapeFill]
   { override def slate(obj: ShapeFill, operand: VecPt2): ShapeFill = obj.slate(operand)    
     override def slateXY(obj: ShapeFill, xOperand: Double, yOperand: Double): ShapeFill = obj.slate(xOperand, yOperand)
+    override def slateX(obj: ShapeFill, xOperand: Double): ShapeFill = obj.slateX(xOperand)
+    override def slateY(obj: ShapeFill, yOperand: Double): ShapeFill = obj.slateY(yOperand)
   }
   
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeFill]]. */
@@ -61,4 +65,4 @@ object ShapeFill
 }
 
 /** Graphical fill trait for shapes specified with [[Length]] coordinates. */
-trait ShapeLen2Fill extends ShapeGeomlessFill, ShapeLen2Graphic//Simple
+trait ShapeLen2Fill extends ShapeGeomlessFill, ShapeLen2Graphic

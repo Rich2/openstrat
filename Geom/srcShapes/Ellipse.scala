@@ -93,6 +93,12 @@ object Ellipse
 
     override def slateXY(obj: Ellipse, xOperand: Double, yOperand: Double): Ellipse =
       cenAxes1axes4(obj.cen.slate(xOperand, yOperand), obj.axesPt1.slate(xOperand, yOperand), obj.axesPt4.slate(xOperand, yOperand))
+
+    override def slateX(obj: Ellipse, xOperand: Double): Ellipse =
+      cenAxes1axes4(obj.cen.slateX(xOperand), obj.axesPt1.slateX(xOperand), obj.axesPt4.slateX(xOperand))
+
+    override def slateY(obj: Ellipse, yOperand: Double): Ellipse =
+      cenAxes1axes4(obj.cen.slateY(yOperand), obj.axesPt1.slateY(yOperand), obj.axesPt4.slateY(yOperand))  
   }
   
   given scaleEv: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)

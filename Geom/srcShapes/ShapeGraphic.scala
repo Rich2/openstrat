@@ -16,7 +16,9 @@ trait ShapeGraphic extends GraphicBounded
   final def svgInlineStr: String = svgInline.out(0, 150)
   
   override def slate(offset: VecPt2): ShapeGraphic
-  def slate(xOperand: Double, yOperand: Double): ShapeGraphic
+  override def slate(xOperand: Double, yOperand: Double): ShapeGraphic
+  override def slateX(xOperand: Double): ShapeGraphic
+  override def slateY(yOperand: Double): ShapeGraphic
   def scale(operand: Double): ShapeGraphic
   def negX: ShapeGraphic
   def negY: ShapeGraphic
@@ -41,6 +43,8 @@ object ShapeGraphic
   given slate2Ev: Slate2[ShapeGraphic] = new Slate2[ShapeGraphic]
   { override def slate(obj: ShapeGraphic, operand: VecPt2): ShapeGraphic = obj.slate(operand)
     override def slateXY(obj: ShapeGraphic, xOperand: Double, yOperand: Double): ShapeGraphic = obj.slate(xOperand, yOperand)
+    override def slateX(obj: ShapeGraphic, xOperand: Double): ShapeGraphic = obj.slateX(xOperand)
+    override def slateY(obj: ShapeGraphic, yOperand: Double): ShapeGraphic = obj.slateY(yOperand)
   }
 
   /** [[Scale]] type class instance / evidence for [[ShapeGraphic]]. */

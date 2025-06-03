@@ -41,8 +41,8 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
   override def slate(xOperand: Double, yOperand: Double): SqlignCompound =
     SqlignCompound(shape.slate(xOperand, yOperand), facets, childs, children.slate(xOperand, yOperand))
 
-  override def slateX(xOperand: Double): GraphicBounded = SqlignCompound(shape.slateX(xOperand), facets, childs, children.slateX(xOperand))
-  override def slateY(yOperand: Double): GraphicBounded = SqlignCompound(shape.slateY(yOperand), facets, childs, children.slateY(yOperand))
+  override def slateX(xOperand: Double): SqlignCompound = SqlignCompound(shape.slateX(xOperand), facets, childs, children.slateX(xOperand))
+  override def slateY(yOperand: Double): SqlignCompound = SqlignCompound(shape.slateY(yOperand), facets, childs, children.slateY(yOperand))
   override def scale(operand: Double): SqlignCompound = SqlignCompound(shape.scale(operand), facets, childs, children.scale(operand))
   override def negX: SqlignCompound = SqlignCompound(shape.negX, facets, childs, children.negX)
   override def negY: SqlignCompound = SqlignCompound(shape.negY, facets, childs, children.negY)

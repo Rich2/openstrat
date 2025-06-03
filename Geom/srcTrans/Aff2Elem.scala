@@ -42,6 +42,8 @@ object Aff2Elem
   given slate2Ev: Slate2[Aff2Elem] = new Slate2[Aff2Elem]
   { override def slate(obj: Aff2Elem, operand: VecPt2): Aff2Elem = obj.slate(operand)
     override def slateXY(obj: Aff2Elem, xOperand: Double, yOperand: Double): Aff2Elem = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Aff2Elem, xOperand: Double): Aff2Elem = obj.slateX(xOperand)
+    override def slateY(obj: Aff2Elem, yOperand: Double): Aff2Elem = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Aff2Elem]]. */

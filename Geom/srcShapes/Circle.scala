@@ -6,7 +6,7 @@ import pWeb.*, math.Pi, Colour.Black, pgui.*
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-final class Circle protected[geom](val radius: Double, val cenX: Double, val cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
+final class Circle protected[geom](val radius: Double, val cenX: Double, val cenY: Double) extends Ellipselign, OrdinaledElem, AxisFree
 { type ThisT = Circle
 
   override def fTrans(f: Pt2 => Pt2): Circle =
@@ -243,6 +243,8 @@ object CircleCompound
   given slate2Ev: Slate2[CircleCompound] = new Slate2[CircleCompound]
   { override def slate(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
     override def slateXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slate(xOperand, yOperand)
+    override def slateX(obj: CircleCompound, xOperand: Double): CircleCompound = obj.slateX(xOperand)
+    override def slateY(obj: CircleCompound, yOperand: Double): CircleCompound = obj.slateY(yOperand)
   }
 
   /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
