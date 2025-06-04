@@ -69,6 +69,8 @@ object Quadrilateral
   given slate2Ev: Slate2[Quadrilateral] = new Slate2[Quadrilateral]
   { override def slate(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slate(operand)
     override def slateXY(obj: Quadrilateral, xOperand: Double, yOperand: Double): Quadrilateral = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Quadrilateral, xOperand: Double): Quadrilateral = obj.slateX(xOperand)
+    override def slateY(obj: Quadrilateral, yOperand: Double): Quadrilateral = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance for [[Quadrilateral]] */
