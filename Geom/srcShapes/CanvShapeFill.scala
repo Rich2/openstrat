@@ -2,9 +2,11 @@
 package ostrat; package geom
 
 /** ShapeFill element that is a [[CanvElem]] */
-trait CanvShapeFill extends ShapeFill with CanvElem
+trait CanvShapeFill extends ShapeFill, CanvElem
 { override def slate(operand: VecPt2): CanvShapeFill
   override def slate(xOperand: Double, yOperand: Double): CanvShapeFill
+  override def slateX(xOperand: Double): CanvShapeFill
+  override def slateY(yOperand: Double): CanvShapeFill
   override def scale(operand: Double): CanvShapeFill
   override def negY: CanvShapeFill
   override def negX: CanvShapeFill

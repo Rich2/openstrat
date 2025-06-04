@@ -71,6 +71,8 @@ object Graphic2Elem
 trait CanvElem extends Graphic2Elem
 { override def slate(operand: VecPt2): CanvElem
   override def slate(xOperand: Double, yOperand: Double): CanvElem
+  override def slateX(xOperand: Double): CanvElem
+  override def slateY(yOperand: Double): CanvElem
   override def scale(operand: Double): CanvElem
   override def negY: CanvElem
   override def negX: CanvElem
@@ -78,11 +80,6 @@ trait CanvElem extends Graphic2Elem
   override def rotate90: CanvElem
   override def rotate180: CanvElem
   override def rotate270: CanvElem
-//  override def rotate(rotation: AngleVec): CanvElem
-//  override def reflect(lineLike: LineLike): CanvElem
-//  override def scaleXY(xOperand: Double, yOperand: Double): CanvElem
-//  override def shearX(operand: Double): CanvElem
-//  override def shearY(operand: Double): CanvElem
 }
 
 /** Companion object for the [[CanvElem]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
@@ -91,6 +88,8 @@ object CanvElem
   given slate2Ev: Slate2[CanvElem] = new Slate2[CanvElem]
   { override def slate(obj: CanvElem, operand: VecPt2): CanvElem = obj.slate(operand)
     override def slateXY(obj: CanvElem, xOperand: Double, yOperand: Double): CanvElem = obj.slate(xOperand, yOperand)
+    override def slateX(obj: CanvElem, xOperand: Double): CanvElem = obj.slateX(xOperand)
+    override def slateY(obj: CanvElem, yOperand: Double): CanvElem = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[CanvElem]]. */

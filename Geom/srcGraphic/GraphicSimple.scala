@@ -26,6 +26,8 @@ object GraphicSimple
   given slate2Ev: Slate2[GraphicSimple] = new Slate2[GraphicSimple]
   { override def slate(obj: GraphicSimple, operand: VecPt2): GraphicSimple = obj.slate(operand)
     override def slateXY(obj: GraphicSimple, xOperand: Double, yOperand: Double): GraphicSimple = obj.slate(xOperand, yOperand)
+    override def slateX(obj: GraphicSimple, xOperand: Double): GraphicSimple = obj.slateX(xOperand)
+    override def slateY(obj: GraphicSimple, yOperand: Double): GraphicSimple = obj.slateY(yOperand)
   }
   
   /** Implicit [[Scale]] type class instance / evidence for [[GraphicSimple]]. */

@@ -83,6 +83,8 @@ object HexParrX
   given slate2Ev: Slate2[HexParrX] = new Slate2[HexParrX]
   { override def slate(obj: HexParrX, operand: VecPt2): HexParrX = obj.slate(operand) 
     override def slateXY(obj: HexParrX, xOperand: Double, yOperand: Double): HexParrX = obj.slate(xOperand, yOperand)
+    override def slateX(obj: HexParrX, xOperand: Double): HexParrX = obj.slateX(xOperand)
+    override def slateY(obj: HexParrX, yOperand: Double): HexParrX = obj.slateY(yOperand)
   }
   
   given scaleEv: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
