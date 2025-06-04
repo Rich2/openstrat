@@ -33,6 +33,8 @@ trait PolygonGraphic extends ShapeGraphic
 
   override def slate(operand: VecPt2): PolygonGraphic
   override def slate(xOperand: Double, yOperand: Double): PolygonGraphic
+  override def slateX(xOperand: Double): PolygonGraphic
+  override def slateY(yOperand: Double): PolygonGraphic
   override def scale(operand: Double): PolygonGraphic
   override def negY: PolygonGraphic
   override def negX: PolygonGraphic
@@ -40,11 +42,6 @@ trait PolygonGraphic extends ShapeGraphic
   override def rotate90: PolygonGraphic
   override def rotate180: PolygonGraphic
   override def rotate270: PolygonGraphic
-//  override def rotate(rotation: AngleVec): PolygonGraphic
-//  override def reflect(lineLike: LineLike): PolygonGraphic
-//  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
-//  override def shearX(operand: Double): PolygonGraphic
-//  override def shearY(operand: Double): PolygonGraphic
 }
 
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
@@ -53,6 +50,8 @@ object PolygonGraphic
   given slat2eEv: Slate2[PolygonGraphic] = new Slate2[PolygonGraphic]
   { override def slate(obj: PolygonGraphic, operand: VecPt2): PolygonGraphic = obj.slate(operand)
     override def slateXY(obj: PolygonGraphic, xOperand: Double, yOperand: Double): PolygonGraphic = obj.slate(xOperand, yOperand)
+    override def slateX(obj: PolygonGraphic, xOperand: Double): PolygonGraphic = obj.slateX(xOperand)
+    override def slateY(obj: PolygonGraphic, yOperand: Double): PolygonGraphic = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonGraphic]]. */
@@ -82,6 +81,8 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 { override def svgElem: SvgElem = SvgPolygon(attribs)
   override def slate(operand: VecPt2): PolygonGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): PolygonGraphicSimple
+  override def slateX(xOperand: Double): PolygonGraphicSimple
+  override def slateY(yOperand: Double): PolygonGraphicSimple
   override def scale(operand: Double): PolygonGraphicSimple
   override def shearX(operand: Double): PolygonGraphicSimple
   override def shearY(operand: Double): PolygonGraphicSimple
@@ -156,6 +157,8 @@ object PolygonDraw
   given slate2Ev: Slate2[PolygonDraw] = new Slate2[PolygonDraw]
   { override def slate(obj: PolygonDraw, operand: VecPt2): PolygonDraw = obj.slate(operand)
     override def slateXY(obj: PolygonDraw, xOperand: Double, yOperand: Double): PolygonDraw = obj.slate(xOperand, yOperand)
+    override def slateX(obj: PolygonDraw, xOperand: Double): PolygonDraw = obj.slateX(xOperand)
+    override def slateY(obj: PolygonDraw, yOperand: Double): PolygonDraw = obj.slateY(yOperand)
   }  
 
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonDraw]]. */
@@ -223,6 +226,8 @@ object PolygonFill
   given slate2Ev: Slate2[PolygonFill] = new Slate2[PolygonFill]
   { override def slate(obj: PolygonFill, operand: VecPt2): PolygonFill = obj.slate(operand)
     override def slateXY(obj: PolygonFill, xOperand: Double, yOperand: Double): PolygonFill = obj.slate(xOperand, yOperand)
+    override def slateX(obj: PolygonFill, xOperand: Double): PolygonFill = obj.slateX(xOperand)
+    override def slateY(obj: PolygonFill, yOperand: Double): PolygonFill = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonFill]]. */

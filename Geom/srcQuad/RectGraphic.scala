@@ -112,6 +112,8 @@ object RectCompound
   given slate2Ev: Slate2[RectCompound] = new Slate2[RectCompound]
   { override def slate(obj: RectCompound, operand: VecPt2): RectCompound = obj.slate(operand)
     override def slateXY(obj: RectCompound, xOperand: Double, yOperand: Double): RectCompound = obj.slate(xOperand, yOperand)
+    override def slateX(obj: RectCompound, xOperand: Double): RectCompound = obj.slateX(xOperand)
+    override def slateY(obj: RectCompound, yOperand: Double): RectCompound = obj.slateY(yOperand)
   }
   /** [[Scale]] type class instance / evidence for [[RectCompound]]. */
   given scaleEv: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
