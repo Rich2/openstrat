@@ -188,9 +188,9 @@ object PolygonDraw
   }
 }
 
-/** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
- * PolygonFill will be returned. */
-trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
+/** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a PolygonFill will be
+ * returned. */
+trait PolygonFill extends PolygonGraphicSimple, CanvShapeFill
 { type ThisT <: PolygonFill
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
   override def toDraw(lineWidth: Double = 2, newColour: Colour): PolygonDraw = shape.draw(lineWidth, newColour)
@@ -273,8 +273,8 @@ object PolygonFill
   }
 }
 
-/** An interactive element of a [[Polygon]] graphic, that can be dinetified by a mouse etc, pointable device. */
-case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphicSimple
+/** An interactive element of a [[Polygon]] graphic, that can be identified by a mouse etc, pointable device. */
+case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem, GraphicClickable, PolygonGraphicSimple
 { override type ThisT = PolygonActive
   override def ptsTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.map(f), pointerId)
 
@@ -301,7 +301,6 @@ trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
   }
 
   override def canvElems: RArr[CanvElem] = ???
-
   override def slate(operand: VecPt2): PolygonCompound = PolygonCompound(shape.slate(operand), facets, children.slate(operand))
 
   override def slate(xOperand: Double, yOperand: Double): PolygonCompound =
@@ -334,7 +333,7 @@ trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
 object PolygonCompound
 {
   def apply(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): PolygonCompound =
-    new PolygonCompoundImp(shape, facets, children)
+    new PolygonCompoundGen(shape, facets, children)
 
   //given showTImplicit: Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound] = Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound]()
 
@@ -342,6 +341,8 @@ object PolygonCompound
   given slateEv: Slate2[PolygonCompound] = new Slate2[PolygonCompound]
   { override def slate(obj: PolygonCompound, operand: VecPt2): PolygonCompound = obj.slate(operand)
     override def slateXY(obj: PolygonCompound, xOperand: Double, yOperand: Double): PolygonCompound = obj.slate(xOperand, yOperand)
+    override def slateX(obj: PolygonCompound, xOperand: Double): PolygonCompound = obj.slateX(xOperand)
+    override def slateY(obj: PolygonCompound, yOperand: Double): PolygonCompound = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance evidence for [[PolygonCompound]]. */
@@ -375,8 +376,8 @@ object PolygonCompound
   }
 
   /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-  case class PolygonCompoundImp(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends PolygonCompound, AxisFree
-  {  override type ThisT = PolygonCompoundImp
+  case class PolygonCompoundGen(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends PolygonCompound, AxisFree
+  {  override type ThisT = PolygonCompoundGen
     override def mainSvgElem: SvgPolygon = SvgPolygon(attribs)
 
     override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach{
@@ -391,20 +392,20 @@ object PolygonCompound
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
 
-    override def slate(operand: VecPt2): PolygonCompoundImp = PolygonCompoundImp(shape.slate(operand), facets, children.slate(operand))
+    override def slate(operand: VecPt2): PolygonCompoundGen = PolygonCompoundGen(shape.slate(operand), facets, children.slate(operand))
     
-    override def slate(xOperand: Double, yOperand: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+    override def slate(xOperand: Double, yOperand: Double): PolygonCompoundGen =
+      PolygonCompoundGen(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
-    override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
-    override def prolign(matrix: AxlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
-    override def rotate(rotation: AngleVec): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(rotation), facets, children.rotate(rotation))
-    override def reflect(lineLike: LineLike): PolygonCompoundImp = PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
+    override def scale(operand: Double): PolygonCompoundGen = PolygonCompoundGen(shape.scale(operand), facets, children.scale(operand))
+    override def prolign(matrix: AxlignMatrix): PolygonCompoundGen = PolygonCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))
+    override def rotate(rotation: AngleVec): PolygonCompoundGen = PolygonCompoundGen(shape.rotate(rotation), facets, children.rotate(rotation))
+    override def reflect(lineLike: LineLike): PolygonCompoundGen = PolygonCompoundGen(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
-    override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))
+    override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundGen =
+      PolygonCompoundGen(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))
 
-    override def shearX(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.shearX(operand), facets, children.shearX(operand))
-    override def shearY(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.shearY(operand), facets, children.shearY(operand))
+    override def shearX(operand: Double): PolygonCompoundGen = PolygonCompoundGen(shape.shearX(operand), facets, children.shearX(operand))
+    override def shearY(operand: Double): PolygonCompoundGen = PolygonCompoundGen(shape.shearY(operand), facets, children.shearY(operand))
   }
 }

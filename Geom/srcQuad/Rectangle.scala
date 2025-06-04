@@ -129,6 +129,8 @@ object Rectangle
   given slate2Ev: Slate2[Rectangle] = new Slate2[Rectangle]
   { override def slate(obj: Rectangle, operand: VecPt2): Rectangle = obj.slate(operand)
     override def slateXY(obj: Rectangle, xOperand: Double, yOperand: Double): Rectangle = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Rectangle, xOperand: Double): Rectangle = obj.slateX(xOperand)
+    override def slateY(obj: Rectangle, yOperand: Double): Rectangle = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance evidence for [[Rectangle]]. */ 

@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb._
+import Colour.Black, pWeb.*
 
 /** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed
  * sequence of curve segments. */
@@ -30,6 +30,8 @@ object ShapeGen
   given slate2Ev: Slate2[ShapeGen] = new Slate2[ShapeGen]
   { override def slate(obj: ShapeGen, operand: VecPt2): ShapeGen = obj.slate(operand)
     override def slateXY(obj: ShapeGen, xOperand: Double, yOperand: Double): ShapeGen = obj.slate(xOperand, yOperand)
+    override def slateX(obj: ShapeGen, xOperand: Double): ShapeGen = obj.slateX(xOperand)
+    override def slateY(obj: ShapeGen, yOperand: Double): ShapeGen = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeGen]]. */

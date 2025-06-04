@@ -134,6 +134,8 @@ object QuadCompound
   given slate2Ev: Slate2[QuadCompound] = new Slate2[QuadCompound]
   { override def slate(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slate(operand)    
     override def slateXY(obj: QuadCompound, xOperand: Double, yOperand: Double): QuadCompound = obj.slate(xOperand, yOperand)
+    override def slateX(obj: QuadCompound, xOperand: Double): QuadCompound = obj.slateX(xOperand)
+    override def slateY(obj: QuadCompound, yOperand: Double): QuadCompound = obj.slateY(yOperand)
   }
 }
 
