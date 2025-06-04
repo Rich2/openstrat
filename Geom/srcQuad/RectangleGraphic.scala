@@ -52,6 +52,8 @@ object RectangleDraw
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleFill
   override def slate(xOperand: Double, yOperand: Double): RectangleFill
+  override def slateX(xOperand: Double): RectangleFill
+  override def slateY(yOperand: Double): RectangleFill
   override def scale(operand: Double): RectangleFill
   override def negY: RectangleFill
   override def negX: RectangleFill
@@ -76,6 +78,8 @@ object RectangleFill
   given slate2Ev: Slate2[RectangleFill] = new Slate2[RectangleFill]
   { override def slate(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slate(operand)
     override def slateXY(obj: RectangleFill, xOperand: Double, yOperand: Double): RectangleFill = obj.slate(xOperand, yOperand)
+    override def slateX(obj: RectangleFill, xOperand: Double): RectangleFill = obj.slateX(xOperand)
+    override def slateY(obj: RectangleFill, yOperand: Double): RectangleFill = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[RectangleFill]]. */

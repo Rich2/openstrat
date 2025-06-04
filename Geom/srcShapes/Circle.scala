@@ -119,6 +119,8 @@ object Circle extends ShapeIcon
   given slate2Ev: Slate2[Circle] = new Slate2[Circle]
   { override def slate(obj: Circle, operand: VecPt2): Circle = obj.slate(operand)
     override def slateXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Circle, xOperand: Double): Circle = obj.slateX(xOperand)
+    override def slateY(obj: Circle, yOperand: Double): Circle = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Circle]] */

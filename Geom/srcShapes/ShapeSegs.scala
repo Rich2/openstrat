@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb._
+import Colour.Black, pWeb.*
 
 /** The new ShapeSegs trait will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed sequence
  *  of curve segments. Use [[ShapeGen]] for a general implementation of this class, */
@@ -62,13 +62,14 @@ object ShapeSegs
       }
     }
     new ShapeGen(array)
-
   }
 
   /** Implicit [[Slate2]] type class instance / evidence for [[ShapeSegs]]. */
   given slate2Ev: Slate2[ShapeSegs] = new Slate2[ShapeSegs]
   { override def slate(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slate(operand)
     override def slateXY(obj: ShapeSegs, xOperand: Double, yOperand: Double): ShapeSegs = obj.slate(xOperand, yOperand)
+    override def slateX(obj: ShapeSegs, xOperand: Double): ShapeSegs = obj.slateX(xOperand)
+    override def slateY(obj: ShapeSegs, yOperand: Double): ShapeSegs = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[ShapeSegs]]. */
