@@ -15,6 +15,8 @@ trait Drawable extends Any, Aff2Elem
 
   override def slate(operand: VecPt2): Drawable
   override def slate(xOperand: Double, yOperand: Double): Drawable
+  override def slateX(xOperand: Double): Drawable
+  override def slateY(yOperand: Double): Drawable
   override def scale(operand: Double): Drawable
   override def negY: Drawable
   override def negX: Drawable
@@ -35,6 +37,8 @@ object Drawable
   given slate2Ev: Slate2[Drawable] = new Slate2[Drawable]
   { override def slate(obj: Drawable, operand: VecPt2): Drawable = obj.slate(operand)
     override def slateXY(obj: Drawable, xOperand: Double, yOperand: Double): Drawable = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Drawable, xOperand: Double): Drawable = obj.slateX(xOperand)
+    override def slateY(obj: Drawable, yOperand: Double): Drawable = obj.slateY(yOperand)
   }
 
   /** [[Scale]] type class instance / evidence for [[Drawable]]. */

@@ -27,6 +27,8 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
 
   override def slate(delta: VecPt2): HexParrY = vertsTrans(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexParrY = vertsTrans(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): HexParrY = vertsTrans(_.slateX(xOperand))
+  override def slateY(yOperand: Double): HexParrY = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): HexParrY = vertsTrans(_.scale(operand))
   override def negX: HexParrY = vertsTrans(_.negX)
   override def negY: HexParrY = vertsTrans(_.negY)
@@ -86,6 +88,8 @@ object HexParrY
   given slate2Ev: Slate2[HexParrY] = new Slate2[HexParrY]
   { override def slate(obj: HexParrY, operand: VecPt2): HexParrY = obj.slate(operand)
     override def slateXY(obj: HexParrY, xOperand: Double, yOperand: Double): HexParrY = obj.slate(xOperand, yOperand)
+    override def slateX(obj: HexParrY, xOperand: Double): HexParrY = obj.slateX(xOperand)
+    override def slateY(obj: HexParrY, yOperand: Double): HexParrY = obj.slateY(yOperand)
   }  
   
   given scaleEv: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
