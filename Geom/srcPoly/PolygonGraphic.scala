@@ -99,11 +99,12 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
-{
-  /** Implicit [[Slate2]] type class instance / evidence for [[PolygonGraphicSimple]]. */
+{ /** Implicit [[Slate2]] type class instance / evidence for [[PolygonGraphicSimple]]. */
   given slateEv: Slate2[PolygonGraphicSimple] = new Slate2[PolygonGraphicSimple]
   { override def slate(obj: PolygonGraphicSimple, operand: VecPt2): PolygonGraphicSimple = obj.slate(operand)
     override def slateXY(obj: PolygonGraphicSimple, xOperand: Double, yOperand: Double): PolygonGraphicSimple = obj.slate(xOperand, yOperand)
+    override def slateX(obj: PolygonGraphicSimple, xOperand: Double): PolygonGraphicSimple = obj.slateX(xOperand)
+    override def slateY(obj: PolygonGraphicSimple, yOperand: Double): PolygonGraphicSimple = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonGraphicSimple]]. */

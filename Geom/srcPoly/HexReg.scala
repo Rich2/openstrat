@@ -36,6 +36,8 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell
   
   override def slate(delta: VecPt2): HexReg = mapHexReg(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexReg = mapHexReg(_.slate(xOperand, yOperand))
+  override def slateX(xOperand: Double): HexReg = mapHexReg(_.slateX(xOperand))
+  override def slateY(yOperand: Double): HexReg = mapHexReg(_.slateY(yOperand))
   override def scale(operand: Double): HexReg = mapHexReg(_.scale(operand))
   override def negX: HexReg = mapHexReg(_.negX)
   override def negY: HexReg = mapHexReg(_.negY)
@@ -43,14 +45,8 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell
   override def rotate90: HexReg = mapHexReg(_.rotate90)
   override def rotate180: HexReg = mapHexReg(_.rotate180)
   override def rotate270: HexReg = mapHexReg(_.rotate270)
-
-  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: AxlignMatrix): HexReg = mapHexReg(_.prolign(matrix))
-
   override def rotate(rotation: AngleVec): HexReg = mapHexReg(_.rotate(rotation))
-
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub traits /
-   * classes. */
   override def reflect(lineLike: LineLike): HexReg = mapHexReg(_.reflect(lineLike))
 
   /** The area of this [[HexReg]]. 3 * √3 * r² / 2. Or 2 * √3 * a²  */
@@ -98,6 +94,8 @@ object HexReg
   given slate2Ev: Slate2[HexReg] = new Slate2[HexReg]
   { override def slate(obj: HexReg, operand: VecPt2): HexReg = obj.slate(operand)    
     override def slateXY(obj: HexReg, xOperand: Double, yOperand: Double): HexReg = obj.slate(xOperand, yOperand)
+    override def slateX(obj: HexReg, xOperand: Double): HexReg = obj.slateX(xOperand)
+    override def slateY(obj: HexReg, yOperand: Double): HexReg = obj.slateY(yOperand)
   }  
   
   given scaleEv: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
