@@ -13,10 +13,10 @@ trait Slate2[A]
   def slateXY(obj: A, xOperand: Double, yOperand: Double): A
 
   /** Translate 2D geometric transformation along the X axis, on an object of type T, returning an object of type T. */
-  def slateX(obj: A, xOperand: Double): A = slateXY(obj, xOperand, 0)
+  def slateX(obj: A, xOperand: Double): A
 
   /** Translate 2D geometric transformation along the Y axis, on an object of type T, returning an object of type T. */
-  def slateY(obj: A, yOperand: Double): A = slateXY(obj, 0, yOperand)
+  def slateY(obj: A, yOperand: Double): A
 }
 
 /** Companion object for the [[Slate2]] type class. Contains implicit instances for collections and other container classes. */

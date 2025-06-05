@@ -28,6 +28,8 @@ trait CurveSeg extends Drawable
 
   override def slate(operand: VecPt2): CurveSeg
   override def slate(xOperand: Double, yOperand: Double): CurveSeg
+  override def slateX(xOperand: Double): CurveSeg
+  override def slateY(yOperand: Double): CurveSeg
   override def scale(operand: Double): CurveSeg
   override def negX: CurveSeg
   override def negY: CurveSeg
@@ -47,6 +49,8 @@ object CurveSeg
   given slate2Ev: Slate2[CurveSeg] = new Slate2[CurveSeg]
   { override def slate(obj: CurveSeg, operand: VecPt2): CurveSeg = obj.slate(operand)
     override def slateXY(obj: CurveSeg, xOperand: Double, yOperand: Double): CurveSeg = obj.slate(xOperand, yOperand)
+    override def slateX(obj: CurveSeg, xOperand: Double): CurveSeg = obj.slateX(xOperand)
+    override def slateY(obj: CurveSeg, yOperand: Double): CurveSeg = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance for [[CurveSeg]]. */

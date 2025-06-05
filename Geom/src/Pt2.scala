@@ -254,14 +254,14 @@ object Pt2
   def circlePtClockwise(radiansNum: Double): Pt2 = Pt2(cos(radiansNum), - sin(radiansNum))
 
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Pt2]]s. */
-  implicit val persistEv: PersistDbl2Both[Pt2] = PersistDbl2Both[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
+  given persistEv: PersistDbl2Both[Pt2] = PersistDbl2Both[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
 
   /** Implicit [[EqT]] equality type class instance / evidence for [[Pt2]]. */
-  implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
+  given eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
 
-  implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
+  given approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
-  implicit val arrBuilderImplicit: BuilderMapArrDbl2[Pt2, Pt2Arr] = new BuilderMapArrDbl2[Pt2, Pt2Arr]
+  given arrBuilderImplicit: BuilderMapArrDbl2[Pt2, Pt2Arr] = new BuilderMapArrDbl2[Pt2, Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
@@ -269,14 +269,14 @@ object Pt2
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): Pt2PairArrMapBuider[B2] = new Pt2PairArrMapBuider[B2]
 
-  implicit val linePathBuildImplicit: LinePathDbl2Builder[Pt2, LinePath] = new LinePathDbl2Builder[Pt2, LinePath]
+  given linePathBuildImplicit: LinePathDbl2Builder[Pt2, LinePath] = new LinePathDbl2Builder[Pt2, LinePath]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): LinePath = new LinePath(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   /** Implicit instance evidence for [[PolygonBase]] map builder. */
-  implicit val polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderMapSeqLikeDbl2[Pt2, PolygonGen]
+  given polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderMapSeqLikeDbl2[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
@@ -284,21 +284,24 @@ object Pt2
 
   /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function where
    * [[Pt2]] is the type B parameter. */
-  implicit def polygonPairBuildEv[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
-  implicit val lineSegBuildEv: BuilderMapLSegBase[Pt2, LSeg2] = LSeg2(_, _)
+  given polygonPairBuildEv[A2](using ctA: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
   
-  implicit val slateEv: Slate2[Pt2] = new Slate2[Pt2]
+  given lineSegBuildEv: BuilderMapLSegBase[Pt2, LSeg2] = LSeg2(_, _)
+  
+  given slateEv: Slate2[Pt2] = new Slate2[Pt2]
   { override def slate(obj: Pt2, operand: VecPt2): Pt2 = obj.slate(operand)   
     override def slateXY(obj: Pt2, xOperand: Double, yOperand: Double): Pt2 = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Pt2, xOperand: Double): Pt2 = obj.slateX(xOperand)
+    override def slateY(obj: Pt2, yOperand: Double): Pt2 = obj.slateY(yOperand)
   }
     
-  implicit val scaleEv: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
-  implicit val rotateEv: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignEv: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleEv: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-  implicit val reflectEv: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
+  given scaleEv: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
+  given rotateEv: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
+  given prolignEv: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
+  given XYScaleEv: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  given reflectEv: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxesEv: TransAxes[Pt2] = new TransAxes[Pt2]
+  given reflectAxesEv: TransAxes[Pt2] = new TransAxes[Pt2]
   { override def negYT(obj: Pt2): Pt2 = obj.negY
     override def negXT(obj: Pt2): Pt2 = obj.negX
     override def rotate90(obj: Pt2): Pt2 = obj.rotate90
@@ -306,7 +309,7 @@ object Pt2
     override def rotate270(obj: Pt2): Pt2 = obj.rotate270
   }
 
-  implicit val shearEv: Shear[Pt2] = new Shear[Pt2]
+  given shearEv: Shear[Pt2] = new Shear[Pt2]
   { override def shearXT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
     override def shearYT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }

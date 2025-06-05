@@ -19,11 +19,6 @@ trait Graphic2Elem extends Axlign2Elem
   override def rotate180: Graphic2Elem
   override def rotate270: Graphic2Elem
   override def prolign(matrix: AxlignMatrix): Graphic2Elem
-//  override def rotate(rotation: AngleVec): Graphic2Elem
-//  override def reflect(lineLike: LineLike): Graphic2Elem
-//  override def scaleXY(xOperand: Double, yOperand: Double): Graphic2Elem
-//  override def shearX(operand: Double): Graphic2Elem
-//  override def shearY(operand: Double): Graphic2Elem
 
   def svgElems: RArr[SvgElem]
 }
@@ -34,6 +29,8 @@ object Graphic2Elem
   given slate2Ev: Slate2[Graphic2Elem] = new Slate2[Graphic2Elem]
   { override def slate(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slate(operand)
     override def slateXY(obj: Graphic2Elem, xOperand: Double, yOperand: Double): Graphic2Elem = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Graphic2Elem, xOperand: Double): Graphic2Elem = obj.slateX(xOperand)
+    override def slateY(obj: Graphic2Elem, yOperand: Double): Graphic2Elem = obj.slateY(yOperand)
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[Graphic2Elem]]. */

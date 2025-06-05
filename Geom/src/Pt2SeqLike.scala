@@ -68,32 +68,34 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
   /** Builder for [[Arr]] of [[Pt2]]s via the flatMap method. The call site does not need to know that the element type is [[Pt2]] hence why this type class
    * instance / evidence is in the [[Pt2Arr]] companion object, while the corresponding [[BuilderMapArrDbl2]] type class instance is in the
    *  [[Pt2]] companion object. */
-  implicit val builderArrFlatEv: BuilderArrFlat[Pt2Arr] =  new BuilderFlatArrDbl2[Pt2Arr]
+  given builderArrFlatEv: BuilderArrFlat[Pt2Arr] =  new BuilderFlatArrDbl2[Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   /** [[Show]] type class instance / evidence for [[Pt2Arr]] */
-  implicit lazy val showEv: ShowSequ[Pt2, Pt2Arr] = ShowSequ[Pt2, Pt2Arr]()
+  given showEv: ShowSequ[Pt2, Pt2Arr] = ShowSequ[Pt2, Pt2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
-  implicit lazy val unshowEv: UnshowSeq[Pt2, Pt2Arr] = UnshowSeq[Pt2, Pt2Arr]()
+  given unshowEv: UnshowSeq[Pt2, Pt2Arr] = UnshowSeq[Pt2, Pt2Arr]()
 
-  implicit val eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
+  given eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
 
-  implicit val slateImplicit: Slate2[Pt2Arr] = new Slate2[Pt2Arr]
+  given slateEv: Slate2[Pt2Arr] = new Slate2[Pt2Arr]
   { override def slate(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slate(operand)
     override def slateXY(obj: Pt2Arr, xOperand: Double, yOperand: Double): Pt2Arr = obj.slate(xOperand, yOperand)
+    override def slateX(obj: Pt2Arr, xOperand: Double): Pt2Arr = obj.slateX(xOperand)
+    override def slateY(obj: Pt2Arr, yOperand: Double): Pt2Arr = obj.slateY(yOperand)
   }
 
-  implicit val scaleImplicit: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Pt2Arr] = (obj: Pt2Arr, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[Pt2Arr] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[Pt2Arr] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val reflectImplicit: Reflect[Pt2Arr] = (obj: Pt2Arr, lineLike: LineLike) => obj.reflect(lineLike)
+  given scaleEv: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)
+  given rotateEv: Rotate[Pt2Arr] = (obj: Pt2Arr, angle: AngleVec) => obj.rotate(angle)
+  given prolignEv: Prolign[Pt2Arr] = (obj, matrix) => obj.prolign(matrix)
+  given XYScaleEv: ScaleXY[Pt2Arr] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given reflectEv: Reflect[Pt2Arr] = (obj: Pt2Arr, lineLike: LineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxesImplicit: TransAxes[Pt2Arr] = new TransAxes[Pt2Arr]
+  given reflectAxesEv: TransAxes[Pt2Arr] = new TransAxes[Pt2Arr]
   { override def negYT(obj: Pt2Arr): Pt2Arr = obj.negY
     override def negXT(obj: Pt2Arr): Pt2Arr = obj.negX
     override def rotate90(obj: Pt2Arr): Pt2Arr = obj.rotate90
@@ -101,7 +103,7 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
     override def rotate270(obj: Pt2Arr): Pt2Arr = obj.rotate270
   }
 
-  implicit val shearImplicit: Shear[Pt2Arr] = new Shear[Pt2Arr]
+  given shearEv: Shear[Pt2Arr] = new Shear[Pt2Arr]
   { override def shearXT(obj: Pt2Arr, yFactor: Double): Pt2Arr = obj.shearX(yFactor)
     override def shearYT(obj: Pt2Arr, xFactor: Double): Pt2Arr = obj.shearY(xFactor)
   }

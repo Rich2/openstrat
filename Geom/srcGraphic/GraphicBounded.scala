@@ -27,6 +27,8 @@ object GraphicBounded
   given slate2Ev: Slate2[GraphicBounded] = new Slate2[GraphicBounded]
   { override def slate(obj: GraphicBounded, operand: VecPt2): GraphicBounded = obj.slate(operand)
     override def slateXY(obj: GraphicBounded, xOperand: Double, yOperand: Double): GraphicBounded = obj.slate(xOperand, yOperand)
+    override def slateX(obj: GraphicBounded, xOperand: Double): GraphicBounded = obj.slateX(xOperand)
+    override def slateY(obj: GraphicBounded, yOperand: Double): GraphicBounded = obj.slateY(yOperand)
   }
 
   given scaleEv: Scale[GraphicBounded] = (obj: GraphicBounded, operand: Double) => obj.scale(operand)
