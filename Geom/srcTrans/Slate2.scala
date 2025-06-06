@@ -55,7 +55,7 @@ object Slate2
 }
 
 /** Extension class for instances of the Slate type class. */
-implicit class Slate2Extensions[A](value: A)(implicit ev: Slate2[A])
+implicit class Slate2Extensions[A](value: A)(using ev: Slate2[A])
 { /** Translate 2D geometric transformation extension method, taking a [[Pt2]] or a [[Vec2]] as a parameter, on this object of type T, returning an object of
    * Type T. */
   def slate(operand: VecPt2): A = ev.slate(value, operand)

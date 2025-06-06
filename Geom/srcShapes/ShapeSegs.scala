@@ -5,8 +5,7 @@ import Colour.Black, pWeb.*
 /** The new ShapeSegs trait will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed sequence
  *  of curve segments. Use [[ShapeGen]] for a general implementation of this class, */
 trait ShapeSegs extends Shape
-{
-  /** The backing array of [[ShapeSeg]]s. End users should rarely need to access this field. */
+{ /** The backing array of [[ShapeSeg]]s. End users should rarely need to access this field. */
   def unsafeArray: Array[CurveSeg]
 
   /** The [[ShapeSeg]]s that make up this Shape. */

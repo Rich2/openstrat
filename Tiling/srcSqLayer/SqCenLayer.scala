@@ -78,9 +78,9 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal, LayerTc
   def setColumnDown(grid: SqGrid, startCen: SqCen, tileValues: Multiple[A]*): SqCen = setColumnDown(grid, startCen.c, startCen.r, tileValues*)
   def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(using grid: SqGrid): SqCen = setColumnDown(grid, startCen.c, startCen.r, tileValues*)
 
-  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(SqCen(startR, startC), value, dirns*)
+  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(using grid: SqGrid): SqCen = setTerrPath(SqCen(startR, startC), value, dirns*)
 
-  def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen =
+  def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqStepPerp]*)(using grid: SqGrid): SqCen =
   {
     var curr = startCen
 
@@ -94,7 +94,7 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal, LayerTc
   }
 
   /** Sets a rectangle of tiles to the same terrain type. */
-  def setRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SqGrid): Unit =
+  def setRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(using grid: SqGrid): Unit =
     ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => arrayUnsafe(grid.layerArrayIndex(y, c)) =  tileValue }
 }
 

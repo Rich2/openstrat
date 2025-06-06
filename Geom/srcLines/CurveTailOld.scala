@@ -4,8 +4,8 @@ package ostrat; package geom
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment without its starting point, which is supplied by the previous curveTail. It takes
  * its start point from the pEnd of the previous segment. There is no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory
  * object apply methods. */
-case class CurveTailOld(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
-  val yEnd: Double) extends Dbl7Elem /*with CurveTailLike*/ with AffinePreserve
+case class CurveTailOld(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends
+  Dbl7Elem /*with CurveTailLike*/ with AffinePreserve
 { override type ThisT = CurveTailOld
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTailOld]
   @inline override def dbl1 = iMatch
@@ -21,8 +21,8 @@ case class CurveTailOld(val iMatch: Double, val xC1: Double, val yC1: Double, va
 
   /** This is control point 2 in a Bezier segment, the centre point in an arc segment and unused in a straight Line Segment */
   def pUses: Pt2 = Pt2(xUses, yUses)
-  /** This is control point 1 in a Bezier segment, it not used an arc segment, but first Double set to NaN, it is not used in a straight Line Segment but the
-   * first Double is set to Infinity */
+  /** This is control point 1 in a Bezier segment, it is not used by an arc segment, but first Double set to NaN, it is not used in a straight Line Segment but
+   * the first Double is set to Infinity */
   def pC1: Pt2 = Pt2(xC1, yC1)
       
   def fSeg[A](fLineSeg: Pt2 => A, fArcSeg: (Pt2, Pt2) => A, fBezierSeg: (Pt2, Pt2, Pt2) => A): A = iMatch match

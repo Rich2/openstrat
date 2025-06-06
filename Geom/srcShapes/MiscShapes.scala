@@ -55,3 +55,8 @@ object Pentagram
 
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)
 }
+
+object Stadium
+{
+  //def apply(width: Double, height: Double = 1): ShapeGenOld = ShapeGenOld(LineTail
+}
