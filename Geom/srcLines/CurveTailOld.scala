@@ -94,7 +94,7 @@ case class CurveTailOld(val iMatch: Double, val xC1: Double, val yC1: Double, va
   }
 }
 
-/** This provides factory methods to create a 2 dimensional headless line segment. There is no independent LineTail class. This is one of 3 factory objects to
+/** This provides factory methods to create a 2-dimensional headless line segment. There is no independent LineTail class. This is one of 3 factory objects to
  * CurveTail. */
 object LineTail
 { def apply(pEnd: Pt2): CurveTailOld =  new CurveTailOld(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
@@ -103,7 +103,10 @@ object LineTail
 
 /** This provides factory methods to create an ArcTail. There is no independent ArcTail class. This is one of 3 factory objects to CurveTail. */
 object ArcTail
-{ def apply(pCen: Pt2, pEnd: Pt2): CurveTailOld = new CurveTailOld(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+{ /** Apply method to create an arc curve tail, from the centre and end point of the arc. */
+  def apply(pCen: Pt2, pEnd: Pt2): CurveTailOld = new CurveTailOld(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+
+  /** Apply method to create an arc curve tail, from the centre and end point of the arc. */
   def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveTailOld = new CurveTailOld(11, 0, 0, xCen, yCen, xEnd, yEnd)
 }
 
