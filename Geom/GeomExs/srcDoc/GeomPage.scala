@@ -6,37 +6,41 @@ import geom.*, pWeb.*, Colour.*
 object GeomPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists)
 
-  def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
+  val intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
+  |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
+  | units such as metres, miles and picometres. There is also 2D geometry and graphics that can be defined in latitudes and longitudes.""".stripMargin
+
+  val list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
     geomItem, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
 
-  def geomItem: HtmlLi = HtmlLi(
+  val geomItem: HtmlLi = HtmlLi(
     "Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections from the Util module.")
 
-  def colourItem: HtmlLi = HtmlLi("Colour class. A 32 bit integer class that can be built from rgba and named values.")
+  val colourItem: HtmlLi = HtmlLi("Colour class. A 32 bit integer class that can be built from rgba and named values.")
 
-  def graphicItem: HtmlLi = HtmlLi("Graphic primitives. Immutable classes for fills, draws and active elements based on the geometry classes.")
+  val graphicItem: HtmlLi = HtmlLi("Graphic primitives. Immutable classes for fills, draws and active elements based on the geometry classes.")
 
-  def compound: HtmlLi = HtmlLi("Compound Graphics. Again immutable classes. Useful for selection and placing.")
+  val compound: HtmlLi = HtmlLi("Compound Graphics. Again immutable classes. Useful for selection and placing.")
 
-  def trans: HtmlLi = HtmlLi("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
+  val trans: HtmlLi = HtmlLi("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
 
-  def canv: HtmlLi = HtmlLi("An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas," +
+  val canv: HtmlLi = HtmlLi("An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas," +
     " allowing applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL," +
     " but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.")
 
-  def svg: HtmlLi = HtmlLi("Conversion of Graphic classes into SVG, gving an alternative target and greater flexibility.")
+  val svg: HtmlLi = HtmlLi("Conversion of Graphic classes into SVG, gving an alternative target and greater flexibility.")
 
-  def web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
+  val web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
 
-  def geom3: HtmlLi = HtmlLi("3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be" +
+  val geom3: HtmlLi = HtmlLi("3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be" +
     " provided, but currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely" +
     " possible.")
 
-  def lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
+  val lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
 
-  def earth: HtmlLi = HtmlLi("Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion" +
+  val earth: HtmlLi = HtmlLi("Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion" +
     "between them and 2D and 3D coordinates.")
 
   val svgMargin = 50
