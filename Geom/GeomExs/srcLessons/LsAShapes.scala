@@ -25,5 +25,7 @@ object LsAShapes extends LessonStatic
   val sf5 = sf4.slateX(-100).copy(colour = Green)
   val sf6 = sf5.negY.copy(colour = Red)
 
-  override def output: GraphicElems = RArr(sf1, sf2, sf3, sf4, sf5, sf6)
+  val stadium = Stadium(200, 100, -200, -200).draw(Green)
+
+  override def output: GraphicElems = RArr(sf1, sf2, sf3, sf4, sf5, sf6, stadium)
 }

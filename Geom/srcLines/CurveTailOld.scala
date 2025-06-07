@@ -104,7 +104,7 @@ object LineTail
 /** This provides factory methods to create an ArcTail. There is no independent ArcTail class. This is one of 3 factory objects to CurveTail. */
 object ArcTail
 { /** Apply method to create an arc curve tail, from the centre and end point of the arc. */
-  def apply(pCen: Pt2, pEnd: Pt2): CurveTailOld = new CurveTailOld(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+  def apply(cen: Pt2, pEnd: Pt2): CurveTailOld = new CurveTailOld(11, 0, 0, cen.x, cen.y, pEnd.x, pEnd.y)
 
   /** Apply method to create an arc curve tail, from the centre and end point of the arc. */
   def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveTailOld = new CurveTailOld(11, 0, 0, xCen, yCen, xEnd, yEnd)

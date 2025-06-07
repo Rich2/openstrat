@@ -49,9 +49,10 @@ object ArmourCounter extends UnitCounter
 {
   def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
   { val rect: Rect = Rect(scale, scale * heightRatio)
+    val stadium: ShapeGenOld = Stadium(scale * 0.65, scale * heightRatio * 0.6)
     val linesColour = fillColour.contrastBW
     val subj: RectCompound = rect.fillActiveDraw(fillColour, evObj, linesColour, lineWidth)
-    subj.addChildren(RArr(rect.diag1.draw(1, linesColour)))
+    subj.addChildren(RArr(stadium.draw(linesColour, 2)))
   }
 
   override def str: String = "Armour"
