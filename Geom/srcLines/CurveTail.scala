@@ -12,6 +12,18 @@ trait CurveTail
   def curveSeg(startPt: Pt2): CurveSeg
 }
 
+case class EArcTail(cenX: Double, cenY: Double, v0x: Double, v0y: Double, v1x: Double, v1y: Double, endX: Double, endY: Double) extends CurveTail
+{
+  /** The end point of the [[CurveSeg]]. */
+  override def endPt: Pt2 = ???
+
+  /** The full [[CurveSeg]] */
+  override def curveSeg(startX: Double, startY: Double): CurveSeg = ???
+
+  /** The full [[CurveSeg]] */
+  override def curveSeg(startPt: Pt2): CurveSeg = ???
+}
+
 case class CArcTail(cenX: Double, cenY: Double, endX: Double, endY: Double) extends CurveTail
 { override def endPt: Pt2 = Pt2(endX, endY)
   override def curveSeg(startX: Double, startY: Double): CurveSeg = CArc(startX, startY, cenX, cenY, endX, endY, 0)

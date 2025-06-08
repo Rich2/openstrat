@@ -9,12 +9,14 @@ trait ShapeSegsNew
 /** Yet another attempt at a shapeGen class. */
 class ShapeGenNew(val arrayUnsafe: Array[Double]) extends ShapeSegsNew
 {
-  def numSegs: Int = arrayUnsafe.length / 7
+  def numSegs: Int = arrayUnsafe.length / 10
   override def foreach(f: CurveTail => Unit): Unit = iUntilForeach(numSegs){ i =>
-    val ii = i * 7
+    val ii = i * 10
     arrayUnsafe(ii) match
     {
       case 10 => Pt2(arrayUnsafe(ii + 1), arrayUnsafe(ii + 2))
+
+      case 12 => ??? // CArcTail()
   
     }
   }
