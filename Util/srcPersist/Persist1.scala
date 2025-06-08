@@ -115,8 +115,8 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
 
       case Match1(exprs) =>
       { val a1 = unshowA1.fromExpr(exprs(0))
-        def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(using unshowAr, BuilderMap.listEv)
-        else exprs.drop1.mapErrBiList(unshowAr.fromExpr)
+        def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.tail)(using unshowAr, BuilderMap.listEv)
+        else exprs.tail.mapErrBiList(unshowAr.fromExpr)
 
         a1.flatMap(a1 => reps.map(l => newT(a1, l)))
       }
@@ -150,8 +150,8 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
 
       case Match1(exprs) =>
       {val a1 = unshowA1.fromExpr(exprs(0))
-        def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(using unshowAr, BuilderMap.listEv)
-        else exprs.drop1.mapErrBiList(unshowAr.fromExpr)
+        def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.tail)(using unshowAr, BuilderMap.listEv)
+        else exprs.tail.mapErrBiList(unshowAr.fromExpr)
 
         a1.flatMap { a1 => reps.map(list => newT(a1, list.toArray)) }
       }

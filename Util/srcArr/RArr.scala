@@ -37,7 +37,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** Returns a new shorter Arr with the head element removed. */
-  @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(1)
+  @inline def tail(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(1)
 
   /** Returns a new shorter Arr with the first 2 head elements removed. */
   @inline def drop2(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(2)

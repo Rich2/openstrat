@@ -9,21 +9,38 @@ object LessonsLaunch extends GuiLaunchMore
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val code: String = sts.findSettingIdElse("code", "A1")
-
-    val res = theMap(code)
+    val (alpha, codeNum) = code.alphaNatPartition
+    var res = allList.head
+    val (str0, c0) = res.title.alphaNatPartition
+    var lessonNum = c0
+    var matchNum = alpha.countMatchingChars(str0)
+    allList.tailForeach{ newLesson =>
+      val (str, newLessonNum) = newLesson.title.alphaNatPartition
+      val newMatchNum = alpha.countMatchingChars(str)
+      val good: Boolean = newMatchNum match
+      { case nm if nm > matchNum => true
+        case nm if nm == matchNum => (newLessonNum - codeNum).abs < (lessonNum - codeNum).abs
+        case _ => false
+      }
+      if (good)
+      { res = newLesson
+        matchNum = newMatchNum
+        lessonNum = newLessonNum
+      }
+    }
     (res.canv, "JavaFx" -- res.title)
   }
 
   val aList: RArr[LessonGraphics] = RArr(LsCircles1, LsASquares, LsCircles2, LsPolygons, LsARotation, LsArcs1, LsArcs2, LsAShapes, LsAShapesReproduction,
     LsBeziers, LsDiagram, LsAReflect, LsAHexEnum, LsATiling, LsAEllipses, LsInnerRect, LsAPolygonSides, LsAText)
 
-  val bList = RArr(LsTimer, LsMovingRectangle, LsMovingRectangles2)
+  val bList: RArr[LessonGraphics] = RArr(LsTimer, LsMovingRectangle, LsMovingRectangles2)
 
-  val cList = RArr(LsMouseClick, LsPointerPosition, LsPointerTargeting, LsEllipseTargeting, LsEllipseTargeting2, LsOverlapTargeting, LsKeyUp, LsBezierChange,
-    LsPointerMoving2)
+  val cList: RArr[LessonGraphics] = RArr(LsMouseClick, LsPointerPosition, LsPointerTargeting, LsEllipseTargeting, LsEllipseTargeting2, LsOverlapTargeting,
+    LsKeyUp, LsBezierChange, LsPointerMoving2)
 
-  val dList = RArr(LsRson1, LsRson2, LsD3, LsD4, LsD5)
-  val eList = RArr(LsE1, LsE2)
+  val dList: RArr[LessonGraphics] = RArr(LsRson1, LsRson2, LsD3, LsD4, LsD5)
+  val eList: RArr[LessonGraphics] = RArr(LsE1, LsE2)
 
   val allList = aList ++ bList ++ cList ++ dList ++ eList
 

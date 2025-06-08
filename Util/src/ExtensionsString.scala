@@ -47,7 +47,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forSucc(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
-  def asType[A](implicit ev: Unshow[A]) = parseExpr.flatMap(ev.fromExpr(_))
+  def asType[A](using evA: Unshow[A]) = parseExpr.flatMap(evA.fromExpr(_))
 
   /** Replaces newline characters into space characters. */
   def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
@@ -172,8 +172,18 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def alphaNatPartition: (String, Int) =
   { val s1 = thisString.takeWhile(c => c.isLetter || c.isWhitespace)
     val n1 = thisString.dropWhile(!_.isDigit).takeWhile(_.isDigit)
-    val n2 = n1.asIntElse()
+    val n2 = if (n1 == "") 0 else n1.asIntElse()
     (s1, n2)
+  }
+
+  def countMatchingChars(operand: String, ignoreCase: Boolean = false) =
+  { var i = 0
+    var continue = true
+    val this2 = ife(ignoreCase, thisString.toLowerCase(), thisString)
+    val op2 = ife(ignoreCase, operand.toLowerCase(), operand)
+    while (continue && i < this2.length && i < op2.length)
+      if(this2(i) == op2(i)) i += 1 else continue = false
+    i
   }
   
   def remove2ndDot: String =
