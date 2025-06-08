@@ -17,11 +17,13 @@ import ostrat.*, geom.*, Colour.*
  *
  * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a " quotation
  * mark and end with a quotation mark. Change the text in on one of the strings, save the file, and you should see the text change on the screen. If you try
- * replacing a string with a number or replacing a number with a String, the compiler will complain, and you will get an error message. The third type is Colour.
+ * replacing a string with a number or replacing a number with a String, the compiler will complain and you will get an error message. The third type is Colour.
  * Note Colours must have the correct capital letters. You can just try guessing the colours, or you can google / duckduck web colours to see what is available.
  * Again put a Colour where a number or a string is expected or vice versa and the compiler will complain. */
-object LsAArcs1 extends LessonStatic
-{ override def title: String = "Arcs 1"
+object LsArcs2 extends LessonStatic
+{
+  override def title: String = "Arcs 2"
+
   override def bodyStr: String = "Arcs"
 
   val c1St = Pt2(100, 200)
@@ -44,13 +46,13 @@ object LsAArcs1 extends LessonStatic
   val e2 = EArclign.neg(e1St, e1Cen, 200, 100, c1End).draw(lineColour = Green)
 
   val stuff = RArr(
-    LSeg2Draw.dbls(0, 0, 160, 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
-    LSeg2Draw.dbls(0, 50, 150, 200, lineWidth = 3),
-    LSeg2Draw.dbls(50, -50, 200, -50, 2, Red),//Note if you don't include a Colour you get Black
+    LSeg2(0, 0, 160, 100).draw(),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
+    LSeg2(0, 50, 150, 200).draw(lineWidth = 3),
+    LSeg2(50, -50, 200, -50).draw(2, Red),//Note if you don't include a Colour you get Black
 
     LinePath.dbls(0,-50, 50,-100, -25,-75, 200,-60).draw(2, Orange),
 
-    Bezier(200,-350, -500,-300,-600, -300, -450,-200).draw(2, Green),
+    Bezier(200,-350, -500,-300, -600,-300, -450,-200).draw(2, Green),
     c1, c2,
     c3d, c4d, e1, e2
   )

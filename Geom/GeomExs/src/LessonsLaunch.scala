@@ -5,7 +5,7 @@ import ostrat.*, pParse.*, pgui.*
 object LessonsLaunch extends GuiLaunchMore
 { override def settingStr: String = "lessons"
 
-  override def default: (CanvasPlatform => Any, String) = (LsACircles.canv, "JavaFx" -- LsACircles.title)
+  override def default: (CanvasPlatform => Any, String) = (LsCircles1.canv, "JavaFx" -- LsCircles1.title)
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val code: String = sts.findSettingIdElse("code", "A1")
@@ -14,8 +14,8 @@ object LessonsLaunch extends GuiLaunchMore
     (res.canv, "JavaFx" -- res.title)
   }
 
-  val aList: RArr[LessonGraphics] = RArr(LsACircles, LsASquares, LsACircles2, LsAPolygons, LsARotation, LsAArcs1, LsAArcs2, LsAShapes, LsAShapesReproduction,
-    LsABeziers, LsADiagram, LsAReflect, LsAHexEnum, LsATiling, LsAEllipses, LsAInnerRect, LsAPolygonSides, LsAText)
+  val aList: RArr[LessonGraphics] = RArr(LsCircles1, LsASquares, LsCircles2, LsPolygons, LsARotation, LsArcs1, LsArcs2, LsAShapes, LsAShapesReproduction,
+    LsBeziers, LsDiagram, LsAReflect, LsAHexEnum, LsATiling, LsAEllipses, LsInnerRect, LsAPolygonSides, LsAText)
 
   val bList = RArr(LsTimer, LsMovingRectangle, LsMovingRectangles2)
 
@@ -25,7 +25,7 @@ object LessonsLaunch extends GuiLaunchMore
   val dList = RArr(LsRson1, LsRson2, LsD3, LsD4, LsD5)
   val eList = RArr(LsE1, LsE2)
 
-  def theMap(inp: String): LessonGraphics = inp.findAlphaInt.fold(LsACircles){
+  def theMap(inp: String): LessonGraphics = inp.findAlphaInt.fold(LsCircles1){
     case ("A", i) => if (i > aList.length || i < 1) aList(0) else aList(i - 1)
     case ("B", i) => if (i > bList.length || i < 1) bList(0) else bList(i - 1)
     case ("C", i) => if (i > cList.length || i < 1) cList(0) else cList(i - 1)

@@ -4,5 +4,5 @@ import ostrat.*,geom.*, pSJs.*, scalajs.js.annotation.*
 
 @JSExportTopLevel("LessonAppJs")
 object LessonAppJs
-{ @JSExport def main(args: Array[String]): Unit = LsAArcs1.canv(CanvasJs)
+{ @JSExport def main(args: Array[String]): Unit = LsArcs1.canv(CanvasJs)
 } 

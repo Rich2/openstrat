@@ -3,7 +3,7 @@ package learn
 import ostrat.*, geom.*, Colour.*
 
 /** Lesson Polygons. */
-object LsAPolygons extends LessonStatic
+object LsPolygons extends LessonStatic
 { override def title: String = "Polygons"
   override def bodyStr: String = "Polygons"
 

@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, Colour._
 
-object LsAInnerRect extends LessonStatic
+object LsInnerRect extends LessonStatic
 { override val title: String = "Inner Rect"
   override def bodyStr: String = "Inner rectangles."
   val hex: HexParrX = HexParrX(400)

@@ -3,7 +3,7 @@ package learn
 import ostrat.*, geom.*, Colour.*
 
 /** More stuff with circles. */
-object LsACircles2 extends LessonStatic
+object LsCircles2 extends LessonStatic
 {
   override def title: String = "Circles 2"
 

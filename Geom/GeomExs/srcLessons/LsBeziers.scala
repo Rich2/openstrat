@@ -2,7 +2,7 @@
 package learn
 import ostrat.*, geom.*, Colour.*
 
-object LsABeziers extends LessonStatic
+object LsBeziers extends LessonStatic
 { override def title: String = "Beziers"
   override def bodyStr: String = "Beziers"
 
