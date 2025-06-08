@@ -1,6 +1,6 @@
 /* Copyright 2018 = 23 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat; package pStrat
-import geom._, Colour.Black
+import geom.*, Colour.Black
 
 trait UnitCounter
 { def heightRatio = 0.7

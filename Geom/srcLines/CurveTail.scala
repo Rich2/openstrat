@@ -6,11 +6,14 @@ trait CurveTail
   def endPt: Pt2
   
   /** The full [[CurveSeg]] */
+  def curveSeg(startX: Double, startY: Double): CurveSeg
+
+  /** The full [[CurveSeg]] */
   def curveSeg(startPt: Pt2): CurveSeg
 }
 
-/** A [[CurveTail]] that can be defined with a max of 8 [[Double]]s. */
-trait CurveTailMax8 extends CurveTail
-
-/** A [[CurveTail]] that can be defined with a max of 6 [[Double]]s. */
-trait CurveTailMax6 extends CurveTailMax8
+case class CArcTail(cenX: Double, cenY: Double, endX: Double, endY: Double) extends CurveTail
+{ override def endPt: Pt2 = Pt2(endX, endY)
+  override def curveSeg(startX: Double, startY: Double): CurveSeg = CArc(startX, startY, cenX, cenY, endX, endY, 0)
+  override def curveSeg(startPt: Pt2): CurveSeg = CArc(startPt.x, startPt.y, cenX, cenY, endX, endY, 0)
+}

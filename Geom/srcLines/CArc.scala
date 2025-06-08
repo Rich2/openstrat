@@ -106,6 +106,8 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 object CArc
 { /** Factory method for creating circular arcs. */
   def apply(pStart: Pt2, cen: Pt2, pEnd: Pt2, counter: Int): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, counter)
+  
+  def apply(startX: Double, startY: Double, cenX: Double, cenY: Double, endX: Double, endY: Double, rotationsInt: Int): CArc = new CArc(startX, startY, cenX, cenY, endX, endY, rotationsInt)
 
   /** Creates a positive direction or anti-clockwise circular arc, with an [[AngleVec]] from 0 until 360 degrees. */
   def pos(pStart: Pt2, cen: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, ife(pStart == pEnd, 0, 1))

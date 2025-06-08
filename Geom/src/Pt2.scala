@@ -5,7 +5,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, a
 /** A 2-dimensional point. [[Pt2]]s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a [[Vec2]]
  * instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points, but they can be used to
  * translate the point. */
-final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTailMax6
+final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTail
 { override type ThisT = Pt2
   override type LineSegT = LSeg2
   override def typeStr: String = "Pt2"
@@ -226,12 +226,14 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
 
   def boundingRect: Rect = Rect(0, 0, this)
 
+  override def curveSeg(startX: Double, startY: Double): CurveSeg = LSeg2(startX, startY, x, y)
   override def curveSeg(startPt: Pt2): CurveSeg = LSeg2(startPt, this)
   override def endPt: Pt2 = this
 
   override def scaleXY(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
   override def shearX(operand: Double): Pt2 = Pt2(x * operand, y)
   override def shearY(operand: Double): Pt2 = Pt2(x, y * operand)
+
 }
 
 /** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the 2D geometric
