@@ -25,6 +25,8 @@ object LessonsLaunch extends GuiLaunchMore
   val dList = RArr(LsRson1, LsRson2, LsD3, LsD4, LsD5)
   val eList = RArr(LsE1, LsE2)
 
+  val allList = aList ++ bList ++ cList ++ dList ++ eList
+
   def theMap(inp: String): LessonGraphics = inp.findAlphaInt.fold(LsCircles1){
     case ("A", i) => if (i > aList.length || i < 1) aList(0) else aList(i - 1)
     case ("B", i) => if (i > bList.length || i < 1) bList(0) else bList(i - 1)

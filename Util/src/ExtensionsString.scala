@@ -61,6 +61,9 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Tries to parse this String as an [[Int]] expression. */
   def asInt: ErrBi[Exception, Int] = asType[Int]
 
+  /** Tries to parse this String as an [[Int]] expression, if fails returns the elseValue with a defualt of 0. */
+  def asIntElse(elseValue: Int = 0): Int = asType[Int].getElse(elseValue)
+
   /** Tries to parse this String as a natural non-negative [[Int]] expression. */
   def asNat: ErrBi[Exception, Int] = asType[Int](using Unshow.natEv)
 
@@ -164,6 +167,14 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** Splits this [[String]] by white space into [[Array]] of words. */
   def words: StrArr = new StrArr(thisString.split("\\s+"))
+
+  /** Partitions this [[String]] into alphabetic [[String]] and a natural number. If no digits found returns 0. */
+  def alphaNatPartition: (String, Int) =
+  { val s1 = thisString.takeWhile(c => c.isLetter || c.isWhitespace)
+    val n1 = thisString.dropWhile(!_.isDigit).takeWhile(_.isDigit)
+    val n2 = n1.asIntElse()
+    (s1, n2)
+  }
   
   def remove2ndDot: String =
   { val (s1, s2) = thisString.span(_ != '.')         
