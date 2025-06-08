@@ -9,25 +9,7 @@ object LessonsLaunch extends GuiLaunchMore
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val code: String = sts.findSettingIdElse("code", "A1")
-    val (alpha, codeNum) = code.alphaNatPartition
-    var res = allList.head
-    val (str0, c0) = res.title.alphaNatPartition
-    var lessonNum = c0
-    var matchNum = alpha.countMatchingChars(str0)
-    allList.tailForeach{ newLesson =>
-      val (str, newLessonNum) = newLesson.title.alphaNatPartition
-      val newMatchNum = alpha.countMatchingChars(str)
-      val good: Boolean = newMatchNum match
-      { case nm if nm > matchNum => true
-        case nm if nm == matchNum => (newLessonNum - codeNum).abs < (lessonNum - codeNum).abs
-        case _ => false
-      }
-      if (good)
-      { res = newLesson
-        matchNum = newMatchNum
-        lessonNum = newLessonNum
-      }
-    }
+    val res = allList.alphaNatMatch(code)(_.title)
     (res.canv, "JavaFx" -- res.title)
   }
 

@@ -647,6 +647,31 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     }
     res
   }
+
+  /** Partitions the code and element's [[String]]s into an alphabetic [[String]] and a natural number. First matches onth on the alphabetic and then for
+   * results that match the same number of letters, it matches on the numbers. */
+  def alphaNatMatch(code: String)(f: A => String): A =
+  { val (alpha, codeNum) = code.alphaNatPartition
+    var res = head
+    val (str0, c0) = f(res).alphaNatPartition
+    var lessonNum = c0
+    var matchNum = alpha.countMatchingChars(str0)
+    tailForeach { newA =>
+      val (str, newLessonNum) = f(newA).alphaNatPartition
+      val newMatchNum = alpha.countMatchingChars(str)
+      val good: Boolean = newMatchNum match {
+        case nm if nm > matchNum => true
+        case nm if nm == matchNum => (newLessonNum - codeNum).abs < (lessonNum - codeNum).abs
+        case _ => false
+      }
+      if (good) {
+        res = newA
+        matchNum = newMatchNum
+        lessonNum = newLessonNum
+      }
+    }
+    res
+  }
 }
 
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting from
