@@ -659,13 +659,13 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     tailForeach { newA =>
       val (str, newLessonNum) = f(newA).alphaNatPartition
       val newMatchNum = alpha.countMatchingChars(str)
-      val good: Boolean = newMatchNum match {
-        case nm if nm > matchNum => true
+      val good: Boolean = newMatchNum match
+      { case nm if nm > matchNum => true
         case nm if nm == matchNum => (newLessonNum - codeNum).abs < (lessonNum - codeNum).abs
         case _ => false
       }
-      if (good) {
-        res = newA
+      if (good)
+      { res = newA
         matchNum = newMatchNum
         lessonNum = newLessonNum
       }
