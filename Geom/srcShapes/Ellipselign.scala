@@ -80,7 +80,7 @@ object Ellipselign
 
     /** The end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or a
      * co-vertex for the minor axis. */
-    override def p0: Pt2 = Pt2(p0X, p0y)
+    override def p0: Pt2 = Pt2(p0X, p0Y)
 
     /** The X component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the
      * major axis or a co-vertex for the minor axis. */
@@ -88,7 +88,7 @@ object Ellipselign
 
     /** The Y component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
      * a co-vertex for the minor axis. */
-    override def p0y: Double = cenY + yRadius
+    override def p0Y: Double = cenY + yRadius
 
     /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
      * on. */

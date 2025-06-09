@@ -71,22 +71,21 @@ trait Ellipse extends EllipseBased, ShapeCentred
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
 object Ellipse
 { /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
-  def apply(radius1: Double, radius0: Double, cenX: Double, cenY: Double): Ellipse = new EllipseGen(cenX, cenY, cenX + radius1, cenY,  radius0)
+  def apply(radius1: Double, radius0: Double, cenX: Double, cenY: Double): Ellipse =
+    new EllipseGen(cenX, cenY + radius0, cenX + radius1, cenY,  cenX - radius1, cenY)
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
-  def apply(radius1: Double, radius0: Double, cen: Pt2 = Pt2Z): Ellipse = new EllipseGen(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
+  def apply(radius1: Double, radius0: Double, cen: Pt2 = Pt2Z): Ellipse =
+    new EllipseGen(cen.x, cen.y + radius0, cen.x + radius1, cen.y, cen.x - radius0, cen.y)
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def diameter(diameter1: Double, diameter0: Double, cen: Pt2 = Pt2Z): Ellipse =
-    new EllipseGen(cen.x, cen.y, cen.x + diameter1 / 2, cen.y, diameter0 / 2)
+    new EllipseGen(cen.x, cen.y + diameter0 / 2, cen.x + diameter1 / 2, cen.y, cen.x - diameter0 / 2, cen.y)
 
   /** Factory method that creates an ellipse from the centre point, axes point 1 and axes point 4. */
-  def cenAxes1axes4(cen: Pt2, axes1: Pt2, axes4: Pt2): EllipseGen =
-  { val radius0: Double = cen.distTo(axes4)
-    new EllipseGen(cen.x, cen.y, axes1.x, axes1.y, radius0)
-  }
+  def cenAxes1axes4(cen: Pt2, axes1: Pt2, axes0: Pt2): EllipseGen = new EllipseGen(axes0.x, axes0.y, axes1.x, axes1.y, 2 * cen.x - axes1.x, 2 * cen.y - axes1.y)
 
-  def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = new EllipseGen(xCen, yCen, xAxes1, yAxes1, radius2)
+  def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = ??? // new EllipseGen(xCen, yCen, xAxes1, yAxes1, radius2)
 
   given slateEv: Slate2[Ellipse] = new Slate2[Ellipse]
   { override def slate(obj: Ellipse, operand: VecPt2): Ellipse = cenAxes1axes4(obj.cen.slate(operand), obj.p1.slate(operand), obj.p0.slate(operand))
@@ -125,16 +124,16 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 [[Pt2]]s or 6 scalars, although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  final case class EllipseGen(cenX: Double, cenY: Double, p1X: Double, p1Y: Double, radius2: Double) extends Ellipse, AxisFree
+  final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipse, AxisFree
   { override type ThisT = EllipseGen
+
+    override def cenX: Double = p1X \/ p3X
+    override def cenY: Double = p1Y \/ p3Y
     override def p2X: Double = 2 * cenX - p0X
-    override def p2Y: Double = 2 * cenY - p0y
-    override def p3X: Double = 2 * cenX - p1X
-    override def p3Y: Double = 2 * cenY - p1Y
-    override def p0: Pt2 = cen + s0Angle.toVec2(radius2)
-    override def p0X: Double = p0.x
-    override def p0y: Double = p0.y
+    override def p2Y: Double = 2 * cenY - p0Y
+
     override def radius1: Double = cen.distTo(p1)
+    override def radius2: Double = cen.distTo(p0)
     override def cenP1: Vec2 = cen >> p1
     override def cenP2: Vec2 = cen >> p2
     override def cenP3: Vec2 = cen >> p3
@@ -156,15 +155,19 @@ object Ellipse
     override def alignAngle: Angle = cen.angleTo(p1)
     def s0Angle = alignAngle.p90
 
-    override def slate(operand: VecPt2): EllipseGen = EllipseGen(cenX + operand.x, cenY * operand.y, p1X + operand.x, p1Y + operand.y, radius2)
-    override def slate(xDelta: Double, yDelta: Double): EllipseGen = EllipseGen(cenX + xDelta, cenY + yDelta, p1X + xDelta, p1Y + yDelta, radius2)
-    override def slateX(xOperand: Double): EllipseGen = EllipseGen(cenX + xOperand, cenY, p1X + xOperand, p1Y, radius2)
-    override def slateY(yOperand: Double): EllipseGen = EllipseGen(cenX, cenY + yOperand, p1X, p1Y + yOperand, radius2)
-    override def scale(operand: Double): EllipseGen = EllipseGen(cenX * operand, cenY * operand, p1X * operand, p1Y * operand, radius2 * operand)
-    override def reflect(lineLike: LineLike): EllipseGen = EllipseGen.cenAxes1Axes4(cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike))
+    override def slate(operand: VecPt2): EllipseGen = EllipseGen(p0X + operand.x, p0Y + operand.y, p1X + operand.x, p1Y + operand.y, p3X + operand.x,
+      p3Y + operand.y)
+
+    override def slate(xOperand: Double, yOperand: Double): EllipseGen = EllipseGen(p0X + xOperand, p0Y + yOperand, p1X + xOperand, p1Y + yOperand,
+      p3X + xOperand, p3Y + yOperand)
+
+    override def slateX(xOperand: Double): EllipseGen = EllipseGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
+    override def slateY(yOperand: Double): EllipseGen = EllipseGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
+    override def scale(operand: Double): EllipseGen = EllipseGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
+    override def reflect(lineLike: LineLike): EllipseGen = ??? // EllipseGen.cenAxes1Axes4(cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike))
     override def rotate(rotation: AngleVec): EllipseGen = ???
-    override def shearX(operand: Double): EllipseGen = EllipseGen.cenAxes1Axes4(cen.xShear(operand), p1.xShear(operand), p0.xShear(operand))
-    override def shearY(operand: Double): EllipseGen = EllipseGen.cenAxes1Axes4(cen.yShear(operand), p1.yShear(operand), p0.yShear(operand))
+    override def shearX(operand: Double): EllipseGen = ??? //EllipseGen.cenAxes1Axes4(cen.xShear(operand), p1.xShear(operand), p0.xShear(operand))
+    override def shearY(operand: Double): EllipseGen = ???//EllipseGen.cenAxes1Axes4(cen.yShear(operand), p1.yShear(operand), p0.yShear(operand))
 
     override def ptInside(pt: Pt2): Boolean = ???
   }
@@ -172,8 +175,8 @@ object Ellipse
   /** Companion object for the EllipseImp class, contains factory methods. */
   object EllipseGen
   {
-    def cenP1radius2(cen: Pt2, pAxes1: Pt2, radius2: Double): EllipseGen = new EllipseGen(cen.x, cen.y, pAxes1.x, pAxes1.y, radius2)
-    def cenAxes1Axes4(cen: Pt2, pAxes1: Pt2, pAxes4: Pt2): EllipseGen = new EllipseGen(cen.x, cen.y, pAxes1.x, pAxes1.y, cen.distTo(pAxes4))
+    //def cenP1radius2(cen: Pt2, pAxes1: Pt2, radius2: Double): EllipseGen = new EllipseGen(cen.x, cen.y, pAxes1.x, pAxes1.y, radius2)
+    //def cenAxes1Axes4(cen: Pt2, pAxes1: Pt2, pAxes4: Pt2): EllipseGen = new EllipseGen(cen.x, cen.y, pAxes1.x, pAxes1.y, cen.distTo(pAxes4))
   }
 }
 

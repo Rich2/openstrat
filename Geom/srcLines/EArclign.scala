@@ -91,7 +91,7 @@ object EArclign
 
     override def p0: Pt2 = cen.slateY(yRadius)
     override def p0X: Double = cenX
-    override def p0y: Double = cenY + radius2
+    override def p0Y: Double = cenY + radius2
 
     override def cenP1: Vec2 = Vec2(xRadius, 0)
     override def cenP2: Vec2 = Vec2(0, - yRadius)

@@ -90,7 +90,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** The Y component of the end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there
    * is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def p0y: Double = cenY + radius
+  override def p0Y: Double = cenY + radius
 
   override def cenP1: Vec2 = cen >> p1
   override def cenP2: Vec2 = cen >> p2

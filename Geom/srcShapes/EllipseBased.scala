@@ -21,7 +21,7 @@ trait EllipseBased extends Aff2Elem, WithCentre
 
   /** The end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or a
    * co-vertex for the minor axis. */
-  def p0: Pt2
+  def p0: Pt2 = Pt2(p0X, p0Y)
 
   /** The X component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the
    * major axis or  a co-vertex for the minor axis. */
@@ -29,7 +29,7 @@ trait EllipseBased extends Aff2Elem, WithCentre
 
   /** The Y component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the
    * major axis or  a co-vertex for the minor axis. */
-  def p0y: Double
+  def p0Y: Double
 
 
   /** The end point of axis 1. By default, this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or a
