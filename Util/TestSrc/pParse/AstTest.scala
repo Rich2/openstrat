@@ -14,6 +14,7 @@ object AstTest extends TestSuite
   val tests = Tests {
     test("Test1")
     { assertMatch(a1){case Succ(Arr1(_)) => }
+      //"".asInt.isFail ==> true
     }
   }
 }

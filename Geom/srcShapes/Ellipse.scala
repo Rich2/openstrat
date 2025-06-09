@@ -133,7 +133,7 @@ object Ellipse
     override def axesPt3y: Double = 2 * cenY - axesPt1y
     override def axesPt4: Pt2 = cen + s0Angle.toVec2(radius2)
     override def axesPt4x: Double = axesPt4.x
-    override def axesPt4y: Double = axesPt1.y
+    override def axesPt4y: Double = axesPt4.y
     override def radius1: Double = cen.distTo(axesPt1)
     override def cenP1: Vec2 = cen >> axesPt1
     override def cenP2: Vec2 = cen >> axesPt2
