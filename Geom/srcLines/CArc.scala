@@ -48,54 +48,54 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /** The end of elliptical axis 1. By default, this is the right vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
    * there on this circle, which is a special case of an ellipse. */
-  override def axesPt1: Pt2 = cen.slateX(radius)
+  override def p1: Pt2 = cen.slateX(radius)
 
   /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is specified as
    * the right of the circle this CArc is based on. */
-  override def axesPt1x: Double = cenX + radius
+  override def p1X: Double = cenX + radius
 
   /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is specified as
    * the right of the circle this CArc is based on. */
-  override def axesPt1y: Double = cenY
+  override def p1Y: Double = cenY
 
   /** The start of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no actual
    * vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt2: Pt2 = cen.slateYFrom(radius)
+  override def p2: Pt2 = cen.slateYFrom(radius)
 
   /** The X component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the
    * major axis or a co-vertex for the minor axis. */
-  override def axesPt2x: Double = ???
+  override def p2X: Double = ???
 
   /** The y component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the
    * major axis or a co-vertex for the minor axis. */
-  override def axesPt2y: Double = ???
+  override def p2Y: Double = ???
 
   /** The start of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
    * there on this circle, which is a special case of an ellipse. */
-  override def axesPt3: Pt2 = cen.slateXFrom(radius)
+  override def p3: Pt2 = cen.slateXFrom(radius)
 
   /** The X component of the start point of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although
    * there is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt3x: Double = cenX - radius
+  override def p3X: Double = cenX - radius
 
-  override def axesPt3y: Double = cenX
+  override def p3Y: Double = cenX
 
   /** The end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no actual
    * vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt4: Pt2 = cen.slateY(radius)
+  override def p0: Pt2 = cen.slateY(radius)
 
   /** The X component of the end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there
    *  is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt4x: Double = cenX
+  override def p0X: Double = cenX
 
   /** The Y component of the end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there
    * is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axesPt4y: Double = cenY + radius
+  override def p0y: Double = cenY + radius
 
-  override def cenP1: Vec2 = cen >> axesPt1
-  override def cenP2: Vec2 = cen >> axesPt2
-  override def cenP3: Vec2 = cen >> axesPt3
-  override def cenP4: Vec2 = cen >> axesPt4
+  override def cenP1: Vec2 = cen >> p1
+  override def cenP2: Vec2 = cen >> p2
+  override def cenP3: Vec2 = cen >> p3
+  override def cenP4: Vec2 = cen >> p0
   override def xRadius: Double = cen.distTo(pStart)
   override def yRadius: Double = cen.distTo(pStart)
   override def radius1: Double = cen.distTo(pStart)

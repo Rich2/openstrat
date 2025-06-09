@@ -57,44 +57,44 @@ trait EArc extends EllipseBased, CurveSeg
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   override def slate(operand: VecPt2): EArc =
-    EArc(pStart.slate(operand), cen.slate(operand), axesPt1.slate(operand), axesPt4.slate(operand), pEnd.slate(operand), rotationsInt)
+    EArc(pStart.slate(operand), cen.slate(operand), p1.slate(operand), p0.slate(operand), pEnd.slate(operand), rotationsInt)
   
   override def slate(xOperand: Double, yOperand: Double): EArc = EArc(pStart.slate(xOperand, yOperand), cen.slate(xOperand, yOperand),
-    axesPt1.slate(xOperand, yOperand), axesPt4.slate(xOperand, yOperand), pEnd.slate(xOperand, yOperand), rotationsInt)
+    p1.slate(xOperand, yOperand), p0.slate(xOperand, yOperand), pEnd.slate(xOperand, yOperand), rotationsInt)
 
-  override def slateX(xOperand: Double): EArc = EArc(pStart.slateX(xOperand), cen.slateX(xOperand), axesPt1.slateX(xOperand), axesPt4.slateX(xOperand),
+  override def slateX(xOperand: Double): EArc = EArc(pStart.slateX(xOperand), cen.slateX(xOperand), p1.slateX(xOperand), p0.slateX(xOperand),
     pEnd.slateX(xOperand), rotationsInt)
 
-  override def slateY(yOperand: Double): EArc = EArc(pStart.slateY(yOperand), cen.slateY(yOperand), axesPt1.slateY(yOperand), axesPt4.slateY(yOperand),
+  override def slateY(yOperand: Double): EArc = EArc(pStart.slateY(yOperand), cen.slateY(yOperand), p1.slateY(yOperand), p0.slateY(yOperand),
     pEnd.slateY(yOperand), rotationsInt)
   
   override def scale(operand: Double): EArc =
-    EArc(pStart.scale(operand), cen.scale(operand), axesPt1.scale(operand), axesPt4.scale(operand), pEnd.scale(operand), rotationsInt)
+    EArc(pStart.scale(operand), cen.scale(operand), p1.scale(operand), p0.scale(operand), pEnd.scale(operand), rotationsInt)
 
-  override def negX: EArc = EArc(pStart.negX, cen.negX, axesPt1.negX, axesPt4.negX, pEnd.negX, -rotationsInt)
-  override def negY: EArc = EArc(pStart.negY, cen.negY, axesPt1.negY, axesPt4.negY, pEnd.negY, -rotationsInt)
+  override def negX: EArc = EArc(pStart.negX, cen.negX, p1.negX, p0.negX, pEnd.negX, -rotationsInt)
+  override def negY: EArc = EArc(pStart.negY, cen.negY, p1.negY, p0.negY, pEnd.negY, -rotationsInt)
   
   override def prolign(matrix: AxlignMatrix): EArc =
-    EArc(pStart.prolign(matrix), cen.prolign(matrix), axesPt1.prolign(matrix), axesPt4.prolign(matrix), pEnd.prolign(matrix), rotationsInt)
+    EArc(pStart.prolign(matrix), cen.prolign(matrix), p1.prolign(matrix), p0.prolign(matrix), pEnd.prolign(matrix), rotationsInt)
   
   override def rotate(rotation: AngleVec): EArc =
-    EArc(pStart.rotate(rotation), cen.rotate(rotation), axesPt1.rotate(rotation), axesPt4.rotate(rotation), pEnd.rotate(rotation), rotationsInt)
+    EArc(pStart.rotate(rotation), cen.rotate(rotation), p1.rotate(rotation), p0.rotate(rotation), pEnd.rotate(rotation), rotationsInt)
 
-  override def rotate90: EArc = EArc(pStart.rotate90, cen.rotate90, axesPt1.rotate90, axesPt4.rotate90, pEnd.rotate90, rotationsInt)
-  override def rotate180: EArc = EArc(pStart.rotate180, cen.rotate180, axesPt1.rotate180, axesPt4.rotate180, pEnd.rotate180, rotationsInt)
-  override def rotate270: EArc = EArc(pStart.rotate270, cen.rotate270, axesPt1.rotate270, axesPt4.rotate270, pEnd.rotate270, rotationsInt)
+  override def rotate90: EArc = EArc(pStart.rotate90, cen.rotate90, p1.rotate90, p0.rotate90, pEnd.rotate90, rotationsInt)
+  override def rotate180: EArc = EArc(pStart.rotate180, cen.rotate180, p1.rotate180, p0.rotate180, pEnd.rotate180, rotationsInt)
+  override def rotate270: EArc = EArc(pStart.rotate270, cen.rotate270, p1.rotate270, p0.rotate270, pEnd.rotate270, rotationsInt)
   
   override def reflect(lineLike: LineLike): EArc =
-    EArc(pStart.reflect(lineLike), cen.reflect(lineLike), axesPt1.reflect(lineLike), axesPt4.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
+    EArc(pStart.reflect(lineLike), cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
   
   override def scaleXY(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xyScale(xOperand, yOperand), cen.xyScale(xOperand, yOperand),
-    axesPt1.xyScale(xOperand, yOperand), axesPt4.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), rotationsInt)
+    p1.xyScale(xOperand, yOperand), p0.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), rotationsInt)
   
   override def shearX(operand: Double): EArc =
-    EArc(pStart.xShear(operand), cen.xShear(operand), axesPt1.xShear(operand), axesPt4.xShear(operand), pEnd.xShear(operand), rotationsInt)
+    EArc(pStart.xShear(operand), cen.xShear(operand), p1.xShear(operand), p0.xShear(operand), pEnd.xShear(operand), rotationsInt)
   
   override def shearY(operand: Double): EArc =
-    EArc(pStart.xShear(operand), cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand), pEnd.yShear(operand), rotationsInt)
+    EArc(pStart.xShear(operand), cen.yShear(operand), p1.yShear(operand), p0.yShear(operand), pEnd.yShear(operand), rotationsInt)
 
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): EArcDraw = EArcDraw(this, lineColour, lineWidth)
 }
@@ -107,24 +107,24 @@ object EArc
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the right of the
    * ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than 360 degrees and less
    * than -360 degrees. */
-  final case class EArcImp(startX: Double, startY: Double, cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, axesPt4x: Double, axesPt4y: Double,
-    endX: Double, endY: Double, rotationsInt: Int) extends EArc
+  final case class EArcImp(startX: Double, startY: Double, cenX: Double, cenY: Double, p1X: Double, p1Y: Double, p0X: Double, p0y: Double,
+                           endX: Double, endY: Double, rotationsInt: Int) extends EArc
   { override def cen: Pt2 = Pt2(cenX, cenY)
-    override def radius1: Double = cen.distTo(axesPt1)
-    override def radius2: Double = cen.distTo(axesPt4)
-    override def axesPt1: Pt2 = Pt2(axesPt1x, axesPt1y)
-    override def axesPt2: Pt2 = cen + cenP2
-    override def axesPt2x: Double = axesPt2.x
-    override def axesPt2y: Double = axesPt2.y
-    override def axesPt3: Pt2 = cen + cenP3
-    override def axesPt3x: Double = axesPt3.x
-    override def axesPt3y: Double = axesPt3.y
-    override def axesPt4: Pt2 = Pt2(axesPt4x, axesPt4y)
-    override def cenP1: Vec2 = cen >> axesPt1
+    override def radius1: Double = cen.distTo(p1)
+    override def radius2: Double = cen.distTo(p0)
+    override def p1: Pt2 = Pt2(p1X, p1Y)
+    override def p2: Pt2 = cen + cenP2
+    override def p2X: Double = p2.x
+    override def p2Y: Double = p2.y
+    override def p3: Pt2 = cen + cenP3
+    override def p3X: Double = p3.x
+    override def p3Y: Double = p3.y
+    override def p0: Pt2 = Pt2(p0X, p0y)
+    override def cenP1: Vec2 = cen >> p1
     override def cenP2: Vec2 = -cenP4
     override def cenP3: Vec2 = -cenP1
-    override def cenP4: Vec2 = cen >> axesPt4
+    override def cenP4: Vec2 = cen >> p0
 
-    def addRotations(delta: Int): EArcImp = new EArcImp(startX, startY, cenX, cenY, axesPt1x, axesPt1y, axesPt4x, axesPt4y, endX, endY, rotationsInt + delta)
+    def addRotations(delta: Int): EArcImp = new EArcImp(startX, startY, cenX, cenY, p1X, p1Y, p0X, p0y, endX, endY, rotationsInt + delta)
   }
 }

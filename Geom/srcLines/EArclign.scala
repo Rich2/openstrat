@@ -68,30 +68,30 @@ object EArclign
     override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = xRadius
     override def radius2: Double = yRadius
-    override def axesPt1: Pt2 = cen.slateX(xRadius)
-    override def axesPt1x: Double = cenX + xRadius
-    override def axesPt1y: Double = cenY
-    override def axesPt2: Pt2 = cen.slateYFrom(yRadius)
+    override def p1: Pt2 = cen.slateX(xRadius)
+    override def p1X: Double = cenX + xRadius
+    override def p1Y: Double = cenY
+    override def p2: Pt2 = cen.slateYFrom(yRadius)
 
     /** The X component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
      * axis or a co-vertex for the minor axis.. */
-    override def axesPt2x: Double = ???
+    override def p2X: Double = ???
 
 
     /** The y component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a
      * vertex for the major axis or a co-vertex for the minor axis. */
-    override def axesPt2y: Double = ???
+    override def p2Y: Double = ???
 
-    override def axesPt3: Pt2 = cen.slateXFrom(xRadius)
+    override def p3: Pt2 = cen.slateXFrom(xRadius)
 
 
-    override def axesPt3x: Double = ???
+    override def p3X: Double = ???
 
-    override def axesPt3y: Double = ???
+    override def p3Y: Double = ???
 
-    override def axesPt4: Pt2 = cen.slateY(yRadius)
-    override def axesPt4x: Double = cenX
-    override def axesPt4y: Double = cenY + radius2
+    override def p0: Pt2 = cen.slateY(yRadius)
+    override def p0X: Double = cenX
+    override def p0y: Double = cenY + radius2
 
     override def cenP1: Vec2 = Vec2(xRadius, 0)
     override def cenP2: Vec2 = Vec2(0, - yRadius)

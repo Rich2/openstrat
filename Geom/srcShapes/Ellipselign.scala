@@ -60,35 +60,35 @@ object Ellipselign
 
     /** The X component of the end point of axis 1. By default, this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the
      * major axis or a co-vertex for the minor axis. */
-    override def axesPt1x: Double = cenX + xRadius
+    override def p1X: Double = cenX + xRadius
 
     /** The Y component of the end point of axis 1. By default, this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the
      * major axis or a co-vertex for the minor axis. */
-    override def axesPt1y: Double = cenY
+    override def p1Y: Double = cenY
 
     /** The X component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for
      * the major axis or a co-vertex for the minor axis.. */
-    override def axesPt2x: Double = cenX
+    override def p2X: Double = cenX
 
     /** The y component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for
      * the major axis or a co-vertex for the minor axis. */
-    override def axesPt2y: Double = cenY - yRadius
+    override def p2Y: Double = cenY - yRadius
 
-    override def axesPt3x: Double = cenX - xRadius
+    override def p3X: Double = cenX - xRadius
 
-    override def axesPt3y: Double = cenY
+    override def p3Y: Double = cenY
 
     /** The end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or a
      * co-vertex for the minor axis. */
-    override def axesPt4: Pt2 = Pt2(axesPt4x, axesPt4y)
+    override def p0: Pt2 = Pt2(p0X, p0y)
 
     /** The X component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the
      * major axis or a co-vertex for the minor axis. */
-    override def axesPt4x: Double = cenX
+    override def p0X: Double = cenX
 
     /** The Y component of the end point of axis 2. By default, this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
      * a co-vertex for the minor axis. */
-    override def axesPt4y: Double = cenY + yRadius
+    override def p0y: Double = cenY + yRadius
 
     /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
      * on. */

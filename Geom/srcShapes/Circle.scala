@@ -70,15 +70,15 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   @inline override def xRadius: Double = radius
   @inline override def yRadius: Double = radius
 
-  override def axesPt1x: Double = cenX + radius
-  override def axesPt1y: Double = cenY
-  override def axesPt2x: Double = cenX
-  override def axesPt2y: Double = cenY - axesPt4y
-  override def axesPt3x: Double = cenX - radius
-  override def axesPt3y: Double = cenY
-  override def axesPt4x: Double = cenX
-  override def axesPt4y: Double = cenY + radius
-  override def axesPt4: Pt2 = Pt2(cenX, axesPt4y)
+  override def p1X: Double = cenX + radius
+  override def p1Y: Double = cenY
+  override def p2X: Double = cenX
+  override def p2Y: Double = cenY - p0y
+  override def p3X: Double = cenX - radius
+  override def p3Y: Double = cenY
+  override def p0X: Double = cenX
+  override def p0y: Double = cenY + radius
+  override def p0: Pt2 = Pt2(cenX, p0y)
   override def cenP1: Vec2 = Vec2(radius, 0)
   override def cenP2: Vec2 = Vec2(0, -radius)
   override def cenP3: Vec2 = Vec2(-radius, 0)
