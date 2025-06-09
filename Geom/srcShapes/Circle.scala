@@ -78,11 +78,10 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
   override def p3Y: Double = cenY
   override def p0X: Double = cenX
   override def p0Y: Double = cenY + radius
-  override def p0: Pt2 = Pt2(cenX, p0Y)
+  override def cenP0: Vec2 = Vec2(0, radius)
   override def cenP1: Vec2 = Vec2(radius, 0)
   override def cenP2: Vec2 = Vec2(0, -radius)
-  override def cenP3: Vec2 = Vec2(-radius, 0)
-  override def cenP4: Vec2 = Vec2(0, radius)
+  override def cenP3: Vec2 = Vec2(-radius, 0)  
 
   /** Determines if the parameter point lies inside this [[Circle]]. */
   override def ptInside(pt: Pt2): Boolean = pt match

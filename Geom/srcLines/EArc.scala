@@ -120,11 +120,6 @@ object EArc
     override def p3X: Double = p3.x
     override def p3Y: Double = p3.y
     override def p0: Pt2 = Pt2(p0X, p0Y)
-    override def cenP1: Vec2 = cen >> p1
-    override def cenP2: Vec2 = -cenP4
-    override def cenP3: Vec2 = -cenP1
-    override def cenP4: Vec2 = cen >> p0
-
     def addRotations(delta: Int): EArcImp = new EArcImp(startX, startY, cenX, cenY, p1X, p1Y, p0X, p0Y, endX, endY, rotationsInt + delta)
   }
 }

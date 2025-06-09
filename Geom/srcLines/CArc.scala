@@ -92,10 +92,11 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
    * is no actual vertex there on this circle, which is a special case of an ellipse. */
   override def p0Y: Double = cenY + radius
 
+  override def cenP0: Vec2 = cen >> p0
   override def cenP1: Vec2 = cen >> p1
   override def cenP2: Vec2 = cen >> p2
   override def cenP3: Vec2 = cen >> p3
-  override def cenP4: Vec2 = cen >> p0
+  
   override def xRadius: Double = cen.distTo(pStart)
   override def yRadius: Double = cen.distTo(pStart)
   override def radius1: Double = cen.distTo(pStart)

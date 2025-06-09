@@ -68,6 +68,8 @@ object EArclign
     override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = xRadius
     override def radius2: Double = yRadius
+    override def p0X: Double = cenX
+    override def p0Y: Double = cenY + radius2
     override def p1: Pt2 = cen.slateX(xRadius)
     override def p1X: Double = cenX + xRadius
     override def p1Y: Double = cenY
@@ -90,13 +92,7 @@ object EArclign
     override def p3Y: Double = ???
 
     override def p0: Pt2 = cen.slateY(yRadius)
-    override def p0X: Double = cenX
-    override def p0Y: Double = cenY + radius2
-
-    override def cenP1: Vec2 = Vec2(xRadius, 0)
-    override def cenP2: Vec2 = Vec2(0, - yRadius)
-    override def cenP3: Vec2 = Vec2(-xRadius, 0)
-    override def cenP4: Vec2 = Vec2(0, yRadius)
+    
 
     def addRotations(delta: Int): EArclignImp = EArclignImp(startX, startY, cenX, cenY, xRadius, yRadius, endX, endY, rotationsInt + delta)
   }

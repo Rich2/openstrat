@@ -68,16 +68,15 @@ trait EllipseBased extends Aff2Elem, WithCentre
    * major axis or a co-vertex for the minor axis. */
   def p3Y: Double
 
+  /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
+  def cenP0: Vec2 = cen >> p0
+
   /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1, by default on the right of the Ellipse this arc is based on. */
-  def cenP1: Vec2
+  def cenP1: Vec2 = cen >> p1
 
   /** The 2D vector [[Vec2]] from the centre point to pAxes2, the start point of axis 2, by default at the bottom of the Ellipse this arc is based on. */
-  def cenP2: Vec2
+  def cenP2: Vec2 = cen >> p2
 
-  /** The 2D vector [[Vec2]] from the centre point to pAxes3, the start point of axis 1 , by default on the left of the Ellipse this arc is based
-   *  on. */
-  def cenP3: Vec2
-
-  /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
-  def cenP4: Vec2
+  /** The 2D vector [[Vec2]] from the centre point to pAxes3, the start point of axis 1 , by default on the left of the Ellipse this arc is based on. */
+  def cenP3: Vec2 = cen >> p3
 }

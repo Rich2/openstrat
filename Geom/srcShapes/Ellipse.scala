@@ -6,10 +6,10 @@ import pWeb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
  * the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends EllipseBased, ShapeCentred
 { final override def cen: Pt2 = Pt2(cenX, cenY)
-
-  final def p1: Pt2 = Pt2(p1X, p1Y)
-  final def p2: Pt2 = Pt2(p2X, p2Y)
-  override def p3: Pt2 = Pt2(p3X, p3Y)
+  final override def p0: Pt2 = Pt2(p0X, p0Y)
+  final override def p1: Pt2 = Pt2(p1X, p1Y)
+  final override def p2: Pt2 = Pt2(p2X, p2Y)
+  final override def p3: Pt2 = Pt2(p3X, p3Y)
 
   /** The major radius of this ellipse, often referred to as a in maths. */
   def rMajor: Double
@@ -134,10 +134,6 @@ object Ellipse
 
     override def radius1: Double = cen.distTo(p1)
     override def radius2: Double = cen.distTo(p0)
-    override def cenP1: Vec2 = cen >> p1
-    override def cenP2: Vec2 = cen >> p2
-    override def cenP3: Vec2 = cen >> p3
-    override def cenP4: Vec2 = cen >> p0
     override def rMajor: Double = radius1.max(radius2)
     override def rMinor: Double = radius1.min(radius2)
     override def area: Double = Pi * radius1 * radius2
