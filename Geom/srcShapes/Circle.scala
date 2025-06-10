@@ -16,7 +16,7 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
     val newRadius = newCen.distTo(newV1)
     Circle(newRadius, newCen)
   }
-  
+
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   @inline def diameter: Double = radius * 2
 

@@ -128,13 +128,15 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   override def tlEllipseFill(ef: EllipseFill): Unit =
   { setFill(ef.fillFacet)
-    gc.fillOval(ef.cenX - ef.shape.radius1, ef.cenY - ef.shape.radius2 , ef.shape.diameter1, ef.shape.diameter2)
+    val pf = ef.shape.toPolygon
+    gc.fillPolygon(pf.xVertsArray, pf.yVertsArray, pf.numVerts)
+    //gc.fillOval(ef.cenX - ef.shape.radius1, ef.cenY - ef.shape.radius2 , ef.shape.diameter1, ef.shape.diameter2)
   }
 
   override def tlEllipseDraw(ed: EllipseDraw): Unit =
   { gc.setLineWidth(ed.lineWidth)
     gc.setStroke(toFxColor(ed.lineColour))
-    val pd = ed.shape.toPolygon.dblsMap(_ + width / 2, height / 2 - _)
+    val pd = ed.shape.toPolygon
     gc.strokePolygon(pd.xVertsArray, pd.yVertsArray, pd.numVerts)
     //gc.strokeOval(ed.cenX - ed.shape.radius1, ed.cenY - ed.shape.radius2, ed.shape.diameter1, ed.shape.diameter2)
   }    

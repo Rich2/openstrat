@@ -42,7 +42,7 @@ trait Ellipse extends EllipseBased, ShapeCentred
   /** The h value of this ellipse. */
   def h: Double
 
-/** The alignment angle of the ellipse to axis 1. */
+  /** The alignment angle of the ellipse to axis 1. */
   def alignAngle: Angle
 
   /** Eccentricity of ellipse. */
@@ -132,12 +132,7 @@ trait Ellipse extends EllipseBased, ShapeCentred
       newArray(xni + 1) = y
       i += 1
     }
-    val poly0 = new PolygonGen(newArray)
-    val aa = alignAngle
-    debvar(aa)
-    val rot = aa.rotationFrom0
-    debvar(rot)
-    poly0.rotate(rot)//.slate(cenX, cenY)
+    new PolygonGen(newArray).rotate(alignAngle.rotationFrom0).slate(cenX, cenY)
   }
 }
 

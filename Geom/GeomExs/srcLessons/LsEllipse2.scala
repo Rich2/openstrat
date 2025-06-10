@@ -10,11 +10,9 @@ object LsEllipses2 extends LessonGraphics
 
 /** Ellipses 2 Lesson. Unfinished. */
 case class LsEllipses2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
-{ val el0 = Ellipse(500, 250, 0, 0)
-  val el1: Ellipse = Ellipse(500, 250, 45.degsVec, 0, 0)
-  val el1p1 = el1.p1
-  debvar(el1p1)
+{ val el0 = Ellipse(200, 125, -20.degsVec, -300, 200)
+  val el1: Ellipse = Ellipse(500, 250, 45.degsVec, 200, 0)
 
-  val stuff = RArr(el0.draw(2, Red), el1.draw()) ++ el0.textArrows(Red) ++ el1.textArrows()
+  val stuff = RArr(el0.fill(Red), el1.draw()) ++ el0.textArrows(Red) ++ el1.textArrows()
   repaint(stuff)
 }
