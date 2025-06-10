@@ -10,7 +10,7 @@ object LsEllipseTargeting extends LessonGraphics
   override def canv: CanvasPlatform => Any = LsC3bCanv(_)
 
   case class LsC3bCanv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
-  { val el = Ellipselign(200, 100)
+  { val el = Ellipse(200, 100)
     val e1 = el.slate(-250, 150).fillActive(Green, "green")
     val e2 = el.slate(250, 150).fillActive(Yellow, "yellow")
 

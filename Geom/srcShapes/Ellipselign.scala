@@ -13,13 +13,17 @@ trait Ellipselign extends Ellipse
   /** The alignment angle of axis 1 in an [[Ellipselign]] including the special case of [[Circle]] is by definition 0°. */
   override final def alignAngle: Angle = Angle(0)
 
-  override def slate(operand: VecPt2): Ellipselign = Ellipselign(xRadius, yRadius, cenX + operand.x, cenY + operand.y)
-  override def slate(xOperand: Double, yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY + yOperand)
-  override def slateX(xOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOperand, cenY)
-  override def slateY(yOperand: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX, cenY + yOperand)
-  override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, cenX * operand, cenY * operand)
-  override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -cenX, cenY)
-  override def negY: Ellipselign = Ellipselign(xRadius, yRadius, cenX, -cenY)
+  override def slate(operand: VecPt2): Ellipselign =
+    new EllipselignGen(p0X + operand.x, p0Y + operand.y, p1X + operand.x, p1Y + operand.y, p3X + operand.x, p3Y + operand.y)
+
+  override def slate(xOperand: Double, yOperand: Double): Ellipselign =
+    new EllipselignGen(p0X + xOperand, p0Y + yOperand, p1X + xOperand, p1Y + yOperand, p3X + xOperand, p3Y + yOperand)
+
+  override def slateX(xOperand: Double): Ellipselign = new EllipselignGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
+  override def slateY(yOperand: Double): Ellipselign = new EllipselignGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
+  override def scale(operand: Double): Ellipselign = new EllipselignGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
+  override def negX: Ellipselign = ???// Ellipselign(xRadius, yRadius, -cenX, cenY)
+  override def negY: Ellipselign = ???//Ellipselign(xRadius, yRadius, cenX, -cenY)
   override def rotate90: Ellipselign = ???
   override def rotate180: Ellipselign = ???
   override def rotate270: Ellipselign = ???
@@ -27,44 +31,45 @@ trait Ellipselign extends Ellipse
 
 object Ellipselign
 {
-  def apply(xRadius: Double, yRadius: Double, cen: Pt2 = Pt2Z): Ellipselign = new EllipselignGen(xRadius, yRadius, cen.x, cen.y)
-  def apply(xRadius: Double, yRadius: Double, xCen: Double, yCen: Double): Ellipselign = new EllipselignGen(xRadius, yRadius, xCen, yCen)
+  def apply(xRadius: Double, yRadius: Double, cen: Pt2 = Pt2Z): Ellipselign =
+    new EllipselignGen(cen.x, cen.y + yRadius, cen.x + xRadius, cen.y, cen.x - xRadius, cen.y)
+  
+  def apply(xRadius: Double, yRadius: Double, cenX: Double, cenY: Double): Ellipselign =
+    new EllipselignGen(cenX, cenY + yRadius, cenX + xRadius, cenY, cenX - xRadius, cenY)
+}
 
-  class EllipselignGen(val xRadius: Double, val yRadius: Double, val cenX: Double, val cenY: Double) extends Ellipselign
-  { override def rMajor: Double = ife(xRadius >= yRadius, xRadius, yRadius)
-    override def rMinor: Double = ife(xRadius < yRadius, xRadius, yRadius)
+final class EllipselignGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipselign
+{ def xRadius: Double = ???
+  def yRadius: Double = ???
+  override def cenX: Double = p1X \/ p3X
+  override def cenY: Double = p1Y \/ p3Y
+  override def rMajor: Double = ife(xRadius >= yRadius, xRadius, yRadius)
+  override def rMinor: Double = ife(xRadius < yRadius, xRadius, yRadius)
 
-    /** The h value of this ellipse. */
-    override def h: Double = ???
+  /** The h value of this ellipse. */
+  override def h: Double = ???
 
-    /** Eccentricity of ellipse. */
-    override def e: Double = ???
+  /** Eccentricity of ellipse. */
+  override def e: Double = ???
 
-    override def area: Double = ???
+  override def area: Double = ???
 
-    override def boundingRect: Rect = Rect(xRadius * 2, yRadius * 2, cenX, cenY)
+  override def boundingRect: Rect = Rect(xRadius * 2, yRadius * 2, cenX, cenY)
 
-    /** Determines if the parameter point lies inside this [[Circle]]. */
-    override def ptInside(pt: Pt2): Boolean = boundingRect.ptInside(pt) &&
-      { val t1 = (pt.x - cenX).squared * yRadius.squared
-        val t2 = (pt.y - cenY).squared * xRadius.squared
-        val t3 = xRadius.squared * yRadius.squared
-        t1 + t2 <= t3
-      }
+  /** Determines if the parameter point lies inside this [[Circle]]. */
+  override def ptInside(pt: Pt2): Boolean = boundingRect.ptInside(pt) &&
+    { val t1 = (pt.x - cenX).squared * yRadius.squared
+      val t2 = (pt.y - cenY).squared * xRadius.squared
+      val t3 = xRadius.squared * yRadius.squared
+      t1 + t2 <= t3
+    }
 
-    /** Radius 1 of the ellipse. By default, this is the horizontal axis of the ellipse. This can be the major or minor axis. */
-    override def radius1: Double = xRadius
+  /** Radius 1 of the ellipse. By default, this is the horizontal axis of the ellipse. This can be the major or minor axis. */
+  override def radius1: Double = xRadius
 
-    /** Radius 2 of the ellipse. By default, this is the vertical axis of the ellipse. This can be the major or minor axis. */
-    override def radius2: Double = yRadius
+  /** Radius 2 of the ellipse. By default, this is the vertical axis of the ellipse. This can be the major or minor axis. */
+  override def radius2: Double = yRadius
 
-    override def p1X: Double = cenX + xRadius
-    override def p1Y: Double = cenY
-    override def p2X: Double = cenX
-    override def p2Y: Double = cenY - yRadius
-    override def p3X: Double = cenX - xRadius
-    override def p3Y: Double = cenY
-    override def p0X: Double = cenX
-    override def p0Y: Double = cenY + yRadius
-  }
+  override def p2X: Double = 2 * cenX - p0X
+  override def p2Y: Double = 2 * cenY - p0Y
 }
