@@ -89,14 +89,14 @@ trait Ellipse extends EllipseBased, ShapeCentred
     baseLine: BaseLine, minSize: Double): EllipseCompound =
     EllipseCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)))
 
-  def textArrows: RArr[GraphicSvgElem] =
-  { val tcen: RArr[GraphicSvgElem] = cen.textArrow("cen")
-    val tp0: RArr[GraphicSvgElem] = p0.textArrowToward(cen, "p0")
-    val tp1: RArr[GraphicSvgElem] = p1.textArrowToward(cen, "p1")
-    val tp2: RArr[GraphicSvgElem] = p2.textArrowToward(cen, "p2")
-    val tp3: RArr[GraphicSvgElem] = p3.textArrowToward(cen, "p3")
-    val tf1: RArr[GraphicSvgElem] = f1.textArrow("f1")
-    val tf2: RArr[GraphicSvgElem] = f2.textArrow("f2")
+  def textArrows(arrowColour: Colour = Black): RArr[GraphicSvgElem] =
+  { val tcen: RArr[GraphicSvgElem] = cen.textArrow("cen", colour = arrowColour)
+    val tp0: RArr[GraphicSvgElem] = p0.textArrowToward(cen, "p0", colour = arrowColour)
+    val tp1: RArr[GraphicSvgElem] = p1.textArrowToward(cen, "p1", colour = arrowColour)
+    val tp2: RArr[GraphicSvgElem] = p2.textArrowToward(cen, "p2", colour = arrowColour)
+    val tp3: RArr[GraphicSvgElem] = p3.textArrowToward(cen, "p3", colour = arrowColour)
+    val tf1: RArr[GraphicSvgElem] = f1.textArrow("f1", colour = arrowColour)
+    val tf2: RArr[GraphicSvgElem] = f2.textArrow("f2", colour = arrowColour)
     tcen ++ tp0 ++ tp1 ++ tp2 ++ tp3 ++ tf1 ++ tf2
   }
 
@@ -113,7 +113,6 @@ trait Ellipse extends EllipseBased, ShapeCentred
       newArray(xi) = x
       val bottomEnd = (topN * 2 + rightN - 2) * 2
       val xni = bottomEnd - i * 2 - 2
-      if (xni >= bottomEnd - 4) deb(s"xni=$xni, bottomEnd=$bottomEnd")
       newArray(xni) = x
       topY = ((1 - x.squared / a.squared) * b.squared).sqrt
       newArray(xi + 1) = topY
@@ -129,12 +128,16 @@ trait Ellipse extends EllipseBased, ShapeCentred
       newArray(xi) = x
       newArray(xi + 1) = y
       val xni = newLen - i * 2
-      if (xni >= newLen - 4) deb(s"xni=$xni, newLen=$newLen")
       newArray(xni) = -x
       newArray(xni + 1) = y
       i += 1
     }
-    new PolygonGen(newArray)
+    val poly0 = new PolygonGen(newArray)
+    val aa = alignAngle
+    debvar(aa)
+    val rot = aa.rotationFrom0
+    debvar(rot)
+    poly0.rotate(rot)//.slate(cenX, cenY)
   }
 }
 
@@ -155,9 +158,7 @@ object Ellipse
 
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cenX: Double, cenY: Double): EllipseGen =
   { val e1 = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0)
-    debvar(e1.p0)
     val e2 = e1.rotate(rotation)
-    debvar(e2.p0)
     e2.slate(cenX, cenY)
   }
 

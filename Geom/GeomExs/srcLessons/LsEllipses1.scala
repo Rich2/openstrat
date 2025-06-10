@@ -14,7 +14,7 @@ case class LsEllipses1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val el2 = Ellipselign(200, 300, 450, 0)
 
   val cen1: RArr[GraphicSvgElem] = el1.cen.textArrow("cen")
-  val stuff = RArr(el1.draw(), el2.fillDraw(Colour.BurlyWood)) +% el1.axes.draw() +% el2.axes.draw() ++ el1.textArrows ++ el2.textArrows
+  val stuff = RArr(el1.draw(), el2.fillDraw(Colour.BurlyWood)) +% el1.axes.draw() +% el2.axes.draw() ++ el1.textArrows() ++ el2.textArrows()
 
   repaint(stuff)
 }
