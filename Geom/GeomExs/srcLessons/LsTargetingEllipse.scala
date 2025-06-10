@@ -2,8 +2,8 @@
 package learn
 import ostrat.*, geom.*, pgui.*, Colour.*
 
-object LsEllipseTargeting extends LessonGraphics
-{ override def title: String = "Ellipse targeting Lesson"
+object LsTargetingEllipse extends LessonGraphics
+{ override def title: String = "Targeting Ellipse Lesson"
 
   override def bodyStr: String = """Pointer in object Elipses."""
 

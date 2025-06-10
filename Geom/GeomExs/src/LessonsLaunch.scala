@@ -18,7 +18,7 @@ object LessonsLaunch extends GuiLaunchMore
 
   val bList: RArr[LessonGraphics] = RArr(LsTimer, LsMovingRectangle, LsMovingRectangles2)
 
-  val cList: RArr[LessonGraphics] = RArr(LsMouseClick, LsPointerPosition, LsPointerTargeting, LsEllipseTargeting, LsEllipseTargeting2, LsOverlapTargeting,
+  val cList: RArr[LessonGraphics] = RArr(LsMouseClick, LsPointerPosition, LsPointerTargeting, LsTargetingEllipse, LsPointerRects, LsOverlapTargeting,
     LsKeyUp, LsBezierChange, LsPointerMoving2)
 
   val dList: RArr[LessonGraphics] = RArr(LsRson1, LsRson2, LsD3, LsD4, LsD5)
