@@ -181,8 +181,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
     var continue = true
     val this2 = ife(ignoreCase, thisString.toLowerCase(), thisString)
     val op2 = ife(ignoreCase, operand.toLowerCase(), operand)
-    while (continue && i < this2.length && i < op2.length)
-      if(this2(i) == op2(i)) i += 1 else continue = false
+    while (continue && i < this2.length && i < op2.length) if(this2(i) == op2(i)) { i += 1 } else { continue = false }
     i
   }
   

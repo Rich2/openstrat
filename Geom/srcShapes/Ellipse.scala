@@ -89,8 +89,8 @@ trait Ellipse extends EllipseBased, ShapeCentred
     baseLine: BaseLine, minSize: Double): EllipseCompound =
     EllipseCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)))
 
-  def textArrows: RArr[GraphicSvgElem] = {
-    val tcen: RArr[GraphicSvgElem] = cen.textArrow("cen")
+  def textArrows: RArr[GraphicSvgElem] =
+  { val tcen: RArr[GraphicSvgElem] = cen.textArrow("cen")
     val tp0: RArr[GraphicSvgElem] = p0.textArrowToward(cen, "p0")
     val tp1: RArr[GraphicSvgElem] = p1.textArrowToward(cen, "p1")
     val tp2: RArr[GraphicSvgElem] = p2.textArrowToward(cen, "p2")
@@ -110,6 +110,14 @@ object Ellipse
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(radius1: Double, radius0: Double, cen: Pt2 = Pt2Z): Ellipselign =
     new EllipselignGen(cen.x, cen.y + radius0, cen.x + radius1, cen.y, cen.x - radius0, cen.y)
+
+  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec): EllipseGen = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation)
+
+  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cen: Pt2): EllipseGen =
+    new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cen)
+
+  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cenX: Double, cenY: Double): EllipseGen =
+    new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cenX, cenY)
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def diameter(diameter1: Double, diameter0: Double, cen: Pt2 = Pt2Z): Ellipse =
@@ -176,17 +184,17 @@ final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1
 
   def s0Angle = alignAngle.p90
 
-  override def slate(operand: VecPt2): EllipseGen = EllipseGen(p0X + operand.x, p0Y + operand.y, p1X + operand.x, p1Y + operand.y, p3X + operand.x,
-    p3Y + operand.y)
+  override def slate(operand: VecPt2): EllipseGen =
+    new EllipseGen(p0X + operand.x, p0Y + operand.y, p1X + operand.x, p1Y + operand.y, p3X + operand.x, p3Y + operand.y)
 
-  override def slate(xOperand: Double, yOperand: Double): EllipseGen = EllipseGen(p0X + xOperand, p0Y + yOperand, p1X + xOperand, p1Y + yOperand,
-    p3X + xOperand, p3Y + yOperand)
+  override def slate(xOperand: Double, yOperand: Double): EllipseGen =
+    new EllipseGen(p0X + xOperand, p0Y + yOperand, p1X + xOperand, p1Y + yOperand, p3X + xOperand, p3Y + yOperand)
 
-  override def slateX(xOperand: Double): EllipseGen = EllipseGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
-  override def slateY(yOperand: Double): EllipseGen = EllipseGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
-  override def scale(operand: Double): EllipseGen = EllipseGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
+  override def slateX(xOperand: Double): EllipseGen = new EllipseGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
+  override def slateY(yOperand: Double): EllipseGen = new EllipseGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
+  override def scale(operand: Double): EllipseGen = new EllipseGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
   override def reflect(lineLike: LineLike): EllipseGen = ??? // EllipseGen.cenAxes1Axes4(cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike))
-  override def rotate(rotation: AngleVec): EllipseGen = ???
+  override def rotate(rotation: AngleVec): EllipseGen = EllipseGen.p013(p0.rotate(rotation), p1.rotate(rotation), p3.rotate(rotation))
   override def shearX(operand: Double): EllipseGen = ??? //EllipseGen.cenAxes1Axes4(cen.xShear(operand), p1.xShear(operand), p0.xShear(operand))
   override def shearY(operand: Double): EllipseGen = ??? //EllipseGen.cenAxes1Axes4(cen.yShear(operand), p1.yShear(operand), p0.yShear(operand))
   override def ptInside(pt: Pt2): Boolean = ???
@@ -195,7 +203,13 @@ final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1
 /** Companion object for the EllipseImp class, contains factory methods. */
 object EllipseGen
 {
-  //def cenP1radius2(cen: Pt2, pAxes1: Pt2, radius2: Double): EllipseGen = new EllipseGen(cen.x, cen.y, pAxes1.x, pAxes1.y, radius2)
+  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): EllipseGen =
+    new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cen)
+
+  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cenX: Double, cenY: Double): EllipseGen =
+    new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cenX, cenY)
+
+  def p013(p0: Pt2, p1: Pt2, p3: Pt2): EllipseGen = new EllipseGen(p0.x, p0.y, p1.x, p1.y, p3.x, p3.y)
   //def cenAxes1Axes4(cen: Pt2, pAxes1: Pt2, pAxes4: Pt2): EllipseGen = new EllipseGen(cen.x, cen.y, pAxes1.x, pAxes1.y, cen.distTo(pAxes4))
 }
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
