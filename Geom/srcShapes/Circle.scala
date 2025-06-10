@@ -6,7 +6,7 @@ import pWeb.*, math.Pi, Colour.Black, pgui.*
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-final class Circle protected[geom](val radius: Double, val cenX: Double, val cenY: Double) extends Ellipselign, OrdinaledElem, AxisFree
+final class Circle protected[geom](val radius: Double, override val cenX: Double, override val cenY: Double) extends Ellipselign, OrdinaledElem, AxisFree
 { type ThisT = Circle
 
   override def fTrans(f: Pt2 => Pt2): Circle =
@@ -65,8 +65,11 @@ final class Circle protected[geom](val radius: Double, val cenX: Double, val cen
 
   @inline override def radius1: Double = radius
   @inline override def radius2: Double = radius
-  @inline override def rMajor: Double = radius
-  @inline override def rMinor: Double = radius
+  @inline override def a: Double = radius
+  @inline override def b: Double = radius
+  @inline override def c: Double = 0
+  @inline override def f1: Pt2 = cen
+  @inline override def f2: Pt2 = cen
   @inline override def xRadius: Double = radius
   @inline override def yRadius: Double = radius
 

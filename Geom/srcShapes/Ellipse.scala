@@ -5,17 +5,39 @@ import pWeb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory methods in
  * the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends EllipseBased, ShapeCentred
-{ final override def cen: Pt2 = Pt2(cenX, cenY)
+{ override def cenX: Double = p1X \/ p3X
+  override def cenY: Double = p1Y \/ p3Y
+  final override def cen: Pt2 = Pt2(cenX, cenY)
   final override def p0: Pt2 = Pt2(p0X, p0Y)
   final override def p1: Pt2 = Pt2(p1X, p1Y)
+  override def p2X: Double = 2 * cenX - p0X
+  override def p2Y: Double = 2 * cenY - p0Y
   final override def p2: Pt2 = Pt2(p2X, p2Y)
   final override def p3: Pt2 = Pt2(p3X, p3Y)
+  override def radius1: Double = p3.distTo(p1) / 2
+  override def radius2: Double = cen.distTo(p0)
+  
+  def axis1: LSeg2 = LSeg2(p3X, p3Y, p1X, p1Y)
+  def axis2: LSeg2 = LSeg2(p2X, p2Y, p0X, p0Y)
+  
+  def axes: LSeg2Arr = LSeg2Arr(axis1, axis2)
+
+  def axis1IsMajor: Boolean = radius1 >= radius2
 
   /** The major radius of this ellipse, often referred to as a in maths. */
-  def rMajor: Double
+  def a: Double = ife(axis1IsMajor, radius1, radius2)
 
   /** The major radius of this ellipse,often referred to as b in maths. */
-  def rMinor: Double
+  def b: Double = ife(axis1IsMajor, radius2, radius1)
+
+  /** The first focus point, placed towards p1 or p0. */
+  def f1: Pt2 = ife(axis1IsMajor, cen + cenP1 * e, cen + cenP0 * e)
+
+  /** The second focus point, placed towards p3 or p2. */
+  def f2: Pt2 = ife(axis1IsMajor, cen - cenP1 * e, cen - cenP0 * e)
+
+  /** Linear eccentricity. The distance from the centre to the focus */
+  def c: Double = (a.squared - b.squared).sqrt
 
   /** The h value of this ellipse. */
   def h: Double
@@ -24,7 +46,7 @@ trait Ellipse extends EllipseBased, ShapeCentred
   def alignAngle: Angle
 
   /** Eccentricity of ellipse. */
-  def e: Double
+  def e: Double = (1 - b.squared / a.squared).sqrt
 
   def area: Double
   def cxAttrib: XmlAtt = XmlAtt("cx", cenX.toString)
@@ -66,6 +88,17 @@ trait Ellipse extends EllipseBased, ShapeCentred
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
     baseLine: BaseLine, minSize: Double): EllipseCompound =
     EllipseCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)))
+
+  def textArrows: RArr[GraphicSvgElem] = {
+    val tcen: RArr[GraphicSvgElem] = cen.textArrow("cen")
+    val tp0: RArr[GraphicSvgElem] = p0.textArrowToward(cen, "p0")
+    val tp1: RArr[GraphicSvgElem] = p1.textArrowToward(cen, "p1")
+    val tp2: RArr[GraphicSvgElem] = p2.textArrowToward(cen, "p2")
+    val tp3: RArr[GraphicSvgElem] = p3.textArrowToward(cen, "p3")
+    val tf1: RArr[GraphicSvgElem] = f1.textArrow("f1")
+    val tf2: RArr[GraphicSvgElem] = f2.textArrow("f2")
+    tcen ++ tp0 ++ tp1 ++ tp2 ++ tp3 ++ tf1 ++ tf2
+  }
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
@@ -127,19 +160,9 @@ object Ellipse
  * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
 final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipse, AxisFree
 { override type ThisT = EllipseGen
-
-  override def p2X: Double = 2 * cenX - p0X
-  override def p2Y: Double = 2 * cenY - p0Y
-  override def cenX: Double = p1X \/ p3X
-  override def cenY: Double = p1Y \/ p3Y
-
-  override def radius1: Double = cen.distTo(p1)
-  override def radius2: Double = cen.distTo(p0)
-  override def rMajor: Double = radius1.max(radius2)
-  override def rMinor: Double = radius1.min(radius2)
   override def area: Double = Pi * radius1 * radius2
-  override def e: Double = sqrt(rMajor.squared - rMinor.squared) / rMajor
-  override def h: Double = (rMajor - rMinor).squared / (rMajor + rMinor).squared
+  override def e: Double = sqrt(a.squared - b.squared) / a
+  override def h: Double = (a - b).squared / (a + b).squared
 
   def boundingRect: Rect =
   { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius2.squared * (alignAngle.sin).squared

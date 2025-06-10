@@ -41,16 +41,9 @@ object Ellipselign
 final class EllipselignGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipselign
 { def xRadius: Double = ???
   def yRadius: Double = ???
-  override def cenX: Double = p1X \/ p3X
-  override def cenY: Double = p1Y \/ p3Y
-  override def rMajor: Double = ife(xRadius >= yRadius, xRadius, yRadius)
-  override def rMinor: Double = ife(xRadius < yRadius, xRadius, yRadius)
 
   /** The h value of this ellipse. */
   override def h: Double = ???
-
-  /** Eccentricity of ellipse. */
-  override def e: Double = ???
 
   override def area: Double = ???
 
@@ -63,13 +56,4 @@ final class EllipselignGen(val p0X: Double, val p0Y: Double, val p1X: Double, va
       val t3 = xRadius.squared * yRadius.squared
       t1 + t2 <= t3
     }
-
-  /** Radius 1 of the ellipse. By default, this is the horizontal axis of the ellipse. This can be the major or minor axis. */
-  override def radius1: Double = xRadius
-
-  /** Radius 2 of the ellipse. By default, this is the vertical axis of the ellipse. This can be the major or minor axis. */
-  override def radius2: Double = yRadius
-
-  override def p2X: Double = 2 * cenX - p0X
-  override def p2Y: Double = 2 * cenY - p0Y
 }
