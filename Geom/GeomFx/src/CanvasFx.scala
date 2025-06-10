@@ -134,7 +134,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def tlEllipseDraw(ed: EllipseDraw): Unit =
   { gc.setLineWidth(ed.lineWidth)
     gc.setStroke(toFxColor(ed.lineColour))
-    gc.strokeOval(ed.cenX - ed.shape.radius1, ed.cenY - ed.shape.radius2, ed.shape.diameter1, ed.shape.diameter2)
+    val pd = ed.shape.toPolygon.dblsMap(_ + width / 2, height / 2 - _)
+    gc.strokePolygon(pd.xVertsArray, pd.yVertsArray, pd.numVerts)
+    //gc.strokeOval(ed.cenX - ed.shape.radius1, ed.cenY - ed.shape.radius2, ed.shape.diameter1, ed.shape.diameter2)
   }    
     
   override protected def tlDashedLineDraw(dld: DashedLineDraw): Unit =

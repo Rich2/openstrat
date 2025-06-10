@@ -99,6 +99,43 @@ trait Ellipse extends EllipseBased, ShapeCentred
     val tf2: RArr[GraphicSvgElem] = f2.textArrow("f2")
     tcen ++ tp0 ++ tp1 ++ tp2 ++ tp3 ++ tf1 ++ tf2
   }
+
+  def toPolygon: PolygonGen =
+  { val topN: Int = (c / 3).toInt.max(3)
+    val rightN: Int = (b / (3 * e)).toInt.max(3)
+    val newLen: Int = (topN + rightN - 2) * 4
+    val newArray: Array[Double]  = new Array[Double](newLen)
+    var i = 0
+    var topY = 0.0
+    while (i <= topN)
+    { val x = -c + i * 2 * c / topN
+      val xi = i * 2
+      newArray(xi) = x
+      val bottomEnd = (topN * 2 + rightN - 2) * 2
+      val xni = bottomEnd - i * 2 - 2
+      if (xni >= bottomEnd - 4) deb(s"xni=$xni, bottomEnd=$bottomEnd")
+      newArray(xni) = x
+      topY = ((1 - x.squared / a.squared) * b.squared).sqrt
+      newArray(xi + 1) = topY
+      newArray(xni + 1) = -topY
+      i += 1
+    }
+
+    i = 1
+    while (i < rightN)
+    { val y = topY - 2 * topY * i / rightN
+      val xi = (topN + i) * 2
+      val x = ((1 - y.squared / b.squared) * a.squared).sqrt
+      newArray(xi) = x
+      newArray(xi + 1) = y
+      val xni = newLen - i * 2
+      if (xni >= newLen - 4) deb(s"xni=$xni, newLen=$newLen")
+      newArray(xni) = -x
+      newArray(xni + 1) = y
+      i += 1
+    }
+    new PolygonGen(newArray)
+  }
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
@@ -117,7 +154,12 @@ object Ellipse
     new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cen)
 
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cenX: Double, cenY: Double): EllipseGen =
-    new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cenX, cenY)
+  { val e1 = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0)
+    debvar(e1.p0)
+    val e2 = e1.rotate(rotation)
+    debvar(e2.p0)
+    e2.slate(cenX, cenY)
+  }
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def diameter(diameter1: Double, diameter0: Double, cen: Pt2 = Pt2Z): Ellipse =

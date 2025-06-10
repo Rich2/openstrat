@@ -10,8 +10,8 @@ object LsEllipses2 extends LessonGraphics
 
 /** Ellipses 2 Lesson. Unfinished. */
 case class LsEllipses2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
-{ val el1: Ellipse = Ellipse(200, 100, 45.degsVec, -300, 0)
-  val el2 = Ellipse(200, 300, 30.degsVec, 200, 0)
+{ val el0 = Ellipse(500, 250, 0, 0)
+  val el1: Ellipse = Ellipse(500, 250, 45.degsVec, 0, 0)
 
-  repaints(el1.fill(Red), el2.fill(Colour.BurlyWood))
+  repaints(el0.draw(4, Red), el1.draw())
 }
