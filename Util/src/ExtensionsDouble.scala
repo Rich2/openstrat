@@ -1,13 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.Pi, annotation.targetName
 
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
-{
-  def average(operands: Double*): Double = (thisDouble + operands.sum) / (1 + operands.length)
-  
-  /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
+{ /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =
   { val r = thisDouble % divisor
     ife(r < 0, divisor + r, r)
@@ -15,23 +12,22 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
 
   /** newV = ((v - l) %% (2 * l)) + l. Alternative modulo or remainder operation that performs a modulus with a divisor twice the limit value but
    *  where values of between one limit value and 2 limit values are expressed as negatives. */
-  def %+-(limit: Double): Double =
-  { val r = thisDouble % (limit * 2)
-    r match {
-      case r if r > limit * 2 =>{
-        val div = ((r / limit).toInt / 2) * 2
-        val newR = r - div * limit
-        newR %+- limit
-      }
-      case r if r < -limit * 2 =>
-      { val div = ((r / limit).toInt / 2) * 2
-        val newR = r - div * limit
-        newR %+- limit
-      }
-      case r if r > limit => r - 2 * limit
-      case r if r <= - limit => r + 2 * limit
-      case r => r
+  def %+-(limit: Double): Double = thisDouble % (limit * 2) match
+  { case r if r > limit * 2 =>
+    { val div = ((r / limit).toInt / 2) * 2
+      val newR = r - div * limit
+      newR %+- limit
     }
+    
+    case r if r < -limit * 2 =>
+    { val div = ((r / limit).toInt / 2) * 2
+      val newR = r - div * limit
+      newR %+- limit
+    }
+    
+    case r if r > limit => r - 2 * limit
+    case r if r <= - limit => r + 2 * limit
+    case r => r    
   }
 
   def precisionDefault = 1e-12
