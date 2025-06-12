@@ -28,7 +28,7 @@ trait StagingBuild
   }
 
   def stageDocDir(path: DirsAbs): ErrBiAcc[IOExc, FileWritten] =
-  { val docPath = path /% "Documentation"
+  { val docPath = path /% "Documentation"    
     mkDirExist(docPath).flatMapAcc { res => ErrBiAcc(
       htmlFileWrite(docPath / "apps", AppsPage.out),
       htmlFileWrite(docPath / "util", UtilPage.out),

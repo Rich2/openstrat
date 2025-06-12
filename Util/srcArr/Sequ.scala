@@ -105,15 +105,15 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every element of this sequence. */
-  def map[B, ArrB <: Arr[B]](f: A => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  def map[B, ArrB <: Arr[B]](f: A => B)(using build: BuilderArrMap[B, ArrB]): ArrB =
   { val res = build.uninitialised(length)
-    iForeach((i, a) => build.indexSet(res, i, f(a)))
+    iForeach{ (i, a) => build.indexSet(res, i, f(a)) }
     res
   }
 
-  /** Takes a map function from A to Option[B] but only returns the [[Arr] of B if all the elements map to a [[Some]]. Hence, the ArrB if returned will be the
+  /** Takes a map function from A to Option[B] but only returns the [[Arr]] of B if all the elements map to a [[Some]]. Hence, the ArrB if returned will be the
    * same length as this sequence. */
-  def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: BuilderArrMap[B, ArrB]): Option[ArrB] =
+  def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(using build: BuilderArrMap[B, ArrB]): Option[ArrB] =
   { val res = build.uninitialised(length)
     var good = true
     var i = 0
@@ -125,7 +125,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Specialised opt map to an immutable [[Arr]] of B. Applies the supplied function to every element of this sequence. */
-  def optMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  def optMap[B, ArrB <: Arr[B]](f: A => Option[B])(using build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     foreach(a => f(a).foreach(b => buff.grow(b)))
     build.buffToSeqLike(buff)
@@ -155,7 +155,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** A map operation on the range of indexed values, where the return type of the [[SeqLike]] is explicitly given by the first parameter. */
-  def indexMapTo[B, BB <: SeqLikeBacked[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(implicit build: BuilderMapSeqLike[B, BB]): BB =
+  def indexMapTo[B, BB <: SeqLikeBacked[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(using build: BuilderMapSeqLike[B, BB]): BB =
   { val res = build.uninitialised(length)
     var ti = 0
     indexToForeach(iFrom, iTo, iStep) { el => res.setElemUnsafe(ti, f(el)); ti += 1 }
@@ -175,7 +175,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
    * just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index.
    * Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods
    * ' (accumulator, element) => B signature. This method should be overridden in subclasses. */
-  def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(using ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     iForeach((i, a) => ev.indexSet(res, i, f(i, a)))
     res
@@ -186,14 +186,14 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
    * just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index.
    * Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    * (accumulator, element) => B signature. Ideally this method should be overridden in subclasses. */
-  def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(using ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     iForeach(startindex)((i, a) => ev.indexSet(res, i, f(i, a)))
     res
   }
 
   /** Specialised flatMap to a [[Arr]]. */
-  def flatMap[ArrB <: Arr[?]](f: A => ArrB)(implicit ev: BuilderArrFlat[ArrB]): ArrB =
+  def flatMap[ArrB <: Arr[?]](f: A => ArrB)(using ev: BuilderArrFlat[ArrB]): ArrB =
   { val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
       val newVals = f(a)
@@ -207,7 +207,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
    * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list,
    * to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen
    * for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in subclasses. */
-  def iFlatMap[ArrB <: Arr[?]](f: (Int, A) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
+  def iFlatMap[ArrB <: Arr[?]](f: (Int, A) => ArrB)(using build: BuilderArrFlat[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     while (i < length)
@@ -223,7 +223,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
    * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list,
    * to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen
    * for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in subclasses. */
-  def iFlatMap[ArrB <: Arr[?]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
+  def iFlatMap[ArrB <: Arr[?]](iInit: Int)(f: (Int, A) => ArrB)(using build: BuilderArrFlat[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
     while (count < length)
@@ -236,7 +236,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map function from
    * type A and type B to type C. */
-  def zipMap[B, C, ArrC <: Arr[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: BuilderArrMap[C, ArrC]): ArrC =
+  def zipMap[B, C, ArrC <: Arr[C]](operator: Sequ[B])(f: (A, B) => C)(using ev: BuilderArrMap[C, ArrC]): ArrC =
   { val newLen = length.min(operator.length)
     val res = ev.uninitialised(newLen)
     var count = 0
@@ -250,7 +250,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies the
    * specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, ArrD <: Arr[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: BuilderArrMap[D, ArrD]): ArrD =
+  def zipMap2[B, C, D, ArrD <: Arr[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(using ev: BuilderArrMap[D, ArrD]): ArrD =
   { val newLen = length.min(operator1.length).min(operator2.length)
     val res = ev.uninitialised(newLen)
     var count = 0
@@ -265,7 +265,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   /** Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    * (accumulator, element) => B signature. */
-  def mapWithAcc[B, ArrB <: Arr[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  def mapWithAcc[B, ArrB <: Arr[B], C](initC: C)(f: (C, A) => (B, C))(using ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     var accC: C = initC
     iForeach({ (i, a) =>
@@ -277,9 +277,9 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Fail]] of the
-   * first error encountered implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
+   * first error encountered usingly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
    * parameter list. */
-  def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(implicit ev: BuilderArrMap[B, ArrB]): ErrBi[E, ArrB] =
+  def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(using ev: BuilderArrMap[B, ArrB]): ErrBi[E, ArrB] =
   { val acc = ev.newBuff()
     var count = 0
     var optErr: Option[E] = None
@@ -291,7 +291,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     }
   }
   
-  /** Map from A => [[ErrBi]][E, B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
+  /** Map from A => [[ErrBi]][E, B]. There is a name overload that usingly takes a narrower [[BuilderArrMap]] as the second parameter list. */
   def mapErrBi[E <: Throwable, B, BB](ev: BuilderMap[B, BB])(f: A => ErrBi[E, B]): ErrBi[E, BB] =
   { val acc = ev.newBuff()
     var count = 0
@@ -305,21 +305,21 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
   
   /** maps each element to an [[ErrBi]] accumulating successes and errors. */
-  def mapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBi[E, B])(implicit ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
+  def mapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBi[E, B])(using ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
   { val acc = ErrBiAccBuff[E, B]()
     foreach{a => acc.grow(f(a)) }
     acc.unbuff
   }
 
   /** flatMaps each element to an [[ErrBiAcc]] accumulating successes and errors. */
-  def flatMapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBiAcc[E, B])(implicit ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
+  def flatMapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBiAcc[E, B])(using ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
   { val acc = ErrBiAccBuff[E, B]()
     foreach { a => acc.growAcc(f(a)) }
     acc.unbuff
   }
 
   /** Maps to an Array. */
-  def mapArray[B](f: A => B)(implicit ct: ClassTag[B]): Array[B] =
+  def mapArray[B](f: A => B)(using ct: ClassTag[B]): Array[B] =
   { val res = new Array[B](length)
     var i = 0
     foreach{ a => res(i) = f(a); i += 1 }
@@ -335,7 +335,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
-  def map2To1[B, ArrB <: Arr[B]](f: (A, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  def map2To1[B, ArrB <: Arr[B]](f: (A, A) => B)(using ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     var count = 0
     while (count + 1  < length)
@@ -351,13 +351,13 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
-  def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
+  def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(using ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(f(a), ev.buffGrow(buff, a)))
     ev.buffToSeqLike(buff)
   }
 
-  def filterNot[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
+  def filterNot[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(using ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(!f(a), ev.buffGrow(buff, a)))
     ev.buffToSeqLike(buff)
@@ -370,7 +370,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Maps over a function from A to any Iterable and flattens the result into an [[RArr]][A]. */
-  def flatToIterableMap[B, ArrB <: Arr[B]](f: A => Iterable[B])(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  def flatToIterableMap[B, ArrB <: Arr[B]](f: A => Iterable[B])(using ev: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = ev.newBuff(length)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToSeqLike(buff)
@@ -383,7 +383,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     acc
   }
 
-  def foldLeft[B](f: (B, A) => B)(implicit ev: DefaultValue[B]): B =
+  def foldLeft[B](f: (B, A) => B)(using ev: DefaultValue[B]): B =
   { var acc: B = ev.default
     foreach(a => acc = f(acc, a))
     acc
@@ -520,7 +520,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Collects values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
-  def collect[B, BB <: Arr[B]](pf: PartialFunction[A, B])(implicit ev: BuilderArrMap[B, BB]): BB =
+  def collect[B, BB <: Arr[B]](pf: PartialFunction[A, B])(using ev: BuilderArrMap[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffGrow(acc, pf(a)) }
     ev.buffToSeqLike(acc)
@@ -539,21 +539,21 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** maps from A to ErrBi[B], collects the successful values. */
-  def mapCollectSuccs[B, BB <: Arr[B]](f: A => ErrBi[?, B])(implicit ev: BuilderArrMap[B, BB]): BB =
+  def mapCollectSuccs[B, BB <: Arr[B]](f: A => ErrBi[?, B])(using ev: BuilderArrMap[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forSucc(ev.buffGrow(acc, _)))
     ev.buffToSeqLike(acc)
   }
 
   /** Gives the maximum value of this sequence according to the implicit ordering type class instance, which can be passed explicitly. */
-  def max[B >: A](implicit ord: math.Ordering[B]): A =
+  def max[B >: A](using ord: math.Ordering[B]): A =
   { var acc = apply(0)
     tailForeach{ el => acc = ord.max(acc, el) }
     acc
   }
 
   /** Gives the minimum value of this sequence according to the implicit ordering type class instance, which can be passed explicitly. */
-  def min[B >: A](implicit ord: math.Ordering[B]): A =
+  def min[B >: A](using ord: math.Ordering[B]): A =
   { var acc = apply(0)
     tailForeach{ el => acc = ord.min(acc, el) }
     acc
@@ -561,7 +561,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 
   /** Gives the maximum value of type B, produced by applying the function from A to B on each element of this collection, or the default value if the
    * collection is empty. */
-  def fMax[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B = if (empty) defaultValue else
+  def fMax[B](defaultValue: B)(f: (A) => B)(using cmp: math.Ordering[B]): B = if (empty) defaultValue else
   { var acc = f(head)
     tailForeach{ el => acc = cmp.max(acc, f(el)) }
     acc
@@ -569,7 +569,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 
   /** Gives the minimum value of type B, produced by applying the function from A to B on each element of this collection, or the default value if the
    *  collection is empty. */
-  def fMin[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  def fMin[B](defaultValue: B)(f: (A) => B)(using cmp: math.Ordering[B]): B =
   { var acc = f(head)
     tailForeach{ el => acc = cmp.min(acc, f(el)) }
     acc
@@ -623,7 +623,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
-  def partition[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit build: BuilderArrMap[A, ArrA] @uncheckedVariance): (ArrA, ArrA) =
+  def partition[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(using build: BuilderArrMap[A, ArrA] @uncheckedVariance): (ArrA, ArrA) =
   { val buff1: build.BuffT = build.newBuff()
     val buff2: build.BuffT = build.newBuff()
     foreach{a => if (f(a)) build.buffGrow(buff1, a) else build.buffGrow(buff2,a) }
