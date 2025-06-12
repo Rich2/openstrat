@@ -40,8 +40,8 @@ object Ellipselign
 
 /** Implementation of the general case of an [[Ellipse]] aligned to the X and Y axes. As opposed to the special cases of [[Circle]]s. */
 final class EllipselignGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipselign
-{ def xRadius: Double = ???
-  def yRadius: Double = ???
+{ def xRadius: Double = (p1X -p3X).abs.max((p0X - p2X).abs)
+  def yRadius: Double = (p1Y -p3Y).abs.max((p0Y - p2Y).abs)
 
   /** The h value of this ellipse. */
   override def h: Double = ???
