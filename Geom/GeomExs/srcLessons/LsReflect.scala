@@ -3,7 +3,7 @@ package learn
 import ostrat.*, geom.*, Colour.*
 
 /** Reflection transformation lesson. */
-object LsAReflect extends LessonStatic
+object LsReflect extends LessonStatic
 {
   override def title: String = "Reflection"
 

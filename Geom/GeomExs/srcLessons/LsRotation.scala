@@ -21,7 +21,7 @@ import ostrat.*, geom.*, Colour.*
  * replacing a string with a number or replacing a number with a String, the compiler will complain, and you will get an error message. The third type is Colour.
  * Note Colours must have the correct capital letters. You can just try guessing the colours or you can google / duckduck web colours to see what is available.
  * Again put a Colour where a number or a string is expected or vice versa and the compiler will complain. */
-object LsARotation extends LessonStatic
+object LsRotation extends LessonStatic
 {
   override def title: String = "Rotation"
 

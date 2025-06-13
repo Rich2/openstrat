@@ -2,7 +2,7 @@
 package learn
 import ostrat.*, geom.*, Colour.*
 
-object LsAShapes extends LessonStatic
+object LsShapes extends LessonStatic
 { override def title: String = "Shape creation"
   override def bodyStr: String = "Shape creation"
 

@@ -75,7 +75,6 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def xScale(factor: Double): Pt2 = Pt2(x * factor, y)
   def xyScale(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
 
-  /** Reflects or mirrors this Vec2 across a line, returning new Vec2. */
   def reflect(lineLike: LineLike): Pt2 = lineLike match
   { case xl: XLine => reflectXLine(xl)
     case yl: YLine => reflectYLine(yl)
@@ -99,11 +98,8 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   /** Reflects, mirrors this Vec2 across a YLine. */
   def reflectYLine(line: YLine): Pt2 = ???
 
-  /** Reflects ,mirrors along the X axis by negating Y. */
-  def negY: Pt2 = Pt2(x, -y)
-
-  /** Reflects, mirrors along the Y axis by negating X. */
   def negX: Pt2 = Pt2(-x, y)
+  def negY: Pt2 = Pt2(x, -y)
 
   /** Reflects, mirrors along the y = yOffset line that is parallel to the  X axis. */
   def reflectXParallel(yOffset: Double): Pt2 = Pt2(x, -y + yOffset * 2)

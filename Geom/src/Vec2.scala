@@ -19,10 +19,10 @@ class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
     case _ => false
   }
 
-  /** Adds this Vector to a second 2 dimensional vector. */
+  /** Adds this Vector to a second 2-dimensional vector. */
   def +(operand: Vec2): Vec2 = Vec2(x + operand.x, y + operand.y)
 
-  /** Adds the operand 2 dimensional vector from this 2 dimensional vector. */
+  /** Adds the operand 2 dimensional vector from this 2-dimensional vector. */
   def -(operand: Vec2): Vec2 = Vec2(x + operand.x, y - operand.y)
 
   def unary_- : Vec2 = Vec2(-x, -y)
