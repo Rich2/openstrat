@@ -6,7 +6,7 @@ import prid.phex.*, egrid.*, WTiles.*, MultExt.*
  * [[Isle9]] 51718.292km² => 64603.127km². Svalbard 62045km².
  * [[Isle3]] 4473.900km² => 8768.845km². Crete 8450km². */
 object Terr460E30 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e30(70)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e30(66)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
