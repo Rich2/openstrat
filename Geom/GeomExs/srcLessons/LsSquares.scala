@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, Colour._
+import ostrat.*, geom.*, Colour.*
 
 /** Lesson introducing Squares. */
-object LsASquares extends LessonStatic
+object LsSquares extends LessonStatic
 {
   override def title: String = "Squares"
 

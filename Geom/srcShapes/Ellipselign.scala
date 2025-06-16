@@ -22,18 +22,21 @@ trait Ellipselign extends Ellipse
   override def slateX(xOperand: Double): Ellipselign = new EllipselignGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
   override def slateY(yOperand: Double): Ellipselign = new EllipselignGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
   override def scale(operand: Double): Ellipselign = new EllipselignGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
-  override def negX: Ellipselign = ???// Ellipselign(xRadius, yRadius, -cenX, cenY)
-  override def negY: Ellipselign = ???//Ellipselign(xRadius, yRadius, cenX, -cenY)
-  override def rotate90: Ellipselign = ???
-  override def rotate180: Ellipselign = ???
-  override def rotate270: Ellipselign = ???
+  override def negX: Ellipselign = new EllipselignGen(-p0X, p0Y, -p1X, p1Y, -p3X, p3Y)
+  override def negY: Ellipselign = new EllipselignGen(p0X, -p0Y, p1X, -p1Y, p3X, -p3Y)
+  override def rotate90: Ellipselign = new EllipselignGen(-p0Y, p0X, -p1Y, p1X, -p3Y, p3X)
+  override def rotate180: Ellipselign = new EllipselignGen(-p0X, -p0Y, -p1X, -p1Y, -p3X, -p3Y)
+  override def rotate270: Ellipselign = new EllipselignGen(p0Y, -p0X, p1Y, -p1X, p3Y, p3X)
 }
 
 object Ellipselign
-{
+{ /** Factory apply method for an [[Ellipse]] aligned to the X and Y axes, with a default centre at the origin. There is a name overload to specify the centre
+   * of the ellipse by its X and Y components. */
   def apply(xRadius: Double, yRadius: Double, cen: Pt2 = Pt2Z): Ellipselign =
     new EllipselignGen(cen.x, cen.y + yRadius, cen.x + xRadius, cen.y, cen.x - xRadius, cen.y)
-  
+
+  /** Factory apply method for an [[Ellipse]] aligned to the X and Y axes. There is a name overload to specify yhe centre with a [[Pt2]] parameter with a
+   * default of the origin. */
   def apply(xRadius: Double, yRadius: Double, cenX: Double, cenY: Double): Ellipselign =
     new EllipselignGen(cenX, cenY + yRadius, cenX + xRadius, cenY, cenX - xRadius, cenY)
 }
