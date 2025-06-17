@@ -76,8 +76,9 @@ object Terr460W60 extends Long460Terrs
     TileRow(74, hillySteppe),
     VertRow(73, BendInLt(10750, HVDR, 12, 7)),
     TileRow(72, hillySteppe, Isle4(hillyBoreal)),
-    VertRow(71, OrigMin(10744, HVUL, 5), OrigLt(10748, HVUR), BendIn(10750, HVUL, 13)),
+    VertRow(71, BendMin(10744, HVDL, 5), OrigLt(10748, HVUR), BendIn(10750, HVUL, 13)),
     TileRow(70, hillyOce),
+    VertRow(69, BendIn(10744, HVUR), OrigRt(10746, HVUL)),
     )
   }
   help.run
