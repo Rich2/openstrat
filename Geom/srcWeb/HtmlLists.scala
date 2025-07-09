@@ -19,7 +19,7 @@ case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 /** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlOl
 { /** Factory apply method for HTML OL ordered list. */
-  def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
+  def apply(contents: (XCon | String)*): HtmlOl = new HtmlOl(contents.xCons)
 }
 
 /** Html LI, list item element. */

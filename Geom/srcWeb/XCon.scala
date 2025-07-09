@@ -10,6 +10,20 @@ trait XCon
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
 }
 
+object XCon
+{
+  extension(seq: Seq[XCon | String])
+  {
+    def xCons: RArr[XCon | String] =
+    { val array = xCons.mapArray{
+        case xc: XCon => xc
+        case s: String => s.xCon  
+      }
+      new RArr(array)
+    }
+  }
+}
+
 /** XML / HTML content that can be inlined. */
 trait XConInLineable extends XCon
 { def value: String
