@@ -82,6 +82,7 @@ object DevPage extends HtmlPage
     "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash + "<br>" ---
     "then repeat<br>" --- "sudo update-alternatives --config java".htmlBash)
 
+
   def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
     HtmlLi.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")
