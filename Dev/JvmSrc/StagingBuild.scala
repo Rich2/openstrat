@@ -39,6 +39,7 @@ trait StagingBuild
       htmlFileWrite(docPath / "egrid", EGridPage.out),
       htmlFileWrite(docPath / "dev", DevPage.out),
       htmlFileWrite(docPath / "newdevs", NewDevsPage.out),
+      htmlFileWrite(docPath / "tomcat", TomcatPage.out),
       cssFileWrite(docPath / "documentation", CssDocumentation())
     )
     }

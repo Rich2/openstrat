@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** An HTML code element. */
-trait HtmlCode/*(contentStr: String, attribs: RArr[XmlAtt] = RArr())*/ extends HtmlUnvoid
+trait HtmlCode extends HtmlUnvoid
 { override def tag: String = "code"
 }
 
@@ -14,7 +14,17 @@ object HtmlCode
   }
 }
 
-trait HtmlCodeInline extends HtmlCode with HtmlInline
+trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
+{
+  def lines: StrArr
+
+  override def contents: RArr[XCon] = lines match
+  { case RArr0 => RArr()
+    case ls => ls.head.xCon %: lines.tail.map(s => ("<Br>\n" + s).xCon)
+  }
+}
+
+trait HtmlCodeInline extends HtmlCode, HtmlInline
 
 
 trait HtmlScala extends HtmlCode
@@ -50,6 +60,25 @@ trait HtmlBash extends HtmlCode
   def classAtt: ClassAtt = ClassAtt("bash")
 
   override def attribs: RArr[XmlAtt] = RArr(classAtt)
+}
+
+object HtmlBash
+{
+  def apply(str: String): HtmlBash = new HtmlBash {
+    override def contents: RArr[XCon] = RArr(str.xCon)
+
+    /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
+    override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
+  }
+}
+
+class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XmlAtt]) extends HtmlBash, HtmlCodeMulti
+{ override def attribs: RArr[XmlAtt] = super.attribs ++ otherAttribs
+}
+
+object HtmlBashMulti
+{
+  def apply(lines: String*): HtmlBashMulti = new HtmlBashMulti(lines.toArr, RArr())
 }
 
 trait HtmlBashInline extends HtmlBash with HtmlCodeInline
