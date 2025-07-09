@@ -112,7 +112,7 @@ package object geom
       baseLine: BaseLine = BaseLine.Middle): TextFixed = TextFixed.xy(thisAny.toString, fontSize, xPosn, yPosn, colour, align, baseLine)
   }
 
-  implicit class StringImplictGeom(thisString: String)
+  implicit class StringImplicitGeom(thisString: String)
   { import pParse.{ stringToStatements => stss}
 
     /** Find unique [[Pt2]] expression from this String parsing it as a Sequence of RSON statements. */

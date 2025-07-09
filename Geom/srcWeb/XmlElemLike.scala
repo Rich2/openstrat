@@ -86,8 +86,8 @@ trait XmlConInline extends XmlElemLike
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = TextLines(out(indent, maxLineLen), 1, 30, 30)
 
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
-  { val cons = contents.map(_.outLines(indent,  maxLineLen))
-    val middle = cons.length match
+  { val cons: RArr[TextLines] = contents.map(_.outLines(indent, maxLineLen))
+    val middle: String = cons.length match
     { case 0 => ""
       case 1 if cons.head.numLines == 1 => cons.head.text
       case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 => cons.mkStr(_.text, " ")
