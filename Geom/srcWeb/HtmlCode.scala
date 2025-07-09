@@ -20,7 +20,7 @@ trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
 
   override def contents: RArr[XCon] = lines match
   { case RArr0 => RArr()
-    case ls => ls.head.xCon %: lines.tail.map(s => ("<Br>\n" + s).xCon)
+    case ls => lines.initLastMap(_ + "<Br>")(s => s).map(_.xCon)
   }
 }
 

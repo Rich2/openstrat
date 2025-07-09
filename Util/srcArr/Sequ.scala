@@ -111,6 +111,15 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
+  /** Specialised map to an immutable [[Arr]] of B. But takes 2 functions. Applies the first supplied function to every element of the init of this sequence and
+   * the second is applied to the last element if there is one. */
+  def initLastMap[B, ArrB <: Arr[B]](fInit: A => B)(fLast: A => B)(using build: BuilderArrMap[B, ArrB]): ArrB =
+  { val res = build.uninitialised(length)
+    iUntilForeach(length - 1){ i => build.indexSet(res, i, fInit(apply(i))) }
+    if (length > 0) build.indexSet(res, length - 1, fLast(apply(length - 1)))
+    res
+  }
+
   /** Takes a map function from A to Option[B] but only returns the [[Arr]] of B if all the elements map to a [[Some]]. Hence, the ArrB if returned will be the
    * same length as this sequence. */
   def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(using build: BuilderArrMap[B, ArrB]): Option[ArrB] =

@@ -30,8 +30,8 @@ case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object HtmlLi
 { /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
-  def apply(contents: (XCon | String) *): HtmlLi ={
-    val arr = contents.mapArr {
+  def apply(contents: (XCon | String) *): HtmlLi =
+  { val arr = contents.mapArr {
       case str: String => str.xCon
       case xCon: XCon => xCon
     }
