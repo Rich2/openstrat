@@ -87,6 +87,7 @@ trait XmlConInline extends XmlElemLike
 
   override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
   { val cons: RArr[TextLines] = contents.map(_.outLines(indent + 2, indent + 2, maxLineLen))
+    val childIndent = indent + 2
     val stt: String = openTag(indent, line1InputLen, maxLineLen)
     val totalNum: Int = cons.sumBy(_.numLines)
     cons.length match
@@ -104,12 +105,12 @@ trait XmlConInline extends XmlElemLike
         TextLines(text, 1, text.length, text.length)
       }
       case n if totalNum < 3 =>{
-        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text } + closeTag
+        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + closeTag
         TextLines(text, totalNum, line1InputLen + cons.head.firstLen, indent + 2 + cons.last.lastLen + closeTag.length)
       }
       case n =>{
         val lastLine = indent.spaces + closeTag
-        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text } + "\n" + lastLine
+        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + "\n" + lastLine
         TextLines(text, totalNum + 1, line1InputLen + cons.head.firstLen, lastLine.length)
       }
     }

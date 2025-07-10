@@ -6,7 +6,7 @@ trait XCon
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 160): String
 
-  /** This should replace the outEither method and possibly the out method as well. */
+  /** This should replace the outEither method and possibly the out method as well.  */
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
 }
 
@@ -14,12 +14,9 @@ object XCon
 {
   extension(seq: Seq[XCon | String])
   {
-    def xCons: RArr[XCon | String] =
-    { val array = xCons.mapArray{
-        case xc: XCon => xc
-        case s: String => s.xCon  
-      }
-      new RArr(array)
+    def xCons: RArr[XCon | String] = seq.mapArr{
+      case xc: XCon => xc
+      case s: String => s.xCon
     }
   }
 }
