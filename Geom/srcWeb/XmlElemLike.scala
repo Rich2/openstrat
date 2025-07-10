@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
 case class XmlAsString(value: String) extends XCon
-{ override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = value
+{ override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = value
 }
 
 /** An XML or an HTML element. */
@@ -66,7 +66,7 @@ trait XmlElemLike extends XCon
 
 trait XmlLikeMulti extends XmlElemLike
 {
-  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
+  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String =
     if (contents.empty) openAtts(indent, line1InputLen, maxLineLen) + "/>"
     else openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, line1InputLen, 160), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
@@ -83,16 +83,18 @@ trait XmlLikeMaybeSingle extends XmlElemLike
 
 trait XmlConInline extends XmlElemLike
 {
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = TextLines(out(indent, maxLineLen), 1, 30, 30)
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = outLines(indent, line1InputLen, maxLineLen).text
 
-  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
-  { val cons: RArr[TextLines] = contents.map(_.outLines(indent, indent +2, maxLineLen))
-    val middle: String = cons.length match
+  override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
+  { val cons: RArr[TextLines] = contents.map(_.outLines(indent + 2, indent + 2, maxLineLen))
+    val numConsLines = cons.sumBy(_.numLines)
+    val middle: String = numConsLines match
     { case 0 => ""
       case 1 if cons.head.numLines == 1 => cons.head.text
       case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 => cons.mkStr(_.text, " ")
       case n => cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text }
     }
-    openTag(indent, line1InputLen, maxLineLen) + middle + closeTag
+    val text = openTag(indent, line1InputLen, maxLineLen) + middle + closeTag
+    TextLines(text, numConsLines, cons.headOption.map(_.firstLen).getOrElse(0), cons.lastOption.map(_.lastLen).getOrElse(0))
   }
 }

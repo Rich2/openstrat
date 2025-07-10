@@ -13,11 +13,10 @@ object HtmlA
 }
 
 /** HTML P paragraph element. */
-case class HtmlP(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlUnvoid
+case class HtmlP(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlInline
 { def tag = "p"
-  def text(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = "<p>" + text(indent, line1InputLen, maxLineLen) + "</p>"
-  def textLen: String = text(0)
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def textLen: String = text(0, 0)
   override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
@@ -26,27 +25,6 @@ object HtmlP
 { /** Factory apply method for creating HTML paragraphs. */
   def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP(RArr(strIn.xCon), attsIn.toRArr)
   def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
-  /*{ def str: String = strIn
-    def con1: XConText = str.xCon
-    override val attribs: RArr[XmlAtt] = attsIn.toArr
-    override def contents: RArr[XCon] = RArr(con1)
-
-    override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = str
-    {
-      val subt: TextLines = con1.outLines(indent + 2, openUnclosed(indent, line1InputLen, maxLineLen).length)
-      val isps = indent.spaces
-      val nli = "\n" + indent.spaces
-      val nli2 = "\n" + (indent + 2).spaces
-      subt.numLines match
-      { case 1 if (indent + openTagMinLen + subt.firstLen + closeTagMinLen) <= maxLineLen => isps + openUnclosed + subt.text + closeTag
-        case 1 if (indent + openTagMinLen + subt.firstLen) <= maxLineLen  => isps + openUnclosed + nli2 + subt.text + closeTag
-        case 1 if (indent + subt.firstLen + 1) <= maxLineLen  => isps + openUnclosed + nli2 + subt.text + closeTag
-        case 1 => isps + openUnclosed + nli2 + subt.text + nli + closeTag
-        case 2 => isps + openUnclosed + subt.text + closeTag
-        case _ => isps + openUnclosed + subt.text + nli + closeTag
-      }
-    }
-  }*/
 }
 
 /** HTML noscript element. */

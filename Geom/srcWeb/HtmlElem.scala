@@ -32,7 +32,7 @@ trait HtmlMultiLine extends HtmlUnvoid
   { val newIndent = indent + 2
     val cons: StrArr = contents.map(_.outLines(indent + 2, 0, maxLineLen).text)
     val cons2: String = cons.foldLeft("")(_ --- newIndent.spaces + _)
-    openTag(indent, indent) + cons2 --- indent.spaces + closeTag
+    indent.spaces + openTag(indent, indent) + cons2 --- indent.spaces + closeTag
   }
 }
 

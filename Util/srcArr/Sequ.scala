@@ -31,13 +31,13 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   @inline def head: A = apply(0)
 
   /** Returns the [[Some]] of the first element unless the sequence is empty in which case it returns [[None]]. */
-  def headFind: Option[A] = ife(length > 0, Some(apply(0)), None)
+  def headOption: Option[A] = ife(length > 0, Some(apply(0)), None)
 
   /** The last element of this sequence. */
   @inline def last: A = apply(length - 1)
 
   /** Returns the [[Some]] of the last element unless the sequence is empty in which case it returns [[None]]. */
-  def lastFind: Option[A] = ife(length > 0, Some(last), None)
+  def lastOption: Option[A] = ife(length > 0, Some(last), None)
 
   /** Is this sequence empty? */
   @inline def empty: Boolean = length <= 0
