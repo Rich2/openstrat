@@ -78,11 +78,19 @@ object HtmlBashInline
   }
 }
 
-class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashInline
-{
-  def promptAtt: ClassAtt = ClassAtt("bashprompt")
-  def promptSpan = HtmlSpan(prompt, promptAtt)
-  override def contents: RArr[XCon] = RArr(promptSpan, command.xCon)
+object BashPromptClass extends ClassAtt("bashprompt")
+class BashPromptSpan(str: String) extends HtmlSpan(RArr(str.xCon), RArr(BashPromptClass))
 
-  //override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String =
+class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashInline
+{ def promptSpan = HtmlSpan(prompt, BashPromptClass)
+  override def contents: RArr[XCon] = RArr(promptSpan, command.xCon)
+}
+
+class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XmlAtt]) extends HtmlBash, HtmlMultiLine
+{ override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1).xCon, HtmlBr) }
+  override def attribs: RArr[XmlAtt] = super.attribs ++ otherAttribs
+}
+
+object HtmlBashPromptMulti {
+  def apply(strs: String*): HtmlBashPromptMulti = new HtmlBashPromptMulti(strs.toArr, RArr())
 }

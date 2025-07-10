@@ -7,6 +7,13 @@ sealed trait HtmlVoid extends HtmlElem
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openUnclosed(indent + 2, 0)
 }
 
+/** An Html br line break element. */
+object HtmlBr extends HtmlVoid
+{ override def tag: String = "br"
+  override def attribs: RArr[XmlAtt] = RArr()
+}
+
+
 /** HTML meta element. */
 trait HtmlMeta extends HtmlVoid
 { override def tag: String = "meta"
@@ -46,19 +53,8 @@ object HtmlCssLink
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
 
-
-object HtmlBr extends HtmlVoid
-{
-  /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
-  override def tag: String = "br"
-
-  /** The attributes of this XML / HTML element. */
-  override def attribs: RArr[XmlAtt] = RArr()
-}
-
 class HtmlInput(override val attribs: RArr[XmlAtt]) extends HtmlVoid
-{
-  override def tag: String = "input"
+{ override def tag: String = "input"
 }
 
 object HtmlInput{
