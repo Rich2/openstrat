@@ -6,14 +6,6 @@ trait HtmlCode extends HtmlUnvoid
 { override def tag: String = "code"
 }
 
-object HtmlCode
-{
-  def multiLine(str: String): HtmlCode = new HtmlCode with HtmlMultiLine
-  { override def attribs: RArr[XmlAtt] = RArr()
-    override def contents: RArr[XCon] = RArr(str.xCon)
-  }
-}
-
 /** A multi line, HTML, code element */
 trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
 { /** the lines of code unindented. */
