@@ -87,14 +87,31 @@ trait XmlConInline extends XmlElemLike
 
   override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
   { val cons: RArr[TextLines] = contents.map(_.outLines(indent + 2, indent + 2, maxLineLen))
-    val numConsLines = cons.sumBy(_.numLines)
-    val middle: String = numConsLines match
-    { case 0 => ""
-      case 1 if cons.head.numLines == 1 => cons.head.text
-      case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 => cons.mkStr(_.text, " ")
-      case n => cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text }
+    val stt: String = openTag(indent, line1InputLen, maxLineLen)
+    val totalNum: Int = cons.sumBy(_.numLines)
+    cons.length match
+    { 
+      case 0 => {
+        val text = stt + closeTag
+        TextLines(text, 1, text.length, text.length)
     }
-    val text = openTag(indent, line1InputLen, maxLineLen) + middle + closeTag
-    TextLines(text, numConsLines, cons.headOption.map(_.firstLen).getOrElse(0), cons.lastOption.map(_.lastLen).getOrElse(0))
+      case 1 if cons.head.numLines == 1 =>{
+        val text = stt + cons.head.text + closeTag
+        TextLines(text, 1, text.length, text.length)
+      }
+      case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 =>{
+        val text = stt + cons.mkStr(_.text, " ") + closeTag
+        TextLines(text, 1, text.length, text.length)
+      }
+      case n if totalNum < 3 =>{
+        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text } + closeTag
+        TextLines(text, totalNum, line1InputLen + cons.head.firstLen, indent + 2 + cons.last.lastLen + closeTag.length)
+      }
+      case n =>{
+        val lastLine = indent.spaces + closeTag
+        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text } + "\n" + lastLine
+        TextLines(text, totalNum + 1, line1InputLen + cons.head.firstLen, lastLine.length)
+      }
+    }
   }
 }

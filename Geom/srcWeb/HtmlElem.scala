@@ -21,16 +21,16 @@ trait HtmlUnvoid extends HtmlElem
 
 /** An HTML element that is not void, but has no content. */
 trait HtmlEmpty extends HtmlUnvoid
-{ override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = openUnclosed(indent, line1InputLen, maxLineLen) + closeTag
+{ override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 160): String = openUnclosed(indent, line1InputLen, maxLineLen) + closeTag
   override def contents: RArr[XCon] = RArr()
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
 trait HtmlMultiLine extends HtmlUnvoid
 {
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = 160): String =
   { val newIndent = indent + 2
-    val cons: StrArr = contents.map(_.outLines(indent + 2, 0, maxLineLen).text)
+    val cons: StrArr = contents.map(_.outLines(newIndent, line1InputLen + openTagMinLen, maxLineLen).text)
     val cons2: String = cons.foldLeft("")(_ --- newIndent.spaces + _)
     indent.spaces + openTag(indent, indent) + cons2 --- indent.spaces + closeTag
   }
