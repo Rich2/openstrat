@@ -68,13 +68,13 @@ trait XmlLikeMulti extends XmlElemLike
 {
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
     if (contents.empty) openAtts(indent, line1InputLen, maxLineLen) + "/>"
-    else openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+    else openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, line1InputLen, 160), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
 /** An XML like element that may be output on a single line. */
 trait XmlLikeMaybeSingle extends XmlElemLike
 {
-  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String = contents match
+  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = contents match
   { case RArr0() => openAtts(indent, 0) + "/>"
     case RArr1(_) => openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, 150) + closeTag
     case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
@@ -86,12 +86,12 @@ trait XmlConInline extends XmlElemLike
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = TextLines(out(indent, maxLineLen), 1, 30, 30)
 
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = lineLenDefault): String =
-  { val cons: RArr[TextLines] = contents.map(_.outLines(indent, maxLineLen))
+  { val cons: RArr[TextLines] = contents.map(_.outLines(indent, indent +2, maxLineLen))
     val middle: String = cons.length match
     { case 0 => ""
       case 1 if cons.head.numLines == 1 => cons.head.text
       case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 => cons.mkStr(_.text, " ")
-      case n => cons.foldLeft("") { (acc, el) => acc --- el.text } + "\n"
+      case n => cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- el.text }
     }
     openTag(indent, line1InputLen, maxLineLen) + middle + closeTag
   }

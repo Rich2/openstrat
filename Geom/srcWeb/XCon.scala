@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** Content for XML and HTML elements. */
 trait XCon
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
-  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String
+  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 160): String
 
   /** This should replace the outEither method and possibly the out method as well. */
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
