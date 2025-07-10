@@ -13,7 +13,7 @@ trait XCon
 object XCon
 {
   extension(seq: Seq[XCon | String])
-  {
+  { /** Converts the [[String]]s in this seqeunce into [[XCon]] XML / HTML content. */
     def xCons: RArr[XCon | String] = seq.mapArr{
       case xc: XCon => xc
       case s: String => s.xCon

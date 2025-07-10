@@ -42,6 +42,7 @@ trait Arr[+A] extends Any, Sequ[A], SeqLikeBacked[A]
   }
 }
 
+/** Not exactly sure the purpose of this class. */
 case class ArrCounters[A](arr: Arr[A])
 { val counters: Array[Int] = new Array[Int](arr.length)
 

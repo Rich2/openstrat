@@ -5,7 +5,7 @@ import pWeb.*
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
-  override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
+  override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", p1, steps)
 
@@ -28,6 +28,11 @@ object TomcatPage extends HtmlPage
 
   HtmlLi("""Create a new user and a new group of the same name. For these examples we'll call it 'tommy'. Again for desktop, laptop and home server this is not
   |necessary and you can use your own username.<br>""".stripMargin,
-  HtmlBashMulti("sudo useradd tommy", "sudo passwd tommy"))
+  HtmlBashMulti("sudo useradd tommy", "sudo passwd tommy")),
+
+
+  HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat are placed in the Opt directory, but
+  |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
+  HtmlBashMulti("sudo mkdir opt/tomcat", "sudo chown tomcat:tomcat opt/tomcat"))
   )
 }

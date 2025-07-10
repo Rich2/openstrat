@@ -8,7 +8,7 @@ class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAt
 }
 
 object HtmlA
-{ /** Factory apply method for [[HtmlA]] class. */
+{ /** Factory apply method for creating Html anchor element. */
   def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
 }
 
@@ -33,7 +33,7 @@ case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) ex
 }
 
 object HtmlNoScript
-{
+{ /** Factory apply method for creating an HTML noscript element */
   def apply(): HtmlNoScript = new HtmlNoScript(RArr("This page will not function properly without Javascript enabled".xCon))
 }
 
@@ -95,11 +95,12 @@ case class HtmlH4(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h4"
 }
 
+/** HTML button element. */
 class HtmlButton(val contents: RArr[XCon], val attribs: ostrat.RArr[XmlAtt] = RArr()) extends HtmlInline
-{
-  override def tag = "button"
+{ override def tag = "button"
 }
 
-object HtmlButton{
+object HtmlButton
+{ /** Factory apply method to create HTML button element. */
   def apply(inp: String): HtmlButton = new HtmlButton(RArr(inp.xCon), RArr(TypeSubmitAtt))
 }
