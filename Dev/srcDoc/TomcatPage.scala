@@ -38,9 +38,9 @@ object TomcatPage extends HtmlPage
   HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
   |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to
   |use an earlier version.At the time of writing I'm using the latest sub vsersion 11.0.9. Copy the tar.gz file link into the browser. Once its downloaded copy
-  |the sha256 code into the next command to check the interity of the download. If its good the sha code should be echoed back in red and the file name in
+  |the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in
   |White.<br>""".stripMargin,
-  HtmlBashMulti("tommy@ser:/opt/tomcat$ wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.9/bin/apache-tomcat-11.0.9.tar.gz",
-  "tommy@ser:/opt/tomcat$sha512sum apache-tomcat-11.0.9.tar.gz | grep Alongsequenceof lettersand digits"))
+  HtmlBashPrompt("tommy@ser:/opt/tomcat$", "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.9/bin/apache-tomcat-11.0.9.tar.gz<br>"),
+  HtmlBashPrompt("tommy@ser:/opt/tomcat$", "sha512sum apache-tomcat-11.0.9.tar.gz | grep alongsequenceoflettersanddigits"))
   )
 }

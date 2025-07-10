@@ -23,11 +23,28 @@ case class HtmlP(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlInline
   override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
-/** Copied from old needs checking. */
 object HtmlP
 { /** Factory apply method for creating HTML paragraphs. */
   def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP(RArr(strIn.xCon), attsIn.toRArr)
+
+  /** Factory apply method for creating HTML paragraphs. */
   def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
+}
+
+/** HTML span element. */
+case class HtmlSpan(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlInline
+{ def tag = "span"
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def textLen: String = text(0, 0)
+  override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
+}
+
+object HtmlSpan
+{ /** Factory apply method for creating HTML span element. */
+  def apply(strIn: String, attsIn: XmlAtt*): HtmlSpan = new HtmlSpan(RArr(strIn.xCon), attsIn.toRArr)
+
+  /** Factory apply method for creating HTML span element. */
+  def apply(contents: XCon*): HtmlSpan = new HtmlSpan(contents.toRArr, RArr())
 }
 
 /** HTML noscript element. */

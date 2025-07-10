@@ -13,7 +13,7 @@ trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
 
   override def contents: RArr[XCon] = lines match
   { case _ if lines.length == 0 => RArr()
-    case ls => lines.initLastMap(_ + "<Br>")(s => s).map(_.xCon)
+    case ls => lines.initLastMap(_ + "<br>")(s => s).map(_.xCon)
   }
 }
 
@@ -76,4 +76,13 @@ object HtmlBashInline
   def apply(str: String): HtmlBashInline = new HtmlBashInline
   { override def contents: RArr[XCon] = RArr(str.xCon)
   }
+}
+
+class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashInline
+{
+  def promptAtt: ClassAtt = ClassAtt("bashprompt")
+  def promptSpan = HtmlSpan(prompt, promptAtt)
+  override def contents: RArr[XCon] = RArr(promptSpan, command.xCon)
+
+  //override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String =
 }
