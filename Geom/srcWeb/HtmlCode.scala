@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** An HTML code element. */
@@ -14,8 +14,9 @@ object HtmlCode
   }
 }
 
+/** A multi line, HTML, code element */
 trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
-{
+{ /** the lines of code unindented. */
   def lines: StrArr
 
   override def contents: RArr[XCon] = lines match
@@ -24,9 +25,10 @@ trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
   }
 }
 
+/** An HTML code element that can be inlined. */
 trait HtmlCodeInline extends HtmlCode, HtmlInline
 
-
+/** Html Scala code element. */
 trait HtmlScala extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("scala")
   override def attribs: RArr[XmlAtt] = RArr(classAtt)
@@ -39,6 +41,7 @@ object HtmlScala
   }
 }
 
+/** Html Sbt code element. */
 trait HtmlSbt extends HtmlCode
 {
   def classAtt: ClassAtt = ClassAtt("sbt")
@@ -46,6 +49,7 @@ trait HtmlSbt extends HtmlCode
   override def attribs: RArr[XmlAtt] = RArr(classAtt)
 }
 
+/** Html Sbt code element, that can be inlined. */
 trait HtmlSbtInline extends HtmlSbt with HtmlCodeInline
 
 object HtmlSbtInline
@@ -55,23 +59,14 @@ object HtmlSbtInline
   }
 }
 
+/** Html Bash code element. */
 trait HtmlBash extends HtmlCode
-{
-  def classAtt: ClassAtt = ClassAtt("bash")
+{ def classAtt: ClassAtt = ClassAtt("bash")
 
   override def attribs: RArr[XmlAtt] = RArr(classAtt)
 }
 
-object HtmlBash
-{
-  def apply(str: String): HtmlBash = new HtmlBash {
-    override def contents: RArr[XCon] = RArr(str.xCon)
-
-    /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
-    override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
-  }
-}
-
+/** A multi line, Html, Bash code element. */
 class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XmlAtt]) extends HtmlBash, HtmlCodeMulti
 { override def attribs: RArr[XmlAtt] = super.attribs ++ otherAttribs
 }
@@ -81,6 +76,7 @@ object HtmlBashMulti
   def apply(lines: String*): HtmlBashMulti = new HtmlBashMulti(lines.toArr, RArr())
 }
 
+/** Html Bash code element, that can be inlined. */
 trait HtmlBashInline extends HtmlBash with HtmlCodeInline
 
 object HtmlBashInline
