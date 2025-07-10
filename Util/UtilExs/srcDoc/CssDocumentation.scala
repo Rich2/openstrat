@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb._, Colour._
+import pWeb.*, Colour.*
 
 object CssDocumentation extends CssOpenstrat
 {
@@ -11,7 +11,7 @@ object CssDocumentation extends CssOpenstrat
     CssOl(DecPadLeft(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", DecMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssClassesRule("lexical", DecColour(DarkBlue)),
     CssCode(DecColour(DarkRed)), CssClassesRule("sbt", DecColour(DarkGreen)), CssClassesRule("folder", DecColour(DarkBlue)),
-    CssClassesRule("path", DecColour(DarkBlue), DecNoWrap), CssClassesRule("bash", DecColour(DarkRed), DecNoWrap),
+    CssClassesRule("path", DecColour(DarkBlue), DecNoWrap), CssClassesRule("bash", DecFontSize(14.px), DecColour(DarkRed)),
     CssClassesRule("scala", DecColour(Black), DecNoWrap, DecFontSize(10.px)), CssIDRule("centreBlock", DispBlock, DecMargLeftRightAuto),
     CssRule("td th", DecPadRight(2.em), DecAlignLeft),
     minMed

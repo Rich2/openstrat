@@ -8,8 +8,11 @@ class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAt
 }
 
 object HtmlA
-{ /** Factory apply method for creating Html anchor element. */
-  def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
+{ /** Factory apply method for creating Html anchor element. If you don't supply a label the link will be used as the label. */
+  def apply(link: String, label: String = ""): HtmlA ={
+    val label2 = ife(label == "", link, label)
+    new HtmlA(link, RArr(label2.xCon))
+  }
 }
 
 /** HTML P paragraph element. */

@@ -24,8 +24,8 @@ trait CssRulesHolder
 }
 
 /** A list of CssRules and media queries with a possible end [[String]]. */
-trait CssRules extends CssRulesHolder with HttpContent
-{ /** A [[String at the end of the output to add CSS code that has not been converted into Scala.]] */
+trait CssRules extends CssRulesHolder, HttpContent
+{ /** A [[String]] at the end of the output to add CSS code that has not been converted into Scala. */
   def endStr: String = ""
 
   def apply(): String =
