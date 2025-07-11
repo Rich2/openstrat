@@ -166,7 +166,7 @@ object Rect
     override def width2: Double = height
     override def height: Double = (v0y - v2y).abs
 
-    override def attribs: RArr[XmlAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
+    override def attribs: RArr[XHAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
 
     override def slate(operand: VecPt2): RectGen = slate(operand.x, operand.y)
     

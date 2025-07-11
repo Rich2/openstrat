@@ -10,7 +10,7 @@ trait ShapeGeomlessFill
 
 /** A simple plain colour fill graphic. */
 trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
-{ override def nonShapeAttribs: RArr[XmlAtt] = fillFacet.attribs
+{ override def nonShapeAttribs: RArr[XHAtt] = fillFacet.attribs
 
   /** Converts this fill graphic into a draw. */
   def toDraw(lineWidth: Double = 2, newColour: Colour = Black): ShapeDraw

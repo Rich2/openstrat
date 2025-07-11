@@ -29,7 +29,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 
   final def alignAngle: Angle = (v0 >> v1).angle
 
-  def widthAtt: XmlAtt = WidthAtt(width1)
+  def widthAtt: XHAtt = WidthAtt(width1)
   def heightAtt: HeightAtt = HeightAtt(width2)
 
   /** The X component of the bottom left point is used. This becomes the top left point in SVG space. */

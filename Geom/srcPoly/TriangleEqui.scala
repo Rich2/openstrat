@@ -8,7 +8,7 @@ final class TriangleEqui(val v0x: Double, val v0y: Double, val v1x: Double, val 
   override def typeStr: String = "TriangleEqui"
 
   override def height: Double = ???
-  override def attribs: RArr[XmlAtt] = ???
+  override def attribs: RArr[XHAtt] = ???
   override def vertsTrans(f: Pt2 => Pt2): TriangleEqui = ???
 
   override def rotate(rotation: AngleVec): TriangleEqui = ???

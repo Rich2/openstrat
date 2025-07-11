@@ -2,12 +2,11 @@
 package ostrat; package pWeb
 
 /** HTML element. */
-trait HtmlElem extends XmlElemLike
+trait HtmlElem extends XHmlElem
 { thisHElem: HtmlUnvoid | HtmlVoid =>
   
   /** The full length of the opening tag without attributes. */
   def openTagMinLen: Int = tag.length + 2
-
 }
 
 /** An HTML element that is not void. */
@@ -37,7 +36,7 @@ trait HtmlMultiLine extends HtmlUnvoid
 }
 
 /** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
-trait HtmlInline extends HtmlUnvoid, XmlConInline
+trait HtmlInline extends HtmlUnvoid, XHmlOwnLine
 
 /** An HTML whose contents can be represented by a [[String]]. */
 trait HtmlStr extends HtmlInline

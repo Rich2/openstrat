@@ -8,8 +8,8 @@ trait ShapeGraphic extends GraphicBounded
   final override def boundingRect: Rect = shape.boundingRect
   final override def boundingWidth: Double = shape.boundingWidth
   final override def boundingHeight: Double = shape.boundingHeight
-  def attribs: RArr[XmlAtt]
-  def shapeAttribs: RArr[XmlAtt] = shape.attribs
+  def attribs: RArr[XHAtt]
+  def shapeAttribs: RArr[XHAtt] = shape.attribs
 
   def svgInline: HtmlSvg
 

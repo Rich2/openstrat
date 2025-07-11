@@ -9,7 +9,7 @@ object XmlTest extends TestSuite
 
   class Country(val nameStr: String, val otherElems: RArr[XmlElem]) extends XmlMulti
   { override def tag: String = "Country"
-    override def attribs: RArr[XmlAtt] = RArr()
+    override def attribs: RArr[XHAtt] = RArr()
     def nameEl = XmlElemSimple("name", nameStr)
 
     override def contents: RArr[XCon] = nameEl %: otherElems
@@ -46,8 +46,8 @@ object XmlTest extends TestSuite
     val frCities = Cities(RArr(paris, tours, lyon))
     val france1 = new Country("France", RArr(frCities))
     {
-      override val attribs: RArr[XmlAtt] = RArr(VersionAtt("1.0.0"), NameAtt("France"), XmlAtt("VeryLongAttribute", "Very long value!"),
-        XmlAtt("Colour", "violet"))
+      override val attribs: RArr[XHAtt] = RArr(VersionAtt("1.0.0"), NameAtt("France"), XHAtt("VeryLongAttribute", "Very long value!"),
+        XHAtt("Colour", "violet"))
     }
 
     val france1Out = france1.out()

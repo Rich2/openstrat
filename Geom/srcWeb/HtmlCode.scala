@@ -23,7 +23,7 @@ trait HtmlCodeInline extends HtmlCode, HtmlInline
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("scala")
-  override def attribs: RArr[XmlAtt] = RArr(classAtt)
+  override def attribs: RArr[XHAtt] = RArr(classAtt)
 }
 
 object HtmlScala
@@ -38,7 +38,7 @@ trait HtmlSbt extends HtmlCode
 {
   def classAtt: ClassAtt = ClassAtt("sbt")
 
-  override def attribs: RArr[XmlAtt] = RArr(classAtt)
+  override def attribs: RArr[XHAtt] = RArr(classAtt)
 }
 
 /** Html Sbt code element, that can be inlined. */
@@ -55,12 +55,12 @@ object HtmlSbtInline
 trait HtmlBash extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("bash")
 
-  override def attribs: RArr[XmlAtt] = RArr(classAtt)
+  override def attribs: RArr[XHAtt] = RArr(classAtt)
 }
 
 /** A multi line, Html, Bash code element. */
-class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XmlAtt]) extends HtmlBash, HtmlCodeMulti
-{ override def attribs: RArr[XmlAtt] = super.attribs ++ otherAttribs
+class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XHAtt]) extends HtmlBash, HtmlCodeMulti
+{ override def attribs: RArr[XHAtt] = super.attribs ++ otherAttribs
 }
 
 object HtmlBashMulti
@@ -86,11 +86,12 @@ class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashInline
   override def contents: RArr[XCon] = RArr(promptSpan, command.xCon)
 }
 
-class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XmlAtt]) extends HtmlBash, HtmlMultiLine
+class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XHAtt]) extends HtmlBash, HtmlMultiLine
 { override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1).xCon, HtmlBr) }
-  override def attribs: RArr[XmlAtt] = super.attribs ++ otherAttribs
+  override def attribs: RArr[XHAtt] = super.attribs ++ otherAttribs
 }
 
-object HtmlBashPromptMulti {
+object HtmlBashPromptMulti
+{
   def apply(strs: String*): HtmlBashPromptMulti = new HtmlBashPromptMulti(strs.toArr, RArr())
 }

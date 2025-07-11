@@ -10,7 +10,7 @@ sealed trait HtmlVoid extends HtmlElem
 /** An Html br line break element. */
 object HtmlBr extends HtmlVoid
 { override def tag: String = "br"
-  override def attribs: RArr[XmlAtt] = RArr()
+  override def attribs: RArr[XHAtt] = RArr()
 }
 
 
@@ -21,29 +21,29 @@ trait HtmlMeta extends HtmlVoid
 
 /** HTML charset='UTF-8' meta element. */
 object HtmlUtf8 extends HtmlMeta
-{ val utf8Attrib: XmlAtt = XmlAtt("charset", "UTF-8")
-  override def attribs: RArr[XmlAtt] = RArr(utf8Attrib)
+{ val utf8Attrib: XHAtt = XHAtt("charset", "UTF-8")
+  override def attribs: RArr[XHAtt] = RArr(utf8Attrib)
 }
 
 /** Creates the meta element no-cache. */
 object HtmlNoCache extends HtmlMeta
-{ val equiv: XmlAtt = HttpEquivAtt("cache-Control")
-  val content: XmlAtt = ContentAtt("no-cache")
+{ val equiv: XHAtt = HttpEquivAtt("cache-Control")
+  val content: XHAtt = ContentAtt("no-cache")
 
-  override def attribs: RArr[XmlAtt] = RArr(equiv, content)
+  override def attribs: RArr[XHAtt] = RArr(equiv, content)
 }
 
 /** Creates the meta element name="viewport" content="width=device-width,initial-scale=1.0" */
 object HtmlViewDevWidth extends HtmlMeta
-{ val viewPort: XmlAtt = XmlAtt("name", "viewport")
-  val content: XmlAtt = ContentAtt("width=device-width,initial-scale=1.0")
-  override def attribs: RArr[XmlAtt] = RArr(viewPort, content)
+{ val viewPort: XHAtt = XHAtt("name", "viewport")
+  val content: XHAtt = ContentAtt("width=device-width,initial-scale=1.0")
+  override def attribs: RArr[XHAtt] = RArr(viewPort, content)
 }
 
 /** HTML CSS link. */
 class HtmlCssLink(val fullFileName: String) extends HtmlVoid
 { override def tag: String = "link"
-  override def attribs: RArr[XmlAtt] = RArr(XmlAtt("rel", "stylesheet"), XmlAtt("type", "text/css"), XmlAtt("href", fullFileName))
+  override def attribs: RArr[XHAtt] = RArr(XHAtt("rel", "stylesheet"), XHAtt("type", "text/css"), XHAtt("href", fullFileName))
 }
 
 
@@ -53,7 +53,7 @@ object HtmlCssLink
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
 
-class HtmlInput(override val attribs: RArr[XmlAtt]) extends HtmlVoid
+class HtmlInput(override val attribs: RArr[XHAtt]) extends HtmlVoid
 { override def tag: String = "input"
 }
 

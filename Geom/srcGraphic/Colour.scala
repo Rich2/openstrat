@@ -10,7 +10,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = FillAttrib(this)
 
-  override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
+  override def attribs: RArr[XHAtt] = RArr(fillAttrib)
   @inline final override def int1: Int = argbValue
 
   /** Web # hexadecimal string CSS and web. */

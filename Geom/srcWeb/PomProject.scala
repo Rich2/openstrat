@@ -7,7 +7,7 @@ trait PomProject extends XmlMulti
   def version: VersionElem
   def modelVersion: XmlElem = XmlElemSimple("modelVersion", "4.0.0")
   override def tag: String = "project"
-  override def attribs: RArr[XmlAtt] = RArr()
+  override def attribs: RArr[XHAtt] = RArr()
   def dependencies: RArr[PomDep]
   def dependenciesElem: PomDepenenciesElem = PomDepenenciesElem(dependencies)
   override def contents: RArr[XCon] = RArr(modelVersion, groudId, artifactId, version, dependenciesElem)
@@ -16,7 +16,7 @@ trait PomProject extends XmlMulti
 /** XML element for POM file dependency */
 class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: VersionElem) extends XmlMulti
 { override def tag: String = "dependency"
-  override def attribs: RArr[XmlAtt] = RArr()
+  override def attribs: RArr[XHAtt] = RArr()
   override def contents: RArr[XCon] = RArr(groupId, artifactId, version)
 }
 
@@ -28,7 +28,7 @@ object PomDep
 /** XML element for POM file dependencies. Note the plural. Takes individual [[PopDep]]s as its child elements. */
 class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlMulti
 { override def tag: String = "Dependencies"
-  override def attribs: RArr[XmlAtt] = RArr()
+  override def attribs: RArr[XHAtt] = RArr()
   override def contents: RArr[PomDep] = dependencies
 }
 

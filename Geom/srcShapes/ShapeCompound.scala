@@ -10,7 +10,7 @@ trait ShapeGeomlessCompound
 
 /** A shape based compound graphic. The return types of methods will be narrowed in subclasses. */
 trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
-{ final override def attribs: RArr[XmlAtt] = shapeAttribs ++ facets.flatMap(_.attribs)
+{ final override def attribs: RArr[XHAtt] = shapeAttribs ++ facets.flatMap(_.attribs)
   override def canvElems: RArr[CanvElem] = ???
   def mainSvgElem: SvgElem
 

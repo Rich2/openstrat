@@ -2,12 +2,12 @@
 package ostrat; package pWeb
 
 /** SVG ViewBox. */
-case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) extends XmlAtt
+case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) extends XHAtt
 { override def name: String = "viewBox"
   override def valueStr: String = minX.str -- minY.str -- width.str -- height.str
 }
 
-case class WidthAtt(valueStr: String) extends XmlAtt
+case class WidthAtt(valueStr: String) extends XHAtt
 { override def name: String = "width"
 }
 
@@ -16,7 +16,7 @@ object WidthAtt
 }
 
 /** XML attribute for height. */
-case class HeightAtt(valueStr: String) extends  XmlAtt
+case class HeightAtt(valueStr: String) extends  XHAtt
 { override def name: String = "height"
 }
 
@@ -24,13 +24,13 @@ object HeightAtt
 { def apply(inp: Double): HeightAtt = new HeightAtt(inp.toString)
 }
 
-case class SvgRotate(degrees: Double, x: Double, y: Double) extends XmlAtt
+case class SvgRotate(degrees: Double, x: Double, y: Double) extends XHAtt
 { override def name: String = "transform"
   override def valueStr: String = "rotate" + RArr(degrees, x, y).mkStr(" ").enParenth
 }
 
 /** XML attribute for x posn. */
-case class XXmlAtt(valueStr: String) extends XmlAtt
+case class XXmlAtt(valueStr: String) extends XHAtt
 { override def name = "x"
 }
 
@@ -39,7 +39,7 @@ object XXmlAtt
 }
 
 /** XML attribute for y posn. */
-case class YXmlAtt(valueStr: String) extends XmlAtt
+case class YXmlAtt(valueStr: String) extends XHAtt
 { override def name = "y"
 }
 
@@ -49,7 +49,7 @@ object YXmlAtt
 
 object CentreBlockAtt extends ClassAtt("centreBlock")
 
-case class FillAttrib(valueStr: String) extends XmlAtt
+case class FillAttrib(valueStr: String) extends XHAtt
 { override def name: String = "fill"
 }
 
@@ -58,12 +58,12 @@ object FillAttrib
   val none: FillAttrib = FillAttrib("none")
 }
 
-case class StrokeWidthAttrib(lineWidth: Double) extends XmlAtt
+case class StrokeWidthAttrib(lineWidth: Double) extends XHAtt
 { override def name: String = "stroke-width"
   override def valueStr: String = lineWidth.toString
 }
 
-case class StrokeAttrib(colour: Colour) extends XmlAtt
+case class StrokeAttrib(colour: Colour) extends XHAtt
 { override def name: String = "stroke"
   override def valueStr: String = colour.svgStr
 }

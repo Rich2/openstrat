@@ -54,8 +54,8 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
   def fillActiveTextlign(fillColour: Colour, pointerEv: Any, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
   EllipseCompound = EllipseCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
 
-  def rAttrib: XmlAtt = XmlAtt("r", radius.toString)
-  override def attribs: RArr[XmlAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
+  def rAttrib: XHAtt = XHAtt("r", radius.toString)
+  override def attribs: RArr[XHAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
 
   private def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)
