@@ -1,5 +1,5 @@
 //build.sc Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
-import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
+import mill._, scalalib._, scalajslib._, scalanativelib._, publish._, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
 { def version = "0.3.8snap"
@@ -23,16 +23,16 @@ trait CommonJs extends ScalaJSModule with Common
 }
 
 object Util extends CommonJvm
-{ def sources1 = Task.Sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(moduleDir / name)))
+{ def sources1 = Task.Sources(Seq("src", "srcArr", "srcParse", "srcPersist").map(name => PathRef(moduleDir / name)))
   def sources2 = Task.Sources(moduleDir / "srcRArr", moduleDir / "JvmSrc")
   def sources = Task.Sources{ sources1() ++ sources2() }
-  def resources = Task.Sources(moduleDir / "res", T.workspace / "User")
+  def resources = Task.Sources(moduleDir / "res", workspaceRoot / "User")
   object test extends InnerTests
 }
 
  object UtilExs extends CommonJvm
 { def moduleDeps = Seq(Geom)
-  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "Util" / "UtilExs" / name)) }
+  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(workspaceRoot / "Util" / "UtilExs" / name)) }
 }
 
 object UtilJs extends CommonJs
@@ -52,7 +52,7 @@ object Geom extends CommonJvm
 }
 
 object GeomFx extends CommonJvm
-{ def sources = Task.Sources(T.workspace / "Geom" / "GeomFx" / "src")
+{ def sources = Task.Sources(workspaceRoot / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
   def unmanagedClasspath = T {
@@ -71,21 +71,21 @@ object GeomFx extends CommonJvm
 
 object GeomJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
-  def source2 = Task.Source(T.workspace / "Geom" / "GeomJs" / "src")
+  def source2 = Task.Source(workspaceRoot / "Geom" / "GeomJs" / "src")
   def sources = Geom.sources1() :+ source2()
 }
 
 object GeomExs extends CommonJvm
 { def moduleDeps = Seq(Geom, UtilExs)
-  def sources1 = Task.Sources{ Seq("src", "srcDoc", "srcLessons").map(name => PathRef(T.workspace / "Geom" / "GeomExs" / name)) }
-  def source2 = Task.source(T.workspace / "Geom" / "GeomExs" / "JvmSrc")
+  def sources1 = Task.Sources{ Seq("src", "srcDoc", "srcLessons").map(name => PathRef(workspaceRoot / "Geom" / "GeomExs" / name)) }
+  def source2 = Task.source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = Task.Sources { sources1() :+ source2() }
   def mainClass = Some("learn.LsE1App")
 }
 
 object GeomExsJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
-  def source2 = Task.source(T.workspace / "Geom" / "GeomExs" / "GeomExsJs" / "src")
+  def source2 = Task.source(workspaceRoot / "Geom" / "GeomExs" / "GeomExsJs" / "src")
   def sources = GeomExs.sources1() :+ source2()
   def mainClass = Some("learn.LessonAppJs")
 }
@@ -104,7 +104,7 @@ object TilingJs extends CommonJs
 
 object TilingExs extends CommonJvm
 { def moduleDeps = Seq(Tiling, GeomExs)
-  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "Tiling" / "TilingExs" / name)) }
+  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(workspaceRoot / "Tiling" / "TilingExs" / name)) }
   object test extends InnerTests
   def mainClass = Some("ostrat.pZero.TilingTryApp")
 }
@@ -112,14 +112,14 @@ object TilingExs extends CommonJvm
 object EGrid extends CommonJvm
 { def moduleDeps = Seq(Tiling)
   def sources1 = Task.Sources(Seq("src", "srcPts").map(name => PathRef(moduleDir / name)))
-  def source2 = Task.source(T.workspace / "EGrid" / "JvmSrc")
+  def source2 = Task.source(workspaceRoot / "EGrid" / "JvmSrc")
   def sources = sources1() :+ source2()
   object test extends InnerTests
 }
 
 object EGridExs extends CommonJvm
 { def moduleDeps = Seq(EGrid, TilingExs)
-  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "EGrid" / "EGridExs" / name)) }
+  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(workspaceRoot / "EGrid" / "EGridExs" / name)) }
 }
 
 object EGridJs extends CommonJs
@@ -128,7 +128,7 @@ object EGridJs extends CommonJs
 
   trait Base extends CommonJs
   { def name: String
-    def sources = Task.Sources(Seq(PathRef(T.workspace / "EGrid" / "EGridJs" / "src")))
+    def sources = Task.Sources(Seq(PathRef(workspaceRoot / "EGrid" / "EGridJs" / "src")))
     def moduleDeps = Seq(EGridJs)
     def mainClass = Some("ostrat.pSJs." + name + "Js")
   }
@@ -156,12 +156,12 @@ object Apps extends CommonJvm
 
 object AppsExs extends CommonJvm
 { def moduleDeps = Seq(Apps, EGridExs)
-  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(T.workspace / "Apps" / "AppsExs" / name)) }
+  def sources = Task.Sources{ Seq("src", "srcDoc").map(name => PathRef(workspaceRoot / "Apps" / "AppsExs" / name)) }
 }
 
 object AppsJs extends CommonJs
 { def moduleDeps = Seq(EGridJs)  
-  def source2 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "src"))
+  def source2 = T.source(PathRef(workspaceRoot / "Apps" / "AppsJs" / "src"))
   def sources = Apps.sources1() :+ source2()
   def ivyDeps = Agg(ivy"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
 }
@@ -202,7 +202,7 @@ object Dev extends CommonJvm
 
 object DevFx extends CommonJvm
 { def moduleDeps = Seq(Dev, GeomFx)
-  def sources = Task.Sources(T.workspace / "Dev" / "DevFx" / "src")
+  def sources = Task.Sources(workspaceRoot / "Dev" / "DevFx" / "src")
   def mainClass = Some("ostrat.pFx.DevApp")
 }
 
@@ -249,13 +249,13 @@ def JarsStage = Task{
 }
 
 object Servlet extends CommonJvm
-{ def sources = Task.Sources(T.workspace / "Dev" / "Servlet" / "src")
+{ def sources = Task.Sources(workspaceRoot / "Dev" / "Servlet" / "src")
   def ivyDeps = Agg(ivy"jakarta.servlet:jakarta.servlet-api:6.0.0")
   def moduleDeps = Seq(Dev)
 }
 
 object ServletExtras extends CommonJvm
-{ def sources = Task.Sources(T.workspace / "Dev" / "ServletExtras" / "src")
+{ def sources = Task.Sources(workspaceRoot / "Dev" / "ServletExtras" / "src")
   def moduleDeps = Seq(Dev)
 }
 
