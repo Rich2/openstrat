@@ -55,12 +55,12 @@ object GeomFx extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
-  def unmanagedClasspath = T {
+  def unmanagedClasspath = Task {
     import coursier._, parse.DependencyParser
     val fxMod = Dependency(Module(org"org.openjfx", ModuleName("javafx-controls")), "15.0.1")
     val files = Fetch().addDependencies(fxMod).run()
     val pathRefs = files.map(f => PathRef(os.Path(f)))
-    Agg(pathRefs: _*)
+    Seq(pathRefs*)
   }
 
   def forkArgs = Seq("--module-path",
@@ -78,14 +78,14 @@ object GeomJs extends CommonJs
 object GeomExs extends CommonJvm
 { def moduleDeps = Seq(Geom, UtilExs)
   def sources1 = Task.Sources(Seq("src", "srcDoc", "srcLessons").map(name => workspaceRoot / "Geom" / "GeomExs" / name)*)
-  def source2 = Task.source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
-  def sources = Task.Sources { sources1() :+ source2() }
+  def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
+  def sources = sources1() :+ source2()
   def mainClass = Some("learn.LsE1App")
 }
 
 object GeomExsJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
-  def source2 = Task.source(workspaceRoot / "Geom" / "GeomExs" / "GeomExsJs" / "src")
+  def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "GeomExsJs" / "src")
   def sources = GeomExs.sources1() :+ source2()
   def mainClass = Some("learn.LessonAppJs")
 }
@@ -112,7 +112,7 @@ object TilingExs extends CommonJvm
 object EGrid extends CommonJvm
 { def moduleDeps = Seq(Tiling)
   def sources1 = Task.Sources(Seq("src", "srcPts").map(name => moduleDir / name)*)
-  def source2 = Task.source(workspaceRoot / "EGrid" / "JvmSrc")
+  def source2 = Task.Source(workspaceRoot / "EGrid" / "JvmSrc")
   def sources = sources1() :+ source2()
   object test extends InnerTests
 }
@@ -161,9 +161,9 @@ object AppsExs extends CommonJvm
 
 object AppsJs extends CommonJs
 { def moduleDeps = Seq(EGridJs)  
-  def source2 = T.source(PathRef(workspaceRoot / "Apps" / "AppsJs" / "src"))
+  def source2 = Task.Source(workspaceRoot / "Apps" / "AppsJs" / "src")
   def sources = Apps.sources1() :+ source2()
-  def ivyDeps = Agg(ivy"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
+  def mvnDeps = Seq(mvn"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
 }
 
 trait AppsJs extends CommonJs
@@ -196,7 +196,7 @@ object AppJs extends Module
 
 object Dev extends CommonJvm
 { def moduleDeps = Seq(AppsExs)
-  def sources = Task.Sources(Seq("src", "srcDoc", "JvmSrc").map(name => PathRef(moduleDir / name)))
+  def sources = Task.Sources(Seq("src", "srcDoc", "JvmSrc").map(name => moduleDir / name)*)
   def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }
 
@@ -250,7 +250,7 @@ def JarsStage = Task{
 
 object Servlet extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Dev" / "Servlet" / "src")
-  def ivyDeps = Agg(ivy"jakarta.servlet:jakarta.servlet-api:6.0.0")
+  def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.0.0")
   def moduleDeps = Seq(Dev)
 }
 
