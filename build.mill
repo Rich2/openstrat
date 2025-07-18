@@ -55,9 +55,9 @@ object GeomFx extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
-  def dep: T[Seq[Dep]] = Seq(mvn"org.openjfx:javafx-controls:15.0.1")
-  def jfx = Task { defaultResolver().classpath(dep()) }
-  def mvnDeps = dep
+  def platformDeps = Seq(mvn"org.openjfx:javafx-controls:15.0.1")
+  def jfx = Task { defaultResolver().classpath(platformDeps) }
+  def mvnDeps = platformDeps
 
   def forkArgs = Seq("--module-path",
     sys.env("JAVAFX_HOME") + ":" + "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/15.0.1",
