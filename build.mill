@@ -55,19 +55,9 @@ object GeomFx extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
- // def unmanagedClasspath = Task {
- //   import coursier._, parse.DependencyParser
- //   val fxMod = Dependency(Module(org"org.openjfx", ModuleName("javafx-controls")), "15.0.1")
- //   val files = Fetch().addDependencies(fxMod).run()
- //   val pathRefs = files.map(f => PathRef(os.Path(f)))
- //   Seq(pathRefs*)
- // }
-
   def dep: T[Seq[Dep]] = Seq(mvn"org.openjfx:javafx-controls:15.0.1")
-
-  def jfx = Task {
-    defaultResolver().classpath(dep().map(bindDependency()))
-  }
+  def jfx = Task { defaultResolver().classpath(dep()) }
+  def mvnDeps = dep
 
   def forkArgs = Seq("--module-path",
     sys.env("JAVAFX_HOME") + ":" + "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/15.0.1",
