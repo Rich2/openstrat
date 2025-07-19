@@ -30,7 +30,7 @@ object Util extends CommonJvm
   object test extends InnerTests
 }
 
- object UtilExs extends CommonJvm
+object UtilExs extends CommonJvm
 { def moduleDeps = Seq(Geom)
   def sources = Task.Sources(Seq("src", "srcDoc").map(name => workspaceRoot / "Util" / "UtilExs" / name)*)
 }

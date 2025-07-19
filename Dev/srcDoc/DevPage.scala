@@ -14,21 +14,21 @@ object DevPage extends HtmlPage
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
   def p1: HtmlP = HtmlP("""It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="../api/index.html">Scala Docs</a> and See
-    | <a href="../apiJs/index.html">Scala Docs for JavaScript target.</a>")""".stripMargin)
+  | <a href="../apiJs/index.html">Scala Docs for JavaScript target.</a>")""".stripMargin)
 
-  def p2: HtmlP = HtmlP("The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability." --
-    "The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance" --
-    "with the original vision, part of which was to explore the possibilities of an Algebra of Tiling.")
+  def p2: HtmlP = HtmlP("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
+  | The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
+  | the original vision, part of which was to explore the possibilities of an Algebra of Tiling.""".stripMargin)
 
-  def p3: HtmlP = HtmlP("I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to" --
-    "explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When" --
-    "to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness," --
-    "readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3" --
-    "will be the ideal language to explore these questions.")
+  def p3: HtmlP = HtmlP("""I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to
+  | explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to
+  | use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability,
+  | run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
+  | language to explore these questions.""")
 
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.1. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.7. Sbt currently set to 1.11.2
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.1. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.2
   | (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to
-  | 0.12.11.""".stripMargin)
+  | 1.0.0.""".stripMargin)
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
