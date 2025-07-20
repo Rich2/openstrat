@@ -24,7 +24,7 @@ object DevPage extends HtmlPage
   | explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to
   | use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability,
   | run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
-  | language to explore these questions.""")
+  | language to explore these questions.""".stripMargin)
 
   def p4: HtmlP = HtmlP("""Scala currently set to 3.7.1. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.2
   | (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to
@@ -49,27 +49,26 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
-  def p5: HtmlP = HtmlP(s"""The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build
-  | and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the
-  | ${path("Dev/Misc/DevSettings.rson")} file to the Dev/User.htmlPath folder. Creating the directory and its parents if not already existing. Change the appStr
-  | setting in {path("Dev/User/DevSettings.rson")}
-  | htmlPath to change the application. All the examples on the richstrat.com website are available plus others.The second command will also rebuild on source
-  | changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the
-  | browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
+  def p5: HtmlP = HtmlP(s"""The tilde ${sbt("~")} tells sbt to rerun the command every time you modify and save a source file. The first command will build and
+  | launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the ${path("Dev/Misc/DevSettings.rson")}
+  | file to the ${path("Dev/User")} folder. Creating the directory if not already existing. Change the ${code("appStr")} setting in
+  | ${path("Dev/User/DevSettings.rson")} to change the application. All the examples on the ${link("richstrat.com")} website are available plus others.The
+  | second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it,
+  | you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
 
-  def sbt3D = HtmlP("""For JavaFx 3D """.xCon, HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
+  def sbt3D = HtmlP("For JavaFx 3D ".xCon, HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
 
-  def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",
+  def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntelliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
     HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
     HtmlLi("Project-Pane => Options -> 'Flatten packages'")
   )
 
-  def p6: HtmlP = HtmlP("""So at least recent versions of Kubuntu the java command on the path, is at" -- "/usr/bin/java".htmlPath +". It is a link" --
-  |  "to" --   "/etc/alternatives/java".htmlPath + ". This is also a link. To install a different java, install the JDK root folder in" --
-  |  "usr/lib/jvm".htmlPath + ". It doesn't have to be here, but it makes it easier to go with convention. Run<br>" ---
-  |  "sudo update-alternatives --config java".htmlBash ---
-  |  "<br>In my example this gives<br>""")
+  def p6: HtmlP = HtmlP(s"""So at least recent versions of Kubuntu the java command on the path, is at ${path("/usr/bin/java")}. It is a link to
+  | ${path("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${path("usr/lib/jvm")}. It doesn't have
+  | to be here, but it makes it easier to go with convention. Run<br>
+  | sudo update-alternatives --config java".htmlBash
+  |  "<br>In my example this gives<br>""".stripMargin)
 
   def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),

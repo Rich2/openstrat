@@ -67,8 +67,12 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
 /** Html Bash code element. */
 trait HtmlBash extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("bash")
-
   override def attribs: RArr[XHAtt] = RArr(classAtt)
+}
+
+class HtmlBashLine(str: String) extends HtmlBash
+{ override def contents: RArr[XCon] = RArr(HtmlDiv("<code".xCon))
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
 }
 
 /** A multi line, Html, Bash code element. */
@@ -82,13 +86,13 @@ object HtmlBashMulti
 }
 
 /** Html Bash code element, that can be inlined. */
-trait HtmlBashInline extends HtmlBash with HtmlCodeInline
+trait HtmlBashInline extends HtmlBash, HtmlCodeInline
 
 object HtmlBashInline
 {
-  def apply(str: String): HtmlBashInline = new HtmlBashInline
-  { override def contents: RArr[XCon] = RArr(str.xCon)
-  }
+  def apply(str: String): HtmlBashInline = new HtmlBashInlineGen(RArr(str.xCon))
+
+  class HtmlBashInlineGen(val contents: RArr[XCon]) extends HtmlBashInline
 }
 
 object BashPromptClass extends ClassAtt("bashprompt")
