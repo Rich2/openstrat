@@ -20,6 +20,14 @@ trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
 /** An HTML code element that can be inlined. */
 trait HtmlCodeInline extends HtmlCode, HtmlInline
 
+object HtmlCodeInline
+{ /** Factory apply method to create an inline HTML cose element. */
+  def apply(str: String): HtmlCodeInline = new HtmlCodeInline
+  { override def contents: RArr[XCon] = RArr(str.xCon)
+    override def attribs: RArr[XHAtt] = RArr()
+  }
+}
+
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("scala")
@@ -35,20 +43,25 @@ object HtmlScala
 
 /** Html Sbt code element. */
 trait HtmlSbt extends HtmlCode
-{
-  def classAtt: ClassAtt = ClassAtt("sbt")
-
+{ def classAtt: ClassAtt = ClassAtt("sbt")
   override def attribs: RArr[XHAtt] = RArr(classAtt)
 }
 
 /** Html Sbt code element, that can be inlined. */
-trait HtmlSbtInline extends HtmlSbt with HtmlCodeInline
+class HtmlSbtInline(val str: String) extends HtmlSbt, HtmlCodeInline
+{ override def contents: RArr[XCon] = RArr(str.xCon)
+}
 
 object HtmlSbtInline
-{
-  def apply(str: String): HtmlSbtInline = new HtmlSbtInline
-  { override def contents: RArr[XCon] = RArr(str.xCon)
-  }
+{ /** Factory apply method for [[HtmlSbtInline]]. */
+  def apply(str: String): HtmlSbtInline = new HtmlSbtInline(str)
+}
+
+/** Html directory path code element. */
+class HtmlDirPath(val str: String) extends HtmlCodeInline
+{ def classAtt: ClassAtt = ClassAtt("path")
+  override def contents: RArr[XCon] = RArr(str.xCon)
+  override def attribs: RArr[XHAtt] = RArr(classAtt)
 }
 
 /** Html Bash code element. */

@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*
+import pWeb.*, HtmlStrInserts.*
 
 /** HTML documentation page for Dev Module. */
 object DevPage extends HtmlPage
@@ -13,8 +13,8 @@ object DevPage extends HtmlPage
   def siteGen: HtmlLi = HtmlLi("Generates the HTML files for the website, including this file.")
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
-  def p1: HtmlP = HtmlP("""It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="../api/index.html">Scala Docs</a> and See
-  | <a href="../apiJs/index.html">Scala Docs for JavaScript target.</a>")""".stripMargin)
+  def p1: HtmlP = HtmlP(s"""It currently works on JavaFx and web page. Using canvas on both platforms. See ${link("../api/index.html", "Scala Docs")} and see
+  | ${link("../apiJs/index.html", "Scala Docs for JavaScript target")}.""".stripMargin)
 
   def p2: HtmlP = HtmlP("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
   | The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
@@ -49,12 +49,13 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
-  def p5: HtmlP = HtmlP("The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build" --
-    "and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes.Copy the" --
-    "Dev/Misc/DevSettings.rson".htmlPath -- "file to the" -- "Dev/User".htmlPath -- "folder. Creating the directory and its parents if not already existing." --
-    "Change the appStr setting in"-- "Dev/User/DevSettings.rson".htmlPath -- "to change the application. All the examples on the richstrat.com website are" --
-    "available plus others.The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make" --
-    "a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.")
+  def p5: HtmlP = HtmlP(s"""The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build
+  | and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the
+  | ${path("Dev/Misc/DevSettings.rson")} file to the Dev/User.htmlPath folder. Creating the directory and its parents if not already existing. Change the appStr
+  | setting in {path("Dev/User/DevSettings.rson")}
+  | htmlPath to change the application. All the examples on the richstrat.com website are available plus others.The second command will also rebuild on source
+  | changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the
+  | browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
 
   def sbt3D = HtmlP("""For JavaFx 3D """.xCon, HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
 
@@ -64,11 +65,11 @@ object DevPage extends HtmlPage
     HtmlLi("Project-Pane => Options -> 'Flatten packages'")
   )
 
-  def p6: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at" -- "/usr/bin/java".htmlPath +". It is a link" --
-    "to" --   "/etc/alternatives/java".htmlPath + ". This is also a link. To install a different java, install the JDK root folder in" --
-    "usr/lib/jvm".htmlPath + ". It doesn't have to be here, but it makes it easier to go with convention. Run<br>" ---
-    "sudo update-alternatives --config java".htmlBash ---
-    "<br>In my example this gives<br>")
+  def p6: HtmlP = HtmlP("""So at least recent versions of Kubuntu the java command on the path, is at" -- "/usr/bin/java".htmlPath +". It is a link" --
+  |  "to" --   "/etc/alternatives/java".htmlPath + ". This is also a link. To install a different java, install the JDK root folder in" --
+  |  "usr/lib/jvm".htmlPath + ". It doesn't have to be here, but it makes it easier to go with convention. Run<br>" ---
+  |  "sudo update-alternatives --config java".htmlBash ---
+  |  "<br>In my example this gives<br>""")
 
   def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
