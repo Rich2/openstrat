@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** An XML or an HTML element. */
-trait XHmlElem extends XCon
+trait XHmlElem extends XConElem
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
   
@@ -18,7 +18,7 @@ trait XHmlElem extends XCon
   def attribsLen = attribs.length
 
   /** The content of this XML / HTML element. */
-  def contents: RArr[XCon]
+  def contents: RArr[XConElem]
 
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = attribs.length match{
     case 0 => TextLines("", 0, 0, 0)

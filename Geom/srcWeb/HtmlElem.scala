@@ -21,7 +21,7 @@ trait HtmlUnvoid extends HtmlElem
 /** An HTML element that is not void, but has no content. */
 trait HtmlEmpty extends HtmlUnvoid
 { override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 160): String = openUnclosed(indent, line1InputLen, maxLineLen) + closeTag
-  override def contents: RArr[XCon] = RArr()
+  override def contents: RArr[XConElem] = RArr()
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
@@ -36,10 +36,10 @@ trait HtmlMultiLine extends HtmlUnvoid
 }
 
 /** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
-trait HtmlInline extends HtmlUnvoid, XHmlOwnLine
+trait HtmlOwnLine extends HtmlUnvoid, XHmlOwnLine
 
 /** An HTML whose contents can be represented by a [[String]]. */
-trait HtmlStr extends HtmlInline
+trait HtmlStr extends HtmlOwnLine
 { def str: String
-  override def contents: RArr[XCon] = RArr(str.xCon)
+  override def contents: RArr[XConElem] = RArr(str.xCon)
 }

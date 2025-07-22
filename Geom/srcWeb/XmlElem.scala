@@ -24,7 +24,7 @@ trait XmlMultiNoAtts extends XmlMulti with XmlNoAtts
 
 class XmlElemSimple(val tag: String, val str: String) extends XmlMaybeSingle
 { override def attribs: RArr[XHAtt] = RArr()
-  override def contents: RArr[XCon] = RArr(str.xCon)
+  override def contents: RArr[XConElem] = RArr(str.xCon)
 }
 
 object XmlElemSimple

@@ -46,7 +46,7 @@ object GeomPage extends HtmlPage
   val svgMargin = 50
 
   object Ellipses extends HtmlSection
-  { override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
+  { override def contents: RArr[XConElem] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
 
     val circ2: Circle = Circle.d(200)
     val circ1: Circle = circ2.slateX(-200)
@@ -70,7 +70,7 @@ object GeomPage extends HtmlPage
 }
 
 object LinePathNames extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(HtmlH2("Line Paths"), p1, list)
+{ override def contents: RArr[XConElem] = RArr(HtmlH2("Line Paths"), p1, list)
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
@@ -123,5 +123,5 @@ object LessonLists extends HtmlSection
   val cList = LessonsLaunch.cList.iMap((i, ls) => HtmlLi("C" + (i + 1).str -- ls.title))
   val dList = LessonsLaunch.dList.iMap((i, ls) => HtmlLi("D" + (i + 1).str -- ls.title))
   val eList = LessonsLaunch.eList.iMap((i, ls) => HtmlLi("E" + (i + 1).str -- ls.title))
-  override val contents: RArr[XCon] = RArr(HtmlUl(aList), HtmlUl(bList), HtmlUl(cList), HtmlUl(dList), HtmlUl(eList))
+  override val contents: RArr[XConElem] = RArr(HtmlUl(aList), HtmlUl(bList), HtmlUl(cList), HtmlUl(dList), HtmlUl(eList))
 }

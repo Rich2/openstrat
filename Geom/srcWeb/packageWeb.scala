@@ -4,11 +4,11 @@ package ostrat
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pWeb
 {
-  type XConLike = XCon | String
+  type XCon = XConElem | String
 
-  extension (thisSeq: Seq[XCon | String])
-  { def xCons: RArr[XCon] = thisSeq.mapArr{
-      case xc: XCon => xc
+  extension (thisSeq: Seq[XConElem | String])
+  { def xCons: RArr[XConElem] = thisSeq.mapArr{
+      case xc: XConElem => xc
       case st: String => st.xCon
     }
   }

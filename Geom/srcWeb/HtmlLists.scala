@@ -2,38 +2,38 @@
 package ostrat; package pWeb
 
 /** Html UL unordered list element. */
-case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XHAtt] = RArr()) extends HtmlMultiLine
+case class HtmlUl(val contents: RArr[XConElem], val attribs: RArr[XHAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ul"
 }
 
 /** Companion object for [[HtmlUl]] unordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlUl
 { /** Factory apply method for HTML UL unordered list. */
-  def apply(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr)
+  def apply(contents: XConElem*): HtmlUl = new HtmlUl(contents.toArr)
 }
 /** Html OL ordered list element. */
-case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XHAtt] = RArr()) extends HtmlMultiLine
+case class HtmlOl(val contents: RArr[XConElem], val attribs: RArr[XHAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ol"
 }
 
 /** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlOl
 { /** Factory apply method for HTML OL ordered list. */
-  def apply(contents: (XCon | String)*): HtmlOl = new HtmlOl(contents.xCons)
+  def apply(contents: (XConElem | String)*): HtmlOl = new HtmlOl(contents.xCons)
 }
 
 /** Html LI, list item element. */
-case class HtmlLi(contents: RArr[XCon], attribs: RArr[XHAtt] = RArr()) extends HtmlInline
+case class HtmlLi(contents: RArr[XConElem], attribs: RArr[XHAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "li"
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object HtmlLi
 { /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
-  def apply(contents: (XCon | String) *): HtmlLi =
+  def apply(contents: (XConElem | String) *): HtmlLi =
   { val arr = contents.mapArr {
       case str: String => str.xCon
-      case xCon: XCon => xCon
+      case xCon: XConElem => xCon
     }
     new HtmlLi(arr)
   }
@@ -47,14 +47,14 @@ object HtmlLi
 
   def boldStart(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
 
-  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlBashInline(bashStr), str2.xCon))
+  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlBashOwnLine(bashStr), str2.xCon))
   def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr), str2.xCon))
   def sbt(sbtStr: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr)))
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(header, orderedList)
+class HtmlOlWithLH(val header: XConElem, items: RArr[HtmlLi]) extends HtmlSection
+{ override def contents: RArr[XConElem] = RArr(header, orderedList)
   override def attribs: RArr[XHAtt] = RArr()
 
   def orderedList: HtmlOl = HtmlOl(items)
@@ -63,7 +63,7 @@ class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 object HtmlOlWithLH
 { /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    * section. */
-  def apply(header: XCon, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
+  def apply(header: XConElem, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
 
   /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    *  section. */
@@ -74,8 +74,8 @@ object HtmlOlWithLH
 }
 
 /** Html UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(header, unorderedList)
+class HtmlUlWithLH(val header: XConElem, items: RArr[HtmlLi]) extends HtmlSection
+{ override def contents: RArr[XConElem] = RArr(header, unorderedList)
   override def attribs: RArr[XHAtt] = RArr()
 
   /** the HTML unordered list element. */
@@ -83,7 +83,7 @@ class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 }
 
 object HtmlUlWithLH
-{ def apply(header: XCon, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
+{ def apply(header: XConElem, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
   def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.toArr)
   def strs(headerStr: String, items: String*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.mapArr(str => HtmlLi(str)))
 }

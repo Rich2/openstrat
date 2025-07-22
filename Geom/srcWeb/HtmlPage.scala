@@ -47,7 +47,7 @@ case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
 /** HTML title element. */
 case class HtmlTitle(str: String, attribs: RArr[XHAtt] = RArr()) extends HtmlUnvoid
 { override def tag = "title"
-  override def contents: RArr[XCon] = RArr(str.xCon)
+  override def contents: RArr[XConElem] = RArr(str.xCon)
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + "<title>" + str + "</title>"
 }
 

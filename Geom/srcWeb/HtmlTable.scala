@@ -57,10 +57,10 @@ object HtmlRowData
 }
 
 
-trait HtmlCell extends HtmlInline
+trait HtmlCell extends HtmlOwnLine
 
 /** HTML TH table header cell element. */
-case class HtmlTh(contents: RArr[XCon], attribs: RArr[XHAtt]) extends HtmlCell
+case class HtmlTh(contents: RArr[XConElem], attribs: RArr[XHAtt]) extends HtmlCell
 { override def tag: String = "th"
 }
 
@@ -70,7 +70,7 @@ object HtmlTh
 }
 
 /** HTML TD table data cell element. */
-case class HtmlTd(contents: RArr[XCon], attribs: RArr[XHAtt]) extends HtmlCell
+case class HtmlTd(contents: RArr[XConElem], attribs: RArr[XHAtt]) extends HtmlCell
 { override def tag: String = "td"
 }
 

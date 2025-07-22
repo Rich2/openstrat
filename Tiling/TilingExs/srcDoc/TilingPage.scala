@@ -51,7 +51,7 @@ object TilingPage extends OSDocumentationPage
 
   def turnRes: HtmlSection = new HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Turn Resolution"), list)
+    override def contents: RArr[XConElem] = RArr(HtmlH2("Turn Resolution"), list)
 
     def list = HtmlOl(
       HtmlLi("Verify directives from Players are valid and under the PlayerControl"),
@@ -74,7 +74,7 @@ object TilingPage extends OSDocumentationPage
 
 object CoordSystem extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)
+  override def contents: RArr[XConElem] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)
 
   val p1 = HtmlP("""So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board
   | game Diplomacy the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,

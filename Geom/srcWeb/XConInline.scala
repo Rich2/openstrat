@@ -1,10 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-
-
 /** XML / HTML content that can be inlined. */
-trait XConFlow extends XCon
+trait XConInline extends XConElem
 { def value: String
 
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =

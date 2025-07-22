@@ -4,7 +4,7 @@ import pWeb._
 
 object UtilTokenSection extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2)
+  override def contents: RArr[XConElem] = RArr(HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2)
 
   def tokList: HtmlUlWithLH = HtmlUlWithLH("The Tokeniser will create the following tokens",
     HtmlLi("""Keytokens <span class= lexical>_ ? ?? ???</ span >"""),

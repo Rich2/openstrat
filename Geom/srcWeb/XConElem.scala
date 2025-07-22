@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** Content for XML and HTML elements. */
-trait XCon
+trait XConElem
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
    * the outLines method for its implementation. */
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 160): String
@@ -12,25 +12,25 @@ trait XCon
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
 }
 
-object XCon
+object XConElem
 {
-  extension(seq: Seq[XCon | String])
-  { /** Converts the [[String]]s in this sequence into [[XCon]] XML / HTML content. */
-    def xCons: RArr[XCon | String] = seq.mapArr{
-      case xc: XCon => xc
+  extension(seq: Seq[XConElem | String])
+  { /** Converts the [[String]]s in this sequence into [[XConElem]] XML / HTML content. */
+    def xCons: RArr[XConElem | String] = seq.mapArr{
+      case xc: XConElem => xc
       case s: String => s.xCon
     }
   }
 }
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
-case class XmlAsString(value: String) extends XCon
+case class XmlAsString(value: String) extends XConElem
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = value
 }
 
 /** XML / HTML text that can have its line breaks changed. */
-case class XConText(value: String) extends XConFlow
+case class XConText(value: String) extends XConInline
 { override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 160): String = outLines(indent, line1InputLen, maxLineLen).text
 
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
@@ -79,5 +79,5 @@ case class XConText(value: String) extends XConFlow
 /** Not sure about this trait. It is intended for short pieces of text that should be kept on the same line. */
 trait XmlConStr extends XHmlOwnLine
 { def str: String
-  override def contents: RArr[XCon] = RArr(XConText(str))
+  override def contents: RArr[XConElem] = RArr(XConText(str))
 }

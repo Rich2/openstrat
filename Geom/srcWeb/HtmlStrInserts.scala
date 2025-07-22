@@ -10,7 +10,7 @@ object HtmlStrInserts
   def link(path: String, label: String = ""): String = HtmlA(path,label).out()
 
   /** Returns the output string for an HTML link. */
-  def code(str: String): String = HtmlCodeInline(str).out()
+  def code(str: String): String = HtmlCodeOwnLine(str).out()
 
   /** Returns the output string for an HTML link. */
   def sbt(str: String): String = HtmlSbtInline(str).out()

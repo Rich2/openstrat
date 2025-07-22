@@ -11,19 +11,19 @@ trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
 { /** the lines of code unindented. */
   def lines: StrArr
 
-  override def contents: RArr[XCon] = lines match
+  override def contents: RArr[XConElem] = lines match
   { case _ if lines.length == 0 => RArr()
     case ls => lines.initLastMap(_ + "<br>")(s => s).map(_.xCon)
   }
 }
 
 /** An HTML code element that can be inlined. */
-trait HtmlCodeInline extends HtmlCode, HtmlInline
+trait HtmlCodeOwnLine extends HtmlCode, HtmlOwnLine
 
-object HtmlCodeInline
+object HtmlCodeOwnLine
 { /** Factory apply method to create an inline HTML cose element. */
-  def apply(str: String): HtmlCodeInline = new HtmlCodeInline
-  { override def contents: RArr[XCon] = RArr(str.xCon)
+  def apply(str: String): HtmlCodeOwnLine = new HtmlCodeOwnLine
+  { override def contents: RArr[XConElem] = RArr(str.xCon)
     override def attribs: RArr[XHAtt] = RArr()
   }
 }
@@ -37,7 +37,7 @@ trait HtmlScala extends HtmlCode
 object HtmlScala
 {
   def apply(str: String): HtmlScala = new HtmlScala with HtmlMultiLine
-  { override def contents: RArr[XCon] = RArr(str.xCon)
+  { override def contents: RArr[XConElem] = RArr(str.xCon)
   }
 }
 
@@ -48,8 +48,8 @@ trait HtmlSbt extends HtmlCode
 }
 
 /** Html Sbt code element, that can be inlined. */
-class HtmlSbtInline(val str: String) extends HtmlSbt, HtmlCodeInline
-{ override def contents: RArr[XCon] = RArr(str.xCon)
+class HtmlSbtInline(val str: String) extends HtmlSbt, HtmlCodeOwnLine
+{ override def contents: RArr[XConElem] = RArr(str.xCon)
 }
 
 object HtmlSbtInline
@@ -58,9 +58,9 @@ object HtmlSbtInline
 }
 
 /** Html directory path code element. */
-class HtmlDirPath(val str: String) extends HtmlCodeInline
+class HtmlDirPath(val str: String) extends HtmlCodeOwnLine
 { def classAtt: ClassAtt = ClassAtt("path")
-  override def contents: RArr[XCon] = RArr(str.xCon)
+  override def contents: RArr[XConElem] = RArr(str.xCon)
   override def attribs: RArr[XHAtt] = RArr(classAtt)
 }
 
@@ -71,7 +71,7 @@ trait HtmlBash extends HtmlCode
 }
 
 class HtmlBashLine(str: String) extends HtmlBash
-{ override def contents: RArr[XCon] = RArr(HtmlDiv("<code".xCon))
+{ override def contents: RArr[XConElem] = RArr(HtmlDiv("<code".xCon))
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
 }
 
@@ -86,25 +86,25 @@ object HtmlBashMulti
 }
 
 /** Html Bash code element, that can be inlined. */
-trait HtmlBashInline extends HtmlBash, HtmlCodeInline
+trait HtmlBashOwnLine extends HtmlBash, HtmlCodeOwnLine
 
-object HtmlBashInline
+object HtmlBashOwnLine
 {
-  def apply(str: String): HtmlBashInline = new HtmlBashInlineGen(RArr(str.xCon))
+  def apply(str: String): HtmlBashOwnLine = new HtmlBashOwnLineGen(RArr(str.xCon))
 
-  class HtmlBashInlineGen(val contents: RArr[XCon]) extends HtmlBashInline
+  class HtmlBashOwnLineGen(val contents: RArr[XConElem]) extends HtmlBashOwnLine
 }
 
 object BashPromptClass extends ClassAtt("bashprompt")
 class BashPromptSpan(str: String) extends HtmlSpan(RArr(str.xCon), RArr(BashPromptClass))
 
-class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashInline
+class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashOwnLine
 { def promptSpan = HtmlSpan(prompt, BashPromptClass)
-  override def contents: RArr[XCon] = RArr(promptSpan, command.xCon)
+  override def contents: RArr[XConElem] = RArr(promptSpan, command.xCon)
 }
 
 class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XHAtt]) extends HtmlBash, HtmlMultiLine
-{ override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1).xCon, HtmlBr) }
+{ override def contents: RArr[XConElem] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1).xCon, HtmlBr) }
   override def attribs: RArr[XHAtt] = super.attribs ++ otherAttribs
 }
 
