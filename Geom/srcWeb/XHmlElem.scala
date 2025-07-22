@@ -18,7 +18,7 @@ trait XHmlElem extends XConElem
   def attribsLen = attribs.length
 
   /** The content of this XML / HTML element. */
-  def contents: RArr[XConElem]
+  def contents: RArr[XCon]
 
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = attribs.length match{
     case 0 => TextLines("", 0, 0, 0)
