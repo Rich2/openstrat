@@ -4,12 +4,14 @@ package ostrat
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pWeb
 {
+  inline val MaxLineLen: 160 = 160
+
   type XCon = XConElem | String
 
   extension (thisXCon: XCon)
-  { def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 160): String = outLines(indent, line1InputLen, maxLineLen).text
+  { def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
-    def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = thisXCon match
+    def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = thisXCon match
     { case xce: XConElem => xce.outLines(indent, line1InputLen, maxLineLen)
 
       case value: String =>

@@ -5,11 +5,11 @@ package ostrat; package pWeb
 trait XConElem
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
    * the outLines method for its implementation. */
-  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 160): String
+  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String
 
   /** This method returns the HTML output code, but also information for the parent XML / HTML element. The class should not add any indentation to its first
    * line. This is the responsibility of the parent element. */
-  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
 }
 
 object XConElem
@@ -26,14 +26,14 @@ object XConElem
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
 case class XmlAsString(value: String) extends XConElem
 {
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = value
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = value
 }
 
 /** XML / HTML text that can have its line breaks changed. */
 case class XConText(value: String) extends XConInline
-{ override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 160): String = outLines(indent, line1InputLen, maxLineLen).text
+{ override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   { val chars: Array[Char] = value.toCharArray
     var i: Int = 0
     var lines: Array[String] = Array()

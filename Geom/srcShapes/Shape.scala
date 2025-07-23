@@ -18,7 +18,7 @@ trait Shape extends Any, Aff2Elem, Fillable, BoundedElem
   def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): ShapeCompound
 
-  def attribs: RArr[XHAtt]
+  def attribs: RArr[XAtt]
   
   /** This canEqual override allow the comparison of [[Shape]]s. */
   def canEqual(that: Any): Boolean = that match

@@ -17,13 +17,13 @@ trait XmlMultiNamed extends XmlMulti
 trait XmlMaybeSingle extends XmlElem with XmlLikeMaybeSingle
 
 trait XmlNoAtts extends XmlElem
-{ override def attribs: RArr[XHAtt] = RArr()
+{ override def attribs: RArr[XAtt] = RArr()
 }
 
 trait XmlMultiNoAtts extends XmlMulti with XmlNoAtts
 
 class XmlElemSimple(val tag: String, val str: String) extends XmlMaybeSingle
-{ override def attribs: RArr[XHAtt] = RArr()
+{ override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XConElem] = RArr(str.xCon)
 }
 

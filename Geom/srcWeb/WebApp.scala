@@ -8,7 +8,7 @@ trait WebApp extends XmlMulti
 
 /** web.xml file for a Servlet 6.0. */
 trait WebApp6 extends WebApp
-{ override def attribs: RArr[XHAtt] = RArr(JakartaNs, JakartaXsi, JakartaLoc6, VersionAtt("6.0"), MetadataCompleted)
+{ override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, JakartaLoc6, VersionAtt("6.0"), MetadataCompleted)
 }
 
 /** Servlet XML element for Jakarta. */

@@ -16,7 +16,7 @@ trait ShapeGeomlessDraw
 trait ShapeDraw extends ShapeGeomlessDraw, ShapeGraphicSimple
 { def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
   def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-  override def nonShapeAttribs: RArr[XHAtt] = RArr(strokeWidthAttrib, strokeAttrib)
+  override def nonShapeAttribs: RArr[XAtt] = RArr(strokeWidthAttrib, strokeAttrib)
 }
 
 object ShapeDraw

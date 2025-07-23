@@ -2,9 +2,9 @@
 package ostrat; package pWeb
 
 /** HTML A anchor element. */
-class HtmlA(val link: String, val contents: RArr[XConElem], otherAttribs: RArr[XHAtt] = RArr()) extends HtmlOwnLine
+class HtmlA(val link: String, val contents: RArr[XConElem], otherAttribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "a"
-  override val attribs: RArr[XHAtt] = RArr(HrefAtt(link)) ++ otherAttribs
+  override val attribs: RArr[XAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
 
 object HtmlA
@@ -16,39 +16,39 @@ object HtmlA
 }
 
 /** HTML P paragraph element. */
-case class HtmlP(contents: RArr[XCon], attribs: RArr[XHAtt]) extends HtmlOwnLine
+case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { def tag = "p"
-  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
 object HtmlP
 { /** Factory apply method for creating HTML paragraphs. */
-  def apply(strIn: String, attsIn: XHAtt*): HtmlP = new HtmlP(RArr(strIn.xCon), attsIn.toRArr)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlP = new HtmlP(contents, attribs)
 
   /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: XConElem*) : HtmlP = new HtmlP(contents.toRArr, RArr())
+  def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
 }
 
 /** HTML span element. */
-case class HtmlSpan(contents: RArr[XConElem], attribs: RArr[XHAtt]) extends HtmlOwnLine
+case class HtmlSpan(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { def tag = "span"
-  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
 object HtmlSpan
 { /** Factory apply method for creating HTML span element. */
-  def apply(strIn: String, attsIn: XHAtt*): HtmlSpan = new HtmlSpan(RArr(strIn.xCon), attsIn.toRArr)
+  def apply(strIn: String, attribs: XAtt*): HtmlSpan = new HtmlSpan(RArr(strIn.xCon), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: XConElem*): HtmlSpan = new HtmlSpan(contents.toRArr, RArr())
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlSpan = new HtmlSpan(contents, attribs)
 }
 
 /** HTML noscript element. */
-case class HtmlNoScript(contents: RArr[XConElem], attribs: RArr[XHAtt] = RArr()) extends HtmlOwnLine
+case class HtmlNoScript(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "noscript"
 }
 
@@ -58,7 +58,7 @@ object HtmlNoScript
 }
 
 /** HTML script element. */
-case class HtmlScript(contents: RArr[XConElem], attribs: RArr[XHAtt]) extends HtmlOwnLine
+case class HtmlScript(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tag: String = "script"
 }
 
@@ -74,7 +74,7 @@ object HtmlScript
 }
 
 /** HTML style element. */
-case class HtmlStyle(rules: RArr[CssRuleLike], attribs: RArr[XHAtt] = RArr()) extends HtmlOwnLine
+case class HtmlStyle(rules: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "style"
   override def contents: RArr[XConElem] = RArr(rules.mkStr(_.out(), "; ").xCon)
 }
@@ -89,34 +89,34 @@ case class HtmlB(str: String) extends HtmlOwnLine
 { override def tag: String = "b"
 
   /** The attributes of this XML / HTML element. */
-  override def attribs: RArr[XHAtt] = RArr()
+  override def attribs: RArr[XAtt] = RArr()
 
   /** The content of this XML / HTML element. */
   override def contents: RArr[XConElem] = RArr(str.xCon)
 }
 
 /** Html H1 header element. */
-case class HtmlH1(str : String, attribs: RArr[XHAtt] = RArr()) extends HtmlStr
+case class HtmlH1(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
 { override def tag = "h1"
 }
 
 /** Html H2 header element. */
-case class HtmlH2(str : String, attribs: RArr[XHAtt] = RArr()) extends HtmlStr
+case class HtmlH2(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
 { def tag = "h2"
 }
 
 /** Html H3 header element. */
-case class HtmlH3(str : String, attribs: RArr[XHAtt] = RArr()) extends HtmlStr
+case class HtmlH3(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
 { def tag = "h3"
 }
 
 /** Html H4 header element. */
-case class HtmlH4(str : String, attribs: RArr[XHAtt] = RArr()) extends HtmlStr
+case class HtmlH4(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
 { def tag = "h4"
 }
 
 /** HTML button element. */
-class HtmlButton(val contents: RArr[XConElem], val attribs: ostrat.RArr[XHAtt] = RArr()) extends HtmlOwnLine
+class HtmlButton(val contents: RArr[XConElem], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag = "button"
 }
 

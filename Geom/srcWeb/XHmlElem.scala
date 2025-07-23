@@ -13,14 +13,14 @@ trait XHmlElem extends XConElem
   def openTagOpenLen: Int = tagLen + 1
 
   /** The attributes of this XML / HTML element. */
-  def attribs: RArr[XHAtt]
+  def attribs: RArr[XAtt]
 
   def attribsLen = attribs.length
 
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines = attribs.length match{
+  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match{
     case 0 => TextLines("", 0, 0, 0)
 
     case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 75 =>
@@ -46,14 +46,14 @@ trait XHmlElem extends XConElem
     }
   }
 
-  def openAtts(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String =
+  def openAtts(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
   { val res: TextLines = attribsOutLines(indent, openTagOpenLen)
     val text: String = ife(res.numLines == 0, "", " " + res.text)
     "<" + tag + text
   }
 
-  def openUnclosed(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = openAtts(indent, line1InputLen, maxLineLen) + ">"
-  def openTag(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = openAtts(indent, line1InputLen, maxLineLen) + ">"
+  def openUnclosed(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openAtts(indent, line1InputLen, maxLineLen) + ">"
+  def openTag(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openAtts(indent, line1InputLen, maxLineLen) + ">"
   def closeTag: String = "</" + tag + ">"
   def n1CloseTag: String = "\n" + closeTag
   def n2CloseTag: String = "\n\n" + closeTag
@@ -61,7 +61,7 @@ trait XHmlElem extends XConElem
 
 trait XmlLikeMulti extends XHmlElem
 {
-  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String =
+  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
     if (contents.empty) openAtts(indent, line1InputLen, maxLineLen) + "/>"
     else openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, line1InputLen, 160), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
@@ -69,9 +69,9 @@ trait XmlLikeMulti extends XHmlElem
 /** An XML like element that may be output on a single line. */
 trait XmlLikeMaybeSingle extends XHmlElem
 {
-  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = contents match
+  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = contents match
   { case RArr0() => openAtts(indent, 0) + "/>"
-    case RArr1(_) => openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, 150) + closeTag
-    case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+    case RArr1(_) => openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, MaxLineLen) + closeTag
+    case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen), "\n" + (indent + 2).spaces).nli(indent) + closeTag
   }
 }

@@ -71,7 +71,7 @@ final class SquareGen (val v0x: Double, val v0y: Double, val v1x: Double, val v1
   override def vertsTrans(f: Pt2 => Pt2): SquareGen = SquareGen.from3(f(v0), f(v1), f(v2))
   @inline override def width: Double = width1
   @inline override def width2: Double = width1
-  override def attribs: RArr[XHAtt] = ???
+  override def attribs: RArr[XAtt] = ???
   override def rotation: AngleVec = ???
   override def toString: String = s"SquareClass($v0x, $v0y; $v1x, $v1y)"
 }

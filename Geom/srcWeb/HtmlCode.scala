@@ -24,14 +24,14 @@ object HtmlCodeOwnLine
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(str: String): HtmlCodeOwnLine = new HtmlCodeOwnLine
   { override def contents: RArr[XConElem] = RArr(str.xCon)
-    override def attribs: RArr[XHAtt] = RArr()
+    override def attribs: RArr[XAtt] = RArr()
   }
 }
 
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("scala")
-  override def attribs: RArr[XHAtt] = RArr(classAtt)
+  override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
 object HtmlScala
@@ -44,7 +44,7 @@ object HtmlScala
 /** Html Sbt code element. */
 trait HtmlSbt extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("sbt")
-  override def attribs: RArr[XHAtt] = RArr(classAtt)
+  override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
 /** Html Sbt code element, that can be inlined. */
@@ -61,13 +61,13 @@ object HtmlSbtInline
 class HtmlDirPath(val str: String) extends HtmlCodeOwnLine
 { def classAtt: ClassAtt = ClassAtt("path")
   override def contents: RArr[XConElem] = RArr(str.xCon)
-  override def attribs: RArr[XHAtt] = RArr(classAtt)
+  override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
 /** Html Bash code element. */
 trait HtmlBash extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("bash")
-  override def attribs: RArr[XHAtt] = RArr(classAtt)
+  override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
 class HtmlBashLine(str: String) extends HtmlBash
@@ -76,8 +76,8 @@ class HtmlBashLine(str: String) extends HtmlBash
 }
 
 /** A multi line, Html, Bash code element. */
-class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XHAtt]) extends HtmlBash, HtmlCodeMulti
-{ override def attribs: RArr[XHAtt] = super.attribs ++ otherAttribs
+class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlCodeMulti
+{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
 object HtmlBashMulti
@@ -103,9 +103,9 @@ class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashOwnLin
   override def contents: RArr[XConElem] = RArr(promptSpan, command.xCon)
 }
 
-class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XHAtt]) extends HtmlBash, HtmlMultiLine
+class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlMultiLine
 { override def contents: RArr[XConElem] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1).xCon, HtmlBr) }
-  override def attribs: RArr[XHAtt] = super.attribs ++ otherAttribs
+  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
 object HtmlBashPromptMulti

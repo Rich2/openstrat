@@ -17,7 +17,7 @@ trait ShapeSegs extends Shape
 
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw = ???
 
-  override def attribs: RArr[XHAtt] = ???
+  override def attribs: RArr[XAtt] = ???
 
   override def slate(operand: VecPt2): ShapeGen = new ShapeGen(unsafeArray.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slate(xOperand, yOperand))

@@ -4,9 +4,9 @@ package ostrat; package pWeb
 /** XML / HTML Element that can be defined on a single line but can not share its line / lines with other content. */
 trait XHmlOwnLine extends XHmlElem
 {
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): String = outLines(indent, line1InputLen, maxLineLen).text
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
-  override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
+  override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   { val cons: RArr[TextLines] = contents.map(_.outLines(indent + 2, indent + 2, maxLineLen))
     val childIndent = indent + 2
     val stt: String = openTag(indent, line1InputLen, maxLineLen)

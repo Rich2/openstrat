@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTML head element. */
-case class HtmlHead(contents : RArr[XConElem], attribs: RArr[XHAtt] = RArr()) extends HtmlUnvoid
+case class HtmlHead(contents : RArr[XConElem], attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
 { override def tag: String = "head"
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
@@ -26,7 +26,7 @@ object HtmlHead
 }
 
 /** The HTML body element. */
-class HtmlBody(val contents: RArr[XConElem], val attribs: RArr[XHAtt]) extends HtmlUnvoid
+class HtmlBody(val contents: RArr[XConElem], val attribs: RArr[XAtt]) extends HtmlUnvoid
 { override def tag: String = "body"
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) -- contents.mkStr(_.out(0), "\n") + n1CloseTag
@@ -36,11 +36,11 @@ class HtmlBody(val contents: RArr[XConElem], val attribs: RArr[XHAtt]) extends H
 object HtmlBody
 { def str(str: String): HtmlBody = new HtmlBody(RArr(str.xCon), RArr())
   def apply(inp: XConElem*): HtmlBody = new HtmlBody(inp.toArr, RArr())
-  def apply(contents: RArr[XConElem], attribs: RArr[XHAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
+  def apply(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
 }
 
 /** HTML Div element. */
-class HtmlDiv(val contents: RArr[XConElem], val attribs: RArr[XHAtt]) extends HtmlMultiLine
+class HtmlDiv(val contents: RArr[XConElem], val attribs: RArr[XAtt]) extends HtmlMultiLine
 { override def tag: String = "div"
 }
 
@@ -50,7 +50,7 @@ object HtmlDiv
   def apply(input: XConElem | String*): HtmlDiv = ???
 
   /** Factory apply method for DIV HTML element. */
-  def apply(contents: RArr[XConElem], attribs: RArr[XHAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
+  def apply(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
 
   /** Factory method to create Div element with an ID attribute. */
   def id(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.xCons, RArr(IdAtt(id)))
@@ -60,7 +60,7 @@ object HtmlDiv
 }
 
 /** An HTML Canvas element. */
-case class HtmlCanvas(attribs: RArr[XHAtt] = RArr()) extends HtmlEmpty
+case class HtmlCanvas(attribs: RArr[XAtt] = RArr()) extends HtmlEmpty
 { override def tag: String = "canvas"
 }
 
@@ -72,14 +72,14 @@ object HtmlCanvas
 /** An Html section element. */
 trait HtmlSection extends HtmlMultiLine
 { override def tag: String = "section"
-  override def attribs: RArr[XHAtt] = RArr()
+  override def attribs: RArr[XAtt] = RArr()
 }
 
 object HtmlSection
 { /** Factory apply method for [[HtmlSection]] passing contents and attributes. There is a apply overload convenience method for passing just contents using repeat parameters. */
-  def apply(contentsIn: RArr[XConElem], attribsIn: RArr[XHAtt] = RArr()): HtmlSection = new HtmlSection
+  def apply(contentsIn: RArr[XConElem], attribsIn: RArr[XAtt] = RArr()): HtmlSection = new HtmlSection
   { override def contents: RArr[XConElem] = contentsIn
-    override def attribs: RArr[XHAtt] = attribsIn
+    override def attribs: RArr[XAtt] = attribsIn
   }
   /** Factory apply convenience method for [[HtmlSection]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
   def apply(contents: XConElem*): HtmlSection = apply(contents.toArr)

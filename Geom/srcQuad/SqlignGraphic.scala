@@ -32,7 +32,7 @@ object SqlignFill
 class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[Sqlign => GraphicElems], val adopted: GraphicElems) extends
   SqlignGraphic, ParentGraphic2[Sqlign]
 { def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
-  override def attribs: RArr[XHAtt] = ???
+  override def attribs: RArr[XAtt] = ???
   override def svgInline: HtmlSvg = ???
   override def svgElems: RArr[SvgElem] = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = ???

@@ -254,13 +254,13 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
   override def approx(that: Any, precision: Double): Boolean = ???
 
   /** The SVG points attributes for this polygon. */
-  def pointsAttrib: XHAtt =
+  def pointsAttrib: XAtt =
   { val vertStr: String = verts.foldLeft((acc, v) => acc -- v.x.str + "," + (-v.y).str)
-    XHAtt("points", vertStr)
+    XAtt("points", vertStr)
   }
 
   /** The SVG attributes for this polygon. */
-  override def attribs: RArr[XHAtt] = RArr(pointsAttrib)
+  override def attribs: RArr[XAtt] = RArr(pointsAttrib)
 
   /** Increase the number of vertices and [[LSeg2]]s by breaking up the [[LSeg2]]s into parts. */
   def vertsMultiply(n: Int): Polygon = if (n < 2) this else

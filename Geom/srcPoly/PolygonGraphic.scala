@@ -290,7 +290,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
   //override def slateTo(newCen: Pt2): PolygonActive = ???
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
-  override def nonShapeAttribs: RArr[XHAtt] = ???
+  override def nonShapeAttribs: RArr[XAtt] = ???
 }
 
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */

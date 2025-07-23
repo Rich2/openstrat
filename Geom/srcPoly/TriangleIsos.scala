@@ -19,7 +19,7 @@ AxisFree//, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   //override def fromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
   override def vertsTrans(f: Pt2 => Pt2): TriangleIsosGen = ???
 
-  override def attribs: RArr[XHAtt] = ???
+  override def attribs: RArr[XAtt] = ???
 
   override def rotate(rotation: AngleVec): TriangleIsosGen = ???
 

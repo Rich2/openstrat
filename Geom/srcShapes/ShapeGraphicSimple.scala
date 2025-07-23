@@ -6,8 +6,8 @@ trait ShapeGraphicSimple extends ShapeGraphic, GraphicSimple, GraphicSvgElem
 { final def svgJustElem: SvgElem = svgElem
 
   final def svgInline: HtmlSvg = HtmlSvg.bounds(shape.boundingRect, RArr(svgJustElem))
-  def nonShapeAttribs: RArr[XHAtt]
-  final override def attribs: RArr[XHAtt] = shapeAttribs ++ nonShapeAttribs
+  def nonShapeAttribs: RArr[XAtt]
+  final override def attribs: RArr[XAtt] = shapeAttribs ++ nonShapeAttribs
   override def slate(operand: VecPt2): ShapeGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): ShapeGraphicSimple
   override def slateX(xOperand: Double): ShapeGraphicSimple

@@ -103,8 +103,6 @@ package object ostrat
 
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
-  val lineLenDefault: Int = 160
-
   /** Repeats the procedure the given number of times. */
   def repeat(n: Int)(proc: => Unit): Unit =
   { val nn: Int = n.max0

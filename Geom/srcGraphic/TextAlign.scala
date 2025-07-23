@@ -5,21 +5,21 @@ import Colour.Black, pWeb._
 /* The alignment of text can be left right or centre. This may want to extend from a more general alignment trait. If such is useful. */
 sealed trait TextAlign
 { def jsStr: String
-  def attrib: XHAtt
+  def attrib: XAtt
 }
 
 case object CenAlign extends TextAlign
 { def jsStr = "center"
-  override val attrib: XHAtt = TextAnchorAtt("middle")
+  override val attrib: XAtt = TextAnchorAtt("middle")
 }
 
 case object LeftAlign extends TextAlign
 { def jsStr = "left"
-  override val attrib: XHAtt = TextAnchorAtt("start")
+  override val attrib: XAtt = TextAnchorAtt("start")
 }
 case object RightAlign extends TextAlign
 { def jsStr = "right"
-  override val attrib: XHAtt = TextAnchorAtt("end")
+  override val attrib: XAtt = TextAnchorAtt("end")
 }
 
 /** Baseline style for text. */

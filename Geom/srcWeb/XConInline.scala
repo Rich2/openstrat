@@ -5,7 +5,7 @@ package ostrat; package pWeb
 trait XConInline extends XConElem
 { def value: String
 
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = lineLenDefault): TextLines =
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   { given charArr: CharArr = new CharArr(value.toCharArray)
 
     def line1Len: Int = indent + line1InputLen

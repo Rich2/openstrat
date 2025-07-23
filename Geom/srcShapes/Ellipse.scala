@@ -49,11 +49,11 @@ trait Ellipse extends EllipseBased, ShapeCentred
   def e: Double = (1 - b.squared / a.squared).sqrt
 
   def area: Double
-  def cxAttrib: XHAtt = XHAtt("cx", cenX.toString)
-  def cyAttrib: XHAtt = XHAtt("cy", cenY.toString)
-  def rxAttrib: XHAtt = XHAtt("rx", radius1.toString)
-  def ryAttrib: XHAtt = XHAtt("ry", radius2.toString)
-  def attribs: RArr[XHAtt] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  def cxAttrib: XAtt = XAtt("cx", cenX.toString)
+  def cyAttrib: XAtt = XAtt("cy", cenY.toString)
+  def rxAttrib: XAtt = XAtt("rx", radius1.toString)
+  def ryAttrib: XAtt = XAtt("ry", radius2.toString)
+  def attribs: RArr[XAtt] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: Rect
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(p1), f(p0))
@@ -311,7 +311,7 @@ trait EllipseActive extends EllipseGraphicSimple with GraphicClickable
 { type ThisT <: EllipseActive
   type ThisT2 = EllipseActive
   override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), pointerId)
-  final override def nonShapeAttribs: RArr[XHAtt] = RArr()
+  final override def nonShapeAttribs: RArr[XAtt] = RArr()
 }
 
 object EllipseActive
