@@ -1,5 +1,6 @@
-//build.sc Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
-import mill._, scalalib._, scalajslib._, scalanativelib._, publish._, mill.api.BuildCtx.workspaceRoot
+//| # Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
+//| mill-version: 1.0.1
+import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
 { def version = "0.3.8snap"

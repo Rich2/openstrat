@@ -14,7 +14,7 @@ object XAtt
 { /** Factory apply method for [[XAtt]] trait. Often you may prefer to use the subclasses of [[XAtt]] where the name of the attribute has already been set. */
   def apply(name: String, valueStr: String): XAtt = XmlAttGen(name, valueStr)
 
-  implicit class rArrExtensions(val thisArr: RArr[XAtt])
+  extension(thisArr: RArr[XAtt])
   { def explicitFill: RArr[XAtt] = ife(thisArr.exists(_.name == "fill"), thisArr, thisArr +% FillAttrib.none)
   }  
 }
