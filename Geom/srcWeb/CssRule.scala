@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-trait CssRuleLike
+trait CssRuleLike extends XConElem
 { /** Outputs to  a single line if the rule has 2 or more declarations. */
   def isMultiLine: Boolean
 
@@ -17,7 +17,7 @@ trait CssRule extends CssRuleLike
   /** The CSS declarations of this rule. */
   def decsArr: RArr[CssDecs]
 
-  /** The inner [[String]] of the this rules declarations. */
+  /** The inner [[String]] of this rule's declarations. */
   def decsStr(indent: Int = 0): String =
   { val decs: RArr[CssDec] = decsArr.flatMap(_.decs)
     decs.length match
@@ -30,6 +30,25 @@ trait CssRule extends CssRuleLike
 
   override def isMultiLine: Boolean = decsArr.flatMap(_.decs).length > 2
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = selec + decsStr(indent)
+  
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
+  { val decs: RArr[CssDec] = decsArr.flatMap(_.decs)
+    decs.length match
+    { case 0 => TextLines(selec -- "{}", 1, selec.length + 3, selec.length + 3)
+      case 1 =>
+      { val str = selec -- s" { ${decs.head.out} }"
+        TextLines(str, 1, str.length, str.length)
+      }
+      case 2 =>
+      { val str = s" { ${decs(0).out} ${decs(1).out} }"
+        TextLines(str, 1, str.length, str.length)
+      }
+      case _ =>
+      { val str = "\n" + (indent).spaces + "{ " + decs.mkStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
+        TextLines(str, 1 + decs.length, str.length, str.length)
+      }
+    }
+  }
 }
 
 object CssRule
