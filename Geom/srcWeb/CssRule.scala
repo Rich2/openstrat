@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 trait CssRuleLike
@@ -6,7 +6,7 @@ trait CssRuleLike
   def isMultiLine: Boolean
 
   /** The CSS output. */
-  def out(indent: Int = 0): String
+  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String
 }
 
 /** Css Rule consisting of selector plus a set of declarations. */
@@ -29,7 +29,7 @@ trait CssRule extends CssRuleLike
   }
 
   override def isMultiLine: Boolean = decsArr.flatMap(_.decs).length > 2
-  override def out(indent: Int = 0): String = selec + decsStr(indent)
+  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = selec + decsStr(indent)
 }
 
 object CssRule

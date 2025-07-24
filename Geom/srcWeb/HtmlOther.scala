@@ -76,7 +76,7 @@ object HtmlScript
 /** HTML style element. */
 case class HtmlStyle(rules: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "style"
-  override def contents: RArr[XConElem] = RArr(rules.mkStr(_.out(), "; ").xCon)
+  override def contents: RArr[XConElem] = RArr(rules.mkStr(_.out(2), "; ").xCon)
 }
 
 object HtmlStyle

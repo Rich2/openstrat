@@ -32,13 +32,13 @@ object DevPage extends HtmlPage
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder. From within the sbt console run:")
 
-  def sbt2: HtmlUl = HtmlUl(HtmlLi.sbtAndText("~ DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
-    HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html".htmlPath),
+  def sbt2: HtmlUl = HtmlUl(HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
+    HtmlLi.sbtAndText("~DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFull.html".htmlPath),
-    HtmlLi.sbtAndText("~ Util/test", "Rerun tests on Util module."),
-    HtmlLi.sbtAndText("~ Tiling/test", "Rerun tests on Tiling module."),
-    HtmlLi.sbtAndText("~ Dev/test", "Rerun tests on, Dev module."),
-    HtmlLi.sbtAndText("~ Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
+    HtmlLi.sbtAndText("~Util/test", "Rerun tests on Util module."),
+    HtmlLi.sbtAndText("~Tiling/test", "Rerun tests on Tiling module."),
+    HtmlLi.sbtAndText("~Dev/test", "Rerun tests on, Dev module."),
+    HtmlLi.sbtAndText("~Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
 
     HtmlLi.sbtAndText("DocMain/doc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
       "Dev/SbtDir/DocMain/target/scala-3.4.0/api/".htmlPath),
@@ -56,7 +56,7 @@ object DevPage extends HtmlPage
   | second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it,
   | you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
 
-  def sbt3D = HtmlP("For JavaFx 3D ".xCon, HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
+  def sbt3D = HtmlP("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntelliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),

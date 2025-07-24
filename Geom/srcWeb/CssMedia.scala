@@ -6,7 +6,7 @@ abstract class CssMedia(val queryStr: String) extends CssRulesHolder with CssRul
 { override def rules: RArr[CssRule]
   override def isMultiLine: Boolean = true
 
-  override def out(indent: Int = 0): String =
+  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int): String =
     "@media " + queryStr.enParenth --- indent.spaces + "{" + "\n" +  rulesOut(indent + 2) --- indent.spaces + "}"
 }
 

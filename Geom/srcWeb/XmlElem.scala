@@ -1,11 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** An XML element. */
 trait XmlElem extends XHmlElem
-{ //override def out(indent: Int = 0, maxLineLen: Int = 150): String = if (contents.empty) openAtts + "/>"
-  //else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
-}
 
 trait XmlMulti extends XmlElem with XmlLikeMulti
 trait XmlMultiNamed extends XmlMulti
