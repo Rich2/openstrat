@@ -72,6 +72,24 @@ trait XHmlInline extends XHmlElem
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = contents match
   { case RArr0() => openAtts(indent, 0) + "/>"
     case RArr1(_) => openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, MaxLineLen) + closeTag
-    case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+    case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen),
+      "/n" + (indent + 2).spaces).nli(indent) + closeTag
+  }
+  
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = contents match
+  { case RArr0() =>
+    { val str = openAtts(indent, 0) + "/>"
+      TextLines(str, 1, str.length, str.length)
+    }
+    case RArr1(_) =>
+    { val str = openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, MaxLineLen) + closeTag
+      TextLines(str, 1, str.length, str.length)
+    }
+    case _ => 
+    {
+      val str = openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen),
+        "\n" + (indent + 2).spaces).nli(indent) + closeTag
+      TextLines(str, 1, str.length, str.length)
+    }
   }
 }
