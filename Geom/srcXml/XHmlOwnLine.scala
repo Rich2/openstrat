@@ -13,8 +13,8 @@ trait XHmlOwnLine extends XHmlElem
     val totalNum: Int = cons.sumBy(_.numLines)
     cons.length match
     {
-      case 0 => {
-        val text = stt + closeTag
+      case 0 =>
+      { val text = stt + closeTag
         TextLines(text, 1, text.length, text.length)
       }
       case 1 if cons.head.numLines == 1 =>{

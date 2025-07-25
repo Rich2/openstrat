@@ -11,7 +11,7 @@ trait XmlMultiNamed extends XmlMulti
 
 }
 
-trait XmlMaybeSingle extends XmlElem with XmlLikeMaybeSingle
+trait XmlMaybeSingle extends XmlElem with XHmlInline
 
 trait XmlNoAtts extends XmlElem
 { override def attribs: RArr[XAtt] = RArr()

@@ -66,10 +66,10 @@ trait XmlLikeMulti extends XHmlElem
     else openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, line1InputLen, 160), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
-/** An XML like element that may be output on a single line. */
-trait XmlLikeMaybeSingle extends XHmlElem
+/** An XML /Html element that may be output on a single line. */
+trait XHmlInline extends XHmlElem
 {
-  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = contents match
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = contents match
   { case RArr0() => openAtts(indent, 0) + "/>"
     case RArr1(_) => openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, MaxLineLen) + closeTag
     case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen), "\n" + (indent + 2).spaces).nli(indent) + closeTag
