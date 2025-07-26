@@ -70,7 +70,7 @@ final class Miles(val milesNum: Double) extends AnyVal, LengthImperial, MileBase
   override def toRectArea(operand: Length): Mileares = Mileares(milesNum * nfl(operand))
   override def /(operand: Double): Miles = Miles(milesNum / operand)
   override def divByLength(operand: Length): Double = milesNum / nfl(operand)
-  override def metresNum: Double = milesNum * Yards.toMetres * toMetresNum
+  override def metresNum: Double = milesNum * Yards.toMetres * toMetresFactor
   override def yardsNum: Double = milesNum * Miles.toYards
   override def megaMilesNum: Double = milesNum / 1000000
   override def nonNeg: Boolean = milesNum >= 0

@@ -45,12 +45,12 @@ trait Length extends Any, Ordered[Length], LengthBased
   /** Multiply by the given scalar. */
   def *(operand: Double): Length
 
-  /** Combine with an operand [[Length]] for a [[Rectangle]] to return an [[Area]]. */
-  def toRectArea(operand: Length): Area
-
   /** Divide by the given scalar. */
   def /(operand: Double): Length
 
+  /** Combine with an operand [[Length]] for a [[Rectangle]] to return an [[Area]]. */
+  def toRectArea(operand: Length): Area
+  
   def divByLength(operand: Length): Double
 
   /** Is the length units greater or equal to zero. */

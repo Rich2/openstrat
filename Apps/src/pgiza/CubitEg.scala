@@ -3,9 +3,9 @@ package ostrat; package pgiza
 import geom.*
 
 trait CubitEgBase extends Any, LengthBased
-{ override def toPicometreNum: Double = ???
-  override def toMetresNum: Double = ???
-  override def toKilometresNum: Double = ???
+{ override def toPicometreFactor: Double = ???
+  override def toMetresFactor: Double = ???
+  override def toKilometresFactor: Double = ???
 }
 
 case class CubitEg(cubitsNum: Double) extends AnyVal, LengthNotMetric, CubitEgBase
