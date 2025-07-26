@@ -28,11 +28,10 @@ object GeomPagePolygons extends HtmlSection
   val sides2: RArr[GraphicSvgElem] = rect1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
   val svg2: HtmlSvg = HtmlSvg(rect1.boundingRect.addMargin(GeomPage.svgMargin).addHorrMargin(200), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
 
-  def p2: HtmlP = HtmlP(
-  """I've included the Scala code below both for the above diagram. If you check the html source code for this web page you will see that it is pretty
-  | succinct compared with the generated SVG code. The code is in small font and is not type annotated so it is not intended as a tutorial, but just
-  | to give an idea of possibilities. It is only the last line that creates the SVG. The rest of the code could be used in an HTML or a JavaFx
-  | canvas.""".stripMargin)
+  def p2: HtmlP = HtmlP("""I've included the Scala code below both for the above diagram. If you check the html source code for this web page you will see that
+  | it is pretty succinct compared with the generated SVG code. The code is in small font and is not type annotated so it is not intended as a tutorial, but
+  | just to give an idea of possibilities. It is only the last line that creates the SVG. The rest of the code could be used in an HTML or a JavaFx canvas.""".
+  stripMargin)
 
   def code1: HtmlScala = HtmlScala(
     "val width: Int = 250<br>" ---

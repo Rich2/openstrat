@@ -9,7 +9,7 @@ object GeomPage extends HtmlPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
-  |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
+  | geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
   | units such as metres, miles and picometres. There is also 2D geometry and graphics that can be defined in latitudes and longitudes.""".stripMargin
 
   val list: HtmlOlWithLH =
@@ -26,22 +26,21 @@ object GeomPage extends HtmlPage
 
   def trans: HtmlLi = HtmlLi("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
 
-  def canv: HtmlLi = HtmlLi("An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas," +
-    " allowing applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL," +
-    " but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.")
+  def canv: HtmlLi = HtmlLi("""An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas, allowing
+  | applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require
+  | significantly more work than for the ScalaFx canvas or the Html Canvas.""".stripMargin)
 
   def svg: HtmlLi = HtmlLi("Conversion of Graphic classes into SVG, giving an alternative target and greater flexibility.")
 
   def web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
 
-  def geom3: HtmlLi = HtmlLi("3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be" +
-    " provided, but currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely" +
-    " possible.")
+  def geom3: HtmlLi = HtmlLi("""3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be provided, but
+  | currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely possible.""".stripMargin)
 
   def lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
 
-  def earth: HtmlLi = HtmlLi("Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion" +
-    "between them and 2D and 3D coordinates.")
+  def earth: HtmlLi = HtmlLi("""Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion between them
+  | and 2D and 3D coordinates.""".stripMargin)
 
   val svgMargin = 50
 
