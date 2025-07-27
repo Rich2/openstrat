@@ -6,9 +6,11 @@ trait HtmlCode extends HtmlUnvoid
 { override def tag: String = "code"
 }
 
-trait HtmlCodeLines extends HtmlCode
-{
-  
+trait HtmlCodeLines extends HtmlCode, HtmlMultiLine
+{ /** The lines of code. */
+  def lines: StrArr
+
+  override def contents: RArr[XCon] = lines.map(HtmlDiv(_))
 }
 
 /** A multi line, HTML, code element */
@@ -46,12 +48,8 @@ object HtmlScala
   }
 }
 
-class HtmlScalaLines(lines: StrArr) extends HtmlScala
-{
-  /** The content of this XML / HTML element. */
-  override def contents: RArr[XCon] = ???
-
-  /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
+class HtmlScalaLines(val lines: StrArr) extends HtmlScala, HtmlCodeLines
+{ /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
    * the outLines method for its implementation. */
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
 }

@@ -40,17 +40,18 @@ object HtmlBody
 }
 
 /** HTML Div element. */
-class HtmlDiv(val contents: RArr[XConElem], val attribs: RArr[XAtt]) extends HtmlMultiLine
+class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tag: String = "div"
 }
 
 /** Companion object for the [[HtmlDiv]] DIV element class, contains various factory methods. */
 object HtmlDiv
-{
-  def apply(input: XConElem | String*): HtmlDiv = ???
+{ /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XCon]] and an [[RArr]] of [[XAtt]], with a default of no
+   * [[XAtt]]s. */
+  def apply(input: XCon*): HtmlDiv = new HtmlDiv(input.toRArr, RArr())
 
-  /** Factory apply method for DIV HTML element. */
-  def apply(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
+  /** Factory apply method for div HTML element. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
 
   /** Factory method to create Div element with an ID attribute. */
   def id(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.xCons, RArr(IdAtt(id)))
