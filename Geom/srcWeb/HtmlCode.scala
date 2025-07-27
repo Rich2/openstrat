@@ -11,6 +11,10 @@ trait HtmlCodeLines extends HtmlCode, HtmlMultiLine
   def lines: StrArr
 
   override def contents: RArr[XCon] = lines.map(HtmlDiv(_))
+
+  /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
+   * the outLines method for its implementation. */
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
 }
 
 /** A multi line, HTML, code element */
@@ -49,9 +53,7 @@ object HtmlScala
 }
 
 class HtmlScalaLines(val lines: StrArr) extends HtmlScala, HtmlCodeLines
-{ /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
-   * the outLines method for its implementation. */
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
+{ 
 }
 
 /** Html Sbt code element. */

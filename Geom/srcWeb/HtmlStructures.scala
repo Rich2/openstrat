@@ -40,7 +40,7 @@ object HtmlBody
 }
 
 /** HTML Div element. */
-class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlOwnLine
+trait HtmlDiv extends HtmlUnvoid
 { override def tag: String = "div"
 }
 
@@ -48,17 +48,26 @@ class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlOwn
 object HtmlDiv
 { /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XCon]] and an [[RArr]] of [[XAtt]], with a default of no
    * [[XAtt]]s. */
-  def apply(input: XCon*): HtmlDiv = new HtmlDiv(input.toRArr, RArr())
+  def apply(input: XCon*): HtmlDiv = new HtmlDivGen(input.toRArr, RArr())
 
   /** Factory apply method for div HTML element. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDivGen(contents, attribs)
 
   /** Factory method to create Div element with an ID attribute. */
-  def id(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.xCons, RArr(IdAtt(id)))
+  def id(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.xCons, RArr(IdAtt(id)))
 
   /** Factory method to create Div element with a class attribute. */
-  def classAtt(id: String, contents: XCon *): HtmlDiv = new HtmlDiv(contents.xCons, RArr(ClassAtt(id)))
+  def classAtt(id: String, contents: XCon *): HtmlDiv = new HtmlDivGen(contents.xCons, RArr(ClassAtt(id)))
+
+  class HtmlDivGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv, HtmlOwnLine
 }
+
+class HtmlDivOneLine(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv
+{
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
+}
+
+object HtmlDivOneLine
 
 /** An HTML Canvas element. */
 case class HtmlCanvas(attribs: RArr[XAtt] = RArr()) extends HtmlEmpty
