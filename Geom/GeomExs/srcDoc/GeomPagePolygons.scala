@@ -34,18 +34,16 @@ object GeomPagePolygons extends HtmlSection
   stripMargin)
 
   def code1: HtmlScala = HtmlScala(
-    "val width: Int = 250<br>" ---
-    "val polyColour: Colour = DarkGreen<br>" ---
-    "val dodec1: DoDeclign = DoDeclign(width)<br>" ---
-    "val dodec2 = dodec1.draw(polyColour)<br>" ---
-    "val circ = Circle(width * 2).draw()<br>" ---
-
-    """val verts = dodec1.vertsIFlatMap{ (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str) }<br>""" ---
-
-    """val sides = dodec1.sidesIFlatMap{ (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }<br>""" ---
-    """val cen = Pt2Z.textAt("Centre")<br>""" ---
-    "val clock = RArr(dodec2, circ, cen) ++ verts ++ sides<br>" ---
-    "val svg1 = HtmlSvg(dodec1.boundingRect.addMargin(svgMargin), clock, RArr(CentreBlockAtt))<br>"
+    "val width: Int = 250",
+    "val polyColour: Colour = DarkGreen",
+    "val dodec1: DoDeclign = DoDeclign(width)",
+    "val dodec2 = dodec1.draw(polyColour)",
+    "val circ = Circle(width * 2).draw()",
+    """val verts = dodec1.vertsIFlatMap{ (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str) }""",
+    """val sides = dodec1.sidesIFlatMap{ (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }""",
+    """val cen = Pt2Z.textAt("Centre")""",
+    "val clock = RArr(dodec2, circ, cen) ++ verts ++ sides",
+    "val svg1 = HtmlSvg(dodec1.boundingRect.addMargin(svgMargin), clock, RArr(CentreBlockAtt))"
   )
 
   def p3: HtmlP = HtmlP("""If there is no vertex at the 12 o'clock / 00 hundred hours postion as in the rectangle below vertex 0 is the first vertex
