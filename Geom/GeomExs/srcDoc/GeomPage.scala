@@ -6,7 +6,7 @@ import geom.*, pWeb.*, Colour.*
 object GeomPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
   | geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length

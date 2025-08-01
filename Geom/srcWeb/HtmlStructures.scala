@@ -39,7 +39,7 @@ object HtmlBody
   def apply(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
 }
 
-/** HTML Div element. */
+/** HTML Div element.  */
 trait HtmlDiv extends HtmlUnvoid
 { override def tag: String = "div"
 }

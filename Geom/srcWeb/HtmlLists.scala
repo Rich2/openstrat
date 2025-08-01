@@ -53,8 +53,8 @@ object HtmlLi
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlOlWithLH(val header: XConElem, items: RArr[HtmlLi]) extends HtmlSection
-{ override def contents: RArr[XConElem] = RArr(header, orderedList)
+class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
+{ override def contents: RArr[XCon] = RArr(header, orderedList)
   override def attribs: RArr[XAtt] = RArr()
 
   def orderedList: HtmlOl = HtmlOl(items)
@@ -63,11 +63,15 @@ class HtmlOlWithLH(val header: XConElem, items: RArr[HtmlLi]) extends HtmlSectio
 object HtmlOlWithLH
 { /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    * section. */
-  def apply(header: XConElem, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
+  def apply(header: XCon, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
 
   /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    *  section. */
   def apply(headerStr: String, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(headerStr.xCon, items.toArr)
+
+  /** Factory method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
+   * section. */
+  def strs(headerStr: String, items: String*): HtmlOlWithLH = new HtmlOlWithLH(headerStr.xCon, items.mapArr(HtmlLi(_)))
 
   /** Factory method for an HTML OL ordered list, with an H2 header. */
   def h2(headerStr: String, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(HtmlH2(headerStr), items.toArr)
