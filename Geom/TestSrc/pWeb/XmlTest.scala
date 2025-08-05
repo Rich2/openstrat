@@ -19,7 +19,7 @@ object XmlTest extends TestSuite
   { def apply(nameStr: String, otherElems: XmlElem*): Country = new Country(nameStr, otherElems.toRArr)
   }
 
-  case class Cities(contents: RArr[XConElem]) extends XmlMultiNoAtts
+  case class Cities(contents: RArr[XCon]) extends XmlMultiNoAtts
   { override def tag: String = "Cities"
   }
 

@@ -50,7 +50,7 @@ def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, srcsStr).settings(
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, moduleDir.value / "Test/src"),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.5" % "test" withSources() withJavadoc(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.9.0" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
@@ -72,7 +72,7 @@ def jvmExsProj(name: String): Project = jvmProj(name + "Exs", name + "/" + name 
 def jsProj(name: String) = proj(name + "Js", name + "/" + name + "Js").enablePlugins(ScalaJSPlugin).settings(
   moduleDir := bbDir.value / name,
   Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", moduleDir.value /"JsSrc"),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.0")  withSources() withJavadoc(),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.1")  withSources() withJavadoc(),
 )
 
 def natProj(name: String) = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(

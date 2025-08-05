@@ -25,12 +25,12 @@ trait XHmlOwnLine extends XHmlElem
         val text = stt + cons.mkStr(_.text, " ") + closeTag
         TextLines(text, 1, text.length, text.length)
       }
-      case n if totalNum < 3 =>{
-        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + closeTag
+      case n if totalNum < 3 =>
+      { val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + closeTag
         TextLines(text, totalNum, line1InputLen + cons.head.firstLen, indent + 2 + cons.last.lastLen + closeTag.length)
       }
-      case n =>{
-        val lastLine = indent.spaces + closeTag
+      case n =>
+      { val lastLine = indent.spaces + closeTag
         val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + "\n" + lastLine
         TextLines(text, totalNum + 1, line1InputLen + cons.head.firstLen, lastLine.length)
       }

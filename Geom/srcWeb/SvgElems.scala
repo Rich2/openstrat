@@ -100,7 +100,7 @@ object SvgLine
 class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign, colour: Colour) extends SvgElem
 { override def tag: String = "text"
   override def attribs: RArr[XAtt] = RArr(XXmlAtt(x), YXmlAtt(y), align.attrib).appendIf(colour != Black, FillAttrib(colour))
-  override def contents: RArr[XConElem] = RArr(text.xCon)
+  override def contents: RArr[XCon] = RArr(text)
 }
 
 object SvgText

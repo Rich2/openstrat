@@ -11,10 +11,17 @@ trait XConInline extends XConElem
     def line1Len: Int = indent + line1InputLen
 
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => TextLines(currStr, 1, lineLen, lineLen)
-      case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
+    { case CharsOff0() => {
+        deb("End inLoop1")
+        TextLines(currStr, 1, currStr.length, currStr.length)
+      }
+      case CharsOff1Tail(c, tail) if c.isWhitespace =>{
+        deb("tail")
+        in1Loop(tail, currStr, lineLen)
+      }
       case s =>
-      { val (newRem, newWord) = getWord(s)
+      { deb("case s")
+        val (newRem, newWord) = getWord(s)
         val newLen = lineLen + newWord.length + 1
         if (newLen > maxLineLen) in2Loop(newRem, currStr + "\n" + indent.spaces + newWord, indent + newWord.length)
         else in1Loop(newRem, currStr -- newWord, newLen)
@@ -58,3 +65,5 @@ trait XConInline extends XConElem
     in1Loop(newRem, firstWord, line1Len + firstWord.length)
   }
 }
+
+trait XHtmlInline extends XHmlElem, XConInline

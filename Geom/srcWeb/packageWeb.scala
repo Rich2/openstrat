@@ -21,7 +21,7 @@ package object pWeb
         var currLine: String = ""
         var currWord: String = ""
 
-          /** This takes account of if it is the first line, unknown characters will precede this method's first line. */
+        /** This takes account of if it is the first line, unknown characters will precede this method's first line. */
         def trueLength: Int = ife (lines.length == 0, currLine.length + line1InputLen, currLine.length)
 
         while (i < chars.length)
@@ -47,6 +47,7 @@ package object pWeb
 
         currWord match
         { case "" =>
+          case w if currLine == "" => { currLine = w }
           case w if (trueLength + 1 + currWord.length) > maxLineLen =>
           { lines = lines :+ currLine
             currLine = indent.spaces + currWord

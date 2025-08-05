@@ -26,8 +26,8 @@ object DevPage extends HtmlPage
   | run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   | language to explore these questions.""".stripMargin)
 
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.1. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.3
-  | (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Mill set to 1.0.1.""".
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.1. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.4
+  |(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Mill set to 1.0.1.""".
     stripMargin)
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder. From within the sbt console run:")
@@ -81,8 +81,7 @@ object DevPage extends HtmlPage
     "already taken.<br>" ---
     "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash + "<br>" ---
     "then repeat<br>" --- "sudo update-alternatives --config java".htmlBash)
-
-
+  
   def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
     HtmlLi.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")

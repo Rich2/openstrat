@@ -23,20 +23,14 @@ object HtmlOl
 }
 
 /** Html LI, list item element. */
-case class HtmlLi(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class HtmlLi(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "li"
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object HtmlLi
 { /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
-  def apply(contents: (XConElem | String) *): HtmlLi =
-  { val arr = contents.mapArr {
-      case str: String => str.xCon
-      case xCon: XConElem => xCon
-    }
-    new HtmlLi(arr)
-  }
+  def apply(contents: (XConElem | String) *): HtmlLi = new HtmlLi(contents.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
   def a(link: String, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon))), attribs.toArr)

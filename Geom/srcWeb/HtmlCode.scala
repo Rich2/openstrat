@@ -18,9 +18,9 @@ trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
 { /** the lines of code unindented. */
   def lines: StrArr
 
-  override def contents: RArr[XConElem] = lines match
+  override def contents: RArr[XCon] = lines match
   { case _ if lines.length == 0 => RArr()
-    case ls => lines.initLastMap(_ + "<br>")(s => s).map(_.xCon)
+    case ls => lines.initLastMap(_ + "<br>")(s => s)
   }
 }
 

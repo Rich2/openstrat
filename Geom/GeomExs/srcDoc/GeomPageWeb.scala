@@ -17,7 +17,7 @@ object GeomPageWeb extends HtmlSection
   """OwnLine elements, including list items. These element may be encapsulated on a single line, but may not share a line with sibling content. They may
   |however be enclosed within parent tags on a single line, if it is the only child content of its parent element.""".stripMargin,
 
-  """MultiLine elements, incliding Lists, Body, Section. These elements opening  and closing tags must appear on their own lines, spearate from both the parent
-  |element tags and the content.""".stripMargin
+  """MultiLine elements, incliding Lists, Body, Section. These elements opening  and closing tags must appear on their own lines, separate from both the parent
+  |element tags and their own content.""".stripMargin
   )
 }

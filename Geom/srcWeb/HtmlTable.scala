@@ -60,13 +60,13 @@ object HtmlRowData
 trait HtmlCell extends HtmlOwnLine
 
 /** HTML TH table header cell element. */
-case class HtmlTh(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlCell
+case class HtmlTh(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlCell
 { override def tag: String = "th"
 }
 
 object HtmlTh
 { /** Factory apply method to construct HTML TH table header cell element form a simple [[String]]. */
-  def apply(str: String): HtmlTh = new HtmlTh(RArr(str.xCon), RArr())
+  def apply(str: String): HtmlTh = new HtmlTh(RArr(str), RArr())
 }
 
 /** HTML TD table data cell element. */

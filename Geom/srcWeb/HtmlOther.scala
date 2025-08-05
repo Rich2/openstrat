@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTML A anchor element. */
-class HtmlA(val link: String, val contents: RArr[XConElem], otherAttribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "a"
   override val attribs: RArr[XAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
@@ -11,12 +11,12 @@ object HtmlA
 { /** Factory apply method for creating Html anchor element. If you don't supply a label the link will be used as the label. */
   def apply(link: String, label: String = ""): HtmlA =
   { val label2 = ife(label == "", link, label)
-    new HtmlA(link, RArr(label2.xCon))
+    new HtmlA(link, RArr(label2))
   }
 }
 
 /** HTML P paragraph element. */
-case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlInline
 { def tag = "p"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)

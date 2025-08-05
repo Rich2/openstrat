@@ -11,7 +11,7 @@ trait Common extends ScalaModule
 trait CommonJvm extends Common
 { Outer =>
   trait InnerTests extends ScalaTests
-  { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.8.9")
+  { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.0")
     def testFramework = "utest.runner.Framework"
     def sources = Task.Sources(Outer.moduleDir / "TestSrc", moduleDir / "src")
     def resources = Task.Sources(Outer.moduleDir / "TestRes", moduleDir / "res")
@@ -20,7 +20,7 @@ trait CommonJvm extends Common
 
 trait CommonJs extends ScalaJSModule with Common
 { def scalaJSVersion = "1.19.0"
-  def mvnDeps = Seq(mvn"org.scala-js::scalajs-dom_sjs1:2.8.0")
+  def mvnDeps = Seq(mvn"org.scala-js::scalajs-dom_sjs1:2.8.1")
 }
 
 object Util extends CommonJvm

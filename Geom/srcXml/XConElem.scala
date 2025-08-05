@@ -16,21 +16,10 @@ trait XConElem
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(out(indent, maxLineLen), 3, 30, 30)
 }
 
-object XConElem
-{
-  extension(seq: Seq[XConElem | String])
-  { /** Converts the [[String]]s in this sequence into [[XConElem]] XML / HTML content. */
-    def xCons: RArr[XConElem | String] = seq.mapArr{
-      case xc: XConElem => xc
-      case s: String => s.xCon
-    }
-  }
-}
-
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
 case class XmlAsString(value: String) extends XConElem
-{
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = value
+{ override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = value
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(value, 1, value.length, value.length)
 }
 
 /** XML / HTML text that can have its line breaks changed. */
@@ -69,6 +58,7 @@ case class XConText(value: String) extends XConInline
     }
     currWord match
     { case "" =>
+      case w if currLine == "" => currLine = w
       case w if (trueLength + 1 + currWord.length) > maxLineLen =>
       { lines = lines :+ currLine
         currLine = indent.spaces + currWord
