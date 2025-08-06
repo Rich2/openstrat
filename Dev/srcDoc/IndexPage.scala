@@ -18,7 +18,7 @@ object IndexPage extends HtmlPage
   def devInfo = HtmlA("Documentation/dev.html", "Info for developers here.")
   def begInfo = HtmlA("Documentation/newdevs.html", "Info for new developers here.")
 
-  def menu: HtmlOlWithLH = HtmlOlWithLH(intro.xCon, util, geom, tile, egrid, apps, dev)
+  def menu: HtmlOlWithLH = HtmlOlWithLH(intro, util, geom, tile, egrid, apps, dev)
 
   def intro: String = "<b>The Code is currently organised into 7 modules.</b> Each module can build artifacts for Jvm and JavaFx and for the" +
     " JavaScript platform and the Web."

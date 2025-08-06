@@ -85,7 +85,7 @@ trait HtmlBash extends HtmlCode
 }
 
 class HtmlBashLine(str: String) extends HtmlBash
-{ override def contents: RArr[XConElem] = RArr(HtmlDiv("<code".xCon))
+{ override def contents: RArr[XCon] = RArr(HtmlDiv("<code"))
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
 }
 

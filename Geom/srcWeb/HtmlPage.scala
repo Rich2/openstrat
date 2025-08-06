@@ -29,7 +29,7 @@ object HtmlPage
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
   def titleOnly(title: String, bodyContent: String): HtmlPage = new HtmlPage{
     override val head: HtmlHead = HtmlHead.title(title)
-    override val body: HtmlBody = HtmlBody(HtmlH1(title), bodyContent.xCon)
+    override val body: HtmlBody = HtmlBody(HtmlH1(title), bodyContent)
   }
 }
 
@@ -47,7 +47,7 @@ case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
 /** HTML title element. */
 case class HtmlTitle(str: String, attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
 { override def tag = "title"
-  override def contents: RArr[XConElem] = RArr(str.xCon)
+  override def contents: RArr[XCon] = RArr(str)
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + "<title>" + str + "</title>"
 }
 

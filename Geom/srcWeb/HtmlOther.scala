@@ -41,24 +41,24 @@ case class HtmlSpan(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLi
 
 object HtmlSpan
 { /** Factory apply method for creating HTML span element. */
-  def apply(strIn: String, attribs: XAtt*): HtmlSpan = new HtmlSpan(RArr(strIn.xCon), attribs.toRArr)
+  def apply(strIn: String, attribs: XAtt*): HtmlSpan = new HtmlSpan(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlSpan = new HtmlSpan(contents, attribs)
 }
 
 /** HTML noscript element. */
-case class HtmlNoScript(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "noscript"
 }
 
 object HtmlNoScript
 { /** Factory apply method for creating an HTML noscript element */
-  def apply(): HtmlNoScript = new HtmlNoScript(RArr("This page will not function properly without Javascript enabled".xCon))
+  def apply(): HtmlNoScript = new HtmlNoScript(RArr("This page will not function properly without Javascript enabled"))
 }
 
 /** HTML script element. */
-case class HtmlScript(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class HtmlScript(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tag: String = "script"
 }
 
@@ -68,15 +68,14 @@ object HtmlScript
   def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeJsAtt, SrcAtt(src)))
 
   /** Sets the function for an external JavaScript call. */
-  def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeJsAtt))
+  def main(stem: String): HtmlScript = HtmlScript(RArr(stem + ".main()"), RArr(TypeJsAtt))
   
-  def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr.xCon), RArr(TypeJsAtt))
+  def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr), RArr(TypeJsAtt))
 }
 
 /** HTML style element. */
-case class HtmlStyle(rules: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class HtmlStyle(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "style"
-  override def contents: RArr[XConElem] = RArr(rules.mkStr(_.out(2), "; ").xCon)
 }
 
 object HtmlStyle
@@ -87,12 +86,8 @@ object HtmlStyle
 /** HTML bold element. */
 case class HtmlB(str: String) extends HtmlOwnLine
 { override def tag: String = "b"
-
-  /** The attributes of this XML / HTML element. */
   override def attribs: RArr[XAtt] = RArr()
-
-  /** The content of this XML / HTML element. */
-  override def contents: RArr[XConElem] = RArr(str.xCon)
+  override def contents: RArr[XCon] = RArr(str)
 }
 
 /** Html H1 header element. */
@@ -116,11 +111,11 @@ case class HtmlH4(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
 }
 
 /** HTML button element. */
-class HtmlButton(val contents: RArr[XConElem], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
+class HtmlButton(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag = "button"
 }
 
 object HtmlButton
 { /** Factory apply method to create HTML button element. */
-  def apply(inp: String): HtmlButton = new HtmlButton(RArr(inp.xCon), RArr(TypeSubmitAtt))
+  def apply(inp: String): HtmlButton = new HtmlButton(RArr(inp), RArr(TypeSubmitAtt))
 }

@@ -41,7 +41,7 @@ trait HtmlOwnLine extends HtmlUnvoid, XHmlOwnLine
 /** An HTML whose contents can be represented by a [[String]]. */
 trait HtmlStr extends HtmlOwnLine
 { def str: String
-  override def contents: RArr[XConElem] = RArr(str.xCon)
+  override def contents: RArr[XCon] = RArr(str)
 }
 
 trait HtmlInline extends HtmlUnvoid, XHmlInline

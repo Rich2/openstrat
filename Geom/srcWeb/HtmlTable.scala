@@ -70,11 +70,11 @@ object HtmlTh
 }
 
 /** HTML TD table data cell element. */
-case class HtmlTd(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlCell
+case class HtmlTd(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlCell
 { override def tag: String = "td"
 }
 
 object HtmlTd
 { /** Factory apply method to construct HTML TD table data cell element form a simple [[String]]. */
-  def apply(str: String) = new HtmlTd(RArr(str.xCon), RArr())
+  def apply(str: String) = new HtmlTd(RArr(str), RArr())
 }

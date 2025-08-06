@@ -26,7 +26,7 @@ object HtmlHead
 }
 
 /** The HTML body element. */
-class HtmlBody(val contents: RArr[XConElem], val attribs: RArr[XAtt]) extends HtmlUnvoid
+class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlUnvoid
 { override def tag: String = "body"
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) -- contents.mkStr(_.out(0), "\n") + n1CloseTag
@@ -34,9 +34,9 @@ class HtmlBody(val contents: RArr[XConElem], val attribs: RArr[XAtt]) extends Ht
 
 /** Companion object for the [[HTMLBody]] class contains factory methods.  */
 object HtmlBody
-{ def str(str: String): HtmlBody = new HtmlBody(RArr(str.xCon), RArr())
-  def apply(inp: XConElem*): HtmlBody = new HtmlBody(inp.toArr, RArr())
-  def apply(contents: RArr[XConElem], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
+{ def str(str: String): HtmlBody = new HtmlBody(RArr(str), RArr())
+  def apply(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr, RArr())
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
 }
 
 /** HTML Div element.  */
