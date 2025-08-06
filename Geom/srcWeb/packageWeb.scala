@@ -8,6 +8,8 @@ package object pWeb
 
   /** XML /HTML element content. Can be an XCon element with out and outLines methods or a [[String]]. */
   type XCon = XConElem | String
+  
+  type XInline = XConInline | String
 
   extension (thisXCon: XCon)
   { def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
@@ -56,7 +58,7 @@ package object pWeb
           case w => { currLine = currLine + " " + w }
         }
         if (currLine != "") lines = lines :+ currLine
-        TextLines (lines.mkString ("\n"), lines.length, ife (lines.length == 0, 0, lines.head.length), ife (lines.length == 0, 0, lines.last.length) )
+        TextLines (lines, lines.length, ife (lines.length == 0, 0, lines.head.length), ife (lines.length == 0, 0, lines.last.length) )
       }
     }
   }

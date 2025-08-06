@@ -4,7 +4,7 @@ import geom._
 
 /** base trait for [[CssDec]] and [[CssDecMulti]], certain scala declarations that translate to multiple CSS Declarations. */
 trait CssDecs
-{ /** The decalation sequence, for [[CssDec]] this will have a sigle member. */
+{ /** The declaration sequence, for [[CssDec]] this will have a sigle member. */
   def decs: RArr[CssDec]
 }
 

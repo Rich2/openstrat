@@ -21,12 +21,12 @@ trait XHmlElem extends XConElem
   def contents: RArr[XCon]
 
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match{
-    case 0 => TextLines("", 0, 0, 0)
+    case 0 => TextLines(Array(), 0, 0, 0)
 
     case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 75 =>
     { val str = attribs.mkStr(_.out, " ")
       val len = str.length
-      TextLines(str, 1, len, len)
+      TextLines(Array(str), 1, len, len)
     }
 
     case n =>
@@ -35,14 +35,14 @@ trait XHmlElem extends XConElem
       def currLen = currLine.length
       attribs.iForeach{ (i, att) =>
         val newStr = att.out
-        if (currLen == 0 || (currLen + newStr.length) <= 60) currLine --= newStr
+        if (currLen == 0 || (currLen + newStr.length) <= maxLineLen) currLine --= newStr
         else
         { lines.grow(currLine)
-          currLine = (indent + 2).spaces + newStr
+          currLine = "\n" + (indent + 2).spaces + newStr
         }
       }
       lines.grow(currLine)
-      TextLines(lines.mkStr("\n"), lines.length, lines(0).length, lines.last.length)
+      TextLines(Array(lines.mkStr()), lines.length, lines(0).length, lines.last.length)
     }
   }
 
@@ -70,26 +70,20 @@ trait XmlLikeMulti extends XHmlElem
 trait XHmlInline extends XHmlElem
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
-  /* contents match
-  { case RArr0() => openAtts(indent, 0) + "/>"
-    case RArr1(_) => openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, MaxLineLen) + closeTag
-    case _ => openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen),
-      "/n" + (indent + 2).spaces).nli(indent) + closeTag
-  }*/
   
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = contents match
   { case RArr0() =>
     { val str = openAtts(indent, 0) + "/>"
-      TextLines(str, 1, str.length, str.length)
+      TextLines(Array(str), 1, str.length, str.length)
     }
     case RArr1(_) =>
     { val str = openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, 0, MaxLineLen) + closeTag
-      TextLines(str, 1, str.length, str.length)
+      TextLines(Array(str), 1, str.length, str.length)
     }
     case _ =>
     { val str = openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen),
         "\n" + (indent + 2).spaces).nli(indent) + closeTag
-      TextLines(str, 1, str.length, str.length)
+      TextLines(Array(str), 1, str.length, str.length)
     }
   }
 }
