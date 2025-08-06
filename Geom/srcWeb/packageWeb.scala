@@ -3,9 +3,10 @@ package ostrat
 
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pWeb
-{
+{ /** The max line lenght for code is set at 160 characters. */
   inline val MaxLineLen: 160 = 160
 
+  /** XML /HTML element content. Can be an XCon element with out and outLines methods or a [[String]]. */
   type XCon = XConElem | String
 
   extension (thisXCon: XCon)

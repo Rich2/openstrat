@@ -21,9 +21,3 @@ case class XmlAsString(value: String) extends XConElem
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = value
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(value, 1, value.length, value.length)
 }
-
-/** Not sure about this trait. It is intended for short pieces of text that should be kept on the same line. */
-trait XmlConStr extends XHmlOwnLine
-{ def str: String
-  override def contents: RArr[XCon] = RArr(str)
-}

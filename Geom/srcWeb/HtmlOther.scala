@@ -79,7 +79,7 @@ case class HtmlStyle(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) 
 }
 
 object HtmlStyle
-{
+{ /** Factory apply method for [[HtmlStyle]]. */
   def apply(rules: CssRuleLike*): HtmlStyle = new HtmlStyle(rules.toArr)
 }
 
