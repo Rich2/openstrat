@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** Content for XML and HTML elements. You can use plain [[String]]s, however other content classes must implement the out and outLines interfaces. The outLines
  * method allows the parent element to the content to format itself according to the number of lines and the length of the first and last lines. it is not the
  * responsibility of the content to indent its first line or provided a newline before its first line, or to provide a new line after its last line. This is the
- * responsibility of the parent element. Note in the case of HTML elements we are refering to the formatting of the HTML file in a text editor, not how it will
+ * responsibility of the parent element. Note in the case of HTML elements we are referring to the formatting of the HTML file in a text editor, not how it will
  * be displayed in a browser. */
 trait XConElem
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
