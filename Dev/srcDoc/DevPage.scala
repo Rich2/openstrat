@@ -68,7 +68,7 @@ object DevPage extends HtmlPage
   | ${path("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${path("usr/lib/jvm")}. It doesn't have
   | to be here, but it makes it easier to go with convention. Run<br>
   | sudo update-alternatives --config java".htmlBash
-  |  "<br>In my example this gives<br>""".stripMargin)
+  | "<br>In my example this gives<br>""".stripMargin)
 
   def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
@@ -77,9 +77,8 @@ object DevPage extends HtmlPage
     HtmlRow.strs4("2", "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java", "1081", "manual mode")
   )
 
-  def p7 = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are" --
-    "already taken.<br>" ---
-    "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash + "<br>" ---
+  def p7 = HtmlP("""So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.<br>""".stripMargin,
+    "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash + "<br>",
     "then repeat<br>" --- "sudo update-alternatives --config java".htmlBash)
   
   def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
