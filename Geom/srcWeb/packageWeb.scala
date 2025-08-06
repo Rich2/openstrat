@@ -60,13 +60,6 @@ package object pWeb
     }
   }
 
-  extension (thisSeq: Seq[XConElem | String])
-  { def xCons: RArr[XConElem] = thisSeq.mapArr{
-      case xc: XConElem => xc
-      case st: String => st.xCon
-    }
-  }
-
   implicit class StringExtension(thisString: String)
   { /** This implicit method allows Strings to be used as XML content. */
     def xCon: XConText = XConText(thisString)

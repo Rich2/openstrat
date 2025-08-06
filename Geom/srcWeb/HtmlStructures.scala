@@ -54,10 +54,10 @@ object HtmlDiv
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDivGen(contents, attribs)
 
   /** Factory method to create Div element with an ID attribute. */
-  def id(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.xCons, RArr(IdAtt(id)))
+  def id(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(IdAtt(id)))
 
   /** Factory method to create Div element with a class attribute. */
-  def classAtt(id: String, contents: XCon *): HtmlDiv = new HtmlDivGen(contents.xCons, RArr(ClassAtt(id)))
+  def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(ClassAtt(id)))
 
   class HtmlDivGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv, HtmlOwnLine
 }

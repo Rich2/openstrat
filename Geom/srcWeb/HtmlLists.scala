@@ -12,14 +12,14 @@ object HtmlUl
   def apply(contents: XConElem*): HtmlUl = new HtmlUl(contents.toArr)
 }
 /** Html OL ordered list element. */
-case class HtmlOl(val contents: RArr[XConElem], val attribs: RArr[XAtt] = RArr()) extends HtmlMultiLine
+case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ol"
 }
 
 /** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlOl
 { /** Factory apply method for HTML OL ordered list. */
-  def apply(contents: (XConElem | String)*): HtmlOl = new HtmlOl(contents.xCons)
+  def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
 }
 
 /** Html LI, list item element. */
