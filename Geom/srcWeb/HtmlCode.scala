@@ -35,6 +35,9 @@ object HtmlCodeOwnLine
   }
 }
 
+/** An HTML code element that can be inlined. */
+trait HtmlCodeInline extends HtmlCode, HtmlInline
+
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("scala")
@@ -62,7 +65,7 @@ trait HtmlSbt extends HtmlCode
 }
 
 /** Html Sbt code element, that can be inlined. */
-class HtmlSbtInline(val str: String) extends HtmlSbt, HtmlCodeOwnLine
+class HtmlSbtInline(val str: String) extends HtmlSbt, HtmlCodeInline
 { override def contents: RArr[XCon] = RArr(str)
 }
 
