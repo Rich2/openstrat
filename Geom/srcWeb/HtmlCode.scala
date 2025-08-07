@@ -38,6 +38,14 @@ object HtmlCodeOwnLine
 /** An HTML code element that can be inlined. */
 trait HtmlCodeInline extends HtmlCode, HtmlInline
 
+object HtmlCodeInline
+{ /** Factory apply method to create an inline HTML cose element. */
+  def apply(str: String): HtmlCodeInline = new HtmlCodeInline
+  { override def contents: RArr[XCon] = RArr(str)
+    override def attribs: RArr[XAtt] = RArr()
+  }
+}
+
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
 { def classAtt: ClassAtt = ClassAtt("scala")

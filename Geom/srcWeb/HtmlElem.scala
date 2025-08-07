@@ -29,9 +29,8 @@ trait HtmlMultiLine extends HtmlUnvoid
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
   { val childIndent = indent + 2
-    val cons: StrArr = contents.map(_.outLines(childIndent, line1InputLen + openTagMinLen, maxLineLen).text)
-    val cons2: String = cons.foldLeft("")(_ --- childIndent.spaces + _)
-    openTag(indent, indent) + cons2 --- indent.spaces + closeTag
+    val cons = contents.outLines(childIndent, line1InputLen + openTagMinLen, maxLineLen).text
+    openTag(indent, indent) + childIndent.nlSpaces + cons + indent.nlSpaces + closeTag
   }
 }
 

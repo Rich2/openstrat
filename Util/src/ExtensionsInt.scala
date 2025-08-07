@@ -56,6 +56,9 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** Returns a [[String]] of the given number of space characters. */
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
 
+  /** Returns a [[String]] of a new line foloowed by the given number of space characters. */
+  def nlSpaces: String = (1 to thisInt).foldLeft("\n")((a, b) => a + " ")
+
   def scaledStr(pairs: (Int, String)*): String =
   { var res = ""
     var i = 0

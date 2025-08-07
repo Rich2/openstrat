@@ -3,7 +3,7 @@ import pWeb.*
 
 object HtmlApp extends App
 {
-  val r2 = RArr(HtmlA("house.com", "House"), "Lets talk about Houses")
+  val r2 = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder. From within the sbt console run:")
   val r3 = r2.outLines(0, 0, 160)
-  println(r3.text)
+  println("Finishing")
 }

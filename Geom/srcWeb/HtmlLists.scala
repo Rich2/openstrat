@@ -47,8 +47,8 @@ object HtmlLi
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(header, orderedList)
+class HtmlOlWithLH(val header: RArr[XCon], items: RArr[HtmlLi]) extends HtmlSection
+{ override def contents: RArr[XCon] = header +% orderedList
   override def attribs: RArr[XAtt] = RArr()
 
   def orderedList: HtmlOl = HtmlOl(items)
@@ -57,18 +57,18 @@ class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 object HtmlOlWithLH
 { /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    * section. */
-  def apply(header: XCon, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
+  def apply(header: XCon, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(RArr(header), items.toArr)
 
   /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    *  section. */
-  def apply(headerStr: String, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(headerStr, items.toArr)
+  def apply(header: RArr[XCon], items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
 
   /** Factory method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    * section. */
-  def strs(headerStr: String, items: String*): HtmlOlWithLH = new HtmlOlWithLH(headerStr, items.mapArr(HtmlLi(_)))
+  def strs(header: XCon, items: String*): HtmlOlWithLH = new HtmlOlWithLH(RArr(header), items.mapArr(HtmlLi(_)))
 
   /** Factory method for an HTML OL ordered list, with an H2 header. */
-  def h2(headerStr: String, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(HtmlH2(headerStr), items.toArr)
+  def h2(headerStr: String, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(RArr(HtmlH2(headerStr)), items.toArr)
 }
 
 /** Html UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */

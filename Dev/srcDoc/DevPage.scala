@@ -30,7 +30,7 @@ object DevPage extends HtmlPage
   |(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Mill set to 1.0.1.""".
     stripMargin)
 
-  def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder. From within the sbt console run:")
+  def sbt1: HtmlOlWithLH = HtmlOlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"))
 
   def sbt2: HtmlUl = HtmlUl(HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
     HtmlLi.sbtAndText("~DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFast.html".htmlPath),

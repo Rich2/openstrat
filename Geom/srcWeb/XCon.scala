@@ -9,8 +9,7 @@ extension (thisArr: RArr[XCon])
   { var res = TextLines.empty
     var i = 0
     while (i < thisArr.length) thisArr(i) match
-    {
-      case xil: XConInline =>
+    { case xil: XConInline =>
       { var tls: TextLines = xil.outLines(indent, line1InputLen, maxLineLen)
         i += 1
         var cont = true
