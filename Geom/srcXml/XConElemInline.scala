@@ -3,25 +3,19 @@ package ostrat; package pWeb
 
 /** XML / HTML content that can be inlined. */
 trait XConElemInline extends XConElem
-{ def value: String
-
+{
+  def out0: String
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
-  { given charArr: CharArr = new CharArr(value.toCharArray)
+  { given charArr: CharArr = new CharArr(out0.toCharArray)
 
     def line1Len: Int = indent + line1InputLen
 
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => {
-        deb("End inLoop1")
-        TextLines(Array(currStr))
-      }
-      case CharsOff1Tail(c, tail) if c.isWhitespace =>{
-        deb("tail")
-        in1Loop(tail, currStr, lineLen)
-      }
+    { case CharsOff0() => TextLines(Array(currStr))
+      case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
+
       case s =>
-      { deb("case s")
-        val (newRem, newWord) = getWord(s)
+      { val (newRem, newWord) = getWord(s)
         val newLen = lineLen + newWord.length + 1
         if (newLen > maxLineLen) in2Loop(newRem, currStr + "\n" + indent.spaces + newWord, indent + newWord.length)
         else in1Loop(newRem, currStr -- newWord, newLen)

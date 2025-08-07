@@ -27,12 +27,11 @@ object HtmlTest extends TestSuite
     val li0 = HtmlLi("Pot")
     val a0 = HtmlA("house.com", "House")
     val li1 = HtmlLi(a0)
-    val li2 = HtmlLi(a0, "Lets talk about Houses.".xCon)
     test("Lists")
     { li0.out(0) ==> "<li>Pot</li>"
       a0.out(0) ==> "<a href='house.com'>House</a>"
       li1.out(0) ==> "<li><a href='house.com'>House</a></li>"
-      li2.out(0) ==> "<li><a href='house.com'>House</a> Lets talk about Houses.</li>"
+      HtmlLi(a0, "Lets talk about Houses.").out(0) ==> "<li><a href='house.com'>House</a> Lets talk about Houses.</li>"
     }
   }
 }

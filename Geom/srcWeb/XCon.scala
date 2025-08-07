@@ -6,7 +6,7 @@ type XCon = XConElem | String
 extension (thisArr: RArr[XCon])
 {
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
-  { var res = Array[String]()
+  { var res = TextLines.empty
     var i = 0
     while (i < thisArr.length) thisArr(i) match
     {
@@ -21,10 +21,14 @@ extension (thisArr: RArr[XCon])
           }
           case xc => cont = false
         }
+        res = res.appendLines(tls, indent)
       }
-      case xc => ???
+      case xc =>
+      { res = res.appendSibling(xc, indent, line1InputLen, maxLineLen)
+        i += 1
+      }
     }
-    ???
+    res
   }
 }
 

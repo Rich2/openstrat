@@ -67,23 +67,13 @@ trait XmlLikeMulti extends XHmlElem
 }
 
 /** An XML /Html element that may be output on a single line. */
-trait XHmlInline extends XHmlElem
+trait XHmlInline extends XHmlElem, XConElemInline
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
   
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = contents match
-  { case RArr0() =>
-    { val str = openAtts(indent, 0) + "/>"
-      TextLines(Array(str))
-    }
-    case RArr1(_) =>
-    { val str = openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, 0, MaxLineLen) + closeTag
-      TextLines(Array(str))
-    }
-    case _ =>
-    { val str = openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen),
-        "\n" + (indent + 2).spaces).nli(indent) + closeTag
-      TextLines(Array(str))
-    }
+  def out0: String = contents match
+  { case RArr0() => openAtts(0, 0) + "/>"
+    case RArr1(_) => openUnclosed(0, 0, MaxLineLen) + contents(0).out(0, 0) + closeTag
+    case _ => openUnclosed(0, 0, MaxLineLen).nli(2) + contents.mkStr(_.out(2, MaxLineLen), "\n" + (2).spaces).nli(0) + closeTag
   }
 }

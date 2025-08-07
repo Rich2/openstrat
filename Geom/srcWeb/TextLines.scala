@@ -4,13 +4,15 @@ package ostrat; package pWeb
 /** Class for returning output from a syntax hierarchy such as XML. HTML, CSS, JavaScript, C code etc. The class is created with a given max line length and an
  * indentation line. The second and subsequent lines will be indented to the given level. Indentation for the first line is the responsibility of the calling
  * object. */
-case class TextLines(lines: Array[String])
+class TextLines(val lines: Array[String])
 {
   def text: String = lines.mkString("\n")
   def numLines: Int = lines.length
   def firstLen: Int = lines.headElseMap(0, _.length)
   def lastLen: Int = lines.lastElseMap(0, _.length)
   def isEmpty: Boolean = lines.isEmpty
+
+  override def toString: String = s"TextLines($numLines)"
 
   def appendInLines(operand: XConInline, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   { val opStr: String = operand match
@@ -31,17 +33,17 @@ case class TextLines(lines: Array[String])
     {
       chars(i) match
       { case c if c.isWhitespace && currWord == "" =>
-        case c if c.isWhitespace && currLine == "" => {
-          currLine = ife(lines.length == 0, currWord, indent.spaces + currWord)
+        case c if c.isWhitespace && currLine == "" =>
+        { currLine = ife(lines.length == 0, currWord, indent.spaces + currWord)
           currWord = ""
         }
-        case c if c.isWhitespace && (trueLength + 1 + currWord.length) > maxLineLen => {
-          newLines = newLines :+ currLine
+        case c if c.isWhitespace && (trueLength + 1 + currWord.length) > maxLineLen =>
+        { newLines = newLines :+ currLine
           currLine = indent.spaces + currWord
           currWord = ""
         }
-        case c if c.isWhitespace => {
-          currLine = currLine + " " + currWord
+        case c if c.isWhitespace =>
+        { currLine = currLine + " " + currWord
           currWord = ""
         }
         case c => {currWord = currWord + c}
@@ -62,13 +64,15 @@ case class TextLines(lines: Array[String])
     TextLines(newLines)
   }
 
-  def appendSiblings(operand: XCon, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines ={
-    val r2 = operand.outLines(indent, line1InputLen, maxLineLen)
-    if (r2.isEmpty) this
-    else {
-      val newArray = new Array[String](numLines + r2.numLines)
+  def appendSibling(operand: XCon, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
+    appendLines(operand.outLines(indent, line1InputLen, maxLineLen), indent)
+
+  def appendLines(r2: TextLines, indent: Int): TextLines =
+  { if (r2.isEmpty) this
+    else
+    { val newArray = new Array[String](numLines + r2.numLines)
       Array.copy(lines, 0, newArray, 0, numLines)
-      newArray(numLines) = indent.spaces + r2.lines(0)
+      newArray(numLines) = ife(numLines == 0, r2.lines(0), indent.spaces + r2.lines(0))
       r2.lines.tailIForeach((str, i) => newArray(numLines + i) = str)
       new TextLines(newArray)
     }

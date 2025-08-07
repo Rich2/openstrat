@@ -5,8 +5,7 @@ package ostrat
 package object pWeb
 { /** The max line length for code is set at 160 characters. */
   inline val MaxLineLen: 160 = 160
-
-
+  
   extension(thisString: String)
   { /** Implicit method to return an HTML bold element */
     def htmlB: HtmlB = HtmlB("thisString")

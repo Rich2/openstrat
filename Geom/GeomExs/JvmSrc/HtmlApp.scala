@@ -3,6 +3,7 @@ import pWeb.*
 
 object HtmlApp extends App
 {
-  val p1 = HtmlLi("Hello")
-  println(p1.out(0))
+  val r2 = RArr(HtmlA("house.com", "House"), "Lets talk about Houses")
+  val r3 = r2.outLines(0, 0, 160)
+  println(r3.text)
 }

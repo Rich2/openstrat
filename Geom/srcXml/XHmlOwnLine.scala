@@ -7,31 +7,30 @@ trait XHmlOwnLine extends XHmlElem
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
   override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
-  { val cons: RArr[TextLines] = contents.map(_.outLines(indent + 2, indent + 2, maxLineLen))
+  { val cons: TextLines = contents.outLines(indent + 2, indent + 2, maxLineLen)
     val childIndent = indent + 2
     val stt: String = openTag(indent, line1InputLen, maxLineLen)
-    val totalNum: Int = cons.sumBy(_.numLines)
-    cons.length match
+    cons.numLines match
     {
       case 0 =>
       { val text = stt + closeTag
         TextLines(Array(text))
       }
-      case 1 if cons.head.numLines == 1 =>{
-        val text = stt + cons.head.text + closeTag
+      case 1 =>{
+        val text = stt + cons.text + closeTag
         TextLines(Array(text))
       }
-      case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 =>{
+      /*case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 =>{
         val text = stt + cons.mkStr(_.text, " ") + closeTag
         TextLines(Array(text))
-      }
-      case n if totalNum < 3 =>
-      { val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + closeTag
+      }*/
+      case n if cons.numLines < 3 =>
+      { val text = stt + cons.text + closeTag
         TextLines(Array(text))
       }
       case n =>
       { val lastLine = indent.spaces + closeTag
-        val text = stt + cons.tail.foldLeft(cons.head.text){ (acc, el) => acc --- childIndent.spaces + el.text } + "\n" + lastLine
+        val text = stt + cons.text + "\n" + lastLine
         TextLines(Array(text))
       }
     }

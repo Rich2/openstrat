@@ -62,7 +62,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   
   def tailIForeach(f: (A, Int) => Unit): Unit =
   { var i = 1
-    while(i < thisArray.length - 1)
+    while(i < thisArray.length)
     { f(thisArray(i), i)
       i += 1
     }
