@@ -21,12 +21,12 @@ trait XHmlElem extends XConElem
   def contents: RArr[XCon]
 
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match{
-    case 0 => TextLines(Array(), 0, 0, 0)
+    case 0 => TextLines(Array())
 
     case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 75 =>
     { val str = attribs.mkStr(_.out, " ")
       val len = str.length
-      TextLines(Array(str), 1, len, len)
+      TextLines(Array(str))
     }
 
     case n =>
@@ -42,7 +42,7 @@ trait XHmlElem extends XConElem
         }
       }
       lines.grow(currLine)
-      TextLines(Array(lines.mkStr()), lines.length, lines(0).length, lines.last.length)
+      TextLines(Array(lines.mkStr()))
     }
   }
 
@@ -74,16 +74,16 @@ trait XHmlInline extends XHmlElem
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = contents match
   { case RArr0() =>
     { val str = openAtts(indent, 0) + "/>"
-      TextLines(Array(str), 1, str.length, str.length)
+      TextLines(Array(str))
     }
     case RArr1(_) =>
     { val str = openUnclosed(indent, line1InputLen, maxLineLen) + contents(0).out(0, 0, MaxLineLen) + closeTag
-      TextLines(Array(str), 1, str.length, str.length)
+      TextLines(Array(str))
     }
     case _ =>
     { val str = openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, MaxLineLen),
         "\n" + (indent + 2).spaces).nli(indent) + closeTag
-      TextLines(Array(str), 1, str.length, str.length)
+      TextLines(Array(str))
     }
   }
 }

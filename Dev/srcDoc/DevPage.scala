@@ -18,7 +18,7 @@ object DevPage extends HtmlPage
 
   def p2: HtmlP = HtmlP("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
   | The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
-  | the original vision, part of which was to explore the possibilities of an Algebra of Tiling.""".stripMargin)
+  | the original vision, part of which was to explore the possibilities of an algebra of tiling.""".stripMargin)
 
   def p3: HtmlP = HtmlP("""I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to
   | explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to
@@ -33,7 +33,7 @@ object DevPage extends HtmlPage
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder. From within the sbt console run:")
 
   def sbt2: HtmlUl = HtmlUl(HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
-    HtmlLi.sbtAndText("~DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html".htmlPath),
+    HtmlLi.sbtAndText("~DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFull.html".htmlPath),
     HtmlLi.sbtAndText("~Util/test", "Rerun tests on Util module."),
     HtmlLi.sbtAndText("~Tiling/test", "Rerun tests on Tiling module."),

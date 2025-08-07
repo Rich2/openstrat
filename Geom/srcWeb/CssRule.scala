@@ -34,18 +34,18 @@ trait CssRule extends CssRuleLike
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
   { val decs: RArr[CssDec] = decsArr.flatMap(_.decs)
     decs.length match
-    { case 0 => TextLines(Array(selec -- "{}"), 1, selec.length + 3, selec.length + 3)
+    { case 0 => TextLines(Array(selec -- "{}"))
       case 1 =>
       { val str = selec -- s" { ${decs.head.out} }"
-        TextLines(Array(str), 1, str.length, str.length)
+        TextLines(Array(str))
       }
       case 2 =>
       { val str = s" { ${decs(0).out} ${decs(1).out} }"
-        TextLines(Array(str), 1, str.length, str.length)
+        TextLines(Array(str))
       }
       case _ =>
       { val str = "\n" + (indent).spaces + "{ " + decs.mkStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
-        TextLines(Array(str), 1 + decs.length, str.length, str.length)
+        TextLines(Array(str))
       }
     }
   }

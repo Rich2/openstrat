@@ -4,11 +4,32 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
-{ /** This method and "fHead" removes the need for headOption in the majority of cases. */
+{
+  /** Safe version of init, that returns an empty [[Array]] on an empty [[Array]] */
+  def initSafe(using ClassTag[A]): Array[A] =
+  { val newLen = (thisArray.length - 1).max0
+    val newArray = new Array[A](newLen)
+    Array.copy(thisArray, 0, newArray, 0, newLen)
+    newArray
+  }
+
+  /** This method and "fHead" removes the need for headOption in the majority of cases. */
   def headElse(ifEmpty: => A): A = if (thisArray.length == 0) ifEmpty else thisArray(0)
+
+  /** Returns the last element or the parameter if empty. */
+  def lastElse(ifEmpty: => A): A =
+  { val len = thisArray.length
+    if (len == 0) ifEmpty else thisArray(len - 1)
+  }
 
   /** This method and "fHead" removes the need for headOption in the majority of cases. */
   def headElseMap[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
+
+  /** Returns the passed value if empty or applies function to last lement. */
+  def lastElseMap[B](ifEmpty: => B, fNonEmpty: A => B): B ={
+    val len = thisArray.length
+    if (len == 0) ifEmpty else fNonEmpty(thisArray(len - 1))
+  }
 
   /** maps to this [[Array]] to an [[Arr]] of B. if this Array is null the Arr will have length 0. */
   def mapArr[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
@@ -36,6 +57,14 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
     { f(rem.head, counter)
       counter += 1
       rem = rem.tail
+    }
+  }
+  
+  def tailIForeach(f: (A, Int) => Unit): Unit =
+  { var i = 1
+    while(i < thisArray.length - 1)
+    { f(thisArray(i), i)
+      i += 1
     }
   }
 

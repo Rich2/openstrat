@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** XML / HTML content that can be inlined. */
-trait XConInline extends XConElem
+trait XConElemInline extends XConElem
 { def value: String
 
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
@@ -13,7 +13,7 @@ trait XConInline extends XConElem
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
     { case CharsOff0() => {
         deb("End inLoop1")
-        TextLines(Array(currStr), 1, currStr.length, currStr.length)
+        TextLines(Array(currStr))
       }
       case CharsOff1Tail(c, tail) if c.isWhitespace =>{
         deb("tail")
@@ -29,7 +29,7 @@ trait XConInline extends XConElem
     }
 
     def in2Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => TextLines(Array(currStr), 2, lineLen, lineLen)
+    { case CharsOff0() => TextLines(Array(currStr))
       case CharsOff1Tail(c, tail) if c.isWhitespace => in2Loop(tail, currStr, lineLen)
       case rem =>
       { val (newRem, newWord) = getWord(rem)
@@ -40,7 +40,7 @@ trait XConInline extends XConElem
     }
 
     def multiLoop(rem: CharsOff, lines: String, currLine: String): TextLines = rem match
-    { case CharsOff0() => TextLines(Array(lines + currLine), 3, currLine.length, currLine.length)
+    { case CharsOff0() => TextLines(Array(lines + currLine))
       case CharsOff1Tail(c, tail) if c.isWhitespace => multiLoop(tail, lines, currLine)
       case s => {
         val (newRem, newWord) = getWord(rem)
@@ -66,4 +66,4 @@ trait XConInline extends XConElem
   }
 }
 
-trait XHtmlInline extends XHmlElem, XConInline
+trait XHtmlInline extends XHmlElem, XConElemInline

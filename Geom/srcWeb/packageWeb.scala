@@ -6,62 +6,6 @@ package object pWeb
 { /** The max line length for code is set at 160 characters. */
   inline val MaxLineLen: 160 = 160
 
-  /** XML /HTML element content. Can be an XCon element with out and outLines methods or a [[String]]. */
-  type XCon = XConElem | String
-  
-  type XInline = XConInline | String
-
-  extension (thisXCon: XCon)
-  { def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
-
-    def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = thisXCon match
-    { case xce: XConElem => xce.outLines(indent, line1InputLen, maxLineLen)
-
-      case value: String =>
-      { val chars: Array[Char] = value.toCharArray
-        var i: Int = 0
-        var lines: Array[String] = Array ()
-        var currLine: String = ""
-        var currWord: String = ""
-
-        /** This takes account of if it is the first line, unknown characters will precede this method's first line. */
-        def trueLength: Int = ife (lines.length == 0, currLine.length + line1InputLen, currLine.length)
-
-        while (i < chars.length)
-        { chars (i) match
-          { case c if c.isWhitespace && currWord == "" =>
-            case c if c.isWhitespace && currLine == "" =>
-            { currLine = ife (lines.length == 0, currWord, indent.spaces + currWord)
-              currWord = ""
-            }
-            case c if c.isWhitespace && (trueLength + 1 + currWord.length) > maxLineLen =>
-            { lines = lines :+ currLine
-              currLine = indent.spaces + currWord
-              currWord = ""
-            }
-            case c if c.isWhitespace =>
-            { currLine = currLine + " " + currWord
-              currWord = ""
-            }
-            case c => { currWord = currWord + c }
-          }
-          i += 1
-        }
-
-        currWord match
-        { case "" =>
-          case w if currLine == "" => { currLine = w }
-          case w if (trueLength + 1 + currWord.length) > maxLineLen =>
-          { lines = lines :+ currLine
-            currLine = indent.spaces + currWord
-          }
-          case w => { currLine = currLine + " " + w }
-        }
-        if (currLine != "") lines = lines :+ currLine
-        TextLines (lines, lines.length, ife (lines.length == 0, 0, lines.head.length), ife (lines.length == 0, 0, lines.last.length) )
-      }
-    }
-  }
 
   extension(thisString: String)
   { /** Implicit method to return an HTML bold element */

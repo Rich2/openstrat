@@ -46,7 +46,7 @@ trait HtmlDiv extends HtmlUnvoid
 
 /** Companion object for the [[HtmlDiv]] DIV element class, contains various factory methods. */
 object HtmlDiv
-{ /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XCon]] and an [[RArr]] of [[XAtt]], with a default of no
+{ /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XConInline]] and an [[RArr]] of [[XAtt]], with a default of no
    * [[XAtt]]s. */
   def apply(input: XCon*): HtmlDiv = new HtmlDivGen(input.toRArr, RArr())
 
