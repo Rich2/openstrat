@@ -70,13 +70,15 @@ class HtmlDivOneLine(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends 
 object HtmlDivOneLine
 
 /** An HTML Canvas element. */
-case class HtmlCanvas(attribs: RArr[XAtt] = RArr()) extends HtmlEmpty
+case class HtmlCanvas(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tag: String = "canvas"
 }
 
 object HtmlCanvas
 { /** Constructs an HTML canvas with an id attribute. */
-  def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
+  def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(), RArr(IdAtt(idStr)))
+
+  def apply(): HtmlCanvas = new HtmlCanvas(RArr(), RArr())
 }
 
 /** An Html section element. */

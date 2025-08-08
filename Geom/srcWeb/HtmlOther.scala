@@ -91,22 +91,22 @@ case class HtmlB(str: String) extends HtmlOwnLine
 }
 
 /** Html H1 header element. */
-case class HtmlH1(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
+case class HtmlH1(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOWnLine
 { override def tag = "h1"
 }
 
 /** Html H2 header element. */
-case class HtmlH2(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
+case class HtmlH2(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOWnLine
 { def tag = "h2"
 }
 
 /** Html H3 header element. */
-case class HtmlH3(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
+case class HtmlH3(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOWnLine
 { def tag = "h3"
 }
 
 /** Html H4 header element. */
-case class HtmlH4(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStr
+case class HtmlH4(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOWnLine
 { def tag = "h4"
 }
 
