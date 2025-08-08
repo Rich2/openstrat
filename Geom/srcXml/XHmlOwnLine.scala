@@ -30,7 +30,7 @@ trait XHmlOwnLine extends XHmlElem
       }
       case n =>
       { val lastLine = indent.spaces + closeTag
-        val text = stt + cons.text + "\n" + lastLine
+        val text = stt + childIndent.nlSpaces + cons.text + "\n" + lastLine
         TextLines(Array(text))
       }
     }

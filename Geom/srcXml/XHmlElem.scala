@@ -59,7 +59,7 @@ trait XHmlElem extends XConElem
   def n2CloseTag: String = "\n\n" + closeTag
 }
 
-trait XmlLikeMulti extends XHmlElem
+trait XHmlMulti extends XHmlElem
 {
   override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
     if (contents.empty) openAtts(indent, line1InputLen, maxLineLen) + "/>"
