@@ -39,7 +39,8 @@ object HtmlLi
   def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label)), otherText), attribs.toArr)
 
-  def boldStart(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
+  /** Creates an HTML list item where the first part of the text is bolded.  */
+  def boldName(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
 
   def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlBashOwnLine(bashStr), str2))
   def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr), str2))
