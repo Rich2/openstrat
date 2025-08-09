@@ -20,17 +20,14 @@ trait XHmlOwnLine extends XHmlElem
         val text = stt + cons.text + closeTag
         TextLines(Array(text))
       }
-      /*case n if cons.forAll(_.numLines <= 1) && cons.sumBy(_.firstLen) < 100 =>{
-        val text = stt + cons.mkStr(_.text, " ") + closeTag
-        TextLines(Array(text))
-      }*/
-      case n if cons.numLines < 3 =>
+
+      case n if cons.numLines < 4 =>
       { val text = stt + cons.text + closeTag
         TextLines(Array(text))
       }
       case n =>
       { val lastLine = indent.spaces + closeTag
-        val text = stt + childIndent.nlSpaces + cons.text + "\n" + lastLine
+        val text = stt + cons.text + "\n" + lastLine
         TextLines(Array(text))
       }
     }

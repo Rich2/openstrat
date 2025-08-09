@@ -84,7 +84,7 @@ object HtmlStyle
 }
 
 /** HTML bold element. */
-case class HtmlB(str: String) extends HtmlOwnLine
+case class HtmlB(str: String) extends HtmlInline
 { override def tag: String = "b"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str)

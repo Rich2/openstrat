@@ -8,7 +8,7 @@ package object pWeb
   
   extension(thisString: String)
   { /** Implicit method to return an HTML bold element */
-    def htmlB: HtmlB = HtmlB("thisString")
+    def htmlB: HtmlB = HtmlB(thisString)
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
     
