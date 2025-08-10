@@ -3,9 +3,6 @@ package ostrat; package pWeb
 
 /** HTML element. */
 trait HtmlElem extends XHmlElem
-{ /** The full length of the opening tag without attributes. */
-  def openTagMinLen: Int = tag.length + 2
-}
 
 /** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
@@ -17,13 +14,13 @@ trait HtmlUnvoid extends HtmlElem
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
-trait HtmlMultiLine extends HtmlUnvoid
+trait HtmlMultiLine extends HtmlElem, XHmlMulti
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
   { val childIndent = indent + 2
-    val cons = contents.outLines(childIndent, line1InputLen + openTagMinLen, maxLineLen)
-    if(cons.isEmpty) openTag(indent, indent) + indent.nlSpaces + closeTag
-      else openTag(indent, indent) + childIndent.nlSpaces + cons.text + indent.nlSpaces + closeTag
+    val cons: TextLines = contents.outLines(childIndent, line1InputLen + openTagMinLen, maxLineLen)
+    if (cons.isEmpty) openTag(indent, indent) + indent.nlSpaces + closeTag
+    else openTag(indent, indent) + childIndent.nlSpaces + cons.text + indent.nlSpaces + closeTag
   }
 }
 

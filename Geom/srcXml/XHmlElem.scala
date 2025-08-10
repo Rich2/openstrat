@@ -12,6 +12,9 @@ trait XHmlElem extends XConElem
   /** The length of the < character plus the tag. */
   def openTagOpenLen: Int = tagLen + 1
 
+  /** The full length of the opening tag without attributes. */
+  def openTagMinLen: Int = tag.length + 2
+
   /** The attributes of this XML / HTML element. */
   def attribs: RArr[XAtt]
 
@@ -20,8 +23,8 @@ trait XHmlElem extends XConElem
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match{
-    case 0 => TextLines(Array())
+  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match
+  { case 0 => TextLines(Array())
 
     case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 75 =>
     { val str = attribs.mkStr(_.out, " ")
@@ -60,20 +63,3 @@ trait XHmlElem extends XConElem
 }
 
 trait XHmlMulti extends XHmlElem
-{
-  override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
-    if (contents.empty) openAtts(indent, line1InputLen, maxLineLen) + "/>"
-    else openUnclosed(indent, line1InputLen, maxLineLen).nli(indent + 2) + contents.mkStr(_.out(indent + 2, line1InputLen, 160), "\n" + (indent + 2).spaces).nli(indent) + closeTag
-}
-
-/** An XML /Html element that may be output on a single line. */
-trait XHmlInline extends XHmlElem, XConElemInline
-{
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
-  
-  def out0: String = contents match
-  { case RArr0() => openAtts(0, 0) + "/>"
-    case RArr1(_) => openUnclosed(0, 0, MaxLineLen) + contents(0).out(0, 0) + closeTag
-    case _ => openUnclosed(0, 0, MaxLineLen).nli(2) + contents.mkStr(_.out(2, MaxLineLen), "\n" + (2).spaces).nli(0) + closeTag
-  }
-}

@@ -11,23 +11,21 @@ trait XHmlOwnLine extends XHmlElem
     val childIndent = indent + 2
     val stt: String = openTag(indent, line1InputLen, maxLineLen)
     cons.numLines match
-    {
-      case 0 =>
+    { case 0 =>
       { val text = stt + closeTag
         TextLines(Array(text))
       }
-      case 1 =>{
-        val text = stt + cons.text + closeTag
+      case 1 =>
+      { val text = stt + cons.text + closeTag
         TextLines(Array(text))
       }
-
-      case n if cons.numLines < 4 =>
+      case n if contents.forAll(_.isInstanceOf[XConInline]) =>
       { val text = stt + cons.text + closeTag
         TextLines(Array(text))
       }
       case n =>
       { val lastLine = indent.spaces + closeTag
-        val text = stt + cons.text + "\n" + lastLine
+        val text = stt + childIndent.nlSpaces + cons.text + "\n" + lastLine
         TextLines(Array(text))
       }
     }

@@ -4,13 +4,6 @@ package ostrat; package pWeb
 /** An XML element. */
 trait XmlElem extends XHmlElem
 
-trait XmlMulti extends XmlElem with XHmlMulti
-trait XmlMultiNamed extends XmlMulti
-{
-  def nameStr: String
-
-}
-
 trait XmlInline extends XmlElem, XHmlInline
 
 trait XmlNoAtts extends XmlElem
