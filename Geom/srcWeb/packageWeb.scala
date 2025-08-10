@@ -7,7 +7,7 @@ package object pWeb
   inline val MaxLineLen: 160 = 160
   
   extension(thisString: String)
-  { /** Implicit method to return an HTML bold element */
+  { /** Implicit method to return an HTML bold element. */
     def htmlB: HtmlB = HtmlB(thisString)
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
@@ -16,7 +16,11 @@ package object pWeb
 
     def htmlPath: String = "<code class='path'>" + thisString + "</code>"
 
-    def htmlBash: String = "<code class='bash'>" + thisString + "</code>"
+    /** Implicit method to return an HTML Scala element. */
+    def htmlScala = HtmlScalaInline(thisString)
+
+    /** Implicit method to return an HTML Bash element. */
+    def htmlBash = HtmlBashInline(thisString)
   }
 
   implicit class IntWebExtensions(thisInt: Int)

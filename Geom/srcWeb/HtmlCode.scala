@@ -55,7 +55,6 @@ trait HtmlScala extends HtmlCode
 object HtmlScala
 { /** Factory apply method for HTML element for multiple lines of Scala code. */
   def apply(line1: String, line2: String, otherLines: String*): HtmlScala = new HtmlScalaLines(line1 %: line2 %: otherLines.toArr)
-  
 }
 
 /** Html Element for multiple lines of Scala code. */
@@ -64,6 +63,16 @@ class HtmlScalaLines(val lines: StrArr) extends HtmlScala, HtmlCodeLines
 object HtmlScalaLines
 { /** Factory apply method for HTML element for multiple lines of Scala code. */
   def apply(lines: String*): HtmlScalaLines = new HtmlScalaLines(lines.toArr)
+}
+
+/** Html Scala code element, that can be inlined. */
+class HtmlScalaInline(val str: String) extends HtmlScala, HtmlCodeInline
+{ override def contents: RArr[XCon] = RArr(str)
+}
+
+object HtmlScalaInline
+{ /** Factory apply method for [[HtmlScalaInline]]. */
+  def apply(str: String): HtmlScalaInline = new HtmlScalaInline(str)
 }
 
 /** Html Sbt code element. */
@@ -118,6 +127,16 @@ object HtmlBashOwnLine
   def apply(str: String): HtmlBashOwnLine = new HtmlBashOwnLineGen(RArr(str))
 
   class HtmlBashOwnLineGen(val contents: RArr[XCon]) extends HtmlBashOwnLine
+}
+
+/** Html BASH code element, that can be inlined. */
+class HtmlBashInline(val str: String) extends HtmlBash, HtmlCodeInline
+{ override def contents: RArr[XCon] = RArr(str)
+}
+
+object HtmlBashInline
+{ /** Factory apply method for [[HtmlBashInline]]. */
+  def apply(str: String): HtmlBashInline = new HtmlBashInline(str)
 }
 
 object BashPromptClass extends ClassAtt("bashprompt")

@@ -78,8 +78,8 @@ object DevPage extends HtmlPage
   )
 
   def p7 = HtmlP("""So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.<br>""".stripMargin,
-    "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash + "<br>",
-    "then repeat<br>" --- "sudo update-alternatives --config java".htmlBash)
+    "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash, "<br>",
+    "then repeat<br>", "sudo update-alternatives --config java".htmlBash)
   
   def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
