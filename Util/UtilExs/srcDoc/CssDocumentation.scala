@@ -16,7 +16,8 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("path", DecColour(DarkBlue), DecNoWrap),
     CssClassesRule("bash", DecFontSize(14.px), DecColour(DarkRed)),
     CssClassesRule("bashprompt", DecColour(Black)),
-    CssClassesRule("scala", DecColour(Black), DecNoWrap, DecFontSize(12.px)),
+    CssClassesRule("scalalines", DecColour(Black), DecFontSize(14.px), DecNoWrap),
+    CssClassesRule("scala", DecColour(DarkRed), DecNoWrap, DecBold),
     CssClassesRule("centreBlock", DispBlock, DecMargLeftRightAuto),
     CssRule("td th", DecPadRight(2.em), DecAlignLeft),
     minMed

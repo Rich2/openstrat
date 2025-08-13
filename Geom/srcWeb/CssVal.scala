@@ -109,3 +109,8 @@ object CssCol extends  CssVal
 object CssHidden extends  CssVal
 { override def str: String = "hidden"
 }
+
+/** CSS bold value. */
+object CssBold extends CssVal
+{ override def str: String = "bold"
+}

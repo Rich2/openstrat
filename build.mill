@@ -43,7 +43,7 @@ object UtilJs extends CommonJs
 object Geom extends CommonJvm
 {
   def sources1 = Task.Sources(
-    Seq("src", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcUnits", "srcXml", "srcWeb",
+    Seq("src", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcUnits", "srcXHml", "srcWeb",
       "srcEarth").map(name => moduleDir / name)*)
 
   def sources2 = Task.Sources(moduleDir / "JvmSrc")

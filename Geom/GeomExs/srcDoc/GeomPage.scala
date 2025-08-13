@@ -74,8 +74,9 @@ object LinePathNames extends HtmlSection
 
   /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
   val list = HtmlUl(
-  HtmlLi("""++ append This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example intArr1 ++
-  | intArr2 returns a new IntArr. For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal].""".stripMargin),
+  HtmlLi("++ append".htmlScala, "This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example",
+  "intArr1 ++ intArr2".htmlScala, "returns a new", "IntArr".htmlScala, ". For the RArr class type widening is allowed. So catsRArr ++ dogsRArr",
+  " dogsRArr might return a new RArr[Animal]."),
 
   HtmlLi("++ append Add the operand line path to the end of this line path returning a new line path."),
   HtmlLi("++ append Add the operand line path to this line path returning a new line path."),
@@ -103,7 +104,7 @@ object LinePathNames extends HtmlSection
     "that it is the operand to be reversed."),
 
   HtmlLi("""+<+ reverseAppend Reverse this line path and append the operand line path, returning a new line path. The < between the + characters indicates that
-  | it is this line segement that is reversed""".stripMargin),
+  | it is this line segment that is reversed""".stripMargin),
 
   HtmlLi("|+<+| reverseAppendToPolygon Reverse this line path and then append the operand line path, closing it into a polygon. The < character between the" --
     "+ characters indicates that it is this the first line path that is reversed."),  

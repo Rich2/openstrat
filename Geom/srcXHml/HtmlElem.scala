@@ -24,14 +24,5 @@ trait HtmlMultiLine extends HtmlElem, XHmlMulti
   }
 }
 
-/** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
-trait HtmlOwnLine extends HtmlElem, XHmlOwnLine
-
-/** An HTML whose contents can be represented by a [[String]]. */
-trait HtmlStrOwnLine extends HtmlOwnLine
-{ def str: String
-  override def contents: RArr[XCon] = RArr(str)
-}
-
 /** An HTML element that can be inlined. */
 trait HtmlInline extends XHmlInline

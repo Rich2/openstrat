@@ -48,17 +48,22 @@ object HtmlCodeInline
 
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
-{ def classAtt: ClassAtt = ClassAtt("scala")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
+{
 }
 
 object HtmlScala
 { /** Factory apply method for HTML element for multiple lines of Scala code. */
-  def apply(line1: String, line2: String, otherLines: String*): HtmlScala = new HtmlScalaLines(line1 %: line2 %: otherLines.toArr)
+  //def apply(line1: String, line2: String, otherLines: String*): HtmlScala = new HtmlScalaLines(line1 %: line2 %: otherLines.toArr)
+
+  /** Factory apply method for [[HtmlScalaInline]]. */
+  def apply(str: String): HtmlScalaInline = new HtmlScalaInline(str)
 }
 
 /** Html Element for multiple lines of Scala code. */
 class HtmlScalaLines(val lines: StrArr) extends HtmlScala, HtmlCodeLines
+{ def classAtt: ClassAtt = ClassAtt("scalalines")
+  override def attribs: RArr[XAtt] = RArr(classAtt)
+}
 
 object HtmlScalaLines
 { /** Factory apply method for HTML element for multiple lines of Scala code. */
@@ -68,6 +73,8 @@ object HtmlScalaLines
 /** Html Scala code element, that can be inlined. */
 class HtmlScalaInline(val str: String) extends HtmlScala, HtmlCodeInline
 { override def contents: RArr[XCon] = RArr(str)
+  def classAtt: ClassAtt = ClassAtt("scala")
+  override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
 object HtmlScalaInline

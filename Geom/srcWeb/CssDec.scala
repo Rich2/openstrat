@@ -79,6 +79,12 @@ case class DecDisplay(value: CssVal) extends CssDecStd
 { override def prop: String = "display"
 }
 
+case class DecFontWidth(value: CssVal) extends CssDecStd
+{ override def prop: String = "font-weight"
+}
+
+object DecBold extends DecFontWidth(CssBold)
+
 /** Css Display declaration set to inline-block. */
 object DispInBlock extends DecDisplay(CssInBlock)
 
