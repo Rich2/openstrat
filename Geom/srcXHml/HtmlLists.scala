@@ -79,7 +79,7 @@ class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 }
 
 object HtmlUlWithLH
-{ def apply(header: XConElem, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
-  def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr, items.toArr)
+{ def apply(header: XCon, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
+  //def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr, items.toArr)
   def strs(headerStr: String, items: String*): HtmlUlWithLH = new HtmlUlWithLH(headerStr, items.mapArr(str => HtmlLi(str)))
 }

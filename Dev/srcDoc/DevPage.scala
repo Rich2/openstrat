@@ -8,25 +8,28 @@ object DevPage extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbt3D, intellij, miscTitle, p6, table, p7, credits)
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
-  def appSel: HtmlLi = HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar"))
-  def siteGen: HtmlLi = HtmlLi("Generates the HTML files for the website, including this file.")
+  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
+    HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar")),
+    HtmlLi("Generates the HTML and CSS files for the website, including this file."),
+    HtmlLi("Creates Servlets for Tomcat / Jetty Servers.")
+  )
+  
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
   def p1: HtmlP = HtmlP(s"""It currently works on JavaFx and web page. Using canvas on both platforms. See ${link("../api/index.html", "Scala Docs")} and see
-  | ${link("../apiJs/index.html", "Scala Docs for JavaScript target")}.""".stripMargin)
+  |${link("../apiJs/index.html", "Scala Docs for JavaScript target")}.""".stripMargin)
 
   def p2: HtmlP = HtmlP("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
-  | The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
-  | the original vision, part of which was to explore the possibilities of an algebra of tiling.""".stripMargin)
+  |The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
+  |the original vision, part of which was to explore the possibilities of an algebra of tiling.""".stripMargin)
 
   def p3: HtmlP = HtmlP("""I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to
-  | explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to
-  | use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability,
-  | run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
-  | language to explore these questions.""".stripMargin)
+  |explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to
+  |use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability,
+  |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
+  |language to explore these questions.""".stripMargin)
 
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.1. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.4
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.2. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.4
   |(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Mill set to 1.0.1.""".
     stripMargin)
 
