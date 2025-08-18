@@ -70,8 +70,8 @@ object HtmlOlWithLH
 }
 
 /** Html UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(header, unorderedList)
+class HtmlUlWithLH(val header: RArr[XCon], items: RArr[HtmlLi]) extends HtmlSection
+{ override def contents: RArr[XCon] = header +% unorderedList
   override def attribs: RArr[XAtt] = RArr()
 
   /** the HTML unordered list element. */
@@ -79,7 +79,14 @@ class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 }
 
 object HtmlUlWithLH
-{ def apply(header: XCon, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
-  //def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr, items.toArr)
-  def strs(headerStr: String, items: String*): HtmlUlWithLH = new HtmlUlWithLH(headerStr, items.mapArr(str => HtmlLi(str)))
+{ /** Factory apply method to construct unordered list with a header, as an [[HtmlSection]]. */
+  def apply(header: XCon, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(RArr(header), items.toArr)
+
+  /** Factory method to construct unordered list with a header, as an [[HtmlSection]], where the header is a single [[XCon]] element and the list items are just
+   * [[String]]s. */
+  def strs(header: XCon, items: String*): HtmlUlWithLH = new HtmlUlWithLH(RArr(header), items.mapArr(str => HtmlLi(str)))
+
+  /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
+   *  section. */
+  def apply(header: RArr[XCon], items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
 }

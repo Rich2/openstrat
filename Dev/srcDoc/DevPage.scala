@@ -7,7 +7,7 @@ object DevPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbt3D, intellij, miscTitle, p6, table, p7, credits)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, p5, sbt3D, intellij, miscTitle, p6, table, p7, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
     HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar")),
     HtmlLi("Generates the HTML and CSS files for the website, including this file."),
@@ -33,9 +33,8 @@ object DevPage extends HtmlPage
   |(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Mill set to 1.0.1.""".
     stripMargin)
 
-  def sbt1: HtmlOlWithLH = HtmlOlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"))
-
-  def sbt2: HtmlUl = HtmlUl(HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
+  def sbt1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
+    HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
     HtmlLi.sbtAndText("~DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFull.html".htmlPath),
     HtmlLi.sbtAndText("~Util/test", "Rerun tests on Util module."),
