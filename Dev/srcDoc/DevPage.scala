@@ -42,11 +42,11 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("~Dev/test", "Rerun tests on, Dev module."),
     HtmlLi.sbtAndText("~Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
 
-    HtmlLi.sbtAndText("DocMain/doc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
-      "Dev/SbtDir/DocMain/target/scala-3.4.0/api/".htmlPath),
+    HtmlLi.sbtAndText("unidoc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
+      "target/scala-3.7.2/unidoc/".htmlPath),
 
-    HtmlLi.sbtAndText("DocJs/doc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
-      "Dev/SbtDir/DocJs/target/DocMain/target/scala-3.4.0/api/".htmlPath),
+    HtmlLi.sbtAndText("JsAgg/unidoc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
+      "Dev/JsAgg/target/scala-3.7.2/unidoc/".htmlPath),
 
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
