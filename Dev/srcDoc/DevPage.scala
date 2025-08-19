@@ -35,28 +35,29 @@ object DevPage extends HtmlPage
 
   def sbt1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
-    HtmlLi.sbtAndText("~DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFast.html".htmlPath),
-    HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFull.html".htmlPath),
+    HtmlLi("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
+    HtmlLi("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
     HtmlLi.sbtAndText("~Util/test", "Rerun tests on Util module."),
     HtmlLi.sbtAndText("~Tiling/test", "Rerun tests on Tiling module."),
     HtmlLi.sbtAndText("~Dev/test", "Rerun tests on, Dev module."),
     HtmlLi.sbtAndText("~Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
 
-    HtmlLi.sbtAndText("unidoc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
-      "target/scala-3.7.2/unidoc/".htmlPath),
+    HtmlLi("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
+    "target/scala-3.7.2/unidoc/".htmlPath),
 
-    HtmlLi.sbtAndText("JsAgg/unidoc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
-      "Dev/JsAgg/target/scala-3.7.2/unidoc/".htmlPath),
+    HtmlLi("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
+    "Dev/JsAgg/target/scala-3.7.2/unidoc/".htmlPath),
 
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
   def p5: HtmlP = HtmlP(s"""The tilde ${sbt("~")} tells sbt to rerun the command every time you modify and save a source file. The first command will build and
-  | launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the ${path("Dev/Misc/DevSettings.rson")}
-  | file to the ${path("Dev/User")} folder. Creating the directory if not already existing. Change the ${code("appStr")} setting in
-  | ${path("Dev/User/DevSettings.rson")} to change the application. All the examples on the ${link("richstrat.com")} website are available plus others.The
-  | second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it,
-  | you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
+  |launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the""".stripMargin,
+  "Dev/Misc/DevSettings.rson".htmlPath, "file to the", "Dev/User".htmlPath, "folder. Creating the directory if not already existing. Change the",
+  "appStr".htmlPath, """setting in
+  |${path("Dev/User/DevSettings.rson")} to change the application. All the examples on the ${link("richstrat.com")} website are available plus others.The second
+  |command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you
+  |will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
 
   def sbt3D = HtmlP("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
 

@@ -14,13 +14,15 @@ package object pWeb
     
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
 
-    def htmlPath: String = "<code class='path'>" + thisString + "</code>"
+    def htmlPath: HtmlDirPath = HtmlDirPath(thisString)
+
+    def htmlSbt: HtmlSbtInline = HtmlSbtInline(thisString)
 
     /** Implicit method to return an HTML Scala element. */
-    def htmlScala = HtmlScalaInline(thisString)
+    def htmlScala: HtmlScalaInline = HtmlScalaInline(thisString)
 
     /** Implicit method to return an HTML Bash element. */
-    def htmlBash = HtmlBashInline(thisString)
+    def htmlBash: HtmlBashInline = HtmlBashInline(thisString)
   }
 
   implicit class IntWebExtensions(thisInt: Int)
