@@ -13,9 +13,11 @@ package object pWeb
     def xmlAsString: XmlAsString = XmlAsString(thisString)
     
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
-
+    
+    /** Extension method to return an HTML gile / directory path code element. */
     def htmlPath: HtmlDirPath = HtmlDirPath(thisString)
 
+    /** Extension method to return an HTML sbt plass code element. */
     def htmlSbt: HtmlSbtInline = HtmlSbtInline(thisString)
 
     /** Implicit method to return an HTML Scala element. */
