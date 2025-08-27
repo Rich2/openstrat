@@ -16,7 +16,7 @@ object HtmlA
 }
 
 /** HTML P paragraph element. */
-case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlMultiLine
 { def tag = "p"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)

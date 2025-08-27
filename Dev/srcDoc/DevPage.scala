@@ -29,8 +29,8 @@ object DevPage extends HtmlPage
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
 
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.2. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.4
-  |(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Mill set to 1.0.3.""".
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.2. Jdk 11+, 21 preferred. Scala.Js set to 1.19.0. Scala native set to 0.5.8. Sbt currently set to 1.11.5
+  |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.0.3.""".
     stripMargin)
 
   def sbt1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
@@ -38,9 +38,10 @@ object DevPage extends HtmlPage
     HtmlLi("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
     HtmlLi.sbtAndText("~Util/test", "Rerun tests on Util module."),
+    HtmlLi.sbtAndText("~Geom/test", "Rerun tests on Geom module."),
     HtmlLi.sbtAndText("~Tiling/test", "Rerun tests on Tiling module."),
     HtmlLi.sbtAndText("~Dev/test", "Rerun tests on, Dev module."),
-    HtmlLi.sbtAndText("~Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
+    HtmlLi.sbtAndText("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test", "Rerun tests on the 5 modules."),
 
     HtmlLi("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
     "target/scala-3.7.2/unidoc/".htmlPath),
