@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb.*
 
 trait ShapeGraphicSimple extends ShapeGraphic, GraphicSimple, GraphicSvgElem
-{ final def svgJustElem: SvgElem = svgElem
+{ final def svgJustElem: SvgOwnLine = svgElem
 
   final def svgInline: HtmlSvg = HtmlSvg.bounds(shape.boundingRect, RArr(svgJustElem))
   def nonShapeAttribs: RArr[XAtt]

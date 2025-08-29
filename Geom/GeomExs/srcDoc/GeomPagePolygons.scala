@@ -14,7 +14,7 @@ object GeomPagePolygons extends HtmlSection
   val width: Int = 250
   val polyColour: Colour = DarkGreen
   val dodec1: DoDeclign = DoDeclign(width)
-  val dodec2: PolygonDraw = dodec1.draw(lineColour = polyColour)
+  val dodec2: PolygonDraw = dodec1.draw(2, polyColour)
   val circ: CircleDraw = Circle(width).draw()
   val verts: RArr[GraphicSvgElem] = dodec1.verts.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str) }
   val sides: RArr[GraphicSvgElem] = dodec1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
@@ -30,8 +30,7 @@ object GeomPagePolygons extends HtmlSection
 
   def p2: HtmlP = HtmlP("""I've included the Scala code below both for the above diagram. If you check the html source code for this web page you will see that
   | it is pretty succinct compared with the generated SVG code. This is not intended as a tutorial, but just to give an idea of possibilities. It is only the
-  | last line that creates the SVG. The rest of the code could be used in an HTML or a JavaFx canvas.""".
-  stripMargin)
+  | last line that creates the SVG. The rest of the code could be used in an HTML or a JavaFx canvas.""".stripMargin)
 
   def code1: HtmlScalaLines = HtmlScalaLines(
     "val width: Int = 250",

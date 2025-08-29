@@ -11,7 +11,7 @@ class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: D
 
   override def negY: TextOutline = ???
 
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 object TextOutline

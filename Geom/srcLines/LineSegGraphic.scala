@@ -13,7 +13,7 @@ case class LSeg2Draw(curveSeg: LSeg2, width: Double, colour: Colour) extends Cur
   def endPt: Pt2 = Pt2(xEnd, yEnd)
   def arrow: GraphicElems = Arrow.paint(startPt, endPt, 30.degsVec, 20, colour, width)
 
-  override def svgElem: SvgElem = SvgLine(xStart, yStart, xEnd, yEnd, colour, width)
+  override def svgElem: SvgOwnLine = SvgLine(xStart, yStart, xEnd, yEnd, colour, width)
 }
 
 object LSeg2Draw
@@ -38,8 +38,8 @@ class LSeg2ArrDraw private(val arrayUnsafe: Array[Double], val lineWidth: Double
   override def ptsTrans(f: Pt2 => Pt2): LSeg2ArrDraw = LSeg2ArrDraw(lines.ptsTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
 
-  def svgElem: SvgElem = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
-  override def svgElems: RArr[SvgElem] = RArr(svgElem)
+  def svgElem: SvgOwnLine = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
+  override def svgElems: RArr[SvgOwnLine] = RArr(svgElem)
   override def boundingRect: Rect = lines.boundingRect
 }
 
@@ -60,7 +60,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.vertsTailForeach(f)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 /** This class will be replaced but extends [[CanvElem]] as a temporary measure. */
@@ -73,7 +73,7 @@ case class DashedLineDraw(curveSeg: LSeg2, lineWidth: Double, colour: Colour, da
   override def ptsTrans(f: Pt2 => Pt2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
 
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 object DashedLineDraw

@@ -12,9 +12,9 @@ trait ShapeGeomlessCompound
 trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
 { final override def attribs: RArr[XAtt] = shapeAttribs ++ facets.flatMap(_.attribs)
   override def canvElems: RArr[CanvElem] = ???
-  def mainSvgElem: SvgElem
+  def mainSvgElem: SvgOwnLine
 
-  override def svgElems: RArr[SvgElem] = RArr(mainSvgElem) ++ children.flatMap(_.svgElems)
+  override def svgElems: RArr[SvgOwnLine] = RArr(mainSvgElem) ++ children.flatMap(_.svgElems)
   override def svgInline: HtmlSvg = ???
 
   /** The [[ShapeCompound]] type will be widened at a later point. */

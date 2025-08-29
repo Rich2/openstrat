@@ -97,7 +97,7 @@ final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val 
 
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
 
-  def svgElem: SvgElem = SvgLine.bare(startX, startY, endX, endY)
+  def svgElem: SvgOwnLine = SvgLine.bare(startX, startY, endX, endY)
 
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   override def boundingRect: Rect = Rect.lrbt(startX.min(endX), startX.max(endX), startY.min(endY), startY.max(endY))

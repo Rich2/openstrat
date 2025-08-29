@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb.SvgElem
+import Colour.Black, pWeb.SvgOwnLine
 
 /** Cubic bezier curve. */
 class Bezier (val startX: Double, val startY: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
@@ -33,7 +33,7 @@ case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) exte
   def xC2: Double = curveSeg.xC1
   def yC2: Double = curveSeg.xC2
   final def pC2: Pt2 = Pt2(xC2, yC2)
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 /** Companion object for the BezierDraw class. */

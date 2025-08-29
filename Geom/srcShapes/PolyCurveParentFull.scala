@@ -19,7 +19,7 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, 
 
   override def boundingHeight: Double = shape.boundingRect.boundingHeight
 
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 object PolyCurveParentFull

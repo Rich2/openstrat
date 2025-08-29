@@ -20,7 +20,7 @@ trait Graphic2Elem extends Axlign2Elem
   override def rotate270: Graphic2Elem
   override def prolign(matrix: AxlignMatrix): Graphic2Elem
 
-  def svgElems: RArr[SvgElem]
+  def svgElems: RArr[SvgOwnLine]
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */

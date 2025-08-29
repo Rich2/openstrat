@@ -20,5 +20,5 @@ final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends Can
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGenFillOld = ???
   override def shearX(operand: Double): ShapeGenFillOld = ???
   override def shearY(operand: Double): ShapeGenFillOld = ???
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }

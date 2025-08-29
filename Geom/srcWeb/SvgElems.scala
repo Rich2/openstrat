@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import geom._, Colour.Black
+import geom.*, Colour.Black
 
 /** An SVG element. */
-trait SvgElem extends XmlInline
+trait SvgOwnLine extends XmlOwnLine
 
 /** An HTML element for SVG. */
 case class HtmlSvg(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlMultiLine
@@ -36,48 +36,8 @@ object HtmlSvg
   }
 }
 
-class SvgCircle(attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgElem
-{ override def tag: String = "circle"
-  override val attribs: RArr[XAtt] = attribsIn.explicitFill
-}
-
-object SvgCircle
-{ /** Factory apply method for SVG circle class. */
-  def apply(attribsIn: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgCircle = new SvgCircle(attribsIn, contents)
-}
-
-class SvgEllipse(attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgElem
-{ override def tag: String = "ellipse"
-  override val attribs: RArr[XAtt] = attribsIn.explicitFill
-}
-
-object SvgEllipse
-{ /** Factory apply method for SVG ellipse class. */
-  def apply(attribsIn: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgEllipse = new SvgEllipse(attribsIn, contents)
-}
-
-class SvgPolygon(attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgElem
-{ override def tag: String = "polygon"
-  override val attribs: RArr[XAtt] = attribsIn.explicitFill
-}
-
-object SvgPolygon
-{ /** Factory apply method for SVG polygon class. */
-  def apply(attribs: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgPolygon = new SvgPolygon(attribs, contents)
-}
-
-class SvgRect(attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgElem
-{ override def tag: String = "rect"
-  override val attribs: RArr[XAtt] = attribsIn.explicitFill
-}
-
-object SvgRect
-{ /** Factory apply method for SVG RECT rectangle class. */
-  def apply(attribs: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgRect = new SvgRect(attribs, contents)
-}
-
 /** Class to produce an SVG line. */
-class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, otherAttribs: RArr[XAtt]) extends SvgElem
+class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, otherAttribs: RArr[XAtt]) extends SvgOwnLine
 { override def tag: String = "line"
   val x1Att: XAtt = XAtt("x1", x1.toString)
   val y1Att: XAtt = XAtt("y1", (-y1).toString)
@@ -97,7 +57,7 @@ object SvgLine
   def bare(x1: Double, y1: Double, x2: Double, y2: Double, otherAttribs: XAtt*): SvgLine = new SvgLine(x1, y1, x2, y2, otherAttribs.toArr)
 }
 
-class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign, colour: Colour) extends SvgElem
+class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign, colour: Colour) extends SvgOwnLine
 { override def tag: String = "text"
   override def attribs: RArr[XAtt] = RArr(XXmlAtt(x), YXmlAtt(y), align.attrib).appendIf(colour != Black, FillAttrib(colour))
   override def contents: RArr[XCon] = RArr(text)
@@ -108,7 +68,7 @@ object SvgText
   def apply(posn: Pt2, text: String, align: TextAlign, colour: Colour = Black): SvgText = new SvgText(posn.x, posn.y, text, align, colour)
 }
 
-class SvgGroup(val contents: RArr[XConElem], val attribs: RArr[XAtt])extends SvgElem
+class SvgGroup(val contents: RArr[XConElem], val attribs: RArr[XAtt])extends SvgOwnLine
 {
   override def tag: String = "g"
 }

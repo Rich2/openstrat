@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui.*, Colour.Black, pWeb.SvgElem
+import pgui.*, Colour.Black, pWeb.SvgOwnLine
 
 trait PolyCurveElem extends GraphicAffineElem, GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
@@ -23,7 +23,7 @@ case class PolyCurveFill(shape: ShapeGenOld, colour: Colour) extends PolyCurveEl
   def yCen: Double = ???
   def cen: Pt2 = ???
 
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 case class PolyCurveDraw(shape: ShapeGenOld, colour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -33,7 +33,7 @@ case class PolyCurveDraw(shape: ShapeGenOld, colour: Colour = Black, lineWidth: 
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -47,7 +47,7 @@ case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour:
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black, lineWidth: Double = 2)
@@ -65,7 +65,7 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
@@ -84,5 +84,5 @@ case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, f
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }

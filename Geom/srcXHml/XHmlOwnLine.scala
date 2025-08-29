@@ -31,3 +31,6 @@ trait XHmlOwnLine extends XHmlElem
     }
   }
 }
+
+/** An XML element that can not share lines with sibling content. */
+trait XmlOwnLine extends XmlElem, XHmlOwnLine

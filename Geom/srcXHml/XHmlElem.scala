@@ -38,7 +38,7 @@ trait XHmlElem extends XConElem
       def currLen = currLine.length
       attribs.iForeach{ (i, att) =>
         val newStr = att.out
-        if (currLen == 0 || (currLen + newStr.length) <= maxLineLen) currLine --= newStr
+        if (currLen == 0 || (currLen + newStr.length + indent) <= maxLineLen) currLine --= newStr
         else
         { lines.grow(currLine)
           currLine = "\n" + (indent + 2).spaces + newStr

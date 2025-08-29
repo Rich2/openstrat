@@ -9,7 +9,7 @@ trait RectGraphic extends RectangleGraphic, ShapeGraphicOrdinaled
 
 /** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphicSimple extends RectGraphic, RectangleGraphicSimple
-{ override def svgElem: SvgElem = SvgRect(attribs)
+{ override def svgElem: SvgOwnLine = SvgRect(attribs)
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */

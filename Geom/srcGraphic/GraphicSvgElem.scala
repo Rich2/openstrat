@@ -2,10 +2,10 @@
 package ostrat; package geom
 import ostrat.pWeb._
 
-/** Graphic element that can be described with single [[SvgElem]] */
+/** Graphic element that can be described with single [[SvgOwnLine]] */
 trait GraphicSvgElem extends Graphic2Elem
 {
-  def svgElem: SvgElem
+  def svgElem: SvgOwnLine
 
-  override def svgElems: RArr[SvgElem] = RArr(svgElem)
+  override def svgElems: RArr[SvgOwnLine] = RArr(svgElem)
 }

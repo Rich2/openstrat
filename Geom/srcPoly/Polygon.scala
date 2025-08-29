@@ -255,7 +255,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
 
   /** The SVG points attributes for this polygon. */
   def pointsAttrib: XAtt =
-  { val vertStr: String = verts.foldLeft((acc, v) => acc -- v.x.str + "," + (-v.y).str)
+  { val vertStr: String = verts.mkStr(v => v.x.str + "," + (-v.y).str, " ")
     XAtt("points", vertStr)
   }
 

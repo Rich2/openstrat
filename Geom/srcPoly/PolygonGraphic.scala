@@ -21,9 +21,9 @@ trait PolygonGraphic extends ShapeGraphic
   def xVertsArray: Array[Double] = shape.xVertsArray
   def yVertsArray: Array[Double] = shape.yVertsArray
   @inline def vertsForeach(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
-  @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: BuilderArrMap[A, ArrT]): ArrT = shape.vertsMap(f)
+  @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(using build: BuilderArrMap[A, ArrT]): ArrT = shape.vertsMap(f)
 
-  def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
+  def vertsFoldLeft[B](f: (B, Pt2) => B)(using default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
 
   def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B =
   { var acc = init
@@ -77,8 +77,8 @@ object PolygonGraphic
 }
 
 /** This trait may be removed. */
-trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
-{ override def svgElem: SvgElem = SvgPolygon(attribs)
+trait PolygonGraphicSimple extends PolygonGraphic, ShapeGraphicSimple
+{ override def svgElem: SvgOwnLine = SvgPolygon(attribs)
   override def slate(operand: VecPt2): PolygonGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): PolygonGraphicSimple
   override def slateX(xOperand: Double): PolygonGraphicSimple
@@ -130,7 +130,7 @@ object PolygonGraphicSimple
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
-trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
+trait PolygonDraw extends PolygonGraphicSimple, CanvShapeDraw
 { override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   override def slate(operand: VecPt2): PolygonDraw = PolygonDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
@@ -296,7 +296,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
 trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
 {
-  override def mainSvgElem: SvgElem = SvgPolygon(attribs)
+  override def mainSvgElem: SvgOwnLine = SvgPolygon(attribs)
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.polygonFill(shape.fill(c))

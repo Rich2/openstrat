@@ -62,6 +62,6 @@ object EArcDraw
     /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
     override def rendToCanvas(cp: CanvasPlatform): Unit =  cp.eArcDraw(this)
 
-    override def svgElems: RArr[SvgElem] = ???
+    override def svgElems: RArr[SvgOwnLine] = ???
   }
 }

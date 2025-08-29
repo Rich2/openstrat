@@ -259,7 +259,7 @@ trait EllipseGraphic extends ShapeGraphicCentred
 trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarAffPreserve
 { type ThisT <: EllipseGraphicSimple
   type ThisT2 <: EllipseGraphicSimple
-  override def svgElem: SvgElem = SvgEllipse(attribs)
+  override def svgElem: SvgOwnLine = SvgEllipse(attribs)
 }
 
 /** A simple single colour fill of a circle graphic. */
@@ -333,7 +333,7 @@ object EllipseActive
 
 /** Compound graphic trait for an ellipse. Note [[CircleCompound]] is a subclass of this trait. */
 trait EllipseCompound extends ShapeCompound, EllipseGraphic, Aff2Elem
-{ override def mainSvgElem: SvgElem = SvgEllipse(attribs)
+{ override def mainSvgElem: SvgOwnLine = SvgEllipse(attribs)
   override def slate(operand: VecPt2): EllipseCompound
   override def slate(xDelta: Double, yDelta: Double): EllipseCompound
   override def slateX(xDelta: Double): EllipseCompound
@@ -366,7 +366,7 @@ object EllipseCompound
   {
     override type ThisT = EllipseCompoundImplement
     override def mainSvgElem: SvgEllipse = SvgEllipse(attribs)
-    /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
+    /** Return type narrowed to [[SvgEllipse]] from [[SvgOwnLine]] */
     /*    override def svgElem: SvgEllipse =
         { val newEllipse = shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top)
           val newAtts = newEllipse.attribs

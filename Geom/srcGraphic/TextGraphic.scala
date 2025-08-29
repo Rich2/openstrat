@@ -31,7 +31,7 @@ final case class TextFixed(str: String, fontSize: Double, xPosn: Double, yPosn: 
 TextGraphic with GraphicAffineElem with GraphicSvgElem
 { type ThisT = TextFixed
   override def ptsTrans(f: Pt2 => Pt2) = TextFixed(str, fontSize, f(posn), colour, textAlign, baseLine)
-  override def svgElem: SvgElem = SvgText.xy(xPosn, yPosn, str, textAlign, colour)
+  override def svgElem: SvgOwnLine = SvgText.xy(xPosn, yPosn, str, textAlign, colour)
 }
 
 object TextFixed
@@ -70,7 +70,7 @@ TextGraphic
   override def scaleXY(xOperand: Double, yOperand: Double): Textlign = ???
   override def shearX(operand: Double): Textlign = ???
   override def shearY(operand: Double): Textlign = ???
-  override def svgElems: RArr[SvgElem] = ???
+  override def svgElems: RArr[SvgOwnLine] = ???
 }
 
 object Textlign
