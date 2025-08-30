@@ -13,11 +13,11 @@ trait XConElem
 
   /** This method returns the HTML output code, but also information for the parent XML / HTML element. The class should not add any indentation to its first
    * line. This is the responsibility of the parent element. */
-  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(Array(out(indent, line1InputLen, maxLineLen)))
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(out(indent, line1InputLen, maxLineLen))
 }
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
 case class XmlAsString(value: String) extends XConElem
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = value
-  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(Array(value))
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(value)
 }

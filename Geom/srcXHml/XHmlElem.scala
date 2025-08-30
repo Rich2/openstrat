@@ -24,12 +24,12 @@ trait XHmlElem extends XConElem
   def contents: RArr[XCon]
 
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match
-  { case 0 => TextLines(Array())
+  { case 0 => TextLines()
 
     case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 75 =>
     { val str = attribs.mkStr(_.out, " ")
       val len = str.length
-      TextLines(Array(str))
+      TextLines(str)
     }
 
     case n =>
@@ -45,7 +45,7 @@ trait XHmlElem extends XConElem
         }
       }
       lines.grow(currLine)
-      TextLines(Array(lines.mkStr()))
+      TextLines(lines.mkStr())
     }
   }
 

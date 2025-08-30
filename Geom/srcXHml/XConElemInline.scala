@@ -11,7 +11,7 @@ trait XConElemInline extends XConElem
     def line1Len: Int = indent + line1InputLen
 
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => TextLines(Array(currStr))
+    { case CharsOff0() => TextLines(currStr)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
 
       case s =>
@@ -23,7 +23,7 @@ trait XConElemInline extends XConElem
     }
 
     def in2Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
-    { case CharsOff0() => TextLines(Array(currStr))
+    { case CharsOff0() => TextLines(currStr)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in2Loop(tail, currStr, lineLen)
       case rem =>
       { val (newRem, newWord) = getWord(rem)
@@ -34,7 +34,7 @@ trait XConElemInline extends XConElem
     }
 
     def multiLoop(rem: CharsOff, lines: String, currLine: String): TextLines = rem match
-    { case CharsOff0() => TextLines(Array(lines + currLine))
+    { case CharsOff0() => TextLines(lines + currLine)
       case CharsOff1Tail(c, tail) if c.isWhitespace => multiLoop(tail, lines, currLine)
       case s => {
         val (newRem, newWord) = getWord(rem)

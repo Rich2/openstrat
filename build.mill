@@ -1,5 +1,5 @@
 //| # Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
-//| mill-version: 1.0.3
+//| mill-version: 1.0.4
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule

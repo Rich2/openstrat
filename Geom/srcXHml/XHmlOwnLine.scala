@@ -13,20 +13,20 @@ trait XHmlOwnLine extends XHmlElem
     cons.numLines match
     { case 0 =>
       { val text = stt + closeTag
-        TextLines(Array(text))
+        TextLines(text)
       }
       case 1 =>
       { val text = stt + cons.text + closeTag
-        TextLines(Array(text))
+        TextLines(text)
       }
       case n if contents.forAll(_.isInstanceOf[XConInline]) =>
       { val text = stt + cons.text + closeTag
-        TextLines(Array(text))
+        TextLines(text)
       }
       case n =>
       { val lastLine = indent.spaces + closeTag
         val text = stt + childIndent.nlSpaces + cons.text + "\n" + lastLine
-        TextLines(Array(text))
+        TextLines(text)
       }
     }
   }

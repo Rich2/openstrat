@@ -61,7 +61,7 @@ class TextLines(val lines: Array[String])
       case w => {currLine = currLine + " " + w}
     }
     if (currLine != "") newLines = newLines :+ currLine
-    TextLines(newLines)
+    new TextLines(newLines)
   }
 
   def appendSibling(operand: XCon, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
@@ -82,4 +82,6 @@ class TextLines(val lines: Array[String])
 object TextLines
 { /** An empty [[TextLines]] with 0 lines. */
   def empty: TextLines = new TextLines(Array())
+  
+  def apply(input: String*): TextLines = new TextLines(input.toArray)
 }

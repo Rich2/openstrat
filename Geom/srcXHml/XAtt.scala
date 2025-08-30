@@ -1,11 +1,13 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
+import collection.mutable.ArrayBuffer
 
 /** An XML / HTML attribute, has a name and a value [[StrArr]]. */
 trait XAtt
 { def name: String
   def valueStr: String
-  def out: String = name + "=" + valueStr.enquote1
+  def valueStrLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
+  def out/*(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen)*/: String = name + "=" + valueStr.enquote1
   def outLen: Int = out.length
 }
 
@@ -15,76 +17,39 @@ object XAtt
   def apply(name: String, valueStr: String): XAtt = XmlAttGen(name, valueStr)
 }
 
-case class XmlAttGen(name: String, valueStr: String) extends XAtt
+/** An SVG / XML / HTML points attribute. */
+class PointsAtt(val arrayUnsafe: Array[Double]) extends XAtt
+{ override def name: String = "points"
+  def numPoints = arrayUnsafe.length / 2
+  def pointStrs: StrArr = iUntilMap(numPoints){ i => arrayUnsafe(i * 2).str + "," + (-arrayUnsafe(i * 2 + 1)).str}
+  override def valueStr: String = valueStrLines(0, 0, MaxLineLen).text
 
-/** Creates for an "id" XML / HTML attribute." */
-case class IdAtt(valueStr: String) extends XAtt
-{ override def name: String = "id"
-}
-
-/** Creates for a "class" XML / HTML attribute." */
-case class ClassAtt(valueStr: String) extends XAtt
-{ override def name: String = "class"
-}
-
-case class HrefAtt(valueStr: String) extends XAtt
-{ override def name: String = "href"
-}
-
-case class TypeAtt(valueStr: String) extends XAtt
-{ override def name: String = "type"
-}
-
-/** Type attribute set to text/javascript. */
-object TypeJsAtt extends TypeAtt("text/javascript")
-
-/** Type attribute set to submit. */
-object TypeSubmitAtt extends TypeAtt("submit")
-
-case class SrcAtt(valueStr: String) extends XAtt
-{ override def name: String = "src"
-}
-
-case class TextAnchorAtt(valueStr: String) extends XAtt
-{ override def name: String = "text-anchor"
-}
-
-/** Creates for an HTML / XML content attribute." */
-case class ContentAtt(valueStr: String) extends XAtt
-{ override def name: String = "content"
-}
-
-/** Creates for an HTML http-equiv attribute." */
-case class HttpEquivAtt(valueStr: String) extends XAtt
-{ override def name: String = "http-equiv"
-}
-
-/** The XML value attribute. */
-case class NameAtt(valueStr: String) extends XAtt
-{ override def name: String = "name"
-}
-
-/** The XML value attribute. */
-case class ValueAtt(valueStr: String) extends XAtt
-{ override def name: String = "value"
-}
-
-/** The XML value attribute. */
-case class VersionAtt(valueStr: String) extends XAtt
-{ override def name: String = "version"
-}
-
-/** The XML xmlns namespace attribute. */
-case class Xmlns(valueStr: String) extends XAtt
-{ override def name: String = "xmlns"
-}
-
-/** The XML xmlns:xsi schema attribute. */
-case class XmlNsXsi(valueStr: String) extends XAtt
-{ override def name: String = "xmlns:xsi"
-}
-
-/** The XML xmlns:schemaLocation schema attribute. */
-case class XsiSchemaLoc(valueStr: String) extends XAtt
-{ override def name: String = "xsi:schemaLocation"
+  override def valueStrLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
+  { val pStrs = pointStrs
+    numPoints match
+    { case 0 => TextLines.empty
+      case 1 => TextLines(pointStrs(0))
+      case _ =>
+      { var i = 0
+        val res = new ArrayBuffer[String]
+        var currLine = ""
+        while (i < numPoints)
+        { val newStr: String = pStrs(i)
+          currLine match
+          { case "" => currLine = newStr
+            case "" => currLine = indent.spaces + newStr
+            case str if currLine.length + 1 + newStr.length > maxLineLen =>
+            { res.append(currLine)
+              currLine = indent.spaces + newStr
+            }
+            case str => currLine = currLine + " " + newStr
+          }
+          i += 1
+        }
+        ifExcep(currLine == "", "Unexpected emoty String.")
+        res.append(currLine)
+        new TextLines(res.toArray)
+      }
+    }
+  }
 }
