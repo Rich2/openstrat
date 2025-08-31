@@ -4,11 +4,31 @@ import collection.mutable.ArrayBuffer
 
 /** An XML / HTML attribute, has a name and a value [[StrArr]]. */
 trait XAtt
-{ def name: String
-  def valueStr: String
-  def valueStrLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
-  def out/*(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen)*/: String = name + "=" + valueStr.enquote1
-  def outLen: Int = out.length
+{ /** Name of this attribute. Not to be confused with the name of its parent element. */
+  def name: String
+
+  /** The combined String from valueOutLines. */
+  protected def valueOut(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = valueOutLines(indent + 2, line1InputLen, maxLineLen).text
+
+  /** Returns the text lines for the value of this attribute. */
+  protected def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
+
+  def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
+    name + "=" + valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen).text.enquote1
+
+   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = {
+     val value = valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen)
+     value.numLines match{
+       case 0 => TextLines.empty
+       case 1 => TextLines(name + "=" + value.lines(0))
+       case n => {
+         val newArray = new Array[String](n)
+         newArray(0) = name + "=" + value.lines(0)
+         iUntilForeach(1, n){i => newArray(i) = value.lines(0)}
+         new TextLines(newArray)
+       }
+     }
+   }
 }
 
 /** Companion object for the XML attribute [[XAtt]] trait. */
@@ -22,9 +42,8 @@ class PointsAtt(val arrayUnsafe: Array[Double]) extends XAtt
 { override def name: String = "points"
   def numPoints = arrayUnsafe.length / 2
   def pointStrs: StrArr = iUntilMap(numPoints){ i => arrayUnsafe(i * 2).str + "," + (-arrayUnsafe(i * 2 + 1)).str}
-  override def valueStr: String = valueStrLines(0, 0, MaxLineLen).text
 
-  override def valueStrLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
+  override def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
   { val pStrs = pointStrs
     numPoints match
     { case 0 => TextLines.empty
@@ -38,7 +57,9 @@ class PointsAtt(val arrayUnsafe: Array[Double]) extends XAtt
           currLine match
           { case "" => currLine = newStr
             case "" => currLine = indent.spaces + newStr
-            case str if currLine.length + 1 + newStr.length > maxLineLen =>
+
+            case str if
+              (res.length == 0 && line1InputLen +currLine.length + 1 + newStr.length > maxLineLen) || (currLine.length + 1 + newStr.length > maxLineLen) =>
             { res.append(currLine)
               currLine = indent.spaces + newStr
             }

@@ -26,8 +26,8 @@ trait XHmlElem extends XConElem
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match
   { case 0 => TextLines()
 
-    case n if n == 1 || (attribs.sumBy(_.outLen) + n) < 75 =>
-    { val str = attribs.mkStr(_.out, " ")
+    case n if n == 1 =>
+    { val str = attribs(0).out(indent + 2, line1InputLen, maxLineLen)
       val len = str.length
       TextLines(str)
     }
@@ -37,7 +37,7 @@ trait XHmlElem extends XConElem
       var currLine = ""
       def currLen = currLine.length
       attribs.iForeach{ (i, att) =>
-        val newStr = att.out
+        val newStr = att.out(indent + 2, indent, MaxLineLen)
         if (currLen == 0 || (currLen + newStr.length + indent) <= maxLineLen) currLine --= newStr
         else
         { lines.grow(currLine)

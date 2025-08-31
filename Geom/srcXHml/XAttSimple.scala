@@ -3,7 +3,9 @@ package ostrat; package pWeb
 
 trait XAttSimple extends XAtt
 {
-  override def valueStrLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(valueStr)
+  def valueStr: String
+  
+  override def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(valueStr)
 }
 
 case class XmlAttGen(name: String, valueStr: String) extends XAttSimple
