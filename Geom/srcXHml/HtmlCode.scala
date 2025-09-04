@@ -48,8 +48,6 @@ object HtmlCodeInline
 
 /** Html Scala code element. */
 trait HtmlScala extends HtmlCode
-{
-}
 
 object HtmlScala
 { /** Factory apply method for HTML element for multiple lines of Scala code. */
