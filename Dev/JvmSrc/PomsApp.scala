@@ -6,8 +6,8 @@ import utiljvm.*, pWeb.*
 object PomsApp
 {
   def main(args: Array[String]): Unit =
-  { val versionStr = "0.3.8"
-    val scalaVersion ="3.6.4"
+  { val versionStr = "0.3.9"
+    val scalaVersion ="3.7.2"
     val oDir = args.headOption
     debvar(oDir)
 
