@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.9snap"
+val versionStr = "0.3.9"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor: String = "3.7"
@@ -86,8 +86,7 @@ def utilSett = List(
 )
 
 lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
-  name := "rutil",  
-  Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
+  name := "rutil",
 )
 
 lazy val UtilExs = jvmExsProj("Util").dependsOn(Geom)
@@ -159,6 +158,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
 
 lazy val Dev = jvmMainProj("Dev").dependsOn(AppsExs).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcDoc",
+  Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   Compile/mainClass	:= Some("ostrat.pDev.SiteHtmlWrite"),
