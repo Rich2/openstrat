@@ -3,7 +3,7 @@
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
-{ def version = "0.3.9"
+{ def version = "0.3.10snap"
   def scalaVersion = "3.7.2"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
@@ -19,7 +19,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.19.0"
+{ def scalaJSVersion = "1.20.1"
   def mvnDeps = Seq(mvn"org.scala-js::scalajs-dom_sjs1:2.8.1")
 }
 

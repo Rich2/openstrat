@@ -28,8 +28,8 @@ object DevPage extends HtmlPage
   |use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability,
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
-
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.2. Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala native set to 0.5.8. Sbt currently set to 1.11.5
+  
+  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.2. Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala native set to 0.5.8. Sbt currently set to 1.11.6
   |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.0.4.""".
     stripMargin)
 

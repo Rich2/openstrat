@@ -14,10 +14,11 @@
 
 <b>To use</b>
 <br>resolvers += "RichStrat" at "https://richstrat.com/repository"
-<br>libraryDependencies += "com.richstrat" % "rutil" % "0.3.6"
-<br>libraryDependencies += "com.richstrat" % "geom" % "0.3.6"
-<br>libraryDependencies += "com.richstrat" % "tiling" % "0.3.6"
-<br>libraryDependencies += "com.richstrat" % "egrid" % "0.3.6"
+<br>libraryDependencies += "com.richstrat" % "rutil" % "0.3.9"
+<br>libraryDependencies += "com.richstrat" % "geom" % "0.3.9"
+<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.9"
+<br>libraryDependencies += "com.richstrat" % "tiling" % "0.3.9"
+<br>libraryDependencies += "com.richstrat" % "egrid" % "0.3.9"
 
 <h3>Full documentation at <a href="https://richstrat.com/">https://richstrat.com/</a></h3>
 <h3>Scala Docs for Jvm at <a href="https://richstrat.com/api/index.html">https://richstrat.com/ostrat/index.html</a></h3>
@@ -31,7 +32,6 @@
 
 <h3>Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.7.2, Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala Native set to 0.5.8 Sbt currently set to 1.11.5. Mill set to 1.0.4.</p>
-
+<p>Scala currently set to 3.7.2, Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala Native set to 0.5.8 Sbt currently set to 1.11.6. Mill set to 1.0.4.</p>
 </body>
 </html>
