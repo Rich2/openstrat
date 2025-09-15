@@ -52,10 +52,8 @@ object SpanInline
 }
 
 /** HTML span element. */
-case class SpanLine(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlSpan, HtmlOwnLine
+case class SpanLine(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlSpan, HtmlOwnLineBlocked
 { def tag = "span"
-  def styleStr: String ="display: Block"
-  def attribs: RArr[XAtt] = StyleAtt(styleStr) %: otherAttribs
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"

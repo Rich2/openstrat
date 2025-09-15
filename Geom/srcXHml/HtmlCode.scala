@@ -22,13 +22,12 @@ trait HtmlCodeMulti extends HtmlCode, HtmlTagLines
 }
 
 /** An HTML code element that can be inlined. */
-trait HtmlCodeOwnLine extends HtmlCode, HtmlOwnLine
+trait HtmlCodeOwnLine extends HtmlCode, HtmlOwnLineBlocked
 
 object HtmlCodeOwnLine
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(str: String): HtmlCodeOwnLine = new HtmlCodeOwnLine
-  { override def contents: RArr[XCon] = RArr(str)
-    override def attribs: RArr[XAtt] = RArr()
+  { override def contents: RArr[XCon] = RArr(str)    
   }
 }
 
@@ -94,7 +93,7 @@ object HtmlSbtInline
 }
 
 /** Html directory path code element. */
-class HtmlDirPath(val str: String) extends HtmlCodeOwnLine
+class HtmlDirPath(val str: String) extends HtmlCodeInline
 { def classAtt: ClassAtt = ClassAtt("path")
   override def contents: RArr[XCon] = RArr(str)
   override def attribs: RArr[XAtt] = RArr(classAtt)
@@ -124,16 +123,15 @@ object HtmlBashMulti
 
 /** Html Bash code element, that is on ts own line. */
 trait BashOwnLine extends HtmlBash, HtmlCodeOwnLine
-{ 
-  def innerContents: RArr[XConInline]
-  override def contents: RArr[XCon] = RArr(SpanLine(innerContents, RArr(BashAtt)))
+{ override def attribs: RArr[XAtt] = RArr(styleAtt, BashAtt)
 }
+  
 
 object BashOwnLine
 {
-  def apply(str: String): BashOwnLine = new HtmlBashOwnLineGen(RArr(str))
+  def apply(str: String): BashOwnLine = new HtmlBashOwnLineGen(RArr(str), RArr())
 
-  class HtmlBashOwnLineGen(val innerContents: RArr[XConInline]) extends BashOwnLine
+  class HtmlBashOwnLineGen(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) extends BashOwnLine
 }
 
 /** Html BASH code element, that can be inlined. */
@@ -151,9 +149,8 @@ object BashPromptClass extends ClassAtt("bashprompt")
 class BashPromptSpan(str: String) extends SpanInline(RArr(str), RArr(BashPromptClass))
 
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{
-  def promptSpan: SpanInline = SpanInline(prompt, BashPromptClass)
-  override def innerContents: RArr[XConInline] = RArr(promptSpan, command)
+{ def promptSpan: SpanInline = SpanInline(prompt, BashPromptClass)
+  override def contents: RArr[XConInline] = RArr(promptSpan, command)
 }
 
 class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines
