@@ -153,7 +153,7 @@ class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashOwnLin
 }
 
 class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines
-{ override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1), HtmlBr) }
+{ override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(HtmlBr, BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
   override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 

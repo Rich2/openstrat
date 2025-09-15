@@ -49,14 +49,15 @@ trait XHmlElem extends XConElem
     }
   }
 
-  def openAtts(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
+  /** The opening tag without its final ">" or "/>" characters. */
+  def openTagInit(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
   { val res: TextLines = attribsOutLines(indent, openTagOpenLen)
     val text: String = ife(res.numLines == 0, "", " " + res.text)
     "<" + tag + text
   }
 
-  def openUnclosed(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openAtts(indent, line1InputLen, maxLineLen) + ">"
-  def openTag(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openAtts(indent, line1InputLen, maxLineLen) + ">"
+  def openUnclosed(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openTagInit(indent, line1InputLen, maxLineLen) + ">"
+  def openTag(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openTagInit(indent, line1InputLen, maxLineLen) + ">"
   def closeTag: String = "</" + tag + ">"
   def n1CloseTag: String = "\n" + closeTag
   def n2CloseTag: String = "\n\n" + closeTag

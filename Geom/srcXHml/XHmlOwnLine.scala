@@ -22,13 +22,16 @@ trait XHmlOwnLine extends XHmlElem
       { val text = stt + cons.text + closeTag2
         TextLines(text)
       }
-      case n if contents(0).isInstanceOf[XConInline] =>
+      case n if contents.forAll(_.isInstanceOf[XConInline]) && cons.numLines < 4 =>
       { val text = stt + cons.text + closeTag2
         TextLines(text)
       }
+      case n if contents(0).isInstanceOf[XConInline] =>
+      { val text = stt + cons.text + indent.nlSpaces + closeTag
+        TextLines(text)
+      }
       case n =>
-      { val lastLine = indent.spaces + closeTag2
-        val text = stt + childIndent.nlSpaces + cons.text + "\n" + lastLine
+      { val text = stt + childIndent.nlSpaces + cons.text + indent.nlSpaces + closeTag
         TextLines(text)
       }
     }
