@@ -16,7 +16,7 @@ trait XConElemInline extends XConElem
 
       case s =>
       { val (newRem, newWord) = getWord(s)
-        val newLen = lineLen + newWord.length + 1
+        val newLen = lineLen + 1 + newWord.length
         if (newLen > maxLineLen) in2Loop(newRem, currStr + "\n" + indent.spaces + newWord, indent + newWord.length)
         else in1Loop(newRem, currStr -- newWord, newLen)
       }
@@ -27,7 +27,7 @@ trait XConElemInline extends XConElem
       case CharsOff1Tail(c, tail) if c.isWhitespace => in2Loop(tail, currStr, lineLen)
       case rem =>
       { val (newRem, newWord) = getWord(rem)
-        val newLen = lineLen + newWord.length + 1
+        val newLen = lineLen + 1 + newWord.length
         if (newLen > maxLineLen) multiLoop(newRem, currStr, "\n" + indent.spaces + newWord)
         else in2Loop(newRem, currStr -- newWord, newLen)
       }

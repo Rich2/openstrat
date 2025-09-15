@@ -39,7 +39,7 @@ object HtmlLi
   def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label)), otherText), attribs.toArr)
 
-  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlBashOwnLine(bashStr), str2))
+  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(BashOwnLine(bashStr), str2))
   def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr), str2))
   def sbt(sbtStr: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr)))
 }

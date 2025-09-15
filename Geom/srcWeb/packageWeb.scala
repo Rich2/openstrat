@@ -24,7 +24,7 @@ package object pWeb
     def htmlScala: HtmlScalaInline = HtmlScalaInline(thisString)
 
     /** Implicit method to return an HTML Bash element. */
-    def htmlBash: HtmlBashInline = HtmlBashInline(thisString)
+    def htmlBash: BashInline = BashInline(thisString)
   }
 
   implicit class IntWebExtensions(thisInt: Int)
