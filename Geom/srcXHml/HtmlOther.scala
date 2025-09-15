@@ -32,7 +32,7 @@ object HtmlP
 }
 
 /** HTML span element. */
-case class HtmlSpan(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class HtmlSpan(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlInline
 { def tag = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
