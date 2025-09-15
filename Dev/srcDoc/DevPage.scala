@@ -52,13 +52,13 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
-  def p5: HtmlP = HtmlP(s"""The tilde ${sbt("~")} tells sbt to rerun the command every time you modify and save a source file. The first command will build and
-  |launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the""".stripMargin,
+  def p5: HtmlP = HtmlP("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command will build
+  |and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the""".stripMargin,
   "Dev/Misc/DevSettings.rson".htmlPath, "file to the", "Dev/User".htmlPath, "folder. Creating the directory if not already existing. Change the",
-  "appStr".htmlPath, """setting in
-  |${path("Dev/User/DevSettings.rson")} to change the application. All the examples on the ${link("richstrat.com")} website are available plus others.The second
-  |command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you
-  |will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".stripMargin)
+  "appStr".htmlPath, "setting in", "Dev/User/DevSettings.rson".htmlPath, "to change the application. All the examples on the", HtmlA("richstrat.com"),
+  """website are available plus others.The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when
+  |you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".
+  stripMargin)
 
   def sbt3D = HtmlP("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
 
@@ -69,10 +69,10 @@ object DevPage extends HtmlPage
   )
 
   def p6: HtmlP = HtmlP(s"""So at least recent versions of Kubuntu the java command on the path, is at ${path("/usr/bin/java")}. It is a link to
-  | ${path("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${path("usr/lib/jvm")}. It doesn't have
-  | to be here, but it makes it easier to go with convention. Run<br>
-  | sudo update-alternatives --config java".htmlBash
-  | "<br>In my example this gives<br>""".stripMargin)
+  |${path("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${path("usr/lib/jvm")}. It doesn't have
+  | to be here, but it makes it easier to go with convention. Run""".stripMargin,
+  BashOwnLine("sudo update-alternatives --config java"),
+  "In my example this gives<br>")
 
   def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
@@ -81,9 +81,10 @@ object DevPage extends HtmlPage
     HtmlRow.strs4("2", "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java", "1081", "manual mode")
   )
 
-  def p7 = HtmlP("""So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.<br>""".stripMargin,
-    "sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3".htmlBash, "<br>",
-    "then repeat<br>", "sudo update-alternatives --config java".htmlBash)
+  def p7 = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
+  BashOwnLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
+  "then repeat",
+  BashOwnLine("sudo update-alternatives --config java"))
   
   def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
