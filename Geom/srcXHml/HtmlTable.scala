@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTML table element. */
-case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XAtt] = RArr()) extends HtmlMultiLine
+case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
 { override def tag: String = "table"
 }
 
@@ -13,7 +13,7 @@ object HtmlTable
 }
 
 /** HTML TR table row element class. */
-trait HtmlRow extends HtmlMultiLine
+trait HtmlRow extends HtmlTagLines
 { override def tag: String = "tr"
 }
 

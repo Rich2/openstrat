@@ -10,7 +10,7 @@ trait XmlNoAtts extends XmlElem
 { override def attribs: RArr[XAtt] = RArr()
 }
 
-trait XmlMultiNoAtts extends XmlMulti, XmlNoAtts
+trait XmlTagLinesNoAtts extends XmlTagLines, XmlNoAtts
 
 class XmlElemSimple(val tag: String, val str: String) extends XmlInline
 { override def attribs: RArr[XAtt] = RArr()

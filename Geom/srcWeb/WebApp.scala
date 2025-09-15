@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** web.xml file for a Servlet. */
-trait WebApp extends XmlMulti
+trait WebApp extends XmlTagLines
 { override def tag: String = "web-app"
 }
 
@@ -12,7 +12,7 @@ trait WebApp6 extends WebApp
 }
 
 /** Servlet XML element for Jakarta. */
-case class ServletElem(contents: RArr[XConElem]) extends XmlMultiNoAtts
+case class ServletElem(contents: RArr[XConElem]) extends XmlTagLinesNoAtts
 { override def tag: String = "servlet"
 }
 
@@ -48,7 +48,7 @@ object JakartaLoc6 extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee h
 object MetadataCompleted extends XmlAttGen("metadata-complete", "true")
 
 /** Servlet-mapping XML element for Jakarta. */
-case class ServletMapping(contents: RArr[XConElem]) extends XmlMultiNoAtts
+case class ServletMapping(contents: RArr[XConElem]) extends XmlTagLinesNoAtts
 { override def tag: String = "servlet-mapping"
 }
 

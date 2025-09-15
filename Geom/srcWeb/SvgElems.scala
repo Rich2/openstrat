@@ -6,7 +6,7 @@ import geom.*, Colour.Black
 trait SvgOwnLine extends XmlOwnLine
 
 /** An HTML element for SVG. */
-case class HtmlSvg(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlMultiLine
+case class HtmlSvg(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlTagLines
 { override def tag: String = "svg"
 }
 

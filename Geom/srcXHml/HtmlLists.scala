@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** Html UL unordered list element. */
-case class HtmlUl(val contents: RArr[XConElem], val attribs: RArr[XAtt] = RArr()) extends HtmlMultiLine
+case class HtmlUl(val contents: RArr[XConElem], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
 { override def tag: String = "ul"
 }
 
@@ -12,7 +12,7 @@ object HtmlUl
   def apply(contents: XConElem*): HtmlUl = new HtmlUl(contents.toArr)
 }
 /** Html OL ordered list element. */
-case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlMultiLine
+case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
 { override def tag: String = "ol"
 }
 

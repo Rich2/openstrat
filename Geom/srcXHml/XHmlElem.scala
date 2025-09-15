@@ -62,4 +62,5 @@ trait XHmlElem extends XConElem
   def n2CloseTag: String = "\n\n" + closeTag
 }
 
-trait XHmlMulti extends XHmlElem
+/** An XML or HTML element where the opening and closing tags will always appear on their own lines in the XML / HTML code. */
+trait XHmlTagLines extends XHmlElem

@@ -82,7 +82,7 @@ object HtmlCanvas
 }
 
 /** An Html section element. */
-trait HtmlSection extends HtmlMultiLine
+trait HtmlSection extends HtmlTagLines
 { override def tag: String = "section"
   override def attribs: RArr[XAtt] = RArr()
 }

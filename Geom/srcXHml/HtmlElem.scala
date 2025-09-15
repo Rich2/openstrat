@@ -14,7 +14,7 @@ trait HtmlUnvoid extends HtmlElem
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
-trait HtmlMultiLine extends HtmlElem, XHmlMulti
+trait HtmlTagLines extends HtmlElem, XHmlTagLines
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
   { val childIndent = indent + 2

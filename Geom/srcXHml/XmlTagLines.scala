@@ -1,7 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-trait XmlMulti extends XmlElem, XHmlMulti
+/** An XML element where the opening and closing tags will always appear on their own lines in the XML code. */
+trait XmlTagLines extends XmlElem, XHmlTagLines
 {
   override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
     if (contents.empty) openAtts(indent, line1InputLen, maxLineLen) + "/>"
@@ -9,7 +10,7 @@ trait XmlMulti extends XmlElem, XHmlMulti
       (indent + 2).spaces).nli(indent) + closeTag
 }
 
-trait XmlMultiNamed extends XmlMulti
+trait XmlTagLinesNamed extends XmlTagLines
 {
   def nameStr: String
 }

@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-trait PomProject extends XmlMulti
+trait PomProject extends XmlTagLines
 { def artifactId: ArtifactId
   val groudId: GroupId
   def version: VersionElem
@@ -14,7 +14,7 @@ trait PomProject extends XmlMulti
 }
 
 /** XML element for POM file dependency */
-class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: VersionElem) extends XmlMulti
+class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: VersionElem) extends XmlTagLines
 { override def tag: String = "dependency"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XConElem] = RArr(groupId, artifactId, version)
@@ -26,7 +26,7 @@ object PomDep
 }
 
 /** XML element for POM file dependencies. Note the plural. Takes individual [[PopDep]]s as its child elements. */
-class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlMulti
+class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlTagLines
 { override def tag: String = "Dependencies"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[PomDep] = dependencies

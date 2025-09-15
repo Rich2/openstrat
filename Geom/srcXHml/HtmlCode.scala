@@ -6,7 +6,7 @@ trait HtmlCode extends HtmlUnvoid
 { override def tag: String = "code"
 }
 
-trait HtmlCodeLines extends HtmlCode, HtmlMultiLine
+trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 { /** The lines of code. */
   def lines: StrArr
 
@@ -14,7 +14,7 @@ trait HtmlCodeLines extends HtmlCode, HtmlMultiLine
 }
 
 /** A multi line, HTML, code element */
-trait HtmlCodeMulti extends HtmlCode, HtmlMultiLine
+trait HtmlCodeMulti extends HtmlCode, HtmlTagLines
 { /** the lines of code unindented. */
   def lines: StrArr
 
@@ -152,7 +152,7 @@ class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashOwnLin
   override def contents: RArr[XCon] = RArr(promptSpan, command)
 }
 
-class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlMultiLine
+class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines
 { override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1), HtmlBr) }
   override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
