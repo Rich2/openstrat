@@ -81,3 +81,8 @@ case class XmlNsXsi(valueStr: String) extends XAttSimple
 case class XsiSchemaLoc(valueStr: String) extends XAttSimple
 { override def name: String = "xsi:schemaLocation"
 }
+
+/** The Style attribute for inline CSS. */
+case class StyleAtt(valueStr: String) extends XAttSimple
+{ override def name: String = "style"
+}

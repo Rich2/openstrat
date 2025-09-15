@@ -36,7 +36,7 @@ object TomcatPage extends HtmlPage
   HtmlBashMulti("sudo mkdir /opt/tomcat", "sudo chown tomcat:tomcat /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version chnages of Apache.<br>""".stripMargin,
-  HtmlBashPrompt("tommy@ser:/opttomcat", "mkdir Base")),
+  HtmlBashWithPrompt("tommy@ser:/opttomcat", "mkdir Base")),
 
   HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
   |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to

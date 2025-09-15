@@ -32,20 +32,41 @@ object HtmlP
   def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
 }
 
+trait HtmlSpan extends HtmlElem
+
 /** HTML span element. */
-case class HtmlSpan(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlInline
+case class SpanInline(contents: RArr[XConInline], attribs: RArr[XAtt]) extends HtmlSpan, HtmlInline
 { def tag = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
-object HtmlSpan
-{ /** Factory apply method for creating HTML span element. */
-  def apply(strIn: String, attribs: XAtt*): HtmlSpan = new HtmlSpan(RArr(strIn), attribs.toRArr)
+object SpanInline
+{
+  /** Factory apply method for creating HTML span element. */
+    def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlSpan = new HtmlSpan(contents, attribs)
+  def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): SpanInline = new SpanInline(contents, attribs)
+}
+
+/** HTML span element. */
+case class SpanLine(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlSpan, HtmlOwnLine
+{ def tag = "span"
+  def styleStr: String ="display: Block"
+  def attribs: RArr[XAtt] = StyleAtt(styleStr) %: otherAttribs
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def textLen: String = text(0, 0)
+  override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
+}
+
+object SpanLine
+{ /** Factory apply method for creating HTML span element. */
+  def apply(contents: XConInline*): HtmlSpan = new SpanLine(contents.toArr, RArr())
+
+  /** Factory apply method for creating HTML span element. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlSpan = new SpanLine(contents, attribs)
 }
 
 /** HTML noscript element. */

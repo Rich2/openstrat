@@ -1,10 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import geom._
+import geom.*
 
 /** base trait for [[CssDec]] and [[CssDecMulti]], certain scala declarations that translate to multiple CSS Declarations. */
 trait CssDecs
-{ /** The declaration sequence, for [[CssDec]] this will have a sigle member. */
+{ /** The declaration sequence, for [[CssDec]] this will have a single member. */
   def decs: RArr[CssDec]
 }
 

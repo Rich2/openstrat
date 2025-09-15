@@ -18,10 +18,7 @@ trait HtmlCodeMulti extends HtmlCode, HtmlTagLines
 { /** the lines of code unindented. */
   def lines: StrArr
 
-  override def contents: RArr[XCon] = lines match
-  { case _ if lines.length == 0 => RArr()
-    case ls => lines.initLastMap(_ + "<br>")(s => s)
-  }
+  override def contents: RArr[XCon] = lines.map(l => l)
 }
 
 /** An HTML code element that can be inlined. */
@@ -145,15 +142,17 @@ object HtmlBashInline
 }
 
 object BashPromptClass extends ClassAtt("bashprompt")
-class BashPromptSpan(str: String) extends HtmlSpan(RArr(str), RArr(BashPromptClass))
 
-class HtmlBashPrompt(val prompt: String, command: String) extends HtmlBashOwnLine
-{ def promptSpan = HtmlSpan(prompt, BashPromptClass)
+class BashPromptSpan(str: String) extends SpanInline(RArr(str), RArr(BashPromptClass))
+
+class HtmlBashWithPrompt(val prompt: String, command: String) extends HtmlBash, HtmlOwnLine
+{
+  def promptSpan: HtmlSpan = SpanInline(prompt, BashPromptClass)
   override def contents: RArr[XCon] = RArr(promptSpan, command)
 }
 
 class HtmlBashPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines
-{ override def contents: RArr[XCon] = iUntilFlatMap(texts.length / 2){i => RArr(HtmlBr, BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
+{ override def contents: RArr[XCon] = iUntilMap(texts.length / 2){i => SpanLine(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
   override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
