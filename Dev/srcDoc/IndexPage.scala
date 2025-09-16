@@ -39,8 +39,9 @@ object IndexPage extends HtmlPage
   def apps: HtmlLi = HtmlLi.linkAndText("Documentation/apps.html", "Apps Module", "This module for end-user applications, that may eventually end up" +
     " in their own repositories")
 
-  def dev: HtmlLi = HtmlLi.linkAndText("Documentation/dev.html", "Dev Module", "Depends on all the other modules. This module is for the use of" +
-    " developer tools and settings and illustrate provide tutorials, and to some extent test the modules core code.")
+  def dev: HtmlLi = HtmlLi(HtmlA("Documentation/dev.html", "Dev Module"), """Depends on all the other modules. This module is for the use of developer tools and
+  |settings and illustrate provide tutorials, and to some extent test the modules core code.""",
+    SpanLine(HtmlA("Documentation/tomcat.html", "Apache Tomcat")))
 
   def iconsHtml: XmlAsString ="""
    |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">

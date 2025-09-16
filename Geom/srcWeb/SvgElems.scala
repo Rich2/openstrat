@@ -39,10 +39,10 @@ object HtmlSvg
 /** Class to produce an SVG line. */
 class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, otherAttribs: RArr[XAtt]) extends SvgOwnLine
 { override def tag: String = "line"
-  val x1Att: XAtt = XAtt("x1", x1.toString)
-  val y1Att: XAtt = XAtt("y1", (-y1).toString)
-  val x2Att: XAtt = XAtt("x2", x2.toString)
-  val y2Att: XAtt = XAtt("y2", (-y2).toString)
+  val x1Att: XAtt = XAtt("x1", x1.str2)
+  val y1Att: XAtt = XAtt("y1", (-y1).str2)
+  val x2Att: XAtt = XAtt("x2", x2.str2)
+  val y2Att: XAtt = XAtt("y2", (-y2).str2)
   override def attribs: RArr[XAtt] = RArr(x1Att, y1Att, x2Att, y2Att) ++ otherAttribs
   override def contents: RArr[XConElem] = RArr()
 }

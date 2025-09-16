@@ -41,7 +41,7 @@ object XAtt
 class PointsAtt(val arrayUnsafe: Array[Double]) extends XAtt
 { override def name: String = "points"
   def numPoints = arrayUnsafe.length / 2
-  def pointStrs: StrArr = iUntilMap(numPoints){ i => arrayUnsafe(i * 2).str + "," + (-arrayUnsafe(i * 2 + 1)).str}
+  def pointStrs: StrArr = iUntilMap(numPoints){ i => arrayUnsafe(i * 2).str2 + "," + (-arrayUnsafe(i * 2 + 1)).str2}
 
   override def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
   { val pStrs = pointStrs
@@ -55,11 +55,11 @@ class PointsAtt(val arrayUnsafe: Array[Double]) extends XAtt
         while (i < numPoints)
         { val newStr: String = pStrs(i)
           currLine match
-          { case "" => currLine = newStr
+          { case "" if res.length == 0 => currLine = newStr
             case "" => currLine = indent.spaces + newStr
 
-            case str if
-              (res.length == 0 && line1InputLen +currLine.length + 1 + newStr.length > maxLineLen) || (currLine.length + 1 + newStr.length > maxLineLen) =>
+            case str if (res.length == 0 && line1InputLen + currLine.length + 1 + newStr.length > maxLineLen) ||
+              (currLine.length + 1 + newStr.length > maxLineLen) =>
             { res.append(currLine)
               currLine = indent.spaces + newStr
             }

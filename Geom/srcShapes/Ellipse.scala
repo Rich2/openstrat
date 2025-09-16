@@ -49,10 +49,10 @@ trait Ellipse extends EllipseBased, ShapeCentred
   def e: Double = (1 - b.squared / a.squared).sqrt
 
   def area: Double
-  def cxAttrib: XAtt = XAtt("cx", cenX.toString)
-  def cyAttrib: XAtt = XAtt("cy", cenY.toString)
-  def rxAttrib: XAtt = XAtt("rx", radius1.toString)
-  def ryAttrib: XAtt = XAtt("ry", radius2.toString)
+  def cxAttrib: XAtt = XAtt("cx", cenX.str2)
+  def cyAttrib: XAtt = XAtt("cy", cenY.str2)
+  def rxAttrib: XAtt = XAtt("rx", radius1.str2)
+  def ryAttrib: XAtt = XAtt("ry", radius2.str2)
   def attribs: RArr[XAtt] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: Rect
 

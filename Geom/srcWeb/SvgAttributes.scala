@@ -35,7 +35,7 @@ case class XXmlAtt(valueStr: String) extends XAttSimple
 }
 
 object XXmlAtt
-{ def apply(inp: Double): XXmlAtt = new XXmlAtt(inp.toString)
+{ def apply(inp: Double): XXmlAtt = new XXmlAtt(inp.str2)
 }
 
 /** XML attribute for y posn. */
@@ -44,7 +44,7 @@ case class YXmlAtt(valueStr: String) extends XAttSimple
 }
 
 object YXmlAtt
-{ def apply(inp: Double): YXmlAtt = new YXmlAtt((-inp).toString)
+{ def apply(inp: Double): YXmlAtt = new YXmlAtt((-inp).str2)
 }
 
 object CentreBlockAtt extends ClassAtt("centreBlock")
