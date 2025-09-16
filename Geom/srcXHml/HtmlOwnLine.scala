@@ -17,4 +17,4 @@ trait HtmlStrOwnLine extends HtmlOwnLine
 }
 
 /** HTML content code that mey need BRs separate it from preceding and successive inline and other [[HtmlBrLine]] content */
-trait HtmlBrLine extends HtmlOwnLine
+trait HtmlBrLine extends HtmlOwnLineBlocked

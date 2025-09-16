@@ -144,10 +144,14 @@ object BashInline
   def apply(str: String): BashInline = new BashInline(str)
 }
 
+/** Attribute for the bash prompt class. Allows the prompt to be in a different colour to the BASH commands. It may be important to show what directory the
+ * command is being launched from. */
 object BashPromptClass extends ClassAtt("bashprompt")
 
+/** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
 class BashPromptSpan(str: String) extends SpanInline(RArr(str), RArr(BashPromptClass))
 
+/** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
 { def promptSpan: SpanInline = SpanInline(prompt, BashPromptClass)
   override def contents: RArr[XConInline] = RArr(promptSpan, command)

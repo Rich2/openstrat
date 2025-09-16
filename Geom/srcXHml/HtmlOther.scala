@@ -51,7 +51,7 @@ object SpanInline
   def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): SpanInline = new SpanInline(contents, attribs)
 }
 
-/** HTML span element. */
+/** HTML span element on its own line, with display set to block. */
 case class SpanLine(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlSpan, HtmlOwnLineBlocked
 { def tag = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
@@ -93,7 +93,7 @@ object HtmlScript
   def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr), RArr(TypeJsAtt))
 }
 
-/** HTML style element. */
+/** HTML style element. note there is also a CSS [[StyleAtt]] attribute. */
 case class HtmlStyle(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tag: String = "style"
 }

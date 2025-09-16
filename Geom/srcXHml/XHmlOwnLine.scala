@@ -3,9 +3,7 @@ package ostrat; package pWeb
 
 /** XML / HTML Element that can be defined on a single line but can not share its line / lines with other content. */
 trait XHmlOwnLine extends XHmlElem
-{
-  def closeTagLine: Boolean = false
-
+{ def closeTagLine: Boolean = false
   final override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
   override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
