@@ -23,9 +23,11 @@ object IndexPage extends HtmlPage
   def intro = HtmlP("The Code is currently organised into 6 modules.".htmlB, """Each module can build artifacts for Jvm and JavaFx and for the JavaScript
   |platform and the Web.""".stripMargin)
 
-  def util: HtmlLi = HtmlLi(HtmlA("Documentation/util.html", "Util"), "Contains a number of utilities. This includes a parsing and persistence system.")
+  def util: HtmlLi = HtmlLi(HtmlA("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rixh Succinct object system
+  |persistence system and an error system.""".stripMargin)
 
-  def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", "Depends on Util. Basic 2D and 3D geometry, functional Graphics.")
+  def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurment units, Basic 2D and 3D geometry,
+  |Earth Geometry, functional Graphics and code for creating HTTP, HTML, CSS and SVG and other XML.""".stripMargin)
 
   def tile: HtmlLi = HtmlLi(HtmlA("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
   |hexagonal, as well as systems of grids.""".stripMargin)
