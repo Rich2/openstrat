@@ -20,7 +20,7 @@ class CodeLines(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLin
 
 object CodeLines
 {
-  
+  def apply(lines: String*): CodeLines = new CodeLines(lines.toArr, RArr())
 }
 
 /** An HTML code element that can be inlined. */
