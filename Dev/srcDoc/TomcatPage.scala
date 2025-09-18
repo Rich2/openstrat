@@ -66,6 +66,33 @@ object TomcatPage extends HtmlPage
    BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tomcat11"),
    "Then checking what we've got.",
    BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
-   HtmlCodeOwnLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tomcat11"))
+   HtmlCodeOwnLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tomcat11")),
+
+   HtmlLi("Create a systemd unit file.",
+   BashLine("sudo nano /etc/systemd/system/tom11.service"),
+   CodeLines(
+   "[Unit]",
+   "Description=Apache Tomcat 11 Web Application Container",
+    "After=network.target",
+    "",
+    "[Service]",
+    "Type=forking",
+     "",
+     """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
+     """Environment="CATALINA_PID=/opt/tomcat/tomcat11/temp/tomcat.pid"""",
+     """Environment="CATALINA_HOME=/opt/tomcat/tomcat11/"""",
+     """Environment="CATALINA_BASE=/opt/tomcat/Base/"""",
+     """Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"""",
+     """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
+     "ExecStart=/opt/tomcat/tomcat11/bin/startup.sh",
+     "ExecStop=/opt/tomcat/tomcat11/bin/shutdown.sh",
+     "User=tommy",
+     "Group=tommy",
+     "UMask=0007",
+     "RestartSec=10",
+     "Restart=always",
+     "[Install]",
+     "WantedBy=multi-user.target"
+     ))
   )
 }
