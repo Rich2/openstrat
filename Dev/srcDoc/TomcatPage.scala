@@ -35,16 +35,21 @@ object TomcatPage extends HtmlPage
   "OpenJDK 64-Bit Server VM (build 21.0.8+9-Ubuntu-0ubuntu124.04.1, mixed mode, sharing)")
   ),
 
-  HtmlLi("""Create a new user and a new group of the same name. For these examples we'll call it 'tommy'. Again for desktop, laptop and home server this is not
-  |necessary and you can use your own username.""".stripMargin,
-  HtmlBashMulti("sudo useradd tommy", "sudo passwd tommy")),
+  HtmlLi("""Create a new user and a new group of the same name. For these examples we'll call it 'tommy'. I find it better to have a different name for the user
+  |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
+  HtmlBashMulti("sudo useradd -ms /bin/bash tommy",
+  "sudo passwd tommy")),
 
   HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
   |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
-  HtmlBashMulti("sudo mkdir /opt/tomcat", "sudo chown tomcat:tomcat /opt/tomcat"),
+  HtmlBashMulti("sudo mkdir /opt/tomcat",
+  "sudo chown tommy:tommy /opt/tomcat"),
+  "Switch user to tommy. Then change directory.",
+  BashLine("sudo su tommy"),
+  BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
-  BashWithPrompt("tommy@ser:/opttomcat", "mkdir Base")),
+  BashWithPrompt("tommy@ser:/opt/tomcat", "mkdir Base")),
 
   HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
   |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to
