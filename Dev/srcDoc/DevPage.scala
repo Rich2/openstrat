@@ -71,7 +71,7 @@ object DevPage extends HtmlPage
   def p6: HtmlP = HtmlP(s"""So at least recent versions of Kubuntu the java command on the path, is at ${path("/usr/bin/java")}. It is a link to
   |${path("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${path("usr/lib/jvm")}. It doesn't have
   | to be here, but it makes it easier to go with convention. Run""".stripMargin,
-  BashOwnLine("sudo update-alternatives --config java"),
+  BashLine("sudo update-alternatives --config java"),
   "In my example this gives<br>")
 
   def table = HtmlTable(
@@ -82,9 +82,9 @@ object DevPage extends HtmlPage
   )
 
   def p7 = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
-  BashOwnLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
+  BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
   "then repeat",
-  BashOwnLine("sudo update-alternatives --config java"))
+  BashLine("sudo update-alternatives --config java"))
   
   def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),

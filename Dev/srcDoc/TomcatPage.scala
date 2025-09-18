@@ -26,10 +26,14 @@ object TomcatPage extends HtmlPage
   |you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to get your site
   |/ app out to the world.""".stripMargin),
 
+  HtmlLi("Install Java. Currently suggesting Java 21 LTS. Note the jdk at the end of the version.",
+  BashLine("sudo apt install openjdk-21-jdk -y"),
+  "Check the version",
+   BashLine("java -version")),
+
   HtmlLi("""Create a new user and a new group of the same name. For these examples we'll call it 'tommy'. Again for desktop, laptop and home server this is not
   |necessary and you can use your own username.""".stripMargin,
   HtmlBashMulti("sudo useradd tommy", "sudo passwd tommy")),
-
 
   HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
   |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,

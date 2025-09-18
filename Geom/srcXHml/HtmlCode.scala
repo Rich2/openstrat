@@ -6,19 +6,21 @@ trait HtmlCode extends HtmlUnvoid
 { override def tag: String = "code"
 }
 
-trait HtmlCodeLines extends HtmlCode, HtmlTagLines
-{ /** The lines of code. */
-  def lines: StrArr
-
-  override def contents: RArr[XCon] = lines.map(HtmlDiv(_))
-}
-
 /** A multi line, HTML, code element */
-trait HtmlCodeMulti extends HtmlCode, HtmlTagLines
+trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 { /** the lines of code unindented. */
   def lines: StrArr
 
   override def contents: RArr[XCon] = lines.map(l => SpanLine(l))
+}
+
+class CodeLines(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines
+{ override def attribs: RArr[XAtt] = otherAttribs
+}
+
+object CodeLines
+{
+  
 }
 
 /** An HTML code element that can be inlined. */
@@ -106,13 +108,8 @@ trait HtmlBash extends HtmlCode
 { override def attribs: RArr[XAtt] = RArr(BashAtt)
 }
 
-class HtmlBashLine(str: String) extends HtmlBash
-{ override def contents: RArr[XCon] = RArr(HtmlDiv("<code"))
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
-}
-
 /** A multi line, Html, Bash code element. */
-class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlCodeMulti
+class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlCodeLines
 { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
@@ -121,17 +118,17 @@ object HtmlBashMulti
   def apply(lines: String*): HtmlBashMulti = new HtmlBashMulti(lines.toArr, RArr())
 }
 
-/** Html Bash code element, that is on ts own line. */
+/** Html Bash code element, that is on ts own line. For the general case use the [[BashLine]] class. */
 trait BashOwnLine extends HtmlBash, HtmlCodeOwnLine
 { override def attribs: RArr[XAtt] = RArr(styleAtt, BashAtt)
 }
-  
 
-object BashOwnLine
-{
-  def apply(str: String): BashOwnLine = new HtmlBashOwnLineGen(RArr(str), RArr())
+/** An HTML Bash code element that will display on its own line. */
+class BashLine(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) extends BashOwnLine
 
-  class HtmlBashOwnLineGen(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) extends BashOwnLine
+object BashLine
+{ /** Factory apply method to write Bash code in HTML on its own line. */
+  def apply(str: String): BashLine = new BashLine(RArr(str), RArr())
 }
 
 /** Html BASH code element, that can be inlined. */
