@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, HtmlStrInserts.*
+import pWeb.*, wcode.*
 
 /** HTML documentation page for Dev Module. */
 object DevPage extends HtmlPage
@@ -16,8 +16,8 @@ object DevPage extends HtmlPage
   
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
-  def p1: HtmlP = HtmlP(s"""It currently works on JavaFx and web page. Using canvas on both platforms. See ${link("../api/index.html", "Scala Docs")} and see
-  |${link("../apiJs/index.html", "Scala Docs for JavaScript target")}.""".stripMargin)
+  def p1: HtmlP = HtmlP("It currently works on JavaFx and web page. Using canvas on both platforms. See", "../api/index.html", "Scala Docs".htmlPath,
+  """and see ${linkOut("../apiJs/index.html", "Scala Docs for JavaScript target")}.""")
 
   def p2: HtmlP = HtmlP("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
   |The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
@@ -68,8 +68,8 @@ object DevPage extends HtmlPage
     HtmlLi("Project-Pane => Options -> 'Flatten packages'")
   )
 
-  def p6: HtmlP = HtmlP(s"""So at least recent versions of Kubuntu the java command on the path, is at ${path("/usr/bin/java")}. It is a link to
-  |${path("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${path("usr/lib/jvm")}. It doesn't have
+  def p6: HtmlP = HtmlP(s"""So at least recent versions of Kubuntu the java command on the path, is at ${dirOut("/usr/bin/java")}. It is a link to
+  |${dirOut("/etc/alternatives/java")}. This is also a link. To install a different java, install the JDK root folder in ${dirOut("usr/lib/jvm")}. It doesn't have
   | to be here, but it makes it easier to go with convention. Run""".stripMargin,
   BashLine("sudo update-alternatives --config java"),
   "In my example this gives<br>")

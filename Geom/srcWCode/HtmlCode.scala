@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pWeb; package wcode
 
 /** An HTML code element. */
 trait HtmlCode extends HtmlUnvoid

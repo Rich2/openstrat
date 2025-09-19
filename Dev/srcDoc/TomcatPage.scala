@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*
+import pWeb.*, wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends HtmlPage
@@ -63,29 +63,29 @@ object TomcatPage extends HtmlPage
    HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released
    |frequently.""".stripMargin,
    BashWithPrompt("tommy@ser:/opt/tomcat", "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
-   BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tomcat11"),
+   BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tom11"),
    "Then checking what we've got.",
    BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
-   HtmlCodeOwnLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tomcat11")),
+   HtmlCodeOwnLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11")),
 
    HtmlLi("Create a systemd unit file.",
    BashLine("sudo nano /etc/systemd/system/tom11.service"),
    CodeLines(
    "[Unit]",
-   "Description=Apache Tomcat 11 Web Application Container",
+   "Description=Apache Tomcat 11.0 Web Application Container",
     "After=network.target",
     "",
     "[Service]",
     "Type=forking",
      "",
      """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
-     """Environment="CATALINA_PID=/opt/tomcat/tomcat11/temp/tomcat.pid"""",
-     """Environment="CATALINA_HOME=/opt/tomcat/tomcat11/"""",
+     """Environment="CATALINA_PID=/opt/tomcat/tom11/temp/tomcat.pid"""",
+     """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
      """Environment="CATALINA_BASE=/opt/tomcat/Base/"""",
      """Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"""",
      """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
-     "ExecStart=/opt/tomcat/tomcat11/bin/startup.sh",
-     "ExecStop=/opt/tomcat/tomcat11/bin/shutdown.sh",
+     "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
+     "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh",
      "User=tommy",
      "Group=tommy",
      "UMask=0007",

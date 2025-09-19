@@ -39,9 +39,10 @@ object HtmlLi
   def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label)), otherText), attribs.toArr)
 
-  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(BashLine(bashStr), str2))
-  def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr), str2))
-  def sbt(sbtStr: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr)))
+  /** Remove these. */
+  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(wcode.BashLine(bashStr), str2))
+  def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(wcode.HtmlSbtInline(sbtStr), str2))
+  def sbt(sbtStr: String): HtmlLi = new HtmlLi(RArr(wcode.HtmlSbtInline(sbtStr)))
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */

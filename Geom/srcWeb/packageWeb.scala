@@ -13,18 +13,9 @@ package object pWeb
     def xmlAsString: XmlAsString = XmlAsString(thisString)
     
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
-    
-    /** Extension method to return an HTML gile / directory path code element. */
-    def htmlPath: HtmlDirPath = HtmlDirPath(thisString)
 
-    /** Extension method to return an HTML sbt plass code element. */
-    def htmlSbt: HtmlSbtInline = HtmlSbtInline(thisString)
-
-    /** Implicit method to return an HTML Scala element. */
-    def htmlScala: HtmlScalaInline = HtmlScalaInline(thisString)
-
-    /** Implicit method to return an HTML Bash element. */
-    def htmlBash: BashInline = BashInline(thisString)
+    /** Returns the output string for an HTML link. */
+    def linkOut(path: String, label: String = ""): String = HtmlA(path, label).out()
   }
 
   implicit class IntWebExtensions(thisInt: Int)
