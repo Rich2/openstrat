@@ -9,8 +9,6 @@ package object wcode
   extension (thisString: String) {/** Extension method to return an HTML file / directory path code element. */
     def htmlPath: HtmlDirPath = HtmlDirPath(thisString)
 
-
-
     /** Extension method to return an HTML sbt class code element. */
     def htmlSbt: HtmlSbtInline = HtmlSbtInline(thisString)
 

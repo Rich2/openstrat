@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb._
+import pWeb.*, wcode.*
 
 object NewDevsPage extends HtmlPage
 {
@@ -18,9 +18,9 @@ object NewDevsPage extends HtmlPage
 
   def gitCommands: HtmlUlWithLH = HtmlUlWithLH("<h2>Git Commands</h2> For transferring files from the master repository to your local machine and" --
     "back again.",
-    HtmlLi.bashAndText("""git clone https://github.com/Rich2/openstrat.git""", "clone Used when you want to copy all the files locally (for the" --
-      "1st time or when you've deleted the project directory) to grab your own copy of openstrat from github" --
-      """<a href="https://github.com/Richtype/openstrat"></a> to your local folder."""),
+    HtmlLi("git clone https://github.com/Rich2/openstrat.git".htmlBash, """clone Used when you want to copy all the files locally (for the 1st time or when
+    |you've deleted the project directory) to grab your own copy of openstrat from github""", HtmlA("https://github.com/Richtype/openstrat"), """to your local
+    |folder.""".stripMargin),
     HtmlLi.bashAndText("cd openstrat", "The change to the newly created openstrat project folder."),
     HtmlLi.bashAndText("git pull origin master", "Bring your local copy up to date with Github."),
     HtmlLi.bashAndText("git add -A", "Staging: tell git you've made new files to add to the project."),
