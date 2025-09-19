@@ -37,7 +37,7 @@ case class DecColour(colour: Colour) extends CssDec
 }
 
 /** CSS background-color property. */
-case class CssBGColour(colour: Colour) extends CssDec
+case class DecBGColour(colour: Colour) extends CssDec
 { override def prop: String = "background-color"
   override def valueStr: String = colour.webStr
 }

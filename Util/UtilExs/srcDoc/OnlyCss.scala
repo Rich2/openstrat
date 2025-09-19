@@ -7,7 +7,7 @@ trait CssOpenstrat extends CssRules
   def minMed: CssMedia = new MediaMinWidth(50.em)
   {
     override def rules: RArr[CssRule] = RArr(
-      CssIDRule("topmenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder(CssSolid(Yellow))),
+      CssIDRule("topmenu li", DispInBlock, DecBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder(CssSolid(Yellow))),
       CssIDRule("topmenu", DecAlignCen, DecMaxWidth(100.em)),
       CssIDRule("bottommenu", DispNone)
     )
@@ -24,7 +24,7 @@ object OnlyCss extends CssOpenstrat
   {
     override def rules: RArr[CssRule] = RArr(
       CssIDRule("topmenu", DispNone),
-      CssIDRule("bottommenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder("0.2em solid Green")),
+      CssIDRule("bottommenu li", DispInBlock, DecBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder("0.2em solid Green")),
     )
   }
 }
