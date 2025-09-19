@@ -5,17 +5,22 @@ package ostrat
 package object pWeb
 { /** The max line length for code is set at 160 characters. */
   inline val MaxLineLen: 160 = 160
-  
+
+  /** Returns the output string for an HTML link, plus a tailing string, useful for commas, fullstops etc. where a space is not wanted. */
+  def linkOut(path: String, label: String, tailStr: String): String = HtmlA(path, label).out() + tailStr
+
+  /** Returns the output string for an HTML link where the url is used as the label,plus a tailing string, useful for commas, fullstops etc. where a space is
+   * not wanted. */
+  def linkRawOut(path: String, tailStr: String): String = HtmlA(path).out() + tailStr
+
   extension(thisString: String)
   { /** Implicit method to return an HTML bold element. */
     def htmlB: HtmlB = HtmlB(thisString)
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
-    
-    def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
 
-    /** Returns the output string for an HTML link. */
-    def linkOut(path: String, label: String = ""): String = HtmlA(path, label).out()
+    /** Encloses the [[String]] with XML / HTML opening and closing tags. */
+    def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
   }
 
   implicit class IntWebExtensions(thisInt: Int)
