@@ -11,7 +11,10 @@ trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 { /** the lines of code unindented. */
   def lines: StrArr
 
-  override def contents: RArr[XCon] = lines.map(l => SpanLine(l))
+  override def contents: RArr[XCon] = lines.map{
+    case "" => SpanLine("<br>")
+    case l => SpanLine(l)
+  }
 }
 
 class CodeLines(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines

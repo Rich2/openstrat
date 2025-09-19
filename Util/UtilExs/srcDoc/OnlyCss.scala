@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pWeb._, Colour._
 
-trait CssOpenstrat extends CssRules
+trait CssOpenstrat extends CssRulesHolder
 {
   def minMed: CssMedia = new MediaMinWidth(50.em)
   {
