@@ -66,7 +66,7 @@ object TomcatPage extends HtmlPage
    BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tom11"),
    "Then checking what we've got.",
    BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
-   HtmlCodeOwnLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11")),
+   CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11")),
 
    HtmlLi("Create a systemd unit file.",
    BashLine("sudo nano /etc/systemd/system/tom11.service"),

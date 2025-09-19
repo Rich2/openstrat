@@ -23,12 +23,12 @@ object CodeLines
   def apply(lines: String*): CodeLines = new CodeLines(lines.toArr, RArr())
 }
 
-/** An HTML code element that can be inlined. */
-trait HtmlCodeOwnLine extends HtmlCode, HtmlOwnLineBlocked
+/** An HTML code element that is on its own line. */
+trait HtmlCodeLine extends HtmlCode, HtmlOwnLineBlocked
 
-object HtmlCodeOwnLine
+object HtmlCodeLine
 { /** Factory apply method to create an inline HTML cose element. */
-  def apply(str: String): HtmlCodeOwnLine = new HtmlCodeOwnLine
+  def apply(str: String): HtmlCodeLine = new HtmlCodeLine
   { override def contents: RArr[XCon] = RArr(str)    
   }
 }
@@ -44,54 +44,24 @@ object HtmlCodeInline
   }
 }
 
-/** Html Scala code element. */
-trait HtmlScala extends HtmlCode
+object CodeOutputAtt extends ClassAtt("output")
 
-object HtmlScala
-{ /** Factory apply method for HTML element for multiple lines of Scala code. */
-  //def apply(line1: String, line2: String, otherLines: String*): HtmlScala = new HtmlScalaLines(line1 %: line2 %: otherLines.toArr)
-
-  /** Factory apply method for [[HtmlScalaInline]]. */
-  def apply(str: String): HtmlScalaInline = new HtmlScalaInline(str)
+/** Html Bash code element. */
+trait CodeOutput extends HtmlCode
+{ override def attribs: RArr[XAtt] = RArr(CodeOutputAtt)
 }
 
-/** Html Element for multiple lines of Scala code. */
-class HtmlScalaLines(val lines: StrArr) extends HtmlScala, HtmlCodeLines
-{ def classAtt: ClassAtt = ClassAtt("scalalines")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
+/** An HTML code element that is on its own line. */
+trait CodeOutputLine extends HtmlCode, HtmlOwnLineBlocked
+{
+  override def attribs: RArr[XAtt] = RArr(styleAtt, CodeOutputAtt)
 }
 
-object HtmlScalaLines
-{ /** Factory apply method for HTML element for multiple lines of Scala code. */
-  def apply(lines: String*): HtmlScalaLines = new HtmlScalaLines(lines.toArr)
-}
-
-/** Html Scala code element, that can be inlined. */
-class HtmlScalaInline(val str: String) extends HtmlScala, HtmlCodeInline
-{ override def contents: RArr[XCon] = RArr(str)
-  def classAtt: ClassAtt = ClassAtt("scala")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
-}
-
-object HtmlScalaInline
-{ /** Factory apply method for [[HtmlScalaInline]]. */
-  def apply(str: String): HtmlScalaInline = new HtmlScalaInline(str)
-}
-
-/** Html Sbt code element. */
-trait HtmlSbt extends HtmlCode
-{ def classAtt: ClassAtt = ClassAtt("sbt")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
-}
-
-/** Html Sbt code element, that can be inlined. */
-class HtmlSbtInline(val str: String) extends HtmlSbt, HtmlCodeInline
-{ override def contents: RArr[XCon] = RArr(str)
-}
-
-object HtmlSbtInline
-{ /** Factory apply method for [[HtmlSbtInline]]. */
-  def apply(str: String): HtmlSbtInline = new HtmlSbtInline(str)
+object CodeOutputLine
+{ /** Factory apply method to create an inline HTML cose element. */
+  def apply(str: String): CodeOutputLine = new CodeOutputLine
+  { override def contents: RArr[XCon] = RArr(str)
+  }
 }
 
 /** Html directory path code element. */
@@ -99,67 +69,4 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
 { def classAtt: ClassAtt = ClassAtt("path")
   override def contents: RArr[XCon] = RArr(str)
   override def attribs: RArr[XAtt] = RArr(classAtt)
-}
-
-object BashAtt extends ClassAtt("bash")
-
-/** Html Bash code element. */
-trait HtmlBash extends HtmlCode
-{ override def attribs: RArr[XAtt] = RArr(BashAtt)
-}
-
-/** A multi line, Html, Bash code element. */
-class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlCodeLines
-{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
-}
-
-object HtmlBashMulti
-{
-  def apply(lines: String*): HtmlBashMulti = new HtmlBashMulti(lines.toArr, RArr())
-}
-
-/** Html Bash code element, that is on ts own line. For the general case use the [[BashLine]] class. */
-trait BashOwnLine extends HtmlBash, HtmlCodeOwnLine
-{ override def attribs: RArr[XAtt] = RArr(styleAtt, BashAtt)
-}
-
-/** An HTML Bash code element that will display on its own line. */
-class BashLine(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) extends BashOwnLine
-
-object BashLine
-{ /** Factory apply method to write Bash code in HTML on its own line. */
-  def apply(str: String): BashLine = new BashLine(RArr(str), RArr())
-}
-
-/** Html BASH code element, that can be inlined. */
-class BashInline(val str: String) extends HtmlBash, HtmlCodeInline
-{ override def contents: RArr[XCon] = RArr(str)
-}
-
-object BashInline
-{ /** Factory apply method for [[BashInline]]. */
-  def apply(str: String): BashInline = new BashInline(str)
-}
-
-/** Attribute for the bash prompt class. Allows the prompt to be in a different colour to the BASH commands. It may be important to show what directory the
- * command is being launched from. */
-object BashPromptClass extends ClassAtt("bashprompt")
-
-/** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
-class BashPromptSpan(str: String) extends SpanInline(RArr(str), RArr(BashPromptClass))
-
-/** An HTML element to display a BASH prompt and command on its own line.  */
-class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{ def promptSpan: SpanInline = SpanInline(prompt, BashPromptClass)
-  override def contents: RArr[XConInline] = RArr(promptSpan, command)
-}
-
-class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines
-{ override def contents: RArr[XCon] = iUntilMap(texts.length / 2){i => SpanLine(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
-  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
-}
-
-object BashWithPromptMulti
-{
-  def apply(strs: String*): BashWithPromptMulti = new BashWithPromptMulti(strs.toArr, RArr())
 }
