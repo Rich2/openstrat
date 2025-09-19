@@ -21,16 +21,16 @@ object NewDevsPage extends HtmlPage
     HtmlLi("git clone https://github.com/Rich2/openstrat.git".htmlBash, """clone Used when you want to copy all the files locally (for the 1st time or when
     |you've deleted the project directory) to grab your own copy of openstrat from github""", HtmlA("https://github.com/Richtype/openstrat"), """to your local
     |folder.""".stripMargin),
-    HtmlLi.bashAndText("cd openstrat", "The change to the newly created openstrat project folder."),
-    HtmlLi.bashAndText("git pull origin master", "Bring your local copy up to date with Github."),
-    HtmlLi.bashAndText("git add -A", "Staging: tell git you've made new files to add to the project."),
-    HtmlLi.bashAndText("""git commit -m "A description of this commit."""", "Describe the changes."),
-    HtmlLi.bashAndText("git push origin master", "Now push your local changes to master up to Github."),
-    HtmlLi.bashAndText("""git commit -a -m "A description of this commit."""", "Staging without adding new files## push alternative method (you've" --
-      "only made changes to existing files shorthand version of the above but will not take into account any new files you may have created."),
-    HtmlLi.bashAndText("git status", "To check the status of your copy of master."),
-    HtmlLi.bashAndText("""git config --global credential.helper "cache --timeout=3600"""", "Cache user name / pasword store username/password for" --
-      "a set number of seconds, the next time you push")
+    HtmlLi("cd openstrat".htmlBash, "The change to the newly created openstrat project folder."),
+    HtmlLi("git pull origin master".htmlBash, "Bring your local copy up to date with Github."),
+    HtmlLi("git add -A".htmlBash, "Staging: tell git you've made new files to add to the project."),
+    HtmlLi("""git commit -m "A description of this commit."""".htmlBash, "Describe the changes."),
+    HtmlLi("git push origin master".htmlBash, "Now push your local changes to master up to Github."),
+    HtmlLi("""git commit -a -m "A description of this commit."""".htmlBash, """Staging without adding new files## push alternative method (you've only made
+    |changes to existing files shorthand version of the above but will not take into account any new files you may have created."""),
+    HtmlLi("git status".htmlBash, "To check the status of your copy of master."),
+    HtmlLi("""git config --global credential.helper "cache --timeout=3600"""".htmlBash, """Cache user name / password store username/password for a set number",
+    |of seconds, the next time you push""")
   )
 
   def sbtCommands = HtmlUlWithLH("<h3>Sbt</h3> A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is" --

@@ -40,7 +40,6 @@ object HtmlLi
     new HtmlLi(RArr(new HtmlA(link, RArr(label)), otherText), attribs.toArr)
 
   /** Remove these. */
-  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(wcode.BashLine(bashStr), str2))
   def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(wcode.HtmlSbtInline(sbtStr), str2))
   def sbt(sbtStr: String): HtmlLi = new HtmlLi(RArr(wcode.HtmlSbtInline(sbtStr)))
 }
