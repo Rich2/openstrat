@@ -34,14 +34,14 @@ object DevPage extends HtmlPage
     stripMargin)
 
   def sbt1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
-    HtmlLi.sbtAndText("~DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
+    HtmlLi("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
     HtmlLi("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
-    HtmlLi.sbtAndText("~Util/test", "Rerun tests on Util module."),
-    HtmlLi.sbtAndText("~Geom/test", "Rerun tests on Geom module."),
-    HtmlLi.sbtAndText("~Tiling/test", "Rerun tests on Tiling module."),
-    HtmlLi.sbtAndText("~Dev/test", "Rerun tests on, Dev module."),
-    HtmlLi.sbtAndText("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test", "Rerun tests on the 5 modules."),
+    HtmlLi("~Util/test".htmlSbt, "Rerun tests on Util module."),
+    HtmlLi("~Geom/test".htmlSbt, "Rerun tests on Geom module."),
+    HtmlLi("~Tiling/test".htmlSbt, "Rerun tests on Tiling module."),
+    HtmlLi("~Dev/test".htmlSbt, "Rerun tests on, Dev module."),
+    HtmlLi("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test".htmlSbt, "Rerun tests on the 5 modules."),
 
     HtmlLi("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
     "target/scala-3.7.2/unidoc/".htmlPath),
@@ -49,7 +49,7 @@ object DevPage extends HtmlPage
     HtmlLi("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
     "Dev/JsAgg/target/scala-3.7.2/unidoc/".htmlPath),
 
-    HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
+    HtmlLi("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )
 
   def p5: HtmlP = HtmlP("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command will build

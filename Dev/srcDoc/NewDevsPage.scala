@@ -35,7 +35,7 @@ object NewDevsPage extends HtmlPage
 
   def sbtCommands = HtmlUlWithLH("<h3>Sbt</h3> A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is" --
     "for compiling and running the applications and other tasks.",
-    HtmlLi.sbtAndText("clean", "Gets rid of the cache"),
-    HtmlLi.sbtAndText("Util/clean", "To clean an individual module")
+    HtmlLi("clean".htmlSbt, "Gets rid of the cache"),
+    HtmlLi("Util/clean".htmlSbt, "To clean an individual module")
   )
 }
