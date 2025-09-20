@@ -27,6 +27,8 @@ case class HrefAtt(valueStr: String) extends XAttSimple
 case class TypeAtt(valueStr: String) extends XAttSimple
 { override def name: String = "type"
 }
+/** Type attribute set to text. */
+object TypeTextAtt extends TypeAtt("text")
 
 /** Type attribute set to text/javascript. */
 object TypeJsAtt extends TypeAtt("text/javascript")

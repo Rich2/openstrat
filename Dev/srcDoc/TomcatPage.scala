@@ -7,7 +7,7 @@ object TomcatPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, steps)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, lab1, inp1, steps)
 
   def p1 = HtmlP("""This page is targeted at Scala Developers, who want to get a / some simple web applications going, or create a dynamic web site using Scala.
   |However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced professional Scala
@@ -15,6 +15,9 @@ object TomcatPage extends HtmlPage
   |servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note referring to it as
   |Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting up Tomcat on your
   |own Desktop, laptop, home server or VPS.""".stripMargin)
+  
+  def lab1 = HtmlLabel("uName", "User Name")
+  def inp1 = HtmlInput("uName", "tommy")
 
   def steps = HtmlOl(
   HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
