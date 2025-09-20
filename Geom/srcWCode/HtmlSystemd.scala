@@ -7,7 +7,7 @@ class HtmlSystemd(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeL
 
   override def contents: RArr[XCon] = lines.map{
     case "" => SpanLine("<br>")
-    case line if line(0) == '[' => {deb("Span"); SpanLine.attribs(line)(StyleAtt("color:lightgreen")) }
+    case line if line(0) == '[' => SpanLine.display(line)(DecColour(Colour.LightGreen))
     case l => SpanLine(l)
   }
 }

@@ -57,7 +57,7 @@ trait CodeOutput extends HtmlCode
 /** An HTML code element that is on its own line. */
 trait CodeOutputLine extends HtmlCode, HtmlOwnLineBlocked
 {
-  override def attribs: RArr[XAtt] = RArr(styleAtt, CodeOutputAtt)
+  override def attribs: RArr[XAtt] = super.attribs +% CodeOutputAtt
 }
 
 object CodeOutputLine

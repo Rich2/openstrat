@@ -83,6 +83,14 @@ case class XsiSchemaLoc(valueStr: String) extends XAttSimple
 }
 
 /** The Style attribute for inline CSS. */
-case class StyleAtt(valueStr: String) extends XAttSimple
+class StyleAtt(decs: RArr[CssDec]) extends XAttSimple
 { override def name: String = "style"
+
+  override def valueStr: String = decs.mkStr(_.out, " ")
+}
+
+object StyleAtt
+{
+  def apply(decs: RArr[CssDec]): StyleAtt = new StyleAtt(decs)
+  def apply(decs: CssDec*): StyleAtt = new StyleAtt(decs.toArr)
 }

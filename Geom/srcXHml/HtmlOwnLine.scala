@@ -5,9 +5,9 @@ package ostrat; package pWeb
 trait HtmlOwnLine extends HtmlElem, XHmlOwnLine
 
 trait HtmlOwnLineBlocked extends HtmlOwnLine
-{ def styleStr: String = "display: Block"
-  def styleAtt: XAtt = StyleAtt(styleStr)  
-  override def attribs: RArr[XAtt] = RArr(styleAtt)
+{ def styleDecs: RArr[CssDec] = RArr(DispBlock)    
+  def style = StyleAtt(styleDecs)  
+  override def attribs: RArr[XAtt] = RArr(style)
 }
 
 /** An HTML whose contents can be represented by a [[String]]. */

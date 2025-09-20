@@ -20,7 +20,7 @@ object HtmlBashMulti
 
 /** Html Bash code element, that is on ts own line. For the general case use the [[BashLine]] class. */
 trait BashOwnLine extends HtmlBash, HtmlCodeLine
-{ override def attribs: RArr[XAtt] = RArr(styleAtt, BashAtt)
+{ override def attribs: RArr[XAtt] = super.attribs +% BashAtt
 }
 
 /** An HTML Bash code element that will display on its own line. */

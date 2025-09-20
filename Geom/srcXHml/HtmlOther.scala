@@ -68,7 +68,9 @@ object SpanLine
   def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLine(contents, otherAttribs)
 
   /** Factory apply method for creating HTML span element. */
-  def attribs(contents: XConInline*)(otherAttribs: XAtt*): HtmlSpan = new SpanLine(contents.toArr, otherAttribs.toArr)
+  def display(contents: XConInline*)(otherDisplay: CssDec*): HtmlSpan = new SpanLine(contents.toArr, RArr()){
+    override def styleDecs: RArr[CssDec] = super.styleDecs ++ otherDisplay.toArr
+  }
 }
 
 /** HTML noscript element. */
