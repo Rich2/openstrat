@@ -2,7 +2,11 @@
 package learn
 import ostrat.*,geom.*, pSJs.*, scalajs.js.annotation.*
 
-@JSExportTopLevel("LessonAppJs")
-object LessonAppJs
-{ @JSExport def main(args: Array[String]): Unit = LsArcs1.canv(CanvasJs)
+@JSExportTopLevel("TomcatPageJs")
+object TomcatPageJs
+{
+  @JSExport def main(args: Array[String]): Unit =
+  {
+    println("Hello tomcat")
+  }
 } 

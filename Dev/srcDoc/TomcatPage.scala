@@ -5,7 +5,7 @@ import pWeb.*, wcode.*
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
-  override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central)
+  override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central, HtmlScript.jsSrc("main.js"), HtmlScript.main("TomcatPageJs"))
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", p1, lab1, inp1, steps)
 

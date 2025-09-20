@@ -3,8 +3,7 @@ package ostrat; package pDoc
 import pWeb.*
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "") extends
-  HtmlPage
+class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "") extends HtmlPage
 { /** The [[String]] for the HTML title element. */
   val pageTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
 

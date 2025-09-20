@@ -69,10 +69,17 @@ def jvmExsProj(name: String): Project = jvmProj(name + "Exs", name + "/" + name 
   Compile/unmanagedSourceDirectories := List("src", "srcDoc", "JvmSrc").map(moduleDir.value / _),  
 )
 
-def jsProj(name: String) = proj(name + "Js", name + "/" + name + "Js").enablePlugins(ScalaJSPlugin).settings(
+def jsProj(name: String, locationStr: String) = proj(name, locationStr).enablePlugins(ScalaJSPlugin).settings(
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.1")  withSources() withJavadoc(),
+)
+
+def jsMainProj(name: String) = jsProj(name + "Js", name + "/" + name + "Js").settings(
   moduleDir := bbDir.value / name,
   Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", moduleDir.value /"JsSrc"),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.1")  withSources() withJavadoc(),
+)
+
+def jsExsProj(name: String) = jsProj(name + "ExsJs", name + "/" + name + "Exs/" + name + "ExsJs").settings(
+  Compile/unmanagedSourceDirectories := List(bbDir.value / name / (name + "Exs") / (name + "ExsJs") /"src"),
 )
 
 def natProj(name: String) = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(
@@ -91,7 +98,7 @@ lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
 
 lazy val UtilExs = jvmExsProj("Util").dependsOn(Geom)
 
-lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
+lazy val UtilJs = jsMainProj("Util").settings(utilSett).settings(
   name := "rutiljs",  
 )
 
@@ -116,8 +123,12 @@ lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom, UtilExs).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett).settings(
+lazy val GeomJs = jsMainProj("Geom").dependsOn(UtilJs).settings(geomSett).settings(
   Compile/unmanagedSourceDirectories += bbDir.value / "Geom/GeomJs/src",
+)
+
+lazy val GeomExsJs = jsExsProj("Geom").dependsOn(GeomJs).settings(geomSett).settings(
+  //Compile/unmanagedSourceDirectories += bbDir.value / "Geom/GeomExs/GeomExsJs/src",
 )
 
 def tilingSett = List(
@@ -126,14 +137,14 @@ def tilingSett = List(
 
 lazy val Tiling = jvmMainProj("Tiling").dependsOn(Geom).settings(tilingSett)
 lazy val TilingExs = jvmExsProj("Tiling").dependsOn(Tiling, GeomExs)
-lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
+lazy val TilingJs = jsMainProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 
 lazy val EGrid = jvmMainProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 lazy val EGridExs = jvmExsProj("EGrid").dependsOn(EGrid, TilingExs)
 lazy val EarthIrr = config("EarthIrr") extend(Compile)
 lazy val EG1300 = config("EG1300") extend(Compile)
 
-lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts").settings(
+lazy val EGridJs = jsMainProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts").settings(
   inConfig(EarthIrr)(Defaults.compileSettings),
   inConfig(EarthIrr)(ScalaJSPlugin.compileConfigSettings),
   //EarthIrr/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ bbDir.value / "EGrid/JsAppsSrc/EarthApp",
@@ -149,7 +160,7 @@ def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(
 lazy val Apps = jvmMainProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsExs = jvmExsProj("Apps").dependsOn(Apps, EGridExs)
 
-lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
+lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat", bbDir.value / "Apps/AppsJs/src"),
   libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
   Compile/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
