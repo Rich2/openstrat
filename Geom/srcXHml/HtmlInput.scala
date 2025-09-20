@@ -11,20 +11,15 @@ class HtmlLabel(fieldName: String, label: String) extends HtmlInline
   override def contents: RArr[XCon] = RArr(label)
 }
 
-class HtmlInput(val idStr: String, valueStr: String) extends HtmlVoid
-{ override def tag: String = "input"
-
-  def idAtt: IdAtt = IdAtt(idStr)
-  def typeAtt = TypeTextAtt
+case class TextInput(idStr: String, valueStr: String) extends HtmlInput
+{ def idAtt: IdAtt = IdAtt(idStr)
+  override def typeAtt: TypeTextAtt.type = TypeTextAtt
   def valueAtt = ValueAtt(valueStr)
-
   override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt)
 }
 
-/*class HtmlInput(override val attribs: RArr[XAtt]) extends HtmlVoid
-{ override def tag: String = "input"
-}*/
-
-object HtmlInput{
-  //def submit(label: String): HtmlInput = new HtmlInput(RArr(TypeSubmitAtt, ValueAtt(label)))
+/** Html Input element with submit type */
+case class SubmitInput(valueStr: String) extends HtmlInput
+{ override def typeAtt: TypeAtt = TypeSubmitAtt
+  override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr))
 }

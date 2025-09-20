@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** trait for HTML Void elements such as br img and input. */
-trait HtmlVoid extends HtmlInline
+sealed trait HtmlVoid extends HtmlInline
 { final override def contents: RArr[XConElem] = RArr()
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openUnclosed(indent + 2, 0)
 }
@@ -51,4 +51,9 @@ class HtmlCssLink(val fullFileName: String) extends HtmlVoid
 object HtmlCssLink
 { /** Factory apply method for [[HtmlCssLink]] class form filename stem, adds the .css file ending. */
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
+}
+
+trait HtmlInput extends HtmlVoid
+{ def typeAtt: TypeAtt
+  override def tag: String = "input"
 }

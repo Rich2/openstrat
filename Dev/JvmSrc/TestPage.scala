@@ -6,5 +6,5 @@ object TestPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.title("Test Page")
 
-  override def body: HtmlBody = HtmlBody("This is a test page", HtmlInput("Send", "More text"))
+  override def body: HtmlBody = HtmlBody("This is a test page", SubmitInput("Send"))
 }

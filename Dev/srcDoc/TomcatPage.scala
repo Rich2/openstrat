@@ -17,7 +17,7 @@ object TomcatPage extends HtmlPage
   |own Desktop, laptop, home server or VPS.""".stripMargin)
   
   def lab1 = HtmlLabel("uName", "User Name")
-  def inp1 = HtmlInput("uName", "tommy")
+  def inp1 = TextInput("uName", "tommy")
 
   def steps = HtmlOl(
   HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
