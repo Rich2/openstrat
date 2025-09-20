@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import geom._, pgui._, math.Pi, org.scalajs.dom._
+import geom.*, pgui.*, math.Pi, org.scalajs.dom.*
 
 /** An implementation of CanvasPlatform for Scala.js using Web canvas. */
 object CanvasJs extends CanvasTopLeft
