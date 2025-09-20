@@ -70,7 +70,7 @@ object TomcatPage extends HtmlPage
 
    HtmlLi("Create a systemd unit file.",
    BashLine("sudo nano /etc/systemd/system/tom11.service"),
-   CodeLines(
+   HtmlSystemd(
    "[Unit]",
    "Description=Apache Tomcat 11.0 Web Application Container",
     "After=network.target",

@@ -56,6 +56,7 @@ case class SpanLine(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends Html
 { def tag = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
+  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
@@ -65,6 +66,9 @@ object SpanLine
 
   /** Factory apply method for creating HTML span element. */
   def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLine(contents, otherAttribs)
+
+  /** Factory apply method for creating HTML span element. */
+  def attribs(contents: XConInline*)(otherAttribs: XAtt*): HtmlSpan = new SpanLine(contents.toArr, otherAttribs.toArr)
 }
 
 /** HTML noscript element. */
