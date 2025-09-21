@@ -9,12 +9,23 @@ object TomcatPageJs
   {
     println("Hello tomcat 3")
     val uName = document.getElementById("uName").asInstanceOf[html.Input]
+    var currName = "tommy"
     uName.addEventListener("change", e => {
-      println(e.target.toString)
+      deb(e.target.toString)
       val newName = e.target.asInstanceOf[html.Input].value
       println(newName)
-      val array1 = document.getElementsByClassName("nset")//.asInstanceOf[html.Span]
+      val array1 = document.getElementsByClassName("nset")
       array1.foreach(_.asInstanceOf[html.Span].textContent = newName)
+      val array2 = document.getElementsByClassName("nsetmulti")
+      array2.foreach{sp1 =>
+        deb("multi found")
+        val sp2 = sp1.asInstanceOf[HTMLElement]
+        val str = sp2.textContent
+        val regex = currName.r
+        val newText = regex.replaceAllIn(str, newName)
+        sp2.textContent = newText
+      }
+      currName = newName
     })
   }
 } 

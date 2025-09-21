@@ -25,10 +25,14 @@ trait BashOwnLine extends HtmlBash, HtmlCodeLine
 
 /** An HTML Bash code element that will display on its own line. */
 class BashLine(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) extends BashOwnLine
+{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+}
 
 object BashLine
 { /** Factory apply method to write Bash code in HTML on its own line. */
   def apply(contents: XConInline*): BashLine = new BashLine(contents.toArr, RArr())
+
+  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 }
 
 /** Html BASH code element, that can be inlined. */

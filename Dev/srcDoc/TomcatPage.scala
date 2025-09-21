@@ -47,8 +47,8 @@ object TomcatPage extends HtmlPage
 
   HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
   |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
-  HtmlBashMulti("sudo mkdir /opt/tomcat",
-  "sudo chown tommy:tommy /opt/tomcat"),
+  BashLine("sudo mkdir /opt/tomcat"),
+  BashLine.classAtt("nsetmulti", "sudo chown tommy:tommy /opt/tomcat"),
   "Switch user to tommy. Then change directory.",
   BashLine("sudo su", uNameSpan),
   BashLine("cd /opt/tomcat"),
