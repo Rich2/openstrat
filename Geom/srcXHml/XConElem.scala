@@ -24,5 +24,5 @@ case class XmlAsString(value: String) extends XConElem
 
 case class XComment(str: String) extends XConElem
 {
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = "<!-- " + str + "-->"
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = "<!-- " + str -- "-->"
 }

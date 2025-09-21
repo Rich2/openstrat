@@ -23,29 +23,42 @@ trait XHmlElem extends XConElem
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = attribs.length match
-  { case 0 => TextLines()
-
-    case n if n == 1 =>
-    { val str = attribs(0).out(indent + 2, line1InputLen, maxLineLen)
-      val len = str.length
-      TextLines(str)
+  def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
+  {
+    val (cls, atts2) = attribs.partition(_.name.toLowerCase  == "class")
+    val atts3: RArr[XAtt] = cls.length match{
+      case 0 => atts2
+      case 1 => atts2 +% cls(0)
+      case _ =>{
+        val newValue = cls.mkStr(_.valueOut(0, 0), " ")
+        atts2 +% ClassAtt(newValue)
+      }
     }
 
-    case n =>
-    { val lines = StringBuff()
-      var currLine = ""
-      def currLen = currLine.length
-      attribs.iForeach{ (i, att) =>
-        val newStr = att.out(indent + 2, indent, MaxLineLen)
-        if (currLen == 0 || (currLen + newStr.length + indent) <= maxLineLen) currLine --= newStr
-        else
-        { lines.grow(currLine)
-          currLine = "\n" + (indent + 2).spaces + newStr
-        }
+    atts3.length match
+    { case 0 => TextLines()
+
+      case n if n == 1 =>
+      { val str = atts3(0).out(indent + 2, line1InputLen, maxLineLen)
+        val len = str.length
+        TextLines(str)
       }
-      lines.grow(currLine)
-      TextLines(lines.mkStr())
+
+      case n =>
+      { val lines = StringBuff()
+        var currLine = ""
+        def currLen = currLine.length
+        atts3.iForeach{ (i, att) =>
+          val newStr = att.out(indent + 2, indent, MaxLineLen)
+          if (currLen == 0 || (currLen + newStr.length + indent) <= maxLineLen) currLine --= newStr
+          else
+          { lines.grow(currLine)
+            currLine = "\n" + (indent + 2).spaces + newStr
+          }
+        }
+        lines.grow(currLine)
+        TextLines(lines.mkStr())
+      }
     }
   }
 

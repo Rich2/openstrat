@@ -35,7 +35,7 @@ object HtmlP
 trait HtmlSpan extends HtmlElem
 
 /** HTML span element. */
-case class SpanInline(contents: RArr[XConInline], attribs: RArr[XAtt]) extends HtmlSpan, HtmlInline
+trait SpanInline extends HtmlSpan, HtmlInline
 { def tag = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
@@ -44,16 +44,18 @@ case class SpanInline(contents: RArr[XConInline], attribs: RArr[XAtt]) extends H
 
 object SpanInline
 { /** Factory apply method for creating HTML span element. */
-  def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), attribs.toRArr)
+  def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): SpanInline = new SpanInline(contents, attribs)
+  def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): SpanInline = new SpanInlineGen(contents, attribs)
   
   /** Factory method for creating HTML span element with an ID attribute. */
-  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
+  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
 
   /** Factory method for creating HTML span element with a class attribute. */
-  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
+  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
+
+  case class SpanInlineGen(contents: RArr[XConInline], attribs: RArr[XAtt]) extends SpanInline
 }
 
 /** HTML span element on its own line, with display set to block. */
@@ -76,6 +78,8 @@ object SpanLine
   def display(contents: XConInline*)(otherDisplay: CssDec*): HtmlSpan = new SpanLine(contents.toArr, RArr()){
     override def styleDecs: RArr[CssDec] = super.styleDecs ++ otherDisplay.toArr
   }
+
+  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 }
 
 /** HTML noscript element. */

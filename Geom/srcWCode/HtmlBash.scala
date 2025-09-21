@@ -32,7 +32,10 @@ object BashLine
 { /** Factory apply method to write Bash code in HTML on its own line. */
   def apply(contents: XConInline*): BashLine = new BashLine(contents.toArr, RArr())
 
+  def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
+
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
+
 }
 
 /** Html BASH code element, that can be inlined. */
@@ -50,7 +53,16 @@ object BashInline
 object BashPromptClass extends ClassAtt("bashprompt")
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
-class BashPromptSpan(str: String) extends SpanInline(RArr(str), RArr(BashPromptClass))
+class BashPromptSpan(val str: String, otherAttribs: RArr[XAtt]) extends SpanInline
+{ override def contents = RArr(str)
+  override def attribs: RArr[XAtt] = BashPromptClass %: otherAttribs
+}
+
+object BashPromptSpan
+{
+  def apply(str: String, attribs: XAtt*): BashPromptSpan = new BashPromptSpan(str, attribs.toArr)
+  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashPromptSpan = new BashPromptSpan(conStr, ClassAtt(classStr) %: otherAttribs.toArr)
+}
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine

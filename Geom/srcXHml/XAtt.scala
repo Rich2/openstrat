@@ -8,7 +8,7 @@ trait XAtt
   def name: String
 
   /** The combined String from valueOutLines. */
-  protected def valueOut(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = valueOutLines(indent + 2, line1InputLen, maxLineLen).text
+  def valueOut(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = valueOutLines(indent + 2, line1InputLen, maxLineLen).text
 
   /** Returns the text lines for the value of this attribute. */
   protected def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
