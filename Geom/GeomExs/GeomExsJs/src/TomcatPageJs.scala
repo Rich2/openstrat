@@ -7,12 +7,14 @@ object TomcatPageJs
 {
   @JSExport def main(args: Array[String]): Unit =
   {
-    println("Hello tomcat 2")
-    val uName = document.querySelector("input").asInstanceOf[html.Input]
+    println("Hello tomcat 3")
+    val uName = document.getElementById("uName").asInstanceOf[html.Input]
     uName.addEventListener("change", e => {
-      println(e.toString)
       println(e.target.toString)
-      println(e.target.asInstanceOf[html.Input].value. toString)
+      val newName = e.target.asInstanceOf[html.Input].value
+      println(newName)
+      val array1 = document.getElementsByClassName("nset")//.asInstanceOf[html.Span]
+      array1.foreach(_.asInstanceOf[html.Span].textContent = newName)
     })
   }
 } 

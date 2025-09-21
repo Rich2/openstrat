@@ -28,7 +28,7 @@ class BashLine(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) ext
 
 object BashLine
 { /** Factory apply method to write Bash code in HTML on its own line. */
-  def apply(str: String): BashLine = new BashLine(RArr(str), RArr())
+  def apply(contents: XConInline*): BashLine = new BashLine(contents.toArr, RArr())
 }
 
 /** Html BASH code element, that can be inlined. */

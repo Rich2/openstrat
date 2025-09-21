@@ -21,3 +21,8 @@ case class XmlAsString(value: String) extends XConElem
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = value
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(value)
 }
+
+case class XComment(str: String) extends XConElem
+{
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = "<!-- " + str + "-->"
+}

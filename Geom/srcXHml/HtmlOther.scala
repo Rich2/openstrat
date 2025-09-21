@@ -43,12 +43,17 @@ case class SpanInline(contents: RArr[XConInline], attribs: RArr[XAtt]) extends H
 }
 
 object SpanInline
-{
-  /** Factory apply method for creating HTML span element. */
-    def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), attribs.toRArr)
+{ /** Factory apply method for creating HTML span element. */
+  def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
   def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): SpanInline = new SpanInline(contents, attribs)
+  
+  /** Factory method for creating HTML span element with an ID attribute. */
+  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
+
+  /** Factory method for creating HTML span element with a class attribute. */
+  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInline(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
 }
 
 /** HTML span element on its own line, with display set to block. */

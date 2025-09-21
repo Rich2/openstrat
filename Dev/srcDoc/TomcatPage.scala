@@ -5,7 +5,8 @@ import pWeb.*, wcode.*
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
-  override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central, HtmlScript.jsSrc("main.js"), HtmlScript.main("TomcatPageJs"))
+  override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central,
+    XComment("/openstrat/Geom/GeomExs/GeomExsJs/target/scala-3.7.3/geomexsjs-opt/"), HtmlScript.jsSrc("main.js"), HtmlScript.main("TomcatPageJs"))
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", p1, lab1, inp1, steps)
 
@@ -15,9 +16,10 @@ object TomcatPage extends HtmlPage
   |servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note referring to it as
   |Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting up Tomcat on your
   |own Desktop, laptop, home server or VPS.""".stripMargin)
-  
+
   def lab1 = HtmlLabel("uName", "User Name")
   def inp1 = TextInput("uName", "tommy")
+  def uNameSpan: SpanInline = SpanInline.classAtt("nset", "tommy")
 
   def steps = HtmlOl(
   HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
@@ -40,15 +42,15 @@ object TomcatPage extends HtmlPage
 
   HtmlLi("""Create a new user and a new group of the same name. For these examples we'll call it 'tommy'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
-  HtmlBashMulti("sudo useradd -ms /bin/bash tommy",
-  "sudo passwd tommy")),
+  BashLine("sudo useradd -ms /bin/bash", uNameSpan),
+  BashLine("sudo passwd", uNameSpan)),
 
   HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
   |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   HtmlBashMulti("sudo mkdir /opt/tomcat",
   "sudo chown tommy:tommy /opt/tomcat"),
   "Switch user to tommy. Then change directory.",
-  BashLine("sudo su tommy"),
+  BashLine("sudo su", uNameSpan),
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
