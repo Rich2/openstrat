@@ -12,10 +12,8 @@ object TomcatPageJs
     var currName = "tommy"
     uName.addEventListener("change", e => {
       val newUserName = e.target.asInstanceOf[html.Input].value
-      debvar(newUserName)
-      val array1 = document.getElementsByClassName("nset1")
-      array1.foreach(_.asInstanceOf[HTMLElement].textContent = newUserName)
-      val array2 = document.getElementsByClassName("nset2")
+      debvar(newUserName)      
+      val array2 = document.getElementsByClassName("nset")
       array2.foreach{sp1 =>
         val sp2 = sp1.asInstanceOf[HTMLElement]
         val str = sp2.textContent
