@@ -115,6 +115,18 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
 object RPairBuff
 { /** Factory apply method for [[RPairBuff]] class. Creates an empty [[Buff]] class with a default buffer for expansion of 4 elements. */
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
+  
+  /** Constructs a new pair buff, initialised with the given elements. */
+  def init[B1, B2](elems: PairElem[B1, B2]*): RPairBuff[B1, B2] =
+  { val len = elems.length
+    val b1: ArrayBuffer[B1] = new ArrayBuffer[B1](len)
+    val b2: ArrayBuffer[B2] = new ArrayBuffer[B2](len)
+    elems.foreach{pair =>
+      b1.append(pair.a1)
+      b2.append(pair.a2)
+    }
+    new RPairBuff[B1, B2](b1, b2)
+  }
 
   implicit def mapBuildEv[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }

@@ -37,13 +37,13 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** Returns a new shorter Arr with the head element removed. */
-  @inline def tail(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(1)
+  @inline def tail(using ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(1)
 
   /** Returns a new shorter Arr with the first 2 head elements removed. */
-  @inline def drop2(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(2)
+  @inline def drop2(using ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(2)
 
   /** Returns a new shorter Arr with the first 3 head elements removed. */
-  @inline def drop3(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(3)
+  @inline def drop3(using ct: ClassTag[A] @uncheckedVariance): RArr[A] = drop(3)
 
   def offset(value: Int): ArrOff[A] @uncheckedVariance = new ArrOff[A](value)
   def offset0: ArrOff[A @uncheckedVariance] = offset(0)
@@ -53,10 +53,10 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
 
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  def unsafeSameSize(length: Int)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = fromArray(new Array[A](length))
+  def unsafeSameSize(length: Int)(using ct: ClassTag[A] @uncheckedVariance): ThisT = fromArray(new Array[A](length))
 
   /** Returns a new shorter Arr with the head elements removed. */
-  def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  def drop(n: Int)(using ct: ClassTag[A] @uncheckedVariance): RArr[A] =
   { val n2 = n.max0
     val newLen: Int = (length - n2).max0
     val newArray = new Array[A](newLen)
@@ -65,7 +65,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** Returns a new shorter Arr with the last elements removed. */
-  def dropRight(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  def dropRight(n: Int)(using ct: ClassTag[A] @uncheckedVariance): RArr[A] =
   { val n2 = n.max0
     val newLen: Int = (length - n2).max0
     val newArray = new Array[A](newLen)
@@ -74,7 +74,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** Functionally appends 2nd [[Arr]] collection to dispatching [[RArr]], allows type widening. */
-  @targetName("append") @inline def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  @targetName("append") @inline def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(using ct: ClassTag[AA]): RArr[AA] =
   { val newLen = length + op.length
     val newArray = new Array[AA](newLen)
     arrayUnsafe.copyToArray(newArray)
@@ -85,8 +85,23 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
     new RArr(newArray)
   }
 
+  /** Partitions this immutable [[RArr]] into an [[RPairArr]] of [[RArr]]s according to some discriminator function. */
+  def groupBy[K](f: A => K)(using ctA: ClassTag[A] @uncheckedVariance, ctK: ClassTag[K]): RPairArr[K, RArr[A] @uncheckedVariance] =
+  { val buffs: RPairBuff[K, ArrayBuffer[A]] = RPairBuff[K, ArrayBuffer[A]]()
+    foreach{a =>
+      val key = f(a)
+      val index = buffs.indexWhere(_.a1 == key)
+      if (index == -1) buffs.grow(RPairElem(key, ArrayBuffer[A](a)))
+      else buffs(index).a2.append(a)
+    }
+    val b2s: ArrayBuffer[ArrayBuffer[A]] = buffs.b2Buffer
+    val b2s2: Array[ArrayBuffer[A]] = b2s.toArray
+    val b2s3: Array[RArr[A]] = b2s2.map(buffer => new RArr[A](buffer.toArray))
+    new RPairArr[K, RArr[A]](buffs.b1Buffer.toArray, b2s3)
+  }
+
   /** Functionally appends [[Iterable]] to this [[RArr]] collection, allows type widening. */
-  @targetName("append") def ++[AA >: A](operand: Iterable[AA])(implicit ct: ClassTag[AA]): RArr[AA] =
+  @targetName("append") def ++[AA >: A](operand: Iterable[AA])(using ct: ClassTag[AA]): RArr[AA] =
   { val newLen = length + operand.size
     val newArray = new Array[AA](newLen)
     operand.iForeach { (i, el) => newArray(length + i) = el }
@@ -94,7 +109,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** append. Functionally appends a single element to dispatching [[RArr]], allows type widening. */
-  @targetName("appendElem") @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  @targetName("appendElem") @inline def +% [AA >: A](op: AA @uncheckedVariance)(using ct: ClassTag[AA]): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = op
@@ -103,14 +118,14 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
 
   /** Functionally prepends element to this [[RArr]]. Allows type widening. There is no prepend [[RArr]] method, as this would serve no purpose. The ::: method
    * on Lists is required for performance reasons. */
-  @inline @targetName("prependElem") def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] =
+  @inline @targetName("prependElem") def %: [AA >: A](op: AA @uncheckedVariance)(using ct: ClassTag[AA] @uncheckedVariance): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     arrayUnsafe.copyToArray(newArray, 1)
     new RArr(newArray)
   }
 
-  def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = indexWhere(f) match {
+  def removeFirst(f: A => Boolean)(using ct: ClassTag[A] @uncheckedVariance): ThisT = indexWhere(f) match {
     case -1 => returnThis
     case n => {
       val newArr = unsafeSameSize(length - 1)
@@ -121,34 +136,34 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** Returns an empty [[RArr]] if this is empty else returns an [[RArr]] containing only the last element. */
-  def lasts(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] = if(length == 0) RArr[A]() else RArr(last)
+  def lasts(using ct: ClassTag[A] @uncheckedVariance): RArr[A] = if(length == 0) RArr[A]() else RArr(last)
 
   /** Concatenates the elements of the operand [[RArr]], if the condition is true, else returns the original [[RArr]]. The return type is the super type of the
    * original [[RArr]] and the operand [[RArr]]. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
    * method, but concatsIf allows type widening. */
-  def concatArrIf[AA >: A](b: Boolean, newElems: => RArr[AA])(implicit ct: ClassTag[AA]): RArr[AA] =
+  def concatArrIf[AA >: A](b: Boolean, newElems: => RArr[AA])(using ct: ClassTag[AA]): RArr[AA] =
     ife(b,this ++ newElems, this)
 
   /** Appends the element if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be evaluated if the condition is true.
    * This is similar to the concats If method, but appendsIf does not allow type widening. */
-  def appendIf(b: Boolean, newElem: => A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  def appendIf(b: Boolean, newElem: => A @uncheckedVariance)(using ct: ClassTag[A] @uncheckedVariance): RArr[A] =
     ife(b,this +% newElem, this)
 
   /** Appends the elements of the operand [[RArr]] if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be evaluated
    * if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
-  def appendArrIf(b: Boolean, newElems: => RArr[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  def appendArrIf(b: Boolean, newElems: => RArr[A] @uncheckedVariance)(using ct: ClassTag[A] @uncheckedVariance): RArr[A] =
     ife(b,this ++ newElems, this)
 
-  def concatOption[AA >: A](optElem: Option[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  def concatOption[AA >: A](optElem: Option[AA] @uncheckedVariance)(using ct: ClassTag[AA]): RArr[AA] =
     optElem.fld(this, this +% _)
 
-  def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  def appendOption(optElem: Option[A]@uncheckedVariance)(using ct: ClassTag[A] @uncheckedVariance): RArr[A] =
     optElem.fld(this, this +% _)
 
-  def appendsOption(optElem: Option[RArr[A]]@uncheckedVariance)(implicit @unused ct: ClassTag[A] @uncheckedVariance ): RArr[A] =
+  def appendsOption(optElem: Option[RArr[A]]@uncheckedVariance)(using @unused ct: ClassTag[A] @uncheckedVariance ): RArr[A] =
     optElem.fld(this, s => this ++ s)
 
-  def concatsOption[AA >: A <: AnyRef](optElems: Option[RArr[AA]])(implicit ct: ClassTag[AA]): RArr[AA] =
+  def concatsOption[AA >: A <: AnyRef](optElems: Option[RArr[AA]])(using ct: ClassTag[AA]): RArr[AA] =
     optElems.fld[RArr[AA]](this, this ++ _)
 
   def setAll(value: A @uncheckedVariance): Unit =
@@ -159,7 +174,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   def mapToCurlySyntax: String = ???
 
   /** Takes the first n elements, starting from the second Int parameter that takes default value of 0. */
-  def take(n: Int, start: Int = 0)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  def take(n: Int, start: Int = 0)(using ct: ClassTag[A] @uncheckedVariance): RArr[A] =
   { val newLen: Int = n - (n + start - length).min0
     val newArray = new Array[A](newLen)
     System.arraycopy(arrayUnsafe, start, newArray, 0, newLen)
@@ -168,7 +183,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
 
   /** Takes the first n elements, starting from the second [[Int]] parameter that takes the default value of 0, looping back to the head when it reaches the end
    * of this sequence. */
-  def takeLoop(n: Int, start: Int = 0)(implicit ct: ClassTag[A]@uncheckedVariance): RArr[A] =
+  def takeLoop(n: Int, start: Int = 0)(using ct: ClassTag[A]@uncheckedVariance): RArr[A] =
   { val newArray = new Array[A](n)
     var i = 0
     while (i < n)
@@ -179,7 +194,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   }
 
   /** Partitions this [[RArr]] into 2 parts each with a subtype pf this sequence. */
-  def partitionTypes2[A1 <: A @uncheckedVariance, A2 <: A @uncheckedVariance](implicit tt1: TypeTest[A, A1], ct1: ClassTag[A1], tt2: TypeTest[A, A2],
+  def partitionTypes2[A1 <: A @uncheckedVariance, A2 <: A @uncheckedVariance](using tt1: TypeTest[A, A1], ct1: ClassTag[A1], tt2: TypeTest[A, A2],
     ct2: ClassTag[A2]): (RArr[A1], RArr[A2]) =
   { val buffer1 = new ArrayBuffer[A1]()
     val buffer2 = new ArrayBuffer[A2]()
@@ -226,7 +241,7 @@ object RArr
 
   implicit class RArrArrayExtension[A](val arr: RArr[Array[A]])
   { /** Combines the [[Array]]s into a single [[Array]]. */
-    def combine(implicit ct: ClassTag[A]): Array[A] =
+    def combine(using ct: ClassTag[A]): Array[A] =
     { val tot = arr.sumBy(_.length)
       val res = new Array[A](tot)
       var posn: Int = 0
@@ -297,7 +312,7 @@ case object RArr1Tail
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]], BuilderArrFlat[RArr[B]]
+class RArrAllBuilder[B](using ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]], BuilderArrFlat[RArr[B]]
 { type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def indexSet(seqLike: RArr[B], index: Int, newElem: B): Unit = seqLike.arrayUnsafe(index) = newElem
