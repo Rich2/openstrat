@@ -22,7 +22,7 @@ class CodeLines(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLin
 }
 
 object CodeLines
-{
+{ /** Factory apply method to display mulitple lines of code in HTML. */
   def apply(lines: String*): CodeLines = new CodeLines(lines.toArr, RArr())
 }
 
@@ -47,6 +47,7 @@ object HtmlCodeInline
   }
 }
 
+/** A code output attribute. Useful in documention foe distinguishing output from code and commands entered by the user. */
 object CodeOutputAtt extends ClassAtt("output")
 
 /** Html Bash code element. */
@@ -54,10 +55,9 @@ trait CodeOutput extends HtmlCode
 { override def attribs: RArr[XAtt] = RArr(CodeOutputAtt)
 }
 
-/** An HTML code element that is on its own line. */
+/** An HTML element for code output, that is on its own line. */
 trait CodeOutputLine extends HtmlCode, HtmlOwnLineBlocked
-{
-  override def attribs: RArr[XAtt] = super.attribs +% CodeOutputAtt
+{ override def attribs: RArr[XAtt] = super.attribs +% CodeOutputAtt
 }
 
 object CodeOutputLine

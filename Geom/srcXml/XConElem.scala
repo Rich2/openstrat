@@ -22,7 +22,7 @@ case class XmlAsString(value: String) extends XConElem
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(value)
 }
 
+/** An XML / HTML comment */
 case class XComment(str: String) extends XConElem
-{
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = "<!-- " + str -- "-->"
+{ override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = "<!-- " + str -- "-->"
 }

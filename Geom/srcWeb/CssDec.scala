@@ -85,18 +85,6 @@ case class DecFontWidth(value: CssVal) extends CssDecStd
 
 object DecBold extends DecFontWidth(CssBold)
 
-/** Css Display declaration set to inline-block. */
-object DispInBlock extends DecDisplay(CssInBlock)
-
-/** Css Display declaration set to block. */
-object DispBlock extends DecDisplay(CssBlock)
-
-/** Css Display declaration set to none. */
-object DispNone extends DecDisplay(CssNone)
-
-/** Css Display declaration set to flex. */
-object DispFlex extends DecDisplay(CssFlex)
-
 /** Css text-align declaration. */
 case class DecAlign(value: CssTextAlignVal | CssGenVal) extends CssDecStd
 { override def prop: String = "text-align"

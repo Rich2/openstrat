@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** trait for HTML Void elements such as br img and input. */
@@ -53,6 +53,7 @@ object HtmlCssLink
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
 
+/** An HTML input element. */
 trait HtmlInput extends HtmlVoid
 { def typeAtt: TypeAtt
   override def tag: String = "input"

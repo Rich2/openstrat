@@ -27,6 +27,7 @@ case class HrefAtt(valueStr: String) extends XAttSimple
 case class TypeAtt(valueStr: String) extends XAttSimple
 { override def name: String = "type"
 }
+
 /** Type attribute set to text. */
 object TypeTextAtt extends TypeAtt("text")
 
@@ -82,17 +83,4 @@ case class XmlNsXsi(valueStr: String) extends XAttSimple
 /** The XML xmlns:schemaLocation schema attribute. */
 case class XsiSchemaLoc(valueStr: String) extends XAttSimple
 { override def name: String = "xsi:schemaLocation"
-}
-
-/** The Style attribute for inline CSS. */
-class StyleAtt(decs: RArr[CssDec]) extends XAttSimple
-{ override def name: String = "style"
-
-  override def valueStr: String = decs.mkStr(_.out, " ")
-}
-
-object StyleAtt
-{
-  def apply(decs: RArr[CssDec]): StyleAtt = new StyleAtt(decs)
-  def apply(decs: CssDec*): StyleAtt = new StyleAtt(decs.toArr)
 }
