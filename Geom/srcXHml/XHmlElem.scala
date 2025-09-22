@@ -1,7 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An XML or an HTML element. */
+/** An XML or an HTML element. Multiple instances of an attribute are allowed. If there are multiple instances of the same attribute, the same attribute name,
+ * then the values are combined into a single attribute, when outputting into XML / HTML code.*/
 trait XHmlElem extends XConElem
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
@@ -23,17 +24,12 @@ trait XHmlElem extends XConElem
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
+  /** Outputs the attributes into XML / HTML code. If there are multiple instances of the same attribute, the same attribute name, the values are combined into
+   * a single attribute. */
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   {
-    val (cls, atts2) = attribs.partition(_.name.toLowerCase  == "class")
-    val atts3: RArr[XAtt] = cls.length match{
-      case 0 => atts2
-      case 1 => atts2 +% cls(0)
-      case _ =>{
-        val newValue = cls.mkStr(_.valueOut(0, 0), " ")
-        atts2 +% ClassAtt(newValue)
-      }
-    }
+    val atts2: RPairArr[String, RArr[XAtt]] = attribs.groupBy(_.name)
+    val atts3 = atts2.pairMap {(name, attrs) => if (attrs.length == 1) attrs(0) else XAtt(name, attrs.mkStr(_.valueOut(0, 0), " ")) }
 
     atts3.length match
     { case 0 => TextLines()
