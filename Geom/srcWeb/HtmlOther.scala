@@ -59,27 +59,31 @@ object SpanInline
 }
 
 /** HTML span element on its own line, with display set to block. */
-case class SpanLine(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlSpan, HtmlOwnLineBlocked
+trait SpanLine extends HtmlSpan, HtmlOwnLineBlocked
 { def tag = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
-  def textLen: String = text(0, 0)
-  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  def textLen: String = text(0, 0)  
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
 object SpanLine
 { /** Factory apply method for creating HTML span element. */
-  def apply(contents: XConInline*): HtmlSpan = new SpanLine(contents.toArr, RArr())
+  def apply(contents: XConInline*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLine(contents, otherAttribs)
+  def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLineGen(contents, otherAttribs)
 
   /** Factory apply method for creating HTML span element. */
-  def display(contents: XConInline*)(otherDisplay: CssDec*): HtmlSpan = new SpanLine(contents.toArr, RArr()){
+  def display(contents: XConInline*)(otherDisplay: CssDec*): HtmlSpan = new SpanLineGen(contents.toArr, RArr()){
     override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
   }
 
-  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
+  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
+
+  /** HTML span element on its own line, with display set to block. */
+  case class SpanLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends SpanLine
+  { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  }
 }
 
 /** HTML noscript element. */

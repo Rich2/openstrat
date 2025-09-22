@@ -8,7 +8,7 @@ object TomcatPage extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central,
     XComment("/openstrat/Geom/GeomExs/GeomExsJs/target/scala-3.7.3/geomexsjs-opt/"), HtmlScript.jsSrc("main.js"), HtmlScript.main("TomcatPageJs"))
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, lab1, inp1, steps)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, steps)
 
   def p1 = HtmlP("""This page is targeted at Scala Developers, who want to get a / some simple web applications going, or create a dynamic web site using Scala.
   |However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced professional Scala
@@ -19,8 +19,6 @@ object TomcatPage extends HtmlPage
 
   val uName1 = "tommy"
   val nset: String = "nset"
-  def lab1 = HtmlLabel("uName", "User Name")
-  def inp1 = TextInput("uName", uName1)
 
   def steps = HtmlOl(
   HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
@@ -43,6 +41,7 @@ object TomcatPage extends HtmlPage
 
   HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
+  LabelTextInput("uName", "User Name", uName1),
   BashLine.classAtt(nset, s"sudo useradd -ms /bin/bash $uName1"),
   BashLine.classAtt(nset, s"sudo passwd $uName1")),
 
