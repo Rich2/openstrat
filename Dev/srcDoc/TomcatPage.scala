@@ -17,10 +17,11 @@ object TomcatPage extends HtmlPage
   |Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting up Tomcat on your
   |own Desktop, laptop, home server or VPS.""".stripMargin)
 
-  def uName1 = "tommy"
-  def nset: String = "nset"
-  def cName1 = "ser"
-  def cset = "cset"
+  val uName1: String = "tommy"
+  val nset: String = "nset"
+  val cName1: String = "ser"
+  val cset: String = "cset"
+  val userAtCom: String = uName1 + "@" + cName1
 
   def steps = HtmlOl(
   HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
@@ -43,9 +44,7 @@ object TomcatPage extends HtmlPage
 
   HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
-  LabelInputsLine(
-    LabelTextInput("uName", "User Name", uName1), LabelTextInput("cName", "Computer Name", cName1)//,
-  ),
+  LabelInputsLine(LabelTextInput("uName", "User Name", uName1), LabelTextInput("cName", "Computer Name", cName1)),
   BashLine.classAtt(nset, s"sudo useradd -ms /bin/bash $uName1"),
   BashLine.classAtt(nset, s"sudo passwd $uName1")),
 
@@ -58,14 +57,15 @@ object TomcatPage extends HtmlPage
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
-  BashLine(BashPromptSpan.classAtt(nset, s"$uName1@ser:/opt/tomcat"), "mkdir Base")),
+  BashLine(BashPromptSpan.classAtts(nset, cset)(userAtCom + ":/opt/tomcat"), "mkdir Base")),
 
   HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
   |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to
   |use an earlier version.At the time of writing I'm using the latest sub vsersion 11.0.11. Copy the tar.gz file link into the browser. Once its downloaded copy
   |the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in
   |white.""".stripMargin,
-  BashLine(BashPromptSpan.classAtt(nset, "tommy@ser:/opt/tomcat$"), "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
+  BashLine(BashPromptSpan.classAtts(nset, cset)(userAtCom + ":/opt/tomcat$"),
+    "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
   BashLine(BashPromptSpan.classAtt(nset, "tommy@ser:/opt/tomcat$"), "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits")),
 
    HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released

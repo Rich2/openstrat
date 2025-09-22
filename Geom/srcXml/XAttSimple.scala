@@ -16,8 +16,13 @@ case class IdAtt(valueStr: String) extends XAttSimple
 }
 
 /** Creates for a "class" XML / HTML attribute." */
-case class ClassAtt(valueStr: String) extends XAttSimple
+class ClassAtt(val valueStr: String) extends XAttSimple
 { override def name: String = "class"
+}
+
+object ClassAtt
+{
+  def apply(classStrs: String*): ClassAtt = new ClassAtt(classStrs.mkString(" "))
 }
 
 case class HrefAtt(valueStr: String) extends XAttSimple

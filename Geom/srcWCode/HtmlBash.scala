@@ -59,9 +59,15 @@ class BashPromptSpan(val str: String, otherAttribs: RArr[XAtt]) extends SpanInli
 }
 
 object BashPromptSpan
-{
+{ /** Factory apply method to create a [[BashPromptSpan]]. */
   def apply(str: String, attribs: XAtt*): BashPromptSpan = new BashPromptSpan(str, attribs.toArr)
+
+  /** Factory method to create a [[BashPromptSpan]] with a class attribute. */
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashPromptSpan = new BashPromptSpan(conStr, ClassAtt(classStr) %: otherAttribs.toArr)
+
+  /** Factory method to create a [[BashPromptSpan]] with a class attribute. */
+  def classAtts(classStrs: String*)(conStr: String, otherAttribs: XAtt*): BashPromptSpan =
+    new BashPromptSpan(conStr, ClassAtt(classStrs*) %: otherAttribs.toArr)
 }
 
 /** An HTML element to display a BASH prompt and command on its own line.  */

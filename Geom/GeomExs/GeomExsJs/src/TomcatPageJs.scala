@@ -8,20 +8,27 @@ object TomcatPageJs
   @JSExport def main(args: Array[String]): Unit =
   {
     deb("Starting TomcatPageJs")
-    val uName = document.getElementById("uName").asInstanceOf[html.Input]
-    var currName = "tommy"
-    uName.addEventListener("change", e => {
+    HtmlClassTextModder("uName", "nset", "tommy")
+    HtmlClassTextModder("cName", "cset", "ser")
+  }
+
+  /** Finds a text input in an HTML page and adds event listener to change values in the page. */
+  case class HtmlClassTextModder(idStr: String, className: String, initValue: String)
+  {
+    val inpElem: html.Input = document.getElementById(idStr).asInstanceOf[html.Input]
+    var currValue = initValue
+    inpElem.addEventListener("change", e => {
       val newUserName = e.target.asInstanceOf[html.Input].value
-      debvar(newUserName)      
-      val array2 = document.getElementsByClassName("nset")
-      array2.foreach{sp1 =>
+      val array = document.getElementsByClassName(className)
+      deb(s"Found ${array.length} instances of $className")
+      array.foreach { sp1 =>
         val sp2 = sp1.asInstanceOf[HTMLElement]
         val str = sp2.textContent
-        val regex = currName.r
+        val regex = currValue.r
         val newText = regex.replaceAllIn(str, newUserName)
         sp2.textContent = newText
       }
-      currName = newUserName
+      currValue = newUserName
     })
   }
 } 

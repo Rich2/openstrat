@@ -20,9 +20,9 @@ case class TextInput(idStr: String, valueStr: String) extends HtmlInput
 }
 
 case class LabelTextInput(idStr: String, label: String, valueStr: String) extends SpanLine, Parent2T[HtmlInline]
-{
-  def child1: HtmlLabel = HtmlLabel(idStr, label)
+{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
 
+  /** The second child object. */
   def child2: TextInput = TextInput(idStr, valueStr)
 
   override def contents: RArr[XCon] = RArr(child1, child2)
