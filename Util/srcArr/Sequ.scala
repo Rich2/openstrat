@@ -81,11 +81,9 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def iForeach[U](f: (Int, A) => U): Unit =
   { var count = 0
-    var i: Int = 0
     while(count < length )
-    { f(i, apply(count))
+    { f(count, apply(count))
       count+= 1
-      i += 1
     }
   }
 

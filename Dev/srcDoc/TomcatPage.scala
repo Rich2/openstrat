@@ -17,8 +17,10 @@ object TomcatPage extends HtmlPage
   |Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting up Tomcat on your
   |own Desktop, laptop, home server or VPS.""".stripMargin)
 
-  val uName1 = "tommy"
-  val nset: String = "nset"
+  def uName1 = "tommy"
+  def nset: String = "nset"
+  def cName1 = "ser"
+  def cset = "cset"
 
   def steps = HtmlOl(
   HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
@@ -41,7 +43,9 @@ object TomcatPage extends HtmlPage
 
   HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
-  LabelTextInput("uName", "User Name", uName1),
+  LabelInputsLine(
+    LabelTextInput("uName", "User Name", uName1), LabelTextInput("cName", "Computer Name", cName1)//,
+  ),
   BashLine.classAtt(nset, s"sudo useradd -ms /bin/bash $uName1"),
   BashLine.classAtt(nset, s"sudo passwd $uName1")),
 
