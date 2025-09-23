@@ -31,9 +31,9 @@ object Util extends CommonJvm
   object test extends InnerTests
 }
 
-object UtilExs extends CommonJvm
+object UtilDoc extends CommonJvm
 { def moduleDeps = Seq(Geom)
-  def sources = Task.Sources(Seq("src", "srcDoc").map(name => workspaceRoot / "Util" / "UtilExs" / name)*)
+  def sources = Task.Sources(Seq("src", "srcDoc").map(name => workspaceRoot / "Util" / "UtilDoc" / name)*)
 }
 
 object UtilJs extends CommonJs
@@ -73,7 +73,7 @@ object GeomJs extends CommonJs
 }
 
 object GeomExs extends CommonJvm
-{ def moduleDeps = Seq(Geom, UtilExs)
+{ def moduleDeps = Seq(Geom, UtilDoc)
   def sources1 = Task.Sources(Seq("src", "srcDoc", "srcLessons").map(name => workspaceRoot / "Geom" / "GeomExs" / name)*)
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = sources1() :+ source2()

@@ -9,7 +9,7 @@ val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, UtilExs, Geom, GeomExs, Tiling, TilingExs, EGrid, Apps, Dev).enablePlugins(ScalaUnidocPlugin).settings(
+lazy val root = (project in file(".")).aggregate(Util, UtilDoc, Geom, GeomExs, Tiling, TilingExs, EGrid, Apps, Dev).enablePlugins(ScalaUnidocPlugin).settings(
   scalaVersion := scalaVersionStr,
   publish/skip := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -65,6 +65,10 @@ def jvmMainProj(name: String): Project = jvmProj(name, name).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),  
 )
 
+def jvmDocProj(name: String): Project = jvmProj(name + "Doc", name + "/" + name + "Doc").settings(
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
+)
+
 def jvmExsProj(name: String): Project = jvmProj(name + "Exs", name + "/" + name + "Exs").settings(
   Compile/unmanagedSourceDirectories := List("src", "srcDoc", "JvmSrc").map(moduleDir.value / _),  
 )
@@ -73,9 +77,14 @@ def jsProj(name: String, locationStr: String) = proj(name, locationStr).enablePl
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.1")  withSources() withJavadoc(),
 )
 
-def jsMainProj(name: String) = jsProj(name + "Js", name + "/" + name + "Js").settings(
-  moduleDir := bbDir.value / name,
+def jsMainProj(nameStem: String) = jsProj(nameStem + "Js", nameStem + "/" + nameStem + "Js").settings(
+  moduleDir := bbDir.value / nameStem,
   Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", moduleDir.value /"JsSrc"),
+)
+
+def jsDocProj(nameStem: String) = jsProj(nameStem + "DocJs", nameStem + "/" + nameStem + "Doc/" + nameStem + "DocJs").settings(
+  moduleDir := bbDir.value / nameStem,
+  Compile/unmanagedSourceDirectories := List(bbDir.value / nameStem / (nameStem + "Doc") / (nameStem + "DocJs") /"src"),
 )
 
 def jsExsProj(name: String) = jsProj(name + "ExsJs", name + "/" + name + "Exs/" + name + "ExsJs").settings(
@@ -96,11 +105,11 @@ lazy val Util = jvmMainProj("Util").settings(utilSett).settings(
   name := "rutil",
 )
 
-lazy val UtilExs = jvmExsProj("Util").dependsOn(Geom)
-
 lazy val UtilJs = jsMainProj("Util").settings(utilSett).settings(
-  name := "rutiljs",  
+  name := "rutiljs",
 )
+
+lazy val UtilDoc = jvmDocProj("Util").dependsOn(Geom)
 
 lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(utilSett).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
@@ -118,7 +127,7 @@ lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
 )
 
-lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom, UtilExs).settings(
+lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom, UtilDoc).settings(
   Compile/unmanagedSourceDirectories ++= Seq("srcLessons").map(baseDirectory.value / _),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
