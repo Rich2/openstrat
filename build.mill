@@ -33,7 +33,7 @@ object Util extends CommonJvm
 
 object UtilDoc extends CommonJvm
 { def moduleDeps = Seq(Geom)
-  def sources = Task.Sources(Seq("src", "srcDoc").map(name => workspaceRoot / "Util" / "UtilDoc" / name)*)
+  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Util" / "UtilDoc" / name)*)
 }
 
 object UtilJs extends CommonJs
@@ -74,7 +74,7 @@ object GeomJs extends CommonJs
 
 object GeomExs extends CommonJvm
 { def moduleDeps = Seq(Geom, UtilDoc)
-  def sources1 = Task.Sources(Seq("src", "srcDoc", "srcLessons").map(name => workspaceRoot / "Geom" / "GeomExs" / name)*)
+  def sources1 = Task.Sources(Seq("src", "srcJvm", "srcLessons").map(name => workspaceRoot / "Geom" / "GeomExs" / name)*)
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = sources1() :+ source2()
   def mainClass = Some("learn.LsE1App")
@@ -108,9 +108,14 @@ object TilingJs extends CommonJs
 
 object TilingExs extends CommonJvm
 { def moduleDeps = Seq(Tiling, GeomExs)
-  def sources = Task.Sources(Seq("src", "srcDoc").map(name => workspaceRoot / "Tiling" / "TilingExs" / name)*)
+  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingExs" / name)*)
   object test extends InnerTests
   def mainClass = Some("ostrat.pZero.TilingTryApp")
+}
+
+object TilingDoc extends CommonJvm
+{ def moduleDeps = Seq(UtilDoc, Tiling)
+  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingDoc" / name)*)
 }
 
 object EGrid extends CommonJvm
@@ -199,7 +204,7 @@ object AppJs extends Module
 }
 
 object Dev extends CommonJvm
-{ def moduleDeps = Seq(AppsExs, GeomDoc)
+{ def moduleDeps = Seq(AppsExs, GeomExs, GeomDoc, TilingDoc)
   def sources = Task.Sources(Seq("src", "srcDoc", "JvmSrc").map(name => moduleDir / name)*)
   def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }

@@ -127,12 +127,12 @@ lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
 )
 
-lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom, UtilDoc).settings(
+lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories ++= Seq("srcLessons").map(baseDirectory.value / _),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GeomDoc = jvmDocProj("Geom").dependsOn(GeomExs)
+lazy val GeomDoc = jvmDocProj("Geom").dependsOn(UtilDoc, GeomExs)
 
 lazy val GeomJs = jsMainProj("Geom").dependsOn(UtilJs).settings(geomSett).settings(
   Compile/unmanagedSourceDirectories += bbDir.value / "Geom/GeomJs/src",
@@ -143,12 +143,12 @@ def tilingSett = List(
 )
 
 lazy val Tiling = jvmMainProj("Tiling").dependsOn(Geom).settings(tilingSett)
-lazy val TilingDoc = jvmDocProj("Tiling").dependsOn(Tiling, GeomExs)
+lazy val TilingDoc = jvmDocProj("Tiling").dependsOn(Tiling, UtilDoc)
 lazy val TilingExs = jvmExsProj("Tiling").dependsOn(Tiling, GeomExs)
 lazy val TilingJs = jsMainProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 
 lazy val EGrid = jvmMainProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
-lazy val EGridExs = jvmExsProj("EGrid").dependsOn(EGrid, TilingExs)
+lazy val EGridExs = jvmExsProj("EGrid").dependsOn(EGrid, TilingExs, UtilDoc)
 lazy val EarthIrr = config("EarthIrr") extend(Compile)
 lazy val EG1300 = config("EG1300") extend(Compile)
 
@@ -175,7 +175,7 @@ lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
   Compile/scalaJSUseMainModuleInitializer := true,
 )
 
-lazy val Dev = jvmMainProj("Dev").dependsOn(AppsExs, GeomDoc).settings(
+lazy val Dev = jvmMainProj("Dev").dependsOn(AppsExs, GeomDoc, TilingDoc).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcDoc",
   Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
