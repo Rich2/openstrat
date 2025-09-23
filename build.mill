@@ -80,6 +80,13 @@ object GeomExs extends CommonJvm
   def mainClass = Some("learn.LsE1App")
 }
 
+object GeomDoc extends CommonJvm
+{ def moduleDeps = Seq(GeomExs, UtilDoc)
+  def sources1 = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Geom" / "GeomDoc" / name)*)
+  def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
+  def sources = sources1() :+ source2()
+}
+
 object GeomExsJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "GeomExsJs" / "src")
@@ -192,7 +199,7 @@ object AppJs extends Module
 }
 
 object Dev extends CommonJvm
-{ def moduleDeps = Seq(AppsExs)
+{ def moduleDeps = Seq(AppsExs, GeomDoc)
   def sources = Task.Sources(Seq("src", "srcDoc", "JvmSrc").map(name => moduleDir / name)*)
   def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }
