@@ -70,7 +70,7 @@ def jvmDocProj(name: String): Project = jvmProj(name + "Doc", name + "/" + name 
 )
 
 def jvmExsProj(name: String): Project = jvmProj(name + "Exs", name + "/" + name + "Exs").settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcDoc", "JvmSrc").map(moduleDir.value / _),  
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
 )
 
 def jsProj(name: String, locationStr: String) = proj(name, locationStr).enablePlugins(ScalaJSPlugin).settings(
@@ -79,7 +79,7 @@ def jsProj(name: String, locationStr: String) = proj(name, locationStr).enablePl
 
 def jsMainProj(nameStem: String) = jsProj(nameStem + "Js", nameStem + "/" + nameStem + "Js").settings(
   moduleDir := bbDir.value / nameStem,
-  Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", moduleDir.value /"JsSrc"),
+  Compile/unmanagedSourceDirectories := List("src", "JsSrc", nameStem + "Js/src").map(moduleDir.value / _),
 )
 
 def jsDocProj(nameStem: String) = jsProj(nameStem + "DocJs", nameStem + "/" + nameStem + "Doc/" + nameStem + "DocJs").settings(
@@ -87,8 +87,8 @@ def jsDocProj(nameStem: String) = jsProj(nameStem + "DocJs", nameStem + "/" + na
   Compile/unmanagedSourceDirectories := List("src", nameStem + "Js").map(bbDir.value / nameStem / (nameStem + "Doc") / _),
 )
 
-def jsExsProj(name: String) = jsProj(name + "ExsJs", name + "/" + name + "Exs/" + name + "ExsJs").settings(
-  Compile/unmanagedSourceDirectories := List(bbDir.value / name / (name + "Exs") / (name + "ExsJs") /"src"),
+def jsExsProj(nameStem: String) = jsProj(nameStem + "ExsJs", nameStem + "/" + nameStem + "Exs/" + nameStem + "ExsJs").settings(
+  Compile/unmanagedSourceDirectories := List("src", nameStem + "ExsJs/src").map(bbDir.value / _),
 )
 
 def jsExsDocProj(nameStem: String) = jsProj(nameStem + "ExsJsDoc",
@@ -133,22 +133,16 @@ lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
 )
 
-lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom).settings(
-  Compile/unmanagedSourceDirectories ++= Seq("srcLessons").map(baseDirectory.value / _),
+def geomExsSett = List(Compile/unmanagedSourceDirectories += bbDir.value / "Geom" / "GeomExs" / "srcLessons")
+
+lazy val GeomExs = jvmExsProj("Geom").dependsOn(Geom).settings(geomExsSett).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
 lazy val GeomDoc = jvmDocProj("Geom").dependsOn(UtilDoc, GeomExs)
-
-lazy val GeomJs = jsMainProj("Geom").dependsOn(UtilJs).settings(geomSett).settings(
-  Compile/unmanagedSourceDirectories += bbDir.value / "Geom/GeomJs/src",
-)
-
-lazy val GeomExsJs = jsExsProj("Geom").dependsOn(GeomJs).settings(
-  //Compile/unmanagedSourceDirectories
-)
-
-lazy val GeomDocJs = jsDocProj("Geom").dependsOn(UtilDocJs)
+lazy val GeomJs = jsMainProj("Geom").dependsOn(UtilJs).settings(geomSett)
+lazy val GeomExsJs = jsExsProj("Geom").dependsOn(GeomJs).settings(geomExsSett)
+lazy val GeomDocJs = jsDocProj("Geom").dependsOn(UtilDocJs, GeomExs)
 
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
