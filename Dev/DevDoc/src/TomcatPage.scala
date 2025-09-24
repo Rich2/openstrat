@@ -23,32 +23,32 @@ object TomcatPage extends HtmlPage
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
 
-  def steps = HtmlOl(
-  HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
+  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7)
+  def s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
   |can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with money you
   |could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly, as your
   |needs will change. For the time being I don't have enough experience to make recommendations. I've had good service from Digital Ocean for a number of years
   |running a VPS for Apache Vanilla, but they are some what pricey to get 4 gigs of ram for a small project with minimal users. I intend to come back and update
   |this later. I'm currently using an Ubuntu Operating System, just out of familiarity. Now obviously if you are using your own desktop, laptop or home server,
   |you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to get your site
-  |/ app out to the world.""".stripMargin),
+  |/ app out to the world.""".stripMargin)
 
-  HtmlLi("Install Java. Currently suggesting Java 21 LTS. Note the jdk at the end of the version.",
+  def s2 = HtmlLi("Install Java. Currently suggesting Java 21 LTS. Note the jdk at the end of the version.",
   BashLine("sudo apt install openjdk-21-jdk -y"),
   "Check the version",
   BashLine("java -version"),
   CodeLines("""openjdk version "21.0.8" 2025-07-15""",
   "OpenJDK Runtime Environment (build 21.0.8+9-Ubuntu-0ubuntu124.04.1)",
   "OpenJDK 64-Bit Server VM (build 21.0.8+9-Ubuntu-0ubuntu124.04.1, mixed mode, sharing)")
-  ),
+  )
 
-  HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
+  def s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
   LabelInputsLine(LabelTextInput("uName", "User Name", uName1), LabelTextInput("cName", "Computer Name", cName1)),
   BashLine.classAtt(nset, s"sudo useradd -ms /bin/bash $uName1"),
-  BashLine.classAtt(nset, s"sudo passwd $uName1")),
+  BashLine.classAtt(nset, s"sudo passwd $uName1"))
 
-  HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
+  def s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
   |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine("sudo mkdir /opt/tomcat"),
   BashLine.classAtt(nset, s"sudo chown $uName1:$uName1 /opt/tomcat"),
@@ -57,26 +57,26 @@ object TomcatPage extends HtmlPage
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
-  BashLine(BashPromptSpan.classAtts(nset, cset)(userAtCom + ":/opt/tomcat"), "mkdir Base")),
+  BashLine(BashPromptSpan.classAtts(nset, cset)(userAtCom + ":/opt/tomcat"), "mkdir Base"))
 
-  HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
+  def s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
   |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to
   |use an earlier version.At the time of writing I'm using the latest sub vsersion 11.0.11. Copy the tar.gz file link into the browser. Once its downloaded copy
   |the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in
   |white.""".stripMargin,
   BashLine(BashPromptSpan.classAtts(nset, cset)(userAtCom + ":/opt/tomcat$"),
     "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
-  BashLine(BashPromptSpan.classAtt(nset, "tommy@ser:/opt/tomcat$"), "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits")),
+  BashLine(BashPromptSpan.classAtt(nset, "tommy@ser:/opt/tomcat$"), "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits"))
 
-   HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released
+   def s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released
    |frequently.""".stripMargin,
    BashWithPrompt("tommy@ser:/opt/tomcat", "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
    BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tom11"),
    "Then checking what we've got.",
    BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
-   CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11")),
+   CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
 
-   HtmlLi("Create a systemd unit file.",
+   def s7 = HtmlLi("Create a systemd unit file.",
    BashLine("sudo nano /etc/systemd/system/tom11.service"),
    HtmlSystemd(
    "[Unit]",
@@ -102,5 +102,4 @@ object TomcatPage extends HtmlPage
      "[Install]",
      "WantedBy=multi-user.target"
      ))
-  )
 }

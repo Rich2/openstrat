@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package docjs
-import geom.*, pSJs.*, scalajs.js.annotation.*, org.scalajs.dom.*, pDoc.TomcatPage.*
+import geom.*, pSJs.*, scalajs.js.annotation.*, pDoc.TomcatPage.*//, org.scalajs.dom.*
 
 @JSExportTopLevel("TomcatPageJs")
 object TomcatPageJs
