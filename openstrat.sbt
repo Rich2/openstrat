@@ -84,11 +84,16 @@ def jsMainProj(nameStem: String) = jsProj(nameStem + "Js", nameStem + "/" + name
 
 def jsDocProj(nameStem: String) = jsProj(nameStem + "DocJs", nameStem + "/" + nameStem + "Doc/" + nameStem + "DocJs").settings(
   moduleDir := bbDir.value / nameStem,
-  Compile/unmanagedSourceDirectories := List(bbDir.value / nameStem / (nameStem + "Doc") / (nameStem + "DocJs") /"src"),
+  Compile/unmanagedSourceDirectories := List("src", nameStem + "Js").map(bbDir.value / nameStem / (nameStem + "Doc") / _),
 )
 
 def jsExsProj(name: String) = jsProj(name + "ExsJs", name + "/" + name + "Exs/" + name + "ExsJs").settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / name / (name + "Exs") / (name + "ExsJs") /"src"),
+)
+
+def jsExsDocProj(nameStem: String) = jsProj(nameStem + "ExsJsDoc",
+  nameStem + "/" + nameStem + "Exs/" + nameStem + "ExsDoc" + nameStem + "ExsDocJs").settings(
+  Compile/unmanagedSourceDirectories := List(bbDir.value / nameStem / (nameStem + "Exs") / (nameStem + "ExsJs") /"src"),
 )
 
 def natProj(name: String) = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(
@@ -110,6 +115,7 @@ lazy val UtilJs = jsMainProj("Util").settings(utilSett).settings(
 )
 
 lazy val UtilDoc = jvmDocProj("Util").dependsOn(Geom)
+lazy val UtilDocJs = jsDocProj("Util").dependsOn(GeomJs)
 
 lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(utilSett).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
@@ -137,6 +143,12 @@ lazy val GeomDoc = jvmDocProj("Geom").dependsOn(UtilDoc, GeomExs)
 lazy val GeomJs = jsMainProj("Geom").dependsOn(UtilJs).settings(geomSett).settings(
   Compile/unmanagedSourceDirectories += bbDir.value / "Geom/GeomJs/src",
 )
+
+lazy val GeomExsJs = jsExsProj("Geom").dependsOn(GeomJs).settings(
+  //Compile/unmanagedSourceDirectories
+)
+
+lazy val GeomDocJs = jsDocProj("Geom").dependsOn(UtilDocJs)
 
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
@@ -175,7 +187,9 @@ lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
   Compile/scalaJSUseMainModuleInitializer := true,
 )
 
-lazy val Dev = jvmMainProj("Dev").dependsOn(Apps, GeomDoc, TilingExs, TilingDoc, EGridDoc, AppsDoc).settings(
+lazy val DevDoc = jvmDocProj("Dev").dependsOn(GeomDoc, TilingExs, TilingDoc, EGridDoc, AppsDoc)
+
+lazy val Dev = jvmMainProj("Dev").dependsOn(Apps, TilingExs, DevDoc).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcDoc",
   Compile/unmanagedResourceDirectories := List(bbDir.value / "User"),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
