@@ -163,9 +163,9 @@ object Apps extends CommonJvm
   object test extends InnerTests
 }
 
-object AppsExs extends CommonJvm
-{ def moduleDeps = Seq(Apps, EGridDoc)
-  def sources = Task.Sources(Seq("src", "srcDoc").map(name => workspaceRoot / "Apps" / "AppsExs" / name)*)
+object AppsDoc extends CommonJvm
+{ def moduleDeps = Seq(UtilDoc)
+  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Apps" / "AppsDoc" / name)*)
 }
 
 object AppsJs extends CommonJs
@@ -204,7 +204,7 @@ object AppJs extends Module
 }
 
 object Dev extends CommonJvm
-{ def moduleDeps = Seq(AppsExs, GeomExs, GeomDoc, TilingExs, TilingDoc)
+{ def moduleDeps = Seq(Apps, GeomExs, GeomDoc, TilingExs, TilingDoc, EGridDoc, AppsDoc)
   def sources = Task.Sources(Seq("src", "srcDoc", "JvmSrc").map(name => moduleDir / name)*)
   def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }
