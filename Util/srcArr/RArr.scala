@@ -335,3 +335,8 @@ final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal, Buff[A]
   override def grow(newElem: A): Unit = bufferUnsafe.append(newElem)
   override def mutateElemUnsafe(index: Int, f: A => A): Unit = bufferUnsafe(index) = f(bufferUnsafe(index))
 }
+
+object RBuff
+{
+  def apply[A](init: Int = 4): RBuff[A] = new RBuff(new ArrayBuffer[A](init))
+}

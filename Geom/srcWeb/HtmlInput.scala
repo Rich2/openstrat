@@ -12,20 +12,31 @@ class HtmlLabel(val fieldName: String, val label: String) extends HtmlInline
   override def contents: RArr[XCon] = RArr(label)
 }
 
-case class TextInput(idStr: String, valueStr: String) extends HtmlInput
+case class TextInput(idStr: String, valueStr: String)(using page: HtmlPageInput) extends HtmlInput
 { def idAtt: IdAtt = IdAtt(idStr)
   override def typeAtt: TypeTextAtt.type = TypeTextAtt
   def valueAtt = ValueAtt(valueStr)
   override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt)
+  page.inpAcc +%= this
+
+  var depends: RArr[String => String] = RArr()
+  def dependsLen: Int = depends.length
+  def nextId(f: String => String): IdAtt =
+  { val newStr: String = idStr + dependsLen.str
+    depends +%= f
+    IdAtt(newStr)
+  }
 }
 
-case class LabelTextInput(idStr: String, label: String, valueStr: String) extends SpanLine, Parent2T[HtmlInline]
+class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends SpanLine, Parent2T[HtmlInline]
 { override def child1: HtmlLabel = HtmlLabel(idStr, label)
-
-  /** The second child object. */
-  def child2: TextInput = TextInput(idStr, valueStr)
-
+  override def child2: TextInput = TextInput(idStr, valueStr)
   override def contents: RArr[XCon] = RArr(child1, child2)
+}
+
+object LabelTextInput
+{
+  def apply(idStr: String, label: String, valueStr: String)(using page: HtmlPageInput): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 
 /** Html Input element with submit type */

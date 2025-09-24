@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import org.scalajs.dom.*
+import org.scalajs.dom.*, pWeb.*
 
 /** Finds a text input in an HTML page and adds event listener to change values in the page. */
 case class HtmlClassTextModder(idStr: String, className: String, initValue: String)
@@ -19,4 +19,24 @@ case class HtmlClassTextModder(idStr: String, className: String, initValue: Stri
     }
     currValue = newUserName
   })
+}
+
+class TextContentUpdater(val inputer: TextInput)
+{
+  val idStem = inputer.idStr
+  val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
+  inpElem.addEventListener("change", e => {
+    val newStr = e.target.asInstanceOf[html.Input].value
+    val len = inputer.dependsLen
+    deb(s"Updating $len textContents with value $newStr")
+    iUntilForeach(inputer.dependsLen){i =>
+      val target = document.getElementById(idStem + i.str)
+      target.textContent = inputer.depends(i)(newStr)
+    }
+  })
+}
+
+object TextContentUpdater
+{
+  def apply(inputer: TextInput): TextContentUpdater = new TextContentUpdater(inputer)
 }

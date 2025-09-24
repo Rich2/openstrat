@@ -108,7 +108,7 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
   override def apply(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
   override def elem(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
   override def setElemUnsafe(index: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(index) = newElem.a1; b2Buffer(index) = newElem.a2 }
-  def b1Buff: RBuff[B1] = RBuff(b1Buffer)
+  def b1Buff: RBuff[B1] = new RBuff(b1Buffer)
   def toArr(implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Buffer.toArray, b2Buffer.toArray)
 }
 

@@ -3,8 +3,9 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
-object TomcatPage extends HtmlPage
-{ override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
+object TomcatPage extends HtmlPageInput
+{ given thisPage: HtmlPageInput = this
+  override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central,
     XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"), HtmlScript.jsSrc("main.js"), HtmlScript.main("TomcatPageJs"))
 
@@ -42,18 +43,21 @@ object TomcatPage extends HtmlPage
   "OpenJDK 64-Bit Server VM (build 21.0.8+9-Ubuntu-0ubuntu124.04.1, mixed mode, sharing)")
   )
 
-  def s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
-  |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
-  LabelInputsLine(LabelTextInput("uName", "User Name", uName1), LabelTextInput("cName", "Computer Name", cName1)),
-  BashLine.classAtt(nset, s"sudo useradd -ms /bin/bash $uName1"),
-  BashLine.classAtt(nset, s"sudo passwd $uName1"))
+  val lti1: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
+  val ti1: TextInput = lti1.child2
 
-  def s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
+  val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
+  |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
+  LabelInputsLine(lti1, LabelTextInput("cName", "Computer Name", cName1)),
+  BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
+  BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
+
+  val s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
   |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine("sudo mkdir /opt/tomcat"),
-  BashLine.classAtt(nset, s"sudo chown $uName1:$uName1 /opt/tomcat"),
-  SpanLine.classAtt(nset, s"Switch user to $uName1. Then change directory."),
-  BashLine.classAtt(nset, s"sudo su $uName1"),
+  BashLine.inputText(ti1)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
+  SpanLine.inputText(ti1)(uName => s"Switch user to $uName. Then change directory."),
+  BashLine.inputText(ti1)(uName => s"sudo su $uName"),
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,

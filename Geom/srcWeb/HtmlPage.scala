@@ -33,6 +33,11 @@ object HtmlPage
   }
 }
 
+trait HtmlPageInput extends HtmlPage
+{
+  var inpAcc: RArr[TextInput] = RArr()
+}
+
 /** A 404 HTML page. */
 trait HtmlPageNotFound extends HtmlPage
 { override def httpResp(dateStr: String, server: String): HttpPageNotFound = HttpPageNotFound(dateStr, server, HttpConTypeHtml, out)
