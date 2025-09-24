@@ -1,0 +1,22 @@
+/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pSJs
+import org.scalajs.dom.*
+
+/** Finds a text input in an HTML page and adds event listener to change values in the page. */
+case class HtmlClassTextModder(idStr: String, className: String, initValue: String)
+{ val inpElem: html.Input = document.getElementById(idStr).asInstanceOf[html.Input]
+  var currValue = initValue
+  inpElem.addEventListener("change", e => {
+    val newUserName = e.target.asInstanceOf[html.Input].value
+    val array = document.getElementsByClassName(className)
+    deb(s"Found ${array.length} instances of $className")
+    array.foreach { sp1 =>
+      val sp2 = sp1.asInstanceOf[HTMLElement]
+      val str = sp2.textContent
+      val regex = currValue.r
+      val newText = regex.replaceAllIn(str, newUserName)
+      sp2.textContent = newText
+    }
+    currValue = newUserName
+  })
+}
