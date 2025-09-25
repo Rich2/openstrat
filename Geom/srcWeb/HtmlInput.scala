@@ -26,11 +26,19 @@ sealed trait Callback2Text extends CallbackInput
 case class Callback2Text1(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
 case class Callback2Text2(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
 
-case class TextInput(idStr: String, valueStr: String)(using page: HtmlPageInput) extends HtmlInput
+case class NumberInput(idStr: String, value: Int)(using page: HtmlPageInput) extends HtmlInput
+{
+  override def typeAtt: TypeAtt = TypeNumberAtt
+
+  /** The attributes of this XML / HTML element. */
+  override def attribs: RArr[XAtt] = ???
+}
+
+class TextInput(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends HtmlInput
 { def idAtt: IdAtt = IdAtt(idStr)
   override def typeAtt: TypeTextAtt.type = TypeTextAtt
   def valueAtt = ValueAtt(valueStr)
-  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt)
+  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
   page.inpAcc +%= this
 
   var depends: RArr[CallbackInput] = RArr()
@@ -54,6 +62,11 @@ case class TextInput(idStr: String, valueStr: String)(using page: HtmlPageInput)
   def next2Id2(targetID: String, otherInpIdStr: String, f: (String, String) => String): Unit =
   { depends +%= Callback2Text2(targetID, otherInpIdStr, f)
   }
+}
+
+object TextInput
+{
+  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: HtmlPageInput): TextInput = new TextInput(idStr, valueStr, otherAttribs.toRArr)
 }
 
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends SpanLine, Parent2T[HtmlInline]

@@ -36,6 +36,9 @@ case class TypeAtt(valueStr: String) extends XAttSimple
 /** Type attribute set to text. */
 object TypeTextAtt extends TypeAtt("text")
 
+/** Type attribute set to number. */
+object TypeNumberAtt extends TypeAtt("number")
+
 /** Type attribute set to text/javascript. */
 object TypeJsAtt extends TypeAtt("text/javascript")
 
