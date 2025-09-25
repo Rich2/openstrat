@@ -30,17 +30,21 @@ class TextContentUpdater(val inputer: TextInput)
     val len = inputer.dependsLen
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.depends.foreach{(dep: CallbackInput) =>
-      debvar(dep)
-      val target = document.getElementById(dep.targetId)
-      debvar(target)
-      target.textContent = dep match
-      { case Callback1Text(idStr, f) => f(newInpStr)
-        case cb2: Callback2Text =>
-        { deb("Call back text2")
-          val inp2Val: String = document.getElementById(cb2.otherInpIdStr).asInstanceOf[html.Input].value
-          cb2 match
-          { case Callback2Text1(targetId, inp2Id, f) => f(newInpStr, inp2Val)
-            case Callback2Text2(targetId, inp2Id, f) => f(inp2Val, newInpStr)
+      val targetId = dep.targetId
+      val target = document.getElementById(targetId)
+      if (target == null)
+      {
+        deb(s" target is null from inputer $inputer for id: $targetId.")
+      }
+      else
+      { target.textContent = dep match
+        { case Callback1Text(idStr, f) => f(newInpStr)
+          case cb2: Callback2Text => {            
+            val inp2Val: String = document.getElementById(cb2.otherInpIdStr).asInstanceOf[html.Input].value
+            cb2 match {
+              case Callback2Text1(targetId, inp2Id, f) => f(newInpStr, inp2Val)
+              case Callback2Text2(targetId, inp2Id, f) => f(inp2Val, newInpStr)
+            }
           }
         }
       }
