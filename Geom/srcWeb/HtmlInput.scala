@@ -21,10 +21,10 @@ case class Callback1Text(targetId: String, f: String => String) extends Callback
 
 sealed trait Callback2Text extends CallbackInput
 {
-  def inp2Id: String
+  def otherInpIdStr: String
 }
-case class Callback2Text1(targetId: String, inp2Id: String,  f: (String, String) => String) extends Callback2Text
-case class Callback2Text2(targetId: String, inp2Id: String, f: (String, String) => String) extends Callback2Text
+case class Callback2Text1(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
+case class Callback2Text2(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
 
 case class TextInput(idStr: String, valueStr: String)(using page: HtmlPageInput) extends HtmlInput
 { def idAtt: IdAtt = IdAtt(idStr)
@@ -44,15 +44,15 @@ case class TextInput(idStr: String, valueStr: String)(using page: HtmlPageInput)
     IdAtt(newtargetId)
   }
 
-  def next2Id1(inp2Id: String, f: (String, String) => String): IdAtt =
+  def next2Id1(otherInpIdStr: String, f: (String, String) => String): IdAtt =
   { val newTargetId: String = idStr + parentCount.str
     parentCount += 1
-    depends +%= Callback2Text1(newTargetId, inp2Id, f)
+    depends +%= Callback2Text1(newTargetId, otherInpIdStr, f)
     IdAtt(newTargetId)
   }
 
-  def next2Id2(targetID: String, inp2Id: String, f: (String, String) => String): Unit =
-  { depends +%= Callback2Text2(targetID, inp2Id, f)
+  def next2Id2(targetID: String, otherInpIdStr: String, f: (String, String) => String): Unit =
+  { depends +%= Callback2Text2(targetID, otherInpIdStr, f)
   }
 }
 
