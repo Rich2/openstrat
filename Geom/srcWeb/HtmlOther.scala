@@ -82,7 +82,7 @@ object SpanLine
 
   /** Creates a Bash line na registers the textContent with an HTML Text Input. */
   def inputText(input: TextInput)(f: String => String): SpanLine =
-  { def newId = input.nextId(f)
+  { def newId = input.next1Id(f)
     new SpanLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 

@@ -45,10 +45,12 @@ object TomcatPage extends HtmlPageInput
 
   val lti1: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
   val ti1: TextInput = lti1.child2
+  val lti2: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
+  val ti2: TextInput = lti2.child2
 
   val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
-  LabelInputsLine(lti1, LabelTextInput("cName", "Computer Name", cName1)),
+  LabelInputsLine(lti1, lti2),
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
   BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
 
@@ -61,7 +63,7 @@ object TomcatPage extends HtmlPageInput
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
-  BashLine(BashPromptSpan.classAtts(nset, cset)(userAtCom + ":/opt/tomcat"), "mkdir Base"))
+  BashLine(BashPromptSpan.inputText(ti2)(cName => s"$uName1@$cName:/opt/tomcat"), "mkdir Base"))
 
   def s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
   |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to

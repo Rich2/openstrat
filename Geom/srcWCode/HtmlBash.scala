@@ -38,7 +38,7 @@ object BashLine
 
   /** Creates a Bash line na registers the textContent with an HTML Text Input. */
   def inputText(input: TextInput)(f: String => String): BashLine =
-  { def newId = input.nextId(f)
+  { def newId = input.next1Id(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
 }
@@ -73,6 +73,12 @@ object BashPromptSpan
   /** Factory method to create a [[BashPromptSpan]] with a class attribute. */
   def classAtts(classStrs: String*)(conStr: String, otherAttribs: XAtt*): BashPromptSpan =
     new BashPromptSpan(conStr, ClassAtt(classStrs*) %: otherAttribs.toArr)
+
+  /** Creates a Bash line na registers the textContent with an HTML Text Input. */
+  def inputText(input: TextInput, otherAttribs: XAtt*)(f: String => String): BashPromptSpan =
+  { def newId = input.next1Id(f)
+    new BashPromptSpan(f(input.valueStr), newId %: otherAttribs.toArr)
+  }
 }
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
