@@ -38,7 +38,7 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo apt install openjdk-21-jdk -y"),
   "Check the version",
   BashLine("java -version"),
-  CodeLines("""openjdk version "21.0.8" 2025-07-15""",
+  HtmlCodeLines("""openjdk version "21.0.8" 2025-07-15""",
   "OpenJDK Runtime Environment (build 21.0.8+9-Ubuntu-0ubuntu124.04.1)",
   "OpenJDK 64-Bit Server VM (build 21.0.8+9-Ubuntu-0ubuntu124.04.1, mixed mode, sharing)")
   )

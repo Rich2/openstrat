@@ -10,14 +10,17 @@ trait HtmlCode extends HtmlUnvoid
 trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 
 
-class CodeLines(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines
-{ override def attribs: RArr[XAtt] = otherAttribs
-  override def contents: RArr[XCon] = lines.toSpanLines
-}
 
-object CodeLines
+
+object HtmlCodeLines
 { /** Factory apply method to display mulitple lines of code in HTML. */
-  def apply(lines: String*): CodeLines = new CodeLines(lines.toArr, RArr())
+  def apply(lines: String*): HtmlCodeLines = new HtmlCodeLinesGen(lines.toArr.toSpanLines, RArr())
+  
+  def apply(contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): HtmlCodeLines = new HtmlCodeLinesGen(contents, otherAttribs)
+
+  class HtmlCodeLinesGen(val contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlCodeLines
+  { override def attribs: RArr[XAtt] = otherAttribs    
+  }
 }
 
 /** An HTML code element that is on its own line. */

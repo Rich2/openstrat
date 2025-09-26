@@ -86,6 +86,12 @@ object SpanLine
     new SpanLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
+  /** Creates a Bash line and registers the textContent with an HTML number Input. */
+  def inputNum(input: InputUpdaterNum)(f: Double => String): SpanLine =
+  { def newId = input.next1Id(f)
+    new SpanLineGen(RArr(f(input.value)), RArr(newId))
+  }
+
   /** HTML span element on its own line, with display set to block. */
   case class SpanLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends SpanLine
   { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
