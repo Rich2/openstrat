@@ -81,7 +81,7 @@ object SpanLine
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Bash line na registers the textContent with an HTML Text Input. */
-  def inputText(input: TextInput)(f: String => String): SpanLine =
+  def inputText(input: InputUpdaterText)(f: String => String): SpanLine =
   { def newId = input.next1Id(f)
     new SpanLineGen(RArr(f(input.valueStr)), RArr(newId))
   }

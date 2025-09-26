@@ -21,7 +21,7 @@ case class HtmlClassTextModder(idStr: String, className: String, initValue: Stri
   })
 }
 
-class TextContentUpdater(val inputer: TextInput)
+class TextContentUpdater(val inputer: InputUpdaterText)
 {
   val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
@@ -54,5 +54,5 @@ class TextContentUpdater(val inputer: TextInput)
 
 object TextContentUpdater
 {
-  def apply(inputer: TextInput): TextContentUpdater = new TextContentUpdater(inputer)
+  def apply(inputer: InputUpdaterText): TextContentUpdater = new TextContentUpdater(inputer)
 }
