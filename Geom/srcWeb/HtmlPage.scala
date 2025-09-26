@@ -34,8 +34,7 @@ object HtmlPage
 }
 
 trait HtmlPageInput extends HtmlPage
-{
-  var inpTextAcc: RArr[InputUpdaterText] = RArr()
+{ var inpTextAcc: RArr[InputUpdaterText] = RArr()
   var inpNumAcc: RArr[InputUpdaterNum] = RArr()
 }
 

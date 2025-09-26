@@ -31,20 +31,20 @@ trait InputUpdater[T] extends HtmlInput
 class InputUpdaterNum(val idStr: String, val value: Int, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater[Double]
 {
   page.inpNumAcc +%= this
-  var depends: RArr[CallbackText] = RArr()
+  var depends: RArr[Callback1Num] = RArr()
   def dependsLen: Int = depends.length
   
   override def typeAtt: TypeAtt = TypeNumberAtt
   override def valueStr: String = value.str
   override def valueAtt: ValueAtt = ValueAtt(value.str)
 
-  def next1Id(f: Double => String): IdAtt = ???
-  /*{
+  def next1Id(f: Double => String): IdAtt =
+  {
     val newtargetId: String = idStr + parentCount.str
     parentCount += 1
-    depends +%= HtmlCall1back(newtargetId, f)
+    depends +%= Callback1Num(newtargetId, f)
     IdAtt(newtargetId)
-  }*/
+  }
 }
 
 
@@ -53,6 +53,8 @@ trait CallbackInput
 { /** The id attribute on the target HTML element whose textContent is to be updated. */
   def targetId: String
 }
+
+case class Callback1Num(targetId: String, f: Double => String) extends CallbackInput
 
 /** Html Input element with submit type */
 case class SubmitInput(valueStr: String) extends HtmlInput

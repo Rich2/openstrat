@@ -9,8 +9,7 @@ object TomcatPageJs
   {
     val num = TomcatPage.inpTextAcc.length
     deb(s"Found $num in TomcatPage")
-    TomcatPage.inpTextAcc.foreach(TextContentUpdater(_))
-    //HtmlClassTextModder("uName", "nset", uName1)
-    //HtmlClassTextModder("cName", "cset", cName1)
+    TomcatPage.inpTextAcc.foreach(ContentUpdaterText(_))
+    TomcatPage.inpNumAcc.foreach(ContentUpdaterNum(_))
   }
 } 
