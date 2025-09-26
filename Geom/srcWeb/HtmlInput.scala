@@ -8,7 +8,7 @@ trait HtmlInput extends HtmlVoid
   override def tag: String = "input"
 }
 
-trait InputUpdater[T] extends HtmlInput
+trait InputUpdater extends HtmlInput
 {
   var parentCount: Int = 0
   
@@ -23,14 +23,12 @@ trait InputUpdater[T] extends HtmlInput
 
   def otherAttribs: RArr[XAtt]
 
-  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
-
-  def next1Id(f: T => String): IdAtt
+  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs  
 }
 
-class InputUpdaterNum(val idStr: String, val value: Int, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater[Double]
+class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater
 {
-  page.inpNumAcc +%= this
+  page.inpAcc +%= this
   var depends: RArr[Callback1Num] = RArr()
   def dependsLen: Int = depends.length
   
@@ -47,6 +45,10 @@ class InputUpdaterNum(val idStr: String, val value: Int, val otherAttribs: RArr[
   }
 }
 
+object InputUpdaterNum
+{
+  def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: HtmlPageInput): InputUpdaterNum = new InputUpdaterNum(idStr, value, otherAttribs.toRArr)
+}
 
 /** A text callback from an input to a textContent. */
 trait CallbackInput

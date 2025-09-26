@@ -4,6 +4,14 @@ import org.scalajs.dom.*, pWeb.*
 
 sealed trait ContentUpdater
 
+object ContentUpdater
+{
+  def apply(inputer: InputUpdater): ContentUpdater = inputer match
+  { case iun: InputUpdaterNum => ContentUpdaterNum(iun)
+    case iut: InputUpdaterText => ContentUpdaterText(iut)
+  }
+}
+
 class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
 { val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]

@@ -2,11 +2,11 @@
 package ostrat; package pWeb
 import reflect.ClassTag
 
-class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater[String]
+class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
   def valueAtt = ValueAtt(valueStr)
 
-  page.inpTextAcc +%= this
+  page.inpAcc +%= this
   var depends: RArr[CallbackText] = RArr()
 
   def dependsLen: Int = depends.length

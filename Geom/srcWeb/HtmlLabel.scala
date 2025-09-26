@@ -24,6 +24,17 @@ object LabelTextInput
   def apply(idStr: String, label: String, valueStr: String)(using page: HtmlPageInput): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 
+class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageInput) extends SpanLine, Parent2T[HtmlInline]
+{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
+  override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
+  override def contents: RArr[XCon] = RArr(child1, child2)
+}
+
+object LabelNumInput
+{
+  def apply(idStr: String, label: String, valueNum: Double)(using page: HtmlPageInput): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
+}
+
 case class LabelInputsLine(arrayUnsafe: Array[LabelTextInput]) extends SpanLine
 {
   def mems: RArr[LabelTextInput] = new RArr(arrayUnsafe)
