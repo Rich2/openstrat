@@ -47,10 +47,13 @@ object TomcatPage extends HtmlPageInput
   val ti1: InputUpdaterText = lti1.child2
   val lti2: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
   val ti2: InputUpdaterText = lti2.child2
+  val nRam1 = 2
+  val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
+  val ni1 = lni1.child2
 
   val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
   |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
-  LabelInputsLine(lti1, lti2),
+  LabelInputsLine(lti1, lti2, lni1),
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
   BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
 

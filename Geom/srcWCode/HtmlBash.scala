@@ -11,6 +11,7 @@ trait HtmlBash extends HtmlCode
 /** A multi line, Html, Bash code element. */
 class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlCodeLines
 { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  override def contents: RArr[XCon] = lines.toSpanLines
 }
 
 object HtmlBashMulti

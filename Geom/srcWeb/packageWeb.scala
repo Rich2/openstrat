@@ -52,4 +52,12 @@ package object pWeb
     /** Extension method for CSS vh units. Relative to 1% of the height of the viewport. */
     def vh: CssVh = CssVh(thisDouble)
   }
+  
+  extension (thisArr: Arr[String])
+  {
+    def toSpanLines: RArr[XCon] = thisArr.map{
+    case "" => SpanLine("<br>")
+    case l => SpanLine(l)
+  }
+    }
 }

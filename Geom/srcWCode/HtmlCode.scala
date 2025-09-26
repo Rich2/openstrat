@@ -8,17 +8,11 @@ trait HtmlCode extends HtmlUnvoid
 
 /** A multi line, HTML, code element */
 trait HtmlCodeLines extends HtmlCode, HtmlTagLines
-{ /** the lines of code unindented. */
-  def lines: StrArr
 
-  override def contents: RArr[XCon] = lines.map{
-    case "" => SpanLine("<br>")
-    case l => SpanLine(l)
-  }
-}
 
 class CodeLines(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines
 { override def attribs: RArr[XAtt] = otherAttribs
+  override def contents: RArr[XCon] = lines.toSpanLines
 }
 
 object CodeLines

@@ -13,7 +13,9 @@ case class ForAtt(valueStr: String) extends XAttSimple
 { override def name: String = "for"
 }
 
-class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends SpanLine, Parent2T[HtmlInline]
+trait LabelAndInput extends SpanLine, Parent2T[HtmlInline]
+
+class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput
 { override def child1: HtmlLabel = HtmlLabel(idStr, label)
   override def child2: InputUpdaterText = InputUpdaterText(idStr, valueStr)
   override def contents: RArr[XCon] = RArr(child1, child2)
@@ -24,7 +26,7 @@ object LabelTextInput
   def apply(idStr: String, label: String, valueStr: String)(using page: HtmlPageInput): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 
-class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageInput) extends SpanLine, Parent2T[HtmlInline]
+class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageInput) extends LabelAndInput
 { override def child1: HtmlLabel = HtmlLabel(idStr, label)
   override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
   override def contents: RArr[XCon] = RArr(child1, child2)
@@ -35,13 +37,13 @@ object LabelNumInput
   def apply(idStr: String, label: String, valueNum: Double)(using page: HtmlPageInput): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
 }
 
-case class LabelInputsLine(arrayUnsafe: Array[LabelTextInput]) extends SpanLine
+case class LabelInputsLine(arrayUnsafe: Array[LabelAndInput]) extends SpanLine
 {
-  def mems: RArr[LabelTextInput] = new RArr(arrayUnsafe)
+  def mems: RArr[LabelAndInput] = new RArr(arrayUnsafe)
   override def contents: RArr[XCon] = mems.childArr
 }
 
 object LabelInputsLine
 {
-  def apply(mems: LabelTextInput*)(using ct: ClassTag[HtmlInline]): LabelInputsLine = new LabelInputsLine(mems.toArray)
+  def apply(mems: LabelAndInput*)(using ct: ClassTag[HtmlInline]): LabelInputsLine = new LabelInputsLine(mems.toArray)
 }

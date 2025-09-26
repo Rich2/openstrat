@@ -2,17 +2,17 @@
 package ostrat; package pWeb; package wcode
 
 class HtmlSystemd(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines
-{
-  override def attribs: RArr[XAtt] = otherAttribs
-
-  override def contents: RArr[XCon] = lines.map{
-    case "" => SpanLine("<br>")
-    case line if line(0) == '[' => SpanLine.display(line)(DecColour(Colour.LightGreen))
-    case l => SpanLine(l)
-  }
+{ override def attribs: RArr[XAtt] = otherAttribs
+  override def contents: RArr[XCon] = HtmlSystemd.toSpans(lines)
 }
 
 object HtmlSystemd
 {
   def apply(lines: String*): HtmlSystemd = new HtmlSystemd(lines.toArr, RArr())
+  
+  def toSpans(inp: Arr[String]): RArr[HtmlSpan] = inp.map{
+    case "" => SpanLine("<br>")
+    case line if line(0) == '[' => SpanLine.display(line)(DecColour(Colour.LightGreen))
+    case l => SpanLine(l)
+  }
 }

@@ -16,6 +16,7 @@ object HtmlScala
 class HtmlScalaLines(val lines: StrArr) extends HtmlScala, HtmlCodeLines
 { def classAtt: ClassAtt = ClassAtt("scalalines")
   override def attribs: RArr[XAtt] = RArr(classAtt)
+  override def contents: RArr[XCon] = lines.toSpanLines
 }
 
 object HtmlScalaLines
