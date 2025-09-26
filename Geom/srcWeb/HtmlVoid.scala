@@ -46,7 +46,6 @@ class HtmlCssLink(val fullFileName: String) extends HtmlVoid
   override def attribs: RArr[XAtt] = RArr(XAtt("rel", "stylesheet"), XAtt("type", "text/css"), XAtt("href", fullFileName))
 }
 
-
 /** Companion object for [[HtmlCssLink]] class, contains factory apply methid. */
 object HtmlCssLink
 { /** Factory apply method for [[HtmlCssLink]] class form filename stem, adds the .css file ending. */

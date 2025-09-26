@@ -7,9 +7,9 @@ object TomcatPageJs
 {
   @JSExport def main(args: Array[String]): Unit =
   {
-    val num = TomcatPage.inpAcc.length
+    val num = TomcatPage.inpTextAcc.length
     deb(s"Found $num in TomcatPage")
-    TomcatPage.inpAcc.foreach(TextContentUpdater(_))
+    TomcatPage.inpTextAcc.foreach(TextContentUpdater(_))
     //HtmlClassTextModder("uName", "nset", uName1)
     //HtmlClassTextModder("cName", "cset", cName1)
   }

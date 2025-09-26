@@ -35,7 +35,8 @@ object HtmlPage
 
 trait HtmlPageInput extends HtmlPage
 {
-  var inpAcc: RArr[InputUpdaterText] = RArr()
+  var inpTextAcc: RArr[InputUpdaterText] = RArr()
+  var inpNumAcc: RArr[InputUpdaterNum] = RArr()
 }
 
 /** A 404 HTML page. */
