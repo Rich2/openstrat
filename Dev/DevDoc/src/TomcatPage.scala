@@ -81,10 +81,10 @@ object TomcatPage extends HtmlPageInput
 
   val s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
-  BashWithPrompt("tommy@ser:/opt/tomcat", "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
-  BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tom11"),
+  BashLine(tomcatDirPrompt, "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
+  BashLine(tomcatDirPrompt, "ln -s apache-tomcat-11.0.11 tom11"),
   "Then checking what we've got.",
-  BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
+  BashLine(tomcatDirPrompt, "ls"),
   CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
 
   val s7 = HtmlLi("Create a systemd unit file.",
@@ -101,15 +101,15 @@ object TomcatPage extends HtmlPageInput
   """Environment="CATALINA_PID=/opt/tomcat/tom11/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
-
   SpanLine.inputNum(ni1){n =>  val nn = n * 256
-   s"""Environment="CATALINA_OPTS=-Xms${nn.str0}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
+  s"""Environment="CATALINA_OPTS=-Xms${nn.str0}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
   StrArr(
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
-  "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh",
-  "User=tommy",
-  "Group=tommy",
+  "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdSpans +%
+  SpanLine.inputText(ti1){ uName => s"User=$uName"} +%
+  SpanLine.inputText(ti1){ uName => s"Group=$uName" } ++
+  StrArr(
   "UMask=0007",
   "RestartSec=10",
   "Restart=always",
