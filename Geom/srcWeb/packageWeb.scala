@@ -53,11 +53,16 @@ package object pWeb
     def vh: CssVh = CssVh(thisDouble)
   }
   
-  extension (thisArr: Arr[String])
-  {
-    def toSpanLines: RArr[XCon] = thisArr.map{
-    case "" => SpanLine("<br>")
-    case l => SpanLine(l)
-  }
+  extension (thisArr: Arr[String]) {
+    def toSpanLines: RArr[XCon] = thisArr.map {
+      case "" => SpanLine("<br>")
+      case l => SpanLine(l)
     }
+
+    def toSystemdSpans: RArr[HtmlSpan] = thisArr.map {
+      case "" => SpanLine("<br>")
+      case line if line(0) == '[' => SpanLine.display(line)(DecColour(Colour.LightGreen))
+      case l => SpanLine(l)
+    }
+  }
 }

@@ -86,9 +86,9 @@ object TomcatPage extends HtmlPageInput
    BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
    CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
 
-   def s7 = HtmlLi("Create a systemd unit file.",
+   val s7 = HtmlLi("Create a systemd unit file.",
    BashLine("sudo nano /etc/systemd/system/tom11.service"),
-   HtmlSystemd(
+   HtmlCodeLines(StrArr(
    "[Unit]",
    "Description=Apache Tomcat 11.0 Web Application Container",
     "After=network.target",
@@ -99,8 +99,11 @@ object TomcatPage extends HtmlPageInput
      """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
      """Environment="CATALINA_PID=/opt/tomcat/tom11/temp/tomcat.pid"""",
      """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
-     """Environment="CATALINA_BASE=/opt/tomcat/Base/"""",
-     """Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"""",
+     """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
+
+     SpanLine.inputNum(ni1){n =>  val nn = n * 256
+        s"""Environment="CATALINA_OPTS=-Xms${nn.str0}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
+     StrArr(
      """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
      "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
      "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh",
@@ -110,6 +113,7 @@ object TomcatPage extends HtmlPageInput
      "RestartSec=10",
      "Restart=always",
      "[Install]",
-     "WantedBy=multi-user.target"
-     ))
+     "WantedBy=multi-user.target").toSystemdSpans
+     )
+   )
 }
