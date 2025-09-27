@@ -25,14 +25,14 @@ object TomcatPage extends HtmlPageInput
   val userAtCom: String = uName1 + "@" + cName1
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7)
-  def s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to drop. You
-  |can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with money you
-  |could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly, as your
-  |needs will change. For the time being I don't have enough experience to make recommendations. I've had good service from Digital Ocean for a number of years
-  |running a VPS for Apache Vanilla, but they are some what pricey to get 4 gigs of ram for a small project with minimal users. I intend to come back and update
-  |this later. I'm currently using an Ubuntu Operating System, just out of familiarity. Now obviously if you are using your own desktop, laptop or home server,
-  |you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to get your site
-  |/ app out to the world.""".stripMargin)
+  val s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
+  |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with
+  |money you could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly,
+  |as your needs will change. For the time being I don't have enough experience to make recommendations. I've had good service from Digital Ocean for a number
+  |of years running a VPS for Apache Vanilla, but they are some what pricey to get 4 gigs of ram for a small project with minimal users. I intend to come back
+  |and update this later. I'm currently using an Ubuntu Operating System, just out of familiarity. Now obviously if you are using your own desktop, laptop or
+  |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
+  |get your site / app out to the world.""".stripMargin)
 
   def s2 = HtmlLi("Install Java. Currently suggesting Java 21 LTS. Note the jdk at the end of the version.",
   BashLine("sudo apt install openjdk-21-jdk -y"),
@@ -50,15 +50,17 @@ object TomcatPage extends HtmlPageInput
   val nRam1 = 2
   val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
   val ni1 = lni1.child2
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
 
-  val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
-  |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".stripMargin,
+  val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name
+  |for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".
+  stripMargin,
   LabelInputsLine(lti1, lti2, lni1),
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
   BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
 
-  val s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt directory, but
-  |this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
+  val s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
+  |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine("sudo mkdir /opt/tomcat"),
   BashLine.inputText(ti1)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
   SpanLine.inputText(ti1)(uName => s"Switch user to $uName. Then change directory."),
@@ -66,54 +68,53 @@ object TomcatPage extends HtmlPageInput
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
-  BashLine(BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}, "mkdir Base")
+  BashLine(tomcatDirPrompt, "mkdir Base")
   )
 
-  def s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally you should
-  |use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some specific reason to
-  |use an earlier version.At the time of writing I'm using the latest sub vsersion 11.0.11. Copy the tar.gz file link into the browser. Once its downloaded copy
-  |the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in
-  |white.""".stripMargin,
-  BashLine(BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat" },
-    "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
-  BashLine(BashPromptSpan.classAtt(nset, "tommy@ser:/opt/tomcat$"), "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits"))
+  val s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally
+  |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
+  |specific reason to use an earlier version.At the time of writing I'm using the latest sub vsersion 11.0.11. Copy the tar.gz file link into the browser. Once
+  |its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red and
+  |the file name in white.""".stripMargin,
+  BashLine(tomcatDirPrompt, "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
+  BashLine(tomcatDirPrompt, "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits"))
 
-   def s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released
-   |frequently.""".stripMargin,
-   BashWithPrompt("tommy@ser:/opt/tomcat", "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
-   BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tom11"),
-   "Then checking what we've got.",
-   BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
-   CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
+  val s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
+  |released frequently.""".stripMargin,
+  BashWithPrompt("tommy@ser:/opt/tomcat", "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
+  BashWithPrompt("tommy@ser:/opt/tomcat", "ln -s apache-tomcat-11.0.11 tom11"),
+  "Then checking what we've got.",
+  BashWithPrompt("tommy@ser:/opt/tomcat", "ls"),
+  CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
 
-   val s7 = HtmlLi("Create a systemd unit file.",
-   BashLine("sudo nano /etc/systemd/system/tom11.service"),
-   HtmlCodeLines(StrArr(
-   "[Unit]",
-   "Description=Apache Tomcat 11.0 Web Application Container",
-    "After=network.target",
-    "",
-    "[Service]",
-    "Type=forking",
-     "",
-     """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
-     """Environment="CATALINA_PID=/opt/tomcat/tom11/temp/tomcat.pid"""",
-     """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
-     """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
+  val s7 = HtmlLi("Create a systemd unit file.",
+  BashLine("sudo nano /etc/systemd/system/tom11.service"),
+  HtmlCodeLines(StrArr(
+  "[Unit]",
+  "Description=Apache Tomcat 11.0 Web Application Container",
+  "After=network.target",
+  "",
+  "[Service]",
+  "Type=forking",
+   "",
+  """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
+  """Environment="CATALINA_PID=/opt/tomcat/tom11/temp/tomcat.pid"""",
+  """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
+  """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
 
-     SpanLine.inputNum(ni1){n =>  val nn = n * 256
-        s"""Environment="CATALINA_OPTS=-Xms${nn.str0}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
-     StrArr(
-     """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
-     "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
-     "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh",
-     "User=tommy",
-     "Group=tommy",
-     "UMask=0007",
-     "RestartSec=10",
-     "Restart=always",
-     "[Install]",
-     "WantedBy=multi-user.target").toSystemdSpans
-     )
-   )
+  SpanLine.inputNum(ni1){n =>  val nn = n * 256
+   s"""Environment="CATALINA_OPTS=-Xms${nn.str0}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
+  StrArr(
+  """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
+  "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
+  "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh",
+  "User=tommy",
+  "Group=tommy",
+  "UMask=0007",
+  "RestartSec=10",
+  "Restart=always",
+  "[Install]",
+  "WantedBy=multi-user.target").toSystemdSpans
+  )
+  )
 }
