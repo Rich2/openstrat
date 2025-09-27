@@ -8,7 +8,7 @@ object TomcatPage extends HtmlPageInput
   override def head: HtmlHead = HtmlHead.titleCss("Apache Tomcat Server", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central,
   //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
-    HtmlScript.jsSrc("tomcatpage.js"), HtmlScript.main("TomcatPageJs"))
+    HtmlScript.jsSrc("tomcat.js"), HtmlScript.main("TomcatPageJs"))
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", p1, steps)
 
