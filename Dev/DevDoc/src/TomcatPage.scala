@@ -25,7 +25,7 @@ object TomcatPage extends HtmlPageInput
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
 
-  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7)
+  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8)
   val s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with
   |money you could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly,
@@ -88,7 +88,15 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "ls"),
   CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
 
-  val s7 = HtmlLi("Create a systemd unit file.",
+  val s7 = HtmlLi("""Copy across the server.xml and web.xml files from the installation directory structure to the base directory structure. If the catalina
+  |base and catalina home directories are the same, which is often the case in beginners installation instructions, then this is redundant.""".stripMargin,
+  BashLine(tomcatDirPrompt, "mkdir conf"),
+  BashLine(tomcatDirPrompt, "cp tom11/conf{server.xml, web.xml} Base/conf"),
+  "Create a home page for your server. Again not necessary if base and home are set to the same directory.",
+  BashLine(tomcatDirPrompt, "mkdir -p webapps/ROOT"),
+  BashLine(tomcatDirPrompt, """echo "Hello from Tomcat 11.0.11" > webapps/ROOT/index.html"""))
+
+  val s8 = HtmlLi("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   HtmlCodeLines(StrArr(
   "[Unit]",
