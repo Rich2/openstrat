@@ -2,6 +2,7 @@
 package ostrat; package pDoc
 import pWeb.*, Colour.*
 
+/** CSS for openstrat documentation. */
 object CssDocumentation extends CssOpenstrat
 {
   override def rules: RArr[CssRuleLike] = RArr(

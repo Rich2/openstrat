@@ -1,7 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb._, Colour._
+import pWeb.*, Colour.*
 
+/** Common trait for openstrat CSS. */
 trait CssOpenstrat extends CssRulesHolder
 {
   def minMed: CssMedia = new MediaMinWidth(50.em)
@@ -14,6 +15,7 @@ trait CssOpenstrat extends CssRulesHolder
   }
 }
 
+/** CSS file for application pages. */
 object OnlyCss extends CssOpenstrat
 { /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(DecFontSize(1.5.em)),

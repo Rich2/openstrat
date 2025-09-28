@@ -54,7 +54,8 @@ object TomcatPage extends HtmlPageInput
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
 
   val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name
-  |for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""".
+  |for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username. Insert
+  |your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
   LabelInputsLine(lti1, lti2, lni1),
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
@@ -111,7 +112,9 @@ object TomcatPage extends HtmlPageInput
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
   SpanLine.inputNum(ni1){n =>  val nn = n * 256
-  s"""Environment="CATALINA_OPTS=-Xms${nn.str0}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
+    val xmsStr = nn.min(512).str0
+    val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
+  s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
   StrArr(
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
