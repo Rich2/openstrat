@@ -40,6 +40,7 @@ trait StagingBuild
       htmlFileWrite(docPath / "dev", DevPage.out),
       htmlFileWrite(docPath / "newdevs", NewDevsPage.out),
       htmlFileWrite(docPath / "tomcat", TomcatPage.out),
+      htmlFileWrite(docPath / "scalaos", pDoc.ScalaOSPage.out),
       cssFileWrite(docPath / "documentation", CssDocumentation())
     )
     }
