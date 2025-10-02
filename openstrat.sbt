@@ -65,8 +65,8 @@ def jvmMainProj(name: String): Project = jvmProj(name, name).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),  
 )
 
-def jvmDocProj(name: String): Project = jvmProj(name + "Doc", name + "/" + name + "Doc").settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
+def jvmDocProj(nameStem: String): Project = jvmProj(nameStem + "Doc", nameStem + "/" + nameStem + "Doc").settings(
+  Compile/unmanagedSourceDirectories := List("srcDoc", nameStem + "Doc/src", nameStem + "Doc/JvmSrc").map(bbDir.value / nameStem / _),
 )
 
 def jvmExsProj(name: String): Project = jvmProj(name + "Exs", name + "/" + name + "Exs").settings(
@@ -183,7 +183,7 @@ lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
 lazy val AppsDoc = jvmDocProj("Apps").dependsOn(UtilDoc)
 lazy val AppsDocJs = jsDocProj("Apps").dependsOn(UtilDocJs)
 
-lazy val ScalaOSDoc = jvmDocProj("ScalaOS").dependsOn(Geom)
+lazy val ScalaOSDoc = jvmDocProj("ScalaOS").dependsOn(UtilDoc)
 
 lazy val DevDoc = jvmDocProj("Dev").dependsOn(GeomDoc, TilingExs, TilingDoc, EGridDoc, AppsDoc)
 lazy val DevDocJs = jsDocProj("Dev").dependsOn(GeomDocJs, TilingExsJs, TilingDocJs, EGridDocJs, AppsDocJs)

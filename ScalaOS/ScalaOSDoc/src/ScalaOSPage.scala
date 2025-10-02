@@ -5,9 +5,8 @@ import pWeb.*
 /** Documentation page for EGrid Module." */
 object EGridPage extends OSDocumentationPage
 {
-
-
-
+  override def titleStr: String = ???
+  override def body = ???
   val str1 = """An operating system built from scratch with just a Linux Kernel. Don't know if this project wil ever get anywhere.
   <br>git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
   <br>cd linux-stable
