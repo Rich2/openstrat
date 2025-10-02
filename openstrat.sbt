@@ -183,6 +183,8 @@ lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
 lazy val AppsDoc = jvmDocProj("Apps").dependsOn(UtilDoc)
 lazy val AppsDocJs = jsDocProj("Apps").dependsOn(UtilDocJs)
 
+lazy val ScalaOSDoc = jvmDocProj("ScalaOS").dependsOn(Geom)
+
 lazy val DevDoc = jvmDocProj("Dev").dependsOn(GeomDoc, TilingExs, TilingDoc, EGridDoc, AppsDoc)
 lazy val DevDocJs = jsDocProj("Dev").dependsOn(GeomDocJs, TilingExsJs, TilingDocJs, EGridDocJs, AppsDocJs)
 
