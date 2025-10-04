@@ -17,6 +17,10 @@ object ScalaOSPage extends OSDocumentationPage
   BashLine("make defconfig"),
   SpanLine("y to include n to exclude"),
   BashLine("sudo apt install libelf-dev"),
-  BashLine("sudo apt install elfutils")
+  BashLine("sudo apt install elfutils"),
+  BashWithPrompt("root@yourcomputer:rootOfNewPartition", "mkdir boot"),
+  BashWithPrompt("root@yourcomputer:rootOfNewPartition", "cp /dirs/linux-stable/vmlinuz boot"),
+  BashWithPrompt("yourname@yourcomputer:/dirs/ScalaOS/cSrc", "gcc init.c -o ../target/init"),
+  BashWithPrompt("root@yourcomputer:rootOfNewPartition", "mkdir sbin"),
   )
 }
