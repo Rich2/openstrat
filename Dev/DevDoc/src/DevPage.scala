@@ -30,7 +30,7 @@ object DevPage extends HtmlPage
   |language to explore these questions.""".stripMargin)
   
   def p4: HtmlP = HtmlP("""Scala currently set to 3.7.3. Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala native set to 0.5.8. Sbt currently set to 1.11.6
-  |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.0.4.""".
+  |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.0.6.""".
     stripMargin)
 
   def sbt1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),

@@ -22,5 +22,6 @@ object ScalaOSPage extends OSDocumentationPage
   BashWithPrompt("root@yourcomputer:rootOfNewPartition", "cp /dirs/linux-stable/vmlinuz boot"),
   BashWithPrompt("yourname@yourcomputer:/dirs/ScalaOS/cSrc", "gcc init.c -o ../target/init"),
   BashWithPrompt("root@yourcomputer:rootOfNewPartition", "mkdir sbin"),
+  BashWithPrompt("root@yourcomputer:rootOfNewPartition", "cp /openstrat/ScalaOS/target/init sbin/"),
   )
 }
