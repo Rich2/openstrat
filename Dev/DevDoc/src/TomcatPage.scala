@@ -138,5 +138,17 @@ object TomcatPage extends HtmlPageInput
   )
 
   val s10 = HtmlLi("To switch to port 80",
-  BashLine("sudo apt install authbind"))
+  BashLine("sudo apt install authbind"),
+  BashLine("sudo touch /etc/authbind/byport/80"),
+  BashLine.inputText(ti1)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine("sudo chmod 500 /etc/authbind/byport/80"),
+  BashLine("sudo nano /etc/systemd/system/tom11.service"),
+  BashLine("change --> ExecStart=/opt/tomcat/tom11/bin/startup.sh"),
+  BashLine("to     --> ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
+  BashLine("sudo systemctl daemon-reload"),
+  BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
+  BashLine("""change --> <Connector port=\"8080\""""),
+  BashLine("""to     --> <Connector port=\"80\""""),
+  BashLine("sudo systemctl restart tom11")
+  )
 }
