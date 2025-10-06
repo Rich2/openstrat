@@ -25,7 +25,7 @@ object TomcatPage extends HtmlPageInput
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
 
-  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8)
+  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
   val s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with
   |money you could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly,
@@ -129,4 +129,14 @@ object TomcatPage extends HtmlPageInput
   "WantedBy=multi-user.target").toSystemdSpans
   )
   )
+
+  val s9 = HtmlLi(
+  BashLine("sudo sytemctl start tom11"),
+  BashLine("sudo sytemctl status tom11"),
+  "If status good, open a web page at localhost:8080",
+  BashLine("sudo sytemctl enable tom11"),
+  )
+
+  val s10 = HtmlLi("To switch to port 80",
+  BashLine("sudo apt install authbind"))
 }
