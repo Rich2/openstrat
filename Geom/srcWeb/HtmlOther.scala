@@ -55,6 +55,12 @@ object SpanInline
   /** Factory method for creating HTML span element with a class attribute. */
   def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
 
+  /** Creates a inline span and registers the textContent with an HTML Text Input. */
+  def inputText(input: InputUpdaterText)(f: String => String): SpanInline =
+  { def newId = input.next1Id(f)
+    new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
+  }
+
   case class SpanInlineGen(contents: RArr[XConInline], attribs: RArr[XAtt]) extends SpanInline
 }
 

@@ -84,8 +84,11 @@ object TomcatPage extends HtmlPageInput
   |specific reason to use an earlier version. At the time of writing I'm using the latest sub version $version1. Copy the tar.gz file link into the browser.
   |Once its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red
   |and the file name in white.""".stripMargin,
-  BashLine(tomcatDirPrompt, "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
-  BashLine(tomcatDirPrompt, "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits"))
+  BashLine(tomcatDirPrompt,
+    SpanInline.inputText(ti3){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
+  BashLine(tomcatDirPrompt,
+    SpanInline.inputText(ti3){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
+  )
 
   val s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
