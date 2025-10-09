@@ -24,6 +24,9 @@ object TomcatPage extends HtmlPageInput
   val cName1: String = "ser"
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
+  val majorVersion: String = "11.0"
+  val minorVersion: String = "12"
+  def version1: String = majorVersion + "." + minorVersion
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
   val s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
@@ -52,12 +55,14 @@ object TomcatPage extends HtmlPageInput
   val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
   val ni1 = lni1.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
+  val lti3: LabelTextInput = LabelTextInput("version", "Tomcat version Name", version1)
+  val ti3: InputUpdaterText = lti3.child2
 
   val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name
   |for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username. Insert
   |your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
-  LabelInputsLine(lti1, lti2, lni1),
+  LabelInputsLine(lti1, lti2, lni1, lti3),
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
   BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
 
