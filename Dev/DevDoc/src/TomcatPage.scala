@@ -96,6 +96,7 @@ object TomcatPage extends HtmlPageInput
   "Create a home page for your server. Again not necessary if base and home are set to the same directory.",
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
+  "Copy the code below into the editor.",
   HtmlPage.titleOnly("Holding Page", "This is coming from a tomcat 11.0.11 server").htmlEscape
   )
 

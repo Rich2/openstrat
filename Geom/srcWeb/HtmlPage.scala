@@ -64,5 +64,5 @@ case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XAtt] = RArr()
 { def tag: String = "html"
   override def contents: RArr[HtmlUnvoid] = RArr(head, body)
   def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-    openTag2(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n2CloseTag
+    openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag
 }

@@ -20,6 +20,8 @@ object DispInBlock extends DecDisplay(CssInBlock)
 /** Css Display declaration set to block. */
 object DispBlock extends DecDisplay(CssBlock)
 
+object DispBlockAtt extends StyleAtt(RArr(DispBlock))
+
 /** Css Display declaration set to none. */
 object DispNone extends DecDisplay(CssNone)
 
