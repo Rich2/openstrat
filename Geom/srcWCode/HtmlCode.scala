@@ -69,18 +69,17 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
   override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
-class HtmlEscapeElem(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlPre
+class HtmlEscapeElem(val str: String, val attribs: RArr[XAtt]) extends HtmlPre
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
-  { val childIndent = indent + 2
-    val cons1: TextLines = contents.outLines(childIndent, line1InputLen + openTagMinLen, maxLineLen)
-    val cons2 = new TextLines(cons1.lines.map(_.escapeHtml))
-    if (cons1.isEmpty) openTag(indent, indent) + indent.nlSpaces + closeTag
-    else openTag(indent, indent) + childIndent.nlSpaces + cons2.text + indent.nlSpaces + closeTag
+  { val cons1 = str.escapeHtml
+    openTag(indent, indent) + "<code>" --- cons1 + indent.nlSpaces + "</code>" + closeTag
   }
+
+  override def contents: RArr[XCon] = RArr(str)
 }
 
 object HtmlEscapeElem
 {
-  def apply(contents: XCon*): HtmlEscapeElem = new HtmlEscapeElem(contents.toArr, RArr())
+  def apply(str: String): HtmlEscapeElem = new HtmlEscapeElem(str, RArr())
 }

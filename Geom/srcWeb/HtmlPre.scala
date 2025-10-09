@@ -3,5 +3,5 @@ package ostrat; package pWeb
 
 trait HtmlPre extends HtmlTagLines
 {
-  override def tag: String = "p"
+  override def tag: String = "pre"
 }

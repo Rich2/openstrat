@@ -15,7 +15,7 @@ trait HtmlPage extends HttpContent
 
   override def out: String = "<!doctype html>" --- htmlElem.out(0, 150)
 
-  def htmlEscape: HtmlEscapeElem = HtmlEscapeElem(out.escapeHtml)
+  def htmlEscape: HtmlEscapeElem = HtmlEscapeElem(out)
 
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 
