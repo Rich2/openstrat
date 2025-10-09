@@ -21,7 +21,7 @@ object TomcatPage extends HtmlPageInput
 
   val uName1: String = "tommy"
   val nset: String = "nset"
-  val cName1: String = "ser"
+  val cName1: String = "computer"
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
   val majorVersion: String = "11.0"
@@ -55,14 +55,15 @@ object TomcatPage extends HtmlPageInput
   val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
   val ni1 = lni1.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
-  val lti3: LabelTextInput = LabelTextInput("version", "Tomcat version Name", version1)
+  val lti3: LabelTextInput = LabelTextInput("version", "Tomcat Version", version1)
   val ti3: InputUpdaterText = lti3.child2
 
-  val s3 = HtmlLi(s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name
-  |for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username. Insert
-  |your own values below. the data is used for page generation locally and is not sent back to our servers.""".
-  stripMargin,
-  LabelInputsLine(lti1, lti2, lni1, lti3),
+  val s3 = HtmlLi(
+  HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you will create an
+  |inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".stripMargin,
+  LabelInputsLine(lti1, lti2, lni1, lti3)),
+  s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
+  |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""". stripMargin,
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
   BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
 
@@ -78,11 +79,11 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "mkdir Base")
   )
 
-  val s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), """. Currently we're on major version 11. Generally
+  val s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
   |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
-  |specific reason to use an earlier version.At the time of writing I'm using the latest sub vsersion 11.0.11. Copy the tar.gz file link into the browser. Once
-  |its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red and
-  |the file name in white.""".stripMargin,
+  |specific reason to use an earlier version. At the time of writing I'm using the latest sub version $version1. Copy the tar.gz file link into the browser.
+  |Once its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red
+  |and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt, "wget https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.11/bin/apache-tomcat-11.0.11.tar.gz"),
   BashLine(tomcatDirPrompt, "sha512sum apache-tomcat-11.0.11.tar.gz | grep alongsequenceoflettersanddigits"))
 
