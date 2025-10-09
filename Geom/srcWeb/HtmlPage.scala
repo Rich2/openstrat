@@ -1,5 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
+import ostrat.pWeb.wcode.*
 
 /** An HTML page, contains a doctype, a head and a body elements. */
 trait HtmlPage extends HttpContent
@@ -13,6 +14,9 @@ trait HtmlPage extends HttpContent
   def body: HtmlBody
 
   override def out: String = "<!doctype html>" --- htmlElem.out(0, 150)
+
+  def htmlEscape: HtmlEscapeElem = HtmlEscapeElem(out.escapeHtml)
+
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 
   override def httpResp(dateStr: String, server: String): HttpRespBodied = HttpFound(dateStr, server, HttpConTypeHtml, out)

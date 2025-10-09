@@ -9,6 +9,8 @@ trait CssRulesHolder extends HttpContent
 
   def apply(): String = rulesOut(0)
 
+  override def out: String = rulesOut(0)
+
   def rulesOut(indent: Int = 0): String = rules.length match
   { case 0 => ""
     case 1 => indent.spaces + rules(0).out(indent)
@@ -24,7 +26,6 @@ trait CssRulesHolder extends HttpContent
     }
   }
 
-  override def out: String = rulesOut(0)
   override def httpResp(dateStr: String, server: String): HttpFound = HttpFound(dateStr, server, HttpConTypeCss, out)
 }
 

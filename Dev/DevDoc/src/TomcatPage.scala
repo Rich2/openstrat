@@ -91,11 +91,13 @@ object TomcatPage extends HtmlPageInput
 
   val s7 = HtmlLi("""Copy across the server.xml and web.xml files from the installation directory structure to the base directory structure. If the catalina
   |base and catalina home directories are the same, which is often the case in beginners installation instructions, then this is redundant.""".stripMargin,
-  BashLine(tomcatDirPrompt, "mkdir conf"),
-  BashLine(tomcatDirPrompt, "cp tom11/conf{server.xml, web.xml} Base/conf"),
+  BashLine(tomcatDirPrompt, "mkdir Base/conf"),
+  BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml Base/conf"),
   "Create a home page for your server. Again not necessary if base and home are set to the same directory.",
-  BashLine(tomcatDirPrompt, "mkdir -p webapps/ROOT"),
-  BashLine(tomcatDirPrompt, """echo "Hello from Tomcat 11.0.11" > webapps/ROOT/index.html"""))
+  BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
+  BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
+  HtmlPage.titleOnly("Holding Page", "This is coming from a tomcat 11.0.11 server").htmlEscape
+  )
 
   val s8 = HtmlLi("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),

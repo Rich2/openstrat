@@ -17,5 +17,17 @@ package object wcode
 
     /** Implicit method to return an HTML Bash element. */
     def htmlBash: BashInline = BashInline(thisString)
+
+    def escapeHtml: String = thisString.foldLeft("") { (acc, ch) =>
+      ch match
+      {
+        case '&' => acc + "&amp;"
+        case '<' => acc + "&lt;"
+        case '>' => acc + "&gt;"
+        case '"' => acc + "&quot;"
+        case '\'' => acc + "&#39;"
+        case ch => acc + ch
+      }
+    }
   }
 }

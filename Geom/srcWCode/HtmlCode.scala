@@ -10,8 +10,6 @@ trait HtmlCode extends HtmlUnvoid
 trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 
 
-
-
 object HtmlCodeLines
 { /** Factory apply method to display mulitple lines of code in HTML. */
   def apply(lines: String*): HtmlCodeLines = new HtmlCodeLinesGen(lines.toArr.toSpanLines, RArr())
@@ -69,4 +67,20 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
 { def classAtt: ClassAtt = ClassAtt("path")
   override def contents: RArr[XCon] = RArr(str)
   override def attribs: RArr[XAtt] = RArr(classAtt)
+}
+
+class HtmlEscapeElem(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlPre
+{
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
+  { val childIndent = indent + 2
+    val cons1: TextLines = contents.outLines(childIndent, line1InputLen + openTagMinLen, maxLineLen)
+    val cons2 = new TextLines(cons1.lines.map(_.escapeHtml))
+    if (cons1.isEmpty) openTag(indent, indent) + indent.nlSpaces + closeTag
+    else openTag(indent, indent) + childIndent.nlSpaces + cons2.text + indent.nlSpaces + closeTag
+  }
+}
+
+object HtmlEscapeElem
+{
+  def apply(contents: XCon*): HtmlEscapeElem = new HtmlEscapeElem(contents.toArr, RArr())
 }

@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** Http content that can be sent as a body of an Http response. */
 trait HttpContent
-{ /** The output [[String]] in HTML code. */
+{ /** The output [[String]]. Includes HTML and CSS code. */
   def out: String
 
   /** Create an [[HtmlResp]] response with this HTML as its body. */
