@@ -107,7 +107,7 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  HtmlPage.titleOnly("Holding Page", "This is coming from a tomcat 11.0.11 server").htmlEscape
+  HtmlPage.titleOnly("Holding Page", s"This is coming from a tomcat $version1 server").htmlEscape
   )
 
   val s8 = HtmlLi("Create a systemd unit file.",

@@ -37,7 +37,7 @@ object BashLine
 
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
-  /** Creates a Bash line na registers the textContent with an HTML Text Input. */
+  /** Creates a Bash line and registers the textContent with an HTML Text Input. */
   def inputText(input: InputUpdaterText)(f: String => String): BashLine =
   { def newId = input.next1Id(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
