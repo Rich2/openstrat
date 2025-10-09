@@ -92,11 +92,12 @@ object TomcatPage extends HtmlPageInput
 
   val s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
-  BashLine(tomcatDirPrompt, "tar xf apache-tomcat-11.0.11.tar.gz -C /opt/tomcat"),
-  BashLine(tomcatDirPrompt, "ln -s apache-tomcat-11.0.11 tom11"),
+  BashLine(tomcatDirPrompt, SpanInline.inputText(ti3){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
+  BashLine(tomcatDirPrompt, SpanInline.inputText(ti3){ version => s"ln -s apache-tomcat-$version tom11"}),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
-  CodeOutputLine("apache-tomcat-11.0.11  apache-tomcat-11.0.11.tar.gz  Base  tom11"))
+  CodeOutputLine.inputText(ti3){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
+  )
 
   val s7 = HtmlLi("""Copy across the server.xml and web.xml files from the installation directory structure to the base directory structure. If the catalina
   |base and catalina home directories are the same, which is often the case in beginners installation instructions, then this is redundant.""".stripMargin,

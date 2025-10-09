@@ -56,8 +56,16 @@ trait CodeOutputLine extends HtmlCode, HtmlOwnLineBlocked
 
 object CodeOutputLine
 { /** Factory apply method to create an inline HTML cose element. */
-  def apply(str: String): CodeOutputLine = new CodeOutputLine
-  { override def contents: RArr[XCon] = RArr(str)
+  def apply(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), RArr())
+
+  /** Creates a code output line and registers the textContent with an HTML Text Input. */
+  def inputText(input: InputUpdaterText)(f: String => String): CodeOutputLine =
+  { def newId = input.next1Id(f)
+    new CodeOutputLineGen(RArr(f(input.valueStr)), RArr(newId))
+  }
+  
+  case class CodeOutputLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends CodeOutputLine
+  { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   }
 }
 
