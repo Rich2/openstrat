@@ -37,6 +37,7 @@ object HtmlPage
   }
 }
 
+/** An HTML page with an accumulator of [[InputUpdater]]s. */
 trait HtmlPageInput extends HtmlPage
 { var inpAcc: RArr[InputUpdater] = RArr()
 }

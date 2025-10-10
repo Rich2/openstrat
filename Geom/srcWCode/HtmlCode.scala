@@ -10,11 +10,13 @@ trait HtmlCode extends HtmlUnvoid
 trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 
 object HtmlCodeLines
-{ /** Factory apply method to display multiple lines of code in HTML. */
+{ /** Factory apply method to display multiple lines of code in HTML, with no additional attributes. */
   def apply(lines: String*): HtmlCodeLines = new HtmlCodeLinesGen(lines.toArr.toSpanLines, RArr())
-  
+
+  /** Factory apply method to display multiple lines of code in HTML. */
   def apply(contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): HtmlCodeLines = new HtmlCodeLinesGen(contents, otherAttribs)
 
+  /** Implementation class for the general case of [[HtmlCodeLines]]. */
   class HtmlCodeLinesGen(val contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlCodeLines
   { override def attribs: RArr[XAtt] = otherAttribs    
   }
@@ -49,7 +51,7 @@ trait CodeOutput extends HtmlCode
 { override def attribs: RArr[XAtt] = RArr(CodeOutputAtt)
 }
 
-/** An HTML element for code output, that is on its own line. */
+/** An HTML element for code output, that is on its own line. Adds the [[CodeOutputAtt]] attribute. */
 trait CodeOutputLine extends HtmlCode, HtmlOwnLineBlocked
 { override def attribs: RArr[XAtt] = super.attribs +% CodeOutputAtt
 }
@@ -63,7 +65,8 @@ object CodeOutputLine
   { def newId = input.next1Id(f)
     new CodeOutputLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
-  
+
+  /** Implementation class for the general case of [[CodeOutputLine]]. */
   case class CodeOutputLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends CodeOutputLine
   { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   }
