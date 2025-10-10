@@ -12,10 +12,10 @@ object PomsApp
     debvar(oDir)
 
     def stagePom(dirStr: String, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
-      pomFileWrite(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out())
+      pomFileWrite(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
 
     def stagePom2(dirStr: String, name: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
-      pomFileWrite(dirStr / name + "-" + versionStr, pom.out())
+      pomFileWrite(dirStr / name + "-" + versionStr, pom.out)
 
     oDir.foreach { dirStr =>
       val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("15.0.1"))

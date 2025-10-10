@@ -7,11 +7,11 @@ package object pWeb
   inline val MaxLineLen: 160 = 160
 
   /** Returns the output string for an HTML link, plus a tailing string, useful for commas, fullstops etc. where a space is not wanted. */
-  def linkOut(path: String, label: String, tailStr: String): String = HtmlA(path, label).out() + tailStr
+  def linkOut(path: String, label: String, tailStr: String): String = HtmlA(path, label).out + tailStr
 
   /** Returns the output string for an HTML link where the url is used as the label,plus a tailing string, useful for commas, fullstops etc. where a space is
    * not wanted. */
-  def linkRawOut(path: String, tailStr: String): String = HtmlA(path).out() + tailStr
+  def linkRawOut(path: String, tailStr: String): String = HtmlA(path).out + tailStr
 
   extension(thisString: String)
   { /** Implicit method to return an HTML bold element. */

@@ -3,5 +3,5 @@ package ostrat; package pDoc
 import geom.*, pWeb.HtmlSvg
 
 object Favicon1
-{ def apply() = Sqlign(200).fill(Colour.Red).svgInline.out()
+{ def apply() = Sqlign(200).fill(Colour.Red).svgInline.out
 }
