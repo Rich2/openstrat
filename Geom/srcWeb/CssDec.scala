@@ -8,7 +8,7 @@ trait CssDecs
   def decs: RArr[CssDec]
 }
 
-/** CSS declaration */
+/** CSS declaration. This consists of a key-value pair. */
 trait CssDec extends CssDecs
 { /** The CSS property */
   def prop: String
@@ -79,10 +79,12 @@ case class DecDisplay(value: CssVal) extends CssDecStd
 { override def prop: String = "display"
 }
 
+/** CSS declaration for font width. */
 case class DecFontWidth(value: CssVal) extends CssDecStd
 { override def prop: String = "font-weight"
 }
 
+/** CSS declaration for font width set to bold. */
 object DecBold extends DecFontWidth(CssBold)
 
 /** Css text-align declaration. */

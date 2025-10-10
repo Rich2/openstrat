@@ -84,6 +84,7 @@ object SpanLine
     override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
   }
 
+  /** Factory method to create a span line with a class attribute. */
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Bash line na registers the textContent with an HTML Text Input. */
