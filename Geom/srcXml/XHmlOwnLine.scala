@@ -7,7 +7,7 @@ trait XHmlOwnLine extends XHmlElem
   final override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
   override def outLines(indent: Int = 0, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
-  { val cons: TextLines = contents.outLines(indent + 2, indent + tagLen + 2, maxLineLen)
+  { val cons: TextLines = contents.outLines(indent + 2, indent + tagNameLen + 2, maxLineLen)
     val childIndent = indent + 2
     val stt: String = openTag(indent, line1InputLen, maxLineLen)
     def closeTag2: String = ife(closeTagLine, indent.nlSpaces + closeTag, closeTag)

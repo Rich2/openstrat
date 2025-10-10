@@ -6,7 +6,7 @@ trait PomProject extends XmlTagLines
   val groudId: GroupId
   def version: VersionElem
   def modelVersion: XmlElem = XmlElemSimple("modelVersion", "4.0.0")
-  override def tag: String = "project"
+  override def tagName: String = "project"
   override def attribs: RArr[XAtt] = RArr()
   def dependencies: RArr[PomDep]
   def dependenciesElem: PomDepenenciesElem = PomDepenenciesElem(dependencies)
@@ -15,7 +15,7 @@ trait PomProject extends XmlTagLines
 
 /** XML element for POM file dependency */
 class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: VersionElem) extends XmlTagLines
-{ override def tag: String = "dependency"
+{ override def tagName: String = "dependency"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XConElem] = RArr(groupId, artifactId, version)
 }
@@ -27,7 +27,7 @@ object PomDep
 
 /** XML element for POM file dependencies. Note the plural. Takes individual [[PopDep]]s as its child elements. */
 class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlTagLines
-{ override def tag: String = "Dependencies"
+{ override def tagName: String = "Dependencies"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[PomDep] = dependencies
 }

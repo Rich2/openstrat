@@ -10,7 +10,7 @@ trait SvgShape extends SvgOwnLine
 
 /** An SVG Circle element. */
 class SvgCircle(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
-{ override def tag: String = "circle"
+{ override def tagName: String = "circle"
 }
 
 object SvgCircle
@@ -20,7 +20,7 @@ object SvgCircle
 
 /** An SVG Ellipse element. */
 class SvgEllipse(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
-{ override def tag: String = "ellipse"
+{ override def tagName: String = "ellipse"
 }
 
 object SvgEllipse
@@ -30,7 +30,7 @@ object SvgEllipse
 
 /** An SVG Polygon element. */
 class SvgPolygon(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
-{ override def tag: String = "polygon"
+{ override def tagName: String = "polygon"
 }
 
 object SvgPolygon
@@ -40,7 +40,7 @@ object SvgPolygon
 
 /** An SVG Rect element. */
 class SvgRect(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
-{ override def tag: String = "rect"
+{ override def tagName: String = "rect"
 }
 
 object SvgRect

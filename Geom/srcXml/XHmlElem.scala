@@ -5,21 +5,18 @@ package ostrat; package pWeb
  * then the values are combined into a single attribute, when outputting into XML / HTML code.*/
 trait XHmlElem extends XConElem
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
-  def tag: String
+  def tagName: String
   
   /** The number of characters in the tag. This is useful for calculating new lines in multi line elements. */
-  def tagLen: Int = tag.length
-  
-  /** The length of the < character plus the tag. */
-  def openTagOpenLen: Int = tagLen + 1
+  def tagNameLen: Int = tagName.length
 
   /** The full length of the opening tag without attributes. */
-  def openTagMinLen: Int = tag.length + 2
+  def openTagMinLen: Int = tagName.length + 2
 
   /** The attributes of this XML / HTML element. */
   def attribs: RArr[XAtt]
 
-  def attribsLen = attribs.length
+  def attribsLen: Int = attribs.length
 
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
@@ -60,15 +57,21 @@ trait XHmlElem extends XConElem
 
   /** The opening tag without its final ">" or "/>" characters. */
   def openTagInit(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
-  { val res: TextLines = attribsOutLines(indent, openTagOpenLen)
+  { val res: TextLines = attribsOutLines(indent, tagNameLen + 1)
     val text: String = ife(res.numLines == 0, "", " " + res.text)
-    "<" + tag + text
+    "<" + tagName + text
   }
 
-  def openUnclosed(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openTagInit(indent, line1InputLen, maxLineLen) + ">"
+  /** The full XML / HTML opening tag form < to > */
   def openTag(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openTagInit(indent, line1InputLen, maxLineLen) + ">"
-  def closeTag: String = "</" + tag + ">"
+
+  /** The full XML / HTML closing tag. */
+  def closeTag: String = "</" + tagName + ">"
+
+  /** A newline character followed by the full XML / HTML closing tag. */
   def n1CloseTag: String = "\n" + closeTag
+
+  /** 2 newline characters followed by the full XML / HTML closing tag. */
   def n2CloseTag: String = "\n\n" + closeTag
 }
 

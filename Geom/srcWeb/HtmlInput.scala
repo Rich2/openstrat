@@ -5,7 +5,7 @@ import reflect.ClassTag
 /** An HTML input element. */
 trait HtmlInput extends HtmlVoid
 { def typeAtt: TypeAtt
-  override def tag: String = "input"
+  override def tagName: String = "input"
 }
 
 trait InputUpdater extends HtmlInput

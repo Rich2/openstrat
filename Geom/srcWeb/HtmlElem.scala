@@ -10,7 +10,7 @@ trait HtmlUnvoid extends HtmlElem
   def openTag2(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = openTag(indent, line1InputLen, maxLineLen) + "\n\n"
 
   /** The full length of the opening tag without attributes. */
-  def closeTagMinLen: Int = tag.length + 3
+  def closeTagMinLen: Int = tagName.length + 3
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */

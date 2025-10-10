@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** HTML table element. */
 case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
-{ override def tag: String = "table"
+{ override def tagName: String = "table"
 }
 
 object HtmlTable
@@ -14,7 +14,7 @@ object HtmlTable
 
 /** HTML TR table row element class. */
 trait HtmlRow extends HtmlTagLines
-{ override def tag: String = "tr"
+{ override def tagName: String = "tr"
 }
 
 object HtmlRow
@@ -61,7 +61,7 @@ trait HtmlCell extends HtmlOwnLine
 
 /** HTML TH table header cell element. */
 case class HtmlTh(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlCell
-{ override def tag: String = "th"
+{ override def tagName: String = "th"
 }
 
 object HtmlTh
@@ -71,7 +71,7 @@ object HtmlTh
 
 /** HTML TD table data cell element. */
 case class HtmlTd(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlCell
-{ override def tag: String = "td"
+{ override def tagName: String = "td"
 }
 
 object HtmlTd

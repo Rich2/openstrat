@@ -3,7 +3,7 @@ package ostrat; package pWeb; package wcode
 
 /** An HTML code element. */
 trait HtmlCode extends HtmlUnvoid
-{ override def tag: String = "code"
+{ override def tagName: String = "code"
 }
 
 /** A multi line, HTML, code element */

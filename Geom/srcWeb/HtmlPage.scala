@@ -55,14 +55,14 @@ case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
 
 /** HTML title element. */
 case class HtmlTitle(str: String, attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
-{ override def tag = "title"
+{ override def tagName = "title"
   override def contents: RArr[XCon] = RArr(str)
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + "<title>" + str + "</title>"
 }
 
 /** The "html" HTML element */
 case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
-{ def tag: String = "html"
+{ def tagName: String = "html"
   override def contents: RArr[HtmlUnvoid] = RArr(head, body)
   def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag

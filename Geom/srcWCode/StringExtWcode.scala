@@ -2,11 +2,11 @@
 package ostrat; package pWeb
 
 package object wcode
-{
-  /** Returns the output string for an HTML file / directory path code element, plus a tailing [[String]]. */
+{ /** Returns the output string for an HTML file / directory path code element, plus a tailing [[String]]. */
   def dirOut(str: String, tailStr: String): String = HtmlDirPath(str).out() + tailStr
 
-  extension (thisString: String) {/** Extension method to return an HTML file / directory path code element. */
+  extension (thisString: String)
+  {/** Extension method to return an HTML file / directory path code element. */
     def htmlPath: HtmlDirPath = HtmlDirPath(thisString)
 
     /** Extension method to return an HTML sbt class code element. */
@@ -18,10 +18,8 @@ package object wcode
     /** Implicit method to return an HTML Bash element. */
     def htmlBash: BashInline = BashInline(thisString)
 
-    def escapeHtml: String = thisString.foldLeft("") { (acc, ch) =>
-      ch match
-      {
-        case '&' => acc + "&amp;"
+    def escapeHtml: String = thisString.foldLeft("") { (acc, ch) => ch match
+      { case '&' => acc + "&amp;"
         case '<' => acc + "&lt;"
         case '>' => acc + "&gt;"
         case '"' => acc + "&quot;"

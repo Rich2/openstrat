@@ -7,7 +7,7 @@ trait SvgOwnLine extends XmlOwnLine
 
 /** An HTML element for SVG. */
 case class HtmlSvg(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlTagLines
-{ override def tag: String = "svg"
+{ override def tagName: String = "svg"
 }
 
 object HtmlSvg
@@ -38,7 +38,7 @@ object HtmlSvg
 
 /** Class to produce an SVG line. */
 class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, otherAttribs: RArr[XAtt]) extends SvgOwnLine
-{ override def tag: String = "line"
+{ override def tagName: String = "line"
   val x1Att: XAtt = XAtt("x1", x1.str2)
   val y1Att: XAtt = XAtt("y1", (-y1).str2)
   val x2Att: XAtt = XAtt("x2", x2.str2)
@@ -58,7 +58,7 @@ object SvgLine
 }
 
 class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign, colour: Colour) extends SvgOwnLine
-{ override def tag: String = "text"
+{ override def tagName: String = "text"
   override def attribs: RArr[XAtt] = RArr(XXmlAtt(x), YXmlAtt(y), align.attrib).appendIf(colour != Black, FillAttrib(colour))
   override def contents: RArr[XCon] = RArr(text)
 }
@@ -70,7 +70,7 @@ object SvgText
 
 class SvgGroup(val contents: RArr[XConElem], val attribs: RArr[XAtt])extends SvgOwnLine
 {
-  override def tag: String = "g"
+  override def tagName: String = "g"
 }
 
 object SvgGroup{

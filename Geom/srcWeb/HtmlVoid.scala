@@ -4,19 +4,19 @@ package ostrat; package pWeb
 /** trait for HTML Void elements such as br img and input. */
 trait HtmlVoid extends HtmlInline
 { final override def contents: RArr[XConElem] = RArr()
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openUnclosed(indent + 2, 0)
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openTag(indent + 2, 0)
 }
 
 /** An Html br line break element. */
 object HtmlBr extends HtmlVoid
-{ override def tag: String = "br"
+{ override def tagName: String = "br"
   override def attribs: RArr[XAtt] = RArr()
 }
 
 
 /** HTML meta element. */
 trait HtmlMeta extends HtmlVoid
-{ override def tag: String = "meta"
+{ override def tagName: String = "meta"
 }
 
 /** HTML charset='UTF-8' meta element. */
@@ -42,7 +42,7 @@ object HtmlViewDevWidth extends HtmlMeta
 
 /** HTML CSS link. */
 class HtmlCssLink(val fullFileName: String) extends HtmlVoid
-{ override def tag: String = "link"
+{ override def tagName: String = "link"
   override def attribs: RArr[XAtt] = RArr(XAtt("rel", "stylesheet"), XAtt("type", "text/css"), XAtt("href", fullFileName))
 }
 

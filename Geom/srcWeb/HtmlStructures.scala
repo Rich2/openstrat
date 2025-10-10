@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** HTML head element. */
 case class HtmlHead(contents : RArr[XConElem], attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
-{ override def tag: String = "head"
+{ override def tagName: String = "head"
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
 }  
@@ -27,7 +27,7 @@ object HtmlHead
 
 /** The HTML body element. */
 class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlUnvoid
-{ override def tag: String = "body"
+{ override def tagName: String = "body"
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
 }
@@ -41,7 +41,7 @@ object HtmlBody
 
 /** HTML Div element.  */
 trait HtmlDiv extends HtmlUnvoid
-{ override def tag: String = "div"
+{ override def tagName: String = "div"
 }
 
 /** Companion object for the [[HtmlDiv]] DIV element class, contains various factory methods. */
@@ -71,7 +71,7 @@ object HtmlDivOneLine
 
 /** An HTML Canvas element. */
 case class HtmlCanvas(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
-{ override def tag: String = "canvas"
+{ override def tagName: String = "canvas"
 }
 
 object HtmlCanvas
@@ -83,7 +83,7 @@ object HtmlCanvas
 
 /** An Html section element. */
 trait HtmlSection extends HtmlTagLines
-{ override def tag: String = "section"
+{ override def tagName: String = "section"
   override def attribs: RArr[XAtt] = RArr()
 }
 

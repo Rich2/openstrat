@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import scala.reflect.ClassTag
 
 class HtmlLabel(val fieldName: String, val label: String) extends HtmlInline
-{ override def tag: String = "label"
+{ override def tagName: String = "label"
   override def attribs: RArr[XAtt] = RArr(ForAtt(fieldName))
   override def contents: RArr[XCon] = RArr(label)
 }

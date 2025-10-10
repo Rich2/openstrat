@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** web.xml file for a Servlet. */
 trait WebApp extends XmlTagLines
-{ override def tag: String = "web-app"
+{ override def tagName: String = "web-app"
 }
 
 /** web.xml file for a Servlet 6.0. */
@@ -13,7 +13,7 @@ trait WebApp6 extends WebApp
 
 /** Servlet XML element for Jakarta. */
 case class ServletElem(contents: RArr[XConElem]) extends XmlTagLinesNoAtts
-{ override def tag: String = "servlet"
+{ override def tagName: String = "servlet"
 }
 
 object ServletElem
@@ -49,7 +49,7 @@ object MetadataCompleted extends XmlAttGen("metadata-complete", "true")
 
 /** Servlet-mapping XML element for Jakarta. */
 case class ServletMapping(contents: RArr[XConElem]) extends XmlTagLinesNoAtts
-{ override def tag: String = "servlet-mapping"
+{ override def tagName: String = "servlet-mapping"
 }
 
 object ServletMapping

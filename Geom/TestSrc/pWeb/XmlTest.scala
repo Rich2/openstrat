@@ -8,7 +8,7 @@ object XmlTest extends TestSuite
   class City(name: String) extends XmlElemSimple("City", name)
 
   class Country(val nameStr: String, val otherElems: RArr[XmlElem]) extends XmlTagLines
-  { override def tag: String = "Country"
+  { override def tagName: String = "Country"
     override def attribs: RArr[XAtt] = RArr()
     def nameEl = XmlElemSimple("name", nameStr)
 
@@ -20,7 +20,7 @@ object XmlTest extends TestSuite
   }
 
   case class Cities(contents: RArr[XCon]) extends XmlTagLinesNoAtts
-  { override def tag: String = "Cities"
+  { override def tagName: String = "Cities"
   }
 
   val wash = City("Washington")

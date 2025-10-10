@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** HTML A anchor element. */
 class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlInline
-{ override def tag: String = "a"
+{ override def tagName: String = "a"
   override val attribs: RArr[XAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
 
@@ -17,7 +17,7 @@ object HtmlA
 
 /** HTML P paragraph element. */
 case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
-{ def tag = "p"
+{ def tagName = "p"
   override def closeTagLine: Boolean = true
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
@@ -36,7 +36,7 @@ trait HtmlSpan extends HtmlElem
 
 /** HTML span element. */
 trait SpanInline extends HtmlSpan, HtmlInline
-{ def tag = "span"
+{ def tagName = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
@@ -66,7 +66,7 @@ object SpanInline
 
 /** HTML span element on its own line, with display set to block. */
 trait SpanLine extends HtmlSpan, HtmlOwnLineBlocked
-{ def tag = "span"
+{ def tagName = "span"
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)  
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
@@ -107,7 +107,7 @@ object SpanLine
 
 /** HTML noscript element. */
 case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
-{ override def tag: String = "noscript"
+{ override def tagName: String = "noscript"
 }
 
 object HtmlNoScript
@@ -117,7 +117,7 @@ object HtmlNoScript
 
 /** HTML script element. */
 case class HtmlScript(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
-{ override def tag: String = "script"
+{ override def tagName: String = "script"
 }
 
 /** Companion object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
@@ -133,7 +133,7 @@ object HtmlScript
 
 /** HTML style element. note there is also a CSS [[StyleAtt]] attribute. */
 case class HtmlStyle(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
-{ override def tag: String = "style"
+{ override def tagName: String = "style"
 }
 
 object HtmlStyle
@@ -143,34 +143,34 @@ object HtmlStyle
 
 /** HTML bold element. */
 case class HtmlB(str: String) extends HtmlInline
-{ override def tag: String = "b"
+{ override def tagName: String = "b"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str)
 }
 
 /** Html H1 header element. */
 case class HtmlH1(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
-{ override def tag = "h1"
+{ override def tagName = "h1"
 }
 
 /** Html H2 header element. */
 case class HtmlH2(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
-{ def tag = "h2"
+{ def tagName = "h2"
 }
 
 /** Html H3 header element. */
 case class HtmlH3(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
-{ def tag = "h3"
+{ def tagName = "h3"
 }
 
 /** Html H4 header element. */
 case class HtmlH4(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
-{ def tag = "h4"
+{ def tagName = "h4"
 }
 
 /** HTML button element. */
 class HtmlButton(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
-{ override def tag = "button"
+{ override def tagName = "button"
 }
 
 object HtmlButton

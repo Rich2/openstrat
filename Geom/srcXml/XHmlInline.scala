@@ -8,7 +8,7 @@ trait XHmlInline extends XHmlElem, XConElemInline
 
   def out0: String = contents match
   { case RArr0() => openTagInit(0, 0) + "/>"
-    case RArr1(_) => openUnclosed(0, 0, MaxLineLen) + contents(0).out(0, 0) + closeTag
-    case _ => openUnclosed(0, 0, MaxLineLen).nli(2) + contents.mkStr(_.out(2, MaxLineLen), "\n" + (2).spaces).nli(0) + closeTag
+    case RArr1(_) => openTag(0, 0, MaxLineLen) + contents(0).out(0, 0) + closeTag
+    case _ => openTag(0, 0, MaxLineLen).nli(2) + contents.mkStr(_.out(2, MaxLineLen), "\n" + (2).spaces).nli(0) + closeTag
   }
 }

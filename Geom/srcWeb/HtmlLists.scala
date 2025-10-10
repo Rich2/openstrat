@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** Html UL unordered list element. */
 case class HtmlUl(val contents: RArr[XConElem], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
-{ override def tag: String = "ul"
+{ override def tagName: String = "ul"
 }
 
 /** Companion object for [[HtmlUl]] unordered list HTML element class, contains factory apply method with repeat parameters. */
@@ -13,7 +13,7 @@ object HtmlUl
 }
 /** Html OL ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
-{ override def tag: String = "ol"
+{ override def tagName: String = "ol"
 }
 
 /** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
@@ -24,7 +24,7 @@ object HtmlOl
 
 /** Html LI, list item element. */
 case class HtmlLi(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
-{ override def tag: String = "li"
+{ override def tagName: String = "li"
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
