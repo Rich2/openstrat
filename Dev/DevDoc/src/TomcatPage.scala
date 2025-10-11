@@ -62,10 +62,13 @@ object TomcatPage extends HtmlPageInput
   HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you will create an
   |inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".stripMargin,
   LabelInputsLine(lti1, lti2, lni1, lti3)),
-  s"""Create a new user and a new group of the same name. For these examples we'll call it '$uName1'. I find it better to have a different name for the user
-  |than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own username.""". stripMargin,
+  s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
+  |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
+  |username.""". stripMargin,
   BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
-  BashLine.inputText(ti1)(uName => s"sudo passwd $uName"))
+  BashLine.inputText(ti1)(uName => s"sudo passwd $uName"),
+  BashLine.inputText(ti1){uName => s"sudo useradd $uName sudo"}
+  )
 
   val s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
@@ -144,8 +147,9 @@ object TomcatPage extends HtmlPageInput
   )
 
   val s9 = HtmlLi(
-  BashLine("sudo sytemctl start tom11"),
-  BashLine("sudo sytemctl status tom11"),
+  BashLine("sudo systemctl daemon-reload"),
+  BashLine("sudo systemctl start tom11"),
+  BashLine("sudo systemctl status tom11"),
   "If status good, open a web page at localhost:8080",
   BashLine("sudo sytemctl enable tom11"),
   )
