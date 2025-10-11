@@ -79,19 +79,26 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
   override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
-class HtmlEscapeElem(val str: String, val otherAttribs: RArr[XAtt]) extends HtmlCodeLines
+class HtmlEscapeElem(val htmlPre: HtmlPre, val otherAttribs: RArr[XAtt]) extends HtmlCodeLines
 {
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
+  /*override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
   { val cons1 = str.escapeHtml
     openTag(indent, indent) --- "<pre>" + cons1 + "</pre>" --- closeTag
-  }
+  }*/
 
-  override def contents: RArr[XCon] = RArr(str)
+  override def contents: RArr[XCon] = RArr(htmlPre)
 
   override def attribs: RArr[XAtt] = DispBlockAtt %: otherAttribs
 }
 
 object HtmlEscapeElem
 {
-  def apply(str: String): HtmlEscapeElem = new HtmlEscapeElem(str, RArr())
+  def apply(str: String): HtmlEscapeElem = new HtmlEscapeElem(HtmlPre(str), RArr())
+
+  /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. */
+  def inputText(input: InputUpdaterText)(f: String => String): HtmlEscapeElem =
+  { def newId = input.next1Id(f)
+    val pre = new HtmlPre(f(input.valueStr), RArr(newId))
+    new HtmlEscapeElem(pre, RArr())
+  }
 }

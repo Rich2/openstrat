@@ -15,6 +15,10 @@ class HtmlPre(val str: String, val attribs: RArr[XAtt]) extends HtmlTagLines
 
 object HtmlPre
 {
+  def apply(str: String, attribs: XAtt*): HtmlPre = new HtmlPre(str, attribs.toRArr)
+  
+  def id(idStr: String, contentStr: String , otherAttribs: XAtt*): HtmlPre = new HtmlPre(idStr, IdAtt(idStr) %: otherAttribs.toRArr)
+  
   /** Creates an HTML Pre element and registers the textContent with an HTML Text Input. */
   def inputText(input: InputUpdaterText)(f: String => String): HtmlPre =
   { def newId = input.next1Id(f)
