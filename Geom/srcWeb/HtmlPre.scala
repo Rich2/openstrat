@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** HTML Pre element. */
+/** HTML Pre element. Unlike most other [[HtmlElem]]s this only takes a [[String]] as its content. */
 class HtmlPre(val str: String, val attribs: RArr[XAtt]) extends HtmlTagLines
 { override def tagName: String = "pre"
   override def contents: RArr[XCon] = RArr(str)
@@ -14,10 +14,11 @@ class HtmlPre(val str: String, val attribs: RArr[XAtt]) extends HtmlTagLines
 }
 
 object HtmlPre
-{
+{ /** Factory apply method to create an HTML pre element. */
   def apply(str: String, attribs: XAtt*): HtmlPre = new HtmlPre(str, attribs.toRArr)
   
-  def id(idStr: String, contentStr: String , otherAttribs: XAtt*): HtmlPre = new HtmlPre(idStr, IdAtt(idStr) %: otherAttribs.toRArr)
+  /** Factory method to create an HTML pre element with an id attribute. */
+  def idAtt(idStr: String, contentStr: String , otherAttribs: XAtt*): HtmlPre = new HtmlPre(idStr, IdAtt(idStr) %: otherAttribs.toRArr)
   
   /** Creates an HTML Pre element and registers the textContent with an HTML Text Input. */
   def inputText(input: InputUpdaterText)(f: String => String): HtmlPre =
