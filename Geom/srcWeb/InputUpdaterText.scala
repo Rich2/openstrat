@@ -2,6 +2,7 @@
 package ostrat; package pWeb
 import reflect.ClassTag
 
+/** Class to update a page from a text input. */
 class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
   def valueAtt = ValueAtt(valueStr)
@@ -11,6 +12,8 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
 
   def dependsLen: Int = depends.length
 
+  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
+   * input to update the target content. */
   def next1Id(f: String => String): IdAtt =
   { val newtargetId: String = idStr + parentCount.str
     parentCount += 1
@@ -18,6 +21,8 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
     IdAtt(newtargetId)
   }
 
+  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
+   * the first from this text input and the second from another text updater, to update the target content. */
   def next2Id1(otherInpIdStr: String, f: (String, String) => String): IdAtt =
   { val newTargetId: String = idStr + parentCount.str
     parentCount += 1
