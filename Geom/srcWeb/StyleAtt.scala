@@ -17,13 +17,27 @@ object StyleAtt
   def apply(decs: CssDec*): StyleAtt = new StyleAtt(decs.toArr)
 }
 
+/** CSS inline-block value. */
+object InlineBlockVal extends CssVal
+{ override def str: String = "inline-block"
+}
+
+/** CSS block value. */
+object BlockVal extends CssVal
+{ override def str: String = "block"
+}
+
 /** Css Display declaration set to inline-block. */
-object DispInBlock extends DecDisplay(CssInBlock)
+object InlineBlockDec extends DecDisplay(InlineBlockVal)
 
 /** Css Display declaration set to block. */
-object DispBlock extends DecDisplay(CssBlock)
+object BlockDec extends DecDisplay(BlockVal)
 
-object DispBlockAtt extends StyleAtt(RArr(DispBlock))
+/** Style attribute with single display set to block declaration. */
+object StyleBlockAtt extends StyleAtt(RArr(BlockDec))
+
+/** Style attribute with single display set to inline-block declaration. */
+object StyleInlineBlockAtt extends StyleAtt(RArr(InlineBlockDec))
 
 /** Css Display declaration set to none. */
 object DispNone extends DecDisplay(CssNone)

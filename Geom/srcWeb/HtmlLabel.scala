@@ -13,7 +13,11 @@ case class ForAtt(valueStr: String) extends XAttSimple
 { override def name: String = "for"
 }
 
+/** An HTML span containing a label and an input element. */
 trait LabelAndInput extends SpanLine, Parent2T[HtmlInline]
+{
+  
+}
 
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput
 { override def child1: HtmlLabel = HtmlLabel(idStr, label)

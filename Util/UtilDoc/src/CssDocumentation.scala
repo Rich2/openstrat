@@ -20,7 +20,7 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("bashprompt", DecColour(Pink)),
     CssClassesRule("scalalines", DecColour(White), DecNoWrap),
     CssClassesRule("scala", DecColour(DarkRed), DecNoWrap, DecBold),
-    CssClassesRule("centreBlock", DispBlock, DecMargLeftRightAuto),
+    CssClassesRule("centreBlock", BlockDec, DecMargLeftRightAuto),
     CssRule("td th", DecPadRight(2.em), DecAlignLeft),
     minMed
   )

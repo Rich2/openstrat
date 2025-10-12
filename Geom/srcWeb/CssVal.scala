@@ -52,16 +52,6 @@ case class CssVh(numVh: Double) extends CssVal
 { override def str: String = numVh.str + "vh"
 }
 
-/** CSS inline-block value. */
-object CssInBlock extends CssVal
-{ override def str: String = "inline-block"
-}
-
-/** CSS block value. */
-object CssBlock extends CssVal
-{ override def str: String = "block"
-}
-
 /** Legal CSS value for text-align property */
 trait CssTextAlignVal extends CssVal
 

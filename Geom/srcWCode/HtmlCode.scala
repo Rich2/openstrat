@@ -82,7 +82,7 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
 /** An HTML code element with an [[HtmlPre]] element as its contents. */
 class HtmlCodePre(val htmlPre: HtmlPre, val otherAttribs: RArr[XAtt]) extends HtmlCodeLines
 { override def contents: RArr[XCon] = RArr(htmlPre)
-  override def attribs: RArr[XAtt] = DispBlockAtt %: otherAttribs
+  override def attribs: RArr[XAtt] = StyleBlockAtt %: otherAttribs
 }
 
 object HtmlCodePre
