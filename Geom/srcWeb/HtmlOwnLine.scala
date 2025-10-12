@@ -19,9 +19,10 @@ trait HtmlStrOwnLine extends HtmlOwnLine
 /** HTML content code that mey need BRs separate it from preceding and successive inline and other [[HtmlBrLine]] content */
 trait HtmlBrLine extends HtmlOwnLineBlocked
 
-/** An inline-block HTML eleement */
+/** An inline-block HTML element */
 trait HtmlInlineBlock extends HtmlElem
 
+/** An HTML element where the CSS display declaration in the style attribute is set to inline-block, as the element is not inline-block by default. */
 trait HtmlInlineBlocked extends HtmlOwnLine
-{ override def attribs: RArr[XAtt] = RArr(StyleAtt(BlockDec))
+{ override def attribs: RArr[XAtt] = RArr(StyleAtt(InlineBlockDec))
 }

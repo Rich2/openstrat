@@ -14,10 +14,7 @@ case class ForAtt(valueStr: String) extends XAttSimple
 }
 
 /** An HTML span containing a label and an input element. */
-trait LabelAndInput extends SpanLine, Parent2T[HtmlInline]
-{
-  
-}
+trait LabelAndInput extends SpanInlineBlock, Parent2T[HtmlInline]
 
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput
 { override def child1: HtmlLabel = HtmlLabel(idStr, label)
@@ -41,13 +38,9 @@ object LabelNumInput
   def apply(idStr: String, label: String, valueNum: Double)(using page: HtmlPageInput): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
 }
 
-case class LabelInputsLine(arrayUnsafe: Array[LabelAndInput]) extends SpanLine
-{
-  def mems: RArr[LabelAndInput] = new RArr(arrayUnsafe)
-  override def contents: RArr[XCon] = mems.childArr
-}
+case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine
 
 object LabelInputsLine
 {
-  def apply(mems: LabelAndInput*)(using ct: ClassTag[HtmlInline]): LabelInputsLine = new LabelInputsLine(mems.toArray)
+  def apply(mems: LabelAndInput*)(using ct: ClassTag[HtmlInline]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
 }

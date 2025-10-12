@@ -32,11 +32,21 @@ object HtmlP
   def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
 }
 
-trait HtmlSpan extends HtmlElem
-
 /** HTML span element. */
+trait HtmlSpan extends HtmlElem
+{ override def tagName = "span"
+}
+
+/** HTML inline-block span element. */
+trait SpanInlineBlock extends HtmlSpan, HtmlInlineBlocked
+{ def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def textLen: String = text(0, 0)
+  override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
+}
+
+/** HTML inline span element. */
 trait SpanInline extends HtmlSpan, HtmlInline
-{ def tagName = "span"
+{
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
@@ -66,8 +76,7 @@ object SpanInline
 
 /** HTML span element on its own line, with display set to block. */
 trait SpanLine extends HtmlSpan, HtmlOwnLineBlocked
-{ def tagName = "span"
-  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+{ def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)  
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
