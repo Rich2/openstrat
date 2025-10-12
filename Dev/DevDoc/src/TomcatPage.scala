@@ -102,8 +102,10 @@ object TomcatPage extends HtmlPageInput
   CodeOutputLine.inputText(ti3){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
   )
 
-  val s7 = HtmlLi("""Copy across the server.xml and web.xml files from the installation directory structure to the base directory structure. If the catalina
-  |base and catalina home directories are the same, which is often the case in beginners installation instructions, then this is redundant.""".stripMargin,
+  val s7 = HtmlLi("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to the base
+  |directory structure. If the catalina base and catalina home directories are the same, which is often the case in beginners installation instructions, then
+  |this is redundant.""".stripMargin,
+  BashLine(tomcatDirPrompt, "mkdir Base/logs"),
   BashLine(tomcatDirPrompt, "mkdir Base/conf"),
   BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml Base/conf"),
   "Create a home page for your server. Again not necessary if base and home are set to the same directory.",
@@ -124,7 +126,7 @@ object TomcatPage extends HtmlPageInput
   "Type=forking",
    "",
   """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
-  """Environment="CATALINA_PID=/opt/tomcat/tom11/temp/tomcat.pid"""",
+  """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
   SpanLine.inputNum(ni1){n =>  val nn = n * 256
