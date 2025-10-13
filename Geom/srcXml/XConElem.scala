@@ -7,16 +7,15 @@ package ostrat; package pWeb
  * responsibility of the parent element. Note in the case of HTML elements we are referring to the formatting of the HTML file in a text editor, not how it will
  * be displayed in a browser. */
 trait XConElem extends OutElem
-{
-  override def out: String = out(0, 0, MaxLineLen)
-
-  /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
+{ /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. This will generally use
    * the outLines method for its implementation. */
   def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String
 
   /** This method returns the HTML output code, but also information for the parent XML / HTML element. The class should not add any indentation to its first
    * line. This is the responsibility of the parent element. */
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(out(indent, line1InputLen, maxLineLen))
+
+  override def out: String = out(0, 0, MaxLineLen)
 }
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
