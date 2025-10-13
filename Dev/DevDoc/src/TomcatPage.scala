@@ -164,10 +164,10 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   BashLine("change --> ExecStart=/opt/tomcat/tom11/bin/startup.sh"),
   BashLine("to     --> ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
-  BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
-  BashLine("""change --> <Connector port=\"8080\""""),
-  BashLine("""to     --> <Connector port=\"80\""""),
+  BashLine(SpanInline.pink("change"), """<Connector port="8080" protocol""".escapeHtml),
+  BashLine(SpanInline.pink("to"), """<Connector port="80" protocol""".escapeHtml),
+  BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl restart tom11")
   )
 }
