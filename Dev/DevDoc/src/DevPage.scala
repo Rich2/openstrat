@@ -4,7 +4,7 @@ import pWeb.*, wcode.*
 
 /** HTML documentation page for Dev Module. */
 object DevPage extends HtmlPage
-{ override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
+{ override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, p5, sbt3D, intellij, miscTitle, p6, table, p7, credits)
