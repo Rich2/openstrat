@@ -34,8 +34,6 @@ trait XConCompound extends XConElem
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
 case class XmlAsString(out: String) extends XConSimple
-{ //override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(out)
-}
 
 /** An XML / HTML comment */
 case class XComment(str: String) extends XConSimple

@@ -2,11 +2,12 @@
 package ostrat; package pWeb
 
 /** XML / HTML content that can be inlined. */
-trait XConElemInline extends XConCompound
-{
-  def out0: String
+trait XConElemInline extends XConElem
+{ /** The out [[String]], prior to being formatted into text lines. */
+  def outUnlined: String
+
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
-  { given charArr: CharArr = new CharArr(out0.toCharArray)
+  { given charArr: CharArr = new CharArr(outUnlined.toCharArray)
 
     def line1Len: Int = indent + line1InputLen
 
@@ -60,4 +61,5 @@ trait XConElemInline extends XConCompound
   }
 }
 
+/** Sn XML / HTML element that can possibly be inlined. */
 trait XHtmlInline extends XHmlElem, XConElemInline
