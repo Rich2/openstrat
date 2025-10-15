@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTML head element. */
-case class HtmlHead(contents : RArr[XConElem], attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
+case class HtmlHead(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
 { override def tagName: String = "head"
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
@@ -11,10 +11,10 @@ case class HtmlHead(contents : RArr[XConElem], attribs: RArr[XAtt] = RArr()) ext
 /** Companion object for the [[HtmlHead]] case class. */
 object HtmlHead
 { /** Factory apply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
-  def apply(titleStr: String, otherContents: XConElem*): HtmlHead = new HtmlHead(otherContents.toArr)
+  def apply(titleStr: String, otherContents: XConCompound*): HtmlHead = new HtmlHead(otherContents.toArr)
 
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
-  def title(titleStr: String, otherContents: XConElem*): HtmlHead =
+  def title(titleStr: String, otherContents: XConCompound*): HtmlHead =
   { val seq = List(HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth) ++ otherContents
     new HtmlHead(seq.toArr)
   }
@@ -22,7 +22,7 @@ object HtmlHead
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
    *  elements. */
   def titleCss(titleStr: String, cssFileStem: String): HtmlHead =
-    new HtmlHead(RArr[XConElem](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth))
+    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth))
 }
 
 /** The HTML body element. */
@@ -89,10 +89,10 @@ trait HtmlSection extends HtmlTagLines
 
 object HtmlSection
 { /** Factory apply method for [[HtmlSection]] passing contents and attributes. There is a apply overload convenience method for passing just contents using repeat parameters. */
-  def apply(contentsIn: RArr[XConElem], attribsIn: RArr[XAtt] = RArr()): HtmlSection = new HtmlSection
-  { override def contents: RArr[XConElem] = contentsIn
+  def apply(contentsIn: RArr[XConCompound], attribsIn: RArr[XAtt] = RArr()): HtmlSection = new HtmlSection
+  { override def contents: RArr[XConCompound] = contentsIn
     override def attribs: RArr[XAtt] = attribsIn
   }
   /** Factory apply convenience method for [[HtmlSection]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
-  def apply(contents: XConElem*): HtmlSection = apply(contents.toArr)
+  def apply(contents: XConCompound*): HtmlSection = apply(contents.toArr)
 }

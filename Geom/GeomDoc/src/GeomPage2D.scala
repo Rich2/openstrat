@@ -4,7 +4,7 @@ import geom.*, pWeb.*, Colour.*
 
 /** HTML documentation for [[Polygon]]s for the [[GeomPage]]. */
 object GeomPage2D extends HtmlSection
-{ override def contents: RArr[XConElem] = RArr(HtmlH2("2D Geometry and Graphics"), HtmlP(p1), HtmlP(p2))
+{ override def contents: RArr[XConCompound] = RArr(HtmlH2("2D Geometry and Graphics"), HtmlP(p1), HtmlP(p2))
 
   def p1 = """Let us start with 2D. At is base we have "2D points and Vectors. Points can be combined to create line segments and can be use to to define curves
   |. Line segments and curves can be combined to create line paths, curve paths and shapes. Line segments, line paths, curves and curve paths can be drawn.

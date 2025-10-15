@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** XML / HTML content that can be inlined. */
-trait XConElemInline extends XConElem
+trait XConElemInline extends XConCompound
 {
   def out0: String
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =

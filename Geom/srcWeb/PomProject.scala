@@ -10,14 +10,14 @@ trait PomProject extends XmlTagLines
   override def attribs: RArr[XAtt] = RArr()
   def dependencies: RArr[PomDep]
   def dependenciesElem: PomDepenenciesElem = PomDepenenciesElem(dependencies)
-  override def contents: RArr[XConElem] = RArr(modelVersion, groudId, artifactId, version, dependenciesElem)
+  override def contents: RArr[XConCompound] = RArr(modelVersion, groudId, artifactId, version, dependenciesElem)
 }
 
 /** XML element for POM file dependency */
 class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: VersionElem) extends XmlTagLines
 { override def tagName: String = "dependency"
   override def attribs: RArr[XAtt] = RArr()
-  override def contents: RArr[XConElem] = RArr(groupId, artifactId, version)
+  override def contents: RArr[XConCompound] = RArr(groupId, artifactId, version)
 }
 
 object PomDep

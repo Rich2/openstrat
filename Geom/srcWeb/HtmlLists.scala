@@ -2,14 +2,14 @@
 package ostrat; package pWeb
 
 /** Html UL unordered list element. */
-case class HtmlUl(val contents: RArr[XConElem], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
+case class HtmlUl(val contents: RArr[XConCompound], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
 { override def tagName: String = "ul"
 }
 
 /** Companion object for [[HtmlUl]] unordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlUl
 { /** Factory apply method for HTML UL unordered list. */
-  def apply(contents: XConElem*): HtmlUl = new HtmlUl(contents.toArr)
+  def apply(contents: XConCompound*): HtmlUl = new HtmlUl(contents.toArr)
 }
 /** Html OL ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines

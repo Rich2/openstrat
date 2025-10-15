@@ -4,5 +4,5 @@ import utiljvm.*, pWeb.*
 
 object WebXmlCookies1 extends WebApp6
 {
-  override def contents: RArr[XConElem] = ServletElem.withMapping("Cookies1", "ostrat.pDev.Cookies1")("/")
+  override def contents: RArr[XConCompound] = ServletElem.withMapping("Cookies1", "ostrat.pDev.Cookies1")("/")
 }

@@ -12,17 +12,17 @@ trait WebApp6 extends WebApp
 }
 
 /** Servlet XML element for Jakarta. */
-case class ServletElem(contents: RArr[XConElem]) extends XmlTagLinesNoAtts
+case class ServletElem(contents: RArr[XConCompound]) extends XmlTagLinesNoAtts
 { override def tagName: String = "servlet"
 }
 
 object ServletElem
 { /** Factory apply method for constructing a servlet XML element. */
-  def apply(name: String, servletClass: String, otherElems: XConElem*): ServletElem =
+  def apply(name: String, servletClass: String, otherElems: XConCompound*): ServletElem =
     new ServletElem(RArr(ServletName(name), ServletClass(servletClass)) ++ otherElems.toArr)
 
   /** Constructs the [[ServletElem]] and the [[ServletMapping]] XML elements for a Servlet. */
-  def withMapping(name: String, urlStr: String, otherElems: XConElem*)(url: String, otherElems2: XConElem*): RArr[XmlElem] =
+  def withMapping(name: String, urlStr: String, otherElems: XConCompound*)(url: String, otherElems2: XConCompound*): RArr[XmlElem] =
   { val serv = new ServletElem(RArr(ServletName(name), ServletClass(urlStr)) ++ otherElems.toArr)
     val mapping = new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems2.toArr)
     RArr(serv, mapping)
@@ -48,13 +48,13 @@ object JakartaLoc6 extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee h
 object MetadataCompleted extends XmlAttGen("metadata-complete", "true")
 
 /** Servlet-mapping XML element for Jakarta. */
-case class ServletMapping(contents: RArr[XConElem]) extends XmlTagLinesNoAtts
+case class ServletMapping(contents: RArr[XConCompound]) extends XmlTagLinesNoAtts
 { override def tagName: String = "servlet-mapping"
 }
 
 object ServletMapping
 {
-  def apply(name: String, url: String, otherElems: XConElem*): ServletMapping =
+  def apply(name: String, url: String, otherElems: XConCompound*): ServletMapping =
     new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems.toArr)
 }
 

@@ -6,7 +6,7 @@ import geom.*, Colour.Black
 trait SvgOwnLine extends XmlOwnLine
 
 /** An HTML element for SVG. */
-case class HtmlSvg(contents: RArr[XConElem], attribs: RArr[XAtt]) extends HtmlTagLines
+case class HtmlSvg(contents: RArr[XConCompound], attribs: RArr[XAtt]) extends HtmlTagLines
 { override def tagName: String = "svg"
 }
 
@@ -18,10 +18,10 @@ object HtmlSvg
     new HtmlSvg(svgElems, atts)
   }
 
-  def bounds(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XConElem]): HtmlSvg =
+  def bounds(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XConCompound]): HtmlSvg =
     new HtmlSvg(arr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))
 
-  def bounds(rect: Rect, contents: RArr[XConElem], otherAtts: RArr[XAtt] = RArr()): HtmlSvg =
+  def bounds(rect: Rect, contents: RArr[XConCompound], otherAtts: RArr[XAtt] = RArr()): HtmlSvg =
   { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, rect.bottom, rect.width, rect.height)) ++ otherAtts
     new HtmlSvg(contents, atts)
   }
@@ -44,7 +44,7 @@ class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, ot
   val x2Att: XAtt = XAtt("x2", x2.str2)
   val y2Att: XAtt = XAtt("y2", (-y2).str2)
   override def attribs: RArr[XAtt] = RArr(x1Att, y1Att, x2Att, y2Att) ++ otherAttribs
-  override def contents: RArr[XConElem] = RArr()
+  override def contents: RArr[XConCompound] = RArr()
 }
 
 object SvgLine
@@ -68,11 +68,11 @@ object SvgText
   def apply(posn: Pt2, text: String, align: TextAlign, colour: Colour = Black): SvgText = new SvgText(posn.x, posn.y, text, align, colour)
 }
 
-class SvgGroup(val contents: RArr[XConElem], val attribs: RArr[XAtt])extends SvgOwnLine
+class SvgGroup(val contents: RArr[XConCompound], val attribs: RArr[XAtt])extends SvgOwnLine
 {
   override def tagName: String = "g"
 }
 
 object SvgGroup{
-  def apply(contents: RArr[XConElem], attribs: XAtt*): SvgGroup = new SvgGroup(contents, attribs.toArr)
+  def apply(contents: RArr[XConCompound], attribs: XAtt*): SvgGroup = new SvgGroup(contents, attribs.toArr)
 }

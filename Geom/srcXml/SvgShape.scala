@@ -9,41 +9,41 @@ trait SvgShape extends SvgOwnLine
 }
 
 /** An SVG Circle element. */
-class SvgCircle(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
+class SvgCircle(val attribsIn: RArr[XAtt], val contents: RArr[XConCompound] = RArr()) extends SvgShape
 { override def tagName: String = "circle"
 }
 
 object SvgCircle
 { /** Factory apply method for SVG circle class. */
-  def apply(attribsIn: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgCircle = new SvgCircle(attribsIn, contents)
+  def apply(attribsIn: RArr[XAtt], contents: RArr[XConCompound] = RArr()): SvgCircle = new SvgCircle(attribsIn, contents)
 }
 
 /** An SVG Ellipse element. */
-class SvgEllipse(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
+class SvgEllipse(val attribsIn: RArr[XAtt], val contents: RArr[XConCompound] = RArr()) extends SvgShape
 { override def tagName: String = "ellipse"
 }
 
 object SvgEllipse
 { /** Factory apply method for SVG ellipse class. */
-  def apply(attribsIn: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgEllipse = new SvgEllipse(attribsIn, contents)
+  def apply(attribsIn: RArr[XAtt], contents: RArr[XConCompound] = RArr()): SvgEllipse = new SvgEllipse(attribsIn, contents)
 }
 
 /** An SVG Polygon element. */
-class SvgPolygon(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
+class SvgPolygon(val attribsIn: RArr[XAtt], val contents: RArr[XConCompound] = RArr()) extends SvgShape
 { override def tagName: String = "polygon"
 }
 
 object SvgPolygon
 { /** Factory apply method for SVG polygon class. */
-  def apply(attribs: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgPolygon = new SvgPolygon(attribs, contents)
+  def apply(attribs: RArr[XAtt], contents: RArr[XConCompound] = RArr()): SvgPolygon = new SvgPolygon(attribs, contents)
 }
 
 /** An SVG Rect element. */
-class SvgRect(val attribsIn: RArr[XAtt], val contents: RArr[XConElem] = RArr()) extends SvgShape
+class SvgRect(val attribsIn: RArr[XAtt], val contents: RArr[XConCompound] = RArr()) extends SvgShape
 { override def tagName: String = "rect"
 }
 
 object SvgRect
 { /** Factory apply method for SVG RECT rectangle class. */
-  def apply(attribs: RArr[XAtt], contents: RArr[XConElem] = RArr()): SvgRect = new SvgRect(attribs, contents)
+  def apply(attribs: RArr[XAtt], contents: RArr[XConCompound] = RArr()): SvgRect = new SvgRect(attribs, contents)
 }

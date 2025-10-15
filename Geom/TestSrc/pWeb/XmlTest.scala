@@ -12,7 +12,7 @@ object XmlTest extends TestSuite
     override def attribs: RArr[XAtt] = RArr()
     def nameEl = XmlElemSimple("name", nameStr)
 
-    override def contents: RArr[XConElem] = nameEl %: otherElems
+    override def contents: RArr[XConCompound] = nameEl %: otherElems
   }
 
   object Country

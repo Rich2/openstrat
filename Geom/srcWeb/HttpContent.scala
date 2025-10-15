@@ -1,11 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-trait OutElem
-{ /** The output [[String]]. Includes HTML and CSS code. */
-  def out: String
-}
-
 /** Http content that can be sent as a body of an Http response. */
 trait HttpContent extends OutElem
 { /** Create an [[HtmlResp]] response with this HTML as its body. */

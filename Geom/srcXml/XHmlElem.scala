@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** An XML or an HTML element. Multiple instances of an attribute are allowed. If there are multiple instances of the same attribute, the same attribute name,
  * then the values are combined into a single attribute, when outputting into XML / HTML code.*/
-trait XHmlElem extends XConElem
+trait XHmlElem extends XConCompound
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tagName: String
   
