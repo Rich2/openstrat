@@ -20,7 +20,7 @@ object HtmlBashMulti
   def apply(lines: String*): HtmlBashMulti = new HtmlBashMulti(lines.toArr, RArr())
 }
 
-/** Html Bash code element, that is on ts own line. For the general case use the [[BashLine]] class. */
+/** Html Bash code element, that is on its own line. For the general case use the [[BashLine]] class. */
 trait BashOwnLine extends HtmlBash, HtmlCodeLine
 { override def attribs: RArr[XAtt] = super.attribs +% BashAtt
 }
