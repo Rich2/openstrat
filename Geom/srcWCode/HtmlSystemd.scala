@@ -14,7 +14,7 @@ object HtmlSystemd
   /** transoforms text lines into lines for Systemd Unit file. */
   def toSpans(inp: Arr[String]): RArr[HtmlSpan] = inp.map{
     case "" => SpanLine("<br>")
-    case line if line(0) == '[' => SpanLine.display(line)(DecColour(Colour.LightGreen))
+    case line if line(0) == '[' => SpanLine.display(line)(ColourDec(Colour.LightGreen))
     case l => SpanLine(l)
   }
 }

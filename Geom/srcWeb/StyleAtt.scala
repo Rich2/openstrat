@@ -27,20 +27,25 @@ object BlockVal extends CssVal
 { override def str: String = "block"
 }
 
+/** Css Display declaration. */
+case class DisplayDec(value: CssVal) extends CssDecStd
+{ override def prop: String = "display"
+}
+
 /** Css Display declaration set to inline-block. */
-object InlineBlockDec extends DecDisplay(InlineBlockVal)
+object InlineBlockDec extends DisplayDec(InlineBlockVal)
 
 /** Css Display declaration set to block. */
-object BlockDec extends DecDisplay(BlockVal)
+object BlockDec extends DisplayDec(BlockVal)
 
 /** Style attribute with single display set to block declaration. */
-object StyleBlockAtt extends StyleAtt(RArr(BlockDec))
+object BlockStyle extends StyleAtt(RArr(BlockDec))
 
 /** Style attribute with single display set to inline-block declaration. */
-object StyleInlineBlockAtt extends StyleAtt(RArr(InlineBlockDec))
+object InlineBlockStyle extends StyleAtt(RArr(InlineBlockDec))
 
 /** Css Display declaration set to none. */
-object DispNone extends DecDisplay(CssNone)
+object DispNoneDec extends DisplayDec(CssNone)
 
 /** Css Display declaration set to flex. */
-object DispFlex extends DecDisplay(CssFlex)
+object DispFlexDec extends DisplayDec(CssFlex)

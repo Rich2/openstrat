@@ -40,7 +40,7 @@ object SpanInline
     new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  def pink(str: String): SpanInline = new SpanInlineGen(RArr(str), RArr(StyleAtt(DecColour(Colour.Pink))))
+  def pink(str: String): SpanInline = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
 
   case class SpanInlineGen(contents: RArr[XConInline], attribs: RArr[XAtt]) extends SpanInline
 }
