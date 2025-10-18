@@ -7,8 +7,8 @@ object CssDocumentation extends CssOpenstrat
 {
   override def rules: RArr[CssRuleLike] = RArr(
     CssBody(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
-    CssClassesRule("central", DecMaxWidth(68.em), DecMargLeftRight(CssAuto)),
-    CssClassesRule("main", DecMaxWidth(68.em), DecMargLeftRight(CssAuto)),
+    CssClassesRule("central", MaxWidthDec(68.em), DecMargLeftRight(CssAuto)),
+    CssClassesRule("main", MaxWidthDec(68.em), DecMargLeftRight(CssAuto)),
     CssOl(DecPadLeft(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", DecMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
     CssListRule("code", ChildSel("code", "span"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White)),

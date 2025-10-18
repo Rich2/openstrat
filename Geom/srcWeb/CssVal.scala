@@ -101,6 +101,6 @@ object CssHidden extends  CssVal
 }
 
 /** CSS bold value. */
-object CssBold extends CssVal
+object BoldVal extends CssVal
 { override def str: String = "bold"
 }

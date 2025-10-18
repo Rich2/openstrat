@@ -74,17 +74,17 @@ object NoWrapVal extends CssVal
 object NoWrapDec extends WhiteSpacesDec(NoWrapVal)
 
 /** Css max-width declaration. */
-case class DecMaxWidth(value: CssVal) extends CssDecStd
+case class MaxWidthDec(value: CssVal) extends CssDecStd
 { override def prop: String = "max-width"
 }
 
 /** CSS declaration for font width. */
-case class DecFontWidth(value: CssVal) extends CssDecStd
+case class FontWidthDec(value: CssVal) extends CssDecStd
 { override def prop: String = "font-weight"
 }
 
 /** CSS declaration for font width set to bold. */
-object DecBold extends DecFontWidth(CssBold)
+object DecBold extends FontWidthDec(BoldVal)
 
 /** Css text-align declaration. */
 case class DecAlign(value: CssTextAlignVal | CssGenVal) extends CssDecStd
