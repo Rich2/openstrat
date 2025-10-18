@@ -34,8 +34,11 @@ object BashLine
 { /** Factory apply method to write Bash code in HTML on its own line. */
   def apply(contents: XConInline*): BashLine = new BashLine(contents.toArr, RArr())
 
+  /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat paremeters, but with no
+   * attributes. */
   def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
 
+  /** Factory method to write Bash code in HTML on its own line with a class attribute. */
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */

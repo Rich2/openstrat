@@ -2,7 +2,8 @@
 package ostrat; package pWeb
 
 /** An XML or an HTML element. Multiple instances of an attribute are allowed. If there are multiple instances of the same attribute, the same attribute name,
- * then the values are combined into a single attribute, when outputting into XML / HTML code.*/
+ * then the values are combined into a single attribute, when outputting into XML / HTML code. It extends XConCompound, because even the simplest [[XHmlElem]]
+ * such as a "<br>" void element is a compound of  '<' + "br" + '>'. */
 trait XHmlElem extends XConCompound
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tagName: String

@@ -15,10 +15,10 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("output", BGColourDec(Black), ColourDec(White)),
     CssClassesRule("sbt", BGColourDec(Black), ColourDec(LightGreen)),
     CssClassesRule("folder", BGColourDec(Black), ColourDec(LightBlue)),
-    CssClassesRule("path", BGColourDec(White), ColourDec(DarkBlue), DecNoWrap),
+    CssClassesRule("path", BGColourDec(White), ColourDec(DarkBlue), NoWrapDec),
     CssClassesRule("bashprompt", BGColourDec(Black), ColourDec(Pink)),
-    CssClassesRule("scalalines", BGColourDec(Black), ColourDec(White), DecNoWrap),
-    CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), DecNoWrap, DecBold),
+    CssClassesRule("scalalines", BGColourDec(Black), ColourDec(White), NoWrapDec),
+    CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
     CssClassesRule("centreBlock", BlockDec, DecMargLeftRightAuto),
     CssRule("td th", DecPadRight(2.em), DecAlignLeft),
     minMed

@@ -1,7 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** XML / HTML content that can be inlined. */
+/** XML / HTML content that can possibly be inlined. */
 trait XConElemInline extends XConElem
 { /** The out [[String]], prior to being formatted into text lines. */
   def outUnlined: String

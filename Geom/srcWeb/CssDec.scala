@@ -66,8 +66,12 @@ object WhiteSpacesDec
   def apply(str: String): WhiteSpacesDec = new WhiteSpacesDec(CssVal(str))
 }
 
+object NoWrapVal extends CssVal
+{ override val str: String = "nowrap"
+}
+
 /** CSS white-space declaration set to nowrap. */
-object DecNoWrap extends WhiteSpacesDec(CssVal("nowrap"))
+object NoWrapDec extends WhiteSpacesDec(NoWrapVal)
 
 /** Css max-width declaration. */
 case class DecMaxWidth(value: CssVal) extends CssDecStd

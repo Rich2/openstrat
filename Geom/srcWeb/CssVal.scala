@@ -7,13 +7,13 @@ trait CssVal
 }
 
 object CssVal
-{ /** Factory apply mmethod for creating CSS value. */
+{ /** Factory apply method for creating CSS value. */
   def apply(strIn: String): CssVal = new CssVal
   { override def str: String = strIn
   }
 }
 
-/** A value that can be used with most properties. */
+/** A CSS value that can be used with most properties. */
 trait CssGenVal extends CssVal
 
 /** CSS auto value. */

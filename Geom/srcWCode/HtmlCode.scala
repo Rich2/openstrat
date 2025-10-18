@@ -43,7 +43,7 @@ object HtmlCodeInline
   }
 }
 
-/** A code output attribute. Useful in documention foe distinguishing output from code and commands entered by the user. */
+/** A code output attribute. Useful in documentation foe distinguishing output from code and commands entered by the user. */
 object CodeOutputAtt extends ClassAtt("output")
 
 /** Html Bash code element. */
