@@ -3,11 +3,12 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 object DevMisc extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(miscTitle, intellij, p6, table, p7)
+{ override def contents: RArr[XCon] = RArr(miscTitle, intellij1, intellij2, git, jvms, table, jvmAlts, chrome)
 
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
-  def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntelliJ useful options:",
+  def intellij1 = BashLine("sudo tar -xzf ideaIC-2025.2.3.tar.gz -C /opt")
+  def intellij2: HtmlUlWithLH = HtmlUlWithLH("For IntelliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
     HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
     HtmlLi("Project-Pane => Options -> 'Flatten packages'")
@@ -27,7 +28,7 @@ object DevMisc extends HtmlSection
     BashLine("git config --global credential.helper store")
   )
 
-  def p6: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
+  def jvms: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
     BashLine("sudo update-alternatives --config java"),
@@ -40,8 +41,15 @@ object DevMisc extends HtmlSection
     HtmlRow.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
   )
 
-  def p7 = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
+  def jvmAlts = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
     BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
     "then repeat",
     BashLine("sudo update-alternatives --config java"))
+
+  def chrome = HtmlP(
+    BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
+    BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
+    "If any errors appear about missing dependencies you may need to ‘force install.",
+    BashLine("sudo apt -f install")
+  )
 }
