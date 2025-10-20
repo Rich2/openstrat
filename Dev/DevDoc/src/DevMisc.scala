@@ -14,26 +14,30 @@ object DevMisc extends HtmlSection
   )
 
   def git = HtmlP(
+    "Set git user name",
     BashLine("""git config --global user.name "MonaLisa""""),
+    "Check user name properly set",
     BashLine("git config --global user.name"),
     CodeOutputLine("MonaLisa"),
+    "Set git email",
     BashLine("""git config --global user.email "YourEmail""""),
+    "Check email properly set",
     BashLine("git config --global user.email"),
-    CodeOutputLine("YourEmail")
+    CodeOutputLine("YourEmail"),
+    BashLine("git config --global credential.helper store")
   )
 
   def p6: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
-    """It
-      |doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
+    """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
     BashLine("sudo update-alternatives --config java"),
     "In my example this gives")
 
   def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
-    HtmlRow.strs4("0", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "auto mode"),
-    HtmlRow.strs4("1", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "manual mode"),
-    HtmlRow.strs4("2", "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java", "1081", "manual mode")
+    HtmlRow.strs4("0", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "auto mode"),
+    HtmlRow.strs4("1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
+    HtmlRow.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
   )
 
   def p7 = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
