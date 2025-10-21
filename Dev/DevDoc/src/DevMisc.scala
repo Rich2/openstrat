@@ -2,6 +2,7 @@
 package ostrat; package pDoc
 import pWeb.*, wcode.*
 
+/** Miscellaneous dev stuff. */
 object DevMisc extends HtmlSection
 { override def contents: RArr[XCon] = RArr(intellij, git, jvms, table, jvmAlts, chrome)
 
@@ -13,7 +14,7 @@ object DevMisc extends HtmlSection
     HtmlLi("Project-Pane => Options -> 'Flatten packages'"))
   )
 
-  def git = SectionH2(
+  def git: SectionH2 = SectionH2(
     "Git and Github",
     "Set git user name",
     BashLine("""git config --global user.name "MonaLisa""""),
@@ -26,10 +27,10 @@ object DevMisc extends HtmlSection
     BashLine("git config --global user.email"),
     CodeOutputLine("YourEmail"),
     BashLine("git config --global credential.helper store")
-
   )
 
-  def jvms: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
+  def jvms: SectionH2 = SectionH2("JVMs",
+    "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
     BashLine("sudo update-alternatives --config java"),
@@ -49,10 +50,9 @@ object DevMisc extends HtmlSection
 
   def chrome = HtmlSection(
     HtmlH2("Chrome"),
-    HtmlP(BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
+    BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
     BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
     "If any errors appear about missing dependencies you may need to ‘force install.",
     BashLine("sudo apt -f install")
-  )
   )
 }

@@ -89,19 +89,21 @@ trait HtmlSection extends HtmlTagLines
 
 object HtmlSection
 { /** Factory apply method for [[HtmlSection]] passing contents and attributes. There is a apply overload convenience method for passing just contents using repeat parameters. */
-  def apply(contents: RArr[XConCompound], attribs: RArr[XAtt] = RArr()): HtmlSection = new HtmlSectionGen(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlSection = new HtmlSectionGen(contents, attribs)
 
   /** Factory apply convenience method for [[HtmlSection]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
-  def apply(contents: XConCompound*): HtmlSection = new HtmlSectionGen(contents.toArr, RArr())
+  def apply(contents: XCon*): HtmlSection = new HtmlSectionGen(contents.toArr, RArr())
 
   class HtmlSectionGen(val contents: RArr[XCon], override val attribs: RArr[XAtt]) extends HtmlSection
 }
 
 class SectionH2(val titleStr: String, val otherContents: RArr[XCon], override val attribs: RArr[XAtt]) extends HtmlSection
-{ override def contents: RArr[XCon] = HtmlH2(titleStr) %: otherContents
+{ /** The H2 title of this HTML section. */
+  def title: HtmlH2 = HtmlH2(titleStr)
+  override def contents: RArr[XCon] = title %: otherContents
 }
 
 object SectionH2
-{
+{ /** Factory apply method for HTML section with an H2 header. */
   def apply(titleStr: String, otherContents: XCon*): SectionH2 = new SectionH2(titleStr, otherContents.toRArr, RArr())
 }
