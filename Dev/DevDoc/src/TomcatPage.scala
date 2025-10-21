@@ -39,7 +39,7 @@ object TomcatPage extends HtmlPageInput
   |get your site / app out to the world.""".stripMargin)
 
   def s2 = HtmlLi("Install Java. Currently suggesting Java 21 LTS. Note the jdk at the end of the version.",
-  BashLine("sudo apt install openjdk-21-jdk -y"),
+  BashLine("sudo apt install openjdk-25-jdk -y"),
   "Check the version",
   BashLine("java -version"),
   HtmlCodeLines("""openjdk version "21.0.8" 2025-07-15""",

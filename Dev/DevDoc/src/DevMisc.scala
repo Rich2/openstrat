@@ -30,6 +30,7 @@ object DevMisc extends HtmlSection
   )
 
   def jvms: SectionH2 = SectionH2("JVMs",
+
     "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
@@ -44,7 +45,7 @@ object DevMisc extends HtmlSection
     ),
 
      HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
-      BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
+      BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
       "then repeat",
       BashLine("sudo update-alternatives --config java")
     )
