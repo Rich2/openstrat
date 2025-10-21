@@ -20,8 +20,8 @@ object IndexPage extends HtmlPage
 
   def menu: HtmlOl = HtmlOl(util, geom, tile, egrid, apps, dev)
 
-  def intro = HtmlP("The Code is currently organised into 6 modules.".htmlB, """Each module can build artifacts for Jvm and JavaFx and for the JavaScript
-  |platform and the Web.""".stripMargin)
+  def intro: HtmlP = HtmlP("The Code is currently organised into 6 modules.".htmlB,
+    "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")
 
   def util: HtmlLi = HtmlLi(HtmlA("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rixh Succinct object system
   |persistence system and an error system.""".stripMargin)

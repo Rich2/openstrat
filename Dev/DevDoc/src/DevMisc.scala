@@ -4,7 +4,7 @@ import pWeb.*, wcode.*
 
 /** Miscellaneous dev stuff. */
 object DevMisc extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, table, jvmAlts, chrome)
+{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, chrome)
 
   def intellij = SectionH2("Intellij IDEA",
     BashLine("sudo tar -xzf ideaIC-2025.2.3.tar.gz -C /opt"),
@@ -34,19 +34,21 @@ object DevMisc extends HtmlSection
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
     BashLine("sudo update-alternatives --config java"),
-    "In my example this gives")
+    "In my example this gives",
 
-  def table = HtmlTable(
-    HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
-    HtmlRow.strs4("0", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "auto mode"),
-    HtmlRow.strs4("1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
-    HtmlRow.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
+    HtmlTable(
+      HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
+      HtmlRow.strs4("0", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "auto mode"),
+      HtmlRow.strs4("1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
+      HtmlRow.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
+    ),
+
+     HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
+      BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
+      "then repeat",
+      BashLine("sudo update-alternatives --config java")
+    )
   )
-
-  def jvmAlts = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
-    BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3"),
-    "then repeat",
-    BashLine("sudo update-alternatives --config java"))
 
   def chrome = HtmlSection(
     HtmlH2("Chrome"),

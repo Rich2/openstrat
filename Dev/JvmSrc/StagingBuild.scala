@@ -5,8 +5,7 @@ import utiljvm.*, pDoc.*
 trait StagingBuild
 {
   def stageBase(path: DirsAbs): Unit =
-  {
-    deb(htmlFileWrite(path, "index", IndexPage.out).reportStr)
+  { deb(htmlFileWrite(path, "index", IndexPage.out).reportStr)
     deb(cssFileWrite(path, "only", OnlyCss()).reportStr)
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msgErrsSummary("to Documents directory"))

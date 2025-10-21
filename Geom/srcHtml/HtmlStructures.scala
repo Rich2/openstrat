@@ -78,6 +78,7 @@ object HtmlCanvas
 { /** Constructs an HTML canvas with an id attribute. */
   def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(), RArr(IdAtt(idStr)))
 
+  /** Factory apply method for an HTML Canvas. */
   def apply(): HtmlCanvas = new HtmlCanvas(RArr(), RArr())
 }
 
