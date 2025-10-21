@@ -55,7 +55,7 @@ object UtilPage extends OSDocumentationPage
 
 object AstSection extends HtmlSection
 {
-  override def contents: RArr[XConCompound] = RArr(HtmlH2("Abstract Syntax Tree"), file, statement, p1, prec)
+  override def contents: RArr[XConCompound] = RArr(HtmlH2("Abstract Syntax Tree"), file, statement, p1, prec)  
 
   def file: HtmlUlWithLH = HtmlUlWithLH("So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea" --
     "is that an RSON file can be three things.",

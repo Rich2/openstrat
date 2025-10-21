@@ -3,18 +3,18 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 object DevMisc extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(miscTitle, intellij1, intellij2, git, jvms, table, jvmAlts, chrome)
+{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, table, jvmAlts, chrome)
 
-  def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
-
-  def intellij1 = BashLine("sudo tar -xzf ideaIC-2025.2.3.tar.gz -C /opt")
-  def intellij2: HtmlUlWithLH = HtmlUlWithLH("For IntelliJ useful options:",
+  def intellij = SectionH2("Intellij IDEA",
+    BashLine("sudo tar -xzf ideaIC-2025.2.3.tar.gz -C /opt"),
+    HtmlUlWithLH("For IntelliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
     HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
-    HtmlLi("Project-Pane => Options -> 'Flatten packages'")
+    HtmlLi("Project-Pane => Options -> 'Flatten packages'"))
   )
 
-  def git = HtmlP(
+  def git = SectionH2(
+    "Git and Github",
     "Set git user name",
     BashLine("""git config --global user.name "MonaLisa""""),
     "Check user name properly set",
@@ -26,6 +26,7 @@ object DevMisc extends HtmlSection
     BashLine("git config --global user.email"),
     CodeOutputLine("YourEmail"),
     BashLine("git config --global credential.helper store")
+
   )
 
   def jvms: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
@@ -46,10 +47,12 @@ object DevMisc extends HtmlSection
     "then repeat",
     BashLine("sudo update-alternatives --config java"))
 
-  def chrome = HtmlP(
-    BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
+  def chrome = HtmlSection(
+    HtmlH2("Chrome"),
+    HtmlP(BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
     BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
     "If any errors appear about missing dependencies you may need to ‘force install.",
     BashLine("sudo apt -f install")
+  )
   )
 }
