@@ -4,7 +4,7 @@ import pWeb.*, wcode.*
 
 /** Miscellaneous dev stuff. */
 object DevMisc extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, chrome)
+{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, chrome, sublime)
 
   def intellij = SectionH2("Intellij IDEA",
     BashLine("sudo tar -xzf ideaIC-2025.2.3.tar.gz -C /opt"),
@@ -30,7 +30,6 @@ object DevMisc extends HtmlSection
   )
 
   def jvms: SectionH2 = SectionH2("JVMs",
-
     "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
@@ -51,11 +50,20 @@ object DevMisc extends HtmlSection
     )
   )
 
-  def chrome = HtmlSection(
-    HtmlH2("Chrome"),
+  def chrome = SectionH2("Chrome",
     BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
     BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
     "If any errors appear about missing dependencies you may need to ‘force install.",
     BashLine("sudo apt -f install")
+  )
+
+  def sublime = SectionH2(
+  "Sublime Text 4",
+  BashLine("curl -fSsL https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/sublimehq-pub.gpg > /dev/null"),
+  BashLine("""echo 'deb [signed-by=/usr/share/keyrings/sublimehq-pub.gpg] https://download.sublimetext.com/ apt/stable/' |
+  |sudo tee -a /etc/apt/sources.list.d/sublime-text.list""".stripMargin),
+  BashLine("sudo apt update"),
+  BashLine("sudo apt install sublime-text"),
+  BashLine("subl --version")
   )
 }
