@@ -89,10 +89,11 @@ object HtmlCodePre
 { /** Factory apply method to create  */
   def apply(str: String, otherAttribs: XAtt*): HtmlCodePre = new HtmlCodePre(HtmlPre(str), otherAttribs.toRArr)
 
-  /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. */
+  /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The
+   * function passed to the updater will not escape the HTML code characters. */
   def inputText(input: InputUpdaterText, otherAttribs: XAtt*)(f: String => String): HtmlCodePre =
   { def newId = input.next1Id(f)
-    val pre = new HtmlPre(f(input.valueStr), RArr(newId))
+    val pre = new HtmlPre(f(input.valueStr).escapeHtml, RArr(newId))
     new HtmlCodePre(pre, otherAttribs.toRArr)
   }
 }

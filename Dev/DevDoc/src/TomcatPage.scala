@@ -25,7 +25,7 @@ object TomcatPage extends HtmlPageInput
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
   val majorVersion: String = "11.0"
-  val minorVersion: String = "12"
+  val minorVersion: String = "13"
   def version1: String = majorVersion + "." + minorVersion
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
@@ -116,11 +116,12 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "mkdir Base/logs"),
   BashLine(tomcatDirPrompt, "mkdir Base/conf"),
   BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml Base/conf"),
-  "Create a home page for your server. Again not necessary if base and home are set to the same directory.",
+  """Create a home page for your server. Again not necessary if base and home are set to the same directory, as Tomcat
+  |comes with web pages and example apps.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  HtmlCodePre.inputText(ti3){ version => HtmlPage.titleOnly("Holding Page", s"This is coming from a tomcat $version server").out.escapeHtml }
+  HtmlCodePre.inputText(ti3){ version => HtmlPage.titleOnly("Holding Page", s"This is coming from a tomcat $version server").out }
   )
 
   val s8 = HtmlLi("Create a systemd unit file.",
