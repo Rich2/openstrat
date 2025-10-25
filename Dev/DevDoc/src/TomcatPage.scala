@@ -48,7 +48,7 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo nano /etc/environment"),
   "Add line",
   BashLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"),
-  "Save and exit and then",  
+  "Save and exit (Ctrl-X and then Y)",  
   BashLine("sudo reboot"),
   "After reboot or logging in again for remote server",
   BashLine("echo $JAVA_HOME"),
