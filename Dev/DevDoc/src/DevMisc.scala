@@ -60,8 +60,7 @@ object DevMisc extends HtmlSection
   def sublime = SectionH2(
   "Sublime Text 4",
   BashLine("curl -fSsL https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/sublimehq-pub.gpg > /dev/null"),
-  BashLine("""echo 'deb [signed-by=/usr/share/keyrings/sublimehq-pub.gpg] https://download.sublimetext.com/ apt/stable/' |
-  |sudo tee -a /etc/apt/sources.list.d/sublime-text.list""".stripMargin),
+  BashLine("""echo 'deb [signed-by=/usr/share/keyrings/sublimehq-pub.gpg] https://download.sublimetext.com/ apt/stable/' | sudo tee -a /etc/apt/sources.list.d/sublime-text.list""".stripMargin),
   BashLine("sudo apt update"),
   BashLine("sudo apt install sublime-text"),
   BashLine("subl --version")

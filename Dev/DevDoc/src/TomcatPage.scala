@@ -38,13 +38,13 @@ object TomcatPage extends HtmlPageInput
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
 
-  def s2 = HtmlLi("Install Java. Currently suggesting Java 21 LTS. Note the jdk at the end of the version.",
+  def s2 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine("sudo apt install openjdk-25-jdk -y"),
   "Check the version",
   BashLine("java -version"),
-  HtmlCodeLines("""openjdk version "21.0.8" 2025-07-15""",
-  "OpenJDK Runtime Environment (build 21.0.8+9-Ubuntu-0ubuntu124.04.1)",
-  "OpenJDK 64-Bit Server VM (build 21.0.8+9-Ubuntu-0ubuntu124.04.1, mixed mode, sharing)"),
+  HtmlCodeLines("""openjdk version "25" 2025-09-16""".stripMargin,
+  "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
+  "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
   BashLine("sudo nano /etc/environment"),
   "Add line",
   BashLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"),
@@ -126,6 +126,7 @@ object TomcatPage extends HtmlPageInput
 
   val s8 = HtmlLi("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
+  "Add the following code. Then control o, return, control x.",
   HtmlCodeLines(StrArr(
   "[Unit]",
   "Description=Apache Tomcat 11.0 Web Application Container",
@@ -134,7 +135,7 @@ object TomcatPage extends HtmlPageInput
   "[Service]",
   "Type=forking",
    "",
-  """Environment="JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"""",
+  """Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""",
   """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
