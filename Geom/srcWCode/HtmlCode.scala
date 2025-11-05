@@ -11,7 +11,7 @@ trait HtmlCodeLines extends HtmlCode, HtmlTagLines
 
 object HtmlCodeLines
 { /** Factory apply method to display multiple lines of code in HTML, with no additional attributes. */
-  def apply(lines: String*): HtmlCodeLines = new HtmlCodeLinesGen(lines.toArr.toSpanLines, RArr())
+  def apply(lines: String*): HtmlCodeLines = new HtmlCodeLinesGen(lines.toArr.toDivLines, RArr())
 
   /** Factory apply method to display multiple lines of code in HTML. */
   def apply(contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): HtmlCodeLines = new HtmlCodeLinesGen(contents, otherAttribs)
@@ -89,8 +89,8 @@ object HtmlCodePre
 { /** Factory apply method to create  */
   def apply(str: String, otherAttribs: XAtt*): HtmlCodePre = new HtmlCodePre(HtmlPre(str), otherAttribs.toRArr)
 
-  /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The
-   * function passed to the updater will not escape the HTML code characters. */
+  /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
+   * escape the HTML code characters. */
   def inputText(input: InputUpdaterText, otherAttribs: XAtt*)(f: String => String): HtmlCodePre =
   { def newId = input.next1Id(f)
     val pre = new HtmlPre(f(input.valueStr).escapeHtml, RArr(newId))

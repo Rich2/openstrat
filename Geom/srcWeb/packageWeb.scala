@@ -55,9 +55,9 @@ package object pWeb
   
   extension (thisArr: Arr[String])
   {
-    def toSpanLines: RArr[XCon] = thisArr.map {
-      case "" => SpanLine(HtmlBr)
-      case l => SpanLine(l)
+    def toDivLines = thisArr.map{
+      case "" => HtmlDiv(HtmlBr)
+      case l => HtmlDiv(l)
     }
 
     def toSystemdDivs: RArr[HtmlElem] = thisArr.map{

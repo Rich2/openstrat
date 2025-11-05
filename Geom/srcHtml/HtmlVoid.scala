@@ -7,7 +7,7 @@ trait HtmlVoid extends HtmlInline
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openTag(indent + 2, 0)
 }
 
-/** An Html br line break element. */
+/** An HTML br line break element. */
 object HtmlBr extends HtmlVoid
 { override def tagName: String = "br"
   override def attribs: RArr[XAtt] = RArr()
@@ -46,7 +46,7 @@ class HtmlCssLink(val fullFileName: String) extends HtmlVoid
   override def attribs: RArr[XAtt] = RArr(XAtt("rel", "stylesheet"), XAtt("type", "text/css"), XAtt("href", fullFileName))
 }
 
-/** Companion object for [[HtmlCssLink]] class, contains factory apply methid. */
+/** Companion object for [[HtmlCssLink]] class, contains factory apply method. */
 object HtmlCssLink
 { /** Factory apply method for [[HtmlCssLink]] class form filename stem, adds the .css file ending. */
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
