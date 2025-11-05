@@ -11,7 +11,7 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("main", MaxWidthDec(68.em), DecMargLeftRight(CssAuto)),
     CssOl(DecPadLeft(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", DecMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
-    CssListRule("code", ChildSel("code", "span"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White)),
+    CssListRule("code", ChildSel("code", "span"), ChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White)),
     CssClassesRule("output", BGColourDec(Black), ColourDec(White)),
     CssClassesRule("sbt", BGColourDec(Black), ColourDec(LightGreen)),
     CssClassesRule("folder", BGColourDec(Black), ColourDec(LightBlue)),

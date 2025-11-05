@@ -59,6 +59,20 @@ object HtmlDiv
   /** Factory method to create Div element with a class attribute. */
   def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(ClassAtt(id)))
 
+  def colour(colour: Colour, contents: XConInline*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
+
+  /** Creates a Div and registers the textContent with an HTML Text Input. */
+  def inputText(input: InputUpdaterText)(f: String => String): HtmlDiv =
+  { def newId = input.next1Id(f)
+    new HtmlDivGen(RArr(f(input.valueStr)), RArr(newId))
+  }
+  
+  /** Creates a Div and registers the textContent with an HTML number Input. */
+  def inputNum(input: InputUpdaterNum)(f: Double => String): HtmlDiv =
+  { val newId: IdAtt = input.next1Id(f)
+    new HtmlDivGen(RArr(f(input.value)), RArr(newId))
+  }
+
   class HtmlDivGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv, HtmlOwnLine
 }
 

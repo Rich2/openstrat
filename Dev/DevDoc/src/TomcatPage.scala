@@ -138,23 +138,23 @@ object TomcatPage extends HtmlPageInput
   """Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""",
   """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
-  """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdSpans +%
-  SpanLine.inputNum(ni1){n =>  val nn = n * 256
+  """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdDivs +%
+  HtmlDiv.inputNum(ni1){n =>  val nn = n * 256
     val xmsStr = nn.min(512).str0
     val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
   s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
   StrArr(
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
-  "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdSpans +%
-  SpanLine.inputText(ti1){ uName => s"User=$uName"} +%
-  SpanLine.inputText(ti1){ uName => s"Group=$uName" } ++
+  "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdDivs +%
+  HtmlDiv.inputText(ti1){ uName => s"User=$uName"} +%
+  HtmlDiv.inputText(ti1){ uName => s"Group=$uName" } ++
   StrArr(
   "UMask=0007",
   "RestartSec=10",
   "Restart=always",
   "[Install]",
-  "WantedBy=multi-user.target").toSystemdSpans
+  "WantedBy=multi-user.target").toSystemdDivs
   )
   )
 

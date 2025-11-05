@@ -25,4 +25,4 @@ trait HtmlTagLines extends HtmlElem, XHmlTagLines
 }
 
 /** An HTML element that can be inlined. */
-trait HtmlInline extends XHmlInline
+trait HtmlInline extends HtmlElem, XHmlInline
