@@ -55,12 +55,12 @@ package object pWeb
   
   extension (thisArr: Arr[String])
   {
-    def toDivLines = thisArr.map{
+    def toDivLines: RArr[HtmlDiv] = thisArr.map{
       case "" => HtmlDiv(HtmlBr)
       case l => HtmlDiv(l)
     }
 
-    def toSystemdDivs: RArr[HtmlElem] = thisArr.map{
+    def toSystemdDivs: RArr[HtmlDiv] = thisArr.map{
       case "" => HtmlDiv(HtmlBr)
       case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
       case l => HtmlDiv(l)

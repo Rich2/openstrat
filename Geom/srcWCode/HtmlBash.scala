@@ -46,6 +46,12 @@ object BashLine
   { def newId = input.next1Id(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
+
+  /** Creates a Bash line and registers the textContent with an HTML number Input. */
+  def inputNum(input: InputUpdaterNum)(f: Double => String): BashLine =
+  { def newId = input.next1Id(f)
+    new BashLine(RArr(f(input.value)), RArr(newId))
+  }
 }
 
 /** Html BASH code element, that can be inlined. */

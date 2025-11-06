@@ -40,26 +40,26 @@ object TomcatPage extends HtmlPageInput
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
 
-  val lti1: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val ti1: InputUpdaterText = lti1.child2
-  val lti2: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val ti2: InputUpdaterText = lti2.child2
+  val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
+  val uNameIUT: InputUpdaterText = uNameLTI.child2
+  val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
+  val cNameIUT: InputUpdaterText = cNameLTI.child2
   val nRam1: Int = 2
-  val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
-  val ni1 = lni1.child2
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
-  val lti3: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
-  val ti3: InputUpdaterText = lti3.child2
+  val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
+  val ramIUN: InputUpdaterNum = ramLNI.child2
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(uNameIUT, cNameIUT){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
+  val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
+  val tomVarIUT: InputUpdaterText = tomVerLTI.child2
   val jVer1: Int = 25
-  val lni2: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
-  val ni2 = lni2.child2
+  val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
+  val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
 
   def s2 = HtmlLi(
   HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you will create an
   inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".stripMargin,
-  LabelInputsLine(lti1, lti2, lni1, lti3, lni2)),
+  LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI)),
   "Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-  BashLine("sudo apt install openjdk-25-jdk -y"),
+  BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-$n-jdk -y"),
   "Check the version",
   BashLine("java -version"),
   HtmlCodeLines("""openjdk version "25" 2025-09-16""".stripMargin,
@@ -75,22 +75,21 @@ object TomcatPage extends HtmlPageInput
   CodeOutputLine("/usr/lib/jvm/java-25-openjdk-amd64")
   )
 
-
   val s3 = HtmlLi(
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
   |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
   |username.""". stripMargin,
-  BashLine.inputText(ti1){uName => s"sudo useradd -ms /bin/bash $uName"},
-  BashLine.inputText(ti1)(uName => s"sudo passwd $uName"),
-  BashLine.inputText(ti1){uName => s"sudo useradd $uName sudo"}
+  BashLine.inputText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash $uName"},
+  BashLine.inputText(uNameIUT)(uName => s"sudo passwd $uName"),
+  BashLine.inputText(uNameIUT){ uName => s"sudo useradd $uName sudo"}
   )
 
   val s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine("sudo mkdir /opt/tomcat"),
-  BashLine.inputText(ti1)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
-  SpanLine.inputText(ti1)(uName => s"Switch user to $uName. Then change directory."),
-  BashLine.inputText(ti1)(uName => s"sudo su $uName"),
+  BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
+  SpanLine.inputText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
+  BashLine.inputText(uNameIUT)(uName => s"sudo su $uName"),
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
@@ -103,18 +102,18 @@ object TomcatPage extends HtmlPageInput
   |Once its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red
   |and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt,
-    SpanInline.inputText(ti3){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
+    SpanInline.inputText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,
-    SpanInline.inputText(ti3){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
+    SpanInline.inputText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
   )
 
   val s6 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
-  BashLine(tomcatDirPrompt, SpanInline.inputText(ti3){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
-  BashLine(tomcatDirPrompt, SpanInline.inputText(ti3){ version => s"ln -s apache-tomcat-$version tom11"}),
+  BashLine(tomcatDirPrompt, SpanInline.inputText(tomVarIUT){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
+  BashLine(tomcatDirPrompt, SpanInline.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
-  CodeOutputLine.inputText(ti3){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
+  CodeOutputLine.inputText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
   )
 
   val s7 = HtmlLi("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to the base
@@ -128,7 +127,7 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  HtmlCodePre.inputText(ti3){ version => HtmlPage.titleOnly("Holding Page", s"This is coming from a tomcat $version server").out }
+  HtmlCodePre.inputText(tomVarIUT){ version => HtmlPage.titleOnly("Holding Page", s"This is coming from a tomcat $version server").out }
   )
 
   val s8 = HtmlLi("Create a systemd unit file.",
@@ -146,7 +145,7 @@ object TomcatPage extends HtmlPageInput
   """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdDivs +%
-  HtmlDiv.inputNum(ni1){n =>  val nn = n * 256
+  HtmlDiv.inputNum(ramIUN){ n =>  val nn = n * 256
     val xmsStr = nn.min(512).str0
     val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
   s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
@@ -154,8 +153,8 @@ object TomcatPage extends HtmlPageInput
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
   "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdDivs +%
-  HtmlDiv.inputText(ti1){ uName => s"User=$uName"} +%
-  HtmlDiv.inputText(ti1){ uName => s"Group=$uName" } ++
+  HtmlDiv.inputText(uNameIUT){ uName => s"User=$uName"} +%
+  HtmlDiv.inputText(uNameIUT){ uName => s"Group=$uName" } ++
   StrArr(
   "UMask=0007",
   "RestartSec=10",
@@ -176,7 +175,7 @@ object TomcatPage extends HtmlPageInput
   val s10 = HtmlLi("To switch to port 80",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.inputText(ti1)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   BashLine("change --> ExecStart=/opt/tomcat/tom11/bin/startup.sh"),

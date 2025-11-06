@@ -5,10 +5,7 @@ package ostrat; package pWeb; package wcode
 trait HtmlScala extends HtmlCode
 
 object HtmlScala
-{ /** Factory apply method for HTML element for multiple lines of Scala code. */
-  //def apply(line1: String, line2: String, otherLines: String*): HtmlScala = new HtmlScalaLines(line1 %: line2 %: otherLines.toArr)
-
-  /** Factory apply method for [[HtmlScalaInline]]. */
+{ /** Factory apply method for [[HtmlScalaInline]]. */
   def apply(str: String): HtmlScalaInline = new HtmlScalaInline(str)
 }
 

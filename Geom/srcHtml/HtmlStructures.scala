@@ -39,43 +39,6 @@ object HtmlBody
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
 }
 
-/** HTML Div element.  */
-trait HtmlDiv extends HtmlUnvoid
-{ override def tagName: String = "div"
-}
-
-/** Companion object for the [[HtmlDiv]] DIV element class, contains various factory methods. */
-object HtmlDiv
-{ /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XConInline]] and an [[RArr]] of [[XAtt]], with a default of no
-   * [[XAtt]]s. */
-  def apply(input: XCon*): HtmlDiv = new HtmlDivGen(input.toRArr, RArr())
-
-  /** Factory apply method for div HTML element. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlDiv = new HtmlDivGen(contents, attribs)
-
-  /** Factory method to create Div element with an ID attribute. */
-  def id(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(IdAtt(id)))
-
-  /** Factory method to create Div element with a class attribute. */
-  def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(ClassAtt(id)))
-
-  def colour(colour: Colour, contents: XConInline*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
-
-  /** Creates a Div and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): HtmlDiv =
-  { def newId = input.next1Id(f)
-    new HtmlDivGen(RArr(f(input.valueStr)), RArr(newId))
-  }
-  
-  /** Creates a Div and registers the textContent with an HTML number Input. */
-  def inputNum(input: InputUpdaterNum)(f: Double => String): HtmlDiv =
-  { val newId: IdAtt = input.next1Id(f)
-    new HtmlDivGen(RArr(f(input.value)), RArr(newId))
-  }
-
-  class HtmlDivGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv, HtmlOwnLine
-}
-
 /** An HTML Canvas element. */
 case class HtmlCanvas(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tagName: String = "canvas"

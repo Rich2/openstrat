@@ -59,11 +59,12 @@ object SpanLine
   /** Factory apply method for creating HTML span element. */
   def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLineGen(contents, otherAttribs)
 
-  /** Factory apply method for creating HTML span element with a display attribute. */
+  /** Factory method for creating HTML span element with a display attribute. */
   def display(contents: XConInline*)(otherDisplay: CssDec*): HtmlSpan = new SpanLineGen(contents.toArr, RArr()){
     override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
   }
 
+  /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
   def colour(colour: Colour, contents: XConInline*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
   { override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(ColourDec(colour))
   }

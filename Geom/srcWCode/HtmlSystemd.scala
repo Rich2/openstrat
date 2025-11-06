@@ -10,11 +10,11 @@ class HtmlSystemd(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeL
 object HtmlSystemd
 { /** Factory apply method to create Systemd Unit file */
   def apply(lines: String*): HtmlSystemd = new HtmlSystemd(lines.toArr, RArr())
-  
-  /** transoforms text lines into lines for Systemd Unit file. */
-  def toSpans(inp: Arr[String]): RArr[HtmlSpan] = inp.map{
-    case "" => SpanLine("<br>")
-    case line if line(0) == '[' => SpanLine.display(line)(ColourDec(Colour.LightGreen))
-    case l => SpanLine(l)
+
+  /** transforms text lines into lines for Systemd Unit file. */
+  def toSpans(inp: Arr[String]): RArr[HtmlDiv] = inp.map {
+    case "" => HtmlDiv(HtmlBr)
+    case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
+    case l => HtmlDiv(l)
   }
 }
