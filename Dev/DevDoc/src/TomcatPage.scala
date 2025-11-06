@@ -24,11 +24,13 @@ object TomcatPage extends HtmlPageInput
   val cName1: String = "computer"
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
-  val majorVersion: String = "11.0"
-  val minorVersion: String = "13"
-  def version1: String = majorVersion + "." + minorVersion
+  val tcMajorVer: String = "11.0"
+  val tcMinorVer: String = "13"
+  def tcVer1: String = tcMajorVer + "." + tcMinorVer
+  val javaMajorVer: String = "25"
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
+
   val s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with
   |money you could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly,
@@ -38,7 +40,25 @@ object TomcatPage extends HtmlPageInput
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
 
-  def s2 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
+  val lti1: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
+  val ti1: InputUpdaterText = lti1.child2
+  val lti2: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
+  val ti2: InputUpdaterText = lti2.child2
+  val nRam1: Int = 2
+  val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
+  val ni1 = lni1.child2
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
+  val lti3: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
+  val ti3: InputUpdaterText = lti3.child2
+  val jVer1: Int = 25
+  val lni2: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
+  val ni2 = lni2.child2
+
+  def s2 = HtmlLi(
+  HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you will create an
+  inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".stripMargin,
+  LabelInputsLine(lti1, lti2, lni1, lti3, lni2)),
+  "Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine("sudo apt install openjdk-25-jdk -y"),
   "Check the version",
   BashLine("java -version"),
@@ -55,21 +75,8 @@ object TomcatPage extends HtmlPageInput
   CodeOutputLine("/usr/lib/jvm/java-25-openjdk-amd64")
   )
 
-  val lti1: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val ti1: InputUpdaterText = lti1.child2
-  val lti2: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val ti2: InputUpdaterText = lti2.child2
-  val nRam1 = 2
-  val lni1: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
-  val ni1 = lni1.child2
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(ti1, ti2){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
-  val lti3: LabelTextInput = LabelTextInput("version", "Tomcat Version", version1)
-  val ti3: InputUpdaterText = lti3.child2
 
   val s3 = HtmlLi(
-  HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you will create an
-  |inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".stripMargin,
-  LabelInputsLine(lti1, lti2, lni1, lti3)),
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
   |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
   |username.""". stripMargin,
@@ -92,7 +99,7 @@ object TomcatPage extends HtmlPageInput
 
   val s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
   |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
-  |specific reason to use an earlier version. At the time of writing I'm using the latest sub version $version1. Copy the tar.gz file link into the browser.
+  |specific reason to use an earlier version. At the time of writing I'm using the latest sub version $tcVer1. Copy the tar.gz file link into the browser.
   |Once its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red
   |and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt,

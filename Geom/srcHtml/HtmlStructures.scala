@@ -76,13 +76,6 @@ object HtmlDiv
   class HtmlDivGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv, HtmlOwnLine
 }
 
-class HtmlDivOneLine(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv
-{
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = ???
-}
-
-object HtmlDivOneLine
-
 /** An HTML Canvas element. */
 case class HtmlCanvas(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tagName: String = "canvas"
