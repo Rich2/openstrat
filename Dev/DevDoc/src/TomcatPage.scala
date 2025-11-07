@@ -62,7 +62,7 @@ object TomcatPage extends HtmlPageInput
   BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-$n-jdk -y"),
   "Check the version",
   BashLine("java -version"),
-  HtmlCodeLines("""openjdk version "25" 2025-09-16""".stripMargin,
+  CodeOutputLines("""openjdk version "25" 2025-09-16""",
   "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
   "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
   BashLine("sudo nano /etc/environment"),

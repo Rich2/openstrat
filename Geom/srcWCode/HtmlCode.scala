@@ -72,6 +72,16 @@ object CodeOutputLine
   }
 }
 
+case class CodeOutputLines(strs: StrArr, otherAttribs: RArr[XAtt]) extends CodeOutput, HtmlTagLines
+{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  override def contents: RArr[XCon] = strs.map(s => HtmlDiv(s))
+}
+
+object CodeOutputLines
+{
+  def apply(contents: String*): CodeOutputLines = new CodeOutputLines(contents.toArr, RArr())
+}
+
 /** Html directory path code element. */
 class HtmlDirPath(val str: String) extends HtmlCodeInline
 { def classAtt: ClassAtt = ClassAtt("path")
