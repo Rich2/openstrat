@@ -7,7 +7,7 @@ object DevMisc extends HtmlSection
 { override def contents: RArr[XCon] = RArr(intellij, git, jvms, chrome, sublime)
 
   def intellij = SectionH2("Intellij IDEA",
-    BashLine("sudo tar -xzf ideaIC-2025.2.3.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf ideaIC-2025.2.4.tar.gz -C /opt"),
     HtmlUlWithLH("For IntelliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
     HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
@@ -26,6 +26,7 @@ object DevMisc extends HtmlSection
     "Check email properly set",
     BashLine("git config --global user.email"),
     CodeOutputLine("YourEmail"),
+    "Store Github username and token",
     BashLine("git config --global credential.helper store")
   )
 
@@ -44,9 +45,9 @@ object DevMisc extends HtmlSection
     ),
 
      HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
-      BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
-      "then repeat",
-      BashLine("sudo update-alternatives --config java")
+     BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
+     "then repeat",
+     BashLine("sudo update-alternatives --config java")
     )
   )
 

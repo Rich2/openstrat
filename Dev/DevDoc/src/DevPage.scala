@@ -42,10 +42,10 @@ object DevPage extends HtmlPage
     HtmlLi("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test".htmlSbt, "Rerun tests on the 5 modules."),
 
     HtmlLi("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
-    "target/scala-3.7.2/unidoc/".htmlPath),
+    "target/scala-3.7.3/unidoc/".htmlPath),
 
     HtmlLi("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
-    "Dev/JsAgg/target/scala-3.7.2/unidoc/".htmlPath),
+    "Dev/JsAgg/target/scala-3.7.3/unidoc/".htmlPath),
 
     HtmlLi("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )
