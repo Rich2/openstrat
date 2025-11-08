@@ -26,8 +26,10 @@ object DevMisc extends HtmlSection
     "Check email properly set",
     BashLine("git config --global user.email"),
     CodeOutputLine("YourEmail"),
-    "Store Github username and token",
-    BashLine("git config --global credential.helper store")
+    "Store Github username and token and other useful git commands.",
+    BashLine("git config --global credential.helper store"),
+    BashLine("git remote show origin"),
+    BashLine("git init --bare myrepo.git")
   )
 
   def jvms: SectionH2 = SectionH2("JVMs",
