@@ -7,7 +7,7 @@ object DevPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, p5, sbt3D, DevMisc, credits)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
     HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar")),
     HtmlLi("Generates the HTML and CSS files for the website, including this file."),
@@ -31,7 +31,7 @@ object DevPage extends HtmlPage
   |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.0.6.""".
     stripMargin)
 
-  def sbt1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
+  def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     HtmlLi("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
     HtmlLi("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
@@ -50,8 +50,8 @@ object DevPage extends HtmlPage
     HtmlLi("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )
 
-  def p5: HtmlP = HtmlP("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command will build
-  |and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the""".stripMargin,
+  def sbtCommands2: HtmlP = HtmlP("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command
+  |will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the""".stripMargin,
   "Dev/Misc/DevSettings.rson".htmlPath, "file to the", "Dev/User".htmlPath, "folder. Creating the directory if not already existing. Change the",
   "appStr".htmlPath, "setting in", "Dev/User/DevSettings.rson".htmlPath, "to change the application. All the examples on the", HtmlA("richstrat.com"),
   """website are available plus others.The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when

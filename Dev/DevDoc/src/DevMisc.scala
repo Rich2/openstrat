@@ -4,7 +4,7 @@ import pWeb.*, wcode.*
 
 /** Miscellaneous dev stuff. */
 object DevMisc extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, chrome, sublime)
+{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, sbtInstall, chrome, sublime)
 
   def intellij = SectionH2("Intellij IDEA",
     BashLine("sudo tar -xzf ideaIC-2025.2.4.tar.gz -C /opt"),
@@ -53,7 +53,14 @@ object DevMisc extends HtmlSection
     )
   )
 
-  def chrome = SectionH2("Chrome",
+  def sbtInstall = SectionH2("Sbt install",
+  BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
+  BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
+  BashLine("""curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee /etc/apt/trusted.gpg.d/sbt.asc"""),
+  BashLine("sudo apt update"),
+  BashLine("sudo apt install sbt"))
+
+  def chrome: SectionH2 = SectionH2("Chrome",
     BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
     BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
     "If any errors appear about missing dependencies you may need to ‘force install.",
@@ -66,6 +73,7 @@ object DevMisc extends HtmlSection
   BashLine("""echo 'deb [signed-by=/usr/share/keyrings/sublimehq-pub.gpg] https://download.sublimetext.com/ apt/stable/' | sudo tee -a /etc/apt/sources.list.d/sublime-text.list""".stripMargin),
   BashLine("sudo apt update"),
   BashLine("sudo apt install sublime-text"),
-  BashLine("subl --version")
+  BashLine("subl --version"),
+  CodeOutputLine("Sublime Text Build 4200")
   )
 }
