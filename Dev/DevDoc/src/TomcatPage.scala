@@ -10,11 +10,11 @@ object TomcatPage extends HtmlPageInput
   //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
     HtmlScript.jsSrc("tomcat.js"), HtmlScript.main("TomcatPageJs"))
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, steps)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, p2, steps)
 
-  def p1 = HtmlP("""This page is targeted at Scala Developers, who want to get a / some simple web applications going, or create a dynamic web site using Scala.
-  |However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced professional Scala
-  |developers who will almost all be using other solutions. If like me you come to the Tomcat Server, with only the experience of running Apache vanilla
+  def p1: HtmlP = HtmlP("""This page is targeted at Scala Developers, who want to get a / some simple web applications going, or create a dynamic web site using
+  |Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced professional
+  |Scala developers who will almost all be using other solutions. If like me you come to the Tomcat Server, with only the experience of running Apache vanilla
   |servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note referring to it as
   |Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting up Tomcat on your
   |own Desktop, laptop, home server or VPS.""".stripMargin)
@@ -28,6 +28,11 @@ object TomcatPage extends HtmlPageInput
   val tcMinorVer: String = "13"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
+
+  def p2: HtmlP = HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
+  |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
+  stripMargin,
+  LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI))
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
 
@@ -54,17 +59,14 @@ object TomcatPage extends HtmlPageInput
   val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
   val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
 
-  def s2 = HtmlLi(
-  HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you will create an
-  inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".stripMargin,
-  LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI)),
-  "Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
+  def s2 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-$n-jdk -y"),
   "Check the version",
   BashLine("java -version"),
   CodeOutputLines("""openjdk version "25" 2025-09-16""",
   "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
   "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
+  "Open the all users environment configuration file",
   BashLine("sudo nano /etc/environment"),
   "Add line",
   BashLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"),
