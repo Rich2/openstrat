@@ -171,7 +171,8 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl start tom11"),
   BashLine("sudo systemctl status tom11"),
-  "If status good, open a web page at localhost:8080",
+  """If status good, open a web page at localhost:8080. On a VPS you will probably want to now enable the server to start automatically, but perhaps not if this
+  |is your personal laptop or desktop""".stripMargin,
   BashLine("sudo sytemctl enable tom11"),
   )
 
@@ -180,12 +181,17 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo touch /etc/authbind/byport/80"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
+  "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
-  BashLine("change --> ExecStart=/opt/tomcat/tom11/bin/startup.sh"),
-  BashLine("to     --> ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
+  "Change",
+  BashLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh"),
+  "to",
+  BashLine("ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
   BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
-  BashLine(SpanInline.pink("change"), """<Connector port="8080" protocol""".escapeHtml),
-  BashLine(SpanInline.pink("to"), """<Connector port="80" protocol""".escapeHtml),
+  "change",
+  BashLine("""<Connector port="8080" protocol""".escapeHtml),
+  "to",
+  BashLine("""<Connector port="80" protocol""".escapeHtml),
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl restart tom11")
   )
