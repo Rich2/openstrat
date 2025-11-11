@@ -45,7 +45,7 @@ object BlockStyle extends StyleAtt(RArr(BlockDec))
 object InlineBlockStyle extends StyleAtt(RArr(InlineBlockDec))
 
 /** Css Display declaration set to none. */
-object DispNoneDec extends DisplayDec(CssNone)
+object DispNoneDec extends DisplayDec(NoneCss)
 
 /** Css Display declaration set to flex. */
-object DispFlexDec extends DisplayDec(CssFlex)
+object DispFlexDec extends DisplayDec(FlexCss)

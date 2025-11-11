@@ -87,21 +87,21 @@ case class FontWidthDec(value: CssVal) extends CssDecStd
 object DecBold extends FontWidthDec(BoldVal)
 
 /** Css text-align declaration. */
-case class DecAlign(value: CssTextAlignVal | CssGenVal) extends CssDecStd
+case class DecAlign(value: TextAlignCss | CssValGen) extends CssDecStd
 { override def property: String = "text-align"
 }
 
 /** Css text-align declaration set to left. */
-object DecAlignLeft extends DecAlign(CssLeft)
+object DecAlignLeft extends DecAlign(LeftCss)
 
 /** Css text-align declaration set to right. */
-object DecAlignRight extends DecAlign(CssRight)
+object DecAlignRight extends DecAlign(RightCss)
 
 /** Css text-align declaration set to center. */
-object DecAlignCen extends DecAlign(CssCentre)
+object DecAlignCen extends DecAlign(CentreCss)
 
 /** Css text-align declaration set to center. */
-object DecAlignJus extends DecAlign(CssJustify)
+object DecAlignJus extends DecAlign(JustifyCss)
 
 /** CSS width declaration. */
 case class DecWidth(value: CssVal) extends CssDecStd
@@ -129,7 +129,7 @@ case class DecFlexDirn(value: CssVal) extends CssDecStd
 }
 
 /** Css text-align declaration set to start. */
-object DecFlexDirnCol extends DecFlexDirn(CssCol)
+object DecFlexDirnCol extends DecFlexDirn(ColummnCss)
 
 /** Css Overflow declaration. */
 case class DecOverflow(value: CssVal) extends CssDecStd
@@ -137,4 +137,4 @@ case class DecOverflow(value: CssVal) extends CssDecStd
 }
 
 /** Css Overflow declaration set to inline-block. */
-object DecOverflowHidden extends DecOverflow(CssHidden)
+object DecOverflowHidden extends DecOverflow(HiddenCss)

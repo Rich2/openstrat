@@ -26,31 +26,31 @@ package object pWeb
   implicit class IntWebExtensions(thisInt: Int)
   { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
-    def px: CssPx = CssPx(thisInt)
+    def px: PxCss = PxCss(thisInt)
 
     /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
-    def em: CssEm = CssEm(thisInt)
+    def em: EmCss = EmCss(thisInt)
 
     /** Extension method for CSS vw units. Relative to 1% of the width of the viewport */
-    def vw: CssVw = CssVw(thisInt)
+    def vw: VwCss = VwCss(thisInt)
 
     /** Extension method for CSS vh units. Relative to 1% of the height of the viewport */
-    def vh: CssVh = CssVh(thisInt)
+    def vh: VhCss = VhCss(thisInt)
   }
 
   implicit class DoubleWebExtensions(thisDouble: Double)
   { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
-    def px: CssPx = CssPx(thisDouble)
+    def px: PxCss = PxCss(thisDouble)
 
     /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
-    def em: CssEm = CssEm(thisDouble)
+    def em: EmCss = EmCss(thisDouble)
 
     /** Extension method for CSS vw units. Relative to 1% of the width of the viewport. */
-    def vw: CssVw = CssVw(thisDouble)
+    def vw: VwCss = VwCss(thisDouble)
 
     /** Extension method for CSS vh units. Relative to 1% of the height of the viewport. */
-    def vh: CssVh = CssVh(thisDouble)
+    def vh: VhCss = VhCss(thisDouble)
   }
   
   extension (thisArr: Arr[String])

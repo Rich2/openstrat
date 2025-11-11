@@ -91,6 +91,7 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo mkdir /opt/tomcat"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
   SpanLine.inputText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
+  "Change user unless, you already loggin in as the tomcat owner.",
   BashLine.inputText(uNameIUT)(uName => s"sudo su $uName"),
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with

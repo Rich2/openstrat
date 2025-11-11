@@ -14,89 +14,89 @@ object CssVal
 }
 
 /** A CSS value that can be used with most properties. */
-trait CssGenVal extends CssVal
+trait CssValGen extends CssVal
 
 /** CSS auto value. */
-object CssAuto extends CssGenVal
+object AutoCss extends CssValGen
 { override def str: String = "auto"
 }
 
 /** CSS initial value. */
-object CssInitial extends CssGenVal
+object InitialCss extends CssValGen
 { override def str: String = "initial"
 }
 
-/** CSS auto value. */
-object CssInherit extends CssGenVal
+/** CSS inherit value. */
+object InheritCss extends CssValGen
 { override def str: String = "inherit"
 }
 
-/** CSS value in px units. Pixels are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers
- *  and high resolution screens 1px implies multiple device pixels. */
-case class CssPx(numPx: Double) extends CssVal
+/** CSS value in px units. Pixels are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers and high
+ * resolution screens 1px implies multiple device pixels. */
+case class PxCss(numPx: Double) extends CssVal
 { override def str: String = numPx.str + "px"
 }
 
 /** CSS value in em units. Relative to the font-size of the element (2em means 2 times the size of the current font). */
-case class CssEm(numEm: Double) extends CssVal
+case class EmCss(numEm: Double) extends CssVal
 { override def str: String = numEm.str + "em"
 }
 
 /** CSS value in vw units. Relative to 1% of the width of the viewport. */
-case class CssVw(numVw: Double) extends CssVal
+case class VwCss(numVw: Double) extends CssVal
 { override def str: String = numVw.str + "vw"
 }
 
 /** CSS value in vh units. Relative to 1% of the height of the viewport. */
-case class CssVh(numVh: Double) extends CssVal
+case class VhCss(numVh: Double) extends CssVal
 { override def str: String = numVh.str + "vh"
 }
 
 /** Legal CSS value for text-align property */
-trait CssTextAlignVal extends CssVal
+trait TextAlignCss extends CssVal
 
 /** CSS left value. */
-object CssLeft extends  CssTextAlignVal
+object LeftCss extends TextAlignCss
 { override def str: String = "left"
 }
 
 /** CSS right value. */
-object CssRight extends  CssTextAlignVal
+object RightCss extends TextAlignCss
 { override def str: String = "right"
 }
 
 /** CSS center value. */
-object CssCentre extends  CssTextAlignVal
+object CentreCss extends TextAlignCss
 { override def str: String = "center"
 }
 
 /** CSS justify value. */
-object CssJustify extends  CssTextAlignVal
+object JustifyCss extends TextAlignCss
 { override def str: String = "justify"
 }
 
 /** CSS none value. */
-object CssNone extends  CssVal
+object NoneCss extends CssVal
 { override def str: String = "none"
 }
 
 /** CSS start value. */
-object CssStart extends  CssVal
+object StartCss extends CssVal
 { override def str: String = "start"
 }
 
 /** CSS flex value. */
-object CssFlex extends  CssVal
+object FlexCss extends CssVal
 { override def str: String = "flex"
 }
 
 /** CSS column value. */
-object CssCol extends  CssVal
+object ColummnCss extends CssVal
 { override def str: String = "column"
 }
 
 /** CSS hidden value. */
-object CssHidden extends  CssVal
+object HiddenCss extends CssVal
 { override def str: String = "hidden"
 }
 

@@ -11,7 +11,8 @@ object GeomPageWeb extends HtmlSection
     HtmlLi("XHml elements".htmlB, "Xml and Html elements with their opening and closing tags and HTML void elements with just an opening tag."),
     HtmlLi("XAtt attributes".htmlB,"""XML and HTML attributes. They are not called XHAtts, because in this regard HTML is consistent with XML and there is no
     |need to distinguish between XML and HTML attributes, as with elements, where XML and HTML has different rules.""".stripMargin),
-    HtmlLi("CSS".htmlB, "CSS rules and declarations"),
+    HtmlLi("CSS".htmlB, """CSS rules and declarations. Css declarations end in the suffix "Dec". Css selectors end in the suffix "Sel". Css values end in the
+    |suffix "Css".""".stripMargin),
     HtmlLi("SVG".htmlB, "Scalable Vector Graphics. This is just a form of XML."),
     HtmlLi("XCon XML and HTML content".htmlB, """This consists of XConElems and plain Strings. XConElems includes XML and HTML elements but also includes CSS
     |rules as they can be used as content in an HTML style element. XCon can be divided into 3 types, depending on how it is formatted as HTML code. Note this
