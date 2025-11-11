@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** CSS selector */
 trait CssSel
-{
+{ /** The CSS code output. */
   def out: String
 }
 
@@ -19,7 +19,7 @@ extension (inp: SelOrStr)
 }
 
 trait SelListMem extends CssSel
-{
+{ /** Returns CSS child selector. */
   def > (child: SelListMem | String): CssSel = ChildSel(this, child)
 }
 
