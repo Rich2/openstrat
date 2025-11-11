@@ -11,13 +11,13 @@ trait CssDecs
 /** CSS declaration. This consists of a key-value pair. */
 trait CssDec extends CssDecs
 { /** The CSS property */
-  def prop: String
+  def property: String
 
   /** The CSS value output. */
   def valueStr: String
 
   /** The CSS code output. */
-  def out: String = prop + ": " + valueStr + ";"
+  def out: String = property + ": " + valueStr + ";"
 
   override def decs: RArr[CssDec] = RArr(this)
 }
@@ -32,19 +32,19 @@ trait CssDecStd extends CssDec
 
 /** CSS color declaration. */
 case class ColourDec(colour: Colour) extends CssDec
-{ override def prop: String = "color"
+{ override def property: String = "color"
   override def valueStr: String = colour.webStr
 }
 
 /** CSS background-color property. */
 case class BGColourDec(colour: Colour) extends CssDec
-{ override def prop: String = "background-color"
+{ override def property: String = "background-color"
   override def valueStr: String = colour.webStr
 }
 
 /** CSS text-align declaration. */
 case class TextAlignDec(align: TextAlign) extends CssDec
-{ override def prop: String = "text-align"
+{ override def property: String = "text-align"
   override def valueStr: String = align.jsStr
 }
 
@@ -53,12 +53,12 @@ object TextCentreDec extends TextAlignDec(CenAlign)
 
 /** CSS font-size declaration. */
 case class FontSizeDec(value: CssVal) extends CssDecStd
-{ override def prop: String = "font-size"
+{ override def property: String = "font-size"
 }
 
 /** CSS white-space declaration. */
 case class WhiteSpacesDec(value: CssVal) extends CssDecStd
-{ override def prop: String = "white-space"
+{ override def property: String = "white-space"
 }
 
 object WhiteSpacesDec
@@ -75,12 +75,12 @@ object NoWrapDec extends WhiteSpacesDec(NoWrapVal)
 
 /** Css max-width declaration. */
 case class MaxWidthDec(value: CssVal) extends CssDecStd
-{ override def prop: String = "max-width"
+{ override def property: String = "max-width"
 }
 
 /** CSS declaration for font width. */
 case class FontWidthDec(value: CssVal) extends CssDecStd
-{ override def prop: String = "font-weight"
+{ override def property: String = "font-weight"
 }
 
 /** CSS declaration for font width set to bold. */
@@ -88,7 +88,7 @@ object DecBold extends FontWidthDec(BoldVal)
 
 /** Css text-align declaration. */
 case class DecAlign(value: CssTextAlignVal | CssGenVal) extends CssDecStd
-{ override def prop: String = "text-align"
+{ override def property: String = "text-align"
 }
 
 /** Css text-align declaration set to left. */
@@ -105,12 +105,12 @@ object DecAlignJus extends DecAlign(CssJustify)
 
 /** CSS width declaration. */
 case class DecWidth(value: CssVal) extends CssDecStd
-{ override def prop: String = "width"
+{ override def property: String = "width"
 }
 
 /** CSS height declaration. */
 case class DecHeight(value: CssVal) extends CssDecStd
-{ override def prop: String = "height"
+{ override def property: String = "height"
 }
 
 /** CSS width and height declarations set to same value. */
@@ -120,12 +120,12 @@ case class DecWidthHeight(value: CssVal) extends CssDecs
 
 /** CSS min=height declaration. */
 case class DecMinHeight(value: CssVal) extends CssDecStd
-{ override def prop: String = "min-height"
+{ override def property: String = "min-height"
 }
 
 /** Css flex-direction declaration. */
 case class DecFlexDirn(value: CssVal) extends CssDecStd
-{ override def prop: String = "flex-direction"
+{ override def property: String = "flex-direction"
 }
 
 /** Css text-align declaration set to start. */
@@ -133,7 +133,7 @@ object DecFlexDirnCol extends DecFlexDirn(CssCol)
 
 /** Css Overflow declaration. */
 case class DecOverflow(value: CssVal) extends CssDecStd
-{ override def prop: String = "overflow"
+{ override def property: String = "overflow"
 }
 
 /** Css Overflow declaration set to inline-block. */

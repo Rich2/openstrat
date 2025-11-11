@@ -29,7 +29,7 @@ object BlockVal extends CssVal
 
 /** Css Display declaration. */
 case class DisplayDec(value: CssVal) extends CssDecStd
-{ override def prop: String = "display"
+{ override def property: String = "display"
 }
 
 /** Css Display declaration set to inline-block. */

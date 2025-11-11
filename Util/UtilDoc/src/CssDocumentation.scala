@@ -9,9 +9,9 @@ object CssDocumentation extends CssOpenstrat
     CssBody(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
     CssClassesRule("central", MaxWidthDec(68.em), DecMargLeftRight(CssAuto)),
     CssClassesRule("main", MaxWidthDec(68.em), DecMargLeftRight(CssAuto)),
-    CssOl(DecPadLeft(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", DecMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
+    CssOl(DecPadLeftDec(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", MarginDec(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
-    CssListRule("code", ChildSel("code", "span"), ChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White)),
+    CssListRule("code", ChildSel("code", "span"), ChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White), PadBottomDec(0.1.em)),
     CssListRule(".output", ChildSel(".output", "div"))(BGColourDec(Black), ColourDec(Pink)),
     CssClassesRule("sbt", BGColourDec(Black), ColourDec(LightGreen)),
     CssClassesRule("folder", BGColourDec(Black), ColourDec(LightBlue)),
@@ -20,7 +20,7 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("scalalines", BGColourDec(Black), ColourDec(White), NoWrapDec),
     CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
     CssClassesRule("centreBlock", BlockDec, DecMargLeftRightAuto),
-    CssRule("td th", DecPadRight(2.em), DecAlignLeft),
+    CssRule("td th", PadRightDec(2.em), DecAlignLeft),
     minMed
   )
 }

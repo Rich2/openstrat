@@ -1,39 +1,39 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** Css margin declaration. */
-case class DecMarg(value: CssVal) extends CssDecStd
-{ override def prop: String = "margin"
+case class MarginDec(value: CssVal) extends CssDecStd
+{ override def property: String = "margin"
 }
 
 /** Css margin-top declaration. */
-case class DecMargTop(value: CssVal) extends CssDecStd
-{ override def prop: String = "margin-top"
+case class MarginTopDec(value: CssVal) extends CssDecStd
+{ override def property: String = "margin-top"
 }
 
 /** Css margin-bottom declaration. */
-case class DecMargBottom(value: CssVal) extends CssDecStd
-{ override def prop: String = "margin-bottom"
+case class MarginBottomDec(value: CssVal) extends CssDecStd
+{ override def property: String = "margin-bottom"
 }
 
 /** Css margin-left declaration. */
-case class DecMargLeft(value: CssVal) extends CssDecStd
-{ override def prop: String = "margin-left"
+case class MarginLeftDec(value: CssVal) extends CssDecStd
+{ override def property: String = "margin-left"
 }
 
 /** Css margin-right declaration. */
-case class DecMargRight(value: CssVal) extends CssDecStd
-{ override def prop: String = "margin-right"
+case class MarginRightDec(value: CssVal) extends CssDecStd
+{ override def property: String = "margin-right"
 }
 
 /** Css border declaration. */
-case class DecBorder(value: CssVal) extends CssDecStd
-{ override def prop: String = "border"
+case class BorderDec(value: CssVal) extends CssDecStd
+{ override def property: String = "border"
 }
 
-object DecBorder
+object BorderDec
 { /** Factory apply method for CSS border declaration */
-  def apply(valuesStr: String): DecBorder = new DecBorder(CssVal(valuesStr))
+  def apply(valuesStr: String): BorderDec = new BorderDec(CssVal(valuesStr))
 }
 
 /** Css border-style value. */
@@ -48,16 +48,25 @@ object CssSolid extends BorderStyle
 }
 
 /** Css padding declaration. */
-case class DecPad(value: CssVal) extends CssDecStd
-{ override def prop: String = "padding"
+case class PaddingDec(value: CssVal) extends CssDecStd
+{ override def property: String = "padding"
 }
 
 /** Css padding-left declaration. */
-case class DecPadLeft(value: CssVal) extends CssDecStd
-{ override def prop: String = "padding-left"
+case class DecPadLeftDec(value: CssVal) extends CssDecStd
+{ override def property: String = "padding-left"
 }
 
 /** Css padding-right declaration. */
-case class DecPadRight(value: CssVal) extends CssDecStd
-{ override def prop: String = "padding-right"
+case class PadRightDec(value: CssVal) extends CssDecStd
+{ override def property: String = "padding-right"
+}
+
+/** Css padding-top declaration. */
+case class PadTopDec(value: CssVal) extends CssDecStd
+{ override def property: String = "padding-top"
+}
+/** Css padding-bottom declaration. */
+case class PadBottomDec(value: CssVal) extends CssDecStd
+{ override def property: String = "padding-bottom"
 }
