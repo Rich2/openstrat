@@ -25,7 +25,7 @@ object TomcatPage extends HtmlPageInput
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "13"
+  val tcMinorVer: String = "14"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
 
@@ -167,35 +167,31 @@ object TomcatPage extends HtmlPageInput
   )
   )
 
-  val s9 = HtmlLi(
+  val s9: HtmlLi = HtmlLi(
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl start tom11"),
   BashLine("sudo systemctl status tom11"),
   """If status good, open a web page at localhost:8080. On a VPS you will probably want to now enable the server to start automatically, but perhaps not if this
-  |is your personal laptop or desktop""".stripMargin,
+    |is your personal laptop or desktop""".stripMargin,
   BashLine("sudo sytemctl enable tom11"),
   )
 
-  val s10 = HtmlLi("To switch to port 80 the http defaults",
+  val s10: HtmlLi = HtmlLi("To switch to port 80 the http defaults",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
-  "And to for HTTPS to use 443",
+  "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
-  "Change",
-  BashLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh"),
-  "to",
-  BashLine("ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
+  CodeChangeLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh", "ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
+  "Open the Tomcat configuration file.",
   BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
-  "change",
-  BashLine("""<Connector port="8080" protocol""".escapeHtml),
-  "to",
-  BashLine("""<Connector port="80" protocol""".escapeHtml),
+  CodeChangeLine("""<Connector port="8080" protocol""".escapeHtml, """<Connector port="80" protocol""".escapeHtml),
+  "reset",
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl restart tom11")
   )

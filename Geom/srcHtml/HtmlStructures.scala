@@ -2,9 +2,9 @@
 package ostrat; package pWeb
 
 /** HTML head element. */
-case class HtmlHead(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr()) extends HtmlUnvoid
+case class HtmlHead(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "head"
-  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
 }  
 
@@ -26,9 +26,9 @@ object HtmlHead
 }
 
 /** The HTML body element. */
-class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlUnvoid
+class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "body"
-  def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
 }
 

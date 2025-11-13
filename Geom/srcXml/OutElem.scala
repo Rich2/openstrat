@@ -19,12 +19,13 @@ trait XConElem extends OutElem
 
   /** This method returns the HTML output code, but also information for the parent XML / HTML element. The class should not add any indentation to its first
    * line. This is the responsibility of the parent element. */
-  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(out(indent, line1InputLen, maxLineLen))
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
 }
 
 /** An [[XConElem]] that has simple unindented output */
 trait XConSimple extends XConElem
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = out
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = TextLines(out(indent, line1InputLen, maxLineLen))
 }
 
 /** An [[XConElem]] that has a compound, potentially multi line output */

@@ -18,7 +18,8 @@ object HtmlCodeLines
 
   /** Implementation class for the general case of [[HtmlCodeLines]]. */
   class HtmlCodeLinesGen(val contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlCodeLines
-  { override def attribs: RArr[XAtt] = otherAttribs    
+  { override def attribs: RArr[XAtt] = otherAttribs
+//    override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
   }
 }
 
@@ -34,6 +35,9 @@ object HtmlCodeLine
 
 /** An HTML code element that can be inlined. */
 trait HtmlCodeInline extends HtmlCode, HtmlInline
+{
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
+}
 
 object HtmlCodeInline
 { /** Factory apply method to create an inline HTML cose element. */
@@ -41,6 +45,16 @@ object HtmlCodeInline
   { override def contents: RArr[XCon] = RArr(str)
     override def attribs: RArr[XAtt] = RArr()
   }
+}
+
+class CodeChangeLine(val oldCode: String, val newCode: String, val attribs: RArr[XAtt]) extends HtmlDivLine
+{ override def contents: RArr[XCon] = RArr("Change", HtmlCodeInline(oldCode), "to", HtmlCodeInline(newCode))
+
+}
+
+object CodeChangeLine
+{
+  def apply(oldCode: String, newCode: String, attribs: XAtt*): CodeChangeLine = new CodeChangeLine(oldCode, newCode, attribs.toRArr)
 }
 
 /** A code output attribute. Useful in documentation foe distinguishing output from code and commands entered by the user. */

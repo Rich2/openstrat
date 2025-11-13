@@ -42,3 +42,5 @@ object HtmlDiv
   /** An implementation class for the general case of an HTML Div.  */
   class HtmlDivGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlDiv, HtmlOwnLine
 }
+
+trait HtmlDivLine extends HtmlDiv, HtmlOwnLine

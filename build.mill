@@ -40,11 +40,16 @@ object UtilJs extends CommonJs
 { def sources = Util.sources1()
 }
 
+object UtilDocJs extends CommonJs
+{
+
+}
+
 object Geom extends CommonJvm
 {
   def sources1 = Task.Sources(
     Seq("src", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcXml", "srcHtml", "srcWeb",
-      "srcWCode", "srcEarth").map(name => moduleDir / name)*)
+      "srcWebCode", "srcEarth").map(name => moduleDir / name)*)
 
   def sources2 = Task.Sources(moduleDir / "JvmSrc")
   def sources = Task { sources1() ++ sources2() }
@@ -206,6 +211,8 @@ object AppJs extends Module
 object DevDoc extends CommonJvm
 { def moduleDeps = Seq(GeomDoc, TilingDoc, EGridDoc, AppsDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Dev" / "DevDoc" / name)*)
+
+  object DevDocJs extends CommonJs
 }
 
 object Dev extends CommonJvm
