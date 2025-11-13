@@ -6,6 +6,7 @@ import pWeb.*, wcode.*
 object DevPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
+  val scVer: String = "3.7.4"
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
@@ -27,7 +28,7 @@ object DevPage extends HtmlPage
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: HtmlP = HtmlP("""Scala currently set to 3.7.3. Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala native set to 0.5.8. Sbt currently set to 1.11.7
+  def p4: HtmlP = HtmlP(s"""Scala currently set to $scVer. Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala native set to 0.5.8. Sbt currently set to 1.11.7
   |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.0.6.""".
     stripMargin)
 
@@ -42,10 +43,10 @@ object DevPage extends HtmlPage
     HtmlLi("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test".htmlSbt, "Rerun tests on the 5 modules."),
 
     HtmlLi("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
-    "target/scala-3.7.3/unidoc/".htmlPath),
+    s"target/$scVer/unidoc/".htmlPath),
 
     HtmlLi("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
-    "Dev/JsAgg/target/scala-3.7.3/unidoc/".htmlPath),
+    s"Dev/JsAgg/target/$scVer/unidoc/".htmlPath),
 
     HtmlLi("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )
