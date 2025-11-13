@@ -101,9 +101,9 @@ object TomcatPage extends HtmlPageInput
 
   val s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
   |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
-  |specific reason to use an earlier version. At the time of writing I'm using the latest sub version $tcVer1. Copy the tar.gz file link into the browser.
-  |Once its downloaded copy the sha256 code into the next command to check the integrity of the download. If its good the sha code should be echoed back in red
-  |and the file name in white.""".stripMargin,
+  |specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version, because
+  |Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next command to
+  |check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt,
     SpanInline.inputText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,

@@ -23,10 +23,10 @@ object IndexPage extends HtmlPage
   def intro: HtmlP = HtmlP("The Code is currently organised into 6 modules.".htmlB,
     "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")
 
-  def util: HtmlLi = HtmlLi(HtmlA("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rixh Succinct object system
+  def util: HtmlLi = HtmlLi(HtmlA("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
   |persistence system and an error system.""".stripMargin)
 
-  def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurment units, Basic 2D and 3D geometry,
+  def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurement units, Basic 2D and 3D geometry,
   |Earth Geometry, functional Graphics and code for creating HTTP, HTML, CSS and SVG and other XML.""".stripMargin)
 
   def tile: HtmlLi = HtmlLi(HtmlA("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
@@ -41,8 +41,8 @@ object IndexPage extends HtmlPage
   |own repositories""".stripMargin)
 
   def dev: HtmlLi = HtmlLi(HtmlA("Documentation/dev.html", "Dev Module"), """Depends on all the other modules. This module is for the use of developer tools and
-  |settings and illustrate provide tutorials, and to some extent test the modules core code.""",
-  SpanLine(HtmlA("Documentation/tomcat.html", "Apache Tomcat Documentaion")))
+  |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
+  SpanLine(HtmlA("Documentation/tomcat.html", "Apache Tomcat Documentation")))
 
   def iconsHtml: XmlAsString ="""<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
   |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
