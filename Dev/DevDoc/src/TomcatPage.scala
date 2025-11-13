@@ -176,11 +176,15 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo sytemctl enable tom11"),
   )
 
-  val s10 = HtmlLi("To switch to port 80",
+  val s10 = HtmlLi("To switch to port 80 the http defaults",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
+  "And to for HTTPS to use 443",
+  BashLine("sudo touch /etc/authbind/byport/443"),
+  BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
+  BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   "Change",
