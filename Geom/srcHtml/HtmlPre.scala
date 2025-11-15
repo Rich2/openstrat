@@ -21,8 +21,15 @@ object HtmlPre
   def idAtt(idStr: String, contentStr: String , otherAttribs: XAtt*): HtmlPre = new HtmlPre(idStr, IdAtt(idStr) %: otherAttribs.toRArr)
   
   /** Creates an HTML Pre element and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): HtmlPre =
-  { def newId = input.next1Id(f)
-    new HtmlPre(f(input.valueStr), RArr(newId))
+  def inputText(input: InputUpdaterText)(f: String => String, otherAttribs: XAtt*): HtmlPre =
+  { def targetId = input.next1Id(f)
+    new HtmlPre(f(input.valueStr), targetId %: otherAttribs.toRArr)
+  }
+
+  /** Creates an HTML Pre element and registers the textContent with 2 HTML Text Inputs. */
+  def input2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): HtmlPre =
+  { def targetId = input1.next2Id1(input2.idStr, f)
+    input2.next2Id2(targetId.valueStr, input1.idStr, f)
+    new HtmlPre(f(input1.valueStr, input2.valueStr), targetId %: otherAttribs.toRArr)
   }
 }

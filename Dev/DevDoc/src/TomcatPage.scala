@@ -60,7 +60,7 @@ object TomcatPage extends HtmlPageInput
   val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
 
   def s2 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-  BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-$n-jdk -y"),
+  BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-${n.str0}-jdk -y"),
   "Check the version",
   BashLine("java -version"),
   CodeOutputLines("""openjdk version "25" 2025-09-16""",
@@ -129,7 +129,7 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  HtmlCodePre.inputText(tomVarIUT){ version => HtmlPage.titleOnly("Holding Page", s"This is coming from a tomcat $version server").out }
+  HtmlCodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => HtmlPage.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
   )
 
   val s8 = HtmlLi("Create a systemd unit file.",
@@ -170,9 +170,9 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl start tom11"),
   BashLine("sudo systemctl status tom11"),
-  """If status good, open a web page at localhost:8080. On a VPS you will probably want to now enable the server to start automatically, but perhaps not if this
-    |is your personal laptop or desktop""".stripMargin,
-  BashLine("sudo sytemctl enable tom11"),
+  """If status good, open a web page at the IpNumber:8080, or the DomainName:8080 on a VPS, or on a local machine at localhost:8080. On a VPS you will probably
+  |want to now enable the server to start automatically, but perhaps not if this is your personal laptop or desktop""".stripMargin,
+  BashLine("sudo systemctl enable tom11"),
   )
 
   val s10: HtmlLi = HtmlLi("To switch to port 80 the http defaults",
@@ -187,11 +187,13 @@ object TomcatPage extends HtmlPageInput
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   CodeChangeLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh", "ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
+  CodeChangeLine("""redirectPort=\"8443\"""", """redirectPort=\"443\""""),
   "Open the Tomcat configuration file.",
   BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
   CodeChangeLine("""<Connector port="8080" protocol""".escapeHtml, """<Connector port="80" protocol""".escapeHtml),
   "reset",
   BashLine("sudo systemctl daemon-reload"),
-  BashLine("sudo systemctl restart tom11")
+  BashLine("sudo systemctl restart tom11"),
+  "The page should now be available without the port :8080 suffix."
   )
 }
