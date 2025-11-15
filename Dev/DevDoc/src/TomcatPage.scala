@@ -34,7 +34,7 @@ object TomcatPage extends HtmlPageInput
   stripMargin,
   LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI))
 
-  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
+  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11)
 
   val s1 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with
@@ -195,5 +195,12 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl restart tom11"),
   "The page should now be available without the port :8080 suffix."
+  )
+
+  val s11 = HtmlLi("Install snap",
+  BashLine("sudo apt install snapd"),
+  "Install certbot",  
+  BashLine("sudo snap install --classic certbot"),
+  CodeOutputLine("certbot 5.1.0 from Certbot Project (certbot-eff✓) installed")
   )
 }
