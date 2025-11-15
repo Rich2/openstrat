@@ -81,9 +81,8 @@ object TomcatPage extends HtmlPageInput
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
   |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
   |username.""". stripMargin,
-  BashLine.inputText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash $uName"},
-  BashLine.inputText(uNameIUT)(uName => s"sudo passwd $uName"),
-  BashLine.inputText(uNameIUT){ uName => s"sudo useradd $uName sudo"}
+  BashLine.inputText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName"},
+  BashLine.inputText(uNameIUT)(uName => s"sudo passwd $uName"),  
   )
 
   val s4 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
