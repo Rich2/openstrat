@@ -167,6 +167,12 @@ object TomcatPage extends HtmlPageInput
   )
 
   val s9: HtmlLi = HtmlLi(
+  "Check if Apache2 Vanilla is running. It seems to be running by default on Ubuntu Server.",
+  BashLine("sudo systemctl status apache2"),
+  "If its running",
+  BashLine("sudo systemctl disable apache2"),
+  BashLine("sudo systemctl stop apache2"),
+  "Then reset Systemd",  
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl start tom11"),
   BashLine("sudo systemctl status tom11"),
