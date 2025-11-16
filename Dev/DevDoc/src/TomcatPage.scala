@@ -28,11 +28,29 @@ object TomcatPage extends HtmlPageInput
   val tcMinorVer: String = "14"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
+  val domain1: String = "mywebsite.com"
+
+  val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
+  val uNameIUT: InputUpdaterText = uNameLTI.child2
+  val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
+  val cNameIUT: InputUpdaterText = cNameLTI.child2
+  val nRam1: Int = 2
+  val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
+  val ramIUN: InputUpdaterNum = ramLNI.child2
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(uNameIUT, cNameIUT) { (uName, cName) => s"$uName@$cName:/opt/tomcat" }
+  val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
+  val tomVarIUT: InputUpdaterText = tomVerLTI.child2
+  val jVer1: Int = 25
+  val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
+  val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
+  val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
+  val domainIUT: InputUpdaterText = domainLTI.child2
+
 
   def p2: HtmlP = HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
   |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
-  LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI))
+  LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
@@ -53,20 +71,7 @@ object TomcatPage extends HtmlPageInput
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
 
-  val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val uNameIUT: InputUpdaterText = uNameLTI.child2
-  val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val cNameIUT: InputUpdaterText = cNameLTI.child2
-  val nRam1: Int = 2
-  val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
-  val ramIUN: InputUpdaterNum = ramLNI.child2
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(uNameIUT, cNameIUT){ (uName, cName) => s"$uName@$cName:/opt/tomcat"}
-  val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
-  val tomVarIUT: InputUpdaterText = tomVerLTI.child2
-  val jVer1: Int = 25
-  val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
-  val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
-
+  
   def s3 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-${n.str0}-jdk -y"),
   "Check the version",
@@ -216,25 +221,40 @@ object TomcatPage extends HtmlPageInput
   "Install certbot",  
   BashLine("sudo snap install --classic certbot"),
   CodeOutputLine("certbot 5.1.0 from Certbot Project (certbot-eff✓) installed"),
-  "Ensure that the cerbot commans can be run",
+  "Ensure that the cerbot command can be run",
   BashLine("sudo ln -s /snap/bin/certbot /usr/bin/certbot"),
   "Stop tomcat.",
   BashLine("sudo systemctl stop tom11"),
-  "Install Certificate.",
+  "Install certificate. When asked to enter domain name, you can enter multiple web domains, but you only use the first in the ensuing commands.",
   BashLine("sudo certbot certonly --standalone"),
-  "Configure permissions to certifcates",
+  "Configure permissions to certificates",
   BashLine("sudo chgrp -R tommy /etc/letsencrypt/live/"),
   BashLine("sudo chgrp -R tommy /etc/letsencrypt/archive/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
-  BashLine("sudo chmod 640 /etc/letsencrypt/live/richstrat.com/privkey.pem"),
-  BashLine("sudo chmod 644 /etc/letsencrypt/live/richstrat.com/cert.pem"),
-  BashLine("sudo chmod 644 /etc/letsencrypt/live/richstrat.com/chain.pem"),
+  BashLine.inputText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
+  BashLine.inputText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
+  BashLine.inputText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
   "Check permissions - if you dont have access then something wrong...",
-  BashLine("ls -la /etc/letsencrypt/live/richstrat.com/")
+  BashLine.inputText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
   )
 
   val s13 = HtmlLi("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine("nano /opt/tomcat/Base/conf/server.xml"),
+  "Uncomment the section and modify as below",
+  HtmlCodePre.inputText(domainIUT){ dName =>
+  s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+  |  maxThreads="150" SSLEnabled="true" secure="true" scheme="https">
+  |  <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+  |  <SSLHostConfig>
+  |    <Certificate certificateFile="/etc/letsencrypt/live/$dName/cert.pem"
+  |      certificateKeyFile="/etc/letsencrypt/live/$dName/privkey.pem"
+  |      certificateChainFile="/etc/letsencrypt/live/$dName/chain.pem" />
+  |  </SSLHostConfig>
+  |</Connector>""".stripMargin },
+  "Restart Tomcat",
+  BashLine("sudo systemctl start tom11"),
+  BashLine("sudo systemctl status tom11"),
+  SpanLine.inputText(domainIUT){ dName => s"Go to https://$dName" }  
   )
 }
