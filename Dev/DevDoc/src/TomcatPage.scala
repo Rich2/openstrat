@@ -12,12 +12,12 @@ object TomcatPage extends HtmlPageInput
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", p1, p2, steps)
 
-  def p1: HtmlP = HtmlP("""This page is targeted at Scala Developers, who want to get a / some simple web applications going, or create a dynamic web site using
-  |Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced professional
-  |Scala developers who will almost all be using other solutions. If like me you come to the Tomcat Server, with only the experience of running Apache vanilla
-  |servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note referring to it as
-  |Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting up Tomcat on your
-  |own Desktop, laptop, home server or VPS.""".stripMargin)
+  def p1: HtmlP = HtmlP("""This page is targeted at Scala Developers, who want to get a simple, or multiple web applications going, or create a dynamic web site
+  |using Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced
+  |professional Scala developers who will almost all be using other solutions. If like me you come to the Tomcat Server, with only the experience of running
+  |Apache vanilla servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note
+  |referring to it as Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting
+  |up Tomcat on your own Desktop, laptop, home server or VPS.""".stripMargin)
 
   val uName1: String = "tommy"
   val nset: String = "nset"
@@ -98,7 +98,7 @@ object TomcatPage extends HtmlPageInput
   BashLine(tomcatDirPrompt, "mkdir Base")
   )
 
-  val s5 = HtmlLi("Go to the Apache Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
+  val s5 = HtmlLi("Go to the Tomcat Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
   |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
   |specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version, because
   |Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next command to
@@ -192,11 +192,11 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
-  CodeChangeLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh", "ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),
-  CodeChangeLine("""redirectPort=\"8443\"""", """redirectPort=\"443\""""),
+  CodeChangeLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh", "ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),  
   "Open the Tomcat configuration file.",
   BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
   CodeChangeLine("""<Connector port="8080" protocol""".escapeHtml, """<Connector port="80" protocol""".escapeHtml),
+  CodeChangeLine("""redirectPort=\"8443\"""", """redirectPort=\"443\"""".escapeHtml),  
   "reset",
   BashLine("sudo systemctl daemon-reload"),
   BashLine("sudo systemctl restart tom11"),

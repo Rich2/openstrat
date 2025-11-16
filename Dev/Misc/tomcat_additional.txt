@@ -1,0 +1,18 @@
+0. Install Fail2Ban // i do this if ya gong to allow logining in with passwords over ssh - i tend to turn password login off and just use publickeys..
+  sudo apt install fail2ban
+  sudo systemctl enable --now fail2ban
+...
+
+11. Install snap
+  sudo apt install snapd
+    Install certbot
+  sudo snap install --classic certbot
+  >>certbot 5.1.0 from Certbot Project (certbot-eff✓) installed
+  sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+    Install certificate
+  sudo systemctl stop tom11
+  sudo certbot certonly --standalone
+  <ENTER EMAIL>
+  <AGREE OR DISAGREE *2>
+  <ENTER DOMAIN NAME>
