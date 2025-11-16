@@ -2,14 +2,21 @@
 package ostrat; package pWeb
 
 /** Html UL unordered list element. */
-case class HtmlUl(val contents: RArr[XConCompound], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
+class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines
 { override def tagName: String = "ul"
 }
 
 /** Companion object for [[HtmlUl]] unordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlUl
-{ /** Factory apply method for HTML UL unordered list. */
-  def apply(contents: XConCompound*): HtmlUl = new HtmlUl(contents.toArr)
+{ /** Factory apply method for HTML UL unordered list. There is an apply name overload for an Unordered list without attributes that takes repeat parameter
+   * contents elements. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlUl = new HtmlUl(contents, attribs)
+  
+  /** Factory apply method for HTML UL unordered list, with no attributes. */
+  def apply(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr, RArr())
+
+  /** Factory method for Html UL unordered list frpm [[String]]s. */
+  def strs(items: String*): HtmlUl = new HtmlUl(items.mapArr(HtmlLi(_)), RArr())
 }
 /** Html OL ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
