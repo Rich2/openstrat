@@ -2,32 +2,32 @@
 package ostrat; package pWeb
 
 /** CSS selector */
-trait CssSel
+trait CssSelector
 { /** The CSS code output. */
   def out: String
 }
 
 /** CSS selector or [[String]] that can be used for selector. */
-type SelOrStr = CssSel | String
+type SelOrStr = CssSelector | String
 
 extension (inp: SelOrStr)
 {
   def outStr: String = inp match {
-    case cs: CssSel => cs.out
+    case cs: CssSelector => cs.out
     case s: String => s
   }
 }
 
-trait SelListMem extends CssSel
+trait SelListMem extends CssSelector
 { /** Returns CSS child selector. */
-  def > (child: SelListMem | String): CssSel = ChildSel(this, child)
+  def > (child: SelListMem | String): CssSelector = ChildSel(this, child)
 }
 
 type SelMemOrStr = SelListMem | String
 
-object CssSel
+object CssSelector
 {
-  def apply(str: String): CssSel = new CssSelGen(str)
+  def apply(str: String): CssSelector = new CssSelGen(str)
   class CssSelGen(val out: String) extends SelListMem
 }
 
@@ -36,7 +36,7 @@ class ChildSel(parent: SelListMem | String, child: SelListMem | String) extends 
   override def out: String = parent.outStr -- ">" -- child.outStr
 }
 
-class CssListSel(elems: RArr[SelListMem | String]) extends CssSel
+class CssListSel(elems: RArr[SelListMem | String]) extends CssSelector
 {
   override def out: String = elems.mkStr(_.outStr, ", ")
 }

@@ -49,7 +49,7 @@ object Geom extends CommonJvm
 {
   def sources1 = Task.Sources(
     Seq("src", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcXml", "srcHtml", "srcWeb",
-      "srcWebCode", "srcEarth").map(name => moduleDir / name)*)
+      "srcCss", "srcWebCode", "srcEarth").map(name => moduleDir / name)*)
 
   def sources2 = Task.Sources(moduleDir / "JvmSrc")
   def sources = Task { sources1() ++ sources2() }

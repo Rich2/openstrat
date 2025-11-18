@@ -15,6 +15,6 @@ case class MargLeftRightDec(value: CssVal) extends CssDecMulti
 }
 
 /** Css margin-left and margin-right declarations set to auto. */
-case object MargLeftRightAutoDec extends CssDecMulti
+case object MarginLRAutoDec extends CssDecMulti
 { override def decs: RArr[CssDec] = RArr(MarginLeftDec(AutoCss), MarginRightDec(AutoCss))
 }

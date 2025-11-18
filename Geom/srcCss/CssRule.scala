@@ -79,7 +79,7 @@ object CssChild
 
 class CssListRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecs]) extends CssRule
 { /** The selector [[String]] for the CSS rule. */
-  override def selec: CssSel | String = selectors.mkStr(_.outStr, ", ")
+  override def selec: CssSelector | String = selectors.mkStr(_.outStr, ", ")
 }
 
 object CssListRule

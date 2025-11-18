@@ -74,6 +74,13 @@ object DevMisc extends HtmlSection
   BashLine("sudo apt update"),
   BashLine("sudo apt install sublime-text"),
   BashLine("subl --version"),
-  CodeOutputLine("Sublime Text Build 4200")
+  CodeOutputLine("Sublime Text Build 4200"),
+
+  HtmlCodeLine("// These settings override both User and Default settings for the Scala syntax"),
+  HtmlCodeLine("{"),
+  HtmlCodeLine(""""tab_size": 2,"""),
+  HtmlCodeLine(""""translate_tabs_to_spaces": true,"""),
+  HtmlCodeLine(""""rulers": [100, 160]"""),
+  HtmlCodeLine("}")
   )
 }
