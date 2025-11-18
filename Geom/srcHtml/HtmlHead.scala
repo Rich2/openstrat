@@ -38,7 +38,7 @@ trait HtmlLink extends HtmlVoid
 
 /** HTML CSS link. */
 class HtmlCssLink(val fullFileName: String) extends HtmlLink
-{ override def attribs: RArr[XAtt] = RArr(RelAtt("stylesheet"), TypeCssAtt, HrefAtt(fullFileName))
+{ override def attribs: RArr[XAtt] = RArr(RelStylesheet, TypeCssAtt, HrefAtt(fullFileName))
 }
 
 /** Companion object for [[HtmlCssLink]] class, contains factory apply method. */

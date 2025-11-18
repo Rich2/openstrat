@@ -30,6 +30,9 @@ case class RelAtt(valueStr: String) extends XAttSimple
 { override def name: String = "rel"
 }
 
+/** Relative stylesheet HTML attribute. */
+object RelStylesheet extends RelAtt("stylesheet")
+
 /** href XML /HTML attribute */
 case class HrefAtt(valueStr: String) extends XAttSimple
 { override def name: String = "href"
