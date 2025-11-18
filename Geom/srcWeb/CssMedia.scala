@@ -8,6 +8,8 @@ abstract class CssMedia(val queryStr: String) extends CssRulesHolder, CssRuleLik
 
   override def out(indent: Int = 0, line1InputLen: Int, maxLineLen: Int): String =
     "@media " + queryStr.enParenth --- indent.spaces + "{" + "\n" +  rulesOut(indent + 2) --- indent.spaces + "}"
+
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = ???  
 }
 
 /** CSS min-width media query. */

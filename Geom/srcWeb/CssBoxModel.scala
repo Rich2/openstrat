@@ -43,7 +43,7 @@ trait BorderStyle extends CssVal
 }
 
 /** Css solid border style value. */
-object CssSolid extends BorderStyle
+object SolidCss extends BorderStyle
 { override def str: String = "solid"
 }
 

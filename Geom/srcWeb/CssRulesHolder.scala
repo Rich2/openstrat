@@ -25,7 +25,7 @@ trait CssRulesHolder extends HttpContent
       acc
     }
   }
-
+  
   override def httpResp(dateStr: String, server: String): HttpFound = HttpFound(dateStr, server, HttpConTypeCss, out)
 }
 

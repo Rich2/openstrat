@@ -36,6 +36,12 @@ case class TypeAtt(valueStr: String) extends XAttSimple
 /** Type attribute set to text. */
 object TypeTextAtt extends TypeAtt("text")
 
+/** The CSS type attribute */
+object TypeCssAtt extends TypeAtt("text/css")
+
+/** The SVG type attribute */
+object TypeSvgAtt extends TypeAtt("image/svg+xml")
+
 /** Type attribute set to number. */
 object TypeNumberAtt extends TypeAtt("number")
 

@@ -5,16 +5,16 @@ package ostrat; package pWeb
 trait CssDecMulti extends CssDecs
 
 /** Css margin-lop and bottom declarations. */
-case class CssMargTopBot(value: CssVal) extends CssDecMulti
+case class MargTopBottomDec(value: CssVal) extends CssDecMulti
 { override def decs: RArr[CssDec] = RArr(MarginTopDec(value), MarginBottomDec(value))
 }
 
 /** Css margin-left and margin-right declarations set to same value. */
-case class DecMargLeftRight(value: CssVal) extends CssDecMulti
+case class MargLeftRightDec(value: CssVal) extends CssDecMulti
 { override def decs: RArr[CssDec] = RArr(MarginLeftDec(value), MarginRightDec(value))
 }
 
 /** Css margin-left and margin-right declarations set to auto. */
-case object DecMargLeftRightAuto extends CssDecMulti
+case object MargLeftRightAutoDec extends CssDecMulti
 { override def decs: RArr[CssDec] = RArr(MarginLeftDec(AutoCss), MarginRightDec(AutoCss))
 }

@@ -39,15 +39,3 @@ object HtmlViewDevWidth extends HtmlMeta
   val content: XAtt = ContentAtt("width=device-width,initial-scale=1.0")
   override def attribs: RArr[XAtt] = RArr(viewPort, content)
 }
-
-/** HTML CSS link. */
-class HtmlCssLink(val fullFileName: String) extends HtmlVoid
-{ override def tagName: String = "link"
-  override def attribs: RArr[XAtt] = RArr(XAtt("rel", "stylesheet"), XAtt("type", "text/css"), XAtt("href", fullFileName))
-}
-
-/** Companion object for [[HtmlCssLink]] class, contains factory apply method. */
-object HtmlCssLink
-{ /** Factory apply method for [[HtmlCssLink]] class form filename stem, adds the .css file ending. */
-  def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
-}
