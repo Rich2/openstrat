@@ -20,7 +20,7 @@ object OnlyCss extends CssOpenstrat
 { /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlexDec, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(FontSizeDec(1.5.em)),
     CssIDRule("footer", DecAlignCen, MarginDec(0.8.em), ColourDec(FireBrick)), CssRule("ul, ol, p", MaxWidthDec(68.em), MarginLRAutoDec),
-    CssP(MargTopBottomDec(0.5.em)), CssH1(DecAlignCen), CssCanvas(DecWidth(100.vw), DecHeight(100.vh), BlockDec), minMed, maxMed)
+    CssP(MarginTBDec(0.5.em)), CssH1(DecAlignCen), CssCanvas(DecWidth(100.vw), DecHeight(100.vh), BlockDec), minMed, maxMed)
 
   def maxMed: CssMedia = new CssMedia("max-width: 50em")
   {

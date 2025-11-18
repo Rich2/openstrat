@@ -118,7 +118,7 @@ case class DecWidthHeight(value: CssVal) extends CssDecs
 { override def decs: RArr[CssDec] = RArr(DecWidth(value), DecHeight(value))
 }
 
-/** CSS min=height declaration. */
+/** CSS min-height declaration. */
 case class DecMinHeight(value: CssVal) extends CssDecStd
 { override def property: String = "min-height"
 }

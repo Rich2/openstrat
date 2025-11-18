@@ -21,10 +21,16 @@ class ClassAtt(val valueStr: String) extends XAttSimple
 }
 
 object ClassAtt
-{
+{ /** Factory apply method for HTML class attribute. */
   def apply(classStrs: String*): ClassAtt = new ClassAtt(classStrs.mkString(" "))
 }
 
+/** rel XML /HTML attribute */
+case class RelAtt(valueStr: String) extends XAttSimple
+{ override def name: String = "rel"
+}
+
+/** href XML /HTML attribute */
 case class HrefAtt(valueStr: String) extends XAttSimple
 { override def name: String = "href"
 }
