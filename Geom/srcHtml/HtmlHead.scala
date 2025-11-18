@@ -47,7 +47,7 @@ object HtmlCssLink
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
 
+/** SVG favicon link and icon attributes. */
 object FaviconSvgLink extends HtmlLink
-{
-  override def attribs: RArr[XAtt] = RArr(XAtt("rel", "icon"), TypeSvgAtt, XAtt("href", "/favicon.svg"))
+{ override def attribs: RArr[XAtt] = RArr(RelAtt("icon"), TypeSvgAtt, FaviconSvgHref)
 }
