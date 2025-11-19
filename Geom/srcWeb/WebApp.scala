@@ -36,7 +36,7 @@ class ServletName(value: String) extends XmlElemSimple("servlet-name", value)
 class ServletClass(value: String) extends XmlElemSimple("servlet-class", value)
 
 /** The Jakarta XML namespace. */
-object JakartaNs extends Xmlns("https://jakarta.ee/xml/ns/jakartaee")
+object JakartaNs extends XmlnsAtt("https://jakarta.ee/xml/ns/jakartaee")
 
 /** The Jakarta XML schema. */
 object JakartaXsi extends XmlNsXsi("http://www.w3.org/2001/XMLSchema-instance")

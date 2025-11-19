@@ -97,7 +97,7 @@ case class VersionAtt(valueStr: String) extends XAttSimple
 }
 
 /** The XML xmlns namespace attribute. */
-case class Xmlns(valueStr: String) extends XAttSimple
+case class XmlnsAtt(valueStr: String) extends XAttSimple
 { override def name: String = "xmlns"
 }
 
