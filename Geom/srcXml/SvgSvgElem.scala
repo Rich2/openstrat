@@ -10,7 +10,7 @@ class SvgSvgElem(val vbX: Double, val vbY: Double, val vbWidth: Double, vbHeight
   XmlTagLines
 { override def tagName: String = "svg"
 
-  override def attribs: RArr[XAtt] = RArr(XmlnsSvg, ViewBox(vbX, vbY, vbWidth, vbHeight)) ++ otherAttribs
+  override def attribs: RArr[XAtt] = RArr(XminsSvg, ViewBox(vbX, vbY, vbWidth, vbHeight)) ++ otherAttribs
 }
 
 object SvgSvgElem
