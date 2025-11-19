@@ -11,7 +11,7 @@ case class HtmlHead(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr())
 /** Companion object for the [[HtmlHead]] case class. */
 object HtmlHead
 { /** Factory apply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
-  def apply(titleStr: String, otherContents: XConCompound*): HtmlHead = new HtmlHead(otherContents.toArr)
+  def apply(titleStr: String, otherContents: XConCompound*): HtmlHead = new HtmlHead(HtmlTitle(titleStr) %: otherContents.toRArr)
 
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
   def title(titleStr: String, otherContents: XConCompound*): HtmlHead =
@@ -21,8 +21,8 @@ object HtmlHead
 
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
    *  elements. */
-  def titleCss(titleStr: String, cssFileStem: String): HtmlHead =
-    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth))
+  def titleCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HtmlHead =
+    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 }
 
 /** HTML title element. */

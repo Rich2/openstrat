@@ -104,6 +104,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
   @targetName("append") def ++[AA >: A](operand: Iterable[AA])(using ct: ClassTag[AA]): RArr[AA] =
   { val newLen = length + operand.size
     val newArray = new Array[AA](newLen)
+    Array.copy(arrayUnsafe, 0, newArray, 0, length)
     operand.iForeach { (i, el) => newArray(length + i) = el }
     new RArr(newArray)
   }

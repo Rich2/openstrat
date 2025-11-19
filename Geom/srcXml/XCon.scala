@@ -36,6 +36,6 @@ extension (thisXCon: XCon)
 
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = thisXCon match
   { case xc: XConInline => XConInline.outLines(xc, indent, line1InputLen, maxLineLen)
-    case xce: XConElem => xce.outLines(indent, line1InputLen, maxLineLen)
+    case xce: XConElem => xce.outLines(indent, line1InputLen, maxLineLen)    
   }
 }
