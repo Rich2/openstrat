@@ -5,34 +5,34 @@ import geom.*, Colour.Black
 /** An SVG element. */
 trait SvgOwnLine extends XmlOwnLine
 
-/** An HTML element for SVG. */
-case class HtmlSvg(contents: RArr[XConCompound], attribs: RArr[XAtt]) extends HtmlTagLines
+/** An XML SVG element. */
+class SvgSvgElem(val contents: RArr[XConCompound], val attribs: RArr[XAtt]) extends XmlTagLines
 { override def tagName: String = "svg"
 }
 
-object HtmlSvg
+object SvgSvgElem
 {
-  def apply(rect: Rect, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): HtmlSvg =
+  def apply(rect: Rect, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): SvgSvgElem =
   { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, -rect.top, rect.width, rect.height)) ++ otherAtts
     val svgElems = contents.flatMap(_.svgElems)
-    new HtmlSvg(svgElems, atts)
+    new SvgSvgElem(svgElems, atts)
   }
 
-  def bounds(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XConCompound]): HtmlSvg =
-    new HtmlSvg(arr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))
+  def bounds(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XConCompound]): SvgSvgElem =
+    new SvgSvgElem(arr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))
 
-  def bounds(rect: Rect, contents: RArr[XConCompound], otherAtts: RArr[XAtt] = RArr()): HtmlSvg =
+  def bounds(rect: Rect, contents: RArr[XConCompound], otherAtts: RArr[XAtt] = RArr()): SvgSvgElem =
   { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, rect.bottom, rect.width, rect.height)) ++ otherAtts
-    new HtmlSvg(contents, atts)
+    new SvgSvgElem(contents, atts)
   }
 
-  def auto(margin: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): HtmlSvg = autoHorrVert(margin, margin, contents, otherAtts)
+  def auto(margin: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): SvgSvgElem = autoHorrVert(margin, margin, contents, otherAtts)
 
-  def autoHorrVert(horrMargin: Double, vertMargin: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): HtmlSvg =
+  def autoHorrVert(horrMargin: Double, vertMargin: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): SvgSvgElem =
   { val rect: Rect = Rect.bounding(contents).addHorrVertMargin(horrMargin, vertMargin)
     val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, -rect.top, rect.width, rect.height)) ++ otherAtts
     val svgElems = contents.flatMap(_.svgElems)
-    new HtmlSvg(svgElems, atts)
+    new SvgSvgElem(svgElems, atts)
   }
 }
 

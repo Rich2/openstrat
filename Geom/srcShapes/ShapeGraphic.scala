@@ -11,7 +11,7 @@ trait ShapeGraphic extends GraphicBounded
   def attribs: RArr[XAtt]
   def shapeAttribs: RArr[XAtt] = shape.attribs
 
-  def svgInline: HtmlSvg
+  def svgInline: SvgSvgElem
 
   final def svgInlineStr: String = svgInline.out(0, 150)
   

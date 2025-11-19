@@ -33,7 +33,7 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
   SqlignGraphic, ParentGraphic2[Sqlign]
 { def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
   override def attribs: RArr[XAtt] = ???
-  override def svgInline: HtmlSvg = ???
+  override def svgInline: SvgSvgElem = ???
   override def svgElems: RArr[SvgOwnLine] = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = ???
   override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, childs, children.slate(operand))

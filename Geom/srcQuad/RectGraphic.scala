@@ -95,10 +95,10 @@ trait RectCompound extends RectGraphic, RectangleCompound
 
   override def addChildren(newChildren: Arr[Graphic2Elem]): RectCompound = RectCompound(shape, facets, children ++ newChildren)
 
-  def htmlSvg: HtmlSvg =
+  def htmlSvg: SvgSvgElem =
   { val atts = RArr(WidthAtt(shape.width), HeightAtt(shape.height), ViewBox(shape.left, -shape.top, shape.width, shape.height), CentreBlockAtt)
     val svgElems = children.flatMap(_.svgElems)
-    new HtmlSvg(svgElems, atts)
+    new SvgSvgElem(svgElems, atts)
   }
 }
 

@@ -39,7 +39,7 @@ case class HrefAtt(valueStr: String) extends XAttSimple
 }
 
 /** SVG favicon href attribute." */
-object FaviconSvgHref extends HrefAtt("/favicon.svg")
+object FaviconSvgHref extends HrefAtt("/images/favicon.svg")
 
 case class TypeAtt(valueStr: String) extends XAttSimple
 { override def name: String = "type"

@@ -15,7 +15,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   def mainSvgElem: SvgOwnLine
 
   override def svgElems: RArr[SvgOwnLine] = RArr(mainSvgElem) ++ children.flatMap(_.svgElems)
-  override def svgInline: HtmlSvg = ???
+  override def svgInline: SvgSvgElem = ???
 
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: RArr[Graphic2Elem]
