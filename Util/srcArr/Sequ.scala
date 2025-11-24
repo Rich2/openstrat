@@ -60,8 +60,8 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   /** if this [[Sequ]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
   def ifHead[U](f: A => U): Unit = if(length >= 1) f(apply(0))
 
-  /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
-   * integers as an index value without throwing an exception. */
+  /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative integers as
+   * an index value without throwing an exception. */
   @inline def cycleGet(index: Int): A = apply(index %% length)
 
   /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non-Unit value it is
@@ -655,8 +655,8 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
-  /** Partitions the code and element's [[String]]s into an alphabetic [[String]] and a natural number. First matches onth on the alphabetic and then for
-   * results that match the same number of letters, it matches on the numbers. */
+  /** Partitions the code and element's [[String]]s into an alphabetic [[String]] and a natural number. First matches on the alphabetic and then for results
+   * that match the same number of letters, it matches on the numbers. */
   def alphaNatMatch(code: String)(f: A => String): A =
   { val (alpha, codeNum) = code.alphaNatPartition
     var res = head

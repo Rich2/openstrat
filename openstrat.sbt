@@ -73,27 +73,28 @@ def jvmExsProj(name: String): Project = jvmProj(name + "Exs", name + "/" + name 
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
 )
 
-def jsProj(name: String, locationStr: String) = proj(name, locationStr).enablePlugins(ScalaJSPlugin).settings(
+def jsProj(name: String, locationStr: String): Project = proj(name, locationStr).enablePlugins(ScalaJSPlugin).settings(
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.1")  withSources() withJavadoc(),
 )
 
-def jsMainProj(nameStem: String) = jsProj(nameStem + "Js", nameStem + "/" + nameStem + "Js").settings(
+def jsMainProj(nameStem: String): Project = jsProj(nameStem + "Js", nameStem + "/" + nameStem + "Js").settings(
   moduleDir := bbDir.value / nameStem,
   Compile/unmanagedSourceDirectories := List("src", "JsSrc", nameStem + "Js/src").map(moduleDir.value / _),
 )
 
-def jsExsProj(nameStem: String) = jsProj(nameStem + "ExsJs", nameStem + "/" + nameStem + "Exs/" + nameStem + "ExsJs").settings(
+def jsExsProj(nameStem: String): Project = jsProj(nameStem + "ExsJs", nameStem + "/" + nameStem + "Exs/" + nameStem + "ExsJs").settings(
   moduleDir := bbDir.value / nameStem / (nameStem + "Exs"),
   Compile/unmanagedSourceDirectories := List("src", nameStem + "ExsJs/src").map(moduleDir.value / _),
 )
 
-def jsDocProj(nameStem: String) = jsProj(nameStem + "DocJs", nameStem + "/" + nameStem + "Doc/" + nameStem + "DocJs").settings(
+def jsDocProj(nameStem: String): Project = jsProj(nameStem + "DocJs", nameStem + "/" + nameStem + "Doc/" + nameStem + "DocJs").settings(
   moduleDir := bbDir.value / (nameStem + "Doc"),
   Compile/unmanagedSourceDirectories := List("src", "srcJs", nameStem + "DocJs/src").map(bbDir.value / nameStem / (nameStem + "Doc") / _),
 )
 
-def natProj(name: String) = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(
+def natProj(name: String): Project = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(
   moduleDir := bbDir.value / name,
+  scalaVersion := "3.7.4",
   Compile/unmanagedSourceDirectories := List("src").map(moduleDir.value / _),
   Compile/resourceDirectories := List("res", "NatRes").map(moduleDir.value / _),
 )
@@ -139,6 +140,7 @@ lazy val GeomJs = jsMainProj("Geom").dependsOn(UtilJs).settings(geomSett)
 lazy val GeomExsJs = jsExsProj("Geom").dependsOn(GeomJs).settings(geomExsSett)
 lazy val GeomDoc = jvmDocProj("Geom").dependsOn(UtilDoc, GeomExs)
 lazy val GeomDocJs = jsDocProj("Geom").dependsOn(UtilDocJs, GeomExsJs)
+lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett)
 
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
