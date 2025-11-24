@@ -9,8 +9,9 @@ object PersistTest extends TestSuite
   }
 
   object TestClass
-  { implicit val showEV: ShowTellSimple[TestClass] =  ShowTellSimple[TestClass]("TestClass")
-    implicit val unshowEV: UnshowSingletons[TestClass] =  UnshowSingletons[TestClass]("TestClass", TestObjA, TestObjB)
+  { given showEV: ShowTellSimple[TestClass] =  ShowTellSimple[TestClass]("TestClass")
+    given unshowEV: UnshowSingletons[TestClass] =  UnshowSingletons[TestClass]("TestClass", TestObjA, TestObjB)
+    given eqTEv: EqT[TestClass] = (t1, t2) => t1.str == t2.str
   }
 
   object TestObjA extends TestClass("TestObjA")
@@ -19,8 +20,8 @@ object PersistTest extends TestSuite
   case class My2(ints: IntArr, myStr: String)
  
   object My2
-  { implicit val showEv: Show2[IntArr, String, My2] = Show2[IntArr, String, My2]("My2", "ints", _.ints, "myStr", _.myStr)
-    implicit val unshowEv: Unshow2[IntArr, String, My2] = Unshow2[IntArr, String, My2]("My2", "ints", "myStr", apply)
+  { given showEv: Show2[IntArr, String, My2] = Show2[IntArr, String, My2]("My2", "ints", _.ints, "myStr", _.myStr)
+    given unshowEv: Unshow2[IntArr, String, My2] = Unshow2[IntArr, String, My2]("My2", "ints", "myStr", apply)
   }
 
   val tests = Tests {
@@ -41,15 +42,15 @@ object PersistTest extends TestSuite
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
       mc.str ==> "My2(7, 8, 9; \"hi\")"
-      abSeq.str ==> sStr
-      abRefs.str ==> sStr
+      abSeq.strTyped ==> sStr
+      abRefs.strTyped ==> sStr
     }
 
     val abArr = RArr(TestObjA, TestObjB)
     test("Persist Other")
     { aaStr.findType[TestClass] ==> Succ(TestObjA)
       abArr.str.findType[List[TestClass]] ==> Succ(List(TestObjA, TestObjB))
-      abSeq.str.findType[RArr[TestClass]] ==> Succ(RArr(TestObjA, TestObjB))
+      assert(abSeq.str.findType[RArr[TestClass]] === Succ(RArr(TestObjA, TestObjB)))
     }
   }
 }

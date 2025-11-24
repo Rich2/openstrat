@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
- *  clauses that contain each contain an expression. */
-trait Expr extends BlockMem with StatementMem
+/** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of clauses that
+ * contain each contain an expression. */
+trait Expr extends BlockMem, StatementMem
 { def exprName: String
   def exprParseErr[A](implicit ev: Unshow[A]): ExcMon[A] = startPosn.fail(ev.typeStr -- "is not available from" -- exprName)
 }
@@ -15,7 +15,7 @@ case object EmptyStringExpr extends Expr
 }
 
 /** An expression that is a member of the right oe left side of an assignment expression. */
-trait AssignMemExpr extends Expr with AssignMem
+trait AssignMemExpr extends Expr, AssignMem
 {
   def toStatements: RArr[Statement] = this match{
     case es: ExprSeqExpr => es.exprs.map{expr => StatementNoneEmpty(expr) }
@@ -25,37 +25,37 @@ trait AssignMemExpr extends Expr with AssignMem
 }
 
 /** An expression that can be a member of a Colon expression operand. */
-trait ColonMemExpr extends AssignMemExpr with ColonOpMem
+trait ColonMemExpr extends AssignMemExpr, ColonOpMem
 
 /** An expression that can be a member of a [[Clause]] or the expression of clause. */
-trait ClauseMemExpr extends ColonMemExpr with ClauseMem
+trait ClauseMemExpr extends ColonMemExpr, ClauseMem
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundExpr extends Expr with TextSpanCompound
+trait CompoundExpr extends Expr, TextSpanCompound
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr
+trait CompoundClauseMemExpr extends CompoundExpr, ClauseMemExpr
 
-/** A sequence of expressions that is itslef an expression. It can be a sequence of Statements or a Sequence of Clauses. */
+/** A sequence of expressions that is itself an expression. It can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqExpr extends ColonMemExpr
 { def exprs: RArr[Expr]
 }
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
-trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeqExpr
+trait ExprSeqNonEmpty extends CompoundClauseMemExpr, ExprSeqExpr
 { def exprs: RArr[AssignMemExpr]
 }
 
 object ExprSeqNonEmpty
 {
-  def unapply(inp: Any): Option[RArr[Expr]] = inp match {
-    case esne: ExprSeqNonEmpty => Some(esne.exprs)
+  def unapply(inp: Any): Option[RArr[Expr]] = inp match
+  { case esne: ExprSeqNonEmpty => Some(esne.exprs)
     case _ => None
   }
 }
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
-trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
+trait ClauseMemExprToken extends ClauseMemExpr, ClauseMemToken
 { final override def tokenTypeStr: String = exprName + "Token"
   override def toString: String = tokenTypeStr.appendParenthSemis(srcStr, startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
@@ -131,7 +131,7 @@ object AsignExprName
   }
 }
 
-case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr with AssignMemExpr with AssignMem
+case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr, AssignMemExpr, AssignMem
 { override def startMem: ColonMemExpr = left
   override def endMem: ColonMemExpr = right
   override def exprName: String = "ColonExpr"

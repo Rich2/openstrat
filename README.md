@@ -32,6 +32,6 @@
 
 <h3>Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.7.4, Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala Native set to 0.5.8 Sbt currently set to 1.11.7. Mill set to 1.0.6.</p>
+<p>Scala currently set to 3.7.4, Jdk 11+, 21 preferred. Scala.Js set to 1.20.1. Scala Native set to 0.5.9 Sbt currently set to 1.11.7. Mill set to 1.0.6.</p>
 </body>
 </html>

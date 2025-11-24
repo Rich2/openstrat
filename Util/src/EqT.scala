@@ -3,16 +3,14 @@ package ostrat
 
 /** Equals type class trait has one method eqT that tests Equality on 2 values of type T. */
 trait EqT[A]
-{
-  /** Tests Equality on 2 values of type T. */
+{ /** Tests Equality on 2 values of type T. */
   def eqT(a1: A, a2: A): Boolean
 }
 
 /** The companion object for the EqT type class, containing instances for common types. This does not currently use a functor instance for a number of
  * reasons. */
 object EqT
-{
-  /** Implicit [[EqT]] type class instance for [[Int]]. */
+{ /** Implicit [[EqT]] type class instance for [[Int]]. */
   given intEv: EqT[Int] = (a1, a2) => a1 == a2
 
   /** Implicit [[EqT]] type class instance for [[Double]]. */
