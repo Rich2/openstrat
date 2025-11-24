@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest._
+import utest.*
 
 /** Test object for our own immutable wrapper. Types have been deliberately left unannotated to test demonstrated type inference.*/
 object ArrPrimitivesTest extends TestSuite

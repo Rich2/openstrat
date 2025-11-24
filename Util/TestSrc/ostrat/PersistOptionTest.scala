@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import utest._
+import utest.*
 
 object PersistOptionTest extends TestSuite
 {
@@ -18,8 +18,7 @@ object PersistOptionTest extends TestSuite
   val tests = Tests {
     val noi: Option[Int] = None
     test("None")
-    {
-      None.str ==> "None"
+    { None.str ==> "None"
       "None".findType[None.type] ==> Succ(None)
       None.str.enCurly ==> "None".enCurly
       None.show(ShowSemis).enCurly ==> " ".enCurly
@@ -27,29 +26,27 @@ object PersistOptionTest extends TestSuite
       None.show(ShowStd).enCurly ==> " ".enCurly
       noi.show(ShowCommas).enCurly ==> " ".enCurly
       List[Option[Int]](Some(4), None, Some(8), None).str ==> "Seq(4; ; 8; ;)"
-      //"".asType[None.type] ==> Good(None)
+      "".asType[None.type] ==> Succ(None)
     }    
 
     val sm5: Option[Int] = Some(-5)
 
     test("Some")
-    {
-      sm5.str ==> "-5"
-      //"-78.2".findType[Some[Double]] ==> Good(Some(-78.2))
-      //"-78.2".findType[Option[Double]] ==> Good(Some(-78.2))
-     // "Some(-78.2)".findType[Some[Double]] ==> Good(Some(-78.2))
-     // "Some(-78.2)".findType[Option[Double]] ==> Good(Some(-78.2))
+    { sm5.str ==> "-5"
+      "-78.2".findType[Some[Double]] ==> Succ(Some(-78.2))
+      "-78.2".findType[Option[Double]] ==> Succ(Some(-78.2))
+      "Some(-78.2)".findType[Some[Double]] ==> Succ(Some(-78.2))
+      "Some(-78.2)".findType[Option[Double]] ==> Succ(Some(-78.2))
     }
     
     test("Option")
-    {
-      /*val oa: Option[Int] = Some(5)
+    { val oa: Option[Int] = Some(5)
       oa.str ==> "5"
       t1.str ==> t1Str
-      //"27".findType[Some[Int]] ==> Good(Some(27))
-      t1Str.findType[Test1] ==> Good(Test1(Some(5), 4, Some(2.0)))
+      "27".findType[Some[Int]] ==> Succ(Some(27))
+      t1Str.findType[Test1] ==> Succ(Test1(Some(5), 4, Some(2.0)))
       t2.str ==> "Test1(; 7; ;)"
-      "Test1(; 7; ;)".findType[Test1] ==> Good(Test1(None, 7, None))  */
+      "Test1(; 7; ;)".findType[Test1] ==> Succ(Test1(None, 7, None))
     }
   }
 }

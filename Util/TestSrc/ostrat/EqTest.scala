@@ -6,7 +6,7 @@ object EqTest extends TestSuite
 {
   val tests = Tests {
     val d1 = 1.0 / 3
-    "Test1" -
+    test("Test1")
     { assert(4.0 === 4.0)
       assert(-5.0 !== 5.0)
       assert(d1 * 3 === 1.0 )

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest._
+import utest.*
 
 object OptionTest extends TestSuite
 {
@@ -11,7 +11,7 @@ object OptionTest extends TestSuite
 //    val i2 = OptOld(5)
     //def fa(opt: OptInt): Opt[String] = opt.map(_.toString)
 
-    "test1" -
+    test("test1")
     {
       i1.toString ==> "NoInt"
       None.str ==> "None"

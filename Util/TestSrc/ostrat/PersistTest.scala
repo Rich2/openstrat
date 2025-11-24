@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest._
+import utest.*
 
 object PersistTest extends TestSuite
 {
@@ -40,16 +40,16 @@ object PersistTest extends TestSuite
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
-//      mc.str ==> "My2(7, 8, 9; \"hi\")"
-//      abSeq.str ==> sStr
-     // abRefs.str ==> sStr
+      mc.str ==> "My2(7, 8, 9; \"hi\")"
+      abSeq.str ==> sStr
+      abRefs.str ==> sStr
     }
 
-    "Persist Other" -
-    {
-      //aaStr.findType[TestClass] ==> Good(TestObjA)
-      //abArr.str.findType[List[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
-      //  abSeq.str.findType[ArrOld[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
+    val abArr = RArr(TestObjA, TestObjB)
+    test("Persist Other")
+    { aaStr.findType[TestClass] ==> Succ(TestObjA)
+      abArr.str.findType[List[TestClass]] ==> Succ(List(TestObjA, TestObjB))
+      abSeq.str.findType[RArr[TestClass]] ==> Succ(RArr(TestObjA, TestObjB))
     }
   }
 }
