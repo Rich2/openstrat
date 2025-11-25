@@ -66,12 +66,12 @@ trait BlockRaw
   def endMem: Statement = statements.lastFold(Statement.none){ st => st}
 }
 
-/** A syntactic block of [[Statement]]s, may be encapsulated by a file of pair of matching braces." */
+/** A syntactic block of [[Statement]]s, may be encapsulated by a file of pair of matching braces. */
 trait BlockStatements extends ExprSeqNonEmpty
 { def statements: RArr[Statement]
   def exprs: RArr[ColonMemExpr] = statements.map(_.expr).asInstanceOf[RArr[ColonMemExpr]]
-  def startMem: Statement = statements.head
-  def endMem: Statement = statements.last
+  override def startMem: Statement = statements.head//Else()
+  override def endMem: Statement = statements.last
 }
 
 case class FileStatements(statements: RArr[Statement]) extends BlockStatements

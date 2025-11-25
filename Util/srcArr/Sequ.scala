@@ -45,6 +45,12 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   /** Is this sequence non-empty? */
   @inline def nonEmpty: Boolean = length > 0
 
+  /** Returns the head element unless this [[Sequ]] is empty, in which case it returns the elseValue. */
+  def headElse(elseValue: => A @uncheckedVariance): A = ife(length > 0, apply(0), elseValue)
+
+  /** Returns the last element unless this [[Sequ]] is empty, in which case it returns the elseValue. */
+  def lastElse(elseValue: => A @uncheckedVariance): A = ife(length > 0, apply(length - 1), elseValue)
+
   /** Folds over the non-existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a
    * separate parameter list is a function on the head element. */
   def headFold[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
