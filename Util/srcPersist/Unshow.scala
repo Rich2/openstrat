@@ -259,7 +259,7 @@ trait UnshowPriority2 extends UnshowPriority3
   }
 
   /** Implicit [[Unshow]] type class instance / evidence method for [[Some]] objects. */
-  implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
+  given someUnShowImplicit[A](using ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
   { override def typeStr: String = "Some" + ev.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[Some[A]] = expr match

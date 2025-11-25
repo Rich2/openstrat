@@ -50,7 +50,7 @@ object TextPosn
     def failAst(detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(thisTextPosn, detail))
   }
   
-  implicit val persistEV: Persist3Both[String, Int, Int, TextPosn] =
+  given persistEV: Persist3Both[String, Int, Int, TextPosn] =
     Persist3Both[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum, "linePosn", _.linePosn, apply)
 }
 
