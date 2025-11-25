@@ -16,6 +16,8 @@ case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)
   def shortStr: String =  lineNum.toString.appendCommas(linePosn.toString)
 }
 
+object TextVoid extends TextPosn("Void", 0 , 0)
+
 object StrPosn
 { def apply(lineNum: Int = 1, linePosn: Int = 1): TextPosn = TextPosn("String", lineNum, linePosn)
   def unapply(inp: TextPosn): Option[(Int, Int)] = inp match
@@ -64,16 +66,16 @@ object TextSpan
 
 /** The purpose of this trait is to give the position span of the syntax from its opening and closing components. */
 trait TextSpanCompound extends TextSpan
-{ def startMem: TextSpan
-  def endMem: TextSpan
-  override def startPosn = startMem.startPosn
-  override def endPosn = endMem.endPosn
+{ //def startMem: TextSpan
+  //def endMem: TextSpan
+  //override def startPosn: TextPosn = startMem.startPosn
+  //override def endPosn: TextPosn = endMem.endPosn
 }
 
 object TextSpanCompound
 { /** needs adjusting for empty Seq */
   implicit class FilePosnSeqImplicit(thisSeq: Seq[TextSpan]) extends TextSpanCompound
-  { override def startMem = thisSeq.head
-    override def endMem = thisSeq.last
+  { override def startPosn: TextPosn = thisSeq.headOption.fold(TextVoid)(_.startPosn)
+    override def endPosn: TextPosn = thisSeq.lastOption.fold(TextVoid)(_.startPosn)
   }
 }

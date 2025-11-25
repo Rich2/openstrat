@@ -61,7 +61,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Tries to parse this String as an [[Int]] expression. */
   def asInt: ErrBi[Exception, Int] = asType[Int]
 
-  /** Tries to parse this String as an [[Int]] expression, if fails returns the elseValue with a defualt of 0. */
+  /** Tries to parse this String as an [[Int]] expression, if fails returns the elseValue with a default of 0. */
   def asIntElse(elseValue: Int = 0): Int = asType[Int].getElse(elseValue)
 
   /** Tries to parse this String as a natural non-negative [[Int]] expression. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The top level compositional unit of Syntax in CRON: Compact Readable Object Notation. A statement can be claused consisting of comma separated clauses
@@ -91,12 +91,9 @@ object Statement
       case IdentifierToken(str) => Succ(StrArr(str))
       case exprSeq: ExprSeqExpr =>
       {
-        val opt = exprSeq.exprs.optAllMap { expr =>
-          expr match
-          {
-            case IdentifierToken(str) => Some(str)
-            case _ => None
-          }
+        val opt = exprSeq.exprs.optAllMap {
+          case IdentifierToken(str) => Some(str)
+          case _ => None
         }
         opt.toErrBi
       }
@@ -210,16 +207,16 @@ object Statement
 
 /** An un-claused Statement that is not the empty statement. */
 case class StatementNoneEmpty(expr: Expr, optSemi: Option[SemicolonToken] = None) extends Statement, TextSpanCompound
-{ def startMem: TextSpan = expr
-  def endMem: TextSpan = optSemi.fld(expr, sc => sc)
+{ override def startPosn: TextPosn = expr.startPosn
+  override def endPosn: TextPosn = optSemi.fld(expr.endPosn, _.endPosn)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class StatementEmpty(st: SemicolonToken) extends Statement, TextSpanCompound
 { override def expr: ColonMemExpr = st
   override def optSemi: Option[SemicolonToken] = Some(st)
-  override def startMem: TextSpan = st
-  override def endMem: TextSpan = st
+  override def startPosn: TextPosn = st.startPosn
+  override def endPosn: TextPosn = st.endPosn
   def asError[A]: FailExc = st.failExc("Empty Statement")
 }
 

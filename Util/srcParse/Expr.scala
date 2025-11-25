@@ -70,8 +70,8 @@ trait BlockRaw
 trait BlockStatements extends ExprSeqNonEmpty
 { def statements: RArr[Statement]
   def exprs: RArr[ColonMemExpr] = statements.map(_.expr).asInstanceOf[RArr[ColonMemExpr]]
-  override def startMem: Statement = statements.head//Else()
-  override def endMem: Statement = statements.last
+  override def startPosn: TextPosn = statements.headFold(TextVoid)(_.startPosn)
+  override def endPosn: TextPosn = statements.lastFold(TextVoid)(_.endPosn)
 }
 
 case class FileStatements(statements: RArr[Statement]) extends BlockStatements
@@ -84,41 +84,41 @@ case class StringStatements(statements: RArr[Statement]) extends BlockStatements
 
 case class ClausesExpr(clauses: RArr[Clause]) extends ExprSeqNonEmpty
 { override def exprs: RArr[ClauseMemExpr] = clauses.map(_.expr)
-  def startMem: ClauseMemExpr = exprs.head
-  def endMem: ClauseMemExpr = exprs.last
+  override def startPosn: TextPosn = exprs.headFold(TextVoid)(_.startPosn)
+  override def endPosn: TextPosn = exprs.lastFold(TextVoid)(_.endPosn)
   override def exprName: String = "Claused Expr"
 }
 
 case class UnimplementedExpr(bMems: RArr[BlockMem]) extends CompoundClauseMemExpr
-{ def startMem: BlockMem = bMems.head
-  def endMem: BlockMem = bMems.last
+{ override def startPosn: TextPosn = bMems.headFold(TextVoid)(_.startPosn)
+  override def endPosn: TextPosn = bMems.lastFold(TextVoid)(_.endPosn)
   override def exprName: String = "UnimplementedExpr"
 }
 
 /** An Identifier Token followed by 1 or more brace blocks. */
 case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStructure]) extends CompoundClauseMemExpr
-{ def startMem: IdentifierToken = name
-  def endMem: BracketedStructure = blocks.last
+{ override def startPosn: TextPosn = name.startPosn
+  override def endPosn: TextPosn = blocks.last.endPosn
   override def exprName: String = "AlphaBracketExpr"
 }
 
 case class PreOpExpr(op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
-{ override def startMem: OperatorToken = op
-  override def endMem: AssignMemExpr = right
+{ override def startPosn: TextPosn = op.startPosn
+  override def endPosn: TextPosn = right.endPosn
   override def exprName: String = "PreOpExpr"
   def opStr: String = op.srcStr
 }
 
 case class InfixOpExpr(left: ClauseMemExpr, op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
-{ override def startMem: AssignMemExpr = left
-  override def endMem: AssignMemExpr = right
+{ override def startPosn: TextPosn = left.startPosn
+  override def endPosn: TextPosn = right.endPosn
   override def exprName: String = "PreOpExpr"
   def opStr: String = op.srcStr
 }
 
 case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMemExpr) extends CompoundExpr
-{ override def startMem: AssignMemExpr = left
-  override def endMem: AssignMemExpr = right
+{ override def startPosn: TextPosn = left.startPosn
+  override def endPosn: TextPosn = right.endPosn
   override def exprName: String = "AsignExpr"
 }
 
@@ -132,14 +132,14 @@ object AsignExprName
 }
 
 case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr, AssignMemExpr, AssignMem
-{ override def startMem: ColonMemExpr = left
-  override def endMem: ColonMemExpr = right
+{ override def startPosn: TextPosn = left.startPosn
+  override def endPosn: TextPosn = right.endPosn
   override def exprName: String = "ColonExpr"
 }
 
 case class SpacedExpr(exprs: RArr[ColonMemExpr]) extends CompoundClauseMemExpr
-{ override def startMem: ColonMemExpr = exprs(0)
-  override def endMem: ColonMemExpr = exprs.last
+{ override def startPosn: TextPosn = exprs.headFold(TextVoid)(_.startPosn)
+  override def endPosn: TextPosn = exprs.lastFold(TextVoid)(_.endPosn)
   override def exprName: String = "SpacedExprs"
 }
 

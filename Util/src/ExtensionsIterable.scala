@@ -10,7 +10,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisIter.isEmpty) vEmpty else vNonEmpty
   /** Checks condition against head. Returns false if the collection is empty. */
   def ifHead(f: A => Boolean) : Boolean = thisIter.ifEmpty(false, f(thisIter.head))  
-  def headOrElse(vEmpty: A): A = if (thisIter.isEmpty) vEmpty else thisIter.head
+  def headElse(vEmpty: A): A = if (thisIter.isEmpty) vEmpty else thisIter.head
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
     thisIter.ifEmpty("", thisIter.tail.foldLeft(f(thisIter.head))(_ + seperator + f(_)))
   def toStrsCommaFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold(", ", fToStr)

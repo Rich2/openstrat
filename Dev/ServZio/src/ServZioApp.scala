@@ -7,7 +7,7 @@ object ServZioApp extends ZIOAppDefault
   def hPage(str: String): Handler[Any, Nothing, Any, Response] = handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.html)))
   val handHome: Handler[Any, Nothing, Any, Response] = hPage(pDev.IndexPage.out)
   def cssHan(css: CssRulesWithString): Handler[Any, Nothing, Any, Response] = handler(Response.text(css()).addHeader(Header.ContentType(MediaType.text.css)))
-  val dirStr: ZIO[ZIOAppArgs, Nothing, String] = getArgs.map(strs => strs.headOrElse("/assets"))
+  val dirStr: ZIO[ZIOAppArgs, Nothing, String] = getArgs.map(strs => strs.headElse("/assets"))
   val args: ZIO[ZIOAppArgs, Nothing, Chunk[String]] = getArgs
   val str1: ZIO[ZIOAppArgs, Nothing, String] = args.map{ strs => if (strs.isEmpty) "~" else strs(0) }
 
