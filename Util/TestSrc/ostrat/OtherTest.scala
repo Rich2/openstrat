@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest._
+import utest.*
 
 /** Test for top level methods. */
 object OtherTest extends TestSuite
@@ -19,7 +19,7 @@ object OtherTest extends TestSuite
     val op3: Option[Double] = Some(3.2)
     val op4: Option[Int] = None
     test("Option companion object")
-    { Option.map2(op1, op2)(_ + "! " + _) ==> Some("5! Wow")
+    { Option.map2(op1, op2)(_.str + "! " + _) ==> Some("5! Wow")
       Option.map3(op1, op2, op3)((s1, s2, s3) => s1 + s2.length + s3) ==> Some(11.2)
       Option.map4(op1, op2, op3, op4)((s1, s2, s3, s4) => s1 + s2.length + s3 + s4) ==> None
     }

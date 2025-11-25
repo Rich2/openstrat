@@ -30,6 +30,7 @@ package object pParse
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): ErrBiArr[ExcLexar, Token] = plex.lexSrc(srcStr.toCharArray, "String")
 
+  /** Returns true Char is operator char. */
   def isOperator(char: Char): Boolean = char match
   { case '+' | '-' | '*' | '/' | '=' | ':'  => true
     case _ => false

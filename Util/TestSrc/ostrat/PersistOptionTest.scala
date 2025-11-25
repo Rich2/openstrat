@@ -6,8 +6,8 @@ object PersistOptionTest extends TestSuite
 {
   case class Test1(a: Option[Int], b: Int, c: Option[Double])
   object Test1
-  { implicit val showEv: Show3[Option[Int], Int, Option[Double], Test1] = Show3[Option[Int], Int, Option[Double], Test1]("Test1", "a", _.a, "b", _.b, "c", _.c)
-    implicit val unShowEv: Unshow3[Option[Int], Int, Option[Double], Test1] = Unshow3[Option[Int], Int, Option[Double], Test1]("Test1", "a", "b", "c", apply)
+  { given showEv: Show3[Option[Int], Int, Option[Double], Test1] = Show3[Option[Int], Int, Option[Double], Test1]("Test1", "a", _.a, "b", _.b, "c", _.c)
+    given unShowEv: Unshow3[Option[Int], Int, Option[Double], Test1] = Unshow3[Option[Int], Int, Option[Double], Test1]("Test1", "a", "b", "c", apply)
   }
   val t1 = Test1(Some(5), 4, Some(2.0))
   val t1Str = "Test1(5; 4; 2)"
