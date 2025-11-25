@@ -9,7 +9,7 @@ object Km460Test extends TestSuite
     val gs = scen.gridSys
     val corners = scen.corners
   
-    val sPoly: PolygonHvOffset = corners.sepPoly(HSep(72, 10750))(gs)
+    val sPoly: PolygonHvOffset = corners.sepPoly(HSep(72, 10750))(using gs)
     test("SidePoly"){
       sPoly.numVerts ==> 6
     }

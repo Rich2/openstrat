@@ -50,7 +50,7 @@ def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, srcsStr).settings(
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, moduleDir.value / "Test/src"),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.9.1" % "test" withSources() withJavadoc(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.9.2" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>

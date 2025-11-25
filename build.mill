@@ -11,7 +11,7 @@ trait Common extends ScalaModule
 trait CommonJvm extends Common
 { Outer =>
   trait InnerTests extends ScalaTests
-  { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.1")
+  { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.2")
     def testFramework = "utest.runner.Framework"
     def sources = Task.Sources(Outer.moduleDir / "TestSrc", moduleDir / "src")
     def resources = Task.Sources(Outer.moduleDir / "TestRes", moduleDir / "res")
