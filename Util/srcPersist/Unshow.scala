@@ -278,6 +278,7 @@ trait UnshowPriority3
     override def fromExpr(expr: Expr): ExcMon[None.type] = expr match
     { case IdentUpperToken(_, "None") => Succ(None)
       case eet: EmptyExprToken => Succ(None)
+      case st: StringStatements if st.statements.length == 0 => Succ(None)
       case e => expr.exprParseErr
     }
   }

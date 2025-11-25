@@ -10,7 +10,7 @@ object PersistOptionTest extends TestSuite
     implicit val unShowEv: Unshow3[Option[Int], Int, Option[Double], Test1] = Unshow3[Option[Int], Int, Option[Double], Test1]("Test1", "a", "b", "c", apply)
   }
   val t1 = Test1(Some(5), 4, Some(2.0))
-  val t1Str = "Test1(5; 4; 2.0)"  
+  val t1Str = "Test1(5; 4; 2)"
   val t2 = Test1(None, 7, None) 
   
   case class Test2(t1: Test1, t2: Test1)
@@ -45,7 +45,7 @@ object PersistOptionTest extends TestSuite
       t1.str ==> t1Str
       "27".findType[Some[Int]] ==> Succ(Some(27))
       t1Str.findType[Test1] ==> Succ(Test1(Some(5), 4, Some(2.0)))
-      t2.str ==> "Test1(; 7; ;)"
+      t2.str ==> "Test1( ; 7; ;)"
       "Test1(; 7; ;)".findType[Test1] ==> Succ(Test1(None, 7, None))
     }
   }
