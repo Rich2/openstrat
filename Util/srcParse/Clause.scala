@@ -9,9 +9,9 @@ case class Clause(expr: ClauseMemExpr, optComma: Option[CommaToken]) extends Tex
 }
 
 /** Empty Clause class, represented by just a comma. */
-class EmptyClause(ct: CommaToken) extends Clause(ct, Some(ct)) with TextSpanCompound
-{ override def startPosn = ct.startPosn
-  override def endPosn = ct.endPosn
+class EmptyClause(ct: CommaToken) extends Clause(ct, Some(ct)) with TextSpanMems
+{ override def startMem = ct
+  override def endMem = ct
 }
 
 /** Factory object for the empty clause. Not sure if it is necessary */

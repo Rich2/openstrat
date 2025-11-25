@@ -206,17 +206,17 @@ object Statement
 }
 
 /** An un-claused Statement that is not the empty statement. */
-case class StatementNoneEmpty(expr: Expr, optSemi: Option[SemicolonToken] = None) extends Statement, TextSpanCompound
+case class StatementNoneEmpty(expr: Expr, optSemi: Option[SemicolonToken] = None) extends Statement
 { override def startPosn: TextPosn = expr.startPosn
   override def endPosn: TextPosn = optSemi.fld(expr.endPosn, _.endPosn)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
-case class StatementEmpty(st: SemicolonToken) extends Statement, TextSpanCompound
+case class StatementEmpty(st: SemicolonToken) extends Statement, TextSpanMems
 { override def expr: ColonMemExpr = st
   override def optSemi: Option[SemicolonToken] = Some(st)
-  override def startPosn: TextPosn = st.startPosn
-  override def endPosn: TextPosn = st.endPosn
+  override def startMem: SemicolonToken = st
+  override def endMem: SemicolonToken = st
   def asError[A]: FailExc = st.failExc("Empty Statement")
 }
 

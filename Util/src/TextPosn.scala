@@ -62,20 +62,18 @@ trait TextSpan
 
 object TextSpan
 { def empty = new TextSpan{def startPosn = TextPosn.empty; def endPosn = TextPosn.empty }
-}
 
-/** The purpose of this trait is to give the position span of the syntax from its opening and closing components. */
-trait TextSpanCompound extends TextSpan
-{ //def startMem: TextSpan
-  //def endMem: TextSpan
-  //override def startPosn: TextPosn = startMem.startPosn
-  //override def endPosn: TextPosn = endMem.endPosn
-}
-
-object TextSpanCompound
-{ /** needs adjusting for empty Seq */
-  implicit class FilePosnSeqImplicit(thisSeq: Seq[TextSpan]) extends TextSpanCompound
+  /** needs adjusting for empty Seq */
+  implicit class FilePosnSeqImplicit(thisSeq: Seq[TextSpan]) extends TextSpan
   { override def startPosn: TextPosn = thisSeq.headOption.fold(TextVoid)(_.startPosn)
     override def endPosn: TextPosn = thisSeq.lastOption.fold(TextVoid)(_.startPosn)
   }
+}
+
+/** The purpose of this trait is to give the position span of the syntax from its opening and closing components. */
+trait TextSpanMems extends TextSpan
+{ def startMem: TextSpan
+  def endMem: TextSpan
+  override def startPosn: TextPosn = startMem.startPosn
+  override def endPosn: TextPosn = endMem.endPosn
 }

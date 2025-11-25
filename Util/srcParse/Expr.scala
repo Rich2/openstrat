@@ -31,10 +31,10 @@ trait ColonMemExpr extends AssignMemExpr, ColonOpMem
 trait ClauseMemExpr extends ColonMemExpr, ClauseMem
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundExpr extends Expr, TextSpanCompound
+trait ExprMems extends Expr, TextSpanMems
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundClauseMemExpr extends CompoundExpr, ClauseMemExpr
+trait CompoundClauseMemExpr extends ClauseMemExpr
 
 /** A sequence of expressions that is itself an expression. It can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqExpr extends ColonMemExpr
@@ -116,9 +116,9 @@ case class InfixOpExpr(left: ClauseMemExpr, op: OperatorToken, right: ClauseMemE
   def opStr: String = op.srcStr
 }
 
-case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMemExpr) extends CompoundExpr
-{ override def startPosn: TextPosn = left.startPosn
-  override def endPosn: TextPosn = right.endPosn
+case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMemExpr) extends ExprMems
+{ override def startMem: AssignMemExpr = left
+  override def endMem: AssignMemExpr = right
   override def exprName: String = "AsignExpr"
 }
 
@@ -131,9 +131,9 @@ object AsignExprName
   }
 }
 
-case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr, AssignMemExpr, AssignMem
-{ override def startPosn: TextPosn = left.startPosn
-  override def endPosn: TextPosn = right.endPosn
+case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends ExprMems, AssignMemExpr, AssignMem
+{ override def startMem: ColonMemExpr = left
+  override def endMem: ColonMemExpr = right
   override def exprName: String = "ColonExpr"
 }
 
