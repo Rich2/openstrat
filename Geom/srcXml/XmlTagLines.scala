@@ -17,9 +17,9 @@ trait XmlTagLines extends XmlElem, XHmlTagLines
       val oldArray: Array[String] = cons.lines
       val newArray = new Array[String](oldArray.length + 2)
       newArray(0) = openTag(indent, indent)
-      newArray(1) = childIndent.nlSpaces + oldArray(0)
+      newArray(1) = childIndent.spaces + oldArray(0)
       Array.copy(oldArray, 1, newArray, 2, oldArray.length - 1)
-      newArray(oldArray.length + 1) = indent.nlSpaces + closeTag
+      newArray(oldArray.length + 1) = indent.spaces + closeTag
       new TextLines(newArray)
     }
   }

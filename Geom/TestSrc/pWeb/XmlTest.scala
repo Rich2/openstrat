@@ -29,7 +29,7 @@ object XmlTest extends TestSuite
   val cities0Out = """<Cities/>"""
   val cities1 = Cities(RArr(wash))
   val cities2 = Cities(RArr(wash, bost))
-  val usa1 = Country("USA", cities2)
+  val usa1: Country = Country("USA", cities2)
   val country1Out: String = usa1.out
 
   val tests = Tests {

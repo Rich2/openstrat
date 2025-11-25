@@ -124,7 +124,9 @@ def geomSett = List(
    map(s => bbDir.value / "Geom" / s),
 )
 
-lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett)
+lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett).settings(
+  Test/unmanagedResourceDirectories += bbDir.value / "User",
+)
 
 lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),

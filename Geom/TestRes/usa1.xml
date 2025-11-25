@@ -1,7 +1,6 @@
 <Country>
   <name>USA</name>
   <Cities>
-    <City>Washington</City>
-    <City>Boston</City>
+    <City>Washington</City> <City>Boston</City>
   </Cities>
 </Country>

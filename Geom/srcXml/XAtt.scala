@@ -13,6 +13,8 @@ trait XAtt
   /** Returns the text lines for the value of this attribute. */
   protected def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
 
+  def out: String = out(0, 0, MaxLineLen)
+  
   def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
     name + "=" + valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen).text.enquote1
 
