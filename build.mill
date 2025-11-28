@@ -42,7 +42,7 @@ object UtilJs extends CommonJs
 
 object UtilDocJs extends CommonJs
 {
-
+  def moduleDeps = Seq(GeomJs)
 }
 
 object Geom extends CommonJvm
@@ -208,6 +208,7 @@ object AppJs extends Module
   object ChessApp extends Base { def name = "Chess" }
 }
 
+/** Scala Operating System documentation. Currently no scala code for the project. */
 object ScalaOSDoc extends CommonJvm
 { def moduleDeps = Seq(UtilDoc)
 }

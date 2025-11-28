@@ -33,6 +33,9 @@ object SvgSvgRel
   { val rect: Rect = Rect.bounding(contents).addHorrVertMargin(horrMargin, vertMargin)
     new SvgSvgRel(rect.left, -rect.top, rect.width, rect.height, contents.flatMap(_.svgElems), otherAtts)
   }
+
+  /** Produced an SVG XML element with a square viewBox centered on the origin. */
+  def square(width: Double, contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-width / 2, -width / 2, width, width, contents.flatMapArr(_.svgElems), RArr())
 }
 
 /** XML SVG element with a width and height. */
