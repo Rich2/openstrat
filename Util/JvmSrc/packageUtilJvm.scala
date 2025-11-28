@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*, java.io.*, java.nio.file.NotDirectoryException
 
@@ -21,7 +21,7 @@ package object utiljvm
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
 
-  /** Find the [[String]] for the Identifer value of o setting of the given name in the file DevSettings.rson. */
+  /** Find the [[String]] for the identifier value of o setting of the given name in the file DevSettings.rson. */
   def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */

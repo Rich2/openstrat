@@ -208,8 +208,12 @@ object AppJs extends Module
   object ChessApp extends Base { def name = "Chess" }
 }
 
+object ScalaOSDoc extends CommonJvm
+{ def moduleDeps = Seq(UtilDoc)
+}
+
 object DevDoc extends CommonJvm
-{ def moduleDeps = Seq(GeomDoc, TilingDoc, EGridDoc, AppsDoc)
+{ def moduleDeps = Seq(GeomDoc, TilingDoc, EGridDoc, AppsDoc, ScalaOSDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Dev" / "DevDoc" / name)*)
 
   object DevDocJs extends CommonJs
