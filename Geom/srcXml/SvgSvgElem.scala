@@ -38,14 +38,22 @@ object SvgSvgRel
   def square(width: Double, contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-width / 2, -width / 2, width, width, contents.flatMapArr(_.svgElems), RArr())
 }
 
-/** XML SVG element with a width and height. */
+object FaviconSvg
+{ /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. */
+  def apply(contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-100 / 2, -100 / 2, 100, 100, contents.flatMapArr(_.svgElems), RArr())
+
+  /** Produced an SVG XML element with a square viewBox centered on the origin. */
+  def width(width: Double, contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-width / 2, -width / 2, width, width, contents.flatMapArr(_.svgElems), RArr())
+}
+
+/** XML SVG element with a given width and height. */
 class SvgSvgScaled(val width: Double, val height: Double, val vbX: Double, val vbY: Double, val vbWidth: Double, vbHeight: Double,
   val contents: RArr[XConCompound], val otherAttribs: RArr[XAtt]) extends SvgSvgElem
 { override def attribs: RArr[XAtt] = RArr(WidthAtt(width), HeightAtt(height), XminsSvg, ViewBox(vbX, vbY, vbWidth, vbHeight)) ++ otherAttribs
 }
 
 object SvgSvgScaled
-{
+{ /** Factory apply method for XML SVG element with a given width and height. */
   def apply(rect: Rect, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): SvgSvgScaled =
     new SvgSvgScaled(rect.width, rect.height, rect.left, -rect.top, rect.width, rect.height, contents.flatMap(_.svgElems), otherAtts)
 }
