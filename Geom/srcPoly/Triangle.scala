@@ -83,9 +83,8 @@ object Triangle
 
 		override def vertsTrans(f: Pt2 => Pt2): TriangleGen = TriangleGen(f(v0), f(v1), f(v2))
 
-		/** A method to perform all the [[AffinePreserve]] transformations with a function from PT2 => PT2. This is delegated to the VertsTrans method as a
-		 * TriangleImp is specified by its vertices. This is not the case for all Polygons. */
-		override def ptsTrans(f: Pt2 => Pt2): TriangleGen = vertsTrans(f)
+		
+		override def ptsTrans(f: Pt2 => Pt2): TriangleGen = vertsTrans(f)    
 	}
 
 	object TriangleGen

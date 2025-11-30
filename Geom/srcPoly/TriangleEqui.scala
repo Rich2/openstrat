@@ -4,7 +4,12 @@ import pWeb.*
 
 trait TriangleEqui extends TriangleIsos
 {
-  
+  //override def slate(xOperand: Double, yOperand: Double): Triangle = super.slate(xOperand, yOperand)
+}
+
+object TriangleEqui
+{ /** Factory apply method for equilateral triangle. */
+  def apply(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double): TriangleEqui = new TriangleEquiGen(v0x, v0y, v1x, v1y, v2x, v2y)
 }
 
 /** Equilateral triangle. will become a trait. */
