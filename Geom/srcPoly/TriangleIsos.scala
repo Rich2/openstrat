@@ -7,7 +7,7 @@ trait TriangleIsos extends Triangle
 { type ThisT <: TriangleIsos
   override def typeStr: String = "TriangleIsos"
 
-  /** The height of this isosceles triangle from the bisection of the thrid side to the vertex where the 2 equal length sides meet. */
+  /** The height of this isosceles triangle from the bisection of the third side to the vertex where the 2 equal length sides meet. */
   def height: Double = ???
 }
 
