@@ -35,11 +35,15 @@ trait Triangle extends Polygon3Plus
 	def xCen: Double = (v0x + v1x + v2x) / 3
 	def yCen: Double = (v0y + v1y + v2y) / 3
 
+  final override def sd0CenX: Double = v0x \/ v1x
+  final override def sd0CenY: Double = v0y \/ v1y
+  final override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+
 	final override def vLastX: Double = v2x
 	final override def vLastY: Double = v2y
 	final override def vLast: Pt2 = Pt2(v2x, v2y)
-
-	final override def sides: LSeg2Arr = ??? // new LineSegArr(Array(v0x, v0y,))
+  final override def side0: LSeg2 = LSeg2(v0x, v0y, v1x, v1y)
+	final override def sides: LSeg2Arr = new LSeg2Arr(Array(v0x, v0y, v1x, v1y, v2x, v2y))
 
 	final override def elem(index: Int): Pt2 = index %% 3 match
 	{ case 0 => v0
@@ -82,11 +86,6 @@ object Triangle
 		/** A method to perform all the [[AffinePreserve]] transformations with a function from PT2 => PT2. This is delegated to the VertsTrans method as a
 		 * TriangleImp is specified by its vertices. This is not the case for all Polygons. */
 		override def ptsTrans(f: Pt2 => Pt2): TriangleGen = vertsTrans(f)
-
-		override def side0: LSeg2 = LSeg2(v0x, v0y, vertX(1), vertY(1))
-		override def sd0CenX: Double = v0x \/ vertX(1)
-		override def sd0CenY: Double = v0y \/ vertY(1)
-		override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 	}
 
 	object TriangleGen
