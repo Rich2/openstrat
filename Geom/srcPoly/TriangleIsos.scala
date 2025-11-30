@@ -29,6 +29,11 @@ AxisFree//, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   override def side0: LSeg2 = LSeg2(v0x, v0y, vertX(1), vertY(1))
   override def sd0CenX: Double = v0x \/ vertX(1)
   override def sd0CenY: Double = v0y \/ vertY(1)
-  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)  
+  override def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)    
+}
+
+/** An iososolese triangle with its base parralel to the X axis. */
+trait TriangleIsosParrX extends TriangleIsos
+{
   
 }
