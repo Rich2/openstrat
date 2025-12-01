@@ -250,8 +250,12 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
   }
 
   def precisionDefault: Double = ???
-  
+
+  /** Labels the vertices with text and arrow, outside the polygon. */
   def vertsTextArrows: RArr[GraphicSvgElem] = verts.iFlatMap { (i, pt) => pt.textArrowToward(cenPt, "V" + i.str) }
+
+  /** Labels the sides with text and arrow pointing to the mid point of the side, from outside the polygon. */
+  def sidesTextArrows: RArr[GraphicSvgElem] = sides.iFlatMap { (i, sd) => sd.midPt.textArrowToward(cenPt, "Sd" + i.str) }
 
   override def approx(that: Any, precision: Double): Boolean = ???
   override def attribs: RArr[XAtt] = RArr(new PointsAtt(arrayUnsafe))
