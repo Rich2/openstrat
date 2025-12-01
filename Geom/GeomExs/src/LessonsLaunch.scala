@@ -13,8 +13,8 @@ object LessonsLaunch extends GuiLaunchMore
     (res.canv, "JavaFx" -- res.title)
   }
 
-  val aList: RArr[LessonGraphics] = RArr(LsCircles1, LsSquares, LsCircles2, LsPolygons, LsRotation, LsArcs1, LsArcs2, LsShapes, LsShapesReproduction,
-    LsBeziers, LsDiagram, LsReflect, LsAHexEnum, LsATiling, LsEllipses1, LsEllipses2, LsInnerRect, LsAPolygonSides, LsAText)
+  val aList: RArr[LessonGraphics] = RArr(LsCircles1, LsSquares, LsCircles2, LsPolygons, LsRotation, LsTriangles, LsArcs1, LsArcs2, LsShapes,
+    LsShapesReproduction, LsBeziers, LsDiagram, LsReflect, LsAHexEnum, LsATiling, LsEllipses1, LsEllipses2, LsInnerRect, LsAPolygonSides, LsAText)
 
   val bList: RArr[LessonGraphics] = RArr(LsTimer, LsMovingRectangle, LsMovingRectangles2)
 

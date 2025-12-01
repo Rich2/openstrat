@@ -2,7 +2,7 @@
 package ostrat; package geom
 import pWeb.*
 
-/** An isosceles triangle. This trait is implemented by the equilateral triangle, [[TriangleEqui]] and the general case [[TriangleIsos]]. */
+/** An isosceles triangle. This trait is implemented by the equilateral triangle, [[TriEqui]] and the general case [[TriangleIsos]]. */
 trait TriangleIsos extends Triangle
 { type ThisT <: TriangleIsos
   override def typeStr: String = "TriangleIsos"
@@ -26,8 +26,22 @@ AxisFree//, PolygonLikeDbl2[Pt2], Pt2SeqSpec
   override def reflect(lineLike: LineLike): TriangleIsosGen = ???
 }
 
-/** An iososolese triangle with its base parallel to the X axis. */
-trait TriangleIsosParrX extends TriangleIsos
+/** An isosceles triangle with its base parallel to the X axis. */
+trait TriIsosParrX extends TriangleIsos
 {
   
+}
+
+object TriIsosParrX
+{
+  def apply(baseY: Double, left: Double, right: Double, apexY: Double): TriIsosParrX =
+  { val apexX = left \/ right
+    val v1x = ife(apexY >= baseY, left, apexY)
+    val v1Y = ife(apexY >= baseY, baseY, apexY)
+    new TriIsosParrXGen(right, baseY, v1x, v1Y, ife(apexY >= baseY, apexX, left), ife(apexY >= baseY, apexY, baseY))
+  }
+
+  final class TriIsosParrXGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriIsosParrX
+  { override type ThisT = TriIsosParrXGen
+  }
 }
