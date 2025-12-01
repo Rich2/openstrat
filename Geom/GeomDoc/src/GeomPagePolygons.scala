@@ -16,7 +16,7 @@ object GeomPagePolygons extends HtmlSection
   val dodec1: DoDeclign = DoDeclign(width)
   val dodec2: PolygonDraw = dodec1.draw(2, polyColour)
   val circ: CircleDraw = Circle(width).draw()
-  val verts: RArr[GraphicSvgElem] = dodec1.verts.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str) }
+  val verts: RArr[GraphicSvgElem] = dodec1.vertsTextArrows
   val sides: RArr[GraphicSvgElem] = dodec1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
   val cen: TextFixed = Pt2Z.textAt("Centre")
   val clock: RArr[GraphicSvgElem] = RArr(dodec2, circ, cen) ++ verts ++ sides

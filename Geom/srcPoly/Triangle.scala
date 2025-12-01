@@ -43,7 +43,7 @@ trait Triangle extends Polygon3Plus
 	final override def vLastY: Double = v2y
 	final override def vLast: Pt2 = Pt2(v2x, v2y)
   final override def side0: LSeg2 = LSeg2(v0x, v0y, v1x, v1y)
-	final override def sides: LSeg2Arr = new LSeg2Arr(Array(v0x, v0y, v1x, v1y, v2x, v2y))
+	final override def sides: LSeg2Arr = new LSeg2Arr(Array(v0x, v0y, v1x, v1y, v1x, v1y, v2x, v2y, v2x, v2y, v0x, v0y))
 
 	final override def elem(index: Int): Pt2 = index %% 3 match
 	{ case 0 => v0

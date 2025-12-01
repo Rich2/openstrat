@@ -41,10 +41,10 @@ object TriEquiParrX
     { val r1 = (right - left).abs * 3.sqrt / 2
       ife(apexUp, baseY + r1, baseY -r1)
     }
-    val v1x: Double = ife(apexUp, left, apexX)
+    val v0x: Double = ife(apexUp, apexX, right)
+    val v0y: Double = ife(apexUp, apexY, baseY)
+    val v1x: Double = ife(apexUp, right, apexX)
     val v1y: Double = ife(apexUp, baseY, apexY)
-    val v2x: Double = ife(apexUp, apexX, left)
-    val v2y: Double = ife(apexUp, apexY, baseY)
-    new TriEquiParrX(right, baseY, v1x, v1y, v2x, v2y)
+    new TriEquiParrX(v0x, v0y, v1x, v1y, left, baseY)
   }
 }

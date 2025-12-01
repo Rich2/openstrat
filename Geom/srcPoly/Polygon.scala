@@ -250,6 +250,8 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
   }
 
   def precisionDefault: Double = ???
+  
+  def vertsTextArrows: RArr[GraphicSvgElem] = verts.iFlatMap { (i, pt) => pt.textArrowToward(cenPt, "V" + i.str) }
 
   override def approx(that: Any, precision: Double): Boolean = ???
   override def attribs: RArr[XAtt] = RArr(new PointsAtt(arrayUnsafe))
