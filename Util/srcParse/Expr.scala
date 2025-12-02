@@ -74,14 +74,17 @@ trait BlockStatements extends ExprSeqNonEmpty
   override def endPosn: TextPosn = statements.lastFold(TextVoid)(_.endPosn)
 }
 
+/** RSON statements from a file. */
 case class FileStatements(statements: RArr[Statement]) extends BlockStatements
 { def exprName: String = "FileStatements"
 }
 
+/** RSON statements from a [[String]]. */
 case class StringStatements(statements: RArr[Statement]) extends BlockStatements
 { def exprName: String = "StringStatements"
 }
 
+/** A clause sequence expression. Maybe 0 clauses in the sequence. */
 case class ClausesExpr(clauses: RArr[Clause]) extends ExprSeqNonEmpty
 { override def exprs: RArr[ClauseMemExpr] = clauses.map(_.expr)
   override def startPosn: TextPosn = exprs.headFold(TextVoid)(_.startPosn)

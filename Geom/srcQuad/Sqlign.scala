@@ -65,7 +65,7 @@ object Sqlign
   /** Factory method for constructing [[Sqlign]] from the first three vertices, given as X and Y parameters. */
   def from3(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double): Sqlign = new Sqlign(v0x, v0y, v1x, v1y, v2x, v2y)
 
-  implicit val showEv: Show[Sqlign] = new Show[Sqlign]
+  given showEv: Show[Sqlign] = new Show[Sqlign]
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str
     override def show(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tell(way, maxPlaces, 0)
