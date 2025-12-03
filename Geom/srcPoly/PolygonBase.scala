@@ -75,11 +75,13 @@ trait PolygonBase[+VT] extends Any, VertSeqSpec[VT]
   /** Returns a side of the appropriate type for the [[PolygonBase]] from the given index. The index cycles. */
   def side(index: Int): SideT
 
+  /** Foreachs over each side with a side effecting function. */
   def sidesForeach[U](f: SideT => U): Unit
+
   def sides: Arr[SideT]
 }
 
-/** Polygon with [[ValueNElem]] vertices. [[Polygon]] does not extend this trait because special polygons such as triangles, quadrilaterals, hexagons etc are
+/** Polygon with [[ValueNElem]] vertices. [[Polygon]] does not extend this trait because special polygons such as triangles, quadrilaterals, hexagons etc. are
  * not implemented with a backing [[Array]]. */
 trait PolygonValueN[+VT <: ValueNElem] extends Any, PolygonBase[VT], SeqSpecValueN[VT]
 { override def vertsForeach[U](f: VT  => U): Unit = foreach(f)

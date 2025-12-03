@@ -24,7 +24,7 @@ object GeomPagePolygons extends HtmlSection
 
   val rect1: Rect = Rect(400, 250)
   val rect2: RectDraw = rect1.draw()
-  val verts2: RArr[GraphicSvgElem] = rect1.verts.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str + "\n" + pt.strSemiNamed()) }
+  val verts2: RArr[GraphicSvgElem] = rect1.vertsTextArrows.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str + "\n" + pt.strSemiNamed()) }
   val sides2: RArr[GraphicSvgElem] = rect1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
   
   val svg2: SvgSvgScaled =

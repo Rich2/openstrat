@@ -5,8 +5,8 @@ import ostrat.*, geom.*, Colour.*
 object LsTriangles  extends LessonStatic
 { val title = "Triangles"
 
-  val equi1 = TriEquiParrX(0, 300, 700, true)
-  val equi2 = TriEquiParrX(equi1.v0y, -700, -300, false)
+  val equi1 = TriEquiXlign(0, 300, 700, true)
+  val equi2 = TriEquiXlign(equi1.v0y, -700, -300, false)
   val rhom = Polygon(equi1.v2, equi1.sd0Cen, equi2.v1)
   val output = RArr(
     TriIsosParrX(600, -200, 200, 0).fill(Violet),

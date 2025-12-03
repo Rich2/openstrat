@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, reflect.ClassTag, annotation.unchecked.uncheckedVariance
+import Colour.Black
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any, Aff2Elem

@@ -27,15 +27,16 @@ final class TriEquiGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1
   override def reflect(lineLike: LineLike): TriEquiGen = ???
 }
 
-final class TriEquiParrX(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriEqui,
+/** An equilateral triangle, with one side, aligned to the X axis. */
+final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriEqui,
   TriIsosParrX
-{ override type ThisT = TriEquiParrX
+{ override type ThisT = TriEquiXlign
 
 }
 
-object TriEquiParrX
+object TriEquiXlign
 {
-  def apply(baseY: Double, left: Double, right: Double, apexUp: Boolean): TriEquiParrX =
+  def apply(baseY: Double, left: Double, right: Double, apexUp: Boolean): TriEquiXlign =
   { val apexX = left \/ right
     val apexY: Double =
     { val r1 = (right - left).abs * 3.sqrt / 2
@@ -45,6 +46,6 @@ object TriEquiParrX
     val v0y: Double = ife(apexUp, apexY, baseY)
     val v1x: Double = ife(apexUp, right, apexX)
     val v1y: Double = ife(apexUp, baseY, apexY)
-    new TriEquiParrX(v0x, v0y, v1x, v1y, left, baseY)
+    new TriEquiXlign(v0x, v0y, v1x, v1y, left, baseY)
   }
 }
