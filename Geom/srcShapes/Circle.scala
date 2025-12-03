@@ -91,6 +91,17 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
   { case Pt2(x, y) if x > cenX + radius | x < cenX - radius | y > cenY + radius | y < cenY - radius => false
     case Pt2(x, y) => radius >= ((x -cenX).squared + (y - cenY).squared).sqrt
   }
+
+  /** point on this circle at the given angle. */
+  def ptOn(angle: Angle): Pt2 = Pt2(cenX + radius * angle.cos, cenY + radius * angle.sin)
+
+  def degsTextArrow(degs: Double) = ptOn(degs.degs).textArrowToward(cen, degs.str + "°")
+
+  /** Equilateral triangle on this [[Circle]] with ertice pointing up. */
+  def triEquiUp: TriEquiXlign = TriEquiXlign.vertices(ptOn(90.degs), ptOn(-30.degs), ptOn(-150.degs))
+
+  /** Equilateral triangle on this [[Circle]] with vertice pointing down. */
+  def triEquiDown: TriEquiXlign = TriEquiXlign.vertices(ptOn(30.degs), ptOn(-90.degs), ptOn(150.degs))
 }
 
 /** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */

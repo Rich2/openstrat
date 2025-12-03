@@ -28,10 +28,8 @@ final class TriEquiGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1
 }
 
 /** An equilateral triangle, with one side, aligned to the X axis. */
-final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriEqui,
-  TriIsosParrX
+final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriEqui, TriIsosParrX
 { override type ThisT = TriEquiXlign
-
 }
 
 object TriEquiXlign
@@ -48,4 +46,7 @@ object TriEquiXlign
     val v1y: Double = ife(apexUp, baseY, apexY)
     new TriEquiXlign(v0x, v0y, v1x, v1y, left, baseY)
   }
+  
+  /** Returns an equilateral triangle aligned to the X axis class. The vertices are not tested. */
+  def vertices(v0: Pt2, v1: Pt2, v2: Pt2): TriEquiXlign = new TriEquiXlign(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 }
