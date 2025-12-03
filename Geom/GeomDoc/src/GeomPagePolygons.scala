@@ -16,16 +16,16 @@ object GeomPagePolygons extends HtmlSection
   val dodec1: DoDeclign = DoDeclign(width)
   val dodec2: PolygonDraw = dodec1.draw(2, polyColour)
   val circ: CircleDraw = Circle(width).draw()
-  val verts: RArr[GraphicSvgElem] = dodec1.vertsTextArrows
-  val sides: RArr[GraphicSvgElem] = dodec1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
+  val verts: RArr[GraphicSvgElem] = dodec1.vertsTextArrows()
+  val sides: RArr[GraphicSvgElem] = dodec1.sidesTextArrowsInside(12, polyColour)
   val cen: TextFixed = Pt2Z.textAt("Centre")
   val clock: RArr[GraphicSvgElem] = RArr(dodec2, circ, cen) ++ verts ++ sides
   val svg1: SvgSvgScaled = SvgSvgScaled(dodec1.boundingRect.addMargin(GeomPage.svgMargin), clock, RArr(CentreBlockAtt))
 
   val rect1: Rect = Rect(400, 250)
   val rect2: RectDraw = rect1.draw()
-  val verts2: RArr[GraphicSvgElem] = rect1.vertsTextArrows.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str + "\n" + pt.strSemiNamed()) }
-  val sides2: RArr[GraphicSvgElem] = rect1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
+  val verts2: RArr[GraphicSvgElem] = rect1.vertsTextArrows()
+  val sides2: RArr[GraphicSvgElem] = rect1.sidesTextArrowsInside(12, polyColour)
   
   val svg2: SvgSvgScaled =
     SvgSvgScaled(rect1.boundingRect.addMargin(GeomPage.svgMargin).addHorrMargin(200), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))

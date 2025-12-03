@@ -14,7 +14,7 @@ object LsTriangles  extends LessonStatic
     equi2.fill(Gold),
     equi1.fill(Blue),
     //rhom.draw()
-  ) ++ equi1.vertsTextArrows ++ equi2.vertsTextArrows ++ equi1.sidesTextArrows ++ equi2.sidesTextArrows
+  ) ++ equi1.vertsTextArrows() ++ equi2.vertsTextArrows() ++ equi1.sidesTextArrows ++ equi2.sidesTextArrows
 
   val bodyStr: String = """Triangles.""".stripMargin
 }
