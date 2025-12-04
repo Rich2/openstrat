@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb.*
 
 /** Equilateral triangle. */
-trait TriEqui extends TriangleIsos
+trait TriEqui extends TriIsos
 {
   //override def slate(xOperand: Double, yOperand: Double): Triangle = super.slate(xOperand, yOperand)
 }
@@ -28,7 +28,7 @@ final class TriEquiGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1
 }
 
 /** An equilateral triangle, with one side, aligned to the X axis. */
-final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriEqui, TriIsosParrX
+final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriEqui, TriIsosXlign
 { override type ThisT = TriEquiXlign
 }
 

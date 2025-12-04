@@ -11,13 +11,13 @@ object LsAHexEnum extends LessonStatic
   val c1: CircleDraw = Circle.d(200).draw()
   val c2: CircleDraw = Circle.d(231).draw(lineColour = DarkBlue)
 
-  val h1: HexParrX = HexParrX(200)
+  val h1: HexXlign = HexXlign(200)
   val hd: PolygonDraw = h1.draw()
   val htv: RArr[CircleFill] = h1.vertsMap(v => Circle.d(25, v).fill(Pink))
   val hts: RArr[TextFixed] = h1.vertsMap(v => TextFixed(v.str0, 15, v))
-  val h2: HexParrX = h1.slateX(-400)
+  val h2: HexXlign = h1.slateX(-400)
   val hc: RArr[LSeg2Draw] = h2.sides.iMap { (i, s) => s.draw(2, ColourArr.rainbow.cycleGet(i)) }
-  val h3d: PolygonDraw = HexParrY(231, 231, 0).draw(lineColour = DarkBlue)
+  val h3d: PolygonDraw = HexYlign(231, 231, 0).draw(lineColour = DarkBlue)
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
   { val verts: GraphicElems = hr.verts.iFlatMap{ (i, pt) => pt.textArrowToward(hr.cen, "V" + i.str) }
@@ -25,10 +25,10 @@ object LsAHexEnum extends LessonStatic
     verts ++ sides +% hr.draw(lineColour = colour) +% TextFixed(hr.str, 12, hr.cen, colour)
   }
 
-  val h4: HexParrX = HexParrX(250, 200, 290)
+  val h4: HexXlign = HexXlign(250, 200, 290)
   val h4d: GraphicElems = hexGraphics(h4, Green)
 
-  val h5: HexParrY = HexParrY(250, -200, 290)
+  val h5: HexYlign = HexYlign(250, -200, 290)
   val h5d: GraphicElems = hexGraphics(h5, DarkMagenta)
 
   val gap = 290

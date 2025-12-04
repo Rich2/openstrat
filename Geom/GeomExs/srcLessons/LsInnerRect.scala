@@ -5,7 +5,7 @@ import ostrat.*, geom.*, Colour.*
 object LsInnerRect extends LessonStatic
 { override val title: String = "Inner Rect"
   override def bodyStr: String = "Inner rectangles."
-  val hex: HexParrX = HexParrX(400)
+  val hex: HexXlign = HexXlign(400)
   val hd: PolygonDraw = hex.draw()
   val br: Rect = hex.boundingRect
   val brd = br.draw(1, Red)

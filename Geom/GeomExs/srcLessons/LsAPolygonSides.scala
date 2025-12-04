@@ -5,7 +5,7 @@ import ostrat._, geom._, Colour._
 object LsAPolygonSides extends LessonStatic
 { override val title: String = "Polygon Sides"
   override def bodyStr: String = "Polygon sides."
-  val hex: HexParrX = HexParrX(400)
+  val hex: HexXlign = HexXlign(400)
   val hd: PolygonDraw = hex.draw()
 
   val hex2 = hex.vertsMultiply(4)

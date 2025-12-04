@@ -8,17 +8,17 @@ trait Hexlign extends HexReg
   def height: Double
 
   override def rotate90: Hexlign = this match
-  { case HexParrX(h, cen) => HexParrY(h, cen.rotate90)
-    case HexParrY(w, cen) => HexParrX(w, cen.rotate90)
+  { case HexXlign(h, cen) => HexYlign(h, cen.rotate90)
+    case HexYlign(w, cen) => HexXlign(w, cen.rotate90)
   }
 
   override def rotate180: Hexlign = this match
-  { case HexParrX(h, cen) => HexParrX(h, cen.rotate180)
-    case HexParrY(w, cen) => HexParrY(w, cen.rotate180)
+  { case HexXlign(h, cen) => HexXlign(h, cen.rotate180)
+    case HexYlign(w, cen) => HexYlign(w, cen.rotate180)
   }
 
   override def rotate270: Hexlign = this match
-  { case HexParrX(h, cen) => HexParrY(h, cen.rotate270)
-    case HexParrY(w, cen) => HexParrX(w, cen.rotate270)
+  { case HexXlign(h, cen) => HexYlign(h, cen.rotate270)
+    case HexYlign(w, cen) => HexXlign(w, cen.rotate270)
   }
 }
