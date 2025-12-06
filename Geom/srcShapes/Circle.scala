@@ -249,8 +249,7 @@ class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val fChi
 }
 
 object CircleCompound
-{ 
-  
+{ /** Apply factory method for a compound [[Circle]] graphic. */
   def apply(shape: Circle, facets: RArr[GraphicFacet], fChilds: RArr[Circle => Graphic2Elem] = RArr(), adopted: RArr[Graphic2Elem] = RArr()): CircleCompound =
     new CircleCompound(shape, facets, fChilds, adopted)
   

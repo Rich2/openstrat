@@ -4,15 +4,14 @@ import pWeb.*
 
 /** Equilateral triangle. */
 trait TriEqui extends TriIsos
-{
-  override def slate(operand: VecPt2): TriEqui = TriEqui.verts(v0.slate(operand), v1.slate(operand), v2.slate(operand))
-  //override def slate(xOperand: Double, yOperand: Double): Triangle = super.slate(xOperand, yOperand)
+{ override def slate(operand: VecPt2): TriEqui = TriEqui.verts(v0.slate(operand), v1.slate(operand), v2.slate(operand))
+  override def slate(xOperand: Double, yOperand: Double): TriEqui = TriEqui.dbls(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
   override def rotate(rotation: AngleVec): TriEqui = TriEqui.verts(v0.rotate(rotation), v1.rotate(rotation), v2.rotate(rotation))
 }
 
 object TriEqui
 { /** Factory apply method for equilateral triangle. */
-  def apply(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double): TriEqui = new TriEquiGen(v0x, v0y, v1x, v1y, v2x, v2y)
+  def dbls(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double): TriEqui = new TriEquiGen(v0x, v0y, v1x, v1y, v2x, v2y)
 
   /** Constructs an equilateral triangle from its vertices. These are not checked. It is up to the user to supply valid values for the class, hence this is
    * not an apply method. */
@@ -32,6 +31,9 @@ object TriEqui
 
     override def slate(operand: VecPt2): TriEquiGen = TriEquiGen.verts(v0.slate(operand), v1.slate(operand), v2.slate(operand))
 
+    override def slate(xOperand: Double, yOperand: Double): TriEquiGen =
+      new TriEquiGen(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
+
     override def rotate(rotation: AngleVec): TriEquiGen = TriEquiGen.verts(v0.rotate(rotation), v1.rotate(rotation), v2.rotate(rotation))
     override def reflect(lineLike: LineLike): TriEquiGen = ???
   }
@@ -48,7 +50,7 @@ final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val 
 { override type ThisT = TriEquiXlign
   override def slate(operand: VecPt2): TriEquiXlign = TriEquiXlign.verts(v0.slate(operand), v1.slate(operand), v2.slate(operand))
 
-  override def slate(xOperand: Double, yOperand: Double): Triangle =
+  override def slate(xOperand: Double, yOperand: Double): TriEquiXlign =
     new TriEquiXlign(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
 }
 
