@@ -41,7 +41,16 @@ object TriIsosXlign
     new TriIsosXlignGen(right, baseY, v1x, v1Y, ife(apexY >= baseY, apexX, left), ife(apexY >= baseY, apexY, baseY))
   }
 
+  /** The general case of an isosceles triangle aligned to the X axis. */
   final class TriIsosXlignGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends TriIsosXlign
   { override type ThisT = TriIsosXlignGen
+
+    override def slate(operand: VecPt2): TriIsosXlignGen = TriIsosXlignGen.verts(v0.slate(operand), v1.slate(operand), v2.slate(operand))
+  }
+
+  object TriIsosXlignGen
+  { /** Constructs an isosceles triangle from its vertices. These are not checked. It is up to the user to supply valid values for the class, hence this is not
+     * an apply method. */
+    def verts(v0: Pt2, v1: Pt2, v2: Pt2): TriIsosXlignGen = new TriIsosXlignGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
   }
 }
