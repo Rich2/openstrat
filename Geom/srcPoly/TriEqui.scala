@@ -5,7 +5,11 @@ import pWeb.*
 /** Equilateral triangle. */
 trait TriEqui extends TriIsos
 { override def slate(operand: VecPt2): TriEqui = TriEqui.verts(v0.slate(operand), v1.slate(operand), v2.slate(operand))
-  override def slate(xOperand: Double, yOperand: Double): TriEqui = TriEqui.dbls(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
+
+  override def slate(xOperand: Double, yOperand: Double): TriEqui =
+    TriEqui.dbls(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
+
+  override def scale(operand: Double): TriEqui = TriEqui.dbls(v0x * operand, v0y * operand,v1x * operand, v1y * operand, v2x * operand, v2y * operand)
   override def rotate(rotation: AngleVec): TriEqui = TriEqui.verts(v0.rotate(rotation), v1.rotate(rotation), v2.rotate(rotation))
 }
 
@@ -34,6 +38,8 @@ object TriEqui
     override def slate(xOperand: Double, yOperand: Double): TriEquiGen =
       new TriEquiGen(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
 
+    override def scale(operand: Double): TriEquiGen = new TriEquiGen(v0x * operand, v0y * operand,v1x * operand, v1y * operand, v2x * operand, v2y * operand)
+
     override def rotate(rotation: AngleVec): TriEquiGen = TriEquiGen.verts(v0.rotate(rotation), v1.rotate(rotation), v2.rotate(rotation))
     override def reflect(lineLike: LineLike): TriEquiGen = ???
   }
@@ -52,6 +58,8 @@ final class TriEquiXlign(val v0x: Double, val v0y: Double, val v1x: Double, val 
 
   override def slate(xOperand: Double, yOperand: Double): TriEquiXlign =
     new TriEquiXlign(v0x + xOperand, v0y + yOperand, v1x + xOperand, v1y + yOperand, v2x + xOperand, v2y + yOperand)
+
+  override def scale(operand: Double): TriEquiXlign = new TriEquiXlign(v0x * operand, v0y * operand,v1x * operand, v1y * operand, v2x * operand, v2y * operand)
 }
 
 object TriEquiXlign
