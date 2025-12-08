@@ -213,7 +213,7 @@ lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
 )
 
 lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev).settings(
-  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided" withSources() withJavadoc(),
+  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.1.0" % "provided" withSources() withJavadoc(),
 )
 
 lazy val ServletExtras = projSub("Dev", "ServletExtras").dependsOn(Dev).settings(
