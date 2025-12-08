@@ -41,8 +41,8 @@ object UtilJs extends CommonJs
 }
 
 object UtilDocJs extends CommonJs
-{
-  def moduleDeps = Seq(GeomJs)
+{ def moduleDeps = Seq(GeomJs)
+  def sources = Task.Sources(workspaceRoot / "Util" / "UtilDoc" / "src")
 }
 
 object Geom extends CommonJvm
@@ -91,6 +91,11 @@ object GeomDoc extends CommonJvm
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = sources1() :+ source2()
 }
+object GeomDocJs extends CommonJs
+{ def moduleDeps = Seq(UtilDocJs)
+  def sources = Task.Sources(workspaceRoot / "Geom" / "GeomDoc" / "src")
+}
+
 
 object GeomExsJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
