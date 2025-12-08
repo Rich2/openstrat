@@ -13,7 +13,6 @@ trait TriIsos extends Triangle
 
   override def scale(operand: Double): TriIsos = TriIsos.dbls(v0x * operand, v0y * operand, v1x * operand, v1y * operand, v2x * operand, v2y * operand)
 
-
   /** The height of this isosceles triangle from the bisection of the third side to the vertex where the 2 equal length sides meet. */
   def height: Double = ???
 }

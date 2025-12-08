@@ -211,6 +211,7 @@ object AppJs extends Module
 /** Scala Operating System documentation. Currently no scala code for the project. */
 object ScalaOSDoc extends CommonJvm
 { def moduleDeps = Seq(UtilDoc)
+  def sources = Task.Sources(workspaceRoot / "ScalaOS" / "ScalaOSDoc" / "src")
 }
 
 object DevDoc extends CommonJvm
@@ -235,7 +236,7 @@ object DevFx extends CommonJvm
 //def run() = DevFx.runBackground()
 
 def SiteStage = Task{
-  import AppJs._, EGridJs._
+  import AppJs.*, EGridJs.*
   DicelessApp.fullLinkJS()
   WW2App.fullLinkJS()
   PericuloApp.fullLinkJS()
