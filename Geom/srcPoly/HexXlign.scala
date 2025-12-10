@@ -54,7 +54,7 @@ final class HexXlign(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
  * can not be maintained through all affine transformations. */
 object HexXlign
 { /** Apply factory method for HexXlign, Creates a regular hexagon with 2 of its side aligned to the X axis. */
-  def apply(height: Double, cen: Pt2 = Pt2Z): HexXlign = apply(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Origin2): HexXlign = apply(height, cen.x, cen.y)
 
   /** Apply factory method for [[HexXlign]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
   def apply(height: Double, xCen: Double, yCen: Double): HexXlign = new HexXlign(unsafe(height, xCen, yCen))

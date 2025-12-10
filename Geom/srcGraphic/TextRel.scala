@@ -8,8 +8,8 @@ case class TextRel(str: String, fontRel: Double, xPosn: Double, yPosn: Double, c
 }
 object TextRel
 {
-  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Middle): TextRel = new TextRel(str, fontSize, posn.x, posn.y, colour, align, baseLine)
+  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
+            baseLine: BaseLine = BaseLine.Middle): TextRel = new TextRel(str, fontSize, posn.x, posn.y, colour, align, baseLine)
 
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle): TextRel = new TextRel(str, fontSize, xPosn, yPosn, colour, align, baseLine)

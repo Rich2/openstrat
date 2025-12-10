@@ -32,7 +32,7 @@ trait Ellipselign extends Ellipse
 object Ellipselign
 { /** Factory apply method for an [[Ellipse]] aligned to the X and Y axes, with a default centre at the origin. There is a name overload to specify the centre
    * of the ellipse by its X and Y components. */
-  def apply(xRadius: Double, yRadius: Double, cen: Pt2 = Pt2Z): Ellipselign =
+  def apply(xRadius: Double, yRadius: Double, cen: Pt2 = Origin2): Ellipselign =
     new EllipselignGen(cen.x, cen.y + yRadius, cen.x + xRadius, cen.y, cen.x - xRadius, cen.y)
 
   /** Factory apply method for an [[Ellipse]] aligned to the X and Y axes. There is a name overload to specify yhe centre with a [[Pt2]] parameter with a

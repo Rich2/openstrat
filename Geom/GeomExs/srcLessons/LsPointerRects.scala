@@ -19,7 +19,7 @@ object LsPointerRects extends LessonGraphics
 
     def gArr = rArr.map(r => r.fillActive(colour, r.cenPt))
 
-    val textPosn: Pt2 = Pt2Z
+    val textPosn: Pt2 = Origin2
     val startText: TextFixed = TextFixed("Click on the rectangles to cycle the colour.", 28, textPosn)
     deb((gArr +% startText).length.toString)
     repaint(gArr +% startText)

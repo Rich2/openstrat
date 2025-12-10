@@ -101,7 +101,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     // popBall animation
     for (i <- 0 to aDefaultGame.popBallQueue.length - 1)
     { val loc = Pt2(size*(i % cols), size*(i / cols))
-      var locy = Pt2Z
+      var locy = Origin2
       if (aDefaultGame.isReadyToPop(i) == true)
       { aDefaultGame.cellCounts(i) -= aDefaultGame.cellNeighbours(i).length  //fudge start//
         drawBalls(loc, aDefaultGame.currentPlayer, i)

@@ -16,7 +16,7 @@ object LsPointerTargeting extends LessonGraphics
     val r3: PolygonCompound = r.slate(300, -300)
     val r4: PolygonCompound = r.slate(-300, -300)
     val rList = RArr(r1, r2, r3, r4)
-    val textPosn = Pt2Z
+    val textPosn = Origin2
     val startText = TextFixed("Please click on the screen.", 28, textPosn)
     repaint(rList +% startText)
 

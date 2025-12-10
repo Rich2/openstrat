@@ -80,7 +80,7 @@ object Brigade extends LuUniLevel
 { override val int1: Int = 11
   override def topStr: String = "X"
   override def toString: String = "Brigade"
-  override def drawables: RArr[Drawable] = RArr(Cross.diag(Pt2Z, 1.5))
+  override def drawables: RArr[Drawable] = RArr(Cross.diag(Origin2, 1.5))
 }
 
 /** 1000 - 2000 men. Small brigade, regiment or very large battalion. */

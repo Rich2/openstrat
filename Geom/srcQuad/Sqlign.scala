@@ -40,7 +40,7 @@ final class Sqlign private(val v0x: Double, val v0y: Double, val v1x: Double, va
 object Sqlign
 { /** Factory apply method to construct a square aligned to the Xand Y axes, from its width and centre point. There are apply name overloads to specify the
    * centre position by its X and Y components. */
-  def apply(width: Double, cen: Pt2 = Pt2Z, vertOrder: Int = 0): Sqlign =
+  def apply(width: Double, cen: Pt2 = Origin2, vertOrder: Int = 0): Sqlign =
   { val d = width / 2
     new Sqlign(cen.x + d, cen.y + d, cen.x + d, cen.y - d, cen.x - d, cen.y - d)
   }

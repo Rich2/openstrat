@@ -64,8 +64,6 @@ trait Rectangle extends ShapeCentred, Quadrilateral
     case 2 => Pt2(v2x, v2y)
     case _ => v3
   }
-
-
 }
 
 /** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleGen]] the implementation class for non-specialised rectangles. It also contains
@@ -73,11 +71,13 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 object Rectangle
 {  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the centre
    * point is the origin. */
-  def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
+  def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Origin2): Rectangle =
   { val rtVec = rotation.toVec(width / 2)
     val upVec = (rotation + 90.degsVec).toVec(height / 2)
     vecsCen(rtVec, upVec, cen)
   }
+
+  def apply(width: Double, height: Double, rotation: AngleVec, cenX: Double, cenY: Double): Rectangle = ???
 
   /** Factory apply method to create [[Rectangle]] from its first 3 vertices. */
   def from3(vt0: Pt2, vt1: Pt2, vt2: Pt2): Rectangle = new RectangleGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y)
@@ -99,7 +99,7 @@ object Rectangle
 
 //  def fromArray(array: Array[Double]): Rectangle = new RectangleGen(array)
 
-  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
+  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Origin2): ShapeGenOld =
   { val w = width / 2
     val h = height / 2
     val s1 = ShapeGenOld(
@@ -110,11 +110,11 @@ object Rectangle
      s1.slate(cen)
   }
 
-  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
+  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Pt2 = Origin2): PolyCurveCentred =
     PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
-  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Pt2Z): ShapeGenOld =
+  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Origin2): ShapeGenOld =
     curvedCorners(height * Phi, height, radius, posn)
-  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
+  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Origin2): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
   def fromAxis(centreLine: LSeg2, height: Double): PolygonGen = ???

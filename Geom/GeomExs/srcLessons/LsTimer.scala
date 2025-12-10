@@ -15,6 +15,6 @@ object LsTimer extends LessonGraphics
   {
     /** This is the simplest time helper method. You merely need to provide a single object that changes over time. Note each time we create a new different
      * object. rather than modifying the original. */
-    timedRepaint1(e => TextFixed((e / 1000).toString + " Seconds have elapsed", 45, Pt2Z))
+    timedRepaint1(e => TextFixed((e / 1000).toString + " Seconds have elapsed", 45, Origin2))
   }
 }

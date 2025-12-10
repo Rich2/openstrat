@@ -18,7 +18,7 @@ object GeomPagePolygons extends HtmlSection
   val circ: CircleDraw = Circle(width).draw()
   val verts: RArr[GraphicSvgElem] = dodec1.vertsTextArrows()
   val sides: RArr[GraphicSvgElem] = dodec1.sidesTextArrowsInside(12, polyColour)
-  val cen: TextFixed = Pt2Z.textAt("Centre")
+  val cen: TextFixed = Origin2.textAt("Centre")
   val clock: RArr[GraphicSvgElem] = RArr(dodec2, circ, cen) ++ verts ++ sides
   val svg1: SvgSvgScaled = SvgSvgScaled(dodec1.boundingRect.addMargin(GeomPage.svgMargin), clock, RArr(CentreBlockAtt))
 

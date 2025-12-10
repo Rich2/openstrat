@@ -36,14 +36,14 @@ TextGraphic with GraphicAffineElem with GraphicSvgElem
 
 object TextFixed
 {
-  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle):
+  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle):
     TextFixed = new TextFixed(str, fontSize, posn.x, posn.y, colour, align, baseLine)
 
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle) = new TextFixed(str, fontSize, xPosn, yPosn, colour, align, baseLine)
 
-  def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Alphabetic): RArr[TextFixed] =
+  def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Origin2, fontColour: Colour = Black, lineSpacing: Double = 1, align: TextAlign = CenAlign,
+            baseLine: BaseLine = BaseLine.Alphabetic): RArr[TextFixed] =
   { val len = strs.length
     if(len == 0) RArr()
     else strs.iMap((i, str) => TextFixed(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
@@ -75,16 +75,16 @@ TextGraphic
 
 object Textlign
 {
-  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Middle): Textlign =
+  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
+            baseLine: BaseLine = BaseLine.Middle): Textlign =
     new Textlign(str, fontSize, posn.x, posn.y, colour, align, baseLine)
 
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle) =
     new Textlign(str, fontSize, xPosn, yPosn, colour, align, baseLine)
 
-  def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
-    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[Textlign] =
+  def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Origin2, fontColour: Colour = Black, lineSpacing: Double = 1,
+            align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[Textlign] =
   { val len = strs.length
     if(len == 0) RArr()
     else strs.iMap((i, str) => Textlign(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))

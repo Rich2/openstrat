@@ -75,8 +75,8 @@ package object geom
   /** The number of thousands of an arc second in a radian = 2.0626480624709636E8. */
   val MilliSecsInRadian: Double = MilliSecsInDeg * 180.0 / Pi
   
-  /** The origin, the intersection of the axes for 2-dimensional vectors. */
-  val Pt2Z = Pt2(0, 0)
+  /** The origin, the intersection of the axes for 2-dimensional space. */
+  val Origin2 = Pt2(0, 0)
 
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = PtM2(0.metres, 0.metres)
@@ -104,8 +104,8 @@ package object geom
   implicit class AnyGeomImplicit(thisAny: Any)
   {
     /** Creates a [[TextFixed]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
-    def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-     baseLine: BaseLine = BaseLine.Middle): TextFixed = TextFixed(thisAny.toString, fontSize, posn, colour, align, baseLine)
+    def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
+                      baseLine: BaseLine = BaseLine.Middle): TextFixed = TextFixed(thisAny.toString, fontSize, posn, colour, align, baseLine)
 
     /** Creates a [[TextFixed]] at the given X and Y positions, using the toString method on this object. */
     def xyTextGraphic(fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
@@ -127,7 +127,7 @@ package object geom
     /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
     def findSettingPt2Else(setting: String, elseValue: Pt2): Pt2 = findSettingPt2(setting).getElse(elseValue)
 
-    def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+    def graphic(fontSize: Int = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
                 baseLine: BaseLine = BaseLine.Alphabetic): TextFixed = TextFixed(thisString, fontSize, posn, colour, align, baseLine)
   }
 

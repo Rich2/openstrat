@@ -10,7 +10,7 @@ object LsBeziers extends LessonStatic
   //This can be more elegantly expressed in dotty
   def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
   val pt1 = Pt2(500, - 400)
-  val sh1 = ShapeGenOld(LineTail(Pt2Z), LineTail(200, 0), BezierTail(Pt2(300, 300), Pt2(350, 100), pt1), LineTail(100, -200))
+  val sh1 = ShapeGenOld(LineTail(Origin2), LineTail(200, 0), BezierTail(Pt2(300, 300), Pt2(350, 100), pt1), LineTail(100, -200))
 
   override def output: GraphicElems = RArr(
     bd(-100,200, 300,400, Green),

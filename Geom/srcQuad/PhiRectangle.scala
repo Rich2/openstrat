@@ -58,7 +58,7 @@ trait PhiRect extends Rect, PhiRectangle
 
 object PhiRect
 {
-  def apply(height: Double, cen: Pt2 = Pt2Z): PhiRect = ???// PhiRect(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Origin2): PhiRect = ???// PhiRect(height, cen.x, cen.y)
   def apply(height: Double, cenX: Double, cenY: Double): PhiRect = ???
 }
 
@@ -78,7 +78,7 @@ final class PhiRectWide(val v0x: Double, val v0y: Double, val v1x: Double, val v
 
 object PhiRectWide
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectHigh = ???// PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cen: Pt2 = Origin2): PhiRectHigh = ???// PhiRectY(width, cen.x, cen.y)
   def apply(width: Double, cenX: Double, cenY: Double): PhiRectHigh = ???
 }
 
@@ -98,6 +98,6 @@ final class PhiRectHigh(val v0x: Double, val v0y: Double, val v1x: Double, val v
 
 object PhiRectHigh
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectHigh = ???// PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cen: Pt2 = Origin2): PhiRectHigh = ???// PhiRectY(width, cen.x, cen.y)
   def apply(width: Double, cenX: Double, cenY: Double): PhiRectHigh = ???
 }

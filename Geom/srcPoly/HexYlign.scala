@@ -57,7 +57,7 @@ final class HexYlign(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
 object HexYlign
 { /** Apply factory method for the [[HexYlign]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]] or 2
 *[[Double]]s. */
-  def apply(width: Double, cen: Pt2 = Pt2Z): HexYlign = apply(width, cen.x, cen .y)
+  def apply(width: Double, cen: Pt2 = Origin2): HexYlign = apply(width, cen.x, cen .y)
 
   /** Apply factory method for the [[HexYlign]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]] or 2
    * [[Double]]s. */

@@ -72,7 +72,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 object Rect
 { /** Factory apply method for a rectangle aligned with the X and Y axes. Default height is 1 and default centre point is at x = 0, y = 0. There is a name
    * overload that takes the X and Y centre coordinates as [[Double]]s. */
-  def apply(width: Double, height: Double = 1, cen: Pt2 = Pt2Z): Rect = RectGen(width, height, cen.x, cen.y)
+  def apply(width: Double, height: Double = 1, cen: Pt2 = Origin2): Rect = RectGen(width, height, cen.x, cen.y)
 
   /** Factory apply method for a rectangle aligned with the X and Y axes. There is a name overload that has a default height of 1 and takes a [[Pt2]] centre
    * point parameter wth a default of x = 0, y = 0. */
@@ -91,12 +91,12 @@ object Rect
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top right
    * vertex of the Rect at the origin. */
-  def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect =
+  def tr(width: Double, height: Double, topRight: Pt2 = Origin2): Rect =
     new RectGen(topRight.x, topRight.y, topRight.x, topRight.y - height, topRight.x - width, topRight.y - height)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top left vertex
    * of the Rect at the origin. */
-  def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect =
+  def tl(width: Double, height: Double, topLeft: Pt2 = Origin2): Rect =
     new RectGen(topLeft.x + width, topLeft.y, topLeft.x + width, topLeft.y - height, topLeft.x, topLeft.y - height)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. */
@@ -104,11 +104,11 @@ object Rect
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the bottomRight parameter places the bottom right
    * vertex of the Rect at the origin. */
-  def br(width: Double, height: Double, bottomRight: Pt2 = Pt2Z): Rect = RectGen(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
+  def br(width: Double, height: Double, bottomRight: Pt2 = Origin2): Rect = RectGen(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
 
   /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the bottom
    * left vertex of the Rect at the origin. */
-  def bl(width: Double, height: Double, bottomLeft: Pt2 = Pt2Z): Rect = RectGen(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
+  def bl(width: Double, height: Double, bottomLeft: Pt2 = Origin2): Rect = RectGen(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
 
   /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the bottom
    * left vertex of the Rect at the origin. */
@@ -116,7 +116,7 @@ object Rect
 
   /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places the bottom
    * centre of the Rect at the origin. */
-  def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = RectGen(width, height, bottomCentre.x, bottomCentre.y + height / 2)
+  def bCen(width: Double, height: Double, bottomCentre: Pt2 = Origin2): Rect = RectGen(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
   def cross(width: Double, height: Double, barWidth: Double): RArr[Polygon] = RArr(apply(width, barWidth), apply(barWidth, height))
 
@@ -185,7 +185,7 @@ object Rect
   /** Companion object for the [[Rect.RectGen]] class. */
   object RectGen
   { /** Factory method for constructing [[RectGen]] class, a general case of a [[Rect]]. */
-    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z, vertOrder: Int = 0): RectGen =
+    def apply(width: Double, height: Double, cen: Pt2 = Origin2, vertOrder: Int = 0): RectGen =
     { val hw = width / 2
       val hh = height / 2
       new RectGen(cen.x + hw, cen.y + hh, cen.x + hw, cen.y - hh, cen.x - hw, cen.y - hh)

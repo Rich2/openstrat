@@ -15,7 +15,7 @@ object LsTargetingEllipse extends LessonGraphics
     val e2 = el.slate(250, 150).fillActive(Yellow, "yellow")
 
     val rList: GraphicElems = RArr(e1, e2)
-    val textPosn: Pt2 = Pt2Z
+    val textPosn: Pt2 = Origin2
     val startText = TextFixed("Please click on the screen.", 28, textPosn)
     repaint(rList +% startText)
 

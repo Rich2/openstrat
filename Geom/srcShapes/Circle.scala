@@ -114,7 +114,7 @@ object Circle extends ShapeIcon
 
   /** Factory apply method for creating a circle. The first parameter gives the radius of the circle. The default centre is at the origin. There is an apply
    * method name overload that takes the X and Y centre values as parameters There are corresponding d methods that take a diameter as the first parameter. */
-  def apply(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius, cen.x, cen.y)
+  def apply(radius: Double, cen: Pt2 = Origin2) = new Circle(radius, cen.x, cen.y)
 
   /** Factory apply method for creating a circle. The first parameter gives the radius of the circle, followed by the X and Y centre values. There is an apply
    * method name overload that takes a [[Pt2]] as a second parameter with a default value of the origin. */
@@ -122,7 +122,7 @@ object Circle extends ShapeIcon
 
   /** Factory method for creating a circle. The first parameter gives the diameter of the circle. The default centre is at the origin. There is a name overload
    * that takes the X and Y centre values as parameters. There are corresponding apply methods that take a radius as the first parameter. */
-  def d(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter / 2, cen.x, cen.y)
+  def d(diameter: Double, cen: Pt2 = Origin2) = new Circle(diameter / 2, cen.x, cen.y)
 
   /** Factory method for creating a circle. The first parameter gives the diameter of the circle, followed by the X and Y centre values. There is a method name
    * overload that takes a [[Pt2]] as a second parameter with a default value of the origin. There are corresponding apply methods that take a radius as the

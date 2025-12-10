@@ -143,7 +143,7 @@ object Ellipse
     new EllipselignGen(cenX, cenY + radius0, cenX + radius1, cenY,  cenX - radius1, cenY)
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
-  def apply(radius1: Double, radius0: Double, cen: Pt2 = Pt2Z): Ellipselign =
+  def apply(radius1: Double, radius0: Double, cen: Pt2 = Origin2): Ellipselign =
     new EllipselignGen(cen.x, cen.y + radius0, cen.x + radius1, cen.y, cen.x - radius0, cen.y)
 
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec): EllipseGen = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation)
@@ -158,7 +158,7 @@ object Ellipse
   }
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
-  def diameter(diameter1: Double, diameter0: Double, cen: Pt2 = Pt2Z): Ellipse =
+  def diameter(diameter1: Double, diameter0: Double, cen: Pt2 = Origin2): Ellipse =
     new EllipseGen(cen.x, cen.y + diameter0 / 2, cen.x + diameter1 / 2, cen.y, cen.x - diameter0 / 2, cen.y)
 
   /** Factory method that creates an ellipse from the centre point, axes point 1 and axes point 4. */
@@ -241,7 +241,7 @@ final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1
 /** Companion object for the EllipseImp class, contains factory methods. */
 object EllipseGen
 {
-  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): EllipseGen =
+  def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cen: Pt2 = Origin2): EllipseGen =
     new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cen)
 
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cenX: Double, cenY: Double): EllipseGen =

@@ -14,7 +14,7 @@ object LsKeyUp extends LessonGraphics
     repaints(startText)
 
     canv.keyDown = (key: String) => {
-      repaints(TextFixed("key down '" + key + "'", 28, Pt2Z, Blue))
+      repaints(TextFixed("key down '" + key + "'", 28, Origin2, Blue))
     }
     canv.keyUp = (key: String) => {
       repaints(TextFixed.xy("key up '" + key + "'", 28, 0, 100, Green))

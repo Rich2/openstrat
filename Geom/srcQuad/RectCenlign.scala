@@ -7,7 +7,7 @@ trait RectCenlign extends Rectangularlign
 {
   def cenX: Double = 0
   def cenY: Double = 0
-  override def cen: Pt2 = Pt2Z
+  override def cen: Pt2 = Origin2
   override def left: Double = - width / 2
   override def right: Double = width / 2
   override def top: Double = height / 2

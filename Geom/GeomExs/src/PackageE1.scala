@@ -28,7 +28,7 @@ package e1
   }
   
   object GameState
-  { val start = GameState(0, Pt2Z, rainbowStart)
+  { val start = GameState(0, Origin2, rainbowStart)
   }
 
   /** A turned Command is a sealed trait */

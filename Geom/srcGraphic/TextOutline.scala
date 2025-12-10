@@ -16,8 +16,8 @@ class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: D
 
 object TextOutline
 {
-  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, lineWidth: Double = 1.0, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Alphabetic): TextOutline =
+  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, lineWidth: Double = 1.0, align: TextAlign = CenAlign,
+            baseLine: BaseLine = BaseLine.Alphabetic): TextOutline =
     new TextOutline(str, fontSize, posn.x, posn.y, colour, lineWidth, align, baseLine)
 
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, lineWidth: Double = 1.0,

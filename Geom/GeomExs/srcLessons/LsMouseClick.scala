@@ -14,7 +14,7 @@ object LsMouseClick extends LessonGraphics
     repaints(TextFixed.xy("Please click on the screen a few times.", 28, 0, 200, Green))
     var counter = 0
 
-    def newText = TextFixed("You have clicked the screen " + counter.toString + " times.", 28, Pt2Z)
+    def newText = TextFixed("You have clicked the screen " + counter.toString + " times.", 28, Origin2)
 
     setMouseSimplest {
       counter += 1
