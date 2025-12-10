@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-/** An example of a class that is based on the product of 2 [[Double]]s. This class, [[MyDbl2Arr]] and their companion objects show you the boiler
- *  plate necessary to create and use custom efficient flat Array based immutable collection classes. */
+/** An example of a class that is based on the product of 2 [[Double]]s. This class, [[MyDbl2Arr]] and their companion objects show you the boilerplate
+ * necessary to create and use custom efficient flat Array based immutable collection classes. */
 case class MyDbl2Elem(a: Double, b: Double) extends Dbl2Elem
 { override def dbl1: Double = a
   override def dbl2: Double = b
@@ -15,11 +15,11 @@ case class MyDbl2Elem(a: Double, b: Double) extends Dbl2Elem
 
 object MyDbl2Elem
 {
-  implicit val showEv: ShowDbl2[MyDbl2Elem] = ShowDbl2[MyDbl2Elem]("MyDbl2", "a", _.a, "b", _.b)
+  given showEv: ShowDbl2[MyDbl2Elem] = ShowDbl2[MyDbl2Elem]("MyDbl2", "a", _.a, "b", _.b)
 
-  implicit val unshowEv: UnshowDbl2[MyDbl2Elem] = UnshowDbl2[MyDbl2Elem]("MyDbl2", "a", "b", MyDbl2Elem.apply)
+  given unshowEv: UnshowDbl2[MyDbl2Elem] = UnshowDbl2[MyDbl2Elem]("MyDbl2", "a", "b", MyDbl2Elem.apply)
 
-  implicit val arrBuilderImplicit: BuilderMapArrDbl2[MyDbl2Elem, MyDbl2Arr] = new BuilderMapArrDbl2[MyDbl2Elem, MyDbl2Arr]
+  given arrBuilderImplicit: BuilderMapArrDbl2[MyDbl2Elem, MyDbl2Arr] = new BuilderMapArrDbl2[MyDbl2Elem, MyDbl2Arr]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): MinesBuff = new MinesBuff(buffer)

@@ -72,12 +72,13 @@ object Rectangle
 {  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the centre
    * point is the origin. */
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Origin2): Rectangle =
-  { val rtVec = rotation.toVec(width / 2)
-    val upVec = (rotation + 90.degsVec).toVec(height / 2)
-    vecsCen(rtVec, upVec, cen)
+  { val v0 = Pt2(width, height).rotate(rotation).slate(cen)
+    val v1 = Pt2(width, -height).rotate(rotation).slate(cen)
+    val v2 = Pt2(-width, -height).rotate(rotation).slate(cen)
+    from3(v0, v1, v2)
   }
 
-  def apply(width: Double, height: Double, rotation: AngleVec, cenX: Double, cenY: Double): Rectangle = ???
+  def apply(width: Double, height: Double, rotation: AngleVec, cenX: Double, cenY: Double): Rectangle = apply(width, height, rotation, Pt2(cenX, cenY))
 
   /** Factory apply method to create [[Rectangle]] from its first 3 vertices. */
   def from3(vt0: Pt2, vt1: Pt2, vt2: Pt2): Rectangle = new RectangleGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y)

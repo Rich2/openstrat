@@ -2,14 +2,14 @@
 package learn
 import ostrat.*, geom.*, Colour.*
 
-object LsTriangles  extends LessonStatic
+object LsTriangles extends LessonStatic
 { val title = "Triangles"
 
   val equi1 = TriEquiXlign(0, 300, 700, true)
   val equi2 = TriEquiXlign(equi1.v0y, -700, -300, false)
   val rhom = Polygon(equi1.v2, equi1.sd0Cen, equi2.v1)
   val c1 = Circle(200, 0, -250)
-  val output = RArr(
+  val output: RArr[GraphicSvgElem] = RArr(
     TriIsosXlign(600, -200, 200, 0).fill(Violet),
     TriIsosXlign(0, -200, 200, 600).fill(DarkGray),
     equi2.fill(Gold),

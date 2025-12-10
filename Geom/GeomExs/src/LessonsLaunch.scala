@@ -13,7 +13,7 @@ object LessonsLaunch extends GuiLaunchMore
     (res.canv, "JavaFx" -- res.title)
   }
 
-  val aList: RArr[LessonGraphics] = RArr(LsCircles1, LsSquares, LsCircles2, LsPolygons, LsRotation, LsTriangles, LsArcs1, LsArcs2, LsShapes,
+  val aList: RArr[LessonGraphics] = RArr(LsCircles1, LsSquares, LsCircles2, LsPolygons, LsRotation, LsTriangles, LsRectangles, LsArcs1, LsArcs2, LsShapes,
     LsShapesReproduction, LsBeziers, LsDiagram, LsReflect, LsAHexEnum, LsATiling, LsEllipses1, LsEllipses2, LsInnerRect, LsAPolygonSides, LsAText)
 
   val bList: RArr[LessonGraphics] = RArr(LsTimer, LsMovingRectangle, LsMovingRectangles2)
@@ -41,7 +41,7 @@ object LessonsLaunch extends GuiLaunchMore
     val cls = cList.iMap{ (i, l) => "C" + (i + 1).toString -- cList(i).title }.mkStr("\n")
     val dls = dList.iMap{ (i, l) => "D" + (i + 1).toString -- dList(i).title }.mkStr("\n")
     val els = eList.iMap{ (i, l) => "E" + (i + 1).toString -- eList(i).title }.mkStr("\n")
-    val top = """/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */"""
+    val top = """/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */"""
     top + "\n\ncode = A1" --- """/*""" --- als --- bls --- cls --- dls --- els --- """*/"""
   }
 }
