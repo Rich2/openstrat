@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
+import annotation.unchecked.uncheckedVariance, reflect.ClassTag, Colour.Black
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any, Aff2Elem
@@ -73,4 +73,56 @@ object Drawable
   
   /** [[Drawing]] type class instance / evidence for [[Drawable]]. */
   given drawTEv: Drawing[Drawable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
+}
+
+/** Type class for drawing. */
+trait Drawing[+A, +B]
+{ /** The type class's draw method. */
+  def drawT(obj: A @uncheckedVariance, lineWidth: Double = 2, lineColour: Colour = Black): B
+}
+
+/** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */
+object Drawing
+{ /** Implicit [[Drawing]] type class instances / evidence for [[Arr]]. */
+  given arrEv[A, B, ArrB <: Arr[B]](using evA: Drawing[A, B], build: BuilderArrMap[B, ArrB]): Drawing[Arr[A], Arr[B]] =
+    (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
+
+  /** Implicit [[Drawing]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
+  given functorEv[A, B, F[_]](using evF: Functor[F], evA: Drawing[A, B]): Drawing[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
+
+  /** Implicit [[Drawing]] type class instances / evidence for [[Array]]. */
+  given arrayEv[A, B](using ct: ClassTag[B], ev: Drawing[A, B]): Drawing[Array[A], Array[B]] = (obj, lw, col) => obj.map(ev.drawT(_, lw, col))
+}
+
+implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawing[A, B])
+{ /** Extension method to draw the object from a [[Drawing]] type class instance. */
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
+}
+
+/** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
+trait DrawableLen2 extends Any, GeomLen2Elem
+{ /** Draws the object. The line width is defined in pixels. */
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
+
+  override def slate(operand: VecPtLen2): DrawableLen2
+  override def slate(xOperand: Length, yOperand: Length): DrawableLen2
+  override def slateX(xOperand: Length): DrawableLen2
+  override def slateY(yOperand: Length): DrawableLen2
+  override def scale(operand: Double): DrawableLen2
+}
+
+object DrawableLen2
+{ /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
+  implicit val slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
+  { override def slateT(obj: DrawableLen2, delta: VecPtLen2): DrawableLen2 = obj.slate(delta)
+    override def slateXY(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
+    override def slateX(obj: DrawableLen2, xDelta: Length): DrawableLen2 = obj.slateX(xDelta)
+    override def slateY(obj: DrawableLen2, yDelta: Length): DrawableLen2 = obj.slateY(yDelta)
+  }
+
+  /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
+  implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
+
+  /** [[Drawing]] type class instance / evidence for [[DrawableLen2]] and [[GraphicLen2Elem]]. */
+  implicit val drawTEv: Drawing[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }

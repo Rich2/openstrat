@@ -41,22 +41,22 @@ object Fillable
   }
 
   /** [[Scale]] type class instance / evidence for [[Fillable]]. */
-  implicit val scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)
+  given scaleEv: Scale[Fillable] = (obj: Fillable, operand: Double) => obj.scale(operand)
 
   /** [[Rotate]] type class instance / evidence for [[Fillable]]. */
-  implicit val rotateEv: Rotate[Fillable] = (obj: Fillable, angle: AngleVec) => obj.rotate(angle)
+  given rotateEv: Rotate[Fillable] = (obj: Fillable, angle: AngleVec) => obj.rotate(angle)
 
   /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
-  implicit val prolignEv: Prolign[Fillable] = (obj, matrix) => obj.prolign(matrix)
+  given prolignEv: Prolign[Fillable] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[ScaleXY]] type class instance / evidence for [[Fillable]]. */
-  implicit val scaleXYEv: ScaleXY[Fillable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Fillable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** [[Reflect]] type class instance / evidence for [[Fillable]]. */
-  implicit val ReflectEv: Reflect[Fillable] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Reflect[Fillable] = (obj, lineLike) => obj.reflect(lineLike)
 
   /** [[TransAxes]] type class instance / evidence for [[Fillable]]. */
-  implicit val transAxesEv: TransAxes[Fillable] = new TransAxes[Fillable]
+  given transAxesEv: TransAxes[Fillable] = new TransAxes[Fillable]
   { override def negYT(obj: Fillable): Fillable = obj.negY
     override def negXT(obj: Fillable): Fillable = obj.negX
     override def rotate90(obj: Fillable): Fillable = obj.rotate90
@@ -65,37 +65,13 @@ object Fillable
   }
 
   /** [[Shear]] type class instance / evidence for [[Fillable]]. */
-  implicit val shearEv: Shear[Fillable] = new Shear[Fillable]
+  given shearEv: Shear[Fillable] = new Shear[Fillable]
   { override def shearXT(obj: Fillable, yFactor: Double): Fillable = obj.shearX(yFactor)
     override def shearYT(obj: Fillable, xFactor: Double): Fillable = obj.shearY(xFactor)
   }
 
   /** [[Drawing]] type class instance / evidence for [[Fillable]]. */
-  implicit val drawTEv: Drawing[Fillable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
-}
-
-/** Type class for drawing. */
-trait Drawing[+A, +B]
-{ /** The type class's draw method. */
-  def drawT(obj: A @uncheckedVariance, lineWidth: Double = 2, lineColour: Colour = Black): B
-}
-
-/** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */
-object Drawing
-{ /** Implicit [[Drawing]] type class instances / evidence for [[Arr]]. */
-  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Drawing[A, B], build: BuilderArrMap[B, ArrB]): Drawing[Arr[A], Arr[B]] =
-    (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
-
-  /** Implicit [[Drawing]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
-  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Drawing[A, B]): Drawing[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
-
-  /** Implicit [[Drawing]] type class instances / evidence for [[Array]]. */
-  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Drawing[A, B]): Drawing[Array[A], Array[B]] = (obj, lw, col) => obj.map(ev.drawT(_, lw, col))
-}
-
-implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawing[A, B])
-{ /** Extension method to draw the object from a [[Drawing]] type class instance. */
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
+  given drawTEv: Drawing[Fillable, Graphic2Elem] = (obj, lw, col) => obj.draw(lw, col)
 }
 
 /** Type class for creating graphical fill objects, */
@@ -106,42 +82,19 @@ trait Filling[+A, +B]
 /** Companion object for the [[Filling]] type class. Contains implicit instances for collections and other container classes. */
 object Filling
 { /** Implicit [[Filling]] type class instances / evidence for [[Arr]]. */
-  implicit def arrEv[A, B, ArrB <: Arr[B]](implicit evA: Filling[A, B], build: BuilderArrMap[B, ArrB]): Filling[Arr[A], Arr[B]] =
+  given arrEv[A, B, ArrB <: Arr[B]](using evA: Filling[A, B], build: BuilderArrMap[B, ArrB]): Filling[Arr[A], Arr[B]] =
     (obj, ff) => obj.map(evA.fillT(_, ff))
 
   /** Implicit [[Filling]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
-  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: Filling[A, B]): Filling[F[A], F[B]] = (obj, ff) => evF.mapT(obj, evA.fillT(_, ff))
+  given functorEv[A, B, F[_]](using evF: Functor[F], evA: Filling[A, B]): Filling[F[A], F[B]] = (obj, ff) => evF.mapT(obj, evA.fillT(_, ff))
 
   /** Implicit [[Filling]] type class instances / evidence for [[Array]]. */
-  implicit def arrayEv[A, B](implicit ct: ClassTag[B], ev: Filling[A, B]): Filling[Array[A], Array[B]] = (obj, ff) => obj.map(ev.fillT(_, ff))
+  given arrayEv[A, B](using ct: ClassTag[B], ev: Filling[A, B]): Filling[Array[A], Array[B]] = (obj, ff) => obj.map(ev.fillT(_, ff))
 }
 
-/** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
-trait DrawableLen2 extends Any, GeomLen2Elem
-{ /** Draws the object. The line width is defined in pixels. */
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black):  GraphicLen2Elem
-
-  override def slate(operand: VecPtLen2): DrawableLen2
-  override def slate(xOperand: Length, yOperand: Length): DrawableLen2
-  override def slateX(xOperand: Length): DrawableLen2
-  override def slateY(yOperand: Length): DrawableLen2
-  override def scale(operand: Double): DrawableLen2
-}
-
-object DrawableLen2
-{ /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
-  implicit val slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
-  { override def slateT(obj: DrawableLen2, delta: VecPtLen2): DrawableLen2 = obj.slate(delta)
-    override def slateXY(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
-    override def slateX(obj: DrawableLen2, xDelta: Length): DrawableLen2 = obj.slateX(xDelta)
-    override def slateY(obj: DrawableLen2, yDelta: Length): DrawableLen2 = obj.slateY(yDelta)
-  }
-
-  /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
-  implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
-
-  /** [[Drawing]] type class instance / evidence for [[DrawableLen2]] and [[GraphicLen2Elem]]. */
-  implicit val drawTEv: Drawing[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+extension[A, B](value: A)(using ev: Filling[A, B])
+{
+  def fill(fillFacet: FillFacet): B = ev.fillT(value, fillFacet)
 }
 
 /** A 2-dimensional geometric object defined in [[Length]] units that can have a fill graphic. */
@@ -161,7 +114,7 @@ trait FillableLen2 extends Any, DrawableLen2
 
 object FillableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[FillableLen2]]. */
-  implicit val slateLen2Ev: SlateLen2[FillableLen2] = new SlateLen2[FillableLen2]
+  given slateLen2Ev: SlateLen2[FillableLen2] = new SlateLen2[FillableLen2]
   { override def slateT(obj: FillableLen2, delta: VecPtLen2): FillableLen2 = obj.slate(delta)
     override def slateXY(obj: FillableLen2, xDelta: Length, yDelta: Length): FillableLen2 = obj.slate(xDelta, yDelta)
     override def slateX(obj: FillableLen2, xDelta: Length): FillableLen2 = obj.slateX(xDelta)
@@ -169,8 +122,8 @@ object FillableLen2
   }
 
   /** [[Scale]] type class instance / evidence for [[FillableLen2]]. */
-  implicit val scaleEv: Scale[FillableLen2] = (obj, operand) => obj.scale(operand)
+  given scaleEv: Scale[FillableLen2] = (obj, operand) => obj.scale(operand)
 
   /** [[Drawing]] type class instance / evidence for [[FillableLen2]] and [[GraphicLen2Elem]]. */
-  implicit val drawTEv: Drawing[FillableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  given drawTEv: Drawing[FillableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
