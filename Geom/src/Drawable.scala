@@ -76,9 +76,9 @@ object Drawable
 }
 
 /** Type class for drawing. */
-trait Drawing[A, B]
+trait Drawing[-A, +B]
 { /** The type class's draw method. */
-  def drawT(obj: A /* @uncheckedVariance */, lineWidth: Double = 2, lineColour: Colour = Black): B
+  def drawT(obj: A, lineWidth: Double = 2, lineColour: Colour = Black): B
 }
 
 /** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */

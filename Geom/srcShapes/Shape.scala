@@ -79,6 +79,12 @@ object Shape
   { override def shearXT(obj: Shape, yFactor: Double): Shape = obj.shearX(yFactor)
     override def shearYT(obj: Shape, xFactor: Double): Shape = obj.shearY(xFactor)
   }
+
+  /** Implicit [[Drawing]] type class evidence for [[Shape]]. */
+  given drawEv: Drawing[Shape, ShapeDraw] = (obj, lw, lc) => obj.draw(lw, lc)
+  
+  /** Implicit [[Filling]] type class evidence for [[Shape]]. */
+  given fillEv: Filling[Shape, ShapeFill] = (obj, fillFactet) => obj.fill(fillFactet)
 }
 
 /** A closed shape specified in [[Length]] units. */

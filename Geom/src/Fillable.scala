@@ -75,8 +75,8 @@ object Fillable
 }
 
 /** Type class for creating graphical fill objects, */
-trait Filling[+A, +B]
-{ def fillT(obj: A @uncheckedVariance, fillFacet: FillFacet): B
+trait Filling[-A, +B]
+{ def fillT(obj: A, fillFacet: FillFacet): B
 }
 
 /** Companion object for the [[Filling]] type class. Contains implicit instances for collections and other container classes. */
