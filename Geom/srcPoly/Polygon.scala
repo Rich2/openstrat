@@ -315,9 +315,8 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
 }
 
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */
-object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
-{
-  /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
+object Polygon
+{ /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
   def apply(elems: Pt2*): Polygon =
   { val length = elems.length
     val array = new Array[Double](length * 2)
@@ -329,7 +328,6 @@ object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
     }
     new PolygonGen(array)
   }
-
 
   /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is incorrect. */
   def dbls(inp: Double*): Polygon =
@@ -392,5 +390,8 @@ object Polygon// extends CompanionSlDbl2[Pt2, Polygon]
   }
 
   /** Implicit [[Drawing]] type class instance / evidence for [[Polygon]]. */
-  given drawerEv: Drawing[Polygon, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  given drawingEv: Drawing[Polygon, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+
+  /** Implicit [[Filling]] type class evidence for [[Polygon]]. */
+  given fillingEv: Filling[Polygon, PolygonFill] = (obj, fillFactet) => obj.fill(fillFactet)
 }

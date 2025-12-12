@@ -51,7 +51,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   /** The shortest of the width and height dimensions relative to the given ratio. */
   def widthHeightMin(ratio: Double): Double = width.min(height * ratio)
 
-  override def fill(fillfacet: FillFacet): RectangleFill = RectFill(this, fillfacet)
+  //override def fill(fillfacet: FillFacet): RectFill = RectFill(this, fillfacet)
   override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectDraw = RectDraw(this, lineWidth, lineColour)
 
@@ -157,6 +157,12 @@ object Rect
     override def rotate180(obj: Rect): Rect = obj.rotate180
     override def rotate270(obj: Rect): Rect = obj.rotate270
   }
+
+  /** Implicit [[Drawing]] type class instance / evidence for [[Rect]]. */
+  given drawingEv: Drawing[Rect, RectDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+
+  /** Implicit [[Filling]] type class evidence for [[Rect]]. */
+  //given fillingEv: Filling[Rect, RectFill] = (obj, fillFactet) => obj.fill(fillFactet)
 
   /** General implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final class RectGen (val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rect

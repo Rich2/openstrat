@@ -155,9 +155,12 @@ object Rectangle
     override def rotate270(obj: Rectangle): Rectangle = obj.rotate270
   }
 
-  /** Implicit [[Drawing]] type class instance / evidence for [[Polygon]]. */
-  //given drawerEv: Drawing[Rectangle, PolygonDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  /** Implicit [[Drawing]] type class instance / evidence for [[Rectangle]]. */
+  given drawingEv: Drawing[Rectangle, RectangleDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 
+  /** Implicit [[Filling]] type class evidence for [[Rectangle]]. */
+  given fillingEv: Filling[Rectangle, RectangleFill] = (obj, fillFactet) => obj.fill(fillFactet)
+  
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rectangle
   { override type ThisT = RectangleGen

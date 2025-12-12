@@ -81,10 +81,10 @@ object Shape
   }
 
   /** Implicit [[Drawing]] type class evidence for [[Shape]]. */
-  given drawEv: Drawing[Shape, ShapeDraw] = (obj, lw, lc) => obj.draw(lw, lc)
+  given drawingEv: Drawing[Shape, ShapeDraw] = (obj, lw, lc) => obj.draw(lw, lc)
   
   /** Implicit [[Filling]] type class evidence for [[Shape]]. */
-  given fillEv: Filling[Shape, ShapeFill] = (obj, fillFactet) => obj.fill(fillFactet)
+  given fillingEv: Filling[Shape, ShapeFill] = (obj, fillFactet) => obj.fill(fillFactet)
 }
 
 /** A closed shape specified in [[Length]] units. */
