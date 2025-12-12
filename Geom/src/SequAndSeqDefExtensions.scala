@@ -1,10 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Extension methods for [[SeqSpec]]s sequence specified classes. */
-class SeqSpecExtensions[A](val thisSeqSpec : SeqSpec[A])
-{
-  /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
+extension[A](thisSeqSpec : SeqSpec[A])
+{ /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
   def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, f(a)))
@@ -31,9 +30,8 @@ class SeqSpecExtensions[A](val thisSeqSpec : SeqSpec[A])
   }
 }
 
-class SequExtensions[A](val al : Sequ[A])
-{
-  /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
+extension[A](al : Sequ[A])
+{ /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
   def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
