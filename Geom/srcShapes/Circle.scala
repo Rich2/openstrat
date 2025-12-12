@@ -158,6 +158,8 @@ object Circle extends ShapeIcon
     override def rotate270(obj: Circle): Circle = obj.rotate270
   }
 
+  given drawingEv: Drawing[Circle, CircleDraw] = (obj, lw, col) => obj.draw(lw, col)
+
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 
   /** [[Filling]] type class instance / evidence for [[Circle]] and [[CircleFill]] */

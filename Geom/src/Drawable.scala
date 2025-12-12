@@ -76,9 +76,9 @@ object Drawable
 }
 
 /** Type class for drawing. */
-trait Drawing[+A, +B]
+trait Drawing[A, B]
 { /** The type class's draw method. */
-  def drawT(obj: A @uncheckedVariance, lineWidth: Double = 2, lineColour: Colour = Black): B
+  def drawT(obj: A /* @uncheckedVariance */, lineWidth: Double = 2, lineColour: Colour = Black): B
 }
 
 /** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */
@@ -88,13 +88,13 @@ object Drawing
     (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
 
   /** Implicit [[Drawing]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */
-  given functorEv[A, B, F[_]](using evF: Functor[F], evA: Drawing[A, B]): Drawing[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
+  given functorEv[F[_], A, B](using evF: Functor[F], evA: Drawing[A, B]): Drawing[F[A], F[B]] = (obj, lw, col) => evF.mapT(obj, evA.drawT(_, lw, col))
 
   /** Implicit [[Drawing]] type class instances / evidence for [[Array]]. */
   given arrayEv[A, B](using ct: ClassTag[B], ev: Drawing[A, B]): Drawing[Array[A], Array[B]] = (obj, lw, col) => obj.map(ev.drawT(_, lw, col))
 }
 
-implicit class DrawerExtensions[A, B](thisDrawable: A)(implicit ev: Drawing[A, B])
+extension[A, B](thisDrawable: A)(using ev: Drawing[A, B])
 { /** Extension method to draw the object from a [[Drawing]] type class instance. */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): B = ev.drawT(thisDrawable, lineWidth, lineColour)
 }
