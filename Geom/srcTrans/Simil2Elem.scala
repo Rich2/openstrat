@@ -48,14 +48,14 @@ object Simil2Trans
   }
 }
 
-class TransSimExtension[T](value: T, ev: Simil2Trans[T])
+implicit class TransSimExtension[T](value: T)(implicit ev: Simil2Trans[T])
 { def reflect(line: Line) = ev.reflectT(value, line)
   def reflect(lineSeg: LSeg2): T = ev.reflectT(value, lineSeg)
 
   /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]
 
-  /** The scale transformation on 2 dimensional vectors. */
+  /** The scale transformation on 2-dimensional vectors. */
   def scaleSlate(factor: Double, addVec: VecPt2): T =
   { val r1 = ev.scale(value, factor)
     ev.slate(r1, addVec)

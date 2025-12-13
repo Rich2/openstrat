@@ -19,8 +19,6 @@ package object geom
   /** Constructs a new [[ArrayBuffer]] of [[Graphic2Elem]]. */
   @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[Graphic2Elem] = new ArrayBuffer[Graphic2Elem](initialLength)
 
-  implicit def transSimToExtension[T](value: T)(implicit ev: Simil2Trans[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
-  implicit def boundedToExtensions[T <: BoundedElem](value: T): BoundedExtensions[T] = new BoundedExtensions[T](value)
   implicit def boundingExtensions[A](value: A)(implicit evA: Bounding[A]): BoundingExtensions[A] = new BoundingExtensions[A](value, evA)
 
   implicit def rotateToExtensions[T, T1 <: T](value: T1)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)

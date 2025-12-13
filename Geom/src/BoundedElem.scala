@@ -27,8 +27,8 @@ trait BoundedElem extends Any, Axlign2Elem
   def cenDefault: Pt2 = boundingRect.cen
 }
 
-/** This will be deprecated and its methods transfered to [[BoundingExtensions]]. */
-class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal
+/** This will be deprecated and its methods transferred to [[BoundingExtensions]]. */
+extension [T <: BoundedElem](thisT: T)
 { /** 2D geometric translation transformation on this type T, returning an object of type T with its default centre at the parameter point. */
   def cenDefaultTo(newCenDefault: Pt2)(using ev: Slate2[T]): T = ev.slate(thisT, thisT.cenDefault >> newCenDefault)
 }
