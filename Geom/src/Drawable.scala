@@ -84,7 +84,7 @@ trait Drawing[-A, +B]
 /** Companion object for the [[Drawing]] type class. Contains implicit instances for collections and other container classes. */
 object Drawing
 { /** Implicit [[Drawing]] type class instances / evidence for [[Arr]]. */
-  given arrEv[A, B, ArrB <: Arr[B]](using evA: Drawing[A, B], build: BuilderArrMap[B, ArrB]): Drawing[Arr[A], Arr[B]] =
+  given arrEv[A, B, ArrB <: Arr[B]](using evA: Drawing[A, B], build: BuilderArrMap[B, ArrB]): Drawing[Arr[A], ArrB] =
     (obj, lw, col) => obj.map(evA.drawT(_, lw, col))
 
   /** Implicit [[Drawing]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */

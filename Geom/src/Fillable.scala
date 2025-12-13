@@ -82,7 +82,7 @@ trait Filling[-A, +B]
 /** Companion object for the [[Filling]] type class. Contains implicit instances for collections and other container classes. */
 object Filling
 { /** Implicit [[Filling]] type class instances / evidence for [[Arr]]. */
-  given arrEv[A, B, ArrB <: Arr[B]](using evA: Filling[A, B], build: BuilderArrMap[B, ArrB]): Filling[Arr[A], Arr[B]] =
+  given arrEv[A, B, ArrB <: Arr[B]](using evA: Filling[A, B], build: BuilderArrMap[B, ArrB]): Filling[Arr[A], ArrB] =
     (obj, ff) => obj.map(evA.fillT(_, ff))
 
   /** Implicit [[Filling]] type class instances / evidence for [[Functor]]. This provides instances for [[List]], [[Option]] etc. */

@@ -26,9 +26,9 @@ trait TextGraphic extends CanvElem, Aff2Elem
 }
 
 /** Text graphic fixed in font size and orientation.
- * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
+ * @param posn The point to orient from. By default, this Vec2 defines the centre but from right or left depending  on alignment. */
 final case class TextFixed(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, textAlign: TextAlign, baseLine: BaseLine) extends
-TextGraphic with GraphicAffineElem with GraphicSvgElem
+  TextGraphic, GraphicAffineElem, GraphicSvgElem
 { type ThisT = TextFixed
   override def ptsTrans(f: Pt2 => Pt2) = TextFixed(str, fontSize, f(posn), colour, textAlign, baseLine)
   override def svgElem: SvgOwnLine = SvgText.xy(xPosn, yPosn, str, textAlign, colour)

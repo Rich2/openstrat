@@ -3,8 +3,7 @@ package learn
 import ostrat.*, geom.*, Colour.*
 
 object LsRectangles  extends LessonStatic
-{
-  val title = "Rectangles"
+{ val title = "Rectangles"
   val circ1 = Circle(50)
   val circ2 = Circle(70)
   val l1: List[Circle] = List(circ1, circ2)
