@@ -19,8 +19,6 @@ package object geom
   /** Constructs a new [[ArrayBuffer]] of [[Graphic2Elem]]. */
   @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[Graphic2Elem] = new ArrayBuffer[Graphic2Elem](initialLength)
 
-  implicit def boundingExtensions[A](value: A)(implicit evA: Bounding[A]): BoundingExtensions[A] = new BoundingExtensions[A](value, evA)
-
   implicit def rotateToExtensions[T, T1 <: T](value: T1)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)
   implicit def rotateM3ToExtensions[T, T1 <: T](value: T1)(implicit ev: RotateM3T[T]): RotateM3Extensions[T] = new RotateM3Extensions[T](value, ev)
   implicit def reflectToExtension[T](value: T)(implicit ev: Reflect[T]): ReflectExtensions[T] = new ReflectExtensions[T](value, ev)
@@ -28,12 +26,9 @@ package object geom
   implicit def xyScaleToExtensions[T](value: T)(implicit ev: ScaleXY[T]): XYScaleExtensions[T] = new XYScaleExtensions[T](value, ev)
   implicit def shearToExtensions[T](value: T)(implicit ev: Shear[T]): ShearExtensions[T] = new ShearExtensions[T](value, ev)
 
-  implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate2[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
-    new SlateTransAxesExtensions[T](value)
-
   implicit def OrdinaledElemToExtensions[T <: OrdinaledElem](value: T)(using evT: Slate2[T]): OrdinaledExtensions[T] = new OrdinaledExtensions[T](value)
 
-  implicit class ProlignMatrixExtension[T](val value: T)(using ev: Prolign[T])
+  extension[T](value: T)(using ev: Prolign[T])
   { def prolign(matrix: AxlignMatrix): T = ev.prolignObj(value, matrix)
   }  
     

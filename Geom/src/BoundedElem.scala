@@ -67,7 +67,7 @@ object Bounding
   }
 }
 
-class BoundingExtensions[A](val thisObj: A, evA: Bounding[A])
+extension[A](thisObj: A)(using evA: Bounding[A])
 {
   def bounds: Rect = evA.bounds(thisObj)
 
