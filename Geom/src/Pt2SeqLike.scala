@@ -34,7 +34,7 @@ trait Pt2SeqSpec extends Any, Pt2SeqLike, SeqSpecDbl2[Pt2]
   protected def arrayRotate180: Array[Double] = arrayElemMap(_.rotate180)
   protected def arrayRotate270: Array[Double] = arrayElemMap(_.rotate270)
   protected def arrayRotate(rotation: AngleVec): Array[Double] = arrayElemMap(_.rotate(rotation))
-  protected def arrayReflect(lineLike: LineLike): Array[Double] = arrayElemMap(_.reflect(lineLike))
+  protected def arrayReflect(lineLike: LineLike): Array[Double] = arrayElemMap(_.mirror(lineLike))
   protected def arrayScaleXY(xOperand: Double, yOperand: Double): Array[Double] = arrayD1D2Map(_ * xOperand)(_ * yOperand)
   protected def arrayShearX(operand: Double): Array[Double] = arrayElemMap(_.xShear(operand))
   protected def arrayShearY(operand: Double): Array[Double] = arrayElemMap(_.yShear(operand))
@@ -93,7 +93,7 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
   given rotateEv: Rotate[Pt2Arr] = (obj: Pt2Arr, angle: AngleVec) => obj.rotate(angle)
   given prolignEv: Prolign[Pt2Arr] = (obj, matrix) => obj.prolign(matrix)
   given XYScaleEv: ScaleXY[Pt2Arr] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  given reflectEv: Reflect[Pt2Arr] = (obj: Pt2Arr, lineLike: LineLike) => obj.reflect(lineLike)
+  given reflectEv: Mirror[Pt2Arr] = (obj: Pt2Arr, lineLike: LineLike) => obj.mirror(lineLike)
 
   given reflectAxesEv: TransAxes[Pt2Arr] = new TransAxes[Pt2Arr]
   { override def negYT(obj: Pt2Arr): Pt2Arr = obj.negY

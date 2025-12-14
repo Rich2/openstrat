@@ -16,7 +16,7 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
   override def scale(operand: Double): CArcDraw = CArcDraw(curveSeg.scale(operand), colour, lineWidth)
   override def prolign(matrix: AxlignMatrix): CArcDraw = CArcDraw(curveSeg.prolign(matrix), colour, lineWidth)
   override def rotate(rotation: AngleVec): CArcDraw = CArcDraw(curveSeg.rotate(rotation), colour, lineWidth)
-  override def reflect(lineLike: LineLike): CArcDraw = CArcDraw(curveSeg.reflect(lineLike), colour, lineWidth)
+  override def mirror(lineLike: LineLike): CArcDraw = CArcDraw(curveSeg.mirror(lineLike), colour, lineWidth)
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.cArcDraw(this)
   override def svgElems: RArr[SvgOwnLine] = ???
 }

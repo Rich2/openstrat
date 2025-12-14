@@ -28,7 +28,7 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
   override def rotate180: ShapeFill
   override def rotate270: ShapeFill
   override def rotate(rotation: AngleVec): ShapeFill
-  override def reflect(lineLike: LineLike): ShapeFill
+  override def mirror(lineLike: LineLike): ShapeFill
   override def shearX(operand: Double): ShapeFill
   override def shearY(operand: Double): ShapeFill
 }

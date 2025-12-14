@@ -26,7 +26,7 @@ trait Quadrilateral extends Polygon4Plus
   override def rotate180: Quadrilateral = vertsTrans(_.rotate90)
   override def rotate270: Quadrilateral = vertsTrans(_.rotate90)
   override def rotate(rotation: AngleVec): Quadrilateral = vertsTrans(_.rotate(rotation))
-  override def reflect(lineLike: LineLike): Quadrilateral = vertsTrans(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): Quadrilateral = vertsTrans(_.mirror(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.scaleXY(xOperand, yOperand))
   override def shearX(operand: Double): Quadrilateral = vertsTrans(_.shearX(operand))
   override def shearY(operand: Double): Quadrilateral = vertsTrans(_.shearY(operand))
@@ -87,8 +87,8 @@ object Quadrilateral
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Quadrilateral]]. */
   given scaleXYEv: ScaleXY[Quadrilateral] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[Quadrilateral]]. */
-  given reflectEv: Reflect[Quadrilateral] = (obj: Quadrilateral, lineLike: LineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[Quadrilateral]]. */
+  given reflectEv: Mirror[Quadrilateral] = (obj: Quadrilateral, lineLike: LineLike) => obj.mirror(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Quadrilateral]]. */
   given transAxesEv: TransAxes[Quadrilateral] = new TransAxes[Quadrilateral] {

@@ -25,7 +25,7 @@ trait Triangle extends Polygon3Plus
 	override def rotate180: Triangle = vertsTrans(_.rotate180)
 	override def rotate270: Triangle = vertsTrans(_.rotate180)
 	override def prolign(matrix: AxlignMatrix): Triangle = vertsTrans(_.prolign(matrix))
-	override def reflect(lineLike: LineLike): Triangle = vertsTrans(_.reflect(lineLike))
+	override def mirror(lineLike: LineLike): Triangle = vertsTrans(_.mirror(lineLike))
 	override def rotate(rotation: AngleVec): Triangle = vertsTrans(_.rotate(rotation))
 	override def scaleXY(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.xyScale(xOperand, yOperand))
 	override def shearX(operand: Double): Triangle = vertsTrans(_.xShear(operand))

@@ -48,8 +48,8 @@ object PolygonGenArr
   /** Implicit [[ScaleXY]] type class instance / evidence for [[PolygonGenArr]]. */
   given scaleXYEv: ScaleXY[PolygonGenArr] = (obj, xOperand, yOperand) => obj.map(_.scaleXY(xOperand, yOperand))
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[PolygonGenArr]]. */
-  given reflectEv: Reflect[PolygonGenArr] = (obj: PolygonGenArr, lineLike: LineLike) => obj.map(_.reflect(lineLike))
+  /** Implicit [[Mirror]] type class instance / evidence for [[PolygonGenArr]]. */
+  given reflectEv: Mirror[PolygonGenArr] = (obj: PolygonGenArr, lineLike: LineLike) => obj.map(_.mirror(lineLike))
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonGenArr]]. */
   given transAxesEv: TransAxes[PolygonGenArr] = new TransAxes[PolygonGenArr]

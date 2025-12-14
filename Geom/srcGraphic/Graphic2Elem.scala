@@ -45,8 +45,8 @@ object Graphic2Elem
   /** Implicit [[Prolign]] type class instance / evidence for [[Graphic2Elem]]. */
   given prolignEv: Prolign[Graphic2Elem] = (obj, matrix) => obj.prolign(matrix)
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[Graphic2Elem]]. */
-  given ReflectEv: Reflect[Graphic2Elem] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[Graphic2Elem]]. */
+  given ReflectEv: Mirror[Graphic2Elem] = (obj, lineLike) => obj.mirror(lineLike)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[Graphic2Elem]]. */
   given transAxesEv: TransAxes[Graphic2Elem] = new TransAxes[Graphic2Elem]
@@ -101,8 +101,8 @@ object CanvElem
   /** Implicit [[Prologn]] type class instance / evidence for [[CanvElem]]. */
   given prolignEv: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[CanvElem]]. */
-  given ReflectEv: Reflect[CanvElem] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[CanvElem]]. */
+  given ReflectEv: Mirror[CanvElem] = (obj, lineLike) => obj.mirror(lineLike)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[CanvElem]]. */
   given transAxisEv: TransAxes[CanvElem] = new TransAxes[CanvElem]

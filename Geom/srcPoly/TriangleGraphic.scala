@@ -22,7 +22,7 @@ case class TriangleFill(shape: Triangle, fillFacet: FillFacet) extends TriangleG
   override def rotate270: TriangleFill = TriangleFill(shape.rotate180, fillFacet)
   override def prolign(matrix: AxlignMatrix): TriangleFill = TriangleFill(shape.prolign(matrix), fillFacet)
   override def rotate(rotation: AngleVec): TriangleFill = TriangleFill(shape.rotate(rotation), fillFacet)
-  override def reflect(lineLike: LineLike): TriangleFill = TriangleFill(shape.reflect(lineLike), fillFacet)
+  override def mirror(lineLike: LineLike): TriangleFill = TriangleFill(shape.mirror(lineLike), fillFacet)
   override def scaleXY(xOperand: Double, yOperand: Double): TriangleFill = TriangleFill(shape.scaleXY(xOperand, yOperand), fillFacet)
   override def shearX(operand: Double): TriangleFill = TriangleFill(shape.shearX(operand), fillFacet)
   override def shearY(operand: Double): TriangleFill = TriangleFill(shape.shearY(operand), fillFacet)

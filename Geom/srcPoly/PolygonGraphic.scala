@@ -86,7 +86,7 @@ trait PolygonGraphicSimple extends PolygonGraphic, ShapeGraphicSimple
   override def scale(operand: Double): PolygonGraphicSimple
   override def shearX(operand: Double): PolygonGraphicSimple
   override def shearY(operand: Double): PolygonGraphicSimple
-  override def reflect(lineLike: LineLike): PolygonGraphicSimple
+  override def mirror(lineLike: LineLike): PolygonGraphicSimple
   override def negY: PolygonGraphicSimple
   override def negX: PolygonGraphicSimple
   override def prolign(matrix: AxlignMatrix): PolygonGraphicSimple
@@ -144,7 +144,7 @@ trait PolygonDraw extends PolygonGraphicSimple, CanvShapeDraw
   override def rotate270: PolygonDraw = PolygonDraw(shape.rotate270, lineWidth, lineColour)
   override def prolign(matrix: AxlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)
   override def rotate(rotation: AngleVec): PolygonDraw = PolygonDraw(shape.rotate(rotation), lineWidth, lineColour)
-  override def reflect(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.reflect(lineLike), lineWidth, lineColour)
+  override def mirror(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.mirror(lineLike), lineWidth, lineColour)
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
   override def shearX(operand: Double): PolygonDraw = PolygonDraw(shape.shearX(operand), lineWidth, lineColour)
   override def shearY(operand: Double): PolygonDraw = PolygonDraw(shape.shearY(operand), lineWidth, lineColour)
@@ -210,7 +210,7 @@ trait PolygonFill extends PolygonGraphicSimple, CanvShapeFill
   override def rotate270: PolygonFill
   override def prolign(matrix: AxlignMatrix): PolygonFill
   override def rotate(rotation: AngleVec): PolygonFill
-  override def reflect(lineLike: LineLike): PolygonFill
+  override def mirror(lineLike: LineLike): PolygonFill
   override def shearX(operand: Double): PolygonFill
   override def shearY(operand: Double): PolygonFill
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill
@@ -271,7 +271,7 @@ object PolygonFill
     override def rotate270: PolygonFill = PolygonFillGen(shape.rotate270, fillFacet)
     override def prolign(matrix: AxlignMatrix): PolygonFillGen = PolygonFillGen(shape.prolign(matrix), fillFacet)
     override def rotate(rotation: AngleVec): PolygonFillGen = PolygonFillGen(shape.rotate(rotation), fillFacet)
-    override def reflect(lineLike: LineLike): PolygonFillGen = PolygonFillGen(shape.reflect(lineLike), fillFacet)
+    override def mirror(lineLike: LineLike): PolygonFillGen = PolygonFillGen(shape.mirror(lineLike), fillFacet)
     override def shearX(operand: Double): PolygonFillGen = PolygonFillGen(shape.shearX(operand), fillFacet)
     override def shearY(operand: Double): PolygonFillGen = PolygonFillGen(shape.shearY(operand), fillFacet)
     override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill = PolygonFillGen(shape.scaleXY(xOperand, yOperand), fillFacet)
@@ -323,7 +323,7 @@ trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
   override def rotate180: PolygonCompound = PolygonCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: PolygonCompound = PolygonCompound(shape.rotate270, facets, children.rotate270)
   override def rotate(rotation: AngleVec): PolygonCompound = PolygonCompound(shape.rotate(rotation), facets, children.rotate(rotation))
-  override def reflect(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
+  override def mirror(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.mirror(lineLike), facets, children.mirror(lineLike))
 
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompound =
     PolygonCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))
@@ -363,8 +363,8 @@ object PolygonCompound
   /** Implicit [[ScaleXY]] type class instance evidence for [[PolygonCompound]]. */
   given scaleXYEv: ScaleXY[PolygonCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Reflect]] type class instance evidence for [[PolygonCompound]]. */
-  given reflectEv: Reflect[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance evidence for [[PolygonCompound]]. */
+  given reflectEv: Mirror[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.mirror(lineLike)
 
   /** Implicit [[RefelctAxes]] type class instance evidence for [[PolygonCompound]]. */
   given reflectAxesEv: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
@@ -406,7 +406,7 @@ object PolygonCompound
     override def scale(operand: Double): PolygonCompoundGen = PolygonCompoundGen(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: AxlignMatrix): PolygonCompoundGen = PolygonCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(rotation: AngleVec): PolygonCompoundGen = PolygonCompoundGen(shape.rotate(rotation), facets, children.rotate(rotation))
-    override def reflect(lineLike: LineLike): PolygonCompoundGen = PolygonCompoundGen(shape.reflect(lineLike), facets, children.reflect(lineLike))
+    override def mirror(lineLike: LineLike): PolygonCompoundGen = PolygonCompoundGen(shape.mirror(lineLike), facets, children.mirror(lineLike))
 
     override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundGen =
       PolygonCompoundGen(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))

@@ -17,7 +17,7 @@ trait PhiRectangle extends Rectangle
   override def negX: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negX, sd2Cen.negX)  
   override def negY: PhiRectangle = PhiRectangle.s1s3(sd0Cen.negY, sd2Cen.negY)
   override def prolign(matrix: AxlignMatrix): PhiRectangle = PhiRectangle.s1s3(sd0Cen.prolign(matrix), sd2Cen.prolign(matrix))
-  override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(sd0Cen.reflect(lineLike), sd2Cen.reflect(lineLike))
+  override def mirror(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(sd0Cen.mirror(lineLike), sd2Cen.mirror(lineLike))
   override def rotate(rotation: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd0Cen.rotate(rotation), sd2Cen.rotate(rotation))
 }
 

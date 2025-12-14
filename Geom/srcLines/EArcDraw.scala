@@ -36,7 +36,7 @@ trait EArcDraw extends CurveSegDraw, CanvElem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a EArcDraw, returns a EArcDraw. The Return type will be narrowed
    * in sub traits / classes. */
-  override def reflect(lineLike: LineLike): EArcDraw = EArcDraw(curveSeg.reflect(lineLike), colour, lineWidth)
+  override def mirror(lineLike: LineLike): EArcDraw = EArcDraw(curveSeg.mirror(lineLike), colour, lineWidth)
 
   /** XY scaling 2D geometric transformation on a EArcDraw, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */

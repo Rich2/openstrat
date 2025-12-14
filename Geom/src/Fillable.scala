@@ -25,7 +25,7 @@ trait Fillable extends Any, Drawable
   override def rotate180: Fillable
   override def rotate270: Fillable
   override def rotate(rotation: AngleVec): Fillable
-  override def reflect(lineLike: LineLike): Fillable
+  override def mirror(lineLike: LineLike): Fillable
   override def scaleXY(xOperand: Double, yOperand: Double): Fillable
   override def shearX(operand: Double): Fillable
   override def shearY(operand: Double): Fillable
@@ -52,8 +52,8 @@ object Fillable
   /** [[ScaleXY]] type class instance / evidence for [[Fillable]]. */
   given scaleXYEv: ScaleXY[Fillable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** [[Reflect]] type class instance / evidence for [[Fillable]]. */
-  given ReflectEv: Reflect[Fillable] = (obj, lineLike) => obj.reflect(lineLike)
+  /** [[Mirror]] type class instance / evidence for [[Fillable]]. */
+  given ReflectEv: Mirror[Fillable] = (obj, lineLike) => obj.mirror(lineLike)
 
   /** [[TransAxes]] type class instance / evidence for [[Fillable]]. */
   given transAxesEv: TransAxes[Fillable] = new TransAxes[Fillable]

@@ -37,7 +37,7 @@ trait CurveSegGraphic extends Graphic2Elem, Aff2Elem
   override def rotate270: CurveSegGraphic
   override def prolign(matrix: AxlignMatrix): CurveSegGraphic
   override def rotate(rotation: AngleVec): CurveSegGraphic
-  override def reflect(lineLike: LineLike): CurveSegGraphic
+  override def mirror(lineLike: LineLike): CurveSegGraphic
   override def shearX(operand: Double): CurveSegGraphic
   override def shearY(operand: Double): CurveSegGraphic
   override def scaleXY(xOperand: Double, yOperand: Double): CurveSegGraphic

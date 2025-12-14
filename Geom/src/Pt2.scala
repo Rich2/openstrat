@@ -75,7 +75,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def xScale(factor: Double): Pt2 = Pt2(x * factor, y)
   def xyScale(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
 
-  def reflect(lineLike: LineLike): Pt2 = lineLike match
+  def mirror(lineLike: LineLike): Pt2 = lineLike match
   { case xl: XLine => reflectXLine(xl)
     case yl: YLine => reflectYLine(yl)
     case r: Ray => ???
@@ -297,7 +297,7 @@ object Pt2
   given rotateEv: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   given prolignEv: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
   given XYScaleEv: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-  given reflectEv: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
+  given reflectEv: Mirror[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.mirror(lineLike)
 
   given reflectAxesEv: TransAxes[Pt2] = new TransAxes[Pt2]
   { override def negYT(obj: Pt2): Pt2 = obj.negY

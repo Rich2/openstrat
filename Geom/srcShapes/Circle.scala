@@ -33,7 +33,7 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
   override def prolign(matrix: AxlignMatrix): Circle = fTrans(_.prolign(matrix))
   override def rotate(rotation: AngleVec): Circle = Circle(radius, cen.rotate(rotation))
-  override def reflect(lineLike: LineLike): Circle = Circle(radius, cen.reflect(lineLike))
+  override def mirror(lineLike: LineLike): Circle = Circle(radius, cen.mirror(lineLike))
   override def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)
   override def fill(fillfacet: FillFacet): CircleFill = CircleFill(this, fillfacet)
   override def fillInt(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
@@ -250,7 +250,7 @@ class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val fChi
   override def rotate270: CircleCompound = CircleCompound(shape.rotate270, facets, fChilds, children.rotate270)
   override def prolign(matrix: AxlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, fChilds, children.prolign(matrix))
   override def rotate(rotation: AngleVec): CircleCompound = CircleCompound(shape.rotate(rotation), facets, fChilds, children.rotate(rotation))
-  override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, fChilds, children.reflect(lineLike))
+  override def mirror(lineLike: LineLike): CircleCompound = CircleCompound(shape.mirror(lineLike), facets, fChilds, children.mirror(lineLike))
   override def addChildren(newChildren: Arr[Graphic2Elem]): CircleCompound = CircleCompound(shape, facets, fChilds, children ++ newChildren)
 }
 
@@ -277,7 +277,7 @@ object CircleCompound
   given prolignEv: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
-  given reflectEv: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
+  given reflectEv: Mirror[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.mirror(lineLike)
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given reflectAxesEv: TransAxes[CircleCompound] = new TransAxes[CircleCompound]

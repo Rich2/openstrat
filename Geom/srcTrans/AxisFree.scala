@@ -9,7 +9,7 @@ trait AxisFree extends Aff2Elem
   override def rotate90: ThisT = rotate(DegVec90)
   override def rotate180: ThisT = rotate(DegVec180)
   override def rotate270: ThisT = rotate(DegVec270)
-  override def reflect(lineLike: LineLike): ThisT
-  override def negX: ThisT = reflect(YAxis)
-  override def negY: ThisT = reflect(XAxis)
+  override def mirror(lineLike: LineLike): ThisT
+  override def negX: ThisT = mirror(YAxis)
+  override def negY: ThisT = mirror(XAxis)
 }

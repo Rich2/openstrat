@@ -84,8 +84,8 @@ trait EArc extends EllipseBased, CurveSeg
   override def rotate180: EArc = EArc(pStart.rotate180, cen.rotate180, p1.rotate180, p0.rotate180, pEnd.rotate180, rotationsInt)
   override def rotate270: EArc = EArc(pStart.rotate270, cen.rotate270, p1.rotate270, p0.rotate270, pEnd.rotate270, rotationsInt)
   
-  override def reflect(lineLike: LineLike): EArc =
-    EArc(pStart.reflect(lineLike), cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
+  override def mirror(lineLike: LineLike): EArc =
+    EArc(pStart.mirror(lineLike), cen.mirror(lineLike), p1.mirror(lineLike), p0.mirror(lineLike), pEnd.mirror(lineLike), rotationsInt)
   
   override def scaleXY(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xyScale(xOperand, yOperand), cen.xyScale(xOperand, yOperand),
     p1.xyScale(xOperand, yOperand), p0.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), rotationsInt)

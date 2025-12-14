@@ -95,7 +95,7 @@ final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val 
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): LSeg2Draw = LSeg2Draw(this, lineWidth, lineColour)
   def withArrow(colour: Colour = Black, lineWidth: Double = 2): RArr[GraphicSvgElem] = Arrow.paint(startPt, endPt, DegVec25, 20, colour, lineWidth)
 
-  def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
+  def mirrorPt(pt: Pt2): Pt2 = pt.mirror(this)
 
   def svgElem: SvgOwnLine = SvgLine.bare(startX, startY, endX, endY)
 

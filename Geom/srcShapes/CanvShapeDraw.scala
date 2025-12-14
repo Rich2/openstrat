@@ -14,7 +14,7 @@ trait CanvShapeDraw extends ShapeDraw with CanvElem
   override def rotate180: CanvShapeDraw
   override def rotate270: CanvShapeDraw
   override def rotate(rotation: AngleVec): CanvShapeDraw
-  override def reflect(lineLike: LineLike): CanvShapeDraw
+  override def mirror(lineLike: LineLike): CanvShapeDraw
   override def scaleXY(xOperand: Double, yOperand: Double): CanvShapeDraw
   override def shearX(operand: Double): CanvShapeDraw
   override def shearY(operand: Double): CanvShapeDraw

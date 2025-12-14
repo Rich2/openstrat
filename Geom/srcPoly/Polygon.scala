@@ -143,7 +143,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
   override def rotate180: Polygon = map(_.rotate180)
   override def rotate270: Polygon = map(_.rotate270)
   override def rotate(rotation: AngleVec): Polygon = map(_.rotate(rotation))
-  override def reflect(lineLike: LineLike): Polygon = map(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): Polygon = map(_.mirror(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Polygon = map(_.scaleXY(xOperand, yOperand))
   override def shearX(operand: Double): Polygon = map(_.shearX(operand))
   override def shearY(operand: Double): Polygon = map(_.shearY(operand))
@@ -371,8 +371,8 @@ object Polygon
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Polygon]]. */
   given scaleXYEv: ScaleXY[Polygon] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[Polygon]]. */
-  given reflectEv: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[Polygon]]. */
+  given reflectEv: Mirror[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.mirror(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Polygon]]. */
   given transAxesEv: TransAxes[Polygon] = new TransAxes[Polygon]

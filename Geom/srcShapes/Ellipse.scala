@@ -71,7 +71,7 @@ trait Ellipse extends EllipseBased, ShapeCentred
   override def rotate(rotation: AngleVec): Ellipse = fTrans(_.rotate(rotation))
   override def negY: Ellipse
   override def negX: Ellipse
-  override def reflect(lineLike: LineLike): Ellipse = fTrans(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): Ellipse = fTrans(_.mirror(lineLike))
   override def shearX(operand: Double): Ellipse = fTrans(_.xShear(operand))
   override def shearY(operand: Double): Ellipse = fTrans(_.yShear(operand))
   override def boundingWidth: Double = ???
@@ -231,7 +231,7 @@ final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1
   override def slateX(xOperand: Double): EllipseGen = new EllipseGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
   override def slateY(yOperand: Double): EllipseGen = new EllipseGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
   override def scale(operand: Double): EllipseGen = new EllipseGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
-  override def reflect(lineLike: LineLike): EllipseGen = ??? // EllipseGen.cenAxes1Axes4(cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike))
+  override def mirror(lineLike: LineLike): EllipseGen = ??? // EllipseGen.cenAxes1Axes4(cen.reflect(lineLike), p1.reflect(lineLike), p0.reflect(lineLike))
   override def rotate(rotation: AngleVec): EllipseGen = EllipseGen.p013(p0.rotate(rotation), p1.rotate(rotation), p3.rotate(rotation))
   override def shearX(operand: Double): EllipseGen = ??? //EllipseGen.cenAxes1Axes4(cen.xShear(operand), p1.xShear(operand), p0.xShear(operand))
   override def shearY(operand: Double): EllipseGen = ??? //EllipseGen.cenAxes1Axes4(cen.yShear(operand), p1.yShear(operand), p0.yShear(operand))
@@ -346,7 +346,7 @@ trait EllipseCompound extends ShapeCompound, EllipseGraphic, Aff2Elem
   override def rotate270: EllipseCompound
   override def prolign(matrix: AxlignMatrix): EllipseCompound
   override def rotate(rotation: AngleVec): EllipseCompound
-  override def reflect(lineLike: LineLike): EllipseCompound
+  override def mirror(lineLike: LineLike): EllipseCompound
   override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = EllipseCompound(shape.scaleXY(xOperand, yOperand), facets, children)
   override def shearX(operand: Double): EllipseCompound = EllipseCompound(shape.shearX(operand), facets, children)
   override def shearY(operand: Double): EllipseCompound = EllipseCompound(shape.shearY(operand), facets, children)
@@ -391,7 +391,7 @@ object EllipseCompound
     override def scale(operand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: AxlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(rotation: AngleVec): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotate(rotation), facets, children.rotate(rotation))
-    override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
+    override def mirror(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
     override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
     override def shearX(operand: Double): EllipseCompoundImplement = ???
     override def shearY(operand: Double): EllipseCompoundImplement = ???

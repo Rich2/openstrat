@@ -41,7 +41,7 @@ object TriEqui
     override def scale(operand: Double): TriEquiGen = new TriEquiGen(v0x * operand, v0y * operand,v1x * operand, v1y * operand, v2x * operand, v2y * operand)
 
     override def rotate(rotation: AngleVec): TriEquiGen = TriEquiGen.verts(v0.rotate(rotation), v1.rotate(rotation), v2.rotate(rotation))
-    override def reflect(lineLike: LineLike): TriEquiGen = ???
+    override def mirror(lineLike: LineLike): TriEquiGen = ???
   }
 
   object TriEquiGen

@@ -38,7 +38,7 @@ trait CurveSeg extends Drawable
   override def rotate90: CurveSeg
   override def rotate180: CurveSeg
   override def rotate270: CurveSeg
-  override def reflect(lineLike: LineLike): CurveSeg
+  override def mirror(lineLike: LineLike): CurveSeg
   override def scaleXY(xOperand: Double, yOperand: Double): CurveSeg
   override def shearX(operand: Double): CurveSeg
   override def shearY(operand: Double): CurveSeg
@@ -66,7 +66,7 @@ object CurveSeg
   given scaleXYEv: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** Implicit [[Refelect]] type class instance for [[CurveSeg]]. */
-  given ReflectEv: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
+  given ReflectEv: Mirror[CurveSeg] = (obj, lineLike) => obj.mirror(lineLike)
   
   /** Implicit [[TransAxes]] type class instance for [[CurveSeg]]. */
   given transAxesEv: TransAxes[CurveSeg] = new TransAxes[CurveSeg]

@@ -49,7 +49,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def rotate90: Rectangle = vertsTrans(_.rotate90)
   override def rotate180: Rectangle = vertsTrans(_.rotate180)
   override def rotate270: Rectangle = vertsTrans(_.rotate270)
-  override def reflect(lineLike: LineLike): Rectangle = vertsTrans(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): Rectangle = vertsTrans(_.mirror(lineLike))
   override def rotate(rotation: AngleVec): Rectangle = vertsTrans(_.rotate(rotation))
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 
@@ -143,8 +143,8 @@ object Rectangle
   /** Implicit [[Prolign]] type class instance evidence for [[Rectangle]]. */
   given prolignEv: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
   
-  /** Implicit [[Reflect]] type class instance evidence for [[Rectangle]]. */
-  given reflectEv: Reflect[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance evidence for [[Rectangle]]. */
+  given reflectEv: Mirror[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.mirror(lineLike)
 
   /** Implicit [[TransAxes]] type class instance evidence for [[Rectangle]]. */
   given transAxesEv: TransAxes[Rectangle] = new TransAxes[Rectangle]

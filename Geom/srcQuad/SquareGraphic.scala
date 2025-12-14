@@ -29,7 +29,7 @@ trait SquareFill extends SquareGraphicSimple, RectangleFill
   override def rotate270: SquareFill
   override def prolign(matrix: AxlignMatrix): SquareFill
   override def rotate(rotation: AngleVec): SquareFill = SquareFill(shape.rotate(rotation), fillFacet)
-  override def reflect(lineLike: LineLike): SquareFill = SquareFill(shape.reflect(lineLike), fillFacet)
+  override def mirror(lineLike: LineLike): SquareFill = SquareFill(shape.mirror(lineLike), fillFacet)
 }
 
 object SquareFill

@@ -47,7 +47,7 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell
   override def rotate270: HexReg = mapHexReg(_.rotate270)
   override def prolign(matrix: AxlignMatrix): HexReg = mapHexReg(_.prolign(matrix))
   override def rotate(rotation: AngleVec): HexReg = mapHexReg(_.rotate(rotation))
-  override def reflect(lineLike: LineLike): HexReg = mapHexReg(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): HexReg = mapHexReg(_.mirror(lineLike))
 
   /** The area of this [[HexReg]]. 3 * √3 * r² / 2. Or 2 * √3 * a²  */
   def area: Double = radius.squared * 3.sqrt * 3 / 2

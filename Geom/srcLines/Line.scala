@@ -23,7 +23,7 @@ sealed trait Line extends LineLike
   override def rotate270: Line = ???
 
   override def rotate(rotation: AngleVec): Line = ???
-  override def reflect(lineLike: LineLike): Line = ???
+  override def mirror(lineLike: LineLike): Line = ???
   override def scaleXY(xOperand: Double, yOperand: Double): Line = ???
   override def shearX(operand: Double): Line = ???
   override def shearY(operand: Double): Line = ???

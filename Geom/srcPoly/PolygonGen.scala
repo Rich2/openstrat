@@ -63,7 +63,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon, Pt2SeqLi
   override def rotate180: PolygonGen = map(_.rotate180)
   override def rotate270: PolygonGen = map(_.rotate270)
   override def rotate(rotation: AngleVec): PolygonGen = map(_.rotate(rotation))
-  override def reflect(lineLike: LineLike): PolygonGen = map(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): PolygonGen = map(_.mirror(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGen = map(_.xyScale(xOperand, yOperand))
   override def shearX(operand: Double): PolygonGen = map(_.xShear(operand))
   override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))

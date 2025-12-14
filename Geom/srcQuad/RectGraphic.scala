@@ -48,7 +48,7 @@ object RectFill
     override def rotate180: RectFillImp = RectFillImp(shape.rotate180, fillFacet)
     override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
     override def prolign(matrix: AxlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
-    override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
+    override def mirror(lineLike: LineLike): RectangleFill = RectangleFill(shape.mirror(lineLike), fillFacet)
     override def rotate(rotation: AngleVec): RectangleFill = RectangleFill(shape.rotate(rotation), fillFacet)
   }
 }

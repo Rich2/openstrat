@@ -103,7 +103,7 @@ class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
   override def negX: Vec2 = Vec2(-x, y)
   override def negY: Vec2 = Vec2(x, -y)
   override def prolign(matrix: AxlignMatrix): Vec2 = ???
-  override def reflect(lineLike: ostrat.geom.LineLike): Vec2 = ???
+  override def mirror(lineLike: ostrat.geom.LineLike): Vec2 = ???
 }
 
 /** Companion object for [[Vec2]] contains apply factory, unapply extractor and implicit [[Persist]] instances. */

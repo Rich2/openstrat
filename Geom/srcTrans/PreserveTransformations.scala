@@ -26,7 +26,7 @@ trait SimilarPreserve extends Any with ProlignPreserve
   override def rotate90: ThisT = ptsTrans(_.rotate90)
   override def rotate180: ThisT = ptsTrans(_.rotate180)
   override def rotate270: ThisT = ptsTrans(_.rotate270)
-  override def reflect(lineLike: LineLike): ThisT = ptsTrans(_.reflect(lineLike))
+  override def mirror(lineLike: LineLike): ThisT = ptsTrans(_.mirror(lineLike))
   override def rotate(rotation: AngleVec): ThisT = ptsTrans(_.rotate(rotation))
 }
 

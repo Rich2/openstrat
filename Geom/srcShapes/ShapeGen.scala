@@ -7,7 +7,7 @@ import Colour.Black, pWeb.*
 final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs, AxisFree
 { override type ThisT = ShapeGen
   override def rotate(rotation: AngleVec): ShapeGen = ???
-  override def reflect(lineLike: LineLike): ShapeGen = ???
+  override def mirror(lineLike: LineLike): ShapeGen = ???
 }
 
 /** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations. */
@@ -46,8 +46,8 @@ object ShapeGen
   /** Implicit [[ScaleXY]] type class instance / evidence for [[ShapeGen]]. */
   given scaleXYEv: ScaleXY[ShapeGen] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   
-  /** Implicit [[Reflect]] type class instance / evidence for [[ShapeGen]]. */
-  given ReflectEv: Reflect[ShapeGen] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[ShapeGen]]. */
+  given ReflectEv: Mirror[ShapeGen] = (obj, lineLike) => obj.mirror(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeGen]]. */
   given transAxesEv: TransAxes[ShapeGen] = new TransAxes[ShapeGen]

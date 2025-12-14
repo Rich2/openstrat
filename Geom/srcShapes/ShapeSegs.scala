@@ -26,7 +26,7 @@ trait ShapeSegs extends Shape
   override def scale(operand: Double): ShapeGen = new ShapeGen(unsafeArray.scale(operand))
   override def prolign(matrix: AxlignMatrix): ShapeGen = ???
   override def rotate(rotation: AngleVec): ShapeSegs = ???
-  override def reflect(lineLike: LineLike): ShapeGen = ???
+  override def mirror(lineLike: LineLike): ShapeGen = ???
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGen = ???
   override def shearX(operand: Double): ShapeGen = ???
   override def shearY(operand: Double): ShapeGen = ???
@@ -83,8 +83,8 @@ object ShapeSegs
   /** Implicit [[ScaleXY]] type class instance / evidence for [[ShapeSegs]]. */
   given scaleXYEv: ScaleXY[ShapeSegs] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[ShapeSegs]]. */
-  given ReflectEv: Reflect[ShapeSegs] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[ShapeSegs]]. */
+  given ReflectEv: Mirror[ShapeSegs] = (obj, lineLike) => obj.mirror(lineLike)
   
   /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeSegs]]. */
   given transAxesEv: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs]

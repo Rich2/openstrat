@@ -21,7 +21,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   override def rotate180: Ray = ???
   override def rotate270: Ray = ???
   override def rotate(rotation: AngleVec): Ray = ???
-  override def reflect(lineLike: LineLike): Ray = ???
+  override def mirror(lineLike: LineLike): Ray = ???
   override def scaleXY(xOperand: Double, yOperand: Double): Ray = ???
   override def shearX(operand: Double): Ray = ???
   override def shearY(operand: Double): Ray = ???

@@ -38,7 +38,7 @@ trait Shape extends Any, Aff2Elem, Fillable, BoundedElem
   override def rotate180: Shape
   override def rotate270: Shape
   override def rotate(rotation: AngleVec): Shape
-  override def reflect(lineLike: LineLike): Shape
+  override def mirror(lineLike: LineLike): Shape
   override def scaleXY(xOperand: Double, yOperand: Double): Shape
   override def shearX(operand: Double): Shape
   override def shearY(operand: Double): Shape

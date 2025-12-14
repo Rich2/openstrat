@@ -20,7 +20,7 @@ trait ShapeGraphicSimple extends ShapeGraphic, GraphicSimple, GraphicSvgElem
   override def rotate270: ShapeGraphicSimple
   override def prolign(matrix: AxlignMatrix): ShapeGraphicSimple
   override def rotate(rotation: AngleVec): ShapeGraphicSimple
-  override def reflect(lineLike: LineLike): ShapeGraphicSimple
+  override def mirror(lineLike: LineLike): ShapeGraphicSimple
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphicSimple
 }
 

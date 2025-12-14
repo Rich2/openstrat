@@ -25,7 +25,7 @@ trait Drawable extends Any, Aff2Elem
   override def rotate180: Drawable
   override def rotate270: Drawable
   override def rotate(rotation: AngleVec): Drawable
-  override def reflect(lineLike: LineLike): Drawable
+  override def mirror(lineLike: LineLike): Drawable
   override def scaleXY(xOperand: Double, yOperand: Double): Drawable
   override def shearX(operand: Double): Drawable
   override def shearY(operand: Double): Drawable
@@ -53,8 +53,8 @@ object Drawable
   /** [[ScaleXY]] type class instance / evidence for [[Drawable]]. */
   given scaleXYEv: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** [[Reflect]] type class instance / evidence for [[Drawable]]. */
-  given ReflectEv: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
+  /** [[Mirror]] type class instance / evidence for [[Drawable]]. */
+  given ReflectEv: Mirror[Drawable] = (obj, lineLike) => obj.mirror(lineLike)
 
   /** [[TransAxes]] type class instance / evidence for [[Drawable]]. */
   given transAxesEv: TransAxes[Drawable] = new TransAxes[Drawable]

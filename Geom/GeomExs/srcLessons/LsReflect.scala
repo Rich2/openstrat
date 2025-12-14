@@ -14,14 +14,14 @@ object LsReflect extends LessonStatic
   val p1 = Pt2(-100, 200)
 
   val c1 = Cross.draw(p1)
-  val c1r = Cross.draw(p1.reflect(line1))
+  val c1r = Cross.draw(p1.mirror(line1))
   val rect = Rect(200, 100, 200, 200)
   val r1 = rect.fill(Red)
-  val r1r = rect.reflect(line1).fill(Orange)
+  val r1r = rect.mirror(line1).fill(Orange)
   val vRed = Pt2(0, -50)
   val cl1: Circle = Circle.d(75, vRed)
   val ccl1 = cl1.fill(Red)
-  val ccl1r = cl1.reflect(line1).fill(Orange)
+  val ccl1r = cl1.mirror(line1).fill(Orange)
 
   val r2 = Rect(180, 100, 150, -200)
   val cl2 = Circle(40, 110, - 300)

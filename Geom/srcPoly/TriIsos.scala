@@ -44,7 +44,7 @@ object TriIsos
 
     override def rotate(rotation: AngleVec): TriIsosGen = ???
 
-    override def reflect(lineLike: LineLike): TriIsosGen = ???
+    override def mirror(lineLike: LineLike): TriIsosGen = ???
   }
 
   object TriIsosGen

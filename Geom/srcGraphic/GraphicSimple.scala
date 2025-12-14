@@ -16,7 +16,7 @@ trait GraphicSimple extends Graphic2Elem, Aff2Elem
   override def rotate270: GraphicSimple
   override def prolign(matrix: AxlignMatrix): GraphicSimple
   override def rotate(rotation: AngleVec): GraphicSimple
-  override def reflect(lineLike: LineLike): GraphicSimple
+  override def mirror(lineLike: LineLike): GraphicSimple
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicSimple
 }
 

@@ -33,7 +33,7 @@ trait Aff2Elem extends Any, Simil2Elem
   override def rotate270: Aff2Elem
   override def prolign(matrix: AxlignMatrix): Aff2Elem
   override def rotate(rotation: AngleVec): Aff2Elem
-  def reflect(lineLike: LineLike): Aff2Elem
+  def mirror(lineLike: LineLike): Aff2Elem
 }
 
 /** Companion object for the [[Aff2Elem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
@@ -58,8 +58,8 @@ object Aff2Elem
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Aff2Elem]]. */
   given scaleXYEv: ScaleXY[Aff2Elem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Reflect]] type class instance / evidence for [[Aff2Elem]]. */
-  given ReflectEv: Reflect[Aff2Elem] = (obj, lineLike) => obj.reflect(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[Aff2Elem]]. */
+  given MirrorEv: Mirror[Aff2Elem] = (obj, lineLike) => obj.mirror(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Aff2Elem]]. */
   given transAxesEv: TransAxes[Aff2Elem] = new TransAxes[Aff2Elem]
@@ -84,7 +84,7 @@ trait Aff2Trans[T] extends Simil2Trans[T]
   override def scale(obj: T, operand: Double): T = trans(obj, _.scale(operand))
   def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Pt2(v.x * yScale, v.y * xScale))
   override def rotate(obj: T, angle: AngleVec): T = trans(obj, _.rotate(angle))
-  override def reflectT(obj: T, line: LineLike): T = trans(obj, _.reflect(line))
+  override def reflectT(obj: T, line: LineLike): T = trans(obj, _.mirror(line))
 }
 
 /** The companion object for the Trans[T] type class, containing instances for common classes. */
