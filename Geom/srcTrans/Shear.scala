@@ -31,7 +31,7 @@ object Shear
 }
 
 /** Extensions class for the Shear type class. */
-class ShearExtensions[T](obj: T, ev: Shear[T])
+extension[T](obj: T)(using ev: Shear[T])
 { def shearX(yFactor: Double): T = ev.shearXT(obj, yFactor)
   def shearY(xFactor: Double): T = ev.shearYT(obj, xFactor)
 }

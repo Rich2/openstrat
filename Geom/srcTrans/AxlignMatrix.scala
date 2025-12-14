@@ -27,14 +27,14 @@ final case class AxlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xDe
   }
 }
 
-/** Companion object for Prolign Matrices. */
+/** Companion object for [[Prolign]] Matrices. */
 object AxlignMatrix
 {
   def mirrorY: AxlignMatrix = AxlignMatrix(1, true, false, 0, 0)
 }
 
-/** Type class for Prolign transformations. These are proportionate and aligned to X and Y axes transformations. This transformation set preserves
- *  Circles and Squares. It also preserves the alignment of Squares and Rectangle to the axes.*/
+/** Type class for Prolign transformations. These are proportionate and aligned to X and Y axes transformations. This transformation set preserves [[Circle]]s
+ * and [[Square]]s. It also preserves the alignment of Squares and Rectangle to the axes.*/
 trait Prolign[A]
 { def prolignObj(obj: A, prolignMatrix: AxlignMatrix): A
 }
@@ -42,13 +42,17 @@ trait Prolign[A]
 /** Companion object for the Prolign type class. */
 object Prolign
 {
-  implicit def transAlignerImplicit[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
+  given transAlignerEv[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
 
-  implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[RArr[A]] =
+  given arrEv[A](using ct: ClassTag[A], ev: Prolign[A]): Prolign[RArr[A]] =
     (arrA : RArr[A], prolignMatrix: AxlignMatrix) => arrA.map(a => ev.prolignObj(a, prolignMatrix))
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Prolign[A]): Prolign[F[A]] =
+  given functorEv[A, F[_]](using evF: Functor[F], evA: Prolign[A]): Prolign[F[A]] =
     (fa, offset) => evF.mapT(fa, a => evA.prolignObj(a, offset))
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Array[A]] = (obj, offset) => obj.map(ev.prolignObj(_, offset))
+  given arrayEv[A](using ct: ClassTag[A], ev: Prolign[A]): Prolign[Array[A]] = (obj, offset) => obj.map(ev.prolignObj(_, offset))
+}
+
+extension[T](value: T)(using ev: Prolign[T])
+{ def prolign(matrix: AxlignMatrix): T = ev.prolignObj(value, matrix)
 }

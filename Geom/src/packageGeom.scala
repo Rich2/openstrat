@@ -22,15 +22,6 @@ package object geom
   implicit def rotateToExtensions[T, T1 <: T](value: T1)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)
   implicit def rotateM3ToExtensions[T, T1 <: T](value: T1)(implicit ev: RotateM3T[T]): RotateM3Extensions[T] = new RotateM3Extensions[T](value, ev)
   implicit def reflectToExtension[T](value: T)(implicit ev: Reflect[T]): ReflectExtensions[T] = new ReflectExtensions[T](value, ev)
-
-  implicit def xyScaleToExtensions[T](value: T)(implicit ev: ScaleXY[T]): XYScaleExtensions[T] = new XYScaleExtensions[T](value, ev)
-  implicit def shearToExtensions[T](value: T)(implicit ev: Shear[T]): ShearExtensions[T] = new ShearExtensions[T](value, ev)
-
-  implicit def OrdinaledElemToExtensions[T <: OrdinaledElem](value: T)(using evT: Slate2[T]): OrdinaledExtensions[T] = new OrdinaledExtensions[T](value)
-
-  extension[T](value: T)(using ev: Prolign[T])
-  { def prolign(matrix: AxlignMatrix): T = ev.prolignObj(value, matrix)
-  }  
     
   /** The number of arc seconds in a degree = 3600. */
   val SecsInDeg: Int = 3600

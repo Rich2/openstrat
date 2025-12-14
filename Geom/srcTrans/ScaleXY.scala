@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
@@ -13,17 +13,17 @@ trait ScaleXY[T]
 /** Companion object for scale transformation where the X and Y components can be scaled independently. Contains instance for comon types. */
 object ScaleXY
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: ScaleXY[A]): ScaleXY[AA] =
+  given arrImplicit[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: ScaleXY[A]): ScaleXY[AA] =
     (obj, xOperand: Double, yOperand) => obj.map(ev.scaleXYT(_, xOperand, yOperand))
 
-  implicit def functorImplicit[A, F[_]](using evF: Functor[F], evA: ScaleXY[A]): ScaleXY[F[A]] =
+  given functorImplicit[A, F[_]](using evF: Functor[F], evA: ScaleXY[A]): ScaleXY[F[A]] =
     (obj, xOperand, yOperand) => evF.mapT(obj, evA.scaleXYT(_, xOperand, yOperand))
 
-  implicit def arrayImplicit[A](using ct: ClassTag[A], ev: ScaleXY[A]): ScaleXY[Array[A]] =
+  given arrayImplicit[A](using ct: ClassTag[A], ev: ScaleXY[A]): ScaleXY[Array[A]] =
     (obj, xOperand: Double, yOperand) => obj.map(ev.scaleXYT(_, xOperand, yOperand))
 }
 
-class XYScaleExtensions[T](val value: T, ev: ScaleXY[T])
+extension[T](value: T)(using ev: ScaleXY[T])
 { /** 2d geometric scale transformation extension method, where X and Y axes can be scaled independently for type T, returning a type T. This is an affine
    * transformation, but it is not a similar transformation. */
   def scaleXY(xOperand: Double, yOperand: Double): T = ev.scaleXYT(value, xOperand, yOperand)
@@ -32,7 +32,7 @@ class XYScaleExtensions[T](val value: T, ev: ScaleXY[T])
    * transformation. */
   def scaleX(xOperand: Double): T = ev.scaleXYT(value, xOperand, 1)
 
-  /** scale Y axis 2d geometric transformation extension method, for type T, returning a type T. This is an affine transformation but it is not a
-   *  similar transformation. */
+  /** scale Y axis 2d geometric transformation extension method, for type T, returning a type T. This is an affine transformation, but it is not a similar
+   * transformation. */
   def scaleY(yOperand: Double): T = ev.scaleXYT(value, 1, yOperand)
 }
