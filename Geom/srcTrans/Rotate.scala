@@ -12,7 +12,7 @@ object Rotate
 {
   given transSimerEv[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
 
-  given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Rotate[A]): Rotate[AA] = (obj, angle) => obj.map(ev.rotateT(_, angle))
+  given arrEv[A, ArrA <: Arr[A]](using build: BuilderArrMap[A, ArrA], ev: Rotate[A]): Rotate[ArrA] = (obj, angle) => obj.map(ev.rotateT(_, angle))
 
   given functorEv[A, F[_]](using evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] = (obj, radians) => evF.mapT(obj, evA.rotateT(_, radians))
 
@@ -20,7 +20,7 @@ object Rotate
 }
 
 /** Extension class for instances of the Rotate type class. */
-class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
+implicit class RotateExtensions[T, T1 <: T](value: T1)(using ev: Rotate[T]) extends RotateGenExtensions[T]
 { override def rotateRadians(radians: Double): T = ev.rotateT(value, AngleVec.radians(radians))
 
   /** Rotate (2D geometric transformation) the object by the [[AngleVec]] parameter. */

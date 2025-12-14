@@ -3,8 +3,8 @@ package ostrat; package geom
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
  * are [[Slate2]], [[SlateXY]], [[Scale]] and negX and negY, the [[TransAxes]], transformations. */
-trait ProlignPreserve extends Any with Aff2Elem {
-  /** The most narrow type preserved in some 2d geometric transformations. */
+trait ProlignPreserve extends Any, Aff2Elem
+{ /** The most narrow type preserved in some 2d geometric transformations. */
   type ThisT <: ProlignPreserve
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
@@ -21,7 +21,7 @@ trait ProlignPreserve extends Any with Aff2Elem {
 }
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
-trait SimilarPreserve extends Any with ProlignPreserve
+trait SimilarPreserve extends Any, ProlignPreserve
 { type ThisT <: SimilarPreserve
   override def rotate90: ThisT = ptsTrans(_.rotate90)
   override def rotate180: ThisT = ptsTrans(_.rotate180)
@@ -42,7 +42,7 @@ trait SimilarAffPreserve extends SimilarPreserve
 
 /** A class that can transform itself in 2d geometry and can preserve its type across all affine transformations. This is a key trait, the object can be
  * transformed in 2-dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2): T. */
-trait AffinePreserve extends Any with SimilarPreserve
+trait AffinePreserve extends Any, SimilarPreserve
 { type ThisT <: AffinePreserve
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ptsTrans(_.xyScale(xOperand, yOperand))
   override def shearX(operand: Double): ThisT = ptsTrans(_.xShear(operand))

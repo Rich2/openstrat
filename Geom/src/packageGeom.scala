@@ -18,8 +18,6 @@ package object geom
 
   /** Constructs a new [[ArrayBuffer]] of [[Graphic2Elem]]. */
   @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[Graphic2Elem] = new ArrayBuffer[Graphic2Elem](initialLength)
-
-  implicit def rotateToExtensions[T, T1 <: T](value: T1)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)
     
   /** The number of arc seconds in a degree = 3600. */
   val SecsInDeg: Int = 3600
