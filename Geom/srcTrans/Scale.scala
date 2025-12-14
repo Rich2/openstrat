@@ -11,7 +11,7 @@ trait Scale[T]
 
 /** Companion object for the Scale type class. Contains instances. 2-dimensional vector transformations type class. */
 object Scale
-{ given transSimerEv[T <: SimilarPreserve]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
+{given transSimerEv[T <: SimilarPreserve]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
 
   /** Implicit [[Scale]] type class instances / evidence for [[Arr]]. */
   given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Scale[A]): Scale[AA] = (obj, offset) => obj.map(ev.scaleT(_, offset))
