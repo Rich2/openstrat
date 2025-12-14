@@ -4,8 +4,8 @@ import pWeb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag, a
 
 /** Straight line segment. A straight line in everyday terminology. Mathematically: 2-dimensional directed, line segment. The name was chosen to avoid
  * ambiguity. */
-final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LSegDbl4[Pt2], LineLike, CurveSeg,
-  Tell2[Pt2, Pt2], AffinePreserve, BoundedElem
+final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LSegDbl4[Pt2], LineLike, CurveSeg, Tell2[Pt2, Pt2],
+  AffinePreserve, BoundedElem
 { override type ThisT = LSeg2
   override def typeStr: String = "LSeg"
   override def name1: String = "start"
@@ -117,16 +117,16 @@ object LSeg2
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LSeg2 = new LSeg2(x, yStart, x, yEnd)
 
   /** [[Show]] and [[Unshow]] type class instance / evidence for [[LSeg2]]. */
-  implicit val persistEv: Persist2Both[Pt2, Pt2, LSeg2] =  Persist2Both[Pt2, Pt2, LSeg2]("Line2", "start", _.startPt, "end", _.endPt, apply)
+  given persistEv: Persist2Both[Pt2, Pt2, LSeg2] =  Persist2Both[Pt2, Pt2, LSeg2]("Line2", "start", _.startPt, "end", _.endPt, apply)
 
-  implicit val eqTImplicit: EqT[LSeg2] = Eq2T[Pt2, Pt2, LSeg2](_.pStart, _.pEnd)
+  given eqTEv: EqT[LSeg2] = Eq2T[Pt2, Pt2, LSeg2](_.pStart, _.pEnd)
 
   /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
-  implicit val arrMapbuilderEv: LSeg2ArrMapBuilder = new LSeg2ArrMapBuilder
+  given arrMapbuilderEv: LSeg2ArrMapBuilder = new LSeg2ArrMapBuilder
 
-  implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegPairArrMapBuilder[B2] = new LineSegPairArrMapBuilder[B2]
+  given pairArrMapBuilderEv[B2](using ct: ClassTag[B2]): LineSegPairArrMapBuilder[B2] = new LineSegPairArrMapBuilder[B2]
 
-  implicit def transimplicit: Aff2Trans[LSeg2] = (obj: LSeg2, f: Pt2 => Pt2) => LSeg2(f(obj.pStart), f(obj.pEnd))
+  given transEv: Aff2Trans[LSeg2] = (obj: LSeg2, f: Pt2 => Pt2) => LSeg2(f(obj.pStart), f(obj.pEnd))
 }
 
 /** Compact immutable Array[Double] based collection class for [[LSeg2]]s. [[LSeg2]] is the library's term for a mathematical straight line segment, but what in
@@ -151,15 +151,15 @@ object LSeg2Arr extends CompanionSeqLikeDbl4[LSeg2, LSeg2Arr]
 { override def fromArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
 
   /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
-  implicit val arrFlatBuildEv: BuilderArrFlat[LSeg2Arr] = new LineSegArrFlatBuilder
+  given arrFlatBuildEv: BuilderArrFlat[LSeg2Arr] = new LineSegArrFlatBuilder
 
   /** [[Show]] type class instance / evidence for [[LSeg2Arr]]. */
-  implicit lazy val showEv: ShowSequ[LSeg2, LSeg2Arr] = ShowSequ[LSeg2, LSeg2Arr]()
+  given showEv: ShowSequ[LSeg2, LSeg2Arr] = ShowSequ[LSeg2, LSeg2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[LSeg2Arr]]. */
-  implicit lazy val unshowEv: UnshowSeq[LSeg2, LSeg2Arr] = UnshowSeq[LSeg2, LSeg2Arr]()
+  given unshowEv: UnshowSeq[LSeg2, LSeg2Arr] = UnshowSeq[LSeg2, LSeg2Arr]()
 
-  implicit val transImplicit: Aff2Trans[LSeg2Arr] = (obj, f) => obj.map(_.ptsTrans(f))
+  given transEv: Aff2Trans[LSeg2Arr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for [[LSeg2]]s. */

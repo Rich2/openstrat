@@ -28,6 +28,8 @@ trait Quadrilateral extends Polygon4Plus
   override def rotate(rotation: AngleVec): Quadrilateral = vertsTrans(_.rotate(rotation))
   override def reflect(lineLike: LineLike): Quadrilateral = vertsTrans(_.reflect(lineLike))
   override def scaleXY(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.scaleXY(xOperand, yOperand))
+  override def shearX(operand: Double): Quadrilateral = vertsTrans(_.shearX(operand))
+  override def shearY(operand: Double): Quadrilateral = vertsTrans(_.shearY(operand))
   final override def sides: LSeg2Arr = LSeg2Arr(side0, side1, side2, side3)
   final override def v0: Pt2 = Pt2(v0x, v0y)
   final override def vLastX: Double = v3x
@@ -75,6 +77,45 @@ object Quadrilateral
 
   /** Implicit [[Scale]] type class instance for [[Quadrilateral]] */
   given scaleEv: Scale[Quadrilateral] = (obj, operand) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[Quadrilateral]]. */
+  given rotateEv: Rotate[Quadrilateral] = (obj: Quadrilateral, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[Quadrilateral]]. */
+  given prolignEv: Prolign[Quadrilateral] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[Quadrilateral]]. */
+  given scaleXYEv: ScaleXY[Quadrilateral] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** Implicit [[Reflect]] type class instance / evidence for [[Quadrilateral]]. */
+  given reflectEv: Reflect[Quadrilateral] = (obj: Quadrilateral, lineLike: LineLike) => obj.reflect(lineLike)
+
+  /** Implicit [[TransAxes]] type class instance / evidence for [[Quadrilateral]]. */
+  given transAxesEv: TransAxes[Quadrilateral] = new TransAxes[Quadrilateral] {
+    override def negYT(obj: Quadrilateral): Quadrilateral = obj.negY
+
+    override def negXT(obj: Quadrilateral): Quadrilateral = obj.negX
+
+    override def rotate90(obj: Quadrilateral): Quadrilateral = obj.rotate90
+
+    override def rotate180(obj: Quadrilateral): Quadrilateral = obj.rotate180
+
+    override def rotate270(obj: Quadrilateral): Quadrilateral = obj.rotate270
+  }
+
+  /** Implicit [[Shear]] type class instance / evidence for [[Quadrilateral]]. */
+  given shearEv: Shear[Quadrilateral] = new Shear[Quadrilateral] {
+    override def shearXT(obj: Quadrilateral, yFactor: Double): Quadrilateral = obj.shearX(yFactor)
+
+    override def shearYT(obj: Quadrilateral, xFactor: Double): Quadrilateral = obj.shearY(xFactor)
+  }
+
+
+  /** Implicit [[Drawing]] type class instance / evidence for [[Quadrilateral]]. */
+  //given drawingEv: Drawing[Quadrilateral, QuadrilateralDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+
+  /** Implicit [[Filling]] type class evidence for [[Quadrilateral]]. */
+  //given fillingEv: Filling[Quadrilateral, QuadrilateralFill] = (obj, fillFactet) => obj.fill(fillFactet)
 }
 
 /** Quadrilateral where the 4 vertices X and Y components are fields */

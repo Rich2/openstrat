@@ -27,9 +27,9 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
   override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
-  override def rotate90: RectangleDraw = ???
-  override def rotate180: RectangleDraw = ???
-  override def rotate270: RectangleDraw = ???
+  override def rotate90: RectangleDraw = RectangleDraw(shape.rotate90, lineWidth, lineColour)
+  override def rotate180: RectangleDraw = RectangleDraw(shape.rotate180, lineWidth, lineColour)
+  override def rotate270: RectangleDraw = RectangleDraw(shape.rotate270, lineWidth, lineColour)
   override def prolign(matrix: AxlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
   override def rotate(rotation: AngleVec): RectangleDraw = RectangleDraw(shape.rotate(rotation), lineWidth, lineColour)
   override def reflect(lineLike: LineLike): RectangleDraw = RectangleDraw(shape.reflect(lineLike), lineWidth, lineColour)
