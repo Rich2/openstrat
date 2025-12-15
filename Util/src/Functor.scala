@@ -9,11 +9,13 @@ trait Functor[F[_]]
 
 /** Companion object for the [[Functor]] type class, contains implicit instances. */
 object Functor
-{
+{ /** [[Functor]] type class evidence / instances for [[List]]. */
   given listEv: Functor[List] = new Functor[List] { override def mapT[A, B](fa: List[A], f: A => B): List[B] = fa.map(f) }
 
+  /** [[Functor]] type class evidence / instances for [[Vector]]. */
   given vectorEv: Functor[Vector] = new Functor[Vector] { override def mapT[A, B](fa: Vector[A], f: A => B): Vector[B] = fa.map(f) }
 
+  /** [[Functor]] type class evidence / instances for [[Option]]. */
   given optionEv: Functor[Option] = new Functor[Option]
   { override def mapT[A, B](fa: Option[A], f: A => B): Option[B] = fa match
     { case None => None
@@ -21,14 +23,17 @@ object Functor
     }
   }
 
+  /** [[Functor]] type class evidence / instances for [[Some]]. */
   given someEv: Functor[Some] = new Functor[Some]
   { override def mapT[A, B](fa: Some[A], f: A => B): Some[B] = Some(f(fa.value))
   }
 
+  /** [[Functor]] type class evidence / instances for [[Either]]. */
   given eitherEv[L]: Functor[({type λ[α] = Either[L, α]})#λ] = new Functor[({type λ[α] = Either[L, α]})#λ]
   { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
   }
 
+  /** [[Functor]] type class evidence / instances for [[ErrBi]]. */
   given errBiEv[E <: Throwable]: Functor[({type λ[α] = ErrBi[E, α]})#λ] = new Functor[({type λ[α] = ErrBi[E, α]})#λ]
   { override def mapT[A, B](fa: ErrBi[E, A], f: A => B): ErrBi[E, B] = fa.map(f)    
   }

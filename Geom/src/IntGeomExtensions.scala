@@ -3,7 +3,7 @@ package ostrat; package geom
 import impunits.*
 
 /** Extension methods class for [[Int]], for the geom package. */
-class IntGeomExtensions(thisInt: Int)
+extension(thisInt: Int)
 { /** Returns this [[Int]] value in [[Femtometres]]. */
   @inline def femtometres: Femtometres = Femtometres(thisInt)
 
