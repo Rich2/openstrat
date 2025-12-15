@@ -14,11 +14,13 @@ object Mirror
 {
   given transSimerEv[T <: SimilarPreserve]: Mirror[T] = (obj, lineLike) => obj.mirror(lineLike).asInstanceOf[T]
 
-  /** Implicit [[RotateM3T]] type class instances / evidence for [[Arr]]. */
+  /** Implicit [[Mirror]] type class instances / evidence for [[Arr]]. */
   given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Mirror[A]): Mirror[AA] = (obj, offset) => obj.map(ev.mirrorT(_, offset))
 
+  /** Implicit [[Mirror]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
   given functorEv[A, F[_]](using evF: Functor[F], evA: Mirror[A]): Mirror[F[A]] = (obj, lineLike) => evF.mapT(obj, evA.mirrorT(_, lineLike))
 
+  /** Implicit [[Mirror]] type class instances / evidence for [[Array]]. */
   given arrayEv[A](using ct: ClassTag[A], ev: Mirror[A]): Mirror[Array[A]] = (obj, lineLike) => obj.map(ev.mirrorT(_, lineLike))
 }
 

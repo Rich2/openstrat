@@ -27,12 +27,15 @@ object RotateM3T
     override def rotateZ180T(obj: AA): AA = obj.map(ev.rotateZ180T(_))
   }
 
+  /** Implicit [[RotateM3T]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
   given functorEv[A, F[_]](using evF: Functor[F], evA: RotateM3T[A]): RotateM3T[F[A]] = new RotateM3T[F[A]]
   { override def rotateXT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateXT(_, angle))
     override def rotateYT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateYT(_, angle))
     override def rotateZT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateZT(_, angle))
     override def rotateZ180T(obj: F[A]): F[A] = evF.mapT(obj, evA.rotateZ180T(_))
   }
+  
+  /** Implicit [[RotateM3T]] type class instances / evidence for [[Array]]. */
   given arrayEv[A](using ct: ClassTag[A], ev: RotateM3T[A]): RotateM3T[Array[A]] = new RotateM3T[Array[A]]
   { override def rotateXT(obj: Array[A], angle: AngleVec): Array[A] = obj.map(ev.rotateXT(_, angle))
     override def rotateYT(obj: Array[A], angle: AngleVec): Array[A] = obj.map(ev.rotateYT(_, angle))
