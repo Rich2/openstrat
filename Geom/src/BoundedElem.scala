@@ -27,11 +27,6 @@ trait BoundedElem extends Any, Axlign2Elem
   def cenDefault: Pt2 = boundingRect.cen
 }
 
-/** This will be deprecated and its methods transferred to [[BoundingExtensions]]. */
-/*extension [T <: BoundedElem](thisT: T)
-{ 
-}*/
-
 /** Type class for the production of bounding rectangles. */
 trait Bounding[A]
 { /** Extension method for the bounding rectangle of this object. */
