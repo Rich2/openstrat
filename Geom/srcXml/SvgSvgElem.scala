@@ -11,7 +11,7 @@ trait SvgSvgElem extends XmlTagLines
 }
 
 /** An XML SVG element with a viewBox but without a specified width and height. */
-class SvgSvgRel(val vbX: Double, val vbY: Double, val vbWidth: Double, vbHeight: Double, val contents: RArr[XConCompound], val otherAttribs: RArr[XAtt]) extends
+class SvgSvgRel(val vbX: Double, val vbY: Double, val vbWidth: Double, vbHeight: Double, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends
   SvgSvgElem
 { override def attribs: RArr[XAtt] = RArr(XminsSvg, ViewBox(vbX, vbY, vbWidth, vbHeight)) ++ otherAttribs
 }
@@ -39,8 +39,14 @@ object SvgSvgRel
 }
 
 object FaviconSvg
-{ /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. */
+{
+  /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. There is an apply name overload that takes an [[RArr]] of
+   * [[Graphic2Elem]] and an [[RArr]] of [[XAtt]] as parameters. */
   def apply(contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-100 / 2, -100 / 2, 100, 100, contents.flatMapArr(_.svgElems), RArr())
+
+  /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. */
+  def apply(contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): SvgSvgRel =
+    new SvgSvgRel(-100 / 2, -100 / 2, 100, 100, contents.flatMap(_.svgElems), otherAtts)
 
   /** Produced an SVG XML element with a square viewBox centered on the origin. */
   def width(width: Double, contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-width / 2, -width / 2, width, width, contents.flatMapArr(_.svgElems), RArr())
