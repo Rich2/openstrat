@@ -1,7 +1,10 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A transformation that preserves alignment to the X and Y axes. */
+/** A 2 scalar dimension geometric object that can be the object of transformations that preserves alignment to the X and Y axes. This trait only exits to allow
+ * classes like [[RectCompound]] and [[SqlignCompound]]. Because they take functions that rely on the alignment to the X and Y axes, the shape can not be
+ * downgraded to a [[Quadrilateral]]. All the affine transformations can be applied to most objects, although for example some tranformations may downgrade a
+ * [[Circle]] to an [[Ellipse]]. */
 trait Axlign2Elem extends Any
 { /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
  * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
