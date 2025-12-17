@@ -155,6 +155,16 @@ object Rectangle
     override def rotate270(obj: Rectangle): Rectangle = obj.rotate270
   }
 
+  given transSimilarEv: Similar2Trans[Rectangle] = new Similar2Trans[Rectangle] {
+    override def reflectT(obj: Rectangle, line: LineLike): Rectangle = ???
+
+    override def rotate(obj: Rectangle, angle: AngleVec): Rectangle = ???
+
+    override def slate(obj: Rectangle, offset: VecPt2): Rectangle = ???
+
+    override def scale(obj: Rectangle, operand: Double): Rectangle = ???
+  }
+
   /** Implicit [[Drawing]] type class instance / evidence for [[Rectangle]]. */
   given drawingEv: Drawing[Rectangle, RectangleDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 
