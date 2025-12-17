@@ -48,7 +48,7 @@ object Similar2Trans
   }
 }
 
-implicit class TransSimExtension[T](value: T)(using ev: Similar2Trans[T])
+implicit class TransSimExtension[T, T1 >: T](value: T)(using ev: Similar2Trans[T1])
 { //def reflect(line: Line) = ev.reflectT(value, line)
   //def reflect(lineSeg: LSeg2): T = ev.reflectT(value, lineSeg)
 
@@ -60,4 +60,13 @@ implicit class TransSimExtension[T](value: T)(using ev: Similar2Trans[T])
   { val r1 = ev.scale(value, factor)
     ev.slate(r1, addVec)
   }*/
+
+  def rotateAbout(focus: Pt2, rotation: AngleVec): T1 =
+  {
+    val r1 = ev.slateFrom(value, focus)
+    val r2 = ev.rotate(r1, rotation)
+    ev.slate(r2, focus)
+  }
+
+  def rotate45About(focus: Pt2): T1 = rotateAbout(focus, 45.degsVec)
 }

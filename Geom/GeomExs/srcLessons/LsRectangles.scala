@@ -11,7 +11,7 @@ object LsRectangles  extends LessonStatic
   val l3 = l1.draw(2, Black)
   val s1 = Sqlign(400, 600, 0)
   
-  val output = RArr(Rectangle(200, 100, 50.degsVec).fill(Green), s1.draw()) ++ Cross.diagRectangles(300, 10).fill(Black) ++ s1.diagRectanlges(10).fill(Violet)
+  val output = RArr(Rectangle(200, 100, 50.degsVec).fill(Green), s1.draw()) ++ Cross.diagRectangles(300, 10).fill(Black) ++ s1.diagRectangles(10).fill(Violet)
 
   val bodyStr: String = """Rectangles.""".stripMargin
 }

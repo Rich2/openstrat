@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
@@ -6,6 +6,7 @@ import reflect.ClassTag
 trait TransAlign[T]
 { def slate(obj: T, offset: VecPt2): T
   def scale(obj: T, operand: Double): T
+  def slateFrom(obj: T, offset: VecPt2): T = slate(obj, Pt2(-offset.x, -offset.y))
 }
 
 /** Companion object for the TransAlign type class. Contains instances for various container classes. */
@@ -16,10 +17,10 @@ object TransAlign
     override def scale(obj: Aff2Elem, operand: Double): Aff2Elem = obj.scale(operand)
   }*/
 
-  given transAlignerEv[T <: SimilarPreserve]: TransAlign[T] = new TransAlign[T]
+  /*given transAlignerEv[T <: SimilarPreserve]: TransAlign[T] = new TransAlign[T]
   { override def slate(obj: T, offset: VecPt2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
-  }
+  }*/
 
   given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: TransAlign[A]): TransAlign[AA] = new TransAlign[AA]
   { override def slate(obj: AA, offset: VecPt2): AA = obj.map(ev.slate(_, offset))

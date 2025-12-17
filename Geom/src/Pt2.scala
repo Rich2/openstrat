@@ -101,6 +101,8 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def negX: Pt2 = Pt2(-x, y)
   def negY: Pt2 = Pt2(x, -y)
 
+  def negXY = Pt2(-x, -y)
+
   /** Reflects, mirrors along the y = yOffset line that is parallel to the  X axis. */
   def reflectXParallel(yOffset: Double): Pt2 = Pt2(x, -y + yOffset * 2)
 

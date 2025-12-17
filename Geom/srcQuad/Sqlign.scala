@@ -34,9 +34,9 @@ final class Sqlign private(val v0x: Double, val v0y: Double, val v1x: Double, va
   override def rotate270: Sqlign = new Sqlign(v0y, v0x, v1y, -v1x, v2y, -v2x)
   override def prolign(matrix: AxlignMatrix): Sqlign = Sqlign.from3(v0.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
   override def addMargin(delta: Double): Sqlign = ??? // Sqlign(width + 2 * delta, cenX, cenY, vertOrder)
-  def diagRectanlges(childWidth: Double): RArr[Rectangle] =
+  def diagRectangles(childWidth: Double): RArr[Rectangle] =
   { val r1 = Rect(width, childWidth, cen)
-    RArr(r1.rotate45, r1.clk45)
+    RArr(r1.rotate45About(r1.cen), r1.clk45)
   }
 }
 
@@ -50,7 +50,7 @@ object Sqlign
   }
 
   /** Factory apply method to construct a square aligned to the Xand Y axes, from its width and centre point. There is an apply name overloads to specify the
-   * centre position by a single [[Pt2]] parameter and a name pverload for the rare occasions when you need to change the vertex order from the default.. */
+   * centre position by a single [[Pt2]] parameter and a name pverload for the rare occasions when you need to change the vertex order from the default. */
   def apply(width: Double, cenX: Double, cenY: Double): Sqlign =
   { val d = width / 2
     new Sqlign(cenX + d, cenY + d, cenX + d, cenY - d, cenX - d, cenY - d)
