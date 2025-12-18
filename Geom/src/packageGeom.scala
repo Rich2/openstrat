@@ -78,8 +78,8 @@ package object geom
 
   implicit class AnyGeomImplicit(thisAny: Any)
   { /** Creates a [[TextFixed]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
-    def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
-                      baseLine: BaseLine = BaseLine.Middle): TextFixed = TextFixed(thisAny.toString, fontSize, posn, colour, align, baseLine)
+    def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle):
+      TextFixed = TextFixed(thisAny.toString, fontSize, posn, colour, align, baseLine)
 
     /** Creates a [[TextFixed]] at the given X and Y positions, using the toString method on this object. */
     def xyTextGraphic(fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
@@ -104,21 +104,7 @@ package object geom
     def graphic(fontSize: Int = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
                 baseLine: BaseLine = BaseLine.Alphabetic): TextFixed = TextFixed(thisString, fontSize, posn, colour, align, baseLine)
   }
-
-  implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: BuffDblN[A])
-  { /** Extension method to create Polygons from [[BuffDblN]]. Takes an implicit [[PolygonDblNBuilderMap]] parameter to return the [[PolygonDblN]] */
-    def toPolygon[PT <: PolygonDblN[A]](implicit build: PolygonDblNBuilderMap[A, PT]): PT = build.fromDblArray(thisBuff.bufferUnsafe.toArray)
-  }
-
-  implicit class BuffIntExtensionsImplicit[A <: IntNElem](val thisBuff: BuffIntN[A])
-  { /** Extension method to create Polygons from [[BuffIntN]]. Takes an implicit [[PolygonIntNBuilderMap]] parameter to return the [[PolygonIntN]] */
-    def toPolygon[PT <: PolygonIntN[A]](implicit build: PolygonIntNBuilderMap[A, PT]): PT = build.fromIntArray(thisBuff.bufferUnsafe.toArray)
-  }
-
-  implicit class MetreExtensionsImplicit(thisMetres: Metres)
-  {  def / (operand: Metres): Double = thisMetres.metresNum / operand.metresNum
-  }
-
+  
   implicit class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   {
     /** Converts to a [[LinePathBase]] with points of type A. */

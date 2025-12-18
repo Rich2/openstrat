@@ -61,8 +61,9 @@ object Bounding
   }
 }
 
+/** Extension method for the [[Bounding]] type class. */
 extension[A](thisObj: A)(using evA: Bounding[A])
-{
+{ /** Extension method gives the X and Y bounds of this object. */
   def bounds: Rect = evA.bounds(thisObj)
 
   /** 2D geometric translation transformation on this type T, returning an object of type T with its default centre at the parameter point. */

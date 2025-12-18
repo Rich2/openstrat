@@ -66,9 +66,13 @@ object Metres
 { /** Factory apply method for [[Metres]]. */
   def apply(metres: Double): Metres = new Metres(metres)
 
-  implicit class LengthMetricExtensions(thisLength: Metres)
+  /** Extension methods for [[Metres]]. */
+  extension(thisMetres: Metres)
   { /** Extension operator method to produce [[Metrares]], multiplying this [[Length]] by an operand [[Length]]. */
-    def *(operand: LengthMetric): Metrares = thisLength.toRectArea(operand)
+    def *(operand: Length): Metrares = thisMetres.toRectArea(operand)
+
+    /** Extension methood. Divides this [[Metres]] value by a [[Length]] to get a scalar [[Double]] value. */
+    def /(operand: Length): Double = thisMetres.metresNum / operand.metresNum
   }
 }
 
@@ -110,7 +114,7 @@ object Kilometres
     def *(operand: Length): Kilares = thisLength.toRectArea(operand)
   }
 
-  implicit val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
+  given unshow: Unshow[Kilometres] = new Unshow[Kilometres]
   { override def typeStr: String = "Kilometres"
 
     override def fromExpr(expr: Expr) = expr match
