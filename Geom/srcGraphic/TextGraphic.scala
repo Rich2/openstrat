@@ -13,6 +13,8 @@ trait TextGraphic extends CanvElem, Aff2Elem
   def posn: Pt2 = Pt2(xPosn, yPosn)
   override def slate(operand: VecPt2): TextGraphic
   override def slate(xOperand: Double, yOperand: Double): TextGraphic
+  override def slateFrom(operand: VecPt2): TextGraphic
+  override def slateFrom(xOperand: Double, yOperand: Double): TextGraphic
   override def slateX(xOperand: Double): TextGraphic
   override def slateY(yOperand: Double): TextGraphic
   override def scale(operand: Double): TextGraphic
@@ -58,6 +60,8 @@ TextGraphic
   override def slate(xOperand: Double, yOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn + yOperand)
   override def slateX(xOperand: Double): Textlign = copy(str, fontSize, xPosn + xOperand, yPosn)
   override def slateY(yOperand: Double): Textlign = copy(str, fontSize, xPosn, yPosn + yOperand)
+  override def slateFrom(operand: VecPt2): Textlign = copy(str, fontSize, xPosn - operand.x, yPosn - operand.y)
+  override def slateFrom(xOperand: Double, yOperand: Double): Textlign = copy(str, fontSize, xPosn - xOperand, yPosn - yOperand)
   override def scale(operand: Double): Textlign = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
   override def negY: Textlign = copy(str, fontSize, xPosn, -yPosn)
   override def negX: Textlign = copy(str, fontSize, -xPosn, yPosn)

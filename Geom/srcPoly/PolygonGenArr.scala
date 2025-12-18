@@ -32,6 +32,8 @@ object PolygonGenArr
   given slateEv: Slate2[PolygonGenArr] = new Slate2[PolygonGenArr]
   { override def slate(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slate(operand)
     override def slateXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slateFrom(operand)
+    override def slateFromXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: PolygonGenArr, xOperand: Double): PolygonGenArr = obj.slateX(xOperand)
     override def slateY(obj: PolygonGenArr, yOperand: Double): PolygonGenArr = obj.slateY(yOperand)
   }

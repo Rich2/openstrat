@@ -27,7 +27,9 @@ final class HexYlign(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
 
   override def slate(delta: VecPt2): HexYlign = vertsTrans(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexYlign = vertsTrans(_.slate(xOperand, yOperand))
-  override def slateX(xOperand: Double): HexYlign = vertsTrans(_.slateX(xOperand))
+  override def slateFrom(delta: VecPt2): HexYlign = vertsTrans(_.slateFrom(delta))
+  override def slateFrom(xOperand: Double, yOperand: Double): HexYlign = vertsTrans(_.slateFrom(xOperand, yOperand))
+  override def slateX(xOperand: Double): HexYlign = vertsTrans(_.slateX(xOperand))  
   override def slateY(yOperand: Double): HexYlign = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): HexYlign = vertsTrans(_.scale(operand))
   override def negX: HexYlign = vertsTrans(_.negX)
@@ -88,6 +90,8 @@ object HexYlign
   given slate2Ev: Slate2[HexYlign] = new Slate2[HexYlign]
   { override def slate(obj: HexYlign, operand: VecPt2): HexYlign = obj.slate(operand)
     override def slateXY(obj: HexYlign, xOperand: Double, yOperand: Double): HexYlign = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: HexYlign, operand: VecPt2): HexYlign = obj.slateFrom(operand)
+    override def slateFromXY(obj: HexYlign, xOperand: Double, yOperand: Double): HexYlign = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: HexYlign, xOperand: Double): HexYlign = obj.slateX(xOperand)
     override def slateY(obj: HexYlign, yOperand: Double): HexYlign = obj.slateY(yOperand)
   }  

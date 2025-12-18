@@ -28,6 +28,8 @@ trait Shape extends Any, Aff2Elem, Fillable, BoundedElem
 
   override def slate(operand: VecPt2): Shape
   override def slate(xOperand: Double, yOperand: Double): Shape
+  override def slateFrom(operand: VecPt2): Shape
+  override def slateFrom(xOperand: Double, yOperand: Double): Shape
   override def slateX(xOperand: Double): Shape
   override def slateY(yUperand: Double): Shape
   override def scale(operand: Double): Shape
@@ -50,6 +52,9 @@ object Shape
   given slate2Ev: Slate2[Shape] = new Slate2[Shape]
   { override def slate(obj: Shape, operand: VecPt2): Shape = obj.slate(operand)
     override def slateXY(obj: Shape, xOperand: Double, yOperand: Double): Shape = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Shape, operand: VecPt2): Shape = obj.slateFrom(operand)
+
+    override def slateFromXY(obj: Shape, xOperand: Double, yOperand: Double): Shape = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Shape, xOperand: Double): Shape = obj.slateX(xOperand)
     override def slateY(obj: Shape, yOperand: Double): Shape = obj.slateY(yOperand)
   }

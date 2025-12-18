@@ -5,14 +5,16 @@ import pWeb.*, pgui.*
 /** 2D graphic that draws an arc of an ellipse. The trait has 2 implementations, [[CArcdraw]], a cirular arc draw and the general case is implemented
  * with [[EArcDraw.EArcDrawImp]]. */
 trait EArcDraw extends CurveSegDraw, CanvElem
-{
-  override def curveSeg: EArc
+{ override def curveSeg: EArc
   def xCen: Double = curveSeg.cenX
   def yCen: Double = curveSeg.cenY
   def cen: Pt2 = curveSeg.cen
 
   override def slate(operand: VecPt2): EArcDraw = EArcDraw(curveSeg.slate(operand), colour, lineWidth)
   override def slate(xOperand: Double, yOperand: Double): EArcDraw = EArcDraw(curveSeg.slate(xOperand, yOperand), colour, lineWidth)
+  override def slateFrom(operand: VecPt2): EArcDraw = EArcDraw(curveSeg.slateFrom(operand), colour, lineWidth)
+
+  override def slateFrom(xOperand: Double, yOperand: Double): EArcDraw = EArcDraw(curveSeg.slateFrom(xOperand, yOperand), colour, lineWidth)
   override def slateX(xOperand: Double): EArcDraw = EArcDraw(curveSeg.slateX(xOperand), colour, lineWidth)
   override def slateY(yOperand: Double): EArcDraw = EArcDraw(curveSeg.slateY(yOperand), colour, lineWidth)
   override def scale(operand: Double): EArcDraw = EArcDraw(curveSeg.scale(operand), colour, lineWidth)

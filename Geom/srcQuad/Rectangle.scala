@@ -40,6 +40,8 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   
   override def slate(operand: VecPt2): Rectangle = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slate(xOperand, yOperand))
+  override def slateFrom(operand: VecPt2): Rectangle = vertsTrans(_.slateFrom(operand))
+  override def slateFrom(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slateFrom(xOperand, yOperand))
   override def slateX(xOperand: Double): Rectangle = vertsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): Rectangle = vertsTrans(_.slateY(yOperand))
   override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
@@ -130,6 +132,8 @@ object Rectangle
   given slate2Ev: Slate2[Rectangle] = new Slate2[Rectangle]
   { override def slate(obj: Rectangle, operand: VecPt2): Rectangle = obj.slate(operand)
     override def slateXY(obj: Rectangle, xOperand: Double, yOperand: Double): Rectangle = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Rectangle, operand: VecPt2): Rectangle = obj.slateFrom(operand)
+    override def slateFromXY(obj: Rectangle, xOperand: Double, yOperand: Double): Rectangle = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Rectangle, xOperand: Double): Rectangle = obj.slateX(xOperand)
     override def slateY(obj: Rectangle, yOperand: Double): Rectangle = obj.slateY(yOperand)
   }

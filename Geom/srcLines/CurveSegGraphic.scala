@@ -1,7 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import ostrat.pgui.CanvasPlatform
+import pgui.CanvasPlatform
 
 /** Graphic based on a [[CurveSeg]]. */
 trait CurveSegGraphic extends Graphic2Elem, Aff2Elem
@@ -27,6 +26,8 @@ trait CurveSegGraphic extends Graphic2Elem, Aff2Elem
 
   override def slate(operand: VecPt2): CurveSegGraphic
   override def slate(xOperand: Double, yOperand: Double): CurveSegGraphic
+  override def slateFrom(operand: VecPt2): CurveSegGraphic
+  override def slateFrom(xOperand: Double, yOperand: Double): CurveSegGraphic
   override def slateX(operand: Double): CurveSegGraphic
   override def slateY(operand: Double): CurveSegGraphic
   override def scale(operand: Double): CurveSegGraphic

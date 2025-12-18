@@ -28,6 +28,8 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
 
   override def slate(operand: VecPt2): Circle = Circle(radius, cenX + operand.x, cenY + operand.y)
   override def slate(xOperand: Double, yOperand: Double): Circle = Circle(radius, cenX + xOperand, cenY + yOperand)
+  override def slateFrom(operand: VecPt2): Circle = Circle(radius, cenX - operand.x, cenY - operand.y)
+  override def slateFrom(xOperand: Double, yOperand: Double): Circle = Circle(radius, cenX - xOperand, cenY - yOperand)
   override def slateX(xOperand: Double): Circle = Circle(radius, cenX + xOperand, cenY)
   override def slateY(yOperand: Double): Circle = Circle(radius, cenX, cenY + yOperand)
   override def scale(operand: Double): Circle = Circle(radius * operand, cen.scale(operand))
@@ -136,6 +138,8 @@ object Circle extends ShapeIcon
   given slate2Ev: Slate2[Circle] = new Slate2[Circle]
   { override def slate(obj: Circle, operand: VecPt2): Circle = obj.slate(operand)
     override def slateXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Circle, operand: VecPt2): Circle = obj.slateFrom(operand)
+    override def slateFromXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Circle, xOperand: Double): Circle = obj.slateX(xOperand)
     override def slateY(obj: Circle, yOperand: Double): Circle = obj.slateY(yOperand)
   }
@@ -240,6 +244,11 @@ class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val fChi
   override def slate(xOperand: Double, yOperand: Double): CircleCompound =
     CircleCompound(shape.slate(xOperand, yOperand), facets, fChilds, children.slate(xOperand, yOperand))
 
+  override def slateFrom(operand: VecPt2): CircleCompound = CircleCompound(shape.slateFrom(operand), facets, fChilds, children.slate(operand))
+
+  override def slateFrom(xOperand: Double, yOperand: Double): CircleCompound =
+    CircleCompound(shape.slateFrom(xOperand, yOperand), facets, fChilds, children.slate(xOperand, yOperand))  
+
   override def slateX(xOperand: Double): CircleCompound = CircleCompound(shape.slateX(xOperand), facets, fChilds, children.slateX(xOperand))
   override def slateY(yOperand: Double): CircleCompound = CircleCompound(shape.slateY(yOperand), facets, fChilds, children.slateY(yOperand))
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, fChilds, children.scale(operand))
@@ -263,6 +272,8 @@ object CircleCompound
   given slate2Ev: Slate2[CircleCompound] = new Slate2[CircleCompound]
   { override def slate(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
     override def slateXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slateFrom(operand)
+    override def slateFromXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: CircleCompound, xOperand: Double): CircleCompound = obj.slateX(xOperand)
     override def slateY(obj: CircleCompound, yOperand: Double): CircleCompound = obj.slateY(yOperand)
   }

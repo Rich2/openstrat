@@ -58,11 +58,11 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
   
   override def slate(operand: VecPt2): Pt2 = Pt2(x + operand.x, y + operand.y)  
-  override def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)  
+  override def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
   override def slateX(xOperand: Double): Pt2 = Pt2(x + xOperand, y)
   override def slateY(yOperand: Double): Pt2 = Pt2(x, y + yOperand)
-  def slateFrom(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
-  def slateFrom(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)
+  override def slateFrom(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
+  override def slateFrom(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)
   @inline override def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
   @inline def toMetres(factor: LengthMetric): PtM2 = PtM2.apply(x * factor.metresNum, y * factor.metresNum)
 
@@ -291,6 +291,8 @@ object Pt2
   given slateEv: Slate2[Pt2] = new Slate2[Pt2]
   { override def slate(obj: Pt2, operand: VecPt2): Pt2 = obj.slate(operand)   
     override def slateXY(obj: Pt2, xOperand: Double, yOperand: Double): Pt2 = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Pt2, operand: VecPt2): Pt2 = obj.slateFrom(operand)
+    override def slateFromXY(obj: Pt2, xOperand: Double, yOperand: Double): Pt2 = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Pt2, xOperand: Double): Pt2 = obj.slateX(xOperand)
     override def slateY(obj: Pt2, yOperand: Double): Pt2 = obj.slateY(yOperand)
   }

@@ -23,6 +23,8 @@ trait Aff2Elem extends Any, Simil2Elem
 
   override def slate(operand: VecPt2): Aff2Elem
   override def slate(xOperand: Double, yOperand: Double): Aff2Elem
+  override def slateFrom(operand: VecPt2): Aff2Elem
+  override def slateFrom(xOperand: Double, yOperand: Double): Aff2Elem
   override def slateX(operand: Double): Aff2Elem
   override def slateY(operand: Double): Aff2Elem
   override def scale(operand: Double): Aff2Elem
@@ -42,6 +44,8 @@ object Aff2Elem
   given slate2Ev: Slate2[Aff2Elem] = new Slate2[Aff2Elem]
   { override def slate(obj: Aff2Elem, operand: VecPt2): Aff2Elem = obj.slate(operand)
     override def slateXY(obj: Aff2Elem, xOperand: Double, yOperand: Double): Aff2Elem = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Aff2Elem, operand: VecPt2): Aff2Elem = obj.slateFrom(operand)
+    override def slateFromXY(obj: Aff2Elem, xOperand: Double, yOperand: Double): Aff2Elem = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Aff2Elem, xOperand: Double): Aff2Elem = obj.slateX(xOperand)
     override def slateY(obj: Aff2Elem, yOperand: Double): Aff2Elem = obj.slateY(yOperand)
   }

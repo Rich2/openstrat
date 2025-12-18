@@ -17,6 +17,8 @@ trait ShapeFill extends ShapeGeomlessFill, ShapeGraphicSimple
 
   override def slate(offset: VecPt2): ShapeFill
   override def slate(xOperand: Double, yOperand: Double): ShapeFill
+  override def slateFrom(offset: VecPt2): ShapeFill
+  override def slateFrom(xOperand: Double, yOperand: Double): ShapeFill
   override def slateX(xOperand: Double): ShapeFill
   override def slateY(yOperand: Double): ShapeFill
   override def scale(operand: Double): ShapeFill
@@ -38,6 +40,8 @@ object ShapeFill
   given slate2Ev: Slate2[ShapeFill] = new Slate2[ShapeFill]
   { override def slate(obj: ShapeFill, operand: VecPt2): ShapeFill = obj.slate(operand)    
     override def slateXY(obj: ShapeFill, xOperand: Double, yOperand: Double): ShapeFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: ShapeFill, operand: VecPt2): ShapeFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: ShapeFill, xOperand: Double, yOperand: Double): ShapeFill = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: ShapeFill, xOperand: Double): ShapeFill = obj.slateX(xOperand)
     override def slateY(obj: ShapeFill, yOperand: Double): ShapeFill = obj.slateY(yOperand)
   }

@@ -133,6 +133,8 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
 
   override def slate(operand: VecPt2): Polygon = map(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Polygon = map(_.slate(xOperand, yOperand))
+  override def slateFrom(operand: VecPt2): Polygon = map(_.slateFrom(operand))
+  override def slateFrom(xOperand: Double, yOperand: Double): Polygon = map(_.slateFrom(xOperand, yOperand))
   override def slateX(xOperand: Double): Polygon = map(_.slateX(xOperand))
   override def slateY(yOperand: Double): Polygon = map(_.slateY(yOperand))
   override def scale(operand: Double): Polygon = map(_.scale(operand))
@@ -355,6 +357,8 @@ object Polygon
   given slate2Ev: Slate2[Polygon] = new Slate2[Polygon]
   { override def slate(obj: Polygon, operand: VecPt2): Polygon = obj.slate(operand)
     override def slateXY(obj: Polygon, xOperand: Double, yOperand: Double): Polygon = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Polygon, operand: VecPt2): Polygon = obj.slateFrom(operand)
+    override def slateFromXY(obj: Polygon, xOperand: Double, yOperand: Double): Polygon = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Polygon, xOperand: Double): Polygon = obj.slateX(xOperand)
     override def slateY(obj: Polygon, yOperand: Double): Polygon = obj.slateY(yOperand)
   }

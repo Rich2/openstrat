@@ -33,6 +33,8 @@ trait PolygonGraphic extends ShapeGraphic
 
   override def slate(operand: VecPt2): PolygonGraphic
   override def slate(xOperand: Double, yOperand: Double): PolygonGraphic
+  override def slateFrom(operand: VecPt2): PolygonGraphic
+  override def slateFrom(xOperand: Double, yOperand: Double): PolygonGraphic
   override def slateX(xOperand: Double): PolygonGraphic
   override def slateY(yOperand: Double): PolygonGraphic
   override def scale(operand: Double): PolygonGraphic
@@ -50,6 +52,8 @@ object PolygonGraphic
   given slat2eEv: Slate2[PolygonGraphic] = new Slate2[PolygonGraphic]
   { override def slate(obj: PolygonGraphic, operand: VecPt2): PolygonGraphic = obj.slate(operand)
     override def slateXY(obj: PolygonGraphic, xOperand: Double, yOperand: Double): PolygonGraphic = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: PolygonGraphic, operand: VecPt2): PolygonGraphic = obj.slateFrom(operand)
+    override def slateFromXY(obj: PolygonGraphic, xOperand: Double, yOperand: Double): PolygonGraphic = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: PolygonGraphic, xOperand: Double): PolygonGraphic = obj.slateX(xOperand)
     override def slateY(obj: PolygonGraphic, yOperand: Double): PolygonGraphic = obj.slateY(yOperand)
   }
@@ -81,6 +85,8 @@ trait PolygonGraphicSimple extends PolygonGraphic, ShapeGraphicSimple
 { override def svgElem: SvgOwnLine = SvgPolygon(attribs)
   override def slate(operand: VecPt2): PolygonGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): PolygonGraphicSimple
+  override def slateFrom(operand: VecPt2): PolygonGraphicSimple
+  override def slateFrom(xOperand: Double, yOperand: Double): PolygonGraphicSimple
   override def slateX(xOperand: Double): PolygonGraphicSimple
   override def slateY(yOperand: Double): PolygonGraphicSimple
   override def scale(operand: Double): PolygonGraphicSimple
@@ -103,6 +109,8 @@ object PolygonGraphicSimple
   given slateEv: Slate2[PolygonGraphicSimple] = new Slate2[PolygonGraphicSimple]
   { override def slate(obj: PolygonGraphicSimple, operand: VecPt2): PolygonGraphicSimple = obj.slate(operand)
     override def slateXY(obj: PolygonGraphicSimple, xOperand: Double, yOperand: Double): PolygonGraphicSimple = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: PolygonGraphicSimple, operand: VecPt2): PolygonGraphicSimple = obj.slateFrom(operand)
+    override def slateFromXY(obj: PolygonGraphicSimple, xOperand: Double, yOperand: Double): PolygonGraphicSimple = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: PolygonGraphicSimple, xOperand: Double): PolygonGraphicSimple = obj.slateX(xOperand)
     override def slateY(obj: PolygonGraphicSimple, yOperand: Double): PolygonGraphicSimple = obj.slateY(yOperand)
   }
@@ -134,6 +142,8 @@ trait PolygonDraw extends PolygonGraphicSimple, CanvShapeDraw
 { override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   override def slate(operand: VecPt2): PolygonDraw = PolygonDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateFrom(operand: VecPt2): PolygonDraw = PolygonDraw(shape.slateFrom(operand), lineWidth, lineColour)
+  override def slateFrom(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
   override def slateX(xOperand: Double): PolygonDraw = PolygonDraw(shape.slateX(xOperand), lineWidth, lineColour)
   override def slateY(yOperand: Double): PolygonDraw = PolygonDraw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand), lineWidth, lineColour)
@@ -158,6 +168,8 @@ object PolygonDraw
   given slate2Ev: Slate2[PolygonDraw] = new Slate2[PolygonDraw]
   { override def slate(obj: PolygonDraw, operand: VecPt2): PolygonDraw = obj.slate(operand)
     override def slateXY(obj: PolygonDraw, xOperand: Double, yOperand: Double): PolygonDraw = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: PolygonDraw, operand: VecPt2): PolygonDraw = obj.slateFrom(operand)
+    override def slateFromXY(obj: PolygonDraw, xOperand: Double, yOperand: Double): PolygonDraw = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: PolygonDraw, xOperand: Double): PolygonDraw = obj.slateX(xOperand)
     override def slateY(obj: PolygonDraw, yOperand: Double): PolygonDraw = obj.slateY(yOperand)
   }  
@@ -200,6 +212,8 @@ trait PolygonFill extends PolygonGraphicSimple, CanvShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour): PolygonDraw = shape.draw(lineWidth, newColour)
   override def slate(operand: VecPt2): PolygonFill
   override def slate(xDelta: Double, yDelta: Double): PolygonFill
+  override def slateFrom(operand: VecPt2): PolygonFill
+  override def slateFrom(xDelta: Double, yDelta: Double): PolygonFill
   override def slateX(xOperand: Double): PolygonFill
   override def slateY(yOperand: Double): PolygonFill
   override def scale(operand: Double): PolygonFill
@@ -227,6 +241,8 @@ object PolygonFill
   given slate2Ev: Slate2[PolygonFill] = new Slate2[PolygonFill]
   { override def slate(obj: PolygonFill, operand: VecPt2): PolygonFill = obj.slate(operand)
     override def slateXY(obj: PolygonFill, xOperand: Double, yOperand: Double): PolygonFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: PolygonFill, operand: VecPt2): PolygonFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: PolygonFill, xOperand: Double, yOperand: Double): PolygonFill = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: PolygonFill, xOperand: Double): PolygonFill = obj.slateX(xOperand)
     override def slateY(obj: PolygonFill, yOperand: Double): PolygonFill = obj.slateY(yOperand)
   }
@@ -261,6 +277,8 @@ object PolygonFill
   final case class PolygonFillGen(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
   { override def slate(operand: VecPt2): PolygonFill = PolygonFillGen(shape.slate(operand), fillFacet)
     override def slate(xDelta: Double, yDelta: Double): PolygonFillGen = PolygonFillGen(shape.slate(xDelta, yDelta), fillFacet)
+    override def slateFrom(operand: VecPt2): PolygonFill = PolygonFillGen(shape.slateFrom(operand), fillFacet)
+    override def slateFrom(xDelta: Double, yDelta: Double): PolygonFillGen = PolygonFillGen(shape.slateFrom(xDelta, yDelta), fillFacet)
     override def slateX(xOperand: Double): PolygonFillGen = PolygonFillGen(shape.slateX(xOperand), fillFacet)
     override def slateY(yOperand: Double): PolygonFillGen = PolygonFillGen(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): PolygonFillGen = PolygonFillGen(shape.scale(operand), fillFacet)
@@ -312,7 +330,11 @@ trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
   override def slate(xOperand: Double, yOperand: Double): PolygonCompound =
     PolygonCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
+  override def slateFrom(operand: VecPt2): PolygonCompound = PolygonCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
 
+  override def slateFrom(xOperand: Double, yOperand: Double): PolygonCompound =
+    PolygonCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
+  
   override def slateX(xOperand: Double): PolygonCompound = PolygonCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
   override def slateY(yOperand: Double): PolygonCompound = PolygonCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
@@ -347,6 +369,8 @@ object PolygonCompound
   given slateEv: Slate2[PolygonCompound] = new Slate2[PolygonCompound]
   { override def slate(obj: PolygonCompound, operand: VecPt2): PolygonCompound = obj.slate(operand)
     override def slateXY(obj: PolygonCompound, xOperand: Double, yOperand: Double): PolygonCompound = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: PolygonCompound, operand: VecPt2): PolygonCompound = obj.slateFrom(operand)
+    override def slateFromXY(obj: PolygonCompound, xOperand: Double, yOperand: Double): PolygonCompound = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: PolygonCompound, xOperand: Double): PolygonCompound = obj.slateX(xOperand)
     override def slateY(obj: PolygonCompound, yOperand: Double): PolygonCompound = obj.slateY(yOperand)
   }
@@ -402,6 +426,11 @@ object PolygonCompound
     
     override def slate(xOperand: Double, yOperand: Double): PolygonCompoundGen =
       PolygonCompoundGen(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+
+    override def slateFrom(operand: VecPt2): PolygonCompoundGen = PolygonCompoundGen(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
+    override def slateFrom(xOperand: Double, yOperand: Double): PolygonCompoundGen =
+      PolygonCompoundGen(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))  
 
     override def scale(operand: Double): PolygonCompoundGen = PolygonCompoundGen(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: AxlignMatrix): PolygonCompoundGen = PolygonCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))

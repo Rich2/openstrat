@@ -19,13 +19,6 @@ trait Similar2Trans[T] extends TransAlign[T]
 /** Companion object for the [[Similar2Trans]] geometric transformation set type class trait. */
 object Similar2Trans
 {
-  /*given transSimerEv[T <: SimilarPreserve]: Simil2Trans[T] = new Simil2Trans[T]
-  { override def rotate(obj: T, angle: AngleVec): T = obj.rotate(angle).asInstanceOf[T]
-    override def slate(obj: T, offset: VecPt2): T = obj.slate(offset).asInstanceOf[T]
-    override def reflectT(obj: T, line: LineLike): T = obj.mirror(line).asInstanceOf[T]
-    override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
-  }*/
-
   given arrEv[A, ArrA <: Arr[A]](using build: BuilderArrMap[A, ArrA], ev: Similar2Trans[A]): Similar2Trans[ArrA] = new Similar2Trans[ArrA]
   { override def slate(obj: ArrA, offset: VecPt2): ArrA = obj.map(ev.slate(_, offset))
     override def rotate(obj: ArrA, angle: AngleVec): ArrA = obj.map(ev.rotate(_, angle))
@@ -62,11 +55,12 @@ implicit class TransSimExtension[T, T1 >: T](value: T)(using ev: Similar2Trans[T
   }*/
 
   def rotateAbout(focus: Pt2, rotation: AngleVec): T1 =
-  {
-    val r1 = ev.slateFrom(value, focus)
+  { val r1 = ev.slateFrom(value, focus)
     val r2 = ev.rotate(r1, rotation)
     ev.slate(r2, focus)
   }
 
   def rotate45About(focus: Pt2): T1 = rotateAbout(focus, 45.degsVec)
+
+  def clk45About(focus: Pt2): T1 = rotateAbout(focus, -45.degsVec)
 }

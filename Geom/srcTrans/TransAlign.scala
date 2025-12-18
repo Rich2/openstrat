@@ -12,16 +12,6 @@ trait TransAlign[T]
 /** Companion object for the TransAlign type class. Contains instances for various container classes. */
 object TransAlign
 {
-  /*given transImplicit: TransAlign[Aff2Elem] = new TransAlign[Aff2Elem]
-  { override def slate(obj: Aff2Elem, offset: VecPt2): Aff2Elem = obj.slate(offset)
-    override def scale(obj: Aff2Elem, operand: Double): Aff2Elem = obj.scale(operand)
-  }*/
-
-  /*given transAlignerEv[T <: SimilarPreserve]: TransAlign[T] = new TransAlign[T]
-  { override def slate(obj: T, offset: VecPt2): T = obj.slate(offset).asInstanceOf[T]
-    override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
-  }*/
-
   given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: TransAlign[A]): TransAlign[AA] = new TransAlign[AA]
   { override def slate(obj: AA, offset: VecPt2): AA = obj.map(ev.slate(_, offset))
     override def scale(obj: AA, operand: Double): AA = obj.map(ev.scale(_, operand))

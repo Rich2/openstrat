@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.*, pgui.*
 
@@ -24,6 +24,8 @@ trait RectangleGraphicSimple extends PolygonGraphicSimple, RectangleGraphic
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateFrom(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slateFrom(operand), lineWidth, lineColour)
+  override def slateFrom(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
   override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
@@ -52,6 +54,8 @@ object RectangleDraw
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleFill
   override def slate(xOperand: Double, yOperand: Double): RectangleFill
+  override def slateFrom(operand: VecPt2): RectangleFill
+  override def slateFrom(xOperand: Double, yOperand: Double): RectangleFill
   override def slateX(xOperand: Double): RectangleFill
   override def slateY(yOperand: Double): RectangleFill
   override def scale(operand: Double): RectangleFill
@@ -78,6 +82,8 @@ object RectangleFill
   given slate2Ev: Slate2[RectangleFill] = new Slate2[RectangleFill]
   { override def slate(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slate(operand)
     override def slateXY(obj: RectangleFill, xOperand: Double, yOperand: Double): RectangleFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: RectangleFill, xOperand: Double, yOperand: Double): RectangleFill = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: RectangleFill, xOperand: Double): RectangleFill = obj.slateX(xOperand)
     override def slateY(obj: RectangleFill, yOperand: Double): RectangleFill = obj.slateY(yOperand)
   }
@@ -104,6 +110,8 @@ object RectangleFill
   case class RectangleFillGen(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
   { override def slate(operand: VecPt2): RectangleFillGen = RectangleFillGen(shape.slate(operand), fillFacet)
     override def slate(xOperand: Double, yOperand: Double): RectangleFillGen = RectangleFillGen(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateFrom(operand: VecPt2): RectangleFillGen = RectangleFillGen(shape.slateFrom(operand), fillFacet)
+    override def slateFrom(xOperand: Double, yOperand: Double): RectangleFillGen = RectangleFillGen(shape.slateFrom(xOperand, yOperand), fillFacet)
     override def slateX(xOperand: Double): RectangleFillGen = RectangleFillGen(shape.slateX(xOperand), fillFacet)
     override def slateY(yOperand: Double): RectangleFillGen = RectangleFillGen(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): RectangleFillGen = RectangleFillGen(shape.scale(operand), fillFacet)
@@ -151,6 +159,11 @@ object RectangleCompound
     
     override def slate(xOperand: Double, yOperand: Double): RectangleCompoundImp =
       RectangleCompoundImp(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+
+    override def slateFrom(operand: VecPt2): RectangleCompoundImp = RectangleCompoundImp(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
+    override def slateFrom(xOperand: Double, yOperand: Double): RectangleCompoundImp =
+      RectangleCompoundImp(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))   
     
     override def scale(operand: Double): RectangleCompoundImp = RectangleCompoundImp(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: AxlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))

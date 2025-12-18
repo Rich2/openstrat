@@ -9,6 +9,8 @@ sealed trait Line extends LineLike
 
   override def slate(operand: VecPt2): Line = ???
   override def slate(xOperand: Double, yOperand: Double): Line
+  override def slateFrom(operand: VecPt2): Line = ???
+  override def slateFrom(xOperand: Double, yOperand: Double): Line
   override def slateX(xOperand: Double): Line
   override def slateY(yOperand: Double): Line
   override def scale(operand: Double): Line = ???
@@ -47,6 +49,8 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
   
   override def slate(offset: VecPt2): Line = ???
   override def slate(xOperand: Double, yOperand: Double): Line = ???
+  override def slateFrom(offset: VecPt2): Line = ???
+  override def slateFrom(xOperand: Double, yOperand: Double): Line = ???
   override def slateX(xOperand: Double): Line = ???
   override def slateY(yOperand: Double): Line = ???
 }
@@ -67,9 +71,10 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
     xIntersection + r1
   }
   
-  override def slate(xOperand: Double, yOperand: Double): Line = ???
+  override def slate(xOperand: Double, yOperand: Double): Line = ???  
   override def slateX(xOperand: Double): Line = ???
   override def slateY(yOperand: Double): Line = ???
+  override def slateFrom(xOperand: Double, yOperand: Double): Line = ???
 }
 
 /** An infinite length 2-dimensional straight line that is parallel to the X Axis. It is defined for all values of Y, but for only 1 value of X. */

@@ -1,14 +1,13 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer, math.Pi, Colour.Black
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and graphics.
  * Of particular note are the [[Pt2]], [[Aff2Elem]] and [[Graphic2Elem]] class / traits. These are the foundation of the API and the library. A number of
  * implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of particular use
  * for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{ import math.Pi, Colour.Black
-  val Phi: Double = 1.6180339887498948482
+{ val Phi: Double = 1.6180339887498948482
 
   /** A [[Vec2]] along the X Axis, whose Y component = 0. */
   def xVec2(x: Double): Vec2 = Vec2(x, 0)

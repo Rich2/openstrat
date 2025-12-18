@@ -21,6 +21,8 @@ trait SquareGraphicSimple extends SquareGraphic, RectangleGraphicSimple
 trait SquareFill extends SquareGraphicSimple, RectangleFill
 { override def slate(operand: VecPt2): SquareFill
   override def slate(xOperand: Double, yOperand: Double): SquareFill
+  override def slateFrom(operand: VecPt2): SquareFill
+  override def slateFrom(xOperand: Double, yOperand: Double): SquareFill
   override def scale(operand: Double): SquareFill
   override def negX: SquareFill
   override def negY: SquareFill
@@ -41,6 +43,8 @@ object SquareFill
   { override type ThisT = SquareFillGen
     override def slate(operand: VecPt2): SquareFillGen = SquareFillGen(shape.slate(operand), fillFacet)
     override def slate(xOperand: Double, yOperand: Double): SquareFillGen = SquareFillGen(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateFrom(operand: VecPt2): SquareFillGen = SquareFillGen(shape.slateFrom(operand), fillFacet)
+    override def slateFrom(xOperand: Double, yOperand: Double): SquareFillGen = SquareFillGen(shape.slateFrom(xOperand, yOperand), fillFacet)
     override def slateX(xOperand: Double): SquareFillGen = SquareFillGen(shape.slateX(xOperand), fillFacet)
     override def slateY(yOperand: Double): SquareFillGen = SquareFillGen(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): SquareFillGen = SquareFillGen(shape.scale(operand), fillFacet)

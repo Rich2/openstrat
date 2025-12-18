@@ -16,6 +16,8 @@ trait Triangle extends Polygon3Plus
 
 	override def slate(operand: VecPt2): Triangle = vertsTrans(_.slate(operand))
 	override def slate(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.slate(xOperand, yOperand))
+	override def slateFrom(operand: VecPt2): Triangle = vertsTrans(_.slateFrom(operand))
+	override def slateFrom(xOperand: Double, yOperand: Double): Triangle = vertsTrans(_.slateFrom(xOperand, yOperand))
 	override def slateX(xOperand: Double): Triangle = vertsTrans(_.slateX(xOperand))
 	override def slateY(yOperand: Double): Triangle = vertsTrans(_.slateY(yOperand))
 	override def scale(operand: Double): Triangle = vertsTrans(_.scale(operand))

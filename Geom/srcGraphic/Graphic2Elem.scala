@@ -10,6 +10,8 @@ trait Graphic2Elem extends Axlign2Elem
 
   override def slate(operand: VecPt2): Graphic2Elem
   override def slate(xOperand: Double, yOperand: Double): Graphic2Elem
+  override def slateFrom(operand: VecPt2): Graphic2Elem
+  override def slateFrom(xOperand: Double, yOperand: Double): Graphic2Elem
   override def slateX(xOperand: Double): Graphic2Elem
   override def slateY(yOperand: Double): Graphic2Elem
   override def scale(operand: Double): Graphic2Elem
@@ -29,6 +31,8 @@ object Graphic2Elem
   given slate2Ev: Slate2[Graphic2Elem] = new Slate2[Graphic2Elem]
   { override def slate(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slate(operand)
     override def slateXY(obj: Graphic2Elem, xOperand: Double, yOperand: Double): Graphic2Elem = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slateFrom(operand)
+    override def slateFromXY(obj: Graphic2Elem, xOperand: Double, yOperand: Double): Graphic2Elem = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Graphic2Elem, xOperand: Double): Graphic2Elem = obj.slateX(xOperand)
     override def slateY(obj: Graphic2Elem, yOperand: Double): Graphic2Elem = obj.slateY(yOperand)
   }
@@ -68,6 +72,8 @@ object Graphic2Elem
 trait CanvElem extends Graphic2Elem
 { override def slate(operand: VecPt2): CanvElem
   override def slate(xOperand: Double, yOperand: Double): CanvElem
+  override def slateFrom(operand: VecPt2): CanvElem
+  override def slateFrom(xOperand: Double, yOperand: Double): CanvElem
   override def slateX(xOperand: Double): CanvElem
   override def slateY(yOperand: Double): CanvElem
   override def scale(operand: Double): CanvElem
@@ -85,6 +91,8 @@ object CanvElem
   given slate2Ev: Slate2[CanvElem] = new Slate2[CanvElem]
   { override def slate(obj: CanvElem, operand: VecPt2): CanvElem = obj.slate(operand)
     override def slateXY(obj: CanvElem, xOperand: Double, yOperand: Double): CanvElem = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: CanvElem, operand: VecPt2): CanvElem = obj.slateFrom(operand)
+    override def slateFromXY(obj: CanvElem, xOperand: Double, yOperand: Double): CanvElem = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: CanvElem, xOperand: Double): CanvElem = obj.slateX(xOperand)
     override def slateY(obj: CanvElem, yOperand: Double): CanvElem = obj.slateY(yOperand)
   }

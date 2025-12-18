@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer, math.{Pi, atan}
 /** A 2-dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed to the
  * absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points. Thanks to René
  * Descartes for this great idea. */
-class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
+class Vec2(val x: Double, val y: Double) extends VecPt2, ApproxDbl
 { override def typeStr: String = "Vec2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
 
@@ -95,6 +95,8 @@ class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
 
   override def slate(operand: VecPt2): Vec2 = Vec2(x + operand.x, y + operand.y)
   override def slate(xOperand: Double, yOperand: Double): Vec2 = Vec2(x + xOperand, y + yOperand)
+  override def slateFrom(operand: VecPt2): Vec2 = Vec2(x - operand.x, y - operand.y)
+  override def slateFrom(xOperand: Double, yOperand: Double): Vec2 = Vec2(x - xOperand, y - yOperand)
   override def slateX(xOperand: Double): Vec2 = Vec2(x + xOperand, y)
   override def slateY(yOperand: Double): Vec2 = Vec2(x, y + yOperand)
   override def scaleXY(xOperand: Double, yOperand: Double): Vec2 = Vec2(x * xOperand, y * yOperand)
@@ -114,12 +116,12 @@ object Vec2
   /** unapply extractor method for [[Vec2]]s. */
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
-  implicit val buildImplicit: BuilderMapArrDbl2[Vec2, Vec2Arr] = new BuilderMapArrDbl2[Vec2, Vec2Arr]
+  given buildImplicit: BuilderMapArrDbl2[Vec2, Vec2Arr] = new BuilderMapArrDbl2[Vec2, Vec2Arr]
   { override type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(buffer)
   }
 
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Vec2]]s. */
-  implicit val persistEv: PersistDbl2Both[Vec2] = PersistDbl2Both[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
+  given persistEv: PersistDbl2Both[Vec2] = PersistDbl2Both[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
 }

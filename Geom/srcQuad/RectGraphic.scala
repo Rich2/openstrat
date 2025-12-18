@@ -39,6 +39,8 @@ object RectFill
   { override type ThisT = RectFillImp
     override def slate(operand: VecPt2): RectFillImp = RectFillImp(shape.slate(operand), fillFacet)
     override def slate(xOperand: Double, yOperand: Double): RectFillImp = RectFillImp(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateFrom(operand: VecPt2): RectFillImp = RectFillImp(shape.slateFrom(operand), fillFacet)
+    override def slateFrom(xOperand: Double, yOperand: Double): RectFillImp = RectFillImp(shape.slateFrom(xOperand, yOperand), fillFacet)
     override def slateX(xOperand: Double): RectFillImp = RectFillImp(shape.slateX(xOperand), fillFacet)
     override def slateY(yOperand: Double): RectFillImp = RectFillImp(shape.slateY(yOperand), fillFacet)
     override def scale(operand: Double): RectFillImp = RectFillImp(shape.scale(operand), fillFacet)
@@ -68,8 +70,7 @@ object RectDraw
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
 trait RectCompound extends RectGraphic, RectangleCompound
-{
-  override def shape: Rect
+{ override def shape: Rect
 
   /*override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
     attribs ++ facets.flatMap(_.attribs))*/
@@ -79,6 +80,11 @@ trait RectCompound extends RectGraphic, RectangleCompound
   
   override def slate(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+
+  override def slateFrom(operand: VecPt2): RectCompound = RectCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
+  override def slateFrom(xOperand: Double, yOperand: Double): RectCompound =
+    RectCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand)) 
 
   override def slateX(xOperand: Double): RectCompound = RectCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
   override def slateY(yOperand: Double): RectCompound = RectCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))  
@@ -112,6 +118,8 @@ object RectCompound
   given slate2Ev: Slate2[RectCompound] = new Slate2[RectCompound]
   { override def slate(obj: RectCompound, operand: VecPt2): RectCompound = obj.slate(operand)
     override def slateXY(obj: RectCompound, xOperand: Double, yOperand: Double): RectCompound = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: RectCompound, operand: VecPt2): RectCompound = obj.slateFrom(operand)
+    override def slateFromXY(obj: RectCompound, xOperand: Double, yOperand: Double): RectCompound = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: RectCompound, xOperand: Double): RectCompound = obj.slateX(xOperand)
     override def slateY(obj: RectCompound, yOperand: Double): RectCompound = obj.slateY(yOperand)
   }

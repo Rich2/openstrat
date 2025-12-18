@@ -12,6 +12,8 @@ trait SqlignGraphicSimple extends RectGraphicSimple, SquareGraphicSimple, Sqlign
 class SqlignFill(val shape: Sqlign, val fillFacet: FillFacet) extends SqlignGraphicSimple, RectFill, SquareFill
 { override def slate(operand: VecPt2): SqlignFill = SqlignFill(shape.slate(operand), fillFacet)
   override def slate(xOperand: Double, yOperand: Double): SqlignFill = SqlignFill(shape.slate(xOperand, yOperand), fillFacet)
+  override def slateFrom(operand: VecPt2): SqlignFill = SqlignFill(shape.slateFrom(operand), fillFacet)
+  override def slateFrom(xOperand: Double, yOperand: Double): SqlignFill = SqlignFill(shape.slateFrom(xOperand, yOperand), fillFacet)
   override def slateX(xOperand: Double): SqlignFill = SqlignFill(shape.slateX(xOperand), fillFacet)
   override def slateY(yOperand: Double): SqlignFill = SqlignFill(shape.slateY(yOperand), fillFacet)
   override def scale(operand: Double): SqlignFill = SqlignFill(shape.scale(operand), fillFacet)
@@ -40,6 +42,11 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
 
   override def slate(xOperand: Double, yOperand: Double): SqlignCompound =
     SqlignCompound(shape.slate(xOperand, yOperand), facets, childs, children.slate(xOperand, yOperand))
+
+  override def slateFrom(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slateFrom(operand), facets, childs, children.slateFrom(operand))
+
+  override def slateFrom(xOperand: Double, yOperand: Double): SqlignCompound =
+    SqlignCompound(shape.slateFrom(xOperand, yOperand), facets, childs, children.slateFrom(xOperand, yOperand))  
 
   override def slateX(xOperand: Double): SqlignCompound = SqlignCompound(shape.slateX(xOperand), facets, childs, children.slateX(xOperand))
   override def slateY(yOperand: Double): SqlignCompound = SqlignCompound(shape.slateY(yOperand), facets, childs, children.slateY(yOperand))

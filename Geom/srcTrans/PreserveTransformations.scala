@@ -12,6 +12,8 @@ trait ProlignPreserve extends Any, Aff2Elem
 
   override def slate(operand: VecPt2): ThisT = ptsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): ThisT = ptsTrans(_.slate(xOperand, yOperand))
+  override def slateFrom(operand: VecPt2): ThisT = ptsTrans(_.slateFrom(operand))
+  override def slateFrom(xOperand: Double, yOperand: Double): ThisT = ptsTrans(_.slateFrom(xOperand, yOperand))
   override def slateX(xOperand: Double): ThisT = ptsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): ThisT = ptsTrans(_.slateY(yOperand))
   override def scale(operand: Double): ThisT = ptsTrans(_.scale(operand))

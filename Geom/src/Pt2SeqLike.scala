@@ -85,6 +85,8 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
   given slateEv: Slate2[Pt2Arr] = new Slate2[Pt2Arr]
   { override def slate(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slate(operand)
     override def slateXY(obj: Pt2Arr, xOperand: Double, yOperand: Double): Pt2Arr = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slateFrom(operand)
+    override def slateFromXY(obj: Pt2Arr, xOperand: Double, yOperand: Double): Pt2Arr = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Pt2Arr, xOperand: Double): Pt2Arr = obj.slateX(xOperand)
     override def slateY(obj: Pt2Arr, yOperand: Double): Pt2Arr = obj.slateY(yOperand)
   }

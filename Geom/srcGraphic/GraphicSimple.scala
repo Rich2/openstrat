@@ -6,6 +6,8 @@ package ostrat; package geom
 trait GraphicSimple extends Graphic2Elem, Aff2Elem
 { override def slate(operand: VecPt2): GraphicSimple
   override def slate(xOperand: Double, yOperand: Double): GraphicSimple
+  override def slateFrom(operand: VecPt2): GraphicSimple
+  override def slateFrom(xOperand: Double, yOperand: Double): GraphicSimple
   override def slateX(xOperand: Double): GraphicSimple
   override def slateY(yOperand: Double): GraphicSimple
   override def scale(operand: Double): GraphicSimple
@@ -26,6 +28,8 @@ object GraphicSimple
   given slate2Ev: Slate2[GraphicSimple] = new Slate2[GraphicSimple]
   { override def slate(obj: GraphicSimple, operand: VecPt2): GraphicSimple = obj.slate(operand)
     override def slateXY(obj: GraphicSimple, xOperand: Double, yOperand: Double): GraphicSimple = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: GraphicSimple, operand: VecPt2): GraphicSimple = obj.slateFrom(operand)
+    override def slateFromXY(obj: GraphicSimple, xOperand: Double, yOperand: Double): GraphicSimple = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: GraphicSimple, xOperand: Double): GraphicSimple = obj.slateX(xOperand)
     override def slateY(obj: GraphicSimple, yOperand: Double): GraphicSimple = obj.slateY(yOperand)
   }

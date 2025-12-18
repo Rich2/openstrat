@@ -60,6 +60,8 @@ trait Ellipse extends EllipseBased, ShapeCentred
 
   override def slate(operand: VecPt2): Ellipse
   override def slate(xDelta: Double, yDelta: Double): Ellipse
+  override def slateFrom(operand: VecPt2): Ellipse
+  override def slateFrom(xDelta: Double, yDelta: Double): Ellipse
   override def slateX(xOperand: Double): Ellipse
   override def slateY(yOperand: Double): Ellipse
   override def scale(operand: Double): Ellipse
@@ -172,6 +174,11 @@ object Ellipse
     override def slateXY(obj: Ellipse, xOperand: Double, yOperand: Double): Ellipse =
       cenAxes1axes4(obj.cen.slate(xOperand, yOperand), obj.p1.slate(xOperand, yOperand), obj.p0.slate(xOperand, yOperand))
 
+    override def slateFrom(obj: Ellipse, operand: VecPt2): Ellipse = cenAxes1axes4(obj.cen.slateFrom(operand), obj.p1.slateFrom(operand), obj.p0.slateFrom(operand))
+
+    override def slateFromXY(obj: Ellipse, xOperand: Double, yOperand: Double): Ellipse =
+      cenAxes1axes4(obj.cen.slateFrom(xOperand, yOperand), obj.p1.slateFrom(xOperand, yOperand), obj.p0.slateFrom(xOperand, yOperand))  
+
     override def slateX(obj: Ellipse, xOperand: Double): Ellipse =
       cenAxes1axes4(obj.cen.slateX(xOperand), obj.p1.slateX(xOperand), obj.p0.slateX(xOperand))
 
@@ -227,6 +234,12 @@ final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1
 
   override def slate(xOperand: Double, yOperand: Double): EllipseGen =
     new EllipseGen(p0X + xOperand, p0Y + yOperand, p1X + xOperand, p1Y + yOperand, p3X + xOperand, p3Y + yOperand)
+
+  override def slateFrom(operand: VecPt2): EllipseGen =
+    new EllipseGen(p0X - operand.x, p0Y - operand.y, p1X - operand.x, p1Y - operand.y, p3X - operand.x, p3Y - operand.y)
+
+  override def slateFrom(xOperand: Double, yOperand: Double): EllipseGen =
+    new EllipseGen(p0X - xOperand, p0Y - yOperand, p1X - xOperand, p1Y - yOperand, p3X - xOperand, p3Y - yOperand)  
 
   override def slateX(xOperand: Double): EllipseGen = new EllipseGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
   override def slateY(yOperand: Double): EllipseGen = new EllipseGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
@@ -336,6 +349,8 @@ trait EllipseCompound extends ShapeCompound, EllipseGraphic, Aff2Elem
 { override def mainSvgElem: SvgOwnLine = SvgEllipse(attribs)
   override def slate(operand: VecPt2): EllipseCompound
   override def slate(xDelta: Double, yDelta: Double): EllipseCompound
+  override def slateFrom(operand: VecPt2): EllipseCompound
+  override def slateFrom(xDelta: Double, yDelta: Double): EllipseCompound
   override def slateX(xDelta: Double): EllipseCompound
   override def slateY(yDelta: Double): EllipseCompound
   override def scale(operand: Double): EllipseCompound
@@ -385,6 +400,11 @@ object EllipseCompound
 
     override def slate(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
       EllipseCompoundImplement(shape.slate(xDelta, yDelta), facets, children.slate(xDelta, yDelta))
+
+    override def slateFrom(operand: VecPt2): EllipseCompoundImplement = EllipseCompoundImplement(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
+    override def slateFrom(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
+      EllipseCompoundImplement(shape.slateFrom(xDelta, yDelta), facets, children.slateFrom(xDelta, yDelta))  
 
     override def slateX(xOperand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.slateX(xOperand), facets, children.slateX(xOperand))
     override def slateY(yOperand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.slateY(yOperand), facets, children.slateY(yOperand))

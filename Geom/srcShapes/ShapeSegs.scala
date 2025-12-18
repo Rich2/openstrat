@@ -21,6 +21,8 @@ trait ShapeSegs extends Shape
 
   override def slate(operand: VecPt2): ShapeGen = new ShapeGen(unsafeArray.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slate(xOperand, yOperand))
+  override def slateFrom(operand: VecPt2): ShapeGen = new ShapeGen(unsafeArray.slateFrom(operand))
+  override def slateFrom(xOperand: Double, yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateFrom(xOperand, yOperand))
   override def slateX(xOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateX(xOperand))
   override def slateY(yOperand: Double): ShapeGen = new ShapeGen(unsafeArray.slateY(yOperand))
   override def scale(operand: Double): ShapeGen = new ShapeGen(unsafeArray.scale(operand))
@@ -67,6 +69,8 @@ object ShapeSegs
   given slate2Ev: Slate2[ShapeSegs] = new Slate2[ShapeSegs]
   { override def slate(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slate(operand)
     override def slateXY(obj: ShapeSegs, xOperand: Double, yOperand: Double): ShapeSegs = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slateFrom(operand)
+    override def slateFromXY(obj: ShapeSegs, xOperand: Double, yOperand: Double): ShapeSegs = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: ShapeSegs, xOperand: Double): ShapeSegs = obj.slateX(xOperand)
     override def slateY(obj: ShapeSegs, yOperand: Double): ShapeSegs = obj.slateY(yOperand)
   }

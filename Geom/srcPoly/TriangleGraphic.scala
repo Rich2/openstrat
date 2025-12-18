@@ -12,6 +12,8 @@ case class TriangleFill(shape: Triangle, fillFacet: FillFacet) extends TriangleG
 { override type ThisT = TriangleFill
   override def slate(operand: VecPt2): TriangleFill = TriangleFill(shape.slate(operand), fillFacet)
   override def slate(xDelta: Double, yDelta: Double): TriangleFill = TriangleFill(shape.slate(xDelta, yDelta), fillFacet)
+  override def slateFrom(operand: VecPt2): TriangleFill = TriangleFill(shape.slateFrom(operand), fillFacet)
+  override def slateFrom(xDelta: Double, yDelta: Double): TriangleFill = TriangleFill(shape.slateFrom(xDelta, yDelta), fillFacet)
   override def slateX(xOperand: Double): TriangleFill = TriangleFill(shape.slateX(xOperand), fillFacet)
   override def slateY(yOperand: Double): TriangleFill = TriangleFill(shape.slateY(yOperand), fillFacet)
   override def scale(operand: Double): TriangleFill = TriangleFill(shape.scale(operand), fillFacet)

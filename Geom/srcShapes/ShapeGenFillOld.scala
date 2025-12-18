@@ -11,6 +11,8 @@ final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends Can
 
   override def slate(operand: VecPt2): ShapeGenFillOld = ShapeGenFillOld(shape.slate(operand), colour)
   override def slate(xOperand: Double, yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slate(xOperand, yOperand), colour)
+  override def slateFrom(operand: VecPt2): ShapeGenFillOld = ShapeGenFillOld(shape.slateFrom(operand), colour)
+  override def slateFrom(xOperand: Double, yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateFrom(xOperand, yOperand), colour)
   override def slateX(xOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateX(xOperand), colour)
   override def slateY(yOperand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.slateY(yOperand), colour)
   override def scale(operand: Double): ShapeGenFillOld = ShapeGenFillOld(shape.scale(operand), colour)

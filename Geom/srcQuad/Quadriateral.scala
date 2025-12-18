@@ -16,6 +16,8 @@ trait Quadrilateral extends Polygon4Plus
 
   override def slate(operand: VecPt2): Quadrilateral = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.slate(xOperand, yOperand))
+  override def slateFrom(operand: VecPt2): Quadrilateral = vertsTrans(_.slateFrom(operand))
+  override def slateFrom(xOperand: Double, yOperand: Double): Quadrilateral = vertsTrans(_.slateFrom(xOperand, yOperand))
   override def slateX(xOperand: Double): Quadrilateral = vertsTrans(_.slateX(xOperand))
   override def slateY(yOperand: Double): Quadrilateral = vertsTrans(_.slateY(yOperand))
   override def scale(offset: Double): Quadrilateral = vertsTrans(_.scale(offset))
@@ -71,6 +73,8 @@ object Quadrilateral
   given slate2Ev: Slate2[Quadrilateral] = new Slate2[Quadrilateral]
   { override def slate(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slate(operand)
     override def slateXY(obj: Quadrilateral, xOperand: Double, yOperand: Double): Quadrilateral = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slateFrom(operand)
+    override def slateFromXY(obj: Quadrilateral, xOperand: Double, yOperand: Double): Quadrilateral = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Quadrilateral, xOperand: Double): Quadrilateral = obj.slateX(xOperand)
     override def slateY(obj: Quadrilateral, yOperand: Double): Quadrilateral = obj.slateY(yOperand)
   }
@@ -143,7 +147,7 @@ object QuadrilateralGen
 { /** Apply factory method to construct [[QuadrilateralGen]] from its 4 vertices. */
   def apply(v0: Pt2, v1: Pt2, v2: Pt2, v3: Pt2): QuadrilateralGen =  new QuadrilateralGen(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
-  /** Apply factory method to construct [[QuadrilateralGen]] from its the X and Y componeents of its 4 vertices. */
+  /** Apply factory method to construct [[QuadrilateralGen]] from it's the X and Y components of its 4 vertices. */
   def apply(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double, v3x: Double, v3y: Double): QuadrilateralGen =
     new QuadrilateralGen(v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
 }
@@ -166,6 +170,11 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
   override def slate(xOperand: Double, yOperand: Double): QuadCompound =
     QuadCompoundGen(shape.slate(xOperand, yOperand), facets, quadChilds, adopted.slate(xOperand, yOperand))
 
+  override def slateFrom(operand: VecPt2): QuadCompound = QuadCompoundGen(shape.slateFrom(operand), facets, quadChilds, adopted.slateFrom(operand))
+
+  override def slateFrom(xOperand: Double, yOperand: Double): QuadCompound =
+    QuadCompoundGen(shape.slateFrom(xOperand, yOperand), facets, quadChilds, adopted.slateFrom(xOperand, yOperand))  
+
   override def slateX(xOperand: Double): QuadCompound = QuadCompoundGen(shape.slateX(xOperand), facets, quadChilds, adopted.slateX(xOperand))
   override def slateY(yOperand: Double): QuadCompound = QuadCompoundGen(shape.slateY(yOperand), facets, quadChilds, adopted.slateY(yOperand))
   override def scale(operand: Double): QuadCompound = QuadCompoundGen(shape.scale(operand), facets, quadChilds, adopted.scale(operand))
@@ -177,7 +186,9 @@ object QuadCompound
   given slate2Ev: Slate2[QuadCompound] = new Slate2[QuadCompound]
   { override def slate(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slate(operand)    
     override def slateXY(obj: QuadCompound, xOperand: Double, yOperand: Double): QuadCompound = obj.slate(xOperand, yOperand)
-    override def slateX(obj: QuadCompound, xOperand: Double): QuadCompound = obj.slateX(xOperand)
+    override def slateFrom(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slateFrom(operand)
+    override def slateFromXY(obj: QuadCompound, xOperand: Double, yOperand: Double): QuadCompound = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: QuadCompound, xOperand: Double): QuadCompound = obj.slateX(xOperand)    
     override def slateY(obj: QuadCompound, yOperand: Double): QuadCompound = obj.slateY(yOperand)
   }
 }

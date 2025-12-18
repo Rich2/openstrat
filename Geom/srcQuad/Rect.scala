@@ -8,6 +8,8 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 { type ThisT <: Rect
   override def slate(operand: VecPt2): Rect = Rect(width, height, cen.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY + yOperand)
+  override def slateFrom(operand: VecPt2): Rect = Rect(width, height, cen.slateFrom(operand))
+  override def slateFrom(xOperand: Double, yOperand: Double): Rect = Rect(width, height, cenX - xOperand, cenY - yOperand)
   override def slateX(xOperand: Double): Rect = Rect(width, height, cenX + xOperand, cenY)
   override def slateY(yOperand: Double): Rect = Rect(width, height, cenX, cenY + yOperand)
   override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cenX * operand, cenY * operand)
@@ -139,6 +141,8 @@ object Rect
   given slate2Ev: Slate2[Rect] = new Slate2[Rect]
   { override def slate(obj: Rect, operand: VecPt2): Rect = obj.slate(operand)
     override def slateXY(obj: Rect, xOperand: Double, yOperand: Double): Rect = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Rect, operand: VecPt2): Rect = obj.slateFrom(operand)
+    override def slateFromXY(obj: Rect, xOperand: Double, yOperand: Double): Rect = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Rect, xOperand: Double): Rect = obj.slateX(xOperand)
     override def slateY(obj: Rect, yOperand: Double): Rect = obj.slateY(yOperand)
   }

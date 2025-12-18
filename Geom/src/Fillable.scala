@@ -15,6 +15,8 @@ trait Fillable extends Any, Drawable
 
   override def slate(operand: VecPt2): Fillable
   override def slate(xOperand: Double, yOperand: Double): Fillable
+  override def slateFrom(operand: VecPt2): Fillable
+  override def slateFrom(xOperand: Double, yOperand: Double): Fillable
   override def slateX(xOperand: Double): Fillable
   override def slateY(yOperand: Double): Fillable
   override def scale(operand: Double): Fillable
@@ -33,9 +35,11 @@ trait Fillable extends Any, Drawable
 
 object Fillable
 { /** [[Slate2]] type class instance / evidence for [[Fillable]]. */
-  implicit val slate2Ev: Slate2[Fillable] = new Slate2[Fillable]
+  given slate2Ev: Slate2[Fillable] = new Slate2[Fillable]
   { override def slate(obj: Fillable, operand: VecPt2): Fillable = obj.slate(operand)
     override def slateXY(obj: Fillable, xOperand: Double, yOperand: Double): Fillable = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Fillable, operand: VecPt2): Fillable = obj.slateFrom(operand)
+    override def slateFromXY(obj: Fillable, xOperand: Double, yOperand: Double): Fillable = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: Fillable, xOperand: Double): Fillable = obj.slateX(xOperand)
     override def slateY(obj: Fillable, yOperand: Double): Fillable = obj.slateY(yOperand)
   }

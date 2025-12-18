@@ -21,6 +21,10 @@ trait Axlign2Elem extends Any
 
   /** Translate 2D geometric transformation in the Y dimension, returning a GeomElem. The Return type will be narrowed in sub traits. */
   def slateY(operand: Double): Axlign2Elem
+  
+  def slateFrom(operand: VecPt2): Axlign2Elem
+  
+  def slateFrom(xOperand: Double, yOperand: Double): Axlign2Elem
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */

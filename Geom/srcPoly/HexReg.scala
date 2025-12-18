@@ -36,6 +36,8 @@ trait HexReg extends ShapeCentred, Polygon6Plus, Tell
   
   override def slate(delta: VecPt2): HexReg = mapHexReg(_.slate(delta))
   override def slate(xOperand: Double, yOperand: Double): HexReg = mapHexReg(_.slate(xOperand, yOperand))
+  override def slateFrom(delta: VecPt2): HexReg = mapHexReg(_.slateFrom(delta))
+  override def slateFrom(xOperand: Double, yOperand: Double): HexReg = mapHexReg(_.slateFrom(xOperand, yOperand))
   override def slateX(xOperand: Double): HexReg = mapHexReg(_.slateX(xOperand))
   override def slateY(yOperand: Double): HexReg = mapHexReg(_.slateY(yOperand))
   override def scale(operand: Double): HexReg = mapHexReg(_.scale(operand))
@@ -94,6 +96,8 @@ object HexReg
   given slate2Ev: Slate2[HexReg] = new Slate2[HexReg]
   { override def slate(obj: HexReg, operand: VecPt2): HexReg = obj.slate(operand)    
     override def slateXY(obj: HexReg, xOperand: Double, yOperand: Double): HexReg = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: HexReg, operand: VecPt2): HexReg = obj.slateFrom(operand)
+    override def slateFromXY(obj: HexReg, xOperand: Double, yOperand: Double): HexReg = obj.slateFrom(xOperand, yOperand)
     override def slateX(obj: HexReg, xOperand: Double): HexReg = obj.slateX(xOperand)
     override def slateY(obj: HexReg, yOperand: Double): HexReg = obj.slateY(yOperand)
   }  

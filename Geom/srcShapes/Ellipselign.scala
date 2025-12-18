@@ -19,6 +19,12 @@ trait Ellipselign extends Ellipse
   override def slate(xOperand: Double, yOperand: Double): Ellipselign =
     new EllipselignGen(p0X + xOperand, p0Y + yOperand, p1X + xOperand, p1Y + yOperand, p3X + xOperand, p3Y + yOperand)
 
+  override def slateFrom(operand: VecPt2): Ellipselign =
+    new EllipselignGen(p0X - operand.x, p0Y - operand.y, p1X - operand.x, p1Y - operand.y, p3X - operand.x, p3Y - operand.y)
+
+  override def slateFrom(xOperand: Double, yOperand: Double): Ellipselign =
+    new EllipselignGen(p0X - xOperand, p0Y - yOperand, p1X - xOperand, p1Y - yOperand, p3X - xOperand, p3Y - yOperand)  
+
   override def slateX(xOperand: Double): Ellipselign = new EllipselignGen(p0X + xOperand, p0Y, p1X + xOperand, p1Y, p3X + xOperand, p3Y)
   override def slateY(yOperand: Double): Ellipselign = new EllipselignGen(p0X, p0Y + yOperand, p1X, p1Y + yOperand, p3X, p3Y + yOperand)
   override def scale(operand: Double): Ellipselign = new EllipselignGen(p0X * operand, p0Y * operand, p1X * operand, p1Y * operand, p3X * operand, p3Y * operand)
