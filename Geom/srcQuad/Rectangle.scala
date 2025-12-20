@@ -18,6 +18,15 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   /** length from v2 to v3 and v03 to v1. */
   def width2: Double = v1.distTo(v2)
 
+  /** the length of the diagonals of this [[Rectangle]]. */
+  def diagLen: Double = ((v0x - v2x).squared + (v0y - v2y).squared).sqrt
+
+  /** Not correct." */
+  def diagRectangles(childWidth: Double): RArr[Rectangle] =
+  { val r1 = Rect(diagLen, childWidth, cen)
+    RArr(r1.rotateAbout(r1.cen, rotation), r1.rotateAbout(r1.cen, -rotation))
+  }
+
   @inline final override def cen: Pt2 = Pt2(cenX, cenY)
 
   /** The rotation of this square from alignment with the X and Y axes. */
@@ -74,9 +83,9 @@ object Rectangle
 {  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the centre
    * point is the origin. */
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Origin2): Rectangle =
-  { val v0 = Pt2(width, height).rotate(rotation).slate(cen)
-    val v1 = Pt2(width, -height).rotate(rotation).slate(cen)
-    val v2 = Pt2(-width, -height).rotate(rotation).slate(cen)
+  { val v0 = Pt2(width / 2, height / 2).rotate(rotation).slate(cen)
+    val v1 = Pt2(width / 2, -height / 2).rotate(rotation).slate(cen)
+    val v2 = Pt2(-width / 2, -height / 2).rotate(rotation).slate(cen)
     from3(v0, v1, v2)
   }
 
@@ -179,7 +188,7 @@ object Rectangle
   final class RectangleGen(val v0x: Double, val v0y: Double, val v1x: Double, val v1y: Double, val v2x: Double, val v2y: Double) extends Rectangle
   { override type ThisT = RectangleGen
     override def vertsTrans(f: Pt2 => Pt2): RectangleGen = RectangleGen.from3(f(v0), f(v1), f(v2))
-    override def rotation: AngleVec = ???
+    override def rotation: AngleVec = v2.angleVecTo(v1)
   }
 
   object RectangleGen

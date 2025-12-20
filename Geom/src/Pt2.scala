@@ -46,6 +46,9 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
   /** Gives the angle from this point to the operand point. */
   def angleTo(operand: Pt2): Angle = (this >> operand).angle
 
+  /** Gives the angle from this point to the operand point. */
+  def angleVecTo(operand: Pt2): AngleVec = (this >> operand).angleVec
+
   /** Gives the angle from the operand point to this point. */
   def angleFrom(operand: Pt2): Angle = (this << operand).angle
 

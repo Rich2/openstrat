@@ -39,10 +39,12 @@ final class Sqlign private(val v0x: Double, val v0y: Double, val v1x: Double, va
   override def rotate270: Sqlign = new Sqlign(v0y, v0x, v1y, -v1x, v2y, -v2x)
   override def prolign(matrix: AxlignMatrix): Sqlign = Sqlign.from3(v0.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
   override def addMargin(delta: Double): Sqlign = ??? // Sqlign(width + 2 * delta, cenX, cenY, vertOrder)
-  def diagRectangles(childWidth: Double): RArr[Rectangle] =
-  { val r1 = Rect(width, childWidth, cen)
+  override def diagRectangles(childWidth: Double): RArr[Rectangle] =
+  { val r1 = Rect(diagLen, childWidth, cen)
     RArr(r1.rotate45About(r1.cen), r1.clk45About(r1.cen))
   }
+
+  override def diagLen: Double = (v0x - v2x).abs * 2.sqrt
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
