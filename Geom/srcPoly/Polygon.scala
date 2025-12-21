@@ -150,6 +150,7 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
   override def shearX(operand: Double): Polygon = map(_.shearX(operand))
   override def shearY(operand: Double): Polygon = map(_.shearY(operand))
 
+  /** Folds over the sides, the [[LSeg2]]s of this [[Polygon]]. */
   def sidesFold[A](init: A)(f: (A, LSeg2) => A): A =
   { var acc: A = init
     sidesForeach{ s => acc = f(acc, s) }
