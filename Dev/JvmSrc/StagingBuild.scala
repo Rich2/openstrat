@@ -34,12 +34,12 @@ trait StagingBuild
       htmlFileWrite(docPath, GeomPage),
       htmlFileWrite(docPath, LessonsPage),
       htmlFileWrite(docPath, TilingPage),
-      htmlFileStrWrite(docPath / "earth", pEarth.EarthPage.out),
-      htmlFileStrWrite(docPath / "egrid", EGridPage.out),
-      htmlFileStrWrite(docPath / "dev", DevPage.out),
-      htmlFileStrWrite(docPath / "newdevs", NewDevsPage.out),
-      htmlFileStrWrite(docPath / "tomcat", TomcatPage.out),
-      htmlFileStrWrite(docPath / "scalaos", pDoc.ScalaOSPage.out),
+      htmlFileWrite(docPath, EarthPage),
+      htmlFileWrite(docPath, EGridPage),
+      htmlFileWrite(docPath, DevPage),
+      htmlFileWrite(docPath, NewDevsPage),
+      htmlFileWrite(docPath, TomcatPage),
+      htmlFileWrite(docPath, ScalaOSPage),
       cssFileWrite(docPath / "documentation", CssDocumentation())
     )
     }

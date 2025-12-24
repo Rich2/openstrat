@@ -38,8 +38,15 @@ trait HtmlPageFile extends HtmlPage
 { /** The default file name stem for this HTML page. */
   def fileNameStem: String
 
+  /** The HTML head title [[String]]. */
+  def titleStr: String
+
   /** The default file name stem for this HTML page. */
   def fileName: String = fileNameStem + ".html"
+
+  /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
+  def headCss(cssFileStem: String, otherContents: XConCompound*): HtmlHead =
+    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 }
 
 /** An index.html page. */
@@ -48,7 +55,7 @@ trait IndexPage extends HtmlPageFile
 }
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */
-trait HtmlPageInput extends HtmlPage
+trait HtmlPageInput extends HtmlPageFile
 { var inpAcc: RArr[InputUpdater] = RArr()
 }
 

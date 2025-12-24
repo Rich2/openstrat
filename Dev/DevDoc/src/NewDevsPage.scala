@@ -2,9 +2,9 @@
 package ostrat; package pDoc
 import pWeb.*, wcode.*
 
-object NewDevsPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("New Developers Info", "https://richstrat.com/Documentation/documentation")
+object NewDevsPage extends OSDocumentationPage
+{ override def titleStr: String = "New Developers Info"
+  override def fileNameStem: String = "newdevs"
 
   override def body: HtmlBody = HtmlBody(HtmlH1("New Developers Info"), central)
 

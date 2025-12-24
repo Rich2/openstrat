@@ -4,7 +4,8 @@ import pWeb.*, pDoc.*
 
 /** The home page for the project, currently displayed at richstrat.com. */
 object IndexPage extends IndexPage
-{ val head = HtmlHead.titleCss("Openstrat", "Documentation/documentation", FaviconSvgLink)
+{ override val titleStr: String = "Openstrat"
+  def head: HtmlHead = headCss("Documentation/documentation", FaviconSvgLink)
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.defaultTopPairs)
   def body: HtmlBody = HtmlBody(topMenu, central)
 

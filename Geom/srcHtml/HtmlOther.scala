@@ -8,11 +8,18 @@ class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt]
 }
 
 object HtmlA
-{ /** Factory apply method for creating Html anchor element. If you don't supply a label the link will be used as the label. */
+{ /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
   def apply(link: String, label: String = ""): HtmlA =
   { val label2 = ife(label == "", link, label)
     new HtmlA(link, RArr(label2))
   }
+
+  /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]] with a path to the file name. There is an apply overload without a path. */
+  def apply(page: HtmlPageFile, pathStr: String): HtmlA = new HtmlA(pathStr / page.fileName, RArr(page.titleStr))
+
+  /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]], with no path to the file name. There is an apply ooerlaod with a
+   * [[String]] for the path. */
+  def apply(page: HtmlPageFile): HtmlA = new HtmlA(page.fileName, RArr(page.titleStr))
 }
 
 /** HTML P paragraph element. */

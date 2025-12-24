@@ -1,11 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import pWeb._
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pDoc
+import pWeb.*
 
 /** HTML documentation page for Earth module. */
-object EarthPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("Earth Module", "https://richstrat.com/Documentation/documentation")
+object EarthPage extends OSDocumentationPage
+{ override val titleStr: String = "Earth Module"
+  override def fileNameStem: String = "earth"
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
 

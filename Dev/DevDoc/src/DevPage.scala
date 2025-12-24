@@ -3,8 +3,10 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 /** HTML documentation page for Dev Module. */
-object DevPage extends HtmlPage
-{ override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "documentation")
+object DevPage extends OSDocumentationPage
+{ override val titleStr: String = "Dev Module"
+  override val fileNameStem: String = "dev"
+
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
   val scVer: String = "3.7.4"
 
