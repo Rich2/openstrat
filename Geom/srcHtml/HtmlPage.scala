@@ -25,16 +25,17 @@ trait HtmlPage extends HttpContent
 /** Companion object for the [[HtmlHead]] class. */
 object HtmlPage
 { /** Factory apply method for [[HtmlPage]]. */
-  def apply(headIn: HtmlHead, bodyIn: HtmlBody): HtmlPage = new HtmlPage
-  { override val head: HtmlHead = headIn
-    override val body: HtmlBody = bodyIn
-  }
+  def apply(head: HtmlHead, body: HtmlBody): HtmlPage = HtmlPageGen(head, body)
 
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
-  def titleOnly(title: String, bodyContent: String): HtmlPage = new HtmlPage{
-    override val head: HtmlHead = HtmlHead.title(title)
-    override val body: HtmlBody = HtmlBody(HtmlH1(title), bodyContent)
-  }
+  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPageGen(HtmlHead.title(title), HtmlBody(HtmlH1(title), bodyContent))
+  
+  case class HtmlPageGen(head: HtmlHead, body: HtmlBody) extends HtmlPage
+}
+
+trait HtmlPageFile extends HtmlPage
+{ /** The default file name stem for this HTML page. */
+  def fileNameStem: String
 }
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */
@@ -51,13 +52,4 @@ trait HtmlPageNotFound extends HtmlPage
 case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
 { override def head: HtmlHead = HtmlHead.title("Page not Found")
   override def body: HtmlBody = HtmlBody(HtmlH1("404" -- NotFoundUrl -- "not found on this server"))
-}
-
-/** The "html" HTML element */
-case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
-{ def tagName: String = "html"
-  override def contents: RArr[HtmlUnvoid] = RArr(head, body)
-  
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-    openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag
 }

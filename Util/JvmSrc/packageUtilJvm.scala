@@ -86,12 +86,13 @@ package object utiljvm
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
-  def htmlFileWrite(path: DirsAbs, fileName: String, content: String): ErrBi[IOExc, HtmlFileWritten] = htmlFileWrite(path /% fileName , content)
+  def htmlFileStrWrite(path: DirsAbs, fileName: String, content: String): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(path /% fileName , content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[DirAbs]] for the path. */
-  def htmlFileWrite(pathName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
+  def htmlFileStrWrite(pathName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
     fileWrite(pathName + ".html", content).map(fw => HtmlFileWritten(fw.detailStr))
+  
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */

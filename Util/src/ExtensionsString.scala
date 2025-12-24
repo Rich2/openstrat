@@ -206,7 +206,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
     }
   }
 
-  /** Append parethesis containing the paremter [[String]]s, separated by semicolons. */
+  /** Append parenthesis containing the parameter [[String]]s, separated by semicolons. */
   def appendParenthSemis(innerStrs: String*): String = thisString + innerStrs.mkSemiParenth
   
   def appendParenth(innerStr: String): String = thisString + innerStr.enParenth

@@ -5,6 +5,7 @@ import geom.*, prid.phex.*, pWeb.*, Colour.*
 /** Html documentation page for Tiling Module. */
 object TilingPage extends OSDocumentationPage
 { override def titleStr: String = "Tiling Module"
+  override val fileNameStem: String = "tiling"
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)

@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*
 
 object India extends EarthPoly("India", 20.85 ll 78.68, jungle)
 { val kotdwar = 29.747 ll 78.527
@@ -11,11 +11,9 @@ object India extends EarthPoly("India", 20.85 ll 78.68, jungle)
   val himilayasE: Longitude = 83.75.east
 
   val magdhara: LatLong = 22.41.north * indiaE
-
-  //val chinaSW = AsiaWestPts.mianiLat * indiaE
+  
   val indiaNE: LatLong = mianiLat * indiaE
-
-  //val himilayasSE = AsiaWestPts.mianiLat * himilayasE
+  
   val balasore: LatLong = 21.41 ll 86.97
   val kanika: LatLong = 20.820 ll 87.016
   val gangavaum = 17.615 ll 83.238
@@ -36,7 +34,7 @@ object India extends EarthPoly("India", 20.85 ll 78.68, jungle)
   val varvala: LatLong = 22.30 ll 68.93
   val kutchMouth: LatLong = 22.92 ll 70.37
   val bhada: LatLong = 22.83 ll 69.19
-  val karachi: LatLong = degs(25.38, 66.70)
+  val karachi: LatLong = 25.38 ll 66.70
 
   override val polygonLL: PolygonLL = PolygonLL(kotdwar, indiaNE, indiaNE, magdhara, balasore, kanika, gangavaum, godavariMouth2, ongale, kattupali,
     pointCalimere, p45, p47, manapad, sIndia, kovalam, karnataka1, karnataka2, tarapur, khambat, girSomnath, varvala, kutchMouth, bhada, karachi)

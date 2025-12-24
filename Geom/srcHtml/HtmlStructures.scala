@@ -1,6 +1,15 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
+/** The "html" HTML element */
+case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
+{ def tagName: String = "html"
+  override def contents: RArr[HtmlUnvoid] = RArr(head, body)
+
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+    openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag
+}
+
 /** The HTML body element. */
 class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "body"

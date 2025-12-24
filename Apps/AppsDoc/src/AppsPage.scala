@@ -1,10 +1,11 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb._
+import pWeb.*
 
 /** The top level HTML documentation page for the apps. */
 object AppsPage extends OSDocumentationPage
 { override def titleStr: String = "Applications Module"
+  override val fileNameStem: String = "apps"
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, otherTiled, otherApps)
   def egameDir = dirsRel </% AppPage.egameDir

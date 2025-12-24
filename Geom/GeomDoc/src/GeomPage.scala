@@ -3,8 +3,9 @@ package ostrat; package pDoc
 import geom.*, pWeb.*, wcode.*, Colour.*
 
 /** Produces an HTML file documentation for the Geom module. */
-object GeomPage extends HtmlPage
-{ override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
+object GeomPage extends OSDocumentationPage
+{ override val titleStr: String = "Geom Module"
+  override val fileNameStem: String = "geom"
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
   def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 

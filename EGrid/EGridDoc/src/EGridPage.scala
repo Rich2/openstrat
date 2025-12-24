@@ -5,6 +5,7 @@ import pWeb.*
 /** Documentation page for EGrid Module." */
 object EGridPage extends OSDocumentationPage
 { override def titleStr: String = "EGrid Module"
+  override val fileNameStem: String = "egrid"
   override def body: HtmlBody = HtmlBody(HtmlH1("EGrid Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", egrids, open)
