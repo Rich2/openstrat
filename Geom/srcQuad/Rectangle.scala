@@ -21,10 +21,11 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   /** the length of the diagonals of this [[Rectangle]]. */
   def diagLen: Double = ((v0x - v2x).squared + (v0y - v2y).squared).sqrt
 
-  /** Not correct." */
+  /** gives the diagonals of this rectangle, but as rectangles. this is because they maybe easier to scale than line widths. */
   def diagRectangles(childWidth: Double): RArr[Rectangle] =
-  { val r1 = Rect(diagLen, childWidth, cen)
-    RArr(r1.rotateAbout(r1.cen, rotation), r1.rotateAbout(r1.cen, -rotation))
+  { val r1 = Rectangle.axis1(v2, v0 ,childWidth)
+    val r2 = Rectangle.axis1(v3, v1 ,childWidth)
+    RArr(r1, r2)
   }
 
   @inline final override def cen: Pt2 = Pt2(cenX, cenY)
@@ -46,6 +47,16 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 
   /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
   def yAttrib: YXmlAtt = YXmlAtt(-v2y)
+
+
+  /** Rotates this Rectangle about its centre. */
+  def rotateCen(rotation: AngleVec): Rectangle = vertsTrans{vt => vt.slateFrom(cen).rotate(rotation).slate(cen) }
+
+  /** Rotates this Rectangle positively or anti-clockwise about its centre, by the given number of degrees. */
+  def rotateDegsCen(rotationNum: Double): Rectangle = vertsTrans { vt => vt.slateFrom(cen).rotate(rotationNum.degsVec).slate(cen) }
+
+  /** Rotates this Rectangle negatively or clockwise about its centre, by the given number of degrees. */
+  def clkDegsCen(rotationNum: Double): Rectangle = vertsTrans { vt => vt.slateFrom(cen).rotate(rotationNum.degsVec).slate(cen) }
   
   override def slate(operand: VecPt2): Rectangle = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.slate(xOperand, yOperand))
@@ -95,21 +106,16 @@ object Rectangle
   def from3(vt0: Pt2, vt1: Pt2, vt2: Pt2): Rectangle = new RectangleGen(vt0.x, vt0.y, vt1.x, vt1.y, vt2.x, vt2.y)
 
   /** Creates a [[Rectangle]] from axis 1. The default for axis 1 is the left right axis. */
-  def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle = ???
-  /*{ val rtVec: Vec2 = sd4Cen >/> sd2Cen
-    val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
-    val cen = sd4Cen \/ sd2Cen
-    val verts = Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
-    new RectangleGen(verts.arrayUnsafe)
-  }*/
+  def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle =
+  { val cen = sd4Cen.midPt(sd2Cen)
+    val ori = sd4Cen.angleVecTo(sd2Cen)
+    val width = sd4Cen.distTo(sd2Cen)
+    val r1 = Rect(width, height, cen)
+    r1.rotateCen(ori)
+  }
+
 
   def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = ???// new RectangleGen(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
-
-  /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
-  //def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] = ???
-    //Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).arrayUnsafe
-
-//  def fromArray(array: Array[Double]): Rectangle = new RectangleGen(array)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Origin2): ShapeGenOld =
   { val w = width / 2
@@ -128,14 +134,6 @@ object Rectangle
     curvedCorners(height * Phi, height, radius, posn)
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Origin2): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
-
-  def fromAxis(centreLine: LSeg2, height: Double): PolygonGen = ???
-//  { val hAngle: Angle = centreLine.angle
-//    val offset = (hAngle + 90.degsVec).toVec2(height * 0.5)
-//    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
-//  }
-
-  def fromAxisRatio(centreLine: LSeg2, ratio: Double): PolygonGen = fromAxis(centreLine, centreLine.length * ratio)
 
   /** Implicit [[Slate2]] type class instance evidence for [[Rectangle]]. */
   given slate2Ev: Slate2[Rectangle] = new Slate2[Rectangle]
