@@ -5,7 +5,7 @@ import utiljvm.*, pDoc.*, pWeb.*
 trait StagingBuild
 {
   def stageBase(path: DirsAbs): Unit =
-  { deb(htmlFileStrWrite(path, "index", IndexPage.out).reportStr)
+  { deb(htmlFileWrite(path, IndexPage).reportStr)
     deb(cssFileWrite(path, "only", OnlyCss()).reportStr)
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msgErrsSummary("to Documents directory"))
@@ -32,8 +32,8 @@ trait StagingBuild
       htmlFileWrite(docPath, AppsPage),
       htmlFileWrite(docPath, UtilPage),
       htmlFileWrite(docPath, GeomPage),
-      htmlFileStrWrite(docPath / "lessons", LessonsPage.out),
-      htmlFileStrWrite(docPath / "tiling", TilingPage.out),
+      htmlFileWrite(docPath, LessonsPage),
+      htmlFileWrite(docPath, TilingPage),
       htmlFileStrWrite(docPath / "earth", pEarth.EarthPage.out),
       htmlFileStrWrite(docPath / "egrid", EGridPage.out),
       htmlFileStrWrite(docPath / "dev", DevPage.out),

@@ -33,9 +33,18 @@ object HtmlPage
   case class HtmlPageGen(head: HtmlHead, body: HtmlBody) extends HtmlPage
 }
 
+/** This is an HTML page that stores its default file name. */
 trait HtmlPageFile extends HtmlPage
 { /** The default file name stem for this HTML page. */
   def fileNameStem: String
+
+  /** The default file name stem for this HTML page. */
+  def fileName: String = fileNameStem + ".html"
+}
+
+/** An index.html page. */
+trait IndexPage extends HtmlPageFile
+{ override def fileNameStem: String = "index"
 }
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */

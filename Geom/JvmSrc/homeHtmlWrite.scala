@@ -22,9 +22,13 @@ object opensettHtmlWrite
 
 object HttpNow extends HttpDate(httpNow)
 
-/** Writes the out [[String]] given in the second parameter to the directory path of the first parameter and filename in the JTML page. Returns a successful
- * message on success. */
+/** Writes the out [[String]] from the HTML page given in the second parameter to the directory path of the first parameter and filename in the HTML page.
+ * Returns a successful message on success. */
 def htmlFileWrite(dirPathStr: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] =
 { val filePathName = ife(dirPathStr == null || dirPathStr == "", "", dirPathStr + "/") + page.fileNameStem + ".html"
   fileWrite(filePathName, page.out).map(fw => HtmlFileWritten(fw.detailStr))
 }
+
+/** Writes the out [[String]] from the HTML page given in the second parameter to the directory path of the first parameter and filename in the HTML page.
+ * Returns a successful message on success. */
+def htmlFileWrite(path: DirsAbs, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = fileWrite(path, page.fileName, page.out).map(fw => HtmlFileWritten(fw.detailStr))

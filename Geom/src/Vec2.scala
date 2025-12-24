@@ -116,7 +116,7 @@ object Vec2
   /** unapply extractor method for [[Vec2]]s. */
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
-  given buildImplicit: BuilderMapArrDbl2[Vec2, Vec2Arr] = new BuilderMapArrDbl2[Vec2, Vec2Arr]
+  given buildEv: BuilderMapArrDbl2[Vec2, Vec2Arr] = new BuilderMapArrDbl2[Vec2, Vec2Arr]
   { override type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(buffer)
