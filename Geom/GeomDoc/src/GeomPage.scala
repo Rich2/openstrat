@@ -10,8 +10,8 @@ object GeomPage extends OSDocumentationPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
-  | geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
-  | units such as metres, miles and picometres. There is also 2D geometry and graphics that can be defined in latitudes and longitudes.""".stripMargin
+  |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
+  |units such as metres, miles and picometres. There is also 2D geometry and graphics that can be defined in latitudes and longitudes.""".stripMargin
 
   val list: HtmlOlWithLH =
     HtmlOlWithLH.h2("The Geom module contains", geomItem, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
@@ -28,20 +28,20 @@ object GeomPage extends OSDocumentationPage
   def trans: HtmlLi = HtmlLi("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
 
   def canv: HtmlLi = HtmlLi("""An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas, allowing
-  | applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require
-  | significantly more work than for the ScalaFx canvas or the Html Canvas.""".stripMargin)
+  |applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require
+  |significantly more work than for the ScalaFx canvas or the Html Canvas.""".stripMargin)
 
   def svg: HtmlLi = HtmlLi("Conversion of Graphic classes into SVG, giving an alternative target and greater flexibility.")
 
   def web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
 
   def geom3: HtmlLi = HtmlLi("""3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be provided, but
-  | currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely possible.""".stripMargin)
+  |currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely possible.""".stripMargin)
 
   def lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
 
   def earth: HtmlLi = HtmlLi("""Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion between them
-  | and 2D and 3D coordinates.""".stripMargin)
+  |and 2D and 3D coordinates.""".stripMargin)
 
   val svgMargin = 50
 
@@ -79,40 +79,40 @@ object LinePathNames extends HtmlSection
   "intArr1 ++ intArr2".htmlScala, "returns a new", "IntArr".htmlScala, ". For the RArr class type widening is allowed. So catsRArr ++ dogsRArr",
   " dogsRArr might return a new RArr[Animal]."),
 
-  HtmlLi("++ append Add the operand line path to the end of this line path returning a new line path."),
-  HtmlLi("++ append Add the operand line path to this line path returning a new line path."),
-  HtmlLi("|++| appendToPolygon Adds a line path to the end of this line path and closes it into a Polygon."),
+  HtmlLi("++ append".htmlScala, "Add the operand line path to the end of this line path returning a new line path."),
+  HtmlLi("++ append".htmlScala, "Add the operand line path to this line path returning a new line path."),
+  HtmlLi("|++| appendToPolygon".htmlScala, "Adds a line path to the end of this line path and closes it into a Polygon."),
 
-  HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because of left
-  | right operator precedence, it makes for better combination with the append element method""".stripMargin),
+  HtmlLi("%: prepend".htmlScala, """This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because
+  |of left right operator precedence, it makes for better combination with the append element method""".stripMargin),
 
-  HtmlLi("%: prepend Adds a point to the beginning of a line path, returning a new line path"),
-  HtmlLi("%<: prependReverse Adds a point to the beginning of the reverse of a line path, returning a new line path"),
-  HtmlLi("+% appendElem Adds an element to the end of this sequence. returning a new sequence."),
-  HtmlLi("+% appendPt Adds an point to the end of this line path."),
-  HtmlLi("|+%| appendPt Adds an point to the end of this line path and close it into a Polygon."),  
+  HtmlLi("%: prepend".htmlScala, "Adds a point to the beginning of a line path, returning a new line path"),
+  HtmlLi("%<: prependReverse".htmlScala, "Adds a point to the beginning of the reverse of a line path, returning a new line path"),
+  HtmlLi("+% appendElem".htmlScala, "Adds an element to the end of this sequence. returning a new sequence."),
+  HtmlLi("+% appendPt".htmlScala, "Adds an point to the end of this line path."),
+  HtmlLi("|+%| appendPt".htmlScala, "Adds an point to the end of this line path and close it into a Polygon."),
 
-  HtmlLi("""+-+ appendTail Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters indicates to drop
-  | the first point of the operand.""".stripMargin),
+  HtmlLi("+-+ appendTail".htmlScala, """Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters
+  |indicates to drop the first point of the operand.""".stripMargin),
 
-  HtmlLi("|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters indicates" --
-    "to drop the first point of the operand."),
+  HtmlLi("|+-+| appendTailToPolygon".htmlScala, """Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters
+  |indicates to drop the first point of the operand.""".stripMargin),
 
-  HtmlLi("""++< appendReverse Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is the operand
-  | that is reversed""".stripMargin),
+  HtmlLi("++< appendReverse".htmlScala, """Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is
+  |the operand that is reversed""".stripMargin),
 
-  HtmlLi("|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon. The < character after the ++ indicates" --
-    "that it is the operand to be reversed."),
+  HtmlLi("|++<| appendReverseToPolygon".htmlScala, """Append the reverse of a line path to a line path closing it into a polygon. The < character after the ++
+  |indicates that it is the operand to be reversed.""".stripMargin),
 
-  HtmlLi("""+<+ reverseAppend Reverse this line path and append the operand line path, returning a new line path. The < between the + characters indicates that
-  | it is this line segment that is reversed""".stripMargin),
+  HtmlLi("+<+ reverseAppend".htmlScala, """Reverse this line path and append the operand line path, returning a new line path. The < between the + characters
+  |indicates that it is this line segment that is reversed""".stripMargin),
 
-  HtmlLi("|+<+| reverseAppendToPolygon Reverse this line path and then append the operand line path, closing it into a polygon. The < character between the" --
-    "+ characters indicates that it is this the first line path that is reversed."),  
+  HtmlLi("|+<+| reverseAppendToPolygon".htmlScala, """Reverse this line path and then append the operand line path, closing it into a polygon. The < character
+  |between the + characters indicates that it is this the first line path that is reversed.""".stripMargin),
 
-  HtmlLi("""+<+< reverseAppendReverse Reverse this line path and append the reverse of the operand line path, returning a new line path. The < between the +
-  | characters indicates that this line segement is reversed. The < character after the 2nd + charcters indicates that the operand is also
-  | reversed""".stripMargin)
+  HtmlLi("+<+< reverseAppendReverse".htmlScala, """Reverse this line path and append the reverse of the operand line path, returning a new line path. The <
+  |between the + characters indicates that this line segment is reversed. The < character after the 2nd + charcters indicates that the operand is also
+  |reversed""".stripMargin)
   )
 }
 
