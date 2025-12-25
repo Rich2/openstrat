@@ -33,6 +33,12 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   /** The rotation of this square from alignment with the X and Y axes. */
   def rotation: AngleVec
   
+  /** The axis from midpoint of side2 to midpoint of side 0. */
+  def axis1: LSeg2 = LSeg2(v2x \/ v3x, v2y \/ v3y, v0x \/ v1x, v0y \/ v1y )
+
+  /** The axis from midpoint of side1 to midpoint of side 3. */
+  def axis2: LSeg2 = LSeg2(v2x \/ v1x, v2y \/ v1y, v3x \/ v0x, v3y \/ v0y)
+  
   override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)

@@ -36,19 +36,19 @@ trait Polygon3Plus extends Any, Polygon
   final def side2: LSeg2 = LSeg2(v2, vert(3))
 
   /** The X component of the centre or halfway point of side 1 of this polygon. The midway point between v0 and v1. */
-  final def sd1CenX: Double = v0x \/ v1x
+  final def sd1CenX: Double = v1x \/ v2x
 
   /** The Y component of the centre or halfway point of side 1 of this polygon. the midway point between v1 and v2. */
-  final def sd1CenY: Double = v0y \/ v1y
+  final def sd1CenY: Double = v1y \/ v2y
 
   /** The centre or halfway point of side 1 of this polygon. Side 1 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as vertex 1.5 */
   final def sd1Cen: Pt2 = Pt2(sd1CenX, sd1CenY)
 
-  /** The X component of the centre or half way point of side 2 of this polygon. */
-  final def sd2CenX: Double = v1x \/ v2x
+  /** The X component of the centre or midpoint of side 2 of this polygon. */
+  final def sd2CenX: Double = v2x \/ vertX(3)
 
   /** The Y component of the centre or halfway point of side 2 of this polygon. */
-  final def sd2CenY: Double = v1y \/ v2y
+  final def sd2CenY: Double = v2y \/ vertY(3)
 
   /** The centre or halfway point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as vertex 2.5. */
   final def sd2Cen: Pt2 = Pt2(sd2CenX, sd2CenY)
@@ -73,10 +73,10 @@ trait Polygon4Plus extends Any, Polygon3Plus
   final def side3: LSeg2 = LSeg2(v3, vert(4))
 
   /** The X component of the centre or halfway point of side 3 of this polygon. */
-  final def sd3CenX: Double = v2x \/ v3x
+  final def sd3CenX: Double = v3x \/ vertX(4)
 
   /** The Y component of the centre or halfway point of side 3 of this polygon. */
-  final def sd3CenY: Double = v2y \/ v3y
+  final def sd3CenY: Double = v3y \/ vertY(4)
 
   /** The centre or halfway point of side 3 of this polygon. */
   final def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)

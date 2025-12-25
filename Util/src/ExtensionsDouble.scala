@@ -70,6 +70,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   
   /** if this outside the range minus to plus operand */
   def <> (operand: Double): Boolean = thisDouble > -operand && thisDouble < operand
+  
   def toRoundInt: Int = ife(thisDouble > 0, (thisDouble + 0.5).toInt, (thisDouble - 0.5).toInt)
 
   /** Takes this Double as a value in arc degrees and converts it to a value of radians. */
