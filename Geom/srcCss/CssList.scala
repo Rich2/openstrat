@@ -8,6 +8,8 @@ class ListStyleDec(value: ListStyleVal) extends CssDec
   override def valueStr: String = value.str
 }
 
+/** CSS list-style-type declaration set to value of none. */
 object ListStyleNoneDec extends ListStyleDec(NoneCss)
 
+/** Style attribute with a single CSS list-style-type declaration set to value of none. */
 object ListStyleNoneAtt extends StyleAtt(RArr(ListStyleNoneDec))
