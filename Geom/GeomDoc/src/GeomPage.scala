@@ -74,7 +74,7 @@ object LinePathNames extends HtmlSection
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
-  val list = HtmlUl(
+  val list = HtmlUl.noStyle(
   HtmlLi("++ append".htmlScala, "This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example",
   "intArr1 ++ intArr2".htmlScala, "returns a new", "IntArr".htmlScala, ". For the RArr class type widening is allowed. So catsRArr ++ dogsRArr",
   " dogsRArr might return a new RArr[Animal]."),

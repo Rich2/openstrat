@@ -15,8 +15,10 @@ object HtmlUl
   /** Factory apply method for HTML UL unordered list, with no attributes. */
   def apply(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr, RArr())
 
-  /** Factory method for Html UL unordered list frpm [[String]]s. */
+  /** Factory method for HTML UL unordered list frpm [[String]]s. */
   def strs(items: String*): HtmlUl = new HtmlUl(items.mapArr(HtmlLi(_)), RArr())
+
+  def noStyle(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr, RArr(ListStyleNoneAtt))
 }
 /** Html OL ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines

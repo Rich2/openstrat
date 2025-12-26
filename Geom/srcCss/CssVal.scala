@@ -76,7 +76,7 @@ object JustifyCss extends TextAlignCss
 }
 
 /** CSS none value. */
-object NoneCss extends CssVal
+object NoneCss extends ListStyleVal
 { override def str: String = "none"
 }
 

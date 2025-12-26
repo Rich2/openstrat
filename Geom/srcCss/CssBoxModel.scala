@@ -21,12 +21,12 @@ case class MarginLeftDec(value: CssVal) extends CssDecStd
 { override def property: String = "margin-left"
 }
 
-/** Css margin-right declaration. */
+/** CSS margin-right declaration. */
 case class MarginRightDec(value: CssVal) extends CssDecStd
 { override def property: String = "margin-right"
 }
 
-/** Css border declaration. */
+/** CSS border declaration. */
 case class BorderDec(value: CssVal) extends CssDecStd
 { override def property: String = "border"
 }

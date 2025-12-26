@@ -56,7 +56,7 @@ case class HtmlScript(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwn
 
 /** Companion object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
 object HtmlScript
-{ /** Sets the link for a Javascript script file. */
+{ /** Sets the link for a JavaScript script file. */
   def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeJsAtt, SrcAtt(src)))
 
   /** Sets the function for an external JavaScript call. */
