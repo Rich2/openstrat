@@ -9,7 +9,7 @@ trait CssDecs
 }
 
 /** CSS declaration. This consists of a key-value pair. */
-trait CssDec extends CssDecs
+trait CssDec extends CssDecs, OutElem
 { /** The CSS property */
   def property: String
 
@@ -17,7 +17,7 @@ trait CssDec extends CssDecs
   def valueStr: String
 
   /** The CSS code output. */
-  def out: String = property + ": " + valueStr + ";"
+  override def out: String = property + ": " + valueStr + ";"
 
   override def decs: RArr[CssDec] = RArr(this)
 }

@@ -32,6 +32,12 @@ object HtmlOl
 
   /** Factory method for HTML OL ordered list frpm [[String]]s. */
   def strs(items: String*): HtmlOl = new HtmlOl(items.mapArr(HtmlLi(_)), RArr())
+
+  /** Factory method for HTML OL ordered list frpm [[String]]s. */
+  def noSpaceStrs(items: String*): HtmlOl =
+  { val style = StyleAtt(CssLi(Margin0Dec, Padding0Dec, BorderNoneDec))
+    new HtmlOl(items.mapArr(HtmlLi(_)), RArr(style))
+  }
 }
 
 /** Html LI, list item element. */

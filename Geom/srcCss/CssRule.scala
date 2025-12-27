@@ -9,7 +9,7 @@ trait CssRuleLike extends XConCompound
   def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String
 }
 
-/** Css Rule consisting of selector plus a set of declarations. */
+/** CSS Rule consisting of selector plus a set of declarations. */
 trait CssRule extends CssRuleLike
 { /** The selector [[String]] for the CSS rule. */
   def selec: SelOrStr
