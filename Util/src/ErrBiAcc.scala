@@ -2,7 +2,7 @@
 package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** Trait for the accumulation of successes and errors. */
+/** Trait for the accumulation of successes and errors for operations with [[ErrBi]] return types. */
 trait ErrBiAccBase[+E <: Throwable, +B]
 { /** The number of accumulated errors. */
   def errNum: Int
@@ -23,7 +23,7 @@ trait ErrBiAccBase[+E <: Throwable, +B]
   def errsPrint: Unit = errsforeach(println(_))
 }
 
-/** immutable class for accumulated [[ErrBi]], biased bifunctor for errors. */
+/** immtuable class for the accumulation of successes and errors for operations with [[ErrBi]] return types where the error type inherits from [[Throwable]]. */
 class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
   def errs: RArr[E] = new RArr(errsArray)

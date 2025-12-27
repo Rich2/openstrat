@@ -3,7 +3,8 @@ package ostrat; package geom
 import reflect.ClassTag
 
 /** Type class for reflect 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
- * Different sets of transformations can then be combined. */
+ * Different sets of transformations can then be combined. The name "mirror" has been used rather than reflect, as in Scala this can name clash with the
+ * "reflect" package name. */
 trait Mirror[T]
 { /** Reflects object of type T. */
   def mirrorT(obj: T, linelike: LineLike): T

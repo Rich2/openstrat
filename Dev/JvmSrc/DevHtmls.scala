@@ -1,10 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
 trait DevHtmls
 { def jsPathStr(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): String
-  def scalaVersionStr = "3.5.2"
+  def scalaVersionStr = "3.7.4"
   def toolStr: String
   def appOuterModuleName: String
   def appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
@@ -14,8 +14,7 @@ trait DevHtmls
   {
     projPathDo { path0 =>
       args.length match
-      {
-        case 0 => deb("No args, no files created.")
+      { case 0 => deb("No args, no files created.")
         case _ if args(0) == "all" => appNames.foreach { name => writeFastFull(path0, appOuterModuleName, name) }
         case _ => args.filter(arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path0, "EGridJs", arg))
       }
@@ -33,14 +32,12 @@ trait DevHtmls
   {
     def jsPathStr2 = jsPathStr(path, outerModuleName, isFast, name).enquote
 
-    val noCacheScript = s"""
-      |  // aid local development in ensuring script not cached during a simple refresh
-      |  var script = document.createElement("script");
-      |  script.setAttribute("type", "text/javascript");
-      |  script.setAttribute("src", ${jsPathStr2}+Date.now().toString());
-      |  document.getElementsByTagName("head")[0].appendChild(script);
-      |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });
-      |""".stripMargin
+    val noCacheScript = s""" // aid local development in ensuring script not cached during a simple refresh
+    |  var script = document.createElement("script");
+    |  script.setAttribute("type", "text/javascript");
+    |  script.setAttribute("src", ${jsPathStr2}+Date.now().toString());
+    |  document.getElementsByTagName("head")[0].appendChild(script);
+    |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });""".stripMargin
 
     val style = HtmlStyle(CssBody(MarginDec(0.px), DecOverflowHidden))
     val head = HtmlHead.title("OpenStrat:" -- name, HtmlNoCache, style)

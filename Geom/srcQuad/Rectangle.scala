@@ -18,9 +18,18 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   /** length from v2 to v3 and v03 to v1. */
   def width2: Double = v1.distTo(v2)
 
+  /** The rotation of this square from alignment with the X and Y axes. */
+  def rotation: AngleVec
+
   /** the length of the diagonals of this [[Rectangle]]. */
   def diagLen: Double = ((v0x - v2x).squared + (v0y - v2y).squared).sqrt
 
+  /** The axis from midpoint of side2 to midpoint of side 0. */
+  def axis1: LSeg2 = LSeg2(v2x \/ v3x, v2y \/ v3y, v0x \/ v1x, v0y \/ v1y)
+
+  /** The axis from midpoint of side1 to midpoint of side 3. */
+  def axis2: LSeg2 = LSeg2(v2x \/ v1x, v2y \/ v1y, v3x \/ v0x, v3y \/ v0y)
+  
   /** gives the diagonals of this rectangle, but as rectangles. this is because they maybe easier to scale than line widths. */
   def diagRectangles(childWidth: Double): RArr[Rectangle] =
   { val r1 = Rectangle.axis1(v2, v0 ,childWidth)
@@ -28,17 +37,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
     RArr(r1, r2)
   }
 
-  @inline final override def cen: Pt2 = Pt2(cenX, cenY)
-
-  /** The rotation of this square from alignment with the X and Y axes. */
-  def rotation: AngleVec
-  
-  /** The axis from midpoint of side2 to midpoint of side 0. */
-  def axis1: LSeg2 = LSeg2(v2x \/ v3x, v2y \/ v3y, v0x \/ v1x, v0y \/ v1y )
-
-  /** The axis from midpoint of side1 to midpoint of side 3. */
-  def axis2: LSeg2 = LSeg2(v2x \/ v1x, v2y \/ v1y, v3x \/ v0x, v3y \/ v0y)
-  
+  @inline final override def cen: Pt2 = Pt2(cenX, cenY)  
   override def fill(fillfacet: FillFacet): RectangleFill = RectangleFill(this, fillfacet)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
@@ -53,8 +52,7 @@ trait Rectangle extends ShapeCentred, Quadrilateral
 
   /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
   def yAttrib: YXmlAtt = YXmlAtt(-v2y)
-
-
+  
   /** Rotates this Rectangle about its centre. */
   def rotateCen(rotation: AngleVec): Rectangle = vertsTrans{vt => vt.slateFrom(cen).rotate(rotation).slate(cen) }
 
