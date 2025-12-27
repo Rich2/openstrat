@@ -95,15 +95,11 @@ object Quadrilateral
   given reflectEv: Mirror[Quadrilateral] = (obj: Quadrilateral, lineLike: LineLike) => obj.mirror(lineLike)
 
   /** Implicit [[TransAxes]] type class instance / evidence for [[Quadrilateral]]. */
-  given transAxesEv: TransAxes[Quadrilateral] = new TransAxes[Quadrilateral] {
-    override def negYT(obj: Quadrilateral): Quadrilateral = obj.negY
-
+  given transAxesEv: TransAxes[Quadrilateral] = new TransAxes[Quadrilateral]
+  { override def negYT(obj: Quadrilateral): Quadrilateral = obj.negY
     override def negXT(obj: Quadrilateral): Quadrilateral = obj.negX
-
     override def rotate90(obj: Quadrilateral): Quadrilateral = obj.rotate90
-
     override def rotate180(obj: Quadrilateral): Quadrilateral = obj.rotate180
-
     override def rotate270(obj: Quadrilateral): Quadrilateral = obj.rotate270
   }
 
@@ -113,13 +109,12 @@ object Quadrilateral
 
     override def shearYT(obj: Quadrilateral, xFactor: Double): Quadrilateral = obj.shearY(xFactor)
   }
-
-
+  
   /** Implicit [[Drawing]] type class instance / evidence for [[Quadrilateral]]. */
   //given drawingEv: Drawing[Quadrilateral, QuadrilateralDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 
   /** Implicit [[Filling]] type class evidence for [[Quadrilateral]]. */
-  //given fillingEv: Filling[Quadrilateral, QuadrilateralFill] = (obj, fillFactet) => obj.fill(fillFactet)
+  //given fillingEv: Filling[Quadrilateral, QuadrilateralFill] = (obj, fillFacet) => obj.fill(fillFactet)
 }
 
 /** Quadrilateral where the 4 vertices X and Y components are fields */

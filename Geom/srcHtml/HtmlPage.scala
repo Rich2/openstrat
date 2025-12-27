@@ -30,6 +30,7 @@ object HtmlPage
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
   def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPageGen(HtmlHead.title(title), HtmlBody(HtmlH1(title), bodyContent))
   
+  /** General implementation class for [[HtmlPage]]. */
   case class HtmlPageGen(head: HtmlHead, body: HtmlBody) extends HtmlPage
 }
 

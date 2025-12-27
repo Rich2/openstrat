@@ -29,6 +29,9 @@ case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) ex
 object HtmlOl
 { /** Factory apply method for HTML OL ordered list. */
   def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
+
+  /** Factory method for HTML OL ordered list frpm [[String]]s. */
+  def strs(items: String*): HtmlOl = new HtmlOl(items.mapArr(HtmlLi(_)), RArr())
 }
 
 /** Html LI, list item element. */

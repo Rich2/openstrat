@@ -9,7 +9,7 @@ object IndexPage extends IndexPage
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.defaultTopPairs)
   def body: HtmlBody = HtmlBody(topMenu, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, intro, menu)
+  def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, intro, menu, vic2)
 
   def focus: HtmlOlWithLH = HtmlOlWithLH.h2("This project has 3 main focuses", strat, hist, geom1)
   def strat: HtmlLi = HtmlLi("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
@@ -38,12 +38,13 @@ object IndexPage extends IndexPage
   |higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world will be organised according
   |to a number of levels, which are likely to change over increasingly shorter historical time frames.""".stripMargin)
 
-  def apps: HtmlLi = HtmlLi.linkAndText("Documentation/apps.html", "Apps Module", """This module for end-user applications, that may eventually end up in their
-  |own repositories""".stripMargin)
+  def apps: HtmlLi = HtmlLi(HtmlA(AppsPage, "Documentation"), "This module for end-user applications, that may eventually end up in their own repositories")
 
-  def dev: HtmlLi = HtmlLi(HtmlA("Documentation/dev.html", "Dev Module"), """Depends on all the other modules. This module is for the use of developer tools and
+  def dev: HtmlLi = HtmlLi(HtmlA(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
   SpanLine(HtmlA("Documentation/tomcat.html", "Apache Tomcat Documentation")))
+
+  def vic2: HtmlP = HtmlP(HtmlA(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
 
   def iconsHtml: XmlAsString ="""<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
   |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>

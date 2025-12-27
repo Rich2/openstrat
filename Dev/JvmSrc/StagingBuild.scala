@@ -40,6 +40,7 @@ trait StagingBuild
       htmlFileWrite(docPath, NewDevsPage),
       htmlFileWrite(docPath, TomcatPage),
       htmlFileWrite(docPath, ScalaOSPage),
+      htmlFileWrite(docPath, Victoria2Page),
       cssFileWrite(docPath / "documentation", CssDocumentation())
     )
     }

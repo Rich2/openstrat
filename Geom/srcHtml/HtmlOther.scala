@@ -17,7 +17,7 @@ object HtmlA
   /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]] with a path to the file name. There is an apply overload without a path. */
   def apply(page: HtmlPageFile, pathStr: String): HtmlA = new HtmlA(pathStr / page.fileName, RArr(page.titleStr))
 
-  /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]], with no path to the file name. There is an apply ooerlaod with a
+  /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]], with no path to the file name. There is an apply overload with a
    * [[String]] for the path. */
   def apply(page: HtmlPageFile): HtmlA = new HtmlA(page.fileName, RArr(page.titleStr))
 }
