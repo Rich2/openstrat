@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb.*
+import pWeb.*
 
 /** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed
  * sequence of curve segments. */
@@ -8,6 +8,7 @@ final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs, AxisFr
 { override type ThisT = ShapeGen
   override def rotate(rotation: AngleVec): ShapeGen = ???
   override def mirror(lineLike: LineLike): ShapeGen = ???
+  override def svgElem(otherAttribs: RArr[XAtt]): SvgOwnLine = ???
 }
 
 /** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations. */

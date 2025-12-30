@@ -1,6 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, ostrat.Colour.Black
+import pWeb.*
+import ostrat.Colour.{Black, arrBuildImplicit}
 
 /** A Rectangle aligned to the X and Y axes. It has a leftTop, leftBottom, rightBottom and right Top vertices. The convention is for these to align with
  * vertices 0, 1, 2, 3. However, this can be changed by rotations and reflections.  */
@@ -78,6 +79,9 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 
   /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
   def yAttrib: YXmlAtt = YXmlAtt(-v2y)
+  
+  override def attribs: RArr[XAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
+  override def svgElem(otherAttribs: RArr[XAtt]): SvgOwnLine = SvgRect(attribs ++ otherAttribs)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectGen]] class. */
@@ -185,9 +189,6 @@ object Rect
     override def width1: Double = width
     override def width2: Double = height
     override def height: Double = (v0y - v2y).abs
-
-    override def attribs: RArr[XAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
-
     override def slate(operand: VecPt2): RectGen = slate(operand.x, operand.y)
     
     override def slate(xOperand: Double, yOperand: Double): RectGen =

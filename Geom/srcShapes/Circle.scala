@@ -58,6 +58,7 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
 
   def rAttrib: XAtt = XAtt("r", radius.toString)
   override def attribs: RArr[XAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
+  override def svgElem(otherAttribs: RArr[XAtt]): SvgCircle = SvgCircle(attribs)
 
   private def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)
@@ -182,9 +183,8 @@ trait CircleGraphic extends EllipseGraphic
 }
 
 /** A Simple circle based graphic. */
-trait CircleGraphicSimple extends CircleGraphic with EllipseGraphicSimple
-{ type ThisT <: CircleGraphicSimple
-  final override def svgElem: SvgCircle = SvgCircle(attribs)
+trait CircleGraphicSimple extends CircleGraphic, EllipseGraphicSimple
+{ type ThisT <: CircleGraphicSimple  
 }
 
 /** A simple single colour fill of a circle graphic. */

@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.pWeb._
+import ostrat.pWeb.*
 
 /** Graphic element that can be described with single [[SvgOwnLine]] */
 trait GraphicSvgElem extends Graphic2Elem

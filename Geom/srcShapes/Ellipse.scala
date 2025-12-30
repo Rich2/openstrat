@@ -136,6 +136,8 @@ trait Ellipse extends EllipseBased, ShapeCentred
     }
     new PolygonGen(newArray).rotate(alignAngle.rotationFrom0).slate(cenX, cenY)
   }
+
+  override def svgElem(otherAttribs: RArr[XAtt]): SvgOwnLine = SvgEllipse(attribs)
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
@@ -166,7 +168,8 @@ object Ellipse
   /** Factory method that creates an ellipse from the centre point, axes point 1 and axes point 4. */
   def cenAxes1axes4(cen: Pt2, axes1: Pt2, axes0: Pt2): EllipseGen = new EllipseGen(axes0.x, axes0.y, axes1.x, axes1.y, 2 * cen.x - axes1.x, 2 * cen.y - axes1.y)
 
-  def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = ??? // new EllipseGen(xCen, yCen, xAxes1, yAxes1, radius2)
+  def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = ???
+    // new EllipseGen(xCen, yCen, xAxes1, yAxes1, radius2)
 
   given slateEv: Slate2[Ellipse] = new Slate2[Ellipse]
   { override def slate(obj: Ellipse, operand: VecPt2): Ellipse = cenAxes1axes4(obj.cen.slate(operand), obj.p1.slate(operand), obj.p0.slate(operand))
@@ -209,8 +212,8 @@ object Ellipse
   }
 }
 
-/** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 [[Pt2]]s or 6 scalars, although it is possible to encode an
- * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
+/** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 [[Pt2]]s or 6 scalars, although it is possible to encode an  ellipse
+ * with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
 final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipse, AxisFree
 { override type ThisT = EllipseGen
   override def area: Double = Pi * radius1 * radius2
@@ -269,14 +272,13 @@ trait EllipseGraphic extends ShapeGraphicCentred
 }
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
-trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarAffPreserve
+trait EllipseGraphicSimple extends EllipseGraphic, ShapeGraphicSimple, SimilarAffPreserve
 { type ThisT <: EllipseGraphicSimple
-  type ThisT2 <: EllipseGraphicSimple
-  override def svgElem: SvgOwnLine = SvgEllipse(attribs)
+  type ThisT2 <: EllipseGraphicSimple  
 }
 
 /** A simple single colour fill of a circle graphic. */
-trait EllipseFill extends EllipseGraphicSimple with ShapeFill with CanvElem
+trait EllipseFill extends EllipseGraphicSimple, ShapeFill, CanvElem
 { type ThisT <: EllipseFill
   type ThisT2 = EllipseFill
   override def fTrans2(f: Pt2 => Pt2): ThisT2 = EllipseFill(shape.fTrans(f), fillFacet)
@@ -299,9 +301,8 @@ object EllipseFill
   }
 }
 
-trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with CanvElem
-{
-  type ThisT <: EllipseDraw
+trait EllipseDraw extends EllipseGraphicSimple, ShapeDraw, CanvElem
+{ type ThisT <: EllipseDraw
   type ThisT2 = EllipseDraw
   override def fTrans2(f: Pt2 => Pt2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineColour, lineWidth)
 }
@@ -320,7 +321,7 @@ object EllipseDraw
   }
 }
 
-trait EllipseActive extends EllipseGraphicSimple with GraphicClickable
+trait EllipseActive extends EllipseGraphicSimple, GraphicClickable
 { type ThisT <: EllipseActive
   type ThisT2 = EllipseActive
   override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), pointerId)

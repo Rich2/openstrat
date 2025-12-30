@@ -19,6 +19,8 @@ trait Shape extends Any, Aff2Elem, Fillable, BoundedElem
     baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): ShapeCompound
 
   def attribs: RArr[XAtt]
+
+  def svgElem(otherAttribs: RArr[XAtt]): SvgOwnLine
   
   /** This canEqual override allow the comparison of [[Shape]]s. */
   def canEqual(that: Any): Boolean = that match
