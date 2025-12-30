@@ -1,6 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*
 
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned to the X
  * and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However, if your rectangle is a aligned to the X and Y

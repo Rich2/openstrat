@@ -80,7 +80,7 @@ object PolygonGraphic
   }
 }
 
-/** This trait may be removed. */
+/** A simple [[Polygon]] graphic. Uses the SVG polygon element. */
 trait PolygonGraphicSimple extends PolygonGraphic, ShapeGraphicSimple
 { override def svgElem: SvgOwnLine = SvgPolygon(attribs)
   override def slate(operand: VecPt2): PolygonGraphicSimple

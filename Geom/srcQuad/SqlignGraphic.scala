@@ -2,10 +2,12 @@
 package ostrat; package geom
 import ostrat.pWeb.*, pgui.*
 
+/** Graphic based on a [[Square]] aligned to the X and Y axes. */
 trait SqlignGraphic extends RectGraphic, SquareGraphic
 { override def shape: Sqlign
 }
 
+/** A simple Graphic based on a [[Square]] aligned to the X and Y axes. */
 trait SqlignGraphicSimple extends RectGraphicSimple, SquareGraphicSimple, SqlignGraphic
 
 /** A fill graphic for a square aligned to the X and Y axes. */
@@ -30,7 +32,8 @@ object SqlignFill
   def apply(shape: Sqlign, fillFacet: FillFacet): SqlignFill = new SqlignFill(shape, fillFacet)
 }
 
-/** A compound graphic based on a [[Sqlign]]. Can only execute limited geometric transfomations, that preserve the [[Sqlign]] shape. */
+/** A compound graphic based on a [[Sqlign]]. Can only execute limited geometric transformations, that preserve the [[Sqlign]] shape. Hence, it does not extend
+ * [[SquareCompound]] or [[RectCompound]]. */
 class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[Sqlign => GraphicElems], val adopted: GraphicElems) extends
   SqlignGraphic, ParentGraphic2[Sqlign]
 { def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
