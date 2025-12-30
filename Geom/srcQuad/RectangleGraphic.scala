@@ -10,7 +10,7 @@ trait RectangleGraphic extends PolygonGraphic, ShapeGraphicCentred
 }
 
 trait RectangleGraphicSimple extends PolygonGraphicSimple, RectangleGraphic
-{ override def slate(operand: VecPt2): _root_.ostrat.geom.RectangleGraphicSimple
+{ override def slate(operand: VecPt2): RectangleGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): RectangleGraphicSimple
   override def scale(operand: Double): RectangleGraphicSimple
   override def negX: RectangleGraphicSimple
@@ -21,7 +21,7 @@ trait RectangleGraphicSimple extends PolygonGraphicSimple, RectangleGraphic
 }
 
 /** Graphic that draws a rectangle. */
-trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
+trait RectangleDraw extends PolygonDraw, RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slateFrom(operand), lineWidth, lineColour)
@@ -51,7 +51,7 @@ object RectangleDraw
 }
 
 /** Graphic to fill a Rectangle with a single colour. */
-trait RectangleFill extends PolygonFill with RectangleGraphicSimple
+trait RectangleFill extends PolygonFill, RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleFill
   override def slate(xOperand: Double, yOperand: Double): RectangleFill
   override def slateFrom(operand: VecPt2): RectangleFill
@@ -127,7 +127,7 @@ object RectangleFill
 }
 
 /** A compound graphic for rectangles. */
-trait RectangleCompound extends PolygonCompound with RectangleGraphic
+trait RectangleCompound extends PolygonCompound, RectangleGraphic
 { override def slate(operand: VecPt2): RectangleCompound = RectangleCompound(shape.slate(operand), facets, children.slate(operand))
   
   override def slate(xOperand: Double, yOperand: Double): RectangleCompound =

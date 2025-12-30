@@ -68,6 +68,16 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   
   final override def width: Double = (v0x - v2x).abs
   override def rotation: AngleVec = 0.degsVec
+
+  def widthAtt: XAtt = WidthAtt(width1)
+
+  def heightAtt: HeightAtt = HeightAtt(width2)
+
+  /** The X component of the bottom left point is used. This becomes the top left point in SVG space. */
+  def xAttrib: XXmlAtt = XXmlAtt(v3x)
+
+  /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
+  def yAttrib: YXmlAtt = YXmlAtt(-v2y)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectGen]] class. */

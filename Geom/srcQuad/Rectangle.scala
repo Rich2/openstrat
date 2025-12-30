@@ -43,15 +43,6 @@ trait Rectangle extends ShapeCentred, Quadrilateral
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
   final def alignAngle: Angle = (v0 >> v1).angle
-
-  def widthAtt: XAtt = WidthAtt(width1)
-  def heightAtt: HeightAtt = HeightAtt(width2)
-
-  /** The X component of the bottom left point is used. This becomes the top left point in SVG space. */
-  def xAttrib: XXmlAtt = XXmlAtt(v3x)
-
-  /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
-  def yAttrib: YXmlAtt = YXmlAtt(-v2y)
   
   /** Rotates this Rectangle about its centre. */
   def rotateCen(rotation: AngleVec): Rectangle = vertsTrans{vt => vt.slateFrom(cen).rotate(rotation).slate(cen) }
