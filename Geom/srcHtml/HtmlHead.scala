@@ -23,6 +23,11 @@ object HtmlHead
    *  elements. */
   def titleCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HtmlHead =
     new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+
+  /** Factory method for creating an HTML head element with [[HtmlTitle]], [[FaviconSvgLink]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the
+   * repeat parameter elements. */
+  def titleFavCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HtmlHead =
+    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), FaviconSvgLink, HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 }
 
 /** HTML title element. */

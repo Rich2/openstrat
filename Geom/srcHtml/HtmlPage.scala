@@ -48,6 +48,11 @@ trait HtmlPageFile extends HtmlPage
   /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
   def headCss(cssFileStem: String, otherContents: XConCompound*): HtmlHead =
     new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+
+  /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[FaviconSvgLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
+   * elements. */
+  def headFavCss(cssFileStem: String, otherContents: XConCompound*): HtmlHead =
+      new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, FaviconSvgLink, HtmlViewDevWidth) ++ otherContents)
 }
 
 /** An index.html page. */

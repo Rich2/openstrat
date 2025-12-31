@@ -6,7 +6,7 @@ trait OSDocumentationPage extends HtmlPageFile
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HtmlHead]]. */
   def titleStr: String
 
-  override def head: HtmlHead = headCss("documentation")
+  override def head: HtmlHead = headFavCss("documentation")
   
   def dirsRel: DirsRel = DirsRel("Documentation")
 }
