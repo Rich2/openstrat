@@ -11,17 +11,17 @@ trait StagingBuild
     deb(docFiles.msgErrsSummary("to Documents directory"))
 
     val eGameHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "earthgames").flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(page => htmlFileStrWrite(path / page.dirRel, page.filesStem, page.out))
+      AppPage.eGameApps.mapErrBiAcc(page => htmlFileStrWrite(path / page.dirRel, page.fileNameStem, page.out))
     }
     deb(eGameHtmlFiles.msgErrsSummary("to earthgames directory"))
 
     val otherHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "otherapps").flatMapAcc { res =>
-      AppPage.otherApps.mapErrBiAcc(page => htmlFileStrWrite(path / page.dirRel, page.filesStem, page.out))
+      AppPage.otherApps.mapErrBiAcc(page => htmlFileStrWrite(path / page.dirRel, page.fileNameStem, page.out))
     }
     deb(otherHtmlFiles.msgErrsSummary("to otherapps directory"))
 
     val egridHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "egrids").flatMapAcc { res =>
-      AppPage.eGrids.mapErrBiAcc(page => htmlFileStrWrite(path / page.dirRel, page.filesStem, page.out))
+      AppPage.eGrids.mapErrBiAcc(page => htmlFileStrWrite(path / page.dirRel, page.fileNameStem, page.out))
     }
     deb(egridHtmlFiles.msgErrsSummary("to egrids directory"))
   }

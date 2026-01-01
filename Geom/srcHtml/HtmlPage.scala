@@ -42,7 +42,7 @@ trait HtmlPageFile extends HtmlPage
   /** The HTML head title [[String]]. */
   def titleStr: String
 
-  /** The default file name stem for this HTML page. */
+  /** The default file name stem for this HTML page file. */
   def fileName: String = fileNameStem + ".html"
 
   /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
