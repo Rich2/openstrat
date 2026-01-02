@@ -54,8 +54,9 @@ case class FillAttrib(valueStr: String) extends XAttSimple
 }
 
 object FillAttrib
-{ def apply(colour: Colour): FillAttrib = FillAttrib(colour.svgStr)
-  val none: FillAttrib = FillAttrib("none")
+{ val none: FillAttrib = FillAttrib("none")
+
+  def apply(colour: Colour): FillAttrib = FillAttrib(colour.svgStr)
 }
 
 case class StrokeWidthAttrib(lineWidth: Double) extends XAttSimple

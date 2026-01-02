@@ -9,7 +9,7 @@ trait ShapeGraphic extends GraphicBounded
   final override def boundingWidth: Double = shape.boundingWidth
   final override def boundingHeight: Double = shape.boundingHeight
   def attribs: RArr[XAtt]
-  def shapeAttribs: RArr[XAtt] = shape.attribs
+  final def shapeAttribs: RArr[XAtt] = shape.attribs
 
   def svgInline: SvgSvgRel
 

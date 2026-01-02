@@ -49,11 +49,7 @@ trait Ellipse extends EllipseBased, ShapeCentred
   def e: Double = (1 - b.squared / a.squared).sqrt
 
   def area: Double
-  def cxAttrib: XAtt = XAtt("cx", cenX.str2)
-  def cyAttrib: XAtt = XAtt("cy", cenY.str2)
-  def rxAttrib: XAtt = XAtt("rx", radius1.str2)
-  def ryAttrib: XAtt = XAtt("ry", radius2.str2)
-  def attribs: RArr[XAtt] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  
   def boundingRect: Rect
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(p1), f(p0))
@@ -137,7 +133,16 @@ trait Ellipse extends EllipseBased, ShapeCentred
     new PolygonGen(newArray).rotate(alignAngle.rotationFrom0).slate(cenX, cenY)
   }
 
-  override def svgElem(otherAttribs: RArr[XAtt]): SvgOwnLine = SvgEllipse(attribs)
+  def cxAttrib: XAtt = XAtt("cx", cenX.str2)
+
+  def cyAttrib: XAtt = XAtt("cy", cenY.str2)
+
+  def rxAttrib: XAtt = XAtt("rx", radius1.str2)
+
+  def ryAttrib: XAtt = XAtt("ry", radius2.str2)
+
+  override def attribs: RArr[XAtt] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  override def svgElem(otherAttribs: RArr[XAtt]): SvgOwnLine = SvgEllipse(attribs ++ otherAttribs)
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp. */
@@ -283,7 +288,6 @@ trait EllipseFill extends EllipseGraphicSimple, ShapeFill, CanvElem
   type ThisT2 = EllipseFill
   override def fTrans2(f: Pt2 => Pt2): ThisT2 = EllipseFill(shape.fTrans(f), fillFacet)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
-
   override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): EllipseDraw = shape.draw(lineWidth, newColour)
 }
 
