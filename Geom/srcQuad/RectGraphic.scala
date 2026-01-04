@@ -9,6 +9,16 @@ trait RectGraphic extends RectangleGraphic, ShapeGraphicOrdinaled
 
 /** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphicSimple extends RectGraphic, RectangleGraphicSimple
+{
+//  override def slate(operand: VecPt2): RectGraphicSimple
+//  override def slate(xOperand: Double, yOperand: Double): RectGraphicSimple
+//  override def scale(operand: Double): RectGraphicSimple
+//  override def negX: RectGraphicSimple
+//  override def negY: RectGraphicSimple
+//  override def rotate90: RectGraphicSimple
+//  override def rotate180: RectGraphicSimple
+//  override def rotate270: RectGraphicSimple
+}
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
 trait RectFill extends RectGraphicSimple, RectangleFill

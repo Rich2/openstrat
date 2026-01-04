@@ -152,6 +152,17 @@ trait QuadGraphic extends PolygonGraphic
 { override def shape: Quadrilateral
 }
 
+trait QuadGraphicSimple extends PolygonGraphicSimple, QuadGraphic
+{ override def slate(operand: VecPt2): QuadGraphicSimple
+  override def slate(xOperand: Double, yOperand: Double): QuadGraphicSimple
+  override def scale(operand: Double): QuadGraphicSimple
+  override def negX: QuadGraphicSimple
+  override def negY: QuadGraphicSimple
+  override def rotate90: QuadGraphicSimple
+  override def rotate180: QuadGraphicSimple
+  override def rotate270: QuadGraphicSimple
+}
+
 /** Compound graphic based on a quadrilateral. */
 trait QuadCompound extends PolygonCompound, QuadGraphic
 { /** Graphic child elements of a quadrilateral. */

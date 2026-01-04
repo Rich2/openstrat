@@ -2,14 +2,14 @@
 package ostrat; package geom
 import Colour.*, pgui.*
 
-trait RectangleGraphic extends PolygonGraphic, ShapeGraphicCentred
+trait RectangleGraphic extends QuadGraphic, ShapeGraphicCentred
 { override def shape: Rectangle
   override def slate(operand: VecPt2): RectangleGraphic
   override def slate(xOperand: Double, yOperand: Double): RectangleGraphic
   override def scale(operand: Double): RectangleGraphic
 }
 
-trait RectangleGraphicSimple extends PolygonGraphicSimple, RectangleGraphic
+trait RectangleGraphicSimple extends QuadGraphicSimple, RectangleGraphic
 { override def slate(operand: VecPt2): RectangleGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): RectangleGraphicSimple
   override def scale(operand: Double): RectangleGraphicSimple

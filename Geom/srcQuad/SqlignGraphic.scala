@@ -9,6 +9,20 @@ trait SqlignGraphic extends RectGraphic, SquareGraphic
 
 /** A simple Graphic based on a [[Square]] aligned to the X and Y axes. */
 trait SqlignGraphicSimple extends RectGraphicSimple, SquareGraphicSimple, SqlignGraphic
+{ override def slate(operand: VecPt2): SqlignGraphicSimple
+  override def slate(xOperand: Double, yOperand: Double): SqlignGraphicSimple
+  override def slateFrom(operand: VecPt2): SqlignGraphicSimple
+  override def slateFrom(xOperand: Double, yOperand: Double): SqlignGraphicSimple
+  override def slateX(xOperand: Double): SqlignGraphicSimple
+  override def slateY(yOperand: Double): SqlignGraphicSimple
+  override def scale(operand: Double): SqlignGraphicSimple
+  override def negX: SqlignGraphicSimple
+  override def negY: SqlignGraphicSimple
+  override def rotate90: SqlignGraphicSimple
+  override def rotate180: SqlignGraphicSimple
+  override def rotate270: SqlignGraphicSimple
+  override def prolign(matrix: AxlignMatrix): SqlignGraphicSimple
+}
 
 /** A fill graphic for a square aligned to the X and Y axes. */
 class SqlignFill(val shape: Sqlign, val fillFacet: FillFacet) extends SqlignGraphicSimple, RectFill, SquareFill
