@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.pWeb.*, pgui.*
+import pWeb.*, pgui.*, Colour.Black
 
 /** Graphic based on a [[Square]] aligned to the X and Y axes. */
 trait SqlignGraphic extends RectGraphic, SquareGraphic
@@ -22,6 +22,23 @@ trait SqlignGraphicSimple extends RectGraphicSimple, SquareGraphicSimple, Sqlign
   override def rotate180: SqlignGraphicSimple
   override def rotate270: SqlignGraphicSimple
   override def prolign(matrix: AxlignMatrix): SqlignGraphicSimple
+}
+
+/** Graphic that draws a [[Sqlign]], a [[Square]] aligned to the X and Y axes. */
+case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour = Black)extends RectDraw, SqlignGraphicSimple
+{ override def slate(operand: VecPt2): SqlignDraw = SqlignDraw(shape.slate(operand), lineWidth, lineColour)
+  override def slate(xOperand: Double, yOperand: Double): SqlignDraw = SqlignDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateFrom(operand: VecPt2): SqlignDraw = SqlignDraw(shape.slateFrom(operand), lineWidth, lineColour)
+  override def slateFrom(xOperand: Double, yOperand: Double): SqlignDraw = SqlignDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Double): SqlignDraw = SqlignDraw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Double): SqlignDraw = SqlignDraw(shape.slateY(yOperand), lineWidth, lineColour)
+  override def scale(operand: Double): SqlignDraw = SqlignDraw(shape.scale(operand), lineWidth, lineColour)
+  override def negX: SqlignDraw = SqlignDraw(shape.negX, lineWidth, lineColour)
+  override def negY: SqlignDraw = SqlignDraw(shape.negY, lineWidth, lineColour)
+  override def rotate90: SqlignDraw = SqlignDraw(shape.rotate90, lineWidth, lineColour)
+  override def rotate180: SqlignDraw = SqlignDraw(shape.rotate180, lineWidth, lineColour)
+  override def rotate270: SqlignDraw = SqlignDraw(shape.rotate270, lineWidth, lineColour)
+  override def prolign(matrix: AxlignMatrix): SqlignDraw = SqlignDraw(shape.prolign(matrix), lineWidth, lineColour)
 }
 
 /** A fill graphic for a square aligned to the X and Y axes. */

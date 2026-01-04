@@ -1,6 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
+import ostrat.Colour.Black
+
 /** A square aligned to the X and Y axes. So these squares can be defined by their widths and their centre points. However, the position of the vertices 0, 1, 2
  * and 3 are not fixed. they can be changed by rotations and reflections. The clockwise, anticlockwise ordering of the vertices can be changed by reflections.
  * The convention is for vertex 0 to be left top but this can change. */
@@ -46,6 +48,9 @@ final class Sqlign private(val v0x: Double, val v0y: Double, val v1x: Double, va
   }
 
   override def diagLen: Double = (v0x - v2x).abs * 2.sqrt
+  override def fill(fillfacet: FillFacet): SqlignFill = SqlignFill(this, fillfacet)
+  override def fillInt(intValue: Int): SqlignFill = SqlignFill(this, Colour(intValue))
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): SqlignDraw = SqlignDraw(this, lineWidth, lineColour)
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
@@ -83,4 +88,26 @@ object Sqlign
     override def show(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tell(way, maxPlaces, 0)
     override def syntaxDepth(obj: Sqlign): Int = 3
   }
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[Sqlign]]. */
+  given slate2Ev: Slate2[Sqlign] = new Slate2[Sqlign]
+  { override def slate(obj: Sqlign, operand: VecPt2): Sqlign = obj.slate(operand)
+    override def slateXY(obj: Sqlign, xOperand: Double, yOperand: Double): Sqlign = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Sqlign, operand: VecPt2): Sqlign = obj.slateFrom(operand)
+    override def slateFromXY(obj: Sqlign, xOperand: Double, yOperand: Double): Sqlign = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: Sqlign, xOperand: Double): Sqlign = obj.slateX(xOperand)
+    override def slateY(obj: Sqlign, yOperand: Double): Sqlign = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[Sqlign]]. */
+  given scaleEv: Scale[Sqlign] = (obj: Sqlign, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[Sqlign]]. */
+  given prolignEv: Prolign[Sqlign] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[Drawing]] type class instance / evidence for [[Sqlign]]. */
+  given drawingEv: Drawing[Sqlign, SqlignDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+
+  /** Implicit [[Filling]] type class evidence for [[Sqlign]]. */
+  given fillingEv: Filling[Sqlign, SqlignFill] = (obj, fillFactet) => obj.fill(fillFactet)
 }
