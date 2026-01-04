@@ -11,7 +11,6 @@ trait Square extends Rectangle
   def width: Double
 
   override def vertsTrans(f: Pt2 => Pt2): Square = Square.from3(f(v0), f(v1), f(v2))
-//  def squareVertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(arrayElemMap(f))
   override def slate(operand: VecPt2): Square = vertsTrans(_.slate(operand))
   override def slate(xOperand: Double, yOperand: Double): Square = vertsTrans(_.slate(xOperand, yOperand))
   override def slateFrom(operand: VecPt2): Square = vertsTrans(_.slateFrom(operand))
@@ -31,10 +30,7 @@ trait Square extends Rectangle
 
 /** Companion object for the Square trait. However, its apply methods delegate to the [[SquareGen]] implementation class. */
 object Square extends ShapeIcon
-{
-  override type ShapeT = Sqlign
-
-  //def fromArray(array: Array[Double]) = ???// new SquareGen(array)
+{ override type ShapeT = Sqlign
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the square's
    * scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with its centre at the

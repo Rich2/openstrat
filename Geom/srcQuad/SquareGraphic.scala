@@ -1,7 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import ostrat.Colour.Black
+import Colour.Black
 
 /** 2-dimensional graphic bsed on a [[Square]] */
 trait SquareGraphic extends RectangleGraphic
@@ -20,6 +19,8 @@ trait SquareGraphicSimple extends SquareGraphic, RectangleGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): SquareGraphicSimple
   override def slateFrom(operand: VecPt2): SquareGraphicSimple
   override def slateFrom(xOperand: Double, yOperand: Double): SquareGraphicSimple
+  override def slateX(xOperand: Double): SquareGraphicSimple
+  override def slateY(yOperand: Double): SquareGraphicSimple
   override def scale(operand: Double): SquareGraphicSimple
   override def negX: SquareGraphicSimple
   override def negY: SquareGraphicSimple
@@ -31,6 +32,8 @@ trait SquareDraw extends RectangleDraw, SquareGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): SquareDraw = SquareDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): SquareDraw = SquareDraw(shape.slateFrom(operand), lineWidth, lineColour)
   override def slateFrom(xOperand: Double, yOperand: Double): SquareDraw = SquareDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Double): SquareDraw = SquareDraw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Double): SquareDraw = SquareDraw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): SquareDraw = SquareDraw(shape.scale(operand), lineWidth, lineColour)
   override def negX: SquareDraw = SquareDraw(shape.negX, lineWidth, lineColour)
   override def negY: SquareDraw = SquareDraw(shape.negY, lineWidth, lineColour)
@@ -74,7 +77,7 @@ object SquareFill
 { /** Factory apply method for the general case of [[SquareFill]]. Use [[SqlignFill]] for one aligned to the X and Y axes. */
   def apply(shape: Square, fillFacet: FillFacet): SquareFillGen = SquareFillGen(shape, fillFacet)
   
-  /** Implementation for the general case of [[Square]] as opposed to the specific case of [[Sqlign]]. */
+  /** Implementation for the general case of [[Square]] as opposed to the specific case of [[Squaren]]. */
   case class SquareFillGen(shape: Square, fillFacet: FillFacet) extends SquareFill
   { override type ThisT = SquareFillGen
     override def slate(operand: VecPt2): SquareFillGen = SquareFillGen(shape.slate(operand), fillFacet)
