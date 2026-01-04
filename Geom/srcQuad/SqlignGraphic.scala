@@ -25,7 +25,7 @@ trait SqlignGraphicSimple extends RectGraphicSimple, SquareGraphicSimple, Sqlign
 }
 
 /** Graphic that draws a [[Sqlign]], a [[Square]] aligned to the X and Y axes. */
-case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour = Black)extends RectDraw, SqlignGraphicSimple
+case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour = Black)extends RectDraw, SquareDraw, SqlignGraphicSimple
 { override def slate(operand: VecPt2): SqlignDraw = SqlignDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): SqlignDraw = SqlignDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): SqlignDraw = SqlignDraw(shape.slateFrom(operand), lineWidth, lineColour)

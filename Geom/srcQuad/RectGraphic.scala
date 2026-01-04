@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.Colour.Black, pWeb.*
+import Colour.Black, pWeb.*
 
 /** A graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphic extends RectangleGraphic, ShapeGraphicOrdinaled
@@ -9,15 +9,44 @@ trait RectGraphic extends RectangleGraphic, ShapeGraphicOrdinaled
 
 /** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphicSimple extends RectGraphic, RectangleGraphicSimple
-{
-//  override def slate(operand: VecPt2): RectGraphicSimple
-//  override def slate(xOperand: Double, yOperand: Double): RectGraphicSimple
-//  override def scale(operand: Double): RectGraphicSimple
-//  override def negX: RectGraphicSimple
-//  override def negY: RectGraphicSimple
-//  override def rotate90: RectGraphicSimple
-//  override def rotate180: RectGraphicSimple
-//  override def rotate270: RectGraphicSimple
+{ override def slate(operand: VecPt2): RectGraphicSimple
+  override def slate(xOperand: Double, yOperand: Double): RectGraphicSimple
+  override def slateFrom(operand: VecPt2): RectGraphicSimple
+  override def slateFrom(xOperand: Double, yOperand: Double): RectGraphicSimple
+  override def scale(operand: Double): RectGraphicSimple
+  override def negX: RectGraphicSimple
+  override def negY: RectGraphicSimple
+  override def rotate90: RectGraphicSimple
+  override def rotate180: RectGraphicSimple
+  override def rotate270: RectGraphicSimple
+}
+
+
+/** A rectangular Graphic aligned to the axes, filled with a single colour. */
+trait RectDraw extends RectGraphicSimple, RectangleDraw
+{ override def slate(operand: VecPt2): RectDraw = RectDraw(shape.slate(operand), lineWidth, lineColour)
+  override def slate(xOperand: Double, yOperand: Double): RectDraw = RectDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateFrom(operand: VecPt2): RectDraw = RectDraw(shape.slateFrom(operand), lineWidth, lineColour)
+  override def slateFrom(xOperand: Double, yOperand: Double): RectDraw = RectDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Double): RectDraw = RectDraw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Double): RectDraw = RectDraw(shape.slateY(yOperand), lineWidth, lineColour)
+  override def scale(operand: Double): RectDraw = RectDraw(shape.scale(operand), lineWidth, lineColour)
+  override def negX: RectDraw = RectDraw(shape.negX, lineWidth, lineColour)
+  override def negY: RectDraw = RectDraw(shape.negY, lineWidth, lineColour)
+  override def rotate90: RectDraw = RectDraw(shape.rotate90, lineWidth, lineColour)
+  override def rotate180: RectDraw = RectDraw(shape.rotate180, lineWidth, lineColour)
+  override def rotate270: RectDraw = RectDraw(shape.rotate270, lineWidth, lineColour)
+  override def prolign(matrix: AxlignMatrix): RectDraw = RectDraw(shape.prolign(matrix), lineWidth, lineColour)
+}
+
+/** Companion object for the [[RectDraw]] trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
+object RectDraw
+{ /** Factory method for RectFill. A rectangular Graphic aligned to the axes, filled with a single colour. it delegates to the [[RectDrawImp]] implementation
+ * class, but has a return type of RectFill. */
+  def apply(rect: Rect, lineWidth: Double = 2, lineColour: Colour = Black): RectDraw = RectDrawImp(rect, lineWidth, lineColour)
+
+  /** An implementation class for a [[RectDraw]] that is not specified as a [[SquareDraw]]. */
+  case class RectDrawImp(shape: Rect, lineWidth: Double = 2, lineColour: Colour = Black) extends RectDraw
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
@@ -25,6 +54,8 @@ trait RectFill extends RectGraphicSimple, RectangleFill
 { type ThisT <: RectFill
   override def slate(operand: VecPt2): RectFill
   override def slate(xOperand: Double, yOperand: Double): RectFill
+  override def slateFrom(operand: VecPt2): RectFill
+  override def slateFrom(xOperand: Double, yOperand: Double): RectFill
   override def slateX(xOperand: Double): RectFill
   override def slateY(yOperand: Double): RectFill
   override def scale(operand: Double): RectFill
@@ -58,22 +89,7 @@ object RectFill
     override def rotate180: RectFillImp = RectFillImp(shape.rotate180, fillFacet)
     override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
     override def prolign(matrix: AxlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
-    override def mirror(lineLike: LineLike): RectangleFill = RectangleFill(shape.mirror(lineLike), fillFacet)
-    override def rotate(rotation: AngleVec): RectangleFill = RectangleFill(shape.rotate(rotation), fillFacet)
   }
-}
-
-/** A rectangular Graphic aligned to the axes, filled with a single colour. */
-trait RectDraw extends RectGraphicSimple, RectangleDraw
-
-/** Companion object for the [[RectDraw]] trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
-object RectDraw
-{ /** Factory method for RectFill. A rectangular Graphic aligned to the axes, filled with a single colour. it delegates to the [[RectDrawImp]] implementation
-   * class, but has a return type of RectFill. */
-  def apply(rect: Rect, lineWidth: Double = 2, lineColour: Colour = Black): RectDraw = RectDrawImp(rect, lineWidth, lineColour)
-
-  /** An implementation class for a [RectDraw]] that is not specified as a [[SquareDraw]]. */
-  case class RectDrawImp(shape: Rect, lineWidth: Double = 2, lineColour: Colour = Black) extends RectDraw
 }
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */

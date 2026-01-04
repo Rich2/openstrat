@@ -2,13 +2,15 @@
 package ostrat; package geom
 import Colour.Black
 
-/** 2-dimensional graphic bsed on a [[Square]] */
+/** 2-dimensional graphic based on a [[Square]] */
 trait SquareGraphic extends RectangleGraphic
 { override def shape: Square
   override def slate(operand: VecPt2): SquareGraphic
   override def slate(xOperand: Double, yOperand: Double): SquareGraphic
   override def slateFrom(operand: VecPt2): SquareGraphic
   override def slateFrom(xOperand: Double, yOperand: Double): SquareGraphic
+  override def slateX(xOperand: Double): SquareGraphic
+  override def slateY(yOperand: Double): SquareGraphic
   override def scale(operand: Double): SquareGraphic
   override def negY: SquareGraphic
   override def negX: SquareGraphic
@@ -24,6 +26,12 @@ trait SquareGraphicSimple extends SquareGraphic, RectangleGraphicSimple
   override def scale(operand: Double): SquareGraphicSimple
   override def negX: SquareGraphicSimple
   override def negY: SquareGraphicSimple
+  override def rotate90: SquareGraphicSimple
+  override def rotate180: SquareGraphicSimple
+  override def rotate270: SquareGraphicSimple
+  override def prolign(matrix: AxlignMatrix): SquareGraphicSimple
+  override def rotate(rotation: AngleVec): SquareGraphicSimple
+  override def mirror(lineLike: LineLike): SquareGraphicSimple
 }
 
 /** Graphic that draws a [[Square]]. */
