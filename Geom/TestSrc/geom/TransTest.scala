@@ -19,8 +19,8 @@ object TransTest extends TestSuite
       r1.scale(3) ==> r2
       r1.scale(2) ==> r3
       r2.scale(2) ==> r4
-     // assert(Arr(r1, r2).scale(2) equ Arr(r3, r4))
-//      assert(Array(r1, r2).scale(2) equ Array(r3, r4))
+      //RArr(r1, r2).scale(2).sameElements ==> RArr(r3, r4)
+      assert(Array(r1, r2).scale(2).sameElements(Array(r3, r4)))
 //      assert(List(r1, r2).scale(2) equ List(r3, r4))
 //      assert(v1.scale(2) equ Vector(r3, r4))
 //      assert(o2.scale(2) equ o4)*/
