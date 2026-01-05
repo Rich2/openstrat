@@ -3,7 +3,7 @@ package ostrat; package geom
 import Colour.Black
 
 /** The generalised implementation of a [[Shape]]. A closed sequence of curve segments. An Array[Double] based collection for a sequence of CurveSegs, similar
- * to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to
+ * to a Polygon which is an Array[Double] based collection of just [[LSeg]]s. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to
  * Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
 class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailOld], AffinePreserve
 { type ThisT = ShapeGenOld
@@ -110,4 +110,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailO
 object ShapeGenOld extends CompanionSlDbl7[CurveTailOld, ShapeGenOld]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   override def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[ShapeGenOld]]. */
+  given rotateEv: Rotate[ShapeGenOld] = (obj, av) => obj.rotate(av)
 }

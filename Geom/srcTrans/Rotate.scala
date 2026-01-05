@@ -8,18 +8,24 @@ trait Rotate[T]
 }
 
 /** Companion object for the Rotate[T] type class, contains implicit instances for collections and other container classes. */
-object Rotate
+object Rotate extends RotateLowPriority
 {
-  given transSimerEv[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
+  //given transSimerEv[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
 
   /** Implicit [[Rotate]] type class instances / evidence for [[Arr]]. */
-  given arrEv[A, ArrA <: Arr[A]](using build: BuilderArrMap[A, ArrA], ev: Rotate[A]): Rotate[ArrA] = (obj, angle) => obj.map(ev.rotateT(_, angle))
+  given rArrEv[A](using ctA: ClassTag[A], ev: Rotate[A]): Rotate[RArr[A]] = (obj, angle) => obj.mapRef(ev.rotateT(_, angle))
 
   /** Implicit [[Rotate]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
   given functorEv[A, F[_]](using evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] = (obj, radians) => evF.mapT(obj, evA.rotateT(_, radians))
 
   /** Implicit [[RotateM3T]] type class instances / evidence for [[Array]]. */
   given arrayEv[A](using ct: ClassTag[A], ev: Rotate[A]): Rotate[Array[A]] = (obj, radians) => obj.map(ev.rotateT(_, radians))
+}
+
+trait RotateLowPriority
+{
+  /** Implicit [[Rotate]] type class instances / evidence for [[Arr]]. */
+  //given arrEv[A, ArrA <: Arr[A]](using build: BuilderArrMap[A, ArrA], ev: Rotate[A]): Rotate[Arr[A]] = (obj, angle) => obj.map(ev.rotateT(_, angle))
 }
 
 /** Extension class for instances of the Rotate type class. */

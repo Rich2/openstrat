@@ -123,7 +123,8 @@ object Swastika extends Flag
   { val poly = Rect(ratio, 1)
     val bar = Rect.bCen(0.1, 0.2).fill(Black)
     val arm = Rect.tl(6.0 / 20, 0.1, -1.0 / 20, 0.25).fill(Black)
-    val cross = RArr(bar, arm).map(_.rotate45).flatMap(_.rotateQuadrants)
+    val cross0: RArr[RectangleFill] = RArr(bar, arm)
+    val cross = cross0.rotate45.flatMap(_.rotateQuadrants)
     RArr(poly.fill(Red), Circle.d(6.0 / 8).fill(White)) ++ cross
   }
 }

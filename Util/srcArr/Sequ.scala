@@ -115,6 +115,13 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
+  /** Map to an immutable [[RArr]] of B. Applies the supplied function to every element of this sequence. */
+  def mapRef[B](f: A => B)(using ct: ClassTag[B]): RArr[B] =
+  { val array = new Array[B](length)
+    iForeach{ (i, a) => array(i) = f(a) }
+    new RArr[B](array)
+  }
+
   /** Specialised map to an immutable [[Arr]] of B. But takes 2 functions. Applies the first supplied function to every element of the init of this sequence and
    * the second is applied to the last element if there is one. */
   def initLastMap[B, ArrB <: Arr[B]](fInit: A => B)(fLast: A => B)(using build: BuilderArrMap[B, ArrB]): ArrB =
