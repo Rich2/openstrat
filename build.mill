@@ -19,7 +19,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.20.1"
+{ def scalaJSVersion = "1.20.2"
   def mvnDeps = Seq(mvn"org.scala-js::scalajs-dom_sjs1:2.8.1")
 }
 

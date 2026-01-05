@@ -31,9 +31,16 @@ object TransTest extends TestSuite
     val rs1: RArr[PolygonFill] = RArr(p1, p2)
     val rs1a = rs1.slateX(2)
 
-    test("test2")
+    test("Translate")
     { rs1a(1).shape.numVerts ==> 4
       rs1a(1).shape.cenPt ==> Pt2(2, 0)
+    }
+
+    val l145: List[Rectangle] = List(r1, r2).rotate45
+
+    test("rotate")
+    {
+      l145.head.v0 ==> Pt2(2, 1).rotate45
     }
   }
 }
