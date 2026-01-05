@@ -151,6 +151,9 @@ object Rect
     }
   }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[Rect]]. */
+  given eqTEv: EqT[Rect] = (r1, r2) => r1.arrayUnsafe.sameElements(r2.arrayUnsafe)
+
   /** Implicit [[Slate2]] type class instance / evidence for [[Rect]]. */
   given slate2Ev: Slate2[Rect] = new Slate2[Rect]
   { override def slate(obj: Rect, operand: VecPt2): Rect = obj.slate(operand)

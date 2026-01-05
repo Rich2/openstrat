@@ -14,17 +14,16 @@ object TransTest extends TestSuite
     val o4 = Some(r4)
     val v1 = Vector(r1, r2)
 
-    test("Test1")
+    test("Scale")
     { r1 ==> r1
       r1.scale(3) ==> r2
       r1.scale(2) ==> r3
       r2.scale(2) ==> r4
-      //RArr(r1, r2).scale(2).sameElements ==> RArr(r3, r4)
+      RArr(r1, r2).scale(2) === RArr(r3, r4)
       assert(Array(r1, r2).scale(2).sameElements(Array(r3, r4)))
-//      assert(List(r1, r2).scale(2) equ List(r3, r4))
-//      assert(v1.scale(2) equ Vector(r3, r4))
-//      assert(o2.scale(2) equ o4)*/
-      //assert(o1 nequ None)
+      List(r1, r2).scale(2) ==> List(r3, r4)
+      v1.scale(2) ==> Vector(r3, r4)
+      o2.scale(2) ==> o4
     }
 
     val p1 = r1.fill(Red)
