@@ -100,6 +100,18 @@ trait Polygon extends Any, Shape, BoundedElem, Approx[Double], PolygonBase[Pt2]
     res
   }
 
+  override def equals(that: Any): Boolean = that match
+  { case poly2: Polygon => arrayUnsafe.sameElements(poly2.arrayUnsafe)
+    case _ => false
+  }
+
+  override def hashCode(): Int =
+  { var res = 0
+    var i = 31
+    arrayUnsafe.foreach{ d => res += i * d.hashCode; i -= 1 }
+    res
+  }
+
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points. */
   override def boundingRect: Rect =
   { var minX, maxX = v0x

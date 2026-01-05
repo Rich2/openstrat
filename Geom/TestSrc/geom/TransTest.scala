@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import utest._, Colour._
+import utest.*, Colour.*
 
 object TransTest extends TestSuite
 {
@@ -16,14 +16,14 @@ object TransTest extends TestSuite
 
     test("Test1")
     { r1 ==> r1
-      /*assert(r1.scale(3) equ (r2))
-      assert(r1.scale(2) equ r3)
-      assert(r2.scale(2) equ r4)*/
+      r1.scale(3) ==> r2
+      r1.scale(2) ==> r3
+      r2.scale(2) ==> r4
      // assert(Arr(r1, r2).scale(2) equ Arr(r3, r4))
-      /*assert(Array(r1, r2).scale(2) equ Array(r3, r4))
-      assert(List(r1, r2).scale(2) equ List(r3, r4))
-      assert(v1.scale(2) equ Vector(r3, r4))
-      assert(o2.scale(2) equ o4)*/
+//      assert(Array(r1, r2).scale(2) equ Array(r3, r4))
+//      assert(List(r1, r2).scale(2) equ List(r3, r4))
+//      assert(v1.scale(2) equ Vector(r3, r4))
+//      assert(o2.scale(2) equ o4)*/
       //assert(o1 nequ None)
     }
 
