@@ -128,6 +128,11 @@ object TilingDoc extends CommonJvm
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingDoc" / name)*)
 }
 
+object TilingDocJs extends CommonJs
+{ def moduleDeps = Seq(Tiling, UtilDocJs)
+  def sources = Task.Sources(workspaceRoot / "Tiling" / "TilingDoc" / "src")
+}
+
 object EGrid extends CommonJvm
 { def moduleDeps = Seq(Tiling)
   def sources1 = Task.Sources(Seq("src", "srcPts").map(name => moduleDir / name)*)

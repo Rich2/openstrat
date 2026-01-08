@@ -46,8 +46,8 @@ def projSubName(rootNameStr: String, extStr: String) = projSub(rootNameStr, root
 
 def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, srcsStr).settings(
   moduleDir := bbDir.value / srcsStr,
-  Test/scalaSource := moduleDir.value / "Test/src",
-  Test/resourceDirectory :=  moduleDir.value / "Test/res",
+  Test/scalaSource := moduleDir.value / "test/src",
+  Test/resourceDirectory :=  moduleDir.value / "test/res",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.9.2" % "test" withSources() withJavadoc(),
