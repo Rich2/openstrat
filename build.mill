@@ -129,7 +129,7 @@ object TilingDoc extends CommonJvm
 }
 
 object TilingDocJs extends CommonJs
-{ def moduleDeps = Seq(Tiling, UtilDocJs)
+{ def moduleDeps = Seq(TilingJs, UtilDocJs)
   def sources = Task.Sources(workspaceRoot / "Tiling" / "TilingDoc" / "src")
 }
 
@@ -139,11 +139,6 @@ object EGrid extends CommonJvm
   def source2 = Task.Source(workspaceRoot / "EGrid" / "JvmSrc")
   def sources = sources1() :+ source2()
   object test extends InnerTests
-}
-
-object EGridDoc extends CommonJvm
-{ def moduleDeps = Seq(EGrid, UtilDoc)
-  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "EGrid" / "EGridDoc" / name)*)
 }
 
 object EGridJs extends CommonJs
@@ -171,16 +166,21 @@ object EGridJs extends CommonJs
   object EarthApp extends Base { def name = "EarthApp"}
 }
 
+object EGridDoc extends CommonJvm
+{ def moduleDeps = Seq(EGrid, UtilDoc)
+  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "EGrid" / "EGridDoc" / name)*)
+}
+
+object EGridDocJs extends CommonJs
+{ def moduleDeps = Seq(EGridJs, UtilDocJs)
+  def sources = Task.Sources(workspaceRoot / "EGrid" / "EgridDoc" / "src")
+}
+
 object Apps extends CommonJvm
 { def moduleDeps = Seq(EGrid)
   def sources1 = Task.Sources(Seq("src", "srcStrat").map(name => moduleDir / name)*)
   def sources = sources1()
   object test extends InnerTests
-}
-
-object AppsDoc extends CommonJvm
-{ def moduleDeps = Seq(UtilDoc)
-  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Apps" / "AppsDoc" / name)*)
 }
 
 object AppsJs extends CommonJs
@@ -192,6 +192,16 @@ object AppsJs extends CommonJs
 
 trait AppsJs extends CommonJs
 { def moduleDeps = Seq(AppsJs)
+}
+
+object AppsDoc extends CommonJvm
+{ def moduleDeps = Seq(UtilDoc)
+  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Apps" / "AppsDoc" / name)*)
+}
+
+object AppsDocJs extends CommonJs
+{ def moduleDeps = Seq(AppsJs, UtilDocJs)
+  def sources = Task.Sources(workspaceRoot / "Apps" / "AppsDoc" / "src")
 }
 
 object AppJs extends Module
