@@ -13,8 +13,8 @@ trait CommonJvm extends Common
   trait InnerTests extends ScalaTests
   { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.2")
     def testFramework = "utest.runner.Framework"
-    def sources = Task.Sources(Outer.moduleDir / "TestSrc", moduleDir / "src")
-    def resources = Task.Sources(Outer.moduleDir / "TestRes", moduleDir / "res")
+    def sources = Task.Sources(moduleDir / "src")
+    def resources = Task.Sources(moduleDir / "res")
   }
 }
 
@@ -79,10 +79,17 @@ object GeomJs extends CommonJs
 
 object GeomExs extends CommonJvm
 { def moduleDeps = Seq(Geom, UtilDoc)
-  def sources1 = Task.Sources(Seq("src", "srcJvm", "srcLessons").map(name => workspaceRoot / "Geom" / "GeomExs" / name)*)
+  def sources1 = Task.Sources(Seq("src", "srcLessons").map(name => workspaceRoot / "Geom" / "GeomExs" / name)*)
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = sources1() :+ source2()
   def mainClass = Some("learn.LsE1App")
+}
+
+object GeomExsJs extends CommonJs
+{ def moduleDeps = Seq(GeomJs)
+  def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "GeomExsJs" / "src")
+  def sources = GeomExs.sources1() :+ source2()
+  def mainClass = Some("learn.LessonAppJs")
 }
 
 object GeomDoc extends CommonJvm
@@ -91,17 +98,10 @@ object GeomDoc extends CommonJvm
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = sources1() :+ source2()
 }
+
 object GeomDocJs extends CommonJs
-{ def moduleDeps = Seq(UtilDocJs)
+{ def moduleDeps = Seq(UtilDocJs, GeomExsJs)
   def sources = Task.Sources(workspaceRoot / "Geom" / "GeomDoc" / "src")
-}
-
-
-object GeomExsJs extends CommonJs
-{ def moduleDeps = Seq(GeomJs)
-  def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "GeomExsJs" / "src")
-  def sources = GeomExs.sources1() :+ source2()
-  def mainClass = Some("learn.LessonAppJs")
 }
 
 object Tiling extends CommonJvm
