@@ -123,6 +123,11 @@ object TilingExs extends CommonJvm
   def mainClass = Some("ostrat.pZero.TilingTryApp")
 }
 
+object TilingExsJs extends CommonJs
+{ def moduleDeps = Seq(TilingJs)
+  def sources = Task.Sources(workspaceRoot / "Tiling" / "TilingeExs" / "src")
+}
+
 object TilingDoc extends CommonJvm
 { def moduleDeps = Seq(UtilDoc, Tiling)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingDoc" / name)*)
@@ -237,8 +242,12 @@ object ScalaOSDoc extends CommonJvm
 object DevDoc extends CommonJvm
 { def moduleDeps = Seq(GeomDoc, TilingDoc, EGridDoc, AppsDoc, ScalaOSDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Dev" / "DevDoc" / name)*)
+}
 
-  object DevDocJs extends CommonJs
+object DevDocJs extends CommonJs
+{ def moduleDeps = Seq(GeomDocJs, TilingExsJs, TilingDocJs, EGridDocJs, AppsDocJs)
+  def sources = Task.Sources(workspaceRoot / "Dev" / "DevDoc" / "src", workspaceRoot / "Dev" / "DevDoc" / "DevDocJs" / "src")
+  def mainClass = Some("ostrat.docjs.TomcatPageJs")
 }
 
 object Dev extends CommonJvm
@@ -284,6 +293,7 @@ def SiteStage = Task{
   EG120Europe.fullLinkJS()
   EG80Europe.fullLinkJS()
   EarthApp.fullLinkJS()
+  DevDocJs.fullLinkJS()
   DevFx.assembly()
 
   Dev.runner().run(mainClass = "ostrat.pDev.MillStageServer", args = Array[String]())

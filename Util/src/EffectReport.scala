@@ -75,6 +75,9 @@ object PomFileWritten
 class JsFileWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "JavaScript File written"
   override def toString: String = "JsFileWritten" + detailStr.enParenth
+
+  /** Converts this for a succesful js.map file write. */
+  def withMap: JsWithMapFilesWritten = JsWithMapFilesWritten(detailStr)
 }
 
 object JsFileWritten
@@ -82,16 +85,27 @@ object JsFileWritten
   def apply(detailStr: String): JsFileWritten = new JsFileWritten(detailStr)
 
   /** Implicit evidence / instance of [[ShowType]] for [[JsFileWritten]] */
-  implicit val namedTypeEv: ShowType[JsFileWritten] = new ShowFileWritten[JsFileWritten]
+  given namedTypeEv: ShowType[JsFileWritten] = new ShowFileWritten[JsFileWritten]
   { override val filePrefix: String = "JavaScript"
     override def typeStr: String = "JsFileWritten"
   }
 }
 
-/** Report of successful Jar file write. */
-class JarFileWritten(detailStr: String) extends FileWritten(detailStr) {
-  override def reportTypeStr: String = "Jar File written"
+/** Report of successful JavaScript file write and its map file write. */
+class JsmapFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "JavaScript map File written"
+  override def toString: String = "JsmapFileWritten" + detailStr.enParenth
+}
 
+/** Report of successful JavaScript file write. */
+class JsWithMapFilesWritten(detailStr: String) extends JsFileWritten(detailStr)
+{ override def reportTypeStr: String = "JavaScript with map Files written"
+  override def toString: String = "JsmapFileWritten" + detailStr.enParenth
+}
+
+/** Report of successful Jar file write. */
+class JarFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "Jar File written"
   override def toString: String = "JarFileWritten" + detailStr.enParenth
 }
 

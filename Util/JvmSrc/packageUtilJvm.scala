@@ -105,7 +105,8 @@ package object utiljvm
 
   def pomFileWrite(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
     fileWrite(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
-  
+
+  /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
   def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
@@ -113,9 +114,29 @@ package object utiljvm
     catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
-  
-  def jsFileCopy(fromStr:  String, toStr: String): ErrBi[Exception, JsFileWritten] =
-    fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+
+
+  /** File copy that adds the ".js" [[String]] to the file source and file destination. */
+    def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
+      fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+
+  /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
+  def jsMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
+    fileCopy(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
+
+  /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
+  def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
+  { val res1: ErrBi[Exception, JsFileWritten] = fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+    res1 match
+    { case Succ(jsfw) => fileCopy(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
+      { case fail : Fail[_] => res1
+        case succ2: Succ[_] => Succ(jsfw.withMap)
+      }
+      case fail => fail
+    }
+  }
+
+
 
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
     fileCopy(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))

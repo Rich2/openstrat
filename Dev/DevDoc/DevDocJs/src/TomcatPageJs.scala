@@ -2,12 +2,11 @@
 package ostrat; package docjs
 import geom.*, pSJs.*, scalajs.js.annotation.*, pDoc.TomcatPage//, org.scalajs.dom.*
 
-@JSExportTopLevel("TomcatPageJs")
+//@JSExportTopLevel("TomcatPageJs")
 object TomcatPageJs
 {
-  @JSExport def main(args: Array[String]): Unit =
-  {
-    val num = TomcatPage.inpAcc.length
+  def main(args: Array[String]): Unit =
+  { val num = TomcatPage.inpAcc.length
     deb(s"Found $num in TomcatPage")
     TomcatPage.inpAcc.foreach(ContentUpdater(_))
   }
