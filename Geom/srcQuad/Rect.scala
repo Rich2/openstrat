@@ -134,7 +134,7 @@ object Rect
    * centre of the Rect at the origin. */
   def bCen(width: Double, height: Double, bottomCentre: Pt2 = Origin2): Rect = RectGen(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
-  def cross(width: Double, height: Double, barWidth: Double): RArr[Polygon] = RArr(apply(width, barWidth), apply(barWidth, height))
+  def cross(width: Double, height: Double, barWidth: Double): RArr[Rect] = RArr(apply(width, barWidth), apply(barWidth, height))
 
   def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
 
