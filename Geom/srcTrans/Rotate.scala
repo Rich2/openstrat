@@ -2,91 +2,95 @@
 package ostrat; package geom
 import reflect.ClassTag
 
-/** Type class for 2D geometric rotation transformations of objects of type T. */
-trait Rotate[T]
+/** Type class for rotation. Normally you will only create instances of [[Rotate]] with its single type parameter. This 2 parameter trait allows for subtype
+ * rotations instances to be inferred via the subTypes evidence in the companion object. So for example [[Rect]]s can be rotated, returning an ordinary
+ * [[Rectangle]] and a [[Sqlign]] can be rotated, returning an ordinary [[Square]]. */
+trait RotateLike[A, B]
+{ /** Acts on the object to create the rotation. Normally you will only create instances of [[Rotate]], so the object's type and the return type will be the
+   * same. */
+  def rotateT(obj: A, angle: AngleVec): B
+}
+
+object RotateLike
+{ /** [[Functor]] type class instances / evidence for [[RotateLike]]. */
+  given functorEv[F[_], A, B](using evF: Functor[F], evA: RotateLike[A, B]): RotateLike[F[A], F[B]] = (obj, op) => evF.mapT(obj, evA.rotateT(_, op))
+
+  /** [[Arr]] type class instances / evidence for [[RotateLike]]. */
+  given arrEv[A, B, ArrA <: Arr[A], ArrB <: Arr[B]](using evA: RotateLike[A, B], build: BuilderArrMap[B, ArrB]): RotateLike[ArrA, ArrB] =
+    (obj, op) => obj.map(evA.rotateT(_, op))
+
+  /** [[Array]] type class instances / evidence for [[RotateLike]]. */
+  given arrayEv[A, B](using ct: ClassTag[B], ev: RotateLike[A, B]): RotateLike[Array[A], Array[B]] = (obj, radians) => obj.map(ev.rotateT(_, radians))
+
+  /** Subtype type class instances / evidence for [[RotateLike]]. */
+  given subTypesEv[A, B >: A](using ev: Rotate[B]): RotateLike[A, B] = (obj, op) => ev.rotateT(obj, op)
+}
+
+/** Type class for 2D geometric rotation transformations of objects where the type of the object is maintained. Normally the [[RotateLike]] instances that you
+ * create will all be [[Rotate]] instances. */
+trait Rotate[T] extends RotateLike[T, T]
 { def rotateT(obj: T, angle: AngleVec): T
 }
 
-/** Companion object for the Rotate[T] type class, contains implicit instances for collections and other container classes. */
-object Rotate extends RotateLowPriority
-{
-  //given transSimerEv[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
-
-  /** Implicit [[Rotate]] type class instances / evidence for [[Arr]]. */
-  given rArrEv[A](using ctA: ClassTag[A], ev: Rotate[A]): Rotate[RArr[A]] = (obj, angle) => obj.mapRef(ev.rotateT(_, angle))
-
-  /** Implicit [[Rotate]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
-  given functorEv[A, F[_]](using evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] = (obj, radians) => evF.mapT(obj, evA.rotateT(_, radians))
-
-  /** Implicit [[RotateM3T]] type class instances / evidence for [[Array]]. */
-  given arrayEv[A](using ct: ClassTag[A], ev: Rotate[A]): Rotate[Array[A]] = (obj, radians) => obj.map(ev.rotateT(_, radians))
-}
-
-trait RotateLowPriority
-{
-  /** Implicit [[Rotate]] type class instances / evidence for [[Arr]]. */
-  //given arrEv[A, ArrA <: Arr[A]](using build: BuilderArrMap[A, ArrA], ev: Rotate[A]): Rotate[Arr[A]] = (obj, angle) => obj.map(ev.rotateT(_, angle))
-}
-
 /** Extension class for instances of the Rotate type class. */
-implicit class RotateExtensions[T, T1 <: T](value: T1)(using ev: Rotate[T]) extends RotateGenExtensions[T]
-{ override def rotateRadians(radians: Double): T = ev.rotateT(value, AngleVec.radians(radians))
+implicit class RotateExtensions[A, B](value: A)(using ev: RotateLike[A, B]) extends RotateGenExtensions[B]
+{ override def rotateRadians(radians: Double): B = ev.rotateT(value, AngleVec.radians(radians))
 
   /** Rotate (2D geometric transformation) the object by the [[AngleVec]] parameter. */
-  def rotate(angle: AngleVec): T = ev.rotateT(value, angle)
+  def rotate(angle: AngleVec): B = ev.rotateT(value, angle)
 
   /** Rotate (2D geometric transformation) the object by the value of the parameter in degrees. */
-  def rotateDegs(degrees: Double): T = ev.rotateT(value, AngleVec(degrees))
+  def rotateDegs(degrees: Double): B = ev.rotateT(value, AngleVec(degrees))
 
   /** Rotate (2D geometric transformation) the object in a clockwise direction by the value of the parameter in degrees. */
-  def rotateClkDegs(degrees: Double): T = ev.rotateT(value, AngleVec(-degrees))
+  def rotateClkDegs(degrees: Double): B = ev.rotateT(value, AngleVec(-degrees))
 }
 
-trait RotateGenExtensions[T]
+trait RotateGenExtensions[B]
 {
-  def rotateRadians(radians: Double): T
-  def rotate(angle: AngleVec): T
+  def rotateRadians(radians: Double): B
+  def rotate(angle: AngleVec): B
 
   /** Rotates 15 degrees anti-clockwise or + Pi/12 */
-  def rotate15: T = rotate(DegVec15)
+  def rotate15: B = rotate(DegVec15)
   
   /** Rotates 30 degrees anti-clockwise or + Pi/6 */
-  def rotate30: T = rotate(DegVec30)
+  def rotate30: B = rotate(DegVec30)
   
   /** Rotates 45 degrees anti-clockwise or + Pi/4 */
-  def rotate45: T = rotate(DegVec45)
+  def rotate45: B = rotate(DegVec45)
   
   /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-  def rotate60: T  = rotate(DegVec60)
+  def rotate60: B  = rotate(DegVec60)
   
   /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
-  def rotate120: T = rotate(DegVec120)
+  def rotate120: B = rotate(DegVec120)
   
   /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
-  def rotate135: T = rotate(DegVec135)
+  def rotate135: B = rotate(DegVec135)
   
   /** Rotates 150 degrees anti-clockwise or + 5 * Pi/6 */
-  def rotate150: T = rotate(DegVec150)
+  def rotate150: B = rotate(DegVec150)
   
   /** Rotates 30 degrees clockwise or - Pi/3 */
-  def clk30: T = rotate(-DegVec30)
+  def clk30: B = rotate(-DegVec30)
   
   /** Rotates 45 degrees clockwise or - Pi/4 */
-  def clk45: T = rotate(-DegVec45)
+  def clk45: B = rotate(-DegVec45)
   
   /** Rotates 60 degrees clockwise or - Pi/3 */
-  def clk60: T  = rotate(-DegVec60)
+  def clk60: B  = rotate(-DegVec60)
 
   /** Rotates 120 degrees clockwise or - 2 * Pi/3 */
-  def clk120: T = rotate(-DegVec120)
+  def clk120: B = rotate(-DegVec120)
   
   /** Rotates 135 degrees clockwise or - 3 * Pi/ 4 */
-  def clk135: T = rotate(-DegVec135)
+  def clk135: B = rotate(-DegVec135)
   
   /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
-  def clk150: T = rotate(-DegVec150)
+  def clk150: B = rotate(-DegVec150)
 
-  def clk90: T  = rotate(DegVec270)
+  def clk90: B  = rotate(DegVec270)
 
-  def clk270: T  = rotate(DegVec90)
+  def clk270: B  = rotate(DegVec90)
 }
