@@ -21,7 +21,7 @@ trait RectangleGraphicSimple extends QuadGraphicSimple, RectangleGraphic
 }
 
 /** Graphic that draws a rectangle. */
-trait RectangleDraw extends PolygonDraw, RectangleGraphicSimple
+trait RectangleDraw extends QuadDraw, RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slateFrom(operand), lineWidth, lineColour)

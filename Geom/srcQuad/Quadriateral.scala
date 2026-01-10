@@ -1,6 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black
+import ostrat.pgui.CanvasPlatform
 
 /** A 4 sided [[Polygon]]. */
 trait Quadrilateral extends Polygon4Plus
@@ -47,6 +48,7 @@ trait Quadrilateral extends Polygon4Plus
   final override def xVertsArray: Array[Double] = Array(v0x, v1x, v2x, v3x)
   final override def yVertsArray: Array[Double] = Array(v0y, v1y, v2y, v3y)
 
+  override def draw(lineWidth: Double, lineColour: Colour): QuadDraw = QuadDraw(this, lineWidth, lineColour)
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): QuadCompound = QuadCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
 
@@ -115,7 +117,7 @@ object Quadrilateral
   }
   
   /** Implicit [[Drawing]] type class instance / evidence for [[Quadrilateral]]. */
-  //given drawingEv: Drawing[Quadrilateral, QuadrilateralDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  given drawingEv: Drawing[Quadrilateral, QuadDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 
   /** Implicit [[Filling]] type class evidence for [[Quadrilateral]]. */
   //given fillingEv: Filling[Quadrilateral, QuadrilateralFill] = (obj, fillFacet) => obj.fill(fillFactet)
@@ -165,6 +167,73 @@ trait QuadGraphicSimple extends PolygonGraphicSimple, QuadGraphic
   override def rotate90: QuadGraphicSimple
   override def rotate180: QuadGraphicSimple
   override def rotate270: QuadGraphicSimple
+}
+
+/** Immutable Graphic element that defines and draws a [[Quadrilateral]]. */
+trait QuadDraw extends QuadGraphicSimple, PolygonDraw
+{ //override def rendToCanvas(cp: CanvasPlatform): Unit = cp.QuadDraw(this)
+  override def slate(operand: VecPt2): QuadDraw = QuadDraw(shape.slate(operand), lineWidth, lineColour)
+  override def slate(xOperand: Double, yOperand: Double): QuadDraw = QuadDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
+  override def slateFrom(operand: VecPt2): QuadDraw = QuadDraw(shape.slateFrom(operand), lineWidth, lineColour)
+  override def slateFrom(xOperand: Double, yOperand: Double): QuadDraw = QuadDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Double): QuadDraw = QuadDraw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Double): QuadDraw = QuadDraw(shape.slateY(yOperand), lineWidth, lineColour)
+  override def scale(operand: Double): QuadDraw = QuadDraw(shape.scale(operand), lineWidth, lineColour)
+  override def negY: QuadDraw = QuadDraw(shape.negY, lineWidth, lineColour)
+  override def negX: QuadDraw = QuadDraw(shape.negX, lineWidth, lineColour)
+  override def rotate90: QuadDraw = QuadDraw(shape.rotate90, lineWidth, lineColour)
+  override def rotate180: QuadDraw = QuadDraw(shape.rotate180, lineWidth, lineColour)
+  override def rotate270: QuadDraw = QuadDraw(shape.rotate270, lineWidth, lineColour)
+  override def prolign(matrix: AxlignMatrix): QuadDraw = QuadDraw(shape.prolign(matrix), lineWidth, lineColour)
+  override def rotate(rotation: AngleVec): QuadDraw = QuadDraw(shape.rotate(rotation), lineWidth, lineColour)
+  override def mirror(lineLike: LineLike): QuadDraw = QuadDraw(shape.mirror(lineLike), lineWidth, lineColour)
+  override def scaleXY(xOperand: Double, yOperand: Double): QuadDraw = QuadDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
+  override def shearX(operand: Double): QuadDraw = QuadDraw(shape.shearX(operand), lineWidth, lineColour)
+  override def shearY(operand: Double): QuadDraw = QuadDraw(shape.shearY(operand), lineWidth, lineColour)
+}
+
+object QuadDraw
+{
+  def apply(shape: Quadrilateral, lineWidth: Double = 2, lineColour: Colour = Black): QuadDraw = QuadDrawGen(shape, lineWidth, lineColour)
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[QuadDraw]]. */
+  given slate2Ev: Slate2[QuadDraw] = new Slate2[QuadDraw]
+  { override def slate(obj: QuadDraw, operand: VecPt2): QuadDraw = obj.slate(operand)
+    override def slateXY(obj: QuadDraw, xOperand: Double, yOperand: Double): QuadDraw = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: QuadDraw, operand: VecPt2): QuadDraw = obj.slateFrom(operand)
+    override def slateFromXY(obj: QuadDraw, xOperand: Double, yOperand: Double): QuadDraw = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: QuadDraw, xOperand: Double): QuadDraw = obj.slateX(xOperand)
+    override def slateY(obj: QuadDraw, yOperand: Double): QuadDraw = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[QuadDraw]]. */
+  given scaleEv: Scale[QuadDraw] = (obj: QuadDraw, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolgn]] type class instance / evidence for [[QuadDraw]]. */
+  given prolignEv: Prolign[QuadDraw] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[QuadDraw]]. */
+  given rotateEv: Rotate[QuadDraw] = (obj: QuadDraw, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[QuadDraw]]. */
+  given scaleXYEv: ScaleXY[QuadDraw] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** Implicit [[TransAxes]] type class instance / evidence for [[QuadDraw]]. */
+  given transAxesEv: TransAxes[QuadDraw] = new TransAxes[QuadDraw]
+  { override def negXT(obj: QuadDraw): QuadDraw = obj.negX
+    override def negYT(obj: QuadDraw): QuadDraw = obj.negY
+    override def rotate90(obj: QuadDraw): QuadDraw = obj.rotate90
+    override def rotate180(obj: QuadDraw): QuadDraw = obj.rotate180
+    override def rotate270(obj: QuadDraw): QuadDraw = obj.rotate270
+  }
+
+  /*given persistEv: Persist3[Quad, Double, Colour, QuadDraw] =
+    Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)*/
+
+  /** class for creating a [[DrawFacet]] graphic for the general case of [[Quad]]. */
+  case class QuadDrawGen(shape: Quadrilateral, lineWidth: Double = 2, lineColour: Colour = Black) extends QuadDraw
+  { //override def rendToCanvas(cp: CanvasPlatform): Unit = cp.QuadDraw(this)
+  }
 }
 
 /** Compound graphic based on a quadrilateral. */
