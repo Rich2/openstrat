@@ -49,6 +49,7 @@ trait Quadrilateral extends Polygon4Plus
   final override def yVertsArray: Array[Double] = Array(v0y, v1y, v2y, v3y)
 
   override def draw(lineWidth: Double, lineColour: Colour): QuadDraw = QuadDraw(this, lineWidth, lineColour)
+  override def fill(fillfacet: FillFacet): QuadFill = QuadFill(this, fillfacet)
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): QuadCompound = QuadCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
 
@@ -110,9 +111,8 @@ object Quadrilateral
   }
 
   /** Implicit [[Shear]] type class instance / evidence for [[Quadrilateral]]. */
-  given shearEv: Shear[Quadrilateral] = new Shear[Quadrilateral] {
-    override def shearXT(obj: Quadrilateral, yFactor: Double): Quadrilateral = obj.shearX(yFactor)
-
+  given shearEv: Shear[Quadrilateral] = new Shear[Quadrilateral]
+  { override def shearXT(obj: Quadrilateral, yFactor: Double): Quadrilateral = obj.shearX(yFactor)
     override def shearYT(obj: Quadrilateral, xFactor: Double): Quadrilateral = obj.shearY(xFactor)
   }
   
@@ -120,7 +120,7 @@ object Quadrilateral
   given drawingEv: Drawing[Quadrilateral, QuadDraw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 
   /** Implicit [[Filling]] type class evidence for [[Quadrilateral]]. */
-  //given fillingEv: Filling[Quadrilateral, QuadrilateralFill] = (obj, fillFacet) => obj.fill(fillFactet)
+  given fillingEv: Filling[Quadrilateral, QuadFill] = (obj, fillFacet) => QuadFill(obj, fillFacet)
 }
 
 /** Quadrilateral where the 4 vertices X and Y components are fields */
@@ -161,6 +161,10 @@ trait QuadGraphic extends PolygonGraphic
 trait QuadGraphicSimple extends PolygonGraphicSimple, QuadGraphic
 { override def slate(operand: VecPt2): QuadGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): QuadGraphicSimple
+  override def slateFrom(operand: VecPt2): QuadGraphicSimple
+  override def slateFrom(xOperand: Double, yOperand: Double): QuadGraphicSimple
+  override def slateX(xOperand: Double): QuadGraphicSimple
+  override def slateY(yOperand: Double): QuadGraphicSimple
   override def scale(operand: Double): QuadGraphicSimple
   override def negX: QuadGraphicSimple
   override def negY: QuadGraphicSimple
@@ -171,8 +175,7 @@ trait QuadGraphicSimple extends PolygonGraphicSimple, QuadGraphic
 
 /** Immutable Graphic element that defines and draws a [[Quadrilateral]]. */
 trait QuadDraw extends QuadGraphicSimple, PolygonDraw
-{ //override def rendToCanvas(cp: CanvasPlatform): Unit = cp.QuadDraw(this)
-  override def slate(operand: VecPt2): QuadDraw = QuadDraw(shape.slate(operand), lineWidth, lineColour)
+{ override def slate(operand: VecPt2): QuadDraw = QuadDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): QuadDraw = QuadDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): QuadDraw = QuadDraw(shape.slateFrom(operand), lineWidth, lineColour)
   override def slateFrom(xOperand: Double, yOperand: Double): QuadDraw = QuadDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
@@ -236,6 +239,81 @@ object QuadDraw
   }
 }
 
+/** Graphic to fill a [[Quadrilateral]] with a single colour. */
+trait QuadFill extends PolygonFill, QuadGraphicSimple
+{ override def slate(operand: VecPt2): QuadFill
+  override def slate(xOperand: Double, yOperand: Double): QuadFill
+  override def slateFrom(operand: VecPt2): QuadFill
+  override def slateFrom(xOperand: Double, yOperand: Double): QuadFill
+  override def slateX(xOperand: Double): QuadFill
+  override def slateY(yOperand: Double): QuadFill
+  override def scale(operand: Double): QuadFill
+  override def negY: QuadFill
+  override def negX: QuadFill
+  override def rotate90: QuadFill
+  override def rotate180: QuadFill
+  override def rotate270: QuadFill
+  override def prolign(matrix: AxlignMatrix): QuadFill
+  override def rotate(rotation: AngleVec): QuadFill = QuadFill(shape.rotate(rotation), fillFacet)
+  override def mirror(lineLike: LineLike): QuadFill = QuadFill(shape.mirror(lineLike), fillFacet)
+  override def shearX(operand: Double): PolygonFill = PolygonFill(shape.shearX(operand), fillFacet)
+  override def shearY(operand: Double): PolygonFill = PolygonFill(shape.shearY(operand), fillFacet)
+  override def scaleXY(xOperand: Double, yOperand: Double): QuadFill = QuadFill(shape.scaleXY(xOperand, yOperand), fillFacet)
+}
+
+/** Companion object for [[QuadFill]], contains an Implementation class [[QuadFill.QuadFillGen]] and an apply factor method that delegates to it. It also
+ * contains implicit instances for 2D geometric transformations. */
+object QuadFill
+{ /** Factory apply method to construct a [[QuadFill]] graphic element. */
+  def apply(shape: Quadrilateral, fillFacet: FillFacet): QuadFill = QuadFillGen(shape, fillFacet)
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[QuadFill]]. */
+  given slate2Ev: Slate2[QuadFill] = new Slate2[QuadFill]
+  { override def slate(obj: QuadFill, operand: VecPt2): QuadFill = obj.slate(operand)
+    override def slateXY(obj: QuadFill, xOperand: Double, yOperand: Double): QuadFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: QuadFill, operand: VecPt2): QuadFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: QuadFill, xOperand: Double, yOperand: Double): QuadFill = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: QuadFill, xOperand: Double): QuadFill = obj.slateX(xOperand)
+    override def slateY(obj: QuadFill, yOperand: Double): QuadFill = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[QuadFill]]. */
+  given scaleEv: Scale[QuadFill] = (obj: QuadFill, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[QuadFill]]. */
+  given rotateEv: Rotate[QuadFill] = (obj: QuadFill, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[QuadFill]]. */
+  given prolignEv: Prolign[QuadFill] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[TransAxes]] type class instance / evidence for [[QuadFill]]. */
+  given transAxesEv: TransAxes[QuadFill] = new TransAxes[QuadFill]
+  { override def negYT(obj: QuadFill): QuadFill = obj.negY
+    override def negXT(obj: QuadFill): QuadFill = obj.negX
+    override def rotate90(obj: QuadFill): QuadFill = obj.rotate90
+    override def rotate180(obj: QuadFill): QuadFill = obj.rotate180
+    override def rotate270(obj: QuadFill): QuadFill = obj.rotate270
+  }
+
+  /** Implementation class for the general case of a [[QuadFill]]. */
+  case class QuadFillGen(shape: Quadrilateral, fillFacet: FillFacet) extends QuadFill
+  { override def slate(operand: VecPt2): QuadFillGen = QuadFillGen(shape.slate(operand), fillFacet)
+    override def slate(xOperand: Double, yOperand: Double): QuadFillGen = QuadFillGen(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateFrom(operand: VecPt2): QuadFillGen = QuadFillGen(shape.slateFrom(operand), fillFacet)
+    override def slateFrom(xOperand: Double, yOperand: Double): QuadFillGen = QuadFillGen(shape.slateFrom(xOperand, yOperand), fillFacet)
+    override def slateX(xOperand: Double): QuadFillGen = QuadFillGen(shape.slateX(xOperand), fillFacet)
+    override def slateY(yOperand: Double): QuadFillGen = QuadFillGen(shape.slateY(yOperand), fillFacet)
+    override def scale(operand: Double): QuadFillGen = QuadFillGen(shape.scale(operand), fillFacet)
+    override def negX: QuadFillGen = QuadFillGen(shape.negX, fillFacet)
+    override def negY: QuadFillGen = QuadFillGen(shape.negY, fillFacet)
+    override def rotate90: QuadFillGen = QuadFillGen(shape.rotate90, fillFacet)
+    override def rotate180: QuadFillGen = QuadFillGen(shape.rotate180, fillFacet)
+    override def rotate270: QuadFillGen = QuadFillGen(shape.rotate270, fillFacet)
+    override def prolign(matrix: AxlignMatrix): QuadFillGen = QuadFillGen(shape.prolign(matrix), fillFacet)
+    override def rotate(rotation: AngleVec): QuadFillGen = QuadFillGen(shape.rotate(rotation), fillFacet)
+    override def mirror(lineLike: LineLike): QuadFill = QuadFill(shape.mirror(lineLike), fillFacet)
+  }
+}
 /** Compound graphic based on a quadrilateral. */
 trait QuadCompound extends PolygonCompound, QuadGraphic
 { /** Graphic child elements of a quadrilateral. */

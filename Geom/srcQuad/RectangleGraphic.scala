@@ -50,8 +50,8 @@ object RectangleDraw
   }
 }
 
-/** Graphic to fill a Rectangle with a single colour. */
-trait RectangleFill extends PolygonFill, RectangleGraphicSimple
+/** Graphic to fill a [[Rectangle]] with a single colour. */
+trait RectangleFill extends QuadFill, RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectangleFill
   override def slate(xOperand: Double, yOperand: Double): RectangleFill
   override def slateFrom(operand: VecPt2): RectangleFill
@@ -67,9 +67,6 @@ trait RectangleFill extends PolygonFill, RectangleGraphicSimple
   override def prolign(matrix: AxlignMatrix): RectangleFill
   override def rotate(rotation: AngleVec): RectangleFill = RectangleFill(shape.rotate(rotation), fillFacet)
   override def mirror(lineLike: LineLike): RectangleFill = RectangleFill(shape.mirror(lineLike), fillFacet)
-  override def shearX(operand: Double): PolygonFill = PolygonFill(shape.shearX(operand), fillFacet)
-  override def shearY(operand: Double): PolygonFill = PolygonFill(shape.shearY(operand), fillFacet)  
-  override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fillFacet)
 }
 
 /** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillGen]] and an apply factor method that delegates to it. It
