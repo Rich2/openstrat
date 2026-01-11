@@ -73,3 +73,6 @@ object ShapeCompound
 
 /** A compound shape graphic specified in [[Length]] units. */
 trait ShapeLen2Compound extends ShapeGeomlessCompound, ShapeLen2Graphic
+{
+  //def children: RArr[GraphicLen2Elem]
+}

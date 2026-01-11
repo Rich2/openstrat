@@ -31,7 +31,7 @@ trait GeomLen2Elem extends Any
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
  * are translate [[SlateXY]], [[Scale]] and negX and negY, the [[TransAxes]], transformations. */
-trait ProlignLen2Preserve extends Any with GeomLen2Elem
+trait ProlignLen2Preserve extends Any, GeomLen2Elem
 { /** The most narrow type preserved in some 2d geometric transformations. */
   type ThisT <: ProlignLen2Preserve
 
@@ -63,7 +63,7 @@ trait GraphicLen2Elem extends GeomLen2Elem
 
 object GraphicLen2Elem
 { /** Implicit [[SlateLen2]] type class instance / evidence for [[GraphicLen2Elem]]. */
-  implicit val slateLenEv: SlateLen2[GraphicLen2Elem] = new SlateLen2[GraphicLen2Elem]
+  given slateLenEv: SlateLen2[GraphicLen2Elem] = new SlateLen2[GraphicLen2Elem]
   { override def slateT(obj: GraphicLen2Elem, delta: VecPtLen2): GraphicLen2Elem = obj.slate(delta)
     override def slateXY(obj: GraphicLen2Elem, xDelta: Length, yDelta: Length): GraphicLen2Elem = obj.slate(xDelta, yDelta)
     override def slateX(obj: GraphicLen2Elem, xDelta: Length): GraphicLen2Elem = obj.slateX(xDelta)
@@ -71,10 +71,10 @@ object GraphicLen2Elem
   }
 
   /** Implicit [[Scale]] type class instance / evidence for [[GraphicLen2Elem]]. */
-  implicit val scaleEv: Scale[GraphicLen2Elem] = (obj, operand) => obj.scale(operand)
+  given scaleEv: Scale[GraphicLen2Elem] = (obj, operand) => obj.scale(operand)
 
   /** Implicit [[MapGeom2]] type class instance / evidence for [[GraphicLen2Elem]] and [[Graphic2Elem]]. */
-  implicit val mapGeomEv: MapGeom2[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
+  given mapGeomEv: MapGeom2[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
 }
 
 /** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
@@ -86,17 +86,17 @@ trait MapGeom2[A, B]
 /** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object MapGeom2
 { /** Implicit [[MapGeom2]] type class instance / evidence for [[RArr]]. */
-  implicit def rArrEv[A, B](implicit ev: MapGeom2[A, B], ct: ClassTag[B]): MapGeom2[RArr[A], RArr[B]] = (obj, len) => obj.map(ev.mapGeom2T(_, len))
+  given rArrEv[A, B](using ev: MapGeom2[A, B], ct: ClassTag[B]): MapGeom2[RArr[A], RArr[B]] = (obj, len) => obj.map(ev.mapGeom2T(_, len))
 
   /** Implicit [[MapGeom2]] type class instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  implicit def functorEv[A, B, F[_]](implicit evF: Functor[F], evA: MapGeom2[A, B]): MapGeom2[F[A], F[B]] =
+  given functorEv[A, B, F[_]](using evF: Functor[F], evA: MapGeom2[A, B]): MapGeom2[F[A], F[B]] =
     (obj, len) => evF.mapT(obj, evA.mapGeom2T(_, len))
 
   /** Implicit [[MapGeom2]] type class instance / evidence for [[Array]]. */
-  implicit def arrayEv[A, B](implicit ct: ClassTag[B], evAL: MapGeom2[A, B]): MapGeom2[Array[A], Array[B]] = (obj, len) => obj.map(evAL.mapGeom2T(_, len))
+  given arrayEv[A, B](using ctB: ClassTag[B], evAL: MapGeom2[A, B]): MapGeom2[Array[A], Array[B]] = (obj, len) => obj.map(evAL.mapGeom2T(_, len))
 }
 
 extension [A, B](thisA: A)(using ev: MapGeom2[A, B])
-{ /** maps the object from [[GeomLen2Elem]]s to the equivlent [[Aff2Elem]]s. */
+{ /** maps the object from [[GeomLen2Elem]]s to the equivalent [[Aff2Elem]]s. */
   def mapGeom2(operand: Length) = ev.mapGeom2T(thisA, operand)
 }
