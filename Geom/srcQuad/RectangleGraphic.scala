@@ -124,7 +124,7 @@ object RectangleFill
 }
 
 /** A compound graphic for rectangles. */
-trait RectangleCompound extends PolygonCompound, RectangleGraphic
+trait RectangleCompound extends QuadCompound, RectangleGraphic
 { override def slate(operand: VecPt2): RectangleCompound = RectangleCompound(shape.slate(operand), facets, children.slate(operand))
   
   override def slate(xOperand: Double, yOperand: Double): RectangleCompound =

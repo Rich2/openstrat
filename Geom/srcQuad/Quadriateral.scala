@@ -316,32 +316,26 @@ object QuadFill
 }
 /** Compound graphic based on a quadrilateral. */
 trait QuadCompound extends PolygonCompound, QuadGraphic
-{ /** Graphic child elements of a quadrilateral. */
-  def quadChilds: RArr[Quadrilateral => GraphicElems] = RArr()
-
-  /** A sequence of graphics that have been attached to this quadrilateral. */
-  def adopted: GraphicElems = RArr()
-
-  override def slate(operand: VecPt2): QuadCompound = QuadCompound(shape.slate(operand), facets, quadChilds, adopted.slate(operand))
+{ override def slate(operand: VecPt2): QuadCompound = QuadCompound(shape.slate(operand), facets, children.slate(operand))
 
   override def slate(xOperand: Double, yOperand: Double): QuadCompound =
-    QuadCompound(shape.slate(xOperand, yOperand), facets, quadChilds, adopted.slate(xOperand, yOperand))
+    QuadCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
-  override def slateFrom(operand: VecPt2): QuadCompound = QuadCompound(shape.slateFrom(operand), facets, quadChilds, adopted.slateFrom(operand))
+  override def slateFrom(operand: VecPt2): QuadCompound = QuadCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
 
   override def slateFrom(xOperand: Double, yOperand: Double): QuadCompound =
-    QuadCompound(shape.slateFrom(xOperand, yOperand), facets, quadChilds, adopted.slateFrom(xOperand, yOperand))
+    QuadCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
 
-  override def slateX(xOperand: Double): QuadCompound = QuadCompound(shape.slateX(xOperand), facets, quadChilds, adopted.slateX(xOperand))
-  override def slateY(yOperand: Double): QuadCompound = QuadCompound(shape.slateY(yOperand), facets, quadChilds, adopted.slateY(yOperand))
-  override def scale(operand: Double): QuadCompound = QuadCompound(shape.scale(operand), facets, quadChilds, adopted.scale(operand))
-  override def rotate(rotation: AngleVec): QuadCompound = QuadCompound(shape.rotate(rotation), facets, quadChilds, adopted.rotate(rotation))
+  override def slateX(xOperand: Double): QuadCompound = QuadCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): QuadCompound = QuadCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
+  override def scale(operand: Double): QuadCompound = QuadCompound(shape.scale(operand), facets, children.scale(operand))
+  override def rotate(rotation: AngleVec): QuadCompound = QuadCompound(shape.rotate(rotation), facets, children.rotate(rotation))
 }
 
 object QuadCompound
 { /** Factory apply method to construct a [[QuadCompound]]. */
-  def apply(shape: Quadrilateral, facets: RArr[GraphicFacet], quadChilds: RArr[Quadrilateral => GraphicElems] = RArr(), adopted: RArr[Graphic2Elem] = RArr()):
-    QuadCompound = new QuadCompoundGen(shape, facets, quadChilds, adopted)
+  def apply(shape: Quadrilateral, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): QuadCompound =
+    new QuadCompoundGen(shape, facets, children)
 
   /** Implicit [[Slate2]] type class instance / evidence for [[QuadCompound]]. */
   given slate2Ev: Slate2[QuadCompound] = new Slate2[QuadCompound]
@@ -355,9 +349,7 @@ object QuadCompound
 }
 
 /** The implementation for the general case of a compound graphic based on a quadrilateral. */
-class QuadCompoundGen(val shape: Quadrilateral, val facets: RArr[GraphicFacet], quadChilds: RArr[Quadrilateral => GraphicElems], adopted: RArr[Graphic2Elem])
-  extends QuadCompound
-{ override def children: RArr[Graphic2Elem] = ???
-  override def shearX(operand: Double): QuadCompoundGen = ???
+class QuadCompoundGen(val shape: Quadrilateral, val facets: RArr[GraphicFacet], val children: RArr[Graphic2Elem]) extends QuadCompound
+{ override def shearX(operand: Double): QuadCompoundGen = ???
   override def shearY(operand: Double): QuadCompoundGen = ???
 }
