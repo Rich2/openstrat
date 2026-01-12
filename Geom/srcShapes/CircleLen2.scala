@@ -61,11 +61,11 @@ case class CircleLen2Fill(shape: CircleLen2, fillFacet: FillFacet) extends Shape
   override def mapGeom2(operand: Length): CircleFill = CircleFill(shape.mapGeom2(operand), fillFacet)
 }
 
-case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet], fChilds: RArr[Circle => Graphic2Elem]) extends CircleLen2Graphic, ShapeLen2Compound
-{ override def slate(operand: VecPtLen2): CircleLen2Compound = CircleLen2Compound(shape.slate(operand), facets, fChilds)
-  override def slate(xOperand: Length, yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xOperand, yOperand), facets, fChilds)
-  override def slateX(xOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(xOperand), facets, fChilds)
-  override def slateY(yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(yOperand), facets, fChilds)
-  override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets, fChilds)
-  override def mapGeom2(operand: Length): CircleCompound = CircleCompound(shape.mapGeom2(operand), facets, fChilds)
+case class CircleLen2Compound(shape: CircleLen2, facets: RArr[GraphicFacet], children: RArr[GraphicLen2Elem]) extends CircleLen2Graphic, ShapeLen2Compound
+{ override def slate(operand: VecPtLen2): CircleLen2Compound = CircleLen2Compound(shape.slate(operand), facets, children)
+  override def slate(xOperand: Length, yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slate(xOperand, yOperand), facets, children)
+  override def slateX(xOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateX(xOperand), facets, children)
+  override def slateY(yOperand: Length): CircleLen2Compound = CircleLen2Compound(shape.slateY(yOperand), facets, children)
+  override def scale(operand: Double): CircleLen2Compound = CircleLen2Compound(shape.scale(operand), facets, children)
+  override def mapGeom2(operand: Length): CircleCompound = CircleCompound(shape.mapGeom2(operand), facets, children.mapGeom2(operand))
 }
