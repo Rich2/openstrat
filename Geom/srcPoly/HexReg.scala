@@ -106,7 +106,7 @@ object HexReg
   given rotateEv: Rotate[HexReg] = (obj: HexReg, angle: AngleVec) => obj.rotate(angle)
   given prolignEv: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)
 
-  given reflectAxesEv: TransAxes[HexReg] = new TransAxes[HexReg]
+  given reflectAxesEv: MirrorAxes[HexReg] = new MirrorAxes[HexReg]
   { override def negYT(obj: HexReg): HexReg = obj.negY
     override def negXT(obj: HexReg): HexReg = obj.negX
     override def rotate90(obj: HexReg): HexReg = obj.rotate90

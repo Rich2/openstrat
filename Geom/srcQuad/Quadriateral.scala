@@ -101,8 +101,8 @@ object Quadrilateral
   /** Implicit [[Mirror]] type class instance / evidence for [[Quadrilateral]]. */
   given reflectEv: Mirror[Quadrilateral] = (obj: Quadrilateral, lineLike: LineLike) => obj.mirror(lineLike)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Quadrilateral]]. */
-  given transAxesEv: TransAxes[Quadrilateral] = new TransAxes[Quadrilateral]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Quadrilateral]]. */
+  given transAxesEv: MirrorAxes[Quadrilateral] = new MirrorAxes[Quadrilateral]
   { override def negYT(obj: Quadrilateral): Quadrilateral = obj.negY
     override def negXT(obj: Quadrilateral): Quadrilateral = obj.negX
     override def rotate90(obj: Quadrilateral): Quadrilateral = obj.rotate90
@@ -221,8 +221,8 @@ object QuadDraw
   /** Implicit [[ScaleXY]] type class instance / evidence for [[QuadDraw]]. */
   given scaleXYEv: ScaleXY[QuadDraw] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[QuadDraw]]. */
-  given transAxesEv: TransAxes[QuadDraw] = new TransAxes[QuadDraw]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[QuadDraw]]. */
+  given transAxesEv: MirrorAxes[QuadDraw] = new MirrorAxes[QuadDraw]
   { override def negXT(obj: QuadDraw): QuadDraw = obj.negX
     override def negYT(obj: QuadDraw): QuadDraw = obj.negY
     override def rotate90(obj: QuadDraw): QuadDraw = obj.rotate90
@@ -286,8 +286,8 @@ object QuadFill
   /** Implicit [[Prolign]] type class instance / evidence for [[QuadFill]]. */
   given prolignEv: Prolign[QuadFill] = (obj, matrix) => obj.prolign(matrix)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[QuadFill]]. */
-  given transAxesEv: TransAxes[QuadFill] = new TransAxes[QuadFill]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[QuadFill]]. */
+  given transAxesEv: MirrorAxes[QuadFill] = new MirrorAxes[QuadFill]
   { override def negYT(obj: QuadFill): QuadFill = obj.negY
     override def negXT(obj: QuadFill): QuadFill = obj.negX
     override def rotate90(obj: QuadFill): QuadFill = obj.rotate90

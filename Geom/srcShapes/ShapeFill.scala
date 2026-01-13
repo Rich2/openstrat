@@ -58,8 +58,8 @@ object ShapeFill
   /** implicit [[Prolign]] type class instance / evidence for [[ShapeFill]]. */
   given prolignEv: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 
-  /** implicit [[TransAxes]] type class instance / evidence for [[ShapeFill]]. */
-  given transAxesEv: TransAxes[ShapeFill] = new TransAxes[ShapeFill]
+  /** implicit [[MirrorAxes]] type class instance / evidence for [[ShapeFill]]. */
+  given transAxesEv: MirrorAxes[ShapeFill] = new MirrorAxes[ShapeFill]
   { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
     override def rotate90(obj: ShapeFill): ShapeFill = obj.rotate90

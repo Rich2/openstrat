@@ -309,7 +309,7 @@ object Pt2
   given XYScaleEv: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   given reflectEv: Mirror[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.mirror(lineLike)
 
-  given reflectAxesEv: TransAxes[Pt2] = new TransAxes[Pt2]
+  given reflectAxesEv: MirrorAxes[Pt2] = new MirrorAxes[Pt2]
   { override def negYT(obj: Pt2): Pt2 = obj.negY
     override def negXT(obj: Pt2): Pt2 = obj.negX
     override def rotate90(obj: Pt2): Pt2 = obj.rotate90

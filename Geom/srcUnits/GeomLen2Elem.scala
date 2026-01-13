@@ -30,7 +30,7 @@ trait GeomLen2Elem extends Any
 }
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
- * are translate [[SlateXY]], [[Scale]] and negX and negY, the [[TransAxes]], transformations. */
+ * are translate [[SlateXY]], [[Scale]] and negX and negY, the [[MirrorAxes]], transformations. */
 trait ProlignLen2Preserve extends Any, GeomLen2Elem
 { /** The most narrow type preserved in some 2d geometric transformations. */
   type ThisT <: ProlignLen2Preserve

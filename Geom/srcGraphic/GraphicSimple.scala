@@ -43,8 +43,8 @@ object GraphicSimple
   /** Implicit [[Prolign]] type class instance / evidence for [[GraphicSimple]]. */
   given prolignEv: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
   
-  /** Implicit [[TransAxes]] type class instance / evidence for [[GraphicSimple]]. */
-  given transAxesEv: TransAxes[GraphicSimple] = new TransAxes[GraphicSimple]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[GraphicSimple]]. */
+  given transAxesEv: MirrorAxes[GraphicSimple] = new MirrorAxes[GraphicSimple]
   { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
     override def rotate90(obj: GraphicSimple): GraphicSimple = obj.rotate90

@@ -154,8 +154,8 @@ object Circle extends ShapeIcon
   /** Implicit [[Prolign]] type class instance / evidence for [[Circle]] */
   given prolignEv: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Circle]] */
-  given transAxesEv: TransAxes[Circle] = new TransAxes[Circle]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Circle]] */
+  given transAxesEv: MirrorAxes[Circle] = new MirrorAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
     override def rotate90(obj: Circle): Circle = obj.rotate90
@@ -163,12 +163,13 @@ object Circle extends ShapeIcon
     override def rotate270(obj: Circle): Circle = obj.rotate270
   }
 
+  /** Implicit [[Drawing]] type class instance / evidence for [[Circle]] */
   given drawingEv: Drawing[Circle, CircleDraw] = (obj, lw, col) => obj.draw(lw, col)
 
-  override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
-
   /** [[Filling]] type class instance / evidence for [[Circle]] and [[CircleFill]] */
-  val fillerEv: Filling[Circle, CircleFill] = (obj, ff) => obj.fill(ff)
+  val fillingEv: Filling[Circle, CircleFill] = (obj, ff) => obj.fill(ff)
+
+  override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }
 
 /** A circle based Graphic, may be simple or compound. */
@@ -219,8 +220,7 @@ case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
 }
 
 /** Compound Circle Graphic class. */
-class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val children: RArr[Graphic2Elem]) extends
-  ShapeCompound, CircleGraphic, Simil2Elem
+class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val children: RArr[Graphic2Elem]) extends EllipseCompound, CircleGraphic, Simil2Elem
 {
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
@@ -275,20 +275,20 @@ object CircleCompound
     override def slateY(obj: CircleCompound, yOperand: Double): CircleCompound = obj.slateY(yOperand)
   }
 
-  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
+  /** Implicit [[Scale]] type class instance / evidence for [[CircleCompound]]. */
   given scaleEv: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
+  /** Implicit [[Rotate]] type class instance / evidence for [[CircleCompound]]. */
   given rotateEv: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[CircleCompound]]. */
   given prolignEv: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
-  given reflectEv: Mirror[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.mirror(lineLike)
+  /** Implicit [[Mirror]] type class instance / evidence for [[CircleCompound]]. */
+  given mirrorEv: Mirror[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.mirror(lineLike)
   
-  /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
-  given reflectAxesEv: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[CircleCompound]]. */
+  given mirrorAxesEv: MirrorAxes[CircleCompound] = new MirrorAxes[CircleCompound]
   { override def negYT(obj: CircleCompound): CircleCompound = obj.negY
     override def negXT(obj: CircleCompound): CircleCompound = obj.negX
     override def rotate90(obj: CircleCompound): CircleCompound = obj.rotate90

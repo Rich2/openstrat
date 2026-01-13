@@ -90,8 +90,8 @@ object ShapeSegs
   /** Implicit [[Mirror]] type class instance / evidence for [[ShapeSegs]]. */
   given ReflectEv: Mirror[ShapeSegs] = (obj, lineLike) => obj.mirror(lineLike)
   
-  /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeSegs]]. */
-  given transAxesEv: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[ShapeSegs]]. */
+  given transAxesEv: MirrorAxes[ShapeSegs] = new MirrorAxes[ShapeSegs]
   { override def negXT(obj: ShapeSegs): ShapeSegs = obj.negX
     override def negYT(obj: ShapeSegs): ShapeSegs = obj.negY
     override def rotate90(obj: ShapeSegs): ShapeSegs = obj.rotate90

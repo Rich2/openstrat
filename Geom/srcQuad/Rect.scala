@@ -170,8 +170,8 @@ object Rect
   /** Implicit [[Prolign]] type class instance / evidence for [[Rect]]. */
   given prolignEv: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Rect]]. */
-  given transAxesEv: TransAxes[Rect] = new TransAxes[Rect]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Rect]]. */
+  given transAxesEv: MirrorAxes[Rect] = new MirrorAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
     override def negXT(obj: Rect): Rect = obj.negX
     override def rotate90(obj: Rect): Rect = obj.rotate90

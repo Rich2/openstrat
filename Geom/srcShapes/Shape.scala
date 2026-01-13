@@ -73,8 +73,8 @@ object Shape
   /** Implicit [[ScaleXY]] type class instance / evidence for [[Shape]] */
   given scaleXYEv: ScaleXY[Shape] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Shape]] */
-  given transAxesEv: TransAxes[Shape] = new TransAxes[Shape]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Shape]] */
+  given transAxesEv: MirrorAxes[Shape] = new MirrorAxes[Shape]
   { override def negYT(obj: Shape): Shape = obj.negY
     override def negXT(obj: Shape): Shape = obj.negX
     override def rotate90(obj: Shape): Shape = obj.rotate90

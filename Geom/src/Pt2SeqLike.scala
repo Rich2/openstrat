@@ -97,7 +97,7 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
   given XYScaleEv: ScaleXY[Pt2Arr] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   given reflectEv: Mirror[Pt2Arr] = (obj: Pt2Arr, lineLike: LineLike) => obj.mirror(lineLike)
 
-  given reflectAxesEv: TransAxes[Pt2Arr] = new TransAxes[Pt2Arr]
+  given reflectAxesEv: MirrorAxes[Pt2Arr] = new MirrorAxes[Pt2Arr]
   { override def negYT(obj: Pt2Arr): Pt2Arr = obj.negY
     override def negXT(obj: Pt2Arr): Pt2Arr = obj.negX
     override def rotate90(obj: Pt2Arr): Pt2Arr = obj.rotate90

@@ -53,8 +53,8 @@ object PolygonGenArr
   /** Implicit [[Mirror]] type class instance / evidence for [[PolygonGenArr]]. */
   given reflectEv: Mirror[PolygonGenArr] = (obj: PolygonGenArr, lineLike: LineLike) => obj.map(_.mirror(lineLike))
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonGenArr]]. */
-  given transAxesEv: TransAxes[PolygonGenArr] = new TransAxes[PolygonGenArr]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonGenArr]]. */
+  given transAxesEv: MirrorAxes[PolygonGenArr] = new MirrorAxes[PolygonGenArr]
   { override def negXT(obj: PolygonGenArr): PolygonGenArr = obj.negX
     override def negYT(obj: PolygonGenArr): PolygonGenArr = obj.negY
     override def rotate90(obj: PolygonGenArr): PolygonGenArr = obj.rotate90

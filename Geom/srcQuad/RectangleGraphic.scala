@@ -94,8 +94,8 @@ object RectangleFill
   /** Implicit [[Prolign]] type class instance / evidence for [[RectangleFill]]. */
   given prolignEv: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)
   
-  /** Implicit [[TransAxes]] type class instance / evidence for [[RectangleFill]]. */
-  given transAxesEv: TransAxes[RectangleFill] = new TransAxes[RectangleFill]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[RectangleFill]]. */
+  given transAxesEv: MirrorAxes[RectangleFill] = new MirrorAxes[RectangleFill]
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
     override def rotate90(obj: RectangleFill): RectangleFill = obj.rotate90

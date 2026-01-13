@@ -151,8 +151,8 @@ object Rectangle
   /** Implicit [[Mirror]] type class instance evidence for [[Rectangle]]. */
   given reflectEv: Mirror[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.mirror(lineLike)
 
-  /** Implicit [[TransAxes]] type class instance evidence for [[Rectangle]]. */
-  given transAxesEv: TransAxes[Rectangle] = new TransAxes[Rectangle]
+  /** Implicit [[MirrorAxes]] type class instance evidence for [[Rectangle]]. */
+  given transAxesEv: MirrorAxes[Rectangle] = new MirrorAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
     override def rotate90(obj: Rectangle): Rectangle = obj.rotate90

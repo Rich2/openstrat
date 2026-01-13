@@ -63,8 +63,8 @@ object ShapeGraphic
   /** [[Prolign]] type class instance / evidence for [[ShapeGraphic]]. */
   given prolignEv: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-  /** [[TransAxes]] type class instance / evidence for [[ShapeGraphic]]. */
-  given transAxesEv: TransAxes[ShapeGraphic] = new TransAxes[ShapeGraphic]
+  /** [[MirrorAxes]] type class instance / evidence for [[ShapeGraphic]]. */
+  given transAxesEv: MirrorAxes[ShapeGraphic] = new MirrorAxes[ShapeGraphic]
   { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
     override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
     override def rotate90(obj: ShapeGraphic): ShapeGraphic = obj.rotate90

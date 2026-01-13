@@ -72,8 +72,8 @@ object CurveSeg
   /** Implicit [[Refelect]] type class instance for [[CurveSeg]]. */
   given ReflectEv: Mirror[CurveSeg] = (obj, lineLike) => obj.mirror(lineLike)
   
-  /** Implicit [[TransAxes]] type class instance for [[CurveSeg]]. */
-  given transAxesEv: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
+  /** Implicit [[MirrorAxes]] type class instance for [[CurveSeg]]. */
+  given transAxesEv: MirrorAxes[CurveSeg] = new MirrorAxes[CurveSeg]
   { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
     override def negXT(obj: CurveSeg): CurveSeg = obj.negX
     override def rotate90(obj: CurveSeg): CurveSeg = obj.rotate90

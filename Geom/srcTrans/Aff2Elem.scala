@@ -65,8 +65,8 @@ object Aff2Elem
   /** Implicit [[Mirror]] type class instance / evidence for [[Aff2Elem]]. */
   given MirrorEv: Mirror[Aff2Elem] = (obj, lineLike) => obj.mirror(lineLike)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Aff2Elem]]. */
-  given transAxesEv: TransAxes[Aff2Elem] = new TransAxes[Aff2Elem]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Aff2Elem]]. */
+  given transAxesEv: MirrorAxes[Aff2Elem] = new MirrorAxes[Aff2Elem]
   { override def negYT(obj: Aff2Elem): Aff2Elem = obj.negY
     override def negXT(obj: Aff2Elem): Aff2Elem = obj.negX
     override def rotate90(obj: Aff2Elem): Aff2Elem = obj.rotate90

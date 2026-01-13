@@ -52,8 +52,8 @@ object ShapeGen
   /** Implicit [[Mirror]] type class instance / evidence for [[ShapeGen]]. */
   given ReflectEv: Mirror[ShapeGen] = (obj, lineLike) => obj.mirror(lineLike)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[ShapeGen]]. */
-  given transAxesEv: TransAxes[ShapeGen] = new TransAxes[ShapeGen]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[ShapeGen]]. */
+  given transAxesEv: MirrorAxes[ShapeGen] = new MirrorAxes[ShapeGen]
   { override def negXT(obj: ShapeGen): ShapeGen = obj.negX
     override def negYT(obj: ShapeGen): ShapeGen = obj.negY
     override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90

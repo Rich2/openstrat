@@ -2,37 +2,29 @@
 package ostrat; package geom
 import reflect.ClassTag
 
-/** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate type class to [[TransAxes]], as
+/** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate type class to [[MirrorAxes]], as
  * these transformations may preserve types that ReflectAxisOffset's transformations can not. */
-trait TransAxes[T]
+trait MirrorAxes[T]
 { /** Reflect, mirror an object of type T across the X axis, by negating Y. */
   def negYT(obj: T): T
 
   /** Reflect, mirror an object of type T across the Y axis by negating X. */
   def negXT(obj: T): T
 
-  /** Rotate an object of type T by positive 90 degrees or in an anti clockwise direction. */
+  /** Rotate an object of type T by positive 90 degrees or in an anti-clockwise direction. */
   def rotate90(obj: T): T
 
-  /** Rotate an object of type T by 180 degrees or in an anti clockwise direction. */
+  /** Rotate an object of type T by 180 degrees or in an anti-clockwise direction. */
   def rotate180(obj: T): T
 
   /** Rotate an object of type T by positive 270 degrees or in an anti-clockwise direction. */
   def rotate270(obj: T): T
 }
 
-/** Companion object for the [[TransAxes]] type class trait, contains instances for common container objects including Functor instances. */
-object TransAxes
-{
-  given transAlignerEv[T <: SimilarPreserve]: TransAxes[T] = new TransAxes[T]
-  { override def negYT(obj: T): T = obj.negY.asInstanceOf[T]
-    override def negXT(obj: T): T = obj.negX.asInstanceOf[T]
-    override def rotate90(obj: T): T = obj.rotate90.asInstanceOf[T]
-    override def rotate180(obj: T): T = obj.rotate180.asInstanceOf[T]
-    override def rotate270(obj: T): T = obj.rotate270.asInstanceOf[T]
-  }
-
-  given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
+/** Companion object for the [[MirrorAxes]] type class trait, contains instances for common container objects including Functor instances. */
+object MirrorAxes
+{ /** [[MirrorAxes]] type class instances / evidence for [[Arr]]s. */
+  given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], evA: MirrorAxes[A]): MirrorAxes[AA] = new MirrorAxes[AA]
   { override def negYT(obj: AA): AA = obj.map(evA.negYT(_))
     override def negXT(obj: AA): AA = obj.map(evA.negXT(_))
     override def rotate90(obj: AA): AA = obj.map(evA.rotate90)
@@ -40,7 +32,8 @@ object TransAxes
     override def rotate270(obj: AA): AA = obj.map(evA.rotate270)
   }
 
-  given functorEv[A, F[_]](using evF: Functor[F], evA: TransAxes[A]): TransAxes[F[A]] = new TransAxes[F[A]]
+  /** [[MirrorAxes]] type class instances / evidence for [[Functor]]s. */
+  given functorEv[A, F[_]](using evF: Functor[F], evA: MirrorAxes[A]): MirrorAxes[F[A]] = new MirrorAxes[F[A]]
   { override def negYT(obj: F[A]): F[A] = evF.mapT(obj, evA.negYT(_))
     override def negXT(obj: F[A]): F[A] = evF.mapT(obj, evA.negXT(_))
     override def rotate90(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate90)
@@ -48,7 +41,8 @@ object TransAxes
     override def rotate270(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate270)
   }
 
-  given arrayEv[A](using ct: ClassTag[A], ev: TransAxes[A]): TransAxes[Array[A]] = new TransAxes[Array[A]]
+  /** [[MirrorAxes]] type class instances / evidence for [[Array]]s. */
+  given arrayEv[A](using ct: ClassTag[A], ev: MirrorAxes[A]): MirrorAxes[Array[A]] = new MirrorAxes[Array[A]]
   { override def negYT(obj: Array[A]): Array[A] = obj.map(ev.negYT(_))
     override def negXT(obj: Array[A]): Array[A] = obj.map(ev.negXT(_))
     override def rotate90(obj: Array[A]): Array[A] = obj.map(ev.rotate90)
@@ -57,8 +51,8 @@ object TransAxes
   }
 }
 
-/** Extension methods for [[TransAxes]] type class. */
-extension[T](thisT: T)(using ev: TransAxes[T])
+/** Extension methods for [[MirrorAxes]] type class. */
+extension[T](thisT: T)(using ev: MirrorAxes[T])
 { @inline def negY: T = ev.negYT(thisT)
   @inline def negX: T = ev.negXT(thisT)
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
@@ -69,8 +63,8 @@ extension[T](thisT: T)(using ev: TransAxes[T])
   def rotateQuadrants(using ct: ClassTag[T]): RArr[T] = RArr(thisT, rotate270, rotate180, rotate90)
 }
 
-/** Extension class for types that fulfill the type class interface for [[TransAxes]] and [[SlateXY]]. */
-class TransAxesSlateExtensions[T](thisT: T)(using evR: TransAxes[T], evS: Slate2[T])
+/** Extension class for types that fulfill the type class interface for [[MirrorAxes]] and [[SlateXY]]. */
+class TransAxesSlateExtensions[T](thisT: T)(using evR: MirrorAxes[T], evS: Slate2[T])
 {
   /** Reflect across a line parallel to the X axis. */
   def reflectXParallel(yValue: Double): T =

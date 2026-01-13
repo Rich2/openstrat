@@ -52,8 +52,8 @@ object Graphic2Elem
   /** Implicit [[Mirror]] type class instance / evidence for [[Graphic2Elem]]. */
   given ReflectEv: Mirror[Graphic2Elem] = (obj, lineLike) => obj.mirror(lineLike)
   
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Graphic2Elem]]. */
-  given transAxesEv: TransAxes[Graphic2Elem] = new TransAxes[Graphic2Elem]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Graphic2Elem]]. */
+  given transAxesEv: MirrorAxes[Graphic2Elem] = new MirrorAxes[Graphic2Elem]
   { override def negYT(obj: Graphic2Elem): Graphic2Elem = obj.negY
     override def negXT(obj: Graphic2Elem): Graphic2Elem = obj.negX
     override def rotate90(obj: Graphic2Elem): Graphic2Elem = obj.rotate90
@@ -112,8 +112,8 @@ object CanvElem
   /** Implicit [[Mirror]] type class instance / evidence for [[CanvElem]]. */
   given ReflectEv: Mirror[CanvElem] = (obj, lineLike) => obj.mirror(lineLike)
   
-  /** Implicit [[TransAxes]] type class instance / evidence for [[CanvElem]]. */
-  given transAxisEv: TransAxes[CanvElem] = new TransAxes[CanvElem]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[CanvElem]]. */
+  given transAxisEv: MirrorAxes[CanvElem] = new MirrorAxes[CanvElem]
   { override def negYT(obj: CanvElem): CanvElem = obj.negY
     override def negXT(obj: CanvElem): CanvElem = obj.negX
     override def rotate90(obj: CanvElem): CanvElem = obj.rotate90

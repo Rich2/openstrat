@@ -59,8 +59,8 @@ object Fillable
   /** [[Mirror]] type class instance / evidence for [[Fillable]]. */
   given ReflectEv: Mirror[Fillable] = (obj, lineLike) => obj.mirror(lineLike)
 
-  /** [[TransAxes]] type class instance / evidence for [[Fillable]]. */
-  given transAxesEv: TransAxes[Fillable] = new TransAxes[Fillable]
+  /** [[MirrorAxes]] type class instance / evidence for [[Fillable]]. */
+  given transAxesEv: MirrorAxes[Fillable] = new MirrorAxes[Fillable]
   { override def negYT(obj: Fillable): Fillable = obj.negY
     override def negXT(obj: Fillable): Fillable = obj.negX
     override def rotate90(obj: Fillable): Fillable = obj.rotate90

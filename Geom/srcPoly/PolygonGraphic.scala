@@ -70,8 +70,8 @@ object PolygonGraphic
   /** Implicit [[Prolign]] type class instance / evidence for [[PolygonGraphic]]. */
   given prolignEv: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
   
-  /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonGraphic]]. */
-  given transAxesEv: TransAxes[PolygonGraphic] = new TransAxes[PolygonGraphic]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonGraphic]]. */
+  given transAxesEv: MirrorAxes[PolygonGraphic] = new MirrorAxes[PolygonGraphic]
   { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
     override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
     override def rotate90(obj: PolygonGraphic): PolygonGraphic = obj.rotate90
@@ -117,8 +117,8 @@ object PolygonGraphicSimple
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonGraphicSimple]]. */
   given scaleEv: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonGraphicSimple]]. */
-  given transAxesEv: TransAxes[PolygonGraphicSimple] = new TransAxes[PolygonGraphicSimple]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonGraphicSimple]]. */
+  given transAxesEv: MirrorAxes[PolygonGraphicSimple] = new MirrorAxes[PolygonGraphicSimple]
   { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
     override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
     override def rotate90(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate90
@@ -185,8 +185,8 @@ object PolygonDraw
   /** Implicit [[ScaleXY]] type class instance / evidence for [[PolygonDraw]]. */
   given scaleXYEv: ScaleXY[PolygonDraw] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonDraw]]. */
-  given transAxesEv: TransAxes[PolygonDraw] = new TransAxes[PolygonDraw]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonDraw]]. */
+  given transAxesEv: MirrorAxes[PolygonDraw] = new MirrorAxes[PolygonDraw]
   { override def negXT(obj: PolygonDraw): PolygonDraw = obj.negX
     override def negYT(obj: PolygonDraw): PolygonDraw = obj.negY
     override def rotate90(obj: PolygonDraw): PolygonDraw = obj.rotate90
@@ -258,8 +258,8 @@ object PolygonFill
   /** Implicit [[ScaleXY]] type class instance / evidence for [[PolygonFill]]. */
   given scaleXYEv: ScaleXY[PolygonFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[PolygonFill]]. */
-  given transAxesEv: TransAxes[PolygonFill] = new TransAxes[PolygonFill]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonFill]]. */
+  given transAxesEv: MirrorAxes[PolygonFill] = new MirrorAxes[PolygonFill]
   { override def negXT(obj: PolygonFill): PolygonFill = obj.negX
     override def negYT(obj: PolygonFill): PolygonFill = obj.negY
     override def rotate90(obj: PolygonFill): PolygonFill = obj.rotate90
@@ -390,7 +390,7 @@ object PolygonCompound
   given reflectEv: Mirror[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.mirror(lineLike)
 
   /** Implicit [[RefelctAxes]] type class instance evidence for [[PolygonCompound]]. */
-  given reflectAxesEv: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
+  given reflectAxesEv: MirrorAxes[PolygonCompound] = new MirrorAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX
     override def rotate90(obj: PolygonCompound): PolygonCompound = obj.rotate90

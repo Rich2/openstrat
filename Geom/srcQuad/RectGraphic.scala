@@ -157,7 +157,7 @@ object RectCompound
   given prolignEv: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[TransAxed]] type class instance / evidence for [[RectCompound]]. */
-  given transAxesEv: TransAxes[RectCompound] = new TransAxes[RectCompound]
+  given transAxesEv: MirrorAxes[RectCompound] = new MirrorAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
     override def rotate90(obj: RectCompound): RectCompound = obj.rotate90

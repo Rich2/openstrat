@@ -392,8 +392,8 @@ object Polygon
   /** Implicit [[Mirror]] type class instance / evidence for [[Polygon]]. */
   given reflectEv: Mirror[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.mirror(lineLike)
 
-  /** Implicit [[TransAxes]] type class instance / evidence for [[Polygon]]. */
-  given transAxesEv: TransAxes[Polygon] = new TransAxes[Polygon]
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[Polygon]]. */
+  given transAxesEv: MirrorAxes[Polygon] = new MirrorAxes[Polygon]
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
     override def rotate90(obj: Polygon): Polygon = obj.rotate90

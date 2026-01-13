@@ -60,8 +60,8 @@ object Drawable
   /** [[Mirror]] type class instance / evidence for [[Drawable]]. */
   given ReflectEv: Mirror[Drawable] = (obj, lineLike) => obj.mirror(lineLike)
 
-  /** [[TransAxes]] type class instance / evidence for [[Drawable]]. */
-  given transAxesEv: TransAxes[Drawable] = new TransAxes[Drawable]
+  /** [[MirrorAxes]] type class instance / evidence for [[Drawable]]. */
+  given transAxesEv: MirrorAxes[Drawable] = new MirrorAxes[Drawable]
   { override def negYT(obj: Drawable): Drawable = obj.negY
     override def negXT(obj: Drawable): Drawable = obj.negX
     override def rotate90(obj: Drawable): Drawable = obj.rotate90
