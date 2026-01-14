@@ -65,6 +65,9 @@ trait Length extends Any, Ordered[Length], LengthBased
 
   /** Converts this [[Length]] to [[Metres]]. */
   def toKiloMetres: Kilometres = Kilometres(kilometresNum)
+  
+  /** Returns the [[Area]] of the square of this length. */
+  def squared: Area = this * this
 }
 
 object Length

@@ -3,10 +3,16 @@ package ostrat; package geom
 import impunits.*
 
 /** Extension methods class for [[Double]], for the geom package. */
-class GeomDoubleExtensions(thisDouble: Double)
+implicit class GeomDoubleExtensions(thisDouble: Double)
 { /** Extension methods multiplies this scalar [[Double]] by the operand [[Length]]. If you want a more precise return type such as [[Netres]] or [[Miles]] put
    * the [[Length]] object first. */
   @inline def * (operator: Length): Length = operator * thisDouble
+
+  /** Extension method multiplies the operator [[Area]] by this [[Double]]. */
+  inline def * (operator: Area): Area = operator * thisDouble
+
+  /** Extension method multiplies the operator [[AreaMetric]] by this scalar [[Double]]. */
+  inline def * (operator: AreaMetric): AreaMetric = operator * thisDouble
 
   /** Returns this [[Double]] value in [[Femtometres]]. */
   @inline def femtometres: Femtometres = Femtometres(thisDouble)

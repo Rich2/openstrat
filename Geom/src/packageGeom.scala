@@ -68,14 +68,11 @@ package object geom
 
   /** The Earths equatorial radius 6378.137 km. */
   val EarthEquatorialRadius: Metres = 6378137.metres
-
-
+  
   val EarthAvDiameter: Metres = 12742000.metres
   val EarthAvRadius: Metres = EarthAvDiameter / 2
   type GraphicElems = RArr[Graphic2Elem]
-
-  implicit def doubleToImplicitGeom(thisDouble: Double): GeomDoubleExtensions = new GeomDoubleExtensions(thisDouble)
-
+  
   implicit class AnyGeomImplicit(thisAny: Any)
   { /** Creates a [[TextFixed]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
     def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle):

@@ -4,7 +4,12 @@ import impunits.*
 
 /** Extension methods class for [[Int]], for the geom package. */
 extension(thisInt: Int)
-{ /** Returns this [[Int]] value in [[Femtometres]]. */
+{ /** Extension method multiplies the operator [[Area]] by this [[Int]]. */
+  inline def *(operator: Area): Area = operator * thisInt
+
+  /** Extension method multiplies the operator [[AreaMetric]] by this scalar [[Int]]. */
+  inline def *(operator: AreaMetric): AreaMetric = operator * thisInt
+  /** Returns this [[Int]] value in [[Femtometres]]. */
   @inline def femtometres: Femtometres = Femtometres(thisInt)
 
   /** Returns this [[Int]] value in [[Picometres]]. */

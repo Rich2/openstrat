@@ -7,7 +7,7 @@ import pParse.*
 trait MetricUnits extends Any
 
 /** A metric measurement of [[Length]] such as [[Metres]] or the [[Kilometres]] */
-trait LengthMetric extends Any with Length with MetricUnits with TellDblBased
+trait LengthMetric extends Any, Length, MetricUnits, TellDblBased
 { override def +(operand: Length): LengthMetric
   override def -(operand: Length): LengthMetric
   override def toRectArea(operand: Length): AreaMetric
@@ -21,12 +21,14 @@ trait LengthMetric extends Any with Length with MetricUnits with TellDblBased
   override def unary_- : LengthMetric
   override def *(operand: Double): LengthMetric
   override def /(operand: Double): LengthMetric
+  override def squared: AreaMetric = this * this
 }
 
 object LengthMetric
 {
-  implicit class LengthMetricExtensions(thisLength: LengthMetric)
-  { def * (operand: LengthMetric): AreaMetric = thisLength.toRectArea(operand)
+  extension(thisLength: LengthMetric)
+  { /** Extension method on this [[LengthMetric]] returns the area of the [[Rectangle]] made with the operand [[Length]]. */
+    def * (operand: LengthMetric): AreaMetric = thisLength.toRectArea(operand)
   }
 }
 
