@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pspace
-import geom._, Colour._
+import geom.*, Colour.*
 
 /** Solar System body includes the Sun, the Planets, Dwarf planets and their moons. */
 sealed trait SSBody extends Coloured
@@ -9,6 +9,7 @@ sealed trait SSBody extends Coloured
 
   override def toString = name
   def colour: Colour = White
+  def radius: LengthMetric
 }
 
 /** The Sun or a body that directly orbits the Sun. */
@@ -24,4 +25,5 @@ trait Planet extends SSPrimaryBody
 object Sun extends SSPrimaryBody
 { override val name: String = "Sun"
   override def colour: Colour = Yellow
+  override def radius: LengthMetric = 695700.kilometres
 }
