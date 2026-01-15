@@ -28,7 +28,7 @@ object TomcatPage extends HtmlPageInput
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "14"
+  val tcMinorVer: String = "15"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "mywebsite.com"
