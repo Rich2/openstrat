@@ -4,7 +4,16 @@ import impunits.*
 
 /** Extension methods class for [[Int]], for the geom package. */
 extension(thisInt: Int)
-{ /** Extension method multiplies the operator [[Area]] by this [[Int]]. */
+{ /** Extension methods multiplies the operand [[Length]] by this [[Int]]. */
+  @inline def *(operator: Length): Length = operator * thisInt
+
+  /** Extension methods multiplies the operand [[LengthMetric]] by this [[Int]]. */
+  @inline def *(operator: LengthMetric): LengthMetric = operator * thisInt
+
+  /** Extension methods multiplies the operand [[Metres]] by this [[Int]]. */
+  @inline def *(operator: Metres): Metres = operator * thisInt
+
+  /** Extension method multiplies the operator [[Area]] by this [[Int]]. */
   inline def *(operator: Area): Area = operator * thisInt
 
   /** Extension method multiplies the operator [[AreaMetric]] by this scalar [[Int]]. */
@@ -53,10 +62,6 @@ extension(thisInt: Int)
   
   /** Returns this [[Int]] value in [[Kilares]], Kilometre². [[kilares]] follows the same naming convention as [[Hectares]]. */
   @inline def kilares: Kilares = Kilares(thisInt)
-  
-  /** Extension methods multiplies this scalar [[Int]] by the operand [[Length]]. If you want a more precise return type such as [[Metres]] or [[Miles]] put the
-   * [[Length]] object first. */
-  @inline def * (operator: Length): Length = operator * thisInt
 
   /** Returns this [[Int]] value in [[Miles]]. */
   @inline def miles: Miles = Miles(thisInt)
