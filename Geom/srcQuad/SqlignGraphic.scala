@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, pgui.*, Colour.Black
+import Colour.Black
 
 /** Graphic based on a [[Square]] aligned to the X and Y axes. */
 trait SqlignGraphic extends RectGraphic, SquareGraphic
@@ -65,13 +65,8 @@ object SqlignFill
 
 /** A compound graphic based on a [[Sqlign]]. Can only execute limited geometric transformations, that preserve the [[Sqlign]] shape. Hence, it does not extend
  * [[SquareCompound]] or [[RectCompound]]. */
-class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val children: GraphicElems) extends
-  SqlignGraphic, RectCompound
-{ //def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
-  override def svgInline: SvgSvgRel = ???
-  override def svgElems: RArr[SvgOwnLine] = ???
-//  override def rendToCanvas(cp: CanvasPlatform): Unit = ???
-  override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, children.slate(operand))
+class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val children: GraphicElems) extends SqlignGraphic, RectCompound, SquareCompound
+{ override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, children.slate(operand))
 
   override def slate(xOperand: Double, yOperand: Double): SqlignCompound =
     SqlignCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
@@ -90,11 +85,15 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
   override def rotate180: SqlignCompound = SqlignCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: SqlignCompound = SqlignCompound(shape.rotate270, facets, children.rotate270)
   override def prolign(matrix: AxlignMatrix): SqlignCompound = SqlignCompound(shape.prolign(matrix), facets, children.prolign(matrix))
+  override def scaleXY(xOperand: Double, yOperand: Double): SqlignCompound = ???
 }
 
 object SqlignCompound
-{
+{ /** Factory apply method to create a [[Sqlign]] based compound graphic. There is an apply name overlord that takes the facets as repeat parameters and the
+   * children as repeat parameters in a second parameter list. */
   def apply(shape: Sqlign, facets: RArr[GraphicFacet], children: GraphicElems = RArr()): SqlignCompound = new SqlignCompound(shape, facets, children)
 
+  /** Factory apply method to create a [[Sqlign]] based compound graphic. There is an apply name overlord that takes the facets and children as [[RArr]]s in a
+   * single parameter list. */
   def apply(shape: Sqlign, facets: GraphicFacet*)(children: Graphic2Elem*): SqlignCompound = new SqlignCompound(shape, facets.toRArr, children.toRArr)
 }

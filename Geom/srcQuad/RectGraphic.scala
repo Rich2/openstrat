@@ -149,7 +149,7 @@ object RectCompound
   }
   /** [[Scale]] type class instance / evidence for [[RectCompound]]. */
   given scaleEv: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
-  
+
   /** [[ScaleXY]] type class instance / evidence for [[RectCompound]]. */
   given scaleXYEv: ScaleXY[RectCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   

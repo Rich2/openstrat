@@ -129,7 +129,14 @@ trait RectangleCompound extends QuadCompound, RectangleGraphic
   
   override def slate(xOperand: Double, yOperand: Double): RectangleCompound =
     RectangleCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
-  
+
+  override def slateFrom(operand: VecPt2): RectangleCompound = RectangleCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
+  override def slateFrom(xOperand: Double, yOperand: Double): RectangleCompound =
+    RectangleCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
+
+  override def slateX(xOperand: Double): RectangleCompound = RectangleCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): RectangleCompound = RectangleCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
   override def scale(operand: Double): RectangleCompound = RectangleCompound(shape.scale(operand), facets, children.scale(operand))
   override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.negX)
   override def negY: RectangleCompound = RectangleCompound(shape.negY, facets, children.negY)

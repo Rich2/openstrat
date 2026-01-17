@@ -60,7 +60,6 @@ object SquareDraw
 
   /** Immutable Graphic element that defines and draws a Polygon. */
   case class SquareDrawImp(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black) extends SquareDraw
- 
 }
 
 trait SquareFill extends SquareGraphicSimple, RectangleFill
@@ -101,5 +100,61 @@ object SquareFill
     override def rotate180: SquareFillGen = SquareFillGen(shape.rotate180, fillFacet)
     override def rotate270: SquareFillGen = SquareFillGen(shape.rotate180, fillFacet)
     override def prolign(matrix: AxlignMatrix): SquareFillGen = SquareFillGen(shape.prolign(matrix), fillFacet)
+  }
+}
+
+/** A compound graphic for squares. */
+trait SquareCompound extends RectangleCompound, SquareGraphic
+{ override def slate(operand: VecPt2): SquareCompound = SquareCompound(shape.slate(operand), facets, children.slate(operand))
+
+  override def slate(xOperand: Double, yOperand: Double): SquareCompound =
+    SquareCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+
+  override def slateFrom(xOperand: Double, yOperand: Double): SquareCompound =
+    SquareCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
+
+  override def slateX(xOperand: Double): SquareCompound = SquareCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): SquareCompound = SquareCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
+  override def slateFrom(operand: VecPt2): SquareCompound = SquareCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
+  override def scale(operand: Double): SquareCompound = SquareCompound(shape.scale(operand), facets, children.scale(operand))
+  override def negX: SquareCompound = SquareCompound(shape.negX, facets, children.negX)
+  override def negY: SquareCompound = SquareCompound(shape.negY, facets, children.negY)
+  override def prolign(matrix: AxlignMatrix): SquareCompound = SquareCompound(shape.prolign(matrix), facets, children.prolign(matrix))
+  override def rotate90: SquareCompound = ???
+  override def rotate(rotation: AngleVec): SquareCompound = SquareCompound(shape.rotate(rotation), facets, children.rotate(rotation))
+  override def mirror(lineLike: LineLike): SquareCompound = ???
+  override def shearX(operand: Double): PolygonCompound = ???
+  override def shearY(operand: Double): PolygonCompound = ???
+}
+
+/** Companion object for SquareCompound. Contains the [[SquareCompound.SquareCompoundGen]] implementation class for the general case of Squares and
+ * an apply factor method that delegates to it. */
+object SquareCompound
+{ /** Factory apply method to construct a [[SquareCompound]]. */
+  def apply(shape: Square, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) : SquareCompound =
+    new SquareCompoundGen(shape, facets, children)
+
+  /** Implementation class for the general case of [[SquareCompound]]. */
+  case class SquareCompoundGen(shape: Square, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends SquareCompound, AxisFree
+  { override type ThisT = SquareCompoundGen
+    override def slate(operand: VecPt2): SquareCompoundGen = SquareCompoundGen(shape.slate(operand), facets, children.slate(operand))
+
+    override def slate(xOperand: Double, yOperand: Double): SquareCompoundGen =
+      SquareCompoundGen(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+
+    override def slateFrom(operand: VecPt2): SquareCompoundGen = SquareCompoundGen(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
+    override def slateFrom(xOperand: Double, yOperand: Double): SquareCompoundGen =
+      SquareCompoundGen(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
+
+    override def slateX(xOperand: Double): SquareCompoundGen = SquareCompoundGen(shape.slateX(xOperand), facets, children.slateX(xOperand))
+    override def slateY(yOperand: Double): SquareCompoundGen = SquareCompoundGen(shape.slateY(yOperand), facets, children.slateY(yOperand))
+    override def scale(operand: Double): SquareCompoundGen = SquareCompoundGen(shape.scale(operand), facets, children.scale(operand))
+    override def prolign(matrix: AxlignMatrix): SquareCompoundGen = SquareCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))
+    override def rotate(rotation: AngleVec): SquareCompoundGen = SquareCompoundGen(shape.rotate(rotation), facets, children.rotate(rotation))
+    override def mirror(lineLike: LineLike): SquareCompoundGen = ???
+    override def scaleXY(xOperand: Double, yOperand: Double): SquareCompoundGen = ???
+    override def shearX(operand: Double): PolygonCompound = ???
+    override def shearY(operand: Double): PolygonCompound = ???
   }
 }
