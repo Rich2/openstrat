@@ -59,42 +59,42 @@ class SqlignFill(val shape: Sqlign, val fillFacet: FillFacet) extends SqlignGrap
 }
 
 object SqlignFill
-{
+{ /** Factory apply method to create a [[Sqlign]] fill graphic. */
   def apply(shape: Sqlign, fillFacet: FillFacet): SqlignFill = new SqlignFill(shape, fillFacet)
 }
 
 /** A compound graphic based on a [[Sqlign]]. Can only execute limited geometric transformations, that preserve the [[Sqlign]] shape. Hence, it does not extend
  * [[SquareCompound]] or [[RectCompound]]. */
-class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val childs: RArr[Sqlign => GraphicElems], val adopted: GraphicElems) extends
-  SqlignGraphic, ParentGraphic2[Sqlign]
-{ def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
-  override def attribs: RArr[XAtt] = ???
+class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val children: GraphicElems) extends
+  SqlignGraphic, RectCompound
+{ //def children: RArr[Graphic2Elem] = childs.flatMap(ch => ch(shape)) ++ adopted
   override def svgInline: SvgSvgRel = ???
   override def svgElems: RArr[SvgOwnLine] = ???
-  override def rendToCanvas(cp: CanvasPlatform): Unit = ???
-  override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, childs, children.slate(operand))
+//  override def rendToCanvas(cp: CanvasPlatform): Unit = ???
+  override def slate(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slate(operand), facets, children.slate(operand))
 
   override def slate(xOperand: Double, yOperand: Double): SqlignCompound =
-    SqlignCompound(shape.slate(xOperand, yOperand), facets, childs, children.slate(xOperand, yOperand))
+    SqlignCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
-  override def slateFrom(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slateFrom(operand), facets, childs, children.slateFrom(operand))
+  override def slateFrom(operand: VecPt2): SqlignCompound = SqlignCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
 
   override def slateFrom(xOperand: Double, yOperand: Double): SqlignCompound =
-    SqlignCompound(shape.slateFrom(xOperand, yOperand), facets, childs, children.slateFrom(xOperand, yOperand))  
+    SqlignCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
 
-  override def slateX(xOperand: Double): SqlignCompound = SqlignCompound(shape.slateX(xOperand), facets, childs, children.slateX(xOperand))
-  override def slateY(yOperand: Double): SqlignCompound = SqlignCompound(shape.slateY(yOperand), facets, childs, children.slateY(yOperand))
-  override def scale(operand: Double): SqlignCompound = SqlignCompound(shape.scale(operand), facets, childs, children.scale(operand))
-  override def negX: SqlignCompound = SqlignCompound(shape.negX, facets, childs, children.negX)
-  override def negY: SqlignCompound = SqlignCompound(shape.negY, facets, childs, children.negY)
-  override def rotate90: SqlignCompound = SqlignCompound(shape.rotate90, facets, childs, children.rotate90)
-  override def rotate180: SqlignCompound = SqlignCompound(shape.rotate180, facets, childs, children.rotate180)
-  override def rotate270: SqlignCompound = SqlignCompound(shape.rotate270, facets, childs, children.rotate270)
-  override def prolign(matrix: AxlignMatrix): SqlignCompound = SqlignCompound(shape.prolign(matrix), facets, childs, children.prolign(matrix))
+  override def slateX(xOperand: Double): SqlignCompound = SqlignCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
+  override def slateY(yOperand: Double): SqlignCompound = SqlignCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
+  override def scale(operand: Double): SqlignCompound = SqlignCompound(shape.scale(operand), facets, children.scale(operand))
+  override def negX: SqlignCompound = SqlignCompound(shape.negX, facets, children.negX)
+  override def negY: SqlignCompound = SqlignCompound(shape.negY, facets, children.negY)
+  override def rotate90: SqlignCompound = SqlignCompound(shape.rotate90, facets, children.rotate90)
+  override def rotate180: SqlignCompound = SqlignCompound(shape.rotate180, facets, children.rotate180)
+  override def rotate270: SqlignCompound = SqlignCompound(shape.rotate270, facets, children.rotate270)
+  override def prolign(matrix: AxlignMatrix): SqlignCompound = SqlignCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 }
 
 object SqlignCompound
 {
-  def apply(shape: Sqlign, facets: RArr[GraphicFacet], childs: RArr[Sqlign => GraphicElems], adopted: GraphicElems = RArr()): SqlignCompound =
-    new SqlignCompound(shape, facets, childs, adopted)
+  def apply(shape: Sqlign, facets: RArr[GraphicFacet], children: GraphicElems = RArr()): SqlignCompound = new SqlignCompound(shape, facets, children)
+
+  def apply(shape: Sqlign, facets: GraphicFacet*)(children: Graphic2Elem*): SqlignCompound = new SqlignCompound(shape, facets.toRArr, children.toRArr)
 }

@@ -18,7 +18,8 @@ object LsSquares extends LessonStatic
   val c2 = Circle(50, 255, 200).fill(Yellow)
   val c3 = Sqlign(50, 200, 200).fill(Salmon)
 
-  val com1 = SqlignCompound(Sqlign(150, 200, 0), RArr(DrawFacet()), RArr(sh => RArr(sh.diags.draw())))
+  val sq1 = Sqlign(150, 200, 0)
+  val com1 = SqlignCompound(sq1, DrawFacet())(sq1.diags.draw())
 
   override def output: GraphicElems = RArr(s1, s2, s3, s4, s5, c1, c2, c3, com1)
 }
