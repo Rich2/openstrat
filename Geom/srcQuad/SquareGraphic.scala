@@ -16,6 +16,7 @@ trait SquareGraphic extends RectangleGraphic
   override def negX: SquareGraphic
 }
 
+/** Simple [[Square]] based graphic. */
 trait SquareGraphicSimple extends SquareGraphic, RectangleGraphicSimple
 { override def slate(operand: VecPt2): SquareGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): SquareGraphicSimple
@@ -55,11 +56,11 @@ trait SquareDraw extends RectangleDraw, SquareGraphicSimple
 
 /** Companion object for SquareDraw contains factory method and implementation class. */
 object SquareDraw
-{
-  def apply(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black): SquareDraw = SquareDrawImp(shape, lineWidth, lineColour)
+{ /** Factory apply method for [[Square]] draw graphic. */
+  def apply(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black): SquareDraw = SquareDrawGen(shape, lineWidth, lineColour)
 
   /** Immutable Graphic element that defines and draws a Polygon. */
-  case class SquareDrawImp(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black) extends SquareDraw
+  case class SquareDrawGen(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black) extends SquareDraw
 }
 
 trait SquareFill extends SquareGraphicSimple, RectangleFill
@@ -110,23 +111,26 @@ trait SquareCompound extends RectangleCompound, SquareGraphic
   override def slate(xOperand: Double, yOperand: Double): SquareCompound =
     SquareCompound(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
+  override def slateFrom(operand: VecPt2): SquareCompound = SquareCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
+
   override def slateFrom(xOperand: Double, yOperand: Double): SquareCompound =
     SquareCompound(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
 
   override def slateX(xOperand: Double): SquareCompound = SquareCompound(shape.slateX(xOperand), facets, children.slateX(xOperand))
   override def slateY(yOperand: Double): SquareCompound = SquareCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
-  override def slateFrom(operand: VecPt2): SquareCompound = SquareCompound(shape.slateFrom(operand), facets, children.slateFrom(operand))
   override def scale(operand: Double): SquareCompound = SquareCompound(shape.scale(operand), facets, children.scale(operand))
   override def negX: SquareCompound = SquareCompound(shape.negX, facets, children.negX)
   override def negY: SquareCompound = SquareCompound(shape.negY, facets, children.negY)
   override def prolign(matrix: AxlignMatrix): SquareCompound = SquareCompound(shape.prolign(matrix), facets, children.prolign(matrix))
-  override def rotate90: SquareCompound = ???
+  override def rotate90: SquareCompound = SquareCompound(shape.rotate90, facets, children.rotate90)
+  override def rotate180: SquareCompound = SquareCompound(shape.rotate180, facets, children.rotate180)
+  override def rotate270: SquareCompound = SquareCompound(shape.rotate270, facets, children.rotate270)
   override def rotate(rotation: AngleVec): SquareCompound = SquareCompound(shape.rotate(rotation), facets, children.rotate(rotation))
-  override def mirror(lineLike: LineLike): SquareCompound = ???
+  override def mirror(lineLike: LineLike): SquareCompound = SquareCompound(shape.mirror(lineLike), facets, children.mirror(lineLike))
 }
 
-/** Companion object for SquareCompound. Contains the [[SquareCompound.SquareCompoundGen]] implementation class for the general case of Squares and
- * an apply factor method that delegates to it. */
+/** Companion object for SquareCompound. Contains the [[SquareCompound.SquareCompoundGen]] implementation class for the general case of Squares and an apply
+ * factor method that delegates to it. */
 object SquareCompound
 { /** Factory apply method to construct a [[SquareCompound]]. */
   def apply(shape: Square, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) : SquareCompound =
@@ -150,6 +154,6 @@ object SquareCompound
     override def scale(operand: Double): SquareCompoundGen = SquareCompoundGen(shape.scale(operand), facets, children.scale(operand))
     override def prolign(matrix: AxlignMatrix): SquareCompoundGen = SquareCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(rotation: AngleVec): SquareCompoundGen = SquareCompoundGen(shape.rotate(rotation), facets, children.rotate(rotation))
-    override def mirror(lineLike: LineLike): SquareCompoundGen = ???
+    override def mirror(lineLike: LineLike): SquareCompoundGen = SquareCompoundGen(shape.mirror(lineLike), facets, children.mirror(lineLike))
   }
 }

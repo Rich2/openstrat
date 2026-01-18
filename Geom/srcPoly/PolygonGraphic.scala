@@ -193,10 +193,7 @@ object PolygonDraw
     override def rotate180(obj: PolygonDraw): PolygonDraw = obj.rotate180
     override def rotate270(obj: PolygonDraw): PolygonDraw = obj.rotate270
   }
-
-  /*given persistEv: Persist3[Polygon, Double, Colour, PolygonDraw] =
-    Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)*/
-
+  
   /** class for creating a [[DrawFacet]] graphic for the general case of [[Polygon]]. */
   case class PolygonDrawGen(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonDraw
   { override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)

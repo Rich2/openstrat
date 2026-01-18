@@ -2,12 +2,12 @@
 package ostrat; package geom
 import Colour.Black, pWeb.*
 
-/** A graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
+/** A graphic based on a [[Rect]], a rectangle aligned to the X and Y axes. */
 trait RectGraphic extends RectangleGraphic, ShapeGraphicOrdinaled
 { override def shape: Rect
 }
 
-/** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
+/** A simple non-compound graphic based on a [[Rect]], a rectangle aligned to the X and Y axes. */
 trait RectGraphicSimple extends RectGraphic, RectangleGraphicSimple
 { override def slate(operand: VecPt2): RectGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): RectGraphicSimple
@@ -69,35 +69,57 @@ trait RectFill extends RectGraphicSimple, RectangleFill
 
 /** Companion object for the RectFill trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
 object RectFill
-{ /** Factory method for RectFill. A rectangular Graphic aligned to the axes, filled with a single colour. it delegates to the [[RectFillImp]] implementation
+{ /** Factory method for RectFill. A rectangular Graphic aligned to the axes, filled with a single colour. it delegates to the [[RectFillGen]] implementation
    * class, but has a return type of RectFill. */
-  def apply(rect: Rect, fillFacet: FillFacet): RectFill = RectFillImp(rect, fillFacet)
+  def apply(rect: Rect, fillFacet: FillFacet): RectFill = RectFillGen(rect, fillFacet)
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[RectFill]]. */
+  given slate2Ev: Slate2[RectFill] = new Slate2[RectFill]
+  { override def slate(obj: RectFill, operand: VecPt2): RectFill = obj.slate(operand)
+    override def slateXY(obj: RectFill, xOperand: Double, yOperand: Double): RectFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: RectFill, operand: VecPt2): RectFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: RectFill, xOperand: Double, yOperand: Double): RectFill = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: RectFill, xOperand: Double): RectFill = obj.slateX(xOperand)
+    override def slateY(obj: RectFill, yOperand: Double): RectFill = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[RectFill]]. */
+  given scaleEv: Scale[RectFill] = (obj: RectFill, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[RectFill]]. */
+  given prolignEv: Prolign[RectFill] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[RectFill]]. */
+  given transAxesEv: MirrorAxes[RectFill] = new MirrorAxes[RectFill]
+  { override def negXT(obj: RectFill): RectFill = obj.negX
+    override def negYT(obj: RectFill): RectFill = obj.negY
+    override def rotate90(obj: RectFill): RectFill = obj.rotate90
+    override def rotate180(obj: RectFill): RectFill = obj.rotate180
+    override def rotate270(obj: RectFill): RectFill = obj.rotate270
+  }
 
   /** An implementation class for a [[RectFill]] that is not specified as a [[SquareFill]]. */
-  case class RectFillImp(shape: Rect, fillFacet: FillFacet) extends RectFill
-  { override type ThisT = RectFillImp
-    override def slate(operand: VecPt2): RectFillImp = RectFillImp(shape.slate(operand), fillFacet)
-    override def slate(xOperand: Double, yOperand: Double): RectFillImp = RectFillImp(shape.slate(xOperand, yOperand), fillFacet)
-    override def slateFrom(operand: VecPt2): RectFillImp = RectFillImp(shape.slateFrom(operand), fillFacet)
-    override def slateFrom(xOperand: Double, yOperand: Double): RectFillImp = RectFillImp(shape.slateFrom(xOperand, yOperand), fillFacet)
-    override def slateX(xOperand: Double): RectFillImp = RectFillImp(shape.slateX(xOperand), fillFacet)
-    override def slateY(yOperand: Double): RectFillImp = RectFillImp(shape.slateY(yOperand), fillFacet)
-    override def scale(operand: Double): RectFillImp = RectFillImp(shape.scale(operand), fillFacet)
-    override def negX: RectFillImp = RectFillImp(shape.negX, fillFacet)
-    override def negY: RectFillImp = RectFillImp(shape.negY, fillFacet)
-    override def rotate90: RectFillImp = RectFillImp(shape.rotate90, fillFacet)
-    override def rotate180: RectFillImp = RectFillImp(shape.rotate180, fillFacet)
-    override def rotate270: RectFillImp = RectFillImp(shape.rotate270, fillFacet)
-    override def prolign(matrix: AxlignMatrix): RectFillImp = RectFillImp(shape.prolign(matrix), fillFacet)
+  case class RectFillGen(shape: Rect, fillFacet: FillFacet) extends RectFill
+  { override type ThisT = RectFillGen
+    override def slate(operand: VecPt2): RectFillGen = RectFillGen(shape.slate(operand), fillFacet)
+    override def slate(xOperand: Double, yOperand: Double): RectFillGen = RectFillGen(shape.slate(xOperand, yOperand), fillFacet)
+    override def slateFrom(operand: VecPt2): RectFillGen = RectFillGen(shape.slateFrom(operand), fillFacet)
+    override def slateFrom(xOperand: Double, yOperand: Double): RectFillGen = RectFillGen(shape.slateFrom(xOperand, yOperand), fillFacet)
+    override def slateX(xOperand: Double): RectFillGen = RectFillGen(shape.slateX(xOperand), fillFacet)
+    override def slateY(yOperand: Double): RectFillGen = RectFillGen(shape.slateY(yOperand), fillFacet)
+    override def scale(operand: Double): RectFillGen = RectFillGen(shape.scale(operand), fillFacet)
+    override def negX: RectFillGen = RectFillGen(shape.negX, fillFacet)
+    override def negY: RectFillGen = RectFillGen(shape.negY, fillFacet)
+    override def rotate90: RectFillGen = RectFillGen(shape.rotate90, fillFacet)
+    override def rotate180: RectFillGen = RectFillGen(shape.rotate180, fillFacet)
+    override def rotate270: RectFillGen = RectFillGen(shape.rotate270, fillFacet)
+    override def prolign(matrix: AxlignMatrix): RectFillGen = RectFillGen(shape.prolign(matrix), fillFacet)
   }
 }
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
 trait RectCompound extends RectGraphic, RectangleCompound
 { override def shape: Rect
-
-  /*override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
-    attribs ++ facets.flatMap(_.attribs))*/
   override def mainSvgElem: SvgRect = SvgRect(attribs)
 
   override def slate(operand: VecPt2): RectCompound = RectCompound(shape.slate(operand), facets, children.slate(operand))
