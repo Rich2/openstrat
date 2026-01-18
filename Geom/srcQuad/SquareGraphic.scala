@@ -123,8 +123,6 @@ trait SquareCompound extends RectangleCompound, SquareGraphic
   override def rotate90: SquareCompound = ???
   override def rotate(rotation: AngleVec): SquareCompound = SquareCompound(shape.rotate(rotation), facets, children.rotate(rotation))
   override def mirror(lineLike: LineLike): SquareCompound = ???
-  override def shearX(operand: Double): PolygonCompound = ???
-  override def shearY(operand: Double): PolygonCompound = ???
 }
 
 /** Companion object for SquareCompound. Contains the [[SquareCompound.SquareCompoundGen]] implementation class for the general case of Squares and
@@ -153,8 +151,5 @@ object SquareCompound
     override def prolign(matrix: AxlignMatrix): SquareCompoundGen = SquareCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(rotation: AngleVec): SquareCompoundGen = SquareCompoundGen(shape.rotate(rotation), facets, children.rotate(rotation))
     override def mirror(lineLike: LineLike): SquareCompoundGen = ???
-    override def scaleXY(xOperand: Double, yOperand: Double): SquareCompoundGen = ???
-    override def shearX(operand: Double): PolygonCompound = ???
-    override def shearY(operand: Double): PolygonCompound = ???
   }
 }

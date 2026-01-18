@@ -141,12 +141,11 @@ trait RectangleCompound extends QuadCompound, RectangleGraphic
   override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.negX)
   override def negY: RectangleCompound = RectangleCompound(shape.negY, facets, children.negY)
   override def prolign(matrix: AxlignMatrix): RectangleCompound = RectangleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
-  override def rotate90: RectangleCompound = ???
+  override def rotate90: RectangleCompound = RectangleCompound(shape.rotate90, facets, children.rotate90)
+  override def rotate180: RectangleCompound = RectangleCompound(shape.rotate180, facets, children.rotate180)
+  override def rotate270: RectangleCompound = RectangleCompound(shape.rotate270, facets, children.rotate270)
   override def rotate(rotation: AngleVec): RectangleCompound = RectangleCompound(shape.rotate(rotation), facets, children.rotate(rotation))
   override def mirror(lineLike: LineLike): RectangleCompound = ???
-  override def scaleXY(xOperand: Double, yOperand: Double): RectangleCompound = ???
-  override def shearX(operand: Double): PolygonCompound = ???
-  override def shearY(operand: Double): PolygonCompound = ???
 }
 
 /** Companion object for RectangleCompound. Contains the [[RectangleCompound.RectangleCompoundImp]] implementation class for the general case of Rectangles and
@@ -173,8 +172,5 @@ object RectangleCompound
     override def prolign(matrix: AxlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
     override def rotate(rotation: AngleVec): RectangleCompoundImp = RectangleCompoundImp(shape.rotate(rotation), facets, children.rotate(rotation))
     override def mirror(lineLike: LineLike): RectangleCompoundImp = ???
-    override def scaleXY(xOperand: Double, yOperand: Double): RectangleCompoundImp = ???
-    override def shearX(operand: Double): PolygonCompound = ???
-    override def shearY(operand: Double): PolygonCompound = ???
   }
 }

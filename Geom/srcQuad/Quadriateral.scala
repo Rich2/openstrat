@@ -330,6 +330,9 @@ trait QuadCompound extends PolygonCompound, QuadGraphic
   override def slateY(yOperand: Double): QuadCompound = QuadCompound(shape.slateY(yOperand), facets, children.slateY(yOperand))
   override def scale(operand: Double): QuadCompound = QuadCompound(shape.scale(operand), facets, children.scale(operand))
   override def rotate(rotation: AngleVec): QuadCompound = QuadCompound(shape.rotate(rotation), facets, children.rotate(rotation))
+  override def scaleXY(xOperand: Double, yOperand: Double): QuadCompound = ???
+  override def shearX(operand: Double): QuadCompound = ???
+  override def shearY(operand: Double): QuadCompound = ???
 }
 
 object QuadCompound
