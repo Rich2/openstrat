@@ -37,16 +37,44 @@ trait RectDraw extends RectGraphicSimple, RectangleDraw
   override def rotate180: RectDraw = RectDraw(shape.rotate180, lineWidth, lineColour)
   override def rotate270: RectDraw = RectDraw(shape.rotate270, lineWidth, lineColour)
   override def prolign(matrix: AxlignMatrix): RectDraw = RectDraw(shape.prolign(matrix), lineWidth, lineColour)
+  override def scaleXY(xOperand: Double, yOperand: Double): RectDraw = RectDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
 }
 
 /** Companion object for the [[RectDraw]] trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
 object RectDraw
-{ /** Factory method for RectFill. A rectangular Graphic aligned to the axes, filled with a single colour. it delegates to the [[RectDrawImp]] implementation
+{ /** Factory method for RectFill. A rectangular Graphic aligned to the axes, filled with a single colour. it delegates to the [[RectDrawGen]] implementation
  * class, but has a return type of RectFill. */
-  def apply(rect: Rect, lineWidth: Double = 2, lineColour: Colour = Black): RectDraw = RectDrawImp(rect, lineWidth, lineColour)
+  def apply(rect: Rect, lineWidth: Double = 2, lineColour: Colour = Black): RectDraw = RectDrawGen(rect, lineWidth, lineColour)
 
+  /** Implicit [[Slate2]] type class instance / evidence for [[RectDraw]]. */
+  given slate2Ev: Slate2[RectDraw] = new Slate2[RectDraw]
+  { override def slate(obj: RectDraw, operand: VecPt2): RectDraw = obj.slate(operand)
+    override def slateXY(obj: RectDraw, xOperand: Double, yOperand: Double): RectDraw = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: RectDraw, operand: VecPt2): RectDraw = obj.slateFrom(operand)
+    override def slateFromXY(obj: RectDraw, xOperand: Double, yOperand: Double): RectDraw = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: RectDraw, xOperand: Double): RectDraw = obj.slateX(xOperand)
+    override def slateY(obj: RectDraw, yOperand: Double): RectDraw = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[RectDraw]]. */
+  given scaleEv: Scale[RectDraw] = (obj: RectDraw, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolgn]] type class instance / evidence for [[RectDraw]]. */
+  given prolignEv: Prolign[RectDraw] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[RectDraw]]. */
+  given scaleXYEv: ScaleXY[RectDraw] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[RectDraw]]. */
+  given transAxesEv: MirrorAxes[RectDraw] = new MirrorAxes[RectDraw]
+  { override def negXT(obj: RectDraw): RectDraw = obj.negX
+    override def negYT(obj: RectDraw): RectDraw = obj.negY
+    override def rotate90(obj: RectDraw): RectDraw = obj.rotate90
+    override def rotate180(obj: RectDraw): RectDraw = obj.rotate180
+    override def rotate270(obj: RectDraw): RectDraw = obj.rotate270
+  }
   /** An implementation class for a [[RectDraw]] that is not specified as a [[SquareDraw]]. */
-  case class RectDrawImp(shape: Rect, lineWidth: Double = 2, lineColour: Colour = Black) extends RectDraw
+  case class RectDrawGen(shape: Rect, lineWidth: Double = 2, lineColour: Colour = Black) extends RectDraw
 }
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
