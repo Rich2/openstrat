@@ -25,7 +25,7 @@ trait SqlignGraphicSimple extends RectGraphicSimple, SquareGraphicSimple, Sqlign
 }
 
 /** Graphic that draws a [[Sqlign]], a [[Square]] aligned to the X and Y axes. */
-case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour = Black)extends RectDraw, SquareDraw, SqlignGraphicSimple
+case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour = Black) extends RectDraw, SquareDraw, SqlignGraphicSimple
 { override def slate(operand: VecPt2): SqlignDraw = SqlignDraw(shape.slate(operand), lineWidth, lineColour)
   override def slate(xOperand: Double, yOperand: Double): SqlignDraw = SqlignDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): SqlignDraw = SqlignDraw(shape.slateFrom(operand), lineWidth, lineColour)
@@ -39,6 +39,34 @@ case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour 
   override def rotate180: SqlignDraw = SqlignDraw(shape.rotate180, lineWidth, lineColour)
   override def rotate270: SqlignDraw = SqlignDraw(shape.rotate270, lineWidth, lineColour)
   override def prolign(matrix: AxlignMatrix): SqlignDraw = SqlignDraw(shape.prolign(matrix), lineWidth, lineColour)
+}
+
+/** Companion object for the [[SqlignDraw]] trait, contains a SqlignFillImp implementation class and an apply method that delegates to it. */
+object SqlignDraw
+{ /** Implicit [[Slate2]] type class instance / evidence for [[SqlignDraw]]. */
+  given slate2Ev: Slate2[SqlignDraw] = new Slate2[SqlignDraw]
+  { override def slate(obj: SqlignDraw, operand: VecPt2): SqlignDraw = obj.slate(operand)
+    override def slateXY(obj: SqlignDraw, xOperand: Double, yOperand: Double): SqlignDraw = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: SqlignDraw, operand: VecPt2): SqlignDraw = obj.slateFrom(operand)
+    override def slateFromXY(obj: SqlignDraw, xOperand: Double, yOperand: Double): SqlignDraw = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: SqlignDraw, xOperand: Double): SqlignDraw = obj.slateX(xOperand)
+    override def slateY(obj: SqlignDraw, yOperand: Double): SqlignDraw = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[SqlignDraw]]. */
+  given scaleEv: Scale[SqlignDraw] = (obj: SqlignDraw, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolgn]] type class instance / evidence for [[SqlignDraw]]. */
+  given prolignEv: Prolign[SqlignDraw] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[SqlignDraw]]. */
+  given transAxesEv: MirrorAxes[SqlignDraw] = new MirrorAxes[SqlignDraw]
+  { override def negXT(obj: SqlignDraw): SqlignDraw = obj.negX
+    override def negYT(obj: SqlignDraw): SqlignDraw = obj.negY
+    override def rotate90(obj: SqlignDraw): SqlignDraw = obj.rotate90
+    override def rotate180(obj: SqlignDraw): SqlignDraw = obj.rotate180
+    override def rotate270(obj: SqlignDraw): SqlignDraw = obj.rotate270
+  }
 }
 
 /** A fill graphic for a square aligned to the X and Y axes. */

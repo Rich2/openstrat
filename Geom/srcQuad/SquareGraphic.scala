@@ -59,6 +59,33 @@ object SquareDraw
 { /** Factory apply method for [[Square]] draw graphic. */
   def apply(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black): SquareDraw = SquareDrawGen(shape, lineWidth, lineColour)
 
+  /** Implicit [[Slate2]] type class instance / evidence for [[SquareDraw]]. */
+  given slate2Ev: Slate2[SquareDraw] = new Slate2[SquareDraw]
+  { override def slate(obj: SquareDraw, operand: VecPt2): SquareDraw = obj.slate(operand)
+    override def slateXY(obj: SquareDraw, xOperand: Double, yOperand: Double): SquareDraw = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: SquareDraw, operand: VecPt2): SquareDraw = obj.slateFrom(operand)
+    override def slateFromXY(obj: SquareDraw, xOperand: Double, yOperand: Double): SquareDraw = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: SquareDraw, xOperand: Double): SquareDraw = obj.slateX(xOperand)
+    override def slateY(obj: SquareDraw, yOperand: Double): SquareDraw = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[SquareDraw]]. */
+  given scaleEv: Scale[SquareDraw] = (obj: SquareDraw, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolgn]] type class instance / evidence for [[SquareDraw]]. */
+  given prolignEv: Prolign[SquareDraw] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[SquareDraw]]. */
+  given rotateEv: Rotate[SquareDraw] = (obj: SquareDraw, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[SquareDraw]]. */
+  given transAxesEv: MirrorAxes[SquareDraw] = new MirrorAxes[SquareDraw]
+  { override def negXT(obj: SquareDraw): SquareDraw = obj.negX
+    override def negYT(obj: SquareDraw): SquareDraw = obj.negY
+    override def rotate90(obj: SquareDraw): SquareDraw = obj.rotate90
+    override def rotate180(obj: SquareDraw): SquareDraw = obj.rotate180
+    override def rotate270(obj: SquareDraw): SquareDraw = obj.rotate270
+  }
   /** Immutable Graphic element that defines and draws a Polygon. */
   case class SquareDrawGen(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black) extends SquareDraw
 }

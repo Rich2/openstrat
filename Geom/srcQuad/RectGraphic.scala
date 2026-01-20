@@ -73,6 +73,7 @@ object RectDraw
     override def rotate180(obj: RectDraw): RectDraw = obj.rotate180
     override def rotate270(obj: RectDraw): RectDraw = obj.rotate270
   }
+  
   /** An implementation class for a [[RectDraw]] that is not specified as a [[SquareDraw]]. */
   case class RectDrawGen(shape: Rect, lineWidth: Double = 2, lineColour: Colour = Black) extends RectDraw
 }

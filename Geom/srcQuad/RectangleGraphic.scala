@@ -26,6 +26,8 @@ trait RectangleDraw extends QuadDraw, RectangleGraphicSimple
   override def slate(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slate(xOperand, yOperand), lineWidth, lineColour)
   override def slateFrom(operand: VecPt2): RectangleDraw = RectangleDraw(shape.slateFrom(operand), lineWidth, lineColour)
   override def slateFrom(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.slateFrom(xOperand, yOperand), lineWidth, lineColour)
+  override def slateX(xOperand: Double): RectangleDraw = RectangleDraw(shape.slateX(xOperand), lineWidth, lineColour)
+  override def slateY(yOperand: Double): RectangleDraw = RectangleDraw(shape.slateY(yOperand), lineWidth, lineColour)
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
   override def negY: RectangleDraw = RectangleDraw(shape.negY, lineWidth, lineColour)
@@ -35,18 +37,44 @@ trait RectangleDraw extends QuadDraw, RectangleGraphicSimple
   override def prolign(matrix: AxlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
   override def rotate(rotation: AngleVec): RectangleDraw = RectangleDraw(shape.rotate(rotation), lineWidth, lineColour)
   override def mirror(lineLike: LineLike): RectangleDraw = RectangleDraw(shape.mirror(lineLike), lineWidth, lineColour)
-  override def scaleXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
 }
 
 /** Companion object for RectangleDraw contains factory method and implementation class. */
 object RectangleDraw
 {
-  def apply(shape: Rectangle, lineWidth: Double = 2, lineColour: Colour = Black): RectangleDraw = RectangleDrawImp(shape, lineWidth, lineColour)
+  def apply(shape: Rectangle, lineWidth: Double = 2, lineColour: Colour = Black): RectangleDraw = RectangleDrawGen(shape, lineWidth, lineColour)
 
-  /** Immutable Graphic element that defines and draws a Polygon. */
-  case class RectangleDrawImp(shape: Rectangle, lineWidth: Double = 2, lineColour: Colour = Black) extends RectangleDraw
-  {
-    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
+  /** Implicit [[Slate2]] type class instance / evidence for [[RectangleDraw]]. */
+  given slate2Ev: Slate2[RectangleDraw] = new Slate2[RectangleDraw]
+  { override def slate(obj: RectangleDraw, operand: VecPt2): RectangleDraw = obj.slate(operand)
+    override def slateXY(obj: RectangleDraw, xOperand: Double, yOperand: Double): RectangleDraw = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: RectangleDraw, operand: VecPt2): RectangleDraw = obj.slateFrom(operand)
+    override def slateFromXY(obj: RectangleDraw, xOperand: Double, yOperand: Double): RectangleDraw = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: RectangleDraw, xOperand: Double): RectangleDraw = obj.slateX(xOperand)
+    override def slateY(obj: RectangleDraw, yOperand: Double): RectangleDraw = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[RectangleDraw]]. */
+  given scaleEv: Scale[RectangleDraw] = (obj: RectangleDraw, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolgn]] type class instance / evidence for [[RectangleDraw]]. */
+  given prolignEv: Prolign[RectangleDraw] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[RectangleDraw]]. */
+  given rotateEv: Rotate[RectangleDraw] = (obj: RectangleDraw, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[RectangleDraw]]. */
+  given transAxesEv: MirrorAxes[RectangleDraw] = new MirrorAxes[RectangleDraw]
+  { override def negXT(obj: RectangleDraw): RectangleDraw = obj.negX
+    override def negYT(obj: RectangleDraw): RectangleDraw = obj.negY
+    override def rotate90(obj: RectangleDraw): RectangleDraw = obj.rotate90
+    override def rotate180(obj: RectangleDraw): RectangleDraw = obj.rotate180
+    override def rotate270(obj: RectangleDraw): RectangleDraw = obj.rotate270
+  }
+  
+  /** Implementation class for the general case pf [[Rectangle]] draw graphic. */
+  case class RectangleDrawGen(shape: Rectangle, lineWidth: Double = 2, lineColour: Colour = Black) extends RectangleDraw
+  { override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   }
 }
 
