@@ -89,6 +89,31 @@ class SqlignFill(val shape: Sqlign, val fillFacet: FillFacet) extends SqlignGrap
 object SqlignFill
 { /** Factory apply method to create a [[Sqlign]] fill graphic. */
   def apply(shape: Sqlign, fillFacet: FillFacet): SqlignFill = new SqlignFill(shape, fillFacet)
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[SqlignFill]]. */
+  given slate2Ev: Slate2[SqlignFill] = new Slate2[SqlignFill]
+  { override def slate(obj: SqlignFill, operand: VecPt2): SqlignFill = obj.slate(operand)
+    override def slateXY(obj: SqlignFill, xOperand: Double, yOperand: Double): SqlignFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: SqlignFill, operand: VecPt2): SqlignFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: SqlignFill, xOperand: Double, yOperand: Double): SqlignFill = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: SqlignFill, xOperand: Double): SqlignFill = obj.slateX(xOperand)
+    override def slateY(obj: SqlignFill, yOperand: Double): SqlignFill = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[SqlignFill]]. */
+  given scaleEv: Scale[SqlignFill] = (obj: SqlignFill, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[SqlignFill]]. */
+  given prolignEv: Prolign[SqlignFill] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[SqlignFill]]. */
+  given transAxesEv: MirrorAxes[SqlignFill] = new MirrorAxes[SqlignFill]
+  { override def negXT(obj: SqlignFill): SqlignFill = obj.negX
+    override def negYT(obj: SqlignFill): SqlignFill = obj.negY
+    override def rotate90(obj: SqlignFill): SqlignFill = obj.rotate90
+    override def rotate180(obj: SqlignFill): SqlignFill = obj.rotate180
+    override def rotate270(obj: SqlignFill): SqlignFill = obj.rotate270
+  }
 }
 
 /** A compound graphic based on a [[Sqlign]]. Can only execute limited geometric transformations, that preserve the [[Sqlign]] shape. Hence, it does not extend
@@ -113,7 +138,6 @@ class SqlignCompound(val shape: Sqlign, val facets: RArr[GraphicFacet], val chil
   override def rotate180: SqlignCompound = SqlignCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: SqlignCompound = SqlignCompound(shape.rotate270, facets, children.rotate270)
   override def prolign(matrix: AxlignMatrix): SqlignCompound = SqlignCompound(shape.prolign(matrix), facets, children.prolign(matrix))
-  override def scaleXY(xOperand: Double, yOperand: Double): SqlignCompound = ???
 }
 
 object SqlignCompound

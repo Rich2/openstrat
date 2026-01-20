@@ -90,6 +90,7 @@ object SquareDraw
   case class SquareDrawGen(shape: Square, lineWidth: Double = 2, lineColour: Colour = Black) extends SquareDraw
 }
 
+/** A [[Square]] fill graphic. */
 trait SquareFill extends SquareGraphicSimple, RectangleFill
 { override def slate(operand: VecPt2): SquareFill
   override def slate(xOperand: Double, yOperand: Double): SquareFill
@@ -111,6 +112,34 @@ trait SquareFill extends SquareGraphicSimple, RectangleFill
 object SquareFill
 { /** Factory apply method for the general case of [[SquareFill]]. Use [[SqlignFill]] for one aligned to the X and Y axes. */
   def apply(shape: Square, fillFacet: FillFacet): SquareFillGen = SquareFillGen(shape, fillFacet)
+
+  /** Implicit [[Slate2]] type class instance / evidence for [[SquareFill]]. */
+  given slate2Ev: Slate2[SquareFill] = new Slate2[SquareFill]
+  { override def slate(obj: SquareFill, operand: VecPt2): SquareFill = obj.slate(operand)
+    override def slateXY(obj: SquareFill, xOperand: Double, yOperand: Double): SquareFill = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: SquareFill, operand: VecPt2): SquareFill = obj.slateFrom(operand)
+    override def slateFromXY(obj: SquareFill, xOperand: Double, yOperand: Double): SquareFill = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: SquareFill, xOperand: Double): SquareFill = obj.slateX(xOperand)
+    override def slateY(obj: SquareFill, yOperand: Double): SquareFill = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance / evidence for [[SquareFill]]. */
+  given scaleEv: Scale[SquareFill] = (obj: SquareFill, operand: Double) => obj.scale(operand)
+
+  /** Implicit [[Rotate]] type class instance / evidence for [[SquareFill]]. */
+  given rotateEv: Rotate[SquareFill] = (obj: SquareFill, angle: AngleVec) => obj.rotate(angle)
+
+  /** Implicit [[Prolign]] type class instance / evidence for [[SquareFill]]. */
+  given prolignEv: Prolign[SquareFill] = (obj, matrix) => obj.prolign(matrix)
+
+  /** Implicit [[MirrorAxes]] type class instance / evidence for [[SquareFill]]. */
+  given transAxesEv: MirrorAxes[SquareFill] = new MirrorAxes[SquareFill]
+  { override def negYT(obj: SquareFill): SquareFill = obj.negY
+    override def negXT(obj: SquareFill): SquareFill = obj.negX
+    override def rotate90(obj: SquareFill): SquareFill = obj.rotate90
+    override def rotate180(obj: SquareFill): SquareFill = obj.rotate180
+    override def rotate270(obj: SquareFill): SquareFill = obj.rotate270
+  }
   
   /** Implementation for the general case of [[Square]] as opposed to the specific case of [[Squaren]]. */
   case class SquareFillGen(shape: Square, fillFacet: FillFacet) extends SquareFill

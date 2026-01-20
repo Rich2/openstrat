@@ -94,6 +94,7 @@ trait RectFill extends RectGraphicSimple, RectangleFill
   override def rotate180: RectFill
   override def rotate270: RectFill
   override def prolign(matrix: AxlignMatrix): RectFill
+  override def scaleXY(xOperand: Double, yOperand: Double): RectFill = RectFill(shape.scaleXY(xOperand, yOperand), fillFacet)
 }
 
 /** Companion object for the RectFill trait, contains a RectFillImp implementation class and an apply method that delegates to it. */
@@ -126,6 +127,9 @@ object RectFill
     override def rotate180(obj: RectFill): RectFill = obj.rotate180
     override def rotate270(obj: RectFill): RectFill = obj.rotate270
   }
+
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[RectFill]]. */
+  given scaleXYEv: ScaleXY[RectFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   /** An implementation class for a [[RectFill]] that is not specified as a [[SquareFill]]. */
   case class RectFillGen(shape: Rect, fillFacet: FillFacet) extends RectFill
@@ -185,9 +189,9 @@ trait RectCompound extends RectGraphic, RectangleCompound
 
 /** Companion object for the RectCompound trait, contains implicit instances for 2D geometric transformation type classes. */
 object RectCompound
-{
+{ /** Factory apply method for creating a compound [[Rect]] based graphic. */
   def apply(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): RectCompound =
-    RectCompoundImp(shape, facets, children)
+    RectCompoundGen(shape, facets, children)
 
   /** [[Slate2]] type class instance / evidence for [[RectCompound]]. */
   given slate2Ev: Slate2[RectCompound] = new Slate2[RectCompound]
@@ -216,5 +220,6 @@ object RectCompound
     override def rotate270(obj: RectCompound): RectCompound = obj.rotate270
   }
 
-  case class RectCompoundImp(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectCompound
+  /** Implementation class for the general case of a [[RectCompound]], as opposed to the special case of [[SqlignCompound]]. */
+  case class RectCompoundGen(shape: Rect, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectCompound
 }

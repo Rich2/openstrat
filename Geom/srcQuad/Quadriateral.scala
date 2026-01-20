@@ -235,8 +235,6 @@ object QuadDraw
 
   /** class for creating a [[DrawFacet]] graphic for the general case of [[Quad]]. */
   case class QuadDrawGen(shape: Quadrilateral, lineWidth: Double = 2, lineColour: Colour = Black) extends QuadDraw
-  { //override def rendToCanvas(cp: CanvasPlatform): Unit = cp.QuadDraw(this)
-  }
 }
 
 /** Graphic to fill a [[Quadrilateral]] with a single colour. */
@@ -295,6 +293,9 @@ object QuadFill
     override def rotate270(obj: QuadFill): QuadFill = obj.rotate270
   }
 
+  /** Implicit [[ScaleXY]] type class instance / evidence for [[QuadFill]]. */
+  given scaleXYEv: ScaleXY[QuadFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  
   /** Implementation class for the general case of a [[QuadFill]]. */
   case class QuadFillGen(shape: Quadrilateral, fillFacet: FillFacet) extends QuadFill
   { override def slate(operand: VecPt2): QuadFillGen = QuadFillGen(shape.slate(operand), fillFacet)
