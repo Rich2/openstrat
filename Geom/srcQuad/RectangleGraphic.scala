@@ -173,32 +173,32 @@ trait RectangleCompound extends QuadCompound, RectangleGraphic
   override def rotate180: RectangleCompound = RectangleCompound(shape.rotate180, facets, children.rotate180)
   override def rotate270: RectangleCompound = RectangleCompound(shape.rotate270, facets, children.rotate270)
   override def rotate(rotation: AngleVec): RectangleCompound = RectangleCompound(shape.rotate(rotation), facets, children.rotate(rotation))
-  override def mirror(lineLike: LineLike): RectangleCompound = ???
+  override def mirror(lineLike: LineLike): RectangleCompound = RectangleCompound(shape.mirror(lineLike), facets, children.mirror(lineLike))
 }
 
-/** Companion object for RectangleCompound. Contains the [[RectangleCompound.RectangleCompoundImp]] implementation class for the general case of Rectangles and
+/** Companion object for RectangleCompound. Contains the [[RectangleCompound.RectangleCompoundGen]] implementation class for the general case of Rectangles and
  * an apply factor method that delegates to it. */
 object RectangleCompound
 { /** Factory apply method to construct a [[RectangleCompound]]. */
   def apply(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) : RectangleCompound =
-    new RectangleCompoundImp(shape, facets, children)
+    new RectangleCompoundGen(shape, facets, children)
 
   /** Implementation class for the general case of [[RectangleCompound]]. */
-  case class RectangleCompoundImp(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectangleCompound, AxisFree
-  { override type ThisT = RectangleCompoundImp
-    override def slate(operand: VecPt2): RectangleCompoundImp = RectangleCompoundImp(shape.slate(operand), facets, children.slate(operand))
+  case class RectangleCompoundGen(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends RectangleCompound, AxisFree
+  { override type ThisT = RectangleCompoundGen
+    override def slate(operand: VecPt2): RectangleCompoundGen = RectangleCompoundGen(shape.slate(operand), facets, children.slate(operand))
     
-    override def slate(xOperand: Double, yOperand: Double): RectangleCompoundImp =
-      RectangleCompoundImp(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
+    override def slate(xOperand: Double, yOperand: Double): RectangleCompoundGen =
+      RectangleCompoundGen(shape.slate(xOperand, yOperand), facets, children.slate(xOperand, yOperand))
 
-    override def slateFrom(operand: VecPt2): RectangleCompoundImp = RectangleCompoundImp(shape.slateFrom(operand), facets, children.slateFrom(operand))
+    override def slateFrom(operand: VecPt2): RectangleCompoundGen = RectangleCompoundGen(shape.slateFrom(operand), facets, children.slateFrom(operand))
 
-    override def slateFrom(xOperand: Double, yOperand: Double): RectangleCompoundImp =
-      RectangleCompoundImp(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))   
+    override def slateFrom(xOperand: Double, yOperand: Double): RectangleCompoundGen =
+      RectangleCompoundGen(shape.slateFrom(xOperand, yOperand), facets, children.slateFrom(xOperand, yOperand))
     
-    override def scale(operand: Double): RectangleCompoundImp = RectangleCompoundImp(shape.scale(operand), facets, children.scale(operand))
-    override def prolign(matrix: AxlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
-    override def rotate(rotation: AngleVec): RectangleCompoundImp = RectangleCompoundImp(shape.rotate(rotation), facets, children.rotate(rotation))
-    override def mirror(lineLike: LineLike): RectangleCompoundImp = ???
+    override def scale(operand: Double): RectangleCompoundGen = RectangleCompoundGen(shape.scale(operand), facets, children.scale(operand))
+    override def prolign(matrix: AxlignMatrix): RectangleCompoundGen = RectangleCompoundGen(shape.prolign(matrix), facets, children.prolign(matrix))
+    override def rotate(rotation: AngleVec): RectangleCompoundGen = RectangleCompoundGen(shape.rotate(rotation), facets, children.rotate(rotation))
+    override def mirror(lineLike: LineLike): RectangleCompoundGen = RectangleCompoundGen(shape.mirror(lineLike), facets, children.mirror(lineLike))
   }
 }
