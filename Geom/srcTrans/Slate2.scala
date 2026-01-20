@@ -38,19 +38,17 @@ object Slate2Like
     override def slateY(obj: A, yOperand: Double): B = ev.slateY(obj, yOperand)
   }
 
-
   /** Implicit [[Slate]] instance / evidence for [[RArr]]. */
-  given rArrEv[A, B, ArrA <: Arr[A], ArrB <: Arr[B]](using evAB: Slate2Like[A, B], build: BuilderArrMap[B, ArrB]): Slate2Like[ArrA, ArrB] =
-    new Slate2Like[ArrA, ArrB]
-  { override def slate(obj: ArrA, operand: VecPt2): ArrB = obj.map(evAB.slate(_, operand))
-    override def slateXY(obj: ArrA, xOperand: Double, yOperand: Double): ArrB = obj.map(evAB.slateXY(_, xOperand, yOperand))
-    override def slateFrom(obj: ArrA, operand: VecPt2): ArrB = obj.map(evAB.slateFrom(_, operand))
-    override def slateFromXY(obj: ArrA, xOperand: Double, yOperand: Double): ArrB = obj.map(evAB.slateFromXY(_, xOperand, yOperand))
-    override def slateX(obj: ArrA, xOperand: Double): ArrB = obj.map(evAB.slateX(_, xOperand))
-    override def slateY(obj: ArrA, yOperand: Double): ArrB = obj.map(evAB.slateY(_, yOperand))
+  given rArrEv[A, B](using evAB: Slate2Like[A, B], ctB: ClassTag[B]): Slate2Like[RArr[A], RArr[B]] = new Slate2Like[RArr[A], RArr[B]]
+  { override def slate(obj: RArr[A], operand: VecPt2): RArr[B] = obj.map(evAB.slate(_, operand))
+    override def slateXY(obj: RArr[A], xOperand: Double, yOperand: Double): RArr[B] = obj.map(evAB.slateXY(_, xOperand, yOperand))
+    override def slateFrom(obj: RArr[A], operand: VecPt2): RArr[B] = obj.map(evAB.slateFrom(_, operand))
+    override def slateFromXY(obj: RArr[A], xOperand: Double, yOperand: Double): RArr[B] = obj.map(evAB.slateFromXY(_, xOperand, yOperand))
+    override def slateX(obj: RArr[A], xOperand: Double): RArr[B] = obj.map(evAB.slateX(_, xOperand))
+    override def slateY(obj: RArr[A], yOperand: Double): RArr[B] = obj.map(evAB.slateY(_, yOperand))
   }
 
-  /*given transSimerEv[T <: SimilarPreserve]: Slate2[T] = new Slate2[T] {
+  given transSimerEv[T <: SimilarPreserve]: Slate2[T] = new Slate2[T] {
     override def slate(obj: T, operand: VecPt2): T = obj.slate(operand).asInstanceOf[T]
 
     override def slateXY(obj: T, xOperand: Double, yOperand: Double): T = obj.slate(xOperand, yOperand).asInstanceOf[T]
@@ -62,37 +60,38 @@ object Slate2Like
     override def slateX(obj: T, xOperand: Double): T = obj.slateX(xOperand).asInstanceOf[T]
 
     override def slateY(obj: T, yOperand: Double): T = obj.slateY(yOperand).asInstanceOf[T]
-  }*/
+  }
+
+  /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  given functorEv[F[_], A, B](using evAB: Slate2Like[A, B], evF: Functor[F]): Slate2Like[F[A], F[B]] = new Slate2Like[F[A], F[B]]
+  { override def slate(obj: F[A], operand: VecPt2): F[B] = evF.mapT(obj, evAB.slate(_, operand))
+    override def slateXY(obj: F[A], xOperand: Double, yOperand: Double): F[B] = evF.mapT(obj, evAB.slateXY(_, xOperand, yOperand))
+    override def slateFrom(obj: F[A], operand: VecPt2): F[B] = evF.mapT(obj, evAB.slateFrom(_, operand))
+    override def slateFromXY(obj: F[A], xOperand: Double, yOperand: Double): F[B] = evF.mapT(obj, evAB.slateFromXY(_, xOperand, yOperand))
+    override def slateX(obj: F[A], xOperand: Double): F[B] = evF.mapT(obj, evAB.slateX(_, xOperand))
+    override def slateY(obj: F[A], yOperand: Double): F[B] = evF.mapT(obj, evAB.slateY(_, yOperand))
+  }
+
+  /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
+  given arrayEv[A, B](using ev: Slate2Like[A, B], ct: ClassTag[B]): Slate2Like[Array[A], Array[B]] = new Slate2Like[Array[A], Array[B]]
+  { override def slate(obj: Array[A], operand: VecPt2): Array[B] = obj.map(ev.slate(_, operand))
+    override def slateXY(obj: Array[A], xOperand: Double, yOperand: Double): Array[B] = obj.map(ev.slateXY(_, xOperand, yOperand))
+    override def slateFrom(obj: Array[A], operand: VecPt2): Array[B] = obj.map(ev.slateFrom(_, operand))
+    override def slateFromXY(obj: Array[A], xOperand: Double, yOperand: Double): Array[B] = obj.map(ev.slateFromXY(_, xOperand, yOperand))
+    override def slateX(obj: Array[A], xOperand: Double): Array[B] = obj.map(ev.slateX(_, xOperand))
+    override def slateY(obj: Array[A], yOperand: Double): Array[B] = obj.map(ev.slateY(_, yOperand))
+  }
 }
 
 /** Type class for translate 2-dimensional vector transformations. Each transformation method has been given its own Type class and associated extension class.
  * Different sets of transformations can then be combined. */
 trait Slate2[A] extends Slate2Like[A, A]
-{
-}
 
 /** Companion object for the [[Slate2]] type class. Contains implicit instances for collections and other container classes. */
 object Slate2
 {
-  /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
-  given functorEv[A, F[_]](using evF: Functor[F], evA: Slate2[A]): Slate2[F[A]] = new Slate2[F[A]]
-  { override def slate(obj: F[A], operand: VecPt2): F[A] = evF.mapT(obj, evA.slate(_, operand))    
-    override def slateXY(obj: F[A], xOperand: Double, yOperand: Double): F[A] = evF.mapT(obj, evA.slateXY(_, xOperand, yOperand))      
-    override def slateFrom(obj: F[A], operand: VecPt2): F[A] = evF.mapT(obj, evA.slateFrom(_, operand))
-    override def slateFromXY(obj: F[A], xOperand: Double, yOperand: Double): F[A] = evF.mapT(obj, evA.slateFromXY(_, xOperand, yOperand))
-    override def slateX(obj: F[A], xOperand: Double): F[A] = evF.mapT(obj, evA.slateX(_, xOperand))
-    override def slateY(obj: F[A], yOperand: Double): F[A] = evF.mapT(obj, evA.slateY(_, yOperand))
-  }
 
-  /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
-  given arrayEv[A](using ct: ClassTag[A], ev: Slate2[A]): Slate2[Array[A]] = new Slate2[Array[A]]
-  { override def slate(obj: Array[A], operand: VecPt2): Array[A] = obj.map(ev.slate(_, operand))
-    override def slateXY(obj: Array[A], xOperand: Double, yOperand: Double): Array[A] = obj.map(ev.slateXY(_, xOperand, yOperand))
-    override def slateFrom(obj: Array[A], operand: VecPt2): Array[A] = obj.map(ev.slateFrom(_, operand))
-    override def slateFromXY(obj: Array[A], xOperand: Double, yOperand: Double): Array[A] = obj.map(ev.slateFromXY(_, xOperand, yOperand))
-    override def slateX(obj: Array[A], xOperand: Double): Array[A] = obj.map(ev.slateX(_, xOperand))
-    override def slateY(obj: Array[A], yOperand: Double): Array[A] = obj.map(ev.slateY(_, yOperand))
-  }
+
 }
 
 /** Extension class for instances of the Slate type class. */

@@ -165,7 +165,7 @@ object Iraq extends Flag
       BezierTail(-0.3889, 0.2542, -0.3877, 0.2574, -0.385, 0.2591), BezierTail(-0.3842, 0.2519, -0.3797, 0.2449, -0.3798, 0.2393),
       LineTail(-0.4041, 0.2393), LineTail(-0.4041, 0.3121), LineTail(-0.4041, 0.312)).fill(Colour(0xFF007a3d))
     ).scale(2.18978)
-    val stuff2 = stuff.map(_.slate(0.892, -0.595))
+    val stuff2 = stuff.slate(0.892, -0.595)
     topToBottom(Colour(0xFFce1126), White, Black) ++ stuff2
   }
 }
