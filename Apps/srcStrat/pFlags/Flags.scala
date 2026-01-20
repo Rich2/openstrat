@@ -124,7 +124,7 @@ object Iraq extends Flag
 { val name = "Iraq"
   val ratio = 1.5
   def apply(): GraphicElems =
-  { topToBottom(Colour(0xFFce1126), White, Black) ++ RArr(
+  { val stuff = RArr(
     ShapeGenOld(LineTail(-0.34, 0.2997), BezierTail(-0.3409, 0.3002, -0.3419, 0.301, -0.3423, 0.3015),
       BezierTail(-0.3428, 0.3022, -0.3425, 0.3022, -0.3403, 0.3016), BezierTail(-0.3365, 0.3006, -0.334, 0.301, -0.3315, 0.3031),
       LineTail(-0.3293, 0.3049), LineTail(-0.3268, 0.3036), BezierTail(-0.3254, 0.3029, -0.3239, 0.3024, -0.3234, 0.3025),
@@ -164,7 +164,9 @@ object Iraq extends Flag
       BezierTail(-0.3922, 0.3033, -0.394, 0.3025, -0.3945, 0.3003), LineTail(-0.3945, 0.2554),
       BezierTail(-0.3889, 0.2542, -0.3877, 0.2574, -0.385, 0.2591), BezierTail(-0.3842, 0.2519, -0.3797, 0.2449, -0.3798, 0.2393),
       LineTail(-0.4041, 0.2393), LineTail(-0.4041, 0.3121), LineTail(-0.4041, 0.312)).fill(Colour(0xFF007a3d))
-  ).scale(2.18978).slate(0.892, -0.595)
+    ).scale(2.18978)
+    val stuff2 = stuff.map(_.slate(0.892, -0.595))
+    topToBottom(Colour(0xFFce1126), White, Black) ++ stuff2
   }
 }
 

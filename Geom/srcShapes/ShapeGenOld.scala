@@ -111,6 +111,28 @@ object ShapeGenOld extends CompanionSlDbl7[CurveTailOld, ShapeGenOld]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   override def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
 
+  given slateEv: Slate2[ShapeGenOld] = new Slate2[ShapeGenOld] {
+    /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
+    override def slate(obj: ShapeGenOld, operand: VecPt2): ShapeGenOld = ???
+
+    /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
+     * the implementation of this method will delegate to the object itself. */
+    override def slateXY(obj: ShapeGenOld, xOperand: Double, yOperand: Double): ShapeGenOld = ???
+
+    /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
+    override def slateFrom(obj: ShapeGenOld, operand: VecPt2): ShapeGenOld = ???
+
+    /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
+     * the implementation of this method will delegate to the object itself. */
+    override def slateFromXY(obj: ShapeGenOld, xOperand: Double, yOperand: Double): ShapeGenOld = ???
+
+    /** Translate 2D geometric transformation along the X axis, on an object of type T, returning an object of type T. */
+    override def slateX(obj: ShapeGenOld, xOperand: Double): ShapeGenOld = ???
+
+    /** Translate 2D geometric transformation along the Y axis, on an object of type T, returning an object of type T. */
+    override def slateY(obj: ShapeGenOld, yOperand: Double): ShapeGenOld = ???
+  }
+
   /** Implicit [[Rotate]] type class instance / evidence for [[ShapeGenOld]]. */
   given rotateEv: Rotate[ShapeGenOld] = (obj, av) => obj.rotate(av)
 }

@@ -13,17 +13,17 @@ trait RotateLike[A, B]
 
 object RotateLike
 { /** [[Functor]] type class instances / evidence for [[RotateLike]]. */
-  given functorEv[F[_], A, B](using evF: Functor[F], evA: RotateLike[A, B]): RotateLike[F[A], F[B]] = (obj, op) => evF.mapT(obj, evA.rotateT(_, op))
+  given functorEv[F[_], A, B](using evF: Functor[F], evAB: RotateLike[A, B]): RotateLike[F[A], F[B]] = (obj, op) => evF.mapT(obj, evAB.rotateT(_, op))
 
   /** [[Arr]] type class instances / evidence for [[RotateLike]]. */
-  given arrEv[A, B, ArrA <: Arr[A], ArrB <: Arr[B]](using evA: RotateLike[A, B], build: BuilderArrMap[B, ArrB]): RotateLike[ArrA, ArrB] =
-    (obj, op) => obj.map(evA.rotateT(_, op))
+  given arrEv[A, B, ArrA <: Arr[A], ArrB <: Arr[B]](using evAB: RotateLike[A, B], build: BuilderArrMap[B, ArrB]): RotateLike[ArrA, ArrB] =
+    (obj, op) => obj.map(evAB.rotateT(_, op))
 
   /** [[Array]] type class instances / evidence for [[RotateLike]]. */
-  given arrayEv[A, B](using ct: ClassTag[B], ev: RotateLike[A, B]): RotateLike[Array[A], Array[B]] = (obj, radians) => obj.map(ev.rotateT(_, radians))
+  given arrayEv[A, B](using ct: ClassTag[B], evAB: RotateLike[A, B]): RotateLike[Array[A], Array[B]] = (obj, radians) => obj.map(evAB.rotateT(_, radians))
 
   /** Subtype type class instances / evidence for [[RotateLike]]. */
-  given subTypesEv[A, B >: A](using ev: Rotate[B]): RotateLike[A, B] = (obj, op) => ev.rotateT(obj, op)
+  given subTypesEv[A, B >: A](using evB: Rotate[B]): RotateLike[A, B] = (obj, op) => evB.rotateT(obj, op)
 }
 
 /** Type class for 2D geometric rotation transformations of objects where the type of the object is maintained. Normally the [[RotateLike]] instances that you

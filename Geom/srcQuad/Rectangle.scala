@@ -159,13 +159,10 @@ object Rectangle
     override def rotate270(obj: Rectangle): Rectangle = obj.rotate270
   }
 
-  given transSimilarEv: Similar2Trans[Rectangle] = new Similar2Trans[Rectangle] {
-    override def reflectT(obj: Rectangle, line: LineLike): Rectangle = ???
-
+  given transSimilarEv: Similar2Trans[Rectangle] = new Similar2Trans[Rectangle]
+  { override def reflectT(obj: Rectangle, line: LineLike): Rectangle = ???
     override def rotate(obj: Rectangle, angle: AngleVec): Rectangle = obj.rotate(angle)
-
     override def slate(obj: Rectangle, offset: VecPt2): Rectangle = obj.slate(offset)
-
     override def scale(obj: Rectangle, operand: Double): Rectangle = ???
   }
 
