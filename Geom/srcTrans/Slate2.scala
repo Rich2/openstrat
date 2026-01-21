@@ -28,17 +28,7 @@ trait Slate2Like[A, B]
 }
 
 object Slate2Like
-{ /** Subtype type class instances / evidence for [[Slate2Like]]. */
-  given subTypesEv[A, B >: A](using ev: Slate2[B]): Slate2Like[A, B] = new Slate2Like[A, B]
-  { override def slate(obj: A, operand: VecPt2): B = ev.slate(obj, operand)
-    override def slateXY(obj: A, xOperand: Double, yOperand: Double): B = ev.slateXY(obj, xOperand, yOperand)
-    override def slateFrom(obj: A, operand: VecPt2): B = ev.slateFrom(obj, operand)
-    override def slateFromXY(obj: A, xOperand: Double, yOperand: Double): B = ev.slateFromXY(obj, xOperand, yOperand)
-    override def slateX(obj: A, xOperand: Double): B = ev.slateX(obj, xOperand)
-    override def slateY(obj: A, yOperand: Double): B = ev.slateY(obj, yOperand)
-  }
-
-  /** Implicit [[Slate]] instance / evidence for [[RArr]]. */
+{ /** Implicit [[Slate]] instance / evidence for [[RArr]]. */
   given rArrEv[A, B](using evAB: Slate2Like[A, B], ctB: ClassTag[B]): Slate2Like[RArr[A], RArr[B]] = new Slate2Like[RArr[A], RArr[B]]
   { override def slate(obj: RArr[A], operand: VecPt2): RArr[B] = obj.map(evAB.slate(_, operand))
     override def slateXY(obj: RArr[A], xOperand: Double, yOperand: Double): RArr[B] = obj.map(evAB.slateXY(_, xOperand, yOperand))
@@ -46,20 +36,6 @@ object Slate2Like
     override def slateFromXY(obj: RArr[A], xOperand: Double, yOperand: Double): RArr[B] = obj.map(evAB.slateFromXY(_, xOperand, yOperand))
     override def slateX(obj: RArr[A], xOperand: Double): RArr[B] = obj.map(evAB.slateX(_, xOperand))
     override def slateY(obj: RArr[A], yOperand: Double): RArr[B] = obj.map(evAB.slateY(_, yOperand))
-  }
-
-  given transSimerEv[T <: SimilarPreserve]: Slate2[T] = new Slate2[T] {
-    override def slate(obj: T, operand: VecPt2): T = obj.slate(operand).asInstanceOf[T]
-
-    override def slateXY(obj: T, xOperand: Double, yOperand: Double): T = obj.slate(xOperand, yOperand).asInstanceOf[T]
-
-    override def slateFrom(obj: T, operand: VecPt2): T = obj.slateFrom(operand).asInstanceOf[T]
-
-    override def slateFromXY(obj: T, xOperand: Double, yOperand: Double): T = obj.slateFrom(xOperand, yOperand).asInstanceOf[T]
-
-    override def slateX(obj: T, xOperand: Double): T = obj.slateX(xOperand).asInstanceOf[T]
-
-    override def slateY(obj: T, yOperand: Double): T = obj.slateY(yOperand).asInstanceOf[T]
   }
 
   /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
@@ -80,6 +56,16 @@ object Slate2Like
     override def slateFromXY(obj: Array[A], xOperand: Double, yOperand: Double): Array[B] = obj.map(ev.slateFromXY(_, xOperand, yOperand))
     override def slateX(obj: Array[A], xOperand: Double): Array[B] = obj.map(ev.slateX(_, xOperand))
     override def slateY(obj: Array[A], yOperand: Double): Array[B] = obj.map(ev.slateY(_, yOperand))
+  }
+
+  /** Subtype type class instances / evidence for [[Slate2Like]]. */
+  given subTypesEv[A, B >: A](using ev: Slate2[B]): Slate2Like[A, B] = new Slate2Like[A, B]
+  { override def slate(obj: A, operand: VecPt2): B = ev.slate(obj, operand)
+    override def slateXY(obj: A, xOperand: Double, yOperand: Double): B = ev.slateXY(obj, xOperand, yOperand)
+    override def slateFrom(obj: A, operand: VecPt2): B = ev.slateFrom(obj, operand)
+    override def slateFromXY(obj: A, xOperand: Double, yOperand: Double): B = ev.slateFromXY(obj, xOperand, yOperand)
+    override def slateX(obj: A, xOperand: Double): B = ev.slateX(obj, xOperand)
+    override def slateY(obj: A, yOperand: Double): B = ev.slateY(obj, yOperand)
   }
 }
 

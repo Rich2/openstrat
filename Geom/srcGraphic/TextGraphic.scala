@@ -50,6 +50,8 @@ object TextFixed
     if(len == 0) RArr()
     else strs.iMap((i, str) => TextFixed(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
+  
+  given scaleEv: Scale[TextFixed] = (obj, op) => obj.scale(op)
 }
 
 /** A text Graphic aligned with the X and Y axes, but with a scaled font. */
