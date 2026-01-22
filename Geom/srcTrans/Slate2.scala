@@ -73,13 +73,6 @@ object Slate2Like
  * Different sets of transformations can then be combined. */
 trait Slate2[A] extends Slate2Like[A, A]
 
-/** Companion object for the [[Slate2]] type class. Contains implicit instances for collections and other container classes. */
-object Slate2
-{
-
-
-}
-
 /** Extension class for instances of the Slate type class. */
 extension[A, B](value: A)(using ev: Slate2Like[A, B])
 { /** Translate 2D geometric transformation extension method, taking a [[Pt2]] or a [[Vec2]] as a parameter, on this object of type T, returning an object of

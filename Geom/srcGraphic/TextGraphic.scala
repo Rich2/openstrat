@@ -50,7 +50,18 @@ object TextFixed
     if(len == 0) RArr()
     else strs.iMap((i, str) => TextFixed(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
-  
+
+  /** Implicit [[Slate2]] type class instance evidence for [[TextFixed]]. */
+  given slate2Ev: Slate2[TextFixed] = new Slate2[TextFixed]
+  { override def slate(obj: TextFixed, operand: VecPt2): TextFixed = obj.slate(operand)
+    override def slateXY(obj: TextFixed, xOperand: Double, yOperand: Double): TextFixed = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: TextFixed, operand: VecPt2): TextFixed = obj.slateFrom(operand)
+    override def slateFromXY(obj: TextFixed, xOperand: Double, yOperand: Double): TextFixed = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: TextFixed, xOperand: Double): TextFixed = obj.slateX(xOperand)
+    override def slateY(obj: TextFixed, yOperand: Double): TextFixed = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance evidence for [[TextFixed]]. */
   given scaleEv: Scale[TextFixed] = (obj, op) => obj.scale(op)
 }
 
@@ -95,4 +106,17 @@ object Textlign
     if(len == 0) RArr()
     else strs.iMap((i, str) => Textlign(str, fontSize, posn.slateY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
+
+  /** Implicit [[Slate2]] type class instance evidence for [[Textlign]]. */
+  given slate2Ev: Slate2[Textlign] = new Slate2[Textlign]
+  { override def slate(obj: Textlign, operand: VecPt2): Textlign = obj.slate(operand)
+    override def slateXY(obj: Textlign, xOperand: Double, yOperand: Double): Textlign = obj.slate(xOperand, yOperand)
+    override def slateFrom(obj: Textlign, operand: VecPt2): Textlign = obj.slateFrom(operand)
+    override def slateFromXY(obj: Textlign, xOperand: Double, yOperand: Double): Textlign = obj.slateFrom(xOperand, yOperand)
+    override def slateX(obj: Textlign, xOperand: Double): Textlign = obj.slateX(xOperand)
+    override def slateY(obj: Textlign, yOperand: Double): Textlign = obj.slateY(yOperand)
+  }
+
+  /** Implicit [[Scale]] type class instance evidence for [[Textlign]]. */
+  given scaleEv: Scale[Textlign] = (obj, op) => obj.scale(op)
 }
