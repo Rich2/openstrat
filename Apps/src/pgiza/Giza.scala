@@ -22,21 +22,23 @@ trait Pyramid
   def offVec = VecM2(axisOffsetNum, axisOffsetNum)
 }
 
+/** The Great Pyramid of Giza, generally attributed to Khufu */
 object GreatPyramid extends Pyramid
-{
-  override def basePositioned: SqlignM2 = SqlignM2.rb(sideLen, KhafrePyramid.basePositioned.rb.slate(offVec))
+{ override def basePositioned: SqlignM2 = SqlignM2.rb(sideLen, KhafrePyramid.basePositioned.rb.slate(offVec))
   override val sideLen: Metres = 230.3.metres
   def height = 146.6.metres
 
   override def offset: VecLen2 = VecM2(axisOffsetNum, axisOffsetNum)
 }
 
+/** The 2nd biggest pyramid of Giza, generally attributed to Khafre. */
 object KhafrePyramid extends Pyramid
 { override def basePositioned: SqlignM2 = SqlignM2(sideLen)
   override val sideLen = 215.25.metres
   override def offset: VecLen2 = VecM2(0, 0)
 }
 
+/** The smallest of the 3 Great Pyramids of Giza, generally attributed to Menkaure. */
 object MenkaurePyramid extends Pyramid
 { override def basePositioned: SqlignM2 = SqlignM2.rb(sideLen, KhafrePyramid.basePositioned.rb.slate(-offVec))
   override def sideLen: Length = 102.2.metres
@@ -44,6 +46,6 @@ object MenkaurePyramid extends Pyramid
 }
 
 object Giza
-{
+{ /** The 3 Giza pyramids. */
   def pyramids: RArr[Pyramid] = RArr(GreatPyramid, KhafrePyramid, MenkaurePyramid)
 }

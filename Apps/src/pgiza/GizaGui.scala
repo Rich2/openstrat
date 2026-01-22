@@ -2,6 +2,7 @@
 package ostrat; package pgiza
 import geom.*, pgui.*
 
+/** A simple 2D graphcis canvas for the Giza plateau. */
 class GizaGui(val canv: CanvasPlatform) extends CmdBarGui
 {
   override def title: String = "Giza Pyramids"
