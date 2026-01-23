@@ -8,7 +8,7 @@ object DevPage extends OSDocumentationPage
   override val fileNameStem: String = "dev"
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
-  val scVer: String = "3.7.4"
+  val scVer: String = "3.8.1"
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
