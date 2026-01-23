@@ -1,9 +1,9 @@
-/* Copyright 2018-21 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pExs
-import Colour._, pWeb._
+import Colour.*, pWeb.*
 
 /** An example app using the Graphics module to produce SVG. */
-object SvgApp extends App 
+@main def SvgApp = 
 { val cof1 = Circle(40).fill(Orange).svgInlineStr
   val cof2 = Circle(60).fill(Red).svgInlineStr
   val cof3 = Circle(40, 80, 50).fill(Gold).svgInlineStr

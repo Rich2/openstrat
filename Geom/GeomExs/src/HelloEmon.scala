@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Test App for [[EMonOld]]s. */
-object HelloEmon extends App
+/** Test App for [[ErrBi]]s. */
+@main def HelloEmon =
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
   val mi1: ErrBi[Exception, Int] = "4".asInt
   mi1.forSucc(i => println(i.str))//Something happens
