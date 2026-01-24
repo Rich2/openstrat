@@ -34,6 +34,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   override def rotate90: ShapeCompound
   override def rotate180: ShapeCompound
   override def rotate270: ShapeCompound
+  override def rotate(rotation: AngleVec): ShapeCompound
 
   /** Functionally adds more child [[Graphic2Elem]] graphics. These child graphics will be at placed in front of previous children. */
   def addChildren(newChildren: Arr[Graphic2Elem]): ShapeCompound

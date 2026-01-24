@@ -44,6 +44,8 @@ trait PolygonGraphic extends ShapeGraphic
   override def rotate90: PolygonGraphic
   override def rotate180: PolygonGraphic
   override def rotate270: PolygonGraphic
+  override def rotate(rotation: AngleVec): PolygonGraphic
+  def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
 }
 
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */

@@ -26,7 +26,7 @@ trait GeomLen2Elem extends Any
   def scale(operand: Double): GeomLen2Elem
 
   /** Divides by a [[Length]] to produce an equivalent [[Aff2Elem]] without [[Length]] units. */
-  def mapGeom2(operand: Length): Axlign2Elem
+  def mapGeom2(operand: Length): Simil2Elem
 }
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These

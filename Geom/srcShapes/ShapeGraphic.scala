@@ -28,9 +28,9 @@ trait ShapeGraphic extends GraphicBounded
   override def rotate180: ShapeGraphic
   override def rotate270: ShapeGraphic
   def prolign(matrix: AxlignMatrix): ShapeGraphic
-//  def rotate(rotation: AngleVec): ShapeGraphic
-//  def reflect(lineLike: LineLike): ShapeGraphic
-//  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
+  def rotate(rotation: AngleVec): ShapeGraphic
+  def mirror(lineLike: LineLike): ShapeGraphic
+  //override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
 }
 
 /** Companion object for the ShapeGraphic class. */

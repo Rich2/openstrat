@@ -4,10 +4,12 @@ import pWeb.*
 
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element in a
  * display or both. So I think the self type will force all [[Graphic2Elem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
-trait Graphic2Elem extends Axlign2Elem
+trait Graphic2Elem extends Simil2Elem
 { /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 
+  def svgElems: RArr[SvgOwnLine]
+  
   override def slate(operand: VecPt2): Graphic2Elem
   override def slate(xOperand: Double, yOperand: Double): Graphic2Elem
   override def slateFrom(operand: VecPt2): Graphic2Elem
@@ -21,8 +23,8 @@ trait Graphic2Elem extends Axlign2Elem
   override def rotate180: Graphic2Elem
   override def rotate270: Graphic2Elem
   override def prolign(matrix: AxlignMatrix): Graphic2Elem
-
-  def svgElems: RArr[SvgOwnLine]
+  override def rotate(rotation: AngleVec): Graphic2Elem
+  override def mirror(lineLike: LineLike): Graphic2Elem
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
@@ -83,6 +85,8 @@ trait CanvElem extends Graphic2Elem
   override def rotate90: CanvElem
   override def rotate180: CanvElem
   override def rotate270: CanvElem
+  override def rotate(rotation: AngleVec): CanvElem
+  override def mirror(lineLike: LineLike): CanvElem
 }
 
 /** Companion object for the [[CanvElem]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */

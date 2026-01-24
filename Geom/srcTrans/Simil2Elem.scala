@@ -2,8 +2,53 @@
 package ostrat; package geom
 import reflect.ClassTag
 
-trait Simil2Elem extends Any, Axlign2Elem
-{ /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
+trait Simil2Elem extends Any//, Axlign2Elem
+{
+  /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
+   * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
+   * These methods will be offered as extension methods using this method for their implementations. */
+  def slate(operand: VecPt2): Simil2Elem
+
+  /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will be
+   * narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the slateY methods.
+   * These methods will be offered as extension methods using this method for their implementations. */
+  def slate(xOperand: Double, yOperand: Double): Simil2Elem
+
+  /** Translate 2D geometric transformation in the X dimension, returning a GeomElem. The Return type will be narrowed in sub traits. */
+  def slateX(operand: Double): Simil2Elem
+
+  /** Translate 2D geometric transformation in the Y dimension, returning a GeomElem. The Return type will be narrowed in sub traits. */
+  def slateY(operand: Double): Simil2Elem
+
+  def slateFrom(operand: VecPt2): Simil2Elem
+
+  def slateFrom(xOperand: Double, yOperand: Double): Simil2Elem
+
+  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
+   * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  def scale(operand: Double): Simil2Elem
+
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
+  def negX: Simil2Elem
+
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  def negY: Simil2Elem
+
+  /** Rotation positive or anti-clockwise 90 degrees, 2D geometric transformation on a GeomElem, returns a GeomElem. The return type will be narrowed in
+   * subclasses and traits. */
+  def rotate90: Simil2Elem
+
+  /** Rotation of 180 degrees, 2D geometric transformation on a GeomElem, returns a GeomElem. The return type will be narrowed in subclasses and traits. */
+  def rotate180: Simil2Elem
+
+  /** Rotation positive or anti-clockwise 270 degrees, 2D geometric transformation on a GeomElem, returns a GeomElem. The return type will be narrowed in
+   * subclasses and traits. */
+  def rotate270: Simil2Elem
+
+  /** 2D Transformation using a [[AxlignMatrix]]. The return type will be narrowed in subclasses / traits. */
+  def prolign(matrix: AxlignMatrix): Simil2Elem
+
+  /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   def rotate(rotation: AngleVec): Simil2Elem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in subclasses and traits. */

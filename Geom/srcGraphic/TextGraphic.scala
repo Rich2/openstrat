@@ -23,7 +23,9 @@ trait TextGraphic extends CanvElem, Aff2Elem
   override def rotate90: TextGraphic
   override def rotate180: TextGraphic
   override def rotate270: TextGraphic
-  override def prolign(matrix: AxlignMatrix): TextGraphic  
+  override def rotate(rotation: AngleVec): TextGraphic
+  override def prolign(matrix: AxlignMatrix): TextGraphic
+  override def mirror(lineLike: LineLike): TextGraphic
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
