@@ -124,7 +124,7 @@ final class PolygonFm2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
   override def newBuff(length: Int): PolygonFm2PairBuff[A2] = new PolygonFm2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonFm2PairBuff[A2]): PolygonFm2PairArr[A2] = new PolygonFm2PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
-  override def b1Builder: PolygonLikeBuilderMap[PtFm2, PolygonFm2Gen] = PtFm2.polygonBuildImplicit
+  override def b1Builder: PolygonLikeBuilderMap[PtFm2, PolygonFm2Gen] = PtFm2.polygonBuildEv
   override def b1ArrBuilder: BuilderArrMap[PolygonFm2Gen, PolygonFm2Arr] = PolygonFm2Gen.arrBuildImplicit
   override def arrFromArrAndArray(b1Arr: PolygonFm2Arr, b2s: Array[A2]): PolygonFm2PairArr[A2] = new PolygonFm2PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonFm2Buff = PolygonFm2Buff()

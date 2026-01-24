@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
+import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
 /** Common trait for [[VecFm2]] and [[PtFm2]] */
 trait VecPtFm2 extends VecPtLen2, TellElemDbl2
@@ -74,27 +74,27 @@ object PtFm2
   def origin: PtFm2 = new PtFm2(0, 0)
 
   /** [[Show]] type class instance / evidence for [[PTFm2]]. */
-  implicit val persistEv: ShowTellDbl2[PtFm2] = ShowTellDbl2[PtFm2]("PtFm2")
+  given persistEv: ShowTellDbl2[PtFm2] = ShowTellDbl2[PtFm2]("PtFm2")
 
   /** [[Unshow]] type class instance / evidence for [[PTFm2]]. */
-  implicit val unShowEv: UnshowDbl2[PtFm2] = UnshowDbl2[PtFm2]("PtFm2", "x", "y", new PtFm2(_, _))
+  given unShowEv: UnshowDbl2[PtFm2] = UnshowDbl2[PtFm2]("PtFm2", "x", "y", new PtFm2(_, _))
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtFm2]] and [[PtFm2Arr]]. */
-  implicit val arrMapbuilderEv: BuilderMapArrDbl2[PtFm2, PtFm2Arr] = new BuilderMapArrDbl2[PtFm2, PtFm2Arr]
+  given arrMapbuilderEv: BuilderMapArrDbl2[PtFm2, PtFm2Arr] = new BuilderMapArrDbl2[PtFm2, PtFm2Arr]
   { type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(buffer)
   }
 
   /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtFm2]] and [[LinePathPtFm2]]. */
-  implicit val linePathBuildEv: LinePathDbl2Builder[PtFm2, LinePathFm2] = new LinePathDbl2Builder[PtFm2, LinePathFm2]
+  given linePathBuildEv: LinePathDbl2Builder[PtFm2, LinePathFm2] = new LinePathDbl2Builder[PtFm2, LinePathFm2]
   { override type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): LinePathFm2 = new LinePathFm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(inp)
   }
 
   /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtFm2]] and [[PolygonPtFm2]]. */
-  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen]
+  given polygonBuildEv: PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen]
   { override type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): PolygonFm2Gen = new PolygonFm2Gen(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(inp)
@@ -102,7 +102,7 @@ object PtFm2
 
   /** Implicit instance for the [[PolygonFm2Pair]] builder. This has to go in the [[PtFm2]] companion object so it can be found by an A => B function where
    * [[PtFm2]] is the type B parameter. */
-  implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonFm2PairBuilder[A2] = new PolygonFm2PairBuilder[A2]
+  given polygonPairBuildEv[A2](using ClassTag[A2]): PolygonFm2PairBuilder[A2] = new PolygonFm2PairBuilder[A2]
 }
 
 trait PtFm2SeqLike extends Any, SeqLikeImutDbl2[PtFm2]
@@ -115,7 +115,6 @@ class PtFm2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtFm2SeqLike, Arr
 { type ThisT = PtFm2Arr
   override def fromArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
   override def typeStr: String = "PtFm2Arr"
-  
 }
 
 /** Companion object for the [[PtFm2Arr]] class. Contains implicit Instance for Persist type class. */
@@ -123,14 +122,14 @@ object PtFm2Arr extends CompanionSlDbl2[PtFm2, PtFm2Arr]
 { override def fromArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
 
   /** [[Show]] type class instance / evidence for [[PtFm2Arr]]. */
-  implicit lazy val showEv: ShowSequ[PtFm2, PtFm2Arr] = ShowSequ[PtFm2, PtFm2Arr]()
+  given showEv: ShowSequ[PtFm2, PtFm2Arr] = ShowSequ[PtFm2, PtFm2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[PtFm2Arr]]. */
-  implicit lazy val unshowEv: UnshowSeq[PtFm2, PtFm2Arr] = UnshowSeq[PtFm2, PtFm2Arr]()
+  given unshowEv: UnshowSeq[PtFm2, PtFm2Arr] = UnshowSeq[PtFm2, PtFm2Arr]()
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtFm2]]s collections. */
-final class BuffPtFm2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtFm2]
+final class BuffPtFm2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtFm2]
 { override def typeStr: String = "BuffPtMetre2"
   def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
 }
@@ -170,7 +169,7 @@ object VecFm2
   def apply(xFemtometresNum: Double, yFemtometresNum: Double): VecFm2 = new VecFm2(xFemtometresNum, yFemtometresNum)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[VecFm2]] and [[VecFm2Arr]]. */
-  implicit val arrMapBuilderEv: BuilderArrMap[VecFm2, VecFm2Arr] = new BuilderMapArrDbl2[VecFm2, VecFm2Arr]
+  given arrMapBuilderEv: BuilderArrMap[VecFm2, VecFm2Arr] = new BuilderMapArrDbl2[VecFm2, VecFm2Arr]
   { override type BuffT = VecFm2Buff
     override def fromDblArray(array: Array[Double]): VecFm2Arr = new VecFm2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecFm2Buff = new VecFm2Buff(buffer)

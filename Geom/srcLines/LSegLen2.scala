@@ -45,10 +45,11 @@ object LSegLen2
     override def slateY(obj: LSegLen2[PtLen2], yDelta: Length): LSegLen2[PtLen2] = obj.slateY(yDelta)
   }
   
-  /** [[Scale]] type class instances / evidence for [[PtLen2]]. */
+  /** [[Scale]] type class instance / evidence for [[PtLen2]]. */
   given scaleEv: Scale[LSegLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
 
-  given drawerEv: Drawing[LSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  /** [[Drawing]] type class instance / evidence for [[PtLen2]]. */
+  given drawingEv: Drawing[LSegLen2[PtLen2], LineSegLen2Draw] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }
 
 trait LineSegLen2Arr[+VT <: PtLen2] extends Any, Arr[LSegLen2[VT]], GeomLen2Elem, DrawableLen2, LengthBased, ArrayDblBacked
@@ -68,7 +69,7 @@ trait LineSegLen2Arr[+VT <: PtLen2] extends Any, Arr[LSegLen2[VT]], GeomLen2Elem
 
 object LineSegLen2Arr
 { /** [[Drawing]] type class instance / evidence for [[LineSegLen2Arr]]. */  
-  implicit def drawerEv[VT <: PtLen2]: Drawing[LineSegLen2Arr[VT], RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
+  given drawerEv[VT <: PtLen2]: Drawing[LineSegLen2Arr[VT], RArr[LineSegLen2Draw]] = (obj, lineWidth, colour) => obj.map(_.draw(lineWidth, colour))
 }
 
 case class LineSegLen2Draw(lineSeg: LSegLen2[?], width: Double, colour: Colour) extends GraphicLen2Simple
