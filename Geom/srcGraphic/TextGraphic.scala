@@ -2,7 +2,7 @@
 package ostrat; package geom
 import Colour.Black, pWeb.*
 
-trait TextGraphic extends CanvElem, Aff2Elem
+trait TextGraphic extends CanvElem, Geom2Elem
 { def str: String
   def fontSize: Double
   def xPosn: Double

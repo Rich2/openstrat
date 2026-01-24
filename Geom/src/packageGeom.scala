@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer, math.Pi, Colour.Black
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and graphics.
- * Of particular note are the [[Pt2]], [[Aff2Elem]] and [[Graphic2Elem]] class / traits. These are the foundation of the API and the library. A number of
+ * Of particular note are the [[Pt2]], [[Geom2Elem]] and [[Graphic2Elem]] class / traits. These are the foundation of the API and the library. A number of
  * implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of particular use
  * for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom

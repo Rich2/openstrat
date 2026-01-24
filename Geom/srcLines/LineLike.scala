@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Common base trait for [[Line]], [[LSeg2]] and [[Ray]]. */
-trait LineLike extends Aff2Elem
+trait LineLike extends Geom2Elem
 
 /** Geometrical Ray. */
 class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike

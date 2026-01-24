@@ -310,7 +310,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
 }
 
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-trait PolygonCompound extends ShapeCompound, PolygonGraphic, Aff2Elem
+trait PolygonCompound extends ShapeCompound, PolygonGraphic, Geom2Elem
 {
   override def mainSvgElem: SvgOwnLine = SvgPolygon(attribs)
 

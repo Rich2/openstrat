@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** Common trait for [[Ellipse]] and EArc. The main purpose of this trait is not to share code, but to establish naming conventions for elliptical
  * properties. */
-trait EllipseBased extends Aff2Elem, WithCentre
+trait EllipseBased extends Geom2Elem, WithCentre
 {
   /** Radius 1 of the ellipse. This extends from the centre to point 1 or point 3. By default, this is the horizontal axis of the ellipse. This can be the major
    * or minor axis. */

@@ -354,7 +354,7 @@ object EllipseActive
 }
 
 /** Compound graphic trait for an ellipse. Note [[CircleCompound]] is a subclass of this trait. */
-trait EllipseCompound extends ShapeCompound, EllipseGraphic, Aff2Elem
+trait EllipseCompound extends ShapeCompound, EllipseGraphic, Geom2Elem
 { override def mainSvgElem: SvgOwnLine = SvgEllipse(attribs)
   override def slate(operand: VecPt2): EllipseCompound
   override def slate(xDelta: Double, yDelta: Double): EllipseCompound

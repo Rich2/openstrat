@@ -220,7 +220,7 @@ case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
 }
 
 /** Compound Circle Graphic class. */
-class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val children: RArr[Graphic2Elem]) extends EllipseCompound, CircleGraphic, Simil2Elem
+class CircleCompound(val shape: Circle, val facets: RArr[GraphicFacet], val children: RArr[Graphic2Elem]) extends EllipseCompound, CircleGraphic
 {
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))

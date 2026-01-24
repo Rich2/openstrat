@@ -21,16 +21,16 @@ trait ShapeGraphic extends GraphicBounded
   override def slateFrom(xOperand: Double, yOperand: Double): ShapeGraphic
   override def slateX(xOperand: Double): ShapeGraphic
   override def slateY(yOperand: Double): ShapeGraphic
-  def scale(operand: Double): ShapeGraphic
-  def negX: ShapeGraphic
-  def negY: ShapeGraphic
+  override def scale(operand: Double): ShapeGraphic
+  override def negX: ShapeGraphic
+  override def negY: ShapeGraphic
   override def rotate90: ShapeGraphic
   override def rotate180: ShapeGraphic
   override def rotate270: ShapeGraphic
-  def prolign(matrix: AxlignMatrix): ShapeGraphic
-  def rotate(rotation: AngleVec): ShapeGraphic
-  def mirror(lineLike: LineLike): ShapeGraphic
-  //override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
+  override def prolign(matrix: AxlignMatrix): ShapeGraphic
+  override def rotate(rotation: AngleVec): ShapeGraphic
+  override def mirror(lineLike: LineLike): ShapeGraphic
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
 }
 
 /** Companion object for the ShapeGraphic class. */

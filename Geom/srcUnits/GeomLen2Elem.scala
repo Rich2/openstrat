@@ -25,8 +25,8 @@ trait GeomLen2Elem extends Any
    * preserves [[Circle]]s and [[Square]]s. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): GeomLen2Elem
 
-  /** Divides by a [[Length]] to produce an equivalent [[Aff2Elem]] without [[Length]] units. */
-  def mapGeom2(operand: Length): Simil2Elem
+  /** Divides by a [[Length]] to produce an equivalent [[Geom2Elem]] without [[Length]] units. */
+  def mapGeom2(operand: Length): Geom2Elem
 }
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
@@ -97,6 +97,6 @@ object MapGeom2
 }
 
 extension [A, B](thisA: A)(using ev: MapGeom2[A, B])
-{ /** maps the object from [[GeomLen2Elem]]s to the equivalent [[Aff2Elem]]s. */
+{ /** maps the object from [[GeomLen2Elem]]s to the equivalent [[Geom2Elem]]s. */
   def mapGeom2(operand: Length) = ev.mapGeom2T(thisA, operand)
 }

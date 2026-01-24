@@ -3,7 +3,7 @@ package ostrat; package geom
 import pgui.CanvasPlatform
 
 /** Graphic based on a [[CurveSeg]]. */
-trait CurveSegGraphic extends Graphic2Elem, Aff2Elem
+trait CurveSegGraphic extends Graphic2Elem, Geom2Elem
 {
   def curveSeg: CurveSeg
   /** the x component of the start point often called x1 */
