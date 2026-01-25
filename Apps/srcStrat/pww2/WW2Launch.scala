@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import prid._, phex._, pParse._, pgui._
+import prid.phex.*, pParse.*, pgui.*
 
 /** Object for launching WW2 app. */
 object WW2Launch extends GuiLaunchMore

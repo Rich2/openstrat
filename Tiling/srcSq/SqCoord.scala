@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A square grid integer tile coordinate. */
 trait SqCoord extends Any with TCoord
@@ -26,11 +26,11 @@ object SqCoord
     case _ => SqSep(r, c)
   }
 
-  /** implicit [[Show]] type class instance / evidence for [[SqCoor]]s. */
-  implicit val showEv: ShowTellInt2[SqCoord] = ShowTellInt2[SqCoord]("SqCoord")
+  /** implicit [[Show]] type class instance / evidence for [[SqCoord]]. */
+  given showEv: ShowTellInt2[SqCoord] = ShowTellInt2[SqCoord]("SqCoord")
 
-  /** implicit [[Show]] type class instance / evidence for [[SqCoord]]s. */
-  implicit val unshowEv: UnshowInt2[SqCoord] = UnshowInt2[SqCoord]("SqCoord", "r", "c", apply)
+  /** implicit [[Show]] type class instance / evidence for [[SqCoord]]. */
+  given unshowEv: UnshowInt2[SqCoord] = UnshowInt2[SqCoord]("SqCoord", "r", "c", apply)
 }
 
 trait SqCoordSeqLike extends Any with SeqLikeImutInt2[SqCoord]
@@ -41,14 +41,14 @@ trait SqCoordSeqLike extends Any with SeqLikeImutInt2[SqCoord]
 trait SqCoordSeqSpec extends Any with SqCoordSeqLike with SeqSpecInt2[SqCoord]
 
 /** Specialised sequence class for [[SqCoord]]. */
-class SqCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[SqCoord] with SqCoordSeqLike
+class SqCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal, ArrInt2[SqCoord], SqCoordSeqLike
 { type ThisT = SqCoordArr
   override def typeStr: String = "SqCoords"
   override def fromArray(array: Array[Int]): SqCoordArr = new SqCoordArr(array)
 }
 
 /** Specialised sequence buffer class for [[SqCoord]]. */
-class SqCoordBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqCoord]
+class SqCoordBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal, BuffInt2[SqCoord]
 { type ArrT = SqCoordArr
   override def typeStr: String = "SqCoordBuff"
   override def newElem(i1: Int, i2: Int): SqCoord = SqCoord(i1, i2)

@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
 case class SqCen(r: Int, c: Int) extends SqCenOrSep with TCen
@@ -44,10 +44,10 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSep with TCen
 
 object SqCen
 { /** implicit [[Show]] type class instance / evidence for [[SqCen]]s. */
-  implicit val showEv: ShowTellInt2[SqCen] = ShowTellInt2[SqCen]("SqCen")
+  given showEv: ShowTellInt2[SqCen] = ShowTellInt2[SqCen]("SqCen")
 
   /** implicit [[Unshow]] type class instance / evidence for [[SqCen]]s. */
-  implicit val unshowEv: UnshowInt2[SqCen] = UnshowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
+  given unshowEv: UnshowInt2[SqCen] = UnshowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
 
   val s00v1: SqVert = SqVert(1, 1)
   val s00v2: SqVert = SqVert(-1, 1)
@@ -57,7 +57,7 @@ object SqCen
   val vertsOfSq00: SqVertArr = SqVertArr(s00v1, s00v2, s00v3, s00v4)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[SqCen]] and [[SqCenArr]]. */
-  implicit val buildEv: BuilderMapArrInt2[SqCen, SqCenArr] = new BuilderMapArrInt2[SqCen, SqCenArr]
+  given buildEv: BuilderMapArrInt2[SqCen, SqCenArr] = new BuilderMapArrInt2[SqCen, SqCenArr]
   { type BuffT = SqCenBuff
     override def fromIntArray(array: Array[Int]): SqCenArr = new SqCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenBuff = new SqCenBuff(buffer)
@@ -77,12 +77,13 @@ class SqCenArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[SqCen]
 
 object SqCenPairArr1
 {
-  def unapply[A](inp: SqCenPairArr[A]): Option[(SqCen, A)] = inp match{
-    case ha if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0)))
+  def unapply[A](inp: SqCenPairArr[A]): Option[(SqCen, A)] = inp match
+  { case ha if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0)))
     case _ => None
   }
 }
-class SqCenBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqCen]
+
+class SqCenBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal, BuffInt2[SqCen]
 { type ArrT = SqCenArr
   override def typeStr: String = "SqCenBuff"
   override def newElem(i1: Int, i2: Int): SqCen = SqCen(i1, i2)

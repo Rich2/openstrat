@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A polygon with at least 3 vertices, defined in [[Length]] units. The PolygonNPlus traits include values for the vertices and the x and y components of the
@@ -13,6 +13,7 @@ trait PolygonLen2P3[+VT <: PtLen2] extends Any, PolygonLen2[VT]
   def v2: PtLen2
 }
 
+/** A polygon with at least 3 vertices, defined in [[Metres]] units. */
 trait PolygonM2P3 extends Any, PolygonLen2P3[PtM2], PolygonM2
 { def v1xMNum: Double
   def v1yMNum: Double
@@ -34,6 +35,7 @@ trait PolygonLen2P4[+VT <: PtLen2] extends Any, PolygonLen2P3[VT]
   def v3: PtLen2
 }
 
+/** A polygon with at least 4 vertices, defined in [[Metres]] units. */
 trait PolygonM2P4 extends Any, PolygonLen2P4[PtM2], PolygonM2P3
 { def v3xMNum: Double
   def v3yMNum: Double

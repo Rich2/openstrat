@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess
-import geom._, pgui._, Colour._, prid._, psq._
+import geom.*, pgui.*, Colour.*, prid.psq.*
 
 case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui
 {
@@ -16,7 +16,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui
   /** The number of pixels / 2 displayed per row height. */
   var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val pieces: GraphicElems = scen.pieces.scSomesMap((r, p) => p.piece().slate(r.toPt2Reg).fillDraw(p.player.colour, p.player.contrastBW))
+  val pieces: GraphicElems = scen.oPieces.scSomesMap((r, p) => p.piece().slate(r.toPt2Reg).fillDraw(p.player.colour, p.player.contrastBW))
 
   def bTurn: PolygonCompound = simpleButton("Turn "){
     repaint()
