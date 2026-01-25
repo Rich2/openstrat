@@ -30,7 +30,7 @@ object PolygonGenArr
 
   /** Implicit [[Slate]] type class instance / evidence for [[PolygonGenArr]]. */
   given slateEv: Slate2[PolygonGenArr] = new Slate2[PolygonGenArr]
-  { override def slate(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slate(operand)
+  { override def slateT(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slate(operand)
     override def slateXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slateFrom(operand)
     override def slateFromXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slateFrom(xOperand, yOperand)

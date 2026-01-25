@@ -22,17 +22,17 @@ trait ShapeGraphicOrdinaled extends ShapeGraphic, OrdinaledElem
 extension [A <: OrdinaledElem](thisA: A)(using ev: Slate2[A])
 { /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an absolute
    * position. */
-  def topRightTo(newTopRight: Pt2): A = ev.slate(thisA, newTopRight - thisA.trOffset)
+  def topRightTo(newTopRight: Pt2): A = ev.slateT(thisA, newTopRight - thisA.trOffset)
 
   /** Translate an object of type T such that the bottom right of the new object is given by the new position. This method translates the object to an absolute
    * position. */
-  def bottomRightTo(newBottomRight: Pt2): A = ev.slate(thisA, newBottomRight - thisA.brOffset)
+  def bottomRightTo(newBottomRight: Pt2): A = ev.slateT(thisA, newBottomRight - thisA.brOffset)
 
   /** Translate an object of type T such that the bottom left of the new object is given by the new position. This method translates the object to an absolute
    * position. */
-  def bottomLeftTo(newBottomLeft: Pt2): A = ev.slate(thisA, newBottomLeft - thisA.blOffset)
+  def bottomLeftTo(newBottomLeft: Pt2): A = ev.slateT(thisA, newBottomLeft - thisA.blOffset)
 
   /** Translate an object of type T such that the top left of the new object is given by the new position. This method translates the object to an absolute
    * position. */
-  def topLeftTo(newTopLeft: Pt2): A = ev.slate(thisA, newTopLeft - thisA.tlOffset)
+  def topLeftTo(newTopLeft: Pt2): A = ev.slateT(thisA, newTopLeft - thisA.tlOffset)
 }

@@ -156,7 +156,7 @@ object Rect
 
   /** Implicit [[Slate2]] type class instance / evidence for [[Rect]]. */
   given slate2Ev: Slate2[Rect] = new Slate2[Rect]
-  { override def slate(obj: Rect, operand: VecPt2): Rect = obj.slate(operand)
+  { override def slateT(obj: Rect, operand: VecPt2): Rect = obj.slate(operand)
     override def slateXY(obj: Rect, xOperand: Double, yOperand: Double): Rect = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Rect, operand: VecPt2): Rect = obj.slateFrom(operand)
     override def slateFromXY(obj: Rect, xOperand: Double, yOperand: Double): Rect = obj.slateFrom(xOperand, yOperand)

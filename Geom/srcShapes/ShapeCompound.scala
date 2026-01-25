@@ -46,7 +46,7 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
 object ShapeCompound
 { /** Implicit [[Slate2]] type class instance / instance for [[ShapeCompound]]. */
   given slate2Ev: Slate2[ShapeCompound] = new Slate2[ShapeCompound]
-  { override def slate(obj: ShapeCompound, operand: VecPt2): ShapeCompound = obj.slate(operand)
+  { override def slateT(obj: ShapeCompound, operand: VecPt2): ShapeCompound = obj.slate(operand)
     override def slateXY(obj: ShapeCompound, xOperand: Double, yOperand: Double): ShapeCompound = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: ShapeCompound, operand: VecPt2): ShapeCompound = obj.slateFrom(operand)
     override def slateFromXY(obj: ShapeCompound, xOperand: Double, yOperand: Double): ShapeCompound = obj.slateFrom(xOperand, yOperand)

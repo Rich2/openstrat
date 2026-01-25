@@ -88,7 +88,7 @@ object HexYlign
   given unshowEv: Unshow[HexYlign] = Unshow2[Double, Pt2, HexYlign]("HexYlign", "width", "cen", apply)
 
   given slate2Ev: Slate2[HexYlign] = new Slate2[HexYlign]
-  { override def slate(obj: HexYlign, operand: VecPt2): HexYlign = obj.slate(operand)
+  { override def slateT(obj: HexYlign, operand: VecPt2): HexYlign = obj.slate(operand)
     override def slateXY(obj: HexYlign, xOperand: Double, yOperand: Double): HexYlign = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: HexYlign, operand: VecPt2): HexYlign = obj.slateFrom(operand)
     override def slateFromXY(obj: HexYlign, xOperand: Double, yOperand: Double): HexYlign = obj.slateFrom(xOperand, yOperand)

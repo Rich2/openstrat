@@ -37,7 +37,7 @@ trait Drawable extends Any, Geom2Elem
 object Drawable
 { /** [[Slate2]] type class instance / evidence for [[Drawable]]. */
   given slate2Ev: Slate2[Drawable] = new Slate2[Drawable]
-  { override def slate(obj: Drawable, operand: VecPt2): Drawable = obj.slate(operand)
+  { override def slateT(obj: Drawable, operand: VecPt2): Drawable = obj.slate(operand)
     override def slateXY(obj: Drawable, xOperand: Double, yOperand: Double): Drawable = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Drawable, operand: VecPt2): Drawable = obj.slateFrom(operand)
     override def slateFromXY(obj: Drawable, xOperand: Double, yOperand: Double): Drawable = obj.slateFrom(xOperand, yOperand)

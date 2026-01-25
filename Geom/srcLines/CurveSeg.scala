@@ -49,7 +49,7 @@ trait CurveSeg extends Drawable
 object CurveSeg
 { /** Implicit [[Slate2]] type class instance for [[CurveSeg]]. */
   given slate2Ev: Slate2[CurveSeg] = new Slate2[CurveSeg]
-  { override def slate(obj: CurveSeg, operand: VecPt2): CurveSeg = obj.slate(operand)
+  { override def slateT(obj: CurveSeg, operand: VecPt2): CurveSeg = obj.slate(operand)
     override def slateXY(obj: CurveSeg, xOperand: Double, yOperand: Double): CurveSeg = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: CurveSeg, operand: VecPt2): CurveSeg = obj.slateFrom(operand)
     override def slateFromXY(obj: CurveSeg, xOperand: Double, yOperand: Double): CurveSeg = obj.slateFrom(xOperand, yOperand)

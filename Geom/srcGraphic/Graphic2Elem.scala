@@ -34,7 +34,7 @@ trait Graphic2Elem extends Geom2Elem
 object Graphic2Elem
 { /** Implicit [[Slate2]] type class instance / evidence for [[Graphic2Elem]]. */
   given slate2Ev: Slate2[Graphic2Elem] = new Slate2[Graphic2Elem]
-  { override def slate(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slate(operand)
+  { override def slateT(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slate(operand)
     override def slateXY(obj: Graphic2Elem, xOperand: Double, yOperand: Double): Graphic2Elem = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Graphic2Elem, operand: VecPt2): Graphic2Elem = obj.slateFrom(operand)
     override def slateFromXY(obj: Graphic2Elem, xOperand: Double, yOperand: Double): Graphic2Elem = obj.slateFrom(xOperand, yOperand)

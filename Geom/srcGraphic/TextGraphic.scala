@@ -55,7 +55,7 @@ object TextFixed
 
   /** Implicit [[Slate2]] type class instance evidence for [[TextFixed]]. */
   given slate2Ev: Slate2[TextFixed] = new Slate2[TextFixed]
-  { override def slate(obj: TextFixed, operand: VecPt2): TextFixed = obj.slate(operand)
+  { override def slateT(obj: TextFixed, operand: VecPt2): TextFixed = obj.slate(operand)
     override def slateXY(obj: TextFixed, xOperand: Double, yOperand: Double): TextFixed = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: TextFixed, operand: VecPt2): TextFixed = obj.slateFrom(operand)
     override def slateFromXY(obj: TextFixed, xOperand: Double, yOperand: Double): TextFixed = obj.slateFrom(xOperand, yOperand)
@@ -111,7 +111,7 @@ object Textlign
 
   /** Implicit [[Slate2]] type class instance evidence for [[Textlign]]. */
   given slate2Ev: Slate2[Textlign] = new Slate2[Textlign]
-  { override def slate(obj: Textlign, operand: VecPt2): Textlign = obj.slate(operand)
+  { override def slateT(obj: Textlign, operand: VecPt2): Textlign = obj.slate(operand)
     override def slateXY(obj: Textlign, xOperand: Double, yOperand: Double): Textlign = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Textlign, operand: VecPt2): Textlign = obj.slateFrom(operand)
     override def slateFromXY(obj: Textlign, xOperand: Double, yOperand: Double): Textlign = obj.slateFrom(xOperand, yOperand)

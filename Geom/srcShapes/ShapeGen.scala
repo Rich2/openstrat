@@ -29,7 +29,7 @@ object ShapeGen
 
   /** Implicit [[Slate2]] type class instance / evidence for [[ShapeGen]]. */
   given slate2Ev: Slate2[ShapeGen] = new Slate2[ShapeGen]
-  { override def slate(obj: ShapeGen, operand: VecPt2): ShapeGen = obj.slate(operand)
+  { override def slateT(obj: ShapeGen, operand: VecPt2): ShapeGen = obj.slate(operand)
     override def slateXY(obj: ShapeGen, xOperand: Double, yOperand: Double): ShapeGen = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: ShapeGen, operand: VecPt2): ShapeGen = obj.slateFrom(operand)
     override def slateFromXY(obj: ShapeGen, xOperand: Double, yOperand: Double): ShapeGen = obj.slateFrom(xOperand, yOperand)

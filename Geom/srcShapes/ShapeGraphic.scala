@@ -43,7 +43,7 @@ object ShapeGraphic
   
   /** [[Slate2]] type class instance / evidence for [[ShapeGraphic]]. */
   given slate2Ev: Slate2[ShapeGraphic] = new Slate2[ShapeGraphic]
-  { override def slate(obj: ShapeGraphic, operand: VecPt2): ShapeGraphic = obj.slate(operand)
+  { override def slateT(obj: ShapeGraphic, operand: VecPt2): ShapeGraphic = obj.slate(operand)
     override def slateXY(obj: ShapeGraphic, xOperand: Double, yOperand: Double): ShapeGraphic = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: ShapeGraphic, operand: VecPt2): ShapeGraphic = obj.slateFrom(operand)
     override def slateFromXY(obj: ShapeGraphic, xOperand: Double, yOperand: Double): ShapeGraphic = obj.slateFrom(xOperand, yOperand)

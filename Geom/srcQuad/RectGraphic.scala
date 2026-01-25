@@ -48,7 +48,7 @@ object RectDraw
 
   /** Implicit [[Slate2]] type class instance / evidence for [[RectDraw]]. */
   given slate2Ev: Slate2[RectDraw] = new Slate2[RectDraw]
-  { override def slate(obj: RectDraw, operand: VecPt2): RectDraw = obj.slate(operand)
+  { override def slateT(obj: RectDraw, operand: VecPt2): RectDraw = obj.slate(operand)
     override def slateXY(obj: RectDraw, xOperand: Double, yOperand: Double): RectDraw = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: RectDraw, operand: VecPt2): RectDraw = obj.slateFrom(operand)
     override def slateFromXY(obj: RectDraw, xOperand: Double, yOperand: Double): RectDraw = obj.slateFrom(xOperand, yOperand)
@@ -105,7 +105,7 @@ object RectFill
 
   /** Implicit [[Slate2]] type class instance / evidence for [[RectFill]]. */
   given slate2Ev: Slate2[RectFill] = new Slate2[RectFill]
-  { override def slate(obj: RectFill, operand: VecPt2): RectFill = obj.slate(operand)
+  { override def slateT(obj: RectFill, operand: VecPt2): RectFill = obj.slate(operand)
     override def slateXY(obj: RectFill, xOperand: Double, yOperand: Double): RectFill = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: RectFill, operand: VecPt2): RectFill = obj.slateFrom(operand)
     override def slateFromXY(obj: RectFill, xOperand: Double, yOperand: Double): RectFill = obj.slateFrom(xOperand, yOperand)
@@ -195,7 +195,7 @@ object RectCompound
 
   /** [[Slate2]] type class instance / evidence for [[RectCompound]]. */
   given slate2Ev: Slate2[RectCompound] = new Slate2[RectCompound]
-  { override def slate(obj: RectCompound, operand: VecPt2): RectCompound = obj.slate(operand)
+  { override def slateT(obj: RectCompound, operand: VecPt2): RectCompound = obj.slate(operand)
     override def slateXY(obj: RectCompound, xOperand: Double, yOperand: Double): RectCompound = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: RectCompound, operand: VecPt2): RectCompound = obj.slateFrom(operand)
     override def slateFromXY(obj: RectCompound, xOperand: Double, yOperand: Double): RectCompound = obj.slateFrom(xOperand, yOperand)

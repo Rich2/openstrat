@@ -113,7 +113,7 @@ object ShapeGenOld extends CompanionSlDbl7[CurveTailOld, ShapeGenOld]
 
   given slateEv: Slate2[ShapeGenOld] = new Slate2[ShapeGenOld] {
     /** Translate 2D geometric transformation, taking a [[Pt2]] or [[Vec2]] as a parameter, on an object of type T, returning an object of type T. */
-    override def slate(obj: ShapeGenOld, operand: VecPt2): ShapeGenOld = ???
+    override def slateT(obj: ShapeGenOld, operand: VecPt2): ShapeGenOld = ???
 
     /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters, on an object of type T, returning an object of type T. For many types
      * the implementation of this method will delegate to the object itself. */

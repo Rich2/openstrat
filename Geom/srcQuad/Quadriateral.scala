@@ -78,7 +78,7 @@ object Quadrilateral
     
   /** Implicit [[Slate2]] type class instance for [[Quadrilateral]] */  
   given slate2Ev: Slate2[Quadrilateral] = new Slate2[Quadrilateral]
-  { override def slate(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slate(operand)
+  { override def slateT(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slate(operand)
     override def slateXY(obj: Quadrilateral, xOperand: Double, yOperand: Double): Quadrilateral = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Quadrilateral, operand: VecPt2): Quadrilateral = obj.slateFrom(operand)
     override def slateFromXY(obj: Quadrilateral, xOperand: Double, yOperand: Double): Quadrilateral = obj.slateFrom(xOperand, yOperand)
@@ -201,7 +201,7 @@ object QuadDraw
 
   /** Implicit [[Slate2]] type class instance / evidence for [[QuadDraw]]. */
   given slate2Ev: Slate2[QuadDraw] = new Slate2[QuadDraw]
-  { override def slate(obj: QuadDraw, operand: VecPt2): QuadDraw = obj.slate(operand)
+  { override def slateT(obj: QuadDraw, operand: VecPt2): QuadDraw = obj.slate(operand)
     override def slateXY(obj: QuadDraw, xOperand: Double, yOperand: Double): QuadDraw = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: QuadDraw, operand: VecPt2): QuadDraw = obj.slateFrom(operand)
     override def slateFromXY(obj: QuadDraw, xOperand: Double, yOperand: Double): QuadDraw = obj.slateFrom(xOperand, yOperand)
@@ -267,7 +267,7 @@ object QuadFill
 
   /** Implicit [[Slate2]] type class instance / evidence for [[QuadFill]]. */
   given slate2Ev: Slate2[QuadFill] = new Slate2[QuadFill]
-  { override def slate(obj: QuadFill, operand: VecPt2): QuadFill = obj.slate(operand)
+  { override def slateT(obj: QuadFill, operand: VecPt2): QuadFill = obj.slate(operand)
     override def slateXY(obj: QuadFill, xOperand: Double, yOperand: Double): QuadFill = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: QuadFill, operand: VecPt2): QuadFill = obj.slateFrom(operand)
     override def slateFromXY(obj: QuadFill, xOperand: Double, yOperand: Double): QuadFill = obj.slateFrom(xOperand, yOperand)
@@ -343,7 +343,7 @@ object QuadCompound
 
   /** Implicit [[Slate2]] type class instance / evidence for [[QuadCompound]]. */
   given slate2Ev: Slate2[QuadCompound] = new Slate2[QuadCompound]
-  { override def slate(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slate(operand)    
+  { override def slateT(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slate(operand)    
     override def slateXY(obj: QuadCompound, xOperand: Double, yOperand: Double): QuadCompound = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: QuadCompound, operand: VecPt2): QuadCompound = obj.slateFrom(operand)
     override def slateFromXY(obj: QuadCompound, xOperand: Double, yOperand: Double): QuadCompound = obj.slateFrom(xOperand, yOperand)

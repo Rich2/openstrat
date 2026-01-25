@@ -77,7 +77,7 @@ trait Geom2Elem extends Any
 object Geom2Elem
 { /** Implicit [[Slate2]] type class instance / evidence for [[Geom2Elem]]. */
   given slate2Ev: Slate2[Geom2Elem] = new Slate2[Geom2Elem]
-  { override def slate(obj: Geom2Elem, operand: VecPt2): Geom2Elem = obj.slate(operand)
+  { override def slateT(obj: Geom2Elem, operand: VecPt2): Geom2Elem = obj.slate(operand)
     override def slateXY(obj: Geom2Elem, xOperand: Double, yOperand: Double): Geom2Elem = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Geom2Elem, operand: VecPt2): Geom2Elem = obj.slateFrom(operand)
     override def slateFromXY(obj: Geom2Elem, xOperand: Double, yOperand: Double): Geom2Elem = obj.slateFrom(xOperand, yOperand)
@@ -117,13 +117,13 @@ object Geom2Elem
 }
 
 /** The type class trait for transforming an object in 2d geometry. Note overrides necessary to preserve type. */
-trait Aff2Trans[T] extends Similar2Trans[T]
+trait Aff2Trans[T] extends Sim2Trans[T]
 { def trans(obj: T, f: Pt2 => Pt2):  T
-  override def slate(obj: T, offset: VecPt2): T = trans(obj, _.slate(offset))
+  override def slate(obj: T, operand: VecPt2): T = trans(obj, _.slate(operand))
   override def scale(obj: T, operand: Double): T = trans(obj, _.scale(operand))
   def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Pt2(v.x * yScale, v.y * xScale))
-  override def rotate(obj: T, angle: AngleVec): T = trans(obj, _.rotate(angle))
-  override def reflectT(obj: T, line: LineLike): T = trans(obj, _.mirror(line))
+  override def rotateT(obj: T, angle: AngleVec): T = trans(obj, _.rotate(angle))
+  override def mirrorT(obj: T, line: LineLike): T = trans(obj, _.mirror(line))
 }
 
 /** The companion object for the Trans[T] type class, containing instances for common classes. */

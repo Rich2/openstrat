@@ -91,7 +91,7 @@ object Sqlign
 
   /** Implicit [[Slate2]] type class instance / evidence for [[Sqlign]]. */
   given slate2Ev: Slate2[Sqlign] = new Slate2[Sqlign]
-  { override def slate(obj: Sqlign, operand: VecPt2): Sqlign = obj.slate(operand)
+  { override def slateT(obj: Sqlign, operand: VecPt2): Sqlign = obj.slate(operand)
     override def slateXY(obj: Sqlign, xOperand: Double, yOperand: Double): Sqlign = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Sqlign, operand: VecPt2): Sqlign = obj.slateFrom(operand)
     override def slateFromXY(obj: Sqlign, xOperand: Double, yOperand: Double): Sqlign = obj.slateFrom(xOperand, yOperand)

@@ -369,7 +369,7 @@ object Polygon
 
   /** Implicit [[Slate2]] type class instance / evidence for [[Polygon]]. */
   given slate2Ev: Slate2[Polygon] = new Slate2[Polygon]
-  { override def slate(obj: Polygon, operand: VecPt2): Polygon = obj.slate(operand)
+  { override def slateT(obj: Polygon, operand: VecPt2): Polygon = obj.slate(operand)
     override def slateXY(obj: Polygon, xOperand: Double, yOperand: Double): Polygon = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Polygon, operand: VecPt2): Polygon = obj.slateFrom(operand)
     override def slateFromXY(obj: Polygon, xOperand: Double, yOperand: Double): Polygon = obj.slateFrom(xOperand, yOperand)

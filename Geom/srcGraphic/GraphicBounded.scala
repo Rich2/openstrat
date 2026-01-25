@@ -26,7 +26,7 @@ trait GraphicBounded extends Graphic2Elem, BoundedElem
 object GraphicBounded
 {
   given slate2Ev: Slate2[GraphicBounded] = new Slate2[GraphicBounded]
-  { override def slate(obj: GraphicBounded, operand: VecPt2): GraphicBounded = obj.slate(operand)
+  { override def slateT(obj: GraphicBounded, operand: VecPt2): GraphicBounded = obj.slate(operand)
     override def slateXY(obj: GraphicBounded, xOperand: Double, yOperand: Double): GraphicBounded = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: GraphicBounded, operand: VecPt2): GraphicBounded = obj.slateFrom(operand)
     override def slateFromXY(obj: GraphicBounded, xOperand: Double, yOperand: Double): GraphicBounded = obj.slateFrom(xOperand, yOperand)

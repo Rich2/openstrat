@@ -67,7 +67,7 @@ object ShapeSegs
 
   /** Implicit [[Slate2]] type class instance / evidence for [[ShapeSegs]]. */
   given slate2Ev: Slate2[ShapeSegs] = new Slate2[ShapeSegs]
-  { override def slate(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slate(operand)
+  { override def slateT(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slate(operand)
     override def slateXY(obj: ShapeSegs, xOperand: Double, yOperand: Double): ShapeSegs = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: ShapeSegs, operand: VecPt2): ShapeSegs = obj.slateFrom(operand)
     override def slateFromXY(obj: ShapeSegs, xOperand: Double, yOperand: Double): ShapeSegs = obj.slateFrom(xOperand, yOperand)

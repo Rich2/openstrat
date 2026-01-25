@@ -45,7 +45,7 @@ case class SqlignDraw (shape: Sqlign, lineWidth: Double = 2, lineColour: Colour 
 object SqlignDraw
 { /** Implicit [[Slate2]] type class instance / evidence for [[SqlignDraw]]. */
   given slate2Ev: Slate2[SqlignDraw] = new Slate2[SqlignDraw]
-  { override def slate(obj: SqlignDraw, operand: VecPt2): SqlignDraw = obj.slate(operand)
+  { override def slateT(obj: SqlignDraw, operand: VecPt2): SqlignDraw = obj.slate(operand)
     override def slateXY(obj: SqlignDraw, xOperand: Double, yOperand: Double): SqlignDraw = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: SqlignDraw, operand: VecPt2): SqlignDraw = obj.slateFrom(operand)
     override def slateFromXY(obj: SqlignDraw, xOperand: Double, yOperand: Double): SqlignDraw = obj.slateFrom(xOperand, yOperand)
@@ -92,7 +92,7 @@ object SqlignFill
 
   /** Implicit [[Slate2]] type class instance / evidence for [[SqlignFill]]. */
   given slate2Ev: Slate2[SqlignFill] = new Slate2[SqlignFill]
-  { override def slate(obj: SqlignFill, operand: VecPt2): SqlignFill = obj.slate(operand)
+  { override def slateT(obj: SqlignFill, operand: VecPt2): SqlignFill = obj.slate(operand)
     override def slateXY(obj: SqlignFill, xOperand: Double, yOperand: Double): SqlignFill = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: SqlignFill, operand: VecPt2): SqlignFill = obj.slateFrom(operand)
     override def slateFromXY(obj: SqlignFill, xOperand: Double, yOperand: Double): SqlignFill = obj.slateFrom(xOperand, yOperand)

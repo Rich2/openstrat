@@ -61,7 +61,7 @@ object SquareDraw
 
   /** Implicit [[Slate2]] type class instance / evidence for [[SquareDraw]]. */
   given slate2Ev: Slate2[SquareDraw] = new Slate2[SquareDraw]
-  { override def slate(obj: SquareDraw, operand: VecPt2): SquareDraw = obj.slate(operand)
+  { override def slateT(obj: SquareDraw, operand: VecPt2): SquareDraw = obj.slate(operand)
     override def slateXY(obj: SquareDraw, xOperand: Double, yOperand: Double): SquareDraw = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: SquareDraw, operand: VecPt2): SquareDraw = obj.slateFrom(operand)
     override def slateFromXY(obj: SquareDraw, xOperand: Double, yOperand: Double): SquareDraw = obj.slateFrom(xOperand, yOperand)
@@ -115,7 +115,7 @@ object SquareFill
 
   /** Implicit [[Slate2]] type class instance / evidence for [[SquareFill]]. */
   given slate2Ev: Slate2[SquareFill] = new Slate2[SquareFill]
-  { override def slate(obj: SquareFill, operand: VecPt2): SquareFill = obj.slate(operand)
+  { override def slateT(obj: SquareFill, operand: VecPt2): SquareFill = obj.slate(operand)
     override def slateXY(obj: SquareFill, xOperand: Double, yOperand: Double): SquareFill = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: SquareFill, operand: VecPt2): SquareFill = obj.slateFrom(operand)
     override def slateFromXY(obj: SquareFill, xOperand: Double, yOperand: Double): SquareFill = obj.slateFrom(xOperand, yOperand)

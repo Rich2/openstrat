@@ -46,7 +46,7 @@ object RectangleDraw
 
   /** Implicit [[Slate2]] type class instance / evidence for [[RectangleDraw]]. */
   given slate2Ev: Slate2[RectangleDraw] = new Slate2[RectangleDraw]
-  { override def slate(obj: RectangleDraw, operand: VecPt2): RectangleDraw = obj.slate(operand)
+  { override def slateT(obj: RectangleDraw, operand: VecPt2): RectangleDraw = obj.slate(operand)
     override def slateXY(obj: RectangleDraw, xOperand: Double, yOperand: Double): RectangleDraw = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: RectangleDraw, operand: VecPt2): RectangleDraw = obj.slateFrom(operand)
     override def slateFromXY(obj: RectangleDraw, xOperand: Double, yOperand: Double): RectangleDraw = obj.slateFrom(xOperand, yOperand)
@@ -105,7 +105,7 @@ object RectangleFill
 
   /** Implicit [[Slate2]] type class instance / evidence for [[RectangleFill]]. */
   given slate2Ev: Slate2[RectangleFill] = new Slate2[RectangleFill]
-  { override def slate(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slate(operand)
+  { override def slateT(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slate(operand)
     override def slateXY(obj: RectangleFill, xOperand: Double, yOperand: Double): RectangleFill = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: RectangleFill, operand: VecPt2): RectangleFill = obj.slateFrom(operand)
     override def slateFromXY(obj: RectangleFill, xOperand: Double, yOperand: Double): RectangleFill = obj.slateFrom(xOperand, yOperand)

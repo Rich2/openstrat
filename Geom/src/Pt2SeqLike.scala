@@ -83,7 +83,7 @@ object Pt2Arr extends CompanionSlDbl2[Pt2, Pt2Arr]
   given eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
 
   given slateEv: Slate2[Pt2Arr] = new Slate2[Pt2Arr]
-  { override def slate(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slate(operand)
+  { override def slateT(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slate(operand)
     override def slateXY(obj: Pt2Arr, xOperand: Double, yOperand: Double): Pt2Arr = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Pt2Arr, operand: VecPt2): Pt2Arr = obj.slateFrom(operand)
     override def slateFromXY(obj: Pt2Arr, xOperand: Double, yOperand: Double): Pt2Arr = obj.slateFrom(xOperand, yOperand)

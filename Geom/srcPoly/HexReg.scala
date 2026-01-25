@@ -94,7 +94,7 @@ object HexReg
   }
 
   given slate2Ev: Slate2[HexReg] = new Slate2[HexReg]
-  { override def slate(obj: HexReg, operand: VecPt2): HexReg = obj.slate(operand)    
+  { override def slateT(obj: HexReg, operand: VecPt2): HexReg = obj.slate(operand)    
     override def slateXY(obj: HexReg, xOperand: Double, yOperand: Double): HexReg = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: HexReg, operand: VecPt2): HexReg = obj.slateFrom(operand)
     override def slateFromXY(obj: HexReg, xOperand: Double, yOperand: Double): HexReg = obj.slateFrom(xOperand, yOperand)

@@ -137,7 +137,7 @@ object Circle extends ShapeIcon
 
   /** Implicit [[Slate2]] type class instance / evidence for [[Circle]] */
   given slate2Ev: Slate2[Circle] = new Slate2[Circle]
-  { override def slate(obj: Circle, operand: VecPt2): Circle = obj.slate(operand)
+  { override def slateT(obj: Circle, operand: VecPt2): Circle = obj.slate(operand)
     override def slateXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Circle, operand: VecPt2): Circle = obj.slateFrom(operand)
     override def slateFromXY(obj: Circle, xOperand: Double, yOperand: Double): Circle = obj.slateFrom(xOperand, yOperand)
@@ -267,7 +267,7 @@ object CircleCompound
   
   /** Implicit [[Slate2]] type class instance / evidence for [[CircleCompound]]. */
   given slate2Ev: Slate2[CircleCompound] = new Slate2[CircleCompound]
-  { override def slate(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
+  { override def slateT(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slate(operand)
     override def slateXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: CircleCompound, operand: VecPt2): CircleCompound = obj.slateFrom(operand)
     override def slateFromXY(obj: CircleCompound, xOperand: Double, yOperand: Double): CircleCompound = obj.slateFrom(xOperand, yOperand)

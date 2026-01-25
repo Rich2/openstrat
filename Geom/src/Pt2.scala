@@ -295,7 +295,7 @@ object Pt2
   given lineSegBuildEv: BuilderMapLSegBase[Pt2, LSeg2] = LSeg2(_, _)
   
   given slateEv: Slate2[Pt2] = new Slate2[Pt2]
-  { override def slate(obj: Pt2, operand: VecPt2): Pt2 = obj.slate(operand)   
+  { override def slateT(obj: Pt2, operand: VecPt2): Pt2 = obj.slate(operand)   
     override def slateXY(obj: Pt2, xOperand: Double, yOperand: Double): Pt2 = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Pt2, operand: VecPt2): Pt2 = obj.slateFrom(operand)
     override def slateFromXY(obj: Pt2, xOperand: Double, yOperand: Double): Pt2 = obj.slateFrom(xOperand, yOperand)

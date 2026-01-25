@@ -130,7 +130,7 @@ object Rectangle
 
   /** Implicit [[Slate2]] type class instance evidence for [[Rectangle]]. */
   given slate2Ev: Slate2[Rectangle] = new Slate2[Rectangle]
-  { override def slate(obj: Rectangle, operand: VecPt2): Rectangle = obj.slate(operand)
+  { override def slateT(obj: Rectangle, operand: VecPt2): Rectangle = obj.slate(operand)
     override def slateXY(obj: Rectangle, xOperand: Double, yOperand: Double): Rectangle = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Rectangle, operand: VecPt2): Rectangle = obj.slateFrom(operand)
     override def slateFromXY(obj: Rectangle, xOperand: Double, yOperand: Double): Rectangle = obj.slateFrom(xOperand, yOperand)
@@ -159,10 +159,10 @@ object Rectangle
     override def rotate270(obj: Rectangle): Rectangle = obj.rotate270
   }
 
-  given transSimilarEv: Similar2Trans[Rectangle] = new Similar2Trans[Rectangle]
-  { override def reflectT(obj: Rectangle, line: LineLike): Rectangle = ???
-    override def rotate(obj: Rectangle, angle: AngleVec): Rectangle = obj.rotate(angle)
-    override def slate(obj: Rectangle, offset: VecPt2): Rectangle = obj.slate(offset)
+  given transSimilarEv: Sim2Trans[Rectangle] = new Sim2Trans[Rectangle]
+  { override def mirrorT(obj: Rectangle, line: LineLike): Rectangle = ???
+    override def rotateT(obj: Rectangle, angle: AngleVec): Rectangle = obj.rotate(angle)
+    override def slate(obj: Rectangle, operand: VecPt2): Rectangle = obj.slate(operand)
     override def scale(obj: Rectangle, operand: Double): Rectangle = ???
   }
 

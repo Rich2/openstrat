@@ -83,7 +83,7 @@ object HexXlign
   given persistEv: Persist2Both[Double, Pt2, HexXlign] = Persist2Both[Double, Pt2, HexXlign]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
   given slate2Ev: Slate2[HexXlign] = new Slate2[HexXlign]
-  { override def slate(obj: HexXlign, operand: VecPt2): HexXlign = obj.slate(operand) 
+  { override def slateT(obj: HexXlign, operand: VecPt2): HexXlign = obj.slate(operand) 
     override def slateXY(obj: HexXlign, xOperand: Double, yOperand: Double): HexXlign = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: HexXlign, operand: VecPt2): HexXlign = obj.slateFrom(operand)
     override def slateFromXY(obj: HexXlign, xOperand: Double, yOperand: Double): HexXlign = obj.slateFrom(xOperand, yOperand)

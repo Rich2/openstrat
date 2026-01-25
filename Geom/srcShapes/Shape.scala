@@ -52,7 +52,7 @@ trait Shape extends Any, Geom2Elem, Fillable, BoundedElem
 object Shape
 { /** Implicit [[Slate2]] type class instance / evidence for [[Shape]] */
   given slate2Ev: Slate2[Shape] = new Slate2[Shape]
-  { override def slate(obj: Shape, operand: VecPt2): Shape = obj.slate(operand)
+  { override def slateT(obj: Shape, operand: VecPt2): Shape = obj.slate(operand)
     override def slateXY(obj: Shape, xOperand: Double, yOperand: Double): Shape = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: Shape, operand: VecPt2): Shape = obj.slateFrom(operand)
 

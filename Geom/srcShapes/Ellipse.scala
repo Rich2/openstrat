@@ -177,7 +177,7 @@ object Ellipse
     // new EllipseGen(xCen, yCen, xAxes1, yAxes1, radius2)
 
   given slateEv: Slate2[Ellipse] = new Slate2[Ellipse]
-  { override def slate(obj: Ellipse, operand: VecPt2): Ellipse = cenAxes1axes4(obj.cen.slate(operand), obj.p1.slate(operand), obj.p0.slate(operand))
+  { override def slateT(obj: Ellipse, operand: VecPt2): Ellipse = cenAxes1axes4(obj.cen.slate(operand), obj.p1.slate(operand), obj.p0.slate(operand))
 
     override def slateXY(obj: Ellipse, xOperand: Double, yOperand: Double): Ellipse =
       cenAxes1axes4(obj.cen.slate(xOperand, yOperand), obj.p1.slate(xOperand, yOperand), obj.p0.slate(xOperand, yOperand))

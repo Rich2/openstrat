@@ -28,7 +28,7 @@ trait CanvElem extends Graphic2Elem
 object CanvElem
 { /** Implicit [[Slate2]] type class instance / evidence for [[CanvElem]]. */
   given slate2Ev: Slate2[CanvElem] = new Slate2[CanvElem]
-  { override def slate(obj: CanvElem, operand: VecPt2): CanvElem = obj.slate(operand)
+  { override def slateT(obj: CanvElem, operand: VecPt2): CanvElem = obj.slate(operand)
     override def slateXY(obj: CanvElem, xOperand: Double, yOperand: Double): CanvElem = obj.slate(xOperand, yOperand)
     override def slateFrom(obj: CanvElem, operand: VecPt2): CanvElem = obj.slateFrom(operand)
     override def slateFromXY(obj: CanvElem, xOperand: Double, yOperand: Double): CanvElem = obj.slateFrom(xOperand, yOperand)
