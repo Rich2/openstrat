@@ -42,7 +42,7 @@ trait Prolign[A]
 /** Companion object for the Prolign type class. */
 object Prolign
 {
-  given transAlignerEv[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
+  //given transAlignerEv[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
 
   given arrEv[A](using ct: ClassTag[A], ev: Prolign[A]): Prolign[RArr[A]] =
     (arrA : RArr[A], prolignMatrix: AxlignMatrix) => arrA.map(a => ev.prolignObj(a, prolignMatrix))

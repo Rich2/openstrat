@@ -73,7 +73,7 @@ object PolygonGraphic
   given prolignEv: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
   
   /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonGraphic]]. */
-  given transAxesEv: MirrorAxes[PolygonGraphic] = new MirrorAxes[PolygonGraphic]
+  given mirrorAxesEv: MirrorAxes[PolygonGraphic] = new MirrorAxes[PolygonGraphic]
   { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
     override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
     override def rotate90(obj: PolygonGraphic): PolygonGraphic = obj.rotate90

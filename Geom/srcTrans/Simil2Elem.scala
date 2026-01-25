@@ -3,7 +3,7 @@ package ostrat; package geom
 import reflect.ClassTag
 
 /** A Similar Transformations type class for 2D geometric objects.  */
-trait Similar2Trans[T] extends TransAlign[T]
+trait Similar2Trans[T] extends AlignTrans[T]
 { def reflectT(obj: T, line: LineLike): T
   def rotate(obj: T, angle: AngleVec): T
 }

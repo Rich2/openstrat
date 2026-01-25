@@ -60,8 +60,8 @@ object ShapeCompound
   /** Implicit [[Rotate]] type class instance / instance for [[ShapeCompound]]. */
   given rotateEv: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
   
-  /** Implicit [[TrabsAxes]] type class instance / instance for [[ShapeCompound]]. */
-  given transAxesEv: MirrorAxes[ShapeCompound] = new MirrorAxes[ShapeCompound]
+  /** Implicit [[MirrorAxes]] type class instance / instance for [[ShapeCompound]]. */
+  given mirrorAxesEv: MirrorAxes[ShapeCompound] = new MirrorAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
     override def rotate90(obj: ShapeCompound): ShapeCompound = obj.rotate90
