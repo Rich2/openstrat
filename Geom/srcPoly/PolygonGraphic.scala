@@ -120,7 +120,7 @@ object PolygonGraphicSimple
   given scaleEv: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
 
   /** Implicit [[MirrorAxes]] type class instance / evidence for [[PolygonGraphicSimple]]. */
-  given transAxesEv: MirrorAxes[PolygonGraphicSimple] = new MirrorAxes[PolygonGraphicSimple]
+  given mirrorAxesEv: MirrorAxes[PolygonGraphicSimple] = new MirrorAxes[PolygonGraphicSimple]
   { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
     override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
     override def rotate90(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate90
@@ -354,14 +354,10 @@ trait PolygonCompound extends ShapeCompound, PolygonGraphic, Geom2Elem
   def addChildren(newChildren: Arr[Graphic2Elem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 }
 
-/** Companion object for the PolygonCompound trait contains factory apply method and implicit instances for the 2D geometric transformation type
- * classes. */
+/** Companion object for the PolygonCompound trait contains factory apply method and implicit instances for the 2D geometric transformation type classes. */
 object PolygonCompound
 {
-  def apply(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): PolygonCompound =
-    new PolygonCompoundGen(shape, facets, children)
-
-  //given showTImplicit: Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound] = Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound]()
+  def apply(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): PolygonCompound = PolygonCompoundGen(shape, facets, children)
 
   /** Implicit [[Slate2]] type class instance evidence for [[PolygonCompound]]. */
   given slateEv: Slate2[PolygonCompound] = new Slate2[PolygonCompound]

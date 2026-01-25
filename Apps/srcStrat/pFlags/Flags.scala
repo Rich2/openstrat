@@ -10,7 +10,7 @@ trait Flag
   def apply(): GraphicElems
   def rect: Rect = Rect(ratio)
 
-  def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
+  def compoundStr: RectCompound = rect.activeChildren(name -- "flag", apply())
 
   def compound(evObj: AnyRef = this): PolygonCompound =
   { val rect = Rect(ratio)
@@ -123,8 +123,10 @@ object CommonShapesInFlags extends Flag
 object Iraq extends Flag
 { val name = "Iraq"
   val ratio = 1.5
+
   def apply(): GraphicElems =
-  { val stuff: GraphicElems = RArr(
+  {
+    val stuff: GraphicElems = RArr(
     ShapeGenOld(LineTail(-0.34, 0.2997), BezierTail(-0.3409, 0.3002, -0.3419, 0.301, -0.3423, 0.3015),
       BezierTail(-0.3428, 0.3022, -0.3425, 0.3022, -0.3403, 0.3016), BezierTail(-0.3365, 0.3006, -0.334, 0.301, -0.3315, 0.3031),
       LineTail(-0.3293, 0.3049), LineTail(-0.3268, 0.3036), BezierTail(-0.3254, 0.3029, -0.3239, 0.3024, -0.3234, 0.3025),
@@ -172,9 +174,9 @@ object Iraq extends Flag
 object India extends Flag
 { val name = "India"
   val ratio = 1.5
+
   def apply(): GraphicElems =
-  { 
-    val spoke = ShapeGenOld(LineTail(-0.75, 0.3833), LineTail(-0.746, 0.4533), BezierTail(-0.746, 0.4533, -0.75, 0.4867, -0.75, 0.4867),
+  { val spoke = ShapeGenOld(LineTail(-0.75, 0.3833), LineTail(-0.746, 0.4533), BezierTail(-0.746, 0.4533, -0.75, 0.4867, -0.75, 0.4867),
       BezierTail(-0.75, 0.4867, -0.754, 0.4533, -0.754, 0.4533), LineTail(-0.75, 0.3833),
       LineTail(-0.75, 0.3833)).slate(0.75, -0.5).fill(Colour(0xFF000080))
     

@@ -29,7 +29,6 @@ trait ShapeCompound extends ShapeGeomlessCompound, ShapeGraphic, NoCanvElem
   override def scale(operand: Double): ShapeCompound
   override def negY: ShapeCompound
   override def negX: ShapeCompound
-
   override def prolign(matrix: AxlignMatrix): ShapeCompound
   override def rotate90: ShapeCompound
   override def rotate180: ShapeCompound

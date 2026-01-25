@@ -6,7 +6,7 @@ import geom.*, Colour.*
 sealed trait Piece extends PolygonMemIcon
 
 /** Symmetrical Chess piece */
-trait MirrorPiece extends Piece with UnScaledPolygonYMirror
+trait MirrorPiece extends Piece, UnScaledPolygonYMirror
 { def rtLine100: LinePath = LinePath.dbls(20,80, 20,20, 40,20, 40,0)
 }
 
