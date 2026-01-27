@@ -1,6 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
 import ostrat.Colour.Black
 
 /** A square aligned to the X and Y axes. So these squares can be defined by their widths and their centre points. However, the position of the vertices 0, 1, 2
