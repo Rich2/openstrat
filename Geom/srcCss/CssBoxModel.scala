@@ -42,18 +42,18 @@ object BorderDec
 /** CSS border = none declaration. */
 object BorderNoneDec extends MarginDec(CssVal("none"))
 
-/** Css border-style value. */
+/** CSS border-style value. */
 trait BorderStyle extends CssVal
 { /** apply method combines border style with colour." */
   def apply(colour: Colour): CssVal = CssVal(str -- colour.webStr)
 }
 
-/** Css solid border style value. */
+/** CSS solid border style value. */
 object SolidCss extends BorderStyle
 { override def str: String = "solid"
 }
 
-/** Css padding declaration. */
+/** CSS padding declaration. */
 case class PaddingDec(value: CssVal) extends CssDecStd
 { override def property: String = "padding"
 }
@@ -61,21 +61,21 @@ case class PaddingDec(value: CssVal) extends CssDecStd
 /** CSS padding = 0 declaration. */
 object Padding0Dec extends PaddingDec(CssVal("0"))
 
-/** Css padding-left declaration. */
-case class DecPadLeftDec(value: CssVal) extends CssDecStd
+/** CSS padding-left declaration. */
+case class PadLeftDec(value: CssVal) extends CssDecStd
 { override def property: String = "padding-left"
 }
 
-/** Css padding-right declaration. */
+/** CSS padding-right declaration. */
 case class PadRightDec(value: CssVal) extends CssDecStd
 { override def property: String = "padding-right"
 }
 
-/** Css padding-top declaration. */
+/** CSS padding-top declaration. */
 case class PadTopDec(value: CssVal) extends CssDecStd
 { override def property: String = "padding-top"
 }
-/** Css padding-bottom declaration. */
+/** CSS padding-bottom declaration. */
 case class PadBottomDec(value: CssVal) extends CssDecStd
 { override def property: String = "padding-bottom"
 }

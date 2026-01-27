@@ -55,16 +55,13 @@ trait CssRule extends CssRuleLike
 
 object CssRule
 { /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as repeat parameters. */
-  def apply(selecIn: String, propsIn: RArr[CssDecs]): CssRule = new CssRule
-  { override def selec: String = selecIn
-    override val decsArr: RArr[CssDecs] = propsIn
-  }
+  def apply(selec: String, decs: RArr[CssDecs]): CssRule = CssRuleGen(selec, decs)
 
   /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as an [[RArr]]. */
-  def apply(selecIn: SelOrStr, propsIn: CssDecs*): CssRule = new CssRule
-  { override def selec: SelOrStr = selecIn
-    override def decsArr: RArr[CssDecs] = propsIn.toArr
-  }
+  def apply(selec: SelOrStr, decs: CssDecs*): CssRule = CssRuleGen(selec, decs.toArr)
+
+  /** General case for CSS Rule consisting of selector plus a set of declarations. */
+  case class CssRuleGen(selec: SelOrStr, decsArr: RArr[CssDecs]) extends CssRule
 }
 
 class CssChild(val parent: SelMemOrStr, val child: SelMemOrStr, val  decsArr: RArr[CssDecs]) extends CssRule
@@ -77,12 +74,17 @@ object CssChild
   def apply(parent: SelMemOrStr, child: SelMemOrStr, decs: CssDecs*): CssChild = new CssChild(parent, child, decs.toArr)
 }
 
-class CssListRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecs]) extends CssRule
+/** CSS rule with multiple selectors. */
+class CssSelsRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecs]) extends CssRule
 { /** The selector [[String]] for the CSS rule. */
   override def selec: CssSelector | String = selectors.mkStr(_.outStr, ", ")
 }
 
-object CssListRule
-{
-  def apply(sel0: SelMemOrStr, others: SelMemOrStr*)(decs: CssDec*): CssListRule = new CssListRule(sel0 %: others.toArr, decs.toArr)
+object CssSelsRule
+{ /** Factory apply method for CSS rule with multiple selectors. */
+  def apply(sel0: SelMemOrStr, others: SelMemOrStr*)(decs: CssDec*): CssSelsRule = new CssSelsRule(sel0 %: others.toArr, decs.toArr)
+}
+
+case class CssClassRule(classStr: String, decsArr: RArr[CssDecs]) extends CssRule
+{ override def selec: SelOrStr = "." + classStr
 }

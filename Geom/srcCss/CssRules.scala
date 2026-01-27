@@ -72,16 +72,20 @@ object CssSvg
 }
 
 /** CSS rule for classes. */
-class CssClassesRule(val classStr: String, val decsArr: RArr[CssDecs]) extends CssRule
-{ override def selec: String = "." + classStr
+trait CssClassesRule extends CssRule
+{
+  def classStr: String//, val decsArr: RArr[CssDecs])
+  override def selec: String = "." + classStr
 }
 
 object CssClassesRule
 { /** Factory apply method to create rule for single CSS class with [[RArr]] of [[CssDecs]]. There is a name overload which takes repeat parameters of [[CssDecs]]. */
-  def apply(classStr: String, props: RArr[CssDecs]): CssClassesRule = new CssClassesRule(classStr, props)
+  def apply(classStr: String, props: RArr[CssDecs]): CssClassesRule = CssClassesRuleGen(classStr, props)
 
   /** Factory apply method to create rule for single CSS class with [[RArr]] of [[CssDecs]]. There is a name overload which takes an [[RArr]] of [[CssDecs]]. */
-  def apply(classStr: String, props: CssDecs*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
+  def apply(classStr: String, props: CssDecs*): CssClassesRule = CssClassesRuleGen(classStr, props.toArr)
+
+  case class CssClassesRuleGen(classStr: String, decsArr: RArr[CssDecs]) extends CssClassesRule
 }
 
 /** CSS rule for IDs. */
