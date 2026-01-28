@@ -69,14 +69,17 @@ trait CssSingleRule extends CssRule
 /** A CSS rule with a single selector that is not a child or a descendent selector */
 trait CssAdultRule extends CssSingleRule
 
-class CssChild(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecs]) extends CssSingleRule
+class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecs]) extends CssSingleRule
 { /** The selector [[String]] for the CSS rule. */
   override def selec: String = parent.outStr -- ">" -- child.outStr
 }
 
-object CssChild
-{
-  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: CssDecs*): CssChild = new CssChild(parent, child, decs.toArr)
+object CssChildRule
+{ /** Factory apply method to construct a CSS rule with a Child selector. */
+  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: RArr[CssDecs]): CssChildRule = new CssChildRule(parent, child, decs)
+
+  /** Factory apply method to construct a CSS rule with a Child selector. */
+  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: CssDecs*): CssChildRule = new CssChildRule(parent, child, decs.toArr)
 }
 
 /** CSS rule with multiple selectors. */
@@ -87,9 +90,11 @@ class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecs]) extend
 
 object CssMultiRule
 { /** Factory apply method for CSS rule with multiple selectors. */
-  def apply(sel0: SelSimpleOrStr, others: SelSimpleOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
+  def apply(sel0: SelOrStr, others: SelOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
 }
 
 case class CssClassRule(classStr: String, decsArr: RArr[CssDecs]) extends CssRule
-{ override def selec: SelOrStr = "." + classStr
+{ override def selec: String = "." + classStr
+  def child(childSel: SelSimpleOrStr, decsArr: RArr[CssDecs]): CssChildRule = CssChildRule(selec, childSel, decsArr)
+  def child(childSel: SelSimpleOrStr, decs: CssDecs*): CssChildRule = CssChildRule(selec, childSel, decs.toRArr)
 }
