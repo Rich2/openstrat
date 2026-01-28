@@ -69,7 +69,7 @@ trait CssSingleRule extends CssRule
 /** A CSS rule with a single selector that is not a child or a descendent selector */
 trait CssAdultRule extends CssSingleRule
 
-class CssChild(val parent: SelMemOrStr, val child: SelMemOrStr, val  decsArr: RArr[CssDecs]) extends CssSingleRule
+class CssChild(val parent: SelAdultOrStr, val child: SelAdultOrStr, val  decsArr: RArr[CssDecs]) extends CssSingleRule
 { /** The selector [[String]] for the CSS rule. */
   override def selec: String = parent.outStr -- ">" -- child.outStr
 }
@@ -87,7 +87,7 @@ class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecs]) extend
 
 object CssMultiRule
 { /** Factory apply method for CSS rule with multiple selectors. */
-  def apply(sel0: SelMemOrStr, others: SelMemOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
+  def apply(sel0: SelAdultOrStr, others: SelAdultOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
 }
 
 case class CssClassRule(classStr: String, decsArr: RArr[CssDecs]) extends CssRule

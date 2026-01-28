@@ -7,6 +7,12 @@ trait CssSelector
   def out: String
 }
 
+object CssSelector
+{
+  //def apply(str: String): CssSelector = new CssSelGen(str)
+  class CssSelGen(val out: String) extends SelListMem
+}
+
 /** CSS selector or [[String]] that can be used for selector. */
 type SelOrStr = CssSelector | String
 
@@ -18,25 +24,31 @@ extension (inp: SelOrStr)
   }
 }
 
+/** CSS rule selector that is not a child or a descendent. */
+trait CssAdultSel extends CssSelector
+
+type SelAdultOrStr = SelListMem | String
+
+/** CSS rule selector for HTML tag type. */
+case class CssTagSel(out: String) extends CssAdultSel
+
+/** CSS rule selector for a CSS class. */
+case class CssClassSel(tailStr: String) extends CssAdultSel
+{ override def out: String = "," + tailStr
+}
+/** CSS rule selector for a CSS ID. */
+case class CssIdSel(tailStr: String) extends CssAdultSel
+{ override def out: String = "#" + tailStr
+}
+
 trait SelListMem extends CssSelector
 { /** Returns CSS child selector. */
-  def > (child: SelListMem | String): CssSelector = ChildSel(this, child)
+  //def > (child: SelListMem | String): CssSelector = ChildSel(this, child)
 }
 
 type SelMemOrStr = SelListMem | String
 
-object CssSelector
-{
-  def apply(str: String): CssSelector = new CssSelGen(str)
-  class CssSelGen(val out: String) extends SelListMem
-}
-
-class ChildSel(parent: SelListMem | String, child: SelListMem | String) extends SelListMem
+class ChildSel(parent: SelAdultOrStr, child: SelListMem | String) extends SelListMem
 {
   override def out: String = parent.outStr -- ">" -- child.outStr
-}
-
-class CssListSel(elems: RArr[SelListMem | String]) extends CssSelector
-{
-  override def out: String = elems.mkStr(_.outStr, ", ")
 }
