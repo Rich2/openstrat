@@ -1,5 +1,5 @@
 //| # Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
-//| mill-version: 1.0.6
+//| mill-version: 1.1.0
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
@@ -49,7 +49,7 @@ object Geom extends CommonJvm
 {
   def sources1 = Task.Sources(
     Seq("src", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcXml", "srcHtml", "srcWeb",
-      "srcCss", "srcWebCode", "srcEarth").map(name => moduleDir / name)*)
+      "srcWebOpen", srcCss", "srcWebCode", "srcEarth").map(name => moduleDir / name)*)
 
   def sources2 = Task.Sources(moduleDir / "JvmSrc")
   def sources = Task { sources1() ++ sources2() }

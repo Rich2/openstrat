@@ -6,6 +6,8 @@ object LargeList
   val classStr = "LargeList"
   
   val classRule = CssClassRule(classStr, RArr(PadLeftDec (1.em)))
+  
+  val liRule = classRule.child("li", MarginTBDec(2.em))
 
   val rules = RArr(classRule, CssRule("ol li", MarginTBDec(2.em)), CssRule("ul li", MarginDec(0.25.em)),
     CssRule("ol > li", MarginTBDec(1.em)))
