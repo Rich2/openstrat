@@ -16,6 +16,7 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("sbt", BGColourDec(Black), ColourDec(LightGreen)),
     CssClassesRule("folder", BGColourDec(Black), ColourDec(LightBlue)),
     CssClassesRule("path", BGColourDec(White), ColourDec(DarkBlue), NoWrapDec),
+    CssClassesRule("bash", NoWrapDec),
     CssClassesRule("bashprompt", BGColourDec(Black), ColourDec(Pink)),
     CssClassesRule("scalalines", BGColourDec(Black), ColourDec(White), NoWrapDec),
     CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
