@@ -5,11 +5,10 @@ import pWeb.*, Colour.*
 /** CSS for openstrat documentation. */
 object CssDocumentation extends CssOpenstrat
 {
-  override def rules: RArr[CssRuleLike] = RArr(
+  val newRules: RArr[CssRuleLike] = RArr(
     CssBody(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
     CssClassesRule("central", MaxWidthDec(68.em), MarginLRAutoDec),
     CssClassesRule("main", MaxWidthDec(68.em), MarginLRAutoDec),
-    CssOl(PadLeftDec(1.em)), CssRule("ol li", MarginTBDec(2.em)), CssRule("ul li", MarginDec(0.25.em)), CssRule("ol > li", MarginTBDec(1.em)),
     CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
     CssMultiRule("code", TagChildSel("code", "span"), TagChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White), PadBottomDec(0.1.em)),
     CssMultiRule(".output", ClassChildSel(".output", "div"))(BGColourDec(Black), ColourDec(Pink)),
@@ -24,4 +23,6 @@ object CssDocumentation extends CssOpenstrat
     CssRule("td th", PadRightDec(2.em), DecAlignLeft),
     minMed
   )
+
+  override def rules: RArr[CssRuleLike] = osweb.utilRules ++ newRules
 }

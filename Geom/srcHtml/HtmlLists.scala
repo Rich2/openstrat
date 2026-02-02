@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** Html UL unordered list element. */
-class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines
+trait HtmlUl extends HtmlTagLines
 { override def tagName: String = "ul"
 }
 
@@ -10,15 +10,17 @@ class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagL
 object HtmlUl
 { /** Factory apply method for HTML UL unordered list. There is an apply name overload for an Unordered list without attributes that takes repeat parameter
    * contents elements. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlUl = new HtmlUl(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlUl = HtmlUlGen(contents, attribs)
   
   /** Factory apply method for HTML UL unordered list, with no attributes. */
-  def apply(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr, RArr())
+  def apply(contents: XCon*): HtmlUl = HtmlUlGen(contents.toArr, RArr())
 
-  /** Factory method for HTML UL unordered list frpm [[String]]s. */
-  def strs(items: String*): HtmlUl = new HtmlUl(items.mapArr(HtmlLi(_)), RArr())
+  /** Factory method for HTML UL unordered list from [[String]]s. */
+  def strs(items: String*): HtmlUl = HtmlUlGen(items.mapArr(HtmlLi(_)), RArr())
 
-  def noStyle(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr, RArr(ListStyleNoneAtt))
+  def noStyle(contents: XCon*): HtmlUl = HtmlUlGen(contents.toArr, RArr(ListStyleNoneAtt))
+  
+  case class HtmlUlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlUl
 }
 
 /** Html OL ordered list element. */
@@ -34,10 +36,10 @@ object HtmlOl
   /** Factory apply method for HTML OL ordered list. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlOl = HtmlOlGen(contents, attribs)
 
-  /** Factory method for HTML OL ordered list frpm [[String]]s. */
+  /** Factory method for HTML OL ordered list from [[String]]s. */
   def strs(items: String*): HtmlOl = HtmlOlGen(items.mapArr(HtmlLi(_)), RArr())
 
-  /** Factory method for HTML OL ordered list frpm [[String]]s. */
+  /** Factory method for HTML OL ordered list from [[String]]s. */
   def noSpaceStrs(items: String*): HtmlOl =
   { val style = StyleAtt(CssLi(Margin0Dec, Padding0Dec, BorderNoneDec))
     new HtmlOlGen(items.mapArr(HtmlLi(_)), RArr(style))

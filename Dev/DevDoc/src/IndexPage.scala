@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, pDoc.*
+import pWeb.*, osweb.*, pDoc.*
 
 /** The home page for the project, currently displayed at richstrat.com. */
 object IndexPage extends IndexPage
@@ -19,7 +19,7 @@ object IndexPage extends IndexPage
   def devInfo = HtmlA("Documentation/dev.html", "Info for developers here.")
   def begInfo = HtmlA("Documentation/newdevs.html", "Info for new developers here.")
 
-  def menu: HtmlOl = HtmlOl(util, geom, tile, egrid, apps, dev)
+  def menu: HtmlLargeOl = HtmlLargeOl(util, geom, tile, egrid, apps, dev)
 
   def intro: HtmlP = HtmlP("The Code is currently organised into 6 modules.".htmlB,
     "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")
