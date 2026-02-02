@@ -20,24 +20,30 @@ object HtmlUl
 
   def noStyle(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr, RArr(ListStyleNoneAtt))
 }
+
 /** Html OL ordered list element. */
-case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
+trait HtmlOl extends HtmlTagLines
 { override def tagName: String = "ol"
 }
 
 /** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlOl
 { /** Factory apply method for HTML OL ordered list. */
-  def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
+  def apply(contents: XCon*): HtmlOl = HtmlOlGen(contents.toArr, RArr())
+
+  /** Factory apply method for HTML OL ordered list. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlOl = HtmlOlGen(contents, attribs)
 
   /** Factory method for HTML OL ordered list frpm [[String]]s. */
-  def strs(items: String*): HtmlOl = new HtmlOl(items.mapArr(HtmlLi(_)), RArr())
+  def strs(items: String*): HtmlOl = HtmlOlGen(items.mapArr(HtmlLi(_)), RArr())
 
   /** Factory method for HTML OL ordered list frpm [[String]]s. */
   def noSpaceStrs(items: String*): HtmlOl =
   { val style = StyleAtt(CssLi(Margin0Dec, Padding0Dec, BorderNoneDec))
-    new HtmlOl(items.mapArr(HtmlLi(_)), RArr(style))
+    new HtmlOlGen(items.mapArr(HtmlLi(_)), RArr(style))
   }
+
+  case class HtmlOlGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOl
 }
 
 /** Html LI, list item element. */
