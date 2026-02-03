@@ -7,7 +7,7 @@ val listLargeRule: CssClassRule = CssClassRule(largeListStr, RArr(PadLeftDec(1.e
 
 val liLargeRule: CssChildRule = listLargeRule.child("li", MarginTBDec(1.em))
 
-
+/** LargeList class attribute. */
 object LargeListAtt extends ClassAtt(largeListStr)
 
 /** Common trait for large ordered and unordered HTML Lists. */
@@ -20,8 +20,6 @@ trait HtmlLargeList extends HtmlTagLines
 
 /** An HTML OL ordered list with the LargeList CSS class */
 class HtmlLargeOl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl, HtmlLargeList
-{
-}
 
 object HtmlLargeOl
 {/** Factory apply method for a large HTML OL ordered list. */
