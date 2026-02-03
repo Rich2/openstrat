@@ -1,4 +1,4 @@
- /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb; package osweb
 
 val largeListStr = "LargeList"
@@ -7,15 +7,20 @@ val listLargeRule: CssClassRule = CssClassRule(largeListStr, RArr(PadLeftDec(1.e
 
 val liLargeRule: CssChildRule = listLargeRule.child("li", MarginTBDec(1.em))
 
-val utilRules: RArr[CssRule] = RArr(listLargeRule, liLargeRule)
 
 object LargeListAtt extends ClassAtt(largeListStr)
 
-trait HtmlLargeList
+/** Common trait for large ordered and unordered HTML Lists. */
+trait HtmlLargeList extends HtmlTagLines
+{ /** Any other attirubutes in addition to LargeListAtt */
+  def otherAttribs: RArr[XAtt]
+
+  override def attribs: RArr[XAtt] = LargeListAtt %: otherAttribs
+}
 
 /** An HTML OL ordered list with the LargeList CSS class */
-class HtmlLargeOl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl
-{ override def attribs: RArr[XAtt] = LargeListAtt %: otherAttribs
+class HtmlLargeOl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl, HtmlLargeList
+{
 }
 
 object HtmlLargeOl
@@ -30,9 +35,7 @@ object HtmlLargeOl
 }
 
 /** An HTML UL unordered list with the LargeList CSS class */
-class HtmlLargeUl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl
-{ override def attribs: RArr[XAtt] = LargeListAtt %: otherAttribs
-}
+class HtmlLargeUl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl, HtmlLargeList
 
 object HtmlLargeUl
 {/** Factory apply method for a large HTML UL unordered list. */
