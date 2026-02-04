@@ -7,7 +7,6 @@ object CssDocumentation extends CssOpenstrat
 {
   val newRules: RArr[CssRuleLike] = RArr(
     CssBody(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
-    CssClassesRule("central", MaxWidthDec(68.em), MarginLRAutoDec),
     CssClassesRule("main", MaxWidthDec(68.em), MarginLRAutoDec),
     CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
     CssMultiRule("code", TagChildSel("code", "span"), TagChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White), PadBottomDec(0.1.em)),

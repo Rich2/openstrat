@@ -74,7 +74,7 @@ object CssSvg
 /** CSS rule for classes. */
 trait CssClassesRule extends CssRule
 {
-  def classStr: String//, val decsArr: RArr[CssDecs])
+  def classStr: String
   override def selec: String = "." + classStr
 }
 
