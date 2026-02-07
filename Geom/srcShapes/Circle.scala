@@ -106,6 +106,7 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
   /** Equilateral triangle on this [[Circle]] with vertex pointing down. */
   def triEquiDown: TriEquiXlign = TriEquiXlign.verts(ptOn(30.degs), ptOn(-90.degs), ptOn(150.degs))
 
+  /** Returns a line segment across a diameter of this [[Circle]]. */
   def diameterLSeg(angle: Angle): LSeg2 = LSeg2(ptOn(angle), ptOn(angle + 180.degsVec))
 
   /** Produces a cross of 2 line segments. */
