@@ -4,15 +4,7 @@ import pWeb.*, wcode.*
 
 /** Miscellaneous dev stuff. */
 object DevMisc extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(intellij, git, jvms, sbtInstall, chrome, sublime)
-
-  def intellij = SectionH2("Intellij IDEA",
-    BashLine("sudo tar -xzf idea-2025.3.2.tar.gz -C /opt"),
-    HtmlUlWithLH("For IntelliJ useful options:",
-    HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
-    HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
-    HtmlLi("Project-Pane => Options -> 'Flatten packages'"))
-  )
+{ override def contents: RArr[XCon] = RArr(git, jvms, sbtInstall, intellij, chrome, sublime)
 
   def git: SectionH2 = SectionH2(
     "Git and Github",
@@ -34,8 +26,10 @@ object DevMisc extends HtmlSection
 
   def jvms: SectionH2 = SectionH2("JVMs",
     BashLine("sudo apt install openjdk-25-jdk"),
-    "Add the following line to", HtmlDirPath("/etc/environment"), "file.",
+    "For Kubuntu/ Ubuntu add the following line to", HtmlDirPath("/etc/environment"), "file.",
     HtmlCodeLine("JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"),
+    "For Arch, CachyOs",
+    HtmlCodeLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk"),
     "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
@@ -64,6 +58,14 @@ object DevMisc extends HtmlSection
   BashLine("""curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee /etc/apt/trusted.gpg.d/sbt.asc"""),
   BashLine("sudo apt update"),
   BashLine("sudo apt install sbt"))
+
+  def intellij = SectionH2("Intellij IDEA",
+    BashLine("sudo tar -xzf idea-2025.3.2.tar.gz -C /opt"),
+    HtmlUlWithLH("For IntelliJ useful options:",
+      HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
+      HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
+      HtmlLi("Project-Pane => Options -> 'Flatten packages'"))
+  )
 
   def chrome: SectionH2 = SectionH2("Chrome",
     BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
