@@ -108,7 +108,8 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
 
   def diameterLSeg(angle: Angle): LSeg2 = LSeg2(ptOn(angle), ptOn(angle + 180.degsVec))
 
-  def cross(angle: Angle): LSeg2Arr = LSeg2Arr(diameterLSeg(angle), diameterLSeg(angle + 90.degsVec))
+  /** Produces a cross of 2 line segments. */
+  def cross(angle: Angle = 0.degs): LSeg2Arr = LSeg2Arr(diameterLSeg(angle), diameterLSeg(angle + 90.degsVec))
 }
 
 /** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */
