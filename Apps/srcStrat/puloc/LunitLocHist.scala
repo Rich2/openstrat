@@ -1,9 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
-import geom._, pgui._, pStrat._, pglobe._
+import geom.*, pStrat.*, pglobe.*
 
-/** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is consdered to be a new
- *  unit. */
+/** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is considered to be a new unit. */
 trait LunitLocHist
 { val startDate: MTime
   val endDate: Option[MTime]

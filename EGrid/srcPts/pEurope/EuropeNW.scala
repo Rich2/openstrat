@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*
 
 /** [[polygonLL]] graphical representation of Belgium and Luxembourg. Depends on Alsace. */
 object BelgLux extends EarthPoly("BelgLux", 50.6 ll 4.78, oceanic)
@@ -66,6 +66,7 @@ object FranceNorth extends EarthPoly("France north", 47.28 ll 1.93, oceanic)
 
   val paris: LocationLL = LocationLL("Paris", 48.86, 2.35, 1)
   val lille: LocationLL = LocationLL("Lille", 50.63, 3.06, 2)
+  val caen: LocationLL = LocationLL("Caen", 49.182, -0.370, 2)
 
   override val places: LocationLLArr = LocationLLArr(paris)
 }

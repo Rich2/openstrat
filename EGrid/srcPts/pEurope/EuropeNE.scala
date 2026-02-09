@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*
 
 /** [[PolygonLL]] graphical representation for Poland and adjacent territory. */
 object Polandia extends EarthPoly("Polandia", 50.07 ll 20.13, continental)

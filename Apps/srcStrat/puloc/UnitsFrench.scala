@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
-import geom._, pStrat._, pglobe._, pEarth._, pEurope._
+import geom.*, pStrat.*, pglobe.*, pEarth.*, pEurope.*
 
 abstract class FraNumberedCorps(val startDate: MTime, val endDate: Option[MTime], val corpsNum: Int) extends LunitLocHist
 { override def idStr: String = corpsNum.frenchOrdAbbr(true)
