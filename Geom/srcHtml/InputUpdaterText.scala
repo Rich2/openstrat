@@ -51,7 +51,7 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
 }
 
 object InputUpdaterText
-{
+{ /** Factory apply method for object to update a page from a text input. */
   def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: HtmlPageInput): InputUpdaterText = new InputUpdaterText(idStr, valueStr, otherAttribs.toRArr)
 }
 

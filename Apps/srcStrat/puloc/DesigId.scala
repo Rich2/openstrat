@@ -1,7 +1,7 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
 
-/** Designation identifier. Examples "8th" in "8th Army. "Afrika" in "Korps Africa"  */
+/** Designation identifier. Examples "8th" in "8th Army. "Afrika" in "Korps Afrika"  */
 trait DesigId
 { /** Does the ID string go before are after the level [[String]]. */
   def isPre: Boolean

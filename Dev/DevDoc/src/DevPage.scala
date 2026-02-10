@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 /** HTML documentation page for Dev Module. */
-object DevPage extends OSDocumentationPage
+object DevPage extends OSDocumentationPage, HtmlPageInput
 { override val titleStr: String = "Dev Module"
   override val fileNameStem: String = "dev"
 

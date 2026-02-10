@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import reflect.ClassTag
 
@@ -33,7 +33,7 @@ trait CallbackInput
   def targetId: String
 }
 
-/** Html Input element with submit type */
+/** HTML Input element with submit type */
 case class SubmitInput(valueStr: String) extends HtmlInput
 { override def typeAtt: TypeAtt = TypeSubmitAtt
   override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr))
