@@ -92,7 +92,6 @@ package object utiljvm
    * name overload that takes a [[DirAbs]] for the path. */
   def htmlFileStrWrite(pathName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
     fileWrite(pathName + ".html", content).map(fw => HtmlFileWritten(fw.detailStr))
-  
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
