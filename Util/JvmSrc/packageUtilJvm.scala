@@ -136,12 +136,11 @@ package object utiljvm
     }
   }
 
-
-
+  /** Copies a jar file */
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
     fileCopy(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
   
-  def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
+  //def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
    * file. */
@@ -178,7 +177,8 @@ package object utiljvm
     time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
   }
 
-  implicit class DirPathAbsExtensions(val thisPath: DirsAbs)
+  /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
+  extension(thisPath: DirsAbs)
   {
     def toJava: File = File(thisPath.asStr)
 
@@ -190,5 +190,11 @@ package object utiljvm
         else println(thisPath.notDirStr)
       else println(thisPath.noExistStr)
     }
-  }
+
+    /** Try to make this directory exist. */
+    def mkExist: ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr)
+
+    /** Try to make subdirectory exist. */
+    def mkSubExist(tailStr: String): ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr / tailStr)    
+  }  
 }

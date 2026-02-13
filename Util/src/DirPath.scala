@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
@@ -37,7 +37,7 @@ object DirPath
   }
 }
 
-/** An absolute Directory path. */
+/** An absolute Directory path. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
 class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
 { /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
   @targetName("append") def /(newDir: DirsRel): DirsAbs = new DirsAbs(arrayUnsafe ++ newDir.arrayUnsafe)

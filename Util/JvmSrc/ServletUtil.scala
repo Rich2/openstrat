@@ -1,6 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package utiljvm
-import java.io.*
 
 trait ServletUtil
 {
@@ -17,13 +16,13 @@ trait ServletUtil
   {
     dirPath.doIfDirExists{path =>
       val topPath = dirPath / name
-      mkDirExist(topPath)
+      topPath.mkExist
       val wiPath = topPath / "WEB-INF"
-      mkDirExist(wiPath)
+      wiPath.mkExist
       val classesPath = wiPath / "classes"
-      mkDirExist(classesPath)
+      classesPath.mkExist
       val libPath = wiPath / "lib"
-      mkDirExist(libPath)
+      libPath.mkExist
     }
     deb("directory path =" -- dirPath.asStr)
   }

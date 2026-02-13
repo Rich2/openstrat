@@ -6,6 +6,6 @@ import utiljvm.*, pWeb.*
 {
   openstratPath.forFold(err => deb(err.toString)){(path: DirsAbs) =>
     debvar(path)
-    
+    path.mkSubExist("target/GeomTest")    
   }
 }
