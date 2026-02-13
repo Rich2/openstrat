@@ -31,13 +31,13 @@ package object utiljvm
   def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").forFold { err => deb(err.toString) } { path => f(path) }
 
   /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
-  def openstratPath(): ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
+  def openstratPath: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
   /** Possible path to the staging directory for openstrat artifacts, if it can be found in Dev/User/DevSettings.rson file. */
   def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("staging")
 
   /** Needs removal. */
-  def sbtDirPath(): ThrowMon[String] = openstratPath().map(_.asStr / "Dev/SbtDir")
+  def sbtDirPath(): ThrowMon[String] = openstratPath.map(_.asStr / "Dev/SbtDir")
 
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
