@@ -1,5 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import utiljvm.*
 
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pWeb
@@ -65,5 +66,12 @@ package object pWeb
       case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
       case l => HtmlDiv(l)
     }
+  }
+
+  /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
+  extension (thisPath: DirsAbs) {
+    /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
+     * success. */
+    def htmlWrite(fileNameStem: String, content: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /% fileNameStem + ".html", content.out)
   }
 }

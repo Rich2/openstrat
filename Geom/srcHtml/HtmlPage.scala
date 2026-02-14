@@ -53,6 +53,8 @@ trait HtmlPageFile extends HtmlPage
    * elements. */
   def headFavCss(cssFileStem: String, otherContents: XConCompound*): HtmlHead =
       new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, FaviconSvgLink, HtmlViewDevWidth) ++ otherContents)
+      
+  override def head: HtmlHead = HtmlHead.title(titleStr)  
 }
 
 /** An index.html page. */
