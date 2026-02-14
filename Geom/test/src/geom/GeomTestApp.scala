@@ -8,6 +8,6 @@ import utiljvm.*, pWeb.*
     debvar(path)
     val targ = path / "target/GeomTest"
     path.mkExist
-    targ.htmlWrite("TestPage1", TestPage1)
+    targ.htmlWrite(TestPage1)
   }
 }

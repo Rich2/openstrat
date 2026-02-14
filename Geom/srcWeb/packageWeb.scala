@@ -69,9 +69,12 @@ package object pWeb
   }
 
   /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-  extension (thisPath: DirsAbs) {
-    /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
+  extension (thisPath: DirsAbs)
+  { /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
      * success. */
-    def htmlWrite(fileNameStem: String, content: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /% fileNameStem + ".html", content.out)
+    def htmlWrite(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /% fileNameStem + ".html", page.out)
+
+    /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
+    def htmlWrite(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /%  page.fileName, page.out)
   }
 }

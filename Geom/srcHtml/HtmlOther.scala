@@ -37,6 +37,9 @@ object HtmlP
 
   /** Factory apply method for creating HTML paragraphs. */
   def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
+
+  /** Factory method for creating HTML paragraphs with an id attribute. */
+  def id(idStr: String, contents: XCon*): HtmlP = new HtmlP(contents.toRArr, RArr(IdAtt(idStr)))
 }
 
 /** HTML noscript element. */
