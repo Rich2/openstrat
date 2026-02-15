@@ -1,29 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** The "html" HTML element */
-case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
-{ def tagName: String = "html"
-  override def contents: RArr[HtmlUnvoid] = RArr(head, body)
-
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-    openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag
-}
-
-/** The HTML body element. */
-class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines, HtmlUnvoid
-{ override def tagName: String = "body"
-  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-    openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
-}
-
-/** Companion object for the [[HTMLBody]] class contains factory methods.  */
-object HtmlBody
-{ def str(str: String): HtmlBody = new HtmlBody(RArr(str), RArr())
-  def apply(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr, RArr())
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
-}
-
 /** An HTML Canvas element. */
 case class HtmlCanvas(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tagName: String = "canvas"
@@ -62,4 +39,24 @@ class SectionH2(val titleStr: String, val otherContents: RArr[XCon], override va
 object SectionH2
 { /** Factory apply method for HTML section with an H2 header. */
   def apply(titleStr: String, otherContents: XCon*): SectionH2 = new SectionH2(titleStr, otherContents.toRArr, RArr())
+}
+
+/** HTML P paragraph element. */
+case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+{ def tagName = "p"
+  override def closeTagLine: Boolean = true
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def textLen: String = text(0, 0)
+  override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
+}
+
+object HtmlP
+{ /** Factory apply method for creating HTML paragraphs. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlP = new HtmlP(contents, attribs)
+
+  /** Factory apply method for creating HTML paragraphs. */
+  def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
+
+  /** Factory method for creating HTML paragraphs with an id attribute. */
+  def id(idStr: String, contents: XCon*): HtmlP = new HtmlP(contents.toRArr, RArr(IdAtt(idStr)))
 }

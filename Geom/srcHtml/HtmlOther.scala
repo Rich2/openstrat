@@ -22,26 +22,6 @@ object HtmlA
   def apply(page: HtmlPageFile): HtmlA = new HtmlA(page.fileName, RArr(page.titleStr))
 }
 
-/** HTML P paragraph element. */
-case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
-{ def tagName = "p"
-  override def closeTagLine: Boolean = true
-  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
-  def textLen: String = text(0, 0)
-  override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
-}
-
-object HtmlP
-{ /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlP = new HtmlP(contents, attribs)
-
-  /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
-
-  /** Factory method for creating HTML paragraphs with an id attribute. */
-  def id(idStr: String, contents: XCon*): HtmlP = new HtmlP(contents.toRArr, RArr(IdAtt(idStr)))
-}
-
 /** HTML noscript element. */
 case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tagName: String = "noscript"
@@ -76,13 +56,6 @@ case class HtmlStyle(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) 
 object HtmlStyle
 { /** Factory apply method for [[HtmlStyle]]. */
   def apply(rules: CssRuleLike*): HtmlStyle = new HtmlStyle(rules.toArr)
-}
-
-/** HTML bold element. */
-case class HtmlB(str: String) extends HtmlInline
-{ override def tagName: String = "b"
-  override def attribs: RArr[XAtt] = RArr()
-  override def contents: RArr[XCon] = RArr(str)
 }
 
 /** Html H1 header element. */
