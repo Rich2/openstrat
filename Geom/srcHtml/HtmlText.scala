@@ -13,8 +13,9 @@ class HtmlSup(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlInl
 }
 
 object HtmlSup
-{
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlSup = new HtmlSup(contents, attribs)
+{ /** Factory apply method for HTML superscript element. There is an apply overload that takes the contents as a repeat parameter with no attributes. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlSup = new HtmlSup(contents, attribs)
 
+  /** Factory apply method for HTML superscript element. There is an apply overload that takes [[RArr]]s of contents and attributes. */
   def apply(contents: XCon*): HtmlSup = new HtmlSup(contents.toRArr, RArr())
 }

@@ -12,7 +12,7 @@ object LargeListAtt extends ClassAtt(largeListStr)
 
 /** Common trait for large ordered and unordered HTML Lists. */
 trait HtmlLargeList extends HtmlTagLines
-{ /** Any other attirubutes in addition to LargeListAtt */
+{ /** Any other attributes in addition to LargeListAtt */
   def otherAttribs: RArr[XAtt]
 
   override def attribs: RArr[XAtt] = LargeListAtt %: otherAttribs
