@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
 import pWeb.*, wcode.*
 
-/** HTML documentation page for Dev Module. */
+/** HTML documentation page for the Dev Module. */
 object DevPage extends OSDocumentationPage, HtmlPageInput
 { override val titleStr: String = "Dev Module"
   override val fileNameStem: String = "dev"

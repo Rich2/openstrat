@@ -20,6 +20,7 @@ object HtmlUl
 
   def noStyle(contents: XCon*): HtmlUl = HtmlUlGen(contents.toArr, RArr(ListStyleNoneAtt))
   
+  /** Implementation class for the general case of og [[HtmlUl]]. */
   case class HtmlUlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlUl
 }
 
@@ -66,7 +67,7 @@ object HtmlLi
     new HtmlLi(RArr(new HtmlA(link, RArr(label)), otherText), attribs.toArr)
 }
 
-/** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
+/** HTML OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
 class HtmlOlWithLH(val header: RArr[XCon], items: RArr[HtmlLi]) extends HtmlSection
 { override def contents: RArr[XCon] = header +% orderedList
   override def attribs: RArr[XAtt] = RArr()
@@ -91,7 +92,7 @@ object HtmlOlWithLH
   def h2(headerStr: String, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(RArr(HtmlH2(headerStr)), items.toArr)
 }
 
-/** Html UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
+/** HTML UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
 class HtmlUlWithLH(val header: RArr[XCon], items: RArr[HtmlLi]) extends HtmlSection
 { override def contents: RArr[XCon] = header +% unorderedList
   override def attribs: RArr[XAtt] = RArr()
