@@ -7,15 +7,32 @@ case class CiteAtt(valueStr: String) extends XAttSimple
 }
 
 /** HTML blockquote element. */
-class HtmlBlockQuote(val citeStr: String, quoteStr: String) extends HtmlTagLines
-{ override def tagName: String = "blockquote"
+trait HtmlBlockQuote extends HtmlTagLines
+{ def citeStr: String
+  override def tagName: String = "blockquote"
   override def attribs: RArr[XAtt] = RArr(CiteAtt(citeStr))
-  override def contents: RArr[XCon] = RArr(quoteStr)
+
 }
 
 object HtmlBlockQuote
 { /** Factory apply method for HTML blockquote element. */
-  def apply(citeStr: String, quoteStr: String): HtmlBlockQuote = new HtmlBlockQuote(citeStr, quoteStr)
+  def apply(citeStr: String, quoteStr: String): HtmlBlockQuote = HtmlBlockQuoteGen(citeStr, quoteStr)
+
+  /** Implementation class for the general case of [[HtmlBlockQuote]] element. */
+  case class HtmlBlockQuoteGen(citeStr: String, quoteStr: String) extends HtmlBlockQuote
+  {
+    override def contents: RArr[XCon] = RArr(quoteStr)
+  }
+}
+
+trait BlockQuoteNoted extends HtmlBlockQuote
+{
+  def noteNum: Int
+}
+
+class BlockQuoteAnchored(val quoteBody: String, val noteNum: Int, val link: String, linkLabelIn: String = "") extends BlockQuoteNoted
+{ override val citeStr: String = linkLabelIn.emptyMap(link)
+  override def contents: RArr[XCon] = RArr(quoteBody, HtmlSup(HtmlA(s"#note$noteNum", s"fn$noteNum")))
 }
 
 /** HTML short quote element. */
