@@ -5,5 +5,5 @@ package ostrat; package pWeb; package osweb
  * for subsidiary content to left and right. */
 object CentralRule extends CssClassesRule
 { override def classStr: String = "central"
-  override def decsArr: RArr[CssDecs] = RArr(MaxWidthDec(68.em), MarginLRAutoDec)
+  override def decsArr: RArr[CssDecBase] = RArr(MaxWidthDec(68.em), MarginLRAutoDec)
 }

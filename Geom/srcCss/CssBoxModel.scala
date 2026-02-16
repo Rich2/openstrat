@@ -34,6 +34,21 @@ case class BorderDec(value: CssVal) extends CssDecStd
 { override def property: String = "border"
 }
 
+/** CSS margin-lop and bottom declarations. */
+case class MarginTBDec(value: CssVal) extends CssDecMulti
+{ override def decs: RArr[CssDec] = RArr(MarginTopDec(value), MarginBottomDec(value))
+}
+
+/** CSS margin-left and margin-right declarations set to same value. */
+case class MarginLRDec(value: CssVal) extends CssDecMulti
+{ override def decs: RArr[CssDec] = RArr(MarginLeftDec(value), MarginRightDec(value))
+}
+
+/** CSS margin-left and margin-right declarations set to auto. */
+case object MarginLRAutoDec extends CssDecMulti
+{ override def decs: RArr[CssDec] = RArr(MarginLeftDec(AutoCss), MarginRightDec(AutoCss))
+}
+
 object BorderDec
 { /** Factory apply method for CSS border declaration */
   def apply(valuesStr: String): BorderDec = new BorderDec(CssVal(valuesStr))

@@ -3,18 +3,22 @@ package ostrat; package pWeb
 
 /** The Style attribute for inline CSS. CSS only recognises a single style attribute. In this API an object can inherit multiple style attributes and will
  * combine them into a single style attribute for the HTML code output. */
-class StyleAtt(decs: RArr[CssDec | CssRule]) extends XAttSimple
+class StyleAtt(decLikes: RArr[CssDecBase | CssRule]) extends XAttSimple
 { override def name: String = "style"
-
+  def decs: RArr[CssDec | CssRule] = decLikes.flatMap{
+    case cr: CssRule => RArr(cr)
+    case cd: CssDec => RArr(cd)
+    case cdm: CssDecMulti => cdm.decs  
+  }
   override def valueStr: String = decs.mkStr(_.out, " ")
 }
 
 object StyleAtt
 { /** Factory apply method to create a CSS style attribute. There is an apply name overload that takes [[CssDec]] repeat parameters. */
-  def apply(decs: RArr[CssDec | CssRule]): StyleAtt = new StyleAtt(decs)
+  def apply(decs: RArr[CssDecBase | CssRule]): StyleAtt = new StyleAtt(decs)
 
   /** Factory apply method to create a CSS style attribute. There is an apply name overload that takes an [[RArr]] of [[CssDec]] declarations. */
-  def apply(decs: CssDec | CssRule *): StyleAtt = new StyleAtt(decs.toArr)
+  def apply(decs: CssDecBase | CssRule *): StyleAtt = new StyleAtt(decs.toArr)
 }
 
 /** CSS inline-block value. */

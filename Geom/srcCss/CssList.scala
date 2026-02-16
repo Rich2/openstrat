@@ -2,13 +2,13 @@
 package ostrat; package pWeb
 
 /** CSS rule for HTML li list item. */
-case class CssLi(decsArr: RArr[CssDecs]) extends CssRule
+case class CssLi(decsArr: RArr[CssDecBase]) extends CssRule
 { override def selec: String = "li"
 }
 
 object CssLi
 { /** Factory apply method for CSS rule for li. */
-  def apply(props: CssDecs*): CssLi = new CssLi(props.toArr)
+  def apply(props: CssDecBase*): CssLi = new CssLi(props.toArr)
 }
 
 trait ListStyleVal extends CssVal

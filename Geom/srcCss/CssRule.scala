@@ -17,7 +17,7 @@ trait CssRule extends CssRuleLike
   def selecStr: String = selec.outStr
 
   /** The CSS declarations of this rule. */
-  def decsArr: RArr[CssDecs]
+  def decsArr: RArr[CssDecBase]
 
   /** The inner [[String]] of this rule's declarations. */
   def decsStr(indent: Int = 0): String =
@@ -55,13 +55,13 @@ trait CssRule extends CssRuleLike
 
 object CssRule
 { /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as repeat parameters. */
-  def apply(selec: String, decs: RArr[CssDecs]): CssRule = CssRuleGen(selec, decs)
+  def apply(selec: String, decs: RArr[CssDecBase]): CssRule = CssRuleGen(selec, decs)
 
   /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as an [[RArr]]. */
-  def apply(selec: SelOrStr, decs: CssDecs*): CssRule = CssRuleGen(selec, decs.toArr)
+  def apply(selec: SelOrStr, decs: CssDecBase*): CssRule = CssRuleGen(selec, decs.toArr)
 
   /** General case for CSS Rule consisting of selector plus a set of declarations. */
-  case class CssRuleGen(selec: SelOrStr, decsArr: RArr[CssDecs]) extends CssRule
+  case class CssRuleGen(selec: SelOrStr, decsArr: RArr[CssDecBase]) extends CssRule
 }
 
 trait CssSingleRule extends CssRule
@@ -69,21 +69,21 @@ trait CssSingleRule extends CssRule
 /** A CSS rule with a single selector that is not a child or a descendent selector */
 trait CssAdultRule extends CssSingleRule
 
-class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecs]) extends CssSingleRule
+class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecBase]) extends CssSingleRule
 { /** The selector [[String]] for the CSS rule. */
   override def selec: String = parent.outStr -- ">" -- child.outStr
 }
 
 object CssChildRule
 { /** Factory apply method to construct a CSS rule with a Child selector. */
-  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: RArr[CssDecs]): CssChildRule = new CssChildRule(parent, child, decs)
+  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: RArr[CssDecBase]): CssChildRule = new CssChildRule(parent, child, decs)
 
   /** Factory apply method to construct a CSS rule with a Child selector. */
-  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: CssDecs*): CssChildRule = new CssChildRule(parent, child, decs.toArr)
+  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: CssDecBase*): CssChildRule = new CssChildRule(parent, child, decs.toArr)
 }
 
 /** CSS rule with multiple selectors. */
-class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecs]) extends CssRule
+class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecBase]) extends CssRule
 { /** The selector [[String]] for the CSS rule. */
   override def selec: CssSelector | String = selectors.mkStr(_.outStr, ", ")
 }
@@ -93,8 +93,8 @@ object CssMultiRule
   def apply(sel0: SelOrStr, others: SelOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
 }
 
-case class CssClassRule(classStr: String, decsArr: RArr[CssDecs]) extends CssRule
+case class CssClassRule(classStr: String, decsArr: RArr[CssDecBase]) extends CssRule
 { override def selec: String = "." + classStr
-  def child(childSel: SelSimpleOrStr, decsArr: RArr[CssDecs]): CssChildRule = CssChildRule(selec, childSel, decsArr)
-  def child(childSel: SelSimpleOrStr, decs: CssDecs*): CssChildRule = CssChildRule(selec, childSel, decs.toRArr)
+  def child(childSel: SelSimpleOrStr, decsArr: RArr[CssDecBase]): CssChildRule = CssChildRule(selec, childSel, decsArr)
+  def child(childSel: SelSimpleOrStr, decs: CssDecBase*): CssChildRule = CssChildRule(selec, childSel, decs.toRArr)
 }
