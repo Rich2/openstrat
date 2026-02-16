@@ -6,9 +6,12 @@ object TestPage1 extends HtmlPageFile
 { override def fileNameStem: String = "TestPage1"
   override def titleStr: String = "Endnotes Test page."
 
-  override def body: HtmlBody = HtmlBody(h1, p1, p2, p3, n1)
+  override def body: HtmlBody = HtmlBody(h1, mainSec)
 
   val h1 = HtmlH1("This is a test page for end notes.")
+
+  def mainDecs = RArr(StyleAtt(MaxWidthDec(68.em)))//, MarginLRAutoDec))
+  def mainSec = HtmlSection(RArr(p1, q1, p2, p3, n1, n2), mainDecs)
 
   val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", HtmlSup(HtmlA("#note1", "fn1")), """to the footnote at the bottom of the intro
   |text.
@@ -47,6 +50,14 @@ object TestPage1 extends HtmlPageFile
   |<br>Follow your spirit, and upon this charge
   |<br>Cry 'God for Harry, England, and Saint George!'""".stripMargin)
 
+  val q1q = """This is going to be, by our standards here, something of a brief overview, roughly the equivalent to the lecture I give to my students when we
+  |cover this period (with a bit more detail, because text is more compressed). A full ‘deep dive’ of all of the debates and open questions of this period would
+  |no doubt run quite a few posts and more importantly really ought to be written by specialists in the bronze age. This is also a very archaeologically driven
+  |topic, which makes it more sensitive than most to new evidence – archaeological site work, but also epigraphic evidence (mostly on clay tablets) – that can
+  |change our understanding of events. As we’ll see, our understanding has changed a fair bit.""".stripMargin
+  val q1 = BlockQuoteAnchored(q1q, 2, "https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction",
+    "From A Collection of Unmitigated Pedantry")
+
   val p2: HtmlP = HtmlP.id("para2", "I'm going to link this footnote marker (2) to the footnote at the bottom of the intro text.",
   """<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
@@ -81,9 +92,10 @@ object TestPage1 extends HtmlPageFile
   |<br>I see you stand like greyhounds in the slips,
   |<br>Straining upon the start. The game's afoot:
   |<br>Follow your spirit, and upon this charge
-  |<br>Cry 'God for Harry, England, and Saint George!'""".stripMargin)
+  |<br>Cry 'God for Harry, England, and Saint George!""".stripMargin)
 
   val p3: HtmlP = HtmlP.id("para3", "I'm going to link this footnote marker (3) to the footnote at the bottom of the intro text.")
 
   val n1 = HtmlP.id("note1", "A bit more context about paragraph 1.")
+  val n2 = HtmlP.id("note2", "Blah, blah")
 }
