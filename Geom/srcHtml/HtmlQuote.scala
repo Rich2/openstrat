@@ -41,3 +41,10 @@ case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInline
   override def attribs: RArr[XAtt] = ife(citeStr == "", RArr(), RArr(CiteAtt(citeStr)))
   override def contents: RArr[XCon] = RArr(valueStr)
 }
+
+class NoteTaker
+{
+  case class Note(num: Int, citeStr: String)
+  val acc: RBuff[Note] = RBuff()
+  def addNote(num: Int, citeStr: String): Unit = acc.grow(Note(num, citeStr))
+}
