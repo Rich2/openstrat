@@ -42,7 +42,7 @@ object SectionH2
 }
 
 /** HTML P paragraph element. */
-case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+trait HtmlP extends HtmlOwnLine
 { def tagName = "p"
   override def closeTagLine: Boolean = true
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
@@ -52,11 +52,14 @@ case class HtmlP(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 
 object HtmlP
 { /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlP = new HtmlP(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlP = HtmlPGen(contents, attribs)
 
   /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: XCon*) : HtmlP = new HtmlP(contents.toRArr, RArr())
+  def apply(contents: XCon*) : HtmlP = HtmlPGen(contents.toRArr, RArr())
 
   /** Factory method for creating HTML paragraphs with an id attribute. */
-  def id(idStr: String, contents: XCon*): HtmlP = new HtmlP(contents.toRArr, RArr(IdAtt(idStr)))
+  def id(idStr: String, contents: XCon*): HtmlP = HtmlPGen(contents.toRArr, RArr(IdAtt(idStr)))
+
+  /** implementation  class for the general case of HTML P paragraph element. */
+  case class HtmlPGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlP
 }

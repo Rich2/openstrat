@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML bold element. */
@@ -18,4 +18,10 @@ object HtmlSup
 
   /** Factory apply method for HTML superscript element. There is an apply overload that takes [[RArr]]s of contents and attributes. */
   def apply(contents: XCon*): HtmlSup = new HtmlSup(contents.toRArr, RArr())
+
+  /** Factory method for HTML superscript element, with 2nd repeat parameter list for attributes. */
+  def atts(contents: XCon*)(attribs: XAtt*): HtmlSup = new HtmlSup(contents.toRArr, attribs.toRArr)
+
+  /** Factory method for HTML superscript element with an ID attribute. There is an apply overload that takes [[RArr]]s of contents and attributes. */
+  def id(idStr: String, contents: XCon*): HtmlSup = new HtmlSup(contents.toRArr, RArr(IdAtt(idStr)))
 }

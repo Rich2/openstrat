@@ -32,7 +32,10 @@ trait BlockQuoteNoted extends HtmlBlockQuote
 
 class BlockQuoteAnchored(val quoteBody: String, val noteNum: Int, val link: String, linkLabelIn: String = "") extends BlockQuoteNoted
 { override val citeStr: String = linkLabelIn.emptyMap(link)
-  override def contents: RArr[XCon] = RArr(quoteBody, HtmlSup(HtmlA(s"#note$noteNum", s"fn$noteNum")))
+  override def contents: RArr[XCon] =
+  { val sup =  HtmlSup.atts(HtmlA(s"#note$noteNum", s"fn$noteNum"))(IdAtt(s"#src$noteNum"))
+    RArr(quoteBody, sup)
+  }
 }
 
 /** HTML short quote element. */
@@ -42,6 +45,11 @@ case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInline
   override def contents: RArr[XCon] = RArr(valueStr)
 }
 
+case class HtmlNote(num: Int, contextStr: String) extends HtmlP
+{ override def attribs: RArr[XAtt] = RArr(IdAtt(s"note$num"))
+  override def contents: RArr[XCon] = RArr(contextStr)
+}
+
 class NoteTaker
 {
   case class Note(num: Int, citeStr: String)
@@ -49,10 +57,10 @@ class NoteTaker
   def len: Int = acc.length
   def addNote(num: Int, citeStr: String): Unit = acc.grow(Note(num, citeStr))
 
-  def supScript(contextStr: String): HtmlSup = {
-    val num = len + 1
+  def supScript(contextStr: String): HtmlSup =
+  { val num = len + 1
     acc.grow(Note(num, contextStr))
-    HtmlSup(HtmlA("#note1", "fn1"))
+    HtmlSup(HtmlA(s"#note$num", "sfn$num"))
   }
 
   def noteSect: HtmlSection = HtmlSection(acc.map(nt => HtmlP(nt.num.str, nt.citeStr)))
