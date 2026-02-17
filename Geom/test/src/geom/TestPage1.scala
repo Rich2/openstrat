@@ -98,6 +98,6 @@ object TestPage1 extends HtmlPageFile
 
   val p3: HtmlP = HtmlP.id("para3", "I'm going to link this footnote marker (3) to the footnote at the bottom of the intro text.")
 
-  val n1 = HtmlP.id("note1", "A bit more context about paragraph 1.")
-  val n2 = HtmlP.id("note2", "Blah, blah")
+  val n1 = HtmlP.id("note1", "1. A bit more context about paragraph 1.")
+  val n2 = HtmlP.id("note2", "2. More on point 2.")
 }
