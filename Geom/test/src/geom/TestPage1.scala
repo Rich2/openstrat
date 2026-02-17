@@ -13,6 +13,8 @@ object TestPage1 extends HtmlPageFile
   def mainDecs = RArr(StyleAtt(MaxWidthDec(68.em), MarginLRAutoDec))
   def mainSec = HtmlSection(RArr(p1, q1, p2, p3, n1, n2), mainDecs)
 
+  implicit val taker: NoteTaker = NoteTaker()
+
   val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", HtmlSup(HtmlA("#note1", "fn1")), """to the footnote at the bottom of the intro
   |text.
   |<br>Once more unto the breach, dear friends, once more;

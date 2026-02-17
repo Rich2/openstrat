@@ -46,5 +46,12 @@ class NoteTaker
 {
   case class Note(num: Int, citeStr: String)
   val acc: RBuff[Note] = RBuff()
+  def len: Int = acc.length
   def addNote(num: Int, citeStr: String): Unit = acc.grow(Note(num, citeStr))
+  def elem: HtmlSection = HtmlSection(acc.map(nt => HtmlP(nt.num.str, nt.citeStr)))
+}
+
+object NoteTaker
+{
+  def apply(): NoteTaker = new NoteTaker
 }
