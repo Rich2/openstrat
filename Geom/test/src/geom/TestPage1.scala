@@ -11,12 +11,12 @@ object TestPage1 extends HtmlPageFile
   val h1 = HtmlH1("This is a test page for end notes.")
 
   def mainDecs = RArr(StyleAtt(MaxWidthDec(68.em), MarginLRAutoDec))
-  def mainSec = HtmlSection(RArr(p1, q1, p2, p3, n1, n2), mainDecs)
+  def mainSec = HtmlSection(RArr(p1, q1, p2, p3, notes), mainDecs)
 
   implicit val taker: NoteTaker = NoteTaker()
 
-  val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", HtmlSup(HtmlA("#note1", "fn1")), """to the footnote at the bottom of the intro
-  |text.
+  val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", taker.supScript("A bit more context about paragraph 1."),
+  """to the footnote at the bottom of the intro text.
   |<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
   |<br>In peace there's nothing so becomes a man
@@ -60,7 +60,8 @@ object TestPage1 extends HtmlPageFile
   val q1 = BlockQuoteAnchored(q1q, 2, "https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction",
     "From A Collection of Unmitigated Pedantry")
 
-  val p2: HtmlP = HtmlP.id("para2", "I'm going to link this footnote marker (2) to the footnote at the bottom of the intro text.",
+  val p2: HtmlP = HtmlP.id("para2", "I'm going to link this footnote marker", taker.supScript("More on point 2."),
+  "to the footnote at the bottom of the intro text.",
   """<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
   |<br>In peace there's nothing so becomes a man
@@ -98,6 +99,5 @@ object TestPage1 extends HtmlPageFile
 
   val p3: HtmlP = HtmlP.id("para3", "I'm going to link this footnote marker (3) to the footnote at the bottom of the intro text.")
 
-  val n1 = HtmlP.id("note1", "1. A bit more context about paragraph 1.")
-  val n2 = HtmlP.id("note2", "2. More on point 2.")
+  val notes = taker.noteSect
 }

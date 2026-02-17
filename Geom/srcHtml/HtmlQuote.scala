@@ -60,10 +60,13 @@ class NoteTaker
   def supScript(contextStr: String): HtmlSup =
   { val num = len + 1
     acc.grow(Note(num, contextStr))
-    HtmlSup(HtmlA(s"#note$num", "sfn$num"))
+    HtmlSup(HtmlA(s"#note$num", s"fn$num"))
   }
 
-  def noteSect: HtmlSection = HtmlSection(acc.map(nt => HtmlP(nt.num.str, nt.citeStr)))
+  def noteSect: HtmlSection =
+  { val notes: RArr[HtmlP] = acc.map{nt => HtmlP.id(s"note${nt.num.str}", HtmlB(s"${nt.num.str}."), nt.citeStr) }
+    HtmlSection(HtmlH2("Notes") %: notes)
+  }
 }
 
 object NoteTaker
