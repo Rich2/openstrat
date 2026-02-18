@@ -11,7 +11,7 @@ object TestPage1 extends HtmlPageFile
   val h1 = HtmlH1("This is a test page for end notes.")
 
   def mainDecs = RArr(StyleAtt(MaxWidthDec(68.em), MarginLRAutoDec))
-  def mainSec = HtmlSection(RArr(p1, q1, p2, p3, notes), mainDecs)
+  def mainSec = HtmlSection(RArr(p1, q1, p3, p4, notes), mainDecs)
 
   implicit val taker: NoteTaker = NoteTaker()
 
@@ -57,10 +57,9 @@ object TestPage1 extends HtmlPageFile
   |no doubt run quite a few posts and more importantly really ought to be written by specialists in the bronze age. This is also a very archaeologically driven
   |topic, which makes it more sensitive than most to new evidence – archaeological site work, but also epigraphic evidence (mostly on clay tablets) – that can
   |change our understanding of events. As we’ll see, our understanding has changed a fair bit.""".stripMargin
-  val q1 = BlockQuoteAnchored(q1q, 2, "https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction",
-    "From A Collection of Unmitigated Pedantry")
+  val q1 = taker.blockQuote(q1q)("https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction", "From A Collection of Unmitigated Pedantry")
 
-  val p2: HtmlP = HtmlP.id("para2", "I'm going to link this footnote marker", taker.newNote("More on point 2."),
+  val p3: HtmlP = HtmlP.id("para3", "This is paragraph 3.I'm going to link this footnote marker", taker.newNote("More on paragraph 3."),
   "to the footnote at the bottom of the intro text.",
   """<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
@@ -97,7 +96,8 @@ object TestPage1 extends HtmlPageFile
   |<br>Follow your spirit, and upon this charge
   |<br>Cry 'God for Harry, England, and Saint George!""".stripMargin)
 
-  val p3: HtmlP = HtmlP.id("para3", "I'm going to link this footnote marker (3) to the footnote at the bottom of the intro text.")
+  val p4: HtmlP = HtmlP.id("para4", "This is paragraph 4. I'm going to link this footnote marker.", taker.newNote("More on paragraph 4."),
+    "Don't knw aht else to say bottom of the intro text.")
 
   val notes = taker.noteSect
 }

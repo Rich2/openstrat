@@ -27,16 +27,11 @@ object HtmlBlockQuote
   }
 }
 
-trait BlockQuoteNoted extends HtmlBlockQuote
+class BlockQuoteAnchored(val quoteBody: String, val citeStr: String) extends HtmlBlockQuote
 {
-  def noteNum: Int
-}
-
-class BlockQuoteAnchored(val quoteBody: String, val noteNum: Int, val link: String, linkLabelIn: String = "") extends BlockQuoteNoted
-{ override val citeStr: String = linkLabelIn.emptyMap(link)
   override def contents: RArr[XCon] =
-  { val sup =  HtmlSup.atts(HtmlA(s"#note$noteNum", s"fn$noteNum"))(IdAtt(s"#src$noteNum"))
-    RArr(quoteBody, sup)
+  { //val sup =  HtmlSup.atts(HtmlA(s"#note$noteNum", s"fn$noteNum"))(IdAtt(s"#src$noteNum"))
+    RArr(quoteBody)//, sup)
   }
 }
 
@@ -59,10 +54,21 @@ class NoteTaker
   def len: Int = acc.length
 
   /** Registers a new footnote. Returns an HTML superscript element with a link to the footnote. */
-  def newNote(contextContent: XCon*): HtmlSup =
+  def newNote(contextContent: XCon*): HtmlSup = newNote(contextContent.toRArr)
+
+  /** Registers a new footnote. Returns an HTML superscript element with a link to the footnote. */
+  def newNote(contextContent: RArr[XCon]): HtmlSup =
   { val num = len + 1
-    acc.grow(Note(num, contextContent.toRArr))
+    acc.grow(Note(num, contextContent))
     HtmlSup(HtmlA(s"#note$num", s"fn$num"))
+  }
+
+  def blockQuote(quotecontents: XCon*)(citeStr: String, linkLabel: String, noteContents: XCon*): HtmlBlockQuote =
+    blockQuote(quotecontents.toRArr, citeStr, linkLabel, noteContents.toRArr)
+
+  def blockQuote(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): HtmlBlockQuote =
+  { val sup = newNote(HtmlA(citeStr, linkLabel) %: noteContents)
+    HtmlBlockQuote(citeStr, quotecontents +% sup)
   }
 
   /** Produces an HTML section element with the accumulated notes as HTML paragraph elements. */
