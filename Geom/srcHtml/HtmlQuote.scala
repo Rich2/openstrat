@@ -52,24 +52,29 @@ case class HtmlNote(num: Int, contextStr: String) extends HtmlP
 
 class NoteTaker
 {
-  case class Note(num: Int, citeStr: String)
-  val acc: RBuff[Note] = RBuff()
+  case class Note(num: Int, citeContent: RArr[XCon])
+  private val acc: RBuff[Note] = RBuff()
   def len: Int = acc.length
-  def addNote(num: Int, citeStr: String): Unit = acc.grow(Note(num, citeStr))
 
-  def supScript(contextStr: String): HtmlSup =
+  /** Registers a new footnote. Returns an HTML superscript element with a link to the footnote. */
+  def newNote(contextContent: XCon*): HtmlSup =
   { val num = len + 1
-    acc.grow(Note(num, contextStr))
+    acc.grow(Note(num, contextContent.toRArr))
     HtmlSup(HtmlA(s"#note$num", s"fn$num"))
   }
 
+  /** Produces an HTML section element with the accumulated notes as HTML paragraph elements. */
   def noteSect: HtmlSection =
-  { val notes: RArr[HtmlP] = acc.map{nt => HtmlP.id(s"note${nt.num.str}", HtmlB(s"${nt.num.str}."), nt.citeStr) }
+  { val notes: RArr[HtmlP] = acc.map{nt =>
+      val content: RArr[XCon] = HtmlB(s"${nt.num.str}.") %: nt.citeContent
+      HtmlP.id(s"note${nt.num.str}", content)
+    }
+
     HtmlSection(HtmlH2("Notes") %: notes)
   }
 }
 
 object NoteTaker
-{
+{ /** Factory apply method to construct a new  empty [[NoteTaker]]. */
   def apply(): NoteTaker = new NoteTaker
 }

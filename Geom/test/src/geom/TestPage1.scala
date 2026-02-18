@@ -15,7 +15,7 @@ object TestPage1 extends HtmlPageFile
 
   implicit val taker: NoteTaker = NoteTaker()
 
-  val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", taker.supScript("A bit more context about paragraph 1."),
+  val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", taker.newNote("A bit more context about paragraph 1."),
   """to the footnote at the bottom of the intro text.
   |<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
@@ -60,7 +60,7 @@ object TestPage1 extends HtmlPageFile
   val q1 = BlockQuoteAnchored(q1q, 2, "https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction",
     "From A Collection of Unmitigated Pedantry")
 
-  val p2: HtmlP = HtmlP.id("para2", "I'm going to link this footnote marker", taker.supScript("More on point 2."),
+  val p2: HtmlP = HtmlP.id("para2", "I'm going to link this footnote marker", taker.newNote("More on point 2."),
   "to the footnote at the bottom of the intro text.",
   """<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.

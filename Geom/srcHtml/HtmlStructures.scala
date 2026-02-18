@@ -57,8 +57,11 @@ object HtmlP
   /** Factory apply method for creating HTML paragraphs. */
   def apply(contents: XCon*) : HtmlP = HtmlPGen(contents.toRArr, RArr())
 
-  /** Factory method for creating HTML paragraphs with an id attribute. */
+  /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as an [[RArr]]. */
   def id(idStr: String, contents: XCon*): HtmlP = HtmlPGen(contents.toRArr, RArr(IdAtt(idStr)))
+
+  /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as repeat parameters. */
+  def id(idStr: String, contents: RArr[XCon]): HtmlP = HtmlPGen(contents, RArr(IdAtt(idStr)))
 
   /** implementation  class for the general case of HTML P paragraph element. */
   case class HtmlPGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlP
