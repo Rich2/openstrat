@@ -16,12 +16,14 @@ trait HtmlBlockQuote extends HtmlTagLines
 
 object HtmlBlockQuote
 { /** Factory apply method for HTML blockquote element. */
-  def apply(citeStr: String, quoteStr: String): HtmlBlockQuote = HtmlBlockQuoteGen(citeStr, quoteStr)
+  def apply(citeStr: String, contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): HtmlBlockQuote = HtmlBlockQuoteGen(citeStr, contents, otherAttribs)
+
+  /** Factory apply method for HTML blockquote element. */
+  def apply(citeStr: String, contents: XCon*): HtmlBlockQuote = HtmlBlockQuoteGen(citeStr, contents.toRArr, RArr())
 
   /** Implementation class for the general case of [[HtmlBlockQuote]] element. */
-  case class HtmlBlockQuoteGen(citeStr: String, quoteStr: String) extends HtmlBlockQuote
-  {
-    override def contents: RArr[XCon] = RArr(quoteStr)
+  class HtmlBlockQuoteGen(val citeStr: String, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlBlockQuote
+  { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   }
 }
 
