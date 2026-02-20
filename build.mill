@@ -3,7 +3,7 @@
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
-{ def version = "0.3.10snap"
+{ def version = "0.3.10"
   def scalaVersion = "3.8.1"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
@@ -11,7 +11,7 @@ trait Common extends ScalaModule
 trait CommonJvm extends Common
 { Outer =>
   trait InnerTests extends ScalaTests
-  { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.2")
+  { def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.5")
     def testFramework = "utest.runner.Framework"
     def sources = Task.Sources(moduleDir / "src")
     def resources = Task.Sources(moduleDir / "res")

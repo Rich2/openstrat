@@ -1,6 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utiljvm.*
 
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pWeb
@@ -14,8 +13,7 @@ package object pWeb
    * not wanted. */
   def linkRawOut(path: String, tailStr: String): String = HtmlA(path).out + tailStr
 
-  extension(thisString: String)
-  { /** Implicit method to return an HTML bold element. */
+  extension (thisString: String) {/** Implicit method to return an HTML bold element. */
     def htmlB: HtmlB = HtmlB(thisString)
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
@@ -24,10 +22,10 @@ package object pWeb
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
   }
 
-  implicit class IntWebExtensions(thisInt: Int)
-  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
+  implicit class IntWebExtensions(thisInt: Int) {
+    /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
-    def px: PxCss = PxCss(thisInt)
+      def px: PxCss = PxCss(thisInt)
 
     /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: EmCss = EmCss(thisInt)
@@ -39,10 +37,10 @@ package object pWeb
     def vh: VhCss = VhCss(thisInt)
   }
 
-  implicit class DoubleWebExtensions(thisDouble: Double)
-  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
+  implicit class DoubleWebExtensions(thisDouble: Double) {
+    /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
-    def px: PxCss = PxCss(thisDouble)
+      def px: PxCss = PxCss(thisDouble)
 
     /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: EmCss = EmCss(thisDouble)
@@ -53,28 +51,17 @@ package object pWeb
     /** Extension method for CSS vh units. Relative to 1% of the height of the viewport. */
     def vh: VhCss = VhCss(thisDouble)
   }
-  
-  extension (thisArr: Arr[String])
-  {
-    def toDivLines: RArr[HtmlDiv] = thisArr.map{
+
+  extension (thisArr: Arr[String]) {
+    def toDivLines: RArr[HtmlDiv] = thisArr.map {
       case "" => HtmlDiv(HtmlBr)
       case l => HtmlDiv(l)
     }
 
-    def toSystemdDivs: RArr[HtmlDiv] = thisArr.map{
+    def toSystemdDivs: RArr[HtmlDiv] = thisArr.map {
       case "" => HtmlDiv(HtmlBr)
       case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
       case l => HtmlDiv(l)
     }
-  }
-
-  /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-  extension (thisPath: DirsAbs)
-  { /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
-     * success. */
-    def htmlWrite(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /% fileNameStem + ".html", page.out)
-
-    /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-    def htmlWrite(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /%  page.fileName, page.out)
   }
 }

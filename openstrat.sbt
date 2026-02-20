@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.10snap"
+val versionStr = "0.3.10"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor: String = "3.8"
@@ -50,7 +50,7 @@ def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, srcsStr).settings(
   Test/resourceDirectory :=  moduleDir.value / "test/res",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.9.2" % "test" withSources() withJavadoc(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.9.5" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
