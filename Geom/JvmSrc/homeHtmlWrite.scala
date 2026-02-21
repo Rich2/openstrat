@@ -12,14 +12,14 @@ object homeHtmlWrite
   }
 }
 
-object opensettHtmlWrite
-{
-  def apply(title: String, bodyContent: String) =
-  { val home: String = System.getProperty("user.home")
-    fileWrite(home / "opensett" / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
-  }
+/** Writes the content to an [[HTML]] file to the opensett folder in the users home directory. Not sure if this a desirable facility. */
+def opensettHtmlWrite(title: String, bodyContent: String) =
+{ val home: String = System.getProperty("user.home")
+  fileWrite(home / "opensett" / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
 }
 
+
+/** HTTP now time object. */
 object HttpNow extends HttpDate(httpNow)
 
 /** Writes the out [[String]] from the HTML page given in the second parameter to the directory path of the first parameter and filename in the HTML page.
@@ -34,8 +34,9 @@ def htmlFileWrite(dirPathStr: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFile
 def htmlFileWrite(path: DirsAbs, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = fileWrite(path, page.fileName, page.out).map(fw => HtmlFileWritten(fw.detailStr))
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-extension (thisPath: DirsAbs) {/** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
- * success. */
+extension (thisPath: DirsAbs)
+{ /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
+   * success. */
   def htmlWrite(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(thisPath /% fileNameStem + ".html", page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
