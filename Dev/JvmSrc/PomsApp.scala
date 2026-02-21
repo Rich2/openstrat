@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
@@ -6,8 +6,8 @@ import utiljvm.*, pWeb.*
 object PomsApp
 {
   def main(args: Array[String]): Unit =
-  { val versionStr = "0.3.9"
-    val scalaVersion ="3.7.2"
+  { val versionStr = "0.3.10"
+    val scalaVersion ="3.8.1"
     val oDir = args.headOption
     debvar(oDir)
 

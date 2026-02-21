@@ -60,7 +60,7 @@ object DevMisc extends HtmlSection
   BashLine("sudo apt install sbt"))
 
   def intellij = SectionH2("Intellij IDEA",
-    BashLine("sudo tar -xzf idea-2025.3.2.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf idea-2025.3.3.tar.gz -C /opt"),
     HtmlUlWithLH("For IntelliJ useful options:",
       HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
       HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),

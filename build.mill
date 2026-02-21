@@ -3,7 +3,7 @@
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
-{ def version = "0.3.10"
+{ def version = "0.3.11snap"
   def scalaVersion = "3.8.1"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
