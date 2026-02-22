@@ -1,11 +1,11 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import utiljvm.*
 
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val versionStr: String = "0.3.10"
+  val versionStr: String = "0.3.11"
 
   /** Pairs of the module names and the name stem for their assets. */
   val modPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid", "Apps", "apps")
@@ -27,7 +27,7 @@ trait MillStageJars
   def mainCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
     jarCopy(projPath, sharedPath, srcStr, destStr, "jar", "")
 
-  /** Copies a javadoc jar to the libShared staging folder. */
+  /** Copies a Javadoc jar to the libShared staging folder. */
   def javadocCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
     jarCopy(projPath, sharedPath, srcStr, destStr, "docJar", "-javadoc")
 

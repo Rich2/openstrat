@@ -8,6 +8,7 @@ case class HtmlB(str: String) extends HtmlInline
   override def contents: RArr[XCon] = RArr(str)
 }
 
+/** HTML superscript. */
 class HtmlSup(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlInline
 {  override def tagName: String = "sup"
 }

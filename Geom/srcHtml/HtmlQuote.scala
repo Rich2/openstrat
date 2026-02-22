@@ -27,14 +27,6 @@ object HtmlBlockQuote
   }
 }
 
-class BlockQuoteAnchored(val quoteBody: String, val citeStr: String) extends HtmlBlockQuote
-{
-  override def contents: RArr[XCon] =
-  { //val sup =  HtmlSup.atts(HtmlA(s"#note$noteNum", s"fn$noteNum"))(IdAtt(s"#src$noteNum"))
-    RArr(quoteBody)//, sup)
-  }
-}
-
 /** HTML short quote element. */
 case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInline
 { override def tagName: String = "q"
@@ -42,6 +34,7 @@ case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInline
   override def contents: RArr[XCon] = RArr(valueStr)
 }
 
+/** HTML paragraph with a note ID attribute. */
 case class HtmlNote(num: Int, contextStr: String) extends HtmlP
 { override def attribs: RArr[XAtt] = RArr(IdAtt(s"note$num"))
   override def contents: RArr[XCon] = RArr(contextStr)
@@ -63,9 +56,11 @@ class NoteTaker
     HtmlSup(HtmlA(s"#note$num", s"fn$num"))
   }
 
+  /** Creates an HTML block quote with a footnote. */
   def blockQuote(quotecontents: XCon*)(citeStr: String, linkLabel: String, noteContents: XCon*): HtmlBlockQuote =
     blockQuote(quotecontents.toRArr, citeStr, linkLabel, noteContents.toRArr)
 
+  /** Creates an HTML block quote with a footnote. */
   def blockQuote(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): HtmlBlockQuote =
   { val sup = newNote(HtmlA(citeStr, linkLabel) %: noteContents)
     HtmlBlockQuote(citeStr, quotecontents +% sup)
