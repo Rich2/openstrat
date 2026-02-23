@@ -1,5 +1,6 @@
 //| # Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
 //| mill-version: 1.1.2
+//| mill-jvm-version: 25
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
@@ -61,7 +62,7 @@ object GeomFx extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
-  def platformDeps = Seq(mvn"org.openjfx:javafx-controls:21.0.10")
+  def platformDeps = Seq(mvn"org.openjfx:javafx-controls:25.0.2")
   def jfx = Task { defaultResolver().classpath(platformDeps) }
   def mvnDeps = platformDeps
 

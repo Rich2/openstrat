@@ -30,7 +30,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: HtmlP = HtmlP(s"""Scala currently set to $scVer. Jdk 17+, 25 preferred. Scala.Js set to 1.20.2. Scala native set to 0.5.9. Sbt currently set to 1.12.3
+  def p4: HtmlP = HtmlP(s"""Scala currently set to $scVer. Jdk 23+, 25 preferred. Scala.Js set to 1.20.2. Scala native set to 0.5.9. Sbt currently set to 1.12.3
   |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.1.2.""".
     stripMargin)
 
