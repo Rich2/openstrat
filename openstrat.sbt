@@ -221,12 +221,12 @@ lazy val ServletExtras = projSub("Dev", "ServletExtras").dependsOn(Dev).settings
 )
 
 lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
-  libraryDependencies += "com.lihaoyi" %% "cask" % "0.9.7" withSources() withJavadoc(),
+  libraryDependencies += "com.lihaoyi" %% "cask" % "0.11.3" withSources() withJavadoc(),
 )
 
 lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
-  libraryDependencies += "dev.zio" %% "zio" % "2.1.16" withSources() withJavadoc(),
-  libraryDependencies += "dev.zio" %% "zio-http" % "3.1.0" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio" % "2.1.24" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio-http" % "3.8.1" withSources() withJavadoc(),
 )
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")

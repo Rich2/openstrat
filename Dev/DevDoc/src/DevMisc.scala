@@ -21,7 +21,8 @@ object DevMisc extends HtmlSection
     "Store Github username and token and other useful git commands.",
     BashLine("git config --global credential.helper store"),
     BashLine("git remote show origin"),
-    BashLine("git init --bare myrepo.git")
+    BashLine("git init --bare myrepo.git"),
+    BashLine("git push -u origin NewBranch")
   )
 
   def jvms: SectionH2 = SectionH2("JVMs",

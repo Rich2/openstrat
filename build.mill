@@ -67,7 +67,7 @@ object GeomFx extends CommonJvm
   def mvnDeps = platformDeps
 
   def forkArgs = Seq("--module-path",
-    sys.env("JAVAFX_HOME") + ":" + "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/15.0.1",
+    sys.env("JAVAFX_HOME") + ":" + "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/25.0.2",
     "--add-modules", "javafx.controls"
   )
 }
@@ -308,7 +308,7 @@ def JarsStage = Task{
 
 object Servlet extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Dev" / "Servlet" / "src")
-  def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.0.0")
+  def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.1.0")
   def moduleDeps = Seq(Dev)
 }
 
