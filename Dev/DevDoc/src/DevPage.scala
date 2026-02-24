@@ -30,9 +30,14 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: HtmlP = HtmlP(s"""Scala currently set to $scVer. Jdk 23+, 25 preferred. Scala.Js set to 1.20.2. Scala native set to 0.5.9. Sbt currently set to 1.12.3
-  |(uses the openstrat.sbt file). Note Sbt will not work running on Windows in Git Bash, probably due to the JavaFx dependency. Mill set to 1.1.2.""".
-    stripMargin)
+  def p4: HtmlP = HtmlP("Versions", HtmlUl("Current Openstrat version 0.3.11",
+    s"Scala: $scVer",
+    "Jdk: Min17+, 23+ required for JavaFx modules. 25 preferred.",
+    "Scala.Js: 1.20.2",
+    "Scala Native: 0.5.9",
+    "JavaFx: 25.0.2",
+    "Sbt: 1.12.3",
+    "Mill: 1.1.2 with Mill's JDK set to 25."))
 
   def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     HtmlLi("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),

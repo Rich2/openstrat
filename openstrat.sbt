@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.11snap"
+val versionStr = "0.3.11"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor: String = "3.8"
