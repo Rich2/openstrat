@@ -2,6 +2,13 @@
 package ostrat; package pDev
 import utiljvm.*
 
+class Module(val modName: String, fileStem: String, deps: RArr[Module])
+
+object Module
+{
+  def apply(modName: String, fileStem: String, deps: Module*): Module = new Module(modName, fileStem, deps.toRArr)
+}
+
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */

@@ -21,7 +21,7 @@ class PomDep(val groupId: GroupId, val artifactId: ArtifactId, val version: Vers
 }
 
 object PomDep
-{ /** Factory apply mthod to construct [[PomDep]] from [[String]]s. */
+{ /** Factory apply method to construct [[PomDep]] from [[String]]s. */
   def apply(groupStr: String, artifactStr: String, versionStr: String): PomDep = new PomDep(GroupId(groupStr), ArtifactId(artifactStr), VersionElem(versionStr))
 }
 
