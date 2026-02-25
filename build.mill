@@ -5,7 +5,7 @@ import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.B
 
 trait Common extends ScalaModule
 { def version = "0.3.11"
-  def scalaVersion = "3.8.1"
+  def scalaVersion = "3.8.2"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 

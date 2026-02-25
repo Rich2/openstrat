@@ -7,7 +7,7 @@ object PomsApp
 {
   def main(args: Array[String]): Unit =
   { val versionStr = "0.3.10"
-    val scalaVersion ="3.8.1"
+    val scalaVersion ="3.8.2"
     val oDir = args.headOption
     debvar(oDir)
 

@@ -8,7 +8,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   override val fileNameStem: String = "dev"
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
-  val scVer: String = "3.8.1"
+  val scVer: String = "3.8.2"
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
@@ -36,7 +36,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
     "Scala.Js: 1.20.2",
     "Scala Native: 0.5.9",
     "JavaFx: 25.0.2",
-    "Sbt: 1.12.3",
+    "Sbt: 1.12.4",
     "Mill: 1.1.2 with Mill's JDK set to 25."))
 
   def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
