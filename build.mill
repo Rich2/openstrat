@@ -297,7 +297,7 @@ def SiteStage = Task{
   DevDocJs.fullLinkJS()
   DevFx.assembly()
 
-  Dev.runner().run(mainClass = "ostrat.pDev.MillStageServer", args = Array[String]())
+  Dev.runner().run(mainClass = "ostrat.pDev.MillStageSite", args = Array[String]())
 }
 
 def JarsStage = Task{

@@ -1,15 +1,16 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pDoc._
+import utiljvm.*, pDoc.*
 
 /** application used by mill to stage openstrat files for a passive server. */
-object MillStageServer extends StagingBuild
+object MillStageSite extends StagingBuild
 {
   def main(args: Array[String]): Unit =
-  { stagingPathDo { stagingPath =>
-      stagingPath.doIfDirExists { _ =>
-        stageBase(stagingPath)
-        useStaging(stagingPath)
+  { stagingPathDo { stagingPath1 =>
+      stagingPath1.doIfDirExists { _ =>
+        val stagingPath2 = stagingPath1 / "OpenstratSite"
+        stageBase(stagingPath2)
+        useStaging(stagingPath2)
       }
     }
   }
