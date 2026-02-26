@@ -2,8 +2,9 @@
 package ostrat; package pDev
 import utiljvm.*, pDoc.*, pWeb.*
 
+/** This base trait stages the HTML and CSS files for the Openstrat website, but not the JavaScript files. */
 trait StagingBuild
-{
+{ /** This method stages the HTML and CSS files for the Openstrat, but not the JavaScript files. */
   def stageBase(path: DirsAbs): Unit =
   { deb(htmlFileWrite(path, IndexPage).reportStr)
     deb(cssFileWrite(path, "only", OnlyCss()).reportStr)
