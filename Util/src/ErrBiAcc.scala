@@ -61,9 +61,9 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc[E, B](errsArray ++ operand.errsArray, succsArray ++ operand.succsArray)
 
   /** Appends [[ErrBiAcc]] to this accumulator. Order of successes and fails is preserved but not the overall order. */
-  @targetName("appendElem") @inline def +%(newElem: ErrBi[E, B] @uncheckedVariance)(using ctE: ClassTag[E] @uncheckedVariance,
-    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
-    newElem.fold{ err => new ErrBiAcc[E, B](errsArray :+ err, succsArray)}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
+  @targetName("appendElem") @inline def +%[EE >: E <: Throwable, BB >: B](newElem: ErrBi[EE, BB] @uncheckedVariance)(using ctE: ClassTag[EE] @uncheckedVariance,
+    ctB: ClassTag[BB] @uncheckedVariance): ErrBiAcc[EE, BB] =
+    newElem.fold{ err => new ErrBiAcc[EE, BB](errsArray :+ err, succsArray.asInstanceOf[Array[BB]])}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
 }
 
 object ErrBiAcc

@@ -44,6 +44,12 @@ class FileWritten(val detailStr: String) extends DoneIO
 { override def reportTypeStr: String = "File written"
   override def toString: String = "FileWritten" + detailStr.enParenth
   override def reportStr: String = reportTypeStr -- "to" -- detailStr
+
+  /** Refines the success to a written HTML file. */
+  def html: HtmlFileWritten = HtmlFileWritten(detailStr)
+
+  /** Refines the success to a written CSS file. */
+  def css: CssFileWritten = CssFileWritten(detailStr)
 }
 
 object FileWritten

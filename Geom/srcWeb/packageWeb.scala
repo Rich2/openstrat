@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
@@ -37,8 +37,8 @@ package object pWeb
     def vh: VhCss = VhCss(thisInt)
   }
 
-  implicit class DoubleWebExtensions(thisDouble: Double) {
-    /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
+  implicit class DoubleWebExtensions(thisDouble: Double)
+  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
       def px: PxCss = PxCss(thisDouble)
 
@@ -52,13 +52,13 @@ package object pWeb
     def vh: VhCss = VhCss(thisDouble)
   }
 
-  extension (thisArr: Arr[String]) {
-    def toDivLines: RArr[HtmlDiv] = thisArr.map {
+  extension (thisArr: Arr[String])
+  { def toDivLines: RArr[HtmlDiv] = thisArr.map{
       case "" => HtmlDiv(HtmlBr)
       case l => HtmlDiv(l)
     }
 
-    def toSystemdDivs: RArr[HtmlDiv] = thisArr.map {
+    def toSystemdDivs: RArr[HtmlDiv] = thisArr.map{
       case "" => HtmlDiv(HtmlBr)
       case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
       case l => HtmlDiv(l)

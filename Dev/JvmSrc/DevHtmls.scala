@@ -22,10 +22,10 @@ trait DevHtmls
   }
 
   def writeFastFull(path: DirsAbs, outerModuleName: String, name: String): Unit =
-  { val fastPage = makeFile(path, outerModuleName, true, name)
-    fileWrite(path / "Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage.out)
+  { val fastPage: HtmlPage = makeFile(path, outerModuleName, true, name)
+    path.subHtmlWrite("Dev/target/DevPages", s"$name${toolStr}Fast", fastPage)
     val fullPage = makeFile(path, outerModuleName, false, name)
-    fileWrite(path / "Dev/target/DevPages", s"$name${toolStr}Full.html", fullPage.out)
+    path.subHtmlWrite("Dev/target/DevPages", s"$name${toolStr}Full", fullPage.out)
   }
 
   def makeFile(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =

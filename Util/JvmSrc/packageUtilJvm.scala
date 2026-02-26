@@ -68,9 +68,6 @@ package object utiljvm
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(path: DirsAbs, fileName: String, content: String): ErrBi[IOExc, FileWritten] = fileWrite(path /% fileName, content)
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
   def fileWrite(pathName: String, content: String): ErrBi[IOExc, FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
@@ -83,24 +80,6 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
-   * name overload that takes a [[String]] for the path. */
-  def htmlFileStrWrite(path: DirsAbs, fileName: String, content: String): ErrBi[IOExc, HtmlFileWritten] = htmlFileStrWrite(path /% fileName , content)
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
-   * name overload that takes a [[DirAbs]] for the path. */
-  def htmlFileStrWrite(pathName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
-    fileWrite(pathName + ".html", content).map(fw => HtmlFileWritten(fw.detailStr))
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
-   * name overload that takes a [[String]] for the path. */
-  def cssFileWrite(path: DirsAbs, fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = cssFileWrite(path /% fileName, content)
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
-   * name overload that takes a [[DirAbs]] for the path. */
-  def cssFileWrite(pathName: String, content: String): ErrBi[IOExc, CssFileWritten] =
-      fileWrite(pathName + ".css", content).map(fw => CssFileWritten(fw.detailStr))  
 
   def pomFileWrite(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
     fileWrite(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
@@ -138,8 +117,6 @@ package object utiljvm
   /** Copies a jar file */
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
     fileCopy(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
-  
-  //def mkDirExist(path: DirsAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
    * file. */

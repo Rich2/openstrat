@@ -48,7 +48,7 @@ class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
   @targetName("appendToStr") override def /%(operand: DirsRel): String =  (this / operand).asStr
-  @targetName("appendToStr") override def /%(appendStr: String): String = (this / appendStr).asStr
+  @targetName("appendToStr") override def /%(appendStr: String): String = asStr / appendStr
 }
 
 object DirsAbs
