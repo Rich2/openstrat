@@ -80,6 +80,9 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
+  
+  /** Writes the content to the given file location, after adding the ".html" ending. */
+  def writeHtml(pathStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = writeFile(pathStem + ".html", content).map(_.html)
 
   /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
   def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
@@ -93,8 +96,7 @@ package object utiljvm
     catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
-
-
+  
   /** File copy that adds the ".js" [[String]] to the file source and file destination. */
     def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
       copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))

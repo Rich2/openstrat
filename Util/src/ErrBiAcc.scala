@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -56,11 +56,13 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errHead: E = errsArray(0)
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 
-  /** Appends [[ErrBi]] element to this accumulator. Order of successes and fails is preserved but not the overall order. */
-  @targetName("append") @inline def ++(operand: ErrBiAcc[E, B] @uncheckedVariance)(using ctE: ClassTag[E] @uncheckedVariance,
-    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc[E, B](errsArray ++ operand.errsArray, succsArray ++ operand.succsArray)
+  /** Appends [[ErrBi]] element to this accumulator widening the type of the error and the successful value if necessary. Order of successes and fails is
+   * preserved but not the overall order. */
+  @targetName("append") @inline def ++[EE >: E <: Throwable, BB >: B](operand: ErrBiAcc[EE, BB] @uncheckedVariance)(using ctE: ClassTag[EE] @uncheckedVariance,
+    ctB: ClassTag[BB] @uncheckedVariance): ErrBiAcc[EE, BB] = new ErrBiAcc[EE, BB](errsArray ++ operand.errsArray, succsArray ++ operand.succsArray)
 
-  /** Appends [[ErrBiAcc]] to this accumulator. Order of successes and fails is preserved but not the overall order. */
+  /** Appends [[ErrBiAcc]] to this accumulator widening the type of the error and the successful value if necessary. Order of successes and fails is preserved
+   * but not the overall order. */
   @targetName("appendElem") @inline def +%[EE >: E <: Throwable, BB >: B](newElem: ErrBi[EE, BB] @uncheckedVariance)(using ctE: ClassTag[EE] @uncheckedVariance,
     ctB: ClassTag[BB] @uncheckedVariance): ErrBiAcc[EE, BB] =
     newElem.fold{ err => new ErrBiAcc[EE, BB](errsArray :+ err, succsArray.asInstanceOf[Array[BB]])}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
