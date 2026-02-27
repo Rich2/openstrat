@@ -9,7 +9,7 @@ import utiljvm.*, pWeb.*
     val targ = path / "target/GeomTest"
     path.mkExist
     targ.mkExist
-    val res = targ.htmlWrite(TestPage1)
+    val res = targ.writeHtml(TestPage1)
     deb(res.str1Line)
   }
 }

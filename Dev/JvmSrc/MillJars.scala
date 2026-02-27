@@ -44,7 +44,7 @@ trait MillStageJars
 
   /** Copies a main jar to the libShared staging folder. */
   def jarCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String, origFolder: String, assetStr: String): ErrBi[Exception, FileWritten] =
-    fileCopy(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + assetStr + ".jar")
+    copyFile(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + assetStr + ".jar")
 
   /** Copies prebuilt main, javadoc and sources jars to the libShared staging folder. */
   def mainDocSourceCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBiAcc[Exception, FileWritten] =

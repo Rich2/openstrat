@@ -6,24 +6,23 @@ import utiljvm.*, pDoc.*, pWeb.*
 trait StagingBuild
 { /** This method stages the HTML and CSS files for the Openstrat, but not the JavaScript files. */
   def stageBase(path: DirsAbs): Unit =
-  { debvar(path)
-    deb(path.htmlWrite(IndexPage).reportStr)
-    deb(path.cssWrite("only", OnlyCss()).reportStr)
+  { deb(path.writeHtml(IndexPage).reportStr)
+    deb(path.writeCss("only", OnlyCss()).reportStr)
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msgErrsSummary("to Documents directory"))
 
     val eGameHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "earthgames").flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(page => (path / page.dirRel).htmlWrite(page.fileNameStem, page))
+      AppPage.eGameApps.mapErrBiAcc(page => (path / page.dirRel).writeHtml(page.fileNameStem, page))
     }
     deb(eGameHtmlFiles.msgErrsSummary("to earthgames directory"))
 
     val otherHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "otherapps").flatMapAcc { res =>
-      AppPage.otherApps.mapErrBiAcc(page => (path / page.dirRel).htmlWrite(page.fileNameStem, page))
+      AppPage.otherApps.mapErrBiAcc(page => (path / page.dirRel).writeHtml(page.fileNameStem, page))
     }
     deb(otherHtmlFiles.msgErrsSummary("to otherapps directory"))
 
     val egridHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = mkDirExist(path /% "egrids").flatMapAcc { res =>
-      AppPage.eGrids.mapErrBiAcc(page => (path / page.dirRel).htmlWrite(page.fileNameStem, page))
+      AppPage.eGrids.mapErrBiAcc(page => (path / page.dirRel).writeHtml(page.fileNameStem, page))
     }
     deb(egridHtmlFiles.msgErrsSummary("to egrids directory"))
   }
@@ -31,7 +30,7 @@ trait StagingBuild
   def stageDocDir(path: DirsAbs): ErrBiAcc[IOExc, FileWritten] =
   { val docPath = path /% "Documentation"    
     mkDirExist(docPath).flatMapAcc { res => RArr(AppsPage, UtilPage, GeomPage, LessonsPage, TilingPage, EarthPage, EGridPage, DevPage, NewDevsPage, TomcatPage,
-      ScalaOSPage, Victoria2Page).mapErrBiAcc(_.writeFile(docPath)) +% CssDocumentation.writeFile(docPath / "documentation", "CssDocumentation")
+      ScalaOSPage, Victoria2Page).mapErrBiAcc(_.writeFile(docPath)) +% CssDocumentation.writeFile(docPath, "CssDocumentation")
 
     }
   }

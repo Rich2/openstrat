@@ -51,6 +51,6 @@ object XmlTest extends TestSuite
     }
 
     val france1Out = france1.out
-    projPathDo{path => fileWrite(path /% "target/france1.xml", france1Out) }
+    projPathDo{path => writeFile(path /% "target/france1.xml", france1Out) }
   }
 }

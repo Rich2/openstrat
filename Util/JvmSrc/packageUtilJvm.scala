@@ -68,7 +68,7 @@ package object utiljvm
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(pathName: String, content: String): ErrBi[IOExc, FileWritten] =
+  def writeFile(pathName: String, content: String): ErrBi[IOExc, FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
@@ -81,11 +81,12 @@ package object utiljvm
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
 
-  def pomFileWrite(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
-    fileWrite(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
+  /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
+  def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
+    writeFile(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-  def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =
+  def copyFile(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
@@ -96,17 +97,17 @@ package object utiljvm
 
   /** File copy that adds the ".js" [[String]] to the file source and file destination. */
     def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-      fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+      copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
 
   /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
   def jsMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-    fileCopy(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
+    copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
 
   /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
   def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-  { val res1: ErrBi[Exception, JsFileWritten] = fileCopy(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+  { val res1: ErrBi[Exception, JsFileWritten] = copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
     res1 match
-    { case Succ(jsfw) => fileCopy(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
+    { case Succ(jsfw) => copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
       { case fail : Fail[_] => res1
         case succ2: Succ[_] => Succ(jsfw.withMap)
       }
@@ -116,7 +117,7 @@ package object utiljvm
 
   /** Copies a jar file */
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
-    fileCopy(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
+    copyFile(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
    * file. */
@@ -136,7 +137,7 @@ package object utiljvm
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =
   { val h: String = System.getProperty("user.home")
-    fileWrite(h / dir / fileName, str)
+    writeFile(h / dir / fileName, str)
   }
 
   /** Function object apply method to get statements from a Java build resource. */

@@ -7,6 +7,6 @@ import ostrat.utiljvm.*, pWeb.*
   
   projPathDo { path =>    
     val path1: String = path /% "Dev/target"
-    fileWrite(path1 / "lessons.rson", learn.LessonsLaunch.rsonText)
+    writeFile(path1 / "lessons.rson", learn.LessonsLaunch.rsonText)
   }
 }
