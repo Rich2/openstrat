@@ -16,13 +16,3 @@ def opensettHtmlWrite(title: String, bodyContent: String) =
 
 /** HTTP now time object. */
 object HttpNow extends HttpDate(utiljvm.httpNow)
-
-implicit class HtmlPageFileExtensions(thisPage: HtmlPageFile)
-{
-  def writeFile(dirPathStr: String): ErrBi[IOExc, HtmlFileWritten] = utiljvm.writeFile(dirPathStr / thisPage.fileName, thisPage.out).map(_.html)
-}
-
-implicit class CssRulesHolderExtensions(thisRules: CssRulesHolder)
-{
-  def writeFile(dirPathStr: String, fileNameStem: String): ErrBi[IOExc, CssFileWritten] = utiljvm.writeFile(dirPathStr / fileNameStem + ".css", thisRules.out).map(_.css)
-}

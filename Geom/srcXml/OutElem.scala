@@ -1,10 +1,15 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An element that outputs a String. This could be XML HTML other HTTP content */
+/** An element that outputs a [[String]]. This could be XML HTML other HTTP content */
 trait OutElem
 { /** The output [[String]]. Includes HTML and CSS code. */
   def out: String
+}
+
+trait OutElemFile extends OutElem
+{ /** The default file name when this output to a file. */
+  def fileName: String
 }
 
 /** Content for XML and HTML elements. You can use plain [[String]]s, however other content classes must implement the out and outLines interfaces. The outLines

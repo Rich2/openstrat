@@ -28,18 +28,3 @@ trait CssRulesHolder extends HttpContent
   
   override def httpResp(dateStr: String, server: String): HttpFound = HttpFound(dateStr, server, HttpConTypeCss, out)
 }
-
-/** A list of CssRules and media queries with a possible end [[String]]. */
-trait CssRulesWithString extends CssRulesHolder
-{ /** A [[String]] at the end of the output to add CSS code that has not been converted into Scala. */
-  def endStr: String = ""
-
-  override def apply(): String =
-  { val s1 = rulesOut()
-    s1 match
-    { case "" => endStr
-      case s1 if endStr == "" => s1
-      case s1 => s1 ---- endStr
-    }
-  }
-}

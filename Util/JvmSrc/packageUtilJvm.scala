@@ -84,6 +84,9 @@ package object utiljvm
   /** Writes the content to the given file location, after adding the ".html" ending. */
   def writeHtml(pathStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = writeFile(pathStem + ".html", content).map(_.html)
 
+  /** Writes the content to the given file location, after adding the ".css" ending. */
+  def writeCss(pathStem: String, content: String): ErrBi[IOExc, CssFileWritten] = writeFile(pathStem + ".css", content).map(_.css)
+
   /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
   def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
     writeFile(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))

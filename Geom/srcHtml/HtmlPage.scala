@@ -35,7 +35,7 @@ object HtmlPage
 }
 
 /** This is an HTML page that stores its default file name. */
-trait HtmlPageFile extends HtmlPage
+trait HtmlPageFile extends HtmlPage, OutElemFile
 { /** The default file name stem for this HTML page. */
   def fileNameStem: String
 
@@ -43,7 +43,7 @@ trait HtmlPageFile extends HtmlPage
   def titleStr: String
 
   /** The default file name stem for this HTML page file. */
-  def fileName: String = fileNameStem + ".html"
+  override def fileName: String = fileNameStem + ".html"
 
   /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
   def headCss(cssFileStem: String, otherContents: XConCompound*): HtmlHead =
