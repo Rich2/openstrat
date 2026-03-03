@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import utiljvm.{ writeFile => wFile, writeHtml => wHtml }
+import utiljvm.{ writeFile => wFile, writeHtml => wHtml, writeCss => wCss }
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
 implicit class DirAbsWebExtensions (thisPath: DirsAbs)
@@ -31,5 +31,5 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
-  def writeCss(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = wFile(thisPath /% (fileName  + ".css"), content).map(_.css)
+  def writeCss(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = wCss(thisPath /% (fileName), content)
 }

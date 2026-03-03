@@ -28,3 +28,6 @@ trait CssRulesHolder extends HttpContent
   
   override def httpResp(dateStr: String, server: String): HttpFound = HttpFound(dateStr, server, HttpConTypeCss, out)
 }
+
+/** A set of CSS rules with a default file name. */
+trait CssRulesFile extends CssRulesHolder, OutElemFile
