@@ -14,21 +14,15 @@ trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
   val versionStr: String = "0.3.11"
 
+  val repPairs = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid")
   /** Pairs of the module names and the name stem for their assets. */
-  val modPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid", "Apps", "apps")
+  val modPairs: ArrPairStr[String] = repPairs +% PairStrElem("Apps", "apps")
 
   def apply(stagingPath: String): Unit =
-  {
-    val sharedPath: String = stagingPath / "libShared"
-    mkDirExist(sharedPath).forSucc { res1 =>
-      projPathDo { projPath =>
-        val res: ErrBiAcc[Exception, FileWritten] = action(projPath, sharedPath)
-        deb(res.errsSummary)
-      }
-    }
+  { projPathDo { projPath =>  action(projPath, stagingPath) }
   }
 
-  def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileWritten]
+  def action(projPath: DirsAbs, sharedPath: String): Unit//ErrBiAcc[Exception, FileWritten]
 
   /** Copies a main jar to the libShared staging folder. */
   def mainCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
@@ -46,7 +40,7 @@ trait MillStageJars
   def jarCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String, origFolder: String, assetStr: String): ErrBi[Exception, FileWritten] =
     copyFile(projPath.asStr / "out" / srcStr / origFolder + ".dest/out.jar", sharedPath / destStr + "-" + versionStr + assetStr + ".jar")
 
-  /** Copies prebuilt main, javadoc and sources jars to the libShared staging folder. */
+  /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
   def mainDocSourceCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBiAcc[Exception, FileWritten] =
     ErrBiAcc[Exception, FileWritten](mainCopy(projPath, sharedPath, srcStr, destStr), javadocCopy(projPath, sharedPath, srcStr, destStr),
     sourceCopy(projPath, sharedPath, srcStr, destStr))
@@ -57,17 +51,20 @@ object MillJars extends MillStageJars
 {
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath.asStr) }
 
-  override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileWritten] =
+  override def action(projPath: DirsAbs, stagingStr: String): Unit =
   { val otherPairs: ArrPairStr[String] = StrStrPairArr("UtilJs", "rutiljs", "GeomFx", "geomfx", "GeomJs", "geomjs", "TilingJs", "tilingjs")
     val allPairs = modPairs ++ otherPairs
-    allPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) }
+    val sharedPath: String = stagingStr / "libShared"
+    mkDirExist(sharedPath).forSucc { res1 =>
+      val res: ErrBiAcc[Exception, FileWritten] = allPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) }
+    }
   }
 }
 
 /** Function object to stage the module main jars built under Mill. */
-object MillStageMainJars extends MillStageJars
+/*object MillStageMainJars extends MillStageJars
 {
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileWritten] =
   { modPairs.mapErrBiAcc (p => mainCopy(projPath, sharedPath, p.a1, p.a2))
   }
-}
+}*/
