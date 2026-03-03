@@ -95,7 +95,7 @@ object GeomExsJs extends CommonJs
 
 object GeomDoc extends CommonJvm
 { def moduleDeps = Seq(GeomExs, UtilDoc)
-  def sources1 = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Geom" / "GeomDoc" / name)*)
+  def sources1 = Task.Sources(Seq("src", "JvmSrc").map(name => workspaceRoot / "Geom" / "GeomDoc" / name)*)
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomExs" / "JvmSrc")
   def sources = sources1() :+ source2()
 }

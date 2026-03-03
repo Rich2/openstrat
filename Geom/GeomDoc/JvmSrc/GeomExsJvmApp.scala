@@ -8,8 +8,8 @@ object GeomExsJvmApp
     val oDir = args.headOption
     println(oDir)
     oDir.foreach{dirStr =>
-      fileWrite(dirStr / "documentation.css", CssDocumentation())
-      fileWrite(dirStr / "only.css", OnlyCss())
+      writeFile(dirStr / "documentation.css", CssDocumentation())
+      writeFile(dirStr / "only.css", OnlyCss())
     }
   }
 }
