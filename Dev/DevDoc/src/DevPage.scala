@@ -32,11 +32,11 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   
   def p4: HtmlP = HtmlP("Versions", HtmlUl("Current Openstrat version 0.3.11",
     s"Scala: $scVer",
-    "Jdk: Min17+, 23+ required for JavaFx modules. 25 preferred.",
+    "Jdk: 23+ required for JavaFx modules. 25 preferred.",
     "Scala.Js: 1.20.2",
     "Scala Native: 0.5.9",
     "JavaFx: 25.0.2",
-    "Sbt: 1.12.4",
+    "Sbt: 1.12.5",
     "Mill: 1.1.2 with Mill's JDK set to 25."))
 
   def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
