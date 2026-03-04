@@ -23,9 +23,12 @@ package object utiljvm
 
   /** Find the [[String]] for the identifier value of o setting of the given name in the file DevSettings.rson. */
   def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
+  
+  /** Find the project path. */
+  def projPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
-  def projPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
+  def projPathDo(f: DirsAbs => Unit): Unit = projPathFind.forFold{ err => deb(err.toString) }{ path => f(path) }
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
   def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").forFold { err => deb(err.toString) } { path => f(path) }

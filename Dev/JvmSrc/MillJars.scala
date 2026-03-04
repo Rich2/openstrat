@@ -19,10 +19,11 @@ trait MillStageJars
   val modPairs: ArrPairStr[String] = repPairs +% PairStrElem("Apps", "apps")
 
   def apply(stagingPath: String): Unit =
-  { projPathDo { projPath =>  action(projPath, stagingPath) }
+  { val res: ErrBiAcc[Throwable, FileWritten] = projPathFind.flatMapAcc { projPath =>  action(projPath, stagingPath) }
+    deb(res.errsSummary)
   }
 
-  def action(projPath: DirsAbs, sharedPath: String): Unit//ErrBiAcc[Exception, FileWritten]
+  def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileWritten]
 
   /** Copies a main jar to the libShared staging folder. */
   def mainCopy(projPath: DirsAbs, sharedPath: String, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
@@ -51,20 +52,28 @@ object MillJars extends MillStageJars
 {
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath.asStr) }
 
-  override def action(projPath: DirsAbs, stagingStr: String): Unit =
+  override def action(projPath: DirsAbs, stagingStr: String): ErrBiAcc[Exception, FileWritten] =
   { val otherPairs: ArrPairStr[String] = StrStrPairArr("UtilJs", "rutiljs", "GeomFx", "geomfx", "GeomJs", "geomjs", "TilingJs", "tilingjs")
     val allPairs = modPairs ++ otherPairs
     val sharedPath: String = stagingStr / "libShared"
-    mkDirExist(sharedPath).forSucc { res1 =>
-      val res: ErrBiAcc[Exception, FileWritten] = allPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) }
+    val res1 = mkDirExist(sharedPath).flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => mainDocSourceCopy(projPath, sharedPath, p.a1, p.a2) } }
+    val repPath: String = stagingStr / "repository"
+    val res2 = mkDirExist(repPath)
+    repPairs.foreach{pair =>
+      val modPath = repPath / pair.a2
+      mkDirExist(modPath)
+      val verPath = modPath / versionStr
+      mkDirExist(verPath)
+      mainDocSourceCopy(projPath, verPath, pair.a1, pair.a2)
     }
+    res1
   }
 }
 
 /** Function object to stage the module main jars built under Mill. */
-/*object MillStageMainJars extends MillStageJars
+object MillStageMainJars extends MillStageJars
 {
   override def action(projPath: DirsAbs, sharedPath: String): ErrBiAcc[Exception, FileWritten] =
   { modPairs.mapErrBiAcc (p => mainCopy(projPath, sharedPath, p.a1, p.a2))
   }
-}*/
+}
