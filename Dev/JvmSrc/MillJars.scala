@@ -26,25 +26,25 @@ trait MillStageJars
   def action(projPath: DirsAbs, stageDirStr: DirsAbs): ErrBiAcc[Exception, FileWritten]
 
   /** Copies a Mill built main jar from an "out" directory subdirectory to the given staging folder. */
-  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
-    millJarCopy(projPath, stageDir, srcStr, destStr, "jar.dest", "")
+  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ErrBi[Exception, FileWritten] =
+    millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "jar.dest", "")
 
   /** Copies a Mill built Javadoc jar from an "out" directory subdirectory to the given staging folder. */
-  def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
-    millJarCopy(projPath, stageDir, srcStr, destStr, "docJar.dest", "-javadoc")
+  def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ErrBi[Exception, FileWritten] =
+    millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "docJar.dest", "-javadoc")
 
   /** Copies a Mill built sources jar from an "out" directory subdirectory to the given staging folder. */
-  def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
-    millJarCopy(projPath, stageDir, srcStr, destStr, "sourceJar.dest", "-sources")
+  def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ErrBi[Exception, FileWritten] =
+    millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "sourceJar.dest", "-sources")
 
   /** Copies a Mill built jar from an "out" directory subdirectory to the given staging directory. */
-  def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, millmoduleStr: String, destStr: String, millEndDirStr: String, assetStr: String): ErrBi[Exception, FileWritten] =
-    copyFile(projPath / "out" / millmoduleStr / millEndDirStr /% "out.jar", stageDir.asStr / destStr + "-" + versionStr + assetStr + ".jar")
+  def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String, millEndDirStr: String, jarTypeStr: String): ErrBi[Exception, FileWritten] =
+    copyFile(projPath / "out" / moduleDir / millEndDirStr :/ "out.jar", stageDir :/ fileStemStr + "-" + versionStr + jarTypeStr + ".jar")
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
-  def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, srcStr: String, destStr: String): ErrBiAcc[Exception, FileWritten] =
-    ErrBiAcc[Exception, FileWritten](millMainCopy(projPath, stageDirPath, srcStr, destStr), millJavadocCopy(projPath, stageDirPath, srcStr, destStr),
-    millSrcJarCopy(projPath, stageDirPath, srcStr, destStr))
+  def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, moduleDir: DirsRel, destStr: String): ErrBiAcc[Exception, FileWritten] =
+    ErrBiAcc[Exception, FileWritten](millMainCopy(projPath, stageDirPath, moduleDir, destStr), millJavadocCopy(projPath, stageDirPath, moduleDir, destStr),
+    millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr))
 }
 
 /** Function object to stage the module all the JVM jars built under Mill. */
@@ -56,7 +56,7 @@ object MillJars extends MillStageJars
   { val otherPairs: ArrPairStr[String] = StrStrPairArr("UtilJs", "rutiljs", "GeomFx", "geomfx", "GeomJs", "geomjs", "TilingJs", "tilingjs")
     val allPairs = modPairs ++ otherPairs
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
-    val res1 = sharedPath.mkExist.flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => jars3Copy(projPath, sharedPath, p.a1, p.a2) } }
+    val res1 = sharedPath.mkExist.flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => jars3Copy(projPath, sharedPath, DirsRel(p.a1), p.a2) } }
     val repositaryPath: DirsAbs = stagingRootDir / "repository"
     val res2 = repositaryPath.mkExist
     repPairs.foreach{pair =>
@@ -64,7 +64,7 @@ object MillJars extends MillStageJars
       modulePath.mkExist
       val verPath: DirsAbs = modulePath / versionStr
       verPath.mkExist
-      jars3Copy(projPath, verPath, pair.a1, pair.a2)
+      jars3Copy(projPath, verPath, DirsRel(pair.a1), pair.a2)
     }
     res1
   }
@@ -74,6 +74,6 @@ object MillJars extends MillStageJars
 object MillStageMainJars extends MillStageJars
 {
   override def action(projPath: DirsAbs, stageDir: DirsAbs): ErrBiAcc[Exception, FileWritten] =
-  { modPairs.mapErrBiAcc (p => millMainCopy(projPath, stageDir, p.a1, p.a2))
+  { modPairs.mapErrBiAcc (p => millMainCopy(projPath, stageDir, DirsRel(p.a1), p.a2))
   }
 }

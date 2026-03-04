@@ -6,6 +6,9 @@ import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 trait DirPathBase
 { /** The backing for this path. */
   def arrayUnsafe: Array[String]
+  
+  /** The length of the backing Array. */
+  def arrayLen = arrayUnsafe.length
 }
 
 trait DirPath extends DirPathBase
@@ -50,6 +53,9 @@ class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
   @targetName("append") def /(operand: String): DirsAbs = new DirsAbs(arrayUnsafe ++ DirPath.strToStrs(operand))
+  
+  /** Appends a file name [[String]] to produce an absolute file path. */
+  @targetName("appendFile") def :/(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
