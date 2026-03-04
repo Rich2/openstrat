@@ -27,19 +27,19 @@ trait MillStageJars
 
   /** Copies a Mill built main jar from an "out" directory subdirectory to the given staging folder. */
   def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
-    millJarCopy(projPath, stageDir, srcStr, destStr, "jar", "")
+    millJarCopy(projPath, stageDir, srcStr, destStr, "jar.dest", "")
 
   /** Copies a Mill built Javadoc jar from an "out" directory subdirectory to the given staging folder. */
   def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
-    millJarCopy(projPath, stageDir, srcStr, destStr, "docJar", "-javadoc")
+    millJarCopy(projPath, stageDir, srcStr, destStr, "docJar.dest", "-javadoc")
 
   /** Copies a Mill built sources jar from an "out" directory subdirectory to the given staging folder. */
   def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, srcStr: String, destStr: String): ErrBi[Exception, FileWritten] =
-    millJarCopy(projPath, stageDir, srcStr, destStr, "docJar", "-sources")
+    millJarCopy(projPath, stageDir, srcStr, destStr, "sourceJar.dest", "-sources")
 
   /** Copies a Mill built jar from an "out" directory subdirectory to the given staging directory. */
-  def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, millmoduleStr: String, destStr: String, origFolder: String, assetStr: String): ErrBi[Exception, FileWritten] =
-    copyFile(projPath.asStr / "out" / millmoduleStr / origFolder + ".dest/out.jar", stageDir.asStr / destStr + "-" + versionStr + assetStr + ".jar")
+  def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, millmoduleStr: String, destStr: String, millEndDirStr: String, assetStr: String): ErrBi[Exception, FileWritten] =
+    copyFile(projPath / "out" / millmoduleStr / millEndDirStr /% "out.jar", stageDir.asStr / destStr + "-" + versionStr + assetStr + ".jar")
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
   def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, srcStr: String, destStr: String): ErrBiAcc[Exception, FileWritten] =

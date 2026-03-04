@@ -99,6 +99,9 @@ package object utiljvm
     catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
+
+  /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
+  def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = copyFile(fromPath.asStr, toPath.asStr)
   
   /** File copy that adds the ".js" [[String]] to the file source and file destination. */
     def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =

@@ -2,7 +2,13 @@
 package ostrat
 import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
-trait DirPath
+/** Common trait for directory paths, absolute and relative and directory-filename paths, absolute or relative */
+trait DirPathBase
+{ /** The backing for this path. */
+  def arrayUnsafe: Array[String]
+}
+
+trait DirPath extends DirPathBase
 { /** The path as a string with the slash characters inserted */
   def asStr: String
 
@@ -128,22 +134,5 @@ object DirsRel
   def apply(inp: String*): DirsRel =
   { val newArray = inp.foldLeft(Array[String]())((acc, st) => acc ++ DirPath.strToStrs(st))
     new DirsRel(newArray)
-  }
-}
-
-/** Relative directory (or folder) path and file name. */
-class DirsFileRel(val arrayUnsafe: Array[String])
-{
-  def asStr: String = arrayUnsafe.length match {
-    case 0 => excep("File name backing array must have at least 1 [[String]] element.")
-    case _ => arrayUnsafe.mkString("/")
-  }
-}
-
-object DirsFileRel
-{ /** Factory apply method for [[DirsRel]]. */
-  def apply(str0: String, inp: String*): DirsFileRel =
-  { val newArray = (str0 +: inp).foldLeft(Array[String]())((acc, st) => acc ++ DirPath.strToStrs(st))
-    new DirsFileRel(newArray)
   }
 }
