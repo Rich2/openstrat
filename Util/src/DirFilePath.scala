@@ -25,18 +25,30 @@ object DirsFileRel
   }
 }
 
-/** Absolute directory (or folder) path and file name stem. */
-class DirsFileStemAbs(val arrayUnsafe: Array[String]) extends DirsFilePath
-{ /** Appends the [[String]] to the file name stem. */
-  @targetName("append") def /(operand: String): DirsFileStemAbs = new DirsFileStemAbs(arrayAppend(operand))
-
-  /** Appends the [[String]] to the file name stem completing the file name. */
-  @targetName("complete") def :/(operand: String): DirsFileAbs = new DirsFileAbs(arrayAppend(operand))
-
-  private def arrayAppend(operand: String): Array[String] =
-  { val newArray: Array[String] = new Array[String](arrayLen)
+trait DirsFileStem extends DirsFilePath
+{
+  protected def arrayAppend(operand: String): Array[String] = {
+    val newArray: Array[String] = new Array[String](arrayLen)
     Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen - 1)
     newArray(arrayLen - 1) = arrayUnsafe(arrayLen) + operand
     newArray
   }
+}
+
+/** Absolute directory (or folder) path and file name stem. */
+class DirsFileStemAbs(val arrayUnsafe: Array[String]) extends DirsFileStem
+{ /** Appends the [[String]] to the file name stem, without completing the file name. */
+  @targetName("append") def %+(operand: String): DirsFileStemAbs = new DirsFileStemAbs(arrayAppend(operand))
+
+  /** Appends the [[String]] to the file name stem completing the file name. */
+  @targetName("complete") def ++(operand: String): DirsFileAbs = new DirsFileAbs(arrayAppend(operand))
+}
+
+/** Relative directory path and file name stem. */
+class DirsFileStemRel(val arrayUnsafe: Array[String]) extends DirsFileStem
+{ /** Appends the [[String]] to the file name stem, without completing the file name. */
+  @targetName("append") def %+(operand: String): DirsFileStemRel = new DirsFileStemRel(arrayAppend(operand))
+  
+  /** Appends the [[String]] to the file name stem completing the file name. */
+  @targetName("complete") def ++(operand: String): DirsFileRel = new DirsFileRel(arrayAppend(operand))
 }
