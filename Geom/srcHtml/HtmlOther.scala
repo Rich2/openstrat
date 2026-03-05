@@ -14,6 +14,9 @@ object HtmlA
     new HtmlA(link, RArr(label2))
   }
 
+  /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
+  def apply(link: AllDirFilePathBase, label: String): HtmlA = apply(link.asStr, label)
+
   /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]] with a path to the file name. There is an apply overload without a path. */
   def apply(page: HtmlPageFile, pathStr: String): HtmlA = new HtmlA(pathStr / page.fileName, RArr(page.titleStr))
 

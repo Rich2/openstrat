@@ -3,7 +3,7 @@ package ostrat
 import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
 /** Directories and file name path. */
-trait DirsFilePath extends DirPathBase
+trait DirsFilePath extends AllDirFilePathBase
 {
   def asStr: String = arrayUnsafe.length match
   { case 0 => excep("File name backing array must have at least 1 [[String]] element.")
@@ -13,9 +13,20 @@ trait DirsFilePath extends DirPathBase
 
 /** Absolute directory (or folder) path and file name. */
 class DirsFileAbs(val arrayUnsafe: Array[String]) extends DirsFilePath
+{
+  override def asStr: String = arrayUnsafe.length match
+  { case 0 => excep("A DirsFileAbs should have at least a file name.")
+    case _ => arrayUnsafe.foldLeft("/")(_ + "/" + _)
+  }
+}
 
 /** Relative directory (or folder) path and file name. */
 class DirsFileRel(val arrayUnsafe: Array[String]) extends DirsFilePath
+{
+  override def asStr: String = arrayUnsafe.length match
+  { case 0 => excep("A DirsFileRel should have at least a file name stem.")
+    case _ => arrayUnsafe.mkString("/") }
+}
 
 object DirsFileRel
 { /** Factory apply method for [[DirsRel]]. */
@@ -42,6 +53,8 @@ class DirsFileStemAbs(val arrayUnsafe: Array[String]) extends DirsFileStem
 
   /** Appends the [[String]] to the file name stem completing the file name. */
   @targetName("complete") def ++(operand: String): DirsFileAbs = new DirsFileAbs(arrayAppend(operand))
+
+  override def asStr: String = ???// ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
 }
 
 /** Relative directory path and file name stem. */
@@ -51,4 +64,6 @@ class DirsFileStemRel(val arrayUnsafe: Array[String]) extends DirsFileStem
   
   /** Appends the [[String]] to the file name stem completing the file name. */
   @targetName("complete") def ++(operand: String): DirsFileRel = new DirsFileRel(arrayAppend(operand))
+
+  override def asStr: String = ??? // arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
 }

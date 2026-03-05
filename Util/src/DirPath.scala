@@ -3,19 +3,19 @@ package ostrat
 import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
 /** Common trait for directory paths, absolute and relative and directory-filename paths, absolute or relative */
-trait DirPathBase
+trait AllDirFilePathBase
 { /** The backing for this path. */
   def arrayUnsafe: Array[String]
   
   /** The length of the backing Array. */
   def arrayLen = arrayUnsafe.length
+
+  /** The path as a string with the slash characters inserted */
+  def asStr: String
 }
 
-trait DirPath extends DirPathBase
-{ /** The path as a string with the slash characters inserted */
-  def asStr: String
-
-  /** A notification [[String]] to inform that the path doesn't exist. */
+trait DirPath extends AllDirFilePathBase
+{ /** A notification [[String]] to inform that the path doesn't exist. */
   def noExistStr: String = asStr -- "Doesn't exist"
 
   /** A notification [[String]] to inform that the path is not a directory. */
@@ -90,7 +90,11 @@ object DirsAbs
 
 /** Directory path relative. */
 class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
-{ /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
+{
+  /** Move back up the directory hierarchy, dropping the last directory if there is one. */
+  def up: DirsRel = new DirsRel(arrayUnsafe.dropRight(1))
+  
+  /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
   @targetName("append") def /(extraPath: DirsRel): DirsRel = new DirsRel(arrayUnsafe ++ extraPath.arrayUnsafe)
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
@@ -124,7 +128,7 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   @targetName("appendDirsFile") def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
 
   /** Append a directories and file name path, then convert to [[String]]. There is a name overload that takes the [[String]] representation as the operand. */
-  @targetName("appendDirsFileStr") def </>%(operand: DirsFileRel): String = (this </> operand).asStr
+  //@targetName("appendDirsFileStr") def </>%(operand: DirsFileRel): String = (this </> operand).asStr
 
   /** Append a directories and file name path, then convert to [[String]]. There is a name overload that takes a [[DirsFileRel]] as the operand. */
   @targetName("appendDirsFileStr") def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr

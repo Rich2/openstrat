@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import utiljvm.*
 
@@ -10,7 +10,7 @@ object MillStagingServlet
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
         deb("Staging Folder exists.")
-        MillStageMainJars(stagingPath.asStr)
+        MillStageMainJars(stagingPath)
         val cookPath: String = stagingPath /% "Cookies1"
         mkDirExist(cookPath).forSucc { res1 => webInf(cookPath) }
       }
@@ -18,7 +18,7 @@ object MillStagingServlet
     
     def webInf(path:String): Unit =
     { val webInfPath = path / "WEB-INF"
-      mkDirExist(webInfPath).forSucc { res1 => writeFile(webInfPath / "web.xml", WebXmlCookies1.out()) }
+      mkDirExist(webInfPath).forSucc { res1 => writeFile(webInfPath / "web.xml", WebXmlCookies1.out) }
       val libPath = webInfPath / "lib"
       mkDirExist(libPath)
       val classesPath = webInfPath / "classes"

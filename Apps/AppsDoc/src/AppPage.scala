@@ -83,5 +83,5 @@ object AppPage
   val defaultTopPairs: ArrPairStr[DirsFileRel] = allTops.mapPair(_.fileNameStem)(_.htmlPathName)
 
   def topMenu(pairs: ArrPairStr[DirsFileRel], origin: DirsRel = DirsRel()): HtmlUl =
-    HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(origin </>% s2, s1) }, RArr(IdAtt("topmenu")))
+    HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a((origin </> s2).asStr, s1) }, RArr(IdAtt("topmenu")))
 }
