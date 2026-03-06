@@ -31,7 +31,7 @@ case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) exte
 }
 
 object HtmlNoScript
-{ /** Factory apply method for creating an HTML noscript element */
+{ /** Factory apply method for creating an HTML no-script element */
   def apply(): HtmlNoScript = new HtmlNoScript(RArr("This page will not function properly without Javascript enabled"))
 }
 

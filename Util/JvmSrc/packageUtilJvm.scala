@@ -80,6 +80,8 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
+
+  def writeFile(dirsFileName: DirsFileAbs, content: String): ErrBi[IOExc, FileWritten] = writeFile(dirsFileName.asStr, content)
   
   /** Writes the content to the given file location, after adding the ".html" ending. */
   def writeHtml(pathStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = writeFile(pathStem + ".html", content).map(_.html)

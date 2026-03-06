@@ -22,10 +22,7 @@ trait DirPath extends AllDirFilePathBase
   def notDirStr: String = asStr -- "is not a directory"
 
   /** Appends a [[String]] and converts the path to a [[String]] */
-  @targetName("appendToStr")def /%(operand: DirsRel): String
-
-  /** Appends a [[String]] and converts the path to a [[String]] */
-  @targetName("appendToStr") def /%(appendStr: String): String
+  //@targetName("appendToStr") def /%(appendStr: String): String
 }
 
 object DirPath
@@ -59,8 +56,9 @@ class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
-  @targetName("appendToStr") override def /%(operand: DirsRel): String =  (this / operand).asStr
-  @targetName("appendToStr") override def /%(appendStr: String): String = asStr / appendStr
+
+  /** Appends a file name to this absolute directory path. */
+  @targetName("append") def /+(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)
 }
 
 object DirsAbs
@@ -127,15 +125,8 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   /** Append a directories and file name path. There is a name overload that takes a [[DirsFileRel]] as the operand. */
   @targetName("appendDirsFile") def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
 
-  /** Append a directories and file name path, then convert to [[String]]. There is a name overload that takes the [[String]] representation as the operand. */
-  //@targetName("appendDirsFileStr") def </>%(operand: DirsFileRel): String = (this </> operand).asStr
-
-  /** Append a directories and file name path, then convert to [[String]]. There is a name overload that takes a [[DirsFileRel]] as the operand. */
-  @targetName("appendDirsFileStr") def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr
-
   override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
-  @targetName("appendToStr") override def /%(operand: DirsRel): String = (this / operand).asStr
-  @targetName("appendToStr") override def /%(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
+//  @targetName("appendToStr") override def /%(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   override def toString: String = "DirPathRel" + asStr.enParenth
 }
 

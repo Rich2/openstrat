@@ -16,20 +16,20 @@ object MillStageSite extends StagingBuild
   }
 
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
-    val egPath: String = stagePath /% "earthgames"
+    val egPath: String = stagePath.asStr / "earthgames"
     val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = mkDirExist(egPath).flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc{ ga => jsWithMapFileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main", egPath / ga.fileNameStem) }
     }
     deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
 
-    val docPath: String = stagePath /% "Documentation"
+    val docPath: String = stagePath.asStr / "Documentation"
     val jarApp: ErrBi[Exception, JarFileWritten] = mkDirExist(docPath).flatMap { res =>
       jsMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
       jsFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
       jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", docPath / "osapp")
     }
     deb(jarApp.reportStr)
-    val otherPath: String = stagePath /% "otherapps"
+    val otherPath: String = stagePath.asStr / "otherapps"
     val otherBi: ExcIOMon[DirExists] = mkDirExist(otherPath)
     val otherJsFiles = otherBi.flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
@@ -41,7 +41,7 @@ object MillStageSite extends StagingBuild
     }
     deb(otherJsFiles.msgErrsSummary("to otherapps directory"))
 
-    val egridPath: String = stagePath /% "egrids"
+    val egridPath: String = stagePath.asStr / "egrids"
     val eGridBi: ExcIOMon[DirExists] = mkDirExist(egridPath)
     val egridJsFiles = eGridBi.flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>

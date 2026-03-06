@@ -6,7 +6,7 @@ import ostrat.utiljvm.*, pWeb.*
 { deb("RsonLessons App")
   
   projPathDo { path =>    
-    val path1: String = path /% "Dev/target"
-    writeFile(path1 / "lessons.rson", learn.LessonsLaunch.rsonText)
+    val path1 = path / "Dev/target"
+    writeFile(path1 /+ "lessons.rson", learn.LessonsLaunch.rsonText)
   }
 }

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
 import pWeb.*
 
@@ -14,7 +14,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
   def jsFileName: String = fileNameStem + ".js"
 
   /** The HTML path and full file name as a [[String]]. */
-  def htmlPathNameStr: String = dirRel /% fileName
+  def htmlPathNameStr: String = dirRel.asStr / fileName
 
   override def head: HtmlHead = headFavCss("../only")
 
