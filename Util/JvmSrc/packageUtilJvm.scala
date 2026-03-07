@@ -182,6 +182,6 @@ package object utiljvm
     def mkExist: ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr)
 
     /** Try to make subdirectory exist. */
-    def mkSubExist(tailStr: String): ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr / tailStr)    
+    def mkSubExist(tailStr: String): ExcIOMon[DirsAbs] = utiljvm.mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)   
   }  
 }
