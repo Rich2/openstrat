@@ -16,26 +16,21 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
 
   /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
-  def writeHtml(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / fileNameStem, page.out)
+  def writeHtmlStem(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / fileNameStem, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
   def writeHtml(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileName, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / page.fileNameStem, page.out)
+  def subWriteHtml(subDir: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileName, page.out)
 
   /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / fileNameStem, page.out)
+  def subWriteHtmlStem(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / fileNameStem, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / fileNameStem, content)
+  def subWriteHtmlStem(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / fileNameStem, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
   def writeCss(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = wCss(thisPath.asStr / fileName, content)
-}
-
-/** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-implicit class DirFileAbsWebExtensions (thisPath: DirsFileAbs)
-{ 
 }

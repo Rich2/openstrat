@@ -12,17 +12,17 @@ trait StagingBuild
     deb(docFiles.msgErrsSummary("to Documents directory"))
 
     val eGameHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = path.mkSubExist("earthgames").flatMapAcc { egDir =>
-      AppPage.eGameApps.mapErrBiAcc(page => egDir.writeHtml(page.fileNameStem, page))
+      AppPage.eGameApps.mapErrBiAcc(page => egDir.writeHtmlStem(page.fileNameStem, page))
     }
     deb(eGameHtmlFiles.msgErrsSummary("to earthgames directory"))
 
     val otherHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = path.mkSubExist("otherapps").flatMapAcc { otherDir =>
-      AppPage.otherApps.mapErrBiAcc(page => otherDir.writeHtml(page.fileNameStem, page))
+      AppPage.otherApps.mapErrBiAcc(page => otherDir.writeHtmlStem(page.fileNameStem, page))
     }
     deb(otherHtmlFiles.msgErrsSummary("to otherapps directory"))
 
     val egridHtmlFiles: ErrBiAcc[IOExc, HtmlFileWritten] = path.mkSubExist("egrids").flatMapAcc { egridsDir =>
-      AppPage.eGrids.mapErrBiAcc(page => egridsDir.writeHtml(page.fileNameStem, page))
+      AppPage.eGrids.mapErrBiAcc(page => egridsDir.writeHtmlStem(page.fileNameStem, page))
     }
     deb(egridHtmlFiles.msgErrsSummary("to egrids directory"))
   }
