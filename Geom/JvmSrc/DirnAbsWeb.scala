@@ -19,7 +19,7 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
   def writeHtml(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / fileNameStem, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def writeHtml(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / page.fileNameStem, page.out)
+  def writeHtml(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileName, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
   def subWriteHtml(subDir: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / page.fileNameStem, page.out)
