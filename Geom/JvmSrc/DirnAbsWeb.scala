@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import utiljvm.{ writeFile => wFile, writeHtml => wHtml, writeCss => wCss }
+import utiljvm.{ writeFile => wFile, writeCss => wCss }
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
 implicit class DirAbsWebExtensions (thisPath: DirsAbs)
@@ -16,7 +16,11 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
 
   /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
-  def writeHtmlStem(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / fileNameStem, page.out)
+  def writeHtmlStem(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / fileNameStem + ".html", page.out)
+
+  /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
+   * success. */
+  def writeHtmlFull(fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / fileNameStem, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
   def writeHtml(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileName, page.out)
@@ -25,10 +29,20 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
   def subWriteHtml(subDir: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileName, page.out)
 
   /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
-  def subWriteHtmlStem(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / fileNameStem, page.out)
+  def subWriteHtmlStem(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
+    writeStrsHtml(thisPath.asStr / subDir / fileNameStem + ".html", page.out)
+
+  /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
+  def subWriteHtmlFull(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
+    writeStrsHtml(thisPath.asStr / subDir / fileNameStem, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def subWriteHtmlStem(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = wHtml(thisPath.asStr / subDir / fileNameStem, content)
+  def subWriteHtmlStem(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
+    writeStrsHtml(thisPath.asStr / subDir / fileNameStem + ".html", content)
+
+  /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
+  def subWriteHtmlFull(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
+    writeStrsHtml(thisPath.asStr / subDir / fileNameStem, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */

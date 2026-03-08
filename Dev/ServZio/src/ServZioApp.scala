@@ -1,12 +1,12 @@
 /* Copyright 2024 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pszio
-import zio.*, http.*, pWeb.*, utiljvm.*
+import zio.*, http.*, pWeb.*, utiljvm.*, pDoc.*
 
 object ServZioApp extends ZIOAppDefault
 {
   def hPage(str: String): Handler[Any, Nothing, Any, Response] = handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.html)))
-  val handHome: Handler[Any, Nothing, Any, Response] = hPage(pDev.IndexPage.out)
-  def cssHan(css: CssRulesWithString): Handler[Any, Nothing, Any, Response] = handler(Response.text(css()).addHeader(Header.ContentType(MediaType.text.css)))
+  val handHome: Handler[Any, Nothing, Any, Response] = hPage(IndexPage.out)
+  def cssHan(css: CssRulesHolder): Handler[Any, Nothing, Any, Response] = handler(Response.text(css()).addHeader(Header.ContentType(MediaType.text.css)))
   val dirStr: ZIO[ZIOAppArgs, Nothing, String] = getArgs.map(strs => strs.headElse("/assets"))
   val args: ZIO[ZIOAppArgs, Nothing, Chunk[String]] = getArgs
   val str1: ZIO[ZIOAppArgs, Nothing, String] = args.map{ strs => if (strs.isEmpty) "~" else strs(0) }
@@ -19,13 +19,13 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "Documentation/documentation.css" -> cssHan(CssDocumentation),
     Method.GET / "only.css" -> cssHan(OnlyCss),
     Method.GET / "Documentation/util.html" -> hPage(UtilPage.out),
-    Method.GET / "Documentation/geom.html" -> hPage(geom.GeomPage.out),
-    Method.GET / "Documentation/tiling.html" -> hPage(pDev.TilingPage.out),
-    Method.GET / "Documentation/egrid.html" -> hPage(pDev.EGridPage.out),
-    Method.GET / "Documentation/apps.html" -> hPage(pDev.AppsPage.out),
-    Method.GET / "Documentation/dev.html" -> hPage(pDev.DevPage.out),
-    Method.GET / "Documentation/newdevs.html" -> hPage(pDev.NewDevsPage.out),
-    Method.GET / "earthgames/dicelessapp.html" -> hPage(pDev.AppPage.dicelessApp.out),
+    Method.GET / "Documentation/geom.html" -> hPage(GeomPage.out),
+    Method.GET / "Documentation/tiling.html" -> hPage(TilingPage.out),
+    Method.GET / "Documentation/egrid.html" -> hPage(EGridPage.out),
+    Method.GET / "Documentation/apps.html" -> hPage(AppsPage.out),
+    Method.GET / "Documentation/dev.html" -> hPage(DevPage.out),
+    Method.GET / "Documentation/newdevs.html" -> hPage(NewDevsPage.out),
+    Method.GET / "earthgames/dicelessapp.html" -> hPage(AppPage.dicelessApp.out),
     Method.GET / "earthgames/dicelessapp.js" -> {
       val hand1 = Response.text(loadTextFile("/CommonSsd/ServerOS/earthgames/dicelessapp.js").get)
       val hand2 = hand1.addHeader(Header.ContentType(MediaType.text.javascript))

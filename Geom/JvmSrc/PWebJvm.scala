@@ -19,15 +19,13 @@ def opensettHtmlWrite(title: String, bodyContent: String) =
 object HttpNow extends HttpDate(utiljvm.httpNow)
 
 /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on success. */
-def writeStrsHtml(pathName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
+def writeStrsHtml(dirsFileNameStr: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
 { var oErr: Option[IOExc] = None
   var opw: Option[FileWriter] = None
-  try
-  { opw = Some(new FileWriter(new File(pathName)))
+  try { opw = Some(new FileWriter(new File(dirsFileNameStr)))
     opw.get.write(content)
   }
-
   catch { case e: IOExc => oErr = Some(e) }
   finally { opw.foreach(_.close()) }
-  oErr.fld(Succ(HtmlFileWritten(pathName)), FailIO(_))
+  oErr.fld(Succ(HtmlFileWritten(dirsFileNameStr)), FailIO(_))
 }
