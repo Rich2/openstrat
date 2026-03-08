@@ -18,7 +18,7 @@ def opensettHtmlWrite(title: String, bodyContent: String) =
 /** HTTP now time object. */
 object HttpNow extends HttpDate(utiljvm.httpNow)
 
-/** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on success. */
+/** Writes the String given in the second parameter to the full path and filename given by the first name. Returns an HTML successful message on success. */
 def writeStrsHtml(dirsFileNameStr: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
 { var oErr: Option[IOExc] = None
   var opw: Option[FileWriter] = None
@@ -28,4 +28,16 @@ def writeStrsHtml(dirsFileNameStr: String, content: String): ErrBi[IOExc, HtmlFi
   catch { case e: IOExc => oErr = Some(e) }
   finally { opw.foreach(_.close()) }
   oErr.fld(Succ(HtmlFileWritten(dirsFileNameStr)), FailIO(_))
+}
+
+/** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a CSS successful message on success. */
+def writeStrsCss(dirsFileNameStr: String, content: String): ErrBi[IOExc, CssFileWritten] =
+{ var oErr: Option[IOExc] = None
+  var opw: Option[FileWriter] = None
+  try { opw = Some(new FileWriter(new File(dirsFileNameStr)))
+    opw.get.write(content)
+  }
+  catch { case e: IOExc => oErr = Some(e) }
+  finally { opw.foreach(_.close()) }
+  oErr.fld(Succ(CssFileWritten(dirsFileNameStr)), FailIO(_))
 }

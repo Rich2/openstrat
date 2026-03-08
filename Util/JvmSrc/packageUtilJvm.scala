@@ -82,12 +82,6 @@ package object utiljvm
   }
 
   def writeFile(dirsFileName: DirsFileAbs, content: String): ErrBi[IOExc, FileWritten] = writeFile(dirsFileName.asStr, content)
-  
-  /** Writes the content to the given file location, after adding the ".html" ending. */
-  def writeHtml(pathStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] = writeFile(pathStem + ".html", content).map(_.html)
-
-  /** Writes the content to the given file location, after adding the ".css" ending. */
-  def writeCss(pathStem: String, content: String): ErrBi[IOExc, CssFileWritten] = writeFile(pathStem + ".css", content).map(_.css)
 
   /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
   def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
@@ -106,8 +100,8 @@ package object utiljvm
   def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = copyFile(fromPath.asStr, toPath.asStr)
   
   /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-    def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-      copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+  def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
+    copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
 
   /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
   def jsMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
