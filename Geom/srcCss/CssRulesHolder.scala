@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** Base trait for [[CssMedia]] and [[CssRulesWithString]]. */
@@ -31,3 +31,8 @@ trait CssRulesHolder extends HttpContent
 
 /** A set of CSS rules with a default file name. */
 trait CssRulesFile extends CssRulesHolder, OutElemFile
+{ /** The file name stem, without the ".css" ending. */
+  def fileStem: String
+
+  override def fileName: String = fileStem + ".css"
+}

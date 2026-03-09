@@ -29,16 +29,8 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
   def subWriteHtml(subDir: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileName, page.out)
 
   /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
-  def subWriteHtmlStem(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
-    writeStrsHtml(thisPath.asStr / subDir / fileNameStem + ".html", page.out)
-
-  /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
   def subWriteHtmlFull(subDir: String, fileNameStem: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
     writeStrsHtml(thisPath.asStr / subDir / fileNameStem, page.out)
-
-  /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def subWriteHtmlStem(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
-    writeStrsHtml(thisPath.asStr / subDir / fileNameStem + ".html", content)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
   def subWriteHtmlFull(subDir: String, fileNameStem: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
@@ -46,9 +38,8 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
-  def writeCssStem(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / fileName + ".css", content)
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
-   * name overload that takes a [[String]] for the path. */
   def writeCssFull(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / fileName, content)
+
+  /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
+  def writeCss(cssFile: CssRulesFile): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / cssFile.fileName, cssFile.out)
 }
