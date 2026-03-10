@@ -5,7 +5,7 @@ import ostrat.*
 @main def LsE1App =
 { var continue = true
   while (continue)
-  { val s = scala.io.StdIn.readLine("Enter text.\n")
+  { val s = scala.io.StdIn.readLine("Enter text. Enter exit to exit programme.\n")
     deb("You said"  -- s)
     if (s.toLowerCase == "exit") continue = false
   }

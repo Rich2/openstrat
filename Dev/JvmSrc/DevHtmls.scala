@@ -23,9 +23,9 @@ trait DevHtmls
 
   def writeFastFull(path: DirsAbs, outerModuleName: String, name: String): Unit =
   { val fastPage: HtmlPage = makeFile(path, outerModuleName, true, name)
-    path.subWriteHtmlFull("Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage)
+    path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage)
     val fullPage = makeFile(path, outerModuleName, false, name)
-    path.subWriteHtmlFull("Dev/target/DevPages", s"$name${toolStr}Full,html", fullPage.out)
+    path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Full,html", fullPage.out)
   }
 
   def makeFile(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =
