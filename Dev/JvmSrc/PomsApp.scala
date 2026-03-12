@@ -8,26 +8,31 @@ object PomsApp
   def main(args: Array[String]): Unit =
   { val versionStr = "0.3.10"
     val scalaVersion ="3.8.2"
-    val oDir = args.headOption
+    val oDir: Option[String] = args.headOption
     debvar(oDir)
+    oDir.foreach{dirStr => OsPomsWriter().meth1(dirStr) }
+  }
+}
 
+case class OsPomsWriter(versionStr: String = "0.3.10", scalaVersion: String = "3.8.2")
+{
+  def meth1(dirStr: String): Unit =
+  {
     def stagePom(dirStr: String, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
       writePom(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
 
     def stagePom2(dirStr: String, name: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
       writePom(dirStr / name + "-" + versionStr, pom.out)
 
-    oDir.foreach { dirStr =>
-      val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
-      val gFxPom = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
-      val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
-        stagePom(dirStr, "rutil"),
-        stagePom(dirStr, "geom", "rutil"),
-        stagePom(dirStr, "tiling", "rutil", "geom"),
-        stagePom(dirStr, "egrid", "rutil", "geom", "tiling"),
-        stagePom2(dirStr, "geomfx", gFxPom)
-      )
-     deb(res.msgErrsSummary(s"to $dirStr"))
-    }
+    val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
+    val gFxPom = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
+    val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
+      stagePom(dirStr, "rutil"),
+      stagePom(dirStr, "geom", "rutil"),
+      stagePom(dirStr, "tiling", "rutil", "geom"),
+      stagePom(dirStr, "egrid", "rutil", "geom", "tiling"),
+      stagePom2(dirStr, "geomfx", gFxPom)
+    )
+    deb(res.msgErrsSummary(s"to $dirStr"))
   }
 }
