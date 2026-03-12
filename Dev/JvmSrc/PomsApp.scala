@@ -10,29 +10,28 @@ object PomsApp
     val scalaVersion ="3.8.2"
     val oDir: Option[String] = args.headOption
     debvar(oDir)
-    oDir.foreach{dirStr => OsPomsWriter().meth1(dirStr) }
+    oDir.foreach{dirStr => OsPomsWriter().meth1(DirsAbs(dirStr)) }
   }
 }
 
 case class OsPomsWriter(versionStr: String = "0.3.10", scalaVersion: String = "3.8.2")
 {
-  def meth1(dirStr: String): Unit =
-  {
-    def stagePom(dirStr: String, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
-      writePom(dirStr / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
+  def stagePom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
+    writePom(dirPath.str / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
 
-    def stagePom2(dirStr: String, name: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
-      writePom(dirStr / name + "-" + versionStr, pom.out)
+  def stagePom2(dirPath: DirsAbs, name: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
+    writePom(dirPath.str / name + "-" + versionStr, pom.out)
 
-    val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
+  def meth1(dirPath: DirsAbs): Unit =
+  { val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
     val gFxPom = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
     val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
-      stagePom(dirStr, "rutil"),
-      stagePom(dirStr, "geom", "rutil"),
-      stagePom(dirStr, "tiling", "rutil", "geom"),
-      stagePom(dirStr, "egrid", "rutil", "geom", "tiling"),
-      stagePom2(dirStr, "geomfx", gFxPom)
+      stagePom(dirPath, "rutil"),
+      stagePom(dirPath, "geom", "rutil"),
+      stagePom(dirPath, "tiling", "rutil", "geom"),
+      stagePom(dirPath, "egrid", "rutil", "geom", "tiling"),
+      stagePom2(dirPath, "geomfx", gFxPom)
     )
-    deb(res.msgErrsSummary(s"to $dirStr"))
+    deb(res.msgErrsSummary(s"to $dirPath"))
   }
 }
