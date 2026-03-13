@@ -16,7 +16,7 @@ def opensettHtmlWrite(title: String, bodyContent: String) =
 }
 
 /** HTTP now time object. */
-object HttpNow extends HttpDate(utiljvm.httpNow)
+object HttpNow extends HttpDate(utiljvm.gmtNowStr)
 
 /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns an HTML successful message on success. */
 def writeStrsHtml(dirsFileNameStr: String, content: String): ErrBi[IOExc, HtmlFileWritten] =

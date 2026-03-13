@@ -12,8 +12,8 @@ object ServRawOS extends ServRaw
   {
     case Succ(hrg: HttpReq) if hrg.method == HttpGet =>
     { val resp: HttpResp = hrg.uri match
-      { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
-        case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")
+      { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(gmtNowStr, "localhost")
+        case AppPage.AllHtmlExtractor(page) => page.httpResp(gmtNowStr, "localhost")
         case JsPathNameStr(pathName) =>
         {
           val resPath = resDirStr / pathName
@@ -21,24 +21,24 @@ object ServRawOS extends ServRaw
           loadTextFile(resPath) match
           { case Succ(str) =>
             { deb("Js found Length = " + str.length.toString)
-              HttpFound(httpNow, "localhost", HttpConTypeJs, str)
+              HttpFound(gmtNowStr, "localhost", HttpConTypeJs, str)
             }
-            case _ => { deb("Js not found"); HtmlPageNotFoundstd(pathName).httpResp(httpNow, "localhost")}
+            case _ => { deb("Js not found"); HtmlPageNotFoundstd(pathName).httpResp(gmtNowStr, "localhost")}
           }
         }
 
-        case "/test" => TestPage.httpResp(httpNow, "localhost")
-        case "/Documentation/ut il.html" => UtilPage.httpResp(httpNow, "localhost")
-        case "/Documentation/geom.html" => GeomPage.httpResp(httpNow, "localhost")
-        case "/Documentation/tiling.html" => TilingPage.httpResp(httpNow, "localhost")
-        case "/Documentation/egrid.html" => EGridPage.httpResp(httpNow, "localhost")
-        case "/Documentation/apps.html" => AppsPage.httpResp(httpNow, "localhost")
-        case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")
-        case "/only.css" => OnlyCss.httpResp(httpNow, "localhost")
-        case "/favicon.ico" => HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1())
+        case "/test" => TestPage.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/ut il.html" => UtilPage.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/geom.html" => GeomPage.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/tiling.html" => TilingPage.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/egrid.html" => EGridPage.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/apps.html" => AppsPage.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/documentation.css" => CssDocumentation.httpResp(gmtNowStr, "localhost")
+        case "/only.css" => OnlyCss.httpResp(gmtNowStr, "localhost")
+        case "/favicon.ico" => HttpFound(gmtNowStr, "localhost", HttpConTypeSvg, Favicon1())
         case id =>{
           deb("Page not found.")
-          HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
+          HtmlPageNotFoundstd(id).httpResp(gmtNowStr, "localhost")
         }
       }
 

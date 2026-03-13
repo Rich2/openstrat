@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse.*, java.io.*, java.nio.file.NotDirectoryException
+import pParse.*, java.io.*
 
 /** This package is for Java byte code targets. */
 package object utiljvm
@@ -128,7 +128,7 @@ package object utiljvm
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
     jp.exists match
-    { case true => if (jp.isDirectory) Succ(DirExisted(path)) else Fail(new NotDirectoryException("path"))
+    { case true => if (jp.isDirectory) Succ(DirExisted(path)) else Fail(new java.nio.file.NotDirectoryException("path"))
       case false =>
       { var oExc: Option[IOExc] = None
         try{ jp.mkdir }
@@ -152,7 +152,8 @@ package object utiljvm
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 
-  def httpNow: String =
+  /** The current GMT time as a [[String]] in [[RFC_1123_DATE_TIME]]. */
+  def gmtNowStr: String =
   { import java.time.*, java.time.format.*
     val time: ZonedDateTime = Instant.now().atZone(ZoneId.of("GMT"))
     time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
