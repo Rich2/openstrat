@@ -10,28 +10,34 @@ object PomsApp
     val scalaVersion ="3.8.2"
     val oDir: Option[String] = args.headOption
     debvar(oDir)
-    oDir.foreach{dirStr => OsPomsWriter().meth1(DirsAbs(dirStr)) }
+    oDir.foreach{dirStr => OsPomsWriter().aggregate(DirsAbs(dirStr)) }
   }
 }
 
 case class OsPomsWriter(versionStr: String = "0.3.10", scalaVersion: String = "3.8.2")
 {
-  def stagePom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
+  def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
     writePom(dirPath.str / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
 
-  def stagePom2(dirPath: DirsAbs, name: String, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
-    writePom(dirPath.str / name + "-" + versionStr, pom.out)
+  def osPom(name: String, depStrs: String*) = OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr)
 
-  def meth1(dirPath: DirsAbs): Unit =
-  { val gFxDeps = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
-    val gFxPom = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
-    val res: ErrBiAcc[Exception, PomFileWritten] = ErrBiAcc(
-      stagePom(dirPath, "rutil"),
-      stagePom(dirPath, "geom", "rutil"),
-      stagePom(dirPath, "tiling", "rutil", "geom"),
-      stagePom(dirPath, "egrid", "rutil", "geom", "tiling"),
-      stagePom2(dirPath, "geomfx", gFxPom)
-    )
+  def rutil: OpenStratPomProject = osPom("rutil")
+  def geom: OpenStratPomProject = osPom("geom", "rutil")
+  def tiling: OpenStratPomProject = osPom("tiling", "rutil", "geom")
+  def egrid: OpenStratPomProject = osPom("egrid", "rutil", "geom", "tiling")
+
+  def stagePom(dirPath: DirsAbs, pom: OpenStratPomProject): ErrBi[Exception, PomFileWritten] =
+    writePom(dirPath.str / pom.artifactStr + "-" + versionStr, pom.out)
+
+  def gFxDeps: RArr[PomDep] = RArr(OpenStratPomDep("rutil", versionStr), OpenStratPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
+
+  def gFxPom: OpenStratPomProject = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
+
+  def poms: RArr[OpenStratPomProject] = RArr(rutil, geom, tiling, egrid, gFxPom)
+
+  /** Write all the Poms to the same directory. */
+  def aggregate(dirPath: DirsAbs): Unit =
+  { val res: ErrBiAcc[Exception, PomFileWritten] = poms.mapErrBiAcc(pom => stagePom(dirPath, pom))
     deb(res.msgErrsSummary(s"to $dirPath"))
   }
 }
