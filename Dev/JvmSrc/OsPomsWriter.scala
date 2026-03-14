@@ -2,19 +2,7 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-/** Application for producing Openstrat POM files. Takes the target folder as a parameter. */
-object PomsApp
-{
-  def main(args: Array[String]): Unit =
-  { val versionStr = "0.3.10"
-    val scalaVersion ="3.8.2"
-    val oDir: Option[String] = args.headOption
-    debvar(oDir)
-    oDir.foreach{dirStr => OsPomsWriter().aggregate(DirsAbs(dirStr)) }
-  }
-}
-
-case class OsPomsWriter(versionStr: String = "0.3.10", scalaVersion: String = "3.8.2")
+case class OsPomsWriter(versionStr: String = "0.3.11", scalaVersion: String = "3.8.2")
 {
   def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
     writePom(dirPath.str / name + "-" + versionStr, OpenStratPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
@@ -33,11 +21,14 @@ case class OsPomsWriter(versionStr: String = "0.3.10", scalaVersion: String = "3
 
   def gFxPom: OpenStratPomProject = OpenStratPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
 
-  def poms: RArr[OpenStratPomProject] = RArr(rutil, geom, tiling, egrid, gFxPom)
+  def poms1: RArr[OpenStratPomProject] = RArr(rutil, geom, tiling, egrid, gFxPom)
+
+  def poms2: RArr[OpenStratPomProject] = poms1 +% gFxPom
 
   /** Write all the Poms to the same directory. */
-  def aggregate(dirPath: DirsAbs): Unit =
-  { val res: ErrBiAcc[Exception, PomFileWritten] = poms.mapErrBiAcc(pom => stagePom(dirPath, pom))
+  def aggregate(dirPath: DirsAbs): ErrBiAcc[Exception, PomFileWritten] =
+  { val res: ErrBiAcc[Exception, PomFileWritten] = poms2.mapErrBiAcc(pom => stagePom(dirPath, pom))
     deb(res.msgErrsSummary(s"to $dirPath"))
+    res
   }
 }

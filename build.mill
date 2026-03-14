@@ -300,7 +300,7 @@ def SiteStage = Task{
   Dev.runner().run(mainClass = "ostrat.pDev.MillStageSite", args = Array[String]())
 }
 
-def JarsStage = Task{
+def StageJars = Task{
   packAllMain()
   packAllDocSrc()
   Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())

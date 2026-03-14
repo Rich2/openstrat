@@ -43,8 +43,11 @@ trait MillStageJars
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
   def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, moduleDir: DirsRel, destStr: String): ErrBiAcc[Exception, FileWritten] =
-    ErrBiAcc[Exception, FileWritten](millMainCopy(projPath, stageDirPath, moduleDir, destStr), millJavadocCopy(projPath, stageDirPath, moduleDir, destStr),
-    millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr))
+    ErrBiAcc[Exception, FileWritten](millMainCopy(projPath,stageDirPath, moduleDir, destStr),
+      millJavadocCopy(projPath, stageDirPath, moduleDir, destStr),
+      millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr)) ++
+    OsPomsWriter(versionStr).aggregate(stageDirPath)
+
 }
 
 /** Function object to stage the module all the JVM jars built under Mill. */
