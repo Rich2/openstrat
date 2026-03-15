@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pWeb.*
+import utiljvm.*, pWeb.*, pDoc.*
 
 case class OsPomsWriter(versionStr: String = "0.3.11", scalaVersion: String = "3.8.2")
 {

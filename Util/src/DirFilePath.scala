@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse.*, collection.mutable.ArrayBuffer, annotation.*
+import annotation.*
 
 /** Directories and file name path. */
 trait DirsFilePath extends AllDirFilePathBase

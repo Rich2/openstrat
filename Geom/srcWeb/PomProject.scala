@@ -1,10 +1,14 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-trait PomProject extends XmlTagLines
+
+trait PomBase
 { def artifactId: ArtifactId
-  val groudId: GroupId
-  def version: VersionElem
+  def groudId: GroupId
+}
+
+trait PomProject extends PomBase, XmlTagLines
+{ def version: VersionElem
   def modelVersion: XmlElem = XmlElemSimple("modelVersion", "4.0.0")
   override def tagName: String = "project"
   override def attribs: RArr[XAtt] = RArr()
