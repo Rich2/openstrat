@@ -38,7 +38,8 @@ trait MillStageJars
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "sourceJar.dest", "-sources")
 
   /** Copies a Mill built jar from an "out" directory subdirectory to the given staging directory. */
-  def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String, millEndDirStr: String, jarTypeStr: String): ErrBi[Exception, FileWritten] =
+  def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String, millEndDirStr: String, jarTypeStr: String):
+    ErrBi[Exception, FileWritten] =
     copyFile(projPath / "out" / moduleDir / millEndDirStr :/ "out.jar", stageDir :/ fileStemStr + "-" + versionStr + jarTypeStr + ".jar")
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
@@ -62,12 +63,14 @@ object MillJars extends MillStageJars
     val res1 = sharedPath.mkExist.flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => jars3Copy(projPath, sharedPath, DirsRel(p.a1), p.a2) } }
     val repositaryPath: DirsAbs = stagingRootDir / "repository"
     val res2 = repositaryPath.mkExist
+    val pomWriter = OsPomsWriter()
     repPairs.foreach{pair =>
       val modulePath: DirsAbs = repositaryPath / pair.a2
       modulePath.mkExist
       val verPath: DirsAbs = modulePath / versionStr
       verPath.mkExist
       jars3Copy(projPath, verPath, DirsRel(pair.a1), pair.a2)
+      //pomWriter.stagePom(verPath, )
     }
     res1
   }
