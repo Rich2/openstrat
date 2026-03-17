@@ -6,33 +6,35 @@ object RichstratID extends GroupId("com.richstrat")
 
 case class OsPomDepVerless(idStr: String)
 {
-  def version(versionStr: String): OsPomDep = OsPomDep(idStr, versionStr)
+  def version(version: SwVersion): OsPomDep = OsPomDep(idStr, version)
 }
 
-case class OsPomDep(idStr: String, versionStr: String) extends PomDep(RichstratID, ArtifactId(idStr), VersionElem(versionStr))
+case class OsPomDep(idStr: String, override val version: SwVersion) extends PomDep
+{ override val groupId: GroupId = RichstratID
+  override def artifactId: ArtifactId = ArtifactId(idStr)
+}
 
-class OsPomProject(val artifactStr: String, val versionStr: String, val dependencies: RArr[PomDep]) extends PomProject
+class OsPomProject(val artifactStr: String, val version: SwVersion, val dependencies: RArr[PomDep]) extends PomProject
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
-  override val groudId: GroupId = RichstratID
-  override def version: VersionElem = VersionElem(versionStr) 
+  override val groudId: GroupId = RichstratID  
 }
 
 object OsPomProject
 {
-  def apply(artifactStr: String, versionStr: String, scalaVersion: String, dependencies: RArr[PomDep]): OsPomProject =
-    new OsPomProject(artifactStr: String, versionStr: String, dependencies +% ScalaLibDependency(scalaVersion))
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomProject =
+    new OsPomProject(artifactStr, version, dependencies +% ScalaLibDependency(scalaVersion))
 
-  def apply(artifactStr: String, versionStr: String, scalaVersion: String, moduleStrs: StrArr): OsPomProject =
-  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, versionStr)) +% ScalaLibDependency(scalaVersion)
-    new OsPomProject(artifactStr: String, versionStr: String, dependencies)
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomProject =
+  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version)) +% ScalaLibDependency(scalaVersion)
+    new OsPomProject(artifactStr, version, dependencies)
   }
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
 class OsPomProjectVerless(val artifactStr: String, val osPomDeps: RArr[OsPomDepVerless], val otherDeps: RArr[PomDep])
 {
-  def version(versionStr: String, scalaVersion: String): OsPomProject =
-    OsPomProject(artifactStr, versionStr, scalaVersion, osPomDeps.map(_.version(versionStr)) ++ otherDeps)
+  def version(version: SwVersion, scalaVersion: SwVersion): OsPomProject =
+    OsPomProject(artifactStr, version, scalaVersion, osPomDeps.map(_.version(version)) ++ otherDeps)
 }
 
 object UtilPommer extends OsPomProjectVerless("rutil", RArr(), RArr())

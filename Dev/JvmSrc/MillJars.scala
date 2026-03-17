@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*
+import pWeb.SwVersion, utiljvm.*
 
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
 
@@ -12,7 +12,7 @@ object Module
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val versionStr: String = "0.3.11"
+  val version: SwVersion = SwVersion(0, 3, 11)
 
   val repPairs = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid")
   /** Pairs of the module names and the name stem for their assets. */
@@ -40,14 +40,14 @@ trait MillStageJars
   /** Copies a Mill built jar from an "out" directory subdirectory to the given staging directory. */
   def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String, millEndDirStr: String, jarTypeStr: String):
     ErrBi[Exception, FileWritten] =
-    copyFile(projPath / "out" / moduleDir / millEndDirStr :/ "out.jar", stageDir :/ fileStemStr + "-" + versionStr + jarTypeStr + ".jar")
+    copyFile(projPath / "out" / moduleDir / millEndDirStr :/ "out.jar", stageDir :/ fileStemStr + "-" + version.str + jarTypeStr + ".jar")
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
   def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, moduleDir: DirsRel, destStr: String): ErrBiAcc[Exception, FileWritten] =
     ErrBiAcc[Exception, FileWritten](millMainCopy(projPath,stageDirPath, moduleDir, destStr),
       millJavadocCopy(projPath, stageDirPath, moduleDir, destStr),
       millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr)) ++
-    OsPomsWriter(versionStr).aggregate(stageDirPath)
+    OsPomsWriter(version).aggregate(stageDirPath)
 
 }
 
@@ -67,7 +67,7 @@ object MillJars extends MillStageJars
     repPairs.foreach{pair =>
       val modulePath: DirsAbs = repositaryPath / pair.a2
       modulePath.mkExist
-      val verPath: DirsAbs = modulePath / versionStr
+      val verPath: DirsAbs = modulePath / version.str
       verPath.mkExist
       debvar(verPath)
       jars3Copy(projPath, verPath, DirsRel(pair.a1), pair.a2)

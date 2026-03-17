@@ -2,12 +2,12 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*, pDoc.*
 
-case class OsPomsWriter(versionStr: String = "0.3.11", scalaVersion: String = "3.8.2")
+case class OsPomsWriter(version: SwVersion = SwVersion(0, 3, 11), scalaVersion: SwVersion = SwVersion(3, 8, 2))
 {
   def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
-    writePom(dirPath.str / name + "-" + versionStr, OsPomProject(name, versionStr, scalaVersion, depStrs.toArr).out)
+    writePom(dirPath.str / name + "-" + version.str, OsPomProject(name, version, scalaVersion, depStrs.toArr).out)
 
-  def osPom(name: String, depStrs: String*) = OsPomProject(name, versionStr, scalaVersion, depStrs.toArr)
+  def osPom(name: String, depStrs: String*) = OsPomProject(name, version, scalaVersion, depStrs.toArr)
 
   def rutil: OsPomProject = osPom("rutil")
   def geom: OsPomProject = osPom("geom", "rutil")
@@ -15,11 +15,11 @@ case class OsPomsWriter(versionStr: String = "0.3.11", scalaVersion: String = "3
   def egrid: OsPomProject = osPom("egrid", "rutil", "geom", "tiling")
 
   def stagePom(dirPath: DirsAbs, pom: OsPomProject): ErrBi[Exception, PomFileWritten] =
-    writePom(dirPath.str / pom.artifactStr + "-" + versionStr, pom.out)
+    writePom(dirPath.str / pom.artifactStr + "-" + version.str, pom.out)
 
-  def gFxDeps: RArr[PomDep] = RArr(OsPomDep("rutil", versionStr), OsPomDep("geom", versionStr), JavaFxControlsDependency("25.0.2"))
+  def gFxDeps: RArr[PomDep] = RArr(OsPomDep("rutil", version), OsPomDep("geom", version), JavaFxControlsDependency(25, 0, 2))
 
-  def gFxPom: OsPomProject = OsPomProject("geomfx", versionStr, scalaVersion, gFxDeps)
+  def gFxPom: OsPomProject = OsPomProject("geomfx", version, scalaVersion, gFxDeps)
 
   def poms1: RArr[OsPomProject] = RArr(rutil, geom, tiling, egrid, gFxPom)
 

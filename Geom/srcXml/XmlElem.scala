@@ -39,7 +39,7 @@ object VersionElem
 /** Software version. */
 class SwVersion(val n1: Int, val n2: Int, val n3: Int, val specStr: Option[String], val nn4: Option[Int]) extends VersionElem
 {
-  override def contents: RArr[XCon] =
+  def str: String =
   { val endStr: String = specStr match
     { case None => ""
       case Some(ss) => nn4 match
@@ -47,6 +47,12 @@ class SwVersion(val n1: Int, val n2: Int, val n3: Int, val specStr: Option[Strin
         case Some(n4) => ss + n4.str
       }
     }
-    RArr(s"$n1.$n2.$n3" + endStr)
+    s"$n1.$n2.$n3" + endStr
   }
+  override def contents: RArr[XCon] = RArr(str)
+}
+
+object SwVersion
+{
+  def apply(n1: Int, n2: Int, n3: Int): SwVersion = new SwVersion(n1, n2, n3, None, None)
 }
