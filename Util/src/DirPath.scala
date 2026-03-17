@@ -28,7 +28,7 @@ trait DirPath extends AllDirFilePathBase
 object DirPath
 {
   def strToStrs(inp: String): Array[String] =
-  { val res0 = inp.dropWhile(_.isWhitespace).dropWhile(!_.isLetter).dropRightWhile(_.isWhitespace).dropRightWhile(_ == '/')
+  { val res0: String = inp.dropWhile(_.isWhitespace).dropWhile(!_.isLetter).dropRightWhile(_.isWhitespace).dropRightWhile(_ == '/')
     val acc: ArrayBuffer[String] = Buffer[String]()
     def loop(rem: String): Unit = if (rem.length == 0) {}
     else{
@@ -49,7 +49,7 @@ class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
   @targetName("append") def /(newDir: DirsRel): DirsAbs = new DirsAbs(arrayUnsafe ++ newDir.arrayUnsafe)
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
-  @targetName("append") def /(operand: String): DirsAbs = new DirsAbs(arrayUnsafe ++ DirPath.strToStrs(operand))
+  @targetName("append") def /(operand: String): DirsAbs = new DirsAbs(arrayUnsafe :+ operand)
   
   /** Appends a file name [[String]] to produce an absolute file path. */
   @targetName("appendFile") def :/(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)

@@ -69,6 +69,7 @@ object MillJars extends MillStageJars
       modulePath.mkExist
       val verPath: DirsAbs = modulePath / versionStr
       verPath.mkExist
+      debvar(verPath)
       jars3Copy(projPath, verPath, DirsRel(pair.a1), pair.a2)
       //pomWriter.stagePom(verPath, )
     }

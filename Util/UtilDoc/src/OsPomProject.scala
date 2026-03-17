@@ -34,3 +34,5 @@ class OsPomProjectVerless(val artifactStr: String, val osPomDeps: RArr[OsPomDepV
   def version(versionStr: String, scalaVersion: String): OsPomProject =
     OsPomProject(artifactStr, versionStr, scalaVersion, osPomDeps.map(_.version(versionStr)) ++ otherDeps)
 }
+
+object UtilPommer extends OsPomProjectVerless("rutil", RArr(), RArr())
