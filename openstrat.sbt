@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.11"
+val versionStr = "0.3.12snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor: String = "3.8"
@@ -153,7 +153,7 @@ lazy val TilingJs = jsMainProj("Tiling").dependsOn(GeomJs).settings(tilingSett).
 lazy val TilingExs = jvmExsProj("Tiling").dependsOn(Tiling, GeomExs)
 lazy val TilingExsJs = jsExsProj("Tiling").dependsOn(TilingJs, GeomExsJs)
 lazy val TilingDoc = jvmDocProj("Tiling").dependsOn(Tiling, GeomDoc)
-lazy val TilingDocJs = jsDocProj("Tiling").dependsOn(TilingJs, UtilDocJs)
+lazy val TilingDocJs = jsDocProj("Tiling").dependsOn(TilingJs, GeomDocJs)
 
 lazy val EGrid = jvmMainProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 lazy val EarthIrr = config("EarthIrr") extend(Compile)
@@ -172,7 +172,7 @@ lazy val EGridJs = jsMainProj("EGrid").dependsOn(TilingJs).settings(Compile/unma
 )
 
 lazy val EGridDoc = jvmDocProj("EGrid").dependsOn(EGrid, TilingDoc)
-lazy val EGridDocJs = jsDocProj("EGrid").dependsOn(EGridJs, UtilDocJs)
+lazy val EGridDocJs = jsDocProj("EGrid").dependsOn(EGridJs, TilingDocJs)
 
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
 lazy val Apps = jvmMainProj("Apps").dependsOn(EGrid).settings(appsSett)
@@ -184,13 +184,13 @@ lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
   Compile/scalaJSUseMainModuleInitializer := true,
 )
 
-lazy val AppsDoc = jvmDocProj("Apps").dependsOn(UtilDoc)
-lazy val AppsDocJs = jsDocProj("Apps").dependsOn(UtilDocJs)
+lazy val AppsDoc = jvmDocProj("Apps").dependsOn(EGridDoc)
+lazy val AppsDocJs = jsDocProj("Apps").dependsOn(EGridDocJs)
 
 lazy val ScalaOSDoc = jvmDocProj("ScalaOS").dependsOn(UtilDoc)
 
-lazy val DevDoc = jvmDocProj("Dev").dependsOn(TilingExs, EGridDoc, AppsDoc, ScalaOSDoc)
-lazy val DevDocJs = jsDocProj("Dev").dependsOn(GeomDocJs, TilingExsJs, TilingDocJs, EGridDocJs, AppsDocJs)
+lazy val DevDoc = jvmDocProj("Dev").dependsOn(TilingExs, AppsDoc, ScalaOSDoc)
+lazy val DevDocJs = jsDocProj("Dev").dependsOn(TilingExsJs, AppsDocJs)
 
 lazy val Dev = jvmMainProj("Dev").dependsOn(Apps, TilingExs, DevDoc).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcDoc",

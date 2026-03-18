@@ -1,10 +1,10 @@
 //| # Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0.
-//| mill-version: 1.1.2
+//| mill-version: 1.1.3
 //| mill-jvm-version: 25
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
-{ def version = "0.3.11"
+{ def version = "0.3.12snap"
   def scalaVersion = "3.8.2"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
@@ -135,7 +135,7 @@ object TilingDoc extends CommonJvm
 }
 
 object TilingDocJs extends CommonJs
-{ def moduleDeps = Seq(TilingJs, UtilDocJs)
+{ def moduleDeps = Seq(TilingJs, GeomDocJs)
   def sources = Task.Sources(workspaceRoot / "Tiling" / "TilingDoc" / "src")
 }
 
@@ -178,7 +178,7 @@ object EGridDoc extends CommonJvm
 }
 
 object EGridDocJs extends CommonJs
-{ def moduleDeps = Seq(EGridJs, UtilDocJs)
+{ def moduleDeps = Seq(EGridJs, TilingDocJs)
   def sources = Task.Sources(workspaceRoot / "EGrid" / "EgridDoc" / "src")
 }
 
@@ -201,12 +201,12 @@ trait AppsJs extends CommonJs
 }
 
 object AppsDoc extends CommonJvm
-{ def moduleDeps = Seq(UtilDoc)
+{ def moduleDeps = Seq(EGridDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Apps" / "AppsDoc" / name)*)
 }
 
 object AppsDocJs extends CommonJs
-{ def moduleDeps = Seq(AppsJs, UtilDocJs)
+{ def moduleDeps = Seq(AppsJs, EGridDocJs)
   def sources = Task.Sources(workspaceRoot / "Apps" / "AppsDoc" / "src")
 }
 
@@ -241,12 +241,12 @@ object ScalaOSDoc extends CommonJvm
 }
 
 object DevDoc extends CommonJvm
-{ def moduleDeps = Seq(EGridDoc, AppsDoc, ScalaOSDoc)
+{ def moduleDeps = Seq(AppsDoc, ScalaOSDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Dev" / "DevDoc" / name)*)
 }
 
 object DevDocJs extends CommonJs
-{ def moduleDeps = Seq(GeomDocJs, TilingExsJs, TilingDocJs, EGridDocJs, AppsDocJs)
+{ def moduleDeps = Seq(TilingExsJs, AppsDocJs)
   def sources = Task.Sources(workspaceRoot / "Dev" / "DevDoc" / "src", workspaceRoot / "Dev" / "DevDoc" / "DevDocJs" / "src")
   def mainClass = Some("ostrat.docjs.TomcatPageJs")
 }

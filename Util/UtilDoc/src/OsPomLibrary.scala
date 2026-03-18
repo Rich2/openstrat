@@ -7,7 +7,7 @@ object RichstratID extends GroupId("com.richstrat")
 
 /** An openstrat module POM dependency minus its version. */
 case class OsPomDepVerless(idStr: String)
-{
+{ /** Adds the missing version to the openstrat dependency. */
   def version(version: SwVersion): OsPomDep = OsPomDep(idStr, version)
 }
 
