@@ -20,9 +20,6 @@ trait DirPath extends AllDirFilePathBase
 
   /** A notification [[String]] to inform that the path is not a directory. */
   def notDirStr: String = asStr -- "is not a directory"
-
-  /** Appends a [[String]] and converts the path to a [[String]] */
-  //@targetName("appendToStr") def /%(appendStr: String): String
 }
 
 object DirPath
@@ -65,7 +62,7 @@ object DirsAbs
 {
   def apply(str1: String): DirsAbs = new DirsAbs(DirPath.strToStrs(str1))
 
-  implicit val showEv: Show[DirsAbs] = new Show[DirsAbs]
+  given showEv: Show[DirsAbs] = new Show[DirsAbs]
   { override def typeStr: String = "DirnPathAbs"
     override def strT(obj: DirsAbs): String = obj.asStr
     override def syntaxDepth(obj: DirsAbs): Int = 1
@@ -75,7 +72,7 @@ object DirsAbs
     }
   }
 
-  implicit val unshowEv:Unshow[DirsAbs] = new Unshow[DirsAbs]
+  given unshowEv:Unshow[DirsAbs] = new Unshow[DirsAbs]
   { override def typeStr: String = "DirnPathAbs"
 
     override def fromExpr(expr: Expr): ExcMon[DirsAbs] =  expr match
@@ -126,7 +123,6 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   @targetName("appendDirsFile") def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
 
   override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
-//  @targetName("appendToStr") override def /%(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   override def toString: String = "DirPathRel" + asStr.enParenth
 }
 

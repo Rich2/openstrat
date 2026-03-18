@@ -2,6 +2,8 @@
 package ostrat; package pDoc
 import geom.*, pWeb.*, wcode.*, Colour.*
 
+object GeomPommer extends OsPomProjectVerless("Geom", "geom", RArr(UtilPommer), RArr())
+
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends OSDocumentationPage
 { override val titleStr: String = "Geom Module"

@@ -1,7 +1,6 @@
-
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import geom.*, pWeb.*, Colour.*
+import pWeb.*
 
 /** Produces an HTML file documentation for the Geom module. */
 object XHmlPage extends HtmlPage
@@ -12,6 +11,5 @@ object XHmlPage extends HtmlPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro))
 
-  def intro =
-    """The pWeb package contains classes to output Xml, Html and CSS.""".stripMargin
+  def intro = """The pWeb package contains classes to output Xml, Html and CSS.""".stripMargin
 }

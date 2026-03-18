@@ -2,8 +2,10 @@
 package ostrat; package pDoc
 import pWeb.*
 
+/** Richstrat groupid for POM file. */
 object RichstratID extends GroupId("com.richstrat")
 
+/** An openstrat POM dependency minus its version. */
 case class OsPomDepVerless(idStr: String)
 {
   def version(version: SwVersion): OsPomDep = OsPomDep(idStr, version)
@@ -31,10 +33,11 @@ object OsPomProject
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
-class OsPomProjectVerless(val artifactStr: String, val osPomDeps: RArr[OsPomDepVerless], val otherDeps: RArr[PomDep])
+class OsPomProjectVerless(val moduleStr: String, val artifactStr: String, val osPomDeps: RArr[OsPomProjectVerless], val otherDeps: RArr[PomDep])
 {
   def version(version: SwVersion, scalaVersion: SwVersion): OsPomProject =
-    OsPomProject(artifactStr, version, scalaVersion, osPomDeps.map(_.version(version)) ++ otherDeps)
+    OsPomProject(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 
-object UtilPommer extends OsPomProjectVerless("rutil", RArr(), RArr())
+/** Creates POM files for Util project. */
+object UtilPommer extends OsPomProjectVerless("Util", "rutil", RArr(), RArr())
