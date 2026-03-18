@@ -130,7 +130,7 @@ object TilingExsJs extends CommonJs
 }
 
 object TilingDoc extends CommonJvm
-{ def moduleDeps = Seq(UtilDoc, Tiling)
+{ def moduleDeps = Seq(GeomDoc, Tiling)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingDoc" / name)*)
 }
 
@@ -173,7 +173,7 @@ object EGridJs extends CommonJs
 }
 
 object EGridDoc extends CommonJvm
-{ def moduleDeps = Seq(EGrid, UtilDoc)
+{ def moduleDeps = Seq(EGrid, TilingDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "EGrid" / "EGridDoc" / name)*)
 }
 
@@ -241,7 +241,7 @@ object ScalaOSDoc extends CommonJvm
 }
 
 object DevDoc extends CommonJvm
-{ def moduleDeps = Seq(GeomDoc, TilingDoc, EGridDoc, AppsDoc, ScalaOSDoc)
+{ def moduleDeps = Seq(EGridDoc, AppsDoc, ScalaOSDoc)
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Dev" / "DevDoc" / name)*)
 }
 

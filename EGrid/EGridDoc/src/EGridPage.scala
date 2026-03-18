@@ -2,6 +2,8 @@
 package ostrat; package pDoc
 import pWeb.*
 
+object EGridPommer extends OsPomProjectVerless("EGrid", "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
+
 /** Documentation page for EGrid Module." */
 object EGridPage extends OSDocumentationPage
 { override def titleStr: String = "EGrid Module"

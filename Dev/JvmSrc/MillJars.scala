@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb.SwVersion, utiljvm.*
+import ostrat.pDoc.*, pWeb.SwVersion, utiljvm.*
 
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
 
@@ -13,8 +13,11 @@ object Module
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
   val version: SwVersion = SwVersion(0, 3, 11)
+  val scalaVersion = SwVersion(3, 8, 2)
 
-  val repPairs = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid")
+  val pomMods1 = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer)
+
+  val repPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid")
   /** Pairs of the module names and the name stem for their assets. */
   val modPairs: ArrPairStr[String] = repPairs +% PairStrElem("Apps", "apps")
 
@@ -44,11 +47,10 @@ trait MillStageJars
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
   def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, moduleDir: DirsRel, destStr: String): ErrBiAcc[Exception, FileWritten] =
-    ErrBiAcc[Exception, FileWritten](millMainCopy(projPath,stageDirPath, moduleDir, destStr),
+    ErrBiAcc[Exception, FileWritten](
+      millMainCopy(projPath,stageDirPath, moduleDir, destStr),
       millJavadocCopy(projPath, stageDirPath, moduleDir, destStr),
-      millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr)) ++
-    OsPomsWriter(version).aggregate(stageDirPath)
-
+      millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr))
 }
 
 /** Function object to stage the module all the JVM jars built under Mill. */
@@ -60,20 +62,23 @@ object MillJars extends MillStageJars
   { val otherPairs: ArrPairStr[String] = StrStrPairArr("UtilJs", "rutiljs", "GeomFx", "geomfx", "GeomJs", "geomjs", "TilingJs", "tilingjs")
     val allPairs = modPairs ++ otherPairs
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
-    val res1 = sharedPath.mkExist.flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => jars3Copy(projPath, sharedPath, DirsRel(p.a1), p.a2) } }
-    val repositaryPath: DirsAbs = stagingRootDir / "repository"
-    val res2 = repositaryPath.mkExist
+
     val pomWriter = OsPomsWriter()
-    repPairs.foreach{pair =>
-      val modulePath: DirsAbs = repositaryPath / pair.a2
-      modulePath.mkExist
-      val verPath: DirsAbs = modulePath / version.str
-      verPath.mkExist
-      debvar(verPath)
-      jars3Copy(projPath, verPath, DirsRel(pair.a1), pair.a2)
-      //pomWriter.stagePom(verPath, )
+    val res1: ErrBiAcc[Exception, FileWritten] =
+      sharedPath.mkExist.flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => jars3Copy(projPath, sharedPath, DirsRel(p.a1), p.a2) } }
+
+    val repositaryPath: DirsAbs = stagingRootDir / "richstrat"
+    val res2: ErrBiAcc[Exception, FileWritten] = repositaryPath.mkExist.flatMapAcc{ r1 =>
+      pomMods1.flatMapErrBiAcc { pm =>
+        val modulePath: DirsAbs = repositaryPath / pm.artifactStr
+        modulePath.mkExist
+        val verPath: DirsAbs = modulePath / version.str
+        verPath.mkExist
+        debvar(verPath)
+        jars3Copy(projPath, verPath, DirsRel(pm.moduleStr), pm.artifactStr) +% pomWriter.stagePom(verPath, pm.version(version, scalaVersion))
+      }
     }
-    res1
+    res1 ++ res2
   }
 }
 

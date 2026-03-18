@@ -152,7 +152,7 @@ lazy val Tiling = jvmMainProj("Tiling").dependsOn(Geom).settings(tilingSett)
 lazy val TilingJs = jsMainProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 lazy val TilingExs = jvmExsProj("Tiling").dependsOn(Tiling, GeomExs)
 lazy val TilingExsJs = jsExsProj("Tiling").dependsOn(TilingJs, GeomExsJs)
-lazy val TilingDoc = jvmDocProj("Tiling").dependsOn(Tiling, UtilDoc)
+lazy val TilingDoc = jvmDocProj("Tiling").dependsOn(Tiling, GeomDoc)
 lazy val TilingDocJs = jsDocProj("Tiling").dependsOn(TilingJs, UtilDocJs)
 
 lazy val EGrid = jvmMainProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
@@ -171,7 +171,7 @@ lazy val EGridJs = jsMainProj("EGrid").dependsOn(TilingJs).settings(Compile/unma
   EG1300/mainClass:= Some("ostrat.pSJs.EG1300AppJs"),
 )
 
-lazy val EGridDoc = jvmDocProj("EGrid").dependsOn(EGrid, UtilDoc)
+lazy val EGridDoc = jvmDocProj("EGrid").dependsOn(EGrid, TilingDoc)
 lazy val EGridDocJs = jsDocProj("EGrid").dependsOn(EGridJs, UtilDocJs)
 
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
@@ -189,7 +189,7 @@ lazy val AppsDocJs = jsDocProj("Apps").dependsOn(UtilDocJs)
 
 lazy val ScalaOSDoc = jvmDocProj("ScalaOS").dependsOn(UtilDoc)
 
-lazy val DevDoc = jvmDocProj("Dev").dependsOn(GeomDoc, TilingExs, TilingDoc, EGridDoc, AppsDoc, ScalaOSDoc)
+lazy val DevDoc = jvmDocProj("Dev").dependsOn(TilingExs, EGridDoc, AppsDoc, ScalaOSDoc)
 lazy val DevDocJs = jsDocProj("Dev").dependsOn(GeomDocJs, TilingExsJs, TilingDocJs, EGridDocJs, AppsDocJs)
 
 lazy val Dev = jvmMainProj("Dev").dependsOn(Apps, TilingExs, DevDoc).settings(
