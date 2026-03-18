@@ -5,38 +5,40 @@ import pWeb.*
 /** Richstrat groupid for POM file. */
 object RichstratID extends GroupId("com.richstrat")
 
-/** An openstrat POM dependency minus its version. */
+/** An openstrat module POM dependency minus its version. */
 case class OsPomDepVerless(idStr: String)
 {
   def version(version: SwVersion): OsPomDep = OsPomDep(idStr, version)
 }
 
+/** An Openstrat module POM dependency. */
 case class OsPomDep(idStr: String, override val version: SwVersion) extends PomDep
 { override val groupId: GroupId = RichstratID
   override def artifactId: ArtifactId = ArtifactId(idStr)
 }
 
-class OsPomProject(val artifactStr: String, val version: SwVersion, val dependencies: RArr[PomDep]) extends PomProject
+/** An Openstrat Pom module. */
+class OsPomLibrary(val artifactStr: String, val version: SwVersion, val dependencies: RArr[PomDep]) extends PomModule
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override val groudId: GroupId = RichstratID  
 }
 
-object OsPomProject
+object OsPomLibrary
 {
-  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomProject =
-    new OsPomProject(artifactStr, version, dependencies +% ScalaLibDependency(scalaVersion))
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomLibrary =
+    new OsPomLibrary(artifactStr, version, dependencies +% ScalaLibDependency(scalaVersion))
 
-  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomProject =
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomLibrary =
   { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version)) +% ScalaLibDependency(scalaVersion)
-    new OsPomProject(artifactStr, version, dependencies)
+    new OsPomLibrary(artifactStr, version, dependencies)
   }
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
 class OsPomProjectVerless(val moduleStr: String, val artifactStr: String, val osPomDeps: RArr[OsPomProjectVerless], val otherDeps: RArr[PomDep])
 {
-  def version(version: SwVersion, scalaVersion: SwVersion): OsPomProject =
-    OsPomProject(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
+  def version(version: SwVersion, scalaVersion: SwVersion): OsPomLibrary =
+    OsPomLibrary(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 
 /** Creates POM files for Util project. */

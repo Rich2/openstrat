@@ -54,8 +54,9 @@ class JavaFxControlsDependency(val version: SwVersion) extends PomDep
 }
 
 object JavaFxControlsDependency
-{ 
+{ /** Factory apply method for creating JavaFx Controls dependency for a POM. */
   def apply(version: SwVersion): JavaFxControlsDependency = new JavaFxControlsDependency(version)
 
+  /** Factory apply method for creating JavaFx Controls dependency for a POM. */
   def apply(n1: Int, n2: Int, n3: Int): JavaFxControlsDependency = new JavaFxControlsDependency(SwVersion(n1, n2, n3))
 }

@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An XML element for a project POM. */
-trait PomProject extends XmlTagLines
+/** An XML element for a POM. The object model for the module, which can be a library or an end user app. */
+trait PomModule extends XmlTagLines
 { def artifactId: ArtifactId
   def groudId: GroupId
   def version: VersionElem
@@ -20,6 +20,7 @@ object ScalaGroupId extends GroupId("org.scala-lang")
 /** XML element for a POM GroupID for "org.openjfx". */
 object OpenJfxId extends GroupId("org.openjfx")
 
+/** An XML element for a  */
 class ArtifactId(artifactStr: String) extends XmlElemSimple("artifactId", artifactStr)
 object ArtifactId { def apply(artifactStr: String): ArtifactId = new ArtifactId(artifactStr) }
 

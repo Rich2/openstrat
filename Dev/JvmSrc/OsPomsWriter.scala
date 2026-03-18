@@ -5,25 +5,25 @@ import utiljvm.*, pWeb.*, pDoc.*
 case class OsPomsWriter(version: SwVersion = SwVersion(0, 3, 11), scalaVersion: SwVersion = SwVersion(3, 8, 2))
 {
   def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
-    writePom(dirPath.str / name + "-" + version.str, OsPomProject(name, version, scalaVersion, depStrs.toArr).out)
+    writePom(dirPath.str / name + "-" + version.str, OsPomLibrary(name, version, scalaVersion, depStrs.toArr).out)
 
-  def osPom(name: String, depStrs: String*) = OsPomProject(name, version, scalaVersion, depStrs.toArr)
+  def osPom(name: String, depStrs: String*) = OsPomLibrary(name, version, scalaVersion, depStrs.toArr)
 
-  def rutil: OsPomProject = osPom("rutil")
-  def geom: OsPomProject = osPom("geom", "rutil")
-  def tiling: OsPomProject = osPom("tiling", "rutil", "geom")
-  def egrid: OsPomProject = osPom("egrid", "rutil", "geom", "tiling")
+  def rutil: OsPomLibrary = osPom("rutil")
+  def geom: OsPomLibrary = osPom("geom", "rutil")
+  def tiling: OsPomLibrary = osPom("tiling", "rutil", "geom")
+  def egrid: OsPomLibrary = osPom("egrid", "rutil", "geom", "tiling")
 
-  def stagePom(dirPath: DirsAbs, pom: OsPomProject): ErrBi[Exception, PomFileWritten] =
+  def stagePom(dirPath: DirsAbs, pom: OsPomLibrary): ErrBi[Exception, PomFileWritten] =
     writePom(dirPath.str / pom.artifactStr + "-" + version.str, pom.out)
 
   def gFxDeps: RArr[PomDep] = RArr(OsPomDep("rutil", version), OsPomDep("geom", version), JavaFxControlsDependency(25, 0, 2))
 
-  def gFxPom: OsPomProject = OsPomProject("geomfx", version, scalaVersion, gFxDeps)
+  def gFxPom: OsPomLibrary = OsPomLibrary("geomfx", version, scalaVersion, gFxDeps)
 
-  def poms1: RArr[OsPomProject] = RArr(rutil, geom, tiling, egrid, gFxPom)
+  def poms1: RArr[OsPomLibrary] = RArr(rutil, geom, tiling, egrid, gFxPom)
 
-  def poms2: RArr[OsPomProject] = poms1 +% gFxPom
+  def poms2: RArr[OsPomLibrary] = poms1 +% gFxPom
 
   /** Write all the Poms to the same directory. */
   def aggregate(dirPath: DirsAbs): ErrBiAcc[Exception, PomFileWritten] =

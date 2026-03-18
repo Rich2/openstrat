@@ -55,4 +55,6 @@ class SwVersion(val n1: Int, val n2: Int, val n3: Int, val specStr: Option[Strin
 object SwVersion
 {
   def apply(n1: Int, n2: Int, n3: Int): SwVersion = new SwVersion(n1, n2, n3, None, None)
+
+  def snap(n1: Int, n2: Int, n3: Int): SwVersion = new SwVersion(n1, n2, n3, Some("snap"), None)
 }
