@@ -36,7 +36,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
     "Scala.Js: 1.20.2",
     "Scala Native: 0.5.10",
     "JavaFx: 25.0.2",
-    "Sbt: 1.12.5",
+    "Sbt: 1.12.6",
     "Mill: 1.1.3 with Mill's JDK set to 25."))
 
   def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
