@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import geom.*, prid.phex.*, pWeb.*, Colour.*
 
-object TilingPommer extends OsPomProjectVerless("Tiling", "tiling", RArr(GeomPommer, UtilPommer), RArr())
+object TilingPommer extends OsPomModuleVerless(DirsRel("Tiling"), "tiling", RArr(GeomPommer, UtilPommer), RArr())
 
 /** Html documentation page for Tiling Module. */
 object TilingPage extends OSDocumentationPage

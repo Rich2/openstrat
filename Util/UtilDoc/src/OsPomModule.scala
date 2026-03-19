@@ -35,11 +35,17 @@ object OsPomModule
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
-class OsPomProjectVerless(val moduleStr: String, val artifactStr: String, val osPomDeps: RArr[OsPomProjectVerless], val otherDeps: RArr[PomDep])
+class OsPomModuleVerless(val moduleDir: DirsRel, val artifactStr: String, val osPomDeps: RArr[OsPomModuleVerless], val otherDeps: RArr[PomDep])
 {
   def version(version: SwVersion, scalaVersion: SwVersion): OsPomModule =
     OsPomModule(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 
+object OsPomModuleVerless
+{
+  def apply(moduleDir: DirsRel, artifactStr: String, osPomDeps: RArr[OsPomModuleVerless], otherDeps: RArr[PomDep]): OsPomModuleVerless =
+    new OsPomModuleVerless(moduleDir, artifactStr, osPomDeps, otherDeps)
+}
+
 /** Creates POM files for Util project. */
-object UtilPommer extends OsPomProjectVerless("Util", "rutil", RArr(), RArr())
+object UtilPommer extends OsPomModuleVerless(DirsRel("Util"), "rutil", RArr(), RArr())

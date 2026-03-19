@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
 import geom.*, pWeb.*, wcode.*, Colour.*
 
-object GeomPommer extends OsPomProjectVerless("Geom", "geom", RArr(UtilPommer), RArr())
+object GeomPommer extends OsPomModuleVerless(DirsRel("Geom"), "geom", RArr(UtilPommer), RArr())
 
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends OSDocumentationPage
