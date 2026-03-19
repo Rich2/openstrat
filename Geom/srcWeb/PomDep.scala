@@ -20,15 +20,15 @@ object PomDep
 }
 
 /** XML element for POM file dependencies. Note the plural. Takes individual [[PopDep]]s as its child elements. */
-class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlTagLines
+class PomDependenciesElem(val dependencies: RArr[PomDep]) extends XmlTagLines
 { override def tagName: String = "Dependencies"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[PomDep] = dependencies
 }
 
-object PomDepenenciesElem
+object PomDependenciesElem
 { /** Factory apply method for the Pom Dependencies element. Note the plural.Takes individual [[PopDep]]s as its child elements. */
-  def apply(dependencies: RArr[PomDep]): PomDepenenciesElem = new PomDepenenciesElem(dependencies)
+  def apply(dependencies: RArr[PomDep]): PomDependenciesElem = new PomDependenciesElem(dependencies)
 }
 
 /** XML element for a POM dependency for a version of the Scala3 library. */

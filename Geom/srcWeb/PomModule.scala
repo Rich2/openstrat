@@ -10,12 +10,15 @@ trait PomModule extends XmlTagLines
   override def tagName: String = "project"
   override def attribs: RArr[XAtt] = RArr()
   def dependencies: RArr[PomDep]
-  def dependenciesElem: PomDepenenciesElem = PomDepenenciesElem(dependencies)
+  def dependenciesElem: PomDependenciesElem = PomDependenciesElem(dependencies)
   override def contents: RArr[XConCompound] = RArr(modelVersion, groudId, artifactId, version, dependenciesElem)
 }
 
 /** XML element for a POM GroupID for "org.scala-lang". */
 object ScalaGroupId extends GroupId("org.scala-lang")
+
+/** XML element for a POM GroupID for "org.scala-js". */
+object ScalaJsGroupId extends GroupId("org.scala-js")
 
 /** XML element for a POM GroupID for "org.openjfx". */
 object OpenJfxId extends GroupId("org.openjfx")

@@ -18,27 +18,27 @@ case class OsPomDep(idStr: String, override val version: SwVersion) extends PomD
 }
 
 /** An Openstrat Pom module. */
-class OsPomLibrary(val artifactStr: String, val version: SwVersion, val dependencies: RArr[PomDep]) extends PomModule
+class OsPomModule(val artifactStr: String, val version: SwVersion, val dependencies: RArr[PomDep]) extends PomModule
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override val groudId: GroupId = RichstratID  
 }
 
-object OsPomLibrary
+object OsPomModule
 {
-  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomLibrary =
-    new OsPomLibrary(artifactStr, version, dependencies +% ScalaLibDependency(scalaVersion))
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomModule =
+    new OsPomModule(artifactStr, version, dependencies +% ScalaLibDependency(scalaVersion))
 
-  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomLibrary =
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomModule =
   { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version)) +% ScalaLibDependency(scalaVersion)
-    new OsPomLibrary(artifactStr, version, dependencies)
+    new OsPomModule(artifactStr, version, dependencies)
   }
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
 class OsPomProjectVerless(val moduleStr: String, val artifactStr: String, val osPomDeps: RArr[OsPomProjectVerless], val otherDeps: RArr[PomDep])
 {
-  def version(version: SwVersion, scalaVersion: SwVersion): OsPomLibrary =
-    OsPomLibrary(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
+  def version(version: SwVersion, scalaVersion: SwVersion): OsPomModule =
+    OsPomModule(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 
 /** Creates POM files for Util project. */
