@@ -17,29 +17,39 @@ case class OsPomDep(idStr: String, override val version: SwVersion) extends PomD
   override def artifactId: ArtifactId = ArtifactId(idStr)
 }
 
-/** An Openstrat Pom module. */
-class OsPomModule(val artifactStr: String, val version: SwVersion, val scalaVersion: SwVersion, val otherDependencies: RArr[PomDep]) extends PomModule
-{ override def artifactId: ArtifactId = ArtifactId(artifactStr)
+/** An Openstrat module class for Poms and Jar staging. */
+trait OsModulePom extends PomModule
+{ def scalaVersion: SwVersion
+  def artifactStr: String
+  override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override val groudId: GroupId = RichstratID
+  //override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDependency(scalaVersion)
+}
+
+
+
+/** An Openstrat class for JVM modules / subprojects for Pom module. */
+class OsModuleJvm(val artifactStr: String, val version: SwVersion, val scalaVersion: SwVersion, val otherDependencies: RArr[PomDep]) extends OsModulePom
+{ override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDependency(scalaVersion)
 }
 
-object OsPomModule
+object OsModuleJvm
 {
-  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomModule =
-    new OsPomModule(artifactStr, version, scalaVersion, dependencies)
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsModuleJvm =
+    new OsModuleJvm(artifactStr, version, scalaVersion, dependencies)
 
-  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomModule =
-  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version)) 
-    new OsPomModule(artifactStr, version, scalaVersion, dependencies)
+  def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsModuleJvm =
+  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version))
+    new OsModuleJvm(artifactStr, version, scalaVersion, dependencies)
   }
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
 class OsPomModuleVerless(val moduleDir: DirsRel, val artifactStr: String, val osPomDeps: RArr[OsPomModuleVerless], val otherDeps: RArr[PomDep])
 {
-  def version(version: SwVersion, scalaVersion: SwVersion): OsPomModule =
-    OsPomModule(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
+  def version(version: SwVersion, scalaVersion: SwVersion): OsModulePom =
+    OsModuleJvm(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 
 object OsPomModuleVerless
@@ -50,3 +60,4 @@ object OsPomModuleVerless
 
 /** Creates POM files for Util project. */
 object UtilPommer extends OsPomModuleVerless(DirsRel("Util"), "rutil", RArr(), RArr())
+
