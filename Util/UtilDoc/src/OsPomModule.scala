@@ -18,19 +18,20 @@ case class OsPomDep(idStr: String, override val version: SwVersion) extends PomD
 }
 
 /** An Openstrat Pom module. */
-class OsPomModule(val artifactStr: String, val version: SwVersion, val dependencies: RArr[PomDep]) extends PomModule
+class OsPomModule(val artifactStr: String, val version: SwVersion, val scalaVersion: SwVersion, val otherDependencies: RArr[PomDep]) extends PomModule
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
-  override val groudId: GroupId = RichstratID  
+  override val groudId: GroupId = RichstratID
+  override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDependency(scalaVersion)
 }
 
 object OsPomModule
 {
   def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, dependencies: RArr[PomDep]): OsPomModule =
-    new OsPomModule(artifactStr, version, dependencies +% ScalaLibDependency(scalaVersion))
+    new OsPomModule(artifactStr, version, scalaVersion, dependencies)
 
   def apply(artifactStr: String, version: SwVersion, scalaVersion: SwVersion, moduleStrs: StrArr): OsPomModule =
-  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version)) +% ScalaLibDependency(scalaVersion)
-    new OsPomModule(artifactStr, version, dependencies)
+  { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version)) 
+    new OsPomModule(artifactStr, version, scalaVersion, dependencies)
   }
 }
 
