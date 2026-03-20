@@ -37,15 +37,20 @@ class ScalaLibDependency(val version: SwVersion) extends PomDep
   override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
 }
 
+object ScalaLibDependency
+{ /** Factory apply method to create an XML dependency element for the Scala standard Library to use in a POM file. */
+  def apply(version: SwVersion): ScalaLibDependency = new ScalaLibDependency(version)
+}
+
 /** XML element for a POM dependency for a version of the Scala3.js library. */
 class ScalaJsLibDependency(val version: SwVersion) extends PomDep
 { override def groupId: GroupId = ScalaGroupId
   override def artifactId: ArtifactId = ArtifactId("scala3-library_sjs1_3")
 }
 
-object ScalaLibDependency
-{ /** Factory apply method to create an XML dependency element for the Scala standard Library to use in a POM file. */
-  def apply(version: SwVersion): ScalaLibDependency = new ScalaLibDependency(version)
+object ScalaJsLibDependency
+{ /** Factory apply method to create an XML dependency element for the Scala.js standard Library to use in a POM file. */
+  def apply(version: SwVersion): ScalaJsLibDependency = new ScalaJsLibDependency(version)
 }
 
 /** XML element for a POM dependency for a version of the javafx-controls library. */

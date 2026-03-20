@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pWeb.*
 
-object EGridPommer extends OsPomModuleVerless(DirsRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
+object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
 
 /** Documentation page for EGrid Module." */
 object EGridPage extends OSDocumentationPage
