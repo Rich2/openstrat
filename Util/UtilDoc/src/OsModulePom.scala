@@ -76,7 +76,7 @@ object OsModuleJvmVerless
     new OsModuleJvmVerless(moduleDir, artifactStr, osPomDeps, otherDeps)
 }
 
-/** Creates POM files for Util project. */
+/** Versionless. Creates POM files and copies Mill, JAR, artifacts for Util JVM module. */
 object UtilPommer extends OsModuleJvmVerless(DirsRel("Util"), "rutil", RArr(), RArr())
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
@@ -93,5 +93,5 @@ object OsModuleJsVerless
     new OsModuleJsVerless(moduleDir, artifactStr, osPomDeps, otherDeps)
 }
 
-/** Creates POM files and copyies JAR artifacts for UtilJs project. */
+/** Versionless Creates POM files and copies Mill, JAR artifacts for UtilJs project. */
 object UtilJsPommer extends OsModuleJsVerless(DirsRel("UtilJs"), "rutiljs", RArr(), RArr())

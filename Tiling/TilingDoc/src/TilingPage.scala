@@ -2,6 +2,7 @@
 package ostrat; package pDoc
 import geom.*, prid.phex.*, pWeb.*, Colour.*
 
+/** Versionless. Creates POM files and copies Mill, JAR, artifacts for the Tiling JVM module. */
 object TilingPommer extends OsModuleJvmVerless(DirsRel("Tiling"), "tiling", RArr(GeomPommer, UtilPommer), RArr())
 
 /** Html documentation page for Tiling Module. */

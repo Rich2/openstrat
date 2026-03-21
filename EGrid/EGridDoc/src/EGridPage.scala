@@ -1,7 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
 import pWeb.*
 
+/** Versionless. Creates POM files and copies Mill, JAR, artifacts for EGrid JVM module. */
 object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
 
 /** Documentation page for EGrid Module." */

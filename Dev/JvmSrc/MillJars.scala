@@ -17,9 +17,7 @@ trait MillStageJars
 
   val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer)
 
-  val repPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid")
-  /** Pairs of the module names and the name stem for their assets. */
-  val modPairs: ArrPairStr[String] = repPairs +% PairStrElem("Apps", "apps")
+  val pomMods2: RArr[OsModulePomVerless] = pomMods1 +% AppsPommer
 
   def apply(stagingPath: DirsAbs): Unit =
   { val res: ErrBiAcc[Throwable, FileWritten] = projPathFind.flatMapAcc { projPath =>  action(projPath, stagingPath) }
@@ -59,13 +57,12 @@ object MillJars extends MillStageJars
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath) }
 
   override def action(projPath: DirsAbs, stagingRootDir: DirsAbs): ErrBiAcc[Exception, FileWritten] =
-  { val otherPairs: ArrPairStr[String] = StrStrPairArr("UtilJs", "rutiljs", "GeomFx", "geomfx", "GeomJs", "geomjs", "TilingJs", "tilingjs")
-    val allPairs = modPairs ++ otherPairs
+  { /** Destination for sinlge folder for JARs. */
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
 
     val pomWriter = OsPomsWriter()
     val res1: ErrBiAcc[Exception, FileWritten] =
-      sharedPath.mkExist.flatMapAcc { res1 =>  allPairs.flatMapErrBiAcc { p => jars3Copy(projPath, sharedPath, DirsRel(p.a1), p.a2) } }
+      sharedPath.mkExist.flatMapAcc { res1 =>  pomMods2.flatMapErrBiAcc { pm => jars3Copy(projPath, sharedPath, pm.moduleDir, pm.artifactStr) } }
 
     val repositaryPath: DirsAbs = stagingRootDir / "richstrat"
     val res2: ErrBiAcc[Exception, FileWritten] = repositaryPath.mkExist.flatMapAcc{ r1 =>
@@ -79,13 +76,5 @@ object MillJars extends MillStageJars
       }
     }
     res1 ++ res2
-  }
-}
-
-/** Function object to stage the module main jars built under Mill. */
-object MillStageMainJars extends MillStageJars
-{
-  override def action(projPath: DirsAbs, stageDir: DirsAbs): ErrBiAcc[Exception, FileWritten] =
-  { modPairs.mapErrBiAcc (p => millMainCopy(projPath, stageDir, DirsRel(p.a1), p.a2))
   }
 }

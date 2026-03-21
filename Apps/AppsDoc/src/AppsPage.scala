@@ -2,6 +2,9 @@
 package ostrat; package pDoc
 import pWeb.*
 
+/** Versionless. Creates POM files and copies Mill, JAR, artifacts for Apps JVM module. */
+object AppsPommer extends OsModuleJvmVerless(DirsRel("Apps"), "apps", RArr(EGridPommer, TilingPommer, GeomPommer, UtilPommer), RArr())
+
 /** The top level HTML documentation page for the apps. */
 object AppsPage extends OSDocumentationPage
 { override def titleStr: String = "Applications Module"
