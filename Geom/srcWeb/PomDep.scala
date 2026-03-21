@@ -66,15 +66,15 @@ object ScalaDomDep
 }
 
 /** XML element for a POM dependency for a version of the javafx-controls library. */
-class JavaFxControlsDependency(val version: SwVersion) extends PomDep
+class JavaFxControlsDep(val version: SwVersion) extends PomDep
 { override def groupId: GroupId = OpenJfxId
   override def artifactId: ArtifactId = ArtifactId("javafx-controls")
 }
 
-object JavaFxControlsDependency
+object JavaFxControlsDep
 { /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes the point numbers as parameters */
-  def apply(version: SwVersion): JavaFxControlsDependency = new JavaFxControlsDependency(version)
+  def apply(version: SwVersion): JavaFxControlsDep = new JavaFxControlsDep(version)
 
   /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[SwVersion]] as its parameter. */
-  def apply(n1: Int, n2: Int, n3: Int): JavaFxControlsDependency = new JavaFxControlsDependency(SwVersion(n1, n2, n3))
+  def apply(n1: Int = 25, n2: Int = 0, n3: Int = 2): JavaFxControlsDep = new JavaFxControlsDep(SwVersion(n1, n2, n3))
 }

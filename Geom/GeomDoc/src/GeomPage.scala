@@ -2,11 +2,14 @@
 package ostrat; package pDoc
 import geom.*, pWeb.*, wcode.*, Colour.*
 
-/** Versionless. Creates POM files and copies Mill, JAR, artifacts the Geom JVM module. */
+/** Versionless. Creates POM files and copies Mill, JAR, artifacts for the Geom JVM module. */
 object GeomPommer extends OsModuleJvmVerless(DirsRel("Geom"), "geom", RArr(UtilPommer), RArr())
 
-/** Versionless Creates POM files and copies Mill, JAR artifacts for for the GeomJs module. */
+/** Versionless Creates POM files and copies Mill, JAR artifacts for the GeomJs module. */
 object GeomJsPommer extends OsModuleJsVerless(DirsRel("GeomJs"), "geomjs", RArr(UtilJsPommer), RArr(ScalaDomDep()))
+
+/** Versionless. Creates POM files and copies Mill, JAR, artifacts for the GeomFx Java Fx module. */
+object GeomFxPommer extends OsModuleJvmVerless(DirsRel("GeomFx"), "geomfx", RArr(GeomPommer), RArr(JavaFxControlsDep()))
 
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends OSDocumentationPage
