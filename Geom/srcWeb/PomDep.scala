@@ -13,7 +13,8 @@ trait PomDep() extends XmlTagLines
 
 object PomDep
 { /** Factory apply method to construct [[PomDep]] from [[String]]s. */
-  def apply(groupStr: String, artifactStr: String, versionStr: String): PomDep = new PomDepGen(GroupId(groupStr), ArtifactId(artifactStr), VersionElem(versionStr))
+  def apply(groupStr: String, artifactStr: String, versionStr: String): PomDep =
+    new PomDepGen(GroupId(groupStr), ArtifactId(artifactStr), VersionElem(versionStr))
 
   /** General implementation class for [[PomDep]] anXML element for POM file dependency */
   case class PomDepGen(groupId: GroupId, artifactId: ArtifactId, version: VersionElem) extends PomDep
@@ -32,25 +33,36 @@ object PomDependenciesElem
 }
 
 /** XML element for a POM dependency for a version of the Scala3 library. */
-class ScalaLibDependency(val version: SwVersion) extends PomDep
-{ override def groupId: GroupId = ScalaGroupId
+class ScalaLibDep(val version: SwVersion) extends PomDep
+{ override def groupId: GroupId = ScalaGroup
   override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
 }
 
-object ScalaLibDependency
+object ScalaLibDep
 { /** Factory apply method to create an XML dependency element for the Scala standard Library to use in a POM file. */
-  def apply(version: SwVersion): ScalaLibDependency = new ScalaLibDependency(version)
+  def apply(version: SwVersion): ScalaLibDep = new ScalaLibDep(version)
 }
 
 /** XML element for a POM dependency for a version of the Scala3.js library. */
-class ScalaJsLibDependency(val version: SwVersion) extends PomDep
-{ override def groupId: GroupId = ScalaGroupId
+class ScalaJsLibDep(val version: SwVersion) extends PomDep
+{ override def groupId: GroupId = ScalaGroup
   override def artifactId: ArtifactId = ArtifactId("scala3-library_sjs1_3")
 }
 
-object ScalaJsLibDependency
+object ScalaJsLibDep
 { /** Factory apply method to create an XML dependency element for the Scala.js standard Library to use in a POM file. */
-  def apply(version: SwVersion): ScalaJsLibDependency = new ScalaJsLibDependency(version)
+  def apply(version: SwVersion): ScalaJsLibDep = new ScalaJsLibDep(version)
+}
+
+/** Scala.js DOM libray dependency. */
+class ScalaDomDep(val version: SwVersion) extends PomDep
+{ override def groupId: GroupId = ScalaJsGroup
+  override def artifactId: ArtifactId = ArtifactId("Scalajs-dom")
+}
+
+object ScalaDomDep
+{ /** Factory apply method to create an XML POM dependency for Scal.js DOM library. */
+  def apply(version: SwVersion = SwVersion(2, 8, 1)): ScalaDomDep = new ScalaDomDep(version)
 }
 
 /** XML element for a POM dependency for a version of the javafx-controls library. */

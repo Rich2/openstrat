@@ -29,7 +29,7 @@ trait OsModulePom extends PomModule
 /** An Openstrat class for JVM modules / subprojects for Pom module. */
 class OsModuleJvm(val artifactStr: String, val version: SwVersion, val scalaVersion: SwVersion, val otherDependencies: RArr[PomDep]) extends OsModulePom
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
-  override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDependency(scalaVersion)
+  override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDep(scalaVersion)
 }
 
 object OsModuleJvm
@@ -46,12 +46,17 @@ object OsModuleJvm
 /** An Openstrat class for JavaScript modules / subprojects for Pom module. */
 class OsModuleJs(val artifactStr: String, val version: SwVersion, val scalaVersion: SwVersion, val otherDependencies: RArr[PomDep]) extends OsModulePom
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
-  override def dependencies: RArr[PomDep] = otherDependencies +% ScalaJsLibDependency(scalaVersion)
+  override def dependencies: RArr[PomDep] = otherDependencies +% ScalaJsLibDep(scalaVersion)
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
 trait OsModulePomVerless
-{
+{ /** The artifact stem [[String]]. */
+  def artifactStr: String
+
+  /** The Mill builder output subdirectory for the module. */
+  def moduleDir: DirsRel
+
   def otherDeps: RArr[PomDep]
 
   def version(version: SwVersion, scalaVersion: SwVersion): OsModulePom

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import ostrat.pDoc.*, pWeb.SwVersion, utiljvm.*
+import pDoc.*, pWeb.SwVersion, utiljvm.*
 
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
 
@@ -15,7 +15,7 @@ trait MillStageJars
   val version: SwVersion = SwVersion(0, 3, 11)
   val scalaVersion = SwVersion(3, 8, 2)
 
-  val pomMods1 = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer)
+  val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer)
 
   val repPairs: ArrPairStr[String] = StrStrPairArr("Util", "rutil", "Geom", "geom", "Tiling", "tiling", "EGrid", "egrid")
   /** Pairs of the module names and the name stem for their assets. */

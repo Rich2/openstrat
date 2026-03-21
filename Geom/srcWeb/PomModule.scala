@@ -15,10 +15,10 @@ trait PomModule extends XmlTagLines
 }
 
 /** XML element for a POM GroupID for "org.scala-lang". */
-object ScalaGroupId extends GroupId("org.scala-lang")
+object ScalaGroup extends GroupId("org.scala-lang")
 
 /** XML element for a POM GroupID for "org.scala-js". */
-object ScalaJsGroupId extends GroupId("org.scala-js")
+object ScalaJsGroup extends GroupId("org.scala-js")
 
 /** XML element for a POM GroupID for "org.openjfx". */
 object OpenJfxId extends GroupId("org.openjfx")

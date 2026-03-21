@@ -2,7 +2,11 @@
 package ostrat; package pDoc
 import geom.*, pWeb.*, wcode.*, Colour.*
 
+/** Versionless POM creator for the Geom module. */
 object GeomPommer extends OsModuleJvmVerless(DirsRel("Geom"), "geom", RArr(UtilPommer), RArr())
+
+/** Versionless POM creator for the Geom module. */
+object GeomJsPommer extends OsModuleJsVerless(DirsRel("GeomJs"), "geomjs", RArr(UtilJsPommer), RArr(ScalaDomDep()))
 
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends OSDocumentationPage
