@@ -57,12 +57,14 @@ object MillJars extends MillStageJars
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath) }
 
   override def action(projPath: DirsAbs, stagingRootDir: DirsAbs): ErrBiAcc[Exception, FileWritten] =
-  { /** Destination for sinlge folder for JARs. */
+  { /** Destination for single folder for JARs. */
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
 
-    val pomWriter = OsPomsWriter()
+    val pomWriter = OsPomsWriter(version, scalaVersion)
     val res1: ErrBiAcc[Exception, FileWritten] =
-      sharedPath.mkExist.flatMapAcc { res1 =>  pomMods2.flatMapErrBiAcc { pm => jars3Copy(projPath, sharedPath, pm.moduleDir, pm.artifactStr) } }
+      sharedPath.mkExist.flatMapAcc { res1 =>  pomMods2.flatMapErrBiAcc { pm => jars3Copy(projPath, sharedPath, pm.moduleDir, pm.artifactStr) +%
+          pomWriter.stagePom(sharedPath, pm.version(version, scalaVersion)) }
+      }
 
     val repositaryPath: DirsAbs = stagingRootDir / "richstrat"
     val res2: ErrBiAcc[Exception, FileWritten] = repositaryPath.mkExist.flatMapAcc{ r1 =>

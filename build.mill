@@ -4,7 +4,7 @@
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
-{ def version = "0.3.12snap"
+{ def version = "0.3.12"
   def scalaVersion = "3.8.2"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
@@ -119,7 +119,7 @@ object TilingJs extends CommonJs
 
 object TilingExs extends CommonJvm
 { def moduleDeps = Seq(Tiling, GeomExs)
-  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingExs" / name)*)
+  def sources = Task.Sources(Seq("src", "JvmSrc").map(name => workspaceRoot / "Tiling" / "TilingExs" / name)*)
   object test extends InnerTests
   def mainClass = Some("ostrat.pZero.TilingTryApp")
 }
@@ -131,7 +131,7 @@ object TilingExsJs extends CommonJs
 
 object TilingDoc extends CommonJvm
 { def moduleDeps = Seq(GeomDoc, Tiling)
-  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Tiling" / "TilingDoc" / name)*)
+  def sources = Task.Sources(Seq("src", "JvmSrc").map(name => workspaceRoot / "Tiling" / "TilingDoc" / name)*)
 }
 
 object TilingDocJs extends CommonJs
@@ -174,12 +174,12 @@ object EGridJs extends CommonJs
 
 object EGridDoc extends CommonJvm
 { def moduleDeps = Seq(EGrid, TilingDoc)
-  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "EGrid" / "EGridDoc" / name)*)
+  def sources = Task.Sources(Seq("src", "JvmSrc").map(name => workspaceRoot / "EGrid" / "EGridDoc" / name)*)
 }
 
 object EGridDocJs extends CommonJs
 { def moduleDeps = Seq(EGridJs, TilingDocJs)
-  def sources = Task.Sources(workspaceRoot / "EGrid" / "EgridDoc" / "src")
+  def sources = Task.Sources(workspaceRoot / "EGrid" / "EGridDoc" / "src")
 }
 
 object Apps extends CommonJvm
@@ -202,7 +202,7 @@ trait AppsJs extends CommonJs
 
 object AppsDoc extends CommonJvm
 { def moduleDeps = Seq(EGridDoc)
-  def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Apps" / "AppsDoc" / name)*)
+  def sources = Task.Sources(Seq("src", "JvmSrc").map(name => workspaceRoot / "Apps" / "AppsDoc" / name)*)
 }
 
 object AppsDocJs extends CommonJs

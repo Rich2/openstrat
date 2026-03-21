@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*, pDoc.*
 
-case class OsPomsWriter(version: SwVersion = SwVersion(0, 3, 11), scalaVersion: SwVersion = SwVersion(3, 8, 2))
+case class OsPomsWriter(version: SwVersion, scalaVersion: SwVersion = SwVersion(3, 8, 2))
 {
   def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
     writePom(dirPath.str / name + "-" + version.str, OsModuleJvm(name, version, scalaVersion, depStrs.toArr).out)
