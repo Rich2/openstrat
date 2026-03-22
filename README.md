@@ -14,11 +14,14 @@
 
 <b>To use</b>
 <br>resolvers += "RichStrat" at "https://richstrat.com/repository"
-<br>libraryDependencies += "com.richstrat" % "rutil" % "0.3.11"
-<br>libraryDependencies += "com.richstrat" % "geom" % "0.3.11"
-<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.11"
-<br>libraryDependencies += "com.richstrat" % "tiling" % "0.3.11"
-<br>libraryDependencies += "com.richstrat" % "egrid" % "0.3.11"
+<br>libraryDependencies += "com.richstrat" % "rutil" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "geom" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "tiling" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "egrid" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "rutiljs" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "geomjs" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.12"
 
 <h3>Full documentation at <a href="https://richstrat.com/">https://richstrat.com/</a></h3>
 <h3>Scala Docs for Jvm at <a href="https://richstrat.com/api/index.html">https://richstrat.com/ostrat/index.html</a></h3>

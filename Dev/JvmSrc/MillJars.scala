@@ -12,7 +12,7 @@ object Module
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val version: SwVersion = SwVersion(0, 3, 12)
+  val version: SwVersion = SwVersion(0, 3, 13)
   val scalaVersion = SwVersion(3, 8, 2)
 
   val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer, GeomJsPommer, GeomFxPommer)

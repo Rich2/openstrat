@@ -30,7 +30,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: HtmlP = HtmlP("Versions", HtmlUl("Latest published Openstrat version 0.3.11, current 0.3.12snap",
+  def p4: HtmlP = HtmlP("Versions", HtmlUl("Latest published Openstrat version 0.3.12, current 0.3.13snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
     "Scala.Js: 1.20.2",
