@@ -17,9 +17,15 @@ class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTa
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
 }
 
-/** Companion object for the [[HTMLBody]] class contains factory methods.  */
+/** Companion object for the [[HTMLBody]] element class. Contains factory methods. */
 object HtmlBody
-{ def str(str: String): HtmlBody = new HtmlBody(RArr(str), RArr())
-  def apply(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr, RArr())
+{ /** Factory apply method to create an HTML body element, with no attributes. There is an apply name overload that takes [[RArr]]s of the contents and
+   * attibutes as parameters. */
+  def apply(contents: XCon*): HtmlBody = new HtmlBody(contents.toArr, RArr())
+
+  /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as re[et parameterd. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
+
+  /** Factory method to create an HTML body element, with no attributes, whose first contents element is an HTNL H1 header. */
+  def h1(headerStr: String, otherContents: XCon*): HtmlBody = new HtmlBody(HtmlH1(headerStr) %: otherContents.toArr, RArr())
 }

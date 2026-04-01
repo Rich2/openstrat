@@ -7,8 +7,8 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
 { override val titleStr: String = "Dev Module"
   override val fileNameStem: String = "dev"
 
-  override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
-  val scVer: String = "3.8.2"
+  override def body: HtmlBody = HtmlBody.h1(titleStr, central)
+  val scVer: String = "3.8.3"
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
@@ -37,7 +37,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
     "Scala Native: 0.5.10",
     "JavaFx: 25.0.2",
     "Sbt: 1.12.8",
-    "Mill: 1.1.3 with Mill's JDK set to 25."))
+    "Mill: 1.1.5 with Mill's JDK set to 25."))
 
   def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     HtmlLi("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),

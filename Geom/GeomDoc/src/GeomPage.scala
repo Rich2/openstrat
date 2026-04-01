@@ -15,7 +15,7 @@ object GeomFxPommer extends OsModuleJvmVerless(DirsRel("GeomFx"), "geomfx", RArr
 object GeomPage extends OSDocumentationPage
 { override val titleStr: String = "Geom Module"
   override val fileNameStem: String = "geom"
-  override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
+  override def body: HtmlBody = HtmlBody.h1(titleStr, central)
   def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other

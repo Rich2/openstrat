@@ -1,11 +1,11 @@
 //| # Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0.
-//| mill-version: 1.1.3
+//| mill-version: 1.1.5
 //| mill-jvm-version: 25
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
 { def version = "0.3.13snap"
-  def scalaVersion = "3.8.2"
+  def scalaVersion = "3.8.3"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 
