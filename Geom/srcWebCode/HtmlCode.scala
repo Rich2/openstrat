@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb; package wcode
 
 /** An HTML code element. */
@@ -19,7 +19,6 @@ object HtmlCodeLines
   /** Implementation class for the general case of [[HtmlCodeLines]]. */
   class HtmlCodeLinesGen(val contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends HtmlCodeLines
   { override def attribs: RArr[XAtt] = otherAttribs
-//    override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
   }
 }
 
@@ -35,8 +34,7 @@ object HtmlCodeLine
 
 /** An HTML code element that can be inlined. */
 trait HtmlCodeInline extends HtmlCode, HtmlInline
-{
-  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
+{ override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
 }
 
 object HtmlCodeInline
@@ -49,7 +47,6 @@ object HtmlCodeInline
 
 class CodeChangeLine(val oldCode: String, val newCode: String, val attribs: RArr[XAtt]) extends HtmlDivLine
 { override def contents: RArr[XCon] = RArr("Change", HtmlCodeInline(oldCode), "to", HtmlCodeInline(newCode))
-
 }
 
 object CodeChangeLine

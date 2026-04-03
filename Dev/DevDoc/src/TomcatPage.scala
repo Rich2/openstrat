@@ -1,4 +1,4 @@
-/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
 import pWeb.*, wcode.*
 
@@ -9,7 +9,7 @@ object TomcatPage extends HtmlPageInput
   override def fileNameStem: String = "tomcat"
 
   override def head: HtmlHead = headCss("documentation")
-  override def body: HtmlBody = HtmlBody(HtmlH1("Using Apache Tomcat Server"), central,
+  override def body: HtmlBody = HtmlBody.h1("Using Apache Tomcat Server", central,
   //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
     HtmlScript.jsSrc("tomcat.js"), HtmlScript.main("TomcatPageJs"))
 
@@ -73,13 +73,12 @@ object TomcatPage extends HtmlPageInput
   |and update this later. I'm currently using an Ubuntu Operating System, just out of familiarity. Now obviously if you are using your own desktop, laptop or
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
-
   
   def s3 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-${n.str0}-jdk -y"),
   "Check the version",
   BashLine("java -version"),
-  CodeOutputLines("""openjdk version "25" 2025-09-16""",
+  CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",
   "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
   "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
   "Open the all users environment configuration file",
@@ -210,7 +209,7 @@ object TomcatPage extends HtmlPageInput
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   CodeChangeLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh", "ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),  
   "Open the Tomcat configuration file.",
-  BashLine("sudo nano /opt/tomcat/Base/conf/server.xml"),
+  BashLine("nano /opt/tomcat/Base/conf/server.xml"),
   CodeChangeLine("""<Connector port="8080" protocol""".escapeHtml, """<Connector port="80" protocol""".escapeHtml),
   CodeChangeLine("""redirectPort=\"8443\"""", """redirectPort=\"443\"""".escapeHtml),  
   "reset",

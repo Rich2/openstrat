@@ -1,7 +1,7 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An Html section element. */
+/** An HTML section element. */
 trait HtmlSection extends HtmlTagLines
 { override def tagName: String = "section"
   override def attribs: RArr[XAtt] = RArr()
