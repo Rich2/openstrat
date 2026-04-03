@@ -7,7 +7,7 @@ object GeomPageWeb extends HtmlSection
 {
   override def contents: RArr[XCon] = RArr(HtmlH2("XML, HTML and CSS"), s1)
 
-  def s1 = HtmlOlWithLH("The package consists of a number of types of objects",
+  def s1 = OlSection("The package consists of a number of types of objects",
     HtmlLi("XHml elements".htmlB, "Xml and Html elements with their opening and closing tags and HTML void elements with just an opening tag."),
     HtmlLi("XAtt attributes".htmlB,"""XML and HTML attributes. They are not called XHAtts, because in this regard HTML is consistent with XML and there is no
     |need to distinguish between XML and HTML attributes, as with elements, where XML and HTML has different rules.""".stripMargin),

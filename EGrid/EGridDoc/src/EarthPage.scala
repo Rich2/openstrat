@@ -10,7 +10,7 @@ object EarthPage extends OSDocumentationPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list)
 
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Earth module contains"), latLong, lines, trans, terrs)
+  def list: OlSection = OlSection(HtmlH2("The Earth module contains"), latLong, lines, trans, terrs)
 
   def latLong: HtmlLi = HtmlLi("The LatLong class. Specifies a point in terms of latitude and longitude.")
 

@@ -22,8 +22,8 @@ object GeomPage extends OSDocumentationPage
   |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
   |units such as metres, miles and picometres. There is also 2D geometry and graphics that can be defined in latitudes and longitudes.""".stripMargin
 
-  val list: HtmlOlWithLH =
-    HtmlOlWithLH.h2("The Geom module contains", geomItem, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
+  val list: OlSection =
+    OlSection.h2("The Geom module contains", geomItem, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
 
   def geomItem: HtmlLi =
     HtmlLi("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections from the Util module.")

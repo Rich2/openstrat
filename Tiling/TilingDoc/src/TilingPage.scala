@@ -13,7 +13,7 @@ object TilingPage extends OSDocumentationPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)
 
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
+  def list: OlSection = OlSection(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
   def coord: HtmlLi = HtmlLi("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each have" --
     "their own unique 2 integer coordinates.")
@@ -63,7 +63,7 @@ object TilingPage extends OSDocumentationPage
       HtmlLi("Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects."),
       HtmlLi("Aggregate Intentions."),
       HtmlLi("Add subsidary Intentions."),
-      HtmlLi(RArr(HtmlUlWithLH.strs("Resolve Segment",
+      HtmlLi(RArr(UlSection.strs("Resolve Segment",
         "Accumulate. Aggregate the intentions in their TargetTiles.",
         "Adjudicate. Determine the outcome of the Intentions and processes.",
         "Consolidate. Create a new game state from the outcomes of the Intentions on the TargetTile. No Movement is implemented during this stage.",

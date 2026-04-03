@@ -14,7 +14,7 @@ object AppsPage extends OSDocumentationPage
   def egameDir = dirsRel </% AppPage.egameDir
   def otDir = ".." / AppPage.otDir.asStr
 
-  def stratList: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Strategy Games using tiled world maps."),
+  def stratList: OlSection = OlSection(HtmlH2("Strategy Games using tiled world maps."),
     HtmlLi.linkAndText(egameDir / "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"
       -- "no random element."),
     HtmlLi.linkAndText(egameDir / "periculoapp.html", "Periculo Fundatuso", "A simple consecutive turn, world map game that has some grounding in earth" --
@@ -34,7 +34,7 @@ object AppsPage extends OSDocumentationPage
       "is the second game that most interests me."),
   )
 
-  def otherTiled: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Tiled Map Applications."),
+  def otherTiled: OlSection = OlSection(HtmlH2("Other Tiled Map Applications."),
     HtmlLi.linkAndText(otDir / "unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText(otDir / "zugapp.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),
     HtmlLi.linkAndText(otDir / "dungeonapp.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale."),
@@ -43,7 +43,7 @@ object AppsPage extends OSDocumentationPage
       "pre exsting fantasy world.")
   )
 
-  def otherApps: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Apps"),
+  def otherApps: OlSection = OlSection(HtmlH2("Other Apps"),
     HtmlLi("Geometry and Graphics Tutorials"),
 
     HtmlLi.linkAndText(otDir / "planetsapp.html", "Planets",

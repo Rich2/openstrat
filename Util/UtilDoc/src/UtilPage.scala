@@ -18,7 +18,7 @@ object UtilPage extends OSDocumentationPage
   override def body: HtmlBody = HtmlBody.h1(titleStr, central)
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
 
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"),
+  def list: OlSection = OlSection(HtmlH2("The Util module contains"),
     HtmlLi("Some simple debug macros"),
     HtmlLi("iToForeach, iToMap, iToFlatMap, iUntilForeach, etc functions. A more succinct and expressive alternative to the Standard Library's" +
       "Range Class."),
@@ -58,7 +58,7 @@ object AstSection extends HtmlSection
 {
   override def contents: RArr[XConCompound] = RArr(HtmlH2("Abstract Syntax Tree"), file, statement, p1, prec)  
 
-  def file: HtmlUlWithLH = HtmlUlWithLH("So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea" --
+  def file: UlSection = UlSection("So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea" --
     "is that an RSON file can be three things.",
     HtmlLi("An unStatemented file. It just contains an expression, without a semi colon at the end for example could just an Int or String."),
     HtmlLi("A Statemented file"),
@@ -66,7 +66,7 @@ object AstSection extends HtmlSection
       "claused statement with with zero Clauses.")
   )
 
-  def statement = HtmlUlWithLH("A statement can be 3 things",
+  def statement = UlSection("A statement can be 3 things",
     HtmlLi("An unclaused Statement. It just contains an expression, without a comma at the end for example could just an Int or String."),
     HtmlLi("A Claused Statement"),
     HtmlLi("The empty Statement It may contain comments but no expressions. The empty file is a thing in itself but also a special case of a" --
@@ -76,7 +76,7 @@ object AstSection extends HtmlSection
   def p1: HtmlP = HtmlP("So there is currently some confusion as to where it is parsed into a series of statements or into an expression. Currently" --
     "Statements and Clauses contain an expression but are not themselves an expression.This is causing a block to me coding at the moment.")
 
-  def prec: HtmlUlWithLH = HtmlUlWithLH("AST Precedence From lowest to highest after brace block parsing.",
+  def prec: UlSection = UlSection("AST Precedence From lowest to highest after brace block parsing.",
     HtmlLi("SemicolonToken Delimits the end of a Statement. The last Statement of a block / file may have, but does not need a need a trailing" --
       "Semicolon. A statement without commas is considered Unclaused."),
     HtmlLi("CommaToken Delimits the end of clause. The last Clause of a Statement may have, but does not need a trailing Comma, unless it is a" --

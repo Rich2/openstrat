@@ -11,7 +11,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   val scVer: String = "3.8.3"
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"),
+  def list: OlSection = OlSection(HtmlH2("The Dev module contains"),
     HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar")),
     HtmlLi("Generates the HTML and CSS files for the website, including this file."),
     HtmlLi("Creates Servlets for Tomcat / Jetty Servers.")
@@ -39,7 +39,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
     "Sbt: 1.12.8",
     "Mill: 1.1.5 with Mill's JDK set to 25."))
 
-  def sbtCommands1: HtmlUlWithLH = HtmlUlWithLH(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
+  def sbtCommands1: UlSection = UlSection(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     HtmlLi("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
     HtmlLi("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     HtmlLi("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
@@ -68,7 +68,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
 
   def sbt3D = HtmlP("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
   
-  def credits: HtmlUlWithLH = HtmlUlWithLH("<h3>Credits</h3>",
+  def credits: UlSection = UlSection("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
     HtmlLi.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")
   )

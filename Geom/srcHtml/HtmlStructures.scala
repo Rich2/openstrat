@@ -14,33 +14,6 @@ object HtmlCanvas
   def apply(): HtmlCanvas = new HtmlCanvas(RArr(), RArr())
 }
 
-/** An Html section element. */
-trait HtmlSection extends HtmlTagLines
-{ override def tagName: String = "section"
-  override def attribs: RArr[XAtt] = RArr()
-}
-
-object HtmlSection
-{ /** Factory apply method for [[HtmlSection]] passing contents and attributes. There is a apply overload convenience method for passing just contents using repeat parameters. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlSection = new HtmlSectionGen(contents, attribs)
-
-  /** Factory apply convenience method for [[HtmlSection]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
-  def apply(contents: XCon*): HtmlSection = new HtmlSectionGen(contents.toArr, RArr())
-
-  class HtmlSectionGen(val contents: RArr[XCon], override val attribs: RArr[XAtt]) extends HtmlSection
-}
-
-class SectionH2(val titleStr: String, val otherContents: RArr[XCon], override val attribs: RArr[XAtt]) extends HtmlSection
-{ /** The H2 title of this HTML section. */
-  def title: HtmlH2 = HtmlH2(titleStr)
-  override def contents: RArr[XCon] = title %: otherContents
-}
-
-object SectionH2
-{ /** Factory apply method for HTML section with an H2 header. */
-  def apply(titleStr: String, otherContents: XCon*): SectionH2 = new SectionH2(titleStr, otherContents.toRArr, RArr())
-}
-
 /** HTML P paragraph element. */
 trait HtmlP extends HtmlOwnLine
 { def tagName = "p"

@@ -13,7 +13,7 @@ object EGridPage extends OSDocumentationPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", egrids, open)
   val egrDir: String = "../egrids"
-  def egrids: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("World Hex Grids."),
+  def egrids: OlSection = OlSection(HtmlH2("World Hex Grids."),
     HtmlLi.linkAndText(egrDir / "eg1300.html", "EGrid 1300km", "1300km hex scale world."),
     HtmlLi.linkAndText(egrDir / "eg1000.html", "EGrid 1000km", "1000km hex scale world."),
     HtmlLi.linkAndText(egrDir / "eg640.html", "EGrid 640km", "640km hex scale world."),

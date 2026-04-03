@@ -6,7 +6,7 @@ object UtilTokenSection extends HtmlSection
 {
   override def contents: RArr[XConCompound] = RArr(HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2)
 
-  def tokList: HtmlUlWithLH = HtmlUlWithLH("The Tokeniser will create the following tokens",
+  def tokList: UlSection = UlSection("The Tokeniser will create the following tokens",
     HtmlLi("""Keytokens <span class= lexical>_ ? ?? ???</ span >"""),
     HtmlLi("Identifiers alphanumeric tokens starting with a letter or underscore character."), HtmlLi("Operators"),
     HtmlLi("Numeric literals"), HtmlLi("Separators , . .. ... {} etc."), HtmlLi("String literals"), HtmlLi("Character literals"), HtmlLi("Comments"))
@@ -15,13 +15,13 @@ object UtilTokenSection extends HtmlSection
     "includes lexemes such as <span class=lexical>if, IF true and TRUE</span>. There are no alphabetic keywords in RSON syntax. Consumers of" --
     "RSON syntax can of course treat what ever identifiers they want as keywords appropriate to their use case.")
 
-  def identList = HtmlUlWithLH("Identifiers are categorised into 3 types.", HtmlLi("IdentUnder An identifer beginning with an underscore character."),
+  def identList = UlSection("Identifiers are categorised into 3 types.", HtmlLi("IdentUnder An identifer beginning with an underscore character."),
     HtmlLi("IdentLow And identifer beginning with a lower case alphabetic character."),
     HtmlLi("IdentUp An identifer beginning with an upper case alphabetic character. Some of these tokens will also be consider valid raw Base32" --
       "tokens, and a subset of these will also be considered valid raw Hexadecimals, however all the alphabetic characters must be lower case.")
   )
 
-  def lits: HtmlOlWithLH = HtmlOlWithLH("Numerical literals come in 4 types.",
+  def lits: OlSection = OlSection("Numerical literals come in 4 types.",
     HtmlLi("Floating point numbers <span class= lexical>6.02e23 6.02e-23 6.02e-23d</span>.Note this is the only case where a negative or dash" --
       "character is included as part of a token. Can have optional trailing lower case alphabetic characters at the end of the token."),
     HtmlLi("Explicit hexadecimals <span class= lexical>0x433A 0x2222 0xff000bc</span> Alphabetic characters must be all lower or all upper case."),
@@ -30,7 +30,7 @@ object UtilTokenSection extends HtmlSection
 
   def digToks = HtmlLi(RArr(digToksEl))
 
-  def digToksEl = HtmlUlWithLH("DigitCode tokens. These are a sequence of one or more sequences of digits separated by decimal points, as well as" --
+  def digToksEl = UlSection("DigitCode tokens. These are a sequence of one or more sequences of digits separated by decimal points, as well as" --
     "integer and fractional decimal numbers they can be used for version numbers, IP addresses and other codes. These can themsleves be further" --
     "divided into",
     HtmlLi("Valid natural integers <span class= lexical>0 21 567</span> These are valid raw hexademimal and raw Base32 tokens."),
