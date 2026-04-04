@@ -14,9 +14,11 @@ object HtmlSection
   /** Factory apply convenience method for [[HtmlSection]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
   def apply(contents: XCon*): HtmlSection = new HtmlSectionGen(contents.toArr, RArr())
 
+  /** General implementation class for HTML section element. */
   class HtmlSectionGen(val contents: RArr[XCon], override val attribs: RArr[XAtt]) extends HtmlSection
 }
 
+/** HTML section element with an h2 element as its 1st content. */
 class SectionH2(val titleStr: String, val otherContents: RArr[XCon], override val attribs: RArr[XAtt]) extends HtmlSection
 { /** The H2 title of this HTML section. */
   def title: HtmlH2 = HtmlH2(titleStr)

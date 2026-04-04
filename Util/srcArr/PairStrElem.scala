@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** [[PairElem]] where the first component of the pair is a [[String]]. */
 class PairStrElem[A2](val a1: String, val a2: A2) extends PairFinalA1Elem[String, A2]
@@ -150,14 +150,17 @@ class BuffPairStr[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuf
 }
 
 object BuffPairStr
-{ /** Factory apply method for creating [[BuffPairStr]] objects, efficent buffer for [[PairStrElem]]. */
+{ /** Factory apply method for creating [[BuffPairStr]] objects, efficient buffer for [[PairStrElem]]. */
   def apply[B2](): BuffPairStr[B2] = new BuffPairStr[B2](new ArrayBuffer[String](4), new ArrayBuffer[B2](4))
 }
 
-object StrStrPairArr
-{ /** Function object apply method to create [[ArrPair]] with pair of Strings from [[Tuple2]]s. */
-  def apply(strings: String *): ArrPairStr[String] =
-  { if(strings.length.isOdd) excep("Odd number of Strings for StrStrPaiArr factory apply method.")
+/** An [[Arr]] of pairs of [[String]]s */
+type ArrPairStrStr = ArrPairStr[String]
+
+object ArrPairStrStr
+{ /** Function object apply method to create [[ArrPair]] with a pair of [[String]]s from [[Tuple2]]s. */
+  def apply(strings: String *): ArrPairStrStr =
+  { if(strings.length.isOdd) excep("Odd number of Strings for ArrPairStrStr factory apply method.")
     val len = strings.length / 2
     val array1 = new Array[String](len)
     val array2 = new Array[String](len)

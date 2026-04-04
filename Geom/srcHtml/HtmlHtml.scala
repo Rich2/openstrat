@@ -20,10 +20,10 @@ class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTa
 /** Companion object for the [[HTMLBody]] element class. Contains factory methods. */
 object HtmlBody
 { /** Factory apply method to create an HTML body element, with no attributes. There is an apply name overload that takes [[RArr]]s of the contents and
-   * attibutes as parameters. */
+   * attributes as parameters. */
   def apply(contents: XCon*): HtmlBody = new HtmlBody(contents.toArr, RArr())
 
-  /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as re[et parameterd. */
+  /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as [[RArr]] parameters. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlBody = new HtmlBody(contents, attribs)
 
   /** Factory method to create an HTML body element, with no attributes, whose first contents element is an HTNL H1 header. */

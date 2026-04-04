@@ -126,8 +126,7 @@ object LinePathNames extends HtmlSection
 }
 
 object LessonLists extends HtmlSection
-{
-  import learn.*
+{ import learn.*
   val aList = LessonsLaunch.aList.iMap((i, ls) => HtmlLi("A" + (i + 1).str -- ls.title))
   val bList = LessonsLaunch.bList.iMap((i, ls) => HtmlLi("B" + (i + 1).str -- ls.title))
   val cList = LessonsLaunch.cList.iMap((i, ls) => HtmlLi("C" + (i + 1).str -- ls.title))
