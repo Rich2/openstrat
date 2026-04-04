@@ -39,7 +39,19 @@ case class SubmitInput(valueStr: String) extends HtmlInput
   override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr))
 }
 
-class OptionElem
+/** <option> HTML element is used to define an item contained in a <select>, an <optgroup>, or a <datalist> element. As such, <option> can represent menu items
+ * in popups and other lists of items in an HTML document. */
+class OptionElem(val valueStr: String, val contentStr: String) extends HtmlOwnLine
+{ override def tagName: String = "option"
+  override def attribs: RArr[XAtt] = RArr(ValueAtt(valueStr))
+  override def contents: RArr[XCon] = RArr(valueStr)
+}
+
+/** Operating */
+class OperatingSystem(valueStr: String, contentStr: String) extends OptionElem(valueStr, contentStr)
+
+/** Ubuntu derivative operating system <option> HTML element. */
+object UbuntuDeriv extends OperatingSystem("UbuntuDeriv", "Kubuntu/Ubuntu")
 
 /** HTML select element used to create a drop-down list. */
 class HtmlSelect(val name: String, options: StrArr) extends HtmlTagLines
