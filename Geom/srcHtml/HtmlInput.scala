@@ -38,3 +38,12 @@ case class SubmitInput(valueStr: String) extends HtmlInput
 { override def typeAtt: TypeAtt = TypeSubmitAtt
   override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr))
 }
+
+class OptionElem
+
+/** HTML select element used to create a drop-down list. */
+class HtmlSelect(val name: String, options: StrArr) extends HtmlTagLines
+{ override def tagName: String = "select"
+  override def attribs: RArr[XAtt] = RArr(IdAtt(name))
+  override def contents: RArr[XCon] = ??? // options.map(ValueAtt(_))
+}
