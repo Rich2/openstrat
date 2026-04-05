@@ -13,36 +13,3 @@ class HtmlLabel(val fieldName: String, val label: String) extends HtmlInedit
 case class ForAtt(valueStr: String) extends XAttSimple
 { override def name: String = "for"
 }
-
-/** An HTML span containing a label and an input element. */
-trait LabelAndInput extends SpanInlineBlock, Parent2T[HtmlInedit]
-
-/** An HTML label followed by an [[InputUpdaterText]]. */
-class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput
-{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
-  override def child2: InputUpdaterText = InputUpdaterText(idStr, valueStr)
-  override def contents: RArr[XCon] = RArr(child1, child2)
-}
-
-object LabelTextInput
-{
-  def apply(idStr: String, label: String, valueStr: String)(using page: HtmlPageInput): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
-}
-
-class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageInput) extends LabelAndInput
-{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
-  override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
-  override def contents: RArr[XCon] = RArr(child1, child2)
-}
-
-object LabelNumInput
-{
-  def apply(idStr: String, label: String, valueNum: Double)(using page: HtmlPageInput): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
-}
-
-case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine
-
-object LabelInputsLine
-{
-  def apply(mems: LabelAndInput*)(using ct: ClassTag[HtmlInedit]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
-}

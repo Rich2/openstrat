@@ -3,12 +3,10 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */
-trait HtmlSelect extends HtmlTagLines
-{ val name: String
-  def otherAtts: RArr[XAtt]
-  override def contents: RArr[OptionElem]
+trait HtmlSelect extends HtmlTagLines, HtmlUpdater
+{ override def contents: RArr[OptionElem]
   override def tagName: String = "select"
-  override def attribs: RArr[XAtt] = IdAtt(name) %: otherAtts
+  override def attribs: RArr[XAtt] = idAtt %: otherAttribs
 }
 
 object HtmlSelect
@@ -19,11 +17,17 @@ object HtmlSelect
   def apply(name: String, contents: OptionElem*): HtmlSelect = new HtmlSelectGen(name, contents.toRArr, RArr())
 
   /** implementation class for the general case of [[HtmlSelect]]. */
-  class HtmlSelectGen(val name: String, val contents: RArr[OptionElem], val otherAtts: RArr[XAtt]) extends HtmlSelect
+  class HtmlSelectGen(val idStr: String, val contents: RArr[OptionElem], val otherAttribs: RArr[XAtt]) extends HtmlSelect
+}
+
+/** An HTML label followed by an [[HtmlSelect]]. */
+class LabelSelect(val idStr: String, val label: String, val contents: RArr[OptionElem])(using page: HtmlPageInput) extends LabelAndInput
+{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
+  override def child2: HtmlSelect = HtmlSelect(idStr, contents)  
 }
 
 /** HTML select element for Operating Systems. */
-class SelectOS(val name: String, val contents: RArr[OperatingSystem], val otherAtts: RArr[XAtt]) extends HtmlSelect
+class SelectOS(val idStr: String, val contents: RArr[OperatingSystem], val otherAttribs: RArr[XAtt]) extends HtmlSelect
 
 object SelectOS
 {
