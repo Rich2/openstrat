@@ -23,6 +23,6 @@ trait HtmlBrLine extends HtmlOwnLineBlocked
 trait HtmlInlineBlock extends HtmlElem
 
 /** An HTML element where the CSS display declaration in the style attribute is set to inline-block, as the element is not inline-block by default. */
-trait HtmlInlineBlocked extends HtmlOwnLine
+trait HtmlInlineBlocked extends HtmlInline
 { override def attribs: RArr[XAtt] = RArr(StyleAtt(InlineBlockDec))
 }

@@ -54,7 +54,7 @@ trait SpanLine extends HtmlSpan, HtmlOwnLineBlocked
 
 object SpanLine
 { /** Factory apply method for creating HTML span element. */
-  def apply(contents: XConInline*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
+  def apply(contents: XCon*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
 
   /** Factory apply method for creating HTML span element. */
   def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLineGen(contents, otherAttribs)

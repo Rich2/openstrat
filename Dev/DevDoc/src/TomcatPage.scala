@@ -23,6 +23,7 @@ object TomcatPage extends HtmlPageInput
   |up Tomcat on your own Desktop, laptop, home server or VPS.""".stripMargin)
 
   val uName1: String = "tommy"
+  val osName1: OperatingSystem = UbuntuDeriv
   val nset: String = "nset"
   val cName1: String = "computer"
   val cset: String = "cset"
@@ -54,7 +55,7 @@ object TomcatPage extends HtmlPageInput
   def p2: HtmlP = HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
   |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
-  LabelInputsLine(uNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
+  SpanLine/*LabelInputsLine*/(uNameLTI, osName, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
