@@ -33,7 +33,7 @@ object DevPage extends OSDocumentationPage, HtmlPageInput
   def p4: HtmlP = HtmlP("Versions", HtmlUl("Latest published Openstrat version 0.3.12, current 0.3.13snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
-    "Scala.Js: 1.20.2",
+    "Scala.Js: 1.21.0",
     "Scala Native: 0.5.10",
     "JavaFx: 25.0.2",
     "Sbt: 1.12.8",
