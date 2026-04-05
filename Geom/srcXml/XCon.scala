@@ -9,12 +9,12 @@ extension (thisArr: RArr[XCon])
   { var res = TextLines.empty
     var i = 0
     while (i < thisArr.length) thisArr(i) match
-    { case xil: XConInline =>
+    { case xil: XConInedit =>
       { var tls: TextLines = xil.outLines(indent, line1InputLen, maxLineLen)
         i += 1
         var cont = true
         while (i < thisArr.length && cont == true) thisArr(i) match
-        { case xil2: XConInline =>
+        { case xil2: XConInedit =>
           { tls = tls.appendInLines(xil2, indent, line1InputLen, maxLineLen)
             i += 1
           }
@@ -35,7 +35,7 @@ extension (thisXCon: XCon)
 { def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = thisXCon match
-  { case xc: XConInline => XConInline.outLines(xc, indent, line1InputLen, maxLineLen)
+  { case xc: XConInedit => XConInedit.outLines(xc, indent, line1InputLen, maxLineLen)
     case xce: XConElem => xce.outLines(indent, line1InputLen, maxLineLen)    
   }
 }

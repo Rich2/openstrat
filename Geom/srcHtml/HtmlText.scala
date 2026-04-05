@@ -2,14 +2,14 @@
 package ostrat; package pWeb
 
 /** HTML bold element. */
-case class HtmlB(str: String) extends HtmlInline
+case class HtmlB(str: String) extends HtmlInedit
 { override def tagName: String = "b"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str)
 }
 
 /** HTML superscript. */
-class HtmlSup(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlInline
+class HtmlSup(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlInedit
 {  override def tagName: String = "sup"
 }
 

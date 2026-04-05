@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import scala.reflect.ClassTag
 
 /** HTML label element. */
-class HtmlLabel(val fieldName: String, val label: String) extends HtmlInline
+class HtmlLabel(val fieldName: String, val label: String) extends HtmlInedit
 { override def tagName: String = "label"
   override def attribs: RArr[XAtt] = RArr(ForAtt(fieldName))
   override def contents: RArr[XCon] = RArr(label)
@@ -15,7 +15,7 @@ case class ForAtt(valueStr: String) extends XAttSimple
 }
 
 /** An HTML span containing a label and an input element. */
-trait LabelAndInput extends SpanInlineBlock, Parent2T[HtmlInline]
+trait LabelAndInput extends SpanInlineBlock, Parent2T[HtmlInedit]
 
 /** An HTML label followed by an [[InputUpdaterText]]. */
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput
@@ -44,5 +44,5 @@ case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) exten
 
 object LabelInputsLine
 {
-  def apply(mems: LabelAndInput*)(using ct: ClassTag[HtmlInline]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
+  def apply(mems: LabelAndInput*)(using ct: ClassTag[HtmlInedit]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
 }

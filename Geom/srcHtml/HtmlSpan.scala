@@ -14,7 +14,7 @@ trait SpanInlineBlock extends HtmlSpan, HtmlInlineBlocked
 }
 
 /** HTML inline span element. */
-trait SpanInline extends HtmlSpan, HtmlInline
+trait SpanInline extends HtmlSpan, HtmlInedit
 {
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
@@ -26,7 +26,7 @@ object SpanInline
   def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): SpanInline = new SpanInlineGen(contents, attribs)
+  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanInline = new SpanInlineGen(contents, attribs)
 
   /** Factory method for creating HTML span element with an ID attribute. */
   def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
@@ -42,7 +42,7 @@ object SpanInline
 
   def pink(str: String): SpanInline = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
 
-  case class SpanInlineGen(contents: RArr[XConInline], attribs: RArr[XAtt]) extends SpanInline
+  case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[XAtt]) extends SpanInline
 }
 
 /** HTML span element on its own line, with display set to block. */
@@ -57,15 +57,15 @@ object SpanLine
   def apply(contents: XCon*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInline], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLineGen(contents, otherAttribs)
+  def apply(contents: RArr[XConInedit], otherAttribs: RArr[XAtt]): HtmlSpan = new SpanLineGen(contents, otherAttribs)
 
   /** Factory method for creating HTML span element with a display attribute. */
-  def display(contents: XConInline*)(otherDisplay: CssDec*): HtmlSpan = new SpanLineGen(contents.toArr, RArr()){
+  def display(contents: XConInedit*)(otherDisplay: CssDec*): HtmlSpan = new SpanLineGen(contents.toArr, RArr()){
     override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
   }
 
   /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
-  def colour(colour: Colour, contents: XConInline*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
+  def colour(colour: Colour, contents: XConInedit*): HtmlSpan = new SpanLineGen(contents.toArr, RArr())
   { override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(ColourDec(colour))
   }
 

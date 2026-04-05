@@ -26,17 +26,17 @@ trait BashOwnLine extends HtmlBash, HtmlCodeLine
 }
 
 /** An HTML Bash code element that will display on its own line. */
-class BashLine(val contents: RArr[XConInline], val otherAttribs: RArr[XAtt]) extends BashOwnLine
+class BashLine(val contents: RArr[XConInedit], val otherAttribs: RArr[XAtt]) extends BashOwnLine
 { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
 object BashLine
 { /** Factory apply method to write Bash code in HTML on its own line. */
-  def apply(contents: XConInline*): BashLine = new BashLine(contents.toArr, RArr())
+  def apply(contents: XConInedit*): BashLine = new BashLine(contents.toArr, RArr())
 
   /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat paremeters, but with no
    * attributes. */
-  def apply(contents: RArr[XConInline], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
+  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
 
   /** Factory method to write Bash code in HTML on its own line with a class attribute. */
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
@@ -111,7 +111,7 @@ object BashPromptSpan
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
 { def promptSpan: SpanInline = SpanInline(prompt, BashPromptClass)
-  override def contents: RArr[XConInline] = RArr(promptSpan, command)
+  override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 
 class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines

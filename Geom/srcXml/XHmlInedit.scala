@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An XML /Html element that may be output on a single line. */
-trait XHmlInline extends XHmlElem, XConElemInline
+/** An XML /Html element that may be inlined in the editor. HTML elements may not be inline or inline-block for rendering. */
+trait XHmlInedit extends XHmlElem, XConElemInedit
 {
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
 

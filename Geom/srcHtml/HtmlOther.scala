@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTML A anchor element. */
-class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlInline
+class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlInedit
 { override def tagName: String = "a"
   override val attribs: RArr[XAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }

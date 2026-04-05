@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** An XML element. */
 trait XmlElem extends XHmlElem
 
-trait XmlInline extends XmlElem, XHmlInline
+trait XmlInline extends XmlElem, XHmlInedit
 
 trait XmlNoAtts extends XmlElem
 { override def attribs: RArr[XAtt] = RArr()

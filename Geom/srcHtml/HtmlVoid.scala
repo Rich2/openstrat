@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** trait for HTML Void elements such as br img and input. */
-trait HtmlVoid extends HtmlInline
+trait HtmlVoid extends HtmlInedit
 { final override def contents: RArr[XConCompound] = RArr()
   override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openTag(indent + 2, 0)
 }

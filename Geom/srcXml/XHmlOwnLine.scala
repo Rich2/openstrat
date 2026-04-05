@@ -1,7 +1,7 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** XML / HTML Element that can be defined on a single line but can not share its line / lines with other content. */
+/** XML / HTML Element that can be defined on a single line but can not share its line / lines with other content in the editor. HTML elements may be inline, inline-block or block for rendering */
 trait XHmlOwnLine extends XHmlElem
 { def closeTagLine: Boolean = false
   final override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = outLines(indent, line1InputLen, maxLineLen).text
@@ -20,11 +20,11 @@ trait XHmlOwnLine extends XHmlElem
       { val text = stt + cons.text + closeTag2
         TextLines(text)
       }
-      case n if contents.forAll(_.isInstanceOf[XConInline]) && cons.numLines < 4 =>
+      case n if contents.forAll(_.isInstanceOf[XConInedit]) && cons.numLines < 4 =>
       { val text = stt + cons.text + closeTag2
         TextLines(text)
       }
-      case n if contents(0).isInstanceOf[XConInline] =>
+      case n if contents(0).isInstanceOf[XConInedit] =>
       { val text = stt + cons.text + indent.nlSpaces + closeTag
         TextLines(text)
       }

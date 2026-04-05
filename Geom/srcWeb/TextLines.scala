@@ -14,9 +14,9 @@ class TextLines(val lines: Array[String])
 
   override def toString: String = s"TextLines($numLines)"
 
-  def appendInLines(operand: XConInline, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
+  def appendInLines(operand: XConInedit, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   { val opStr: String = operand match
-    { case elem: XConElemInline => elem.out(indent, 0, maxLineLen)
+    { case elem: XConElemInedit => elem.out(indent, 0, maxLineLen)
       case str: String => str
     }
 

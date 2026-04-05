@@ -8,7 +8,7 @@ trait HtmlDiv extends HtmlUnvoid
 
 /** Companion object for the [[HtmlDiv]] DIV element class, contains various factory methods. */
 object HtmlDiv
-{ /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XConInline]] and an [[RArr]] of [[XAtt]], with a default of no
+{ /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XConInedit]] and an [[RArr]] of [[XAtt]], with a default of no
  * [[XAtt]]s. */
   def apply(input: XCon*): HtmlDiv = new HtmlDivGen(input.toRArr, RArr())
 
@@ -22,10 +22,10 @@ object HtmlDiv
   def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(ClassAtt(id)))
 
   /** Factory apply method for creating HTML span element with a display attribute. */
-  def display(contents: XConInline*)(otherDisplay: CssDec*) = new HtmlDivGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
+  def display(contents: XConInedit*)(otherDisplay: CssDec*) = new HtmlDivGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
 
   /** Factory method for creating HTML Div element with a Style attribute with a colour declaration. */
-  def colour(colour: Colour, contents: XConInline*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
+  def colour(colour: Colour, contents: XConInedit*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
 
   /** Creates a Div and registers the textContent with an HTML Text Input. */
   def inputText(input: InputUpdaterText)(f: String => String): HtmlDiv =

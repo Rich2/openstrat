@@ -33,7 +33,7 @@ object HtmlCodeLine
 }
 
 /** An HTML code element that can be inlined. */
-trait HtmlCodeInline extends HtmlCode, HtmlInline
+trait HtmlCodeInline extends HtmlCode, HtmlInedit
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
 }
 

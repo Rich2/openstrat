@@ -28,7 +28,7 @@ object HtmlBlockQuote
 }
 
 /** HTML short quote element. */
-case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInline
+case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInedit
 { override def tagName: String = "q"
   override def attribs: RArr[XAtt] = ife(citeStr == "", RArr(), RArr(CiteAtt(citeStr)))
   override def contents: RArr[XCon] = RArr(valueStr)

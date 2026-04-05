@@ -1,8 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** XML / HTML content that can possibly be inlined. */
-trait XConElemInline extends XConElem
+/** XML / HTML content that can possibly be inlined in the editor. The HTML output may not be inline or inline-block. */
+trait XConElemInedit extends XConElem
 { /** The out [[String]], prior to being formatted into text lines. */
   def outUnlined: String
 
@@ -61,5 +61,14 @@ trait XConElemInline extends XConElem
   }
 }
 
-/** Sn XML / HTML element that can possibly be inlined. */
-trait XHtmlInline extends XHmlElem, XConElemInline
+/** Sn XML / HTML element that can possibly be inlined in the editor. If HTML may not be inline or inline-block for rendering */
+trait XHtmlInedit extends XHmlElem, XConElemInedit
+
+/** Either a [[String]] or XML / HTML content that can possibly be inlined in the editor. The HTML output may not be inline or inline-block. */
+type XConInedit = XConElemInedit | String
+
+object XConInedit
+{
+  def outLines(target: XConInedit, indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) =
+    TextLines.empty.appendInLines(target, indent, line1InputLen, maxLineLen)
+}

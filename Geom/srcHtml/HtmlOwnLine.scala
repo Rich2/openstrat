@@ -1,7 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An HTML element that should not share a line with sibling content, but not a multiline element such as an OL or a UL, which will be multi line. */
+/** An HTML element that should not share a line with sibling content in the editor, but not a multiline element such as an OL or a UL, which will be multi
+ * line. Maybe inline, inline-block or block for rendering */
 trait HtmlOwnLine extends HtmlElem, XHmlOwnLine
 
 /** An HTML element where the CSS display declaration in the style attribute is set to Block, as the element is not Block by default. These can be useful as
@@ -19,10 +20,7 @@ trait HtmlStrOwnLine extends HtmlOwnLine
 /** HTML content code that mey need BRs separate it from preceding and successive inline and other [[HtmlBrLine]] content */
 trait HtmlBrLine extends HtmlOwnLineBlocked
 
-/** An inline-block HTML element */
-trait HtmlInlineBlock extends HtmlElem
-
 /** An HTML element where the CSS display declaration in the style attribute is set to inline-block, as the element is not inline-block by default. */
-trait HtmlInlineBlocked extends HtmlInline
+trait HtmlInlineBlocked extends HtmlInedit
 { override def attribs: RArr[XAtt] = RArr(StyleAtt(InlineBlockDec))
 }
