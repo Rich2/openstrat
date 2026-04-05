@@ -14,8 +14,8 @@ class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RA
   override def valueAtt: ValueAtt = ValueAtt(value.str)
 
   def next1Id(f: Double => String): IdAtt =
-  { val newtargetId: String = idStr + parentCount.str
-    parentCount += 1
+  { val newtargetId: String = idStr + clientCount.str
+    clientCount += 1
     depends +%= Callback1Num(newtargetId, f)
     IdAtt(newtargetId)
   }

@@ -13,7 +13,7 @@ trait SpanInlineBlock extends HtmlSpan, HtmlInlineBlocked
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
-/** HTML inline span element. */
+/** HTML inline span element, used in its normal default inline manner. */
 trait SpanInline extends HtmlSpan, HtmlInedit
 {
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))

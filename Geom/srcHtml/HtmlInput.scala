@@ -9,8 +9,8 @@ trait HtmlInput extends HtmlVoid
 }
 
 trait InputUpdater extends HtmlInput
-{
-  var parentCount: Int = 0
+{ /** The number of page elements that have registered to receive updates from this inout. */
+  var clientCount: Int = 0
   
   /** The [[String]] of the id attribute. */
   def idStr: String
