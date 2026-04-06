@@ -2,6 +2,8 @@
 package ostrat; package pWeb
 import reflect.ClassTag
 
+/** HtmlUpdater classes are used on the JVM to create user input elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
+ * with that updater. */
 trait HtmlUpdater extends HtmlElem
 {/** The [[String]] of the id attribute. */
   def idStr: String
