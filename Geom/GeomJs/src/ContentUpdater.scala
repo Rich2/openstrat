@@ -2,6 +2,7 @@
 package ostrat; package pSJs
 import org.scalajs.dom.*, pWeb.*
 
+/** Updates HTML content ude to changes form HTML input or Select elements. */
 sealed trait ContentUpdater
 
 object ContentUpdater
@@ -15,18 +16,20 @@ object ContentUpdater
 class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
 { val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", e =>
-    { val newInpStr = e.target.asInstanceOf[html.Input].value
-      val newNum = newInpStr.toDouble
-      val len = inputer.dependsLen
-      deb(s"Updating $len textContents with value $newInpStr")
-      inputer.depends.foreach{ (dep: Callback1Num) =>
-        val targetId = dep.targetId
-        val target = document.getElementById(targetId)
-        if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
-        else target.textContent = dep.f(newNum)
-      }
-    })
+  inpElem.addEventListener("change", listner)
+
+  def listner: Event => Unit = e =>
+  { val newInpStr = e.target.asInstanceOf[html.Input].value
+    val newNum = newInpStr.toDouble
+    val len = inputer.dependsLen
+    deb(s"Updating $len textContents with value $newInpStr")
+    inputer.depends.foreach{ (dep: Callback1Num) =>
+      val targetId = dep.targetId
+      val target = document.getElementById(targetId)
+      if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
+      else target.textContent = dep.f(newNum)
+    }
+  }
 }
 
 object ContentUpdaterNum
@@ -38,28 +41,30 @@ class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
 {
   val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", e => {
-    val newInpStr = e.target.asInstanceOf[html.Input].value
+  inpElem.addEventListener("change", e => listner)
+  
+  def listner: Event => Unit = e =>
+  { val newInpStr = e.target.asInstanceOf[html.Input].value
     val len = inputer.dependsLen
     deb(s"Updating $len textContents with value $newInpStr")
-    inputer.depends.foreach{(dep: CallbackInput) =>
+    inputer.depends.foreach { (dep: CallbackInput) =>
       val targetId = dep.targetId
       val target = document.getElementById(targetId)
       if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
       else
       { target.textContent = dep match
-      { case Callback1Text(idStr, f) => f(newInpStr)
-        case cb2: Callback2Text => {
-          val inp2Val: String = document.getElementById(cb2.otherInpIdStr).asInstanceOf[html.Input].value
-          cb2 match {
-            case Callback2Text1(targetId, inp2Id, f) => f(newInpStr, inp2Val)
-            case Callback2Text2(targetId, inp2Id, f) => f(inp2Val, newInpStr)
+        { case cb2: Callback2Text =>
+          { val inp2Val: String = document.getElementById(cb2.otherInpIdStr).asInstanceOf[html.Input].value
+            cb2 match
+            { case Callback2Text1(targetId, inp2Id, f) => f(newInpStr, inp2Val)
+              case Callback2Text2(targetId, inp2Id, f) => f(inp2Val, newInpStr)
+            }
           }
+          case Callback1Text(idStr, f) => f(newInpStr)
         }
       }
-      }
     }
-  })
+  }  
 }
 
 object ContentUpdaterText

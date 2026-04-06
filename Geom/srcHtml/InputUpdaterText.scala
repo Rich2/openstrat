@@ -37,9 +37,9 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
   def next3Id1(otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): IdAtt =
   { val newTargetId: String = idStr + clientCount.str
     clientCount += 1
-      depends +%= Callback3Text1(newTargetId, otherInpIdStr1, otherInpIdStr2, f)
-      IdAtt(newTargetId)
-    }
+    depends +%= Callback3Text1(newTargetId, otherInpIdStr1, otherInpIdStr2, f)
+    IdAtt(newTargetId)
+  }
 
   def next3Id2(targetID: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): Unit =
   { depends +%= Callback3Text2(targetID, otherInpIdStr1, otherInpIdStr2, f)
