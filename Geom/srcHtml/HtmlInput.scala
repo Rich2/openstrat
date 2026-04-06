@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 import reflect.ClassTag
 
-/** HtmlUpdater classes are used on the JVM to create user input elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
+/** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
  * with that updater. */
 trait HtmlUpdater extends HtmlElem
 {/** The [[String]] of the id attribute. */
@@ -24,6 +24,8 @@ trait HtmlInput extends HtmlVoid
   override def tagName: String = "input"
 }
 
+/** classes are used on the JVM to create user input elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered with that
+ * updater. */
 trait InputUpdater extends HtmlInput, HtmlUpdater
 {
   def valueAtt: ValueAtt
@@ -56,7 +58,7 @@ class LabelTextInput(val idStr: String, val label: String, val valueStr: String)
 }
 
 object LabelTextInput
-{
+{ /** Factory apply met hod to create an HTML label followed by an [[InputUpdaterText]]. */
   def apply(idStr: String, label: String, valueStr: String)(using page: HtmlPageInput): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 

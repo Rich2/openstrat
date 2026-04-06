@@ -3,45 +3,24 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */
-trait HtmlSelect extends HtmlTagLines, HtmlUpdater
-{ override def contents: RArr[OptionElem]
-  override def tagName: String = "select"
+class HtmlSelect[T<: OptionElem](val idStr: String, val contents: RArr[T], val otherAttribs: RArr[XAtt]) extends HtmlTagLines, HtmlUpdater
+{ override def tagName: String = "select"
   override def attribs: RArr[XAtt] = idAtt %: otherAttribs
 }
 
 object HtmlSelect
 { /** Factory apply method for HTML select element. */
-  def apply(name: String, contents: RArr[OptionElem], otherAtts: RArr[XAtt] = RArr()): HtmlSelect = new HtmlSelectGen(name, contents, otherAtts)
+  def apply[T<: OptionElem](name: String, contents: RArr[T], otherAtts: RArr[XAtt] = RArr()): HtmlSelect[T] = new HtmlSelect[T](name, contents, otherAtts)
 
   /** Factory apply method for HTML select element. */
-  def apply(name: String, contents: OptionElem*): HtmlSelect = new HtmlSelectGen(name, contents.toRArr, RArr())
-
-  /** implementation class for the general case of [[HtmlSelect]]. */
-  class HtmlSelectGen(val idStr: String, val contents: RArr[OptionElem], val otherAttribs: RArr[XAtt]) extends HtmlSelect
+  def apply[T<: OptionElem](name: String, contents: T*)(using ClassTag[T]): HtmlSelect[T] = new HtmlSelect[T](name, contents.toRArr, RArr())
 }
 
 /** An HTML label followed by an [[HtmlSelect]]. */
-class LabelSelect(val idStr: String, val label: String, val contents: RArr[OptionElem])(using page: HtmlPageInput) extends LabelAndInput
+class LabelSelect[T<: OptionElem](val idStr: String, val label: String, val contents: RArr[T], val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends LabelAndInput
 { override def child1: HtmlLabel = HtmlLabel(idStr, label)
-  override def child2: HtmlSelect = HtmlSelect(idStr, contents)  
+  override def child2: HtmlSelect[T] = new HtmlSelect[T](idStr, contents, otherAttribs)  
 }
-
-/** HTML select element for Operating Systems. */
-class SelectOS(val idStr: String, val contents: RArr[OperatingSystem], val otherAttribs: RArr[XAtt]) extends HtmlSelect
-
-object SelectOS
-{
-  /** Factory apply method for HTML select operating system element. */
-  def apply(name: String, contents: RArr[OperatingSystem], otherAtts: RArr[XAtt] = RArr()): SelectOS = new SelectOS(name, contents, otherAtts)
-
-  /** Factory apply method for HTML select operating system element. */
-  def apply(name: String, contents: OperatingSystem*): SelectOS = new SelectOS(name, contents.toRArr, RArr())
-
-  /** Factory apply method for HTML select operating system element. */
-  def apply(contents: OperatingSystem*): SelectOS = new SelectOS("OperatingSytem", contents.toRArr, RArr())
-}
-
-
 
 /** HTML option element is used to define an item contained in a select, an optgroup, or a datalist element. As such, option can represent menu items* in popups
  * and other lists of items in an HTML document. */
