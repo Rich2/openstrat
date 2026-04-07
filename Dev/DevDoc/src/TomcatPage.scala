@@ -36,7 +36,8 @@ object TomcatPage extends HtmlPageInput
 
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
   val uNameIUT: InputUpdaterText = uNameLTI.child2
-  val osName: HtmlSelect[OperatingSystem] = HtmlSelect("Operating System", UbuntuDeriv, ArchDeriv)
+  val osNameLTI = LabelSelect[OperatingSystem]("osName", "Operating System", UbuntuDeriv, ArchDeriv)
+  val osNameIUT: HtmlSelect[OperatingSystem] = osNameLTI.child2
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
   val cNameIUT: InputUpdaterText = cNameLTI.child2
   val nRam1: Int = 2
@@ -55,7 +56,7 @@ object TomcatPage extends HtmlPageInput
   def p2: HtmlP = HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
   |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
-  SpanLine/*LabelInputsLine*/(uNameLTI, osName, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
+  LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
 
   def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 

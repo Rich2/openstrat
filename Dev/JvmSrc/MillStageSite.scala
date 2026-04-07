@@ -9,6 +9,7 @@ object MillStageSite extends StagingBuild
   { stagingPathDo { stagingPath1 =>
       stagingPath1.doIfDirExists { _ =>
         val stagingPath2 = stagingPath1 / "OpenstratSite"
+        stagingPath2.mkExist
         stageBase(stagingPath2)
         useStaging(stagingPath2)
       }

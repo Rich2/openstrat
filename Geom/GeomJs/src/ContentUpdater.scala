@@ -41,7 +41,7 @@ class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
 {
   val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", e => listner)
+  inpElem.addEventListener("change", listner(_))
   
   def listner: Event => Unit = e =>
   { val newInpStr = e.target.asInstanceOf[html.Input].value
