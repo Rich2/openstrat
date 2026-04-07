@@ -3,9 +3,12 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */
-class HtmlSelect[T<: OptionElem](val idStr: String, val contents: RArr[T], val otherAttribs: RArr[XAtt]) extends HtmlTagLines, HtmlUpdater
+class HtmlSelect[T<: OptionElem](val idStr: String, val contents: RArr[T], val otherAttribs: RArr[XAtt]) extends HtmlTagLines, HtmlInputLike
 { override def tagName: String = "select"
   override def attribs: RArr[XAtt] = idAtt %: otherAttribs
+
+  /** The number of page elements that have registered to receive updates from this inout. */
+  override def clientCount: Int = ???
 }
 
 object HtmlSelect

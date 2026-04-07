@@ -2,7 +2,7 @@
 package ostrat; package pSJs
 import org.scalajs.dom.*, pWeb.*
 
-/** Updates HTML content ude to changes form HTML input or Select elements. */
+/** Updates HTML content due to changes from HTML input or Select elements. */
 sealed trait ContentUpdater
 
 object ContentUpdater
@@ -13,6 +13,7 @@ object ContentUpdater
   }
 }
 
+/** Updates HTML content due to number changes from HTML input elements. */
 class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
 { val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
@@ -21,7 +22,7 @@ class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
   def listner: Event => Unit = e =>
   { val newInpStr = e.target.asInstanceOf[html.Input].value
     val newNum = newInpStr.toDouble
-    val len = inputer.dependsLen
+    val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.depends.foreach{ (dep: Callback1Num) =>
       val targetId = dep.targetId
@@ -37,6 +38,7 @@ object ContentUpdaterNum
   def apply(inputer: InputUpdaterNum): ContentUpdaterNum = new ContentUpdaterNum(inputer)
 }
 
+/** Updates HTML content due to[[String]] changes from HTML input elements. */
 class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
 {
   val idStem = inputer.idStr
@@ -45,7 +47,7 @@ class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
   
   def listner: Event => Unit = e =>
   { val newInpStr = e.target.asInstanceOf[html.Input].value
-    val len = inputer.dependsLen
+    val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.depends.foreach { (dep: CallbackInput) =>
       val targetId = dep.targetId

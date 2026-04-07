@@ -4,12 +4,12 @@ import reflect.ClassTag
 
 /** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
  * with that updater. */
-trait HtmlUpdater extends HtmlElem
+trait HtmlInputLike extends HtmlElem
 {/** The [[String]] of the id attribute. */
   def idStr: String
 
   /** The number of page elements that have registered to receive updates from this inout. */
-  var clientCount: Int = 0
+  def clientCount: Int
 
   /** Other attributes in addition to the [[IDAtt]]. */
   def otherAttribs: RArr[XAtt]
@@ -26,7 +26,7 @@ trait HtmlInput extends HtmlVoid
 
 /** classes are used on the JVM to create user input elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered with that
  * updater. */
-trait InputUpdater extends HtmlInput, HtmlUpdater
+trait InputUpdater extends HtmlInput, HtmlInputLike
 {
   def valueAtt: ValueAtt
 

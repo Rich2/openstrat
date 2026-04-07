@@ -7,7 +7,7 @@ class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RA
 {
   page.inpAcc +%= this
   var depends: RArr[Callback1Num] = RArr()
-  def dependsLen: Int = depends.length
+  def clientCount: Int = depends.length
 
   override def typeAtt: TypeAtt = TypeNumberAtt
   override def valueStr: String = value.str
@@ -15,7 +15,6 @@ class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RA
 
   def next1Id(f: Double => String): IdAtt =
   { val newtargetId: String = idStr + clientCount.str
-    clientCount += 1
     depends +%= Callback1Num(newtargetId, f)
     IdAtt(newtargetId)
   }
