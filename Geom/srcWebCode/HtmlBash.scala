@@ -69,7 +69,7 @@ object BashInline
 object BashPromptClass extends ClassAtt("bashprompt")
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
-class BashPromptSpan(val str: String, otherAttribs: RArr[XAtt]) extends SpanInline
+class BashPromptSpan(val str: String, otherAttribs: RArr[XAtt]) extends SpanInlineInedit
 { override def contents = RArr(str)
   override def attribs: RArr[XAtt] = BashPromptClass %: otherAttribs
 }
@@ -110,7 +110,7 @@ object BashPromptSpan
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{ def promptSpan: SpanInline = SpanInline(prompt, BashPromptClass)
+{ def promptSpan: SpanInlineInedit = SpanInlineInedit(prompt, BashPromptClass)
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 

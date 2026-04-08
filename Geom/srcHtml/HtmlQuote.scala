@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** Citation attribute for XML / HTML. */
-case class CiteAtt(valueStr: String) extends XAttSimple
+case class CiteAtt(valueStr: String) extends XAttShort
 { override def name: String = "cite"
 }
 

@@ -10,6 +10,6 @@ class HtmlLabel(val fieldName: String, val label: String) extends HtmlInedit
 }
 
 /** The for attribute used in HTML labels. */
-case class ForAtt(valueStr: String) extends XAttSimple
+case class ForAtt(valueStr: String) extends XAttShort
 { override def name: String = "for"
 }

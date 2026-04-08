@@ -20,35 +20,35 @@ trait SpanInlineBlockInedit extends SpanInlineBlock, HtmlInlineBlockedInedit
 trait SpanInlineBlockOwnline extends SpanInlineBlock, HtmlOwnLine
 
 /** HTML inline span element, used in its normal default inline manner. */
-trait SpanInline extends HtmlSpan, HtmlInedit
+trait SpanInlineInedit extends HtmlSpan, HtmlInedit
 {
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
-object SpanInline
+object SpanInlineInedit
 { /** Factory apply method for creating HTML span element. */
-  def apply(strIn: String, attribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), attribs.toRArr)
+  def apply(strIn: String, attribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanInline = new SpanInlineGen(contents, attribs)
+  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanInlineInedit = new SpanInlineGen(contents, attribs)
 
   /** Factory method for creating HTML span element with an ID attribute. */
-  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
+  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
 
   /** Factory method for creating HTML span element with a class attribute. */
-  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInline = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
+  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
 
   /** Creates a inline span and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): SpanInline =
+  def inputText(input: InputUpdaterText)(f: String => String): SpanInlineInedit =
   { def newId = input.next1Id(f)
     new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  def pink(str: String): SpanInline = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
+  def pink(str: String): SpanInlineInedit = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
 
-  case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[XAtt]) extends SpanInline
+  case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[XAtt]) extends SpanInlineInedit
 }
 
 /** HTML span element on its own line, with display set to block. */

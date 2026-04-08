@@ -122,15 +122,15 @@ object TomcatPage extends HtmlPageInput
   |Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next command to
   |check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt,
-    SpanInline.inputText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
+    SpanInlineInedit.inputText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,
-    SpanInline.inputText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
+    SpanInlineInedit.inputText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
   )
 
   val s7 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
-  BashLine(tomcatDirPrompt, SpanInline.inputText(tomVarIUT){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
-  BashLine(tomcatDirPrompt, SpanInline.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
+  BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
+  BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
   CodeOutputLine.inputText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}

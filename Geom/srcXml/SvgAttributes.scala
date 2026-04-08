@@ -2,12 +2,12 @@
 package ostrat; package pWeb
 
 /** SVG ViewBox. */
-case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) extends XAttSimple
+case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) extends XAttShort
 { override def name: String = "viewBox"
   override def valueStr: String = minX.str -- minY.str -- width.str -- height.str
 }
 
-case class WidthAtt(valueStr: String) extends XAttSimple
+case class WidthAtt(valueStr: String) extends XAttShort
 { override def name: String = "width"
 }
 
@@ -16,7 +16,7 @@ object WidthAtt
 }
 
 /** XML attribute for height. */
-case class HeightAtt(valueStr: String) extends  XAttSimple
+case class HeightAtt(valueStr: String) extends  XAttShort
 { override def name: String = "height"
 }
 
@@ -24,13 +24,13 @@ object HeightAtt
 { def apply(inp: Double): HeightAtt = new HeightAtt(inp.toString)
 }
 
-case class SvgRotate(degrees: Double, x: Double, y: Double) extends XAttSimple
+case class SvgRotate(degrees: Double, x: Double, y: Double) extends XAttShort
 { override def name: String = "transform"
   override def valueStr: String = "rotate" + RArr(degrees, x, y).mkStr(" ").enParenth
 }
 
 /** XML attribute for x posn. */
-case class XXmlAtt(valueStr: String) extends XAttSimple
+case class XXmlAtt(valueStr: String) extends XAttShort
 { override def name = "x"
 }
 
@@ -39,7 +39,7 @@ object XXmlAtt
 }
 
 /** XML attribute for y posn. */
-case class YXmlAtt(valueStr: String) extends XAttSimple
+case class YXmlAtt(valueStr: String) extends XAttShort
 { override def name = "y"
 }
 
@@ -49,7 +49,7 @@ object YXmlAtt
 
 object CentreBlockAtt extends ClassAtt("centreBlock")
 
-case class FillAttrib(valueStr: String) extends XAttSimple
+case class FillAttrib(valueStr: String) extends XAttShort
 { override def name: String = "fill"
 }
 
@@ -59,12 +59,12 @@ object FillAttrib
   def apply(colour: Colour): FillAttrib = FillAttrib(colour.svgStr)
 }
 
-case class StrokeWidthAttrib(lineWidth: Double) extends XAttSimple
+case class StrokeWidthAttrib(lineWidth: Double) extends XAttShort
 { override def name: String = "stroke-width"
   override def valueStr: String = lineWidth.toString
 }
 
-case class StrokeAttrib(colour: Colour) extends XAttSimple
+case class StrokeAttrib(colour: Colour) extends XAttShort
 { override def name: String = "stroke"
   override def valueStr: String = colour.svgStr
 }

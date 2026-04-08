@@ -47,14 +47,21 @@ case class SubmitInput(valueStr: String) extends HtmlInput
   override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr))
 }
 
-/** An HTML span containing a label and an input element. */
+/** An HTML span containing a label and an input / select element. */
 trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
+{ /** [[String]] for the id attribute. */
+  def idStr: String
+  
+  
+  def label: String
+  override def child1: HtmlLabel = HtmlLabel(idStr, label)
+  override def contents: RArr[XCon] = RArr(child1, child2)
+}
 
 /** An HTML label followed by an [[InputUpdaterText]]. */
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput
-{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
-  override def child2: InputUpdaterText = InputUpdaterText(idStr, valueStr)
-  override def contents: RArr[XCon] = RArr(child1, child2)
+{ override def child2: InputUpdaterText = InputUpdaterText(idStr, valueStr)
+
 }
 
 object LabelTextInput
@@ -63,9 +70,8 @@ object LabelTextInput
 }
 
 class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageInput) extends LabelAndInput
-{ override def child1: HtmlLabel = HtmlLabel(idStr, label)
+{ //override def child1: HtmlLabel = HtmlLabel(idStr, label)
   override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
-  override def contents: RArr[XCon] = RArr(child1, child2)
 }
 
 object LabelNumInput

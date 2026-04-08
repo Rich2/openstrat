@@ -3,7 +3,7 @@ package ostrat; package pWeb
 
 /** The Style attribute for inline CSS. CSS only recognises a single style attribute. In this API an object can inherit multiple style attributes and will
  * combine them into a single style attribute for the HTML code output. */
-class StyleAtt(decLikes: RArr[CssDecBase | CssRule]) extends XAttSimple
+class StyleAtt(decLikes: RArr[CssDecBase | CssRule]) extends XAttShort
 { override def name: String = "style"
   def decs: RArr[CssDec | CssRule] = decLikes.flatMap{
     case cr: CssRule => RArr(cr)
