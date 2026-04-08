@@ -28,6 +28,10 @@ trait HtmlInput extends HtmlVoid
  * updater. */
 trait InputUpdater extends HtmlInput, HtmlInputLike
 {
+  def typeAtt: TypeAtt
+
+  override def tagName: String = "input"
+  
   def valueAtt: ValueAtt
 
   def valueStr: String
@@ -52,8 +56,9 @@ trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 { /** [[String]] for the id attribute. */
   def idStr: String
   
-  
+  /** The label [[String]]. */
   def label: String
+
   override def child1: HtmlLabel = HtmlLabel(idStr, label)
   override def contents: RArr[XCon] = RArr(child1, child2)
 }
@@ -70,8 +75,7 @@ object LabelTextInput
 }
 
 class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageInput) extends LabelAndInput
-{ //override def child1: HtmlLabel = HtmlLabel(idStr, label)
-  override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
+{ override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
 }
 
 object LabelNumInput

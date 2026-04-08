@@ -8,15 +8,17 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
   def valueAtt = ValueAtt(valueStr)
 
   page.inpAcc +%= this
-  var depends: RArr[CallbackText] = RArr()
+  
+  /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
+  var callBacks: RArr[CallbackText] = RArr()
 
-  def clientCount: Int = depends.length
+  def clientCount: Int = callBacks.length
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
   def next1Id(f: String => String): IdAtt =
   { val newtargetId: String = idStr + clientCount.str
-    depends +%= Callback1Text(newtargetId, f)
+    callBacks +%= Callback1Text(newtargetId, f)
     IdAtt(newtargetId)
   }
 
@@ -24,26 +26,26 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
    * the first from this text input and the second from another text updater, to update the target content. */
   def next2Id1(otherInpIdStr: String, f: (String, String) => String): IdAtt =
   { val newTargetId: String = idStr + clientCount.str    
-    depends +%= Callback2Text1(newTargetId, otherInpIdStr, f)
+    callBacks +%= Callback2Text1(newTargetId, otherInpIdStr, f)
     IdAtt(newTargetId)
   }
 
   def next2Id2(targetID: String, otherInpIdStr: String, f: (String, String) => String): Unit =
-  { depends +%= Callback2Text2(targetID, otherInpIdStr, f)
+  { callBacks +%= Callback2Text2(targetID, otherInpIdStr, f)
   }
 
   def next3Id1(otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): IdAtt =
   { val newTargetId: String = idStr + clientCount.str
-    depends +%= Callback3Text1(newTargetId, otherInpIdStr1, otherInpIdStr2, f)
+    callBacks +%= Callback3Text1(newTargetId, otherInpIdStr1, otherInpIdStr2, f)
     IdAtt(newTargetId)
   }
 
   def next3Id2(targetID: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): Unit =
-  { depends +%= Callback3Text2(targetID, otherInpIdStr1, otherInpIdStr2, f)
+  { callBacks +%= Callback3Text2(targetID, otherInpIdStr1, otherInpIdStr2, f)
   }
 
   def next3Id3(targetID: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): Unit =
-  { depends +%= Callback3Text3(targetID, otherInpIdStr1, otherInpIdStr2, f)
+  { callBacks +%= Callback3Text3(targetID, otherInpIdStr1, otherInpIdStr2, f)
   }
 }
 

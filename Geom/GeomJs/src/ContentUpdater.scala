@@ -49,7 +49,7 @@ class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
   { val newInpStr = e.target.asInstanceOf[html.Input].value
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
-    inputer.depends.foreach { (dep: CallbackInput) =>
+    inputer.callBacks.foreach { (dep: CallbackInput) =>
       val targetId = dep.targetId
       val target = document.getElementById(targetId)
       if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")

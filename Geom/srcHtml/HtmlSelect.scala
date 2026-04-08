@@ -5,11 +5,21 @@ import reflect.ClassTag
 /** HTML select element used to create a drop-down list. */
 class HtmlSelect[T<: OptionElem](val idStr: String, val contents: RArr[T], val visNum: Int, val otherAttribs: RArr[XAtt]) extends HtmlTagLines, HtmlInputLike
 { override def tagName: String = "select"
-  def sizeAtt = XAttInt("size", visNum)
-  override def attribs: RArr[XAtt] = idAtt %: sizeAtt %: otherAttribs
 
-  /** The number of page elements that have registered to receive updates from this inout. */
-  override def clientCount: Int = ???
+  /** Size attribute specifies how many options to be displayed at one time. */
+  def sizeAtt = XAttInt("size", visNum)
+
+  /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
+  var callBacks: RArr[CallbackSelect[T]] = RArr()
+
+  override def attribs: RArr[XAtt] = idAtt %: sizeAtt %: otherAttribs
+  override def clientCount: Int = callBacks.length
+
+  def nextId(f: T => String): IdAtt =
+  { val newtargetId: String = idStr + clientCount.str
+    callBacks +%= CallbackSelect(newtargetId, f)
+    IdAtt(newtargetId)
+  }
 }
 
 object HtmlSelect
@@ -24,8 +34,7 @@ object HtmlSelect
 /** An HTML label followed by an [[HtmlSelect]]. */
 class LabelSelect[T<: OptionElem](val idStr: String, val label: String, val options: RArr[T], val visNum: Int, val otherAttribs: RArr[XAtt])(using
   page: HtmlPageInput) extends LabelAndInput
-{ //override def child1: HtmlLabel = HtmlLabel(idStr, label)
-  override def child2: HtmlSelect[T] = new HtmlSelect[T](idStr, options, visNum, otherAttribs)
+{ override def child2: HtmlSelect[T] = new HtmlSelect[T](idStr, options, visNum, otherAttribs)
 }
 
 object LabelSelect
@@ -44,6 +53,8 @@ class OptionElem(val valueStr: String, val contentStr: String) extends HtmlOwnLi
   override def attribs: RArr[XAtt] = RArr(ValueAtt(valueStr))
   override def contents: RArr[XCon] = RArr(valueStr)
 }
+
+case class CallbackSelect[T <: OptionElem](targetId: String, f: T => String) extends CallbackInput
 
 /** Operating system HTML Option element. */
 class OperatingSystem(valueStr: String, contentStr: String) extends OptionElem(valueStr, contentStr)
