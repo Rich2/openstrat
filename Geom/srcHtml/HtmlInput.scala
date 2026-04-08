@@ -48,7 +48,7 @@ case class SubmitInput(valueStr: String) extends HtmlInput
 }
 
 /** An HTML span containing a label and an input element. */
-trait LabelAndInput extends SpanInlineBlock, Parent2T[HtmlElem]
+trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 
 /** An HTML label followed by an [[InputUpdaterText]]. */
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageInput) extends LabelAndInput

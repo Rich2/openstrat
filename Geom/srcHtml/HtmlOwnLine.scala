@@ -21,6 +21,12 @@ trait HtmlStrOwnLine extends HtmlOwnLine
 trait HtmlBrLine extends HtmlOwnLineBlocked
 
 /** An HTML element where the CSS display declaration in the style attribute is set to inline-block, as the element is not inline-block by default. */
-trait HtmlInlineBlocked extends HtmlInedit
+trait HtmlInlineBlocked extends HtmlElem
+{ override def attribs: RArr[XAtt] = RArr(StyleAtt(InlineBlockDec))
+}
+
+/** An HTML element where the CSS display declaration in the style attribute is set to inline-block, as the element is not inline-block by default. And the
+ * element is placed inline in the editor. */
+trait HtmlInlineBlockedInedit extends HtmlInlineBlocked, HtmlInedit
 { override def attribs: RArr[XAtt] = RArr(StyleAtt(InlineBlockDec))
 }

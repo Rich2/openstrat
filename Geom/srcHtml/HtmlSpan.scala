@@ -6,12 +6,18 @@ trait HtmlSpan extends HtmlElem
 { override def tagName = "span"
 }
 
-/** HTML inline-block span element. */
+/** HTML inline-block span element, that is inlined in the editor. */
 trait SpanInlineBlock extends HtmlSpan, HtmlInlineBlocked
+
+/** HTML inline-block span element, that is inlined in the editor. */
+trait SpanInlineBlockInedit extends SpanInlineBlock, HtmlInlineBlockedInedit
 { def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
+
+/** HTML inline-block span element, that is on its own line in the editor. */
+trait SpanInlineBlockOwnline extends SpanInlineBlock, HtmlOwnLine
 
 /** HTML inline span element, used in its normal default inline manner. */
 trait SpanInline extends HtmlSpan, HtmlInedit
