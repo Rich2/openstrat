@@ -36,8 +36,8 @@ object TomcatPage extends HtmlPageInput
 
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
   val uNameIUT: InputUpdaterText = uNameLTI.child2
-  val osNameLTI = LabelSelect[OperatingSystem]("osName", "Operating System", UbuntuDeriv, ArchDeriv)
-  val osNameIUT: HtmlSelect[OperatingSystem] = osNameLTI.child2
+  val osNameLTI = LabelSelect("osName", "Operating System", UbuntuDeriv, ArchDeriv)
+  val osNameIUT: HtmlSelect = osNameLTI.child2
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
   val cNameIUT: InputUpdaterText = cNameLTI.child2
   val nRam1: Int = 2
