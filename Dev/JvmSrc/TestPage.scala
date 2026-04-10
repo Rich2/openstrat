@@ -4,7 +4,7 @@ import pWeb.*
 
 object TestPage extends HtmlPage
 {
-  override def head: HtmlHead = HtmlHead.title("Test Page")
+  override def head: HeadHtml = HeadHtml.title("Test Page")
 
-  override def body: HtmlBody = HtmlBody("This is a test page", SubmitInput("send1", "Send"))
+  override def body: BodyHtml = BodyHtml("This is a test page", SubmitInput("send1", "Send"))
 }

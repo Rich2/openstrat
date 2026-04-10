@@ -6,7 +6,7 @@ import pWeb.*
 object EarthPage extends OSDocumentationPage
 { override val titleStr: String = "Earth Module"
   override def fileNameStem: String = "earth"
-  override def body: HtmlBody = HtmlBody.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list)
 

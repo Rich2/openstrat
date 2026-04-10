@@ -5,7 +5,7 @@ import pWeb.*, wcode.*
 object Victoria2Page extends OSDocumentationPage
 { override def titleStr: String = "Victoria 2"
   override def fileNameStem: String = "victoria2"
-  override def body: HtmlBody = HtmlBody(franceMobilise)
+  override def body: BodyHtml = BodyHtml(franceMobilise)
 
   val franceMobilise = HtmlOl.noSpaceStrs(
     "Arras 18 > 21",

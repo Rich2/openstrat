@@ -6,7 +6,7 @@ object TestPage1 extends HtmlPageFile
 { override def fileNameStem: String = "TestPage1"
   override def titleStr: String = "Endnotes Test page."
 
-  override def body: HtmlBody = HtmlBody(h1, mainSec)
+  override def body: BodyHtml = BodyHtml(h1, mainSec)
 
   val h1 = HtmlH1("This is a test page for end notes.")
 

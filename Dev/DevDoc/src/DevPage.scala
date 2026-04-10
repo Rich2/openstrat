@@ -7,7 +7,7 @@ object DevPage extends OSDocumentationPage, HtmlPageUpdater
 { override val titleStr: String = "Dev Module"
   override val fileNameStem: String = "dev"
 
-  override def body: HtmlBody = HtmlBody.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
   val scVer: String = "3.8.3"
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)

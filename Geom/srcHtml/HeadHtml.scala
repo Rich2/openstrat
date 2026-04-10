@@ -1,33 +1,33 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML head element. */
-case class HtmlHead(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
+case class HeadHtml(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "head"
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
 }
 
-/** Companion object for the [[HtmlHead]] case class. */
-object HtmlHead
+/** Companion object for the [[HeadHtml]] case class. */
+object HeadHtml
 { /** Factory apply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
-  def apply(titleStr: String, otherContents: XConCompound*): HtmlHead = new HtmlHead(HtmlTitle(titleStr) %: otherContents.toRArr)
+  def apply(titleStr: String, otherContents: XConCompound*): HeadHtml = new HeadHtml(HtmlTitle(titleStr) %: otherContents.toRArr)
 
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
-  def title(titleStr: String, otherContents: XConCompound*): HtmlHead =
+  def title(titleStr: String, otherContents: XConCompound*): HeadHtml =
   { val seq = List(HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth) ++ otherContents
-    new HtmlHead(seq.toArr)
+    new HeadHtml(seq.toArr)
   }
 
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
    *  elements. */
-  def titleCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HtmlHead =
-    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+  def titleCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HeadHtml =
+    new HeadHtml(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 
   /** Factory method for creating an HTML head element with [[HtmlTitle]], [[FaviconSvgLink]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the
    * repeat parameter elements. */
-  def titleFavCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HtmlHead =
-    new HtmlHead(RArr[XConCompound](HtmlTitle(titleStr), FaviconSvgLink, HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+  def titleFavCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HeadHtml =
+    new HeadHtml(RArr[XConCompound](HtmlTitle(titleStr), FaviconSvgLink, HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 }
 
 /** HTML title element. */

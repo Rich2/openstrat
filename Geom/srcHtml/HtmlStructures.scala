@@ -2,16 +2,16 @@
 package ostrat; package pWeb
 
 /** An HTML Canvas element. */
-case class HtmlCanvas(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class CanvasHtml(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tagName: String = "canvas"
 }
 
-object HtmlCanvas
+object CanvasHtml
 { /** Constructs an HTML canvas with an id attribute. */
-  def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(), RArr(IdAtt(idStr)))
+  def id(idStr: String): CanvasHtml = new CanvasHtml(RArr(), RArr(IdAtt(idStr)))
 
   /** Factory apply method for an HTML Canvas. */
-  def apply(): HtmlCanvas = new HtmlCanvas(RArr(), RArr())
+  def apply(): CanvasHtml = new CanvasHtml(RArr(), RArr())
 }
 
 /** HTML P paragraph element. */

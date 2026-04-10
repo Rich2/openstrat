@@ -16,7 +16,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
   /** The HTML path and full file name as a [[String]]. */
   def htmlPathNameStr: String = dirRel.asStr / fileName
 
-  override def head: HtmlHead = headFavCss("../only")
+  override def head: HeadHtml = headFavCss("../only")
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
@@ -25,7 +25,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
     AppPage.topMenu(pairs2, dirRel)
   }
 
-  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(jsMainStem + "Js"))
+  override def body: BodyHtml = BodyHtml(topMenu, CanvasHtml.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(jsMainStem + "Js"))
 }
 
 /** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links. Longer term may need reorganisation, */

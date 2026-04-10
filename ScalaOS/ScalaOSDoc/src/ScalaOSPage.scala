@@ -6,7 +6,7 @@ import pWeb.*, wcode.*
 object ScalaOSPage extends OSDocumentationPage
 { override def titleStr: String = "Scala Operating System"
   override val fileNameStem: String = "scalaos"
-  override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
+  override def body: BodyHtml = BodyHtml(HtmlH1("Geom Module"), central)
   def central: HtmlDiv = HtmlDiv.classAtt("central", p1)
 
   val p1 = HtmlP("An operating system built from scratch with just a Linux Kernel. Don't know if this project wil ever get anywhere.",

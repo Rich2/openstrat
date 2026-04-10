@@ -6,7 +6,7 @@ import pWeb.*
 object LessonsPage extends HtmlPageFile
 { override val titleStr: String = "Geom Lessons"
   override val fileNameStem: String =  "lessons"
-  override def head: HtmlHead = headCss("documentation")
-  override def body: HtmlBody = HtmlBody.h1(titleStr, central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", "Some text", HtmlCanvas(), "Some more text")
+  override def head: HeadHtml = headCss("documentation")
+  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", "Some text", CanvasHtml(), "Some more text")
 }

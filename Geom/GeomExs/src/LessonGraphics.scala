@@ -8,8 +8,8 @@ trait LessonGraphics
   def canv: CanvasPlatform => Any
   def bodyStr: String
 
-  def page: HtmlPage = HtmlPage(head, HtmlBody(HtmlH1(title), HtmlP(bodyStr)))
-  def head: HtmlHead = HtmlHead(RArr(HtmlTitle(title)))
+  def page: HtmlPage = HtmlPage(head, BodyHtml(HtmlH1(title), HtmlP(bodyStr)))
+  def head: HeadHtml = HeadHtml(RArr(HtmlTitle(title)))
 }
 
 trait LessonStatic extends LessonGraphics

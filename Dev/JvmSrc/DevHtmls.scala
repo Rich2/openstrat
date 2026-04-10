@@ -40,9 +40,9 @@ trait DevHtmls
     |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });""".stripMargin
 
     val style = HtmlStyle(CssBody(MarginDec(0.px), DecOverflowHidden))
-    val head = HtmlHead.title("OpenStrat:" -- name, HtmlNoCache, style)
+    val head = HeadHtml.title("OpenStrat:" -- name, HtmlNoCache, style)
     val script = HtmlScript.inlineJsStr(noCacheScript)
-    val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), script)
+    val body = BodyHtml(CanvasHtml.id("scanv"), HtmlNoScript(), script)
     HtmlPage(head, body)
   }
 }

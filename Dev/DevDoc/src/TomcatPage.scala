@@ -8,8 +8,8 @@ object TomcatPage extends HtmlPageUpdater
   override val titleStr: String = "Apache Tomcat Server"
   override def fileNameStem: String = "tomcat"
 
-  override def head: HtmlHead = headCss("documentation")
-  override def body: HtmlBody = HtmlBody.h1("Using Apache Tomcat Server", central,
+  override def head: HeadHtml = headCss("documentation")
+  override def body: BodyHtml = BodyHtml.h1("Using Apache Tomcat Server", central,
   //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
     HtmlScript.jsSrc("tomcat.js"), HtmlScript.main("TomcatPageJs"))
 
