@@ -57,7 +57,7 @@ trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
   /** The label [[String]]. */
   def label: String
 
-  override def child1: HtmlLabel = HtmlLabel(idStr, label)
+  override def child1: LabelHtml = LabelHtml(idStr, label)
   override def contents: RArr[XCon] = RArr(child1, child2)
 }
 
