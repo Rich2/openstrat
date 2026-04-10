@@ -11,7 +11,7 @@ object TilingPage extends OSDocumentationPage
   override val fileNameStem: String = "tiling"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)
+  def central: DivHtml = DivHtml.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)
 
   def list: OlSection = OlSection(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
@@ -37,7 +37,7 @@ object TilingPage extends OSDocumentationPage
 
   def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
 
-  def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
+  def terms2: OlHtml = OlHtml(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
     "the GameWorld or the OutWorld."),
     HtmlLi("<b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for" --
       "submission of turn Directives. Rules on credits from InGame achievements or role-playering accreditation on future assignment of InWorld" --
@@ -57,7 +57,7 @@ object TilingPage extends OSDocumentationPage
   {
     override def contents: RArr[XConCompound] = RArr(HtmlH2("Turn Resolution"), list)
 
-    def list = HtmlOl(
+    def list = OlHtml(
       HtmlLi("Verify directives from Players are valid and under the PlayerControl"),
       HtmlLi("Resolve ControlHeirarchy"),
       HtmlLi("Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects."),

@@ -35,7 +35,7 @@ class OlSection(val header: RArr[XCon], items: RArr[HtmlLi]) extends HtmlSection
 { override def contents: RArr[XCon] = header +% orderedList
   override def attribs: RArr[XAtt] = RArr()
 
-  def orderedList: HtmlOl = HtmlOl(items)
+  def orderedList: OlHtml = OlHtml(items)
 }
 
 object OlSection
@@ -61,7 +61,7 @@ class UlSection(val header: RArr[XCon], items: RArr[HtmlLi]) extends HtmlSection
   override def attribs: RArr[XAtt] = RArr()
 
   /** the HTML unordered list element. */
-  def unorderedList: HtmlUl = HtmlUl(items)
+  def unorderedList: UlHtml = UlHtml(items)
 }
 
 object UlSection

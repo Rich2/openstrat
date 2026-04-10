@@ -7,7 +7,7 @@ object NewDevsPage extends OSDocumentationPage
   override def fileNameStem: String = "newdevs"
   override def body: BodyHtml = BodyHtml.h1("New Developers Info", central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, gitCommands, sbtCommands)
+  def central: DivHtml = DivHtml.classAtt("central", contrib, gitCommands, sbtCommands)
 
   def contrib = HtmlP("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
@@ -17,7 +17,7 @@ object NewDevsPage extends OSDocumentationPage
     "For transferring files from the master repository to your local machine and back again.",
     gitCommandList)
 
-  def gitCommandList =  HtmlUl(
+  def gitCommandList =  UlHtml(
     HtmlLi("git clone https://github.com/Rich2/openstrat.git".htmlBash, """clone Used when you want to copy all the files locally (for the 1st time or when
     you've deleted the project directory) to grab your own copy of openstrat from github""".stripMargin,
     HtmlA("https://github.com/Richtype/openstrat"), "to your local folder."),
@@ -36,7 +36,7 @@ object NewDevsPage extends OSDocumentationPage
 
   def sbtCommands = SectionH2("Sbt", """A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is for compiling and
   |running the applications and other tasks.""".stripMargin,
-  HtmlUl(
+  UlHtml(
     HtmlLi("clean".htmlSbt, "Gets rid of the cache"),
     HtmlLi("Util/clean".htmlSbt, "To clean an individual module")
   ))

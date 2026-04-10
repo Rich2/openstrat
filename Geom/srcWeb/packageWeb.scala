@@ -53,15 +53,15 @@ package object pWeb
   }
 
   extension (thisArr: Arr[String])
-  { def toDivLines: RArr[HtmlDiv] = thisArr.map{
-      case "" => HtmlDiv(HtmlBr)
-      case l => HtmlDiv(l)
+  { def toDivLines: RArr[DivHtml] = thisArr.map{
+      case "" => DivHtml(HtmlBr)
+      case l => DivHtml(l)
     }
 
-    def toSystemdDivs: RArr[HtmlDiv] = thisArr.map{
-      case "" => HtmlDiv(HtmlBr)
-      case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
-      case l => HtmlDiv(l)
+    def toSystemdDivs: RArr[DivHtml] = thisArr.map{
+      case "" => DivHtml(HtmlBr)
+      case line if line(0) == '[' => DivHtml.colour(Colour.LightGreen, line)
+      case l => DivHtml(l)
     }
   }
 }

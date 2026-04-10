@@ -10,7 +10,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
   val scVer: String = "3.8.3"
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
+  def central: DivHtml = DivHtml.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: OlSection = OlSection(HtmlH2("The Dev module contains"),
     HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar")),
     HtmlLi("Generates the HTML and CSS files for the website, including this file."),
@@ -30,7 +30,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: HtmlP = HtmlP("Versions", HtmlUl("Latest published Openstrat version 0.3.12, current 0.3.13snap",
+  def p4: HtmlP = HtmlP("Versions", UlHtml("Latest published Openstrat version 0.3.12, current 0.3.13snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
     "Scala.Js: 1.21.0",

@@ -85,7 +85,7 @@ object CodeOutputLine
 
 case class CodeOutputLines(strs: StrArr, otherAttribs: RArr[XAtt]) extends CodeOutput, HtmlTagLines
 { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
-  override def contents: RArr[XCon] = strs.map(s => HtmlDiv(s))
+  override def contents: RArr[XCon] = strs.map(s => DivHtml(s))
 }
 
 object CodeOutputLines

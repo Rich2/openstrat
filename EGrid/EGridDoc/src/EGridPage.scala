@@ -11,7 +11,7 @@ object EGridPage extends OSDocumentationPage
   override val fileNameStem: String = "egrid"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", egrids, open)
+  def central: DivHtml = DivHtml.classAtt("central", egrids, open)
   val egrDir: String = "../egrids"
   def egrids: OlSection = OlSection(HtmlH2("World Hex Grids."),
     HtmlLi.linkAndText(egrDir / "eg1300.html", "EGrid 1300km", "1300km hex scale world."),

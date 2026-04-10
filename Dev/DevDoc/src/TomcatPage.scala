@@ -13,7 +13,7 @@ object TomcatPage extends PageHtmlUpdater
   //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
     HtmlScript.jsSrc("tomcat.js"), HtmlScript.main("TomcatPageJs"))
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", p1, p2, steps)
+  def central: DivHtml = DivHtml.classAtt("central", p1, p2, steps)
 
   def p1: HtmlP = HtmlP("""This page is targeted at Scala Developers, who want to get a simple, or multiple web applications going, or create a dynamic web site
   |using Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced
@@ -58,7 +58,7 @@ object TomcatPage extends PageHtmlUpdater
   stripMargin,
   LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
 
-  def steps = HtmlOl(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
+  def steps = OlHtml(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
   val s1 = HtmlLi("Upgrade packages.",
   BashLine("sudo apt update"),
@@ -165,7 +165,7 @@ object TomcatPage extends PageHtmlUpdater
   """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdDivs +%
-  HtmlDiv.inputNum(ramIUN){ n =>  val nn = n * 256
+  DivHtml.inputNum(ramIUN){ n =>  val nn = n * 256
     val xmsStr = nn.min(512).str0
     val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
   s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
@@ -173,8 +173,8 @@ object TomcatPage extends PageHtmlUpdater
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
   "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdDivs +%
-  HtmlDiv.inputText(uNameIUT){ uName => s"User=$uName"} +%
-  HtmlDiv.inputText(uNameIUT){ uName => s"Group=$uName" } ++
+  DivHtml.inputText(uNameIUT){ uName => s"User=$uName"} +%
+  DivHtml.inputText(uNameIUT){ uName => s"Group=$uName" } ++
   StrArr(
   "UMask=0007",
   "RestartSec=10",

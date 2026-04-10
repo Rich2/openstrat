@@ -16,7 +16,7 @@ object UtilPage extends OSDocumentationPage
 { override val titleStr: String = "Util Module"
   override val fileNameStem: String = "util"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
+  def central: DivHtml = DivHtml.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
 
   def list: OlSection = OlSection(HtmlH2("The Util module contains"),
     HtmlLi("Some simple debug macros"),

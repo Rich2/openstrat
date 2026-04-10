@@ -17,7 +17,7 @@ object GeomPageWeb extends HtmlSection
     HtmlLi("XCon XML and HTML content".htmlB, """This consists of XConElems and plain Strings. XConElems includes XML and HTML elements but also includes CSS
     |rules as they can be used as content in an HTML style element. XCon can be divided into 3 types, depending on how it is formatted as HTML code. Note this
     |is different to how it is formatted in the browser.""".stripMargin,
-    HtmlUl(
+    UlHtml(
       HtmlLi("Inline elements".htmlB, """Includes plain Strings and spans. The elements continue on the same line following another inline element. White
       |space distinctions between new lines, tabs and spaces in the element are ignored and the white space is reformatted into single space and new lines to
       |fit the indentations and line lengths of the XML / HTML / CSS output.""".stripMargin),

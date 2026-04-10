@@ -10,7 +10,7 @@ object AppsPage extends OSDocumentationPage
 { override def titleStr: String = "Applications Module"
   override val fileNameStem: String = "apps"
   override def body: BodyHtml = BodyHtml(HtmlH1("Apps Module"), main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, otherTiled, otherApps)
+  def main: DivHtml = DivHtml.classAtt("main", stratList, otherTiled, otherApps)
   def egameDir = dirsRel </% AppPage.egameDir
   def otDir = ".." / AppPage.otDir.asStr
 

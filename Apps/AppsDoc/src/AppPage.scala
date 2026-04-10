@@ -18,7 +18,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
 
   override def head: HeadHtml = headFavCss("../only")
 
-  def topMenu: HtmlUl =
+  def topMenu: UlHtml =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
     val pairs1: ArrPairStr[DirsFileRel] = pages.mapPair(_.fileNameStem){ linkPage => linkPage.htmlPathName }
     val pairs2: ArrPairStr[DirsFileRel] = PairStrElem("Home", DirsFileRel("index.html")) %: pairs1
@@ -82,6 +82,6 @@ object AppPage
 
   val defaultTopPairs: ArrPairStr[DirsFileRel] = allTops.mapPair(_.fileNameStem)(_.htmlPathName)
 
-  def topMenu(pairs: ArrPairStr[DirsFileRel], origin: DirsRel = DirsRel()): HtmlUl =
-    HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a((origin </> s2).asStr, s1) }, RArr(IdAtt("topmenu")))
+  def topMenu(pairs: ArrPairStr[DirsFileRel], origin: DirsRel = DirsRel()): UlHtml =
+    UlHtml(pairs.pairMap { (s1, s2) => HtmlLi.a((origin </> s2).asStr, s1) }, RArr(IdAtt("topmenu")))
 }

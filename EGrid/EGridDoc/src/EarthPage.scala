@@ -8,7 +8,7 @@ object EarthPage extends OSDocumentationPage
   override def fileNameStem: String = "earth"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list)
+  def central: DivHtml = DivHtml.classAtt("central", list)
 
   def list: OlSection = OlSection(HtmlH2("The Earth module contains"), latLong, lines, trans, terrs)
 

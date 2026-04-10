@@ -7,7 +7,7 @@ object Victoria2Page extends OSDocumentationPage
   override def fileNameStem: String = "victoria2"
   override def body: BodyHtml = BodyHtml(franceMobilise)
 
-  val franceMobilise = HtmlOl.noSpaceStrs(
+  val franceMobilise = OlHtml.noSpaceStrs(
     "Arras 18 > 21",
     "Cambrai 9 > 15 > 18",
     "Nancy 3 > 6 > 9 > 12 > 18",

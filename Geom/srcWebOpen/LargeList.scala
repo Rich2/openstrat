@@ -19,7 +19,7 @@ trait HtmlLargeList extends HtmlTagLines
 }
 
 /** An HTML OL ordered list with the LargeList CSS class */
-class HtmlLargeOl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl, HtmlLargeList
+class HtmlLargeOl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
 
 object HtmlLargeOl
 {/** Factory apply method for a large HTML OL ordered list. */
@@ -33,7 +33,7 @@ object HtmlLargeOl
 }
 
 /** An HTML UL unordered list with the LargeList CSS class */
-class HtmlLargeUl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlOl, HtmlLargeList
+class HtmlLargeUl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
 
 object HtmlLargeUl
 {/** Factory apply method for a large HTML UL unordered list. */

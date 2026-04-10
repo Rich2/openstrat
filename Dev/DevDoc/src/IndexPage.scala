@@ -6,10 +6,10 @@ import pWeb.*, osweb.*, pDoc.*
 object IndexPage extends IndexPage
 { override val titleStr: String = "Openstrat"
   override def head: HeadHtml = headFavCss("Documentation/documentation")
-  def topMenu: HtmlUl = AppPage.topMenu(AppPage.defaultTopPairs)
+  def topMenu: UlHtml = AppPage.topMenu(AppPage.defaultTopPairs)
   def body: BodyHtml = BodyHtml(topMenu, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, intro, menu, vic2)
+  def central: DivHtml = DivHtml.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, intro, menu, vic2)
 
   def focus: OlSection = OlSection.h2("This project has 3 main focuses", strat, hist, geom1)
   def strat: HtmlLi = HtmlLi("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")

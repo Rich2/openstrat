@@ -4,7 +4,7 @@ package ostrat; package pWeb; package wcode
 /** Creates a systemd Unit file. */
 class HtmlSystemd(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines
 { override def attribs: RArr[XAtt] = otherAttribs
-  override def contents: RArr[HtmlDiv] = HtmlSystemd.toDivs(lines)
+  override def contents: RArr[DivHtml] = HtmlSystemd.toDivs(lines)
 }
 
 object HtmlSystemd
@@ -12,9 +12,9 @@ object HtmlSystemd
   def apply(lines: String*): HtmlSystemd = new HtmlSystemd(lines.toArr, RArr())
 
   /** transforms text lines into lines for Systemd Unit file. */
-  def toDivs(inp: Arr[String]): RArr[HtmlDiv] = inp.map {
-    case "" => HtmlDiv(HtmlBr)
-    case line if line(0) == '[' => HtmlDiv.colour(Colour.LightGreen, line)
-    case l => HtmlDiv(l)
+  def toDivs(inp: Arr[String]): RArr[DivHtml] = inp.map {
+    case "" => DivHtml(HtmlBr)
+    case line if line(0) == '[' => DivHtml.colour(Colour.LightGreen, line)
+    case l => DivHtml(l)
   }
 }

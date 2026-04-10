@@ -16,7 +16,7 @@ object GeomPage extends OSDocumentationPage
 { override val titleStr: String = "Geom Module"
   override val fileNameStem: String = "geom"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
+  def central: DivHtml = DivHtml.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
   |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
@@ -83,7 +83,7 @@ object LinePathNames extends HtmlSection
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
-  val list = HtmlUl.noStyle(
+  val list = UlHtml.noStyle(
   HtmlLi("++ append".htmlScala, "This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example",
   "intArr1 ++ intArr2".htmlScala, "returns a new", "IntArr".htmlScala, ". For the RArr class type widening is allowed. So catsRArr ++ dogsRArr",
   " dogsRArr might return a new RArr[Animal]."),
@@ -132,5 +132,5 @@ object LessonLists extends HtmlSection
   val cList = LessonsLaunch.cList.iMap((i, ls) => HtmlLi("C" + (i + 1).str -- ls.title))
   val dList = LessonsLaunch.dList.iMap((i, ls) => HtmlLi("D" + (i + 1).str -- ls.title))
   val eList = LessonsLaunch.eList.iMap((i, ls) => HtmlLi("E" + (i + 1).str -- ls.title))
-  override val contents: RArr[XConCompound] = RArr(HtmlUl(aList), HtmlUl(bList), HtmlUl(cList), HtmlUl(dList), HtmlUl(eList))
+  override val contents: RArr[XConCompound] = RArr(UlHtml(aList), UlHtml(bList), UlHtml(cList), UlHtml(dList), UlHtml(eList))
 }
