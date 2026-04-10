@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */
-trait SelectHtml extends HtmlTagLines, HtmlInputLike
+trait SelectHtml extends HtmlTagLines, InputHtmlLike
 { override def tagName: String = "select"
 
   def visNum: Int
@@ -37,15 +37,15 @@ object SelectHtml
 
 /** An HTML label followed by an [[SelectHtml]]. */
 class LabelSelect[T<: OptionHtml](val idStr: String, val label: String, val options: RArr[T], val visNum: Int, val otherAttribs: RArr[XAtt])(using
-  page: HtmlPageUpdater) extends LabelAndInput
+  page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: SelectHtml = SelectHtml(idStr, options, visNum, otherAttribs)
 }
 
 object LabelSelect
 {
-  def apply[T<: OptionHtml](idStr: String, label: String, contents: RArr[T], visNum: Int, otherAttribs: RArr[XAtt])(using page: HtmlPageUpdater): LabelSelect[T] =
+  def apply[T<: OptionHtml](idStr: String, label: String, contents: RArr[T], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelect[T] =
     new LabelSelect[T](idStr, label, contents, visNum, otherAttribs)
 
-  def apply[T<: OptionHtml](idStr: String, label: String, contents: T*)(using page: HtmlPageUpdater, ctT: ClassTag[T]): LabelSelect[T] =
+  def apply[T<: OptionHtml](idStr: String, label: String, contents: T*)(using page: PageHtmlUpdater, ctT: ClassTag[T]): LabelSelect[T] =
     new LabelSelect[T](idStr, label, contents.toRArr, 1, RArr())
 }

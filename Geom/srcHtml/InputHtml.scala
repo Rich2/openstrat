@@ -4,7 +4,7 @@ import reflect.ClassTag
 
 /** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
  * with that updater. */
-trait HtmlInputLike extends HtmlElem
+trait InputHtmlLike extends HtmlElem
 {/** The [[String]] of the id attribute. */
   def idStr: String
 
@@ -19,7 +19,7 @@ trait HtmlInputLike extends HtmlElem
 }
 
 /** An HTML input element. */
-trait HtmlInput extends HtmlInputLike, HtmlVoid
+trait InputHtml extends InputHtmlLike, HtmlVoid
 { def typeAtt: TypeAtt
   override def tagName: String = "input"
 
@@ -37,7 +37,7 @@ trait CallbackInput
 }
 
 /** HTML Input element with submit type */
-class SubmitInput(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends HtmlInput
+class SubmitInput(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputHtml
 { override def typeAtt: TypeAtt = TypeSubmitAtt
   override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr)) ++ otherAttribs
 
@@ -62,23 +62,23 @@ trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 }
 
 /** An HTML label followed by an [[UpdaterInputText]]. */
-class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: HtmlPageUpdater) extends LabelAndInput
+class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: UpdaterInputText = UpdaterInputText(idStr, valueStr)
 
 }
 
 object LabelTextInput
 { /** Factory apply met hod to create an HTML label followed by an [[UpdaterInputText]]. */
-  def apply(idStr: String, label: String, valueStr: String)(using page: HtmlPageUpdater): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
+  def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 
-class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: HtmlPageUpdater) extends LabelAndInput
+class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
 }
 
 object LabelNumInput
 {
-  def apply(idStr: String, label: String, valueNum: Double)(using page: HtmlPageUpdater): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
+  def apply(idStr: String, label: String, valueNum: Double)(using page: PageHtmlUpdater): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
 }
 
 case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine

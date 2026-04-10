@@ -3,8 +3,8 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
-object TomcatPage extends HtmlPageUpdater
-{ given thisPage: HtmlPageUpdater = this
+object TomcatPage extends PageHtmlUpdater
+{ given thisPage: PageHtmlUpdater = this
   override val titleStr: String = "Apache Tomcat Server"
   override def fileNameStem: String = "tomcat"
 
@@ -147,7 +147,7 @@ object TomcatPage extends HtmlPageUpdater
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  HtmlCodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => HtmlPage.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
+  HtmlCodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
   )
 
   val s9 = HtmlLi("Create a systemd unit file.",

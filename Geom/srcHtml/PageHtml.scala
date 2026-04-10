@@ -1,16 +1,16 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import wcode.*
 
 /** An HTML page, contains a doctype, a head and a body elements. */
-trait HtmlPage extends HttpContent
-{ /** The HTML element of this [[HtmlPage]] consisting of an [[HeadHtml]] and an [[BodyHtml]]. */
+trait PageHtml extends HttpContent
+{ /** The HTML element of this [[PageHtml]] consisting of an [[HeadHtml]] and an [[BodyHtml]]. */
   def htmlElem: HtmlHtml = HtmlHtml(head, body)
 
-  /** The head of this [[HtmlPage]]. */
+  /** The head of this [[PageHtml]]. */
   def head: HeadHtml
 
-  /** The body of this [[HtmlPage]]. */
+  /** The body of this [[PageHtml]]. */
   def body: BodyHtml
 
   override def out: String = "<!doctype html>" --- htmlElem.out(0, 150)
@@ -23,19 +23,19 @@ trait HtmlPage extends HttpContent
 }
 
 /** Companion object for the [[HeadHtml]] class. */
-object HtmlPage
-{ /** Factory apply method for [[HtmlPage]]. */
-  def apply(head: HeadHtml, body: BodyHtml): HtmlPage = HtmlPageGen(head, body)
+object PageHtml
+{ /** Factory apply method for [[PageHtml]]. */
+  def apply(head: HeadHtml, body: BodyHtml): PageHtml = HtmlPageGen(head, body)
 
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
-  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPageGen(HeadHtml.title(title), BodyHtml(HtmlH1(title), bodyContent))
+  def titleOnly(title: String, bodyContent: String): PageHtml = HtmlPageGen(HeadHtml.title(title), BodyHtml(HtmlH1(title), bodyContent))
   
-  /** General implementation class for [[HtmlPage]]. */
-  case class HtmlPageGen(head: HeadHtml, body: BodyHtml) extends HtmlPage
+  /** General implementation class for [[PageHtml]]. */
+  case class HtmlPageGen(head: HeadHtml, body: BodyHtml) extends PageHtml
 }
 
 /** This is an HTML page that stores its default file name. */
-trait HtmlPageFile extends HtmlPage, OutElemFile
+trait PageFile extends PageHtml, OutElemFile
 { /** The default file name stem for this HTML page. */
   def fileNameStem: String
 
@@ -58,17 +58,17 @@ trait HtmlPageFile extends HtmlPage, OutElemFile
 }
 
 /** An index.html page. */
-trait IndexPage extends HtmlPageFile
+trait IndexPage extends PageFile
 { override def fileNameStem: String = "index"
 }
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */
-trait HtmlPageUpdater extends HtmlPageFile
-{ var inpAcc: RArr[HtmlInputLike] = RArr()
+trait PageHtmlUpdater extends PageFile
+{ var inpAcc: RArr[InputHtmlLike] = RArr()
 }
 
 /** A 404 HTML page. */
-trait HtmlPageNotFound extends HtmlPage
+trait HtmlPageNotFound extends PageHtml
 { override def httpResp(dateStr: String, server: String): HttpPageNotFound = HttpPageNotFound(dateStr, server, HttpConTypeHtml, out)
 }
 

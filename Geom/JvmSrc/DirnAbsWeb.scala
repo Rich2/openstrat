@@ -11,20 +11,20 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
   def subWriteFile(subDir: String, fileName: String, contents: String): ErrBi[IOExc, FileWritten] = wFile(thisPath / subDir /+ fileName, contents)
 
   /** Writes the HTML File to the subdirectory. Returns a successful message on success. */
-  def subWriteFiles(subDir: String, fileName: String, page: HtmlPage): ErrBi[IOExc, FileWritten] = wFile(thisPath / subDir /+ fileName, page.out)
+  def subWriteFiles(subDir: String, fileName: String, page: PageHtml): ErrBi[IOExc, FileWritten] = wFile(thisPath / subDir /+ fileName, page.out)
 
   /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
-  def writeHtml(fileName: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / fileName, page.out)
+  def writeHtml(fileName: String, page: PageHtml): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / fileName, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def writeHtml(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileName, page.out)
+  def writeHtml(page: PageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileName, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileName, page.out)
+  def subWriteHtml(subDir: String, page: PageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileName, page.out)
 
-  /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, fileName: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
+  /** Writes the [[PageHtml]] to the subdirectory of this path. Returns a successful message on success. */
+  def subWriteHtml(subDir: String, fileName: String, page: PageHtml): ErrBi[IOExc, HtmlFileWritten] =
     writeStrsHtml(thisPath.asStr / subDir / fileName, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */

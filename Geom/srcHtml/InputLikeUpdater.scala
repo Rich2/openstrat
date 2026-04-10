@@ -2,9 +2,9 @@
 package ostrat; package pWeb
 import reflect.ClassTag
 
-trait InputLikeUpdater extends HtmlInputLike
+trait InputLikeUpdater extends InputHtmlLike
 {
-  def page: HtmlPageUpdater
+  def page: PageHtmlUpdater
 }
 
 trait UpdaterText extends InputLikeUpdater

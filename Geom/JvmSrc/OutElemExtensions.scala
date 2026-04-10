@@ -12,8 +12,8 @@ implicit class OutElemFileExtensions(thisOutFile: OutElemFile)
   def writeFile(dirPathStr: String): ErrBi[IOExc, FileWritten] = wFile(dirPathStr / thisOutFile.fileName, thisOutFile.out)
 }
 
-implicit class HtmlPageFileExtensions(thisPage: HtmlPageFile)
-{ /** Writes out the "out" method on this [[HtmlPageFile]] to its file name in the given directory. */
+implicit class HtmlPageFileExtensions(thisPage: PageFile)
+{ /** Writes out the "out" method on this [[PageFile]] to its file name in the given directory. */
   def writeFile(dirPathStr: String): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(dirPathStr / thisPage.fileName, thisPage.out)
 }
 

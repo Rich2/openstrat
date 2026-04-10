@@ -2,7 +2,7 @@
 package ostrat; package geom
 import pWeb.*
 
-object TestPage1 extends HtmlPageFile
+object TestPage1 extends PageFile
 { override def fileNameStem: String = "TestPage1"
   override def titleStr: String = "Endnotes Test page."
 
