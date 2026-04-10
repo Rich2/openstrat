@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** Creates an [[Html]] Input element that can update textContent fields on the page. */
-class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater
+class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: HtmlPageUpdater) extends HtmlInput
 {
   page.inpAcc +%= this
   var depends: RArr[Callback1Num] = RArr()
@@ -21,7 +21,7 @@ class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RA
 
 object InputUpdaterNum
 { /** Factory apply method to create an [[Html]] Input element that can update textContent fields on the page. */
-  def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: HtmlPageInput): InputUpdaterNum = new InputUpdaterNum(idStr, value, otherAttribs.toRArr)
+  def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: HtmlPageUpdater): InputUpdaterNum = new InputUpdaterNum(idStr, value, otherAttribs.toRArr)
 }
 
 /** A call back for an [[InputUpdaterNum]] that takes a simple Double => String function. */

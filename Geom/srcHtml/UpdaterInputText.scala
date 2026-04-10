@@ -2,8 +2,10 @@
 package ostrat; package pWeb
 import reflect.ClassTag
 
+
+
 /** Class to update a page from a text input. */
-class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater
+class UpdaterInputText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using val page: HtmlPageUpdater) extends UpdaterText, HtmlInput
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
 
   page.inpAcc +%= this
@@ -48,9 +50,9 @@ class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs
   }
 }
 
-object InputUpdaterText
+object UpdaterInputText
 { /** Factory apply method for object to update a page from a text input. */
-  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: HtmlPageInput): InputUpdaterText = new InputUpdaterText(idStr, valueStr, otherAttribs.toRArr)
+  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: HtmlPageUpdater): UpdaterInputText = new UpdaterInputText(idStr, valueStr, otherAttribs.toRArr)
 }
 
 sealed trait CallbackText extends CallbackInput

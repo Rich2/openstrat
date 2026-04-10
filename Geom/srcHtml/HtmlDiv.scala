@@ -28,7 +28,7 @@ object HtmlDiv
   def colour(colour: Colour, contents: XConInedit*): HtmlDiv = new HtmlDivGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
 
   /** Creates a Div and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): HtmlDiv =
+  def inputText(input: UpdaterInputText)(f: String => String): HtmlDiv =
   { def newId = input.next1Id(f)
     new HtmlDivGen(RArr(f(input.valueStr)), RArr(newId))
   }

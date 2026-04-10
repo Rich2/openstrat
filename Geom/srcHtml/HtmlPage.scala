@@ -63,8 +63,8 @@ trait IndexPage extends HtmlPageFile
 }
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */
-trait HtmlPageInput extends HtmlPageFile
-{ var inpAcc: RArr[InputUpdater] = RArr()
+trait HtmlPageUpdater extends HtmlPageFile
+{ var inpAcc: RArr[HtmlInputLike] = RArr()
 }
 
 /** A 404 HTML page. */

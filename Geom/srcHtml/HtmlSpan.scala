@@ -41,7 +41,7 @@ object SpanInlineInedit
   def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
 
   /** Creates a inline span and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): SpanInlineInedit =
+  def inputText(input: UpdaterInputText)(f: String => String): SpanInlineInedit =
   { def newId = input.next1Id(f)
     new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
   }
@@ -79,7 +79,7 @@ object SpanLine
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): SpanLine =
+  def inputText(input: UpdaterInputText)(f: String => String): SpanLine =
   { def newId = input.next1Id(f)
     new SpanLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
