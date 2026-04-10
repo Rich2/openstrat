@@ -5,7 +5,6 @@ import reflect.ClassTag
 /** Class to update a page from a text input. */
 class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: HtmlPageInput) extends InputUpdater
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
-  def valueAtt = ValueAtt(valueStr)
 
   page.inpAcc +%= this
   

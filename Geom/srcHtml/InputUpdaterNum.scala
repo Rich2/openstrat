@@ -11,7 +11,6 @@ class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RA
 
   override def typeAtt: TypeAtt = TypeNumberAtt
   override def valueStr: String = value.str
-  override def valueAtt: ValueAtt = ValueAtt(value.str)
 
   def next1Id(f: Double => String): IdAtt =
   { val newtargetId: String = idStr + clientCount.str

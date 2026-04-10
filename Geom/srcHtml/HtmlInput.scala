@@ -19,20 +19,15 @@ trait HtmlInputLike extends HtmlElem
 }
 
 /** An HTML input element. */
-trait HtmlInput extends HtmlVoid
+trait HtmlInput extends HtmlInputLike, HtmlVoid
 { def typeAtt: TypeAtt
   override def tagName: String = "input"
 }
 
 /** classes are used on the JVM to create user input elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered with that
  * updater. */
-trait InputUpdater extends HtmlInput, HtmlInputLike
-{
-  def typeAtt: TypeAtt
-
-  override def tagName: String = "input"
-  
-  def valueAtt: ValueAtt
+trait InputUpdater extends HtmlInput
+{ final def valueAtt: ValueAtt = ValueAtt(valueStr)
 
   def valueStr: String
 
@@ -46,9 +41,16 @@ trait CallbackInput
 }
 
 /** HTML Input element with submit type */
-case class SubmitInput(valueStr: String) extends HtmlInput
+class SubmitInput(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends HtmlInput
 { override def typeAtt: TypeAtt = TypeSubmitAtt
-  override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr))
+  override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr)) ++ otherAttribs
+
+  override def clientCount: Int = ???
+}
+
+object SubmitInput
+{
+  def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt] = RArr()): SubmitInput = new SubmitInput(idStr, valueStr, otherAttribs)
 }
 
 /** An HTML span containing a label and an input / select element. */
