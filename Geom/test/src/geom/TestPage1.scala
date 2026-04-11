@@ -11,7 +11,7 @@ object TestPage1 extends PageFile
   val h1 = HtmlH1("This is a test page for end notes.")
 
   def mainDecs = RArr(StyleAtt(MaxWidthDec(68.em), MarginLRAutoDec))
-  def mainSec = HtmlSection(RArr(p1, q1, p3, p4, notes), mainDecs)
+  def mainSec = SectionHtml(RArr(p1, q1, p3, p4, notes), mainDecs)
 
   implicit val taker: NoteTaker = NoteTaker()
 

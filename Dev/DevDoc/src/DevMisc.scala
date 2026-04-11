@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pWeb.*, wcode.*
 
 /** Miscellaneous dev stuff. */
-object DevMisc extends HtmlSection
+object DevMisc extends SectionHtml
 { override def contents: RArr[XCon] = RArr(git, jvms, sbtInstall, intellij, chrome, sublime)
 
   def git: SectionH2 = SectionH2(

@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pWeb.*
 
 /** HTML documentation for [[Polygon]]s for the [[GeomPage]]. */
-object GeomPageWeb extends HtmlSection
+object GeomPageWeb extends SectionHtml
 {
   override def contents: RArr[XCon] = RArr(HtmlH2("XML, HTML and CSS"), s1)
 

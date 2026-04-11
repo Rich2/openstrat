@@ -100,21 +100,21 @@ class HtmlDirPath(val str: String) extends HtmlCodeInline
   override def attribs: RArr[XAtt] = RArr(classAtt)
 }
 
-/** An HTML code element with an [[HtmlPre]] element as its contents. */
-class HtmlCodePre(val htmlPre: HtmlPre, val otherAttribs: RArr[XAtt]) extends HtmlCodeLines
-{ override def contents: RArr[XCon] = RArr(htmlPre)
+/** An HTML code element with an [[PreHtml]] element as its contents. */
+class HtmlCodePre(val preHtml: PreHtml, val otherAttribs: RArr[XAtt]) extends HtmlCodeLines
+{ override def contents: RArr[XCon] = RArr(preHtml)
   override def attribs: RArr[XAtt] = BlockStyle %: otherAttribs
 }
 
 object HtmlCodePre
 { /** Factory apply method to create  */
-  def apply(str: String, otherAttribs: XAtt*): HtmlCodePre = new HtmlCodePre(HtmlPre(str), otherAttribs.toRArr)
+  def apply(str: String, otherAttribs: XAtt*): HtmlCodePre = new HtmlCodePre(PreHtml(str), otherAttribs.toRArr)
 
   /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
    * escape the HTML code characters. */
   def inputText(input: UpdaterInputText, otherAttribs: XAtt*)(f: String => String): HtmlCodePre =
   { def newId = input.next1Id(f)
-    val pre = new HtmlPre(f(input.valueStr).escapeHtml, RArr(newId))
+    val pre = new PreHtml(f(input.valueStr).escapeHtml, RArr(newId))
     new HtmlCodePre(pre, otherAttribs.toRArr)
   }
 
@@ -122,7 +122,7 @@ object HtmlCodePre
   def input2Text(input1: UpdaterInputText, input2: UpdaterInputText, otherAttribs: XAtt*)(f: (String, String) => String): HtmlCodePre =
   { def targetId = input1.next2Id1(input2.idStr, f)
     input2.next2Id2(targetId.valueStr, input1.idStr, f)
-    val pre = new HtmlPre(f(input1.valueStr, input2.valueStr).escapeHtml, RArr(targetId))
+    val pre = new PreHtml(f(input1.valueStr, input2.valueStr).escapeHtml, RArr(targetId))
     new HtmlCodePre(pre, otherAttribs.toRArr)
   }
 }

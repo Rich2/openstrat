@@ -37,7 +37,7 @@ object UtilPage extends OSDocumentationPage
   def parse: HtmlLi = HtmlLi("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for tokenisation and a parser for an AST," +
     " abstract syntax tree.")
 
-  def persistSection: HtmlSection = HtmlSection(HtmlH2("Persistence"),
+  def persistSection: SectionHtml = SectionHtml(HtmlH2("Persistence"),
     PHtml("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
       "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itself." --
       "And ShowTell will be used for Show type classes that use Tell functionality, to minimise their constructors. The show and tell methods" --
@@ -45,16 +45,16 @@ object UtilPage extends OSDocumentationPage
       "The default max precision is set to -1, which indicates no limit."
     ))
 
-  def base32: HtmlSection = HtmlSection(HtmlH2("Hexadecimal and Base32"),
+  def base32: SectionHtml = SectionHtml(HtmlH2("Hexadecimal and Base32"),
     PHtml("Hexadecimal is written with Uppercase letters. Base32 is written with the digits followed by the upper case letters A to W, with the" --
       "letter 'O' unused"),
     PHtml("A 10, B 11, C 12, D 13, E 14, F 15, G 16, H 17, I 18, J 19, K 20, L 21, M 22, N 23, P 24, Q 25, R 26, S 27, T 28, U 29 V 30, W 31")
   )
 
-  def misc: HtmlSection = HtmlSection(HtmlH2("Miscellaneous"), PHtml("A Lower case letter will be used after numerals in names."))
+  def misc: SectionHtml = SectionHtml(HtmlH2("Miscellaneous"), PHtml("A Lower case letter will be used after numerals in names."))
 }
 
-object AstSection extends HtmlSection
+object AstSection extends SectionHtml
 {
   override def contents: RArr[XConCompound] = RArr(HtmlH2("Abstract Syntax Tree"), file, statement, p1, prec)  
 
