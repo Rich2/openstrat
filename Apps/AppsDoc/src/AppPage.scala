@@ -25,7 +25,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
     AppPage.topMenu(pairs2, dirRel)
   }
 
-  override def body: BodyHtml = BodyHtml(topMenu, CanvasHtml.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(jsMainStem + "Js"))
+  override def body: BodyHtml = BodyHtml(topMenu, CanvasHtml.id("scanv"), ScriptHtml.jsSrc(jsFileName), ScriptHtml.main(jsMainStem + "Js"))
 }
 
 /** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links. Longer term may need reorganisation, */

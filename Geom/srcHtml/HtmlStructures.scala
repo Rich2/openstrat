@@ -15,7 +15,7 @@ object CanvasHtml
 }
 
 /** HTML P paragraph element. */
-trait HtmlP extends HtmlOwnLine
+trait PHtml extends HtmlOwnLine
 { def tagName = "p"
   override def closeTagLine: Boolean = true
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
@@ -23,19 +23,19 @@ trait HtmlP extends HtmlOwnLine
   override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
-object HtmlP
+object PHtml
 { /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): HtmlP = HtmlPGen(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): PHtml = PHtmlGen(contents, attribs)
 
   /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: XCon*) : HtmlP = HtmlPGen(contents.toRArr, RArr())
+  def apply(contents: XCon*) : PHtml = PHtmlGen(contents.toRArr, RArr())
 
   /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as an [[RArr]]. */
-  def id(idStr: String, contents: XCon*): HtmlP = HtmlPGen(contents.toRArr, RArr(IdAtt(idStr)))
+  def id(idStr: String, contents: XCon*): PHtml = PHtmlGen(contents.toRArr, RArr(IdAtt(idStr)))
 
   /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as repeat parameters. */
-  def id(idStr: String, contents: RArr[XCon]): HtmlP = HtmlPGen(contents, RArr(IdAtt(idStr)))
+  def id(idStr: String, contents: RArr[XCon]): PHtml = PHtmlGen(contents, RArr(IdAtt(idStr)))
 
   /** implementation  class for the general case of HTML P paragraph element. */
-  case class HtmlPGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlP
+  case class PHtmlGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends PHtml
 }

@@ -38,7 +38,7 @@ object UtilPage extends OSDocumentationPage
     " abstract syntax tree.")
 
   def persistSection: HtmlSection = HtmlSection(HtmlH2("Persistence"),
-    HtmlP("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
+    PHtml("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
       "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itself." --
       "And ShowTell will be used for Show type classes that use Tell functionality, to minimise their constructors. The show and tell methods" --
       "contain a style parameter, to indicate which information to show and precision parameters to specify the number of decimal places precision." --
@@ -46,12 +46,12 @@ object UtilPage extends OSDocumentationPage
     ))
 
   def base32: HtmlSection = HtmlSection(HtmlH2("Hexadecimal and Base32"),
-    HtmlP("Hexadecimal is written with Uppercase letters. Base32 is written with the digits followed by the upper case letters A to W, with the" --
+    PHtml("Hexadecimal is written with Uppercase letters. Base32 is written with the digits followed by the upper case letters A to W, with the" --
       "letter 'O' unused"),
-    HtmlP("A 10, B 11, C 12, D 13, E 14, F 15, G 16, H 17, I 18, J 19, K 20, L 21, M 22, N 23, P 24, Q 25, R 26, S 27, T 28, U 29 V 30, W 31")
+    PHtml("A 10, B 11, C 12, D 13, E 14, F 15, G 16, H 17, I 18, J 19, K 20, L 21, M 22, N 23, P 24, Q 25, R 26, S 27, T 28, U 29 V 30, W 31")
   )
 
-  def misc: HtmlSection = HtmlSection(HtmlH2("Miscellaneous"), HtmlP("A Lower case letter will be used after numerals in names."))
+  def misc: HtmlSection = HtmlSection(HtmlH2("Miscellaneous"), PHtml("A Lower case letter will be used after numerals in names."))
 }
 
 object AstSection extends HtmlSection
@@ -73,7 +73,7 @@ object AstSection extends HtmlSection
       "Statemented file with zero statements.")
   )
 
-  def p1: HtmlP = HtmlP("So there is currently some confusion as to where it is parsed into a series of statements or into an expression. Currently" --
+  def p1: PHtml = PHtml("So there is currently some confusion as to where it is parsed into a series of statements or into an expression. Currently" --
     "Statements and Clauses contain an expression but are not themselves an expression.This is causing a block to me coding at the moment.")
 
   def prec: UlSection = UlSection("AST Precedence From lowest to highest after brace block parsing.",

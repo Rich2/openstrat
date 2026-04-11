@@ -41,8 +41,8 @@ trait DevHtmls
 
     val style = HtmlStyle(CssBody(MarginDec(0.px), DecOverflowHidden))
     val head = HeadHtml.title("OpenStrat:" -- name, HtmlNoCache, style)
-    val script = HtmlScript.inlineJsStr(noCacheScript)
-    val body = BodyHtml(CanvasHtml.id("scanv"), HtmlNoScript(), script)
+    val script = ScriptHtml.inlineJsStr(noCacheScript)
+    val body = BodyHtml(CanvasHtml.id("scanv"), NoScriptHtml(), script)
     PageHtml(head, body)
   }
 }

@@ -11,7 +11,7 @@ object UtilTokenSection extends HtmlSection
     HtmlLi("Identifiers alphanumeric tokens starting with a letter or underscore character."), HtmlLi("Operators"),
     HtmlLi("Numeric literals"), HtmlLi("Separators , . .. ... {} etc."), HtmlLi("String literals"), HtmlLi("Character literals"), HtmlLi("Comments"))
 
-  def gen2 = HtmlP("KeyTokens, Identifiers, and literals are all expressions. Operators, separators and comments are not. Identifiers" --
+  def gen2 = PHtml("KeyTokens, Identifiers, and literals are all expressions. Operators, separators and comments are not. Identifiers" --
     "includes lexemes such as <span class=lexical>if, IF true and TRUE</span>. There are no alphabetic keywords in RSON syntax. Consumers of" --
     "RSON syntax can of course treat what ever identifiers they want as keywords appropriate to their use case.")
 

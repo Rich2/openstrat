@@ -11,7 +11,7 @@ class Cookies1 extends HttpServlet
     val head = HeadHtml.title("First cookies")
     val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
-    val body = BodyHtml(s"Hello from Servlet: ${ints.str}", HtmlP(cookies2.toString))
+    val body = BodyHtml(s"Hello from Servlet: ${ints.str}", PHtml(cookies2.toString))
     val page = PageHtml(head, body)
     if (cookies2.empty)
     { users += 1

@@ -11,11 +11,11 @@ object TomcatPage extends PageHtmlUpdater
   override def head: HeadHtml = headCss("documentation")
   override def body: BodyHtml = BodyHtml.h1("Using Apache Tomcat Server", central,
   //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
-    HtmlScript.jsSrc("tomcat.js"), HtmlScript.main("TomcatPageJs"))
+    ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))
 
   def central: DivHtml = DivHtml.classAtt("central", p1, p2, steps)
 
-  def p1: HtmlP = HtmlP("""This page is targeted at Scala Developers, who want to get a simple, or multiple web applications going, or create a dynamic web site
+  def p1: PHtml = PHtml("""This page is targeted at Scala Developers, who want to get a simple, or multiple web applications going, or create a dynamic web site
   |using Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced
   |professional Scala developers who will almost all be using other solutions. If like me you come to the Tomcat Server, with only the experience of running
   |Apache vanilla servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note
@@ -53,7 +53,7 @@ object TomcatPage extends PageHtmlUpdater
   val domainIUT: UpdaterInputText = domainLTI.child2
 
 
-  def p2: HtmlP = HtmlP("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
+  def p2: PHtml = PHtml("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
   |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
   LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
@@ -116,7 +116,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine(tomcatDirPrompt, "mkdir Base")
   )
 
-  val s6 = HtmlLi("Go to the Tomcat Download page: ", HtmlA("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
+  val s6 = HtmlLi("Go to the Tomcat Download page: ", AHtml("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
   |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
   |specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version, because
   |Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next command to

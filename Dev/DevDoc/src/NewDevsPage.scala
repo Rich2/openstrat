@@ -9,7 +9,7 @@ object NewDevsPage extends OSDocumentationPage
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, gitCommands, sbtCommands)
 
-  def contrib = HtmlP("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
+  def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
@@ -20,7 +20,7 @@ object NewDevsPage extends OSDocumentationPage
   def gitCommandList =  UlHtml(
     HtmlLi("git clone https://github.com/Rich2/openstrat.git".htmlBash, """clone Used when you want to copy all the files locally (for the 1st time or when
     you've deleted the project directory) to grab your own copy of openstrat from github""".stripMargin,
-    HtmlA("https://github.com/Richtype/openstrat"), "to your local folder."),
+    AHtml("https://github.com/Richtype/openstrat"), "to your local folder."),
 
     HtmlLi("cd openstrat".htmlBash, "The change to the newly created openstrat project folder."),
     HtmlLi("git pull origin master".htmlBash, "Bring your local copy up to date with Github."),

@@ -12,25 +12,25 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
 
   def central: DivHtml = DivHtml.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
   def list: OlSection = OlSection(HtmlH2("The Dev module contains"),
-    HtmlLi("JavaFx application selection and developer settings for the different apps.", HtmlA("osapp.jar", "Runnable jar")),
+    HtmlLi("JavaFx application selection and developer settings for the different apps.", AHtml("osapp.jar", "Runnable jar")),
     HtmlLi("Generates the HTML and CSS files for the website, including this file."),
     HtmlLi("Creates Servlets for Tomcat / Jetty Servers.")
   )
 
-  def p1: HtmlP = HtmlP("It currently works on JavaFx and web page. Using canvas on both platforms. See", "../api/index.html", "Scala Docs".htmlPath, "and see",
+  def p1: PHtml = PHtml("It currently works on JavaFx and web page. Using canvas on both platforms. See", "../api/index.html", "Scala Docs".htmlPath, "and see",
     linkOut("../apiJs/index.html", "Scala Docs for JavaScript target", "."))
 
-  def p2: HtmlP = HtmlP("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
+  def p2: PHtml = PHtml("""The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability.
   |The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with
   |the original vision, part of which was to explore the possibilities of an algebra of tiling.""".stripMargin)
 
-  def p3: HtmlP = HtmlP("""I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to
+  def p3: PHtml = PHtml("""I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to
   |explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to
   |use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability,
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: HtmlP = HtmlP("Versions", UlHtml("Latest published Openstrat version 0.3.12, current 0.3.13snap",
+  def p4: PHtml = PHtml("Versions", UlHtml("Latest published Openstrat version 0.3.12, current 0.3.13snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
     "Scala.Js: 1.21.0",
@@ -58,15 +58,15 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
     HtmlLi("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )
 
-  def sbtCommands2: HtmlP = HtmlP("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command
+  def sbtCommands2: PHtml = PHtml("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command
   |will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the""".stripMargin,
   "Dev/Misc/DevSettings.rson".htmlPath, "file to the", "Dev/User".htmlPath, "folder. Creating the directory if not already existing. Change the",
-  "appStr".htmlPath, "setting in", "Dev/User/DevSettings.rson".htmlPath, "to change the application. All the examples on the", HtmlA("richstrat.com"),
+  "appStr".htmlPath, "setting in", "Dev/User/DevSettings.rson".htmlPath, "to change the application. All the examples on the", AHtml("richstrat.com"),
   """website are available plus others.The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when
   |you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".
   stripMargin)
 
-  def sbt3D = HtmlP("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
+  def sbt3D = PHtml("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
   
   def credits: UlSection = UlSection("<h3>Credits</h3>",
     HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),

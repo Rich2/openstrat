@@ -60,12 +60,12 @@ object HtmlLi
   def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: String, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(HtmlA(link, label)), attribs.toArr)
+  def a(link: String, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(AHtml(link, label)), attribs.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: AllDirFilePathBase, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(HtmlA(link.asStr, label)), attribs.toArr)
+  def a(link: AllDirFilePathBase, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(AHtml(link.asStr, label)), attribs.toArr)
 
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
   def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): HtmlLi =
-    new HtmlLi(RArr(new HtmlA(link, RArr(label)), otherText), attribs.toArr)
+    new HtmlLi(RArr(new AHtml(link, RArr(label)), otherText), attribs.toArr)
 }

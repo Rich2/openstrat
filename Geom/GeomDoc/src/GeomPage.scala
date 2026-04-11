@@ -16,7 +16,7 @@ object GeomPage extends OSDocumentationPage
 { override val titleStr: String = "Geom Module"
   override val fileNameStem: String = "geom"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
-  def central: DivHtml = DivHtml.classAtt("central", HtmlP(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
+  def central: DivHtml = DivHtml.classAtt("central", PHtml(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
   |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length
@@ -80,7 +80,7 @@ object GeomPage extends OSDocumentationPage
 
 object LinePathNames extends HtmlSection
 { override def contents: RArr[XConCompound] = RArr(HtmlH2("Line Paths"), p1, list)
-  val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
+  val p1 = PHtml("Operator naming conventions for sequences and line paths.")
 
   /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
   val list = UlHtml.noStyle(

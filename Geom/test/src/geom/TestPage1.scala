@@ -15,7 +15,7 @@ object TestPage1 extends PageFile
 
   implicit val taker: NoteTaker = NoteTaker()
 
-  val p1: HtmlP = HtmlP.id("para1", "I'm going to link this footnote marker", taker.newNote("A bit more context about paragraph 1."),
+  val p1: PHtml = PHtml.id("para1", "I'm going to link this footnote marker", taker.newNote("A bit more context about paragraph 1."),
   """to the footnote at the bottom of the intro text.
   |<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
@@ -59,7 +59,7 @@ object TestPage1 extends PageFile
   |change our understanding of events. As we’ll see, our understanding has changed a fair bit.""".stripMargin
   val q1 = taker.blockQuote(q1q)("https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction", "From A Collection of Unmitigated Pedantry")
 
-  val p3: HtmlP = HtmlP.id("para3", "This is paragraph 3.I'm going to link this footnote marker", taker.newNote("More on paragraph 3."),
+  val p3: PHtml = PHtml.id("para3", "This is paragraph 3.I'm going to link this footnote marker", taker.newNote("More on paragraph 3."),
   "to the footnote at the bottom of the intro text.",
   """<br>Once more unto the breach, dear friends, once more;
   |<br>Or close the wall up with our English dead.
@@ -96,7 +96,7 @@ object TestPage1 extends PageFile
   |<br>Follow your spirit, and upon this charge
   |<br>Cry 'God for Harry, England, and Saint George!""".stripMargin)
 
-  val p4: HtmlP = HtmlP.id("para4", "This is paragraph 4. I'm going to link this footnote marker.", taker.newNote("More on paragraph 4."),
+  val p4: PHtml = PHtml.id("para4", "This is paragraph 4. I'm going to link this footnote marker.", taker.newNote("More on paragraph 4."),
     "Don't knw aht else to say bottom of the intro text.")
 
   val notes = taker.noteSect

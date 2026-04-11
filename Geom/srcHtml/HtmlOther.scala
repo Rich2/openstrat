@@ -2,53 +2,53 @@
 package ostrat; package pWeb
 
 /** HTML A anchor element. */
-class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlInedit
+class AHtml(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlInedit
 { override def tagName: String = "a"
   override val attribs: RArr[XAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
 
-object HtmlA
+object AHtml
 { /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
-  def apply(link: String, label: String = ""): HtmlA =
+  def apply(link: String, label: String = ""): AHtml =
   { val label2 = ife(label == "", link, label)
-    new HtmlA(link, RArr(label2))
+    new AHtml(link, RArr(label2))
   }
 
   /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
-  def apply(link: AllDirFilePathBase, label: String): HtmlA = apply(link.asStr, label)
+  def apply(link: AllDirFilePathBase, label: String): AHtml = apply(link.asStr, label)
 
   /** Factory apply method for creating HTML anchor element from an [[PageFile]] with a path to the file name. There is an apply overload without a path. */
-  def apply(page: PageFile, pathStr: String): HtmlA = new HtmlA(pathStr / page.fileName, RArr(page.titleStr))
+  def apply(page: PageFile, pathStr: String): AHtml = new AHtml(pathStr / page.fileName, RArr(page.titleStr))
 
   /** Factory apply method for creating HTML anchor element from an [[PageFile]], with no path to the file name. There is an apply overload with a
    * [[String]] for the path. */
-  def apply(page: PageFile): HtmlA = new HtmlA(page.fileName, RArr(page.titleStr))
+  def apply(page: PageFile): AHtml = new AHtml(page.fileName, RArr(page.titleStr))
 }
 
 /** HTML noscript element. */
-case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class NoScriptHtml(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tagName: String = "noscript"
 }
 
-object HtmlNoScript
+object NoScriptHtml
 { /** Factory apply method for creating an HTML no-script element */
-  def apply(): HtmlNoScript = new HtmlNoScript(RArr("This page will not function properly without Javascript enabled"))
+  def apply(): NoScriptHtml = new NoScriptHtml(RArr("This page will not function properly without Javascript enabled"))
 }
 
 /** HTML script element. */
-case class HtmlScript(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class ScriptHtml(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tagName: String = "script"
 }
 
-/** Companion object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
-object HtmlScript
+/** Companion object for [[ScriptHtml]] class, HTML script element Contains factory methods for creating the src and function call elements. */
+object ScriptHtml
 { /** Sets the link for a JavaScript script file. */
-  def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeJsAtt, SrcAtt(src)))
+  def jsSrc(src: String): ScriptHtml = ScriptHtml(RArr(), RArr(TypeJsAtt, SrcAtt(src)))
 
   /** Sets the function for an external JavaScript call. */
-  def main(stem: String): HtmlScript = HtmlScript(RArr(stem + ".main()"), RArr(TypeJsAtt))
+  def main(stem: String): ScriptHtml = ScriptHtml(RArr(stem + ".main()"), RArr(TypeJsAtt))
   
-  def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr), RArr(TypeJsAtt))
+  def inlineJsStr(codeStr: String): ScriptHtml = ScriptHtml(RArr(codeStr), RArr(TypeJsAtt))
 }
 
 /** HTML style element. note there is also a CSS [[StyleAtt]] attribute. */

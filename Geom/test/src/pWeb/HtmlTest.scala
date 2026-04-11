@@ -5,8 +5,8 @@ import utest._
 object HtmlTest extends TestSuite
 {
   val tests = Tests {
-    val p1 = HtmlP("Hi")
-    val p2 = HtmlP("Hi again!")
+    val p1 = PHtml("Hi")
+    val p2 = PHtml("Hi again!")
     val sectStr0 = HtmlSection(p1).out(0)
     val sectStr0c = "<section>\n  <p>Hi\n  </p>\n</section>"
     val sectStr1 = HtmlSection(p1).out(2)
@@ -21,7 +21,7 @@ object HtmlTest extends TestSuite
     }
 
     val li0 = HtmlLi("Pot")
-    val a0 = HtmlA("house.com", "House")
+    val a0 = AHtml("house.com", "House")
     val li1 = HtmlLi(a0)
     test("Lists")
     { li0.out(0) ==> "<li>Pot</li>"

@@ -9,7 +9,7 @@ object ScalaOSPage extends OSDocumentationPage
   override def body: BodyHtml = BodyHtml(HtmlH1("Geom Module"), central)
   def central: DivHtml = DivHtml.classAtt("central", p1)
 
-  val p1 = HtmlP("An operating system built from scratch with just a Linux Kernel. Don't know if this project wil ever get anywhere.",
+  val p1 = PHtml("An operating system built from scratch with just a Linux Kernel. Don't know if this project wil ever get anywhere.",
   BashLine("sudo apt install libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm"),
   BashLine("git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git"),
   BashLine("cd linux-stable"),

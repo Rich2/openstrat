@@ -16,21 +16,21 @@ object IndexPage extends IndexPage
   def hist: HtmlLi = HtmlLi("Graphics for the display of historical information.")
   def geom1: HtmlLi = HtmlLi("A functional Geometry and Vector Graphics library with various supporting utilities.")
 
-  def devInfo = HtmlA("Documentation/dev.html", "Info for developers here.")
-  def begInfo = HtmlA("Documentation/newdevs.html", "Info for new developers here.")
+  def devInfo = AHtml("Documentation/dev.html", "Info for developers here.")
+  def begInfo = AHtml("Documentation/newdevs.html", "Info for new developers here.")
 
   def menu: HtmlLargeOl = HtmlLargeOl(util, geom, tile, egrid, apps, dev)
 
-  def intro: HtmlP = HtmlP("The Code is currently organised into 6 modules.".htmlB,
+  def intro: PHtml = PHtml("The Code is currently organised into 6 modules.".htmlB,
     "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")
 
-  def util: HtmlLi = HtmlLi(HtmlA("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
+  def util: HtmlLi = HtmlLi(AHtml("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
   |persistence system and an error system.""".stripMargin)
 
   def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurement units, Basic 2D and 3D geometry,
   |Earth Geometry, functional Graphics and code for creating HTTP, HTML, CSS and SVG and other XML.""".stripMargin)
 
-  def tile: HtmlLi = HtmlLi(HtmlA("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
+  def tile: HtmlLi = HtmlLi(AHtml("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
   |hexagonal, as well as systems of grids.""".stripMargin)
   
   def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/egrid.html", "EGrid Module", """Tiling of the whole world in Hex grids, defining the changes over the
@@ -38,13 +38,13 @@ object IndexPage extends IndexPage
   |higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world will be organised according
   |to a number of levels, which are likely to change over increasingly shorter historical time frames.""".stripMargin)
 
-  def apps: HtmlLi = HtmlLi(HtmlA(AppsPage, "Documentation"), "This module for end-user applications, that may eventually end up in their own repositories")
+  def apps: HtmlLi = HtmlLi(AHtml(AppsPage, "Documentation"), "This module for end-user applications, that may eventually end up in their own repositories")
 
-  def dev: HtmlLi = HtmlLi(HtmlA(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
+  def dev: HtmlLi = HtmlLi(AHtml(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
-  SpanLine(HtmlA("Documentation/tomcat.html", "Apache Tomcat Documentation")))
+  SpanLine(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")))
 
-  def vic2: HtmlP = HtmlP(HtmlA(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
+  def vic2: PHtml = PHtml(AHtml(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
 
   def iconsHtml: XmlAsString ="""<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
   |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>

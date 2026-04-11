@@ -35,7 +35,7 @@ case class HtmlQ(valueStr: String, citeStr: String = "") extends HtmlInedit
 }
 
 /** HTML paragraph with a note ID attribute. */
-case class HtmlNote(num: Int, contextStr: String) extends HtmlP
+case class HtmlNote(num: Int, contextStr: String) extends PHtml
 { override def attribs: RArr[XAtt] = RArr(IdAtt(s"note$num"))
   override def contents: RArr[XCon] = RArr(contextStr)
 }
@@ -53,7 +53,7 @@ class NoteTaker
   def newNote(contextContent: RArr[XCon]): HtmlSup =
   { val num = len + 1
     acc.grow(Note(num, contextContent))
-    HtmlSup(HtmlA(s"#note$num", s"fn$num"))
+    HtmlSup(AHtml(s"#note$num", s"fn$num"))
   }
 
   /** Creates an HTML block quote with a footnote. */
@@ -62,15 +62,15 @@ class NoteTaker
 
   /** Creates an HTML block quote with a footnote. */
   def blockQuote(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): HtmlBlockQuote =
-  { val sup = newNote(HtmlA(citeStr, linkLabel) %: noteContents)
+  { val sup = newNote(AHtml(citeStr, linkLabel) %: noteContents)
     HtmlBlockQuote(citeStr, quotecontents +% sup)
   }
 
   /** Produces an HTML section element with the accumulated notes as HTML paragraph elements. */
   def noteSect: HtmlSection =
-  { val notes: RArr[HtmlP] = acc.map{nt =>
+  { val notes: RArr[PHtml] = acc.map{nt =>
       val content: RArr[XCon] = HtmlB(s"${nt.num.str}.") %: nt.citeContent
-      HtmlP.id(s"note${nt.num.str}", content)
+      PHtml.id(s"note${nt.num.str}", content)
     }
 
     HtmlSection(HtmlH2("Notes") %: notes)
