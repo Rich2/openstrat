@@ -62,31 +62,31 @@ object HtmlStyle
 }
 
 /** Html H1 header element. */
-case class HtmlH1(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H1Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { override def tagName = "h1"
 }
 
 /** Html H2 header element. */
-case class HtmlH2(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H2Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h2"
 }
 
 /** Html H3 header element. */
-case class HtmlH3(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H3Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h3"
 }
 
 /** Html H4 header element. */
-case class HtmlH4(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H4Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h4"
 }
 
 /** HTML button element. */
-class HtmlButton(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
+class ButtonHtml(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tagName = "button"
 }
 
-object HtmlButton
+object ButtonHtml
 { /** Factory apply method to create HTML button element. */
-  def apply(inp: String): HtmlButton = new HtmlButton(RArr(inp), RArr(TypeSubmitAtt))
+  def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(TypeSubmitAtt))
 }

@@ -18,26 +18,26 @@ object NewDevsPage extends OSDocumentationPage
     gitCommandList)
 
   def gitCommandList =  UlHtml(
-    HtmlLi("git clone https://github.com/Rich2/openstrat.git".htmlBash, """clone Used when you want to copy all the files locally (for the 1st time or when
+    LiHtml("git clone https://github.com/Rich2/openstrat.git".htmlBash, """clone Used when you want to copy all the files locally (for the 1st time or when
     you've deleted the project directory) to grab your own copy of openstrat from github""".stripMargin,
     AHtml("https://github.com/Richtype/openstrat"), "to your local folder."),
 
-    HtmlLi("cd openstrat".htmlBash, "The change to the newly created openstrat project folder."),
-    HtmlLi("git pull origin master".htmlBash, "Bring your local copy up to date with Github."),
-    HtmlLi("git add -A".htmlBash, "Staging: tell git you've made new files to add to the project."),
-    HtmlLi("""git commit -m "A description of this commit."""".htmlBash, "Describe the changes."),
-    HtmlLi("git push origin master".htmlBash, "Now push your local changes to master up to Github."),
-    HtmlLi("""git commit -a -m "A description of this commit."""".htmlBash, """Staging without adding new files## push alternative method (you've only made
+    LiHtml("cd openstrat".htmlBash, "The change to the newly created openstrat project folder."),
+    LiHtml("git pull origin master".htmlBash, "Bring your local copy up to date with Github."),
+    LiHtml("git add -A".htmlBash, "Staging: tell git you've made new files to add to the project."),
+    LiHtml("""git commit -m "A description of this commit."""".htmlBash, "Describe the changes."),
+    LiHtml("git push origin master".htmlBash, "Now push your local changes to master up to Github."),
+    LiHtml("""git commit -a -m "A description of this commit."""".htmlBash, """Staging without adding new files## push alternative method (you've only made
     |changes to existing files shorthand version of the above but will not take into account any new files you may have created."""),
-    HtmlLi("git status".htmlBash, "To check the status of your copy of master."),
-    HtmlLi("""git config --global credential.helper "cache --timeout=3600"""".htmlBash, """Cache user name / password store username/password for a set number",
+    LiHtml("git status".htmlBash, "To check the status of your copy of master."),
+    LiHtml("""git config --global credential.helper "cache --timeout=3600"""".htmlBash, """Cache user name / password store username/password for a set number",
     |of seconds, the next time you push""")
   )
 
   def sbtCommands = SectionH2("Sbt", """A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is for compiling and
   |running the applications and other tasks.""".stripMargin,
   UlHtml(
-    HtmlLi("clean".htmlSbt, "Gets rid of the cache"),
-    HtmlLi("Util/clean".htmlSbt, "To clean an individual module")
+    LiHtml("clean".htmlSbt, "Gets rid of the cache"),
+    LiHtml("Util/clean".htmlSbt, "To clean an individual module")
   ))
 }

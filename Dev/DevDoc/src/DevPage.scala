@@ -11,10 +11,10 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   val scVer: String = "3.8.3"
 
   def central: DivHtml = DivHtml.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
-  def list: OlSection = OlSection(HtmlH2("The Dev module contains"),
-    HtmlLi("JavaFx application selection and developer settings for the different apps.", AHtml("osapp.jar", "Runnable jar")),
-    HtmlLi("Generates the HTML and CSS files for the website, including this file."),
-    HtmlLi("Creates Servlets for Tomcat / Jetty Servers.")
+  def list: OlSection = OlSection(H2Html("The Dev module contains"),
+    LiHtml("JavaFx application selection and developer settings for the different apps.", AHtml("osapp.jar", "Runnable jar")),
+    LiHtml("Generates the HTML and CSS files for the website, including this file."),
+    LiHtml("Creates Servlets for Tomcat / Jetty Servers.")
   )
 
   def p1: PHtml = PHtml("It currently works on JavaFx and web page. Using canvas on both platforms. See", "../api/index.html", "Scala Docs".htmlPath, "and see",
@@ -40,22 +40,22 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
     "Mill: 1.1.5 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
-    HtmlLi("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
-    HtmlLi("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
-    HtmlLi("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
-    HtmlLi("~Util/test".htmlSbt, "Rerun tests on Util module."),
-    HtmlLi("~Geom/test".htmlSbt, "Rerun tests on Geom module."),
-    HtmlLi("~Tiling/test".htmlSbt, "Rerun tests on Tiling module."),
-    HtmlLi("~Dev/test".htmlSbt, "Rerun tests on, Dev module."),
-    HtmlLi("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test".htmlSbt, "Rerun tests on the 5 modules."),
+    LiHtml("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
+    LiHtml("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
+    LiHtml("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
+    LiHtml("~Util/test".htmlSbt, "Rerun tests on Util module."),
+    LiHtml("~Geom/test".htmlSbt, "Rerun tests on Geom module."),
+    LiHtml("~Tiling/test".htmlSbt, "Rerun tests on Tiling module."),
+    LiHtml("~Dev/test".htmlSbt, "Rerun tests on, Dev module."),
+    LiHtml("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test".htmlSbt, "Rerun tests on the 5 modules."),
 
-    HtmlLi("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
+    LiHtml("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
     s"target/$scVer/unidoc/".htmlPath),
 
-    HtmlLi("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
+    LiHtml("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
     s"Dev/JsAgg/target/$scVer/unidoc/".htmlPath),
 
-    HtmlLi("bothDoc".htmlSbt, "Will perform both the above tasks.")
+    LiHtml("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )
 
   def sbtCommands2: PHtml = PHtml("The tilde", "~".htmlSbt, """ tells sbt to rerun the command every time you modify and save a source file. The first command
@@ -69,7 +69,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   def sbt3D = PHtml("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
   
   def credits: UlSection = UlSection("<h3>Credits</h3>",
-    HtmlLi.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
-    HtmlLi.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")
+    LiHtml.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
+    LiHtml.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")
   )
 }

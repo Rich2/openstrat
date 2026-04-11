@@ -63,9 +63,9 @@ object DevMisc extends SectionHtml
   def intellij = SectionH2("Intellij IDEA",
     BashLine("sudo tar -xzf idea-2026.1.tar.gz -C /opt"),
     UlSection("For IntelliJ useful options:",
-      HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
-      HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
-      HtmlLi("Project-Pane => Options -> 'Flatten packages'"))
+      LiHtml("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
+      LiHtml("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
+      LiHtml("Project-Pane => Options -> 'Flatten packages'"))
   )
 
   def chrome: SectionH2 = SectionH2("Chrome",

@@ -43,4 +43,4 @@ object DivHtml
   class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends DivHtml, HtmlOwnLine
 }
 
-trait HtmlDivLine extends DivHtml, HtmlOwnLine
+trait DivLine extends DivHtml, HtmlOwnLine

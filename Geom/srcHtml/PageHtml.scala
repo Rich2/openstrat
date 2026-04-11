@@ -28,7 +28,7 @@ object PageHtml
   def apply(head: HeadHtml, body: BodyHtml): PageHtml = HtmlPageGen(head, body)
 
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
-  def titleOnly(title: String, bodyContent: String): PageHtml = HtmlPageGen(HeadHtml.title(title), BodyHtml(HtmlH1(title), bodyContent))
+  def titleOnly(title: String, bodyContent: String): PageHtml = HtmlPageGen(HeadHtml.title(title), BodyHtml(H1Html(title), bodyContent))
   
   /** General implementation class for [[PageHtml]]. */
   case class HtmlPageGen(head: HeadHtml, body: BodyHtml) extends PageHtml
@@ -45,14 +45,14 @@ trait PageFile extends PageHtml, OutElemFile
   /** The default file name stem for this HTML page file. */
   override def fileName: String = fileNameStem + ".html"
 
-  /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
+  /** creates an HTML head element with [[TitleHtml]], [[CssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
   def headCss(cssFileStem: String, otherContents: XConCompound*): HeadHtml =
-    new HeadHtml(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+    new HeadHtml(RArr[XConCompound](TitleHtml(titleStr), CssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 
-  /** creates an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[FaviconSvgLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
+  /** creates an HTML head element with [[TitleHtml]], [[CssLink]], [[FaviconSvgLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
    * elements. */
   def headFavCss(cssFileStem: String, otherContents: XConCompound*): HeadHtml =
-      new HeadHtml(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, FaviconSvgLink, HtmlViewDevWidth) ++ otherContents)
+      new HeadHtml(RArr[XConCompound](TitleHtml(titleStr), CssLink(cssFileStem), HtmlUtf8, FaviconSvgLink, HtmlViewDevWidth) ++ otherContents)
       
   override def head: HeadHtml = HeadHtml.title(titleStr)
 }
@@ -75,5 +75,5 @@ trait HtmlPageNotFound extends PageHtml
 /** A standard off the shelf 404 HTML page. */
 case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
 { override def head: HeadHtml = HeadHtml.title("Page not Found")
-  override def body: BodyHtml = BodyHtml(HtmlH1("404" -- NotFoundUrl -- "not found on this server"))
+  override def body: BodyHtml = BodyHtml(H1Html("404" -- NotFoundUrl -- "not found on this server"))
 }

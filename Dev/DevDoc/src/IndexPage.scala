@@ -12,9 +12,9 @@ object IndexPage extends IndexPage
   def central: DivHtml = DivHtml.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, intro, menu, vic2)
 
   def focus: OlSection = OlSection.h2("This project has 3 main focuses", strat, hist, geom1)
-  def strat: HtmlLi = HtmlLi("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
-  def hist: HtmlLi = HtmlLi("Graphics for the display of historical information.")
-  def geom1: HtmlLi = HtmlLi("A functional Geometry and Vector Graphics library with various supporting utilities.")
+  def strat: LiHtml = LiHtml("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
+  def hist: LiHtml = LiHtml("Graphics for the display of historical information.")
+  def geom1: LiHtml = LiHtml("A functional Geometry and Vector Graphics library with various supporting utilities.")
 
   def devInfo = AHtml("Documentation/dev.html", "Info for developers here.")
   def begInfo = AHtml("Documentation/newdevs.html", "Info for new developers here.")
@@ -24,23 +24,23 @@ object IndexPage extends IndexPage
   def intro: PHtml = PHtml("The Code is currently organised into 6 modules.".htmlB,
     "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")
 
-  def util: HtmlLi = HtmlLi(AHtml("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
+  def util: LiHtml = LiHtml(AHtml("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
   |persistence system and an error system.""".stripMargin)
 
-  def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurement units, Basic 2D and 3D geometry,
+  def geom: LiHtml = LiHtml.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurement units, Basic 2D and 3D geometry,
   |Earth Geometry, functional Graphics and code for creating HTTP, HTML, CSS and SVG and other XML.""".stripMargin)
 
-  def tile: HtmlLi = HtmlLi(AHtml("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
+  def tile: LiHtml = LiHtml(AHtml("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
   |hexagonal, as well as systems of grids.""".stripMargin)
   
-  def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/egrid.html", "EGrid Module", """Tiling of the whole world in Hex grids, defining the changes over the
+  def egrid: LiHtml = LiHtml.linkAndText("Documentation/egrid.html", "EGrid Module", """Tiling of the whole world in Hex grids, defining the changes over the
   |course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and
   |higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world will be organised according
   |to a number of levels, which are likely to change over increasingly shorter historical time frames.""".stripMargin)
 
-  def apps: HtmlLi = HtmlLi(AHtml(AppsPage, "Documentation"), "This module for end-user applications, that may eventually end up in their own repositories")
+  def apps: LiHtml = LiHtml(AHtml(AppsPage, "Documentation"), "This module for end-user applications, that may eventually end up in their own repositories")
 
-  def dev: HtmlLi = HtmlLi(AHtml(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
+  def dev: LiHtml = LiHtml(AHtml(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
   SpanLine(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")))
 

@@ -16,7 +16,7 @@ object UlHtml
   def apply(contents: XCon*): UlHtml = UlHtmlGen(contents.toArr, RArr())
 
   /** Factory method for HTML UL unordered list from [[String]]s. */
-  def strs(items: String*): UlHtml = UlHtmlGen(items.mapArr(HtmlLi(_)), RArr())
+  def strs(items: String*): UlHtml = UlHtmlGen(items.mapArr(LiHtml(_)), RArr())
 
   def noStyle(contents: XCon*): UlHtml = UlHtmlGen(contents.toArr, RArr(ListStyleNoneAtt))
   
@@ -38,34 +38,34 @@ object OlHtml
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): OlHtml = OlHtmlGen(contents, attribs)
 
   /** Factory method for HTML OL ordered list from [[String]]s. */
-  def strs(items: String*): OlHtml = OlHtmlGen(items.mapArr(HtmlLi(_)), RArr())
+  def strs(items: String*): OlHtml = OlHtmlGen(items.mapArr(LiHtml(_)), RArr())
 
   /** Factory method for HTML OL ordered list from [[String]]s. */
   def noSpaceStrs(items: String*): OlHtml =
   { val style = StyleAtt(CssLi(Margin0Dec, Padding0Dec, BorderNoneDec))
-    new OlHtmlGen(items.mapArr(HtmlLi(_)), RArr(style))
+    new OlHtmlGen(items.mapArr(LiHtml(_)), RArr(style))
   }
 
   case class OlHtmlGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends OlHtml
 }
 
 /** Html LI, list item element. */
-case class HtmlLi(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class LiHtml(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tagName: String = "li"
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
-object HtmlLi
-{ /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
-  def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
+object LiHtml
+{ /** Factory apply method for HTML LI list element [[LiHtml]] class. */
+  def apply(contents: XCon*): LiHtml = new LiHtml(contents.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: String, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(AHtml(link, label)), attribs.toArr)
+  def a(link: String, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link, label)), attribs.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: AllDirFilePathBase, label: String, attribs: XAtt*): HtmlLi = new HtmlLi(RArr(AHtml(link.asStr, label)), attribs.toArr)
+  def a(link: AllDirFilePathBase, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
 
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
-  def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): HtmlLi =
-    new HtmlLi(RArr(new AHtml(link, RArr(label)), otherText), attribs.toArr)
+  def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): LiHtml =
+    new LiHtml(RArr(new AHtml(link, RArr(label)), otherText), attribs.toArr)
 }

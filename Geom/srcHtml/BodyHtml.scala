@@ -1,15 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** The "html" HTML element */
-case class HtmlHtml(head: HeadHtml, body: BodyHtml, attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
-{ def tagName: String = "html"
-  override def contents: RArr[HtmlUnvoid] = RArr(head, body)
-
-  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-    openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag
-}
-
 /** The HTML body element. */
 class BodyHtml(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "body"
@@ -27,5 +18,5 @@ object BodyHtml
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): BodyHtml = new BodyHtml(contents, attribs)
 
   /** Factory method to create an HTML body element, with no attributes, whose first contents element is an HTNL H1 header. */
-  def h1(headerStr: String, otherContents: XCon*): BodyHtml = new BodyHtml(HtmlH1(headerStr) %: otherContents.toArr, RArr())
+  def h1(headerStr: String, otherContents: XCon*): BodyHtml = new BodyHtml(H1Html(headerStr) %: otherContents.toArr, RArr())
 }

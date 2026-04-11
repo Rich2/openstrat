@@ -60,7 +60,7 @@ object TomcatPage extends PageHtmlUpdater
 
   def steps = OlHtml(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
-  val s1 = HtmlLi("Upgrade packages.",
+  val s1 = LiHtml("Upgrade packages.",
   BashLine("sudo apt update"),
   BashLine("sudo apt upgrade"),
   "Install Fail2Ban to protect against brute force login attacks",
@@ -68,7 +68,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine("sudo systemctl enable --now fail2ban"),
   )
 
-  val s2 = HtmlLi("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
+  val s2 = LiHtml("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with
   |money you could probably get away with 2 gigs, but I would recommend starting with a comfortable 4 gigs. When starting out I recommend just buying monthly,
   |as your needs will change. For the time being I don't have enough experience to make recommendations. I've had good service from Digital Ocean for a number
@@ -77,7 +77,7 @@ object TomcatPage extends PageHtmlUpdater
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
   
-  def s3 = HtmlLi("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
+  def s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-${n.str0}-jdk -y"),
   "Check the version",
   BashLine("java -version"),
@@ -95,7 +95,7 @@ object TomcatPage extends PageHtmlUpdater
   CodeOutputLine("/usr/lib/jvm/java-25-openjdk-amd64")
   )
 
-  val s4 = HtmlLi(
+  val s4 = LiHtml(
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
   |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
   |username.""". stripMargin,
@@ -103,7 +103,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine.inputText(uNameIUT)(uName => s"sudo passwd $uName"),  
   )
 
-  val s5 = HtmlLi("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
+  val s5 = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine("sudo mkdir /opt/tomcat"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
@@ -116,7 +116,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine(tomcatDirPrompt, "mkdir Base")
   )
 
-  val s6 = HtmlLi("Go to the Tomcat Download page: ", AHtml("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
+  val s6 = LiHtml("Go to the Tomcat Download page: ", AHtml("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
   |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
   |specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version, because
   |Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next command to
@@ -127,7 +127,7 @@ object TomcatPage extends PageHtmlUpdater
     SpanInlineInedit.inputText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
   )
 
-  val s7 = HtmlLi("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
+  val s7 = LiHtml("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
   BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
   BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
@@ -136,7 +136,7 @@ object TomcatPage extends PageHtmlUpdater
   CodeOutputLine.inputText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
   )
 
-  val s8 = HtmlLi("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to the base
+  val s8 = LiHtml("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to the base
   |directory structure. If the catalina base and catalina home directories are the same, which is often the case in beginners installation instructions, then
   |this is redundant.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base/logs"),
@@ -150,7 +150,7 @@ object TomcatPage extends PageHtmlUpdater
   HtmlCodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
   )
 
-  val s9 = HtmlLi("Create a systemd unit file.",
+  val s9 = LiHtml("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   "Add the following code. Then control o, return, control x.",
   HtmlCodeLines(StrArr(
@@ -184,7 +184,7 @@ object TomcatPage extends PageHtmlUpdater
   )
   )
 
-  val s10: HtmlLi = HtmlLi(
+  val s10: LiHtml = LiHtml(
   "Check if Apache2 Vanilla is running. It seems to be running by default on Ubuntu Server.",
   BashLine("sudo systemctl status apache2"),
   "If its running",
@@ -199,7 +199,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine("sudo systemctl enable tom11"),
   )
 
-  val s11: HtmlLi = HtmlLi("To switch to port 80 the http defaults",
+  val s11: LiHtml = LiHtml("To switch to port 80 the http defaults",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
   BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
@@ -221,7 +221,7 @@ object TomcatPage extends PageHtmlUpdater
   "The page should now be available without the port :8080 suffix."
   )
 
-  val s12 = HtmlLi("Install snap",
+  val s12 = LiHtml("Install snap",
   BashLine("sudo apt install snapd"),
   "Install certbot",  
   BashLine("sudo snap install --classic certbot"),
@@ -244,7 +244,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine.inputText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
   )
 
-  val s13 = HtmlLi("Configure Tomcat to use 443 & link to ssl cert above",
+  val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine("nano /opt/tomcat/Base/conf/server.xml"),
   "Uncomment the section and modify as below",
   HtmlCodePre.inputText(domainIUT){ dName =>

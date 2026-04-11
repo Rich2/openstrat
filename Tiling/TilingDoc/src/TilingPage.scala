@@ -11,74 +11,74 @@ object TilingPage extends OSDocumentationPage
   override val fileNameStem: String = "tiling"
   override def body: BodyHtml = BodyHtml.h1(titleStr, central)
 
-  def central: DivHtml = DivHtml.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)
+  def central: DivHtml = DivHtml.classAtt("central", list, H2Html("Game Terminology"), CoordSystem, terms2, turnRes)
 
-  def list: OlSection = OlSection(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
+  def list: OlSection = OlSection(H2Html("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
-  def coord: HtmlLi = HtmlLi("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each have" --
+  def coord: LiHtml = LiHtml("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each have" --
     "their own unique 2 integer coordinates.")
 
-  def tileGeom: HtmlLi = HtmlLi("Tile collections, tile paths and tile polygons and other tile structures, allowing their manipulation as tiles.")
+  def tileGeom: LiHtml = LiHtml("Tile collections, tile paths and tile polygons and other tile structures, allowing their manipulation as tiles.")
 
-  def grid: HtmlLi = HtmlLi("Tile grid classes that describe the tile grids but do not contain any data. For example an 8 by 8 square grid" +
+  def grid: LiHtml = LiHtml("Tile grid classes that describe the tile grids but do not contain any data. For example an 8 by 8 square grid" +
     " would describe a chess board, but the class contains no data as to the position of the chess pieces, or even that it is being used for a" +
     "chess game.")
 
-  def sys: HtmlLi = HtmlLi("Tile Grid system classes allowing for multiple hex grids to be manipulated the same as a single grid. This enables" +
+  def sys: LiHtml = LiHtml("Tile Grid system classes allowing for multiple hex grids to be manipulated the same as a single grid. This enables" +
     "the code in the EGrid module and other possible non Euclidean tile systems.")
 
-  def proj: HtmlLi = HtmlLi("Projections. Projections allow the separation of the visual display of tile geometry from the applications and" +
+  def proj: LiHtml = LiHtml("Projections. Projections allow the separation of the visual display of tile geometry from the applications and" +
     " objects within the grid systems.")
 
-  def terms: HtmlLi = HtmlLi("Scenario and Game terminology,")
+  def terms: LiHtml = LiHtml("Scenario and Game terminology,")
 
-  def turn: HtmlLi = HtmlLi("Turn system allowing those grid systems to be used in, multi, simultaneous, homogenious segment simultaneous turn" +
+  def turn: LiHtml = LiHtml("Turn system allowing those grid systems to be used in, multi, simultaneous, homogenious segment simultaneous turn" +
     " games and productions.")
 
-  def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
+  def exs: LiHtml = LiHtml("Example games to demonstrate the use of the design principles and code of this module.")
 
-  def terms2: OlHtml = OlHtml(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
+  def terms2: OlHtml = OlHtml(LiHtml("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
     "the GameWorld or the OutWorld."),
-    HtmlLi("<b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for" --
+    LiHtml("<b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for" --
       "submission of turn Directives. Rules on credits from InGame achievements or role-playering accreditation on future assignment of InWorld" --
       "entities. Rules on Player communication."),
-    HtmlLi("<b>OutWorld</b> Anything outside of the Player universe. This can include servers, security, payement etc."),
-    HtmlLi("<b>Player</b> A GameWorld entity. Maybe a human, an AI or a script."),
-    HtmlLi("<b>PlayerControl</b> Assignment of an InWorld entity to a Player's control."),
-    HtmlLi("<b>Directive</b> A player directive given by a player to an InWorld entity at the begining of a turn."),
-    HtmlLi("<b>ControlHeirarchy</b> The precedence order of PlayerControl for Directives if multiple players are given control of an InGame entity."),
-    HtmlLi("<b>Intention</b> Intention to make an effect by an InGame object. An Intention has a single SourceTile and a single TargetTile."),
-    HtmlLi("<b>SourceTile</b> The location of an entity making an Intention."),
-    HtmlLi("<b>TargetTile</b> The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a" --
+    LiHtml("<b>OutWorld</b> Anything outside of the Player universe. This can include servers, security, payement etc."),
+    LiHtml("<b>Player</b> A GameWorld entity. Maybe a human, an AI or a script."),
+    LiHtml("<b>PlayerControl</b> Assignment of an InWorld entity to a Player's control."),
+    LiHtml("<b>Directive</b> A player directive given by a player to an InWorld entity at the begining of a turn."),
+    LiHtml("<b>ControlHeirarchy</b> The precedence order of PlayerControl for Directives if multiple players are given control of an InGame entity."),
+    LiHtml("<b>Intention</b> Intention to make an effect by an InGame object. An Intention has a single SourceTile and a single TargetTile."),
+    LiHtml("<b>SourceTile</b> The location of an entity making an Intention."),
+    LiHtml("<b>TargetTile</b> The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a" --
       "non adjacent tile.")
   )
 
   def turnRes: SectionHtml = new SectionHtml
   {
-    override def contents: RArr[XConCompound] = RArr(HtmlH2("Turn Resolution"), list)
+    override def contents: RArr[XConCompound] = RArr(H2Html("Turn Resolution"), list)
 
     def list = OlHtml(
-      HtmlLi("Verify directives from Players are valid and under the PlayerControl"),
-      HtmlLi("Resolve ControlHeirarchy"),
-      HtmlLi("Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects."),
-      HtmlLi("Aggregate Intentions."),
-      HtmlLi("Add subsidary Intentions."),
-      HtmlLi(RArr(UlSection.strs("Resolve Segment",
+      LiHtml("Verify directives from Players are valid and under the PlayerControl"),
+      LiHtml("Resolve ControlHeirarchy"),
+      LiHtml("Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects."),
+      LiHtml("Aggregate Intentions."),
+      LiHtml("Add subsidary Intentions."),
+      LiHtml(RArr(UlSection.strs("Resolve Segment",
         "Accumulate. Aggregate the intentions in their TargetTiles.",
         "Adjudicate. Determine the outcome of the Intentions and processes.",
         "Consolidate. Create a new game state from the outcomes of the Intentions on the TargetTile. No Movement is implemented during this stage.",
         "Distribute. Distribute the movement effects of the resolution of the TargetTiles on the SourceTiles in the Consilidated Game State. Moving" --
           "entities from SourceTiles to TargetTiles when appropriate."
       ))),
-      HtmlLi("Repeat Resolve Segment till the given number of segments has been repeated."),
-      HtmlLi("Inform the players, human and AI, of the Turn resolution.")
+      LiHtml("Repeat Resolve Segment till the given number of segments has been repeated."),
+      LiHtml("Inform the players, human and AI, of the Turn resolution.")
     )
   }
 }
 
 object CoordSystem extends SectionHtml
 {
-  override def contents: RArr[XConCompound] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)
+  override def contents: RArr[XConCompound] = RArr(H2Html("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)
 
   val p1 = PHtml("""So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board game
   |Diplomacy the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk, which has become

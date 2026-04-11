@@ -20,14 +20,14 @@ object HtmlTest extends TestSuite
       sectStr2 ==> sectStr2c
     }
 
-    val li0 = HtmlLi("Pot")
+    val li0 = LiHtml("Pot")
     val a0 = AHtml("house.com", "House")
-    val li1 = HtmlLi(a0)
+    val li1 = LiHtml(a0)
     test("Lists")
     { li0.out(0) ==> "<li>Pot</li>"
       a0.out(0) ==> "<a href='house.com'>House</a>"
       li1.out(0) ==> "<li><a href='house.com'>House</a></li>"
-      HtmlLi(a0, "Lets talk about Houses.").out(0) ==> "<li><a href='house.com'>House</a> Lets talk about Houses.</li>"
+      LiHtml(a0, "Lets talk about Houses.").out(0) ==> "<li><a href='house.com'>House</a> Lets talk about Houses.</li>"
     }
   }
 }

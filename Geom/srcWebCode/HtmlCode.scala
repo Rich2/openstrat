@@ -45,7 +45,7 @@ object HtmlCodeInline
   }
 }
 
-class CodeChangeLine(val oldCode: String, val newCode: String, val attribs: RArr[XAtt]) extends HtmlDivLine
+class CodeChangeLine(val oldCode: String, val newCode: String, val attribs: RArr[XAtt]) extends DivLine
 { override def contents: RArr[XCon] = RArr("Change", HtmlCodeInline(oldCode), "to", HtmlCodeInline(newCode))
 }
 

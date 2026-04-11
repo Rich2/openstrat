@@ -11,48 +11,48 @@ case class HeadHtml(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr())
 /** Companion object for the [[HeadHtml]] case class. */
 object HeadHtml
 { /** Factory apply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
-  def apply(titleStr: String, otherContents: XConCompound*): HeadHtml = new HeadHtml(HtmlTitle(titleStr) %: otherContents.toRArr)
+  def apply(titleStr: String, otherContents: XConCompound*): HeadHtml = new HeadHtml(TitleHtml(titleStr) %: otherContents.toRArr)
 
-  /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
+  /** Factory method for creating an HTML head element with [[TitleHtml]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
   def title(titleStr: String, otherContents: XConCompound*): HeadHtml =
-  { val seq = List(HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth) ++ otherContents
+  { val seq = List(TitleHtml(titleStr), HtmlUtf8, HtmlViewDevWidth) ++ otherContents
     new HeadHtml(seq.toArr)
   }
 
-  /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
+  /** Factory method for creating an HTML head element with [[TitleHtml]], [[CssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
    *  elements. */
   def titleCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HeadHtml =
-    new HeadHtml(RArr[XConCompound](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+    new HeadHtml(RArr[XConCompound](TitleHtml(titleStr), CssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 
-  /** Factory method for creating an HTML head element with [[HtmlTitle]], [[FaviconSvgLink]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the
+  /** Factory method for creating an HTML head element with [[TitleHtml]], [[FaviconSvgLink]], [[CssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the
    * repeat parameter elements. */
   def titleFavCss(titleStr: String, cssFileStem: String, otherContents: XConCompound*): HeadHtml =
-    new HeadHtml(RArr[XConCompound](HtmlTitle(titleStr), FaviconSvgLink, HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
+    new HeadHtml(RArr[XConCompound](TitleHtml(titleStr), FaviconSvgLink, CssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth) ++ otherContents)
 }
 
 /** HTML title element. */
-case class HtmlTitle(str: String, attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class TitleHtml(str: String, attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tagName = "title"
   override def contents: RArr[XCon] = RArr(str)  
 }
 
 /** HTML link element. */
-trait HtmlLink extends HtmlVoid
+trait LinkHtml extends HtmlVoid
 { override def tagName: String = "link"
 }
 
 /** HTML CSS link. */
-class HtmlCssLink(val fullFileName: String) extends HtmlLink
+class CssLink(val fullFileName: String) extends LinkHtml
 { override def attribs: RArr[XAtt] = RArr(RelStylesheet, TypeCssAtt, HrefAtt(fullFileName))
 }
 
-/** Companion object for [[HtmlCssLink]] class, contains factory apply method. */
-object HtmlCssLink
-{ /** Factory apply method for [[HtmlCssLink]] class from filename stem, adds the .css file ending. */
-  def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
+/** Companion object for [[CssLink]] class, contains factory apply method. */
+object CssLink
+{ /** Factory apply method for [[CssLink]] class from filename stem, adds the .css file ending. */
+  def apply(fileNameStem: String): CssLink = new CssLink(fileNameStem + ".css")
 }
 
 /** SVG favicon link and icon attributes. */
-object FaviconSvgLink extends HtmlLink
+object FaviconSvgLink extends LinkHtml
 { override def attribs: RArr[XAtt] = RArr(RelAtt("icon"), TypeSvgAtt, FaviconSvgHref)
 }

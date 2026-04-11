@@ -29,7 +29,7 @@ object HtmlLargeOl
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlLargeOl = new HtmlLargeOl(contents, attribs)
 
   /** Factory method for a large HTML OL ordered list from [[String]]s. */
-  def strs(items: String*): HtmlLargeOl = new HtmlLargeOl(items.mapArr(HtmlLi(_)), RArr())
+  def strs(items: String*): HtmlLargeOl = new HtmlLargeOl(items.mapArr(LiHtml(_)), RArr())
 }
 
 /** An HTML UL unordered list with the LargeList CSS class */
@@ -43,5 +43,5 @@ object HtmlLargeUl
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlLargeUl = new HtmlLargeUl(contents, attribs)
 
   /** Factory method for a large HTML UL unordered list from [[String]]s. */
-  def strs(items: String*): HtmlLargeUl = new HtmlLargeUl(items.mapArr(HtmlLi(_)), RArr())
+  def strs(items: String*): HtmlLargeUl = new HtmlLargeUl(items.mapArr(LiHtml(_)), RArr())
 }

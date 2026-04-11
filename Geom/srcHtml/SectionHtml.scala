@@ -21,7 +21,7 @@ object SectionHtml
 /** HTML section element with an h2 element as its 1st content. */
 class SectionH2(val titleStr: String, val otherContents: RArr[XCon], override val attribs: RArr[XAtt]) extends SectionHtml
 { /** The H2 title of this HTML section. */
-  def title: HtmlH2 = HtmlH2(titleStr)
+  def title: H2Html = H2Html(titleStr)
   override def contents: RArr[XCon] = title %: otherContents
 }
 
@@ -31,7 +31,7 @@ object SectionH2
 }
 
 /** HTML OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class OlSection(val header: RArr[XCon], items: RArr[HtmlLi]) extends SectionHtml
+class OlSection(val header: RArr[XCon], items: RArr[LiHtml]) extends SectionHtml
 { override def contents: RArr[XCon] = header +% orderedList
   override def attribs: RArr[XAtt] = RArr()
 
@@ -41,22 +41,22 @@ class OlSection(val header: RArr[XCon], items: RArr[HtmlLi]) extends SectionHtml
 object OlSection
 { /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
  * section. */
-  def apply(header: XCon, items: HtmlLi*): OlSection = new OlSection(RArr(header), items.toArr)
+  def apply(header: XCon, items: LiHtml*): OlSection = new OlSection(RArr(header), items.toArr)
 
   /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    *  section. */
-  def apply(header: RArr[XCon], items: HtmlLi*): OlSection = new OlSection(header, items.toArr)
+  def apply(header: RArr[XCon], items: LiHtml*): OlSection = new OlSection(header, items.toArr)
 
   /** Factory method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    * section. */
-  def strs(header: XCon, items: String*): OlSection = new OlSection(RArr(header), items.mapArr(HtmlLi(_)))
+  def strs(header: XCon, items: String*): OlSection = new OlSection(RArr(header), items.mapArr(LiHtml(_)))
 
   /** Factory method for an HTML OL ordered list, with an H2 header. */
-  def h2(headerStr: String, items: HtmlLi*): OlSection = new OlSection(RArr(HtmlH2(headerStr)), items.toArr)
+  def h2(headerStr: String, items: LiHtml*): OlSection = new OlSection(RArr(H2Html(headerStr)), items.toArr)
 }
 
 /** HTML UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class UlSection(val header: RArr[XCon], items: RArr[HtmlLi]) extends SectionHtml
+class UlSection(val header: RArr[XCon], items: RArr[LiHtml]) extends SectionHtml
 { override def contents: RArr[XCon] = header +% unorderedList
   override def attribs: RArr[XAtt] = RArr()
 
@@ -66,13 +66,13 @@ class UlSection(val header: RArr[XCon], items: RArr[HtmlLi]) extends SectionHtml
 
 object UlSection
 { /** Factory apply method to construct unordered list with a header, as an [[SectionHtml]]. */
-  def apply(header: XCon, items: HtmlLi*): UlSection = new UlSection(RArr(header), items.toArr)
+  def apply(header: XCon, items: LiHtml*): UlSection = new UlSection(RArr(header), items.toArr)
 
   /** Factory method to construct unordered list with a header, as an [[SectionHtml]], where the header is a single [[XCon]] element and the list items are just
    * [[String]]s. */
-  def strs(header: XCon, items: String*): UlSection = new UlSection(RArr(header), items.mapArr(str => HtmlLi(str)))
+  def strs(header: XCon, items: String*): UlSection = new UlSection(RArr(header), items.mapArr(str => LiHtml(str)))
 
   /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    *  section. */
-  def apply(header: RArr[XCon], items: HtmlLi*): UlSection = new UlSection(header, items.toArr)
+  def apply(header: RArr[XCon], items: LiHtml*): UlSection = new UlSection(header, items.toArr)
 }

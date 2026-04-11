@@ -25,37 +25,37 @@ object GeomPage extends OSDocumentationPage
   val list: OlSection =
     OlSection.h2("The Geom module contains", geomItem, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
 
-  def geomItem: HtmlLi =
-    HtmlLi("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections from the Util module.")
+  def geomItem: LiHtml =
+    LiHtml("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections from the Util module.")
 
-  def colourItem: HtmlLi = HtmlLi("Colour class. A 32 bit integer class that can be built from rgba and named defues.")
+  def colourItem: LiHtml = LiHtml("Colour class. A 32 bit integer class that can be built from rgba and named defues.")
 
-  def graphicItem: HtmlLi = HtmlLi("Graphic primitives. Immutable classes for fills, draws and active elements based on the geometry classes.")
+  def graphicItem: LiHtml = LiHtml("Graphic primitives. Immutable classes for fills, draws and active elements based on the geometry classes.")
 
-  def compound: HtmlLi = HtmlLi("Compound Graphics. Again immutable classes. Useful for selection and placing.")
+  def compound: LiHtml = LiHtml("Compound Graphics. Again immutable classes. Useful for selection and placing.")
 
-  def trans: HtmlLi = HtmlLi("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
+  def trans: LiHtml = LiHtml("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
 
-  def canv: HtmlLi = HtmlLi("""An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas, allowing
+  def canv: LiHtml = LiHtml("""An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas, allowing
   |applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require
   |significantly more work than for the ScalaFx canvas or the Html Canvas.""".stripMargin)
 
-  def svg: HtmlLi = HtmlLi("Conversion of Graphic classes into SVG, giving an alternative target and greater flexibility.")
+  def svg: LiHtml = LiHtml("Conversion of Graphic classes into SVG, giving an alternative target and greater flexibility.")
 
-  def web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
+  def web: LiHtml = LiHtml("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
 
-  def geom3: HtmlLi = HtmlLi("""3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be provided, but
+  def geom3: LiHtml = LiHtml("""3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be provided, but
   |currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely possible.""".stripMargin)
 
-  def lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
+  def lessons: LiHtml = LiHtml("Series of lessons / tutorials in geometry and graphics.")
 
-  def earth: HtmlLi = HtmlLi("""Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion between them
+  def earth: LiHtml = LiHtml("""Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion between them
   |and 2D and 3D coordinates.""".stripMargin)
 
   val svgMargin = 50
 
   object Ellipses extends SectionHtml
-  { override def contents: RArr[XConCompound] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
+  { override def contents: RArr[XConCompound] = RArr(H2Html("Circles and Ellipses"), svgs1, svgs2)
 
     val circ2: Circle = Circle.d(200)
     val circ1: Circle = circ2.slateX(-200)
@@ -79,47 +79,47 @@ object GeomPage extends OSDocumentationPage
 }
 
 object LinePathNames extends SectionHtml
-{ override def contents: RArr[XConCompound] = RArr(HtmlH2("Line Paths"), p1, list)
+{ override def contents: RArr[XConCompound] = RArr(H2Html("Line Paths"), p1, list)
   val p1 = PHtml("Operator naming conventions for sequences and line paths.")
 
   /** Line path and [[Arr]] operator list. Note Triple [[String]] quotes can be problematic */
   val list = UlHtml.noStyle(
-  HtmlLi("++ append".htmlScala, "This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example",
+  LiHtml("++ append".htmlScala, "This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example",
   "intArr1 ++ intArr2".htmlScala, "returns a new", "IntArr".htmlScala, ". For the RArr class type widening is allowed. So catsRArr ++ dogsRArr",
   " dogsRArr might return a new RArr[Animal]."),
 
-  HtmlLi("++ append".htmlScala, "Add the operand line path to the end of this line path returning a new line path."),
-  HtmlLi("++ append".htmlScala, "Add the operand line path to this line path returning a new line path."),
-  HtmlLi("|++| appendToPolygon".htmlScala, "Adds a line path to the end of this line path and closes it into a Polygon."),
+  LiHtml("++ append".htmlScala, "Add the operand line path to the end of this line path returning a new line path."),
+  LiHtml("++ append".htmlScala, "Add the operand line path to this line path returning a new line path."),
+  LiHtml("|++| appendToPolygon".htmlScala, "Adds a line path to the end of this line path and closes it into a Polygon."),
 
-  HtmlLi("%: prepend".htmlScala, """This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because
+  LiHtml("%: prepend".htmlScala, """This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because
   |of left right operator precedence, it makes for better combination with the append element method""".stripMargin),
 
-  HtmlLi("%: prepend".htmlScala, "Adds a point to the beginning of a line path, returning a new line path"),
-  HtmlLi("%<: prependReverse".htmlScala, "Adds a point to the beginning of the reverse of a line path, returning a new line path"),
-  HtmlLi("+% appendElem".htmlScala, "Adds an element to the end of this sequence. returning a new sequence."),
-  HtmlLi("+% appendPt".htmlScala, "Adds an point to the end of this line path."),
-  HtmlLi("|+%| appendPt".htmlScala, "Adds an point to the end of this line path and close it into a Polygon."),
+  LiHtml("%: prepend".htmlScala, "Adds a point to the beginning of a line path, returning a new line path"),
+  LiHtml("%<: prependReverse".htmlScala, "Adds a point to the beginning of the reverse of a line path, returning a new line path"),
+  LiHtml("+% appendElem".htmlScala, "Adds an element to the end of this sequence. returning a new sequence."),
+  LiHtml("+% appendPt".htmlScala, "Adds an point to the end of this line path."),
+  LiHtml("|+%| appendPt".htmlScala, "Adds an point to the end of this line path and close it into a Polygon."),
 
-  HtmlLi("+-+ appendTail".htmlScala, """Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters
+  LiHtml("+-+ appendTail".htmlScala, """Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters
   |indicates to drop the first point of the operand.""".stripMargin),
 
-  HtmlLi("|+-+| appendTailToPolygon".htmlScala, """Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters
+  LiHtml("|+-+| appendTailToPolygon".htmlScala, """Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters
   |indicates to drop the first point of the operand.""".stripMargin),
 
-  HtmlLi("++< appendReverse".htmlScala, """Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is
+  LiHtml("++< appendReverse".htmlScala, """Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is
   |the operand that is reversed""".stripMargin),
 
-  HtmlLi("|++<| appendReverseToPolygon".htmlScala, """Append the reverse of a line path to a line path closing it into a polygon. The < character after the ++
+  LiHtml("|++<| appendReverseToPolygon".htmlScala, """Append the reverse of a line path to a line path closing it into a polygon. The < character after the ++
   |indicates that it is the operand to be reversed.""".stripMargin),
 
-  HtmlLi("+<+ reverseAppend".htmlScala, """Reverse this line path and append the operand line path, returning a new line path. The < between the + characters
+  LiHtml("+<+ reverseAppend".htmlScala, """Reverse this line path and append the operand line path, returning a new line path. The < between the + characters
   |indicates that it is this line segment that is reversed""".stripMargin),
 
-  HtmlLi("|+<+| reverseAppendToPolygon".htmlScala, """Reverse this line path and then append the operand line path, closing it into a polygon. The < character
+  LiHtml("|+<+| reverseAppendToPolygon".htmlScala, """Reverse this line path and then append the operand line path, closing it into a polygon. The < character
   |between the + characters indicates that it is this the first line path that is reversed.""".stripMargin),
 
-  HtmlLi("+<+< reverseAppendReverse".htmlScala, """Reverse this line path and append the reverse of the operand line path, returning a new line path. The <
+  LiHtml("+<+< reverseAppendReverse".htmlScala, """Reverse this line path and append the reverse of the operand line path, returning a new line path. The <
   |between the + characters indicates that this line segment is reversed. The < character after the 2nd + charcters indicates that the operand is also
   |reversed""".stripMargin)
   )
@@ -127,10 +127,10 @@ object LinePathNames extends SectionHtml
 
 object LessonLists extends SectionHtml
 { import learn.*
-  val aList = LessonsLaunch.aList.iMap((i, ls) => HtmlLi("A" + (i + 1).str -- ls.title))
-  val bList = LessonsLaunch.bList.iMap((i, ls) => HtmlLi("B" + (i + 1).str -- ls.title))
-  val cList = LessonsLaunch.cList.iMap((i, ls) => HtmlLi("C" + (i + 1).str -- ls.title))
-  val dList = LessonsLaunch.dList.iMap((i, ls) => HtmlLi("D" + (i + 1).str -- ls.title))
-  val eList = LessonsLaunch.eList.iMap((i, ls) => HtmlLi("E" + (i + 1).str -- ls.title))
+  val aList = LessonsLaunch.aList.iMap((i, ls) => LiHtml("A" + (i + 1).str -- ls.title))
+  val bList = LessonsLaunch.bList.iMap((i, ls) => LiHtml("B" + (i + 1).str -- ls.title))
+  val cList = LessonsLaunch.cList.iMap((i, ls) => LiHtml("C" + (i + 1).str -- ls.title))
+  val dList = LessonsLaunch.dList.iMap((i, ls) => LiHtml("D" + (i + 1).str -- ls.title))
+  val eList = LessonsLaunch.eList.iMap((i, ls) => LiHtml("E" + (i + 1).str -- ls.title))
   override val contents: RArr[XConCompound] = RArr(UlHtml(aList), UlHtml(bList), UlHtml(cList), UlHtml(dList), UlHtml(eList))
 }

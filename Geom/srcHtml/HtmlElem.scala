@@ -1,8 +1,17 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML element. */
 trait HtmlElem extends XHmlElem
+
+/** The "html" HTML element */
+case class HtmlHtml(head: HeadHtml, body: BodyHtml, attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
+{ def tagName: String = "html"
+  override def contents: RArr[HtmlUnvoid] = RArr(head, body)
+
+  override def out(indent: Int, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
+    openTag1(indent, line1InputLen, maxLineLen) + head.out() + "\n\n" + body.out(0) + n1CloseTag
+}
 
 /** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
