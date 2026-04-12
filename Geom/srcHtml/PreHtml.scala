@@ -21,13 +21,13 @@ object PreHtml
   def idAtt(idStr: String, contentStr: String , otherAttribs: XAtt*): PreHtml = new PreHtml(idStr, IdAtt(idStr) %: otherAttribs.toRArr)
   
   /** Creates an HTML Pre element and registers the textContent with an HTML Text Input. */
-  def inputText(input: UpdaterInputText)(f: String => String, otherAttribs: XAtt*): PreHtml =
+  def inputText(input: InputUpdaterText)(f: String => String, otherAttribs: XAtt*): PreHtml =
   { def targetId = input.next1Id(f)
     new PreHtml(f(input.valueStr), targetId %: otherAttribs.toRArr)
   }
 
   /** Creates an HTML Pre element and registers the textContent with 2 HTML Text Inputs. */
-  def input2Text(input1: UpdaterInputText, input2: UpdaterInputText, otherAttribs: XAtt*)(f: (String, String) => String): PreHtml =
+  def input2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): PreHtml =
   { def targetId = input1.next2Id1(input2.idStr, f)
     input2.next2Id2(targetId.valueStr, input1.idStr, f)
     new PreHtml(f(input1.valueStr, input2.valueStr), targetId %: otherAttribs.toRArr)

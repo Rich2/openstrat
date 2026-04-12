@@ -35,22 +35,22 @@ object TomcatPage extends PageHtmlUpdater
   val domain1: String = "mywebsite.com"
 
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val uNameIUT: UpdaterInputText = uNameLTI.child2
+  val uNameIUT: InputUpdaterText = uNameLTI.child2
   val osNameLTI = LabelSelect("osName", "Operating System", UbuntuDeriv, ArchDeriv)
   val osNameIUT: SelectHtml = osNameLTI.child2
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val cNameIUT: UpdaterInputText = cNameLTI.child2
+  val cNameIUT: InputUpdaterText = cNameLTI.child2
   val nRam1: Int = 2
   val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
   val ramIUN: InputUpdaterNum = ramLNI.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(uNameIUT, cNameIUT) { (uName, cName) => s"$uName@$cName:/opt/tomcat" }
   val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
-  val tomVarIUT: UpdaterInputText = tomVerLTI.child2
+  val tomVarIUT: InputUpdaterText = tomVerLTI.child2
   val jVer1: Int = 25
   val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
   val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
   val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
-  val domainIUT: UpdaterInputText = domainLTI.child2
+  val domainIUT: InputUpdaterText = domainLTI.child2
 
 
   def p2: PHtml = PHtml("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you

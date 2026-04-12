@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */
-trait SelectHtml extends HtmlTagLines, InputHtmlLike
+trait SelectHtml extends HtmlTagLines, InputLike
 { override def tagName: String = "select"
 
   def visNum: Int
@@ -11,17 +11,7 @@ trait SelectHtml extends HtmlTagLines, InputHtmlLike
   /** Size attribute specifies how many options to be displayed at one time. */
   def sizeAtt = XAttInt("size", visNum)
 
-  /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
-  var callBacks: RArr[CallbackSelect] = RArr()
-
   override def attribs: RArr[XAtt] = idAtt %: sizeAtt %: otherAttribs
-  override def clientCount: Int = callBacks.length
-
-  def nextId(f: String => String): IdAtt =
-  { val newtargetId: String = idStr + clientCount.str
-    callBacks +%= CallbackSelect(newtargetId, f)
-    IdAtt(newtargetId)
-  }
 }
 
 object SelectHtml
@@ -34,6 +24,10 @@ object SelectHtml
 
   class SelectHtmlGen(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends SelectHtml
 }
+
+/** HTML Select element that updates other parts of the page on changed input. */
+class SelectUpdater(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends
+  SelectHtml, InputLikeUpdaterText
 
 /** An HTML label followed by an [[SelectHtml]]. */
 class LabelSelect[T<: OptionHtml](val idStr: String, val label: String, val options: RArr[T], val visNum: Int, val otherAttribs: RArr[XAtt])(using

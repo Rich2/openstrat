@@ -72,7 +72,7 @@ object CodeOutputLine
   def apply(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), RArr())
 
   /** Creates a code output line and registers the textContent with an HTML Text Input. */
-  def inputText(input: UpdaterInputText)(f: String => String): CodeOutputLine =
+  def inputText(input: InputUpdaterText)(f: String => String): CodeOutputLine =
   { def newId = input.next1Id(f)
     new CodeOutputLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
@@ -112,14 +112,14 @@ object CodePre
 
   /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
    * escape the HTML code characters. */
-  def inputText(input: UpdaterInputText, otherAttribs: XAtt*)(f: String => String): CodePre =
+  def inputText(input: InputUpdaterText, otherAttribs: XAtt*)(f: String => String): CodePre =
   { def newId = input.next1Id(f)
     val pre = new PreHtml(f(input.valueStr).escapeHtml, RArr(newId))
     new CodePre(pre, otherAttribs.toRArr)
   }
 
   /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Inputs. */
-  def input2Text(input1: UpdaterInputText, input2: UpdaterInputText, otherAttribs: XAtt*)(f: (String, String) => String): CodePre =
+  def input2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): CodePre =
   { def targetId = input1.next2Id1(input2.idStr, f)
     input2.next2Id2(targetId.valueStr, input1.idStr, f)
     val pre = new PreHtml(f(input1.valueStr, input2.valueStr).escapeHtml, RArr(targetId))

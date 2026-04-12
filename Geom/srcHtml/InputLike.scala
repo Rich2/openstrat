@@ -1,19 +1,39 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import reflect.ClassTag
 
+/** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
+ * with that updater. */
+trait InputLike extends HtmlElem
+{/** The [[String]] of the id attribute. */
+  def idStr: String
 
-
-/** Class to update a page from a text input. */
-class UpdaterInputText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends UpdaterText, InputHtml
-{ override def typeAtt: TypeTextAtt.type = TypeTextAtt
-
-  page.inpAcc +%= this
   
+
+  /** Other attributes in addition to the [[IDAtt]]. */
+  def otherAttribs: RArr[XAtt]
+
+  /** The ID attribute of this element. */
+  def idAtt: IdAtt = IdAtt(idStr)
+}
+
+trait InputLikeUpdater extends InputLike
+{
+  def page: PageHtmlUpdater
+
+  /** The number of page elements that have registered to receive updates from this inout. */
+  def clientCount: Int
+}
+
+trait InputLikeUpdaterText extends InputLikeUpdater
+{
+  page.inpAcc +%= this
+
   /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
   var callBacks: RArr[CallbackText] = RArr()
 
   def clientCount: Int = callBacks.length
+
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
@@ -26,7 +46,7 @@ class UpdaterInputText(val idStr: String, val valueStr: String, val otherAttribs
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
   def next2Id1(otherInpIdStr: String, f: (String, String) => String): IdAtt =
-  { val newTargetId: String = idStr + clientCount.str    
+  { val newTargetId: String = idStr + clientCount.str
     callBacks +%= Callback2Text1(newTargetId, otherInpIdStr, f)
     IdAtt(newTargetId)
   }
@@ -50,24 +70,20 @@ class UpdaterInputText(val idStr: String, val valueStr: String, val otherAttribs
   }
 }
 
-object UpdaterInputText
-{ /** Factory apply method for object to update a page from a text input. */
-  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterInputText = new UpdaterInputText(idStr, valueStr, otherAttribs.toRArr)
+/** A text callback from an input to a textContent. */
+trait CallbackInput
+{ /** The id attribute on the target HTML element whose textContent is to be updated. */
+  def targetId: String
 }
 
-sealed trait CallbackText extends CallbackInput
-case class Callback1Text(targetId: String, f: String => String) extends CallbackText
+/** An HTML span containing a label and an input / select element. */
+trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
+{ /** [[String]] for the id attribute. */
+  def idStr: String
 
-sealed trait Callback2Text extends CallbackText
-{ def otherInpIdStr: String
-}
-case class Callback2Text1(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
-case class Callback2Text2(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
+  /** The label [[String]]. */
+  def label: String
 
-sealed trait Callback3Text extends CallbackText
-{ def otherInpIdStr1: String
-  def otherInpIdStr2: String
+  override def child1: LabelHtml = LabelHtml(idStr, label)
+  override def contents: RArr[XCon] = RArr(child1, child2)
 }
-case class Callback3Text1(targetId: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String) extends Callback3Text
-case class Callback3Text2(targetId: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String) extends Callback3Text
-case class Callback3Text3(targetId: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String) extends Callback3Text

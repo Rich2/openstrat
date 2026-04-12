@@ -3,9 +3,8 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** Creates an [[Html]] Input element that can update textContent fields on the page. */
-class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends InputHtml
-{
-  page.inpAcc +%= this
+class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends InputHtml, InputLikeUpdater
+{ page.inpAcc +%= this
   var depends: RArr[Callback1Num] = RArr()
   def clientCount: Int = depends.length
 
