@@ -2,27 +2,27 @@
 package ostrat; package pWeb
 
 /** HTML bold element. */
-case class HtmlB(str: String) extends HtmlInedit
+case class BHtml(str: String) extends HtmlInedit
 { override def tagName: String = "b"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str)
 }
 
 /** HTML superscript. */
-class HtmlSup(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlInedit
+class SupHtml(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlInedit
 {  override def tagName: String = "sup"
 }
 
-object HtmlSup
+object SupHtml
 { /** Factory apply method for HTML superscript element. There is an apply overload that takes the contents as a repeat parameter with no attributes. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlSup = new HtmlSup(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): SupHtml = new SupHtml(contents, attribs)
 
   /** Factory apply method for HTML superscript element. There is an apply overload that takes [[RArr]]s of contents and attributes. */
-  def apply(contents: XCon*): HtmlSup = new HtmlSup(contents.toRArr, RArr())
+  def apply(contents: XCon*): SupHtml = new SupHtml(contents.toRArr, RArr())
 
   /** Factory method for HTML superscript element, with 2nd repeat parameter list for attributes. */
-  def atts(contents: XCon*)(attribs: XAtt*): HtmlSup = new HtmlSup(contents.toRArr, attribs.toRArr)
+  def atts(contents: XCon*)(attribs: XAtt*): SupHtml = new SupHtml(contents.toRArr, attribs.toRArr)
 
   /** Factory method for HTML superscript element with an ID attribute. There is an apply overload that takes [[RArr]]s of contents and attributes. */
-  def id(idStr: String, contents: XCon*): HtmlSup = new HtmlSup(contents.toRArr, RArr(IdAtt(idStr)))
+  def id(idStr: String, contents: XCon*): SupHtml = new SupHtml(contents.toRArr, RArr(IdAtt(idStr)))
 }

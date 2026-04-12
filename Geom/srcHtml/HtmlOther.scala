@@ -52,13 +52,13 @@ object ScriptHtml
 }
 
 /** HTML style element. note there is also a CSS [[StyleAtt]] attribute. */
-case class HtmlStyle(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class StyleHtml(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
 { override def tagName: String = "style"
 }
 
-object HtmlStyle
-{ /** Factory apply method for [[HtmlStyle]]. */
-  def apply(rules: CssRuleLike*): HtmlStyle = new HtmlStyle(rules.toArr)
+object StyleHtml
+{ /** Factory apply method for [[StyleHtml]]. */
+  def apply(rules: CssRuleLike*): StyleHtml = new StyleHtml(rules.toArr)
 }
 
 /** Html H1 header element. */

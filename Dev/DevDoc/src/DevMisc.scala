@@ -37,11 +37,11 @@ object DevMisc extends SectionHtml
     BashLine("sudo update-alternatives --config java"),
     "In my example this gives",
 
-    HtmlTable(
-      HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
-      HtmlRow.strs4("0", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "auto mode"),
-      HtmlRow.strs4("1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
-      HtmlRow.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
+    TableHtml(
+      RowHeadHtml.strs4("Selection", "Path", "Priority", "Status"),
+      RowHtml.strs4("0", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "auto mode"),
+      RowHtml.strs4("1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
+      RowHtml.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
     ),
 
      PHtml("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",

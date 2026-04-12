@@ -39,7 +39,7 @@ trait DevHtmls
     |  document.getElementsByTagName("head")[0].appendChild(script);
     |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });""".stripMargin
 
-    val style = HtmlStyle(CssBody(MarginDec(0.px), DecOverflowHidden))
+    val style = StyleHtml(CssBody(MarginDec(0.px), DecOverflowHidden))
     val head = HeadHtml.title("OpenStrat:" -- name, HtmlNoCache, style)
     val script = ScriptHtml.inlineJsStr(noCacheScript)
     val body = BodyHtml(CanvasHtml.id("scanv"), NoScriptHtml(), script)

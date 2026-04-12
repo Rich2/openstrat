@@ -50,24 +50,24 @@ object UtilTokenSection extends SectionHtml
     "processed as single tokens. This means that raw hexidecimals and raw base32s can be processed as 1 or 2 tokens depending on whether they" --
     "start with a digit. This should not cause a problem as long as they are not combined with dot operators in dot expressions.")
 
-  def table1: HtmlTable = HtmlTable(
-    HtmlRow.strs2("LetterChar", "= unicode_letter | '_'"),
-    HtmlRow.strs2("NonZeroDigit", "= '1' ... '9'"),
-    HtmlRow.strs2("DigitChar", "= '0' | NonZeroDigit"),
-    HtmlRow.strs2("HexaLowerChar", "= 'a' ... 'f'"),
-    HtmlRow.strs2("HexaUpperChar", "= 'A' ... 'F'"),
-    HtmlRow.strs2("HexaLetterChar", "= HexaLowerChar | 'a' ... 'f'"),
-    HtmlRow.strs2("HexaChar", "= DigitChar | HexLetterChar"),
-    HtmlRow.strs2("LetterOrDigitChar", "= LetterChar | DigitChar"),
-    HtmlRow.strs2("LetterOrUnderscoreChar", "= LetterChar | '_'"),
-    HtmlRow.strs2("UnderscoreThenLetterOrDigit", "= '_', LetterOrDigitChar"),
-    HtmlRow.strs2("Dot3Token", "= \"...\""),
-    HtmlRow.strs2("Dot2Token", "= \"..\""),
-    HtmlRow.strs2("DotToken", "= '.'")
+  def table1: TableHtml = TableHtml(
+    RowHtml.strs2("LetterChar", "= unicode_letter | '_'"),
+    RowHtml.strs2("NonZeroDigit", "= '1' ... '9'"),
+    RowHtml.strs2("DigitChar", "= '0' | NonZeroDigit"),
+    RowHtml.strs2("HexaLowerChar", "= 'a' ... 'f'"),
+    RowHtml.strs2("HexaUpperChar", "= 'A' ... 'F'"),
+    RowHtml.strs2("HexaLetterChar", "= HexaLowerChar | 'a' ... 'f'"),
+    RowHtml.strs2("HexaChar", "= DigitChar | HexLetterChar"),
+    RowHtml.strs2("LetterOrDigitChar", "= LetterChar | DigitChar"),
+    RowHtml.strs2("LetterOrUnderscoreChar", "= LetterChar | '_'"),
+    RowHtml.strs2("UnderscoreThenLetterOrDigit", "= '_', LetterOrDigitChar"),
+    RowHtml.strs2("Dot3Token", "= \"...\""),
+    RowHtml.strs2("Dot2Token", "= \"..\""),
+    RowHtml.strs2("DotToken", "= '.'")
   )
 
-  val table2 = HtmlTable(
-    HtmlRow.strs2("IdentifierToken", "= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }"),
-    HtmlRow.strs2("DeciLitToken", "= '0' | (NonZeroDigit { DigitChar })")
+  val table2 = TableHtml(
+    RowHtml.strs2("IdentifierToken", "= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }"),
+    RowHtml.strs2("DeciLitToken", "= '0' | (NonZeroDigit { DigitChar })")
   )
 }
