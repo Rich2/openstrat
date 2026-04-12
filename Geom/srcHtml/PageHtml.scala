@@ -64,7 +64,7 @@ trait IndexPage extends PageFile
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */
 trait PageHtmlUpdater extends PageFile
-{ var inpAcc: RArr[InputLike] = RArr()
+{ var inpAcc: RArr[InputLikeUpdater] = RArr()
 }
 
 /** A 404 HTML page. */

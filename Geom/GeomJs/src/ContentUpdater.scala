@@ -7,9 +7,9 @@ sealed trait ContentUpdater
 
 object ContentUpdater
 {
-  def apply(inputer: InputUpdater): ContentUpdater = inputer match
+  def apply(inputer: InputLikeUpdater): ContentUpdater = inputer match
   { case iun: InputUpdaterNum => ContentUpdaterNum(iun)
-    case iut: InputUpdaterText => ContentUpdaterText(iut)
+    case iut: InputLikeUpdaterText => ContentUpdaterText(iut)
   }
 }
 
@@ -39,7 +39,7 @@ object ContentUpdaterNum
 }
 
 /** Updates HTML content due to number changes from HTML select elements. */
-class ContentUpdaterOption(val inputer: SelectHtml) extends ContentUpdater
+/*class ContentUpdaterOption(val inputer: SelectHtml) extends ContentUpdater
 { val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner)
@@ -55,10 +55,10 @@ class ContentUpdaterOption(val inputer: SelectHtml) extends ContentUpdater
       else target.textContent = cb.f(newStr)
     }
   }
-}
+}*/
 
 /** Updates HTML content due to [[String]] changes from HTML input elements. */
-class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
+class ContentUpdaterText(val inputer: InputLikeUpdaterText) extends ContentUpdater
 {
   val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
@@ -90,5 +90,5 @@ class ContentUpdaterText(val inputer: InputUpdaterText) extends ContentUpdater
 
 object ContentUpdaterText
 {
-  def apply(inputer: InputUpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
+  def apply(inputer: InputLikeUpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
 }
