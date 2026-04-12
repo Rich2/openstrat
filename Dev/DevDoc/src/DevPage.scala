@@ -39,7 +39,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
     "Sbt: 1.12.8",
     "Mill: 1.1.5 with Mill's JDK set to 25."))
 
-  def sbtCommands1: UlSection = UlSection(RArr("Run", HtmlCodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
+  def sbtCommands1: UlSection = UlSection(RArr("Run", CodeHtmlInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     LiHtml("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
     LiHtml("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     LiHtml("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),
@@ -66,7 +66,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   |you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.""".
   stripMargin)
 
-  def sbt3D = PHtml("For JavaFx 3D ", HtmlSbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
+  def sbt3D = PHtml("For JavaFx 3D ", SbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
   
   def credits: UlSection = UlSection("<h3>Credits</h3>",
     LiHtml.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),

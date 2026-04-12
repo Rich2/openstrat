@@ -2,14 +2,14 @@
 package ostrat; package pWeb; package wcode
 
 /** Creates a systemd Unit file. */
-class HtmlSystemd(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlCodeLines
+class SystemdHtml(val lines: StrArr, otherAttribs: RArr[XAtt]) extends CodeLinesHtml
 { override def attribs: RArr[XAtt] = otherAttribs
-  override def contents: RArr[DivHtml] = HtmlSystemd.toDivs(lines)
+  override def contents: RArr[DivHtml] = SystemdHtml.toDivs(lines)
 }
 
-object HtmlSystemd
+object SystemdHtml
 { /** Factory apply method to create Systemd Unit file */
-  def apply(lines: String*): HtmlSystemd = new HtmlSystemd(lines.toArr, RArr())
+  def apply(lines: String*): SystemdHtml = new SystemdHtml(lines.toArr, RArr())
 
   /** transforms text lines into lines for Systemd Unit file. */
   def toDivs(inp: Arr[String]): RArr[DivHtml] = inp.map {

@@ -28,9 +28,9 @@ object DevMisc extends SectionHtml
   def jvms: SectionH2 = SectionH2("JVMs",
     BashLine("sudo apt install openjdk-25-jdk"),
     "For Kubuntu/ Ubuntu add the following line to", HtmlDirPath("/etc/environment"), "file.",
-    HtmlCodeLine("JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"),
+    CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"),
     "For Arch, CachyOs",
-    HtmlCodeLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk"),
+    CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-25-openjdk"),
     "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
@@ -84,11 +84,11 @@ object DevMisc extends SectionHtml
   BashLine("subl --version"),
   CodeOutputLine("Sublime Text Build 4200"),
 
-  HtmlCodeLine("// These settings override both User and Default settings for the Scala syntax"),
-  HtmlCodeLine("{"),
-  HtmlCodeLine(""""tab_size": 2,"""),
-  HtmlCodeLine(""""translate_tabs_to_spaces": true,"""),
-  HtmlCodeLine(""""rulers": [100, 160]"""),
-  HtmlCodeLine("}")
+  CodeLineHtml("// These settings override both User and Default settings for the Scala syntax"),
+  CodeLineHtml("{"),
+  CodeLineHtml(""""tab_size": 2,"""),
+  CodeLineHtml(""""translate_tabs_to_spaces": true,"""),
+  CodeLineHtml(""""rulers": [100, 160]"""),
+  CodeLineHtml("}")
   )
 }

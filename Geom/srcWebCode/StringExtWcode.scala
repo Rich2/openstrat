@@ -10,10 +10,10 @@ package object wcode
     def htmlPath: HtmlDirPath = HtmlDirPath(thisString)
 
     /** Extension method to return an HTML sbt class code element. */
-    def htmlSbt: HtmlSbtInline = HtmlSbtInline(thisString)
+    def htmlSbt: SbtInline = SbtInline(thisString)
 
     /** Implicit method to return an HTML Scala element. */
-    def htmlScala: HtmlScalaInline = HtmlScalaInline(thisString)
+    def htmlScala: ScalaInline = ScalaInline(thisString)
 
     /** Implicit method to return an HTML Bash element. */
     def htmlBash: BashInline = BashInline(thisString)

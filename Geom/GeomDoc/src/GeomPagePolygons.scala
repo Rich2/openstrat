@@ -34,7 +34,7 @@ object GeomPagePolygons extends SectionHtml
   | it is pretty succinct compared with the generated SVG code. This is not intended as a tutorial, but just to give an idea of possibilities. It is only the
   | last line that creates the SVG. The rest of the code could be used in an HTML or a JavaFx canvas.""".stripMargin)
 
-  def code1: HtmlScalaLines = HtmlScalaLines(
+  def code1: ScalaLinesHtml = ScalaLinesHtml(
     "val width: Int = 250",
     "val polyColour: Colour = DarkGreen",
     "val dodec1: DoDeclign = DoDeclign(width)",

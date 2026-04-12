@@ -5,23 +5,23 @@ package ostrat; package pWeb; package wcode
 object BashAtt extends ClassAtt("bash")
 
 /** Html Bash code element. */
-trait HtmlBash extends HtmlCode
+trait BashHtml extends CodeHtml
 { override def attribs: RArr[XAtt] = RArr(BashAtt)
 }
 
 /** A multi line, Html, Bash code element. */
-class HtmlBashMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlCodeLines
+class BashHtmlMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends BashHtml, CodeLinesHtml
 { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   override def contents: RArr[XCon] = lines.toDivLines
 }
 
-object HtmlBashMulti
+object BashHtmlMulti
 {
-  def apply(lines: String*): HtmlBashMulti = new HtmlBashMulti(lines.toArr, RArr())
+  def apply(lines: String*): BashHtmlMulti = new BashHtmlMulti(lines.toArr, RArr())
 }
 
 /** Html Bash code element, that is on its own line. For the general case use the [[BashLine]] class. */
-trait BashOwnLine extends HtmlBash, HtmlCodeLine
+trait BashOwnLine extends BashHtml, CodeLineHtml
 { override def attribs: RArr[XAtt] = super.attribs +% BashAtt
 }
 
@@ -55,7 +55,7 @@ object BashLine
 }
 
 /** Html BASH code element, that can be inlined. */
-class BashInline(val str: String) extends HtmlBash, HtmlCodeInline
+class BashInline(val str: String) extends BashHtml, CodeHtmlInline
 { override def contents: RArr[XCon] = RArr(str)
 }
 
@@ -114,7 +114,7 @@ class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 
-class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends HtmlBash, HtmlTagLines
+class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends BashHtml, HtmlTagLines
 { override def contents: RArr[XCon] = iUntilMap(texts.length / 2){i => SpanLine(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
   override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }

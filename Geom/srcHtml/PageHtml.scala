@@ -15,7 +15,7 @@ trait PageHtml extends HttpContent
 
   override def out: String = "<!doctype html>" --- htmlElem.out(0, 150)
 
-  def htmlEscape: HtmlCodePre = HtmlCodePre(out.escapeHtml)
+  def htmlEscape: CodePre = CodePre(out.escapeHtml)
 
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 

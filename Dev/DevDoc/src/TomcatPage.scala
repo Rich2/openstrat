@@ -147,13 +147,13 @@ object TomcatPage extends PageHtmlUpdater
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  HtmlCodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
+  CodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
   )
 
   val s9 = LiHtml("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   "Add the following code. Then control o, return, control x.",
-  HtmlCodeLines(StrArr(
+  CodeLinesHtml(StrArr(
   "[Unit]",
   "Description=Apache Tomcat 11.0 Web Application Container",
   "After=network.target",
@@ -247,7 +247,7 @@ object TomcatPage extends PageHtmlUpdater
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine("nano /opt/tomcat/Base/conf/server.xml"),
   "Uncomment the section and modify as below",
-  HtmlCodePre.inputText(domainIUT){ dName =>
+  CodePre.inputText(domainIUT){ dName =>
   s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
   |  maxThreads="150" SSLEnabled="true" secure="true" scheme="https">
   |  <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
