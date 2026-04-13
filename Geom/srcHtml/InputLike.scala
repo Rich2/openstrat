@@ -8,8 +8,8 @@ trait InputLike extends HtmlElem
 {/** The [[String]] of the id attribute. */
   def idStr: String
 
+  def valueStr: String
   
-
   /** Other attributes in addition to the [[IDAtt]]. */
   def otherAttribs: RArr[XAtt]
 
@@ -33,8 +33,7 @@ trait InputLikeUpdaterText extends InputLikeUpdater
   var callBacks: RArr[CallbackText] = RArr()
 
   def clientCount: Int = callBacks.length
-
-
+  
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
   def next1Id(f: String => String): IdAtt =

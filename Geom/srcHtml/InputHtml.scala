@@ -9,8 +9,6 @@ trait InputHtml extends InputLike, HtmlVoid
 
   final def valueAtt: ValueAtt = ValueAtt(valueStr)
 
-  def valueStr: String
-
   override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
 }
 
