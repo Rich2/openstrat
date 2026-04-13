@@ -107,7 +107,10 @@ package object utiljvm
   def jsMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
     copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
 
-  /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
+  /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
+  def jsWithMapFileCopy(fromDir: DirsAbs, toDir: DirsAbs): ErrBi[Exception, JsFileWritten] = jsWithMapFileCopy(fromDir.asStr, toDir.asStr)
+
+  /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
   def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
   { val res1: ErrBi[Exception, JsFileWritten] = copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
     res1 match

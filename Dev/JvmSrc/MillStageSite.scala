@@ -2,6 +2,19 @@
 package ostrat; package pDev
 import utiljvm.*, pDoc.*
 
+object MillStageTomcatJs
+{
+  def main(args: Array[String]): Unit = projPathDo{ projPath =>
+    stagingPathDo { stagingPath1 =>
+      stagingPath1.doIfDirExists { _ =>
+        val stagingPath2 = stagingPath1 / "OpenstratSite"
+        stagingPath2.mkExist
+        jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", stagingPath2.asStr / "Documentation/tomcat")
+      }
+    }
+  }
+}
+
 /** application used by mill to stage openstrat files for a passive server. */
 object MillStageSite extends StagingBuild
 {
@@ -25,8 +38,8 @@ object MillStageSite extends StagingBuild
 
     val docPath: String = stagePath.asStr / "Documentation"
     val jarApp: ErrBi[Exception, JarFileWritten] = mkDirExist(docPath).flatMap { res =>
-      jsMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
-      jsFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
+      jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
+      //jsFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
       jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", docPath / "osapp")
     }
     deb(jarApp.reportStr)
