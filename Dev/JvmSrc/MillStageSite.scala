@@ -7,11 +7,11 @@ object MillTomDocStage
   def main(args: Array[String]): Unit = projPathDo{ projPath =>
     stagingPathDo { stagingPath1 =>
       stagingPath1.doIfDirExists { _ =>
-        val stagingPath2 = stagingPath1 / "OpenstratSite"
+        val stagingPath2: DirsAbs = stagingPath1 / "OpenstratSite"
         stagingPath2.mkExist
-        val source = projPath.outFullLink("DevDocJs")
+        val source: DirsAbsStem = projPath.outFullLink("DevDocJs")
         debvar(source)
-        val dest = stagingPath2 / "Documentation" :-/  "tomcat"
+        val dest: DirsAbsStem = stagingPath2 / "Documentation" :-/  "tomcat"
         debvar(dest)
         jsWithMapFileCopy(source, dest)
       }

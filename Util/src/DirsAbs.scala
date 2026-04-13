@@ -3,17 +3,17 @@ package ostrat
 import pParse.*, annotation.*
 
 /** An absolute Directory path. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
-class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
+trait DirsAbs extends DirsPath
 { /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
-  @targetName("append") def /(newDir: DirsRel): DirsAbs = new DirsAbs(arrayUnsafe ++ newDir.arrayUnsafe)
+  @targetName("append") def /(newDir: DirsRel): DirsAbs = DirsAbs.fromArray(arrayUnsafe ++ newDir.arrayUnsafe)
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
-  @targetName("append") def /(operand: String): DirsAbs = new DirsAbs(arrayUnsafe :+ operand)
+  @targetName("append") def /(operand: String): DirsAbs = DirsAbs.fromArray(arrayUnsafe :+ operand)
 
   /** Appends a file name [[String]] to produce an absolute file path. */
   @targetName("appendFile") def :/(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)
 
-  @targetName("appendStem") def :-/(operand: String): DirsAbsStem = new DirsAbsStem(arrayUnsafe :+ operand)
+  @targetName("appendStem") override def :-/(operand: String): DirsAbsStem = new DirsAbsStem(arrayUnsafe :+ operand)
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
@@ -26,7 +26,9 @@ class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
 
 object DirsAbs
 {
-  def apply(str1: String): DirsAbs = new DirsAbs(DirPath.strToStrs(str1))
+  def apply(str1: String): DirsAbs = new DirsAbsGen(DirsPath.strToStrs(str1))
+
+  def fromArray(arrayUnsafe: Array[String]): DirsAbs = new DirsAbsGen(arrayUnsafe)
 
   given showEv: Show[DirsAbs] = new Show[DirsAbs]
   { override def typeStr: String = "DirnPathAbs"
@@ -42,14 +44,18 @@ object DirsAbs
   { override def typeStr: String = "DirnPathAbs"
 
     override def fromExpr(expr: Expr): ExcMon[DirsAbs] =  expr match
-    { case SlashToken(_) => Succ(new DirsAbs(Array[String]()))
-      case PathToken(_, array) => Succ(new DirsAbs(array))
+    { case SlashToken(_) => Succ(DirsAbs.fromArray(Array[String]()))
+      case PathToken(_, array) => Succ(DirsAbs.fromArray(array))
       case expr => expr.failExc("Not an absolute path")
     }
   }
+
+  /** Implementation class for an absolute Directory path. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
+  class DirsAbsGen(val arrayUnsafe: Array[String]) extends DirsAbs
 }
 
-class ProjPath(arrayUnsafe: Array[String]) extends DirsAbs(arrayUnsafe)
+/** An absolute Directory path for a Scala project. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
+class ProjPath(val arrayUnsafe: Array[String]) extends DirsAbs
 {
   def out: DirsAbs = this / "out"
   def outModule(moduleStr: String): DirsAbs = out / moduleStr

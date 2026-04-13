@@ -3,7 +3,7 @@ package ostrat
 import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
 /** Common trait for directory paths, absolute and relative and directory-filename paths, absolute or relative */
-trait AllDirFilePathBase
+trait DirsOrFilePathBase
 { /** The backing for this path. */
   def arrayUnsafe: Array[String]
   
@@ -14,15 +14,21 @@ trait AllDirFilePathBase
   def asStr: String
 }
 
-trait DirPath extends AllDirFilePathBase
+trait DirsPath extends DirsOrFilePathBase
 { /** A notification [[String]] to inform that the path doesn't exist. */
   def noExistStr: String = asStr -- "Doesn't exist"
 
   /** A notification [[String]] to inform that the path is not a directory. */
   def notDirStr: String = asStr -- "is not a directory"
+
+  /** Appends a file stem to this directory path. */
+  @targetName("appendStem") def :-/(operand: String): DirsFileStem
+
+  /** Appends a file name [[String]] to produce a file path. */
+  @targetName("appendFile") def :/(operand: String): DirsFilePath
 }
 
-object DirPath
+object DirsPath
 {
   def strToStrs(inp: String): Array[String] =
   { val res0: String = inp.dropWhile(_.isWhitespace).dropWhile(!_.isLetter).dropRightWhile(_.isWhitespace).dropRightWhile(_ == '/')

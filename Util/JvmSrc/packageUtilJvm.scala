@@ -131,8 +131,9 @@ package object utiljvm
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
     jp.exists match
-    { case true => if (jp.isDirectory) Succ(DirExisted(path)) else Fail(new java.nio.file.NotDirectoryException("path"))
-      case false =>
+    { case true if (jp.isDirectory) => Succ(DirExisted(path))
+      case true => Fail(new java.nio.file.NotDirectoryException("path"))
+      case _ =>
       { var oExc: Option[IOExc] = None
         try{ jp.mkdir }
         catch{ case e: IOExc => oExc = Some(e) }
@@ -178,6 +179,9 @@ package object utiljvm
 
     /** Try to make this directory exist. */
     def mkExist: ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr)
+    
+    
+    //def mkExistFlatMap(f: )
 
     /** Try to make subdirectory exist. */
     def mkSubExist(tailStr: String): ExcIOMon[DirsAbs] = utiljvm.mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)   

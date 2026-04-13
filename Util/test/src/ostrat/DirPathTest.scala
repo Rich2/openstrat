@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest._, DirPath.{ strToStrs => sts}
+import utest._, DirsPath.{ strToStrs => sts}
 
 object DirPathTest extends TestSuite
 {

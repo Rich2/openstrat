@@ -3,7 +3,7 @@ package ostrat
 import annotation.*
 
 /** Directories and file name path. */
-trait DirsFilePath extends AllDirFilePathBase
+trait DirsFilePath extends DirsOrFilePathBase
 {
   def asStr: String = arrayUnsafe.length match
   { case 0 => excep("File name backing array must have at least 1 [[String]] element.")
@@ -31,7 +31,7 @@ class DirsFileRel(val arrayUnsafe: Array[String]) extends DirsFilePath
 object DirsFileRel
 { /** Factory apply method for [[DirsRel]]. */
   def apply(str0: String, inp: String*): DirsFileRel =
-  { val newArray = (str0 +: inp).foldLeft(Array[String]())((acc, st) => acc ++ DirPath.strToStrs(st))
+  { val newArray = (str0 +: inp).foldLeft(Array[String]())((acc, st) => acc ++ DirsPath.strToStrs(st))
     new DirsFileRel(newArray)
   }
 }

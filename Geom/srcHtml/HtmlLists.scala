@@ -63,7 +63,7 @@ object LiHtml
   def a(link: String, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link, label)), attribs.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: AllDirFilePathBase, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
+  def a(link: DirsOrFilePathBase, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
 
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
   def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): LiHtml =

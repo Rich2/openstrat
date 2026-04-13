@@ -11,8 +11,8 @@ object AppsPage extends OSDocumentationPage
   override val fileNameStem: String = "apps"
   override def body: BodyHtml = BodyHtml(H1Html("Apps Module"), main)
   def main: DivHtml = DivHtml.classAtt("main", stratList, otherTiled, otherApps)
-  def egameDir = dirsRel </% AppPage.egameDir
-  def otDir = ".." / AppPage.otDir.asStr
+  def egameDir: String = (dirsRel </ AppPage.egameDir).asStr
+  def otDir: String = ".." / AppPage.otDir.asStr
 
   def stratList: OlSection = OlSection(H2Html("Strategy Games using tiled world maps."),
     LiHtml.linkAndText(egameDir / "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"

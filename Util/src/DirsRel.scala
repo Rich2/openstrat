@@ -3,16 +3,15 @@ package ostrat
 import annotation.*
 
 /** Directory path relative. */
-class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
-{
-  /** Move back up the directory hierarchy, dropping the last directory if there is one. */
+class DirsRel(val arrayUnsafe: Array[String]) extends DirsPath
+{ /** Move back up the directory hierarchy, dropping the last directory if there is one. */
   def up: DirsRel = new DirsRel(arrayUnsafe.dropRight(1))
 
   /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
   @targetName("append") def /(extraPath: DirsRel): DirsRel = new DirsRel(arrayUnsafe ++ extraPath.arrayUnsafe)
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
-  @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ DirPath.strToStrs(operand))
+  @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ DirsPath.strToStrs(operand))
 
   /** From the root of this relative directory path, append the operand directories path. */
   @targetName("fromRootAppendDirs") def </(operand: DirsRel): DirsRel = new DirsRel(topFileAppendArray(operand.arrayUnsafe))
@@ -20,8 +19,11 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   /** From the root of this relative directory path append the operand directories and filename path. */
   @targetName("fromRootAppendDirsFile") def </>(operand: DirsFileRel): DirsFileRel = new DirsFileRel(topFileAppendArray(operand.arrayUnsafe))
 
-  /** From the root of this relative directory path append the operand directories and then convert to a [[String]]. */
-  @targetName("fromRootAppendDirsStr") def </%(operand: DirsRel): String = (this </ operand).asStr
+  /** Appends a file name [[String]] to produce a relative file path. */
+  @targetName("appendFile") def :/(operand: String): DirsFileRel = new DirsFileRel(arrayUnsafe :+ operand)
+
+  /** Appends a file name [[String]] to produce a relative file stem path. */
+  @targetName("appendStem") override def :-/(operand: String): DirsRelStem = new DirsRelStem(arrayUnsafe :+ operand)
 
   /** Utility method for fromRootAppendDirs and fromRootAppendDirsFile methods. Creates the backing [[Array]] for the returned classes. */
   def topFileAppendArray(operand: Array[String]): Array[String] =
@@ -48,7 +50,7 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
 object DirsRel
 { /** Factory apply method for [[DirsRel]]. */
   def apply(inp: String*): DirsRel =
-  { val newArray = inp.foldLeft(Array[String]())((acc, st) => acc ++ DirPath.strToStrs(st))
+  { val newArray = inp.foldLeft(Array[String]())((acc, st) => acc ++ DirsPath.strToStrs(st))
     new DirsRel(newArray)
   }
 }
