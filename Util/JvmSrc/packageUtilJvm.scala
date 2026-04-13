@@ -25,10 +25,10 @@ package object utiljvm
   def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
   
   /** Find the project path. */
-  def projPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
+  def projPathFind: ThrowMon[ProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
-  def projPathDo(f: DirsAbs => Unit): Unit = projPathFind.forFold{ err => deb(err.toString) }{ path => f(path) }
+  def projPathDo(f: ProjPath => Unit): Unit = projPathFind.forFold{ err => deb(err.toString) }{ path => f(path) }
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
   def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").forFold { err => deb(err.toString) } { path => f(path) }
@@ -108,7 +108,7 @@ package object utiljvm
     copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
 
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileCopy(fromDir: DirsAbs, toDir: DirsAbs): ErrBi[Exception, JsFileWritten] = jsWithMapFileCopy(fromDir.asStr, toDir.asStr)
+  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = jsWithMapFileCopy(fromPath.asStr, toPath.asStr)
 
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
   def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =

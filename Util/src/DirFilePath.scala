@@ -47,9 +47,9 @@ trait DirsFileStem extends DirsFilePath
 }
 
 /** Absolute directory (or folder) path and file name stem. */
-class DirsFileStemAbs(val arrayUnsafe: Array[String]) extends DirsFileStem
+class DirsAbsStem(val arrayUnsafe: Array[String]) extends DirsFileStem
 { /** Appends the [[String]] to the file name stem, without completing the file name. */
-  @targetName("append") def %+(operand: String): DirsFileStemAbs = new DirsFileStemAbs(arrayAppend(operand))
+  @targetName("append") def %+(operand: String): DirsAbsStem = new DirsAbsStem(arrayAppend(operand))
 
   /** Appends the [[String]] to the file name stem completing the file name. */
   @targetName("complete") def ++(operand: String): DirsFileAbs = new DirsFileAbs(arrayAppend(operand))
@@ -58,9 +58,9 @@ class DirsFileStemAbs(val arrayUnsafe: Array[String]) extends DirsFileStem
 }
 
 /** Relative directory path and file name stem. */
-class DirsFileStemRel(val arrayUnsafe: Array[String]) extends DirsFileStem
+class DirsRelStem(val arrayUnsafe: Array[String]) extends DirsFileStem
 { /** Appends the [[String]] to the file name stem, without completing the file name. */
-  @targetName("append") def %+(operand: String): DirsFileStemRel = new DirsFileStemRel(arrayAppend(operand))
+  @targetName("append") def %+(operand: String): DirsRelStem = new DirsRelStem(arrayAppend(operand))
   
   /** Appends the [[String]] to the file name stem completing the file name. */
   @targetName("complete") def ++(operand: String): DirsFileRel = new DirsFileRel(arrayAppend(operand))

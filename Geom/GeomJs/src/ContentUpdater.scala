@@ -1,4 +1,4 @@
-/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
 import org.scalajs.dom.*, pWeb.*
 
@@ -37,25 +37,6 @@ object ContentUpdaterNum
 {
   def apply(inputer: InputUpdaterNum): ContentUpdaterNum = new ContentUpdaterNum(inputer)
 }
-
-/** Updates HTML content due to number changes from HTML select elements. */
-/*class ContentUpdaterOption(val inputer: SelectHtml) extends ContentUpdater
-{ val idStem = inputer.idStr
-  val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", listner)
-
-  def listner: Event => Unit = e =>
-  { val newStr = e.target.asInstanceOf[html.Select].value
-    val len = inputer.clientCount
-    deb(s"Updating $len textContents with value $newStr")
-    inputer.callBacks.foreach{ cb =>
-      val targetId = cb.targetId
-      val target = document.getElementById(targetId)
-      if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
-      else target.textContent = cb.f(newStr)
-    }
-  }
-}*/
 
 /** Updates HTML content due to [[String]] changes from HTML input elements. */
 class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater

@@ -9,7 +9,7 @@ object MillStageTomcatJs
       stagingPath1.doIfDirExists { _ =>
         val stagingPath2 = stagingPath1 / "OpenstratSite"
         stagingPath2.mkExist
-        jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", stagingPath2.asStr / "Documentation/tomcat")
+        jsWithMapFileCopy(projPath.outFullLink("DevDocJs"), stagingPath2 / "Documentation" :-/  "tomcat")
       }
     }
   }
