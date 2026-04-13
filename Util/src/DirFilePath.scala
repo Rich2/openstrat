@@ -54,7 +54,7 @@ class DirsAbsStem(val arrayUnsafe: Array[String]) extends DirsFileStem
   /** Appends the [[String]] to the file name stem completing the file name. */
   @targetName("complete") def ++(operand: String): DirsFileAbs = new DirsFileAbs(arrayAppend(operand))
 
-  override def asStr: String = ???// ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
+  override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
 }
 
 /** Relative directory path and file name stem. */
@@ -65,5 +65,5 @@ class DirsRelStem(val arrayUnsafe: Array[String]) extends DirsFileStem
   /** Appends the [[String]] to the file name stem completing the file name. */
   @targetName("complete") def ++(operand: String): DirsFileRel = new DirsFileRel(arrayAppend(operand))
 
-  override def asStr: String = ??? // arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
+  override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
 }

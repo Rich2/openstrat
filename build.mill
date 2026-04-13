@@ -265,6 +265,11 @@ object DevFx extends CommonJvm
 
 //def run() = DevFx.runBackground()
 
+def TomDocStage = Task{
+  DevDocJs.fullLinkJS()
+  Dev.runner().run(mainClass = "ostrat.pDev.MillTomDocStage", args = Array[String]())
+}
+
 def SiteStage = Task{
   import AppJs.*, EGridJs.*
   DicelessApp.fullLinkJS()

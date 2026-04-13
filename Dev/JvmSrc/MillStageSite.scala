@@ -2,14 +2,18 @@
 package ostrat; package pDev
 import utiljvm.*, pDoc.*
 
-object MillStageTomcatJs
+object MillTomDocStage
 {
   def main(args: Array[String]): Unit = projPathDo{ projPath =>
     stagingPathDo { stagingPath1 =>
       stagingPath1.doIfDirExists { _ =>
         val stagingPath2 = stagingPath1 / "OpenstratSite"
         stagingPath2.mkExist
-        jsWithMapFileCopy(projPath.outFullLink("DevDocJs"), stagingPath2 / "Documentation" :-/  "tomcat")
+        val source = projPath.outFullLink("DevDocJs")
+        debvar(source)
+        val dest = stagingPath2 / "Documentation" :-/  "tomcat"
+        debvar(dest)
+        jsWithMapFileCopy(source, dest)
       }
     }
   }
