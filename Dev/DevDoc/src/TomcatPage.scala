@@ -36,8 +36,8 @@ object TomcatPage extends PageHtmlUpdater
 
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
   val uNameIUT: InputUpdaterText = uNameLTI.child2
-  val osNameLTI = LabelSelect("osName", "Operating System", UbuntuDeriv, ArchDeriv)
-  val osNameIUT: SelectHtml = osNameLTI.child2
+  val osNameLTI = LabelSelectUpdater("osName", "Operating System", UbuntuDeriv, ArchDeriv)
+  val osNameIUT: SelectUpdater = osNameLTI.child2
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
   val cNameIUT: InputUpdaterText = cNameLTI.child2
   val nRam1: Int = 2
@@ -61,7 +61,7 @@ object TomcatPage extends PageHtmlUpdater
   def steps = OlHtml(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
   val s1 = LiHtml("Upgrade packages.",
-  BashLine("sudo apt update"),
+  BashLine.inputText(osNameIUT){str => "sudo apt update"},
   BashLine("sudo apt upgrade"),
   "Install Fail2Ban to protect against brute force login attacks",
   BashLine("sudo apt install fail2ban"),

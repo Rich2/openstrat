@@ -34,19 +34,32 @@ object SelectHtml
 
 /** HTML Select element that updates other parts of the page on changed input. */
 class SelectUpdater(val idStr: String, options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends
-  SelectHtml(options, options(0)), InputLikeUpdaterText
+  SelectHtml(options, options(0)), UpdaterText
 
 /** An HTML label followed by an [[SelectHtml]]. */
-class LabelSelect[T<: OptionHtml](val idStr: String, val label: String, val options: RArr[T], val visNum: Int, val otherAttribs: RArr[XAtt])(using
-  page: PageHtmlUpdater) extends LabelAndInput
+class LabelSelect(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends LabelAndInput
 { override def child2: SelectHtml = SelectHtml(idStr, options, visNum, otherAttribs)
 }
 
 object LabelSelect
 {
-  def apply[T<: OptionHtml](idStr: String, label: String, contents: RArr[T], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelect[T] =
-    new LabelSelect[T](idStr, label, contents, visNum, otherAttribs)
+  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt]): LabelSelect =
+    new LabelSelect(idStr, label, options, visNum, otherAttribs)
 
-  def apply[T<: OptionHtml](idStr: String, label: String, contents: T*)(using page: PageHtmlUpdater, ctT: ClassTag[T]): LabelSelect[T] =
-    new LabelSelect[T](idStr, label, contents.toRArr, 1, RArr())
+  def apply(idStr: String, label: String, options: OptionHtml*): LabelSelect = new LabelSelect(idStr, label, options.toRArr, 1, RArr())
+}
+
+/** An HTML label followed by an [[SelectHtml]]. */
+class LabelSelectUpdater(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using
+  page: PageHtmlUpdater) extends LabelAndInput
+{ override def child2: SelectUpdater = SelectUpdater(idStr, options, visNum, otherAttribs)
+}
+
+object LabelSelectUpdater
+{
+  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelectUpdater =
+    new LabelSelectUpdater(idStr, label, options, visNum, otherAttribs)
+
+  def apply(idStr: String, label: String, options: OptionHtml*)(using page: PageHtmlUpdater): LabelSelectUpdater =
+    new LabelSelectUpdater(idStr, label, options.toRArr, 1, RArr())
 }

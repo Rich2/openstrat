@@ -3,7 +3,7 @@ package ostrat; package pWeb
 import reflect.ClassTag
 
 /** Class to update a page from a text input. */
-class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends InputLikeUpdaterText, InputHtml
+class InputUpdaterText(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends UpdaterText, InputHtml
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
 }
 

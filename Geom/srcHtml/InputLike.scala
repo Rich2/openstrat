@@ -25,7 +25,8 @@ trait InputLikeUpdater extends InputLike
   def clientCount: Int
 }
 
-trait InputLikeUpdaterText extends InputLikeUpdater
+/** HTML Input or Select Updater for [[String]]s. */
+trait UpdaterText extends InputLikeUpdater
 {
   page.inpAcc +%= this
 

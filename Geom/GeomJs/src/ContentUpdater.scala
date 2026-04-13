@@ -9,7 +9,7 @@ object ContentUpdater
 {
   def apply(inputer: InputLikeUpdater): ContentUpdater = inputer match
   { case iun: InputUpdaterNum => ContentUpdaterNum(iun)
-    case iut: InputLikeUpdaterText => ContentUpdaterText(iut)
+    case iut: UpdaterText => ContentUpdaterText(iut)
   }
 }
 
@@ -58,7 +58,7 @@ object ContentUpdaterNum
 }*/
 
 /** Updates HTML content due to [[String]] changes from HTML input elements. */
-class ContentUpdaterText(val inputer: InputLikeUpdaterText) extends ContentUpdater
+class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
 {
   val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
@@ -90,5 +90,5 @@ class ContentUpdaterText(val inputer: InputLikeUpdaterText) extends ContentUpdat
 
 object ContentUpdaterText
 {
-  def apply(inputer: InputLikeUpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
+  def apply(inputer: UpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
 }
