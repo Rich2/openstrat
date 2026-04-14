@@ -4,8 +4,7 @@ import annotation.*
 
 /** Directories and file name path. */
 trait DirsFilePath extends DirsOrFilePathBase
-{
-  def asStr: String = arrayUnsafe.length match
+{ def asStr: String = arrayUnsafe.length match
   { case 0 => excep("File name backing array must have at least 1 [[String]] element.")
     case _ => arrayUnsafe.mkString("/")
   }
@@ -13,8 +12,7 @@ trait DirsFilePath extends DirsOrFilePathBase
 
 /** Absolute directory (or folder) path and file name. */
 class DirsFileAbs(val arrayUnsafe: Array[String]) extends DirsFilePath
-{
-  override def asStr: String = arrayUnsafe.length match
+{ override def asStr: String = arrayUnsafe.length match
   { case 0 => excep("A DirsFileAbs should have at least a file name.")
     case _ => arrayUnsafe.foldLeft("/")(_ + "/" + _)
   }
@@ -37,9 +35,9 @@ object DirsFileRel
 }
 
 trait DirsFileStem extends DirsFilePath
-{
-  protected def arrayAppend(operand: String): Array[String] = {
-    val newArray: Array[String] = new Array[String](arrayLen)
+{ /** Utilitu method to append the underlying [[Array]]s. */
+  protected def arrayAppend(operand: String): Array[String] =
+  { val newArray: Array[String] = new Array[String](arrayLen)
     Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen - 1)
     newArray(arrayLen - 1) = arrayUnsafe(arrayLen) + operand
     newArray

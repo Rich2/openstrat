@@ -4,18 +4,16 @@ import utiljvm.*, pDoc.*
 
 object MillTomDocStage
 {
-  def main(args: Array[String]): Unit = projPathDo{ projPath =>
-    stagingPathDo { stagingPath1 =>
-      stagingPath1.doIfDirExists { _ =>
-        val stagingPath2: DirsAbs = stagingPath1 / "OpenstratSite"
-        stagingPath2.mkExist
-        val source: DirsAbsStem = projPath.outFullLink("DevDocJs")
-        debvar(source)
-        val dest: DirsAbsStem = stagingPath2 / "Documentation" :-/  "tomcat"
-        debvar(dest)
-        jsWithMapFileCopy(source, dest)
+  def main(args: Array[String]): Unit =
+  { val res = projPathFind.flatMap { projPath =>
+      stagingPathFind.flatMap { stagingPath1 =>
+        stagingPath1.mkExist.flatMap { _ =>
+          val stagingPath2: DirsAbs = stagingPath1 / "OpenstratSite"
+          stagingPath2.mkExist.flatMap { _ => jsWithMapFileCopy(projPath.outFullLink("DevDocJs"), stagingPath2 / "Documentation" :-/ "tomcat") }
+        }
       }
     }
+    debvar(res)
   }
 }
 

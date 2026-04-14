@@ -179,9 +179,6 @@ package object utiljvm
 
     /** Try to make this directory exist. */
     def mkExist: ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr)
-    
-    
-    //def mkExistFlatMap(f: )
 
     /** Try to make subdirectory exist. */
     def mkSubExist(tailStr: String): ExcIOMon[DirsAbs] = utiljvm.mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)   
