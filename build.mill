@@ -254,7 +254,7 @@ object DevDocJs extends CommonJs
 object Dev extends CommonJvm
 { def moduleDeps = Seq(Apps, GeomExs, TilingExs, DevDoc)
   def sources = Task.Sources(Seq("src", "JvmSrc").map(name => moduleDir / name)*)
-  def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
+  def mainClass = Some("ostrat.pDev.MillTomDocStage")
 }
 
 object DevFx extends CommonJvm
@@ -265,7 +265,7 @@ object DevFx extends CommonJvm
 
 //def run() = DevFx.runBackground()
 
-def TomDocStage = Task{
+def TomDocStage(args: String*) = Task.Command{
   DevDocJs.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.MillTomDocStage", args = Array[String]())
 }

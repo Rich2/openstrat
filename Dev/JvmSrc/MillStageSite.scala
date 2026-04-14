@@ -2,22 +2,6 @@
 package ostrat; package pDev
 import utiljvm.*, pDoc.*
 
-object MillTomDocStage
-{
-  def main(args: Array[String]): Unit =
-  { deb("Starting MillTomDocstage")
-    val res = projPathFind.flatMap { projPath =>
-      stagingPathFind.flatMap { stagingPath1 =>
-        stagingPath1.mkExist.flatMap { _ =>
-          val stagingPath2: DirsAbs = stagingPath1 / "OpenstratSite"
-          stagingPath2.mkExist.flatMap { _ => jsWithMapFileCopy(projPath.outFullLink("DevDocJs"), stagingPath2 / "Documentation" :-/ "tomcat") }
-        }
-      }
-    }
-    debvar(res)
-  }
-}
-
 /** application used by mill to stage openstrat files for a passive server. */
 object MillStageSite extends StagingBuild
 {

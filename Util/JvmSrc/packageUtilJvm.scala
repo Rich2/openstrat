@@ -37,7 +37,7 @@ package object utiljvm
   def openstratPath: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
   /** Possible path to the staging directory for openstrat artifacts, if it can be found in Dev/User/DevSettings.rson file. */
-  def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("staging")
+  def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
@@ -181,6 +181,6 @@ package object utiljvm
     def mkExist: ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr)
 
     /** Try to make subdirectory exist. */
-    def mkSubExist(tailStr: String): ExcIOMon[DirsAbs] = utiljvm.mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)   
+    def mkSubExist(tailStr: String): ErrBi[IOExc, DirsAbs] = utiljvm.mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
   }  
 }
