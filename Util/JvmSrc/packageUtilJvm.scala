@@ -131,13 +131,13 @@ package object utiljvm
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
     jp.exists match
-    { case true if (jp.isDirectory) => Succ(DirExisted(path))
+    { case true if (jp.isDirectory) => Succ(DirExisted.str(path))
       case true => Fail(new java.nio.file.NotDirectoryException("path"))
       case _ =>
       { var oExc: Option[IOExc] = None
         try{ jp.mkdir }
         catch{ case e: IOExc => oExc = Some(e) }
-        oExc.fld(Succ(DirCreated(path)), Fail(_))
+        oExc.fld(Succ(DirCreated.str(path)), Fail(_))
       }
     }
   }
