@@ -5,7 +5,8 @@ import utiljvm.*, pDoc.*
 object MillTomDocStage
 {
   def main(args: Array[String]): Unit =
-  { val res = projPathFind.flatMap { projPath =>
+  { deb("Starting MillTomDocstage")
+    val res = projPathFind.flatMap { projPath =>
       stagingPathFind.flatMap { stagingPath1 =>
         stagingPath1.mkExist.flatMap { _ =>
           val stagingPath2: DirsAbs = stagingPath1 / "OpenstratSite"

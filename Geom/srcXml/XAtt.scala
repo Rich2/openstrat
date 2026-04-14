@@ -1,13 +1,29 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import collection.mutable.ArrayBuffer
 
-/** An XML / HTML attribute, has a name and a value [[StrArr]]. */
-trait XAtt
+/** An HTML attribute. */
+trait HAtt
 { /** Name of this attribute. Not to be confused with the name of its parent element. */
   def name: String
 
-  /** The combined String from valueOutLines. */
+  def out: String
+
+  def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String
+
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
+}
+
+/** An HTML binary attribute that takes no value. */
+class HAttBinary(val name: String) extends HAtt
+{ override def out: String = name
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = name
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(name)
+}
+
+/** An XML / HTML attribute that has a name and a value [[StrArr]]. */
+trait XAtt extends HAtt
+{ /** The combined String from valueOutLines. */
   def valueOut(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = valueOutLines(indent + 2, line1InputLen, maxLineLen).text
 
   /** Returns the text lines for the value of this attribute. */
@@ -18,19 +34,19 @@ trait XAtt
   def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
     name + "=" + valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen).text.enquote1
 
-   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines = {
-     val value = valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen)
-     value.numLines match{
-       case 0 => TextLines.empty
-       case 1 => TextLines(name + "=" + value.lines(0))
-       case n => {
-         val newArray = new Array[String](n)
-         newArray(0) = name + "=" + value.lines(0)
-         iUntilForeach(1, n){i => newArray(i) = value.lines(0)}
-         new TextLines(newArray)
-       }
-     }
-   }
+  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
+  { val value = valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen)
+    value.numLines match
+    { case 0 => TextLines.empty
+      case 1 => TextLines(name + "=" + value.lines(0))
+      case n =>
+      { val newArray = new Array[String](n)
+        newArray(0) = name + "=" + value.lines(0)
+        iUntilForeach(1, n){i => newArray(i) = value.lines(0)}
+        new TextLines(newArray)
+      }
+    }
+  }
 }
 
 /** Companion object for the XML attribute [[XAtt]] trait. */
