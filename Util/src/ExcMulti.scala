@@ -1,21 +1,42 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.targetName
+import annotation.targetName, reflect.ClassTag
 
-trait ThrowMulti extends Throwable
+/** An error that is concatenation of multiple errors. */
+trait ErrMulti[+E]
 { /** Member errors. */
-  def mems: RArr[Throwable]
+  def mems: RArr[E]
 
-  @targetName("append") def ++ (operand: ThrowMulti): ThrowMulti = ThrowMulti(mems ++ operand.mems)
+  @targetName("append") def ++[EE >: E] (operand: ErrMulti[EE])(using build: ErrBuilder[EE], ctE: ClassTag[EE]): ErrMulti[EE] = build.multi(mems ++ operand.mems)
 }
+
+case class ThrowMulti(mems: RArr[Throwable]) extends Throwable, ErrMulti[Throwable]
 
 object ThrowMulti
 {
-  def apply(throws: RArr[Throwable]): ThrowMulti = ThrowMultiGen(throws)
+  def apply(throws: RArr[Throwable]): ThrowMulti = new ThrowMulti(throws)
 
-  def apply(throws: Throwable*): ThrowMulti = ThrowMultiGen(throws.toRArr)
-  case class ThrowMultiGen(mems: RArr[Throwable]) extends ThrowMulti
+  def apply(throws: Throwable*): ThrowMulti = new ThrowMulti(throws.toRArr)
+}
 
+trait ErrBuilder[E]
+{
+  def multi(mems: RArr[E]): ErrMulti[E] & E
+}
+
+trait ExcMulti extends Exception, ErrMulti[Exception]
+{
+  override def mems: RArr[Exception]
+
+  @targetName("append") def ++ (operand: ExcMulti): ExcMulti = ExcMulti(mems ++ operand.mems)
+}
+
+object ExcMulti
+{
+  def apply(exceps: RArr[Exception]): ExcMulti = ExcMultiGen(exceps)
+
+  def apply(throws: Exception*): ExcMulti = ExcMultiGen(throws.toRArr)
+  case class ExcMultiGen(mems: RArr[Exception]) extends ExcMulti
 }
 
 extension (thisExcep: Exception)
@@ -32,21 +53,6 @@ extension (thisExcep: Exception)
   }
 }
 
-trait ExcMulti extends Exception, ThrowMulti
-{
-  override def mems: RArr[Exception]
-
-  @targetName("append") def ++ (operand: ExcMulti): ExcMulti = ExcMulti(mems ++ operand.mems)
-}
-
-object ExcMulti
-{
-  def apply(exceps: RArr[Exception]): ExcMulti = ExcMultiGen(exceps)
-
-  def apply(throws: Exception*): ExcMulti = ExcMultiGen(throws.toRArr)
-  case class ExcMultiGen(mems: RArr[Exception]) extends ExcMulti
-
-}
 
 object ExcBi
 {

@@ -6,13 +6,11 @@ import utiljvm.*, pDoc.*
 object MillStageSite extends StagingBuild
 {
   def main(args: Array[String]): Unit =
-  { stagingPathDo { stagingPath1 =>
-      stagingPath1.doIfDirExists { _ =>
-        val stagingPath2 = stagingPath1 / "OpenstratSite"
-        stagingPath2.mkExist
-        stageBase(stagingPath2)
-        useStaging(stagingPath2)
-      }
+  { val stagePathBi = stagingPathFind.flatMap(_.mkExist)
+    val ossDirBi = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
+    ossDirBi.forSucc{ ossDir =>
+      stageBase(ossDir)
+      useStaging(ossDir)
     }
   }
 
@@ -26,7 +24,6 @@ object MillStageSite extends StagingBuild
     val docPath: String = stagePath.asStr / "Documentation"
     val jarApp: ErrBi[Exception, JarFileWritten] = mkDirExist(docPath).flatMap { res =>
       jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
-      //jsFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
       jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", docPath / "osapp")
     }
     deb(jarApp.reportStr)
