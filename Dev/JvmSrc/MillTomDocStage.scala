@@ -6,17 +6,10 @@ object MillTomDocStage
 {
   def main(args: Array[String]): Unit =
   { deb("Starting MillTomDocstage")
-    val res = projPathFind.flatMap { projPath =>
-      stagingPathFind.flatMap { stagingPath1 =>
-        stagingPath1.mkExist.flatMap { sp1 =>
-          sp1.mkSubExist("OpenstratSite").flatMap { ossDir =>
-            ossDir.mkSubExist("Documentation").flatMap { docDir =>
-              jsWithMapFileCopy(projPath.outFullLink("DevDocJs"), docDir :-/ "tomcat")
-            }
-          }
-        }
-      }
-    }
-    debvar(res)
+    val stagePathBi = stagingPathFind.flatMap(_.mkExist)
+    val ossDirBi = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
+    val docBi = ossDirBi.flatMap(_.mkSubExist("Documentation"))
+    val res = ErrBi.flatMap2(projPathFind, docBi) { (projPath, docDir) => jsWithMapFileCopy(projPath.outFullLink("DevDocJs"), docDir :-/ "tomcat") }
+    deb(res.reportStr)
   }
 }

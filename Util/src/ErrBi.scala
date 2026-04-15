@@ -70,7 +70,25 @@ sealed trait ErrBi[+E <: Throwable, +A]
 
 object ErrBi
 {
-  def map2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[E, B] = eb1.flatMap(a1 => eb2.map(a2 => f(a1, a2)))
+  def map2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[Throwable, B] = eb1 match
+  { case Succ(a1) => eb2.map(a2 => f(a1, a2))
+    case f1: Fail[E] => eb2 match
+    { case Succ(_) => f1
+      case Fail(err2) => Fail(ThrowMulti(f1.error, err2))
+      case _ => excep("Unforeseen match case")
+    }
+    case _ => excep("Unforeseen match case")
+  }
+
+  def flatMap2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => ErrBi[Throwable, B]): ErrBi[Throwable, B] = eb1 match
+  { case Succ(a1) => eb2.flatMap(a2 => f(a1, a2))
+    case f1: Fail[E] => eb2 match {
+      case Succ(_) => f1
+      case Fail(err2) => Fail(ThrowMulti(f1.error, err2))
+      case _ => excep("Unforeseen match case")
+    }
+    case _ => excep("Unforeseen match case")
+  }
 
   def map3[E <: Throwable, A1, A2, A3, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3])(f: (A1, A2, A3) => B): ErrBi[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3 } yield f(s1, s2, s3)
@@ -115,7 +133,7 @@ object ErrBi
 }
 
 /** Success, boxes a good value of the desired type. */
-case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
+case class Succ[+A](value: A) extends ErrBi[Nothing, A]
 { override def map[B](f: A => B): ErrBi[Nothing, B] = new Succ[B](f(value))
 
   override def flatMap[EE <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = f(value) match

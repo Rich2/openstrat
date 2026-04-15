@@ -130,7 +130,7 @@ trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
   { val len: Int = sortedExprs.length
     val e1: ExcMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
     def e2: ExcMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
-    ErrBi.map2(e1, e2)(newT)
+    ExcBi.map2(e1, e2)(newT)
   }
 }
 
