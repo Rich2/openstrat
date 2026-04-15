@@ -28,9 +28,15 @@ object DivHtml
   def colour(colour: Colour, contents: XConInedit*): DivHtml = new DivHtmlGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
 
   /** Creates a Div and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): DivHtml =
+  def updateText(input: UpdaterText)(f: String => String): DivHtml =
   { def newId = input.next1Id(f)
     new DivHtmlGen(RArr(f(input.valueStr)), RArr(newId))
+  }
+
+  /** Creates a Div and registers the textContent with an HTML Text Input. */
+  def updateHtml(input: UpdaterText)(f: String => RArr[XCon]): DivHtml = {
+    def newId = input.nextHtmlId(f)
+    new DivHtmlGen((f(input.valueStr)), RArr(newId))
   }
 
   /** Creates a Div and registers the textContent with an HTML number Input. */

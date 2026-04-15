@@ -43,6 +43,14 @@ trait UpdaterText extends InputLikeUpdater
     IdAtt(newtargetId)
   }
 
+  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
+   * input to update the target content. */
+  def nextHtmlId(f: String => RArr[XCon]): IdAtt =
+  { val newtargetId: String = idStr + clientCount.str
+    callBacks +%= CallBack1StrHtml(newtargetId, f)
+    IdAtt(newtargetId)
+  }
+
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
   def next2Id1(otherInpIdStr: String, f: (String, String) => String): IdAtt =

@@ -19,29 +19,29 @@ trait HtmlLargeList extends HtmlTagLines
 }
 
 /** An HTML OL ordered list with the LargeList CSS class */
-class HtmlLargeOl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
+class OlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
 
-object HtmlLargeOl
+object OlLarge
 {/** Factory apply method for a large HTML OL ordered list. */
-  def apply(contents: XCon*): HtmlLargeOl = new HtmlLargeOl(contents.toArr, RArr())
+  def apply(contents: XCon*): OlLarge = new OlLarge(contents.toArr, RArr())
 
   /** Factory apply method for a large HTML OL ordered list. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlLargeOl = new HtmlLargeOl(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): OlLarge = new OlLarge(contents, attribs)
 
   /** Factory method for a large HTML OL ordered list from [[String]]s. */
-  def strs(items: String*): HtmlLargeOl = new HtmlLargeOl(items.mapArr(LiHtml(_)), RArr())
+  def strs(items: String*): OlLarge = new OlLarge(items.mapArr(LiHtml(_)), RArr())
 }
 
 /** An HTML UL unordered list with the LargeList CSS class */
-class HtmlLargeUl(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
+class UlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
 
-object HtmlLargeUl
+object UlLarge
 {/** Factory apply method for a large HTML UL unordered list. */
-  def apply(contents: XCon*): HtmlLargeUl = new HtmlLargeUl(contents.toArr, RArr())
+  def apply(contents: XCon*): UlLarge = new UlLarge(contents.toArr, RArr())
 
   /** Factory apply method for a large HTML UL unordered list. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): HtmlLargeUl = new HtmlLargeUl(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): UlLarge = new UlLarge(contents, attribs)
 
   /** Factory method for a large HTML UL unordered list from [[String]]s. */
-  def strs(items: String*): HtmlLargeUl = new HtmlLargeUl(items.mapArr(LiHtml(_)), RArr())
+  def strs(items: String*): UlLarge = new UlLarge(items.mapArr(LiHtml(_)), RArr())
 }

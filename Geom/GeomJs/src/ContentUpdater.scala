@@ -40,8 +40,7 @@ object ContentUpdaterNum
 
 /** Updates HTML content due to [[String]] changes from HTML input elements. */
 class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
-{
-  val idStem = inputer.idStr
+{ val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner(_))
   
@@ -54,7 +53,7 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
       val target = document.getElementById(targetId)
       if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
       else
-      { target.textContent = dep match
+      { target.innerHTML = dep match
         { case cb2: Callback2Text =>
           { val inp2Val: String = document.getElementById(cb2.otherInpIdStr).asInstanceOf[html.Input].value
             cb2 match
@@ -63,6 +62,7 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
             }
           }
           case Callback1Text(idStr, f) => f(newInpStr)
+          case CallBack1StrHtml(idStr, f) => f(newInpStr).out
         }
       }
     }

@@ -29,6 +29,8 @@ extension (thisArr: RArr[XCon])
     }
     res
   }
+  
+  def out: String = outLines(0, 0).text
 }
 
 extension (thisXCon: XCon)

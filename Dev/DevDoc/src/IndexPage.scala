@@ -19,7 +19,7 @@ object IndexPage extends IndexPage
   def devInfo = AHtml("Documentation/dev.html", "Info for developers here.")
   def begInfo = AHtml("Documentation/newdevs.html", "Info for new developers here.")
 
-  def menu: HtmlLargeOl = HtmlLargeOl(util, geom, tile, egrid, apps, dev)
+  def menu: OlLarge = OlLarge(util, geom, tile, egrid, apps, dev)
 
   def intro: PHtml = PHtml("The Code is currently organised into 6 modules.".htmlB,
     "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")

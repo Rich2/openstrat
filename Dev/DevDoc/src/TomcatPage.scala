@@ -1,6 +1,8 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, wcode.*
+import ostrat.pWeb.osweb.OlLarge
+import pWeb.*
+import wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends PageHtmlUpdater
@@ -58,14 +60,13 @@ object TomcatPage extends PageHtmlUpdater
   stripMargin,
   LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
 
-  def steps = OlHtml(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
+  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
   val s1 = LiHtml("Upgrade packages.",
-  BashLine.inputText(osNameIUT){
-    case ArchDeriv.valueStr => "Sudo pacman -Syu"
-    case _ => "sudo apt update"
+  DivHtml.updateHtml(osNameIUT){
+    case ArchDeriv.valueStr => RArr(BashLine("Sudo pacman -Syu"))
+    case _ => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
   },
-  BashLine("sudo apt upgrade"),
   "Install Fail2Ban to protect against brute force login attacks",
   BashLine("sudo apt install fail2ban"),
   BashLine("sudo systemctl enable --now fail2ban"),
@@ -176,8 +177,8 @@ object TomcatPage extends PageHtmlUpdater
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
   "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdDivs +%
-  DivHtml.inputText(uNameIUT){ uName => s"User=$uName"} +%
-  DivHtml.inputText(uNameIUT){ uName => s"Group=$uName" } ++
+  DivHtml.updateText(uNameIUT){ uName => s"User=$uName"} +%
+  DivHtml.updateText(uNameIUT){ uName => s"Group=$uName" } ++
   StrArr(
   "UMask=0007",
   "RestartSec=10",

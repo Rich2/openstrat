@@ -14,6 +14,8 @@ object InputUpdaterText
 }
 
 sealed trait CallbackText extends CallbackInput
+
+case class CallBack1StrHtml(targetId: String, f: String => RArr[XCon]) extends CallbackText
 case class Callback1Text(targetId: String, f: String => String) extends CallbackText
 
 sealed trait Callback2Text extends CallbackText
