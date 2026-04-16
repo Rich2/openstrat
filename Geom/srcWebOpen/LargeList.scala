@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb; package osweb
 
 val largeListStr = "LargeList"
@@ -11,7 +11,7 @@ val liLargeRule: CssChildRule = listLargeRule.child("li", MarginTBDec(1.em))
 object LargeListAtt extends ClassAtt(largeListStr)
 
 /** Common trait for large ordered and unordered HTML Lists. */
-trait HtmlLargeList extends HtmlTagLines
+trait ListLarge extends HtmlTagLines
 { /** Any other attributes in addition to LargeListAtt */
   def otherAttribs: RArr[XAtt]
 
@@ -19,7 +19,7 @@ trait HtmlLargeList extends HtmlTagLines
 }
 
 /** An HTML OL ordered list with the LargeList CSS class */
-class OlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
+class OlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, ListLarge
 
 object OlLarge
 {/** Factory apply method for a large HTML OL ordered list. */
@@ -33,7 +33,7 @@ object OlLarge
 }
 
 /** An HTML UL unordered list with the LargeList CSS class */
-class UlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, HtmlLargeList
+class UlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, ListLarge
 
 object UlLarge
 {/** Factory apply method for a large HTML UL unordered list. */

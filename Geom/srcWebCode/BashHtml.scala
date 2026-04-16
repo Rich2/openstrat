@@ -54,7 +54,7 @@ object BashLine
   }
 
   /** Creates a Bash line and registers the textContent with an HTML number Input. */
-  def updateNum(input: InputUpdaterNum)(f: Double => String): BashLine =
+  def listenNum(input: InputUpdaterNum)(f: Double => String): BashLine =
   { def newId = input.next1Id(f)
     new BashLine(RArr(f(input.value)), RArr(newId))
   }
