@@ -1,8 +1,6 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import ostrat.pWeb.osweb.OlLarge
-import pWeb.*
-import wcode.*
+import pWeb.*, osweb.*, wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends PageHtmlUpdater
@@ -11,9 +9,7 @@ object TomcatPage extends PageHtmlUpdater
   override def fileNameStem: String = "tomcat"
 
   override def head: HeadHtml = headCss("documentation")
-  override def body: BodyHtml = BodyHtml.h1("Using Apache Tomcat Server", central,
-  //  XComment("/openstrat/Dev/DevDoc/DevDocJs/target/scala-3.7.3/devdocjs-opt/"),
-    ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))
+  override def body: BodyHtml = BodyHtml.h1("Using Apache Tomcat Server", central, ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))
 
   def central: DivHtml = DivHtml.classAtt("central", p1, p2, steps)
 
@@ -68,7 +64,10 @@ object TomcatPage extends PageHtmlUpdater
     case _ => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
   },
   "Install Fail2Ban to protect against brute force login attacks",
-  BashLine("sudo apt install fail2ban"),
+  BashLine.updateText(osNameIUT){
+    case ArchDeriv.valueStr => "pacman -S fail2ban"
+    case _ => "sudo apt install fail2ban"
+  },
   BashLine("sudo systemctl enable --now fail2ban"),
   )
 
@@ -82,7 +81,9 @@ object TomcatPage extends PageHtmlUpdater
   |get your site / app out to the world.""".stripMargin)
   
   def s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-  BashLine.inputNum(javaVerIUN)(n => s"sudo apt install openjdk-${n.str0}-jdk -y"),
+  BashLine.updateTextNum(osNameIUT, javaVerIUN){ (os, vNum) =>
+    val osStr = ife(os == ArchDeriv.valueStr, "pacman -Syu", "apt install")
+    s"sudo $osStr openjdk-${vNum.str0}-jdk -y"},
   "Check the version",
   BashLine("java -version"),
   CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",
@@ -103,17 +104,17 @@ object TomcatPage extends PageHtmlUpdater
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
   |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
   |username.""". stripMargin,
-  BashLine.inputText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName"},
-  BashLine.inputText(uNameIUT)(uName => s"sudo passwd $uName"),  
+  BashLine.updateText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName"},
+  BashLine.updateText(uNameIUT)(uName => s"sudo passwd $uName"),
   )
 
   val s5 = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine("sudo mkdir /opt/tomcat"),
-  BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
+  BashLine.updateText(uNameIUT)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
   SpanLine.inputText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
-  BashLine.inputText(uNameIUT)(uName => s"sudo su $uName"),
+  BashLine.updateText(uNameIUT)(uName => s"sudo su $uName"),
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
@@ -206,11 +207,11 @@ object TomcatPage extends PageHtmlUpdater
   val s11: LiHtml = LiHtml("To switch to port 80 the http defaults",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine.updateText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.inputText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
+  BashLine.updateText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
@@ -241,11 +242,11 @@ object TomcatPage extends PageHtmlUpdater
   BashLine("sudo chgrp -R tommy /etc/letsencrypt/archive/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
-  BashLine.inputText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
-  BashLine.inputText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
-  BashLine.inputText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
+  BashLine.updateText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
+  BashLine.updateText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
+  BashLine.updateText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
   "Check permissions - if you dont have access then something wrong...",
-  BashLine.inputText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
+  BashLine.updateText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
   )
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",

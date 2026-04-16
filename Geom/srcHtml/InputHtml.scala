@@ -4,9 +4,11 @@ import reflect.ClassTag
 
 /** An HTML input element. */
 trait InputHtml extends InputLike, HtmlVoid
-{ def typeAtt: TypeAtt
+{ /** The type of input attribute. */
+  def typeAtt: TypeAtt
   override def tagName: String = "input"
 
+  /** The value attribute. */
   final def valueAtt: ValueAtt = ValueAtt(valueStr)
 
   override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
@@ -19,14 +21,13 @@ class SubmitInput(val idStr: String, val valueStr: String, val otherAttribs: RAr
 }
 
 object SubmitInput
-{
+{ /** #factory apply method for submit input HTML element. */
   def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt] = RArr()): SubmitInput = new SubmitInput(idStr, valueStr, otherAttribs)
 }
 
 /** An HTML label followed by an [[InputUpdaterText]]. */
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: InputUpdaterText = InputUpdaterText(idStr, valueStr)
-
 }
 
 object LabelTextInput
@@ -39,7 +40,7 @@ class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(
 }
 
 object LabelNumInput
-{
+{ /** Factory apply method for label and number input HTML elements. */
   def apply(idStr: String, label: String, valueNum: Double)(using page: PageHtmlUpdater): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
 }
 

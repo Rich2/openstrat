@@ -34,8 +34,8 @@ object DivHtml
   }
 
   /** Creates a Div and registers the textContent with an HTML Text Input. */
-  def updateHtml(input: UpdaterText)(f: String => RArr[XCon]): DivHtml = {
-    def newId = input.nextHtmlId(f)
+  def updateHtml(input: UpdaterText)(f: String => RArr[XCon]): DivHtml =
+  { def newId = input.nextHtmlId(f)
     new DivHtmlGen((f(input.valueStr)), RArr(newId))
   }
 

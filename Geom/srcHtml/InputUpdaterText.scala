@@ -24,6 +24,9 @@ sealed trait Callback2Text extends CallbackText
 case class Callback2Text1(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
 case class Callback2Text2(targetId: String, otherInpIdStr: String, f: (String, String) => String) extends Callback2Text
 
+case class CallbackTextNum1(targetId: String, numInpIdStr: String, f: (String, Double) => String) extends CallbackText
+case class CallbackTextNum2(targetId: String, textInpIdStr: String, f: (String, Double) => String) extends CallbackInput
+
 sealed trait Callback3Text extends CallbackText
 { def otherInpIdStr1: String
   def otherInpIdStr2: String

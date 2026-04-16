@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom.*, reflect.ClassTag
 
@@ -270,7 +270,7 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
   def keyMap(implicit gridSys: SqGridSys): Map[A, SqCen] =
   { val build = Map.newBuilder[A, SqCen]
     someScForeach((p, hc) => build.addOne(hc, p))
-    build.result
+    build.result()
   }
 
   /** Moves the object in the array location given by the 1st [[SqCen]] to the 2nd [[SqCen]], by setting sc2 to the value of sc1 and setting sc1 to None. */

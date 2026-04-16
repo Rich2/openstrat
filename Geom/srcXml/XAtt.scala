@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 import collection.mutable.ArrayBuffer
 
-/** An HTML attribute. */
+/** An HTML / XML attribute, inlcuding HTML attributes without a value. */
 trait HAtt
 { /** Name of this attribute. Not to be confused with the name of its parent element. */
   def name: String
@@ -15,7 +15,7 @@ trait HAtt
 }
 
 /** An HTML binary attribute that takes no value. */
-class HAttBinary(val name: String) extends HAtt
+class HAttNoValue(val name: String) extends HAtt
 { override def out: String = name
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = name
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(name)
