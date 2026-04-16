@@ -27,20 +27,20 @@ object DivHtml
   /** Factory method for creating HTML Div element with a Style attribute with a colour declaration. */
   def colour(colour: Colour, contents: XConInedit*): DivHtml = new DivHtmlGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
 
-  /** Creates a Div and registers the textContent with an HTML Text Input. */
-  def updateText(input: UpdaterText)(f: String => String): DivHtml =
+  /** Creates a Div and listens to an [[UpdaterText]] change events modifying the textContent. */
+  def listenStrCon(input: UpdaterText)(f: String => String): DivHtml =
   { def newId = input.next1Id(f)
     new DivHtmlGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates a Div and registers the textContent with an HTML Text Input. */
-  def updateHtml(input: UpdaterText)(f: String => RArr[XCon]): DivHtml =
+  /** Creates a Div and registers with a [[UpdaterText]]. Changes inner HTML on change event. */
+  def listenStrHtml(input: UpdaterText)(f: String => RArr[XCon]): DivHtml =
   { def newId = input.nextHtmlId(f)
     new DivHtmlGen((f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates a Div and registers the textContent with an HTML number Input. */
-  def inputNum(input: InputUpdaterNum)(f: Double => String): DivHtml =
+  /** Creates an HTML div element and Listens to [[InputUpdaterNum]] change events and modifies the HTML textContent. */
+  def listenNum(input: InputUpdaterNum)(f: Double => String): DivHtml =
   { val newId: IdAtt = input.next1Id(f)
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
   }

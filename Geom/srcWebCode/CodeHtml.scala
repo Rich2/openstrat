@@ -45,12 +45,13 @@ object CodeHtmlInline
   }
 }
 
+/** Html code to display a change of code. */
 class CodeChangeLine(val oldCode: String, val newCode: String, val attribs: RArr[XAtt]) extends DivLine
 { override def contents: RArr[XCon] = RArr("Change", CodeHtmlInline(oldCode), "to", CodeHtmlInline(newCode))
 }
 
 object CodeChangeLine
-{
+{ /** Factory apply method for sequence of HYML code lines formed from an [[StrArr]]. */
   def apply(oldCode: String, newCode: String, attribs: XAtt*): CodeChangeLine = new CodeChangeLine(oldCode, newCode, attribs.toRArr)
 }
 
@@ -83,13 +84,14 @@ object CodeOutputLine
   }
 }
 
-case class CodeOutputLines(strs: StrArr, otherAttribs: RArr[XAtt]) extends CodeOutput, HtmlTagLines
+/** Sequence of HYML code lines formed from an [[StrArr]]. */
+case class CodeOutputLines(strs: Arr[String], otherAttribs: RArr[XAtt]) extends CodeOutput, HtmlTagLines
 { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   override def contents: RArr[XCon] = strs.map(s => DivHtml(s))
 }
 
 object CodeOutputLines
-{
+{ /** Factory apply method for sequence of HYML code lines formed from an [[StrArr]]. */
   def apply(contents: String*): CodeOutputLines = new CodeOutputLines(contents.toArr, RArr())
 }
 
@@ -112,14 +114,14 @@ object CodePre
 
   /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
    * escape the HTML code characters. */
-  def inputText(input: InputUpdaterText, otherAttribs: XAtt*)(f: String => String): CodePre =
+  def listenText(input: InputUpdaterText, otherAttribs: XAtt*)(f: String => String): CodePre =
   { def newId = input.next1Id(f)
     val pre = new PreHtml(f(input.valueStr).escapeHtml, RArr(newId))
     new CodePre(pre, otherAttribs.toRArr)
   }
 
   /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Inputs. */
-  def input2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): CodePre =
+  def listen2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): CodePre =
   { def targetId = input1.next2Id1(input2.idStr, f)
     input2.next2Id2(targetId.valueStr, input1.idStr, f)
     val pre = new PreHtml(f(input1.valueStr, input2.valueStr).escapeHtml, RArr(targetId))

@@ -59,7 +59,7 @@ object TomcatPage extends PageHtmlUpdater
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
   val s1 = LiHtml("Upgrade packages.",
-  DivHtml.updateHtml(osNameIUT){
+  DivHtml.listenStrHtml(osNameIUT){
     case ArchDeriv.valueStr => RArr(BashLine("Sudo pacman -Syu"))
     case _ => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
   },
@@ -152,7 +152,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  CodePre.input2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
+  CodePre.listen2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
   )
 
   val s9 = LiHtml("Create a systemd unit file.",
@@ -170,7 +170,7 @@ object TomcatPage extends PageHtmlUpdater
   """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
   """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdDivs +%
-  DivHtml.inputNum(ramIUN){ n =>  val nn = n * 256
+  DivHtml.listenNum(ramIUN){ n =>  val nn = n * 256
     val xmsStr = nn.min(512).str0
     val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
   s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
@@ -178,8 +178,8 @@ object TomcatPage extends PageHtmlUpdater
   """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
   "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
   "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdDivs +%
-  DivHtml.updateText(uNameIUT){ uName => s"User=$uName"} +%
-  DivHtml.updateText(uNameIUT){ uName => s"Group=$uName" } ++
+  DivHtml.listenStrCon(uNameIUT){ uName => s"User=$uName"} +%
+  DivHtml.listenStrCon(uNameIUT){ uName => s"Group=$uName" } ++
   StrArr(
   "UMask=0007",
   "RestartSec=10",
@@ -252,7 +252,7 @@ object TomcatPage extends PageHtmlUpdater
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine("nano /opt/tomcat/Base/conf/server.xml"),
   "Uncomment the section and modify as below",
-  CodePre.inputText(domainIUT){ dName =>
+  CodePre.listenText(domainIUT){ dName =>
   s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
   |  maxThreads="150" SSLEnabled="true" secure="true" scheme="https">
   |  <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
