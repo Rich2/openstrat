@@ -61,12 +61,12 @@ object StyleHtml
   def apply(rules: CssRuleLike*): StyleHtml = new StyleHtml(rules.toArr)
 }
 
-/** Html H1 header element. */
+/** HTML h1 header element. */
 case class H1Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { override def tagName = "h1"
 }
 
-/** Html H2 header element. */
+/** HTML h2 header element. */
 case class H2Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h2"
 }
@@ -79,6 +79,16 @@ case class H3Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwn
 /** Html H4 header element. */
 case class H4Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h4"
+}
+
+/** Html H4 header element. */
+case class H5Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+{ def tagName = "h5"
+}
+
+/** Html H4 header element. */
+case class H6Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+{ def tagName = "h6"
 }
 
 /** HTML button element. */
