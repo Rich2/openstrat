@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import geom.*, prid.phex.*, pWeb.*, Colour.*
+import geom.*, prid.phex.*, pWeb.*, HtmlStrExts.*, Colour.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for the Tiling JVM module. */
 object TilingPommer extends OsModuleJvmVerless(DirsRel("Tiling"), "tiling", RArr(GeomPommer, UtilPommer), RArr())
@@ -9,11 +9,11 @@ object TilingPommer extends OsModuleJvmVerless(DirsRel("Tiling"), "tiling", RArr
 object TilingPage extends OSDocumentationPage
 { override def titleStr: String = "Tiling Module"
   override val fileNameStem: String = "tiling"
-  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
-  def central: DivHtml = DivHtml.classAtt("central", list, H2Html("Game Terminology"), CoordSystem, terms2, turnRes)
+  def central: DivHtml = DivHtml.classAtt("central", list, "Game Terminology".h2, CoordSystem, terms2, turnRes)
 
-  def list: OlSection = OlSection(H2Html("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
+  def list: OlSection = OlSection("The Tiling module contains".h2, coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
   def coord: LiHtml = LiHtml("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each have" --
     "their own unique 2 integer coordinates.")

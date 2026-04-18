@@ -1,6 +1,6 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, osweb.*, wcode.*
+import pWeb.*, HtmlStrExts.*, osweb.*, wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends PageHtmlUpdater
@@ -9,7 +9,7 @@ object TomcatPage extends PageHtmlUpdater
   override def fileNameStem: String = "tomcat"
 
   override def head: HeadHtml = headCss("documentation")
-  override def body: BodyHtml = BodyHtml.h1("Using Apache Tomcat Server", central, ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))
+  override def body: BodyHtml = BodyHtml("Using Apache Tomcat Server".h1, central, ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))
 
   def central: DivHtml = DivHtml.classAtt("central", p1, p2, steps)
 

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import geom.*, pWeb.*, wcode.*, Colour.*
+import geom.*, pWeb.*, HtmlStrExts.*, wcode.*, Colour.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for the Geom JVM module. */
 object GeomPommer extends OsModuleJvmVerless(DirsRel("Geom"), "geom", RArr(UtilPommer), RArr())
@@ -15,7 +15,7 @@ object GeomFxPommer extends OsModuleJvmVerless(DirsRel("GeomFx"), "geomfx", RArr
 object GeomPage extends OSDocumentationPage
 { override val titleStr: String = "Geom Module"
   override val fileNameStem: String = "geom"
-  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   def central: DivHtml = DivHtml.classAtt("central", PHtml(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other

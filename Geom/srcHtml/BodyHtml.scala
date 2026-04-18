@@ -16,7 +16,4 @@ object BodyHtml
 
   /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as [[RArr]] parameters. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): BodyHtml = new BodyHtml(contents, attribs)
-
-  /** Factory method to create an HTML body element, with no attributes, whose first contents element is an HTNL H1 header. */
-  def h1(headerStr: String, otherContents: XCon*): BodyHtml = new BodyHtml(H1Html(headerStr) %: otherContents.toArr, RArr())
 }

@@ -1,11 +1,11 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, wcode.*
+import pWeb.*, HtmlStrExts.*, wcode.*
 
 object NewDevsPage extends OSDocumentationPage
 { override def titleStr: String = "New Developers Info"
   override def fileNameStem: String = "newdevs"
-  override def body: BodyHtml = BodyHtml.h1("New Developers Info", central)
+  override def body: BodyHtml = BodyHtml("New Developers Info".h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, gitCommands, sbtCommands)
 

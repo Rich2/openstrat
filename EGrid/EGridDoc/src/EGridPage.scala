@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*
+import pWeb.*, HtmlStrExts.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for EGrid JVM module. */
 object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
@@ -9,11 +9,11 @@ object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(Ti
 object EGridPage extends OSDocumentationPage
 { override def titleStr: String = "EGrid Module"
   override val fileNameStem: String = "egrid"
-  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", egrids, open)
   val egrDir: String = "../egrids"
-  def egrids: OlSection = OlSection(H2Html("World Hex Grids."),
+  def egrids: OlSection = OlSection("World Hex Grids.".h2,
     LiHtml.linkAndText(egrDir / "eg1300.html", "EGrid 1300km", "1300km hex scale world."),
     LiHtml.linkAndText(egrDir / "eg1000.html", "EGrid 1000km", "1000km hex scale world."),
     LiHtml.linkAndText(egrDir / "eg640.html", "EGrid 640km", "640km hex scale world."),
@@ -30,7 +30,7 @@ object EGridPage extends OSDocumentationPage
 
   def open = PHtml("Hex tile grids for the Earth at various scales, 320km, 220km, 160km, 120km and 80km. The tile grids work the same as normal" --
     "hex grids from in the\n  Tiling module, except they have to be joined togethor at the 15, 45, 75 degree longitude boundaries." ---
-    "<br>A = 3 * √3 * R² / 2 //Where A is area and R is both the long radius and side length of the regualar hexagon." ---
+    "<br>A = 3 * √3 * R² / 2 //Where A is area and R is both the long radius and side length of the regular hexagon." ---
     "<br>R = 2 * r / √3 = d / √3 //Where r is the short radius and d is the short diameter or hex scale." ---
     "<br>R² = d² / 3" ---
     "<br>A = √3 * d² / 2" ---

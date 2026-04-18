@@ -1,17 +1,17 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, wcode.*
+import pWeb.*, HtmlStrExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
 object DevPage extends OSDocumentationPage, PageHtmlUpdater
 { override val titleStr: String = "Dev Module"
   override val fileNameStem: String = "dev"
 
-  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   val scVer: String = "3.8.3"
 
   def central: DivHtml = DivHtml.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
-  def list: OlSection = OlSection(H2Html("The Dev module contains"),
+  def list: OlSection = OlSection("The Dev module contains".h2,
     LiHtml("JavaFx application selection and developer settings for the different apps.", AHtml("osapp.jar", "Runnable jar")),
     LiHtml("Generates the HTML and CSS files for the website, including this file."),
     LiHtml("Creates Servlets for Tomcat / Jetty Servers.")
@@ -68,7 +68,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
 
   def sbt3D = PHtml("For JavaFx 3D ", SbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
   
-  def credits: UlSection = UlSection("<h3>Credits</h3>",
+  def credits: UlSection = UlSection("Credits".h3,
     LiHtml.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
     LiHtml.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")
   )

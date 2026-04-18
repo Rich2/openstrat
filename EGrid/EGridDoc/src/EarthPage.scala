@@ -1,12 +1,12 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*
+import pWeb.*, HtmlStrExts.*
 
 /** HTML documentation page for Earth module. */
 object EarthPage extends OSDocumentationPage
 { override val titleStr: String = "Earth Module"
   override def fileNameStem: String = "earth"
-  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", list)
 

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*
+import pWeb.*, HtmlStrExts.*
 
 trait OSDocumentationPage extends PageFile
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HeadHtml]]. */
@@ -15,7 +15,7 @@ trait OSDocumentationPage extends PageFile
 object UtilPage extends OSDocumentationPage
 { override val titleStr: String = "Util Module"
   override val fileNameStem: String = "util"
-  override def body: BodyHtml = BodyHtml.h1(titleStr, central)
+  override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   def central: DivHtml = DivHtml.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
 
   def list: OlSection = OlSection(H2Html("The Util module contains"),
