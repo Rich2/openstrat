@@ -28,13 +28,14 @@ object EGridPage extends OSDocumentationPage
     LiHtml.linkAndText(egrDir / "earthapp.html", "Earth areas", "Earth irregular areas."),
   )
 
-  def open = PHtml("Hex tile grids for the Earth at various scales, 320km, 220km, 160km, 120km and 80km. The tile grids work the same as normal" --
-    "hex grids from in the\n  Tiling module, except they have to be joined togethor at the 15, 45, 75 degree longitude boundaries." ---
-    "<br>A = 3 * √3 * R² / 2 //Where A is area and R is both the long radius and side length of the regular hexagon." ---
-    "<br>R = 2 * r / √3 = d / √3 //Where r is the short radius and d is the short diameter or hex scale." ---
-    "<br>R² = d² / 3" ---
-    "<br>A = √3 * d² / 2" ---
-    "<br>A = 0.8660254037844386 * d²" ---
-    "<br>MIA = A/6 //where MIA is minimum island area." ---
-    "<br>MIA = 0.14433756729740643 * d²")
+  def open: PHtml = PHtml("""Hex tile grids for the Earth at various scales, 320km, 220km, 160km, 120km and 80km. The tile grids work the same as normal hex
+  |grids from in the Tiling module, except they have to be joined together at the 15, 45, 75 degree longitude boundaries.""".stripMargin,
+  SpanLine("A = 3 * √3 * R² / 2 //Where A is area and R is both the long radius and side length of the regular hexagon."),
+  SpanLine("R = 2 * r / √3 = d / √3 //Where r is the short radius and d is the short diameter or hex scale."),
+  SpanLine("R² = d² / 3"),
+  SpanLine("A = √3 * d² / 2"),
+  SpanLine("A = 0.8660254037844386 * d²"),
+  SpanLine("MIA = A/6 //where MIA is minimum island area."),
+  SpanLine("MIA = 0.14433756729740643 * d²")
+  )
 }
