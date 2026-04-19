@@ -14,18 +14,18 @@ object EGridPage extends OSDocumentationPage
   def central: DivHtml = DivHtml.classAtt("central", egrids, open)
   val egrDir: String = "../egrids"
   def egrids: OlSection = OlSection("World Hex Grids.".h2,
-    LiHtml.linkAndText(egrDir / "eg1300.html", "EGrid 1300km", "1300km hex scale world."),
-    LiHtml.linkAndText(egrDir / "eg1000.html", "EGrid 1000km", "1000km hex scale world."),
-    LiHtml.linkAndText(egrDir / "eg640.html", "EGrid 640km", "640km hex scale world."),
-    LiHtml.linkAndText(egrDir / "eg460.html", "EGrid 460km", "460km hex scale world."),
-    LiHtml.linkAndText(egrDir / "eg320.html", "EGrid 320km", "320km hex scale world."),
-    LiHtml.linkAndText(egrDir / "eg220europe.html", "EGrid Europe 220km", "220km hex scale Europe."),
-    LiHtml.linkAndText(egrDir / "eg220europewide.html", "EGrid Europe wide 220km", "220km hex scale Europe wide."),
-    LiHtml.linkAndText(egrDir / "eg220namerica.html", "EGrid North America 220km", "220km hex scale North America."),
-    LiHtml.linkAndText(egrDir / "eg160europe.html", "EGrid Europe 160km", "160km hex scale Europe."),
-    LiHtml.linkAndText(egrDir / "eg120europe.html", "EGrid Europe 120km", "120km hex scale Europe."),
-    LiHtml.linkAndText(egrDir / "eg80europe.html", "EGrid Europe 80km", "80km hex scale Europe."),
-    LiHtml.linkAndText(egrDir / "earthapp.html", "Earth areas", "Earth irregular areas."),
+    LiHtml(AHtml(egrDir / "eg1300.html", "EGrid 1300km"), "1300km hex scale world."),
+    LiHtml(AHtml(egrDir / "eg1000.html", "EGrid 1000km"), "1000km hex scale world."),
+    LiHtml(AHtml(egrDir / "eg640.html", "EGrid 640km"), "640km hex scale world."),
+    LiHtml(AHtml(egrDir / "eg460.html", "EGrid 460km"), "460km hex scale world."),
+    LiHtml(AHtml(egrDir / "eg320.html", "EGrid 320km"), "320km hex scale world."),
+    LiHtml(AHtml(egrDir / "eg220europe.html", "EGrid Europe 220km"), "220km hex scale Europe."),
+    LiHtml(AHtml(egrDir / "eg220europewide.html", "EGrid Europe wide 220km"), "220km hex scale Europe wide."),
+    LiHtml(AHtml(egrDir / "eg220namerica.html", "EGrid North America 220km"), "220km hex scale North America."),
+    LiHtml(AHtml(egrDir / "eg160europe.html", "EGrid Europe 160km"), "160km hex scale Europe."),
+    LiHtml(AHtml(egrDir / "eg120europe.html", "EGrid Europe 120km"), "120km hex scale Europe."),
+    LiHtml(AHtml(egrDir / "eg80europe.html", "EGrid Europe 80km"), "80km hex scale Europe."),
+    LiHtml(AHtml(egrDir / "earthapp.html", "Earth areas"), "Earth irregular areas."),
   )
 
   def open: PHtml = PHtml("""Hex tile grids for the Earth at various scales, 320km, 220km, 160km, 120km and 80km. The tile grids work the same as normal hex
