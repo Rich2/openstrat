@@ -50,22 +50,18 @@ object OlHtml
 }
 
 /** Html LI, list item element. */
-case class LiHtml(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+class LiHtml(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlOwnLine
 { override def tagName: String = "li"
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object LiHtml
 { /** Factory apply method for HTML LI list element [[LiHtml]] class. */
-  def apply(contents: XCon*): LiHtml = new LiHtml(contents.toArr)
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): LiHtml = new LiHtml(contents, attribs)
 
-  /** An HTML list item element that has a link as its sole content. */
-  def a(link: String, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link, label)), attribs.toArr)
+  /** Factory apply method for HTML LI list element [[LiHtml]] class. */
+  def apply(contents: XCon*): LiHtml = new LiHtml(contents.toArr, RArr())
 
   /** An HTML list item element that has a link as its sole content. */
   def a(link: DirsOrFilePathBase, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
-
-  /** An HTML list item element that has a link, followed by some text as its sole contents. */
-  def linkAndText(link: String, label: String, otherText: String, attribs: XAtt*): LiHtml =
-    new LiHtml(RArr(new AHtml(link, RArr(label)), otherText), attribs.toArr)
 }

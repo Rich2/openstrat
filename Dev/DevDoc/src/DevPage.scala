@@ -69,7 +69,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   def sbt3D = PHtml("For JavaFx 3D ", SbtInline("""set DevFx/reStart/mainClass:= Some("ostrat.pFx.App3D")"""))
   
   def credits: UlSection = UlSection("Credits".h3,
-    LiHtml.linkAndText("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis", "for Scala.js"),
-    LiHtml.linkAndText("https://www.patreon.com/lihaoyi", "Li Haoyi", "for Mill and uTest.")
+    LiHtml(AHtml("https://lampwww.epfl.ch/~doeraene/thesis/", "Sébastien Doeraene, Ph.D. thesis"), "for Scala.js"),
+    LiHtml(AHtml("https://www.patreon.com/lihaoyi", "Li Haoyi"), "for Mill and uTest.")
   )
 }

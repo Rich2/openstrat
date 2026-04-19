@@ -27,13 +27,13 @@ object IndexPage extends IndexPage
   def util: LiHtml = LiHtml(AHtml("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
   |persistence system and an error system.""".stripMargin)
 
-  def geom: LiHtml = LiHtml.linkAndText("Documentation/geom.html", "Geom Module", """Depends on Util. Compressive measurement units, Basic 2D and 3D geometry,
+  def geom: LiHtml = LiHtml(AHtml("Documentation/geom.html", "Geom Module"), """Depends on Util. Compressive measurement units, Basic 2D and 3D geometry,
   |Earth Geometry, functional Graphics and code for creating HTTP, HTML, CSS and SVG and other XML.""".stripMargin)
 
   def tile: LiHtml = LiHtml(AHtml("Documentation/tiling.html", "Tiling Module"), """Depends on Util and Geom modules. Encodes tile Grids, both square and
   |hexagonal, as well as systems of grids.""".stripMargin)
   
-  def egrid: LiHtml = LiHtml.linkAndText("Documentation/egrid.html", "EGrid Module", """Tiling of the whole world in Hex grids, defining the changes over the
+  def egrid: LiHtml = LiHtml(AHtml("Documentation/egrid.html", "EGrid Module"), """Tiling of the whole world in Hex grids, defining the changes over the
   |course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and
   |higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world will be organised according
   |to a number of levels, which are likely to change over increasingly shorter historical time frames.""".stripMargin)
