@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess
-import pgui._, pParse._
+import pgui.*, pParse.*
 
 object ChessLaunch extends GuiLaunchMore
 { override def settingStr: String = "chess"

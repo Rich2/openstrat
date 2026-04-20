@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pDoc.*, pweb.*
+import utiljvm.*, pDoc.*, pweb.*, webjvm.*
 
 /** This base trait stages the HTML and CSS files for the Openstrat website, but not the JavaScript files. */
 trait StagingBuild

@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pweb
+package ostrat; package pweb; package webjvm
 import utiljvm.{ writeFile => wFile }
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */

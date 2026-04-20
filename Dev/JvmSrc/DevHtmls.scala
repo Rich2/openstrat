@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pweb.*
+import utiljvm.*, pweb.*, webjvm.*
 
 trait DevHtmls
 { def jsPathStr(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): String
