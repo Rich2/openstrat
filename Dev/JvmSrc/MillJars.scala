@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pDoc.*, pweb.SwVersion, utiljvm.*
+import utiljvm.*, pweb.*, webjvm.*, pDoc.*
 
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
 

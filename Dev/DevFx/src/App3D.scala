@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import utiljvm._, javafx.scene._, javafx.stage._, canvas._
+import utiljvm.*, pweb.webjvm.*, javafx.scene._, javafx.stage._, canvas._
 
 object App3D
 { def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart3D], args*)
