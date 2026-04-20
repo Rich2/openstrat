@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*
+import pweb.*
 
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element in a
  * display or both. So I think the self type will force all [[Graphic2Elem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */

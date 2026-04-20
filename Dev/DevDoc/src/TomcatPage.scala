@@ -1,6 +1,6 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, HtmlStrExts.*, osweb.*, wcode.*
+import pweb.*, HtmlStrExts.*, osweb.*, wcode.*
 
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends PageHtmlUpdater

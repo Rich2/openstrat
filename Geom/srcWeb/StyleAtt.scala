@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** The Style attribute for inline CSS. CSS only recognises a single style attribute. In this API an object can inherit multiple style attributes and will
  * combine them into a single style attribute for the HTML code output. */

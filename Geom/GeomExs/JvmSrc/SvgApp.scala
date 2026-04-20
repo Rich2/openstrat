@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pExs
-import Colour.*, pWeb.*
+import Colour.*, pweb.*
 
 /** An example app using the Graphics module to produce SVG. */
 @main def SvgApp = 

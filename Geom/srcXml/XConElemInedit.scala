@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** XML / HTML content that can possibly be inlined in the editor. The HTML output may not be inline or inline-block. */
 trait XConElemInedit extends XConElem

@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb; package wcode
+package ostrat; package pweb; package wcode
 
 /** Creates a systemd Unit file. */
 class SystemdHtml(val lines: StrArr, otherAttribs: RArr[XAtt]) extends CodeLinesHtml

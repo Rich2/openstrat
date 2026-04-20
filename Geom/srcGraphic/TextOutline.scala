@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, Colour.Black
+import pweb._, Colour.Black
 
 class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: Double, val colour: Colour, val lineWidth: Double,
   val align: TextAlign, val baseLine: BaseLine) extends GraphicAffineElem

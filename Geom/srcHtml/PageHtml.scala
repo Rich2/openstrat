@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 import wcode.*
 
 /** An HTML page, contains a doctype, a head and a body elements. */

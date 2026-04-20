@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import geom.*, pWeb.*, wcode.*, Colour.*
+import geom.*, pweb.*, wcode.*, Colour.*
 
 /** HTML documentation for [[Polygon]]s for the [[GeomPage]]. */
 object GeomPagePolygons extends SectionHtml

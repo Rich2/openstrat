@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** XML / HTML Element that can be defined on a single line but can not share its line / lines with other content in the editor. HTML elements may be inline, inline-block or block for rendering */
 trait XHmlOwnLine extends XHmlElem

@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, math.Pi, Colour.Black, pgui.*
+import pweb.*, math.Pi, Colour.Black, pgui.*
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse.
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.

@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 import java.io.{File, FileWriter}
 
 /** A quick and crude method for creating / overwriting an HTML file in the user's home directory. It takes 2 strings. The first is used for the HTML title

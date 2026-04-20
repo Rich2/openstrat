@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*
+import pweb.*
 
 /** An isosceles triangle. This trait is implemented by the equilateral triangle, [[TriEqui]] and the general case [[TriIsos]]. */
 trait TriIsos extends Triangle

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import geom.*, pWeb.*, HtmlStrExts.*, wcode.*, Colour.*
+import geom.*, pweb.*, HtmlStrExts.*, wcode.*, Colour.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for the Geom JVM module. */
 object GeomPommer extends OsModuleJvmVerless(DirsRel("Geom"), "geom", RArr(UtilPommer), RArr())

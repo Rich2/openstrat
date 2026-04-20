@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag, annotation.targetName
+import pweb.*, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag, annotation.targetName
 
 /** Straight line segment. A straight line in everyday terminology. Mathematically: 2-dimensional directed, line segment. The name was chosen to avoid
  * ambiguity. */

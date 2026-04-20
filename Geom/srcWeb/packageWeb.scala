@@ -2,7 +2,7 @@
 package ostrat
 
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
-package object pWeb
+package object pweb
 { /** The max line length for code is set at 160 characters. */
   inline val MaxLineLen: 160 = 160
 

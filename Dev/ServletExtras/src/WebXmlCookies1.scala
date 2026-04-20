@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pWeb.*
+import utiljvm.*, pweb.*
 
 object WebXmlCookies1 extends WebApp6
 {

@@ -1,5 +1,5 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 package object wcode
 { /** Returns the output string for an HTML file / directory path code element, plus a tailing [[String]]. */

@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*
+import pweb.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for Apps JVM module. */
 object AppsPommer extends OsModuleJvmVerless(DirsRel("Apps"), "apps", RArr(EGridPommer, TilingPommer, GeomPommer, UtilPommer), RArr())

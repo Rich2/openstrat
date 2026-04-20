@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.pWeb.*, pgui.*
+import ostrat.pweb.*, pgui.*
 
 /** To be phased out. */
 final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends CanvElem with AxisFree

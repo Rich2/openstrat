@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
+import pweb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory methods in
  * the Ellipse companion object return [Ellipse]]. */

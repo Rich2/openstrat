@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** An HTML element that should not share a line with sibling content in the editor, but not a multiline element such as an OL or a UL, which will be multi
  * line. Maybe inline, inline-block or block for rendering */

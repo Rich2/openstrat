@@ -1,5 +1,5 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** An HTTP Request. */
 class HttpReq(val method: HttpMethod, val uri: String)

@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
 trait HtmlTagLines extends HtmlElem, XHmlTagLines

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, HtmlStrExts.*
+import pweb.*, HtmlStrExts.*
 
 trait OSDocumentationPage extends PageFile
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HeadHtml]]. */

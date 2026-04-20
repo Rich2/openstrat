@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** An XML element for a POM. The object model for the module, which can be a library or an end user app. */
 trait PomModule extends XmlTagLines

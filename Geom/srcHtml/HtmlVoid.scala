@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** trait for HTML Void elements such as br img and input. */
 trait HtmlVoid extends HtmlInedit

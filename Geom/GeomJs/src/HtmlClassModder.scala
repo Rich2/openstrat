@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import org.scalajs.dom.*, pWeb.*
+import org.scalajs.dom.*, pweb.*
 
 /** Finds a text input in an HTML page and adds event listener to change values in the page. */
 case class HtmlClassTextModder(idStr: String, className: String, initValue: String)

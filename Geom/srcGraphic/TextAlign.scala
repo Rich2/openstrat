@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb._
+import Colour.Black, pweb._
 
 /* The alignment of text can be left right or centre. This may want to extend from a more general alignment trait. If such is useful. */
 sealed trait TextAlign

@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, wcode.*
+import pweb.*, wcode.*
 
 /** Documentation page for ScalaOS Module." */
 object ScalaOSPage extends OSDocumentationPage

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, HtmlStrExts.*, wcode.*
+import pweb.*, HtmlStrExts.*, wcode.*
 
 object NewDevsPage extends OSDocumentationPage
 { override def titleStr: String = "New Developers Info"

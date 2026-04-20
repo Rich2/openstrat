@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 import utest.*, utiljvm.*
 
 /** Also tests the srcToETokens function object. */
@@ -51,6 +51,6 @@ object XmlTest extends TestSuite
     }
 
     val france1Out = france1.out
-    projPathDo{path => writeFile(path /% "target/france1.xml", france1Out) }
+    //projPathDo{path => writeFile(path / "target/france1.xml", france1) }
   }
 }

@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** An XML element where the opening and closing tags will always appear on their own lines, separate from their content, in the XML code. */
 trait XmlTagLines extends XmlElem, XHmlTagLines

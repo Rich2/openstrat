@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** An XML or an HTML element. Multiple instances of an attribute are allowed. If there are multiple instances of the same attribute, the same attribute name,
  * then the values are combined into a single attribute, when outputting into XML / HTML code. It extends XConCompound, because even the simplest [[XHmlElem]]

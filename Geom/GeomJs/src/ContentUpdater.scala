@@ -1,6 +1,6 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import org.scalajs.dom.*, pWeb.*
+import org.scalajs.dom.*, pweb.*
 
 /** Updates HTML content due to changes from HTML input or Select elements. */
 sealed trait ContentUpdater

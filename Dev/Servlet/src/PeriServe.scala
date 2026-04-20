@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import jakarta.servlet.http.*, pWeb.*, java.io.*
+import jakarta.servlet.http.*, pweb.*, java.io.*
 
 class PeriServe extends HttpServlet
 {

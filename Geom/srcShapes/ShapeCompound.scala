@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*
+import pweb.*
 
 /** Base trait for a compound shape graphic in various geometries */
 trait ShapeGeomlessCompound

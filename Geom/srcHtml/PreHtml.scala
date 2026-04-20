@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** HTML Pre element. Unlike most other [[HtmlElem]]s this only takes a [[String]] as its content. */
 class PreHtml(val str: String, val attribs: RArr[XAtt]) extends HtmlTagLines

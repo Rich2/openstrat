@@ -1,5 +1,5 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */

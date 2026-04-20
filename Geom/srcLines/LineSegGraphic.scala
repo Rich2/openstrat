@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui.*, Colour.Black, pWeb.*
+import pgui.*, Colour.Black, pweb.*
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
 case class LSeg2Draw(curveSeg: LSeg2, width: Double, colour: Colour) extends CurveSegGraphic, AffinePreserve, CanvElem, GraphicSvgElem

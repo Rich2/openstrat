@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*
+import pweb.*
 import ostrat.Colour.{Black, arrBuildImplicit}
 
 /** A Rectangle aligned to the X and Y axes. It has a leftTop, leftBottom, rightBottom and right Top vertices. The convention is for these to align with

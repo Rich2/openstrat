@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, pgui.*
+import pweb.*, pgui.*
 
 case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, children: RArr[GraphicAffineElem]) extends GraphicParentFull, PolyCurveActive
 { override type ThisT = PolyCurveParentFull

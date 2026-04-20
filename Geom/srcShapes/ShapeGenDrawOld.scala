@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui.*, Colour.Black, pWeb.SvgOwnLine
+import pgui.*, Colour.Black, pweb.SvgOwnLine
 
 /** To be phased out. */
 case class ShapeGenDrawOld(shape: ShapeGenOld, lineColour: Colour = Black, lineWidth: Double = 2) extends CanvElem with AxisFree

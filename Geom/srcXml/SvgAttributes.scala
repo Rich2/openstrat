@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** SVG ViewBox. */
 case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) extends XAttShort

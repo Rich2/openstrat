@@ -1,5 +1,5 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 trait CssRuleLike extends XConCompound
 { /** Outputs to  a single line if the rule has 2 or more declarations. */

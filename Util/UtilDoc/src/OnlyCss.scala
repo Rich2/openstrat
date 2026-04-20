@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pWeb.*, Colour.*
+import pweb.*, Colour.*
 
 /** Common trait for openstrat CSS. */
 trait CssOpenstrat extends CssRulesFile

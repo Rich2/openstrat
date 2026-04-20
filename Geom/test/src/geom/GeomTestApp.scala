@@ -1,6 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import utiljvm.*, pWeb.*
+import utiljvm.*, pweb.*
 
 @main def TestHtmlApp: Unit =
 {

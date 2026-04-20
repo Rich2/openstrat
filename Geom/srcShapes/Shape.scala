@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb.*, Colour.Black
+import pweb.*, Colour.Black
 
 /** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. Shape does not extend CurvePath, but it does extend
  * [[Fillable]] which extends [[Drawable]].Not sure if [[Shape]] and [[Fillable]] should be separate classes. */

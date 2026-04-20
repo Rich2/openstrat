@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pWeb
+package ostrat; package pweb
 
 /** HTML table element. */
 case class TableHtml(val contents: RArr[RowHtml], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines

@@ -1,6 +1,6 @@
 /* Copyright 2024 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pszio
-import zio.*, http.*, pWeb.*, utiljvm.*, pDoc.*
+import zio.*, http.*, pweb.*, utiljvm.*, pDoc.*
 
 object ServZioApp extends ZIOAppDefault
 {
