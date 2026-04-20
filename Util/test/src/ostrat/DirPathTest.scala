@@ -18,7 +18,7 @@ object DirPathTest extends TestSuite
 
     val pa1: DirsAbs = DirsAbs("/Documentation")
     test("Absololute")
-    { pa1 / "hello.html" ==> "/Documentation/hello.html"
+    { (pa1 / "hello.html").asStr ==> "/Documentation/hello.html"
     }
 
     val pr1: DirsRel = DirsRel("Documentation")
@@ -28,19 +28,19 @@ object DirPathTest extends TestSuite
     val pr5 = DirsFileRel("index.html")
     val pr6 = DirsFileRel("dir1/index.html")
     test("Relative")
-    { pr1 / "hello.html" ==> "Documentation/hello.html"
+    { (pr1 / "hello.html").asStr ==> "Documentation/hello.html"
       pr2.arrayUnsafe.length ==> 3
-      pr2 / pr3 ==> "dir1/dir2/dir3/fld1/fld2"
-      pr2 </ pr3 ==> "../../../fld1/fld2"
-      pr2 </ pr4 ==> "../cat"
-      pr4 </ pr2 ==> "../dir3"
+      (pr2 / pr3).asStr ==> "dir1/dir2/dir3/fld1/fld2"
+      (pr2 </ pr3).asStr ==> "../../../fld1/fld2"
+      (pr2 </ pr4).asStr ==> "../cat"
+      (pr4 </ pr2).asStr ==> "../dir3"
       pr5.asStr ==> "index.html"
       (pr3 /> pr5).asStr ==> "fld1/fld2/index.html"
-      pr3 </> pr5 ==> "../../index.html"
-     // pr3 </> "index.html" ==> "../../index.html"
+      (pr3 </> pr5).asStr ==> "../../index.html"
+      //(pr3 </> "index.html").asStr ==> "../../index.html"
       pr6.arrayUnsafe.length ==> 2
       pr6.asStr ==> "dir1/index.html"
-      pr4 </> pr6 ==> "../../index.html"
+      (pr4 </> pr6).asStr ==> "../../index.html"
     }
   }
 }
