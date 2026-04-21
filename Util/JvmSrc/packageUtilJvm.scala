@@ -51,9 +51,7 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
-
-  def writeFile(dirsFileName: DirsFileAbs, content: String): ErrBi[IOExc, FileWritten] = writeFile(dirsFileName.asStr, content)
-
+  
   /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
   def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
     writeFile(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
@@ -66,9 +64,6 @@ package object utiljvm
     catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }
-
-  /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-  def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = copyFile(fromPath.asStr, toPath.asStr)
   
   /** File copy that adds the ".js" [[String]] to the file source and file destination. */
   def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
@@ -77,9 +72,6 @@ package object utiljvm
   /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
   def jsMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
     copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
-
-  /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = jsWithMapFileCopy(fromPath.asStr, toPath.asStr)
 
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
   def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
@@ -96,22 +88,6 @@ package object utiljvm
   /** Copies a jar file */
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
     copyFile(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
-
-  /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
-   * file. */
-  def mkDirExist(path: String): ExcIOMon[DirExists] =
-  { val jp = new File(path)
-    jp.exists match
-    { case true if (jp.isDirectory) => Succ(DirExisted.str(path))
-      case true => Fail(new java.nio.file.NotDirectoryException("path"))
-      case _ =>
-      { var oExc: Option[IOExc] = None
-        try{ jp.mkdir }
-        catch{ case e: IOExc => oExc = Some(e) }
-        oExc.fld(Succ(DirCreated.str(path)), Fail(_))
-      }
-    }
-  }
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =
@@ -133,25 +109,4 @@ package object utiljvm
     val time: ZonedDateTime = Instant.now().atZone(ZoneId.of("GMT"))
     time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
   }
-
-  /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-  extension(thisPath: DirsAbs)
-  {
-    def toJava: File = File(thisPath.asStr)
-
-    /** Perform the side effecting procedure if the location exists and is a directory as opposed to a file. */
-    def doIfDirExists(f: DirsAbs => Unit) =
-    { val jd = thisPath.toJava
-      if (jd.exists)
-        if (jd.isDirectory) f(thisPath)
-        else println(thisPath.notDirStr)
-      else println(thisPath.noExistStr)
-    }
-
-    /** Try to make this directory exist. */
-    def mkExist: ExcIOMon[DirExists] = utiljvm.mkDirExist(thisPath.asStr)
-
-    /** Try to make subdirectory exist. */
-    def mkSubExist(tailStr: String): ErrBi[IOExc, DirsAbs] = utiljvm.mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
-  }  
 }

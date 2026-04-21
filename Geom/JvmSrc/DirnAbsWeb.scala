@@ -1,6 +1,8 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package webjvm
-import utiljvm.{ writeFile => wFile }
+import webjvm.writeFile as wFile
+
+import java.io.File
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
 implicit class DirAbsWebExtensions (thisPath: DirsAbs)
@@ -37,4 +39,22 @@ implicit class DirAbsWebExtensions (thisPath: DirsAbs)
 
   /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
   def writeCss(cssFile: CssRulesFile): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / cssFile.fileName, cssFile.out)
+
+  def toJava: File = File(thisPath.asStr)
+
+  /** Perform the side effecting procedure if the location exists and is a directory as opposed to a file. */
+  def doIfDirExists(f: DirsAbs => Unit) =
+  {
+    val jd = thisPath.toJava
+    if (jd.exists)
+      if (jd.isDirectory) f(thisPath)
+      else println(thisPath.notDirStr)
+    else println(thisPath.noExistStr)
+  }
+
+  /** Try to make this directory exist. */
+  def mkExist: ExcIOMon[DirExists] = mkDirExist(thisPath.asStr)
+
+  /** Try to make subdirectory exist. */
+  def mkSubExist(tailStr: String): ErrBi[IOExc, DirsAbs] = mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
 }

@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
+package ostrat; package pweb
 import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
 /** Common trait for directory paths, absolute and relative and directory-filename paths, absolute or relative */

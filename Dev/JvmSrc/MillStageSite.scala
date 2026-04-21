@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pweb.webjvm.*, pDoc.*
+import pweb.*, webjvm.*, pDoc.*
 
 /** application used by mill to stage openstrat files for a passive server. */
 object MillStageSite extends StagingBuild
@@ -17,14 +17,14 @@ object MillStageSite extends StagingBuild
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
     val egPath: String = stagePath.asStr / "earthgames"
     val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = mkDirExist(egPath).flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc{ ga => jsWithMapFileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main", egPath / ga.fileNameStem) }
+      AppPage.eGameApps.mapErrBiAcc{ ga => utiljvm.jsWithMapFileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main", egPath / ga.fileNameStem) }
     }
     deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
 
     val docPath: String = stagePath.asStr / "Documentation"
     val jarApp: ErrBi[Exception, JarFileWritten] = mkDirExist(docPath).flatMap { res =>
-      jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
-      jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", docPath / "osapp")
+      utiljvm.jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
+      utiljvm.jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", docPath / "osapp")
     }
     deb(jarApp.reportStr)
     val otherPath: String = stagePath.asStr / "otherapps"
@@ -33,8 +33,8 @@ object MillStageSite extends StagingBuild
       AppPage.otherApps.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main"
         val destStr: String = otherPath / ga.fileNameStem
-        jsMapFileCopy(fromStr, destStr)
-        jsFileCopy(fromStr, destStr)
+        utiljvm.jsMapFileCopy(fromStr, destStr)
+        utiljvm.jsFileCopy(fromStr, destStr)
       }
     }
     deb(otherJsFiles.msgErrsSummary("to otherapps directory"))
@@ -45,7 +45,7 @@ object MillStageSite extends StagingBuild
       AppPage.eGrids.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main"
         val destStr: String = egridPath / ga.fileNameStem
-        jsFileCopy(fromStr, destStr)
+        utiljvm.jsFileCopy(fromStr, destStr)
       }
     }
     deb(egridJsFiles.msgErrsSummary("to egrid directory"))

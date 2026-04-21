@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
+package ostrat; package pweb
 import pParse.*, annotation.*
 
 /** An absolute Directory path. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */

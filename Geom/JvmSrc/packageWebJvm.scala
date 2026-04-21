@@ -1,11 +1,11 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb;
-import pParse.*, utiljvm.*
+import pParse.*, java.io.File
 
 /** This package is for Java byte code targets. */
 package object webjvm
 { /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: ThrowMonRArr[Statement] = statementsFromResource("DevSettings.rson")
+  lazy val devSettingsStatements: ThrowMonRArr[Statement] = utiljvm.statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
   def findDevSettingExpr(settingStr: String): ThrowMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
@@ -34,4 +34,31 @@ package object webjvm
   /** Possible path to the staging directory for openstrat artifacts, if it can be found in Dev/User/DevSettings.rson file. */
   def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
+  def writeFile(dirsFileName: DirsFileAbs, content: String): ErrBi[IOExc, FileWritten] = utiljvm.writeFile(dirsFileName.asStr, content)
+
+  /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
+  def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)
+  
+  /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
+  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = utiljvm.jsWithMapFileCopy(fromPath.asStr, toPath.asStr)
+
+  /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
+   * file. */
+  def mkDirExist(path: String): ExcIOMon[DirExists] = {
+    val jp = new File(path)
+    jp.exists match {
+      case true if (jp.isDirectory) => Succ(DirExisted.str(path))
+      case true => Fail(new java.nio.file.NotDirectoryException("path"))
+      case _ => {
+        var oExc: Option[IOExc] = None
+        try {
+          jp.mkdir
+        }
+        catch {
+          case e: IOExc => oExc = Some(e)
+        }
+        oExc.fld(Succ(DirCreated.str(path)), Fail(_))
+      }
+    }
+  }
 }
