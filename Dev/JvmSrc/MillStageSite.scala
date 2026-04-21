@@ -30,25 +30,25 @@ object MillStageSite extends StagingBuild
       utiljvm.jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", (docPath / "osapp").asStr)//needs improving
     }
     deb(jarApp.reportStr)
-    val otherPath: String = stagePath.asStr / "otherapps"
-    val otherBi: ExcIOMon[DirExists] = mkDirExist(otherPath)
+    val otherPath: DirsAbs = stagePath / "otherapps"
+    val otherBi: ExcIOMon[DirExists] = otherPath.mkExist
     val otherJsFiles = otherBi.flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
-        val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main"
-        val destStr: String = otherPath / ga.fileNameStem
-        utiljvm.jsMapFileCopy(fromStr, destStr)
-        utiljvm.jsFileCopy(fromStr, destStr)
+        val fromStem: DirsAbsStem = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
+        val destStem: DirsAbsStem = otherPath :-/ ga.fileNameStem
+        jsMapFileCopy(fromStem, destStem)
+        jsFileCopy(fromStem, destStem)
       }
     }
     deb(otherJsFiles.msgErrsSummary("to otherapps directory"))
 
-    val egridPath: String = stagePath.asStr / "egrids"
-    val eGridBi: ExcIOMon[DirExists] = mkDirExist(egridPath)
+    val egridPath: DirsAbs = stagePath / "egrids"
+    val eGridBi: ExcIOMon[DirExists] = egridPath.mkExist
     val egridJsFiles = eGridBi.flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
-        val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main"
-        val destStr: String = egridPath / ga.fileNameStem
-        utiljvm.jsFileCopy(fromStr, destStr)
+        val fromStem: DirsAbsStem = projPath / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
+        val destStem: DirsAbsStem = egridPath :-/ ga.fileNameStem
+        jsFileCopy(fromStem, destStem)
       }
     }
     deb(egridJsFiles.msgErrsSummary("to egrid directory"))

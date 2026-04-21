@@ -38,6 +38,14 @@ package object webjvm
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
   def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)
+
+  /** File copy that adds the ".js" [[String]] to the file source and file destination. */
+  def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ErrBi[Exception, JsFileWritten] =
+    copyFile(fromStem ++ ".js", toStem ++ ".js").map(fw => JsFileWritten(fw.detailStr))
+
+  /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
+  def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ErrBi[Exception, JsFileWritten] =
+    copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsFileWritten(fw.detailStr))
   
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
   def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = //utiljvm.jsWithMapFileCopy(fromPath.asStr, toPath.asStr)

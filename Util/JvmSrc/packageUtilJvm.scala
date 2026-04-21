@@ -63,27 +63,7 @@ package object utiljvm
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
     catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
-  }
-  
-  /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-  def jsFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-    copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
-
-  /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
-  def jsMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-    copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
-
-  /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  /*def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
-  { val res1: ErrBi[Exception, JsFileWritten] = copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
-    res1 match
-    { case Succ(jsfw) => copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
-      { case fail : Fail[_] => res1
-        case succ2: Succ[_] => Succ(jsfw.withMap)
-      }
-      case fail => fail
-    }
-  }*/
+  }  
 
   /** Copies a jar file */
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
