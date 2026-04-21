@@ -40,7 +40,16 @@ package object webjvm
   def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)
   
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = utiljvm.jsWithMapFileCopy(fromPath.asStr, toPath.asStr)
+  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = //utiljvm.jsWithMapFileCopy(fromPath.asStr, toPath.asStr)
+  { val res1: ErrBi[Exception, JsFileWritten] = utiljvm.copyFile(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+    res1 match {
+      case Succ(jsfw) => utiljvm.copyFile(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match {
+        case fail: Fail[_] => res1
+        case succ2: Succ[_] => Succ(jsfw.withMap)
+      }
+      case fail => fail
+    }
+  }
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
    * file. */

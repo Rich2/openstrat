@@ -15,16 +15,19 @@ object MillStageSite extends StagingBuild
   }
 
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
-    val egPath: String = stagePath.asStr / "earthgames"
-    val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = mkDirExist(egPath).flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc{ ga => utiljvm.jsWithMapFileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main", egPath / ga.fileNameStem) }
+    val egPath: DirsAbs = stagePath / "earthgames"
+    val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = egPath.mkExist.flatMapAcc { res =>
+      AppPage.eGameApps.mapErrBiAcc{ ga =>
+        val source: DirsAbsStem = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
+        jsWithMapFileCopy(source, egPath :-/ ga.fileNameStem)
+      }
     }
     deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
 
-    val docPath: String = stagePath.asStr / "Documentation"
-    val jarApp: ErrBi[Exception, JarFileWritten] = mkDirExist(docPath).flatMap { res =>
-      utiljvm.jsWithMapFileCopy(projPath.asStr / "out/DevDocJs" / "fullLinkJS.dest/main", docPath  / "tomcat")
-      utiljvm.jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", docPath / "osapp")
+    val docPath: DirsAbs = stagePath / "Documentation"
+    val jarApp: ErrBi[Exception, JarFileWritten] = docPath.mkExist.flatMap { res =>
+      jsWithMapFileCopy(projPath / "out/DevDocJs" / "fullLinkJS.dest" :-/ "main", docPath  :-/ "tomcat")
+      utiljvm.jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", (docPath / "osapp").asStr)//needs improving
     }
     deb(jarApp.reportStr)
     val otherPath: String = stagePath.asStr / "otherapps"

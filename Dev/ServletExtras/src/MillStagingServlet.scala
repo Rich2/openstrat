@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import pweb.webjvm.*
 
-/** Programme to create the folders for a Servlet and to copy the openstrat jars from the Mill out folder to Staging. Desgned to be called from Mill when the
+/** Programme to create the folders for a Servlet and to copy the openstrat jars from the Mill out folder to Staging. Designed to be called from Mill when the
  * module jars have already been built. */
 object MillStagingServlet
 {

@@ -74,7 +74,7 @@ package object utiljvm
     copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr))
 
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
+  /*def jsWithMapFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JsFileWritten] =
   { val res1: ErrBi[Exception, JsFileWritten] = copyFile(fromStr + ".js", toStr + ".js").map(fw => JsFileWritten(fw.detailStr))
     res1 match
     { case Succ(jsfw) => copyFile(fromStr + ".js.map", toStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
@@ -83,7 +83,7 @@ package object utiljvm
       }
       case fail => fail
     }
-  }
+  }*/
 
   /** Copies a jar file */
   def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
