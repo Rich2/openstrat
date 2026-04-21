@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.webjvm.*
+import pweb.*, webjvm.*
 
 /** Programme to create the folders for a Servlet and to copy the openstrat jars from the Mill out folder to Staging. Designed to be called from Mill when the
  * module jars have already been built. */
@@ -11,18 +11,18 @@ object MillStagingServlet
       stagingPath.doIfDirExists { _ =>
         deb("Staging Folder exists.")
 //        MillStageMainJars(stagingPath)
-        val cookPath: String = stagingPath.asStr / "Cookies1"
-        mkDirExist(cookPath).forSucc { res1 => webInf(cookPath) }
+        val cookPath = stagingPath / "Cookies1"
+        cookPath.mkExist.forSucc { res1 => webInf(cookPath) }
       }
     }
     
-    def webInf(path:String): Unit =
+    def webInf(path: DirsAbs): Unit =
     { val webInfPath = path / "WEB-INF"
-      mkDirExist(webInfPath).forSucc { res1 => utiljvm.writeFile(webInfPath / "web.xml", WebXmlCookies1.out) }
-      val libPath = webInfPath / "lib"
-      mkDirExist(libPath)
-      val classesPath = webInfPath / "classes"
-      mkDirExist(classesPath)
+      webInfPath.mkExist.forSucc { res1 => writeFile(webInfPath :/ "web.xml", WebXmlCookies1.out) }
+      val libPath: DirsAbs = webInfPath / "lib"
+      libPath.mkExist
+      val classesPath: DirsAbs = webInfPath / "classes"
+      classesPath.mkExist
     }
   }
 }

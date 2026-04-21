@@ -1,11 +1,9 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package webjvm
-import webjvm.writeFile as wFile
-
-import java.io.File
+import webjvm.writeFile as wFile, java.io.File
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-implicit class DirAbsWebExtensions (thisPath: DirsAbs)
+implicit class DirAbsJvmExts (thisPath: DirsAbs)
 { /** Writes the contents [[String]] to the HTML File to this absolute directory path. Returns a success message if no error. */
   def writeFile(fileName: String, contents: String): ErrBi[IOExc, FileWritten] = wFile(thisPath /+ fileName, contents)
   
