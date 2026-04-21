@@ -63,5 +63,5 @@ object LiHtml
   def apply(contents: XCon*): LiHtml = new LiHtml(contents.toArr, RArr())
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: DirsOrFilePathBase, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
+  def a(link: FileSystemPath, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
 }

@@ -76,7 +76,10 @@ package object ostrat
   def average(d1: Double, tail: Double *): Double = (d1 + tail.sum) / (tail.length + 1)
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */
-  inline def onlyIf[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue else ()
+  inline def onlyIf[U](b: Boolean)(vTrue: => Unit): Unit = if(b) vTrue else ()
+
+  /** onlyIfNot-do. Only if the condition is true, perform the effect. */
+  inline def onlyIfNot[U](b: Boolean)(vFalse: => Unit): Unit = if (b) () else vFalse
 
   /** if-else. If the condition is true, use 2nd parameter, else use 3rd parameter. */
   inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse

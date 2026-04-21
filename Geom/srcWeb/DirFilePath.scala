@@ -3,7 +3,7 @@ package ostrat; package pweb
 import annotation.*
 
 /** Directories and file name path. */
-trait DirsFilePath extends DirsOrFilePathBase
+trait DirsFilePath extends FileSystemPath
 { def asStr: String = arrayUnsafe.length match
   { case 0 => excep("File name backing array must have at least 1 [[String]] element.")
     case _ => arrayUnsafe.mkString("/")

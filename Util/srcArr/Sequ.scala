@@ -373,13 +373,13 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 
   def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(using ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
-    foreach(a => onlyIf(f(a), ev.buffGrow(buff, a)))
+    foreach{ a => onlyIf(f(a)){ ev.buffGrow(buff, a)}}
     ev.buffToSeqLike(buff)
   }
 
   def filterNot[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(using ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
-    foreach(a => onlyIf(!f(a), ev.buffGrow(buff, a)))
+    foreach{a => onlyIf(!f(a)){ev.buffGrow(buff, a)}}
     ev.buffToSeqLike(buff)
   }
 
