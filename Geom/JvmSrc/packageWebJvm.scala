@@ -20,10 +20,10 @@ package object webjvm
   def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
   /** Find the project path. */
-  def projPathFind: ThrowMon[ProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
+  def projPathFind: ThrowMon[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
-  def projPathDo(f: ProjPath => Unit): Unit = projPathFind.forFold { err => deb(err.toString) } { path => f(path) }
+  def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.forFold { err => deb(err.toString) } { path => f(path) }
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
   def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").forFold { err => deb(err.toString) } { path => f(path) }

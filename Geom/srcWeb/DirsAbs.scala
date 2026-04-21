@@ -2,7 +2,7 @@
 package ostrat; package pweb
 import pParse.*, annotation.*
 
-/** An absolute Directory path. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
+/** An absolute Directory path. There are extra methods in the [[webjvm]] that require the JVM, Java Virtual Machine. */
 trait DirsAbs extends DirsPath
 { /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
   @targetName("append") def /(newDir: DirsRel): DirsAbs = DirsAbs.fromArray(arrayUnsafe ++ newDir.arrayUnsafe)
@@ -21,7 +21,7 @@ trait DirsAbs extends DirsPath
   /** Appends a file name to this absolute directory path. */
   @targetName("append") def /+(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)
 
-  def projPath: ProjPath = new ProjPath(arrayUnsafe)
+  def projPath: ScalaProjPath = new ScalaProjPath(arrayUnsafe)
 }
 
 object DirsAbs
@@ -50,14 +50,17 @@ object DirsAbs
     }
   }
 
-  /** Implementation class for an absolute Directory path. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
+  /** Implementation class for an absolute Directory path. There are extra methods in the [[webjvm]] that require the JVM, Java Virtual Machine. */
   class DirsAbsGen(val arrayUnsafe: Array[String]) extends DirsAbs
 }
 
-/** An absolute Directory path for a Scala project. There are extra methods in the [[utiljvm]] that require the JVM, Java Virtual Machine. */
-class ProjPath(val arrayUnsafe: Array[String]) extends DirsAbs
-{
+/** An absolute Directory path for a Scala project. There are extra methods in the [[webjvm]] that require the JVM, Java Virtual Machine. */
+class ScalaProjPath(val arrayUnsafe: Array[String]) extends DirsAbs
+{ /** The Mill build system out directory. */
   def out: DirsAbs = this / "out"
+
+  /** Module directory in the Mill build system out directory. */
   def outModule(moduleStr: String): DirsAbs = out / moduleStr
+
   def outFullLink(moduleStr: String): DirsAbsStem = new DirsAbsStem(outModule(moduleStr).arrayUnsafe ++ Array("fullLinkJS.dest", "main"))
 }

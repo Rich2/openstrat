@@ -65,3 +65,15 @@ class DirsRelStem(val arrayUnsafe: Array[String]) extends DirsFileStem
 
   override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
 }
+
+/** A file name. */
+trait FileName
+{ /** The file name as a [[String]]. */
+  def str: String
+}
+
+object FileName
+{
+  /** Implementation class for the general case of a  */
+  class FileNameGen(val str: String)
+}
