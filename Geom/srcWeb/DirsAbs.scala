@@ -22,8 +22,6 @@ trait DirsAbs extends DirsPath
   /** Appends a file name [[FileName]] to produce an absolute filename stem path. */
   @targetName("appendStem") override def :-/(operand: FileNameStem): DirsAbsStem = new DirsAbsStem(arrayUnsafe :+ operand.str)
 
-  
-
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
 

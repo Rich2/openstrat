@@ -7,6 +7,6 @@ import pweb.*, webjvm.*
   
   projPathDo { path =>    
     val path1 = path / "Dev/target"
-    writeFile(path1 /+ "lessons.rson", learn.LessonsLaunch.rsonText)
+    path1.writeRson("lessons.rson", learn.LessonsLaunch.rsonText)
   }
 }

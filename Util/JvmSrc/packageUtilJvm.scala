@@ -8,7 +8,7 @@ package object utiljvm
   val userHomeDir: String = System.getProperty("user.home")
 
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
-  
+
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
   { val dir: File = new File(path)
@@ -37,7 +37,7 @@ package object utiljvm
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
+  /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on success. */
   def writeFile(pathName: String, content: String): ErrBi[IOExc, FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
@@ -50,6 +50,8 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
+  
+  def RsonWriteFile(pathName: String, content: String): ErrBi[IOExc, RsonFileWritten] = writeFile(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
   def copyFile(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =

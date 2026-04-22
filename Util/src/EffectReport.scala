@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Report of a successfully completed effect. Used for pure side effects that return [[Unit]]. */
@@ -44,12 +44,6 @@ class FileWritten(val detailStr: String) extends DoneIO
 { override def reportTypeStr: String = "File written"
   override def toString: String = "FileWritten" + detailStr.enParenth
   override def reportStr: String = reportTypeStr -- "to" -- detailStr
-
-  /** Refines the success to a written HTML file. */
-  def html: HtmlFileWritten = HtmlFileWritten(detailStr)
-
-  /** Refines the success to a written CSS file. */
-  def css: CssFileWritten = CssFileWritten(detailStr)
 }
 
 object FileWritten
@@ -78,36 +72,19 @@ object TextFileWritten
   }
 }
 
-/** Report of successful HTML file write. */
-class HtmlFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "HTML File written"
-  override def toString: String = "HtmlFileWritten" + detailStr.enParenth
+/** Report of successful RSON file write. */
+class RsonFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "RSON File written"
+  override def toString: String = "RSONFileWritten" + detailStr.enParenth
 }
 
-object HtmlFileWritten
-{ /** Factory apply method to construct [[HtmlFileWritten]] report. */
-  def apply(detailStr: String): HtmlFileWritten = new HtmlFileWritten(detailStr)
+object RsonFileWritten
+{ /** Factory apply method to construct [[RsonFileWritten]] report. */
+  def apply(detailStr: String): RsonFileWritten = new RsonFileWritten(detailStr)
 
-  /** Implicit evidence / instance of [[ShowType]] for [[HtmlFileWritten]] */
-  implicit val namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
-  { override val filePrefix: String = "HTML"
-    override def typeStr: String = "HtmlFileWritten"
-  }
-}
-
-/** Report of successful CSSL file write. */
-class CssFileWritten(detailStr: String) extends FileWritten(detailStr) {
-  override def reportTypeStr: String = "CSS File written"
-  override def toString: String = "CssFileWritten" + detailStr.enParenth
-}
-
-object CssFileWritten
-{ /** Factory apply method to construct [[CssFileWritten]] report. */
-  def apply(detailStr: String): CssFileWritten = new CssFileWritten(detailStr)
-
-  /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
-  implicit val namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
-  { override val filePrefix: String = "CSS"
-    override def typeStr: String = "CssFileWritten"
+  /** Implicit evidence / instance of [[ShowType]] for [[RsonFileWritten]] */
+  implicit val namedTypeEv: ShowType[RsonFileWritten] = new ShowFileWritten[RsonFileWritten]
+  { override val filePrefix: String = "RSON"
+    override def typeStr: String = "RsonFileWritten"
   }
 }

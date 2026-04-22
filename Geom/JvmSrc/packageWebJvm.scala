@@ -34,7 +34,7 @@ package object webjvm
   /** Possible path to the staging directory for openstrat artifacts, if it can be found in Dev/User/DevSettings.rson file. */
   def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
-  def writeFile(dirsFileName: DirsFileAbs, content: String): ErrBi[IOExc, FileWritten] = utiljvm.writeFile(dirsFileName.asStr, content)
+  //def writeFile(dirsFileName: DirsFileAbs, content: String): ErrBi[IOExc, FileWritten] = utiljvm.writeFile(dirsFileName.asStr, content)
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
   def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ErrBi[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)

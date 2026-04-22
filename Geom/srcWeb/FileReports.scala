@@ -1,6 +1,40 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
+/** Report of successful HTML file write. */
+class HtmlFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "HTML File written"
+  override def toString: String = "HtmlFileWritten" + detailStr.enParenth
+}
+
+object HtmlFileWritten
+{ /** Factory apply method to construct [[HtmlFileWritten]] report. */
+  def apply(detailStr: String): HtmlFileWritten = new HtmlFileWritten(detailStr)
+
+  /** Implicit evidence / instance of [[ShowType]] for [[HtmlFileWritten]] */
+  implicit val namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
+  { override val filePrefix: String = "HTML"
+    override def typeStr: String = "HtmlFileWritten"
+  }
+}
+
+/** Report of successful CSSL file write. */
+class CssFileWritten(detailStr: String) extends FileWritten(detailStr) {
+  override def reportTypeStr: String = "CSS File written"
+  override def toString: String = "CssFileWritten" + detailStr.enParenth
+}
+
+object CssFileWritten
+{ /** Factory apply method to construct [[CssFileWritten]] report. */
+  def apply(detailStr: String): CssFileWritten = new CssFileWritten(detailStr)
+
+  /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
+  implicit val namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
+  { override val filePrefix: String = "CSS"
+    override def typeStr: String = "CssFileWritten"
+  }
+}
+
 /** Report of successful Jar file write. */
 class JarFileWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "Jar File written"
