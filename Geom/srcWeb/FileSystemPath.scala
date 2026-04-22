@@ -10,10 +10,11 @@ trait FileSystemPath
   /** The length of the backing Array. */
   def arrayLen = arrayUnsafe.length
 
-  /** The path as a string with the slash characters inserted */
+  /** The path as a string with the slash characters inserted. */
   def asStr: String
 }
 
+/** Common trait for directory paths. */
 trait DirsPath extends FileSystemPath
 { /** A notification [[String]] to inform that the path doesn't exist. */
   def noExistStr: String = asStr -- "Doesn't exist"

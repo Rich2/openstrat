@@ -31,7 +31,6 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirsPath
   /** Appends a file name [[String]] to produce a relative file stem path. */
   @targetName("appendStem") override def :-/(operand: String): DirsRelStem = new DirsRelStem(arrayUnsafe :+ operand)
 
-
   /** Utility method for fromRootAppendDirs and fromRootAppendDirsFile methods. Creates the backing [[Array]] for the returned classes. */
   def topFileAppendArray(operand: Array[String]): Array[String] =
   { val thisLen: Int = arrayUnsafe.length

@@ -18,7 +18,7 @@ object MillStagingServlet
     
     def webInf(path: DirsAbs): Unit =
     { val webInfPath = path / "WEB-INF"
-      webInfPath.mkExist.forSucc { res1 => writeFile(webInfPath :/ "web.xml", WebXmlCookies1.out) }
+      webInfPath.mkExist.forSucc { res1 => utiljvm.writeFile((webInfPath :/ "web.xml").asStr, WebXmlCookies1.out) }
       val libPath: DirsAbs = webInfPath / "lib"
       libPath.mkExist
       val classesPath: DirsAbs = webInfPath / "classes"

@@ -7,22 +7,22 @@ case class CiteAtt(valueStr: String) extends XAttShort
 }
 
 /** HTML blockquote element. */
-trait BlockQuoteHtml extends HtmlTagLines
+trait BlockQuote extends HtmlTagLines
 { def citeStr: String
   override def tagName: String = "blockquote"
   override def attribs: RArr[XAtt] = RArr(CiteAtt(citeStr))
 
 }
 
-object BlockQuoteHtml
+object BlockQuote
 { /** Factory apply method for HTML blockquote element. */
-  def apply(citeStr: String, contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): BlockQuoteHtml = BlockQuoteHtmlGen(citeStr, contents, otherAttribs)
+  def apply(citeStr: String, contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): BlockQuote = BlockQuoteGen(citeStr, contents, otherAttribs)
 
   /** Factory apply method for HTML blockquote element. */
-  def apply(citeStr: String, contents: XCon*): BlockQuoteHtml = BlockQuoteHtmlGen(citeStr, contents.toRArr, RArr())
+  def apply(citeStr: String, contents: XCon*): BlockQuote = BlockQuoteGen(citeStr, contents.toRArr, RArr())
 
-  /** Implementation class for the general case of [[BlockQuoteHtml]] element. */
-  class BlockQuoteHtmlGen(val citeStr: String, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends BlockQuoteHtml
+  /** Implementation class for the general case of [[BlockQuote]] element. */
+  class BlockQuoteGen(val citeStr: String, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends BlockQuote
   { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
   }
 }
@@ -57,13 +57,13 @@ class NoteTaker
   }
 
   /** Creates an HTML block quote with a footnote. */
-  def blockQuote(quotecontents: XCon*)(citeStr: String, linkLabel: String, noteContents: XCon*): BlockQuoteHtml =
+  def blockQuote(quotecontents: XCon*)(citeStr: String, linkLabel: String, noteContents: XCon*): BlockQuote =
     blockQuote(quotecontents.toRArr, citeStr, linkLabel, noteContents.toRArr)
 
   /** Creates an HTML block quote with a footnote. */
-  def blockQuote(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): BlockQuoteHtml =
+  def blockQuote(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): BlockQuote =
   { val sup = newNote(AHtml(citeStr, linkLabel) %: noteContents)
-    BlockQuoteHtml(citeStr, quotecontents +% sup)
+    BlockQuote(citeStr, quotecontents +% sup)
   }
 
   /** Produces an HTML section element with the accumulated notes as HTML paragraph elements. */

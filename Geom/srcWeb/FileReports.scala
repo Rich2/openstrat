@@ -12,13 +12,13 @@ object HtmlFileWritten
   def apply(detailStr: String): HtmlFileWritten = new HtmlFileWritten(detailStr)
 
   /** Implicit evidence / instance of [[ShowType]] for [[HtmlFileWritten]] */
-  implicit val namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
+  given namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
   { override val filePrefix: String = "HTML"
     override def typeStr: String = "HtmlFileWritten"
   }
 }
 
-/** Report of successful CSSL file write. */
+/** Report of successful CSS file write. */
 class CssFileWritten(detailStr: String) extends FileWritten(detailStr) {
   override def reportTypeStr: String = "CSS File written"
   override def toString: String = "CssFileWritten" + detailStr.enParenth
@@ -29,7 +29,7 @@ object CssFileWritten
   def apply(detailStr: String): CssFileWritten = new CssFileWritten(detailStr)
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
-  implicit val namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
+  given namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
   { override val filePrefix: String = "CSS"
     override def typeStr: String = "CssFileWritten"
   }
@@ -46,9 +46,8 @@ object JarFileWritten
   def apply(detailStr: String): JarFileWritten = new JarFileWritten(detailStr)
 
   /** Implicit evidence / instance of [[ShowType]] for [[JarFileWritten]] */
-  implicit val namedTypeEv: ShowType[JarFileWritten] = new ShowFileWritten[JarFileWritten]
+  given namedTypeEv: ShowType[JarFileWritten] = new ShowFileWritten[JarFileWritten]
   { override val filePrefix: String = "Jar"
-
     override def typeStr: String = "JarFileWritten"
   }
 }
@@ -63,7 +62,7 @@ object PomFileWritten
 { /** Factory apply method to construct [[PomFileWritten]] report. */
   def apply(detailStr: String): PomFileWritten = new PomFileWritten(detailStr)
 
-  implicit val namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
+  given namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
   { override val filePrefix: String = "POM"
     override def typeStr: String = "PomFileWritten"
   }
