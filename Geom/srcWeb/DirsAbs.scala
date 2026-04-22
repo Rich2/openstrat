@@ -10,10 +10,19 @@ trait DirsAbs extends DirsPath
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
   @targetName("append") def /(operand: String): DirsAbs = DirsAbs.fromArray(arrayUnsafe :+ operand)
 
+  /** Appends a file name [[FileName]] to produce an absolute file path. */
+  @targetName("appendFile") override def :/(operand: FileName): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand.str)
+  
   /** Appends a file name [[String]] to produce an absolute file path. */
-  @targetName("appendFile") def :/(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)
+  @targetName("appendFile") override def :/(operand: String): DirsFileAbs = new DirsFileAbs(arrayUnsafe :+ operand)
 
+  /** Appends a file name [[FileName]] to produce an absolute filename stem path. */
   @targetName("appendStem") override def :-/(operand: String): DirsAbsStem = new DirsAbsStem(arrayUnsafe :+ operand)
+
+  /** Appends a file name [[FileName]] to produce an absolute filename stem path. */
+  @targetName("appendStem") override def :-/(operand: FileNameStem): DirsAbsStem = new DirsAbsStem(arrayUnsafe :+ operand.str)
+
+  
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth

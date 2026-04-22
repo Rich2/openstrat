@@ -20,12 +20,18 @@ trait DirsPath extends FileSystemPath
 
   /** A notification [[String]] to inform that the path is not a directory. */
   def notDirStr: String = asStr -- "is not a directory"
+  
+  /** Appends a file name [[FileName]] to produce a file path. */
+  @targetName("appendFile") def :/(operand: FileName): DirsFilePath
+  
+  /** Appends a file name [[String]] to produce a file path. */
+  @targetName("appendFile") def :/(operand: String): DirsFilePath
+
+  /** Appends a file stem to this directory path. */
+  @targetName("appendStem") def :-/(operand: FileNameStem): DirsFileStem
 
   /** Appends a file stem to this directory path. */
   @targetName("appendStem") def :-/(operand: String): DirsFileStem
-
-  /** Appends a file name [[String]] to produce a file path. */
-  @targetName("appendFile") def :/(operand: String): DirsFilePath
 }
 
 object DirsPath

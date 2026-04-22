@@ -18,7 +18,7 @@ object MillStageSite extends StagingBuild
     val egPath: DirsAbs = stagePath / "earthgames"
     val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = egPath.mkExist.flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc{ ga =>
-        val source: DirsAbsStem = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
+        val source: DirsAbsStem = projPath.out / "AppJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
         jsWithMapFileCopy(source, egPath :-/ ga.fileNameStem)
       }
     }

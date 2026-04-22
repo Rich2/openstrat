@@ -19,23 +19,23 @@ class DirsFileAbs(val arrayUnsafe: Array[String]) extends DirsFilePath
 }
 
 /** Relative directory (or folder) path and file name. */
-class DirsFileRel(val arrayUnsafe: Array[String]) extends DirsFilePath
+class DirsRelFile(val arrayUnsafe: Array[String]) extends DirsFilePath
 {
   override def asStr: String = arrayUnsafe.length match
   { case 0 => excep("A DirsFileRel should have at least a file name stem.")
     case _ => arrayUnsafe.mkString("/") }
 }
 
-object DirsFileRel
+object DirsRelFile
 { /** Factory apply method for [[DirsRel]]. */
-  def apply(str0: String, inp: String*): DirsFileRel =
+  def apply(str0: String, inp: String*): DirsRelFile =
   { val newArray = (str0 +: inp).foldLeft(Array[String]())((acc, st) => acc ++ DirsPath.strToStrs(st))
-    new DirsFileRel(newArray)
+    new DirsRelFile(newArray)
   }
 }
 
 trait DirsFileStem extends DirsFilePath
-{ /** Utilitu method to append the underlying [[Array]]s. */
+{ /** Utility method to append the underlying [[Array]]s. */
   protected def arrayAppend(operand: String): Array[String] =
   { val newArray: Array[String] = new Array[String](arrayLen)
     Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen - 1)
@@ -61,7 +61,7 @@ class DirsRelStem(val arrayUnsafe: Array[String]) extends DirsFileStem
   @targetName("append") def %+(operand: String): DirsRelStem = new DirsRelStem(arrayAppend(operand))
   
   /** Appends the [[String]] to the file name stem completing the file name. */
-  @targetName("complete") def ++(operand: String): DirsFileRel = new DirsFileRel(arrayAppend(operand))
+  @targetName("complete") def ++(operand: String): DirsRelFile = new DirsRelFile(arrayAppend(operand))
 
   override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
 }
