@@ -61,38 +61,20 @@ object FileWritten
   }
 }
 
-/** Report of successful POM file write. */
-class PomFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "POM File written"
-  override def toString: String = "PomFileWritten" + detailStr.enParenth
+/** Report of successful text file write. */
+class TextFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "Text File written"
+  override def toString: String = "TextFileWritten" + detailStr.enParenth
 }
 
-object PomFileWritten
-{ /** Factory apply method to construct [[PomFileWritten]] report. */
-  def apply(detailStr: String): PomFileWritten = new PomFileWritten(detailStr)
+object TextFileWritten
+{ /** Factory apply method to construct [[TextFileWritten]] report. */
+  def apply(detailStr: String): TextFileWritten = new TextFileWritten(detailStr)
 
-  implicit val namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
-  { override val filePrefix: String = "POM"
-    override def typeStr: String = "PomFileWritten"
-  }
-}
-
-
-/** Report of successful Jar file write. */
-class JarFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "Jar File written"
-  override def toString: String = "JarFileWritten" + detailStr.enParenth
-}
-
-object JarFileWritten
-{ /** Factory apply method to construct [[JarFileWritten]] report. */
-  def apply(detailStr: String): JarFileWritten = new JarFileWritten(detailStr)
-
-  /** Implicit evidence / instance of [[ShowType]] for [[JarFileWritten]] */
-  implicit val namedTypeEv: ShowType[JarFileWritten] = new ShowFileWritten[JarFileWritten]
-  { override val filePrefix: String = "Jar"
-
-    override def typeStr: String = "JarFileWritten"
+  /** Implicit evidence / instance of [[ShowType]] for [[TextFileWritten]] */
+  implicit val namedTypeEv: ShowType[TextFileWritten] = new ShowFileWritten[TextFileWritten]
+  { override val filePrefix: String = "Text"
+    override def typeStr: String = "TextFileWritten"
   }
 }
 

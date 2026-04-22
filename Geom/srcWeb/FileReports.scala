@@ -1,33 +1,38 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
-/** Directory now exists. It may have already existed or have just been created. */
-trait DirExists extends DoneIO, DirsAbs
-{ override def reportStr: String = detailStr -- reportTypeStr
-  override def detailStr: String = asStr
+/** Report of successful Jar file write. */
+class JarFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "Jar File written"
+  override def toString: String = "JarFileWritten" + detailStr.enParenth
 }
 
-/** Confirmation that a directory existed. */
-class DirExisted(val arrayUnsafe: Array[String]) extends DirExists
-{ override def reportTypeStr: String = "Directory existed"
+object JarFileWritten
+{ /** Factory apply method to construct [[JarFileWritten]] report. */
+  def apply(detailStr: String): JarFileWritten = new JarFileWritten(detailStr)
+
+  /** Implicit evidence / instance of [[ShowType]] for [[JarFileWritten]] */
+  implicit val namedTypeEv: ShowType[JarFileWritten] = new ShowFileWritten[JarFileWritten]
+  { override val filePrefix: String = "Jar"
+
+    override def typeStr: String = "JarFileWritten"
+  }
 }
 
-object DirExisted
-{
-  def strs(strs: String*): DirExisted = new DirExisted(strs.toArray)
-
-  def str(inp: String): DirExisted = new DirExisted(DirsPath.strToStrs(inp))
+/** Report of successful POM file write. */
+class PomFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "POM File written"
+  override def toString: String = "PomFileWritten" + detailStr.enParenth
 }
 
-/** Confirmation that a directory was created. */
-case class DirCreated(val arrayUnsafe: Array[String]) extends DirExists
-{ override def reportTypeStr: String = "Directory created"
-}
+object PomFileWritten
+{ /** Factory apply method to construct [[PomFileWritten]] report. */
+  def apply(detailStr: String): PomFileWritten = new PomFileWritten(detailStr)
 
-object DirCreated
-{ def strs(strs: String*): DirCreated = new DirCreated(strs.toArray)
-
-  def str(inp: String): DirCreated = new DirCreated(DirsPath.strToStrs(inp))
+  implicit val namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
+  { override val filePrefix: String = "POM"
+    override def typeStr: String = "PomFileWritten"
+  }
 }
 
 /** Report of successful JavaScript file write. */
@@ -35,7 +40,7 @@ class JsFileWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "JavaScript File written"
   override def toString: String = "JsFileWritten" + detailStr.enParenth
 
-  /** Converts this for a succesful js.map file write. */
+  /** Converts this for a successful js.map file write. */
   def withMap: JsWithMapFilesWritten = JsWithMapFilesWritten(detailStr)
 }
 

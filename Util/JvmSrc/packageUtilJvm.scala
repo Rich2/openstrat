@@ -9,7 +9,6 @@ package object utiljvm
 
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
   
-  
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
   { val dir: File = new File(path)
@@ -51,10 +50,6 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
-  
-  /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
-  def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
-    writeFile(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
   def copyFile(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =
@@ -64,10 +59,6 @@ package object utiljvm
     catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
   }  
-
-  /** Copies a jar file */
-  def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
-    copyFile(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =

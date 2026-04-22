@@ -78,4 +78,13 @@ package object webjvm
       }
     }
   }
+
+  /** Copies a jar file */
+  def jarFileCopy(fromStr: String, toStr: String): ErrBi[Exception, JarFileWritten] =
+    utiljvm.copyFile(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
+
+
+  /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
+  def writePom(pathName: String, content: String): ErrBi[IOExc, PomFileWritten] =
+    utiljvm.writeFile(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
 }
