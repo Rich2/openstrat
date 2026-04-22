@@ -8,7 +8,7 @@ object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(Ti
 /** Documentation page for EGrid Module." */
 object EGridPage extends OSDocumentationPage
 { override def titleStr: String = "EGrid Module"
-  override val fileNameStemStr: String = "egrid"
+  override val fileStemStr: String = "egrid"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", egrids, open)

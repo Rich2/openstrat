@@ -8,7 +8,7 @@ object TilingPommer extends OsModuleJvmVerless(DirsRel("Tiling"), "tiling", RArr
 /** Html documentation page for Tiling Module. */
 object TilingPage extends OSDocumentationPage
 { override def titleStr: String = "Tiling Module"
-  override val fileNameStemStr: String = "tiling"
+  override val fileStemStr: String = "tiling"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", list, "Game Terminology".h2, CoordSystem, terms2, turnRes)

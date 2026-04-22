@@ -5,13 +5,13 @@ import pweb.*
 /** An HTML Page for running an application. We may want a separate page for the documentation */
 class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "") extends PageFile
 { override val titleStr: String = htmlTitleIn.emptyMap(jsMainStem)
-  override val fileNameStemStr: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
+  override val fileStemStr: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
 
   /** The directory location with the website as a [[String]]. */
   def htmlPathName: DirsRelFile = dirRel /> fileNameStr
 
   /** JavaScript file name including the ".js" extension. */
-  def jsFileName: String = fileNameStemStr + ".js"
+  def jsFileName: String = fileStemStr + ".js"
 
   /** The HTML path and full file name as a [[String]]. */
   def htmlPathNameStr: String = dirRel.asStr / fileNameStr
@@ -20,7 +20,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
 
   def topMenu: UlHtml =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
-    val pairs1: ArrPairStr[DirsRelFile] = pages.mapPair(_.fileNameStemStr){ linkPage => linkPage.htmlPathName }
+    val pairs1: ArrPairStr[DirsRelFile] = pages.mapPair(_.fileStemStr){ linkPage => linkPage.htmlPathName }
     val pairs2: ArrPairStr[DirsRelFile] = PairStrElem("Home", DirsRelFile("index.html")) %: pairs1
     AppPage.topMenu(pairs2, dirRel)
   }
@@ -80,7 +80,7 @@ object AppPage
     def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp.drop(1))
   }
 
-  val defaultTopPairs: ArrPairStr[DirsRelFile] = allTops.mapPair(_.fileNameStemStr)(_.htmlPathName)
+  val defaultTopPairs: ArrPairStr[DirsRelFile] = allTops.mapPair(_.fileStemStr)(_.htmlPathName)
 
   def topMenu(pairs: ArrPairStr[DirsRelFile], origin: DirsRel = DirsRel()): UlHtml =
     UlHtml(pairs.pairMap { (s1, s2) => LiHtml.a((origin </> s2), s1) }, RArr(IdAtt("topmenu")))

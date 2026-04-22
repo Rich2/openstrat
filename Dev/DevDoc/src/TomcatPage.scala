@@ -6,7 +6,7 @@ import pweb.*, HtmlStrExts.*, osweb.*, wcode.*
 object TomcatPage extends PageHtmlUpdater
 { given thisPage: PageHtmlUpdater = this
   override val titleStr: String = "Apache Tomcat Server"
-  override def fileNameStemStr: String = "tomcat"
+  override def fileStemStr: String = "tomcat"
 
   override def head: HeadHtml = headCss("documentation")
   override def body: BodyHtml = BodyHtml("Using Apache Tomcat Server".h1, central, ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))

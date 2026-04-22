@@ -5,7 +5,7 @@ import pweb.*, HtmlStrExts.*
 /** HTML documentation page for Earth module. */
 object EarthPage extends OSDocumentationPage
 { override val titleStr: String = "Earth Module"
-  override def fileNameStemStr: String = "earth"
+  override def fileStemStr: String = "earth"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", list)
