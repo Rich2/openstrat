@@ -4,7 +4,7 @@ import pweb.*, HtmlStrExts.*, wcode.*
 
 object NewDevsPage extends OSDocumentationPage
 { override def titleStr: String = "New Developers Info"
-  override def fileNameStem: String = "newdevs"
+  override def fileNameStemStr: String = "newdevs"
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central)
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, gitCommands, sbtCommands)

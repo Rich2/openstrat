@@ -37,13 +37,15 @@ object PageHtml
 /** This is an HTML page that stores its default file name. */
 trait PageFile extends PageHtml, OutElemFile
 { /** The default file name stem for this HTML page. */
-  def fileNameStem: String
+  def fileNameStemStr: String
 
   /** The HTML head title [[String]]. */
   def titleStr: String
 
   /** The default file name stem for this HTML page file. */
-  override def fileName: String = fileNameStem + ".html"
+  override def fileNameStr: String = fileNameStemStr + ".html"
+
+  override def fileName: HtmlFileName = HtmlFileName(fileNameStemStr)
 
   /** creates an HTML head element with [[TitleHtml]], [[CssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
   def headCss(cssFileStem: String, otherContents: XConCompound*): HeadHtml =
@@ -59,7 +61,7 @@ trait PageFile extends PageHtml, OutElemFile
 
 /** An index.html page. */
 trait IndexPage extends PageFile
-{ override def fileNameStem: String = "index"
+{ override def fileNameStemStr: String = "index"
 }
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */

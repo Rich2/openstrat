@@ -14,7 +14,7 @@ object GeomFxPommer extends OsModuleJvmVerless(DirsRel("GeomFx"), "geomfx", RArr
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends OSDocumentationPage
 { override val titleStr: String = "Geom Module"
-  override val fileNameStem: String = "geom"
+  override val fileNameStemStr: String = "geom"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   def central: DivHtml = DivHtml.classAtt("central", PHtml(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 

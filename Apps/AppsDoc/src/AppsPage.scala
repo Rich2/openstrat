@@ -8,7 +8,7 @@ object AppsPommer extends OsModuleJvmVerless(DirsRel("Apps"), "apps", RArr(EGrid
 /** The top level HTML documentation page for the apps. */
 object AppsPage extends OSDocumentationPage
 { override def titleStr: String = "Applications Module"
-  override val fileNameStem: String = "apps"
+  override val fileNameStemStr: String = "apps"
   override def body: BodyHtml = BodyHtml(H1Html("Apps Module"), main)
   def main: DivHtml = DivHtml.classAtt("main", stratList, otherTiled, otherApps)
   def egameDir: String = (dirsRel </ AppPage.egameDir).asStr

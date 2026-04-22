@@ -8,8 +8,11 @@ trait OutElem
 }
 
 trait OutElemFile extends OutElem
-{ /** The default file name when this output to a file. */
-  def fileName: String
+{ /** The [[String]] of default file name when this output to a file. */
+  def fileNameStr: String
+  
+  /** The default file name when this output to a file. */
+  def fileName: FileName
 }
 
 /** Content for XML and HTML elements. You can use plain [[String]]s, however other content classes must implement the out and outLines interfaces. The outLines

@@ -5,7 +5,7 @@ import pweb.*, HtmlStrExts.*, wcode.*
 /** HTML documentation page for the Dev Module. */
 object DevPage extends OSDocumentationPage, PageHtmlUpdater
 { override val titleStr: String = "Dev Module"
-  override val fileNameStem: String = "dev"
+  override val fileNameStemStr: String = "dev"
 
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   val scVer: String = "3.8.3"

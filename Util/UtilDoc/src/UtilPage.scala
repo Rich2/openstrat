@@ -14,7 +14,7 @@ trait OSDocumentationPage extends PageFile
 /** Produces an HTML file documentation for the Util module. */
 object UtilPage extends OSDocumentationPage
 { override val titleStr: String = "Util Module"
-  override val fileNameStem: String = "util"
+  override val fileNameStemStr: String = "util"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   def central: DivHtml = DivHtml.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
 

@@ -32,7 +32,9 @@ trait CssRulesHolder extends HttpContent
 /** A set of CSS rules with a default file name. */
 trait CssRulesFile extends CssRulesHolder, OutElemFile
 { /** The file name stem, without the ".css" ending. */
-  def fileStem: String
+  def fileStemStr: String
 
-  override def fileName: String = fileStem + ".css"
+  override def fileNameStr: String = fileStemStr + ".css"
+
+  override def fileName: CssFileName = CssFileName(fileStemStr)
 }

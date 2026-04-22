@@ -18,10 +18,10 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def writeHtml(fileName: String, page: PageHtml): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / fileName, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def writeHtml(page: PageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileName, page.out)
+  def writeHtml(page: PageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / page.fileNameStr, page.out)
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, page: PageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileName, page.out)
+  def subWriteHtml(subDir: String, page: PageFile): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(thisPath.asStr / subDir / page.fileNameStr, page.out)
 
   /** Writes the [[PageHtml]] to the subdirectory of this path. Returns a successful message on success. */
   def subWriteHtml(subDir: String, fileName: String, page: PageHtml): ErrBi[IOExc, HtmlFileWritten] =
@@ -36,7 +36,7 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def writeCss(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / fileName, content)
 
   /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
-  def writeCss(cssFile: CssRulesFile): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / cssFile.fileName, cssFile.out)
+  def writeCss(cssFile: CssRulesFile): ErrBi[IOExc, CssFileWritten] = writeStrsCss(thisPath.asStr / cssFile.fileNameStr, cssFile.out)
 
   def toJava: File = File(thisPath.asStr)
 

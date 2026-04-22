@@ -9,12 +9,12 @@ implicit class OutElemExtensions(thisElem: OutElem)
 
 implicit class OutElemFileExtensions(thisOutFile: OutElemFile)
 { /** Writes out the "out" method on this [[OutElemFile]] to its file name in the given directory. */
-  def writeFile(dirPathStr: String): ErrBi[IOExc, FileWritten] = wFile(dirPathStr / thisOutFile.fileName, thisOutFile.out)
+  def writeFile(dirPathStr: String): ErrBi[IOExc, FileWritten] = wFile(dirPathStr / thisOutFile.fileNameStr, thisOutFile.out)
 }
 
 implicit class HtmlPageFileExtensions(thisPage: PageFile)
 { /** Writes out the "out" method on this [[PageFile]] to its file name in the given directory. */
-  def writeFile(dirPathStr: String): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(dirPathStr / thisPage.fileName, thisPage.out)
+  def writeFile(dirPathStr: String): ErrBi[IOExc, HtmlFileWritten] = writeStrsHtml(dirPathStr / thisPage.fileNameStr, thisPage.out)
 }
 
 implicit class CssRulesHolderExtensions(thisRules: CssRulesHolder)
@@ -27,5 +27,5 @@ implicit class CssRulesHolderExtensions(thisRules: CssRulesHolder)
 
 implicit class CssRulesFileExtensions(thisCssFile: CssRulesFile)
 { /** Writes out the "out" method on this [[CssRulesFile]] to its file name in the given directory. */
-  def writeFile(dirPathStr: String): ErrBi[IOExc, CssFileWritten] = writeStrsCss(dirPathStr / thisCssFile.fileName, thisCssFile.out)
+  def writeFile(dirPathStr: String): ErrBi[IOExc, CssFileWritten] = writeStrsCss(dirPathStr / thisCssFile.fileNameStr, thisCssFile.out)
 }

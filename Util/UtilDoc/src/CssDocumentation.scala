@@ -4,7 +4,7 @@ import pweb.*, Colour.*
 
 /** CSS for openstrat documentation. */
 object CssDocumentation extends CssOpenstrat
-{ override def fileStem: String = "documentation"
+{ override def fileStemStr: String = "documentation"
 
   val newRules: RArr[CssRuleLike] = RArr(
     CssBody(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),

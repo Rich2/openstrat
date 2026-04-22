@@ -19,7 +19,7 @@ object MillStageSite extends StagingBuild
     val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = egPath.mkExist.flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc{ ga =>
         val source: DirsAbsStem = projPath.out / "AppJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
-        jsWithMapFileCopy(source, egPath :-/ ga.fileNameStem)
+        jsWithMapFileCopy(source, egPath :-/ ga.fileNameStemStr)
       }
     }
     deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
@@ -35,7 +35,7 @@ object MillStageSite extends StagingBuild
     val otherJsFiles = otherBi.flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
         val fromStem: DirsAbsStem = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
-        val destStem: DirsAbsStem = otherPath :-/ ga.fileNameStem
+        val destStem: DirsAbsStem = otherPath :-/ ga.fileNameStemStr
         jsMapFileCopy(fromStem, destStem)
         jsFileCopy(fromStem, destStem)
       }
@@ -47,7 +47,7 @@ object MillStageSite extends StagingBuild
     val egridJsFiles = eGridBi.flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
         val fromStem: DirsAbsStem = projPath / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest" :-/ "main"
-        val destStem: DirsAbsStem = egridPath :-/ ga.fileNameStem
+        val destStem: DirsAbsStem = egridPath :-/ ga.fileNameStemStr
         jsFileCopy(fromStem, destStem)
       }
     }

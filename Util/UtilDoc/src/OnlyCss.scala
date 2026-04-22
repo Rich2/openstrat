@@ -17,7 +17,7 @@ trait CssOpenstrat extends CssRulesFile
 
 /** CSS file for application pages. */
 object OnlyCss extends CssOpenstrat
-{ override def fileStem: String = "only"
+{ override def fileStemStr: String = "only"
   
   /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlexDec, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(FontSizeDec(1.5.em)),

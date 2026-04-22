@@ -5,7 +5,7 @@ import pweb.*, wcode.*
 /** Documentation page for ScalaOS Module." */
 object ScalaOSPage extends OSDocumentationPage
 { override def titleStr: String = "Scala Operating System"
-  override val fileNameStem: String = "scalaos"
+  override val fileNameStemStr: String = "scalaos"
   override def body: BodyHtml = BodyHtml(H1Html("Geom Module"), central)
   def central: DivHtml = DivHtml.classAtt("central", p1)
 
