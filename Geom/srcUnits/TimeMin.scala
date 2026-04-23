@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
+package ostrat; package geom
 import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 trait TimeApprox extends Any

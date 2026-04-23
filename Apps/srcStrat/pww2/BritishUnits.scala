@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import pStrat.*
+import geom.*, pStrat.*
 
 trait BrArmyDesig extends LuDesig
 { override def uniLevel: LuUniLevel = FieldArmy

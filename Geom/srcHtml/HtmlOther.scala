@@ -100,3 +100,8 @@ object ButtonHtml
 { /** Factory apply method to create HTML button element. */
   def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(TypeSubmitAtt))
 }
+
+/** HTML time element. */
+trait TimeHtml extends HtmlInedit
+{ override def tagName: String = "time"
+}
