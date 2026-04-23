@@ -13,7 +13,7 @@ package object puloc
   def otherUnits: RArr[LunitLocHist] = RArr(FraCp1, FraCp2)
   def units: RArr[LunitLocHist] = germanUnits ++ sovietUnits ++ otherUnits
   
-  def unitsAt(date: MTime): RArr[LunitState] = units.optMap(_.dateFind(date))
+  def unitsAt(date: TimeMin): RArr[LunitState] = units.optMap(_.dateFind(date))
 
-  def deu45Surr: MTime = MTime(1945, 5, 8, 23, 1)
+  def deu45Surr: TimeMin = TimeMin(1945, 5, 8, 23, 1)
 }

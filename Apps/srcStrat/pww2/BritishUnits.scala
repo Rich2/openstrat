@@ -20,7 +20,7 @@ object BrArmy
 
 object BrArmy8 extends LuIdentity
 { override def desig0: LuDesig = BrArmyDesigUnNum("Western")
-  override def date0: MTime = MTime(1941, 9, 10)
+  override def date0: TimeMin = TimeMin(1941, 9, 10)
 }
 
 case class BrCorpsDesig(num: Int, polity: Polity = Britain) extends LuNumberedDesig

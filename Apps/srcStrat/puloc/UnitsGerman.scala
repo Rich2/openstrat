@@ -2,55 +2,55 @@
 package ostrat; package puloc
 import geom.*, pStrat.*, pglobe.*, pEarth.*, pEurope.*
 
-abstract class DeuArmee(val startDate: MTime, val endDate: Option[MTime], val armeeNum: Int) extends LunitLocHist
-{ override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
-  override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(FieldArmy)
-  override def levelName: MTimeSeries[String] = MTimeSeries("Armee")
+abstract class DeuArmee(val startDate: TimeMin, val endDate: Option[TimeMin], val armeeNum: Int) extends LunitLocHist
+{ override val polity: TimeMinSeries[Polity] = TimeMinSeries(Deutch)
+  override def uniLevel: TimeMinSeries[LuUniLevel] = TimeMinSeries(FieldArmy)
+  override def levelName: TimeMinSeries[String] = TimeMinSeries("Armee")
   override def idStr: String = armeeNum.ordAbbr
 }
 
-object DeuArmy3 extends DeuArmee(MTime(1939, 9), Some(MTime(1939, 11, 5)), 3)
-{ override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.osteroda)
-  override val subUnits: MTimeSeries[RArr[LunitLocHist]] = MTimeSeries(RArr(DeuKorps26))
+object DeuArmy3 extends DeuArmee(TimeMin(1939, 9), Some(TimeMin(1939, 11, 5)), 3)
+{ override def locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Polandia.osteroda)
+  override val subUnits: TimeMinSeries[RArr[LunitLocHist]] = TimeMinSeries(RArr(DeuKorps26))
 }
 
-abstract class DeuKorps(val startDate: MTime, val endDate: Option[MTime]) extends LunitLocHist
-{ override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
-  override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(Corps)
-  override def levelName: MTimeSeries[String] = MTimeSeries("Korps")
+abstract class DeuKorps(val startDate: TimeMin, val endDate: Option[TimeMin]) extends LunitLocHist
+{ override val polity: TimeMinSeries[Polity] = TimeMinSeries(Deutch)
+  override def uniLevel: TimeMinSeries[LuUniLevel] = TimeMinSeries(Corps)
+  override def levelName: TimeMinSeries[String] = TimeMinSeries("Korps")
 }
 
-abstract class DeuNumberedKorps(startDate: MTime, endDate: Option[MTime], val korpsNum: Int) extends DeuKorps(startDate, endDate)
+abstract class DeuNumberedKorps(startDate: TimeMin, endDate: Option[TimeMin], val korpsNum: Int) extends DeuKorps(startDate, endDate)
 { override def idStr: String = korpsNum.ordAbbr
 }
 
 /** 1st German corps of the 3rd Reich. */
-object DeuCp1 extends DeuNumberedKorps(MTime(1934, 10), Some(MTime(1945, 5, 8)), 1)
-{ override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg, (MTime(1939, 8, 1), Polandia.neidenburg))
-  override def supUnit: MTimeSeries[JustOrName[LunitLocHist]] = MTimeSeries(JustNone, (MTime(1939, 9), Just(DeuArmy3)))
+object DeuCp1 extends DeuNumberedKorps(TimeMin(1934, 10), Some(TimeMin(1945, 5, 8)), 1)
+{ override val locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Baltland.konigsberg, (TimeMin(1939, 8, 1), Polandia.neidenburg))
+  override def supUnit: TimeMinSeries[JustOrName[LunitLocHist]] = TimeMinSeries(JustNone, (TimeMin(1939, 9), Just(DeuArmy3)))
 }
 
 /** 2nd German corps of the 3rd Reich. */
-object DeuCp2 extends DeuNumberedKorps(MTime(1935, 4), Some(MTime(1945, 5, 8)), 2)
-{ override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg, (MTime(1939, 8, 1), Polandia.schlochau))
+object DeuCp2 extends DeuNumberedKorps(TimeMin(1935, 4), Some(TimeMin(1945, 5, 8)), 2)
+{ override val locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Baltland.konigsberg, (TimeMin(1939, 8, 1), Polandia.schlochau))
 }
 
 /** 3rd German corps of the 3rd Reich. */
-object DeuCp3 extends DeuNumberedKorps(MTime(1935, 4), Some(MTime(1945, 5, 8)), 3)
-{ override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.stettin)
+object DeuCp3 extends DeuNumberedKorps(TimeMin(1935, 4), Some(TimeMin(1945, 5, 8)), 3)
+{ override val locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Polandia.stettin)
 }
 
 /** 4th German corps of the 3rd Reich. */
-object DeuCp4 extends DeuNumberedKorps(MTime(1935, 4), Some(MTime(1945, 5, 8)), 4)
-{ override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Germania.dresden.latLong, (MTime(1939, 10), Baltland.konigsberg))
+object DeuCp4 extends DeuNumberedKorps(TimeMin(1935, 4), Some(TimeMin(1945, 5, 8)), 4)
+{ override val locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Germania.dresden.latLong, (TimeMin(1939, 10), Baltland.konigsberg))
 }
 
 /** 4th German corps of the 3rd Reich. */
-object DeuCp21 extends DeuNumberedKorps(MTime(1939, 8, 10), Some(MTime(1941)), 4)
-{ override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Germania.dresden.latLong, (MTime(1939, 10), Baltland.konigsberg))
+object DeuCp21 extends DeuNumberedKorps(TimeMin(1939, 8, 10), Some(TimeMin(1941)), 4)
+{ override val locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Germania.dresden.latLong, (TimeMin(1939, 10), Baltland.konigsberg))
 }
 
-object DeuKorps26 extends DeuNumberedKorps(MTime(1939, 8, 22), Some(deu45Surr), 26)
-{ override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.allenstein)
-  override def timeDesig(date: MTime): String = ife(date < MTime(1939, 10), s"Wodrig ($idStr)", idStr)
+object DeuKorps26 extends DeuNumberedKorps(TimeMin(1939, 8, 22), Some(deu45Surr), 26)
+{ override def locPosns: TimeMinSeries[LatLong] = TimeMinSeries(Polandia.allenstein)
+  override def timeDesig(date: TimeMin): String = ife(date < TimeMin(1939, 10), s"Wodrig ($idStr)", idStr)
 }

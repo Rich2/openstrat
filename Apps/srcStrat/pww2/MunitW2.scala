@@ -18,7 +18,7 @@ case class DeKorpsNum(num: Int) extends DeKorps with LuNumberedDesig
 
 object AfricaKorps extends LuIdentity
 { override def desig0: LuDesig = DeKorpsUnNum("Africa")
-  override def date0: MTime = MTime(1941, 3)
+  override def date0: TimeMin = TimeMin(1941, 3)
 }
 
 trait DeArmeeId extends LuDesig
@@ -44,17 +44,17 @@ case class DeArmeeNum(num: Int) extends DeArmeeId with DeLuDesigNum
 
 object DeArmee1 extends LuIdentity
 { override def desig0: LuDesig = DeArmeeNum(1)
-  override def date0: MTime = MTime(1939, 8, 26)
+  override def date0: TimeMin = TimeMin(1939, 8, 26)
 }
 
 object DeArmee7 extends LuIdentity
 { override def desig0: LuDesig = DeArmeeNum(7)
-  override def date0: MTime = MTime(1939, 8 , 25)
+  override def date0: TimeMin = TimeMin(1939, 8 , 25)
 }
 
 object DeArmee15 extends LuIdentity
 { override def desig0: LuDesig = DeArmeeNum(15)
-  override def date0: MTime = MTime(1941, 1 , 15)
+  override def date0: TimeMin = TimeMin(1941, 1 , 15)
 }
 
 //object DeArmee1 extends DeArmee(1)

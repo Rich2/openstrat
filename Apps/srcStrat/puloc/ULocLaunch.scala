@@ -5,7 +5,7 @@ import geom.*, pglobe.*, pgui.*, pParse.*
 /** object to launch Unit locator  Gui. */
 object ULocLaunch extends GuiLaunchMore
 { override def settingStr: String = "uloc"
-  override def default: (CanvasPlatform => Any, String) = (cv => ULocGui.apply(cv, MTime(1939, 9, 15)), "JavaFx Unit Locations")
+  override def default: (CanvasPlatform => Any, String) = (cv => ULocGui.apply(cv, TimeMin(1939, 9, 15)), "JavaFx Unit Locations")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   {
@@ -17,8 +17,8 @@ object ULocLaunch extends GuiLaunchMore
     }
 
     val view: EarthView = sts.findType[EarthView].getElse(multisett)
-    val oDate: ErrBi[Exception, MTime] = sts.findSettingOrUniqueT[MTime]("date")
-    val date: MTime = oDate.getElse(MTime(1930, 9, 15))
+    val oDate: ErrBi[Exception, TimeMin] = sts.findSettingOrUniqueT[TimeMin]("date")
+    val date: TimeMin = oDate.getElse(TimeMin(1930, 9, 15))
     (cv => ULocGui(cv, date, view), "JavaFx Unit Locations")
   }
 }

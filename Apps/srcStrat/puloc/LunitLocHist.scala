@@ -4,10 +4,10 @@ import geom.*, pStrat.*, pglobe.*
 
 /** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is considered to be a new unit. */
 trait LunitLocHist
-{ val startDate: MTime
-  val endDate: Option[MTime]
+{ val startDate: TimeMin
+  val endDate: Option[TimeMin]
   /** The nation / state to which this unit belongs. */
-  def polity: MTimeSeries[Polity]
+  def polity: TimeMinSeries[Polity]
 
   /** An implicit value for the start and end of the unit to be used in building time series.  */
   implicit def startEnd: MTime2Opt =
@@ -19,23 +19,23 @@ trait LunitLocHist
   }
 
   /** Locations of the unit throughout its existence. */
-  def locPosns: MTimeSeries[LatLong]
+  def locPosns: TimeMinSeries[LatLong]
 
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.get(date), timeDesig(date), uniLevel.get(date), ll))
+  def dateFind(date: TimeMin): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.get(date), timeDesig(date), uniLevel.get(date), ll))
 
   /** The name of the level of the unit such as Army, Corps or Division. */
-  def levelName: MTimeSeries[String]
+  def levelName: TimeMinSeries[String]
 
   /** The designated identification, such as "8th" in "8th Army" or "Wodrig" in "Korps Wodrig". */
   def idStr: String
 
-  def timeDesig(date: MTime): String = idStr
+  def timeDesig(date: TimeMin): String = idStr
 
-  def uniLevel: MTimeSeries[LuUniLevel]
+  def uniLevel: TimeMinSeries[LuUniLevel]
 
-  def supUnit: MTimeSeries[JustOrName[LunitLocHist]] = MTimeSeries(Unknown)
+  def supUnit: TimeMinSeries[JustOrName[LunitLocHist]] = TimeMinSeries(Unknown)
 
-  def subUnits: MTimeSeries[RArr[LunitLocHist]] = MTimeSeries(RArr[LunitLocHist]())
+  def subUnits: TimeMinSeries[RArr[LunitLocHist]] = TimeMinSeries(RArr[LunitLocHist]())
 }
 
 /** A [[LunitLocHist]], a military land unit's state at a particular moment in time.  */
@@ -50,5 +50,5 @@ trait ArmyNumbered extends LunitLocHist
 
   override def idStr: String = armyNum.ordAbbr
 
-  override def levelName: MTimeSeries[String] = MTimeSeries("Army")
+  override def levelName: TimeMinSeries[String] = TimeMinSeries("Army")
 }

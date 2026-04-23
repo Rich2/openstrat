@@ -3,7 +3,7 @@ package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
 /** Graphical user interface for Unit Locator. */
-case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(50, 12, 1.2)) extends GlobeGui("The Earth in irregular tiles")
+case class ULocGui(canv: CanvasPlatform, var date: TimeMin, viewIn: EarthView = EarthView(50, 12, 1.2)) extends GlobeGui("The Earth in irregular tiles")
 {
   /** Scale in km / pixel */
     var scale: LengthMetric = viewIn.scale
@@ -95,7 +95,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   def subMonthButt: PolygonCompound = timeButt("m-", butt => date.subMonths(butt(1, 3, 6, 0)))
   def subYearButt: PolygonCompound = timeButt("y-", butt => date.subYears(butt(1, 10, 100, 0)))
 
-  def timeButt(str: String, fNewTime: MouseButton => MTime): PolygonCompound = clickButton(str) { b =>
+  def timeButt(str: String, fNewTime: MouseButton => TimeMin): PolygonCompound = clickButton(str) { b =>
     date = fNewTime(b)
     repaint()
     thisTop()

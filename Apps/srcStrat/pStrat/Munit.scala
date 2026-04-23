@@ -69,7 +69,7 @@ trait Lunit extends Munit
 
 /** Military Unit Identity. */
 trait MuIdentity
-{ def date0: MTime
+{ def date0: TimeMin
   def desig0: MuDesig
 }
 
@@ -79,9 +79,9 @@ trait LuIdentity extends MuIdentity
 
 object LuIdentity
 {
-  def apply(desig0In: LuDesig, date0In: MTime): LuIdentity = new LuIdentity
+  def apply(desig0In: LuDesig, date0In: TimeMin): LuIdentity = new LuIdentity
   { override def desig0: LuDesig = desig0In
-    override def date0: MTime = date0In
+    override def date0: TimeMin = date0In
   }
 }
 
