@@ -37,6 +37,12 @@ class CharExtensions(thisChar: Char)
 class LongExtensions(val thisLong: Long) extends AnyVal
 { def million: Long = thisLong * 1000000L
   def billion: Long = thisLong * 1000000000L
+
+  /** More useful definition of modulus where a negative number divided by a positive divisor produces a non negative modulus. */
+  def %%(divisor: Long): Long =
+  { val r = thisLong % divisor
+    if (r < 0) divisor + r else r
+  }
 }
 
 class OptionExtensions[A](thisOption: Option[A])

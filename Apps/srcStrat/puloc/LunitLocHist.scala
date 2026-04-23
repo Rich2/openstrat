@@ -12,10 +12,10 @@ trait LunitLocHist
   /** An implicit value for the start and end of the unit to be used in building time series.  */
   implicit def startEnd: MTime2Opt =
   { val endInt = endDate match
-    {  case Some(t) => t.int1
+    {  case Some(t) => t.long1
       case None => 0
     }
-    new MTime2Opt(startDate.int1, endDate.nonEmpty,  endInt)
+    new MTime2Opt(startDate.long1, endDate.nonEmpty, endInt)
   }
 
   /** Locations of the unit throughout its existence. */
