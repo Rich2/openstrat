@@ -101,7 +101,23 @@ object ButtonHtml
   def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(TypeSubmitAtt))
 }
 
+trait DateTimeAtt extends XAttShort
+{ override def name: String = "datetime"
+}
+
+case class DayOnlyAtt(year: Int, month: Int, day: Int) extends DateTimeAtt
+{ override def valueStr: String =
+  { val ys = f"$year%04d"
+    val ms = f"$month%02d"
+    val ds = f"$day%02d"
+    s"$ys:$ms:ds"
+  }
+}
+
 /** HTML time element. */
 trait TimeHtml extends HtmlInedit
 { override def tagName: String = "time"
+  def dtAtt: DateTimeAtt
+  override def attribs: RArr[XAtt] = RArr(dtAtt)
+  override def contents: RArr[XCon] = RArr(dtAtt.valueStr)
 }

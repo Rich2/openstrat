@@ -22,10 +22,10 @@ package object pweb
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
   }
 
-  implicit class IntWebExtensions(thisInt: Int) {
-    /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
+  implicit class IntWebExtensions(thisInt: Int)
+  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
-      def px: PxCss = PxCss(thisInt)
+    def px: PxCss = PxCss(thisInt)
 
     /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: EmCss = EmCss(thisInt)
@@ -40,7 +40,7 @@ package object pweb
   implicit class DoubleWebExtensions(thisDouble: Double)
   { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
      * For printers and high resolution screens 1px implies multiple device pixels. */
-      def px: PxCss = PxCss(thisDouble)
+    def px: PxCss = PxCss(thisDouble)
 
     /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: EmCss = EmCss(thisDouble)

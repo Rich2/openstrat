@@ -1,5 +1,7 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat; package geom
+import pweb.*
+
 import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 trait TimeApprox extends Any
@@ -57,7 +59,7 @@ trait TimeApprox extends Any
   }
 }
 
-class TimeDay(val long1: Long) extends AnyVal, Ordered[TimeDay], Long1Elem, TimeApprox
+class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeApprox, TimeHtml
 {
   override def compare(that: TimeDay): Int = ???
 
@@ -78,6 +80,8 @@ class TimeDay(val long1: Long) extends AnyVal, Ordered[TimeDay], Long1Elem, Time
     }
     f"$yearStr $monthStr3 $dayNum%2d"
   }
+
+  override def dtAtt: DateTimeAtt = DayOnlyAtt(yearInt, monthInt, dayNum)
 
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 }
