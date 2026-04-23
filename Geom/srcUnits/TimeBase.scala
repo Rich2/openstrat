@@ -1,10 +1,9 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat; package geom
-import pweb.*
+import pweb.*, reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
-import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
-
-trait TimeApprox extends Any
+/** Base trait for time classes giving varying levels of precision. */
+trait TimeBase extends Any
 {
   def long1: Long
 
@@ -59,7 +58,7 @@ trait TimeApprox extends Any
   }
 }
 
-class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeApprox, TimeHtml
+class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeBase, TimeHtml
 {
   override def compare(that: TimeDay): Int = ???
 
@@ -94,7 +93,7 @@ object TimeDay
 
 
 /** An instant of time specified to the nearest minute. By default, uses Gregorian Calendar */
-class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, TimeApprox
+class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, TimeBase
 { import TimeMin.lastMonthDay
   def minute: Int = (long1 %% 60).toInt
   def hour: Int = ((long1 %% 1440) / 60).toInt
@@ -118,7 +117,7 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
   /** Subtracts the given number of years from the time. February 29th goes to February 28th. */
   def subYears(num: Int): TimeMin = TimeMin(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
 
-  /** Adds a month to this [[TimeMin]]. If the new month does not contain the day number, the day number is reduced to the last dasy fp the month. Eg 2023 May
+  /** Adds a month to this [[TimeMin]]. If the new month does not contain the day number, the day number is reduced to the last day of the month. Eg 2023 May
    * 31st goes to 2023 June 30th. */
   def addMonth: TimeMin = if(monthNum == 12) TimeMin(yearInt + 1, 1, dayNum, hour, minute)
     else TimeMin(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hour, minute)
@@ -218,7 +217,7 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
 }
 
 object TimeMin
-{
+{ 
   def apply(year: Int, monthNum: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0): TimeMin =
     new TimeMin(minute + hour * 60 + (day - 1) * 1440 + (monthNum - 1) * 44640 + year * 535680)
 
