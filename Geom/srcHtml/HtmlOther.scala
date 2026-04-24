@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
 /** HTML A anchor element. */
@@ -99,27 +99,4 @@ class ButtonHtml(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr
 object ButtonHtml
 { /** Factory apply method to create HTML button element. */
   def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(TypeSubmitAtt))
-}
-
-/** DateTime attribute. */
-trait DateTimeAtt extends XAttShort
-{ override def name: String = "datetime"
-}
-
-/** DateTime attribute for the YYYY-MM-DD syntax. */
-case class DayOnlyAtt(year: Int, month: Int, day: Int) extends DateTimeAtt
-{ override def valueStr: String =
-  { val ys = f"$year%04d"
-    val ms = f"$month%02d"
-    val ds = f"$day%02d"
-    s"$ys:$ms:$ds"
-  }
-}
-
-/** HTML time element. */
-trait TimeHtml extends HtmlInedit
-{ override def tagName: String = "time"
-  def dtAtt: DateTimeAtt
-  override def attribs: RArr[XAtt] = RArr(dtAtt)
-  override def contents: RArr[XCon] = RArr(dtAtt.valueStr)
 }
