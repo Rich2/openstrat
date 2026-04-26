@@ -13,6 +13,7 @@ trait DateTimeAtt extends XAttShort
 { override def name: String = "datetime"
 }
 
+/** A date or date and time attribute. */
 trait DatePlusAtt extends DateTimeAtt
 {
   def yearInt: Int

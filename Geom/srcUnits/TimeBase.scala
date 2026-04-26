@@ -3,7 +3,7 @@ package ostrat; package geom
 import pweb.*, reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 /** Base trait for time classes giving varying levels of precision. */
-trait TimeBase extends Any
+trait TimeBase extends TimeHtml
 {
   def long1: Long
 
@@ -58,7 +58,7 @@ trait TimeBase extends Any
   }
 }
 
-class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeBase, TimeHtml
+class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeBase
 {
   override def compare(that: TimeDay): Int = ???
 
@@ -81,9 +81,7 @@ class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeBase, Ti
   }
 
   override def dtAtt: DateTimeAtt = DateAtt(yearInt, monthInt, dayNum)
-
   override def contents: RArr[XCon] = RArr(s"$yearInt/$monthInt/$dayNum")
-
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 }
 
@@ -95,10 +93,10 @@ object TimeDay
 
 
 /** An instant of time specified to the nearest minute. By default, uses Gregorian Calendar */
-class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, TimeBase
+class TimeMin(val long1: Long) extends Ordered[TimeMin], Long1Elem, TimeBase
 { import TimeMin.lastMonthDay
-  def minute: Int = (long1 %% 60).toInt
-  def hour: Int = ((long1 %% 1440) / 60).toInt
+  def minsInt: Int = (long1 %% 60).toInt
+  def hoursInt: Int = ((long1 %% 1440) / 60).toInt
 
 
   override def compare(that: TimeMin): Int = long1 match
@@ -108,21 +106,21 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
   }
 
   /** Adds a year to the time. February 29th goes to February 28th. */
-  def addYear: TimeMin = TimeMin(yearInt + 1, monthNum, dayNum.min(lastMonthDay(yearInt + 1, monthNum)), hour, minute)
+  def addYear: TimeMin = TimeMin(yearInt + 1, monthNum, dayNum.min(lastMonthDay(yearInt + 1, monthNum)), hoursInt, minsInt)
 
   /** Adds the given number of years to the time. February 29th goes to February 28th. */
-  def addYears(num: Int): TimeMin = TimeMin(yearInt + num, monthNum, dayNum.min(lastMonthDay(yearInt + num, monthNum)), hour, minute)
+  def addYears(num: Int): TimeMin = TimeMin(yearInt + num, monthNum, dayNum.min(lastMonthDay(yearInt + num, monthNum)), hoursInt, minsInt)
 
   /** Subtracts a year from the time. February 29th goes to February 28th. */
-  def subYear: TimeMin = TimeMin(yearInt - 1, monthNum, dayNum.min(lastMonthDay(yearInt - 1, monthNum)), hour, minute)
+  def subYear: TimeMin = TimeMin(yearInt - 1, monthNum, dayNum.min(lastMonthDay(yearInt - 1, monthNum)), hoursInt, minsInt)
 
   /** Subtracts the given number of years from the time. February 29th goes to February 28th. */
-  def subYears(num: Int): TimeMin = TimeMin(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
+  def subYears(num: Int): TimeMin = TimeMin(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hoursInt, minsInt)
 
   /** Adds a month to this [[TimeMin]]. If the new month does not contain the day number, the day number is reduced to the last day of the month. Eg 2023 May
    * 31st goes to 2023 June 30th. */
-  def addMonth: TimeMin = if(monthNum == 12) TimeMin(yearInt + 1, 1, dayNum, hour, minute)
-    else TimeMin(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hour, minute)
+  def addMonth: TimeMin = if(monthNum == 12) TimeMin(yearInt + 1, 1, dayNum, hoursInt, minsInt)
+    else TimeMin(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hoursInt, minsInt)
 
   def addMonths(num: Int): TimeMin = if (num < 0) subMonths(- num) else
   { val totalMonths = yearInt * 12 + monthInt + num
@@ -131,8 +129,8 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
     TimeMin(newYear, newMonthNum, dayNum.min(lastMonthDay(newYear, newMonthNum)))
   }
 
-  def subMonth: TimeMin = if (monthNum == 1) TimeMin(yearInt - 1, 12, dayNum, hour, minute)
-  else TimeMin(yearInt, monthNum - 1, dayNum.min(lastMonthDay(yearInt, monthNum - 1)), hour, minute)
+  def subMonth: TimeMin = if (monthNum == 1) TimeMin(yearInt - 1, 12, dayNum, hoursInt, minsInt)
+  else TimeMin(yearInt, monthNum - 1, dayNum.min(lastMonthDay(yearInt, monthNum - 1)), hoursInt, minsInt)
 
   def subMonths(num: Int): TimeMin = if (num < 0) addMonths(-num) else
   { val totalMonths = yearInt * 12 + monthInt - num
@@ -143,8 +141,8 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
 
   def addDay: TimeMin = monthNum match
   { case 11 if dayNum == 31 => TimeMin(yearInt + 1, 1, 1, monthNum, dayNum)
-    case n if dayNum == lastMonthDay(yearInt, n) => TimeMin(yearInt, n + 1, 1, hour, minute)
-    case n => TimeMin(yearInt, n, dayNum + 1, hour, minute)
+    case n if dayNum == lastMonthDay(yearInt, n) => TimeMin(yearInt, n + 1, 1, hoursInt, minsInt)
+    case n => TimeMin(yearInt, n, dayNum + 1, hoursInt, minsInt)
   }
 
   /** Adds the give number of days to the [[TimeMin]]. This hasn't been tested. */
@@ -154,25 +152,25 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
 
     /** Assumes the input [[TimeMin]] is on the last day of the month and rem > 0. */
     def loop(acc: TimeMin, rem: Int): TimeMin = acc.monthNum match
-    { case 12 if rem > 31 => loop(TimeMin(acc.yearInt + 1, 1, 31, hour, minute), rem - 31)
-      case 12 => TimeMin(acc.yearInt + 1, 1, rem, hour, minute)
+    { case 12 if rem > 31 => loop(TimeMin(acc.yearInt + 1, 1, 31, hoursInt, minsInt), rem - 31)
+      case 12 => TimeMin(acc.yearInt + 1, 1, rem, hoursInt, minsInt)
       case n =>
       { val newLastDay = lastMonthDay(acc.yearInt, acc.monthNum + 1)
-        if(rem > newLastDay) loop(TimeMin(acc.yearInt, acc.monthNum + 1, newLastDay, hour, minute), rem - newLastDay)
-        else TimeMin(acc.yearInt, monthNum + 1, rem, hour, minute)
+        if(rem > newLastDay) loop(TimeMin(acc.yearInt, acc.monthNum + 1, newLastDay, hoursInt, minsInt), rem - newLastDay)
+        else TimeMin(acc.yearInt, monthNum + 1, rem, hoursInt, minsInt)
       }
     }
 
     val newLastDay: Int = lastMonthDay(leaps, monthNum)
     if (newLastDay >= dayNum + rem) TimeMin(leaps, monthNum, dayNum + rem)
-    else loop(TimeMin(leaps, monthNum, newLastDay, hour, minute), rem - newLastDay + dayNum)
+    else loop(TimeMin(leaps, monthNum, newLastDay, hoursInt, minsInt), rem - newLastDay + dayNum)
   }
 
   /** Returns a time one day earlier. */
   def subDay: TimeMin = dayNum match
-  { case 1 if monthNum == 1 => TimeMin(yearInt - 1, 12, 31, hour, minute)
-    case 1 => TimeMin(yearInt, monthNum - 1, lastMonthDay(yearInt, monthNum - 1), hour, minute)
-    case n => TimeMin(yearInt, monthNum, n - 1, hour, minute)
+  { case 1 if monthNum == 1 => TimeMin(yearInt - 1, 12, 31, hoursInt, minsInt)
+    case 1 => TimeMin(yearInt, monthNum - 1, lastMonthDay(yearInt, monthNum - 1), hoursInt, minsInt)
+    case n => TimeMin(yearInt, monthNum, n - 1, hoursInt, minsInt)
   }
 
   /** Not correct yet. */
@@ -182,20 +180,20 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
 
     /** Assumes the input [[TimeMin]] is on the 1st day of the month and rem > 0. */
     def loop(acc: TimeMin, rem: Int): TimeMin = acc.monthNum match
-    { case 1 if rem > 31 => loop(TimeMin(acc.yearInt -1 , 12, 31, hour, minute), rem - 31)
-      case 1 => TimeMin(acc.yearInt - 1, 12, 32 - rem, hour, minute)
+    { case 1 if rem > 31 => loop(TimeMin(acc.yearInt -1 , 12, 31, hoursInt, minsInt), rem - 31)
+      case 1 => TimeMin(acc.yearInt - 1, 12, 32 - rem, hoursInt, minsInt)
       case n =>
       { val newMonth = acc.monthNum - 1
         val newLastDay = lastMonthDay(acc.yearInt, newMonth)
-        if (newLastDay > rem) TimeMin(acc.yearInt, newMonth, newLastDay - rem + 1, hour, minute)
-        else loop(TimeMin(acc.yearInt, newMonth, 1, hour, minute), rem - newLastDay)
+        if (newLastDay > rem) TimeMin(acc.yearInt, newMonth, newLastDay - rem + 1, hoursInt, minsInt)
+        else loop(TimeMin(acc.yearInt, newMonth, 1, hoursInt, minsInt), rem - newLastDay)
       }
     }
 
     val newLastDay: Int = lastMonthDay(leaps, monthNum)
 
     if (dayNum > rem) TimeMin(leaps, monthNum, dayNum - rem)
-    else loop(TimeMin(leaps, monthNum, 1, hour, minute), rem - dayNum + 1)
+    else loop(TimeMin(leaps, monthNum, 1, hoursInt, minsInt), rem - dayNum + 1)
   }
 
   /** Produces a date [[String]] with month in 3 letter abbreviation. */
@@ -212,9 +210,11 @@ class TimeMin(val long1: Long) extends AnyVal, Ordered[TimeMin], Long1Elem, Time
       case n if n <= -9 => s"BC$bn  "
       case n => s"BC$bn   "
     }
-    f"$yearStr $monthStr3 $dayNum%2d $hour%02d $minute%02d"
+    f"$yearStr $monthStr3 $dayNum%2d $hoursInt%02d $minsInt%02d"
   }
 
+  override def dtAtt: DateMinAtt = DateMinAtt(yearInt, monthInt, dayNum, hoursInt, minsInt)
+  override def contents: RArr[XCon] = RArr(s"$yearInt/$monthInt/$dayNum $hoursInt:$minsInt")
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 }
 
