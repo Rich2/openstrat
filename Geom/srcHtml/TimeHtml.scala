@@ -15,8 +15,10 @@ trait DateTimeAtt extends XAttShort
 
 /** A date or date and time attribute. */
 trait DatePlusAtt extends DateTimeAtt
-{
+{ /** Integer for the year. 1bc = 0. */
   def yearInt: Int
+  
+  /** Integer  */
   def monthInt: Int
   def dayInt: Int
 
@@ -30,9 +32,21 @@ case class DateAtt(yearInt: Int, monthInt: Int, dayInt: Int) extends DatePlusAtt
 { override def valueStr: String = s"$yStr:$monthStr:$dStr"
 }
 
-/** DateTime attribute for the YYYY-MM-DD HH:MM syntax. */
-case class DateMinAtt(yearInt: Int, monthInt: Int, dayInt: Int, hourInt: Int, minInt: Int) extends DatePlusAtt
-{ def hStr = f"$hourInt%02d"
+/** Datetime attribute that specifies hours and mins */
+trait MinPlusAtt
+{
+  def hourInt: Int
+  def minInt: Int
+  def hStr = f"$hourInt%02d"
+
   def minStr = f"$minInt%02d"
-  override def valueStr: String =s"$yStr:$monthStr:$dStr $hourInt:$minInt"
+}
+
+/** DateTime attribute for the YYYY-MM-DD HH:MM syntax. */
+case class DateMinAtt(yearInt: Int, monthInt: Int, dayInt: Int, hourInt: Int, minInt: Int) extends DatePlusAtt, MinPlusAtt
+{ override def valueStr: String =s"$yStr:$monthStr:$dStr $hourInt:$minInt"
+}
+
+case class MinOfDayAtt(hourInt: Int, minInt: Int) extends DateTimeAtt, MinPlusAtt
+{ override def valueStr: String = s"$$hourInt:$minInt"
 }
