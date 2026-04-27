@@ -62,7 +62,7 @@ object GeomFx extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
-  def platformDeps = Seq(mvn"org.openjfx:javafx-controls:25.0.2")
+  def platformDeps = Seq(mvn"org.openjfx:javafx-controls:25.0.3")
   def jfx = Task { defaultResolver().classpath(platformDeps) }
   def mvnDeps = platformDeps
 
