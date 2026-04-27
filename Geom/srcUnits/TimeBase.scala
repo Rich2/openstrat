@@ -25,8 +25,8 @@ trait TimeBase extends TimeHtml
   /** The month number. 1 == January, 12 == December. */
   def monthNum: Int = monthInt + 1
 
-  def monthStr: String = monthInt match {
-    case 0 => "January"
+  def monthStr: String = monthInt match
+  { case 0 => "January"
     case 1 => "Febuary"
     case 2 => "March"
     case 3 => "April"
@@ -292,7 +292,7 @@ class TimeMinSeries[A](val arrayLong: Array[Long], arrayA: Array[A])
 
 object TimeMinSeries
 {
-  def ended[A](startTime: TimeMin, pairs: (TimeMin, A)*)(implicit ct: ClassTag[A]): TimeMinSeries[A] =
+  def ended[A](startTime: TimeMin, pairs: (TimeMin, A)*)(using ctA: ClassTag[A]): TimeMinSeries[A] =
   { val len = pairs.length
     val longArray = new Array[Long](len + 1)
     longArray(0) = startTime.long1
@@ -306,7 +306,7 @@ object TimeMinSeries
     new TimeMinSeries[A](longArray, arrayA)
   }
 
-  def apply[A](a1: A, pairs: (TimeMin, A)*)(implicit startEnd: MTime2Opt, ct: ClassTag[A]): TimeMinSeries[A] =
+  def apply[A](a1: A, pairs: (TimeMin, A)*)(using startEnd: MTime2Opt, ct: ClassTag[A]): TimeMinSeries[A] =
   { val len = pairs.length + 1
     val lenI = ife(startEnd.hasEnd, len + 1, len)
     val longArray = new Array[Long](len + 1)
