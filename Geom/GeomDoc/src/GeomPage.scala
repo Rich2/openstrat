@@ -54,7 +54,7 @@ object GeomPage extends OSDocumentationPage
 
   val svgMargin = 50
 
-  object Ellipses extends SectionHtml
+  object Ellipses extends Section
   { override def contents: RArr[XConCompound] = RArr(H2Html("Circles and Ellipses"), svgs1, svgs2)
 
     val circ2: Circle = Circle.d(200)
@@ -78,7 +78,7 @@ object GeomPage extends OSDocumentationPage
   }
 }
 
-object LinePathNames extends SectionHtml
+object LinePathNames extends Section
 { override def contents: RArr[XConCompound] = RArr(H2Html("Line Paths"), p1, list)
   val p1 = PHtml("Operator naming conventions for sequences and line paths.")
 
@@ -125,7 +125,7 @@ object LinePathNames extends SectionHtml
   )
 }
 
-object LessonLists extends SectionHtml
+object LessonLists extends Section
 { import learn.*
   val aList = LessonsLaunch.aList.iMap((i, ls) => LiHtml("A" + (i + 1).str -- ls.title))
   val bList = LessonsLaunch.bList.iMap((i, ls) => LiHtml("B" + (i + 1).str -- ls.title))

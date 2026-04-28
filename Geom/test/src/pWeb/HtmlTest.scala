@@ -7,11 +7,11 @@ object HtmlTest extends TestSuite
   val tests = Tests {
     val p1 = PHtml("Hi")
     val p2 = PHtml("Hi again!")
-    val sectStr0 = SectionHtml(p1).out(0)
+    val sectStr0 = Section(p1).out(0)
     val sectStr0c = "<section>\n  <p>Hi\n  </p>\n</section>"
-    val sectStr1 = SectionHtml(p1).out(2)
+    val sectStr1 = Section(p1).out(2)
     val sectStr1c = "  <section>\n    <p>Hi</p>\n  </section>"
-    val sectStr2 = SectionHtml(p1, p2).out(0)
+    val sectStr2 = Section(p1, p2).out(0)
     val sectStr2c = "<section>\n  <p>Hi\n  </p>\n  <p>Hi again!\n  </p>\n</section>"
 
     test("Test Html")

@@ -67,13 +67,13 @@ class NoteTaker
   }
 
   /** Produces an HTML section element with the accumulated notes as HTML paragraph elements. */
-  def noteSect: SectionHtml =
+  def noteSect: Section =
   { val notes: RArr[PHtml] = acc.map{nt =>
       val content: RArr[XCon] = BHtml(s"${nt.num.str}.") %: nt.citeContent
       PHtml.id(s"note${nt.num.str}", content)
     }
 
-    SectionHtml(H2Html("Notes") %: notes)
+    Section(H2Html("Notes") %: notes)
   }
 }
 

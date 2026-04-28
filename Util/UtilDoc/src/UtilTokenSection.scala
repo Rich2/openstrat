@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pweb.*
 
-object UtilTokenSection extends SectionHtml
+object UtilTokenSection extends Section
 {
   override def contents: RArr[XConCompound] = RArr(H2Html("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2)
 

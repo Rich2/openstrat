@@ -53,7 +53,7 @@ object TilingPage extends OSDocumentationPage
       "non adjacent tile.")
   )
 
-  def turnRes: SectionHtml = new SectionHtml
+  def turnRes: Section = new Section
   {
     override def contents: RArr[XConCompound] = RArr(H2Html("Turn Resolution"), list)
 
@@ -76,7 +76,7 @@ object TilingPage extends OSDocumentationPage
   }
 }
 
-object CoordSystem extends SectionHtml
+object CoordSystem extends Section
 {
   override def contents: RArr[XConCompound] = RArr(H2Html("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)
 

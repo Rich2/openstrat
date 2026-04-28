@@ -1,14 +1,13 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pweb.*, wcode.*
+import pweb.*, HtmlStrExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
 trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
 {
   def miscContents: RArr[XCon] = RArr(git, jvms, sbtInstall, intellij, chrome, sublime)
 
-  def git: SectionH2 = SectionH2(
-    "Git and Github",
+  def git: Section = Section("Git and Github".h2,
     "Set git user name",
     BashLine("""git config --global user.name "MonaLisa""""),
     "Check user name properly set",
@@ -26,7 +25,7 @@ trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
     BashLine("git push -u origin NewBranch")
   )
 
-  def jvms: SectionH2 = SectionH2("JVMs",
+  def jvms: Section = Section("JVMs".h2,
     BashLine("sudo apt install openjdk-25-jdk"),
     "For Kubuntu/ Ubuntu add the following line to", HtmlDirPath("/etc/environment"), "file.",
     CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"),
@@ -52,7 +51,7 @@ trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
     )
   )
 
-  def sbtInstall = SectionH2("Sbt install",
+  def sbtInstall: Section = Section("Sbt install".h2,
     BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
     BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
     "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
@@ -61,7 +60,7 @@ trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
     BashLine("sudo apt update"),
     BashLine("sudo apt install sbt"))
 
-  def intellij = SectionH2("Intellij IDEA",
+  def intellij: Section = Section("Intellij IDEA".h2,
     BashLine("sudo tar -xzf idea-2026.1.1.tar.gz -C /opt"),
     UlSection("For IntelliJ useful options:",
       LiHtml("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
@@ -69,15 +68,14 @@ trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
       LiHtml("Project-Pane => Options -> 'Flatten packages'"))
   )
 
-  def chrome: SectionH2 = SectionH2("Chrome",
+  def chrome: Section = Section("Chrome".h2,
     BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
     BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
     "If any errors appear about missing dependencies you may need to ‘force install.",
     BashLine("sudo apt -f install")
   )
 
-  def sublime = SectionH2(
-    "Sublime Text 4",
+  def sublime: Section = Section("Sublime Text 4".h2,
     BashLine("wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null"),
     BashLine(
       """echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' |""" --

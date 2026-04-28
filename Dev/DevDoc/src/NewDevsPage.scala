@@ -13,7 +13,7 @@ object NewDevsPage extends DevPageBase// OSDocumentationPage
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  def gitCommands: SectionHtml = SectionH2("Git Commands",
+  def gitCommands: Section = Section("Git Commands".h2,
     "For transferring files from the master repository to your local machine and back again.",
     gitCommandList)
 
@@ -34,7 +34,7 @@ object NewDevsPage extends DevPageBase// OSDocumentationPage
     |of seconds, the next time you push""")
   )
 
-  def sbtCommands = SectionH2("Sbt", """A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is for compiling and
+  def sbtCommands = Section("Sbt".h2, """A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is for compiling and
   |running the applications and other tasks.""".stripMargin,
   UlHtml(
     LiHtml("clean".htmlSbt, "Gets rid of the cache"),

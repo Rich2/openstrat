@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import geom.*, pweb.*, wcode.*, Colour.*
 
 /** HTML documentation for [[Polygon]]s for the [[GeomPage]]. */
-object GeomPagePolygons extends SectionHtml
+object GeomPagePolygons extends Section
 { override def contents: RArr[XConCompound] = RArr(H2Html("Polygons"), p1, svg1, p2, code1, p3, svg2, p4)
 
   def p1: PHtml = PHtml("""Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults.
