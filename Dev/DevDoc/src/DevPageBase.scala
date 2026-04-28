@@ -2,9 +2,10 @@
 package ostrat; package pDoc
 import pweb.*, wcode.*
 
-/** Miscellaneous dev stuff. */
-object DevMisc extends SectionHtml
-{ override def contents: RArr[XCon] = RArr(git, jvms, sbtInstall, intellij, chrome, sublime)
+/** HTML documentation page for the Dev Module. */
+trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
+{
+  def miscContents: RArr[XCon] = RArr(git, jvms, sbtInstall, intellij, chrome, sublime)
 
   def git: SectionH2 = SectionH2(
     "Git and Github",
@@ -44,21 +45,21 @@ object DevMisc extends SectionHtml
       RowHtml.strs4("2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode")
     ),
 
-     PHtml("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
-     BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
-     "then repeat",
-     BashLine("sudo update-alternatives --config java")
+    PHtml("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
+      BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
+      "then repeat",
+      BashLine("sudo update-alternatives --config java")
     )
   )
 
   def sbtInstall = SectionH2("Sbt install",
-  BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
-  BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
-  "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
-  BashLine("sudo apt install curl"),
-  BashLine("""curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee /etc/apt/trusted.gpg.d/sbt.asc"""),
-  BashLine("sudo apt update"),
-  BashLine("sudo apt install sbt"))
+    BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
+    BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
+    "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
+    BashLine("sudo apt install curl"),
+    BashLine("""curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee /etc/apt/trusted.gpg.d/sbt.asc"""),
+    BashLine("sudo apt update"),
+    BashLine("sudo apt install sbt"))
 
   def intellij = SectionH2("Intellij IDEA",
     BashLine("sudo tar -xzf idea-2026.1.1.tar.gz -C /opt"),
@@ -76,19 +77,21 @@ object DevMisc extends SectionHtml
   )
 
   def sublime = SectionH2(
-  "Sublime Text 4",
-  BashLine("curl -fSsL https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/sublimehq-pub.gpg > /dev/null"),
-  BashLine("""echo 'deb [signed-by=/usr/share/keyrings/sublimehq-pub.gpg] https://download.sublimetext.com/ apt/stable/' | sudo tee -a /etc/apt/sources.list.d/sublime-text.list""".stripMargin),
-  BashLine("sudo apt update"),
-  BashLine("sudo apt install sublime-text"),
-  BashLine("subl --version"),
-  CodeOutputLine("Sublime Text Build 4200"),
+    "Sublime Text 4",
+    BashLine("wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null"),
+    BashLine(
+      """echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' |""" --
+        "sudo tee /etc/apt/sources.list.d/sublime-text.sources"),
+    BashLine("sudo apt update"),
+    BashLine("sudo apt install sublime-text"),
+    BashLine("subl --version"),
+    CodeOutputLine("Sublime Text Build 4200"),
 
-  CodeLineHtml("// These settings override both User and Default settings for the Scala syntax"),
-  CodeLineHtml("{"),
-  CodeLineHtml(""""tab_size": 2,"""),
-  CodeLineHtml(""""translate_tabs_to_spaces": true,"""),
-  CodeLineHtml(""""rulers": [100, 160]"""),
-  CodeLineHtml("}")
+    CodeLineHtml("// These settings override both User and Default settings for the Scala syntax"),
+    CodeLineHtml("{"),
+    CodeLineHtml(""""tab_size": 2,"""),
+    CodeLineHtml(""""translate_tabs_to_spaces": true,"""),
+    CodeLineHtml(""""rulers": [100, 160]"""),
+    CodeLineHtml("}")
   )
 }

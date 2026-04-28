@@ -3,14 +3,15 @@ package ostrat; package pDoc
 import pweb.*, HtmlStrExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
-object DevPage extends OSDocumentationPage, PageHtmlUpdater
+object DevPage extends DevPageBase //OSDocumentationPage, PageHtmlUpdater
 { override val titleStr: String = "Dev Module"
   override val fileStemStr: String = "dev"
 
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   val scVer: String = "3.8.3"
 
-  def central: DivHtml = DivHtml.classAtt("central", list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, DevMisc, credits)
+  def central: DivHtml = DivHtml.classAtt("central", cenContents)
+  def cenContents = RArr(list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D) ++ miscContents +% credits
   def list: OlSection = OlSection("The Dev module contains".h2,
     LiHtml("JavaFx application selection and developer settings for the different apps.", AHtml("osapp.jar", "Runnable jar")),
     LiHtml("Generates the HTML and CSS files for the website, including this file."),
@@ -30,7 +31,7 @@ object DevPage extends OSDocumentationPage, PageHtmlUpdater
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: PHtml = PHtml("Versions", UlHtml("Latest published Openstrat version 0.3.12, current 0.3.13snap",
+  def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.12, current 0.3.13snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
     "Scala.Js: 1.21.0",

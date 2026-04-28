@@ -21,6 +21,9 @@ object DivHtml
   /** Factory method to create Div element with a class attribute. */
   def classAtt(id: String, contents: XCon*): DivHtml = new DivHtmlGen(contents.toArr, RArr(ClassAtt(id)))
 
+  /** Factory method to create Div element with a class attribute. */
+  def classAtt(id: String, contents: RArr[XCon], otherAtts: RArr[XAtt] = RArr()): DivHtml = new DivHtmlGen(contents, ClassAtt(id) %: otherAtts)
+
   /** Factory apply method for creating HTML span element with a display attribute. */
   def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
 
