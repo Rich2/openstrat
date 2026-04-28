@@ -3,7 +3,7 @@ package ostrat; package geom
 import pweb.*, reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 /** Base trait for time classes giving varying levels of precision. */
-trait TimeBase extends TimeHtml
+trait DateTime extends TimeHtml
 {
   def long1: Long
 
@@ -58,7 +58,7 @@ trait TimeBase extends TimeHtml
   }
 }
 
-class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, TimeBase
+class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, DateTime
 {
   override def compare(that: TimeDay): Int = ???
 
@@ -93,7 +93,7 @@ object TimeDay
 
 
 /** An instant of time specified to the nearest minute. By default, uses Gregorian Calendar */
-class TimeMin(val long1: Long) extends Ordered[TimeMin], Long1Elem, TimeBase
+class TimeMin(val long1: Long) extends Ordered[TimeMin], Long1Elem, DateTime
 { import TimeMin.lastMonthDay
   def minsInt: Int = (long1 %% 60).toInt
   def hoursInt: Int = ((long1 %% 1440) / 60).toInt
@@ -200,8 +200,8 @@ class TimeMin(val long1: Long) extends Ordered[TimeMin], Long1Elem, TimeBase
   def str3: String =
   { def bn: Int = -yearInt + 1
 
-    val yearStr = yearInt match {
-      case n if n >= 1000 => s"AD$n"
+    val yearStr = yearInt match
+    { case n if n >= 1000 => s"AD$n"
       case n if n >= 100 => s"AD$n "
       case n if n >= 10 => s"AD$n  "
       case n if n >= 1 => s"AD$n   "
@@ -252,19 +252,21 @@ object TimeMin2
 }
 
 /** A time period. Compact class for holding 2 [[TimeMin]]s. */
-class MTime2Opt(val long1: Long, val hasEnd: Boolean, val long2: Long)
+class MTime2Opt(val long1: Long, val optLong2: Option[Long])
 { /** Start time. */
   def time1: TimeMin = new TimeMin(long1)
 
   /** End time. */
-  def time2: Option[TimeMin] = ifSome(hasEnd, new TimeMin(long2))
+  def time2: Option[TimeMin] = optLong2.map(new TimeMin(_))
+
+  def hasEnd: Boolean = optLong2.nonEmpty
 }
 
 object MTime2Opt
 { /** Apply factory method for [[TimeMin2]] class.Constructs from 2 [[TimeMin]] classes. */
   def apply(time1: TimeMin, oTime2: Option[TimeMin]):MTime2Opt = oTime2 match
-  { case Some(time2) => new MTime2Opt(time1.long1, true, time2.long1)
-    case None => new MTime2Opt(time1.long1, false, 0)
+  { case Some(time2) => new MTime2Opt(time1.long1, Some(time2.long1))
+    case None => new MTime2Opt(time1.long1, None)
   }
 }
 
@@ -319,7 +321,7 @@ object TimeMinSeries
       arrayA(i) = pair._2
       i += 1
     }
-    if (startEnd.hasEnd) {longArray(len) = startEnd.long2}
+    if (startEnd.hasEnd) {longArray(len) = startEnd.optLong2.get}
     new TimeMinSeries[A](longArray, arrayA)
   }
 }

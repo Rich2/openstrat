@@ -37,9 +37,9 @@ trait MinPlusAtt
 {
   def hourInt: Int
   def minInt: Int
-  def hStr = f"$hourInt%02d"
+  def hoursStr = f"$hourInt%02d"
 
-  def minStr = f"$minInt%02d"
+  def minsStr = f"$minInt%02d"
 }
 
 /** DateTime attribute for the YYYY-MM-DD HH:MM syntax. */
