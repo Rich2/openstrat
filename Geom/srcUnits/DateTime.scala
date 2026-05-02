@@ -80,8 +80,8 @@ class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, DateTime
     f"$yearStr $monthStr3 $dayNum%2d"
   }
 
-  override def dtAtt: DateTimeAtt = DateAtt(yearInt, monthInt, dayNum)
-  override def contents: RArr[XCon] = RArr(s"$yearInt/$monthInt/$dayNum")
+  override def dtAtt: DateTimeAtt = DateAtt(yearInt, monthNum, dayNum)
+  override def contents: RArr[XCon] = RArr(s"$yearInt/$monthNum/$dayNum")
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 }
 
