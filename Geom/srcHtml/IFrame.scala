@@ -27,3 +27,9 @@ object IFrame
     override def widthAtt: WidthAtt = WidthAtt(width)
   }
 }
+
+case class IFrame169(srcStr: String, height: Int, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
+{ override def srcAtt: SrcAtt = SrcAtt(srcStr)
+  override def heightAtt: HeightAtt = HeightAtt(height)
+  override def widthAtt: WidthAtt = WidthAtt(height * 16 / 9)
+}

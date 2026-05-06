@@ -86,7 +86,7 @@ class TimeDay(val long1: Long) extends Ordered[TimeDay], Long1Elem, DateTime
 }
 
 object TimeDay
-{
+{ /** Factory apply method for a date, with no time of day. */
   def apply(year: Int, monthNum: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0): TimeDay =
     new TimeDay(minute + hour * 60 + (day - 1) * 1440 + (monthNum - 1) * 44640 + year * 535680)
 }

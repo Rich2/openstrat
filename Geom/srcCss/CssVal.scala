@@ -31,27 +31,6 @@ object InheritCss extends CssValGen
 { override def str: String = "inherit"
 }
 
-/** CSS value in px units. Pixels are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers and high
- * resolution screens 1px implies multiple device pixels. */
-case class PxCss(numPx: Double) extends CssVal
-{ override def str: String = numPx.str + "px"
-}
-
-/** CSS value in em units. Relative to the font-size of the element (2em means 2 times the size of the current font). */
-case class EmCss(numEm: Double) extends CssVal
-{ override def str: String = numEm.str + "em"
-}
-
-/** CSS value in vw units. Relative to 1% of the width of the viewport. */
-case class VwCss(numVw: Double) extends CssVal
-{ override def str: String = numVw.str + "vw"
-}
-
-/** CSS value in vh units. Relative to 1% of the height of the viewport. */
-case class VhCss(numVh: Double) extends CssVal
-{ override def str: String = numVh.str + "vh"
-}
-
 /** Legal CSS value for text-align property */
 trait TextAlignCss extends CssVal
 
