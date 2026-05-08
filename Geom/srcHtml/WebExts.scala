@@ -1,7 +1,7 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
-object HtmlExts
+object WebExts
 {
   extension (thisString: String)
   { /** implicit extension method to create HTML b bold element. */
@@ -30,7 +30,7 @@ object HtmlExts
   }
 
   extension (thisDouble: Double)
-  { /** Implicit extebsion method to create a [[PixelLen]] pixels length. */
-    def px: PixelLen = PixelLen(thisDouble)
+  { /** Implicit extension method to create a [[PixelLen]] pixels length. */
+    def px: PxCss = PxCss(thisDouble)
   }
 }

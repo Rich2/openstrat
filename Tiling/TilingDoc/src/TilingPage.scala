@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import geom.*, prid.phex.*, pweb.*, HtmlExts.*, Colour.*
+import geom.*, prid.phex.*, pweb.*, WebExts.*, Colour.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for the Tiling JVM module. */
 object TilingPommer extends OsModuleJvmVerless(DirsRel("Tiling"), "tiling", RArr(GeomPommer, UtilPommer), RArr())

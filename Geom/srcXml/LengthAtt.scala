@@ -12,14 +12,14 @@ trait WidthAtt extends XAttShort
 
 trait LengthCssAtt extends LengthAtt
 { /** The length value that can be moved between width and height. */
-  def lengthVal: LengthVal
+  def lengthVal: LenCss
 }
 
 /** CSS width defined as a percentage. */
 case class WidthCent(num: Double) extends WidthSvg, WidthCss
 { override def valueStr: String = num.str + "%"
   @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(num * operand)
-  override def lengthVal: LengthVal = Percent(num)
+  override def lengthVal: LenCss = Percent(num)
 }
 
 trait WidthSvg extends WidthAtt
