@@ -7,23 +7,6 @@ case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) ex
   override def valueStr: String = minX.str -- minY.str -- width.str -- height.str
 }
 
-case class WidthAtt(valueStr: String) extends XAttShort
-{ override def name: String = "width"
-}
-
-object WidthAtt
-{ def apply(inp: Double): WidthAtt = new WidthAtt(inp.toString)
-}
-
-/** XML attribute for height. */
-case class HeightAtt(valueStr: String) extends  XAttShort
-{ override def name: String = "height"
-}
-
-object HeightAtt
-{ def apply(inp: Double): HeightAtt = new HeightAtt(inp.toString)
-}
-
 case class SvgRotate(degrees: Double, x: Double, y: Double) extends XAttShort
 { override def name: String = "transform"
   override def valueStr: String = "rotate" + RArr(degrees, x, y).mkStr(" ").enParenth

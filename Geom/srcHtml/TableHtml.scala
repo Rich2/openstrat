@@ -9,7 +9,7 @@ case class TableHtml(val contents: RArr[RowHtml], val attribs: RArr[XAtt] = RArr
 object TableHtml
 { /** Factory apply method for creating HTML table elements. */
   def apply(contents: RowHtml*):  TableHtml = new TableHtml(contents.toArr)
-  def width100(contents: RowHtml*):  TableHtml = new TableHtml(contents.toArr, RArr(WidthAtt("100%")))
+  def width100(contents: RowHtml*):  TableHtml = new TableHtml(contents.toArr, RArr(WidthCent(100)))
 }
 
 /** HTML TR table row element class. */

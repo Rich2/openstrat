@@ -55,7 +55,7 @@ object FaviconSvg
 /** XML SVG element with a given width and height. */
 class SvgSvgScaled(val width: Double, val height: Double, val vbX: Double, val vbY: Double, val vbWidth: Double, vbHeight: Double,
   val contents: RArr[XConCompound], val otherAttribs: RArr[XAtt]) extends SvgSvgElem
-{ override def attribs: RArr[XAtt] = RArr(WidthAtt(width), HeightAtt(height), XminsSvg, ViewBox(vbX, vbY, vbWidth, vbHeight)) ++ otherAttribs
+{ override def attribs: RArr[XAtt] = RArr(WidthSvg(width), HeightAtt(height), XminsSvg, ViewBox(vbX, vbY, vbWidth, vbHeight)) ++ otherAttribs
 }
 
 object SvgSvgScaled

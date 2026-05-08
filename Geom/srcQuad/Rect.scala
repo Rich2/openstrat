@@ -70,7 +70,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
   final override def width: Double = (v0x - v2x).abs
   override def rotation: AngleVec = 0.degsVec
 
-  def widthAtt: XAtt = WidthAtt(width1)
+  def widthAtt: XAtt = WidthSvg(width1)
 
   def heightAtt: HeightAtt = HeightAtt(width2)
 
