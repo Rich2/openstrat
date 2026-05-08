@@ -11,10 +11,11 @@ trait WidthAtt extends XAttShort
 }
 
 trait LengthCssAtt extends LengthAtt
-{
+{ /** The length value that can be moved between width and height. */
   def lengthVal: LengthVal
 }
 
+/** CSS width defined as a percentage. */
 case class WidthCent(num: Double) extends WidthSvg, WidthCss
 { override def valueStr: String = num.str + "%"
   @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(num * operand)
@@ -26,7 +27,7 @@ trait WidthSvg extends WidthAtt
 }
 
 object WidthSvg
-{ def apply(inp: Double): WidthSvg = new WidthSvgGen(inp)
+{ def apply(inp: Double): WidthSvg = WidthSvgGen(inp)
 
   case class WidthSvgGen(num: Double) extends WidthSvg
   { override def valueStr: String = num.str

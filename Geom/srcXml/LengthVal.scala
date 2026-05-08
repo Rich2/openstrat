@@ -11,7 +11,7 @@ sealed trait LengthVal extends OutElem
   @targetName("divide") def /(operand: Double): LengthVal
 }
 
-/** A CSS length value that excludes percentage, because percentage can not be used to derive height form width or wdth from height. */
+/** A CSS length value that excludes percentage, because percentage can not be used to derive height from width or width from height. */
 sealed trait LengthRotateable extends LengthVal
 
 /** A length measured in pixels. */
@@ -21,11 +21,18 @@ case class PixelLen(num: Double) extends LengthRotateable
   override def out: String = num.str + "px"
 }
 
-/** A length measured in pixels. */
+/** A length measured in rems. rem is relative to the root element's font size in 16 px units. */
 case class RemLen(num: Double) extends LengthRotateable
 { @targetName("multiply") override def *(operand: Double): RemLen = RemLen(num * operand)
   @targetName("divide") override def /(operand: Double): RemLen = RemLen(num / operand)
   override def out: String = num.str + "rem"
+}
+
+/** A length measured in ems. em is relative to the parent element's font size in 16 px units. */
+case class EmLen(num: Double) extends LengthRotateable
+{ @targetName("multiply") override def *(operand: Double): RemLen = RemLen(num * operand)
+  @targetName("divide") override def /(operand: Double): RemLen = RemLen(num / operand)
+  override def out: String = num.str + "em"
 }
 
 case class Percent(num: Double) extends LengthVal
