@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pweb.*, HtmlStrExts.*, wcode.*
+import pweb.*, HtmlExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
 object DevPage extends DevPageBase

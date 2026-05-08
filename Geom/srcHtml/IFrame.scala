@@ -7,7 +7,7 @@ trait IFrame extends HtmlElem
   /** The source for this [[IFrame]]. */
   def srcAtt: SrcAtt
 
-  def heightAtt: HeightAtt
+  def heightAtt: HeightCss
 
   def widthAtt: WidthCss
 
@@ -19,17 +19,14 @@ trait IFrame extends HtmlElem
 
 object IFrame
 {
-  def r169(srcStr: String, height: Int, otherAttribs: XAtt*): IFrame = IFrameGen(srcStr, ??? /*height * 16 / 9 */, height, otherAttribs.toRArr)
+  def r169(srcStr: String, height: HeightCss, otherAttribs: XAtt*): IFrame = IFrameGen(srcStr, ??? /*height * 16 / 9 */, height, otherAttribs.toRArr)
 
-  case class IFrameGen(srcStr: String, widthAtt: WidthCss, height: Int, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
+  case class IFrameGen(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
   { override def srcAtt: SrcAtt = SrcAtt(srcStr)
-    override def heightAtt: HeightAtt = HeightAtt(height)
-    //override def widthAtt: WidthCss = WidthCss(width)
   }
 }
 
-case class IFrame169(srcStr: String, height: Int, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
+case class IFrame169(srcStr: String, heightAtt: HeightCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
 { override def srcAtt: SrcAtt = SrcAtt(srcStr)
-  override def heightAtt: HeightAtt = HeightAtt(height)
   override def widthAtt: WidthCss = ???// WidthCss(height * 16 / 9)
 }

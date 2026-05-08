@@ -72,7 +72,7 @@ trait Rect extends Rectangle, Rectangularlign, ShapeOrdinaled
 
   def widthAtt: XAtt = WidthSvg(width1)
 
-  def heightAtt: HeightAtt = HeightAtt(width2)
+  def heightAtt: HeightSvg = HeightSvg(width2)
 
   /** The X component of the bottom left point is used. This becomes the top left point in SVG space. */
   def xAttrib: XXmlAtt = XXmlAtt(v3x)

@@ -2,31 +2,7 @@
 package ostrat; package pweb
 import annotation.targetName
 
-/** A CSS length value, px, rem, em, % etc. */
-trait LengthVal extends OutElem
-{ /** Multiplies this length value */
-  @targetName("multiply") def *(operand: Double): LengthVal
-
-  /** Divides this length value by the operand */
-  @targetName("divide") def /(operand: Double): LengthVal
-}
-
-/** A CSS length value that excludes percentage. */
-trait LengthRotateable extends LengthVal
-
-
-case class PixelLen(num: Double) extends LengthRotateable
-{ @targetName("multiply") override def *(operand: Double): PixelLen = PixelLen(num * operand)
-  @targetName("divide") override def /(operand: Double): PixelLen = PixelLen(num / operand)
-  override def out: String = num.str + "px"
-}
-
-case class Percent(num: Double) extends LengthVal
-{ @targetName("multiply") override def *(operand: Double): Percent = Percent(num * operand)
-  @targetName("divide") override def /(operand: Double): Percent = Percent(num / operand)
-  override def out: String = num.str + "%"
-}
-
+/** A length attribute for CSS and SVG. */
 trait LengthAtt extends XAttShort
 
 trait WidthAtt extends XAttShort
@@ -34,9 +10,15 @@ trait WidthAtt extends XAttShort
   @targetName("multiply") def * (operand: Double): WidthAtt
 }
 
+trait LengthCssAtt extends LengthAtt
+{
+  def lengthVal: LengthVal
+}
+
 case class WidthCent(num: Double) extends WidthSvg, WidthCss
 { override def valueStr: String = num.str + "%"
-  @targetName("multiply") override def *(operand: Double): WidthCent = ???
+  @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(num * operand)
+  override def lengthVal: LengthVal = Percent(num)
 }
 
 trait WidthSvg extends WidthAtt
@@ -52,16 +34,35 @@ object WidthSvg
   }
 }
 
-trait WidthCss extends WidthAtt
+trait WidthCss extends WidthAtt, LengthCssAtt
 {
   @targetName("multiply") override def *(operand: Double): WidthCss
 }
 
 /** XML attribute for height. */
-case class HeightAtt(valueStr: String) extends  XAttShort
+trait HeightAtt extends  XAttShort
 { override def name: String = "height"
+  @targetName("multiply") def * (operand: Double): HeightAtt
 }
 
-object HeightAtt
-{ def apply(inp: Double): HeightAtt = new HeightAtt(inp.toString)
+/** XML attribute for height. */
+trait HeightCss extends  HeightAtt
+{ @targetName("multiply") override def *(operand: Double): HeightCss
+}
+
+case class HeightCent(num: Double) extends HeightSvg, HeightCss
+{ override def valueStr: String = num.str + "%"
+  @targetName("multiply") override def *(operand: Double): HeightCent = ???
+}
+
+/** XML attribute for height. */
+trait HeightSvg extends HeightAtt
+
+object HeightSvg
+{ def apply(inp: Double): HeightSvg = new HeightSvgGen(inp)
+
+  case class HeightSvgGen(num: Double) extends HeightSvg
+  { override def valueStr: String = num.str
+    @targetName("multiply") override def *(operand: Double): HeightSvg = HeightSvgGen(num * operand)
+  }
 }
