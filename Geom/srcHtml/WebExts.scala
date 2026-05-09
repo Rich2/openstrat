@@ -30,7 +30,13 @@ object WebExts
   }
 
   extension (thisDouble: Double)
-  { /** Implicit extension method to create a [[PixelLen]] pixels length. */
+  { /** Implicit extension method to create a [[PxCss]] pixels length. */
     def px: PxCss = PxCss(thisDouble)
+
+    /** Implicit extension method to create a [[EmCss]] pixels length. */
+    def em: EmCss = EmCss(thisDouble)
+
+    /** Implicit extension method to create a [[RemCss]] pixels length. */
+    def rem: RemCss = RemCss(thisDouble)
   }
 }

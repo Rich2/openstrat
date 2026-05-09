@@ -4,10 +4,10 @@ import annotation.targetName
 
 /** A length attribute for CSS and SVG. */
 trait LengthAtt extends XAttShort
+{
+  @targetName("multiply") def *(operand: Double): LengthAtt
 
-trait WidthAtt extends XAttShort
-{ override def name: String = "width"
-  @targetName("multiply") def * (operand: Double): WidthAtt
+  @targetName("divide") def /(operand: Double): LengthAtt
 }
 
 trait LengthCssAtt extends LengthAtt
@@ -15,45 +15,24 @@ trait LengthCssAtt extends LengthAtt
   def lengthVal: LenCss
 }
 
-/** CSS width defined as a percentage. */
-case class WidthCent(num: Double) extends WidthSvg, WidthCss
-{ override def valueStr: String = num.str + "%"
-  @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(num * operand)
-  override def lengthVal: LenCss = Percent(num)
-}
-
-trait WidthSvg extends WidthAtt
-{ @targetName("multiply") override def *(operand: Double): WidthSvg
-}
-
-object WidthSvg
-{ def apply(inp: Double): WidthSvg = WidthSvgGen(inp)
-
-  case class WidthSvgGen(num: Double) extends WidthSvg
-  { override def valueStr: String = num.str
-    @targetName("multiply") override def *(operand: Double): WidthSvg = WidthSvgGen(num * operand)
-  }
-}
-
-trait WidthCss extends WidthAtt, LengthCssAtt
-{
-  @targetName("multiply") override def *(operand: Double): WidthCss
-}
 
 /** XML attribute for height. */
-trait HeightAtt extends  XAttShort
+trait HeightAtt extends  LengthAtt
 { override def name: String = "height"
   @targetName("multiply") def * (operand: Double): HeightAtt
+  @targetName("divide") def / (operand: Double): HeightAtt
 }
 
 /** XML attribute for height. */
 trait HeightCss extends  HeightAtt
 { @targetName("multiply") override def *(operand: Double): HeightCss
+  @targetName("divide") override def /(operand: Double): HeightCss
 }
 
 case class HeightCent(num: Double) extends HeightSvg, HeightCss
 { override def valueStr: String = num.str + "%"
-  @targetName("multiply") override def *(operand: Double): HeightCent = ???
+  @targetName("multiply") override def *(operand: Double): HeightCent = HeightCent(num * operand)
+  @targetName("divide") override def /(operand: Double): HeightCent = HeightCent(num / operand)
 }
 
 /** XML attribute for height. */
@@ -65,5 +44,6 @@ object HeightSvg
   case class HeightSvgGen(num: Double) extends HeightSvg
   { override def valueStr: String = num.str
     @targetName("multiply") override def *(operand: Double): HeightSvg = HeightSvgGen(num * operand)
+    @targetName("divide") override def /(operand: Double): HeightSvg = HeightSvgGen(num / operand)
   }
 }
