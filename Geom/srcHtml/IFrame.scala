@@ -26,7 +26,7 @@ object IFrame
   }
 }
 
-case class IFrame169(srcStr: String, heightAtt: HeightCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
+case class IFrame169(srcStr: String, heightAtt: HeightRotateableCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
 { override def srcAtt: SrcAtt = SrcAtt(srcStr)
-  override def widthAtt: WidthCss = ???// WidthCss(height * 16 / 9)
+  override def widthAtt: WidthRotateableCss = heightAtt.widthAtt(16.0 / 9)
 }
