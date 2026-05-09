@@ -17,12 +17,14 @@ trait LengthCssAtt extends LengthAtt
 
   /** The number of units in this CSS / SVG length. */
   def numUnits: Double
+
+  override def valueStr: String = numUnits.str + lengthVal.extStr
 }
 
 /** A CSS length value that excludes percentage, because percentage can not be used to derive height from width or width from height. */
-trait LengthRotateableCss extends LengthCssAtt
+trait LengthPro extends LengthCssAtt
 { override def lengthVal: LengthRotateable
 
-  @targetName("multiply") override def *(operand: Double): LengthRotateableCss
-  @targetName("divide") override def /(operand: Double): LengthRotateableCss
+  @targetName("multiply") override def *(operand: Double): LengthPro
+  @targetName("divide") override def /(operand: Double): LengthPro
 }

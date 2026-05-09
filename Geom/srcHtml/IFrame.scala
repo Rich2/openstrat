@@ -18,15 +18,13 @@ trait IFrame extends HtmlElem
 }
 
 object IFrame
-{
-  def r169(srcStr: String, height: HeightCss, otherAttribs: XAtt*): IFrame = IFrameGen(srcStr, ??? /*height * 16 / 9 */, height, otherAttribs.toRArr)
+{ /** Creates an HTML iframe element with a 16:9 ratio from the height attribute.  */
+  def h169(srcStr: String, heightAtt: HeightCss, otherAttribs: XAtt*): IFrame = IFrameGen(srcStr, heightAtt.widthAtt(16.0 / 9), heightAtt, otherAttribs.toRArr)
+
+  /** Creates an HTML iframe element with a 16:9 ratio from the width attribute. */
+  def w169(srcStr: String, widthAtt: WidthCss, otherAttribs: XAtt*): IFrame = IFrameGen(srcStr, widthAtt, widthAtt.heightAtt(9.0 /16), otherAttribs.toRArr)
 
   case class IFrameGen(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
   { override def srcAtt: SrcAtt = SrcAtt(srcStr)
   }
-}
-
-case class IFrame169(srcStr: String, heightAtt: HeightRotateableCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
-{ override def srcAtt: SrcAtt = SrcAtt(srcStr)
-  override def widthAtt: WidthRotateableCss = heightAtt.widthAtt(16.0 / 9)
 }

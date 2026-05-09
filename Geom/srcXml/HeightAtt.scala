@@ -41,8 +41,15 @@ object HeightSvg
   }
 }
 
-trait HeightRotateableCss extends HeightCss, LengthRotateableCss
-{ @targetName("multiply") override def *(operand: Double): HeightRotateableCss
-  @targetName("divide") override def /(operand: Double): HeightRotateableCss
-  override def widthAtt(factor: Double): WidthRotateableCss
+trait HeightPro extends HeightCss, LengthPro
+{ @targetName("multiply") override def *(operand: Double): HeightPro
+  @targetName("divide") override def /(operand: Double): HeightPro
+  override def widthAtt(factor: Double): WidthPro
+}
+
+case class HeightPx(numUnits: Double) extends HeightPro
+{ @targetName("multiply") override def *(operand: Double): HeightPx = HeightPx(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): HeightPx = HeightPx(numUnits / operand)
+  override def lengthVal: PxCss = PxCss(numUnits)
+  override def widthAtt(factor: Double): WidthPx = WidthPx(numUnits * factor)
 }
