@@ -11,14 +11,14 @@ trait WidthAtt extends LengthAtt
 trait WidthCss extends WidthAtt, LengthCssAtt
 { @targetName("multiply") override def *(operand: Double): WidthCss
   @targetName("divide") override def / (operand: Double): WidthCss
+  override def valueStr: String = numUnits.str + lengthVal.extStr
 }
 
 /** CSS width defined as a percentage. */
-case class WidthCent(num: Double) extends WidthSvg, WidthCss
-{ override def valueStr: String = num.str + "%"
-  @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(num * operand)
-  @targetName("divide") override def /(operand: Double): WidthCent = WidthCent(num / operand)
-  override def lengthVal: LenCss = Percent(num)
+case class WidthCent(numUnits: Double) extends WidthSvg, WidthCss
+{ @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): WidthCent = WidthCent(numUnits / operand)
+  override def lengthVal: LenCss = Percent(numUnits)
 }
 
 trait WidthSvg extends WidthAtt
@@ -34,4 +34,16 @@ object WidthSvg
     @targetName("multiply") override def *(operand: Double): WidthSvg = WidthSvgGen(num * operand)
     @targetName("divide") override def /(operand: Double): WidthSvg = WidthSvgGen(num / operand)
   }
+}
+
+trait WidthRotateableCss extends WidthCss, LengthRotateableCss
+{ @targetName("multiply") override def *(operand: Double): WidthRotateableCss
+  @targetName("divide") override def /(operand: Double): WidthRotateableCss
+  override def lengthVal: LengthRotateable
+}
+
+case class WidthPx(numUnits: Double) extends WidthRotateableCss
+{ @targetName("multiply") override def *(operand: Double): WidthPx = WidthPx(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): WidthPx = WidthPx(numUnits / operand)
+  override def lengthVal: PxCss = PxCss(numUnits)
 }
