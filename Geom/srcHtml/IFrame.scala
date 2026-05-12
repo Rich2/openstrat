@@ -14,7 +14,7 @@ trait IFrame extends HtmlElem
 
   def otherAttribs: RArr[XAtt]
 
-  override def attribs: RArr[XAtt] = RArr(widthAtt, heightAtt, srcAtt)
+  override def attribs: RArr[XAtt] = RArr(widthAtt, heightAtt, srcAtt) ++ otherAttribs
   override def contents: RArr[XCon] = RArr()
 }
 
@@ -56,4 +56,29 @@ object IFramePx
 
   /** Creates an HTML iframe element with a 16:9 ratio from the width attribute with width and height specified in pixels. */
   def w169(srcStr: String, widthNum: Double, otherAttribs: XAtt*): IFramePx = IFramePx(srcStr, widthNum, widthNum * 9.0 /16, otherAttribs.toRArr)
+}
+
+sealed trait ReferrerPolicy extends XAttShort
+{ override def name: String = "referrerpolicy"
+}
+
+case object ReferSowco extends ReferrerPolicy
+{ override def valueStr: String = "strict-origin-when-cross-origin"
+}
+
+trait YouFrame extends IFrame
+{ def referrerPolicy: ReferrerPolicy
+  override def attribs: RArr[XAtt] = RArr(widthAtt, heightAtt, srcAtt, referrerPolicy) ++ otherAttribs
+}
+
+object YouFrame
+{
+  /** Creates an HTML iframe YouTube element with a 16:9 ratio from the height attributewith width and height specified in pixels. */
+  def h169(srcStr: String, heightNum: Double, referrerPolicy: ReferrerPolicy = ReferSowco, otherAttribs: XAtt*): YouFrame =
+    YouFrameGen(srcStr,  WidthPx(heightNum * 16.0 / 9), HeightPx(heightNum), referrerPolicy, otherAttribs.toRArr)
+
+  case class YouFrameGen(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, referrerPolicy: ReferrerPolicy, otherAttribs: RArr[XAtt]) extends YouFrame,
+    HtmlOwnLine
+  { override def srcAtt: SrcAtt = SrcAtt(srcStr)
+  }
 }
