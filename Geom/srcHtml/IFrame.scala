@@ -72,11 +72,24 @@ trait YouFrame extends IFrame
 }
 
 object YouFrame
-{
+{ /** Factory apply method to create an iframe YouTube HTML element. */
+  def apply(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, referrerPolicy: ReferrerPolicy, otherAttribs: RArr[XAtt]): YouFrame =
+    YouFrameGen(srcStr, widthAtt, heightAtt, referrerPolicy, otherAttribs)
+
+  /** Factory apply method to create an iframe YouTube HTML element. */
+  def apply(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, referrerPolicy: ReferrerPolicy = ReferSowco, otherAttribs: XAtt*): YouFrame =
+    YouFrameGen(srcStr, widthAtt, heightAtt, referrerPolicy, otherAttribs.toRArr)
+
+
+  /** Creates an HTML iframe YouTube element with a 16:9 ratio from the width attribute with width and height specified in pixels. */
+  def w169(srcStr: String, widthNum: Double, referrerPolicy: ReferrerPolicy = ReferSowco, otherAttribs: XAtt*): YouFrame =
+    YouFrameGen(srcStr, WidthPx(widthNum), HeightPx(widthNum * 9.0 / 16), referrerPolicy, otherAttribs.toRArr)
+
   /** Creates an HTML iframe YouTube element with a 16:9 ratio from the height attributewith width and height specified in pixels. */
   def h169(srcStr: String, heightNum: Double, referrerPolicy: ReferrerPolicy = ReferSowco, otherAttribs: XAtt*): YouFrame =
     YouFrameGen(srcStr,  WidthPx(heightNum * 16.0 / 9), HeightPx(heightNum), referrerPolicy, otherAttribs.toRArr)
 
+  /** Implementation class for the general case of an iframe YouTube HTML element. */
   case class YouFrameGen(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, referrerPolicy: ReferrerPolicy, otherAttribs: RArr[XAtt]) extends YouFrame,
     HtmlOwnLine
   { override def srcAtt: SrcAtt = SrcAtt(srcStr)
