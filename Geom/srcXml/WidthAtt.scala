@@ -7,48 +7,64 @@ trait WidthAtt extends LengthAtt
   @targetName("multiply") override def * (operand: Double): WidthAtt
   @targetName("divide") override def / (operand: Double): WidthAtt
 
-  def heightAtt(factor: Double): HeightAtt
+  /** Constructs a height attribute in proportion to this width attribute. */
+  def heightAtt(factor: Double = 1): HeightAtt
 }
 
 trait WidthCss extends WidthAtt, LengthCssAtt
 { @targetName("multiply") override def *(operand: Double): WidthCss
   @targetName("divide") override def / (operand: Double): WidthCss  
-  override def heightAtt(factor: Double): HeightCss
+  override def heightAtt(factor: Double = 1): HeightCss
 }
 
-/** CSS width defined as a percentage. */
-case class WidthCent(numUnits: Double) extends WidthSvg, WidthCss
-{ @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(numUnits * operand)
-  @targetName("divide") override def /(operand: Double): WidthCent = WidthCent(numUnits / operand)
-  override def lengthVal: LenCss = Percent(numUnits)
-  override def heightAtt(factor: Double): HeightCent = HeightCent(numUnits * factor) 
-}
-
+/** SVG attribute for width. */
 trait WidthSvg extends WidthAtt
 { @targetName("multiply") override def *(operand: Double): WidthSvg
-  @targetName("divide") override def /(operand: Double): WidthSvg  
+  @targetName("divide") override def /(operand: Double): WidthSvg
+  override def heightAtt(factor: Double = 1): HeightSvg
 }
 
 object WidthSvg
-{ def apply(inp: Double): WidthSvg = WidthSvgGen(inp)
-
-  case class WidthSvgGen(num: Double) extends WidthSvg
-  { override def valueStr: String = num.str
-    @targetName("multiply") override def *(operand: Double): WidthSvg = WidthSvgGen(num * operand)
-    @targetName("divide") override def /(operand: Double): WidthSvg = WidthSvgGen(num / operand)
-    override def heightAtt(factor: Double): HeightSvg = HeightSvg(num * factor)
-  }
+{ /** Factory apply method to creat width attribute for SVG wth scalar units. */
+  def apply(inp: Double): WidthScalar = WidthScalar(inp)
 }
 
-trait WidthPro extends WidthCss, LengthPro
-{ @targetName("multiply") override def *(operand: Double): WidthPro
-  @targetName("divide") override def /(operand: Double): WidthPro
-  override def lengthVal: LengthRotateable
+/** An SVG / XML width attribute with scalar units. */
+case class WidthScalar(numUnits: Double) extends WidthSvg, LengthScalarAtt
+{ override def valueStr: String = numUnits.str
+  @targetName("multiply") override def *(operand: Double): WidthScalar = WidthScalar(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): WidthScalar = WidthScalar(numUnits / operand)
+  override def lengthVal: Double = numUnits
+  override def heightAtt(factor: Double): HeightScalar = HeightScalar(numUnits * factor)
 }
 
-case class WidthPx(numUnits: Double) extends WidthPro
+/** CSS width defined as a percentage. */
+case class WidthCent(numUnits: Double) extends WidthSvg, WidthCss, LengthCentAtt
+{ @targetName("multiply") override def *(operand: Double): WidthCent = WidthCent(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): WidthCent = WidthCent(numUnits / operand)
+  override def lengthVal: Percent = Percent(numUnits)
+  override def heightAtt(factor: Double): HeightCent = HeightCent(numUnits * factor) 
+}
+
+/** A CSS width attribute specified in pixels. */
+case class WidthPx(numUnits: Double) extends WidthCss, LengthPxAtt
 { @targetName("multiply") override def *(operand: Double): WidthPx = WidthPx(numUnits * operand)
   @targetName("divide") override def /(operand: Double): WidthPx = WidthPx(numUnits / operand)
   override def lengthVal: PxCss = PxCss(numUnits)
+  override def heightAtt(factor: Double): HeightPx = HeightPx(numUnits * factor)
+}
+
+/** A CSS width attribute specified in CSS rem units. */
+case class WidthRem(numUnits: Double) extends WidthCss, LengthRemAtt
+{ @targetName("multiply") override def *(operand: Double): WidthRem = WidthRem(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): WidthRem = WidthRem(numUnits / operand)
+  override def lengthVal: RemCss = RemCss(numUnits)
+  override def heightAtt(factor: Double): HeightRem = HeightRem(numUnits * factor)
+}
+/** A CSS width attribute specified in CSS em units. */
+case class WidthEm(numUnits: Double) extends WidthCss, LengthEmAtt
+{ @targetName("multiply") override def *(operand: Double): WidthEm = WidthEm(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): WidthEm = WidthEm(numUnits / operand)
+  override def lengthVal: EmCss = EmCss(numUnits)
   override def heightAtt(factor: Double): HeightPx = HeightPx(numUnits * factor)
 }

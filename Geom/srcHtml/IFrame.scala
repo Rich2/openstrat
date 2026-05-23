@@ -8,10 +8,13 @@ trait IFrame extends HtmlElem
   /** The source for this [[IFrame]]. */
   def srcAtt: SrcAtt
 
+  /** The height attribute of this Iframe. */
   def heightAtt: HeightCss
 
+  /** The width attribute of this Iframe. */
   def widthAtt: WidthCss
 
+  /** Additional attributes to the src, width and height of this Iframe. */
   def otherAttribs: RArr[XAtt]
 
   override def attribs: RArr[XAtt] = RArr(widthAtt, heightAtt, srcAtt) ++ otherAttribs
@@ -62,8 +65,14 @@ sealed trait ReferrerPolicy extends XAttShort
 { override def name: String = "referrerpolicy"
 }
 
+/** strict-origin-when-cross-origin referrerpolicy attribute. */
 case object ReferSowco extends ReferrerPolicy
 { override def valueStr: String = "strict-origin-when-cross-origin"
+}
+
+/** no-referrer referrerpolicy attribute. */
+case object ReferNo extends ReferrerPolicy
+{ override def valueStr: String = "no-referrer"
 }
 
 trait YouFrame extends IFrame

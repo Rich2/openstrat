@@ -27,14 +27,20 @@ package object pweb
      * For printers and high resolution screens 1px implies multiple device pixels. */
     def px: PxCss = PxCss(thisInt)
 
-    /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
+    /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font). */
     def em: EmCss = EmCss(thisInt)
 
-    /** Extension method for CSS vw units. Relative to 1% of the width of the viewport */
+    /** Extension method for CSS vw units. Relative to 1% of the width of the viewport. */
     def vw: VwCss = VwCss(thisInt)
 
-    /** Extension method for CSS vh units. Relative to 1% of the height of the viewport */
+    /** Extension method for CSS vh units. Relative to 1% of the height of the viewport. */
     def vh: VhCss = VhCss(thisInt)
+
+    /** Extension method for CSS vmin units. Relative to 1% of the width or height of the viewport, whichever is lower */
+    def vmin: VminCss = VminCss(thisInt)
+
+    /** Extension method for CSS vh units. Relative to 1% of the width or height of the viewport, whichever is higher. */
+    def vmax: VmaxCss = VmaxCss(thisInt)
   }
 
   implicit class DoubleWebExtensions(thisDouble: Double)

@@ -9,6 +9,7 @@ trait HeightAtt extends  LengthAtt
   @targetName("multiply") def * (operand: Double): HeightAtt
   @targetName("divide") def / (operand: Double): HeightAtt
   
+  /** Constructs a width attribute in proportion to this height atttribute in the same units. */
   def widthAtt(factor: Double): WidthAtt
 }
 
@@ -19,11 +20,11 @@ trait HeightCss extends  HeightAtt, LengthCssAtt
   override def widthAtt(factor: Double): WidthCss
 }
 
-case class HeightCent(numUnits: Double) extends HeightSvg, HeightCss
+case class HeightCent(numUnits: Double) extends HeightSvg, HeightCss, LengthCentAtt
 { override def valueStr: String = numUnits.str + "%"
   @targetName("multiply") override def *(operand: Double): HeightCent = HeightCent(numUnits * operand)
   @targetName("divide") override def /(operand: Double): HeightCent = HeightCent(numUnits / operand)
-  override def lengthVal: LenCss = Percent(numUnits)
+  override def lengthVal: Percent = Percent(numUnits)
   override def widthAtt(factor: Double): WidthCent = WidthCent(numUnits * factor)
 }
 
@@ -31,25 +32,40 @@ case class HeightCent(numUnits: Double) extends HeightSvg, HeightCss
 trait HeightSvg extends HeightAtt
 
 object HeightSvg
-{ def apply(inp: Double): HeightSvg = new HeightSvgGen(inp)
-
-  case class HeightSvgGen(num: Double) extends HeightSvg
-  { override def valueStr: String = num.str
-    @targetName("multiply") override def *(operand: Double): HeightSvg = HeightSvgGen(num * operand)
-    @targetName("divide") override def /(operand: Double): HeightSvg = HeightSvgGen(num / operand)
-    override def widthAtt(factor: Double): WidthSvg = WidthSvg(num * factor)
-  }
+{ /** Factory apply method to create SVG height attribute aith scalar units. */
+  def apply(inp: Double): HeightScalar = new HeightScalar(inp)  
 }
 
-trait HeightPro extends HeightCss, LengthPro
-{ @targetName("multiply") override def *(operand: Double): HeightPro
-  @targetName("divide") override def /(operand: Double): HeightPro
-  override def widthAtt(factor: Double): WidthPro
+/** An SVG height attribute in sclar units. */
+case class HeightScalar(numUnits: Double) extends HeightSvg, LengthScalarAtt
+{ override def valueStr: String = numUnits.str
+  @targetName("multiply") override def *(operand: Double): HeightScalar = HeightScalar(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): HeightScalar = HeightScalar(numUnits / operand)
+  inline override def lengthVal: Double = numUnits
+  override def widthAtt(factor: Double): WidthScalar = WidthScalar(numUnits * factor)
 }
 
-case class HeightPx(numUnits: Double) extends HeightPro
+/** A CSS height attribute specified in pixels. */
+case class HeightPx(numUnits: Double) extends HeightCss, LengthPxAtt
 { @targetName("multiply") override def *(operand: Double): HeightPx = HeightPx(numUnits * operand)
   @targetName("divide") override def /(operand: Double): HeightPx = HeightPx(numUnits / operand)
   override def lengthVal: PxCss = PxCss(numUnits)
   override def widthAtt(factor: Double): WidthPx = WidthPx(numUnits * factor)
+}
+
+/** A CSS height attribute specified in CSS rem units. */
+case class HeightRem(numUnits: Double) extends HeightCss, LengthRemAtt
+{ @targetName("multiply") override def *(operand: Double): HeightRem = HeightRem(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): HeightRem = HeightRem(numUnits / operand)
+  override def lengthVal: RemCss = RemCss(numUnits)
+  override def widthAtt(factor: Double): WidthRem = WidthRem(numUnits * factor)
+}
+
+/** A CSS height attribute specified in CSS em units. */
+case class HeightEm(numUnits: Double) extends HeightCss, LengthEmAtt
+{ type UnitsT = EmCss
+  @targetName("multiply") override def *(operand: Double): HeightEm = HeightEm(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): HeightEm = HeightEm(numUnits / operand)
+  override def lengthVal: EmCss = EmCss(numUnits)
+  override def widthAtt(factor: Double): WidthEm = WidthEm(numUnits * factor)
 }
