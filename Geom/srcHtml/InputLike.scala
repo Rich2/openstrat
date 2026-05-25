@@ -5,7 +5,7 @@ import reflect.ClassTag
 /** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
  * with that updater. */
 trait InputLike extends HtmlElem
-{/** The [[String]] of the id attribute. */
+{/** The [[String]] of the id attribute fot this input element. */
   def idStr: String
 
   def valueStr: String
@@ -53,10 +53,28 @@ trait UpdaterText extends InputLikeUpdater
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
-  def next2Id1(otherInpIdStr: String, f: (String, String) => String): IdAtt =
+  def next2Id1(input2IdStr: String, f: (String, String) => String): IdAtt =
   { val newTargetId: String = idStr + clientCount.str
-    callBacks +%= Callback2Text1(newTargetId, otherInpIdStr, f)
+    callBacks +%= Callback2Text1(newTargetId, input2IdStr, f)
     IdAtt(newTargetId)
+  }
+
+  def next2Id2(targetID: String, inp1IdStr: String, f: (String, String) => String): Unit =
+  { callBacks +%= Callback2Text2(targetID, inp1IdStr, f)
+  }
+
+  def next3Id1(input2IdStr: String, input3IdStr2: String, f: (String, String, String) => String): IdAtt =
+  { val newTargetId: String = idStr + clientCount.str
+    callBacks +%= Callback3Text1(newTargetId, input2IdStr, input3IdStr2, f)
+    IdAtt(newTargetId)
+  }
+
+  def next3Id2(targetID: String, input1IdStr: String, input3IdStr: String, f: (String, String, String) => String): Unit =
+  { callBacks +%= Callback3Text2(targetID, input1IdStr, input3IdStr, f)
+  }
+
+  def next3Id3(targetID: String, input1IdStr: String, input2IdStr: String, f: (String, String, String) => String): Unit =
+  { callBacks +%= Callback3Text3(targetID, input1IdStr, input2IdStr, f)
   }
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
@@ -65,24 +83,6 @@ trait UpdaterText extends InputLikeUpdater
   { val newTargetId: String = idStr + clientCount.str
     callBacks +%= CallbackTextNum1(newTargetId, otherInpIdStr, f)
     IdAtt(newTargetId)
-  }
-
-  def next2Id2(targetID: String, otherInpIdStr: String, f: (String, String) => String): Unit =
-  { callBacks +%= Callback2Text2(targetID, otherInpIdStr, f)
-  }
-
-  def next3Id1(otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): IdAtt =
-  { val newTargetId: String = idStr + clientCount.str
-    callBacks +%= Callback3Text1(newTargetId, otherInpIdStr1, otherInpIdStr2, f)
-    IdAtt(newTargetId)
-  }
-
-  def next3Id2(targetID: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): Unit =
-  { callBacks +%= Callback3Text2(targetID, otherInpIdStr1, otherInpIdStr2, f)
-  }
-
-  def next3Id3(targetID: String, otherInpIdStr1: String, otherInpIdStr2: String, f: (String, String, String) => String): Unit =
-  { callBacks +%= Callback3Text3(targetID, otherInpIdStr1, otherInpIdStr2, f)
   }
 }
 

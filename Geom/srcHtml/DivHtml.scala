@@ -27,12 +27,6 @@ object DivHtml
   /** Factory apply method for creating HTML span element with a display attribute. */
   def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
 
-  /** Factory method for creating HTML Div element with a Style attribute with a colour declaration. */
-  def colour(colour: Colour, contents: XConInedit*): DivHtml = new DivHtmlGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
-
-  /** Factory method for creating HTML Div element with a Style attribute with a LightGreen colour declaration. */
-  def lightGreen(contents: XConInedit*): DivHtml = new DivHtmlGen(contents.toArr, RArr(StyleAtt(ColourDec(Colour.LightGreen))))
-
   /** Creates a Div and listens to an [[UpdaterText]] change events modifying the textContent. */
   def listenStrCon(input: UpdaterText)(f: String => String): DivHtml =
   { def newId = input.next1Id(f)
@@ -55,4 +49,15 @@ object DivHtml
   class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends DivHtml, HtmlOwnLine
 }
 
+/** HTML Div that requires its own liine in the editor. */
 trait DivLine extends DivHtml, HtmlOwnLine
+
+/** Class for creating HTML Div element with a Style attribute with a colour declaration. */
+class DivColour(colour: Colour, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends DivLine
+{ override def attribs: RArr[XAtt] = StyleAtt(ColourDec(colour)) %: otherAttribs
+}
+
+object DivColour
+{/** Factory method for creating an HTML Div element with a Style attribute with a colour declaration. */
+  def apply(colour: Colour, contents: XCon*): DivColour = new DivColour(colour, contents.toRArr, RArr())
+}

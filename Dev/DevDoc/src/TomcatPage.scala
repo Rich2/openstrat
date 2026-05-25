@@ -1,6 +1,6 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pweb.*, WebExts.*, osweb.*, wcode.*
+import pweb.*, WebExts.*, osweb.*, wcode.*, Colour.LightGreen
 
 /** Web page for running Apache Tomcat for Scala. */
 object TomcatPage extends PageHtmlUpdater
@@ -30,7 +30,7 @@ object TomcatPage extends PageHtmlUpdater
   val tcMinorVer: String = "22"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
-  val domain1: String = "mywebsite.com"
+  val domain1: String = "localhost"
 
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
   val uNameIUT: InputUpdaterText = uNameLTI.child2
@@ -41,7 +41,7 @@ object TomcatPage extends PageHtmlUpdater
   val nRam1: Int = 2
   val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
   val ramIUN: InputUpdaterNum = ramLNI.child2
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input2Text(uNameIUT, cNameIUT) { (uName, cName) => s"$uName@$cName:/opt/tomcat" }
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input3Text(uNameIUT, cNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
   val tomVarIUT: InputUpdaterText = tomVerLTI.child2
   val jVer1: Int = 25
@@ -117,7 +117,7 @@ object TomcatPage extends PageHtmlUpdater
   SpanLine.listenText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
   BashLine.listenText(uNameIUT)(uName => s"sudo su $uName"),
-  BashLine("cd /opt/tomcat"),
+  BashLine.listenText(dirIUT){ dir => s"cd $dir" },
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base")
@@ -136,7 +136,7 @@ object TomcatPage extends PageHtmlUpdater
 
   val s7 = LiHtml("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
-  BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"tar xf apache-tomcat-$version.tar.gz -C /opt/tomcat"}),
+  BashLine(tomcatDirPrompt, SpanInlineInedit.input2Text(tomVarIUT, dirIUT){ (version, dir) => s"tar xf apache-tomcat-$version.tar.gz -C $dir"}),
   BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
@@ -160,37 +160,39 @@ object TomcatPage extends PageHtmlUpdater
   val s9 = LiHtml("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   "Add the following code. Then control o, return, control x.",
-  CodeLinesHtml(
-  DivHtml.lightGreen("[Unit]") %:
-  StrArr(
-  "Description=Apache Tomcat 11.0 Web Application Container",
-  "After=network.target",
-  "").toDivLines +%
-  DivHtml.lightGreen("[Service]") ++
-  StrArr("Type=forking",
-   "",
-  """Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""",
-  """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
-  """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
-  """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toDivLines +%
-  DivHtml.listenNum(ramIUN){ n =>  val nn = n * 256
-    val xmsStr = nn.min(512).str0
-    val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
-    s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""
-  } +%
-  DivHtml("""Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""") +%
-  DivHtml.listenStrCon(dirIUT){ dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
-  DivHtml.listenStrCon(dirIUT){ dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
-  DivHtml.listenStrCon(uNameIUT){ uName => s"User=$uName"} +%
-  DivHtml.listenStrCon(uNameIUT){ uName => s"Group=$uName" } ++
-  StrArr(
-  "UMask=0007",
-  "RestartSec=10",
-  "Restart=always",
-  "[Install]",
-  "WantedBy=multi-user.target").toDivLines
+  CodeLinesHtml(sysdLines)
   )
-  )
+
+  def sysdLines: RArr[DivHtml] =
+    DivColour(LightGreen, "[Unit]") %:
+    StrArr(
+      "Description=Apache Tomcat 11.0 Web Application Container",
+      "After=network.target",
+      "").toDivLines +%
+    DivColour(LightGreen, "[Service]") ++
+    StrArr("Type=forking",
+      "",
+      """Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""").toDivLines +%
+    DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
+    DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
+    DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%
+    DivHtml.listenNum(ramIUN) { n =>
+      val nn = n * 256
+      val xmsStr = nn.min(512).str0
+      val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
+      s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""
+    } +%
+    DivHtml("""Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""") +%
+    DivHtml.listenStrCon(dirIUT) { dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
+    DivHtml.listenStrCon(dirIUT) { dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
+    DivHtml.listenStrCon(uNameIUT) { uName => s"User=$uName" } +%
+    DivHtml.listenStrCon(uNameIUT) { uName => s"Group=$uName" } ++
+    StrArr(
+      "UMask=0007",
+      "RestartSec=10",
+      "Restart=always").toDivLines +%
+    DivColour(LightGreen, "[Install]") +%
+    DivHtml("WantedBy=multi-user.target")
 
   val s10: LiHtml = LiHtml(
   "Check if Apache2 Vanilla is running. It seems to be running by default on Ubuntu Server.",
@@ -218,9 +220,9 @@ object TomcatPage extends PageHtmlUpdater
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
-  CodeChangeLine("ExecStart=/opt/tomcat/tom11/bin/startup.sh", "ExecStart=authbind --deep /opt/tomcat/tom11/bin/startup.sh"),  
+  CodeChangeLine.listenText(dirIUT){ dir => s"ExecStart=$dir/tom11/bin/startup.sh" }{ dir => s"ExecStart=authbind --deep $dir/tom11/bin/startup.sh" },
   "Open the Tomcat configuration file.",
-  BashLine("nano /opt/tomcat/Base/conf/server.xml"),
+  BashLine.listenText(dirIUT){ dir => s"nano $dir/Base/conf/server.xml" },
   CodeChangeLine("""<Connector port="8080" protocol""".escapeHtml, """<Connector port="80" protocol""".escapeHtml),
   CodeChangeLine("""redirectPort=\"8443\"""", """redirectPort=\"443\"""".escapeHtml),  
   "reset",
@@ -241,8 +243,8 @@ object TomcatPage extends PageHtmlUpdater
   "Install certificate. When asked to enter domain name, you can enter multiple web domains, but you only use the first in the ensuing commands.",
   BashLine("sudo certbot certonly --standalone"),
   "Configure permissions to certificates",
-  BashLine("sudo chgrp -R tommy /etc/letsencrypt/live/"),
-  BashLine("sudo chgrp -R tommy /etc/letsencrypt/archive/"),
+  BashLine.listenText(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/live/" },
+  BashLine.listenText(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/archive/" },
   BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
   BashLine.listenText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
@@ -253,7 +255,7 @@ object TomcatPage extends PageHtmlUpdater
   )
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
-  BashLine("nano /opt/tomcat/Base/conf/server.xml"),
+  BashLine.listenText(dirIUT){ dir => "nano $dir/Base/conf/server.xml" },
   "Uncomment the section and modify as below",
   CodePre.listenText(domainIUT){ dName =>
   s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"

@@ -54,15 +54,31 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
       if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
       else
       { target.innerHTML = dep match
-        { case cb2: Callback2Text =>
-          { val inp2Val: String = document.getElementById(cb2.otherInpIdStr).asInstanceOf[html.Input].value
-            cb2 match
-            { case Callback2Text1(targetId, inp2Id, f) => f(newInpStr, inp2Val)
-              case Callback2Text2(targetId, inp2Id, f) => f(inp2Val, newInpStr)
-            }
-          }
-          case Callback1Text(idStr, f) => f(newInpStr)
+        { case Callback1Text(idStr, f) => f(newInpStr)
           case CallBack1StrHtml(idStr, f) => f(newInpStr).out
+          case Callback2Text1(targetId, input2IdStr, f) =>
+          { val inp2Val: String = document.getElementById(input2IdStr).asInstanceOf[html.Input].value
+            f(newInpStr, inp2Val)
+          }
+          case Callback2Text2(targetId, input1IdStr, f) =>
+          { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
+            f(inp1Val, newInpStr)
+          }
+          case Callback3Text1(targetId, input2IdStr, input3IdStr, f) =>
+          { val inp2Val: String = document.getElementById(input2IdStr).asInstanceOf[html.Input].value
+            val inp3Val: String = document.getElementById(input3IdStr).asInstanceOf[html.Input].value
+            f(newInpStr, inp2Val, inp3Val)
+          }
+          case Callback3Text2(targetId, input1IdStr, input3IdStr, f) =>
+          { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
+            val inp3Val: String = document.getElementById(input3IdStr).asInstanceOf[html.Input].value
+            f(inp1Val, newInpStr, inp3Val)
+          }
+          case Callback3Text3(targetId, input1IdStr, input2IdStr, f) =>
+          { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
+            val inp2Val: String = document.getElementById(input2IdStr).asInstanceOf[html.Input].value
+            f(inp1Val, inp2Val, newInpStr)
+          }
         }
       }
     }
