@@ -29,6 +29,23 @@ object WebExts
     def h6: H6Html = H6Html(thisString)
   }
 
+  extension (thisInt: Int)
+  { /** Implicit extension method to create a [[PxCss]] pixels length. */
+    def px: PxCss = PxCss(thisInt)
+
+    /** Implicit extension method to create a [[EmCss]] pixels length. */
+    def em: EmCss = EmCss(thisInt)
+
+    /** Implicit extension method to create a [[RemCss]] pixels length. */
+    def rem: RemCss = RemCss(thisInt)
+
+    /** Implicit extension method to create a [[VminCss]] pixels length. */
+    def vmin: VminCss = VminCss(thisInt)
+
+    /** Implicit extension method to create a [[VmaxCss]] pixels length. */
+    def vmax: VmaxCss = VmaxCss(thisInt)
+  }
+
   extension (thisDouble: Double)
   { /** Implicit extension method to create a [[PxCss]] pixels length. */
     def px: PxCss = PxCss(thisDouble)
@@ -38,5 +55,11 @@ object WebExts
 
     /** Implicit extension method to create a [[RemCss]] pixels length. */
     def rem: RemCss = RemCss(thisDouble)
+
+    /** Implicit extension method to create a [[VminCss]] pixels length. */
+    def vmin: VminCss = VminCss(thisDouble)
+
+    /** Implicit extension method to create a [[VmaxCss]] pixels length. */
+    def vmax: VmaxCss = VmaxCss(thisDouble)
   }
 }

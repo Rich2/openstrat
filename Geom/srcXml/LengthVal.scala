@@ -20,6 +20,13 @@ sealed trait LenCss extends CssVal, OutElem
   override def out: String = numUnits.str + extStr
 }
 
+/** CSS value in percentage points. */
+case class Percent(numUnits: Double) extends LenCss
+{ override def extStr: String = "%"
+  @targetName("multiply") override def *(operand: Double): Percent = Percent(numUnits * operand)
+  @targetName("divide") override def /(operand: Double): Percent = Percent(numUnits / operand)
+}
+
 /** CSS value in px units. Pixels are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers and high
  * resolution screens 1px implies multiple device pixels. */
 case class PxCss(numUnits: Double) extends LenCss
@@ -62,16 +69,10 @@ case class VminCss(numUnits: Double) extends LenCss
   @targetName("multiply") override def *(operand: Double): VminCss = VminCss(numUnits * operand)
   @targetName("divide") override def /(operand: Double): VminCss = VminCss(numUnits / operand)
 }
+
 /** CSS value in vmax units. Relative to 1% of the width or height of the viewport, whichever is higher. */
 case class VmaxCss(numUnits: Double) extends LenCss
 { override def extStr: String = "vmax"
   @targetName("multiply") override def *(operand: Double): VmaxCss = VmaxCss(numUnits * operand)
   @targetName("divide") override def /(operand: Double): VmaxCss = VmaxCss(numUnits / operand)
-}
-
-/** CSS value in percentage points. */
-case class Percent(numUnits: Double) extends LenCss
-{ override def extStr: String = "%"
-  @targetName("multiply") override def *(operand: Double): Percent = Percent(numUnits * operand)
-  @targetName("divide") override def /(operand: Double): Percent = Percent(numUnits / operand)
 }

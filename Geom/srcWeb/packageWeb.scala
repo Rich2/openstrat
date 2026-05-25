@@ -63,11 +63,5 @@ package object pweb
       case "" => DivHtml(HtmlBr)
       case l => DivHtml(l)
     }
-
-    def toSystemdDivs: RArr[DivHtml] = thisArr.map{
-      case "" => DivHtml(HtmlBr)
-      case line if line(0) == '[' => DivHtml.colour(Colour.LightGreen, line)
-      case l => DivHtml(l)
-    }
   }
 }

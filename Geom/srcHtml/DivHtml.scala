@@ -30,6 +30,9 @@ object DivHtml
   /** Factory method for creating HTML Div element with a Style attribute with a colour declaration. */
   def colour(colour: Colour, contents: XConInedit*): DivHtml = new DivHtmlGen(contents.toArr, RArr(StyleAtt(ColourDec(colour))))
 
+  /** Factory method for creating HTML Div element with a Style attribute with a LightGreen colour declaration. */
+  def lightGreen(contents: XConInedit*): DivHtml = new DivHtmlGen(contents.toArr, RArr(StyleAtt(ColourDec(Colour.LightGreen))))
+
   /** Creates a Div and listens to an [[UpdaterText]] change events modifying the textContent. */
   def listenStrCon(input: UpdaterText)(f: String => String): DivHtml =
   { def newId = input.next1Id(f)

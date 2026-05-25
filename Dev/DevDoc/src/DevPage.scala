@@ -40,7 +40,7 @@ object DevPage extends DevPageBase
     "Sbt: 1.12.11",
     "Mill: 1.1.5 with Mill's JDK set to 25."))
 
-  def sbtCommands1: UlSection = UlSection(RArr("Run", CodeHtmlInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
+  def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     LiHtml("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
     LiHtml("~DicelessJs/fastOptJS".htmlSbt, "To rebuild a fast optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFast.html".htmlPath),
     LiHtml("DicelessJs/fullOptJS".htmlSbt, "To build a full optimised JavaScript file. Use with", "Dev/DevPages/DicelessSbtFull.html".htmlPath),

@@ -42,13 +42,19 @@ object BashLine
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */
-  def updateText(input: UpdaterText)(f: String => String): BashLine =
+  def listenText(input: UpdaterText)(f: String => String): BashLine =
   { def newId = input.next1Id(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */
-  def updateTextNum(input1: UpdaterText, input2: InputUpdaterNum)(f: (String, Double) => String): BashLine =
+  def listen2Text(input1: UpdaterText, input2: UpdaterText)(f: (String, String) => String): BashLine =
+  { def newId = input1.next2Id1(input2.idStr, f)
+    new BashLine(RArr(f(input1.valueStr, input2.valueStr)), RArr(newId))
+  }
+
+  /** Creates a Bash line and registers the textContent with an HTML Text Input. */
+  def listenTextNum(input1: UpdaterText, input2: InputUpdaterNum)(f: (String, Double) => String): BashLine =
   { def newId = input1.nextTextNumId1(input2.idStr, f)
     new BashLine(RArr(f(input1.valueStr, input2.value)), RArr(newId))
   }
@@ -61,7 +67,7 @@ object BashLine
 }
 
 /** Html BASH code element, that can be inlined. */
-class BashInline(val str: String) extends BashHtml, CodeHtmlInline
+class BashInline(val str: String) extends BashHtml, CodeInline
 { override def contents: RArr[XCon] = RArr(str)
 }
 

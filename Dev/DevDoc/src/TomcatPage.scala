@@ -27,7 +27,7 @@ object TomcatPage extends PageHtmlUpdater
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "20"
+  val tcMinorVer: String = "22"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "mywebsite.com"
@@ -49,12 +49,14 @@ object TomcatPage extends PageHtmlUpdater
   val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
   val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
   val domainIUT: InputUpdaterText = domainLTI.child2
-
+  val dir1: String = "/opt/tomcat"
+  val dirLTI: LabelTextInput = LabelTextInput("dirName", "Tomcat directory", dir1)
+  val dirIUT: InputUpdaterText = dirLTI.child2
 
   def p2: PHtml = PHtml("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
   |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
   stripMargin,
-  LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI))
+  LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
@@ -64,7 +66,7 @@ object TomcatPage extends PageHtmlUpdater
     case _ => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
   },
   "Install Fail2Ban to protect against brute force login attacks",
-  BashLine.updateText(osNameIUT){
+  BashLine.listenText(osNameIUT){
     case ArchDeriv.valueStr => "pacman -S fail2ban"
     case _ => "sudo apt install fail2ban"
   },
@@ -81,7 +83,7 @@ object TomcatPage extends PageHtmlUpdater
   |get your site / app out to the world.""".stripMargin)
   
   def s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-  BashLine.updateTextNum(osNameIUT, javaVerIUN){ (os, vNum) =>
+  BashLine.listenTextNum(osNameIUT, javaVerIUN){ (os, vNum) =>
     val osStr = ife(os == ArchDeriv.valueStr, "pacman -Syu", "apt install")
     s"sudo $osStr openjdk-${vNum.str0}-jdk -y"},
   "Check the version",
@@ -104,17 +106,17 @@ object TomcatPage extends PageHtmlUpdater
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
   |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
   |username.""". stripMargin,
-  BashLine.updateText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName"},
-  BashLine.updateText(uNameIUT)(uName => s"sudo passwd $uName"),
+  BashLine.listenText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName"},
+  BashLine.listenText(uNameIUT)(uName => s"sudo passwd $uName"),
   )
 
   val s5 = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
-  BashLine("sudo mkdir /opt/tomcat"),
-  BashLine.updateText(uNameIUT)(uName => s"sudo chown $uName:$uName /opt/tomcat"),
-  SpanLine.inputText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
+  BashLine.listenText(dirIUT){dir => "sudo mkdir" -- dir},
+  BashLine.listen2Text(uNameIUT, dirIUT)((uName, dir) => s"sudo chown $uName:$uName $dir"),
+  SpanLine.listenText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
-  BashLine.updateText(uNameIUT)(uName => s"sudo su $uName"),
+  BashLine.listenText(uNameIUT)(uName => s"sudo su $uName"),
   BashLine("cd /opt/tomcat"),
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
@@ -158,26 +160,27 @@ object TomcatPage extends PageHtmlUpdater
   val s9 = LiHtml("Create a systemd unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   "Add the following code. Then control o, return, control x.",
-  CodeLinesHtml(StrArr(
-  "[Unit]",
+  CodeLinesHtml(
+  DivHtml.lightGreen("[Unit]") %:
+  StrArr(
   "Description=Apache Tomcat 11.0 Web Application Container",
   "After=network.target",
-  "",
-  "[Service]",
-  "Type=forking",
+  "").toDivLines +%
+  DivHtml.lightGreen("[Service]") ++
+  StrArr("Type=forking",
    "",
   """Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""",
   """Environment="CATALINA_PID=/opt/tomcat/Base/temp/tomcat.pid"""",
   """Environment="CATALINA_HOME=/opt/tomcat/tom11/"""",
-  """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toSystemdDivs +%
+  """Environment="CATALINA_BASE=/opt/tomcat/Base/"""").toDivLines +%
   DivHtml.listenNum(ramIUN){ n =>  val nn = n * 256
     val xmsStr = nn.min(512).str0
     val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
-  s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""} ++
-  StrArr(
-  """Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""",
-  "ExecStart=/opt/tomcat/tom11/bin/startup.sh",
-  "ExecStop=/opt/tomcat/tom11/bin/shutdown.sh").toSystemdDivs +%
+    s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""
+  } +%
+  DivHtml("""Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""") +%
+  DivHtml.listenStrCon(dirIUT){ dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
+  DivHtml.listenStrCon(dirIUT){ dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
   DivHtml.listenStrCon(uNameIUT){ uName => s"User=$uName"} +%
   DivHtml.listenStrCon(uNameIUT){ uName => s"Group=$uName" } ++
   StrArr(
@@ -185,7 +188,7 @@ object TomcatPage extends PageHtmlUpdater
   "RestartSec=10",
   "Restart=always",
   "[Install]",
-  "WantedBy=multi-user.target").toSystemdDivs
+  "WantedBy=multi-user.target").toDivLines
   )
   )
 
@@ -207,11 +210,11 @@ object TomcatPage extends PageHtmlUpdater
   val s11: LiHtml = LiHtml("To switch to port 80 the http defaults",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.updateText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine.listenText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.updateText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
+  BashLine.listenText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
@@ -242,11 +245,11 @@ object TomcatPage extends PageHtmlUpdater
   BashLine("sudo chgrp -R tommy /etc/letsencrypt/archive/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
-  BashLine.updateText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
-  BashLine.updateText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
-  BashLine.updateText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
+  BashLine.listenText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
+  BashLine.listenText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
+  BashLine.listenText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
   "Check permissions - if you dont have access then something wrong...",
-  BashLine.updateText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
+  BashLine.listenText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
   )
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
@@ -265,6 +268,6 @@ object TomcatPage extends PageHtmlUpdater
   "Restart Tomcat",
   BashLine("sudo systemctl start tom11"),
   BashLine("sudo systemctl status tom11"),
-  SpanLine.inputText(domainIUT){ dName => s"Go to https://$dName" }  
+  SpanLine.listenText(domainIUT){ dName => s"Go to https://$dName" }  
   )
 }

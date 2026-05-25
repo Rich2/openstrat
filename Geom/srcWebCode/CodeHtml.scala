@@ -33,26 +33,48 @@ object CodeLineHtml
 }
 
 /** An HTML code element that can be inlined. */
-trait CodeHtmlInline extends CodeHtml, HtmlInedit
+trait CodeInline extends CodeHtml, HtmlInedit
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
 }
 
-object CodeHtmlInline
+object CodeInline
 { /** Factory apply method to create an inline HTML cose element. */
-  def apply(str: String): CodeHtmlInline = new CodeHtmlInline
-  { override def contents: RArr[XCon] = RArr(str)
-    override def attribs: RArr[XAtt] = RArr()
+  def apply(contents: XCon*): CodeInline = new CodeInlineGen(contents.toRArr, RArr())
+
+  /** Factory apply method to create an inline HTML cose element. */
+  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(contents, attribs)
+
+  /** Creates an inline code text and registers the textContent with an HTML Text Input. */
+  def listenText(input: UpdaterText)(f: String => String): CodeInline =
+  { def newId = input.next1Id(f)
+    CodeInline(RArr(f(input.valueStr)), RArr(newId))
   }
+
+  /** Implementation class for the general casee of [[CodeInline]].  */
+  case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends CodeInline
 }
 
 /** Html code to display a change of code. */
-class CodeChangeLine(val oldCode: String, val newCode: String, val attribs: RArr[XAtt]) extends DivLine
-{ override def contents: RArr[XCon] = RArr("Change", CodeHtmlInline(oldCode), "to", CodeHtmlInline(newCode))
+trait CodeChangeLine extends DivLine
+{ def oldCode: CodeInline
+  def newCode: CodeInline
+  override def contents: RArr[XCon] = RArr("Change", oldCode, "to", newCode)
 }
 
 object CodeChangeLine
 { /** Factory apply method for sequence of HYML code lines formed from an [[StrArr]]. */
-  def apply(oldCode: String, newCode: String, attribs: XAtt*): CodeChangeLine = new CodeChangeLine(oldCode, newCode, attribs.toRArr)
+  def apply(oldCode: String, newCode: String, attribs: XAtt*): CodeChangeLine = CodeChangeLineGen(CodeInline(oldCode), CodeInline(newCode), attribs.toRArr)
+
+  /** Creates an code change line and registers the textContents with an HTML Text Input. */
+  def listenText(input: UpdaterText)(f1: String => String)(f2: String => String): CodeChangeLine =
+  {
+    val newId1 = input.next1Id(f1)
+    val oldCode: CodeInline = CodeInline(RArr(f1(input.valueStr)), RArr(newId1))
+    val newId2 = input.next1Id(f2)
+    val newCode: CodeInline = CodeInline(RArr(f2(input.valueStr)), RArr(newId2))
+    CodeChangeLineGen(oldCode, newCode, RArr())
+  }
+  case class CodeChangeLineGen(oldCode: CodeInline, newCode: CodeInline, attribs: RArr[XAtt]) extends CodeChangeLine
 }
 
 /** A code output attribute. Useful in documentation foe distinguishing output from code and commands entered by the user. */
@@ -96,7 +118,7 @@ object CodeOutputLines
 }
 
 /** Html directory path code element. */
-class HtmlDirPath(val str: String) extends CodeHtmlInline
+class HtmlDirPath(val str: String) extends CodeInline
 { def classAtt: ClassAtt = ClassAtt("path")
   override def contents: RArr[XCon] = RArr(str)
   override def attribs: RArr[XAtt] = RArr(classAtt)

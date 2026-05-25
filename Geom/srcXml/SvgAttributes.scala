@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
 /** SVG ViewBox. */
@@ -7,6 +7,7 @@ case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) ex
   override def valueStr: String = minX.str -- minY.str -- width.str -- height.str
 }
 
+/** SVG rotation transformation attribute. */
 case class SvgRotate(degrees: Double, x: Double, y: Double) extends XAttShort
 { override def name: String = "transform"
   override def valueStr: String = "rotate" + RArr(degrees, x, y).mkStr(" ").enParenth
