@@ -38,12 +38,21 @@ object WhiteSpacesDec
   def apply(str: String): WhiteSpacesDec = new WhiteSpacesDec(CssVal(str))
 }
 
+/** CSS nowrap value. */
 object NoWrapVal extends CssVal
 { override val str: String = "nowrap"
 }
 
 /** CSS white-space declaration set to nowrap. */
 object NoWrapDec extends WhiteSpacesDec(NoWrapVal)
+
+/** The CSS pre-wrap value */
+object PreWrapVal extends CssVal
+{ override def str: String = "pre-wrap"
+}
+
+/** CSS white-space declaration set to pre-wrap. */
+object PreWrapDec extends WhiteSpacesDec(PreWrapVal)
 
 /** CSS max-width declaration. */
 case class MaxWidthDec(value: CssVal) extends CssDecStd

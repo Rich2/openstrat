@@ -154,7 +154,7 @@ object TomcatPage extends PageHtmlUpdater
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  CodePre.listen2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
+  PreCode.listen2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
   )
 
   val s9 = LiHtml("Create a systemd unit file.",
@@ -169,10 +169,10 @@ object TomcatPage extends PageHtmlUpdater
       "Description=Apache Tomcat 11.0 Web Application Container",
       "After=network.target",
       "").toDivLines +%
-    DivColour(LightGreen, "[Service]") ++
-    StrArr("Type=forking",
-      "",
-      """Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""").toDivLines +%
+    DivColour(LightGreen, "[Service]") +%
+    DivHtml("Type=forking") +%
+    DivHtml("") +%
+    DivHtml("""Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""") +%
     DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
     DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
     DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%
@@ -186,11 +186,10 @@ object TomcatPage extends PageHtmlUpdater
     DivHtml.listenStrCon(dirIUT) { dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
     DivHtml.listenStrCon(dirIUT) { dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
     DivHtml.listenStrCon(uNameIUT) { uName => s"User=$uName" } +%
-    DivHtml.listenStrCon(uNameIUT) { uName => s"Group=$uName" } ++
-    StrArr(
-      "UMask=0007",
-      "RestartSec=10",
-      "Restart=always").toDivLines +%
+    DivHtml.listenStrCon(uNameIUT) { uName => s"Group=$uName" } +%
+    DivHtml("UMask=0007") +%
+    DivHtml("RestartSec=10") +%
+    DivHtml("Restart=always") +%
     DivColour(LightGreen, "[Install]") +%
     DivHtml("WantedBy=multi-user.target")
 
@@ -257,7 +256,7 @@ object TomcatPage extends PageHtmlUpdater
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine.listenText(dirIUT){ dir => "nano $dir/Base/conf/server.xml" },
   "Uncomment the section and modify as below",
-  CodePre.listenText(domainIUT){ dName =>
+  PreCode.listenText(domainIUT){ dName =>
   s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
   |  maxThreads="150" SSLEnabled="true" secure="true" scheme="https">
   |  <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
