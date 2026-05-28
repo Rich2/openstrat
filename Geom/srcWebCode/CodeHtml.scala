@@ -163,7 +163,7 @@ object PreCode
   /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Inputs. */
   def listen2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f1: (String, String) => String): PreCode =
   { val f2: (String, String) => String = (s1, s2) => f1(s1, s2).escapeHtml
-    def targetId = input1.next2Id1(input2.idStr, f2)
+    val targetId = input1.next2Id1(input2.idStr, f2)
     input2.next2Id2(targetId.valueStr, input1.idStr, f2)
     new PreCode
     { override def codeElem: CodeSpecial = new CodeSpecial
