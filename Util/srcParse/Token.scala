@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** An RSON token. */
@@ -17,15 +17,16 @@ trait Token extends TextSpan
   override def hashCode(): Int = tokenTypeStr.hashCode * 31 + startPosn.hashCode
 }
 
-/** Companion object for [[Token]] trait contains [[TellDec]] implicit instance. */
+/** Companion object for [[Token]] trait contains [[Show]] implicit instance. */
 object Token
-{
-  implicit val showImplicit: Show[Token] = new ShowSimple[Token]
+{ /** Implicit [[Show]] type class instance / evidence for [[Token]]. */
+  given showImplicit: Show[Token] = new ShowSimple[Token]
   { override def typeStr: String = "Token"
     def strT(obj: Token): String = obj.str
   }
 
-  implicit val eqTEv: EqT[Token] = (tok1, tok2) => tok1 == tok2
+  /** Implicit [[EqT]] type class instance / evidence for [[Token]]. */
+  given eqTEv: EqT[Token] = (tok1, tok2) => tok1 == tok2
 }
 
 /** Token that is member of a block. Includes all tokens except the brace tokens. */

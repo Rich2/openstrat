@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, reflect.ClassTag
 
@@ -18,7 +18,7 @@ trait SequPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends SequPa
   final override def a1NumDbl: Int = 4
 }
 
-/** [[Arr]] of [[PairDbl4]] elements. */
+/** [[Arr]] of [[PairDbl4Elem]] elements. */
 trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A], SequPairDbl4[A1, A2, A]
 { type ThisT <: ArrPairDbl4[A1, ArrA1, A2, A]
 

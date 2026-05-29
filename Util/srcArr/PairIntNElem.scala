@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -12,7 +12,7 @@ trait SequPairIntN[A1 <: IntNElem, A2, A <: PairIntNElem[A1, A2]] extends Sequ[A
   def a1NumInt: Int
 }
 
-/** An [[Arr]] of [[PairIntN]] elements where the first component of the pairs is an [[IntNElem]]. */
+/** An [[Arr]] of [[PairIntNElem]] elements where the first component of the pairs is an [[IntNElem]]. */
 trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends ArrPairFinalA1[A1, ArrA1, A2, A], SequPairIntN[A1, A2, A]
 { type ThisT <: ArrPairIntN[A1, ArrA1, A2, A]
 

@@ -2,10 +2,11 @@
 package ostrat; package pDev
 import pweb.*, webjvm.*, pDoc.*
 
+/** A module for the purposes of creating POM files. */
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
 
 object Module
-{
+{ /** Factory apply method for constructing a module for the purposes of creating POM files. */
   def apply(modName: String, fileStem: String, deps: Module*): Module = new Module(modName, fileStem, deps.toRArr)
 }
 

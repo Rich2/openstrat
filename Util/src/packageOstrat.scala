@@ -558,8 +558,7 @@ package object ostrat
   
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(using ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
     new Show2Extensions[A1, A2, T](ev, thisVal)
-    
-  implicit def stringToExtensions(s: String): ExtensionsString = new ExtensionsString(s)
+  
   implicit def stringIterableToExtensions(strIter: Iterable[String]): ExtensionsStringIterable = ExtensionsStringIterable(strIter)
   implicit def stringArrayToExtensions(strArray: Array[String]): ExtensionsStringIterable = ExtensionsStringIterable(strArray)
 }

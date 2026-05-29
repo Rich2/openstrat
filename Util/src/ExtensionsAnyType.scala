@@ -2,7 +2,7 @@
 package ostrat
 
 /** Extension methods for Any type A. */
-extension[A](thisA: A)
+implicit class AnyExtsOstrat[A](thisA: A)
 {
   def fRepeat(num: Int)(f: A => A): A =
   { var acc: A = thisA

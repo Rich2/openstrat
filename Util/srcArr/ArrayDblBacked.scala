@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -11,7 +11,7 @@ trait ArrayDblBacked extends Any, SpecialT
   @inline final def arrayLen: Int = arrayUnsafe.length
 }
 
-/** Base trait for collections of elements that are based on [[array]][Double]s, backed by an underlying Array[Array[Double]]. */
+/** Base trait for collections of elements that are based on [[Array]][Double]s, backed by an underlying Array[Array[Double]]. */
 trait ArrArrayDbl[A <: ArrayDblBacked] extends Any, Arr[A]
 { type ThisT <: ArrArrayDbl[A]
   def arrayOfArraysUnsafe: Array[Array[Double]]

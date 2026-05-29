@@ -516,7 +516,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     count
   }
 
-  /** Converts this [[Sequ]] to a [[list]]. */
+  /** Converts this [[Sequ]] to a [[List]]. */
   def toList: List[A] =
   { var acc: List[A] = Nil
     reverseForeach(acc ::= _)
@@ -546,7 +546,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     ev.buffToSeqLike(acc)
   }
 
-  /** Takes a function from A to [[ErrBi]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Bad]]. */
+  /** Takes a function from A to [[ErrBi]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Fail]]. */
   def mapUniqueSucc[B](f: A => ErrBi[?, B]): ErrBi[ExcFind, B] =
   { var count = 0
     var acc: ExcNFTMon[B] = FailNotFound

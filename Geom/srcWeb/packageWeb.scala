@@ -23,39 +23,52 @@ package object pweb
   }
 
   implicit class IntWebExtensions(thisInt: Int)
-  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
-     * For printers and high resolution screens 1px implies multiple device pixels. */
+  { /** Extension method for [[Int]] for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the
+     * display For printers and high resolution screens 1px implies multiple device pixels. */
     def px: PxCss = PxCss(thisInt)
 
-    /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font). */
+    /** Extension method for [[Int]] for CSS rem units. Relative to the font-size of the element (2em means 2 times the size of the current font). */
+    def rem: RemCss = RemCss(thisInt)
+
+    /** Extension methodfor [[Int]] for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font). */
     def em: EmCss = EmCss(thisInt)
 
-    /** Extension method for CSS vw units. Relative to 1% of the width of the viewport. */
+    /** Extension methodfor [[Int]] for CSS vw units. Relative to 1% of the width of the viewport. */
     def vw: VwCss = VwCss(thisInt)
 
-    /** Extension method for CSS vh units. Relative to 1% of the height of the viewport. */
+    /** Extension method for [[Int]] for CSS vh units. Relative to 1% of the height of the viewport. */
     def vh: VhCss = VhCss(thisInt)
 
-    /** Extension method for CSS vmin units. Relative to 1% of the width or height of the viewport, whichever is lower */
+    /** Extension method for [[Int]] for CSS vmin units. Relative to 1% of the width or height of the viewport, whichever is lower */
     def vmin: VminCss = VminCss(thisInt)
 
-    /** Extension method for CSS vh units. Relative to 1% of the width or height of the viewport, whichever is higher. */
+    /** Extension method for [[Int]] for CSS vh units. Relative to 1% of the width or height of the viewport, whichever is higher. */
     def vmax: VmaxCss = VmaxCss(thisInt)
   }
 
   implicit class DoubleWebExtensions(thisDouble: Double)
-  { /** Extension method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display.
-     * For printers and high resolution screens 1px implies multiple device pixels. */
+  { /** Extension method for [[Double]] for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of
+     * the display. For printers and high resolution screens 1px implies multiple device pixels. */
     def px: PxCss = PxCss(thisDouble)
 
-    /** Extension method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
+    /** Extension method for [[Double]] for CSS rem units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: EmCss = EmCss(thisDouble)
 
-    /** Extension method for CSS vw units. Relative to 1% of the width of the viewport. */
+    /** Extension method for [[Double]] for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
+    def rem: RemCss = RemCss(thisDouble)
+
+    /** Extension method for [[Double]] for CSS vw units. Relative to 1% of the width of the viewport. */
     def vw: VwCss = VwCss(thisDouble)
 
-    /** Extension method for CSS vh units. Relative to 1% of the height of the viewport. */
+    /** Extension method for [[Double]] for CSS vh units. Relative to 1% of the height of the viewport. */
     def vh: VhCss = VhCss(thisDouble)
+
+
+    /** Extension method for [[Double]] for CSS vmin units. Relative to 1% of the width or height of the viewport, whichever is lower */
+    def vmin: VminCss = VminCss(thisDouble)
+
+    /** Extension method for [[Double]] for CSS vh units. Relative to 1% of the width or height of the viewport, whichever is higher. */
+    def vmax: VmaxCss = VmaxCss(thisDouble)
   }
 
   extension (thisArr: Arr[String])

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, annotation.unused
 
@@ -61,10 +61,10 @@ object BuilderArrMap extends BuilderMapArrPriority2
   /** 1st priority implicit [[BuilderArrMap]] type class instance evidence for [[Float]] and [[FloatArr]]. */
   implicit val floatEv: BuilderArrMap[Float, FloatArr] = FloatArrBuilder
 
-  /** 1st priority implicit [[BuilderArrMap]] type class instance evidence for [[String]] and [[StringArr]]. */
+  /** 1st priority implicit [[BuilderArrMap]] type class instance evidence for [[String]] and [[StrArr]]. */
   implicit val stringEv: BuilderArrMap[String, StrArr] = BuilderArrString
 
-  /** 1st priority implicit [[BuilderArrMap]] type class instance evidence for [[Boolean]] and [[BooleanArr]]. */
+  /** 1st priority implicit [[BuilderArrMap]] type class instance evidence for [[Boolean]] and [[BoolArr]]. */
   implicit val booleanEv: BuilderArrMap[Boolean, BoolArr] = BooleanArrBuilder
 }
 

@@ -15,7 +15,7 @@ trait SequPairInt1[A1 <: Int1Elem, A2, A <: PairInt1Elem[A1, A2]] extends SequPa
   final override def a1NumInt: Int = 1
 }
 
-/** [[Arr]] of [[PairInt1]]s, [[PairElem]]s where the first component of the pair is an [[Int1Elem]]. */
+/** [[Arr]] of [[PairInt1Elem]]s, [[PairElem]]s where the first component of the pair is an [[Int1Elem]]. */
 trait ArrPairInt1[A1 <: Int1Elem, ArrA1 <: ArrInt1[A1], A2, A <: PairInt1Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A], SequPairInt1[A1, A2, A]
 { type ThisT <: ArrPairInt1[A1, ArrA1, A2, A]
   final override def apply(index: Int): A = elemFromInt(a1ArrayInt(index), a2Array(index))

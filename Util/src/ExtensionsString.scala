@@ -1,9 +1,9 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
-class ExtensionsString(val thisString: String) extends AnyVal
+implicit class STringExtsOstrat(thisString: String)
 { /** Substitutes the given value for empty [[String]]s or nulls. */
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 

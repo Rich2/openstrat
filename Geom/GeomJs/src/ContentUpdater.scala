@@ -2,11 +2,11 @@
 package ostrat; package pSJs
 import org.scalajs.dom.*, pweb.*
 
-/** Updates HTML content due to changes from HTML input or Select elements. */
+/** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
 sealed trait ContentUpdater
 
 object ContentUpdater
-{
+{ /** Factory apply method, constructs the appropriate [[ContentUpdater]] for the given [[InputLikeUpdater]] */
   def apply(inputer: InputLikeUpdater): ContentUpdater = inputer match
   { case iun: InputUpdaterNum => ContentUpdaterNum(iun)
     case iut: UpdaterText => ContentUpdaterText(iut)
@@ -34,11 +34,11 @@ class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
 }
 
 object ContentUpdaterNum
-{
+{ /** Factory apply method for JavaScript to update HTML element listener list from updated number input. */
   def apply(inputer: InputUpdaterNum): ContentUpdaterNum = new ContentUpdaterNum(inputer)
 }
 
-/** Updates HTML content due to [[String]] changes from HTML input elements. */
+/** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
 class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
 { val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
@@ -86,6 +86,6 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
 }
 
 object ContentUpdaterText
-{
+{ /** Factory apply method for JavaScript to update HTML element listener list from updated text input. */
   def apply(inputer: UpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
 }

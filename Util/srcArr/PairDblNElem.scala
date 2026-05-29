@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -37,7 +37,7 @@ trait ArrPairDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }
 
-/** Efficient buffer classes for [[PairDblN]] elements. */
+/** Efficient buffer classes for [[PairDblNElem]] elements. */
 trait BuffPairDblN[A1 <: DblNElem, A2, A <: PairDblNElem[A1, A2]] extends BuffPair[A1, A2, A]
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]

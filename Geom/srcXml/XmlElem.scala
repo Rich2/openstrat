@@ -37,12 +37,12 @@ object VersionElem
 }
 
 /** Software version. */
-class SwVersion(val n1: Int, val n2: Int, val n3: Int, val specStr: Option[String], val nn4: Option[Int]) extends VersionElem
+class SwVersion(val n1: Int, val n2: Int, val n3: Int, val optSpecStr: Option[String], val optN4: Option[Int]) extends VersionElem
 {
   def str: String =
-  { val endStr: String = specStr match
+  { val endStr: String = optSpecStr match
     { case None => ""
-      case Some(ss) => nn4 match
+      case Some(ss) => optN4 match
       { case None => ss
         case Some(n4) => ss + n4.str
       }
@@ -53,8 +53,9 @@ class SwVersion(val n1: Int, val n2: Int, val n3: Int, val specStr: Option[Strin
 }
 
 object SwVersion
-{
-  def apply(n1: Int, n2: Int, n3: Int): SwVersion = new SwVersion(n1, n2, n3, None, None)
+{ /** Factory apply method to create a Software Version object. */
+  def apply(n1: Int, n2: Int, n3: Int, optSpecStr: Option[String] = None, optN4: Option[Int] = None): SwVersion = new SwVersion(n1, n2, n3, optSpecStr, optN4)
 
+  /** Factory method to create a snap Software Version object. */
   def snap(n1: Int, n2: Int, n3: Int): SwVersion = new SwVersion(n1, n2, n3, Some("snap"), None)
 }
