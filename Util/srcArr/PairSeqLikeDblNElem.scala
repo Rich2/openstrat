@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -8,7 +8,7 @@ trait PairSeqLikeDblNElem[A1E <: DblNElem, A1 <: SeqLikeImutDblN[A1E], A2] exten
   def a1ArrayDbl: Array[Double]
 }
 
-/** An [[Arr]] of [[PairElem]]s where the first compnent of each pair is a [[SeqLikeDblN]]. */
+/** An [[Arr]] of [[PairElem]]s where the first compnent of each pair is a [[SeqLikeImutDblN]]. */
 trait ArrPairSeqLikeDblN[A1E <: DblNElem, A1 <: SeqLikeImutDblN[A1E], A1Arr <: Arr[A1], A2, A <: PairSeqLikeDblNElem[A1E, A1, A2]] extends
   ArrPairSeqLike[A1E, A1, A1Arr, A2, A]
 { type ThisT <: ArrPairSeqLikeDblN[A1E, A1, A1Arr, A2, A]

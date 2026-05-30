@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
@@ -123,7 +123,7 @@ trait BuilderArrIntNFlat[ArrB <: ArrIntN[?]] extends BuilderSeqLikeIntN[ArrB], B
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 
-/** Specialised flat [[ArrayBuffer]][Int] based collection class. */
+/** Specialised flat [[ArrayBuffer]] of [[Int]] based collection class. */
 trait BuffIntN[A <: IntNElem] extends Any, BuffValueN[A]
 { type ArrT <: ArrIntN[A]
   def bufferUnsafe: ArrayBuffer[Int]

@@ -1,12 +1,11 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
-/** Function object for parsing [[blockMem]]s to an [[Expr]]. */
+/** Function object for parsing [[BlockMem]]s to an [[Expr]]. */
 object parse3Statements
-{
-  /** Tries to parse a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Good]] natural integer expression. but "4;" will
-   * return a [[Good]] [[Statement]] sequence of one [[Statement]]. */
+{ /** Tries to parse a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Succ]] natural integer expression. but "4;" will
+   * return a [[Fail]] [[Statement]] sequence of one [[Statement]]. */
   def apply(implicit inp: RArr[BlockMem]): ErrBi[ExcAst, Expr] =
   { val acc: ArrayBuffer[Statement] = Buffer()
     var subAcc: ArrayBuffer[StatementMem] = Buffer()

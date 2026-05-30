@@ -67,7 +67,7 @@ trait BuffPairInt4[B1 <: Int4Elem, B2, B <: PairInt4Elem[B1, B2]] extends BuffPa
   }
 }
 
-/** [[BuilderBoth]] trait for constructing [[Arr]]s of [[PairElems]], where the first component of each of the pairs is an [[Int4Elem]], by both map and flatMap
+/** [[BuilderBoth]] trait for constructing [[Arr]]s of [[PairElem]]s, where the first component of each of the pairs is an [[Int4Elem]], by both map and flatMap
  * methods. */
 trait BuilderArrPairInt4[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends BuilderArrPairIntN[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairInt4[B1, B2, ?]

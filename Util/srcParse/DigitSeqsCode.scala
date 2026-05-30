@@ -29,7 +29,7 @@ final case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: Strin
   override def posDoubleValue: Double = doubleValue
 }
 
-/** Negative Decimal fractional fixed point number [[token]]. */
+/** Negative Decimal fractional fixed point number [[Token]]. */
 final case class DeciFracNegToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken
 { override def srcStr: String = "-" + super.srcStr
   override def exprName: String = "DeciFrac"

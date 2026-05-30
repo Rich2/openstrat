@@ -15,7 +15,7 @@ trait SeqLikeImutDbl1[A <: Dbl1Elem] extends Any, SeqLikeImutDblN[A]
 { override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
 }
 
-/** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
+/** A specialised immutable sequence, flat [[Array]] of [[Double]] based collection of a type of [[Dbl1Elem]]s. */
 trait ArrDbl1[A <: Dbl1Elem] extends Any, ArrDblN[A], SeqLikeImutDbl1[A]
 { final override def elemProdSize: Int = 1
   def elemFromDbl(dblValue: Double): A  

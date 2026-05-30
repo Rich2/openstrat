@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** This trait includes all the tokens except braces plus the Bracket syntactic blocks. The Block in the name block member is either the top level statements in
@@ -154,7 +154,7 @@ object AlphaMaybeSquareParenth
   }
 }
 
-/** Extractor object for an [[Expre]] sequence with a name to be applied to ALphaBracket expressions. */
+/** Extractor object for an [[Expr]] sequence with a name to be applied to ALphaBracket expressions. */
 class NamedExprSeq(val name: String)
 {
   def unapply(expr: Expr): Option[RArr[Expr]] = expr match{

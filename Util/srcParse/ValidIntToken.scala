@@ -34,7 +34,7 @@ object ValidPosFracToken
   }
 }
 
-/** Common trait for [[RawBase10Token]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+/** Common trait for [[RawBase10Token]], [[Nat0xToken]] and [[Nat0yToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait IntStdToken extends ValidIntToken with ValidFracToken
 { /** Returns an integer value for the [[Token]] using the standard decimal format unless it is an 0x or 0y Token. */
@@ -52,7 +52,7 @@ object IntStdToken
   }
 }
 
-/** Common trait for [[RawBase10Token]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+/** Common trait for [[RawBase10Token]], [[Nat0xToken]] and [[Nat0yToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait NatStdToken extends IntStdToken with ValidPosFracToken
 { def getNatStd: Int = getIntStd

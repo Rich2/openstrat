@@ -2,7 +2,7 @@
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from N [[Double]]s. These are used as elements in [[ArrDblN]] Array[Double] based collections. */
+/** An object that can be constructed from N [[Double]]s. These are used as elements in [[Array]] of [[Double]] based collections. */
 trait DblNElem extends Any, ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def dblForeach(f: Double => Unit): Unit
@@ -11,7 +11,7 @@ trait DblNElem extends Any, ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
-/** [[SeqLikeImut]] with [[DblNElem]]s. */
+/** An immutable [[SeqLike]] with [[DblNElem]]s. */
 trait SeqLikeImutDblN[+A <: DblNElem] extends Any, SeqLikeImutValueN[A], ArrayDblBacked
 { type ThisT <: SeqLikeImutDblN[A]
   def fromArray(array: Array[Double]): ThisT

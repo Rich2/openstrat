@@ -89,7 +89,7 @@ trait Unshow6Plus[A1, A2, A3, A4, A5, A6, A] extends Unshow5Plus[A1, A2, A3, A4,
   def unshow6: Unshow[A6]
 }
 
-/** [[UnShow]] trait for 6 parameter / product / component classes. */
+/** [[Unshow]] trait for 6 parameter / product / component classes. */
 trait Unshow6[A1, A2, A3, A4, A5, A6, A] extends Unshow6Plus[A1, A2, A3, A4, A5, A6, A], Persist6[A1, A2, A3, A4, A5, A6]
 { /** Allows this [[Unshow]] instance to create object from it's 6 components. */
   val newT: (A1, A2, A3, A4, A5, A6) => A

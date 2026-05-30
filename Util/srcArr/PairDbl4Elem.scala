@@ -50,7 +50,7 @@ trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: ArrDbl4[A1], A2, A <: PairDbl4Elem[A1
   }
 }
 
-/** Efficient buffer class for [[PairDbl4]] elements. */
+/** Efficient buffer class for [[PairDbl4Elem]] elements. */
 trait BuffPairDbl4[A1 <: Dbl4Elem, A2, A <: PairDbl4Elem[A1, A2]] extends BuffPairDblN[A1, A2, A], SequPairDbl4[A1, A2, A]
 {
   final override def apply(index: Int): A = elemFromDbls(b1DblBuffer(index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2),
