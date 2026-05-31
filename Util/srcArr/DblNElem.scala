@@ -147,7 +147,7 @@ trait CompanionSlDblN[A <: DblNElem, AA <: SeqLikeImutDblN[A]]
 
   def empty: AA = fromArray(new Array[Double](0))
 
-  /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is incorrect. */
+  /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Double]]s is incorrect. */
   def dbls(inp: Double*): AA =
   { val arrLen: Int = inp.length
     if (arrLen % numElemDbls != 0) excep(

@@ -76,7 +76,7 @@ package object utiljvm
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 
-  /** The current GMT time as a [[String]] in [[RFC_1123_DATE_TIME]]. */
+  /** The current GMT time as a [[String]] in RFC_1123_DATE_TIME. */
   def gmtNowStr: String =
   { import java.time.*, java.time.format.*
     val time: ZonedDateTime = Instant.now().atZone(ZoneId.of("GMT"))

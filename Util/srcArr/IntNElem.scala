@@ -112,7 +112,7 @@ trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeImutIntN[B]] extends Bui
  * up will be in the [[SeqLikeImut]]'s companion object. */
 trait BuilderSeqLikeIntNFlat[BB <: SeqLikeImutIntN[?]] extends BuilderSeqLikeIntN[BB], BuilderFlatSeqLikeValueN[BB]
 
-/** [[BuilderMap]] Trait for [[Arr]] objects with [[IntNElems]]. Implicit instances for the [[BuilderArrMap]] type class, for classes / traits you control,
+/** [[BuilderMap]] Trait for [[Arr]] objects with [[IntNElem]]s. Implicit instances for the [[BuilderArrMap]] type class, for classes / traits you control,
  * should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLikeIntNMap[B, ArrB], BuilderMapArrValueN[B, ArrB]
 

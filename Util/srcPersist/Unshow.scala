@@ -2,10 +2,10 @@
 package ostrat
 import pParse.*, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-/** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
+/** The Unshow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends Persist
-{ /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be implemented by
-   * all instances. */
+{ /** Tries to return a value of the type from an RSON expression that has been parsed from a String or text file. This method must be implemented by all
+   * instances. */
   def fromExpr(expr: Expr): ExcMon[T]
 
   /** Tries to build an object of type T from the statement. */

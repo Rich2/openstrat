@@ -142,7 +142,7 @@ package object ostrat
   /** Constructs a new [[ArrayBuffer]][Double]. */
   @inline def BufferDbl(initialLength: Int = 5): ArrayBuffer[Double] = new ArrayBuffer[Double](initialLength)
 
-  /** Constructs a new [[ArrayBuffer]][Long]. */
+  /** Constructs a new [[ArrayBuffer]] of [[Long]]. */
   @inline def BufferLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
 
   type RefTag[A] = AnyRef & reflect.ClassTag[A]

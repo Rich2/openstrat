@@ -74,7 +74,7 @@ trait BuilderArrPairInt3Map[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairI
     seqLike.a2Array(index) = newElem.a2 }
 }
 
-/** Helper trait for companion objects of instantiable [[PairInt3]] classes. */
+/** Helper trait for companion objects of instantiable [[PairInt3Elem]] classes. */
 trait CompanionArrPairInt3[A1 <: Int3Elem]
 {
   def pairsToArrays[A2](pairs: Seq[PairInt3Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
