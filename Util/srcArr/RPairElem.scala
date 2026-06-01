@@ -9,7 +9,7 @@ final class RPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
   override def toString = "RPairElem".appendParenthSemis(a1.toString, a2.toString)
 }
 
-/** R for stored by reference. The generalised default [[PAirArr]] for types that do not have their own specialised classes. Note although they are named as
+/** R for stored by reference. The generalised default [[PairArr]] for types that do not have their own specialised classes. Note although they are named as
  * reference [[ArrPair]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends ArrPair[A1, RArr[A1], A2, RPairElem[A1, A2]]
 { override type ThisT = RPairArr[A1, A2]

@@ -28,7 +28,7 @@ trait SeqLikeImutInt3[A <: Int3Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
 
-/** [[SeqSpec]] with [[Int3Elems]]. Can be specified by a flat [[Array]][Double]. */
+/** [[SeqSpec]] with [[Int3Elem]]s. Can be specified by a flat [[Array]][Double]. */
 trait SeqSpecInt3[A <: Int3Elem] extends Any, SeqLikeImutInt3[A], SeqSpecIntN[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */

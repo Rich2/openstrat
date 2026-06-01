@@ -60,7 +60,7 @@ trait SeqLikeImutDbl2[+A <: Dbl2Elem] extends Any, SeqLikeImutDblN[A], SeqLikeDb
     newArray
   }
 
-  /** Maps the 1st [[Double]]s of each element to a [[Double]] with one functions and then the second [[Doubles]] with a second [[Double]]. */
+  /** Maps the 1st [[Double]]s of each element to a [[Double]] with one functions and then the second [[Double]] with a second [[Double]]. */
   def arrayD1D2Map(f1: Double => Double)(f2: Double => Double): Array[Double] =
   { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
     iUntilForeach(0, arrayLen, 2) { i => newArray(i) = f1(arrayUnsafe(i)) }

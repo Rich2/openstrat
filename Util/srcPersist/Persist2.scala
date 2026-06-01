@@ -12,7 +12,7 @@ trait Persist2Plus[A1, A2] extends Any, Persist1Plus[A1], PersistNFixed
   def opt2: Option[A2]
 }
 
-/** A base trait for [[Tell2]] and [[UnShow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to
+/** A base trait for [[Tell2]] and [[Unshow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to
  * the [[Tell2]] object to implement their interfaces. */
 trait Persist2[A1, A2] extends Any, Persist2Plus[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
@@ -184,7 +184,7 @@ trait UnshowDbl2[A] extends Unshow2[Double, Double, A]
 }
 
 object UnshowDbl2
-{ /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
+{ /** Factory apply method for creating [[Unshow2]] with 2 [[Double]] component type class instances. */
   def apply[A](typeStr: String, name1: String, name2: String, newT: (Double, Double) => A, opt2: Option[Double] = None, opt1In: Option[Double] = None)(using
     ct: ClassTag[A]): UnshowDbl2[A] = new UnshowDbl2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 
@@ -236,7 +236,7 @@ class PersistInt2Both[A](val typeStr: String, val name1: String, val fArg1: A =>
 }
 
 object PersistInt2Both
-{ /** Factory apply method for creating [[Unshow2]] with 2 [[IInt]] component type class instances. */
+{ /** Factory apply method for creating [[Unshow2]] with 2 [[Int]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, newT: (Int, Int) => A, opt2: Option[Int] = None,
     opt1In: Option[Int] = None)(using classTag: ClassTag[A]): PersistInt2Both[A] =
     new PersistInt2Both[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)

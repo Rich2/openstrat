@@ -2,7 +2,7 @@
 package ostrat
 import annotation.*, reflect.ClassTag
 
-/** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficiently in [[Int4PAirArr]]s, where the first
+/** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficiently in [[ArrPairInt4]]s, where the first
  * [[Int4Elem]] components are backed by a single [[Array]][Int]. */
 trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
@@ -31,7 +31,7 @@ trait SeqLikeImutDbl4[A <: Dbl4Elem] extends Any, SeqLikeImutDblN[A], SeqLikeDbl
     arrayUnsafe(4 * index + 3))
 }
 
-/** [[SeqSpec]] with [[Dbl4Rlem]]s, backed by a flat [[Array]][Double]. */
+/** [[SeqSpec]] with [[Dbl4Elem]]s, backed by a flat [[Array]][Double]. */
 trait SeqSpecDbl4[A <: Dbl4Elem] extends Any, SeqLikeImutDbl4[A], SeqSpecDblN[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */

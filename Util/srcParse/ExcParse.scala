@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** Parser [[Exception]]. */
@@ -17,11 +17,12 @@ object FailAst
 {
   def apply(tp: TextPosn, detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(tp, detail))
 }
-case class ExcLexar(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with
-  ExcParse
+
+/** A lexar exception. */
+case class ExcLexar(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail), ExcParse
 
 object FailLexar
-{
+{ /** Factory apply method to construct a lexar exception. */
   def apply(tp: TextPosn, detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(tp, detail))
 }
 

@@ -1,12 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
-trait LongNElem extends Any with ValueNElem
+trait LongNElem extends Any, ValueNElem
 
 /** [[SeqLike]] with [[LongN]] elements. */
-trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeImutValueN[A]
+trait SeqLikeLongN[A <: LongNElem] extends Any, SeqLikeImutValueN[A]
 { type ThisT <: SeqLikeLongN[A]
   def unsafeArray: Array[Long]
 
@@ -20,10 +20,10 @@ trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeImutValueN[A]
 }
 
 /** A compound object defined / specified by a sequence of [[LongN]] elements. */
-trait SeqSpecLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with SeqSpecValueN[A]
+trait SeqSpecLongN[A <: LongNElem] extends Any, SeqLikeLongN[A], SeqSpecValueN[A]
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait ArrLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with ArrValueN[A]
+trait ArrLongN[A <: LongNElem] extends Any, SeqLikeLongN[A], ArrValueN[A]
 {
   final override def drop(n: Int): ThisT =
   { val nn = n.max0
@@ -34,7 +34,7 @@ trait ArrLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with ArrValueN[A
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait BuffLongN[A <: LongNElem] extends Any with BuffValueN[A]
+trait BuffLongN[A <: LongNElem] extends Any, BuffValueN[A]
 { def unsafeBuffer: ArrayBuffer[Long]
   def toArray: Array[Long] = unsafeBuffer.toArray[Long]
 //  def unBuff: M

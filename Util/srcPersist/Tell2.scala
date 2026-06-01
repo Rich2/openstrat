@@ -110,7 +110,7 @@ object ShowTellInt2
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
   def apply[R <: TellInt2](typeStr: String, opt2: Option[Int] = None, opt1: Option[Int] = None): ShowTellInt2[R] = new ShowTellInt2Imp[R](typeStr, opt2, opt1)
 
-  /** A trait for making quick ShowT instances for [[TellElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
+  /** A trait for making quick ShowT instances for [[TellElemInt2]] classes. It uses the functionality of the [[ShowInt2]]. */
   class ShowTellInt2Imp[R <: TellInt2](val typeStr: String, val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends ShowTellInt2[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
