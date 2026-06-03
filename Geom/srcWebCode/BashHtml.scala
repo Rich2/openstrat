@@ -43,25 +43,25 @@ object BashLine
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */
   def listenText(input: UpdaterText)(f: String => String): BashLine =
-  { def newId = input.next1Id(f)
+  { val newId: IdAtt = input.next1Id(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */
   def listen2Text(input1: UpdaterText, input2: UpdaterText)(f: (String, String) => String): BashLine =
-  { def newId = input1.next2Id1(input2.idStr, f)
+  { val newId: IdAtt = input1.next2Id1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.valueStr)), RArr(newId))
   }
 
-  /** Creates a Bash line and registers the textContent with an HTML Text Input. */
+  /** Creates a Bash line and registers the textContent with an HTML Text Input and an HTML number input. */
   def listenTextNum(input1: UpdaterText, input2: InputUpdaterNum)(f: (String, Double) => String): BashLine =
-  { def newId = input1.nextTextNumId1(input2.idStr, f)
+  { val newId: IdAtt = input1.nextTextNumId1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.value)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML number Input. */
   def listenNum(input: InputUpdaterNum)(f: Double => String): BashLine =
-  { def newId = input.next1Id(f)
+  { val newId: IdAtt = input.next1Id(f)
     new BashLine(RArr(f(input.value)), RArr(newId))
   }
 }
@@ -105,18 +105,14 @@ object BashPromptSpan
 
   /** Creates a Bash line and registers the textContent with 2 HTML Text Inputs. */
   def input2Text(input1: UpdaterText, input2: UpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): BashPromptSpan =
-  { val targetId: IdAtt = input1.next2Id1(input2.idStr, f)
-    input2.next2Id2(targetId.valueStr, input1.idStr, f)
-    new BashPromptSpan(f(input1.valueStr, input2.valueStr), targetId %: otherAttribs.toRArr)
+  { val newId: IdAtt = input1.next2Id1(input2, f)
+    new BashPromptSpan(f(input1.valueStr, input2.valueStr), newId %: otherAttribs.toRArr)
   }
 
   /** Creates a Bash line and registers the textContent with 3 HTML Text Inputs. */
-  def input3Text(input1: UpdaterText, input2: UpdaterText, input3: UpdaterText, otherAttribs: XAtt*)(f: (String, String, String) => String):
-    BashPromptSpan =
-  { val targetId: IdAtt = input1.next3Id1(input2.idStr, input3.idStr, f)
-    input2.next3Id2(targetId.valueStr, input1.idStr, input3.idStr, f)
-    input3.next3Id3(targetId.valueStr, input1.idStr, input2.idStr, f)
-    new BashPromptSpan(f(input1.valueStr, input2.valueStr, input3.valueStr), targetId %: otherAttribs.toRArr)
+  def input3Text(input1: UpdaterText, input2: UpdaterText, input3: UpdaterText, otherAttribs: XAtt*)(f: (String, String, String) => String): BashPromptSpan =
+  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
+    new BashPromptSpan(f(input1.valueStr, input2.valueStr, input3.valueStr), newId %: otherAttribs.toRArr)
   }  
 }
 

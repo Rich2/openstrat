@@ -51,22 +51,31 @@ trait UpdaterText extends InputLikeUpdater
     IdAtt(newtargetId)
   }
 
-  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
-   * the first from this text input and the second from another text updater, to update the target content. */
-  def next2Id1(input2IdStr: String, f: (String, String) => String): IdAtt =
-  { val newTargetId: String = idStr + clientCount.str
-    callBacks +%= Callback2Text1(newTargetId, input2IdStr, f)
-    IdAtt(newTargetId)
+  /** this method creates a new unique id [[String]]. Registers a page HTML element listener with this input-updater. Registers the listener with the second
+   * input-updater Sends back an id attribute for the listener element. This takes a function of two [[String]] parameters, the first from this text input and
+   * the second from the 2nd text updater, to update the listener content. */
+  def next2Id1(input2: UpdaterText, f: (String, String) => String): IdAtt =
+  { val newListenerId: String = idStr + clientCount.str
+    callBacks +%= Callback2Text1(newListenerId, input2.idStr, f)
+    input2.next2Id2(newListenerId, idStr, f)
+    IdAtt(newListenerId)
   }
 
-  def next2Id2(targetID: String, inp1IdStr: String, f: (String, String) => String): Unit =
-  { callBacks +%= Callback2Text2(targetID, inp1IdStr, f)
+  /** This method registers a page HTML element listener with this input-updater. that has already been registered with the first input-updater. This takes a
+   * function of two [[String]] parameters, the first from the first text input and the second from this text updater, to update the listener content */
+  def next2Id2(listenerID: String, inp1IdStr: String, f: (String, String) => String): Unit =
+  { callBacks +%= Callback2Text2(listenerID, inp1IdStr, f)
   }
 
-  def next3Id1(input2IdStr: String, input3IdStr2: String, f: (String, String, String) => String): IdAtt =
-  { val newTargetId: String = idStr + clientCount.str
-    callBacks +%= Callback3Text1(newTargetId, input2IdStr, input3IdStr2, f)
-    IdAtt(newTargetId)
+  /** This method creates a new unique id attribute for the listener. Registers a page HTML element listener with this input-updater. registers with the 2nd and
+   * 3rd first input-updater. This takes a function of 3 [[String]] parameters, the 1st from this text input and the 2nd and 3rd frpm the other 2 text updaters,
+   * to update the listener content */
+  def next3Id1(input2: UpdaterText, input3: UpdaterText, f: (String, String, String) => String): IdAtt =
+  { val newListenerId: String = idStr + clientCount.str
+    callBacks +%= Callback3Text1(newListenerId, input2.idStr, input3.idStr, f)
+    input2.next3Id2(newListenerId, idStr, input3.idStr, f)
+    input3.next3Id3(newListenerId, idStr, input2.idStr, f)
+    IdAtt(newListenerId)
   }
 
   def next3Id2(targetID: String, input1IdStr: String, input3IdStr: String, f: (String, String, String) => String): Unit =
@@ -79,10 +88,11 @@ trait UpdaterText extends InputLikeUpdater
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
-  def nextTextNumId1(otherInpIdStr: String, f: (String, Double) => String): IdAtt =
-  { val newTargetId: String = idStr + clientCount.str
-    callBacks +%= CallbackTextNum1(newTargetId, otherInpIdStr, f)
-    IdAtt(newTargetId)
+  def nextTextNumId1(input2: InputUpdaterNum, f: (String, Double) => String): IdAtt =
+  { val newListenerId: String = idStr + clientCount.str
+    callBacks +%= CallbackTextNum1(newListenerId, input2.idStr, f)
+    input2.nextTextNum2(newListenerId, idStr, f)
+    IdAtt(newListenerId)
   }
 }
 

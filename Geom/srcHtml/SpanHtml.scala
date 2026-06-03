@@ -41,16 +41,15 @@ object SpanInlineInedit
   def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
 
   /** Creates an inline span and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): SpanInlineInedit =
+  def inputText(input: UpdaterTextInput)(f: String => String): SpanInlineInedit =
   { def newId = input.next1Id(f)
     new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
   /** Creates an inline span and registers the textContent with 2 HTML Text Inputs. */
   def input2Text(input1: UpdaterText, input2: UpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): SpanInlineInedit =
-  { val targetId: IdAtt = input1.next2Id1(input2.idStr, f)
-    input2.next2Id2(targetId.valueStr, input1.idStr, f)
-    new SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr)), RArr(targetId))
+  { val idAtt: IdAtt = input1.next2Id1(input2, f)    
+    SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr)), RArr(idAtt))
   }
 
   def pink(str: String): SpanInlineInedit = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
@@ -86,7 +85,7 @@ object SpanLine
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input. */
-  def listenText(input: InputUpdaterText)(f: String => String): SpanLine =
+  def listenText(input: UpdaterTextInput)(f: String => String): SpanLine =
   { def newId = input.next1Id(f)
     new SpanLineGen(RArr(f(input.valueStr)), RArr(newId))
   }

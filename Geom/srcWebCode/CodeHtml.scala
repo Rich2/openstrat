@@ -95,7 +95,7 @@ object CodeOutputLine
   def apply(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), RArr())
 
   /** Creates a code output line and registers the textContent with an HTML Text Input. */
-  def inputText(input: InputUpdaterText)(f: String => String): CodeOutputLine =
+  def inputText(input: UpdaterTextInput)(f: String => String): CodeOutputLine =
   { def newId = input.next1Id(f)
     new CodeOutputLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
@@ -148,7 +148,7 @@ object PreCode
 
   /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
    * escape the HTML code characters. */
-  def listenText(input: InputUpdaterText, otherAttribs: XAtt*)(f1: String => String): PreCode =
+  def listenText(input: UpdaterTextInput, otherAttribs: XAtt*)(f1: String => String): PreCode =
   { val f2: String => String = s1 => f1(s1).escapeHtml
     def newId: IdAtt = input.next1Id(f2)
 
@@ -160,15 +160,26 @@ object PreCode
     }
   }
 
-  /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Inputs. */
-  def listen2Text(input1: InputUpdaterText, input2: InputUpdaterText, otherAttribs: XAtt*)(f1: (String, String) => String): PreCode =
+  /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Updaters. */
+  def listen2Text(input1: UpdaterText, input2: UpdaterText, otherAttribs: XAtt*)(f1: (String, String) => String): PreCode =
   { val f2: (String, String) => String = (s1, s2) => f1(s1, s2).escapeHtml
-    val targetId = input1.next2Id1(input2.idStr, f2)
-    input2.next2Id2(targetId.valueStr, input1.idStr, f2)
+    val idAtt: IdAtt = input1.next2Id1(input2, f2)
     new PreCode
     { override def codeElem: CodeSpecial = new CodeSpecial
-      { override def attribs: RArr[XAtt] = RArr(targetId, BlockStyle) ++ otherAttribs.toRArr
+      { override def attribs: RArr[XAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
         override def codeStr: String = f2(input1.valueStr, input2.valueStr)
+      }
+    }
+  }
+
+  /** Creates an HTML Code Pre element and registers the textContent with 3 HTML Text Updaters. */
+  def listen3Text(input1: UpdaterText, input2: UpdaterText, input3: UpdaterText, otherAttribs: XAtt*)(f1: (String, String, String) => String): PreCode =
+  { val f2: (String, String, String) => String = (s1, s2, s3) => f1(s1, s2, s3).escapeHtml
+    val idAtt: IdAtt = input1.next3Id1(input2, input3, f2)
+    new PreCode
+    { override def codeElem: CodeSpecial = new CodeSpecial
+      { override def attribs: RArr[XAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
+        override def codeStr: String = f2(input1.valueStr, input2.valueStr, input3.valueStr)
       }
     }
   }

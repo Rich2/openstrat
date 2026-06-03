@@ -20,15 +20,21 @@ class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
   inpElem.addEventListener("change", listner)
 
   def listner: Event => Unit = e =>
-  { val newInpStr = e.target.asInstanceOf[html.Input].value
-    val newNum = newInpStr.toDouble
+  { val newInpStr: String = e.target.asInstanceOf[html.Input].value
+    val newNum: Double = newInpStr.toDouble
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
-    inputer.depends.foreach{ (dep: Callback1Num) =>
-      val targetId = dep.targetId
-      val target = document.getElementById(targetId)
-      if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
-      else target.textContent = dep.f(newNum)
+    inputer.depends.foreach{
+      case dep: Callback1Num =>
+      { val listenerId = dep.targetId
+        val target = document.getElementById(listenerId)
+        if (target == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
+        else target.textContent = dep.f(newNum)
+      }
+      case CallbackTextNum2(targetId, input1IdStr, f) =>
+      { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
+        f(inp1Val, newNum)
+      }
     }
   }
 }
@@ -49,8 +55,8 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.callBacks.foreach { (dep: CallbackInput) =>
-      val targetId = dep.targetId
-      val target = document.getElementById(targetId)
+      val targetId: String = dep.targetId
+      val target: Element = document.getElementById(targetId)
       if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
       else
       { target.innerHTML = dep match

@@ -33,25 +33,25 @@ object TomcatPage extends PageHtmlUpdater
   val domain1: String = "localhost"
 
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val uNameIUT: InputUpdaterText = uNameLTI.child2
+  val uNameIUT: UpdaterTextInput = uNameLTI.child2
   val osNameLTI = LabelSelectUpdater("osName", "Operating System", UbuntuDeriv, ArchDeriv)
   val osNameIUT: SelectUpdater = osNameLTI.child2
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val cNameIUT: InputUpdaterText = cNameLTI.child2
+  val cNameIUT: UpdaterTextInput = cNameLTI.child2
   val nRam1: Int = 2
   val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
   val ramIUN: InputUpdaterNum = ramLNI.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.input3Text(uNameIUT, cNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
-  val tomVarIUT: InputUpdaterText = tomVerLTI.child2
+  val tomVarIUT: UpdaterTextInput = tomVerLTI.child2
   val jVer1: Int = 25
   val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
   val javaVerIUN: InputUpdaterNum = javaVerLNI.child2
   val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
-  val domainIUT: InputUpdaterText = domainLTI.child2
+  val domainIUT: UpdaterTextInput = domainLTI.child2
   val dir1: String = "/opt/tomcat"
   val dirLTI: LabelTextInput = LabelTextInput("dirName", "Tomcat directory", dir1)
-  val dirIUT: InputUpdaterText = dirLTI.child2
+  val dirIUT: UpdaterTextInput = dirLTI.child2
 
   def p2: PHtml = PHtml("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
   |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
@@ -154,7 +154,8 @@ object TomcatPage extends PageHtmlUpdater
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  PreCode.listen2Text(cNameIUT, tomVarIUT){ (cName, version) => PageHtml.titleOnly("Holding Page", s"This is coming from $cName, a tomcat $version server").out }
+  PreCode.listen3Text(cNameIUT, domainIUT, tomVarIUT){ (cName, domain, version) =>
+    PageHtml.titleOnly("Holding Page", s"This is coming from $cName at $domain, a tomcat $version server").out }
   )
 
   val s9 = LiHtml("Create a systemd unit file.",
