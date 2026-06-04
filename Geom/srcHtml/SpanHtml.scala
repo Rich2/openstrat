@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
 /** HTML span element. */
@@ -29,19 +29,19 @@ trait SpanInlineInedit extends SpanHtml, HtmlInedit
 
 object SpanInlineInedit
 { /** Factory apply method for creating HTML span element. */
-  def apply(strIn: String, attribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), attribs.toRArr)
+  def apply(strIn: String, attribs: XAtt*): SpanInlineInedit = SpanInlineGen(RArr(strIn), attribs.toRArr)
 
   /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanInlineInedit = new SpanInlineGen(contents, attribs)
+  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanInlineInedit = SpanInlineGen(contents, attribs)
 
   /** Factory method for creating HTML span element with an ID attribute. */
-  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
+  def id(idStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = SpanInlineGen(RArr(strIn), IdAtt(idStr) %: otherAttribs.toRArr)
 
   /** Factory method for creating HTML span element with a class attribute. */
-  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = new SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
+  def classAtt(classStr: String, strIn: String, otherAttribs: XAtt*): SpanInlineInedit = SpanInlineGen(RArr(strIn), ClassAtt(classStr) %: otherAttribs.toRArr)
 
   /** Creates an inline span and registers the textContent with an HTML Text Input. */
-  def inputText(input: UpdaterTextInput)(f: String => String): SpanInlineInedit =
+  def inputText(input: UpdaterText)(f: String => String): SpanInlineInedit =
   { def newId = input.next1Id(f)
     new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
   }
@@ -50,6 +50,12 @@ object SpanInlineInedit
   def input2Text(input1: UpdaterText, input2: UpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): SpanInlineInedit =
   { val idAtt: IdAtt = input1.next2Id1(input2, f)    
     SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr)), RArr(idAtt))
+  }
+
+  /** Creates an inline span and registers the textContent with 2 HTML Text Inputs. */
+  def input3Text(input1: UpdaterText, input2: UpdaterText, input3: UpdaterText, otherAttribs: XAtt*)(f: (String, String, String) => String): SpanInlineInedit =
+  { val idAtt: IdAtt = input1.next3Id1(input2, input3, f)
+    SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), RArr(idAtt))
   }
 
   def pink(str: String): SpanInlineInedit = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))

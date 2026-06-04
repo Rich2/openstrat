@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, reflect.ClassTag
 
@@ -11,7 +11,7 @@ trait PairInt4Elem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
   def a1Int4: Int
 }
 
-/** [[SeqLike]] of [[PairElems]] where the first component of each of the pairs is an [[Int4Elem]]. */
+/** [[SeqLike]] of [[PairElem]]s where the first component of each of the pairs is an [[Int4Elem]]. */
 trait SlPairInt4[A1 <: Int4Elem, A2, A <: PairInt4Elem[A1, A2]] extends SequPairIntN[A1, A2, A]
 { /** Constructs new pair element from 4 [[Int]]s and a third parameter of type A2. */
   def elemFromInts(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A

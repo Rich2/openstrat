@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.immutable.ArraySeq
 
@@ -99,7 +99,7 @@ object Show
     }
   }
 
-  /** [[Show]] type class instance evidence for [[None.type]]. */
+  /** [[Show]] type class instance evidence for [[None]]. */
   given noneEv: Show[None.type] = new Show[None.type]
   { override def typeStr: String = "Option"
     override def strT(obj: None.type): String = "None"

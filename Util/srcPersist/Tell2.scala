@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag
 
@@ -103,7 +103,7 @@ object ShowTellElemDbl2
   class ShowTellDbl2Imp[R <: TellDbl2](val typeStr: String) extends ShowTellDbl2[R]
 }
 
-/** A trait for making quick ShowT instances for [[TellElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
+/** A trait for making quick [[Show]] instances for [[TellElemInt2]] classes. */
 trait ShowTellInt2[R <: TellInt2] extends ShowTell2[Int, Int, R]
 
 object ShowTellInt2
