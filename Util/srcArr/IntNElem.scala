@@ -8,8 +8,8 @@ trait IntNElem extends Any, ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def intForeach(f: Int => Unit): Unit
 
-  /** Utility method to append this element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful for methods like
-   * filter. */
+  /** Utility method to append this element on to an [[collection.mutable.ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful
+   * for methods like filter. */
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
@@ -123,7 +123,7 @@ trait BuilderArrIntNFlat[ArrB <: ArrIntN[?]] extends BuilderSeqLikeIntN[ArrB], B
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.bufferUnsafe.addAll(arr.arrayUnsafe); () }
 }
 
-/** Specialised flat [[ArrayBuffer]] of [[Int]] based collection class. */
+/** Specialised flat [[collection.mutable.ArrayBuffer]] of [[Int]] based collection class. */
 trait BuffIntN[A <: IntNElem] extends Any, BuffValueN[A]
 { type ArrT <: ArrIntN[A]
   def bufferUnsafe: ArrayBuffer[Int]
@@ -138,7 +138,7 @@ trait CompanionSlIntN[A <: IntNElem, AA <: SeqLikeImutIntN[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 
-  /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an [[ArrayBuffer]][Int]. */
+  /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an [[collection.mutable.ArrayBuffer]][Int]. */
   def fromBuffer(buffer: ArrayBuffer[Int]): AA = fromArray(buffer.toArray[Int])
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */

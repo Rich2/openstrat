@@ -83,8 +83,8 @@ trait ArrValueN[A <: ValueNElem] extends Any, ArrNoParam[A], SeqLikeImutValueN[A
   }
 }
 
-/** A [[Buff]], a specialised flat [[Arraybuffer]] based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]]
- * or [[Long]]. */
+/** A [[Buff]], a specialised flat [[collection.mutable.ArrayBuffer]] based collection class, where the underlying ArrayBuffer element is an atomic value like
+ * [[Int]], [[Double]] or [[Long]]. */
 trait BuffValueN[A <: ValueNElem] extends Any, Buff[A], SeqLikeValueN[A]
 { type ArrT <: ArrValueN[A]
   def elemProdSize: Int

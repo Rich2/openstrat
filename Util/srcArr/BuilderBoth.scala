@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -10,7 +10,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
  * required in the companion object of Pt22's specialisat [[Arr]] class. Further builder instances will be required to map and flatMpa to polygons and line
  * paths. */
 trait BuilderBoth[BB]
-{ /** BuffT can be a specialist [[Buff]] class, or it can be an [[ArrayBuffer]]. */
+{ /** BuffT can be a specialist [[Buff]] class, or it can be an [[collection.mutable.ArrayBuffer]]. */
   type BuffT
 
   /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
@@ -44,7 +44,7 @@ object BuilderMap
   given arrayEv[A <: AnyRef](using ctA: ClassTag[A]): BuilderMapStd[A, Array[A]] = new ArrayBuilder[A]
 }
 
-/** [[BuilderMap]] that uses the standard library [[ArrayBuffer]] directly as its Buff type. */
+/** [[BuilderMap]] that uses the standard library [[collection.mutable.ArrayBuffer]] directly as its Buff type. */
 trait BuilderMapStd[A, R] extends BuilderMap[A, R]
 { override type BuffT = ArrayBuffer[A]
   override def buffGrow(buff: ArrayBuffer[A], newElem: A): Unit = buff.append(newElem)

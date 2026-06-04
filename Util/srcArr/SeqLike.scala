@@ -1,10 +1,10 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, pParse._
+import annotation.unchecked.uncheckedVariance, pParse.*
 
 /** Common trait for immutable [[Sequ]]s, mutable [[Buff]]s and [[SeqSpec]] classes that are not sequences but can be specified by a sequence, for example a
  *  sequence of points can specify a polygon. Designed as a compromise between type safety and efficiency. Using backing [[Array]]s for use facing types, but
- *  using backing [[ArrayBuffer]]s behind the scenes keeping mutation encapsulated. Many methods and properties are common to all three [[Sequ]]s, [[Buff]]s and
+ *  using backing [[collection.mutable.ArrayBuffer]]s behind the scenes keeping mutation encapsulated. Many methods and properties are common to all three [[Sequ]]s, [[Buff]]s and
  *  [[SeqSpec]]s. */
 trait SeqLike[+A] extends Any
 { /** Gives the final type of this class. */
@@ -50,7 +50,7 @@ object SeqLike
   }
 }
 
-/** A [[SeqLike]] class that is backed by an [[Array]] or an [[ArrayBuffer]] which can be mutated. This mutation will mostly be used by builders rather than end
+/** A [[SeqLike]] class that is backed by an [[Array]] or an [[collection.mutable.ArrayBuffer]] which can be mutated. This mutation will mostly be used by builders rather than end
  * users. There are other cases where it can be useful, for example in simultaneous game turn resolution. */
 trait SeqLikeBacked[+A] extends Any, SeqLike[A]
 { /** Sets / mutates an element in the Arr at the given index. This method should rarely be needed by end users, but is used by the initialisation and factory

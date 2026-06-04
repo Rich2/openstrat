@@ -5,21 +5,21 @@ import collection.mutable.ArrayBuffer
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait LongNElem extends Any, ValueNElem
 
-/** [[SeqLike]] with [[LongN]] elements. */
+/** [[SeqLike]] with [[LongNElem]] elements. */
 trait SeqLikeLongN[A <: LongNElem] extends Any, SeqLikeImutValueN[A]
 { type ThisT <: SeqLikeLongN[A]
   def unsafeArray: Array[Long]
 
   def fromArray(array: Array[Long]): ThisT
 
-  /** Utility method to append element on to an [[ArrayBuffer]][Long]. End users should rarely need to use this method. */
+  /** Utility method to append element on to an [[collection.mutable.ArrayBuffer]][Long]. End users should rarely need to use this method. */
   def longBufferAppend(buffer: ArrayBuffer[Long], elem: A): Unit
 
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Long](length * elemProdSize))
   @inline final def arrayLen: Int = unsafeArray.length
 }
 
-/** A compound object defined / specified by a sequence of [[LongN]] elements. */
+/** A compound object defined / specified by a sequence of [[LongNElem]] elements. */
 trait SeqSpecLongN[A <: LongNElem] extends Any, SeqLikeLongN[A], SeqSpecValueN[A]
 
 /** Base trait for Array[Long] based collections of Products of Longs. */

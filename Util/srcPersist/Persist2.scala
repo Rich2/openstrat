@@ -250,7 +250,7 @@ class PersistDbl2Both[A](val typeStr: String, val name1: String, val fArg1: A =>
 }
 
 object PersistDbl2Both
-{ /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
+{ /** Factory apply method for creating [[Unshow2]] with 2 [[Double]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, newT: (Double, Double) => A, opt2: Option[Double] = None,
     opt1In: Option[Double] = None)(using ctA: ClassTag[A]): PersistDbl2Both[A] =
     new PersistDbl2Both[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)

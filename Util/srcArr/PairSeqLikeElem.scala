@@ -11,7 +11,8 @@ trait PairSeqLikeElem[A1E, A1 <: SeqLike[A1E], A2] extends PairFinalA1Elem[A1, A
 /** An [[Arr]] of [[PairElem]]s where the first component of each [[PairElem]] is a [[SeqLike]]. Stored in 2 [[Array]]s for efficiency. */
 trait ArrPairSeqLike[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: PairSeqLikeElem[A1E, A1, A2]] extends ArrPairFinalA1[A1, A1Arr, A2, A]
 
-/** A [[Buff]] of [[PairElem]]s where the first component of each [[PairElem]] is a [[SeqLike]], stored in 2 [[ArrayBuffer]]s for efficiency. */
+/** A [[Buff]] of [[PairElem]]s where the first component of each [[PairElem]] is a [[SeqLike]], stored in 2 [[collection.mutable.ArrayBuffer]]s for
+ * efficiency. */
 trait BuffPairSeqLike[A1E, A1 <: SeqLike[A1E], A2, A <: PairSeqLikeElem[A1E, A1, A2]] extends BuffPair[A1, A2, A]
 { def b2Buffer: ArrayBuffer[A2]  
 }

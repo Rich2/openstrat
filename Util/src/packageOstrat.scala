@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a show and
  * persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length elements, an Either
@@ -129,20 +129,20 @@ package object ostrat
   def readInt: Int = readT[Int]
   def readDouble: Double = readT[Double]
 
-  /** Shortcut method to create [[ArrayBuffer]] with initial values. Buffer or buffer references the standard library's [[ArrayBuffer]] whereas buff or Buff is
-   * used to reference openstrat variable length mutable collection classes. */
+  /** Shortcut method to create [[collection.mutable.ArrayBuffer]] with initial values. Buffer or buffer references the standard library's
+   * [[collection.mutable.ArrayBuffer]] whereas buff or Buff is used to reference openstrat variable length mutable collection classes. */
   @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp*)
 
-  /** Constructs a new [[ArrayBuffer]][A]. */
+  /** Constructs a new [[collection.mutable.ArrayBuffer]][A]. */
   @inline def Buffer[A <: AnyRef](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
 
-  /** Constructs a new [[ArrayBuffer]][Int]. */
+  /** Constructs a new [[collection.mutable.ArrayBuffer]][Int]. */
   @inline def BufferInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
 
-  /** Constructs a new [[ArrayBuffer]][Double]. */
+  /** Constructs a new [[collection.mutable.ArrayBuffer]][Double]. */
   @inline def BufferDbl(initialLength: Int = 5): ArrayBuffer[Double] = new ArrayBuffer[Double](initialLength)
 
-  /** Constructs a new [[ArrayBuffer]] of [[Long]]. */
+  /** Constructs a new [[collection.mutable.ArrayBuffer]] of [[Long]]. */
   @inline def BufferLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
 
   type RefTag[A] = AnyRef & reflect.ClassTag[A]
