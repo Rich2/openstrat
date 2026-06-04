@@ -58,6 +58,18 @@ object SpanInlineInedit
     SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), RArr(idAtt))
   }
 
+  /** Creates an inline span and registers the textContent with 1 HTML Text and 1 HTML number inputs. */
+  def inputTextNum(input1: UpdaterText, input2: InputUpdaterNum, otherAttribs: XAtt*)(f: (String, Double) => String): SpanInlineInedit =
+  { val idAtt: IdAtt = input1.nextTextNumId1(input2, f)
+    SpanInlineGen(RArr(f(input1.valueStr, input2.value)), RArr(idAtt))
+  }
+
+  /** Creates an inline span element and registers the textContent with an HTML number Input. */
+  def listenNum(input: InputUpdaterNum)(f: Double => String): SpanInlineInedit =
+  { val newId: IdAtt = input.next1Id(f)
+    new SpanInlineGen(RArr(f(input.value)), RArr(newId))
+  }
+
   def pink(str: String): SpanInlineInedit = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
 
   case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[XAtt]) extends SpanInlineInedit

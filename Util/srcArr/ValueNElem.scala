@@ -52,7 +52,7 @@ trait SeqSpecValueN[+A <: ValueNElem] extends Any, SeqLikeImutValueN[A], SeqSpec
 trait ArrValueN[A <: ValueNElem] extends Any, ArrNoParam[A], SeqLikeImutValueN[A]
 { type ThisT <: ArrValueN[A]
 
-  /** The number of product elements in this collection. For example in a [[PolygonGen]], this is the number of [[Pt2]]s in the [[Polygon]] */
+  /** The number of product elements in this collection. For example in a PolygonGen, this is the number of Pt2s in the Polygon. */
   override def length: Int = arrayLen / elemProdSize
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =

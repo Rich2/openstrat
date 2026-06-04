@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package wcode
 
 /** The bash class attribute. */
@@ -47,10 +47,16 @@ object BashLine
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates a Bash line and registers the textContent with an HTML Text Input. */
+  /** Creates a Bash line and registers the textContent with 2 HTML text inputs. */
   def listen2Text(input1: UpdaterText, input2: UpdaterText)(f: (String, String) => String): BashLine =
   { val newId: IdAtt = input1.next2Id1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.valueStr)), RArr(newId))
+  }
+
+  /** Creates a Bash line and registers the textContent with 3 HTML text inputs. */
+  def listen3Text(input1: UpdaterText, input2: UpdaterText, input3: UpdaterText)(f: (String, String, String) => String): BashLine =
+  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
+    new BashLine(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input and an HTML number input. */
