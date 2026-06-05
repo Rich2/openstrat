@@ -102,16 +102,28 @@ object SpanLine
   /** Factory method to create a span line with a class attribute. */
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
-  /** Creates a Bash line and registers the textContent with an HTML Text Input. */
-  def listenText(input: UpdaterTextInput)(f: String => String): SpanLine =
+  /** Creates a Span line and registers the textContent with an HTML Text Input. */
+  def listenText(input: UpdaterTextInput, otherAttribs: XAtt*)(f: String => String): SpanLine =
   { def newId = input.next1Id(f)
-    new SpanLineGen(RArr(f(input.valueStr)), RArr(newId))
+    SpanLineGen(RArr(f(input.valueStr)), newId %: otherAttribs.toRArr)
   }
 
+  /** Creates a span line and registers the textContent with 2 HTML Text Inputs. */
+  def listen2Text(input1: UpdaterText, input2: UpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): SpanLine =
+  { val newId: IdAtt = input1.next2Id1(input2, f)
+    SpanLineGen(RArr(f(input1.valueStr, input2.valueStr)), newId %: otherAttribs.toRArr)
+  }
+
+  /** Creates a span line and registers the textContent with 3 HTML Text Inputs. */
+  def listen3Text(input1: UpdaterText, input2: UpdaterText, input3: UpdaterText, otherAttribs: XAtt*)(f: (String, String, String) => String): SpanLine =
+  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
+    SpanLineGen(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), newId %: otherAttribs.toRArr)
+  }
+  
   /** Creates a Bash line and registers the textContent with an HTML number Input. */
-  def listenNum(input: InputUpdaterNum)(f: Double => String): SpanLine =
+  def listenNum(input: InputUpdaterNum, otherAttribs: XAtt*)(f: Double => String): SpanLine =
   { def newId = input.next1Id(f)
-    new SpanLineGen(RArr(f(input.value)), RArr(newId))
+    new SpanLineGen(RArr(f(input.value)), newId %: otherAttribs.toRArr)
   }
 
   /** HTML span element on its own line, with display set to block. */

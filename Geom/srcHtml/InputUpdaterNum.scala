@@ -23,6 +23,7 @@ class InputUpdaterNum(val idStr: String, val value: Double, val otherAttribs: RA
 }
 
 object InputUpdaterNum
-{ /** Factory apply method to create an [[Html]] Input element that can update textContent fields on the page. */
-  def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: PageHtmlUpdater): InputUpdaterNum = new InputUpdaterNum(idStr, value, otherAttribs.toRArr)
+{ /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
+  def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: PageHtmlUpdater): InputUpdaterNum =
+    new InputUpdaterNum(idStr, value, otherAttribs.toRArr)
 }
