@@ -27,7 +27,7 @@ trait SeqLikeInt5[A <: Int5Elem] extends Any, SeqLikeValueN[A]
     (a1.int1 == a2.int1) && (a1.int2 == a2.int2) && (a1.int3 == a2.int3) && (a1.int4 == a2.int4) && (a1.int5 == a2.int5)
 }
 
-/** [[SeqLikeImut]] with [[Int5Elem]]s, can be specified by a backing [[Array]][Int].  */
+/** [[SeqLikeValueN]] with [[Int5Elem]]s, can be specified by a backing [[Array]][Int].  */
 trait SlimutInt5[A <: Int5Elem] extends Any, SeqLikeImutIntN[A], SeqLikeInt5[A]
 { override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
