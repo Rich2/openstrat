@@ -20,10 +20,10 @@ trait Tell2Plused[A1, A2] extends Any, TellN, Persist2Plus[A1, A2]
   def show2: Show[A2]
 }
 
-/** Trait for [[TellDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[Show2]]
- * trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to inherit from Show2
- * and then use [[ShowTell2]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowTell2]] or [[PersistTell2]] class will delegate to
- * Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the toString override to a [[Show2]] instance. */
+/** Trait for [[Tell]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[Show2]] trait
+ * which externally acts on an object of the specified type to create its String representations. For your own types it is better to inherit from Show2 and then
+ * use [[ShowTell2]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowTell2]] or [[PersistTell2]] class will delegate to Show2 for
+ * some of its methods. It is better to use Show2 to override toString method than delegating the toString override to a [[Show2]] instance. */
 trait Tell2[A1, A2] extends Any, Tell2Plused[A1, A2], Persist2[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   def elemTypeNames: StrArr = StrArr(show1.typeStr, show2.typeStr)
@@ -38,7 +38,7 @@ trait Tell2[A1, A2] extends Any, Tell2Plused[A1, A2], Persist2[A1, A2]
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowTellInt2]] trait which
  * externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over [[Show2]]. */
-trait TellInt2 extends Any with Tell2[Int, Int]
+trait TellInt2 extends Any, Tell2[Int, Int]
 { final override implicit def show1: Show[Int] = Show.intEv
   final override implicit def show2: Show[Int] = Show.intEv
   final override def tellDepth: Int = 2
@@ -46,7 +46,7 @@ trait TellInt2 extends Any with Tell2[Int, Int]
 
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1 and show2
  * properties, unless the class extends [[TellElemDbl2]]. */
-trait TellDbl2 extends Any with Tell2[Double, Double]
+trait TellDbl2 extends Any, Tell2[Double, Double]
 { final override implicit def show1: Show[Double] = Show.doubleEv
   final override implicit def show2: Show[Double] = Show.doubleEv
   final override def tellDepth: Int = 2
@@ -55,7 +55,7 @@ trait TellDbl2 extends Any with Tell2[Double, Double]
 /** Trait for Show for product of 2 Doubles that is also an [[Dbl2Elem]]. This trait is implemented directly by the type in question, unlike the corresponding
  * [[ShowTellDbl2]] trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is
  * preferred over [[Show2]]. */
-trait TellElemDbl2 extends Any with TellDbl2 with Dbl2Elem
+trait TellElemDbl2 extends Any, TellDbl2, Dbl2Elem
 { final override def dbl1: Double = tell1
   final override def dbl2: Double = tell2
 }
@@ -63,7 +63,7 @@ trait TellElemDbl2 extends Any with TellDbl2 with Dbl2Elem
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the corresponding
  * [[ShowTellInt2]] trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is
  * preferred over [[Show2]]. */
-trait TellElemInt2 extends Any with TellInt2 with Int2Elem
+trait TellElemInt2 extends Any, TellInt2, Int2Elem
 { final override def int1: Int = tell1
   final override def int2: Int = tell2
 }
@@ -168,8 +168,7 @@ trait Tell2Repeat[A1, A2] extends Tell
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for [[Tell2]] objects. */
-trait PersistTell2[A1, A2, A <: Tell2[A1, A2]] extends PersistTell[A] with
-  ShowTell2[A1, A2, A] with Unshow2[A1, A2, A]
+trait PersistTell2[A1, A2, A <: Tell2[A1, A2]] extends PersistTell[A], ShowTell2[A1, A2, A], Unshow2[A1, A2, A]
 
 
 object PersistTell2

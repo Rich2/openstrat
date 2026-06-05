@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*
 
@@ -37,16 +37,16 @@ object TextPosn
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
 
-    /** Produce a failure with an [[ExcLexar]] type. */
+    /** Produce a failure with an [[pParse.ExcLexar]] type. */
     def failParse(detail: String): Fail[ExcParse] = new Fail[ExcParse](ExcParse(thisTextPosn, detail))
     
     /** Produce a failure with a plain [[Exception]] type. */
     def fail(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
     
-    /** Produce a failure with an [[ExcLexar]] type. */
+    /** Produce a failure with an [[pParse.ExcLexar]] type. */
     def failLexar(detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(thisTextPosn, detail))
 
-    /** Produce a failure with an [[ExcLexar]] type. */
+    /** Produce a failure with an [[pParse.ExcLexar]] type. */
     def failAst(detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(thisTextPosn, detail))
   }
   
