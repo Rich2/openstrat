@@ -16,8 +16,7 @@ trait Tell3Plused[A1, A2, A3] extends Any, Tell2Plused[A1, A2], Persist3Plus[A1,
 /** Trait for [[Tell]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[ShowEq3T]]
  * trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to inherit from
  * [[Show3]] and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or [[Persist3Elem]] class will
- * delegate to [[Show3]] for some of its methods. It is better to use Show3 to override toString method than delegating the toString override to a [[ShowEq3T]]
- * instance. */
+ * delegate to [[Show3]] for some of its methods. */
 trait Tell3[A1, A2, A3] extends Any, Tell3Plused[A1, A2, A3]
 { override def numParams: Int = 3
   override def paramNames: StrArr = StrArr(name1, name2, name3)
@@ -38,7 +37,7 @@ trait Tell3[A1, A2, A3] extends Any, Tell3Plused[A1, A2, A3]
 }
 
 /** Show classes with 3 [[Int]] parameters. */
-trait TellInt3 extends Any with Tell3[Int, Int, Int]
+trait TellInt3 extends Any, Tell3[Int, Int, Int]
 { final override def tellDepth: Int = 2
   final override implicit def show1: Show[Int] = Show.intEv
   final override implicit def show2: Show[Int] = Show.intEv
@@ -46,7 +45,7 @@ trait TellInt3 extends Any with Tell3[Int, Int, Int]
 }
 
 /** Show classes with 3 [[Double]] parameters. */
-trait TellDbl3 extends Any with Tell3[Double, Double, Double]
+trait TellDbl3 extends Any, Tell3[Double, Double, Double]
 { final override def tellDepth: Int = 2
   final override implicit def show1: Show[Double] = Show.doubleEv
   final override implicit def show2: Show[Double] = Show.doubleEv

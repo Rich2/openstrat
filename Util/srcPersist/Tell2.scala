@@ -22,7 +22,7 @@ trait Tell2Plused[A1, A2] extends Any, TellN, Persist2Plus[A1, A2]
 
 /** Trait for [[Tell]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[Show2]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types it is better to inherit from Show2 and then
- * use [[ShowTell2]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowTell2]] or [[PersistTell2]] class will delegate to Show2 for
+ * use [[ShowTell2]] or [[PersistTell2]] to create the type class instance for ShowT. The [[ShowTell2]] or [[PersistTell2]] class will delegate to Show2 for
  * some of its methods. It is better to use Show2 to override toString method than delegating the toString override to a [[Show2]] instance. */
 trait Tell2[A1, A2] extends Any, Tell2Plused[A1, A2], Persist2[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)

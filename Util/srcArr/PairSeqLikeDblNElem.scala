@@ -50,7 +50,7 @@ trait ArrPairSeqLikeDblN[A1E <: DblNElem, A1 <: SeqLikeImutDblN[A1E], A1Arr <: A
 
 /** A [[Buff]] for [[PairElem]]s where the first component of each of the pairs is a [[SeqLikeImutDblN]]. */
 trait BuffPairSeqLikeDblN[B1E <: DblNElem, B1 <: SeqLikeImutDblN[B1E], B2, B <: PairSeqLikeDblNElem[B1E, B1, B2]] extends BuffPairSeqLike[B1E, B1, B2, B]
-{ /** Backing [[ArrayBuffer]] for the B1 components. */
+{ /** Backing [[collection.mutable.ArrayBuffer]] for the B1 components. */
   def b1Buffer: ArrayBuffer[Array[Double]]
 
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayDbl); b2Buffer.append(newElem.a2) }

@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -208,8 +208,8 @@ class ArrayDblExtensions(thisArray: Array[Double])
     System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
 }
 
-class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
-  /** sets 2 [[Double]] elements at 2i and 2i + 1. */
+class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
+{ /** sets 2 [[Double]] elements at 2i and 2i + 1. */
   @inline def setIndex2(index: Int, d1: Double, d2: Double): Unit = { thisBuffer(index * 2) = d1; thisBuffer(index * 2 + 1) = d2 }
 
   /** sets 3 [[Double]] elements at 3i and 3i + 1, 3i + 2. */
@@ -236,21 +236,21 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
     thisBuffer(index * 7 + 4) = d5; thisBuffer(index * 7 + 5) = d6; thisBuffer(index * 7 + 6) = d6
   }
 
-  /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  /** Appends 2 [[Double]] elements to this [[collection.mutable.ArrayBuffer]] of [[Double]]s. */
   @inline def append2(dbl1: Double, dbl2: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2) }
 
-  /** Appends 3 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  /** Appends 3 [[Double]] elements to this [[collection.mutable.ArrayBuffer]][Double]. */
   @inline def append3(dbl1: Double, dbl2: Double, dbl3: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2); thisBuffer.append(dbl3) }
 
-  /** Appends 4 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  /** Appends 4 [[Double]] elements to this [[collection.mutable.ArrayBuffer]][Double]. */
   @inline def append4(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
     thisBuffer.append(dbl3); thisBuffer.append(dbl4) }
 
-  /** Appends 5 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  /** Appends 5 [[Double]] elements to this [[collection.mutable.ArrayBuffer]][Double]. */
   @inline def append5(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
     thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5) }
 
-  /** Appends 6 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  /** Appends 6 [[Double]] elements to this [[collection.mutable.ArrayBuffer]][Double]. */
   @inline def append6(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double, dbl6: Double): Unit = { thisBuffer.append(dbl1)
     thisBuffer.append(dbl2); thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5); thisBuffer.append(dbl6) }
 
