@@ -39,8 +39,8 @@ object DivHtml
     new DivHtmlGen((f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates an HTML div element and Listens to [[InputUpdaterNum]] change events and modifies the HTML textContent. */
-  def listenNum(input: InputUpdaterNum)(f: Double => String): DivHtml =
+  /** Creates an HTML div element and Listens to [[UpdaterNumInput]] change events and modifies the HTML textContent. */
+  def listenNum(input: UpdaterNumInput)(f: Double => String): DivHtml =
   { val newId: IdAtt = input.next1Id(f)
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
   }

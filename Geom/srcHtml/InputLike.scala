@@ -88,7 +88,7 @@ trait UpdaterText extends InputLikeUpdater
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
-  def nextTextNumId1(input2: InputUpdaterNum, f: (String, Double) => String): IdAtt =
+  def nextTextNumId1(input2: UpdaterNumInput, f: (String, Double) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= CallbackTextNum1(newListenerId, input2.idStr, f)
     input2.nextTextNum2(newListenerId, idStr, f)

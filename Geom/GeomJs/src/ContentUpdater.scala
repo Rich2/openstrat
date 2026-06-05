@@ -8,13 +8,13 @@ sealed trait ContentUpdater
 object ContentUpdater
 { /** Factory apply method, constructs the appropriate [[ContentUpdater]] for the given [[InputLikeUpdater]] */
   def apply(inputer: InputLikeUpdater): ContentUpdater = inputer match
-  { case iun: InputUpdaterNum => ContentUpdaterNum(iun)
+  { case iun: UpdaterNumInput => ContentUpdaterNum(iun)
     case iut: UpdaterText => ContentUpdaterText(iut)
   }
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
+class ContentUpdaterNum(val inputer: UpdaterNumInput) extends ContentUpdater
 { val idStem = inputer.idStr
   val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner)
@@ -41,7 +41,7 @@ class ContentUpdaterNum(val inputer: InputUpdaterNum) extends ContentUpdater
 
 object ContentUpdaterNum
 { /** Factory apply method for JavaScript to update HTML element listener list from updated number input. */
-  def apply(inputer: InputUpdaterNum): ContentUpdaterNum = new ContentUpdaterNum(inputer)
+  def apply(inputer: UpdaterNumInput): ContentUpdaterNum = new ContentUpdaterNum(inputer)
 }
 
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
