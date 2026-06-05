@@ -36,7 +36,7 @@ object LabelTextInput
 }
 
 class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelAndInput
-{ override def child2: InputUpdaterNum = InputUpdaterNum(idStr, valueNum)
+{ override def child2: UpdaterNumInput = UpdaterNumInput(idStr, valueNum)
 }
 
 object LabelNumInput

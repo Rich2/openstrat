@@ -60,13 +60,13 @@ object BashLine
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input and an HTML number input. */
-  def listenTextNum(input1: UpdaterText, input2: InputUpdaterNum)(f: (String, Double) => String): BashLine =
+  def listenTextNum(input1: UpdaterText, input2: UpdaterNumInput)(f: (String, Double) => String): BashLine =
   { val newId: IdAtt = input1.nextTextNumId1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.value)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML number Input. */
-  def listenNum(input: InputUpdaterNum)(f: Double => String): BashLine =
+  def listenNum(input: UpdaterNumInput)(f: Double => String): BashLine =
   { val newId: IdAtt = input.next1Id(f)
     new BashLine(RArr(f(input.value)), RArr(newId))
   }
