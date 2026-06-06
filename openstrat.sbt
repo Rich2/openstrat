@@ -190,7 +190,10 @@ lazy val AppsDocJs = jsDocProj("Apps").dependsOn(EGridDocJs)
 lazy val ScalaOSDoc = jvmDocProj("ScalaOS").dependsOn(UtilDoc)
 
 lazy val DevDoc = jvmDocProj("Dev").dependsOn(TilingExs, AppsDoc, ScalaOSDoc)
-lazy val DevDocJs = jsDocProj("Dev").dependsOn(TilingExsJs, AppsDocJs)
+lazy val DevDocJs = jsDocProj("Dev").dependsOn(TilingExsJs, AppsDocJs).settings(
+  Compile/mainClass:= Some("ostrat.docjs.TomcatPageJs"),
+  Compile/scalaJSUseMainModuleInitializer := true,
+)
 
 lazy val Dev = jvmMainProj("Dev").dependsOn(Apps, TilingExs, DevDoc).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcDoc",

@@ -245,9 +245,23 @@ object DevDoc extends CommonJvm
   def sources = Task.Sources(Seq("src", "srcJvm").map(name => workspaceRoot / "Dev" / "DevDoc" / name)*)
 }
 
-object DevDocJs extends CommonJs
+trait DevDocJs extends CommonJs
 { def moduleDeps = Seq(TilingExsJs, AppsDocJs)
   def sources = Task.Sources(workspaceRoot / "Dev" / "DevDoc" / "src", workspaceRoot / "Dev" / "DevDoc" / "DevDocJs" / "src")
+}
+
+object DevDocJsApps
+{
+  trait Base extends DevDocJs
+  { def name: String
+    def sources = Task.Sources(workspaceRoot / "EGrid" / "EGridJs" / "src")
+    def moduleDeps = Seq(EGridJs)
+    def mainClass = Some("ostrat.docjs." + name + "Js")
+  }
+
+  object Tomcat extends Base { def name = "TomcatPage" }
+  object NewDevs extends Base { def name = "NewDevsPage" }
+
   def mainClass = Some("ostrat.docjs.TomcatPageJs")
 }
 
@@ -266,12 +280,12 @@ object DevFx extends CommonJvm
 //def run() = DevFx.runBackground()
 
 def TomDocStage(args: String*) = Task.Command{
-  DevDocJs.fullLinkJS()
+  DevDocJsApps.Tomcat.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.MillTomDocStage", args = Array[String]())
 }
 
 def SiteStage = Task{
-  import AppJs.*, EGridJs.*
+  import AppJs.*, EGridJs.*, DevDocJsApps.*
   DicelessApp.fullLinkJS()
   WW2App.fullLinkJS()
   PericuloApp.fullLinkJS()
@@ -299,8 +313,10 @@ def SiteStage = Task{
   EG120Europe.fullLinkJS()
   EG80Europe.fullLinkJS()
   EarthApp.fullLinkJS()
-  DevDocJs.fullLinkJS()
-  DevFx.assembly()
+
+  Tomcat.fullLinkJS()
+  NewDevs.fullLinkJS()
+  //DevFx.assembly()
 
   Dev.runner().run(mainClass = "ostrat.pDev.MillStageSite", args = Array[String]())
 }

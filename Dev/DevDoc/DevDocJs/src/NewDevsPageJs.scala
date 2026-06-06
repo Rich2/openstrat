@@ -1,12 +1,12 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package docjs
-import pSJs.*, pDoc.TomcatPage
+import pSJs.*, pDoc.NewDevsPage
 
-object TomcatPageJs
+object NewDevsPageJs
 {
   def main(args: Array[String]): Unit =
-  { val num = TomcatPage.inpAcc.length
+  { val num = NewDevsPage.inpAcc.length
     deb(s"Found $num in TomcatPage")
-    TomcatPage.inpAcc.foreach(inputUpdater => ContentUpdater(inputUpdater))
+    NewDevsPage.inpAcc.foreach(inputUpdater => ContentUpdater(inputUpdater))
   }
 } 
