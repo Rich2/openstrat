@@ -15,8 +15,8 @@ trait Tell3Plused[A1, A2, A3] extends Any, Tell2Plused[A1, A2], Persist3Plus[A1,
 
 /** Trait for [[Tell]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[Show3]]
  * trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to inherit from
- * [[Show3]] and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or [[Persist3Elem]] class will
- * delegate to [[Show3]] for some of its methods. */
+ * [[Show3]] and then use [[Show3]] or [[Persist3Both]] to create the type class instance for Show. The [[Show3]] or [[Persist3Both]] class will delegate to
+ * [[Show3]] for some of its methods. */
 trait Tell3[A1, A2, A3] extends Any, Tell3Plused[A1, A2, A3]
 { override def numParams: Int = 3
   override def paramNames: StrArr = StrArr(name1, name2, name3)

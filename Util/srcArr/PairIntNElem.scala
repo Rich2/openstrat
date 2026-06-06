@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
  * these elements [[Arr]]s of them can be stored as and reconstructed from a single Array[Int] of primitive values */
 trait PairIntNElem[A1 <: IntNElem, A2] extends PairFinalA1Elem[A1, A2]
 
-/** Common trait for [[ArrPairIntN]] and [[BuffPairImtN]]s */
+/** Common trait for [[ArrPairIntN]] and [[BuffPairIntN]]s */
 trait SequPairIntN[A1 <: IntNElem, A2, A <: PairIntNElem[A1, A2]] extends Sequ[A]
 { /** The number of [[Int]]s required to construct the first component of the pairs. */
   def a1NumInt: Int

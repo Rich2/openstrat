@@ -1,6 +1,8 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import org.scalajs.dom.*, pweb.*
+import org.scalajs.dom.*
+import org.scalajs.dom.html.Input
+import pweb.*
 
 /** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
 sealed trait ContentUpdater
@@ -46,8 +48,8 @@ object ContentUpdaterNum
 
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
 class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
-{ val idStem = inputer.idStr
-  val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
+{ val idStem: String = inputer.idStr
+  val inpElem: Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner(_))
   
   def listner: Event => Unit = e =>

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
@@ -10,12 +10,12 @@ trait Int2Elem extends Any, IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = buffer.append2(int1, int2)
 }
 
-/** [[SeqLike]] trait with [[Int2Elem]]s. They maybe backed by an [[Array]] or an [[ArrayBuffer]]. */
+/** [[SeqLike]] trait with [[Int2Elem]]s. They maybe backed by an [[Array]] or an [[collection.mutable.ArrayBuffer]]. */
 trait SeqLikeInt2[A <: Int2Elem] extends Any, SeqLikeIntN[A]
 { final override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) && (a1.int2 == a2.int2)
 }
 
-/** [[SeqLikeImut]] trait with [[Int2Elem]]s, can bw specified with a backing [[Array]][Int]. */
+/** [[SeqLikeImut]] trait with [[Int2Elem]]s, can be specified with a backing [[Array]][Int]. */
 trait SeqLikeImutInt2[A <: Int2Elem] extends Any, SeqLikeInt2[A], SeqLikeImutIntN[A]
 { /** Constructs an element from 2 [[Int]]s. */
   def elemFromInts(i1: Int, i2: Int): A

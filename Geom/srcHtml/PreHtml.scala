@@ -17,18 +17,18 @@ object PreHtml
   def idAtt(idStr: String, contentStr: String , otherAttribs: XAtt*): PreHtml = PreHtmlGen(idStr, IdAtt(idStr) %: otherAttribs.toRArr)
   
   /** Creates an HTML Pre element and registers the textContent with an HTML Text Input. */
-  def inputText(input: UpdaterTextInput)(f: String => String, otherAttribs: XAtt*): PreHtml =
+  def listenText(input: UpdaterText)(f: String => String, otherAttribs: XAtt*): PreHtml =
   { val idAtt: IdAtt = input.next1Id(f)
     PreHtmlGen(f(input.valueStr), idAtt %: otherAttribs.toRArr)
   }
 
   /** Creates an HTML Pre element and registers the textContent with 2 HTML Text Inputs. */
-  def input2Text(input1: UpdaterTextInput, input2: UpdaterTextInput, otherAttribs: XAtt*)(f: (String, String) => String): PreHtml =
+  def listen2Text(input1: UpdaterText, input2: UpdaterText, otherAttribs: XAtt*)(f: (String, String) => String): PreHtml =
   { val idAtt: IdAtt = input1.next2Id1(input2, f)
     PreHtmlGen(f(input1.valueStr, input2.valueStr), idAtt %: otherAttribs.toRArr)
   }
 
-  /** Implementation of the gneral case ofHTML Pre element. Unlike most other [[HtmlElem]]s this only takes a [[String]] as its content. */
+  /** Implementation of the general case of HTML Pre element. Unlike most other [[HtmlElem]]s this only takes a [[String]] as its content. */
   case class PreHtmlGen(str: String, attribs: RArr[XAtt]) extends PreHtml
   { override def contents: RArr[XCon] = RArr(str)
     override def out: String = openTag(0, 0, MaxLineLen) + str + closeTag
