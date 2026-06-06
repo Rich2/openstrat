@@ -61,7 +61,20 @@ trait IndexPage extends PageFile
 
 /** An HTML page with an accumulator of [[InputUpdater]]s. */
 trait PageHtmlUpdater extends PageFile
-{ var inpAcc: RArr[InputLikeUpdater] = RArr()
+{ given thisPage: PageHtmlUpdater = this
+  var inpAcc: RArr[InputLikeUpdater] = RArr()
+
+  def updaterExplain: String = """There are default values here that you can change as you work down the page. Although once you've used a value, stick with it
+  |or you will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our
+  |servers.""".stripMargin
+}
+
+/** An HTML page with an accumulator of [[InputUpdater]]s, including operating System. */
+trait PageUpdaterOS extends PageHtmlUpdater
+{
+  val osName1: OperatingSystem = UbuntuDeriv
+  val osNameLTI = LabelSelectUpdater("osName", "Operating System", UbuntuDeriv, ArchDeriv)
+  val osNameIUT: SelectUpdater = osNameLTI.child2
 }
 
 /** A 404 HTML page. */

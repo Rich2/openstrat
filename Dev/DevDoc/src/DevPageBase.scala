@@ -5,7 +5,7 @@ import pweb.*, WebExts.*, wcode.*
 /** HTML documentation page for the Dev Module. */
 trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
 {
-  def miscContents: RArr[XCon] = RArr(git, jvms, sbtInstall, intellij, chrome, sublime)
+  def miscContents: RArr[XCon] = RArr(git, jvms, intellij, chrome, sublime)
 
   def git: Section = Section("Git and Github".h2,
     "Set git user name",
@@ -50,15 +50,6 @@ trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
       BashLine("sudo update-alternatives --config java")
     )
   )
-
-  def sbtInstall: Section = Section("Sbt install".h2,
-    BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
-    BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
-    "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
-    BashLine("sudo apt install curl"),
-    BashLine("""curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee /etc/apt/trusted.gpg.d/sbt.asc"""),
-    BashLine("sudo apt update"),
-    BashLine("sudo apt install sbt"))
 
   def intellij: Section = Section("Intellij IDEA".h2,
     BashLine("sudo tar -xzf idea-2026.1.2.tar.gz -C /opt"),

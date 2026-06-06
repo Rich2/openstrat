@@ -3,15 +3,14 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*, osweb.*, wcode.*, Colour.LightGreen
 
 /** Web page for running Apache Tomcat for Scala. */
-object TomcatPage extends PageHtmlUpdater
-{ given thisPage: PageHtmlUpdater = this
-  override val titleStr: String = "Apache Tomcat Server"
+object TomcatPage extends PageUpdaterOS
+{ override val titleStr: String = "Apache Tomcat Server"
   override def fileStemStr: String = "tomcat"
 
   override def head: HeadHtml = headCss("documentation")
   override def body: BodyHtml = BodyHtml("Using Apache Tomcat Server".h1, central, ScriptHtml.jsSrc("tomcat.js"), ScriptHtml.main("TomcatPageJs"))
 
-  def central: DivHtml = DivHtml.classAtt("central", p1, p2, steps)
+  def central: DivHtml = DivHtml.classAtt("central", p1, pUpdaters, steps)
 
   def p1: PHtml = PHtml("""This page is targeted at Scala Developers, who want to get a simple, or multiple web applications going, or create a dynamic web site
   |using Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced
@@ -19,9 +18,7 @@ object TomcatPage extends PageHtmlUpdater
   |Apache vanilla servers, setting up Tomcat is significantly more complicated than the extreme simplicity of installing an Apache Vanilla server. Note
   |referring to it as Apache Vanilla is my own naming scheme as referring to it just as "Apache" can be confusing. So here follows a list of steps for setting
   |up Tomcat on your own Desktop, laptop, home server or VPS.""".stripMargin)
-
-  val uName1: String = "tommy"
-  val osName1: OperatingSystem = UbuntuDeriv
+  
   val nset: String = "nset"
   val cName1: String = "computer"
   val cset: String = "cset"
@@ -31,11 +28,11 @@ object TomcatPage extends PageHtmlUpdater
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "localhost"
-
+  
+  val uName1: String = "tommy"
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
   val uNameIUT: UpdaterTextInput = uNameLTI.child2
-  val osNameLTI = LabelSelectUpdater("osName", "Operating System", UbuntuDeriv, ArchDeriv)
-  val osNameIUT: SelectUpdater = osNameLTI.child2
+  
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
   val cNameIUT: UpdaterTextInput = cNameLTI.child2
   val nRam1: Int = 2
@@ -53,9 +50,7 @@ object TomcatPage extends PageHtmlUpdater
   val dirLTI: LabelTextInput = LabelTextInput("dirName", "Tomcat directory", dir1)
   val dirIUT: UpdaterTextInput = dirLTI.child2
 
-  def p2: PHtml = PHtml("""There are default values here that you can change as you work down the page. Although once you've used a value, stick with it or you
-  |will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our servers.""".
-  stripMargin,
+  def pUpdaters: PHtml = PHtml(updaterExplain,
   LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
