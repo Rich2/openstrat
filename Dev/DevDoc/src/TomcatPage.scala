@@ -169,9 +169,9 @@ object TomcatPage extends PageUpdaterOS
     DivHtml("Type=forking") +%
     DivHtml("") +%
     DivHtml("""Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""") +%
-    DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
-    DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
-    DivHtml.listenStrCon(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%
+    DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
+    DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
+    DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%
     DivHtml.listenNum(ramIUN) { n =>
       val nn = n * 256
       val xmsStr = nn.min(512).str0
@@ -179,10 +179,10 @@ object TomcatPage extends PageUpdaterOS
       s"""Environment="CATALINA_OPTS=-Xms${xmsStr}M -Xmx${(nn * 2).str0}M -server -XX:+UseParallelGC""""
     } +%
     DivHtml("""Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""") +%
-    DivHtml.listenStrCon(dirIUT) { dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
-    DivHtml.listenStrCon(dirIUT) { dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
-    DivHtml.listenStrCon(uNameIUT) { uName => s"User=$uName" } +%
-    DivHtml.listenStrCon(uNameIUT) { uName => s"Group=$uName" } +%
+    DivHtml.listenStrText(dirIUT) { dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
+    DivHtml.listenStrText(dirIUT) { dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
+    DivHtml.listenStrText(uNameIUT) { uName => s"User=$uName" } +%
+    DivHtml.listenStrText(uNameIUT) { uName => s"Group=$uName" } +%
     DivHtml("UMask=0007") +%
     DivHtml("RestartSec=10") +%
     DivHtml("Restart=always") +%

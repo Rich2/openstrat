@@ -5,7 +5,7 @@ import pweb.*, WebExts.*, wcode.*
 object NewDevsPage extends DevPageBase, PageUpdaterOS
 { override def titleStr: String = "New Developers Info"
   override def fileStemStr: String = "newdevs"
-  override def body: BodyHtml = BodyHtml("New Developers Info".h1, central)
+  override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, pUpdaters, sbtInstall, gitCommands, sbtCommands)
 
@@ -16,14 +16,22 @@ object NewDevsPage extends DevPageBase, PageUpdaterOS
   def pUpdaters: PHtml = PHtml(updaterExplain,
     LabelInputsLine(osNameLTI))
 
-  def sbtInstall: Section = Section("Sbt install".h2,
-    BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
-    BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
-    "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
-    BashLine("sudo apt install curl"),
-    BashLine("""curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee /etc/apt/trusted.gpg.d/sbt.asc"""),
-    BashLine("sudo apt update"),
-    BashLine("sudo apt install sbt"))
+  val sbtDiv = DivHtml.listenStrHtml(osNameIUT){
+    case UbuntuDeriv.valueStr => RArr(
+      BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
+      BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
+      "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
+      BashLine("sudo apt install curl"),
+      BashLine(
+        """curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo tee
+          |/etc/apt/trusted.gpg.d/sbt.asc""".stripMargin),
+      BashLine("sudo apt update"),
+      BashLine("sudo apt install sbt")
+    )
+    case _ => RArr(BashLine("sudo pacman -S sbt"))
+  }
+  def sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
+
 
   def gitCommands: Section = Section("Git Commands".h2,
     "For transferring files from the master repository to your local machine and back again.",

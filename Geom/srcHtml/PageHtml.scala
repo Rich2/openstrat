@@ -59,7 +59,7 @@ trait IndexPage extends PageFile
 { override def fileStemStr: String = "index"
 }
 
-/** An HTML page with an accumulator of [[InputUpdater]]s. */
+/** An HTML page with an accumulator of [[InputLikeUpdater]]s. */
 trait PageHtmlUpdater extends PageFile
 { given thisPage: PageHtmlUpdater = this
   var inpAcc: RArr[InputLikeUpdater] = RArr()

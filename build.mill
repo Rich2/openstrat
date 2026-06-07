@@ -277,9 +277,10 @@ object DevFx extends CommonJvm
 
 //def run() = DevFx.runBackground()
 
-def TomDocStage(args: String*) = Task.Command{
+def DocsStage(args: String*) = Task.Command{
   DevDocJsApps.TomcatPageJs.fullLinkJS()
-  Dev.runner().run(mainClass = "ostrat.pDev.MillTomDocStage", args = Array[String]())
+  DevDocJsApps.NewDevsPageJs.fullLinkJS()
+  Dev.runner().run(mainClass = "ostrat.pDev.MillDocsStage", args = Array[String]())
 }
 
 def SiteStage = Task{

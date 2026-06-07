@@ -28,7 +28,7 @@ object DivHtml
   def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
 
   /** Creates a Div and listens to an [[UpdaterText]] change events modifying the textContent. */
-  def listenStrCon(input: UpdaterText)(f: String => String): DivHtml =
+  def listenStrText(input: UpdaterText)(f: String => String): DivHtml =
   { def newId = input.next1Id(f)
     new DivHtmlGen(RArr(f(input.valueStr)), RArr(newId))
   }

@@ -17,6 +17,7 @@ trait InputLike extends HtmlElem
   def idAtt: IdAtt = IdAtt(idStr)
 }
 
+/** An HTML page updater from an HTML inout or slect element. */
 trait InputLikeUpdater extends InputLike
 {
   def page: PageHtmlUpdater
