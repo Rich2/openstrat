@@ -5,7 +5,7 @@ import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.B
 
 trait Common extends ScalaModule
 { def version = "0.3.13snap"
-  def scalaVersion = "3.8.3"
+  def scalaVersion = "3.8.4"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 
@@ -20,7 +20,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.20.2"
+{ def scalaJSVersion = "1.21.0"
   def mvnDeps = Seq(mvn"org.scala-js::scalajs-dom_sjs1:2.8.1")
 }
 
@@ -254,13 +254,11 @@ object DevDocJsApps
 {
   trait Base extends DevDocJs
   { def name: String
-    def sources = Task.Sources(workspaceRoot / "EGrid" / "EGridJs" / "src")
-    def moduleDeps = Seq(EGridJs)
     def mainClass = Some("ostrat.docjs." + name + "Js")
   }
 
-  object Tomcat extends Base { def name = "TomcatPage" }
-  object NewDevs extends Base { def name = "NewDevsPage" }
+  object TomcatPageJs extends Base { def name = "TomcatPage" }
+  object NewDevsPageJs extends Base { def name = "NewDevsPage" }
 
   def mainClass = Some("ostrat.docjs.TomcatPageJs")
 }
@@ -280,7 +278,7 @@ object DevFx extends CommonJvm
 //def run() = DevFx.runBackground()
 
 def TomDocStage(args: String*) = Task.Command{
-  DevDocJsApps.Tomcat.fullLinkJS()
+  DevDocJsApps.TomcatPageJs.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.MillTomDocStage", args = Array[String]())
 }
 
@@ -314,9 +312,9 @@ def SiteStage = Task{
   EG80Europe.fullLinkJS()
   EarthApp.fullLinkJS()
 
-  Tomcat.fullLinkJS()
-  NewDevs.fullLinkJS()
-  //DevFx.assembly()
+  TomcatPageJs.fullLinkJS()
+  NewDevsPageJs.fullLinkJS()
+  DevFx.assembly()
 
   Dev.runner().run(mainClass = "ostrat.pDev.MillStageSite", args = Array[String]())
 }

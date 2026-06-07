@@ -35,11 +35,11 @@ object DirsRelFile
 }
 
 trait DirsFileStem extends DirsFilePath
-{ /** Utility method to append the underlying [[Array]]s. */
-  protected def arrayAppend(operand: String): Array[String] =
+{ /** Utility method to append [[String]] to the last element of the underlying [[Array]]s. */
+  protected def arrayLastAppendStr(operand: String): Array[String] =
   { val newArray: Array[String] = new Array[String](arrayLen)
     Array.copy(arrayUnsafe, 0, newArray, 0, arrayLen - 1)
-    newArray(arrayLen - 1) = arrayUnsafe(arrayLen) + operand
+    newArray(arrayLen - 1) = arrayUnsafe(arrayLen - 1) + operand
     newArray
   }
 }
@@ -47,10 +47,10 @@ trait DirsFileStem extends DirsFilePath
 /** Absolute directory (or folder) path and file name stem. */
 class DirsAbsStem(val arrayUnsafe: Array[String]) extends DirsFileStem
 { /** Appends the [[String]] to the file name stem, without completing the file name. */
-  @targetName("append") def %+(operand: String): DirsAbsStem = new DirsAbsStem(arrayAppend(operand))
+  @targetName("append") def %+(operand: String): DirsAbsStem = new DirsAbsStem(arrayLastAppendStr(operand))
 
   /** Appends the [[String]] to the file name stem completing the file name. */
-  @targetName("complete") def ++(operand: String): DirsFileAbs = new DirsFileAbs(arrayAppend(operand))
+  @targetName("complete") def ++(operand: String): DirsFileAbs = new DirsFileAbs(arrayLastAppendStr(operand))
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
 }
@@ -58,10 +58,10 @@ class DirsAbsStem(val arrayUnsafe: Array[String]) extends DirsFileStem
 /** Relative directory path and file name stem. */
 class DirsRelStem(val arrayUnsafe: Array[String]) extends DirsFileStem
 { /** Appends the [[String]] to the file name stem, without completing the file name. */
-  @targetName("append") def %+(operand: String): DirsRelStem = new DirsRelStem(arrayAppend(operand))
+  @targetName("append") def %+(operand: String): DirsRelStem = new DirsRelStem(arrayLastAppendStr(operand))
   
   /** Appends the [[String]] to the file name stem completing the file name. */
-  @targetName("complete") def ++(operand: String): DirsRelFile = new DirsRelFile(arrayAppend(operand))
+  @targetName("complete") def ++(operand: String): DirsRelFile = new DirsRelFile(arrayLastAppendStr(operand))
 
   override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
 }
