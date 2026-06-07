@@ -1,8 +1,6 @@
 /* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import org.scalajs.dom.*
-import org.scalajs.dom.html.Input
-import pweb.*
+import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
 sealed trait ContentUpdater
@@ -17,8 +15,9 @@ object ContentUpdater
 
 /** Updates HTML content due to number changes from HTML input elements. */
 class ContentUpdaterNum(val inputer: UpdaterNumInput) extends ContentUpdater
-{ val idStem = inputer.idStr
-  val inpElem = document.getElementById(idStem).asInstanceOf[html.Input]
+{
+  val idStem: String = inputer.idStr
+  val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner)
 
   def listner: Event => Unit = e =>
@@ -49,7 +48,7 @@ object ContentUpdaterNum
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
 class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
 { val idStem: String = inputer.idStr
-  val inpElem: Input = document.getElementById(idStem).asInstanceOf[html.Input]
+  val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner(_))
   
   def listner: Event => Unit = e =>
@@ -96,4 +95,13 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
 object ContentUpdaterText
 { /** Factory apply method for JavaScript to update HTML element listener list from updated text input. */
   def apply(inputer: UpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
+}
+
+extension (page: PageHtmlUpdater)
+{ /** Constructs a JavaScript [[ContentUpdater]] for each [[PageHtmlUpdater]]. */
+  def jsAgg: Unit =
+  { val num = page.inpAcc.length
+    deb(s"Found $num in ${page.fileName.str}")
+    page.inpAcc.foreach(inputUpdater => ContentUpdater(inputUpdater))
+}
 }
