@@ -6,8 +6,8 @@ import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 sealed trait ContentUpdater
 
 object ContentUpdater
-{ /** Factory apply method, constructs the appropriate [[ContentUpdater]] for the given [[InputLikeUpdater]] */
-  def apply(inputer: InputLikeUpdater): ContentUpdater = inputer match
+{ /** Factory apply method, constructs the appropriate [[ContentUpdater]] for the given [[UpdaterInputLike]] */
+  def apply(inputer: UpdaterInputLike): ContentUpdater = inputer match
   { case iun: UpdaterNumInput => ContentUpdaterNum(iun)
     case iut: UpdaterText => ContentUpdaterText(iut)
   }

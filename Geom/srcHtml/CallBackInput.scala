@@ -1,16 +1,10 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import reflect.ClassTag
 
-/** Class to update a page from a text input from an HTML input element. */
-class UpdaterTextInput(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends UpdaterText, InputHtml
-{ override def typeAtt: TypeTextAtt.type = TypeTextAtt
-}
-
-object UpdaterTextInput
-{ /** Factory apply method for object to update a page from a text input. */
-  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterTextInput =
-    new UpdaterTextInput(idStr, valueStr, otherAttribs.toRArr)
+/** A text callback from an input to a textContent. */
+trait CallbackInput
+{ /** The id attribute on the target HTML element whose textContent is to be updated. */
+  def targetId: String
 }
 
 sealed trait CallbackText extends CallbackInput

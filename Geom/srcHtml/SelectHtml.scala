@@ -32,8 +32,8 @@ object SelectHtml
 }
 
 /** HTML Select element that updates other parts of the page on changed input. */
-class SelectUpdater(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends
-  SelectHtml, UpdaterText
+class SelectUpdater(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
+  UpdaterInputLike(page), SelectHtml,UpdaterText
 
 /** An HTML label followed by an [[SelectHtml]]. */
 class LabelSelect(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends LabelAndInput
