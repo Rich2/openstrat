@@ -3,7 +3,7 @@ package ostrat; package pweb
 import reflect.ClassTag
 
 /** HTML select element used to create a drop-down list. */
-abstract class SelectHtml(options: RArr[OptionHtml], selectedIn: OptionHtml) extends HtmlTagLines, InputLike
+trait SelectHtml extends HtmlTagLines, InputLike
 { override def tagName: String = "select"
 
   def visNum: Int
@@ -13,9 +13,9 @@ abstract class SelectHtml(options: RArr[OptionHtml], selectedIn: OptionHtml) ext
 
   override def attribs: RArr[XAtt] = idAtt %: sizeAtt %: otherAttribs
 
-  final override def contents: RArr[OptionHtml] = options
+  override def contents: RArr[OptionHtml]
   
-  final def selected: OptionHtml = contents(0)
+  def selected: OptionHtml = contents(0)
 
   final override def valueStr: String = selected.valueStr
 }
@@ -28,13 +28,12 @@ object SelectHtml
   /** Factory apply method for HTML select element, with 1 visible element. */
   def apply(idStr: String, contents: OptionHtml*): SelectHtml = new SelectHtmlGen(idStr, contents.toRArr, 1, RArr())
 
-  class SelectHtmlGen(val idStr: String, optionsIn: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends
-    SelectHtml(optionsIn, optionsIn(0))
+  class SelectHtmlGen(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends SelectHtml
 }
 
 /** HTML Select element that updates other parts of the page on changed input. */
-class SelectUpdater(val idStr: String, options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends
-  SelectHtml(options, options(0)), UpdaterText
+class SelectUpdater(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using val page: PageHtmlUpdater) extends
+  SelectHtml, UpdaterText
 
 /** An HTML label followed by an [[SelectHtml]]. */
 class LabelSelect(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends LabelAndInput
