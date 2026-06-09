@@ -76,8 +76,7 @@ trait PageUpdaterOS extends PageHtmlUpdater
   val osNameLTI = LabelSelectUpdaterStr("osName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
   val osNameIUT: UpdaterSelectStr = osNameLTI.child2
 
-  val opName1: OperatingSystem = UbuntuDeriv
-  val opNameLTI = LabelSelectUpdaterAny("opName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
+  val opNameLTI: LabelSelectUpdaterAny = LabelSelectUpdaterAny("opName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
   val opNameIUT: UpdaterSelectAny = opNameLTI.child2
 }
 

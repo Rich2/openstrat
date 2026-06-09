@@ -13,11 +13,10 @@ object NewDevsPage extends DevPageBase, PageUpdaterOS
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain,
-    LabelInputsLine(osNameLTI))
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI))
 
-  val sbtDiv = DivHtml.listenStrHtml(osNameIUT){
-    case UbuntuDeriv.valueStr => RArr(
+  val sbtDiv: DivHtml = DivHtml.listenSelect(opNameIUT){
+    case UbuntuDeriv => RArr(
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
       "Curl is installed by default in Kubuntu 26.04 and 25.10, it is not in Kubuntu 24.04 so if curl is not installed you need",
@@ -28,7 +27,8 @@ object NewDevsPage extends DevPageBase, PageUpdaterOS
       BashLine("sudo apt update"),
       BashLine("sudo apt install sbt")
     )
-    case _ => RArr(BashLine("sudo pacman -S sbt"))
+    case ArchDeriv => RArr(BashLine("sudo pacman -S sbt"))
+    case _ => RArr(DivHtml("No code available."))
   }
   def sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
 

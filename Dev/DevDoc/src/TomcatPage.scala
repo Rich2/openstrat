@@ -71,7 +71,7 @@ object TomcatPage extends PageUpdaterOS
     val res5 = BashLine("sudo systemctl enable --now fail2ban")
     res1 %: res2 +% res3 +% res4 +% res5
   }
-  val s1 = LiHtml.listenSelect(opNameIUT)(fS1)
+  val s1: LiHtml = LiHtml.listenSelect(opNameIUT)(fS1)
 
   val s2 = LiHtml("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with

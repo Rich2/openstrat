@@ -67,7 +67,7 @@ object LiHtml
 
   /** Creates an HTML li listens to an [[UpdaterSelectAny]] change events modifying the  inner HTML. */
   def listenSelect(input: UpdaterSelectAny)(f: Any => RArr[XCon]): LiHtml =
-  { def newId = input.next1Id(f)
+  { val newId: IdAtt = input.next1Id(f)
     new LiHtml(input.listenerInit(f), RArr(newId))
   }
 }

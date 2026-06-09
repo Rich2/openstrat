@@ -27,7 +27,7 @@ class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val vi
   UpdaterInputLike(page), SelectHtml
 {
   /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
-  var callBacks: RArr[CallbackAny] = RArr()
+  var callBacks: RArr[CallbackOption] = RArr()
 
   override def clientCount: Int = callBacks.length
   
@@ -37,7 +37,7 @@ class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val vi
    * input to update the target content. */
   def next1Id(f: Any => RArr[XCon]): IdAtt =
   { val newtargetId: String = idStr + clientCount.str
-    callBacks +%= CallbackAny(newtargetId, f)
+    callBacks +%= CallbackOption(newtargetId, f)
     IdAtt(newtargetId)
   }
 }
