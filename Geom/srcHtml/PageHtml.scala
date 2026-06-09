@@ -73,8 +73,12 @@ trait PageHtmlUpdater extends PageFile
 trait PageUpdaterOS extends PageHtmlUpdater
 {
   val osName1: OperatingSystem = UbuntuDeriv
-  val osNameLTI = LabelSelectUpdater("osName", "Operating System", UbuntuDeriv, ArchDeriv)
-  val osNameIUT: SelectUpdater = osNameLTI.child2
+  val osNameLTI = LabelSelectUpdaterStr("osName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
+  val osNameIUT: UpdaterSelectStr = osNameLTI.child2
+
+  val opName1: OperatingSystem = UbuntuDeriv
+  val opNameLTI = LabelSelectUpdaterAny("opName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
+  val opNameIUT: UpdaterSelectAny = opNameLTI.child2
 }
 
 /** A 404 HTML page. */

@@ -51,14 +51,15 @@ object TomcatPage extends PageUpdaterOS
   val dirIUT: UpdaterTextInput = dirLTI.child2
 
   def pUpdaters: PHtml = PHtml(updaterExplain,
-  LabelInputsLine(uNameLTI, osNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
+  LabelInputsLine(uNameLTI, osNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
   val s1 = LiHtml("Upgrade packages.",
-  DivHtml.listenStrHtml(osNameIUT){
-    case ArchDeriv.valueStr => RArr(BashLine("Sudo pacman -Syu"))
-    case _ => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
+  DivHtml.listenSelect(opNameIUT){
+    case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
+    case ArchDeriv => RArr(BashLine("Sudo pacman -Syu"))
+    case _ => RArr("No code available.")
   },
   "Install Fail2Ban to protect against brute force login attacks",
   BashLine.listenText(osNameIUT){

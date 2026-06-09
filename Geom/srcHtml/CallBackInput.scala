@@ -28,3 +28,5 @@ case class Callback3Text3(targetId: String, input1IdStr: String, input2IdStr: St
 
 /** A call back for an [[UpdaterNumInput]] that takes a simple Double => String function. */
 case class Callback1Num(targetId: String, f: Double => String) extends CallbackNum
+
+case class CallbackAny(targetId: String, f: Any => RArr[XCon]) extends CallbackInput

@@ -45,6 +45,13 @@ object DivHtml
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
   }
 
+  /** Creates a Div and listens to an [[UpdaterText]] change events modifying the textContent. */
+  def listenSelect(input: UpdaterSelectAny)(f: Any => RArr[XCon]): DivHtml =
+  { def newId = input.next1Id(f)
+    val any2: Any = input.contents.find(_.valueStr == input.valueStr).getOrElse(None)
+    new DivHtmlGen(f(any2), RArr(newId))
+  }
+
   /** An implementation class for the general case of an HTML Div.  */
   class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends DivHtml, HtmlOwnLine
 }

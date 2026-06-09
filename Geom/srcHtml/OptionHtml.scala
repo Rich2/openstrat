@@ -19,3 +19,6 @@ object UbuntuDeriv extends OperatingSystem("UbuntuDeriv", "Kubuntu/Ubuntu")
 
 /** Arch Linux derivative operating system HTML option element. */
 object ArchDeriv extends OperatingSystem("ArchDeriv", "Arch/CachyOS")
+
+/** Arch Linux derivative operating system HTML option element. */
+object OtherOperatingSystem extends OperatingSystem("otherOS", "Other OS")

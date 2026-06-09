@@ -31,10 +31,6 @@ object SelectHtml
   class SelectHtmlGen(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends SelectHtml
 }
 
-/** HTML Select element that updates other parts of the page on changed input. */
-class SelectUpdater(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
-  UpdaterInputLike(page), SelectHtml,UpdaterText
-
 /** An HTML label followed by an [[SelectHtml]]. */
 class LabelSelect(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends LabelAndInput
 { override def child2: SelectHtml = SelectHtml(idStr, options, visNum, otherAttribs)
@@ -46,19 +42,4 @@ object LabelSelect
     new LabelSelect(idStr, label, options, visNum, otherAttribs)
 
   def apply(idStr: String, label: String, options: OptionHtml*): LabelSelect = new LabelSelect(idStr, label, options.toRArr, 1, RArr())
-}
-
-/** An HTML label followed by an [[SelectHtml]]. */
-class LabelSelectUpdater(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using
-  page: PageHtmlUpdater) extends LabelAndInput
-{ override def child2: SelectUpdater = SelectUpdater(idStr, options, visNum, otherAttribs)
-}
-
-object LabelSelectUpdater
-{
-  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelectUpdater =
-    new LabelSelectUpdater(idStr, label, options, visNum, otherAttribs)
-
-  def apply(idStr: String, label: String, options: OptionHtml*)(using page: PageHtmlUpdater): LabelSelectUpdater =
-    new LabelSelectUpdater(idStr, label, options.toRArr, 1, RArr())
 }

@@ -3,18 +3,19 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
-sealed trait ContentUpdater
+sealed trait JsContentUpdater
 
-object ContentUpdater
-{ /** Factory apply method, constructs the appropriate [[ContentUpdater]] for the given [[UpdaterInputLike]] */
-  def apply(inputer: UpdaterInputLike): ContentUpdater = inputer match
-  { case iun: UpdaterNumInput => ContentUpdaterNum(iun)
-    case iut: UpdaterText => ContentUpdaterText(iut)
+object JsContentUpdater
+{ /** Factory apply method, constructs the appropriate [[JsContentUpdater]] for the given [[UpdaterInputLike]]. */
+  def apply(inputer: UpdaterInputLike): JsContentUpdater = inputer match
+  { case iun: UpdaterNumInput => JsContentUpdaterNum(iun)
+    case iut: UpdaterText => JsContentUpdaterText(iut)
+    case iua: UpdaterSelectAny => JsContentUpdaterSelect(iua)
   }
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class ContentUpdaterNum(val inputer: UpdaterNumInput) extends ContentUpdater
+class JsContentUpdaterNum(val inputer: UpdaterNumInput) extends JsContentUpdater
 {
   val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
@@ -40,13 +41,13 @@ class ContentUpdaterNum(val inputer: UpdaterNumInput) extends ContentUpdater
   }
 }
 
-object ContentUpdaterNum
+object JsContentUpdaterNum
 { /** Factory apply method for JavaScript to update HTML element listener list from updated number input. */
-  def apply(inputer: UpdaterNumInput): ContentUpdaterNum = new ContentUpdaterNum(inputer)
+  def apply(inputer: UpdaterNumInput): JsContentUpdaterNum = new JsContentUpdaterNum(inputer)
 }
 
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
-class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
+class JsContentUpdaterText(val inputer: UpdaterText) extends JsContentUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", listner(_))
@@ -92,16 +93,38 @@ class ContentUpdaterText(val inputer: UpdaterText) extends ContentUpdater
   }  
 }
 
-object ContentUpdaterText
+object JsContentUpdaterText
 { /** Factory apply method for JavaScript to update HTML element listener list from updated text input. */
-  def apply(inputer: UpdaterText): ContentUpdaterText = new ContentUpdaterText(inputer)
+  def apply(inputer: UpdaterText): JsContentUpdaterText = new JsContentUpdaterText(inputer)
 }
 
+/** Updates HTML content due to number changes from HTML input elements. */
+class JsContentUpdaterSelect(val inputer: UpdaterSelectAny) extends JsContentUpdater
+{
+  val idStem: String = inputer.idStr
+  val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
+  inpElem.addEventListener("change", listner)
+
+  def listner: Event => Unit = e =>
+  { val newInpStr: String = e.target.asInstanceOf[html.Select].value
+    val newAny: Any = inputer.contents.find(_.valueStr == newInpStr).getOrElse(None)
+    val len = inputer.clientCount
+    deb(s"Updating $len textContents with value $newInpStr")
+    inputer.callBacks.foreach{ cb =>
+      val listenerId = cb.targetId
+      val target = document.getElementById(listenerId)
+      if (target == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
+      else target.innerHTML = cb.f(newAny).out
+    }
+  }
+}
+
+
 extension (page: PageHtmlUpdater)
-{ /** Constructs a JavaScript [[ContentUpdater]] for each [[PageHtmlUpdater]]. */
+{ /** Constructs a JavaScript [[JsContentUpdater]] for each [[PageHtmlUpdater]]. */
   def jsAgg: Unit =
   { val num = page.inpAcc.length
     deb(s"Found $num in ${page.fileName.str}")
-    page.inpAcc.foreach(inputUpdater => ContentUpdater(inputUpdater))
+    page.inpAcc.foreach(inputUpdater => JsContentUpdater(inputUpdater))
 }
 }
