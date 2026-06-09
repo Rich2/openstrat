@@ -4,8 +4,8 @@ import reflect.ClassTag
 
 /** Creates an HTML Input element that can update textContent fields on the page. */
 class UpdaterNumInput(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page), InputHtml
-{ var depends: RArr[CallbackNum] = RArr()
-  def clientCount: Int = depends.length
+{ var listeners: RArr[CallbackNum] = RArr()
+  def clientCount: Int = listeners.length
 
   override def typeAtt: TypeAtt = TypeNumberAtt
   override def valueStr: String = value.str
@@ -13,13 +13,18 @@ class UpdaterNumInput(val idStr: String, val value: Double, val otherAttribs: RA
   /** Registers a call back to a listener with a Double => String function. */
   def next1Id(f: Double => String): IdAtt =
   { val newlistenerId: String = idStr + clientCount.str
-    depends +%= Callback1Num(newlistenerId, f)
+    listeners +%= Callback1Num(newlistenerId, f)
     IdAtt(newlistenerId)
   }
 
   /** Registers a call back to a listener with a (String, Double) => String function.  */
   def nextTextNum2(listenerID: String, input1IDStr: String, f: (String, Double) => String): Unit =
-  { depends +%= CallbackTextNum2(listenerID, input1IDStr, f)   
+  { listeners +%= CallbackTextNum2(listenerID, input1IDStr, f)   
+  }
+
+  /** Registers a call back to a listener with a (String, Double) => String function. */
+  def nextOptionNum2(listenerID: String, input1IDStr: String, f: (Any, Double) => RArr[XCon]): Unit =
+  { listeners +%= CallbackOptionNum2(listenerID, input1IDStr, f)
   }
 }
 

@@ -26,12 +26,11 @@ class JsContentUpdaterNum(val inputer: UpdaterNumInput) extends JsContentUpdater
     val newNum: Double = newInpStr.toDouble
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
-    inputer.depends.foreach{
-      case dep: Callback1Num =>
-      { val listenerId = dep.targetId
-        val target = document.getElementById(listenerId)
+    inputer.listeners.foreach{
+      case Callback1Num(listenerId, f) =>
+      { val target = document.getElementById(listenerId)
         if (target == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
-        else target.textContent = dep.f(newNum)
+        else target.textContent = f(newNum)
       }
       case CallbackTextNum2(targetId, input1IdStr, f) =>
       { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
@@ -57,7 +56,7 @@ class JsContentUpdaterText(val inputer: UpdaterText) extends JsContentUpdater
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.callBacks.foreach { (dep: CallbackInput) =>
-      val targetId: String = dep.targetId
+      val targetId: String = dep.listenerId
       val target: Element = document.getElementById(targetId)
       if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
       else
@@ -102,7 +101,7 @@ object JsContentUpdaterText
 class JsContentUpdaterSelect(val inputer: UpdaterSelectAny) extends JsContentUpdater
 {
   val idStem: String = inputer.idStr
-  val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
+  val inpElem: html.Select = document.getElementById(idStem).asInstanceOf[html.Select]
   inpElem.addEventListener("change", listner)
 
   def listner: Event => Unit = e =>
@@ -110,11 +109,12 @@ class JsContentUpdaterSelect(val inputer: UpdaterSelectAny) extends JsContentUpd
     val newAny: Any = inputer.contents.find(_.valueStr == newInpStr).getOrElse(None)
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
-    inputer.callBacks.foreach{ cb =>
-      val listenerId = cb.targetId
-      val target = document.getElementById(listenerId)
-      if (target == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
-      else target.innerHTML = cb.f(newAny).out
+    inputer.callBacks.foreach{
+      case Callback1Option(listenerId, f) =>
+      { val target = document.getElementById (listenerId)
+        if (target == null) deb (s" target is null from inputer $inputer for id: $listenerId.")
+        else target.innerHTML = f(newAny).out
+      }
     }
   }
 }

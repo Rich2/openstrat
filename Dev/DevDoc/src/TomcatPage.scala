@@ -82,7 +82,7 @@ object TomcatPage extends PageUpdaterOS
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
   
-  def s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
+  val s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine.listenTextNum(osNameIUT, javaVerIUN){ (os, vNum) =>
     val osStr = ife(os == ArchDeriv.valueStr, "pacman -Syu", "apt install")
     s"sudo $osStr openjdk-${vNum.str0}-jdk -y"},
