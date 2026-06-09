@@ -64,4 +64,10 @@ object LiHtml
 
   /** An HTML list item element that has a link as its sole content. */
   def a(link: FileSystemPath, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
+
+  /** Creates an HTML li listens to an [[UpdaterSelectAny]] change events modifying the  inner HTML. */
+  def listenSelect(input: UpdaterSelectAny)(f: Any => RArr[XCon]): LiHtml =
+  { def newId = input.next1Id(f)
+    new LiHtml(input.listenerInit(f), RArr(newId))
+  }
 }

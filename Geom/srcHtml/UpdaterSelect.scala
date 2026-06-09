@@ -29,7 +29,9 @@ class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val vi
   /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
   var callBacks: RArr[CallbackAny] = RArr()
 
-  def clientCount: Int = callBacks.length
+  override def clientCount: Int = callBacks.length
+  
+  def listenerInit(f: Any => RArr[XCon]): RArr[XCon] = f(contents(0))
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
