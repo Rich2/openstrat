@@ -10,7 +10,7 @@ object UpdaterJs
   def apply(inputer: UpdaterInputLike): UpdaterJs = inputer match
   { case iun: UpdaterNumInput => JsContentUpdaterNum(iun)
     case iut: UpdaterText => UpdaterTextJs(iut)
-    case iua: UpdaterSelectAny => JsContentUpdaterSelect(iua)
+    case iua: UpdaterOption => UpdaterOptionJs(iua)
   }
 }
 
@@ -18,26 +18,28 @@ object UpdaterJs
 class JsContentUpdaterNum(val inputer: UpdaterNumInput) extends UpdaterJs
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", listner)
+  inpElem.addEventListener("change", eventListener)
 
-  def listner: Event => Unit = e =>
+  def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Input].value
     val newNum: Double = newInpStr.toDouble
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
       case Callback1Num(listenerId, f) =>
-      { val target = document.getElementById(listenerId)
-        if (target == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
-        else target.textContent = f(newNum)
+      { val listener: Element = document.getElementById(listenerId)
+        if (listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
+        else listener.textContent = f(newNum)
       }
-      case CallbackTextNum2(targetId, input1IdStr, f) =>
+      case CallbackTextNum2(listenerId, input1IdStr, f) =>
       { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
         f(inp1Val, newNum)
       }
-      case CallbackOptionNum2(targetId, input1IdStr, f) => {
-        val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
-        f(inp1Val, newNum)
+      case CallbackOptionNum2(targetId, input1, f) =>
+      { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+        val inp1Option = input1.strToOption(inp1Val)
+        val target: Element = document.getElementById(targetId)
+        target.innerHTML = f(inp1Option, newNum).out
       }
     }
   }
@@ -49,28 +51,27 @@ object JsContentUpdaterNum
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class JsContentUpdaterSelect(val inputer: UpdaterSelectAny) extends UpdaterJs
-{
-  val idStem: String = inputer.idStr
+class UpdaterOptionJs(val inputer: UpdaterOption) extends UpdaterJs
+{ val idStem: String = inputer.idStr
   val inpElem: html.Select = document.getElementById(idStem).asInstanceOf[html.Select]
-  inpElem.addEventListener("change", listner)
+  inpElem.addEventListener("change", eventListener)
 
-  def listner: Event => Unit = e =>
+  def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Select].value
-    val newAny: Any = inputer.contents.find(_.valueStr == newInpStr).getOrElse(None)
+    val newOption: Any = inputer.contents.find(_.valueStr == newInpStr).getOrElse(None)
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.callBacks.foreach{
       case Callback1Option(listenerId, f) =>
       { val target = document.getElementById (listenerId)
         if (target == null) deb (s" target is null from inputer $inputer for id: $listenerId.")
-        else target.innerHTML = f(newAny).out
+        else target.innerHTML = f(newOption).out
       }
       case CallbackOptionNum1(listenerId, input2IdStr, f) => {
         val listener: Element = document.getElementById(listenerId)
         val inp2Val: Double = document.getElementById(input2IdStr).asInstanceOf[html.Input].value.toDouble
         if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
-        else listener.innerHTML = f(newAny, inp2Val).out
+        else listener.innerHTML = f(newOption, inp2Val).out
       }
     }
   }

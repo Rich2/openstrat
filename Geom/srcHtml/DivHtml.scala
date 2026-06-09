@@ -45,8 +45,8 @@ object DivHtml
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
   }
 
-  /** Creates a Div and listens to an [[UpdaterSelectAny]] change events modifying the  inner HTML. */
-  def listenSelect(input: UpdaterSelectAny)(f: Any => RArr[XCon]): DivHtml =
+  /** Creates a Div and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
+  def listenSelect(input: UpdaterOption)(f: Any => RArr[XCon]): DivHtml =
   { val newId: IdAtt = input.next1Id(f)
     new DivHtmlGen(input.listenerInit(f), RArr(newId))
   }

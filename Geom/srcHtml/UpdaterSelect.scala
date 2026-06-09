@@ -23,7 +23,7 @@ object LabelSelectUpdaterStr
 }
 
 /** HTML Select element that updates other parts of the page on changed input. */
-class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
+class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
   UpdaterInputLike(page), SelectHtml
 {
   /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
@@ -32,6 +32,8 @@ class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val vi
   override def clientCount: Int = callBacks.length
   
   def listenerInit(f: Any => RArr[XCon]): RArr[XCon] = f(contents(0))
+  
+  def strToOption(valStr: String): Any = contents.find(_.valueStr == valStr).getOrElse(None)
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
@@ -46,7 +48,7 @@ class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val vi
   def nextOptionNumId1(input2: UpdaterNumInput, f: (Any, Double) => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= CallbackOptionNum1(newListenerId, input2.idStr, f)
-    input2.nextOptionNum2(newListenerId, idStr, f)
+    input2.nextOptionNum2(newListenerId, this, f)
     IdAtt(newListenerId)
   }
 }
@@ -54,7 +56,7 @@ class UpdaterSelectAny(val idStr: String, val contents: RArr[OptionHtml], val vi
 /** An HTML label followed by an [[SelectHtml]]. */
 class LabelSelectUpdaterAny(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using
   page: PageHtmlUpdater) extends LabelAndInput
-{ override def child2: UpdaterSelectAny = UpdaterSelectAny(idStr, options, visNum, otherAttribs)
+{ override def child2: UpdaterOption = UpdaterOption(idStr, options, visNum, otherAttribs)
 }
 
 object LabelSelectUpdaterAny

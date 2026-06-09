@@ -6,9 +6,9 @@ import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 class UpdaterTextJs(val inputer: UpdaterText) extends UpdaterJs
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", listner(_))
+  inpElem.addEventListener("change", eventListener(_))
 
-  def listner: Event => Unit = e =>
+  def eventListener: Event => Unit = e =>
   { val newInpStr = e.target.asInstanceOf[html.Input].value
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
