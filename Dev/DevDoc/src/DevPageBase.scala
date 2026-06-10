@@ -17,7 +17,7 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     },
     "Check the version",
     BashLine("java -version"),
-    CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",
+    CodeOutputLines("""openjdk version "25.0.3" 2026-04-21""",
       "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
       "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
     "Open the all users environment configuration file",
