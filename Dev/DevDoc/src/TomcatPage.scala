@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*, osweb.*, wcode.*, Colour.LightGreen
 
 /** Web page for running Apache Tomcat for Scala. */
-object TomcatPage extends PageUpdaterOS
+object TomcatPage extends DevPageBase
 { override val titleStr: String = "Apache Tomcat Server"
   override def fileStemStr: String = "tomcat"
 
@@ -41,9 +41,7 @@ object TomcatPage extends PageUpdaterOS
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(uNameIUT, cNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
   val tomVarIUT: UpdaterTextInput = tomVerLTI.child2
-  val jVer1: Int = 25
-  val javaVerLNI: LabelNumInput = LabelNumInput("javaVer", "Java Version", jVer1)
-  val javaVerIUN: UpdaterNumInput = javaVerLNI.child2
+  
   val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
   val domainIUT: UpdaterTextInput = domainLTI.child2
   val dir1: String = "/opt/tomcat"
@@ -82,27 +80,7 @@ object TomcatPage extends PageUpdaterOS
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
   
-  val s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-  DivHtml.listenOptionNum(opNameIUT, javaVerIUN){ (ops, vNum) => ops match{
-    case UbuntuDeriv => RArr(BashLine(s"sudo apt install openjdk-${vNum.str0}-jdk -y"))
-    case ArchDeriv => RArr(BashLine(s"sudo pacman -Syu ${vNum.str0}-jdk"))
-    case _ => RArr("No code available.")
-  }},
-  "Check the version",
-  BashLine("java -version"),
-  CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",
-  "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
-  "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
-  "Open the all users environment configuration file",
-  BashLine("sudo nano /etc/environment"),
-  "Add line",
-  BashLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"),
-  "Save and exit (Ctrl-X and then Y)",  
-  BashLine("sudo reboot"),
-  "After reboot or logging in again for remote server",
-  BashLine("echo $JAVA_HOME"),
-  CodeOutputLine("/usr/lib/jvm/java-25-openjdk-amd64")
-  )
+  val s3 = javaInstall
 
   val s4 = LiHtml(
   s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a

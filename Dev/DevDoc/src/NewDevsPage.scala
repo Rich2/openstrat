@@ -2,18 +2,20 @@
 package ostrat; package pDoc
 import pweb.*, WebExts.*, wcode.*
 
-object NewDevsPage extends DevPageBase, PageUpdaterOS
+object NewDevsPage extends DevPageBase
 { override def titleStr: String = "New Developers Info"
   override def fileStemStr: String = "newdevs"
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
 
-  def central: DivHtml = DivHtml.classAtt("central", contrib, pUpdaters, sbtInstall, gitCommands, sbtCommands)
+  def central: DivHtml = DivHtml.classAtt("central", contrib, pUpdaters, jvms, sbtInstall, gitCommands, sbtCommands)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI))
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI, javaVerLNI))
+  
+  val jvms = javaInstall
 
   val sbtDiv: DivHtml = DivHtml.listenOption(opNameIUT){
     case UbuntuDeriv => RArr(

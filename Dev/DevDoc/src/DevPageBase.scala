@@ -3,9 +3,9 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
-trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
+trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
 {
-  def miscContents: RArr[XCon] = RArr(git, jvms, intellij, chrome, sublime)
+  def miscContents: RArr[XCon] = RArr(git, intellij, chrome, sublime)
 
   def git: Section = Section("Git and Github".h2,
     "Set git user name",
@@ -25,7 +25,31 @@ trait DevPageBase extends OSDocumentationPage, PageHtmlUpdater
     BashLine("git push -u origin NewBranch")
   )
 
-  def jvms: Section = Section("JVMs".h2,
+  def javaInstall = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
+    DivHtml.listenOptionNum(opNameIUT, javaVerIUN){ (ops, vNum) =>
+      ops match {
+        case UbuntuDeriv => RArr(BashLine(s"sudo apt install openjdk-${vNum.str0}-jdk -y"))
+        case ArchDeriv => RArr(BashLine(s"sudo pacman -Syu ${vNum.str0}-jdk"))
+        case _ => RArr("No code available.")
+      }
+    },
+    "Check the version",
+    BashLine("java -version"),
+    CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",
+      "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
+      "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
+    "Open the all users environment configuration file",
+    BashLine("sudo nano /etc/environment"),
+    "Add line",
+    BashLine("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"),
+    "Save and exit (Ctrl-X and then Y)",
+    BashLine("sudo reboot"),
+    "After reboot or logging in again for remote server",
+    BashLine("echo $JAVA_HOME"),
+    CodeOutputLine("/usr/lib/jvm/java-25-openjdk-amd64")
+  )
+
+  def jvmsOld: Section = Section("JVMs".h2,
     BashLine("sudo apt install openjdk-25-jdk"),
     "For Kubuntu/ Ubuntu add the following line to", HtmlDirPath("/etc/environment"), "file.",
     CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"),
