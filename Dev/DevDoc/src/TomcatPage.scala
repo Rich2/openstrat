@@ -51,7 +51,7 @@ object TomcatPage extends PageUpdaterOS
   val dirIUT: UpdaterTextInput = dirLTI.child2
 
   def pUpdaters: PHtml = PHtml(updaterExplain,
-  LabelInputsLine(uNameLTI, osNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
+  LabelInputsLine(uNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
 
@@ -83,10 +83,11 @@ object TomcatPage extends PageUpdaterOS
   |get your site / app out to the world.""".stripMargin)
   
   val s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-  BashLine.listenTextNum(osNameIUT, javaVerIUN){ (os, vNum) =>
-    val osStr = ife(os == ArchDeriv.valueStr, "pacman -Syu", "apt install")
-    s"sudo $osStr openjdk-${vNum.str0}-jdk -y"
-  },
+  DivHtml.listenOptionNum(opNameIUT, javaVerIUN){ (ops, vNum) => ops match{
+    case UbuntuDeriv => RArr(BashLine(s"sudo apt install openjdk-${vNum.str0}-jdk -y"))
+    case ArchDeriv => RArr(BashLine(s"sudo pacman -Syu ${vNum.str0}-jdk"))
+    case _ => RArr("No code available.")
+  }},
   "Check the version",
   BashLine("java -version"),
   CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",

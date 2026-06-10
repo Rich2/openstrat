@@ -52,7 +52,7 @@ object DivHtml
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptionNum(input1: UpdaterOption, input2: UpdaterNumInput)(f: (OptionHtml, Double) => RArr[XConInedit]): DivHtml =
+  def listenOptionNum(input1: UpdaterOption, input2: UpdaterNumInput)(f: (OptionHtml, Double) => RArr[XCon]): DivHtml =
   { val newId: IdAtt = input1.nextOptionNumId1(input2, f)
     new DivHtmlGen(f(input1.initOption, input2.value), RArr(newId))
   }
