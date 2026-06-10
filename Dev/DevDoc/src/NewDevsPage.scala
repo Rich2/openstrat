@@ -7,7 +7,7 @@ object NewDevsPage extends DevPageBase
   override def fileStemStr: String = "newdevs"
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
 
-  def central: DivHtml = DivHtml.classAtt("central", contrib, pUpdaters, jvms, sbtInstall, gitCommands, sbtCommands)
+  def central: DivHtml = DivHtml.classAtt("central", contrib, pUpdaters, jvms, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome, sublime)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
@@ -32,8 +32,32 @@ object NewDevsPage extends DevPageBase
     case _ => RArr(DivHtml("No code available."))
   }
   val sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
-
-
+  
+  def intellij: Section = Section("Intellij IDEA".h2,
+    BashLine("sudo tar -xzf idea-2026.1.2.tar.gz -C /opt"),
+    UlSection("For IntelliJ useful options:",
+      LiHtml("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
+      LiHtml("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
+      LiHtml("Project-Pane => Options -> 'Flatten packages'"))
+  )
+  
+  def git: Section = Section("Git and Github".h2,
+    "Set git user name",
+    BashLine("""git config --global user.name "MonaLisa""""),
+    "Check user name properly set",
+    BashLine("git config --global user.name"),
+    CodeOutputLine("MonaLisa"),
+    "Set git email",
+    BashLine("""git config --global user.email "YourEmail""""),
+    "Check email properly set",
+    BashLine("git config --global user.email"),
+    CodeOutputLine("YourEmail"),
+    "Store Github username and token and other useful git commands.",
+    BashLine("git config --global credential.helper store"),
+    BashLine("git remote show origin"),
+    BashLine("git init --bare myrepo.git"),
+    BashLine("git push -u origin NewBranch")
+  )
   def gitCommands: Section = Section("Git Commands".h2,
     "For transferring files from the master repository to your local machine and back again.",
     gitCommandList)
@@ -61,4 +85,29 @@ object NewDevsPage extends DevPageBase
     LiHtml("clean".htmlSbt, "Gets rid of the cache"),
     LiHtml("Util/clean".htmlSbt, "To clean an individual module")
   ))
+
+  def chrome: Section = Section("Chrome".h2,
+    BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
+    BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
+    "If any errors appear about missing dependencies you may need to ‘force install.",
+    BashLine("sudo apt -f install")
+  )
+
+  def sublime: Section = Section("Sublime Text 4".h2,
+    BashLine("wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null"),
+    BashLine(
+      """echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' |""" --
+        "sudo tee /etc/apt/sources.list.d/sublime-text.sources"),
+    BashLine("sudo apt update"),
+    BashLine("sudo apt install sublime-text"),
+    BashLine("subl --version"),
+    CodeOutputLine("Sublime Text Build 4200"),
+
+    CodeLineHtml("// These settings override both User and Default settings for the Scala syntax"),
+    CodeLineHtml("{"),
+    CodeLineHtml(""""tab_size": 2,"""),
+    CodeLineHtml(""""translate_tabs_to_spaces": true,"""),
+    CodeLineHtml(""""rulers": [100, 160]"""),
+    CodeLineHtml("}")
+  )
 }

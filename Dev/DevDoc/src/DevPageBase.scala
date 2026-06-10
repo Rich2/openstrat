@@ -5,25 +5,7 @@ import pweb.*, WebExts.*, wcode.*
 /** HTML documentation page for the Dev Module. */
 trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
 {
-  def miscContents: RArr[XCon] = RArr(git, intellij, chrome, sublime)
-
-  def git: Section = Section("Git and Github".h2,
-    "Set git user name",
-    BashLine("""git config --global user.name "MonaLisa""""),
-    "Check user name properly set",
-    BashLine("git config --global user.name"),
-    CodeOutputLine("MonaLisa"),
-    "Set git email",
-    BashLine("""git config --global user.email "YourEmail""""),
-    "Check email properly set",
-    BashLine("git config --global user.email"),
-    CodeOutputLine("YourEmail"),
-    "Store Github username and token and other useful git commands.",
-    BashLine("git config --global credential.helper store"),
-    BashLine("git remote show origin"),
-    BashLine("git init --bare myrepo.git"),
-    BashLine("git push -u origin NewBranch")
-  )
+  //def miscContents: RArr[XCon] = RArr()
 
   def javaInstall = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
     DivHtml.listenOptionNum(opNameIUT, javaVerIUN){ (ops, vNum) =>
@@ -75,35 +57,5 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     )
   )
 
-  def intellij: Section = Section("Intellij IDEA".h2,
-    BashLine("sudo tar -xzf idea-2026.1.2.tar.gz -C /opt"),
-    UlSection("For IntelliJ useful options:",
-      LiHtml("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
-      LiHtml("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
-      LiHtml("Project-Pane => Options -> 'Flatten packages'"))
-  )
-
-  def chrome: Section = Section("Chrome".h2,
-    BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
-    BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
-    "If any errors appear about missing dependencies you may need to ‘force install.",
-    BashLine("sudo apt -f install")
-  )
-
-  def sublime: Section = Section("Sublime Text 4".h2,
-    BashLine("wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null"),
-    BashLine("""echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' |""" --
-        "sudo tee /etc/apt/sources.list.d/sublime-text.sources"),
-    BashLine("sudo apt update"),
-    BashLine("sudo apt install sublime-text"),
-    BashLine("subl --version"),
-    CodeOutputLine("Sublime Text Build 4200"),
-
-    CodeLineHtml("// These settings override both User and Default settings for the Scala syntax"),
-    CodeLineHtml("{"),
-    CodeLineHtml(""""tab_size": 2,"""),
-    CodeLineHtml(""""translate_tabs_to_spaces": true,"""),
-    CodeLineHtml(""""rulers": [100, 160]"""),
-    CodeLineHtml("}")
-  )
+  
 }
