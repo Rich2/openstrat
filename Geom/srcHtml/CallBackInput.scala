@@ -32,10 +32,10 @@ case class Callback1Num(listenerId: String, f: Double => String) extends Callbac
 trait CallbackOption extends CallbackInput
 
 /** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
-case class Callback1Option(listenerId: String, f: Any => RArr[XCon]) extends CallbackOption
+case class Callback1Option(listenerId: String, f: OptionHtml => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
-case class CallbackOptionNum1(listenerId: String, input2IdStr: String, f: (Any, Double) => RArr[XCon]) extends CallbackOption
+case class CallbackOptionNum1(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
-case class CallbackOptionNum2(listenerId: String, input1: UpdaterOption, f: (Any, Double) => RArr[XCon]) extends CallbackNum
+case class CallbackOptionNum2(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackNum

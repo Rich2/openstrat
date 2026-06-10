@@ -58,7 +58,7 @@ class UpdaterOptionJs(val inputer: UpdaterOption) extends UpdaterJs
 
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Select].value
-    val newOption: Any = inputer.contents.find(_.valueStr == newInpStr).getOrElse(None)
+    val newOption: OptionHtml = inputer.contents.find(_.valueStr == newInpStr).getOrElse(OptionNotFound)
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.callBacks.foreach{

@@ -85,7 +85,8 @@ object TomcatPage extends PageUpdaterOS
   val s3 = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
   BashLine.listenTextNum(osNameIUT, javaVerIUN){ (os, vNum) =>
     val osStr = ife(os == ArchDeriv.valueStr, "pacman -Syu", "apt install")
-    s"sudo $osStr openjdk-${vNum.str0}-jdk -y"},
+    s"sudo $osStr openjdk-${vNum.str0}-jdk -y"
+  },
   "Check the version",
   BashLine("java -version"),
   CodeOutputLines("""openjdk version "25.0.2" 2025-09-16""",

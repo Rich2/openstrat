@@ -9,7 +9,7 @@ class OptionHtml(val valueStr: String, val contentStr: String) extends HtmlOwnLi
   override def contents: RArr[XCon] = RArr(valueStr)
 }
 
-case class CallbackSelect(listenerId: String, f: String => String) extends CallbackInput
+case object OptionNotFound extends OptionHtml("Notfound", "Option not found")
 
 /** Operating system HTML Option element. */
 class OperatingSystem(valueStr: String, contentStr: String) extends OptionHtml(valueStr, contentStr)

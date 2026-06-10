@@ -23,7 +23,7 @@ class UpdaterNumInput(val idStr: String, val value: Double, val otherAttribs: RA
   }
 
   /** Registers a call back to a listener with a (String, Double) => String function. */
-  def nextOptionNum2(listenerID: String, input1: UpdaterOption, f: (Any, Double) => RArr[XCon]): Unit =
+  def nextOptionNum2(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]): Unit =
   { listeners +%= CallbackOptionNum2(listenerID, input1, f)
   }
 }

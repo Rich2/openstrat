@@ -15,7 +15,7 @@ object NewDevsPage extends DevPageBase, PageUpdaterOS
 
   def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI))
 
-  val sbtDiv: DivHtml = DivHtml.listenSelect(opNameIUT){
+  val sbtDiv: DivHtml = DivHtml.listenOption(opNameIUT){
     case UbuntuDeriv => RArr(
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
