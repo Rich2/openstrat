@@ -7,7 +7,7 @@ trait DblNElem extends Any, ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def dblForeach(f: Double => Unit): Unit
 
-  /** Utility method to append this as an element to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
+  /** Utility method to append this as an element to an [[collection.mutable.ArrayBuffer]][Double]. End users should rarely need to use this method. */
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 

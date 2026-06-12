@@ -153,7 +153,13 @@ object TomcatPage extends DevPageBase
     DivColour(LightGreen, "[Service]") +%
     DivHtml("Type=forking") +%
     DivHtml("") +%
-    DivHtml("""Environment="JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"""") +%
+    DivHtml.listenOption(opNameIUT){ ops =>
+      val javaStr: String = ops match {
+        case ArchDeriv => "java-25-openjdk"
+        case _ => "java-1.25.0-openjdk-amd64"
+      }
+      RArr(s"""Environment="JAVA_HOME=/usr/lib/jvm/$javaStr"""")
+    } +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%

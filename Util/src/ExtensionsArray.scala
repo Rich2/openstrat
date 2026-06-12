@@ -154,21 +154,21 @@ class BufferIntExtensions(thisBuffer: ArrayBuffer[Int])
   def setIndex6(index: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): Unit = { thisBuffer(index * 6) = i1; thisBuffer(index * 6 + 1) = i2
     thisBuffer(index * 6 + 2) = i3; thisBuffer(index * 6 + 3) = i4; thisBuffer(index * 6 + 4) = i5; thisBuffer(index * 6 + 5) = i6 }
 
-  /** Appends 2 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  /** Appends 2 [[Int]] elements to this [[collection.mutable.ArrayBuffer]][Int]. */
   @inline def append2(int1: Int, int2: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2) }
 
-  /** Appends 3 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  /** Appends 3 [[Int]] elements to this [[collection.mutable.ArrayBuffer]][Int]. */
   @inline def append3(int1: Int, int2: Int, int3: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2); thisBuffer.append(int3) }
 
-  /** Appends 4 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  /** Appends 4 [[Int]] elements to this [[collection.mutable.ArrayBuffer]][Int]. */
   @inline def append4(int1: Int, int2: Int, int3: Int, int4: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2); thisBuffer.append(int3)
     thisBuffer.append(int4) }
 
-  /** Appends 5 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  /** Appends 5 [[Int]] elements to this [[collection.mutable.ArrayBuffer]][Int]. */
   @inline def append5(int1: Int, int2: Int, int3: Int, int4: Int, int5: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2);
     thisBuffer.append(int3); thisBuffer.append(int4); thisBuffer.append(int5) }
 
-  /** Appends 6 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  /** Appends 6 [[Int]] elements to this [[collection.mutable.ArrayBuffer]][Int]. */
   @inline def append6(int1: Int, int2: Int, int3: Int, int4: Int, int5: Int, int6: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2);
     thisBuffer.append(int3); thisBuffer.append(int4); thisBuffer.append(int5); thisBuffer.append(int6) }
 }
