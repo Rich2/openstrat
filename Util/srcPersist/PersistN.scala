@@ -1,21 +1,21 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse.*
 
 /** Base trait for [[TellN]], [[ShowN]] and [[UnshowN]] which share the paramNames property. */
-trait PersistN extends Any with Persist
+trait PersistN extends Any, Persist
 { /** Sequence of the names of parameter constituents of this class. */
   def paramNames: StrArr
 }
 
 /** Base trait for [[ShowNFixed]] and [[UnshowN]]. */
-trait PersistNFixed extends Any with PersistN
+trait PersistNFixed extends Any, PersistN
 { /** Number of parameter constituents of this class. */
   def numParams: Int
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
+trait ShowNFixed[A] extends ShowCompound[A], PersistNFixed
 {
   def fieldShows: RArr[Show[?]]
 
@@ -55,11 +55,11 @@ trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
 }
 
 /** [[Show]] trait for types with N show fields that extend [[TellN]]. */
-trait ShowTellN[A <: TellN] extends ShowNFixed[A] with ShowTell[A]
+trait ShowTellN[A <: TellN] extends ShowNFixed[A], ShowTell[A]
 { override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = obj.tellElemStrs(way, maxPlaces, minPlaces)
 }
 
-trait UnshowN[R] extends Unshow[R] with PersistNFixed
+trait UnshowN[R] extends Unshow[R], PersistNFixed
 { protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[R]
 
   /** Single identifiers for values. */

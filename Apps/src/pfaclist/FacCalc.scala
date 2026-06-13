@@ -16,7 +16,7 @@ class FacCalc(val factions: RArr[Faction], val listLen: Int = 10)
     RPairElem(factions(indMax), state1)
   }
   
-  def assignN(num: Int): RPairArr[Faction, IntArr] =
+  def assignN(num: Int): RArrPair[Faction, IntArr] =
   { val num2 = num.max0
     var i = 0
     var state = facStateInit

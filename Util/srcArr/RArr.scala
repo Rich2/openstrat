@@ -85,8 +85,8 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
     new RArr(newArray)
   }
 
-  /** Partitions this immutable [[RArr]] into an [[RPairArr]] of [[RArr]]s according to some discriminator function. */
-  def groupBy[K](f: A => K)(using ctA: ClassTag[A] @uncheckedVariance, ctK: ClassTag[K]): RPairArr[K, RArr[A] @uncheckedVariance] =
+  /** Partitions this immutable [[RArr]] into an [[RArrPair]] of [[RArr]]s according to some discriminator function. */
+  def groupBy[K](f: A => K)(using ctA: ClassTag[A] @uncheckedVariance, ctK: ClassTag[K]): RArrPair[K, RArr[A] @uncheckedVariance] =
   { val buffs: RPairBuff[K, ArrayBuffer[A]] = RPairBuff[K, ArrayBuffer[A]]()
     foreach{a =>
       val key = f(a)
@@ -97,7 +97,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
     val b2s: ArrayBuffer[ArrayBuffer[A]] = buffs.b2Buffer
     val b2s2: Array[ArrayBuffer[A]] = b2s.toArray
     val b2s3: Array[RArr[A]] = b2s2.map(buffer => new RArr[A](buffer.toArray))
-    new RPairArr[K, RArr[A]](buffs.b1Buffer.toArray, b2s3)
+    new RArrPair[K, RArr[A]](buffs.b1Buffer.toArray, b2s3)
   }
 
   /** Functionally appends [[Iterable]] to this [[RArr]] collection, allows type widening. */

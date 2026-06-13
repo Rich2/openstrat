@@ -101,7 +101,7 @@ trait BuilderMapArrDbl6[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLik
  * type B, */
 trait BuilderFlatArrDbl6[ArrB <: ArrDbl6[?]] extends BuilderSeqLikeDbl6[ArrB], BuilderFlatArrDblN[ArrB]
 
-/** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
+/** A specialised flat ArrayBuffer[Double] based trait for [[Dbl6Elem]]s collections. */
 trait BuffDbl6[A <: Dbl6Elem] extends Any, BuffDblN[A], SeqLikeDbl6[A]
 { type ArrT <: ArrDbl6[A]
   final override def length: Int = bufferUnsafe.length / 6

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
@@ -104,4 +104,21 @@ abstract class CompanionSlDbl7[A <: Dbl7Elem, ArrA <: SeqLikeImutDbl7[A]] extend
      }
      res
   }
+}
+
+/** A specialised flat ArrayBuffer[Double] based trait for [[Dbl7Elem]]s collections. */
+trait BuffDbl7[A <: Dbl7Elem] extends Any, BuffDblN[A], SeqLikeDbl7[A]
+{ type ArrT <: ArrDbl7[A]
+  final override def length: Int = bufferUnsafe.length / 7
+  final override def numElems: Int = bufferUnsafe.length / 7
+  override def grow(newElem: A): Unit = bufferUnsafe.append7(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
+
+  final override def apply(index: Int): A = elemFromDbls(bufferUnsafe(index * 7), bufferUnsafe(index * 7 + 1), bufferUnsafe(index * 7 + 2),
+    bufferUnsafe(index * 7 + 3), bufferUnsafe(index * 7 + 4), bufferUnsafe(index * 7 + 5), bufferUnsafe(index * 7 + 6))
+
+  final override def elem(index: Int): A = elemFromDbls(bufferUnsafe(index * 7), bufferUnsafe(index * 7 + 1), bufferUnsafe(index * 7 + 2), bufferUnsafe(index * 7 + 3),
+    bufferUnsafe(index * 7 + 4), bufferUnsafe(index * 7 + 5), bufferUnsafe(index * 7 + 6))
+
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
+    bufferUnsafe.setIndex7(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
 }

@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse.*
 
-/** Common super trait for [[TellDec]], [[Show]] and [[Unshow]]. All of which inherit the typeStr property. */
+/** Common super trait for [[Tell]], [[Show]] and [[Unshow]]. All of which inherit the typeStr property. */
 trait Persist extends Any
 { /** The type of the object to be persisted. */
   def typeStr: String
@@ -15,7 +15,7 @@ trait Persist extends Any
 
 /** Type class instances for both [[Show]] and [[Unshow]]. Only use this class where all possible requirements have PersistBoth instances. Do not use it for
  * such types as Sequences where all the potential components are not known. */
-trait PersistBoth[A] extends Show[A] with Unshow[A]
+trait PersistBoth[A] extends Show[A], Unshow[A]
 
 object PersistBoth
 {

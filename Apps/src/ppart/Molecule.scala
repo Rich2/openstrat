@@ -8,7 +8,7 @@ trait Molecule
   def atomInd(atom: Atom): Int = atoms.indexOf(atom)
   def atomPosns: PtPm2Arr
   def posnAtoms: PtPm2PairArr[Atom] = PtPm2PairArr(atomPosns, atoms)
-  val bonds: RPairArr[Atom, Atom]
+  val bonds: RArrPair[Atom, Atom]
 
   def bondSegs: LineSegPm2Arr = bonds.map { bond =>
     val i1: PtPm2 = atomPosns(atomInd(bond.a1))
@@ -29,7 +29,7 @@ object Dihydrogen extends Molecule
   override val atoms: RArr[Atom] = RArr(aH1, aH2)
 
   override def atomPosns: PtPm2Arr = PtPm2Arr.dbls(-37,0 ,37,0)
-  override val bonds: RPairArr[Atom, Atom] = RPairArr((aH1, aH2))
+  override val bonds: RArrPair[Atom, Atom] = RArrPair((aH1, aH2))
 }
 
 object Water extends Molecule
@@ -42,7 +42,7 @@ object Water extends Molecule
   override val atoms: RArr[Atom] = RArr(aH1, aO1, aH2)
   val a01Posn = PtPm2.origin
   override val atomPosns: PtPm2Arr = PtPm2Arr(a01Posn.angleTo(-180.degs + bondRem, bondLen), a01Posn, a01Posn.angleTo(0.degs - bondRem, bondLen))
-  override val bonds: RPairArr[Atom, Atom] = RPairArr((aH1, aO1), (aO1, aH2))
+  override val bonds: RArrPair[Atom, Atom] = RArrPair((aH1, aO1), (aO1, aH2))
 }
 
 object CO2Mc extends Molecule
@@ -52,5 +52,5 @@ object CO2Mc extends Molecule
   override val atoms: RArr[Atom] = RArr(aO1, aC1, aO2)
   val bondLenNum = 116.3
   override def atomPosns: PtPm2Arr = PtPm2Arr.dbls(-bondLenNum,0 ,0,0, bondLenNum, 0)
-  override val bonds: RPairArr[Atom, Atom] = RPairArr((aC1, aO1), (aC1, aO2))
+  override val bonds: RArrPair[Atom, Atom] = RArrPair((aC1, aO1), (aC1, aO2))
 }

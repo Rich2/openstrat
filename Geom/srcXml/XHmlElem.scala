@@ -26,7 +26,7 @@ trait XHmlElem extends XConCompound
    * a single attribute. */
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   {
-    val atts2: RPairArr[String, RArr[XAtt]] = attribs.groupBy(_.name)
+    val atts2: RArrPair[String, RArr[XAtt]] = attribs.groupBy(_.name)
     val atts3 = atts2.pairMap {(name, attrs) => if (attrs.length == 1) attrs(0) else XAtt(name, attrs.mkStr(_.valueOut(0, 0), " ")) }
 
     atts3.length match

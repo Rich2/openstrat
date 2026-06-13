@@ -60,7 +60,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       p.fillActiveText(a2.colour, str, a2.name, 10, a2.contrastBW)
     }
     
-    val graphicPairs: RPairArr[Graphic2Elem, TextFixed] = ps5.pairMap{ (poly, a2) =>
+    val graphicPairs: RArrPair[Graphic2Elem, TextFixed] = ps5.pairMap{ (poly, a2) =>
       val str: String = a2 match
       { case isle: IslandPoly => isle.strWithGroups
         case lake: LakePoly => lake.name -- lake.area.str

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.annotation.unchecked.uncheckedVariance, pParse.*, reflect.ClassTag
 
@@ -243,10 +243,10 @@ type FailExc = Fail[Exception]
 type FailIO = Fail[IOExc]
 
 object FailIO
-{ /** Factory apply method to construct a [[Fail]] from an [[IOException]] type. */
+{ /** Factory apply method to construct a [[Fail]] from an [[java.io.IOException]] type. */
   @inline def apply[A](err: IOExc): FailIO = new Fail[IOExc](err)
 
-  /** Factory apply method to construct a [[Fail]] with an [[IOException]] type. */
+  /** Factory apply method to construct a [[Fail]] with an [[java.io.IOException]] type. */
   @inline def apply[A](message: String): FailIO = new Fail[IOExc](new IOExc(message))
 }
 

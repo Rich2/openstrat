@@ -254,6 +254,12 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
   @inline def append6(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double, dbl6: Double): Unit = { thisBuffer.append(dbl1)
     thisBuffer.append(dbl2); thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5); thisBuffer.append(dbl6) }
 
+  /** Appends 7 [[Double]] elements to this [[collection.mutable.ArrayBuffer]][Double]. */
+  @inline def append7(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double, dbl6: Double, dbl7: Double): Unit =
+  { thisBuffer.append(dbl1); thisBuffer.append(dbl2); thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5); thisBuffer.append(dbl6)
+    thisBuffer.append(dbl7)
+  }
+
   def appends(dbls: Double *): Unit = dbls.foreach(thisBuffer.append(_))
 }
 

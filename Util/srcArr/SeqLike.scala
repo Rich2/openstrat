@@ -64,3 +64,7 @@ trait SeqLikeBacked[+A] extends Any, SeqLike[A]
    * methods. */
   def mutateElemUnsafe(index: Int, f: A => A @uncheckedVariance): Unit = setElemsUnsafe(index, f(elem(index)))
 }
+
+/** Common trait for immutable [[Sequ]]s, and [[SeqSpec]] classes that are not sequences but can be specified by a sequence, for example a sequence of points
+ * can specify a polygon. Designed as a compromise between type safety and efficiency. Using backing [[Array]]s for use facing types. */
+trait SeqLikeImut[+A] extends Any, SeqLike[A]

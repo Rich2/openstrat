@@ -89,7 +89,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2 values to
-   * make the new pairs of type [[PairFinalA1Elem]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
+   * make the new pairs of type [[PairFinalA1Elem]][B1, A2]. For an [[RArrPair]] return type use the optMapRefOnA1 method. */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairFinalA1Elem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: BuilderMapArrPair[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
@@ -97,11 +97,11 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     build.buffToSeqLike(buff)
   }
 
-  def optMapRefOnA1[B1, B <: PairFinalA1Elem[B1, A2]](f: A1 => Option[B1])(implicit ct1: ClassTag[B1], ct2: ClassTag[A2]): RPairArr[B1, A2] =
+  def optMapRefOnA1[B1, B <: PairFinalA1Elem[B1, A2]](f: A1 => Option[B1])(implicit ct1: ClassTag[B1], ct2: ClassTag[A2]): RArrPair[B1, A2] =
   { val buffer1 = new ArrayBuffer[B1]()
     val buffer2 = new ArrayBuffer[A2]()
     pairForeach { (a1, a2) => f(a1).foreach{b1 => buffer1.append(b1); buffer2.append(a2) } }
-    new RPairArr[B1, A2](buffer1.toArray, buffer2.toArray)
+    new RArrPair[B1, A2](buffer1.toArray, buffer2.toArray)
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
@@ -235,7 +235,7 @@ object BuilderMapArrPair extends BuilderMapArrPairPriority2
   implicit def strArrMapEv[B2](implicit ct: ClassTag[B2]): BuilderArrPairStrMap[B2] = new BuilderArrPairStrMap[B2]
 }
 
-/** This trait exist to make the builders for [[RPairArr]]s lower implicit priority than those for specialised [[ArrPair]] types. */
+/** This trait exist to make the builders for [[RArrPair]]s lower implicit priority than those for specialised [[ArrPair]] types. */
 trait BuilderMapArrPairPriority2
 { /** Implicit [[BuilderMap]] type class instances for [[Arr]]s of [[PairElem]]s. */
   implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
