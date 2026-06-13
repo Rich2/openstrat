@@ -95,12 +95,19 @@ object NewDevsPage extends DevPageBase
     LiHtml("Util/clean".htmlSbt, "To clean an individual module")
   ))
 
-  def chrome: Section = Section("Chrome".h2,
-    BashLine("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
-    BashLine("sudo apt install ./google-chrome-stable_current_amd64.deb"),
-    "If any errors appear about missing dependencies you may need to ‘force install.",
-    BashLine("sudo apt -f install")
-  )
+  def chrome: Section = Section.listenOption(opNameIUT){ ops =>
+    val last = ops match
+    { case UbuntuDeriv => RArr(
+        BashLine ("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
+        BashLine ("sudo apt install ./google-chrome-stable_current_amd64.deb"),
+        "If any errors appear about missing dependencies you may need to ‘force install.",
+        BashLine ("sudo apt -f install")
+      )
+      case ArchDeriv => RArr(BashLine("sudo pacman -S chromium"))
+      case _ => RArr("No code available")
+    }
+    "Chrome / Chromium".h2 %: last
+  }
 
   def sublime: Section = Section("Sublime Text 4".h2,
     BashLine("wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null"),

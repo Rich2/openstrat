@@ -15,6 +15,12 @@ object Section
   /** Factory apply convenience method for [[Section]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
   def apply(contents: XCon*): Section = new SectionGen(contents.toArr, RArr())
 
+  /** Creates a Section and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
+  def listenOption(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): Section =
+  { val newId: IdAtt = input.next1Id(f)
+    new SectionGen(input.listenerInit(f), RArr(newId))
+  }
+
   /** General implementation class for HTML section element. */
   class SectionGen(val contents: RArr[XCon], override val attribs: RArr[XAtt]) extends Section
 }
