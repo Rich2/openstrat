@@ -52,7 +52,7 @@ class OptionExtensions[A](thisOption: Option[A])
     case Some(a) => fSome(a)
   }
 
-  /** safe get. Seeks an implicit value for the [[GefaultValue]] type class for the type of the option. Returns the value if a some else returns the default
+  /** safe get. Seeks an implicit value for the [[DefaultValue]] type class for the type of the option. Returns the value if a some else returns the default
    * value. */
   def getSafe(implicit ev: DefaultValue[A]): A = thisOption match
   { case Some(a) => a

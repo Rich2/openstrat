@@ -8,6 +8,9 @@ trait PersistN extends Any, Persist
   def paramNames: StrArr
 }
 
+/** The base trait for the persistence of algebraic product types, including case classes. */
+trait ShowN extends PersistN
+
 /** Base trait for [[ShowNFixed]] and [[UnshowN]]. */
 trait PersistNFixed extends Any, PersistN
 { /** Number of parameter constituents of this class. */
@@ -15,7 +18,7 @@ trait PersistNFixed extends Any, PersistN
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowNFixed[A] extends ShowCompound[A], PersistNFixed
+trait ShowNFixed[A] extends ShowCompound[A], ShowN, PersistNFixed
 {
   def fieldShows: RArr[Show[?]]
 

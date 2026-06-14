@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import ostrat.pParse.*, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
@@ -29,7 +29,7 @@ case class Multiple[+A](value: A, num: Int)
 /** Companion object for the [[Multiple]][+A] type class. */
 object Multiple
 {
-  given arrMapBuilderEv[A](using ctA: ClassTag[A]): MultipleArrMapBuilder[A] = new MultipleArrMapBuilder[A]
+  given arrMapBuilderEv[A](using ctA: ClassTag[A]): MultipleBuilderArrMap[A] = new MultipleBuilderArrMap[A]
 
   given eqTEv[A](using evA: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) && evA.eqT(a1.value, a2.value)
 
@@ -74,14 +74,14 @@ object Multiple
 
     def fromArrExpr(inp: Arr[Expr]): ExcMon[RArr[Multiple[A]]] = inp.mapErrBi(fromExpr(_))
 
-    /** Collection from [[Arr]] of [[Expr]]. */
+    /** Collection from [[Arr]] of [[pParse.Expr]]. */
     def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderMap[A, R]): ExcMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
 
     /** Collection from [[Arr]] of [[Statement]]. */
     def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderMap[A, R]): ExcMon[R] = collFromArrExpr(inp.map(_.expr), builderColl)
   }
 
-  /** Collection from [[Arr]] of [[Expr]]. */
+  /** Collection from [[Arr]] of [[pParse.Expr]]. */
   def collFromArrExpr[Ae, A](inp: Arr[Expr])(using evA: Unshow[Ae], builderColl: BuilderMap[Ae, A]): ExcMon[A] =
     unshowEv.fromArrExpr(inp).map(_.toColl(builderColl))
 
@@ -165,7 +165,8 @@ object MultipleBuff
 { def apply[A](initLen: Int = 4): MultipleBuff[A] = new MultipleBuff[A](new ArrayBuffer[Int](initLen), new ArrayBuffer[A](initLen))
 }
 
-class MultipleArrMapBuilder[A](using ctA: ClassTag[A]) extends BuilderArrMap[Multiple[A], MultipleArr[A]]
+/** A type class for building [[Arr]]s from the map method returning [[Multiple]]s. */
+class MultipleBuilderArrMap[A](using ctA: ClassTag[A]) extends BuilderArrMap[Multiple[A], MultipleArr[A]]
 { override type BuffT = MultipleBuff[A]
   override def buffGrow(buff: MultipleBuff[A], newElem: Multiple[A]): Unit = buff.grow(newElem)
   override def uninitialised(length: Int): MultipleArr[A] = new MultipleArr[A](new Array[Int](length), new Array[A](length))
