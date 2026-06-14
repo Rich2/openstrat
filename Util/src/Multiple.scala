@@ -77,7 +77,7 @@ object Multiple
     /** Collection from [[Arr]] of [[pParse.Expr]]. */
     def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderMap[A, R]): ExcMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
 
-    /** Collection from [[Arr]] of [[Statement]]. */
+    /** Collection from [[Arr]] of [[pParse.Statement]]. */
     def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderMap[A, R]): ExcMon[R] = collFromArrExpr(inp.map(_.expr), builderColl)
   }
 
@@ -85,7 +85,7 @@ object Multiple
   def collFromArrExpr[Ae, A](inp: Arr[Expr])(using evA: Unshow[Ae], builderColl: BuilderMap[Ae, A]): ExcMon[A] =
     unshowEv.fromArrExpr(inp).map(_.toColl(builderColl))
 
-  /** Collection from [[Arr]] of [[Statement]]. */
+  /** Collection from [[Arr]] of [[pParse.Statement]]. */
   def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderMap[A, R]): ExcMon[R] =
     unshowEv(using evA).collFromArrExpr(inp.map(_.expr), builderColl)  
 }

@@ -191,7 +191,7 @@ implicit class STringExtsOstrat(thisString: String)
     s1 + "." + s2a
   }
 
-  /** Extension method. Try to parse this [[String]] into RSON [[Token]]s. */
+  /** Extension method. Try to parse this [[String]] into RSON [[pParse.Token]]s. */
   def toTokens: ErrBiArr[ExcLexar, Token] = pParse.stringToTokens(thisString)
 
   /** Appends strings with a comma and space separator */

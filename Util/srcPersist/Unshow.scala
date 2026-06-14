@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
@@ -11,7 +11,7 @@ trait Unshow[+T] extends Persist
   /** Tries to build an object of type T from the statement. */
   final def fromStatement(st: Statement): ExcMon[T] = fromExpr(st.expr)
 
-  /** Tries to get type from [[Expr]], or from the value [[Expr]] of a setting. */
+  /** Tries to get type from [[pParse.Expr]], or from the value [[pParse.Expr]] of a setting. */
   def fromSettingOrExpr(SettingStr: String, expr: Expr): ExcMon[T] = expr match
   { case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
     case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExpr(rExpr)
@@ -24,7 +24,7 @@ trait Unshow[+T] extends Persist
     case e => fromExpr(e)
   }
 
-  /** Produces an [[ArrImut]] of the UnShow type from Statements RArr[Statement]. */
+  /** Produces an [[Arr]] of the UnShow type from Statements RArr[Statement]. */
   def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(using arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectSuccs(fromStatement)
 

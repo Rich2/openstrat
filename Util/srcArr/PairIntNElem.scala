@@ -82,7 +82,7 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
    * pairs. */
   def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
+  /** Constructs the [[Buff]] class from an [[collection.mutable.ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
    * components of the pairs. */
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
 
@@ -94,7 +94,7 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
 
 /** Builder for [[PairArrIntN]] objects via the map f: A => PairB method. */
 trait BuilderArrPairIntNMap[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: PairIntNElem[B1, B2], ArrB <: ArrPairIntN[B1, ArrB1, B2, B]] extends
-  BuilderArrPairIntN[B1, ArrB1, B2, ArrB] with BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]
+  BuilderArrPairIntN[B1, ArrB1, B2, ArrB], BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairIntN[B1, B2, B]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */

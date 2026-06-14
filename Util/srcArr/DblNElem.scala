@@ -11,8 +11,10 @@ trait DblNElem extends Any, ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
+trait SeqLikeDblN[+A <: DblNElem] extends Any, SeqLikeValueN[A]
+
 /** An immutable [[SeqLike]] with [[DblNElem]]s. */
-trait SeqLikeImutDblN[+A <: DblNElem] extends Any, SeqLikeImutValueN[A], ArrayDblBacked
+trait SeqLikeImutDblN[+A <: DblNElem] extends Any, SeqLikeDblN[A], SeqLikeImutValueN[A], ArrayDblBacked
 { type ThisT <: SeqLikeImutDblN[A]
   def fromArray(array: Array[Double]): ThisT
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))  
@@ -90,7 +92,7 @@ trait ArrDblN[A <: DblNElem] extends Any, SeqLikeImutDblN[A], ArrValueN[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait BuffDblN[A <: DblNElem] extends Any, BuffValueN[A]
+trait BuffDblN[A <: DblNElem] extends Any, SeqLikeDblN[A], BuffValueN[A]
 { type ArrT <: ArrDblN[A]
   def bufferUnsafe: ArrayBuffer[Double]
   def length: Int = bufferUnsafe.length / elemProdSize
