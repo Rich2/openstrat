@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, pParse.*
 
@@ -40,7 +40,7 @@ trait UnshowSum[+A] extends Unshow[A]
   override def fromExpr(expr: Expr): ErrBi[ExcNotFound.type, A] = elems.findSucc(_.fromExpr(expr))
 
   override def concat[AA >: A](operand: Unshow[AA], newTypeStr: String = typeStr): Unshow[AA] = operand match
-  { case uSum: UnshowSum[AA] => UnshowSum[AA](newTypeStr, elems ++ uSum.elems)
+  { case uSum: UnshowSum[?] => UnshowSum[AA](newTypeStr, elems ++ uSum.elems.asInstanceOf[RArr[Unshow[AA]]])
     case op => UnshowSum[AA](newTypeStr, elems +% op)
   }
 }

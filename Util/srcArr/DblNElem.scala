@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.*, collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[Array]] of [[Double]] based collections. */
 trait DblNElem extends Any, ValueNElem
@@ -175,6 +175,6 @@ trait CompanionBuffDblN[A <: DblNElem, AA <: BuffDblN[A]]
   /** Number of [[Double]]s required to construct an element */
   def elemNumDbls: Int
 
-  /** Allows the creation of the final [[Buff]] class from an [[ArrayBuffer]][Double]. */
+  /** Allows the creation of the final [[Buff]] class from an [[collection.mutable.ArrayBuffer]][Double]. */
   def fromBuffer(buffer: ArrayBuffer[Double]): AA
 }

@@ -62,8 +62,8 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
-  def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): ExcMon[T] = sts match
-  { case Arr0() => TextPosn.failEmpty//("No Statements")
+  def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(using evST: Unshow[KT]): ExcMon[T] = sts match
+  { case Arr0() => TextPosn.failEmpty
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Succ(_) => g } match
     { case Arr1(t) => t
@@ -73,7 +73,7 @@ trait Unshow[+T] extends Persist
   }
 
   def concat[TT >: T](operand: Unshow[TT], newTypeStr: String = typeStr): Unshow[TT] = operand match
-  { case uSum: UnshowSum[TT] => UnshowSum[TT](newTypeStr, this %: uSum.elems)
+  { case uSum: UnshowSum[?] => UnshowSum[TT](newTypeStr, this %: uSum.elems.asInstanceOf[RArr[Unshow[TT]]])
     case op => UnshowSum[TT](newTypeStr, RArr(this, op))
   }
 }
