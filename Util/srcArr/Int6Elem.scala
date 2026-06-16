@@ -79,7 +79,7 @@ trait BuffInt6[A <: Int6Elem] extends Any, BuffIntN[A], SeqLikeInt6[A]
     bufferUnsafe.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-/** [[BuilderBoth]] for [[SeqLikeImut]]s with [[Int6Elem]]s by map and flatMpa methods. */
+/** [[BuilderBase]] for [[SeqLikeImut]]s with [[Int6Elem]]s by map and flatMpa methods. */
 trait BuilderSeqLikeInt6[BB <: SeqLikeImutInt6[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6

@@ -11,6 +11,7 @@ trait DblNElem extends Any, ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
+/** A [[SeqLike]] with [[DblNElem]]s. */
 trait SeqLikeDblN[+A <: DblNElem] extends Any, SeqLikeValueN[A]
 
 /** An immutable [[SeqLike]] with [[DblNElem]]s. */
@@ -102,7 +103,7 @@ trait BuffDblN[A <: DblNElem] extends Any, SeqLikeDblN[A], BuffValueN[A]
   def toArr(implicit build: BuilderArrDblNMap[A, ArrT]): ArrT = build.fromDblArray(bufferUnsafe.toArray)  
 }
 
-/** A [[BuilderBoth]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
+/** A [[BuilderBase]] for [[SeqLikeImut]]s with [[DblNElem]]s by map and flatMap methods. */
 trait BuilderSeqLikeDblN[BB <: SeqLikeImutDblN[?]] extends BuilderSeqLikeValueN[BB]
 { type BuffT <: BuffDblN[?]
   def fromDblArray(array: Array[Double]): BB
@@ -123,7 +124,7 @@ trait BuilderMapSeqLikeDblN[B <: DblNElem, BB <: SeqLikeImutDblN[B]] extends Bui
   }
 }
 
-/** [[BuilderBoth]] trait for constructing [[Arr]]s by the map and flatMap methods. */
+/** [[BuilderBase]] trait for constructing [[Arr]]s by the map and flatMap methods. */
 trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB]
 
 /** [[BuilderArrMap]] trait for constructing [[Arr]]s with [[DblNElem]]s. Instances for the [[BuilderArrMap]] type class, for classes / traits you control,

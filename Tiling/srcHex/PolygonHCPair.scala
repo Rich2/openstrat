@@ -43,7 +43,7 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def fromArrays(arrayArrayInt: Array[Array[Int]], a2Array: Array[A2]): PolygonHCPairArr[A2] = ???
 
   /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
-  override def b1Builder: BuilderMapSeqLike[HCoord, PolygonHC] = ???//PolygonHC.arrBuildImplicit
+  override def b1Builder: BuilderSeqLikeMap[HCoord, PolygonHC] = ???//PolygonHC.arrBuildImplicit
 
   /** Builder for an Arr of the first element of the pair. */
   override def b1ArrBuilder: BuilderArrMap[PolygonHC, PolygonHCArr] = ???

@@ -73,7 +73,7 @@ trait BuffInt5[A <: Int5Elem] extends Any, BuffIntN[A], SeqLikeInt5[A]
     bufferUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** [[BuilderBoth]] for constructing [[SeqLikeImut]] objects, with [[Int5Elem]]s, by the map and flatMap methods. */
+/** [[BuilderBase]] for constructing [[SeqLikeImut]] objects, with [[Int5Elem]]s, by the map and flatMap methods. */
 trait BuilderSeqLikeInt5[BB <: SlimutInt5[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt5[?]
   final override def elemProdSize: Int = 5

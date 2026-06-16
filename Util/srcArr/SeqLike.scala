@@ -34,7 +34,7 @@ trait SeqLike[+A] extends Any
 
 object SeqLike
 { /** Implicit method for creating [[SeqLike]] instances. */
-  given unshowEv[A, AA <: SeqLike[A]](using evA: Unshow[A], build: BuilderMapSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
+  given unshowEv[A, AA <: SeqLike[A]](using evA: Unshow[A], build: BuilderSeqLikeMap[A, AA]): Unshow[AA] = new Unshow[AA]
   { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[AA] = expr match

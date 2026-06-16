@@ -82,7 +82,7 @@ abstract class CompanionSlDbl6[A <: Dbl6Elem, ArrA <: SeqLikeImutDbl6[A]] extend
   }
 }
 
-/** [[BuilderBoth]] trait to construct [[SeqLikeImut]]s with [[Dbl6Elem]]s via the map or flatMap methods. */
+/** [[BuilderBase]] trait to construct [[SeqLikeImut]]s with [[Dbl6Elem]]s via the map or flatMap methods. */
 trait BuilderSeqLikeDbl6[BB <: ArrDbl6[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl6[?]
   final override def elemProdSize = 6

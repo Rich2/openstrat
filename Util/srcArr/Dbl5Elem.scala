@@ -56,7 +56,7 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any, ArrDblN[A], SeqLikeImutDbl5[A]
   }
 }
 
-/** [[BuilderBoth]] trait for constructing [[SeqLikeImut]]s with [[Dbl5Elem]]s by map and flatMap methods. */
+/** [[BuilderBase]] trait for constructing [[SeqLikeImut]]s with [[Dbl5Elem]]s by map and flatMap methods. */
 trait BuilderSeqLikeDbl5[BB <: SeqLikeImutDbl5[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl5[?]
   final override def elemProdSize: Int = 5

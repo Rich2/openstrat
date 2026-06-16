@@ -191,7 +191,7 @@ trait LinePathInt2[VT <: Int2Elem] extends Any, LinePathIntN[VT], SeqSpecInt2[VT
  * companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into the BB
  * companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a function from A => B or
  * A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be used directly by end users. */
-trait LinePathBuilder[B, BB <: LinePathBase[B]] extends BuilderMapSeqLike[B, BB]
+trait LinePathBuilder[B, BB <: LinePathBase[B]] extends BuilderSeqLikeMap[B, BB]
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the companion
  * object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

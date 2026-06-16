@@ -58,7 +58,7 @@ trait BuffInt3[A <: Int3Elem] extends Any, BuffIntN[A], SeqLikeInt3[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = bufferUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
 
-/** [[BuilderBoth]] for constructing [[SeqLikeImut]]s with [[Int3Elem]]s, via the map or flatMap methods. */
+/** [[BuilderBase]] for constructing [[SeqLikeImut]]s with [[Int3Elem]]s, via the map or flatMap methods. */
 trait BuilderSeqLikeInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt3[?]
   final override def elemProdSize: Int = 3

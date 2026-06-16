@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
-trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderBoth[BB]
+trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderBase[BB]
 { /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = [[IntArr]], or it can be a compile time wrapped Arraybuffer inheriting from
    * [[Buff]]. */
   type BuffT <: Buff[?]
@@ -11,7 +11,7 @@ trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderBoth[BB]
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
-trait BuilderMapSeqLike[B, BB <: SeqLike[B]] extends BuilderMap[B, BB], BuilderSeqLike[BB]
+trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderMap[B, BB], BuilderSeqLike[BB]
 { type BuffT <: Buff[B]
 
   /** Creates a new uninitialised [[SeqLike]] of type BB of the given length. */
@@ -31,7 +31,7 @@ trait BuilderMapSeqLike[B, BB <: SeqLike[B]] extends BuilderMap[B, BB], BuilderS
  * companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into the BB
  * companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a function from A => B or
  * A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be used directly by end users. */
-trait BuilderArrMap[B, ArrB <: Arr[B]] extends BuilderMapSeqLike[B, ArrB]
+trait BuilderArrMap[B, ArrB <: Arr[B]] extends BuilderSeqLikeMap[B, ArrB]
 {
   def buffContains(buff: BuffT, newElem: B): Boolean =
   { var res = false
@@ -79,8 +79,8 @@ trait BuilderMapArrPriority2
   implicit def anyEv[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): BuilderArrMap[B, RArr[B]] = new RArrAllBuilder[B]
 }
 
-/** Builds [[SeqLike]] objects via flatMap methods. Hence, the type of the element of the sequence or specifiying sequence is not known at the call site. */
-trait BuilderFlatSeqLike[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
+/** Builds [[SeqLike]] objects via flatMap methods. Hence, the type of the element of the sequence or specifying sequence is not known at the call site. */
+trait BuilderFlatSeqLike[BB <: SeqLike[?]] extends BuilderSeqLike[BB], BuilderFlat[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits you control
  * should go in the companion object of BB. This is different from the related [[BuilderArrMap]][BB] type class where the instance should go into the B

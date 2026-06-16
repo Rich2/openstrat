@@ -54,7 +54,7 @@ trait ArrDbl4[A <: Dbl4Elem] extends Any, ArrDblN[A], SeqLikeImutDbl4[A]
   }
 }
 
-/** [[BuilderBoth]] trait for constructing [[Arr]]s with [[Dbl4Elem]]s by the map and flatMap methods. */
+/** [[BuilderBase]] trait for constructing [[Arr]]s with [[Dbl4Elem]]s by the map and flatMap methods. */
 trait BuilderArrDbl4[ArrB <: ArrDbl4[?]] extends BuilderArrDblN[ArrB]
 { type BuffT <: BuffDbl4[?]
   final override def elemProdSize = 4

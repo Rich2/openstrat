@@ -92,13 +92,13 @@ trait BuffValueN[A <: ValueNElem] extends Any, Buff[A], SeqLikeValueN[A]
   def grows(newElems: ArrT): Unit
 }
 
-/** [[BuilderBoth]], common trait for map and flatMap builders for [[SeqLike]]s with [[ValueNElem]]s. */
+/** [[BuilderBase]], common trait for map and flatMap builders for [[SeqLike]]s with [[ValueNElem]]s. */
 trait BuilderSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLike[BB]
 { def elemProdSize: Int
 }
 
 /** Map builder for [[SeqLikeImutValueN]] classes. */
-trait BuilderMapSeqLikeValueN[B <: ValueNElem, BB <: SeqLikeImutValueN[B]] extends BuilderSeqLikeValueN[BB], BuilderMapSeqLike[B, BB]
+trait BuilderMapSeqLikeValueN[B <: ValueNElem, BB <: SeqLikeImutValueN[B]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeMap[B, BB]
 
 /** Constructs [[SeqLikeImutValueN]] objects via flatMap method. Element type not known at call site. */
 trait BuilderFlatSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLikeValueN[BB], BuilderFlatSeqLike[BB]

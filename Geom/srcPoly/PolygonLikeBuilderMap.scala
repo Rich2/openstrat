@@ -6,7 +6,7 @@ import annotation.unchecked.uncheckedVariance
  * companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into the BB
  * companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a function from A => B or
  * A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be used directly by end users. */
-trait PolygonLikeBuilderMap[B, +BB <: PolygonBase[B]] extends BuilderMapSeqLike[B, BB @uncheckedVariance]
+trait PolygonLikeBuilderMap[B, +BB <: PolygonBase[B]] extends BuilderSeqLikeMap[B, BB @uncheckedVariance]
 { 
   /** The uninitialised polygon must be backed by an [[Array]] to be constructed by this builder, even if all the final classes of the type do not inherit from
    * [[SeqLikeBacked]]. For example this builder can not construct a specialised quadrilateral, rectangle or triangle class. */

@@ -68,7 +68,7 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any, ArrDblN[A], SeqLikeImutDbl3[A]
   }
 }
 
-/** [[BuilderBoth]] trait for [[SeqLikeImut]] objects, with [[Dbl3Elem]]s via map and flatMap methods. */
+/** [[BuilderBase]] trait for [[SeqLikeImut]] objects, with [[Dbl3Elem]]s via map and flatMap methods. */
 trait BuilderSeqLikeDbl3[BB <: SeqLikeImutDbl3[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: Dbl3Buff[?]
   final override def elemProdSize = 3

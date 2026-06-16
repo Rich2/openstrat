@@ -73,7 +73,7 @@ trait BuffPairIntN[B1 <: IntNElem, B2, B <: PairIntNElem[B1, B2]] extends BuffPa
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.intForeach(b1IntBuffer.append(_)); b2Buffer.append(b2) }
 }
 
-/** Common builder trait for [[PairArrIntN]] objects via both the map and flatMap methods. */
+/** Common builder trait for [[ArrPairIntN]] objects via both the map and flatMap methods. */
 trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPairIntN[B1, ArrB1, B2, ?]] extends BuilderArrPair[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairIntN[B1, B2, ?]
   type B1BuffT <: BuffIntN[B1]
@@ -82,8 +82,8 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
    * pairs. */
   def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[Buff]] class from an [[collection.mutable.ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
-   * components of the pairs. */
+  /** Constructs the [[Buff]] class from an [[collection.mutable.ArrayBuffer]][Int] object for the first components of the pairs and an
+   * [[collection.mutable.ArrayBuffer]][B2] for the second components of the pairs. */
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.intForeach(buff.bufferUnsafe.append(_))
@@ -92,7 +92,7 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
   final override def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB = arrFromArrays(b1Buff.toArray, b2Buffer.toArray)
 }
 
-/** Builder for [[PairArrIntN]] objects via the map f: A => PairB method. */
+/** Builder for [[ArrPairIntN]] objects via the map f: A => PairB method. */
 trait BuilderArrPairIntNMap[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: PairIntNElem[B1, B2], ArrB <: ArrPairIntN[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntN[B1, ArrB1, B2, ArrB], BuilderMapArrPair[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairIntN[B1, B2, B]

@@ -57,8 +57,8 @@ trait BuilderArrPairDblN[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPa
    * pairs. */
   def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[Buff]] class from an [[collection.mutable.ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the second
-   * components of the pairs. */
+  /** Constructs the [[Buff]] class from an [[collection.mutable.ArrayBuffer]][Double] object for the first components of the pairs and an
+   * [[collection.mutable.ArrayBuffer]][B2] for the second components of the pairs. */
   def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[B2]): BuffT
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.dblForeach(buff.bufferUnsafe.append(_))

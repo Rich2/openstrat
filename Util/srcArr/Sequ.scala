@@ -152,7 +152,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** A map operation where the return type of the [[SeqLike]] is explicitly given by the second type parameter. */
-  def mapTo[B, BB <: SeqLikeBacked[B]](build: BuilderMapSeqLike[B, BB])(f: A => B): BB =
+  def mapTo[B, BB <: SeqLikeBacked[B]](build: BuilderSeqLikeMap[B, BB])(f: A => B): BB =
   { val res = build.uninitialised(length)
     var i = 0
     foreach{ el => res.setElemUnsafe(i, f(el)); i += 1 }
@@ -175,7 +175,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** A map operation on the range of indexed values, where the return type of the [[SeqLike]] is explicitly given by the first parameter. */
-  def indexMapTo[B, BB <: SeqLikeBacked[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(using build: BuilderMapSeqLike[B, BB]): BB =
+  def indexMapTo[B, BB <: SeqLikeBacked[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(using build: BuilderSeqLikeMap[B, BB]): BB =
   { val res = build.uninitialised(length)
     var ti = 0
     indexToForeach(iFrom, iTo, iStep) { el => res.setElemUnsafe(ti, f(el)); ti += 1 }
