@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pweb.*, WebExts.*
 
-trait OSDocumentationPage extends PageFile
+trait OSDocumentationPage extends HtmlPageFile
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HeadHtml]]. */
   def titleStr: String
 

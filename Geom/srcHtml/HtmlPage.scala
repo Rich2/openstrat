@@ -3,14 +3,14 @@ package ostrat; package pweb
 import wcode.*
 
 /** An HTML page, contains a doctype, a head and a body elements. */
-trait PageHtml extends HttpContent
-{ /** The HTML element of this [[PageHtml]] consisting of an [[HeadHtml]] and an [[BodyHtml]]. */
+trait HtmlPage extends HttpContent
+{ /** The HTML element of this [[HtmlPage]] consisting of an [[HeadHtml]] and an [[BodyHtml]]. */
   def htmlElem: HtmlHtml = HtmlHtml(head, body)
 
-  /** The head of this [[PageHtml]]. */
+  /** The head of this [[HtmlPage]]. */
   def head: HeadHtml
 
-  /** The body of this [[PageHtml]]. */
+  /** The body of this [[HtmlPage]]. */
   def body: BodyHtml
 
   override def out: String = "<!doctype html>" --- htmlElem.out(0, 150)
@@ -23,19 +23,19 @@ trait PageHtml extends HttpContent
 }
 
 /** Companion object for the [[HeadHtml]] class. */
-object PageHtml
-{ /** Factory apply method for [[PageHtml]]. */
-  def apply(head: HeadHtml, body: BodyHtml): PageHtml = HtmlPageGen(head, body)
+object HtmlPage
+{ /** Factory apply method for [[HtmlPage]]. */
+  def apply(head: HeadHtml, body: BodyHtml): HtmlPage = HtmlPageGen(head, body)
 
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
-  def titleOnly(title: String, bodyContent: String): PageHtml = HtmlPageGen(HeadHtml.title(title), BodyHtml(H1Html(title), bodyContent))
+  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPageGen(HeadHtml.title(title), BodyHtml(H1Html(title), bodyContent))
   
-  /** General implementation class for [[PageHtml]]. */
-  case class HtmlPageGen(head: HeadHtml, body: BodyHtml) extends PageHtml
+  /** General implementation class for [[HtmlPage]]. */
+  case class HtmlPageGen(head: HeadHtml, body: BodyHtml) extends HtmlPage
 }
 
 /** This is an HTML page that stores its default file name. */
-trait PageFile extends PageHtml, OutElemFileExt
+trait HtmlPageFile extends HtmlPage, OutElemFileExt
 { /** The HTML head title [[String]]. */
   def titleStr: String
 
@@ -55,12 +55,12 @@ trait PageFile extends PageHtml, OutElemFileExt
 }
 
 /** An index.html page. */
-trait IndexPage extends PageFile
+trait IndexPage extends HtmlPageFile
 { override def fileStemStr: String = "index"
 }
 
 /** A 404 HTML page. */
-trait HtmlPageNotFound extends PageHtml
+trait HtmlPageNotFound extends HtmlPage
 { override def httpResp(dateStr: String, server: String): HttpPageNotFound = HttpPageNotFound(dateStr, server, HttpConTypeHtml, out)
 }
 

@@ -3,7 +3,7 @@ package ostrat; package pweb
 import wcode.*
 
 /** An HTML page with an accumulator of [[UpdaterInputLike]]s. */
-trait PageHtmlUpdater extends PageFile
+trait PageHtmlUpdater extends HtmlPageFile
 { given thisPage: PageHtmlUpdater = this
   var inpAcc: RArr[UpdaterInputLike] = RArr()
 

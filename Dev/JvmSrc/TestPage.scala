@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import pweb.*
 
-object TestPage extends PageHtml
+object TestPage extends HtmlPage
 {
   override def head: HeadHtml = HeadHtml.title("Test Page")
 

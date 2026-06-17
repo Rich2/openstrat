@@ -22,13 +22,13 @@ trait DevHtmls
   }
 
   def writeFastFull(path: DirsAbs, outerModuleName: String, name: String): Unit =
-  { val fastPage: PageHtml = makeFile(path, outerModuleName, true, name)
+  { val fastPage: HtmlPage = makeFile(path, outerModuleName, true, name)
     path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage)
     val fullPage = makeFile(path, outerModuleName, false, name)
     path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Full,html", fullPage.out)
   }
 
-  def makeFile(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): PageHtml =
+  def makeFile(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =
   {
     def jsPathStr2 = jsPathStr(path, outerModuleName, isFast, name).enquote
 
@@ -43,7 +43,7 @@ trait DevHtmls
     val head = HeadHtml.title("OpenStrat:" -- name, HtmlNoCache, style)
     val script = ScriptHtml.inlineJsStr(noCacheScript)
     val body = BodyHtml(CanvasHtml.id("scanv"), NoScriptHtml(), script)
-    PageHtml(head, body)
+    HtmlPage(head, body)
   }
 }
 

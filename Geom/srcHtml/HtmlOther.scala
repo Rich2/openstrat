@@ -17,12 +17,12 @@ object AHtml
   /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
   def apply(link: FileSystemPath, label: String): AHtml = apply(link.asStr, label)
 
-  /** Factory apply method for creating HTML anchor element from an [[PageFile]] with a path to the file name. There is an apply overload without a path. */
-  def apply(page: PageFile, pathStr: String): AHtml = new AHtml(pathStr / page.fileNameStr, RArr(page.titleStr))
+  /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]] with a path to the file name. There is an apply overload without a path. */
+  def apply(page: HtmlPageFile, pathStr: String): AHtml = new AHtml(pathStr / page.fileNameStr, RArr(page.titleStr))
 
-  /** Factory apply method for creating HTML anchor element from an [[PageFile]], with no path to the file name. There is an apply overload with a
+  /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]], with no path to the file name. There is an apply overload with a
    * [[String]] for the path. */
-  def apply(page: PageFile): AHtml = new AHtml(page.fileNameStr, RArr(page.titleStr))
+  def apply(page: HtmlPageFile): AHtml = new AHtml(page.fileNameStr, RArr(page.titleStr))
 }
 
 /** HTML noscript element. */

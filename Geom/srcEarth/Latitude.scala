@@ -1,8 +1,8 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
-final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLike
+final class Latitude private(val milliSecs: Double) extends AnyVal, AngleLike
 { override def typeStr: String = "Latitude"
 
   /** True if northern latitude or the equator. */
@@ -48,9 +48,11 @@ object Latitude
     case i => new Latitude(i)
   }
 
-  implicit val showTEv: Show[Latitude] = ShowTell("Latitude")
+  /** Implicit [[Show]] type class instance / evidence for [[Latitude]]. */
+  given showEv: Show[Latitude] = ShowTell("Latitude")
 
-  implicit val eqTImplicit: EqT[Latitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
-  implicit val approxTImplicit: ApproxAngleT[Latitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)
+  /** Implicit [[EqT]] type class instance / evidence for [[Latitude]]. */
+  given eqTEv: EqT[Latitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
+
+  given approxTEv: ApproxAngleT[Latitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)
 }
-

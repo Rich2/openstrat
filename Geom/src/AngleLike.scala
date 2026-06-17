@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
-trait AngleLike extends Any with Tell with ApproxAngle with Dbl1Elem
+/** Base trait for [[Angle]], [[AngleVec]], [[pGlobe.Latitude]] and [[pglobe.Longitude]]. */
+trait AngleLike extends Any, Tell, ApproxAngle, Dbl1Elem
 { /** The angle expressed in thousandths of an arc second of a degree. */
   def milliSecs: Double
 
@@ -28,7 +28,7 @@ trait AngleLike extends Any with Tell with ApproxAngle with Dbl1Elem
   override def str: String = tell(ShowStdNoSpace, -1, 0)
 }
 
-trait ApproxAngle extends Any with Approx[AngleVec]
+trait ApproxAngle extends Any, Approx[AngleVec]
 { override def precisionDefault: AngleVec = 1e-10.degsVec
 }
 

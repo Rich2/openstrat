@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*
 
 /** Looks very incomplete. */
-object LessonsPage extends PageFile
+object LessonsPage extends HtmlPageFile
 { override val titleStr: String = "Geom Lessons"
   override val fileStemStr: String =  "lessons"
   override def head: HeadHtml = headCss("documentation")

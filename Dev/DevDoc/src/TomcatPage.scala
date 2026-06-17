@@ -135,7 +135,7 @@ object TomcatPage extends DevPageBase
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
   PreCode.listen3Text(cNameIUT, domainIUT, tomVarIUT){ (cName, domain, version) =>
-    PageHtml.titleOnly("Holding Page", s"This is coming from $cName at $domain, a tomcat $version server").out }
+    HtmlPage.titleOnly("Holding Page", s"This is coming from $cName at $domain, a tomcat $version server").out }
   )
 
   val s9 = LiHtml("Create a systemd unit file.",

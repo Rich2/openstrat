@@ -8,7 +8,7 @@ trait LessonGraphics
   def canv: CanvasPlatform => Any
   def bodyStr: String
 
-  def page: PageHtml = PageHtml(head, BodyHtml(H1Html(title), PHtml(bodyStr)))
+  def page: HtmlPage = HtmlPage(head, BodyHtml(H1Html(title), PHtml(bodyStr)))
   def head: HeadHtml = HeadHtml(RArr(TitleHtml(title)))
 }
 
