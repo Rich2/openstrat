@@ -1,5 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pweb
 import utest.*, DirsPath.{ strToStrs => sts}
 
 object DirPathTest extends TestSuite
@@ -25,8 +25,8 @@ object DirPathTest extends TestSuite
     val pr2 = DirsRel("dir1/dir2/dir3")
     val pr3 = DirsRel("fld1", "fld2")
     val pr4 = DirsRel("dir1/dir2/cat")
-    val pr5 = DirsFileRel("index.html")
-    val pr6 = DirsFileRel("dir1/index.html")
+    val pr5 = DirsRelFile("index.html")
+    val pr6 = DirsRelFile("dir1/index.html")
     test("Relative")
     { (pr1 / "hello.html").asStr ==> "Documentation/hello.html"
       pr2.arrayUnsafe.length ==> 3

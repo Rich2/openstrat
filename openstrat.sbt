@@ -33,7 +33,8 @@ ThisBuild/siteDir := tarDir.value / "Site"
 
 def sett3 = List(
   scalaVersion := scalaVersionStr,
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+  Compile/compile/scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+  Compile/doc/scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8"),
 )
 
 def proj(nameStr: String, locationStr: String) = Project(nameStr, file(locationStr)).settings(sett3)
