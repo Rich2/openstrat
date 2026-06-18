@@ -1,6 +1,6 @@
-/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
+import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
 /** Common trait for [[VecPm2]] and [[PtPm2]] */
 trait VecPtPm2 extends VecPtLen2, TellElemDbl2
@@ -77,28 +77,28 @@ object PtPm2
   /** The origin of 2-dimensional coordinate space defined in picometres. */
   def origin: PtPm2 = new PtPm2(0, 0)
 
-  /** [[Show]] type class instance / evidence for [[PTPm2]]. */
-  implicit val persistEv: ShowTellDbl2[PtPm2] = ShowTellDbl2[PtPm2]("PtPm2")
+  /** [[Show]] type class instance / evidence for [[PtPm2]]. */
+  given persistEv: ShowTellDbl2[PtPm2] = ShowTellDbl2[PtPm2]("PtPm2")
 
-  /** [[Unshow]] type class instance / evidence for [[PTPm2]]. */
-  implicit val unShowEv: UnshowDbl2[PtPm2] = UnshowDbl2[PtPm2]("PtPm2", "x", "y", new PtPm2(_, _))
+  /** [[Unshow]] type class instance / evidence for [[PtPm2]]. */
+  given unShowEv: UnshowDbl2[PtPm2] = UnshowDbl2[PtPm2]("PtPm2", "x", "y", new PtPm2(_, _))
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtPm2]] and [[PtPm2Arr]]. */
-  implicit val arrMapBuilderEv: BuilderMapArrDbl2[PtPm2, PtPm2Arr] = new BuilderMapArrDbl2[PtPm2, PtPm2Arr]
+  given arrMapBuilderEv: BuilderMapArrDbl2[PtPm2, PtPm2Arr] = new BuilderMapArrDbl2[PtPm2, PtPm2Arr]
   { type BuffT = PtPm2Buff
     override def fromDblArray(array: Array[Double]): PtPm2Arr = new PtPm2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtPm2Buff = new PtPm2Buff(buffer)
   }
 
   /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtPm2]] and [[LinePathPtPm2]]. */
-  implicit val linePathBuilderEv: LinePathDbl2Builder[PtPm2, LinePathPm2] = new LinePathDbl2Builder[PtPm2, LinePathPm2]
+  given linePathBuilderEv: LinePathDbl2Builder[PtPm2, LinePathPm2] = new LinePathDbl2Builder[PtPm2, LinePathPm2]
   { override type BuffT = PtPm2Buff
     override def fromDblArray(array: Array[Double]): LinePathPm2 = new LinePathPm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtPm2Buff = new PtPm2Buff(inp)
   }
 
   /** Implicit [[PolygonBuilder]] type class instance / evidence for [[PtPm2]] and [[PolygonPtPm2]]. */
-  implicit val polygonBuilderEv: PolygonDbl2BuilderMap[PtPm2, PolygonPm2] = new PolygonDbl2BuilderMap[PtPm2, PolygonPm2]
+  given polygonBuilderEv: PolygonDbl2BuilderMap[PtPm2, PolygonPm2] = new PolygonDbl2BuilderMap[PtPm2, PolygonPm2]
   { override type BuffT = PtPm2Buff
     override def fromDblArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtPm2Buff = new PtPm2Buff(inp)
@@ -106,7 +106,7 @@ object PtPm2
 
   /** Implicit instance for the [[PolygonPm2Pair]] builder. This has to go in the [[PtPm2]] companion object so it can be found by an A => B function where
    * [[PtPm2]] is the type B parameter. */
-  implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonPm2PairBuilder[A2] = new PolygonPm2PairBuilder[A2]
+  given polygonPairBuildImplicit[A2](using ct: ClassTag[A2]): PolygonPm2PairBuilder[A2] = new PolygonPm2PairBuilder[A2]
 }
 
 /** Specialised immutable Array based collection class for [[PtPm2]]s. */
@@ -123,10 +123,10 @@ object PtPm2Arr extends CompanionSlDbl2[PtPm2, PtPm2Arr]
 { override def fromArray(array: Array[Double]): PtPm2Arr = new PtPm2Arr(array)
 
   /** [[Show]] type class instance / evidence for [[PtPm2Arr]]. */
-  implicit lazy val showEv: ShowSequ[PtPm2, PtPm2Arr] = ShowSequ[PtPm2, PtPm2Arr]()
+  given showEv: ShowSequ[PtPm2, PtPm2Arr] = ShowSequ[PtPm2, PtPm2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[PtPm2Arr]]. */
-  implicit lazy val unshowEv: UnshowSeq[PtPm2, PtPm2Arr] = UnshowSeq[PtPm2, PtPm2Arr]()
+  given unshowEv: UnshowSeq[PtPm2, PtPm2Arr] = UnshowSeq[PtPm2, PtPm2Arr]()
 }
 
 /** A specialised flat [[ArrayBuffer]][Double] based class for [[PtPm2]]s collections. */
@@ -222,7 +222,7 @@ object VecPm2
   def apply(xPicometresNum: Double, yPicometresNum: Double): VecPm2 = new VecPm2(xPicometresNum, yPicometresNum)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[VecPm2]] and [[VecPm2Arr]]. */
-  implicit val ArrMapBuilderEv: BuilderArrMap[VecPm2, VecPm2Arr] = new BuilderMapArrDbl2[VecPm2, VecPm2Arr]
+  given builderArrMapEv: BuilderArrMap[VecPm2, VecPm2Arr] = new BuilderMapArrDbl2[VecPm2, VecPm2Arr]
   { override type BuffT = VecPm2Buff
     override def fromDblArray(array: Array[Double]): VecPm2Arr = new VecPm2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): VecPm2Buff = new VecPm2Buff(buffer)

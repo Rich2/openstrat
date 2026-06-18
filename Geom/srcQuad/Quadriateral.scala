@@ -1,7 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black
-import ostrat.pgui.CanvasPlatform
 
 /** A 4 sided [[Polygon]]. */
 trait Quadrilateral extends Polygon4Plus
@@ -233,7 +232,7 @@ object QuadDraw
   /*given persistEv: Persist3[Quad, Double, Colour, QuadDraw] =
     Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)*/
 
-  /** class for creating a [[DrawFacet]] graphic for the general case of [[Quad]]. */
+  /** class for creating a [[DrawFacet]] graphic for the general case of [[Quadrilateral]]. */
   case class QuadDrawGen(shape: Quadrilateral, lineWidth: Double = 2, lineColour: Colour = Black) extends QuadDraw
 }
 

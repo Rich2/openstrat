@@ -27,7 +27,7 @@ trait Slate2Like[A, B]
 }
 
 object Slate2Like
-{ /** Implicit [[Slate]] instance / evidence for [[RArr]]. */
+{ /** Implicit [[Slate2]] instance / evidence for [[RArr]]. */
   given rArrEv[A, B](using evAB: Slate2Like[A, B], ctB: ClassTag[B]): Slate2Like[RArr[A], RArr[B]] = new Slate2Like[RArr[A], RArr[B]]
   { override def slateT(obj: RArr[A], operand: VecPt2): RArr[B] = obj.map(evAB.slateT(_, operand))
     override def slateXY(obj: RArr[A], xOperand: Double, yOperand: Double): RArr[B] = obj.map(evAB.slateXY(_, xOperand, yOperand))
@@ -37,7 +37,7 @@ object Slate2Like
     override def slateY(obj: RArr[A], yOperand: Double): RArr[B] = obj.map(evAB.slateY(_, yOperand))
   }
 
-  /** Implicit [[Slate]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
+  /** Implicit [[Slate2]] instance / evidence for [[Functor]]. This provides instances for List, Option etc. */
   given functorEv[F[_], A, B](using evAB: Slate2Like[A, B], evF: Functor[F]): Slate2Like[F[A], F[B]] = new Slate2Like[F[A], F[B]]
   { override def slateT(obj: F[A], operand: VecPt2): F[B] = evF.mapT(obj, evAB.slateT(_, operand))
     override def slateXY(obj: F[A], xOperand: Double, yOperand: Double): F[B] = evF.mapT(obj, evAB.slateXY(_, xOperand, yOperand))
@@ -47,7 +47,7 @@ object Slate2Like
     override def slateY(obj: F[A], yOperand: Double): F[B] = evF.mapT(obj, evAB.slateY(_, yOperand))
   }
 
-  /** Implicit [[SlateXY]] instance / evidence for [[Array]]. */
+  /** Implicit [[Slate2]] instance / evidence for [[Array]]. */
   given arrayEv[A, B](using ev: Slate2Like[A, B], ct: ClassTag[B]): Slate2Like[Array[A], Array[B]] = new Slate2Like[Array[A], Array[B]]
   { override def slateT(obj: Array[A], operand: VecPt2): Array[B] = obj.map(ev.slateT(_, operand))
     override def slateXY(obj: Array[A], xOperand: Double, yOperand: Double): Array[B] = obj.map(ev.slateXY(_, xOperand, yOperand))

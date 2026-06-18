@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pweb.*
 
@@ -59,7 +59,7 @@ object RectDraw
   /** Implicit [[Scale]] type class instance / evidence for [[RectDraw]]. */
   given scaleEv: Scale[RectDraw] = (obj: RectDraw, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[Prolgn]] type class instance / evidence for [[RectDraw]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[RectDraw]]. */
   given prolignEv: Prolign[RectDraw] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[ScaleXY]] type class instance / evidence for [[RectDraw]]. */
@@ -211,8 +211,8 @@ object RectCompound
   /** [[Prolign]] type class instance / evidence for [[RectCompound]]. */
   given prolignEv: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
 
-  /** [[TransAxed]] type class instance / evidence for [[RectCompound]]. */
-  given transAxesEv: MirrorAxes[RectCompound] = new MirrorAxes[RectCompound]
+  /** [[MirrorAxes]] type class instance / evidence for [[RectCompound]]. */
+  given mirrorAxesEv: MirrorAxes[RectCompound] = new MirrorAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
     override def rotate90(obj: RectCompound): RectCompound = obj.rotate90
