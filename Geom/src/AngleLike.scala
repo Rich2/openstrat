@@ -1,7 +1,7 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Base trait for [[Angle]], [[AngleVec]], [[pGlobe.Latitude]] and [[pglobe.Longitude]]. */
+/** Base trait for [[Angle]], [[AngleVec]], [[pglobe.Latitude]] and [[pglobe.Longitude]]. */
 trait AngleLike extends Any, Tell, ApproxAngle, Dbl1Elem
 { /** The angle expressed in thousandths of an arc second of a degree. */
   def milliSecs: Double

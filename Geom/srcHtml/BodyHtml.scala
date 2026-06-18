@@ -8,7 +8,7 @@ class BodyHtml(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTa
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
 }
 
-/** Companion object for the [[HTMLBody]] element class. Contains factory methods. */
+/** Companion object for the [[HtmlBody]] element class. Contains factory methods. */
 object BodyHtml
 { /** Factory apply method to create an HTML body element, with no attributes. There is an apply name overload that takes [[RArr]]s of the contents and
    * attributes as parameters. */

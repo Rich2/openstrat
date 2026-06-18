@@ -1,7 +1,7 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
-/** Base trait for [[CssMedia]] and [[CssRulesWithString]]. */
+/** Base trait for [[CssMedia]] and [[CssRulesFile]]. */
 trait CssRulesHolder extends HttpContent
 {
   /** The CSS rules. */

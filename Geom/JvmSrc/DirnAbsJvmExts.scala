@@ -23,7 +23,7 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def writeHtml(fileName: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
     wFile(thisPath.asStr / fileName, page.out).map(fw => HtmlFileWritten(fw.detailStr))
 
-  /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
+  /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def writeHtml(page: HtmlPageFile): ErrBi[IOExc, HtmlFileWritten] = wFile(thisPath.asStr / page.fileNameStr, page.out).map(fw => HtmlFileWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
@@ -34,16 +34,18 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def subWriteHtml(subDir: String, fileName: String, page: HtmlPage): ErrBi[IOExc, HtmlFileWritten] =
     wFile(thisPath.asStr / subDir / fileName, page.out).map(fw => HtmlFileWritten(fw.detailStr))
 
-  /** Writes the HTML File to this full path and filename given by the [[HtmlFilePAge]]. Returns a successful message on success. */
+  /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def subWriteHtml(subDir: String, fileName: String, content: String): ErrBi[IOExc, HtmlFileWritten] =
     wFile(thisPath.asStr / subDir / fileName, content).map(fw => HtmlFileWritten(fw.detailStr))
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
-  def writeCss(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] = wFile(thisPath.asStr / fileName, content).map(fw => CssFileWritten(fw.detailStr))
+  def writeCss(fileName: String, content: String): ErrBi[IOExc, CssFileWritten] =
+    wFile(thisPath.asStr / fileName, content).map(fw => CssFileWritten(fw.detailStr))
 
   /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
-  def writeCss(cssFile: CssRulesFile): ErrBi[IOExc, CssFileWritten] = wFile(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssFileWritten(fw.detailStr))
+  def writeCss(cssFile: CssRulesFile): ErrBi[IOExc, CssFileWritten] =
+    wFile(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssFileWritten(fw.detailStr))
 
   def toJava: File = File(thisPath.asStr)
 

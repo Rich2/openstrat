@@ -20,7 +20,7 @@ object PomDep
   case class PomDepGen(groupId: GroupId, artifactId: ArtifactId, version: VersionElem) extends PomDep
 }
 
-/** XML element for POM file dependencies. Note the plural. Takes individual [[PopDep]]s as its child elements. */
+/** XML element for POM file dependencies. Note the plural. Takes individual [[PomDep]]s as its child elements. */
 class PomDependenciesElem(val dependencies: RArr[PomDep]) extends XmlTagLines
 { override def tagName: String = "Dependencies"
   override def attribs: RArr[XAtt] = RArr()
@@ -28,7 +28,7 @@ class PomDependenciesElem(val dependencies: RArr[PomDep]) extends XmlTagLines
 }
 
 object PomDependenciesElem
-{ /** Factory apply method for the Pom Dependencies element. Note the plural.Takes individual [[PopDep]]s as its child elements. */
+{ /** Factory apply method for the Pom Dependencies element. Note the plural.Takes individual [[PomDep]]s as its child elements. */
   def apply(dependencies: RArr[PomDep]): PomDependenciesElem = new PomDependenciesElem(dependencies)
 }
 

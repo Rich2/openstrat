@@ -1,14 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
 /** An HTTP Request. */
 class HttpReq(val method: HttpMethod, val uri: String)
-{ /** HTTP method such as GET or POST. */
-  
-}
 
 object HttpReq
-{ /** Apply method, finds [[HttpReq]] from [[Strng]]s. */
+{ /** Apply method, finds [[HttpReq]] from [[String]]s. */
   def apply(lines: Sequ[String]): ThrowMon[HttpReq] =
   { val lh0 = lines(0)
     debvar(lh0)

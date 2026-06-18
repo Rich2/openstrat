@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
 trait CssRuleLike extends XConCompound
@@ -54,10 +54,10 @@ trait CssRule extends CssRuleLike
 }
 
 object CssRule
-{ /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as repeat parameters. */
+{ /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as repeat parameters. */
   def apply(selec: String, decs: RArr[CssDecBase]): CssRule = CssRuleGen(selec, decs)
 
-  /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as an [[RArr]]. */
+  /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
   def apply(selec: SelOrStr, decs: CssDecBase*): CssRule = CssRuleGen(selec, decs.toArr)
 
   /** General case for CSS Rule consisting of selector plus a set of declarations. */
