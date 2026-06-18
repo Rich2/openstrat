@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gFour; package hp4
-import prid._, phex._, gOne.h1p.GSys
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package gFour; package h4p
+import prid.*, phex.*, gOne.h1p.GSys
 
-object FourScen1 extends G4HScen(0)
+object G4HScen1 extends G4HScen(0)
 { override implicit val gridSys: HGridRect = GSys.g1
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   import terrs.{setRowPartSame => srp}
@@ -12,9 +12,10 @@ object FourScen1 extends G4HScen(0)
   override val lunits: LayerHcRArr[LunitState] = LayerHcRArr()
   lunits.set1(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
   lunits.setArr(4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL), LunitState(Lunit(TeamB, 2), HexLt))//, (6, 10, LunitState(Lunit(TeamA, 2))))
+  override val teamSet: RArr[Team] = RArr(TeamA, TeamB, TeamC, TeamD, TeamE)
 }
 
-object FourScen2 extends G4HScen(0)
+object G4HScen2 extends G4HScen(0)
 { override implicit val gridSys: HGrid = HGridRect(4, 6)
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   import terrs.{setRowPartSame => srp}
@@ -23,10 +24,11 @@ object FourScen2 extends G4HScen(0)
   override val lunits: LayerHcRArr[LunitState] = LayerHcRArr()
   lunits.setArr(4, 12, LunitState(Lunit(TeamA, 1), HexDR), LunitState(Lunit(TeamA, 2), HexRt), LunitState(Lunit(TeamA, 3), HexUR))
   //lunits.setSomesMut((4, 8, LunitState(TeamB, HexLt, HexDL)), (6, 10, LunitState(TeamA)))
+  override val teamSet: RArr[Team] = RArr(TeamA, TeamB)
 }
 
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
-object FourScen3 extends G4HScen(0)
+object G4HScen3 extends G4HScen(0)
 { override implicit val gridSys: HGrid = HGridRect.minMax(12, 20, 4, 60)
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   import terrs.{setRowPartSame => sr}
@@ -38,15 +40,15 @@ object FourScen3 extends G4HScen(0)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
   override val lunits: LayerHcRArr[LunitState] = LayerHcRArr()
- // lunits.setSomeMut(4, 4, LunitState(TeamA))
-
+  //lunits.setSomeMut(4, 4, LunitState(TeamA))
+  override val teamSet: RArr[Team] = RArr()
 }
 
 /** 3rd Scenario of Game Four. Has a larger number of hexs. */
-object FourScen4 extends G4HScen(0)
-{
-  override implicit val gridSys: HGridRect = HGridRect(3, 3)
+object G4HScen4 extends G4HScen(0)
+{ override implicit val gridSys: HGridRect = HGridRect(3, 3)
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   override val lunits: LayerHcRArr[LunitState] = LayerHcRArr()
 //  import terrs.{setRowEnd => sr}
+override val teamSet: RArr[Team] = RArr()
 }

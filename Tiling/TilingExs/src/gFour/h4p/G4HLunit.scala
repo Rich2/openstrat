@@ -1,5 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree; package h3p
+package ostrat; package gFour; package h4p
 import prid.*, phex.*, Colour.*, gPlay.*
 
 /** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */

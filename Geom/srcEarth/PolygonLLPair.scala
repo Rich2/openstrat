@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
-import geom._, annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import geom.*, annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 class PolygonLLPair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[LatLong, PolygonLL, A2] with SpecialT {
   override def a1: PolygonLL = new PolygonLL(a1ArrayDbl)
@@ -35,7 +35,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def newBuff(length: Int): PolygonLLPairBuff[A2] = new PolygonLLPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonLLPairBuff[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
-  override def b1Builder: PolygonLikeBuilderMap[LatLong, PolygonLL] = LatLong.polygonBuildImplicit
+  override def b1Builder: PolygonLikeBuilderMap[LatLong, PolygonLL] = LatLong.polygonBuildEv
   override def b1ArrBuilder: BuilderArrMap[PolygonLL, PolygonLLArr] = PolygonLL.mapBuilderArrEv
   override def arrFromArrAndArray(b1Arr: PolygonLLArr, b2s: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonLLBuff = PolygonLLBuff()

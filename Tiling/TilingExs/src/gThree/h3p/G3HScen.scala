@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import prid._, phex._
+import prid.*, phex.*
 
 /** Example Game three scenario trait. */
 abstract class G3HScen(val turn: Int) extends HSysScen

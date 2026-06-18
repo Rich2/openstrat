@@ -211,7 +211,7 @@ object QuadDraw
   /** Implicit [[Scale]] type class instance / evidence for [[QuadDraw]]. */
   given scaleEv: Scale[QuadDraw] = (obj: QuadDraw, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[Prolgn]] type class instance / evidence for [[QuadDraw]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[QuadDraw]]. */
   given prolignEv: Prolign[QuadDraw] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[QuadDraw]]. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A 2D geometric element, that has a defined bounding rectangle, [[BoundingRect]]. This trait is for layout, such as placing Graphic elements in rows and
@@ -7,10 +7,10 @@ trait BoundedElem extends Any, Geom2Elem
 { /** The bounding Rectangle provides an initial exclusion test, as to whether the pointer is inside the polygon / shape */
   def boundingRect: Rect
 
-  /** The width of the [[BoundingRect]] of this object. */
+  /** The width of the bounding [[Rect]] of this object. */
   def boundingWidth: Double = boundingRect.width
 
-  /** The height of the [[BoundingRect]] of this object. */
+  /** The height of the bounding [[Rect]] of this object. */
   def boundingHeight: Double = boundingRect.height
 
   def boundRight: Double = boundingRect.right

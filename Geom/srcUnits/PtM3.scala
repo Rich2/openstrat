@@ -142,12 +142,12 @@ object PtM3
   given lineSegBuildEv: BuilderMapLSegBase[PtM3, LSegM3] = LSegM3(_, _)
 }
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2Gen]] and[[LinePathMs]] classes are not appropriate. */
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM3]] and[[LinePathM3]]s classes are not appropriate. */
 class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrDbl3[PtM3]
 { type ThisT = PtM3Arr
   def fromArray(array: Array[Double]): ThisT = new PtM3Arr(array)
   override def typeStr: String = "Metres3s"
-  override def fElemStr: PtM3 => String = _ => "Undefined" //_.str
+  override def fElemStr: PtM3 => String = _ => "Undefined"
   override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its on the side

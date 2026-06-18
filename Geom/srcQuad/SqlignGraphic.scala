@@ -56,7 +56,7 @@ object SqlignDraw
   /** Implicit [[Scale]] type class instance / evidence for [[SqlignDraw]]. */
   given scaleEv: Scale[SqlignDraw] = (obj: SqlignDraw, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[Prolgn]] type class instance / evidence for [[SqlignDraw]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[SqlignDraw]]. */
   given prolignEv: Prolign[SqlignDraw] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[MirrorAxes]] type class instance / evidence for [[SqlignDraw]]. */

@@ -1,11 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gFour; package hp4
-import pgui._, prid._, phex._, geom._, gPlay._
+package ostrat; package gFour; package h4p
+import pgui.*, prid.*, phex.*, geom.*, gPlay.*
 
-case class G4HGui(canv: CanvasPlatform, scenStart: G4HScen, viewIn: HGView) extends HGridSysGui("Game Four Hex Gui")
-{ statusText = "Welcome to Game Three."
-  val scen = scenStart
-
+case class G4HGui(canv: CanvasPlatform, game: G4HGame, settings: G4HGuiSettings) extends HGridSysGui("Game Four Hex Gui")
+{ statusText = "Welcome to Game Four."
+  
+  var scen: G4HScen = game.getScen
 //  def terrs: HCenLayer[Terr] = scen.terrs
 
   def lunits: LayerHcRArr[LunitState] = scen.lunits
@@ -17,7 +17,7 @@ case class G4HGui(canv: CanvasPlatform, scenStart: G4HScen, viewIn: HGView) exte
   implicit def gridSys: HGridSys = scen.gridSys
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
-  proj.setView(viewIn)
+//  proj.setView(viewIn)
 
   canv.keyDown = s => deb("Key down" -- s)
 

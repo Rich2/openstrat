@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import prid._, phex._, pgui._, pParse._
+import prid.*, phex.*, pgui.*, pParse.*
 
 /** Settings for the sole GUI player. */
 case class G3HGuiSettings(view: HGView, counterSet: RArr[Team])
@@ -20,7 +20,7 @@ object G3HLaunch extends GuiLaunchMore
       case _ => G3HScen1
     }
 
-    val oSetts = sts.findIntSettingExpr(num)
+    val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
     val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1: ErrBi[Throwable, StrArr] = sts2.findSettingIdentifierArr("counters")
     val plAll: RArr[Team] = scen.teamSet

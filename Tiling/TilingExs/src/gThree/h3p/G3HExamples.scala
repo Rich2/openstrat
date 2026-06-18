@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import prid._, phex._
+import prid.*, phex.*
 
 object G3HScen1 extends G3HScen(0)
 { override implicit val gridSys: HGridRect = HGridRect.minMax(2, 8, 2, 20)

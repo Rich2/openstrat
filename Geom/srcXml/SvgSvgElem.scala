@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 import geom.*
 
@@ -39,8 +39,7 @@ object SvgSvgRel
 }
 
 object FaviconSvg
-{
-  /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. There is an apply name overload that takes an [[RArr]] of
+{ /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. There is an apply name overload that takes an [[RArr]] of
    * [[geom.Graphic2Elem]] and an [[RArr]] of [[XAtt]] as parameters. */
   def apply(contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-100 / 2, -100 / 2, 100, 100, contents.flatMapArr(_.svgElems), RArr())
 

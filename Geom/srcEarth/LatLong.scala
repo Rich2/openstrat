@@ -1,10 +1,10 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed from arc
  * second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names. */
-final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with TellDbl2 with PointDbl2 with ApproxDbl
+final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase, TellDbl2, PointDbl2, ApproxDbl
 { override type ThisT = LatLong
   override type LineSegT = LineSegLL
   override def typeStr: String = "LatLong"
@@ -158,38 +158,38 @@ object LatLong
   }
 
   /** Implicit [[DefaultValue]] evidence / instance for [[LatLong]]. */
-  implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
+  given defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
 
   /** [[Show]] type class instance / evidence for [[LatLong]]. */
-  implicit val showEv: ShowTellDbl2[LatLong] = ShowTellDbl2[LatLong]("LatLong")
+  given showEv: ShowTellDbl2[LatLong] = ShowTellDbl2[LatLong]("LatLong")
 
   /** [[Unshow]] type class instance / evidence for [[LatLong]]. */
-  implicit val unshowEv: UnshowDbl2[LatLong] = UnshowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
+  given unshowEv: UnshowDbl2[LatLong] = UnshowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
 
   /** Implicit [[EqT]] evidence / instance for [[LatLong]]. */
-  implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
+  given eqTEv: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
   /** Implicit [[BuilderArrMap]] evidence / instance for [[LatLong]]. Builds [[LatLongArr]]s through map methods. */
-  implicit val builderArrMapEv: BuilderMapArrDbl2[LatLong, LatLongArr] = new BuilderMapArrDbl2[LatLong, LatLongArr]
+  given builderArrMapEv: BuilderMapArrDbl2[LatLong, LatLongArr] = new BuilderMapArrDbl2[LatLong, LatLongArr]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
   /** Implicit [[LinePathBuilder]] evidence / instance for [[LatLong]]. Builds [[LinePathLL]]s. */
-  implicit val linePathBuildImplicit: LinePathDbl2Builder[LatLong, LinePathLL] = new LinePathDbl2Builder[LatLong, LinePathLL]
+  given linePathBuildEv: LinePathDbl2Builder[LatLong, LinePathLL] = new LinePathDbl2Builder[LatLong, LinePathLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
-  /** Implicit [[PolygonBuilder]] evidence / instance for [[LatLong]]. Builds [[PolygonLL]]s. */
-  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[LatLong, PolygonLL] = new PolygonDbl2BuilderMap[LatLong, PolygonLL]
+  /** Implicit [[PolygonLikeBuilderMap]] evidence / instance for [[LatLong]]. Builds [[PolygonLL]]s. */
+  given polygonBuildEv: PolygonDbl2BuilderMap[LatLong, PolygonLL] = new PolygonDbl2BuilderMap[LatLong, PolygonLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
-  implicit def polygonLLPairbuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonLLPairBuilder[A2] = new PolygonLLPairBuilder[A2]
-  implicit val lineSegEv: BuilderMapLSegBase[LatLong, LineSegLL] = LineSegLL(_, _)
+  given polygonLLPairbuildEv[A2](using ct: ClassTag[A2]): PolygonLLPairBuilder[A2] = new PolygonLLPairBuilder[A2]
+  given lineSegEv: BuilderMapLSegBase[LatLong, LineSegLL] = LineSegLL(_, _)
 }

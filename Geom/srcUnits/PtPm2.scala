@@ -90,14 +90,14 @@ object PtPm2
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtPm2Buff = new PtPm2Buff(buffer)
   }
 
-  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtPm2]] and [[LinePathPtPm2]]. */
+  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtPm2]] and [[LinePathPm2]]. */
   given linePathBuilderEv: LinePathDbl2Builder[PtPm2, LinePathPm2] = new LinePathDbl2Builder[PtPm2, LinePathPm2]
   { override type BuffT = PtPm2Buff
     override def fromDblArray(array: Array[Double]): LinePathPm2 = new LinePathPm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtPm2Buff = new PtPm2Buff(inp)
   }
 
-  /** Implicit [[PolygonBuilder]] type class instance / evidence for [[PtPm2]] and [[PolygonPtPm2]]. */
+  /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtPm2]] and [[PolygonPm2]]. */
   given polygonBuilderEv: PolygonDbl2BuilderMap[PtPm2, PolygonPm2] = new PolygonDbl2BuilderMap[PtPm2, PolygonPm2]
   { override type BuffT = PtPm2Buff
     override def fromDblArray(array: Array[Double]): PolygonPm2 = new PolygonPm2(array)
@@ -129,7 +129,7 @@ object PtPm2Arr extends CompanionSlDbl2[PtPm2, PtPm2Arr]
   given unshowEv: UnshowSeq[PtPm2, PtPm2Arr] = UnshowSeq[PtPm2, PtPm2Arr]()
 }
 
-/** A specialised flat [[ArrayBuffer]][Double] based class for [[PtPm2]]s collections. */
+/** A specialised flat [[collection.mutable.ArrayBuffer]][Double] based class for [[PtPm2]]s collections. */
 final class PtPm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtPm2]
 { override def typeStr: String = "BuffPtMetre2"
   def elemFromDbls(d1: Double, d2: Double): PtPm2 = PtPm2(d1, d2)

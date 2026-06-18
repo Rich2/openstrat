@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pweb.*, WebExts.*, wcode.*
 
-/** HTML page for nes developers. */
+/** HTML page for new developers. */
 object NewDevsPage extends DevPageBase
 { override def titleStr: String = "New Developers Info"
   override def fileStemStr: String = "newdevs"

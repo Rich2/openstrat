@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import math.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** 3-dimensional point specified using [[Kilometres]] as units rather than scalars. */
 final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zKilometresNum: Double) extends PtLength3
@@ -100,7 +100,7 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
     LineSegKm3.kilometresNum(startPt.xKilometresNum, startPt.yKilometresNum, startPt.zKilometresNum, xKilometresNum, yKilometresNum, zKilometresNum)
 }
 
-/** Companion object for the [[PtKm3]] the 3 dimensional space point class. Contains factory methods and implicit type class instances. */
+/** Companion object for the [[PtKm3]] the 3-dimensional space point class. Contains factory methods and implicit type class instances. */
 object PtKm3
 {  /** Factory apply method for constructing 3D points specified in [[Kilometres]], from its component axes specified in [[Length]]s. if you want to construct
    * from scalars use the kilometresNum method. */
@@ -117,10 +117,10 @@ object PtKm3
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(buffer)
   }
 
-  /** [[Show]] type class instance / evidence for [[PTKm3]]. */
+  /** [[Show]] type class instance / evidence for [[PtKm3]]. */
   given showEv: ShowDbl3[PtKm3] = ShowDbl3[PtKm3]("PtKm3", "x", _.xKilometresNum, "y", _.yKilometresNum, "z", _.zKilometresNum)
 
-  /** [[Unshow]] type class instance / evidence for [[PTKm3]]. */
+  /** [[Unshow]] type class instance / evidence for [[PtKm3]]. */
   given unshowEv: UnshowDbl3[PtKm3] = UnshowDbl3[PtKm3]("PtKm3", "x", "y", "z", kilometres)
 
   given pairArrBuiderEv[B2](using ctA: ClassTag[B2]): PtKm3PairArrMapBuilder[B2] = new PtKm3PairArrMapBuilder[B2]
@@ -142,8 +142,8 @@ object PtKm3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
-  /** Implicit [[BuilderMapLSegBase]] type class instance / evidence for [[PtKm3]] points. Note rhis is used to map to a [[LineSegKm3]] not a
-   * [[LinsSegKm3Arr]]. */
+  /** Implicit [[BuilderMapLSegBase]] type class instance / evidence for [[PtKm3]] points. Note this is used to map to a [[LineSegKm3]] not a
+   * [[LineSegKm3Arr]]. */
   given lineSegBuildEv: BuilderMapLSegBase[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
@@ -154,7 +154,7 @@ trait PtKm3SeqLike extends Any, SeqLikeImutDbl3[PtKm3]
 
 trait PtKm3SeqSpec extends PtKm3SeqLike, SeqSpecDbl3[PtKm3]
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2Gen]] and[[LinePathMs]] classes are not appropriate. */
+/** Collection class for [[PtKm3]]s. Only use this if the more specific [[PolygonKm3]] and [[LinePathKm3]] classes are not appropriate. */
 class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal, PtKm3SeqLike, ArrDbl3[PtKm3]
 { type ThisT = PtKm3Arr
   def fromArray(array: Array[Double]): ThisT = new PtKm3Arr(array)

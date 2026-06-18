@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
@@ -70,13 +70,13 @@ object PtM2
   /** The origin of this 2-dimensional space. */
   def origin: PtM2 = new PtM2(0, 0)
 
-  /** [[Show]] type class instance / evidence for [[PTM2]]. */
+  /** [[Show]] type class instance / evidence for [[PtM2]]. */
   given persistEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
 
-  /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
+  /** [[Unshow]] type class instance / evidence for [[PtM2]]. */
   given unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
-  /** Implicit [[BuilderArrMap]] instance / evidence for [[PtM2]] and [[Pt2M2Arr]]. */
+  /** Implicit [[BuilderArrMap]] instance / evidence for [[PtM2]] and [[PtM2Arr]]. */
   given builderMapEv: BuilderMapArrDbl2[PtM2, PtM2Arr] = new BuilderMapArrDbl2[PtM2, PtM2Arr]
   { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
@@ -90,7 +90,7 @@ object PtM2
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 
-  /** Implicit [[PolygonLikeBuilderMap]] instance / evidence for [[PtM2]] and [[PolyognM2]]. */
+  /** Implicit [[PolygonLikeBuilderMap]] instance / evidence for [[PtM2]] and [[PolygonM2]]. */
   given polygonBuildMapEv: PolygonDbl2BuilderMap[PtM2, PolygonM2Gen] = new PolygonDbl2BuilderMap[PtM2, PolygonM2Gen]
   { override type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PolygonM2Gen = new PolygonM2Gen(array)
