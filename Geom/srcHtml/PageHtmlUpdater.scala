@@ -1,6 +1,5 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import wcode.*
 
 /** An HTML page with an accumulator of [[UpdaterInputLike]]s. */
 trait PageHtmlUpdater extends HtmlPageFile
@@ -12,7 +11,7 @@ trait PageHtmlUpdater extends HtmlPageFile
   |servers.""".stripMargin
 }
 
-/** An HTML page with an accumulator of [[InputUpdater]]s, including operating System. */
+/** An HTML page with an accumulator of [[UpdaterInput]]s, including operating System. */
 trait PageUpdaterOS extends PageHtmlUpdater
 { val opNameLTI: LabelSelectUpdaterAny = LabelSelectUpdaterAny("opName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
   val opNameIUT: UpdaterOption = opNameLTI.child2

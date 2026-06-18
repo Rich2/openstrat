@@ -1,10 +1,10 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag, Colour.Black
 
 /** A 2D geometric element that can be drawn producing a [[Graphic2Elem]]. */
 trait Drawable extends Any, Geom2Elem
-{ /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed.  */
+{ /** Draws this geometric element to produce a [[Graphic2Elem]] graphical element, that can be displayed or printed.  */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): Graphic2Elem
 
   /** If this element is [[Fillable]] applies the fill method, ignoring the line width parameter, else applies the draw method. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleGen]]. */
@@ -71,10 +71,10 @@ trait Triangle extends Polygon3Plus
 
 /** Companion object for [[Triangle]] trait. Contains apply factory methods and [[TriangleGen]] implementation for non-specialised triangles. */
 object Triangle
-{ /** Factory apply method for [[Trinagle]]. There is an apply name overload that takes the [[Pt2]]s as parameters. */
+{ /** Factory apply method for [[Triangle]]. There is an apply name overload that takes the [[Pt2]]s as parameters. */
 	def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleGen(x1, y1, x2, y2, x3, y3)
 
-	/** Factory apply method for [[Trinagle]]. There is an apply name overload that takes [[Double]]s as parameters. */
+	/** Factory apply method for [[Triangle]]. There is an apply name overload that takes [[Double]]s as parameters. */
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleGen(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
 	/** Implementation for the general case of triangle */

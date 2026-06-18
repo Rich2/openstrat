@@ -41,7 +41,7 @@ object SvgSvgRel
 object FaviconSvg
 {
   /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. There is an apply name overload that takes an [[RArr]] of
-   * [[Graphic2Elem]] and an [[RArr]] of [[XAtt]] as parameters. */
+   * [[geom.Graphic2Elem]] and an [[RArr]] of [[XAtt]] as parameters. */
   def apply(contents: Graphic2Elem*): SvgSvgRel = new SvgSvgRel(-100 / 2, -100 / 2, 100, 100, contents.flatMapArr(_.svgElems), RArr())
 
   /** Produced an SVG XML element with a 100 width square viewBox centered on the origin. */
