@@ -15,7 +15,7 @@ package object geom
   /** A [[Vec2]] along the Y Axis, whose X component = 0. */
   def yVec2(y: Double): Vec2 = Vec2(0, y)
 
-  /** Constructs a new [[ArrayBuffer]] of [[Graphic2Elem]]. */
+  /** Constructs a new [[collection.mutable.ArrayBuffer]] of [[Graphic2Elem]]. */
   @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[Graphic2Elem] = new ArrayBuffer[Graphic2Elem](initialLength)
     
   /** The number of arc seconds in a degree = 3600. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -49,7 +49,7 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
     PtM3(x, scalar * sin(ang1), scalar * cos(ang1))
   }
 
-  /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
+  /** Rotate around the X axis, viewed from positive X. A positive angle is anti-clockwise. */
   def rotateX(a: AngleVec): PtM3 = PtM3(x, z * a.sin + y * a.cos, z * a.cos - y * a.sin)
 
   /** rotates the vector around the Y axis, 90 degrees or Pi/2 radians, anticlockwise. */
@@ -107,17 +107,17 @@ object PtM3
    * [[Length]] classes components use the apply method. */
   def metreNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 
-  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PTM3]].  */
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtM3]].  */
   given builderArrEv: BuilderMapArrDbl3[PtM3, PtM3Arr] = new BuilderMapArrDbl3[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
   }
 
-  /** [[Show]] type class instance / evidence for [[PTM3]]. */
+  /** [[Show]] type class instance / evidence for [[PtM3]]. */
   given showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetresNum, "y", _.yMetresNum, "z", _.zMetresNum)
 
-  /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
+  /** [[Unshow]] type class instance / evidence for [[PtM3]]. */
   given unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metreNum)
 
   /** [[BuilderArrPair]] type class instance / evidence for [[PtM3]]. */

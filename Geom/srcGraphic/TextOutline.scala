@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pweb._, Colour.Black
+import pweb.*, Colour.Black
 
-class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: Double, val colour: Colour, val lineWidth: Double,
-  val align: TextAlign, val baseLine: BaseLine) extends GraphicAffineElem
+class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: Double, val colour: Colour, val lineWidth: Double,  val align: TextAlign,
+  val baseLine: BaseLine) extends GraphicAffineElem
 { override type ThisT = TextOutline
   def posn: Pt2 = Pt2(x, y)
   override def ptsTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)

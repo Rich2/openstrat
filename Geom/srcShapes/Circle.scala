@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pweb.*, math.Pi, Colour.Black, pgui.*
 
@@ -199,14 +199,14 @@ final case class CircleFill(shape: Circle, fillFacet: FillFacet) extends CircleG
 }
 
 /** A simple draw of a circle graphic. */
-final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicSimple with EllipseDraw
+final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicSimple, EllipseDraw
 { type ThisT = CircleDraw
   override def ptsTrans(f: Pt2 => Pt2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 }
 
 /** A pointable polygon without visual. */
-case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive with CircleGraphicSimple
+case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive, CircleGraphicSimple
 { override type ThisT = CircleActive
   override def ptsTrans(f: Pt2 => Pt2): CircleActive = CircleActive(shape.fTrans(f), pointerId)
 

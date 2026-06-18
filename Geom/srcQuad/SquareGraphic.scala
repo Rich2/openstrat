@@ -1,4 +1,4 @@
-/* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2025-6 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black
 
@@ -72,7 +72,7 @@ object SquareDraw
   /** Implicit [[Scale]] type class instance / evidence for [[SquareDraw]]. */
   given scaleEv: Scale[SquareDraw] = (obj: SquareDraw, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[Prolgn]] type class instance / evidence for [[SquareDraw]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[SquareDraw]]. */
   given prolignEv: Prolign[SquareDraw] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[SquareDraw]]. */
@@ -141,7 +141,7 @@ object SquareFill
     override def rotate270(obj: SquareFill): SquareFill = obj.rotate270
   }
   
-  /** Implementation for the general case of [[Square]] as opposed to the specific case of [[Squaren]]. */
+  /** Implementation for the general case of [[Square]] as opposed to the specific case of [[Square]]. */
   case class SquareFillGen(shape: Square, fillFacet: FillFacet) extends SquareFill
   { override type ThisT = SquareFillGen
     override def slate(operand: VecPt2): SquareFillGen = SquareFillGen(shape.slate(operand), fillFacet)

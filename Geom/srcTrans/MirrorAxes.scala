@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
@@ -63,10 +63,9 @@ extension[T](thisT: T)(using ev: MirrorAxes[T])
   def rotateQuadrants(using ct: ClassTag[T]): RArr[T] = RArr(thisT, rotate270, rotate180, rotate90)
 }
 
-/** Extension class for types that fulfill the type class interface for [[MirrorAxes]] and [[SlateXY]]. */
+/** Extension class for types that fulfill the type class interface for [[MirrorAxes]] and [[Slate2]]. */
 class TransAxesSlateExtensions[T](thisT: T)(using evR: MirrorAxes[T], evS: Slate2[T])
-{
-  /** Reflect across a line parallel to the X axis. */
+{/** Reflect across a line parallel to the X axis. */
   def reflectXParallel(yValue: Double): T =
   { val res1 = evR.negYT(thisT)
     evS.slateY(res1, 2 * yValue)
