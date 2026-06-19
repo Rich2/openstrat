@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
@@ -73,10 +73,10 @@ object PtFm2
   /** Origin of 2-dimensional space specified in femtometres. */
   def origin: PtFm2 = new PtFm2(0, 0)
 
-  /** [[Show]] type class instance / evidence for [[PTFm2]]. */
+  /** [[Show]] type class instance / evidence for [[PtFm2]]. */
   given persistEv: ShowTellDbl2[PtFm2] = ShowTellDbl2[PtFm2]("PtFm2")
 
-  /** [[Unshow]] type class instance / evidence for [[PTFm2]]. */
+  /** [[Unshow]] type class instance / evidence for [[PtFm2]]. */
   given unShowEv: UnshowDbl2[PtFm2] = UnshowDbl2[PtFm2]("PtFm2", "x", "y", new PtFm2(_, _))
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtFm2]] and [[PtFm2Arr]]. */
@@ -86,14 +86,14 @@ object PtFm2
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(buffer)
   }
 
-  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtFm2]] and [[LinePathPtFm2]]. */
+  /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtFm2]] and [[LinePathFm2]]. */
   given linePathBuildEv: LinePathDbl2Builder[PtFm2, LinePathFm2] = new LinePathDbl2Builder[PtFm2, LinePathFm2]
   { override type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): LinePathFm2 = new LinePathFm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(inp)
   }
 
-  /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtFm2]] and [[PolygonPtFm2]]. */
+  /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtFm2]] and [[PolygonFm2]]. */
   given polygonBuildEv: PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen]
   { override type BuffT = BuffPtFm2
     override def fromDblArray(array: Array[Double]): PolygonFm2Gen = new PolygonFm2Gen(array)
@@ -140,7 +140,7 @@ object BuffPtFm2
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Double) extends VecPtFm2 with VecLen2
+final class VecFm2 private(val xFemtometresNum: Double, val yFemtometresNum: Double) extends VecPtFm2, VecLen2
 { override def typeStr: String = "VecFm2"
   override def + (operand: VecLen2): VecFm2 = new VecFm2(xFemtometresNum + operand.xFemtometresNum, yFemtometresNum + operand.yFemtometresNum)
   override def - (operand: VecLen2): VecFm2 = new VecFm2(xFemtometresNum - operand.xFemtometresNum, yFemtometresNum - operand.yFemtometresNum)
@@ -186,7 +186,7 @@ class VecFm2Arr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[VecFm2]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[VecFm2]] collections. */
-final class VecFm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[VecFm2]
+final class VecFm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[VecFm2]
 { override def typeStr: String = "VecFm2Buff"
   def elemFromDbls(d1: Double, d2: Double): VecFm2 = VecFm2(d1, d2)
 }

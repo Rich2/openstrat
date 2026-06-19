@@ -71,31 +71,31 @@ object PtKm2
   /** Origin of a 2-dimensional space measured in [[Kilometres]]. */
   def origin: PtKm2 = new PtKm2(0, 0)
 
-  /** [[Show]] type class instance / evidence for [[PTKm2]]. */
+  /** [[Show]] type class instance / evidence for [[PtKm2]]. */
   given persistEv: ShowTellDbl2[PtKm2] = ShowTellDbl2[PtKm2]("PtKm2")
 
-  /** [[Unshow]] type class instance / evidence for [[PTKm2]]. */
+  /** [[Unshow]] type class instance / evidence for [[PtKm2]]. */
   given unShowEv: UnshowDbl2[PtKm2] = UnshowDbl2[PtKm2]("PtKm2", "x", "y", new PtKm2(_, _))
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtKm2]] and [[LinePathKm2]]. */
   given builderArrMapEv: BuilderMapArrDbl2[PtKm2, PtKm2Arr] = new BuilderMapArrDbl2[PtKm2, PtKm2Arr]
-  { type BuffT = BuffPtKm2
+  { type BuffT = PtKm2Buff
     override def fromDblArray(array: Array[Double]): PtKm2Arr = new PtKm2Arr(array)
-    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(buffer)
+    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtKm2Buff = new PtKm2Buff(buffer)
   }
 
   /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtKm2]] and [[LinePathKm2]]. */
   given linePathBuildEv: LinePathDbl2Builder[PtKm2, LinePathKm2] = new LinePathDbl2Builder[PtKm2, LinePathKm2]
-  { override type BuffT = BuffPtKm2
+  { override type BuffT = PtKm2Buff
     override def fromDblArray(array: Array[Double]): LinePathKm2 = new LinePathKm2(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm2Buff = new PtKm2Buff(inp)
   }
 
   /** Implicit [[PolygonBuilder]] type class instance / evidence for [[PtKm2]] and [[PolygonKm2]]. */
   given polygonBuildEv: PolygonDbl2BuilderMap[PtKm2, PolygonKm2] = new PolygonDbl2BuilderMap[PtKm2, PolygonKm2]
-  { override type BuffT = BuffPtKm2
+  { override type BuffT = PtKm2Buff
     override def fromDblArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm2Buff = new PtKm2Buff(inp)
   }
 
   /** Implicit instance for the [[PolygonKm2Pair]] builder. This has to go in the [[PtKm2]] companion object so it can be found by an A => B function where
@@ -124,13 +124,13 @@ object PtKm2Arr extends CompanionSlDbl2[PtKm2, PtKm2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtKm2]]s collections. */
-final class BuffPtKm2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtKm2]
+final class PtKm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtKm2]
 { override def typeStr: String = "BuffPtKm2"
   def elemFromDbls(d1: Double, d2: Double): PtKm2 = PtKm2.apply(d1, d2)
 }
 
-object BuffPtKm2
-{ def apply(initSize: Int = 4): BuffPtKm2 = new BuffPtKm2(new ArrayBuffer[Double](initSize * 2))
+object PtKm2Buff
+{ def apply(initSize: Int = 4): PtKm2Buff = new PtKm2Buff(new ArrayBuffer[Double](initSize * 2))
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */

@@ -57,7 +57,7 @@ object RectangleDraw
   /** Implicit [[Scale]] type class instance / evidence for [[RectangleDraw]]. */
   given scaleEv: Scale[RectangleDraw] = (obj: RectangleDraw, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[Prolgn]] type class instance / evidence for [[RectangleDraw]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[RectangleDraw]]. */
   given prolignEv: Prolign[RectangleDraw] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[RectangleDraw]]. */

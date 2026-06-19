@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -89,7 +89,7 @@ class PolygonKm2Arr(val arrayOfArraysUnsafe:Array[Array[Double]]) extends ArrArr
   override def fromArrayArray(array: Array[Array[Double]]): PolygonKm2Arr = new PolygonKm2Arr(array)
 }
 
-/** Buff of [[PolygonKm2]]s. Not to be confused with [[Pt2Km2Buff]]. */
+/** Buff of [[PolygonKm2]]s. Not to be confused with [[PtKm2Buff]]. */
 class PolygonKm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVal, BuffArrayDbl[PolygonKm2]
 { override type ThisT = PolygonKm2Buff
   override def typeStr: String = "PolygonKm2Buff"
@@ -98,7 +98,7 @@ class PolygonKm2Buff(val bufferUnsafe: ArrayBuffer[Array[Double]]) extends AnyVa
 
 /** Companion object of the [[PolygonKm2Buff]] class, a Buff of [[PolygonKm2]]s, contains factory apply method. */
 object PolygonKm2Buff
-{ /** Factory apply method for empty [[PolygonKm2Buff]]. Not to be confused with [[PtKn2Buff]]. */
+{ /** Factory apply method for empty [[PolygonKm2Buff]]. Not to be confused with [[PtKm2Buff]]. */
   def apply(initLen: Int = 4): PolygonKm2Buff = new PolygonKm2Buff(new ArrayBuffer[Array[Double]](initLen))
 }
 class PolygonKm2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtKm2, PolygonKm2, A2]{
@@ -106,7 +106,7 @@ class PolygonKm2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends Poly
 }
 
 object PolygonKm2Pair
-{ implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): BuilderArrMap[PolygonKm2Pair[A2], PolygonKm2PairArr[A2]] = new PolygonKm2PairBuilder[A2]
+{ given buildArrMapEv[A2](using ct: ClassTag[A2]): BuilderArrMap[PolygonKm2Pair[A2], PolygonKm2PairArr[A2]] = new PolygonKm2PairBuilder[A2]
 }
 
 final class PolygonKm2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends

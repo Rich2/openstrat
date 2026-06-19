@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
- *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2Gen]]s on world
+ *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[pglobe.LatLong]]s to [[PolygonM2Gen]]s on world
  *  maps. */
 final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtKm3]
 { override type ThisT = PolygonKm3

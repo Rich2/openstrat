@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A polygon specified in [[Length]] units. */
@@ -35,11 +35,11 @@ trait PolygonLen2[+VT <: PtLen2] extends Any, GeomLen2Elem, PolygonDbl2[VT], Sha
   def rotate180IfNot(cond: Boolean): PolygonLen2[VT]
 }
 
-/** Companion object for [[PolygonLen2]]. Does not provide factory methods. Use the specific [[Length]] unit classes such as [[PolyonM2]] and [[PolygonKm2]].
+/** Companion object for [[PolygonLen2]]. Does not provide factory methods. Use the specific [[Length]] unit classes such as [[PolygonM2]] and [[PolygonKm2]].
  * Does contain geometric transformation type class instances. */
 object PolygonLen2
-{ /** implicit [[StateLen2]] type class instance / evidence for [[PolygonLen2]]. */
-  implicit val slateLen2Ev: SlateLen2[PolygonLen2[PtLen2]] = new SlateLen2[PolygonLen2[PtLen2]]
+{ /** implicit [[SlateLen2]] type class instance / evidence for [[PolygonLen2]]. */
+  given slateLen2Ev: SlateLen2[PolygonLen2[PtLen2]] = new SlateLen2[PolygonLen2[PtLen2]]
   { override def slateT(obj: PolygonLen2[PtLen2], delta: VecPtLen2): PolygonLen2[PtLen2] = obj.slate(delta)
     override def slateXY(obj: PolygonLen2[PtLen2], xDelta: Length, yDelta: Length): PolygonLen2[PtLen2] = obj.slate(xDelta, yDelta)
     override def slateX(obj: PolygonLen2[PtLen2], xDelta: Length): PolygonLen2[PtLen2] = obj.slateX(xDelta)
@@ -47,10 +47,10 @@ object PolygonLen2
   }
 
   /** implicit [[Scale]] type class instance / evidence for [[PolygonLen2]]. */
-  implicit val scaleEv: Scale[PolygonLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
+  given scaleEv: Scale[PolygonLen2[PtLen2]] = (obj, operand) => obj.scale(operand)
 
   /** implicit [[MapGeom2]] type class instance / evidence for [[PolygonLen2]]. */
-  implicit val mapGeom2Ev: MapGeom2[PolygonLen2[PtLen2], Polygon] = (obj, operand) => obj.mapGeom2(operand)
+  given mapGeom2Ev: MapGeom2[PolygonLen2[PtLen2], Polygon] = (obj, operand) => obj.mapGeom2(operand)
 }
 
 /** A polygon graphic where the point are specified in [[Length]] units. */
@@ -65,9 +65,8 @@ trait PolygonLen2Graphic extends ShapeLen2Graphic
 }
 
 object PolygonLen2Graphic
-{
-  /** Implicit [[MapGeom2]] type class instance / evidence for [[PolygonLen2Graphic]] to [[PolygonGraphic]] */
-  implicit val mapGeomEv: MapGeom2[PolygonLen2Graphic, PolygonGraphic] = (obj, operand) => obj.mapGeom2(operand)
+{  /** Implicit [[MapGeom2]] type class instance / evidence for [[PolygonLen2Graphic]] to [[PolygonGraphic]] */
+  given mapGeomEv: MapGeom2[PolygonLen2Graphic, PolygonGraphic] = (obj, operand) => obj.mapGeom2(operand)
 }
 
 /** A polygon graphic where the point are specified in [[Length]] units. */

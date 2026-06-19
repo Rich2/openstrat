@@ -2,7 +2,7 @@
 package ostrat; package geom
 import Colour.Black
 
-/** A rectangular object aligned with the X and Y axes and centred on x = 0, y = 0. Sub traits include [[Rectangle]] and [[pCanv.Panel]]. */
+/** A rectangular object aligned with the X and Y axes and centred on x = 0, y = 0. Sub traits include [[Rectangle]] and [[pgui.Panel]]. */
 trait RectCenlign extends Rectangularlign
 {
   def cenX: Double = 0

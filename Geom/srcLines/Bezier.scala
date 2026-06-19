@@ -2,7 +2,7 @@
 package ostrat; package geom
 import Colour.Black, pweb.SvgOwnLine
 
-/** Cubic bezier curve. */
+/** Cubic Bézier curve. */
 class Bezier (val startX: Double, val startY: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double, val endX: Double, val endY: Double)
   extends CurveSeg, AffinePreserve
 { override type ThisT = Bezier
@@ -20,11 +20,10 @@ object Bezier
     new Bezier(xStart, yStart, xC1, yC1, xC2, yC2, xEnd, yEnd)
 }
       
-/** Functional class for Drawing a cubic Bezier curve. */
-case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) extends CurveSegDraw with GraphicAffineElem with CanvElem
+/** Functional class for Drawing a cubic Bézier curve. */
+case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) extends CurveSegDraw, GraphicAffineElem, CanvElem
 { override type ThisT = BezierDraw
   def typeStr: String = "BezierDraw"
-  //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 
   override def ptsTrans(f: Pt2 => Pt2): BezierDraw = BezierDraw(curveSeg.ptsTrans(f), colour, lineWidth)
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.bezierDraw(this)
   def xC1: Double = curveSeg.xC1

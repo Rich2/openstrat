@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A class that can preserve its type through all the [[Prolign]], proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function. These
- * are [[Slate2]], [[SlateXY]], [[Scale]] and negX and negY, the [[MirrorAxes]], transformations. */
+ * are [[Slate2]], [[Scale]] and negX and negY, the [[MirrorAxes]], transformations. */
 trait ProlignPreserve extends Any, Geom2Elem
 { /** The most narrow type preserved in some 2d geometric transformations. */
   type ThisT <: ProlignPreserve

@@ -1,12 +1,12 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import ostrat.pweb.*, pgui.*
 
 /** To be phased out. */
-final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends CanvElem with AxisFree
-{
-  override type ThisT = ShapeGenFillOld
-  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends CanvElem, AxisFree
+{ override type ThisT = ShapeGenFillOld
+  
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pgui.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   override def slate(operand: VecPt2): ShapeGenFillOld = ShapeGenFillOld(shape.slate(operand), colour)

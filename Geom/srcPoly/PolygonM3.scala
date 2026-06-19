@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
@@ -9,7 +9,7 @@ trait PolygonLength3[VT <: PtLength3] extends Any, PolygonDbl3[VT]
 }
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not sure how useful
- * this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2Gen]]s on world maps. */
+ * this class will prove. It has been created for the intermediary step of converting from [[pglobe.LatLong]]s to [[PolygonM2Gen]]s on world maps. */
 final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLength3[PtM3]
 { override type ThisT = PolygonM3
   override type SideT = LSegM3
@@ -126,8 +126,8 @@ object PolygonM3Buff
 
 /** Specialised efficient class for pairs where the first component of the pair is a [[PolygonM3]], a polygon in 3D space whose [[Point]]s are specified in
  * [[Metres]]. */
-class PolygonM3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtM3, PolygonM3, A2] with SpecialT {
-  override def a1: PolygonM3 = new PolygonM3(a1ArrayDbl)
+class PolygonM3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtM3, PolygonM3, A2], SpecialT
+{ override def a1: PolygonM3 = new PolygonM3(a1ArrayDbl)
 }
 
 object PolygonM3Pair
