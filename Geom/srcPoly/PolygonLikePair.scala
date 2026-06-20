@@ -21,7 +21,7 @@ trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonBase[B1V], ArrB1 <: Arr[B1], B
   ArrB <: PolygonLikePairArr[B1V, B1, ArrB1, B2, B]] extends BuilderArrMapPairSeqLike[B1V, B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1, in this case a [[PolygonBase]]. The return type has been narrowed as it is needed for the
    * polygonMapPair method on [[PolygonLikePairArr]]. */
-  override def b1Builder: PolygonLikeBuilderMap[B1V, B1]
+  override def b1Builder: BuilderPolygonLikeMap[B1V, B1]
 }
 
 trait PolygonLikeDblNPair[A1V <: DblNElem, A1 <: PolygonDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2] with PairSeqLikeDblNElem[A1V, A1, A2]

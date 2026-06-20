@@ -77,9 +77,9 @@ object GraphicLen2Elem
   given mapGeomEv: MapGeom2[GraphicLen2Elem, Graphic2Elem] = (obj, operand) => obj.mapGeom2(operand)
 }
 
-/** Type class to translate from [[GeomLen2Elem]]s to [[Geom2]]s. */
+/** Type class to translate from [[GeomLen2Elem]]s to [[Geom2Elem]]s. */
 trait MapGeom2[A, B]
-{ /** Maps from [[GeomLen2Elem]]s to [[Geom2]]s */
+{ /** Maps from [[GeomLen2Elem]]s to [[Geom2Elem]]s */
   def mapGeom2T(obj: A, operand: Length): B
 }
 

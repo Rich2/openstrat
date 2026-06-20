@@ -55,7 +55,7 @@ extension(thisInt: Int)
   @inline def millares: Millares = Millares(thisInt)
   
   /** Returns this [[Int]] value in [[Metrares]], metre². [[Metrares]] follows the same naming convention as [[Hectares]]s. */
-  @inline def metrares: Millares = Millares(thisInt)
+  @inline def metrares: Metrares = Metrares(thisInt)
   
   /** Returns this [[Int]] value in [[Hectares]], hectometre². */
   @inline def hectares: Hectares = Hectares(thisInt)

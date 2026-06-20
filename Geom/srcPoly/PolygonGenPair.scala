@@ -38,7 +38,7 @@ final class PolygonGenPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
   
   override def newBuff(length: Int): PolygonGenPairBuff[A2] = PolygonGenPairBuff(length)
   override def buffToSeqLike(buff: PolygonGenPairBuff[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
-  override def b1Builder: PolygonLikeBuilderMap[Pt2, PolygonGen] = Pt2.polygonMapBuildEv
+  override def b1Builder: BuilderPolygonLikeMap[Pt2, PolygonGen] = Pt2.polygonMapBuildEv
   override def b1ArrBuilder: BuilderArrMap[PolygonGen, PolygonGenArr] = PolygonGen.buildArrMapEv
   override def arrFromArrAndArray(b1Arr: PolygonGenArr, b2s: Array[A2]): PolygonGenPairArr[A2] = new PolygonGenPairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonGenBuff = PolygonGenBuff()

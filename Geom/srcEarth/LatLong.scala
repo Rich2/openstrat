@@ -183,8 +183,8 @@ object LatLong
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
-  /** Implicit [[PolygonLikeBuilderMap]] evidence / instance for [[LatLong]]. Builds [[PolygonLL]]s. */
-  given polygonBuildEv: PolygonDbl2BuilderMap[LatLong, PolygonLL] = new PolygonDbl2BuilderMap[LatLong, PolygonLL]
+  /** Implicit [[BuilderPolygonLikeMap]] evidence / instance for [[LatLong]]. Builds [[PolygonLL]]s. */
+  given polygonBuildEv: BuilderPolygonDbl2Map[LatLong, PolygonLL] = new BuilderPolygonDbl2Map[LatLong, PolygonLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)

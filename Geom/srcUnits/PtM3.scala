@@ -133,7 +133,7 @@ object PtM3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
-  given polygonBuildEv: PolygonDbl3BuilderMap[PtM3, PolygonM3] = new PolygonDbl3BuilderMap[PtM3, PolygonM3]
+  given polygonBuildEv: BuilderPolygonDbl3Map[PtM3, PolygonM3] = new BuilderPolygonDbl3Map[PtM3, PolygonM3]
   { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)

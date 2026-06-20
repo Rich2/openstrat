@@ -135,8 +135,8 @@ object PtKm3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
-  /** [[PolygonLikeBuilderMap]] type class instance evidence for [[PtKm3]]. This is used to map to a [[PolygonKm3]]. */
-  given polygonBuildMapEv: PolygonDbl3BuilderMap[PtKm3, PolygonKm3] = new PolygonDbl3BuilderMap[PtKm3, PolygonKm3]
+  /** [[BuilderPolygonLikeMap]] type class instance evidence for [[PtKm3]]. This is used to map to a [[PolygonKm3]]. */
+  given polygonBuildMapEv: BuilderPolygonDbl3Map[PtKm3, PolygonKm3] = new BuilderPolygonDbl3Map[PtKm3, PolygonKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)

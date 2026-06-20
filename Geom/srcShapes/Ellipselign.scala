@@ -1,8 +1,7 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[Ellipselign.EllipselignGen]] classes implement this
- * interface. */
+/** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[EllipselignGen]] classes implement this interface. */
 trait Ellipselign extends Ellipse
 { /** The radius of the axis of the ellipse aligned to the X axis. */
   def xRadius: Double

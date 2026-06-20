@@ -52,7 +52,7 @@ implicit class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Picares]], picometre². */
   @inline def picares: Picares = Picares(thisDouble)
 
-  /** Returns this [[Double]] value in [[Miilrares]], millimetre². */
+  /** Returns this [[Double]] value in [[Millares]], millimetre². */
   @inline def millrares: Millares = Millares(thisDouble)
 
   /** Returns this [[Double]] value in [[Metrares]] metre². */

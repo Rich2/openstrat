@@ -3,7 +3,7 @@ package ostrat; package geom
 import pweb.*, Colour.Black, math.{Pi, sqrt}, pgui.*
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory methods in
- * the Ellipse companion object return [Ellipse]]. */
+ * the Ellipse companion object return [[Ellipse]]. */
 trait Ellipse extends EllipseBased, ShapeCentred
 { override def cenX: Double = p1X \/ p3X
   override def cenY: Double = p1Y \/ p3Y
@@ -201,7 +201,7 @@ object Ellipse
 
   given prolignEv: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
-  given xyScaleEv: ScaleXY[Ellipse] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  given scaleXYEv: ScaleXY[Ellipse] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   given reflectAxesEv: MirrorAxes[Ellipse] = new MirrorAxes[Ellipse]
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
@@ -218,17 +218,16 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 [[Pt2]]s or 6 scalars, although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipse, AxisFree {
-    override type ThisT = EllipseGen
-
+  final class EllipseGen(val p0X: Double, val p0Y: Double, val p1X: Double, val p1Y: Double, val p3X: Double, val p3Y: Double) extends Ellipse, AxisFree
+  {  override type ThisT = EllipseGen
     override def area: Double = Pi * radius1 * radius2
 
     override def e: Double = sqrt(a.squared - b.squared) / a
 
     override def h: Double = (a - b).squared / (a + b).squared
 
-    def boundingRect: Rect = {
-      val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius2.squared * (alignAngle.sin).squared
+    override def boundingRect: Rect =
+    { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius2.squared * (alignAngle.sin).squared
       val xd = xd0.sqrt
       val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius2.squared * (alignAngle.cos).squared
       val yd = yd0.sqrt
@@ -261,7 +260,7 @@ object Ellipse
     override def ptInside(pt: Pt2): Boolean = ???
   }
 
-  /** Companion object for the EllipseImp class, contains factory methods. */
+  /** Companion object for the [[EllipseGen]] implementation class, contains factory methods. */
   object EllipseGen
   {
     def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cen: Pt2 = Origin2): EllipseGen =
@@ -346,7 +345,7 @@ object EllipseActive
 
     override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
-    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pgui.CanvasPlatform]] interface. */
     override def rendToCanvas(cp: CanvasPlatform): Unit = ???
 
     override def ptsTrans(f: Pt2 => Pt2): EllipseActive = EllipseActiveImp(shape.fTrans(f), pointerId)
@@ -385,10 +384,8 @@ object EllipseCompound
 
   /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
-  final case class EllipseCompoundGen(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends
-    EllipseCompound with AxisFree
-  {
-    override type ThisT = EllipseCompoundGen
+  final case class EllipseCompoundGen(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound, AxisFree
+  { override type ThisT = EllipseCompoundGen
     override def mainSvgElem: SvgEllipse = SvgEllipse(attribs)
     /** Return type narrowed to [[SvgEllipse]] from [[SvgOwnLine]] */
     /*    override def svgElem: SvgEllipse =

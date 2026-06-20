@@ -93,8 +93,8 @@ object PtFm2
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtFm2Buff = new PtFm2Buff(inp)
   }
 
-  /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtFm2]] and [[PolygonFm2]]. */
-  given polygonBuildEv: PolygonDbl2BuilderMap[PtFm2, PolygonFm2] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2]
+  /** Implicit [[BuilderPolygonLikeMap]] type class instance / evidence for [[PtFm2]] and [[PolygonFm2]]. */
+  given polygonBuildEv: BuilderPolygonDbl2Map[PtFm2, PolygonFm2] = new BuilderPolygonDbl2Map[PtFm2, PolygonFm2]
   { override type BuffT = PtFm2Buff
     override def fromDblArray(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtFm2Buff = new PtFm2Buff(inp)

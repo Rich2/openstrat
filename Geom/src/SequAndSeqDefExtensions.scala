@@ -11,7 +11,7 @@ extension[A](thisSeqSpec : SeqSpec[A])
   }
 
   /** Map this collection of data elements to [[PolygonBase]] class of type BB. */
-  def mapPolygon[B <: ValueNElem, BB <: PolygonBase[B]](f: A => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonBase[B]](f: A => B)(implicit build: BuilderPolygonLikeMap[B, BB]): BB =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -23,7 +23,7 @@ extension[A](thisSeqSpec : SeqSpec[A])
     res
   }
 
-  def toPolygon[AA <: PolygonBase[A]](implicit build: PolygonLikeBuilderMap[A, AA]): AA =
+  def toPolygon[AA <: PolygonBase[A]](implicit build: BuilderPolygonLikeMap[A, AA]): AA =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, a))
     res
@@ -39,21 +39,21 @@ extension[A](al : Sequ[A])
   }
 
   /** Maps the elements of tbis sequence to [[PolygonBase]] vertices, returning a [[PolygonBase]] class of type BB. */
-  def mapPolygon[B <: ValueNElem, BB <: PolygonBase[B]](f: A => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonBase[B]](f: A => B)(implicit build: BuilderPolygonLikeMap[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   /** FlatMaps the elements of tbis sequence to [[PolygonBase]] vertices, returning a [[PolygonBase]] class of type BB. */
-  def flatMapPolygon[B, BB <: PolygonBase[B]](f: A => SeqLike[B])(implicit build: PolygonLikeFlatBuilder[B, BB]): BB =
+  def flatMapPolygon[B, BB <: PolygonBase[B]](f: A => SeqLike[B])(implicit build: BuilderPolygonLikeFlat[B, BB]): BB =
   { val buff = build.newBuff()
     al.foreach(a => build.buffGrowSeqLike(buff, f(a)))
     build.buffToSeqLike(buff)
   }
 
   /** FlatMaps with index the elements of tbis sequence to [[PolygonBase]] vertices, returning a [[PolygonBase]] class of type BB. */
-  def iFlatMapPolygon[B, BB <: PolygonBase[B]](f: (Int, A) => SeqLike[B])(implicit build: PolygonLikeFlatBuilder[B, BB]): BB = {
+  def iFlatMapPolygon[B, BB <: PolygonBase[B]](f: (Int, A) => SeqLike[B])(implicit build: BuilderPolygonLikeFlat[B, BB]): BB = {
     val buff = build.newBuff()
     var i = 0
     al.foreach{ a => build.buffGrowSeqLike(buff, f(i, a)); i += 1 }
@@ -68,7 +68,7 @@ extension[A](al : Sequ[A])
   }
 
   /** Converts this collection of data elements to [[PolygonBase]] class of type BB. */
-  def toPolygon[AA <: PolygonBase[A]](implicit build: PolygonLikeBuilderMap[A, AA]): AA =
+  def toPolygon[AA <: PolygonBase[A]](implicit build: BuilderPolygonLikeMap[A, AA]): AA =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, a))
     res

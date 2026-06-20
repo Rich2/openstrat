@@ -282,7 +282,7 @@ object Pt2
   }
 
   /** Implicit instance evidence for [[PolygonBase]] map builder. */
-  given polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderMapSeqLikeDbl2[Pt2, PolygonGen]
+  given polygonMapBuildEv: BuilderPolygonLikeMap[Pt2, PolygonGen] = new BuilderPolygonLikeMap[Pt2, PolygonGen] with BuilderMapSeqLikeDbl2[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)

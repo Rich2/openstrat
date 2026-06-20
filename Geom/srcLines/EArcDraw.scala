@@ -2,8 +2,8 @@
 package ostrat; package geom
 import pweb.*, pgui.*
 
-/** 2D graphic that draws an arc of an ellipse. The trait has 2 implementations, [[CArcdraw]], a cirular arc draw and the general case is implemented
- * with [[EArcDraw.EArcDrawImp]]. */
+/** 2D graphic that draws an arc of an ellipse. The trait has 2 implementations, [[CArcDraw]], a circular arc draw and the general case is implemented with
+ * [[EArcDraw.EArcDrawGen]]. */
 trait EArcDraw extends CurveSegDraw, CanvElem
 { override def curveSeg: EArc
   def xCen: Double = curveSeg.cenX
@@ -53,13 +53,13 @@ trait EArcDraw extends CurveSegDraw, CanvElem
   override def shearY(operand: Double): EArcDraw = ???
 }
 
-/** Companion object ofr the EArcDraw trait, contins the general implementation class [[EArcDrawImp]] and an apply factor method that delegates to
- * [[EArcDrawImp]]. */
+/** Companion object ofr the EArcDraw trait, contains the general implementation class [[EArcDrawGen]] and an apply factor method that delegates to
+ * [[EArcDrawGen]]. */
 object EArcDraw
 {
-  def apply(arc: EArc, colour: Colour, lineWidth: Double): EArcDraw = EArcDrawImp(arc, colour, lineWidth)
+  def apply(arc: EArc, colour: Colour, lineWidth: Double): EArcDraw = EArcDrawGen(arc, colour, lineWidth)
 
-  case class EArcDrawImp(curveSeg: EArc, colour: Colour, lineWidth: Double) extends EArcDraw
+  case class EArcDrawGen(curveSeg: EArc, colour: Colour, lineWidth: Double) extends EArcDraw
   {
     /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pgui.CanvasPlatform]] interface. */
     override def rendToCanvas(cp: CanvasPlatform): Unit =  cp.eArcDraw(this)

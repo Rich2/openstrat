@@ -37,14 +37,14 @@ trait PolygonBase[+VT] extends Any, VertSeqSpec[VT]
   }
 
   /** Maps the vertices of this [[PolygonBase]] to a new to PolygonLike class of type BB. */
-  def map[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
+  def map[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => B)(implicit build: BuilderPolygonLikeMap[B, BB]): BB =
   { val res = build.uninitialised(numVerts)
     verts.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   /** FlatMaps the vertices of this [[PolygonBase]] to a new to PolygonLike class of type BB. */
-  def flatMap[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => SeqLike[B])(implicit build: PolygonLikeFlatBuilder[B, BB]): BB =
+  def flatMap[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => SeqLike[B])(implicit build: BuilderPolygonLikeFlat[B, BB]): BB =
   { val buff = build.newBuff()
     vertsForeach(a => build.buffGrowSeqLike(buff, f(a)))
     build.buffToSeqLike(buff)
@@ -52,7 +52,7 @@ trait PolygonBase[+VT] extends Any, VertSeqSpec[VT]
 
   /** Optionally maps the vertices of this [[PolygonBase]] to vertices of a new to PolygonLike class of type BB. If the new [[PolygonBase]] has at least 3
    * vertices returns [[Some]] else returns [[None]]. */
-  def optMap[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => Option[B])(implicit build: PolygonLikeBuilderMap[B, BB]): Option[BB] =
+  def optMap[B <: ValueNElem, BB <: PolygonBase[B]](f: VT => Option[B])(implicit build: BuilderPolygonLikeMap[B, BB]): Option[BB] =
   { val buff = build.newBuff()
     vertsForeach(a =>f(a).foreach(v => build.buffGrow(buff, v)))
     if(buff.length >= 3) Some(build.buffToSeqLike(buff)) else None

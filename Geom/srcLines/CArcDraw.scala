@@ -2,6 +2,7 @@
 package ostrat; package geom
 import Colour.*, ostrat.pweb.SvgOwnLine
 
+/** Draws a circular arc. */
 case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw, AxisFree
 {
   override type ThisT = CArcDraw

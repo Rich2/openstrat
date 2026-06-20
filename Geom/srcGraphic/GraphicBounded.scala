@@ -1,8 +1,8 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]] and
- * [[Curve]] graphics. */
+/** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]] and curve
+ * graphics. */
 trait GraphicBounded extends Graphic2Elem, BoundedElem
 { def slate(operand: VecPt2): GraphicBounded
   def slate(xOperand: Double, yOperand: Double): GraphicBounded
