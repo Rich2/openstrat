@@ -1,10 +1,11 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
-/** Type class for 3D [[Metres]] geometric rotation transformations of objects of type T. */
-trait RotateM3T[T]
-{ /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
+/** Type class for 3D geometric rotation transformations of objects of type T. This type class can used for 3 objects specified in scalars and in length
+ * units. */
+trait Rotate3[T]
+{ /** Rotate around the X axis, viewed from positive X. A positive angle is anti-clockwise. */
   def rotateXT(obj: T, angle: AngleVec): T
 
   /** Rotates this vector around the Y axis, viewed form positive Y through the given angle around the origin. */
@@ -17,26 +18,26 @@ trait RotateM3T[T]
   def rotateZ180T(obj: T): T
 }
 
-/** Companion object for the [[RotateM3T]] type class, contains implicit instances for collections and other container classes. */
-object RotateM3T
-{ /** Implicit [[RotateM3T]] type class instances / evidence for [[Arr]]. */
-  given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: RotateM3T[A]): RotateM3T[AA] = new RotateM3T[AA]
+/** Companion object for the [[Rotate3]] type class, contains implicit instances for collections and other container classes. */
+object Rotate3
+{ /** Implicit [[Rotate3]] type class instances / evidence for [[Arr]]. */
+  given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Rotate3[A]): Rotate3[AA] = new Rotate3[AA]
   { override def rotateXT(obj: AA, angle: AngleVec): AA = obj.map(ev.rotateXT(_, angle))
     override def rotateYT(obj: AA, angle: AngleVec): AA = obj.map(ev.rotateYT(_, angle))
     override def rotateZT(obj: AA, angle: AngleVec): AA = obj.map(ev.rotateZT(_, angle))
     override def rotateZ180T(obj: AA): AA = obj.map(ev.rotateZ180T(_))
   }
 
-  /** Implicit [[RotateM3T]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
-  given functorEv[A, F[_]](using evF: Functor[F], evA: RotateM3T[A]): RotateM3T[F[A]] = new RotateM3T[F[A]]
+  /** Implicit [[Rotate3]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
+  given functorEv[A, F[_]](using evF: Functor[F], evA: Rotate3[A]): Rotate3[F[A]] = new Rotate3[F[A]]
   { override def rotateXT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateXT(_, angle))
     override def rotateYT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateYT(_, angle))
     override def rotateZT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateZT(_, angle))
     override def rotateZ180T(obj: F[A]): F[A] = evF.mapT(obj, evA.rotateZ180T(_))
   }
   
-  /** Implicit [[RotateM3T]] type class instances / evidence for [[Array]]. */
-  given arrayEv[A](using ct: ClassTag[A], ev: RotateM3T[A]): RotateM3T[Array[A]] = new RotateM3T[Array[A]]
+  /** Implicit [[Rotate3]] type class instances / evidence for [[Array]]. */
+  given arrayEv[A](using ct: ClassTag[A], ev: Rotate3[A]): Rotate3[Array[A]] = new Rotate3[Array[A]]
   { override def rotateXT(obj: Array[A], angle: AngleVec): Array[A] = obj.map(ev.rotateXT(_, angle))
     override def rotateYT(obj: Array[A], angle: AngleVec): Array[A] = obj.map(ev.rotateYT(_, angle))
     override def rotateZT(obj: Array[A], angle: AngleVec): Array[A] = obj.map(ev.rotateYT(_, angle))
@@ -45,7 +46,7 @@ object RotateM3T
 }
 
 /** Extension class for instances of the RotateM3 type class. */
-extension[T](value: T)(using ev: RotateM3T[T])
+extension[T](value: T)(using ev: Rotate3[T])
 { /** Rotate around the X axis, 3D geometric transformation of the object by the [[AngleVec]] parameter. */
   def rotateX(angle: AngleVec): T = ev.rotateXT(value, angle)
 
@@ -60,7 +61,7 @@ extension[T](value: T)(using ev: RotateM3T[T])
 }
 
 /** Implementations for Type class for 3D [[Metres]] geometric rotation transformations of objects of type T. */
-trait RotateM3TPtPt[T] extends RotateM3T[T]
+trait RotateM3TPtPt[T] extends Rotate3[T]
 { def fptp(obj: T, f: PtM3 => PtM3): T
   override def rotateXT(obj: T, angle: AngleVec): T = fptp(obj, _.rotateX(angle))
   override def rotateYT(obj: T, angle: AngleVec): T = fptp(obj, _.rotateY(angle))

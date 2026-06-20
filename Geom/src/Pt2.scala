@@ -275,7 +275,7 @@ object Pt2
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): Pt2PairArrMapBuider[B2] = new Pt2PairArrMapBuider[B2]
 
-  given linePathBuildImplicit: LinePathDbl2Builder[Pt2, LinePath] = new LinePathDbl2Builder[Pt2, LinePath]
+  given linePathBuildImplicit: BuilderLinePathDbl2Map[Pt2, LinePath] = new BuilderLinePathDbl2Map[Pt2, LinePath]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): LinePath = new LinePath(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import impunits.*
 
@@ -49,10 +49,10 @@ implicit class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Gigametres]]. */
   @inline def gigametres: Gigametres = Gigametres(thisDouble)
 
-  /** Returns this [[Double]] value in [[Pictares]], picometre². */
+  /** Returns this [[Double]] value in [[Picares]], picometre². */
   @inline def picares: Picares = Picares(thisDouble)
 
-  /** Returns this [[Double]] value in [[Miilrares]], miilimetre². */
+  /** Returns this [[Double]] value in [[Miilrares]], millimetre². */
   @inline def millrares: Millares = Millares(thisDouble)
 
   /** Returns this [[Double]] value in [[Metrares]] metre². */
@@ -64,13 +64,13 @@ implicit class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Kilares]], kilometre². */
   @inline def kilares: Kilares = Kilares(thisDouble)
   
-  /** Returns this [[Double]] value in [[Yards]]. */
+  /** Returns this [[Double]] value in [[impunits.Yards]]. */
   @inline def yards: Yards = new Yards(thisDouble)
 
-  /** Returns this [[Double]] value in [[Miles]]. */
+  /** Returns this [[Double]] value in [[impunits.Miles]]. */
   @inline def miles: Miles = new Miles(thisDouble)
 
-  /** Returns this [[Double]] value of [[MegaMiles]] millions of miles. */
+  /** Returns this [[Double]] value of [[impunits.MegaMiles]] millions of miles. */
   @inline def megaMiles: MegaMiles = new MegaMiles(thisDouble)
 
   def radians: Angle = Angle.radians(thisDouble)

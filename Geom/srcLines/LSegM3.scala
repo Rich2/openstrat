@@ -45,7 +45,7 @@ object LSegM3
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
   }
 
-  implicit val rotateM3TEv: RotateM3T[LSegM3] = new RotateM3T[LSegM3] {
+  implicit val rotateM3TEv: Rotate3[LSegM3] = new Rotate3[LSegM3] {
     /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
     override def rotateXT(obj: LSegM3, angle: AngleVec): LSegM3 = LSegM3(obj.startPt.rotateX(angle), obj.endPt.rotateX(angle))
 

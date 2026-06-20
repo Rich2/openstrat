@@ -1,9 +1,9 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A quasi line path specified in 3D metre points. The points do not have to lie within the same plane. I'm not sure how useful this class will
- *  prove. It has been created for the intermediary step of converting from [[LinePathLL]]s to [[LinePathM2]]s on world maps. */
-class LinePathM3(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl3[PtM3]
+ *  prove. It has been created for the intermediary step of converting from [[pglobe.LinePathLL]]s to [[LinePathM2]]s on world maps. */
+class LinePathM3(val arrayUnsafe: Array[Double]) extends AnyVal, LinePathDbl3[PtM3]
 { override type ThisT = LinePathM3
   override type PolygonT = PolygonM3
   override def typeStr: String = "LinePathM3"
@@ -17,5 +17,5 @@ object LinePathM3 extends CompanionSlDbl3[PtM3, LinePathM3]
 { override def fromArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePathM3]]. */
-  implicit lazy val persistEv: PersistSeqSpecBoth[PtM3, LinePathM3] = PersistSeqSpecBoth[PtM3, LinePathM3]("LinePathM3")
+  given persistEv: PersistSeqSpecBoth[PtM3, LinePathM3] = PersistSeqSpecBoth[PtM3, LinePathM3]("LinePathM3")
 }

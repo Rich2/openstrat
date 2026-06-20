@@ -57,7 +57,7 @@ object SqCen
   val vertsOfSq00: SqVertArr = SqVertArr(s00v1, s00v2, s00v3, s00v4)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[SqCen]] and [[SqCenArr]]. */
-  given buildEv: BuilderMapArrInt2[SqCen, SqCenArr] = new BuilderMapArrInt2[SqCen, SqCenArr]
+  given buildEv: BuilderArrInt2Map[SqCen, SqCenArr] = new BuilderArrInt2Map[SqCen, SqCenArr]
   { type BuffT = SqCenBuff
     override def fromIntArray(array: Array[Int]): SqCenArr = new SqCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenBuff = new SqCenBuff(buffer)

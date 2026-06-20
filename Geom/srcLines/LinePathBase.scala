@@ -10,7 +10,7 @@ trait LinePathBase[VT] extends Any, VertSeqSpec[VT], SeqLikeBacked[VT]
   type LineSegArrT <: Arr[LineSegT]
 
   /** maps to a [[LinePathBase]]. This map operates on a single [[LinePathBase]] its not to be confused with a map on Arr of [[LinePathBase]]s. */
-  def map[B <: ValueNElem, BB <: LinePathBase[B]](f: VT => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  def map[B <: ValueNElem, BB <: LinePathBase[B]](f: VT => B)(implicit build: BuilderLinePathMap[B, BB]): BB =
   { val res = build.uninitialised(numElems)
     iForeach((i, p) => res.setElemUnsafe(i, f(p)))
     res

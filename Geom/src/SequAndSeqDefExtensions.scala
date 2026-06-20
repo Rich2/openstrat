@@ -4,7 +4,7 @@ package ostrat; package geom
 /** Extension methods for [[SeqSpec]]s sequence specified classes. */
 extension[A](thisSeqSpec : SeqSpec[A])
 { /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
-  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: BuilderLinePathMap[B, BB]): BB =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -17,7 +17,7 @@ extension[A](thisSeqSpec : SeqSpec[A])
     res
   }
 
-  def toLinePath[AA <: LinePathBase[A]](implicit build: LinePathBuilder[A, AA]): AA =
+  def toLinePath[AA <: LinePathBase[A]](implicit build: BuilderLinePathMap[A, AA]): AA =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, a))
     res
@@ -32,7 +32,7 @@ extension[A](thisSeqSpec : SeqSpec[A])
 
 extension[A](al : Sequ[A])
 { /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
-  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: BuilderLinePathMap[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -61,7 +61,7 @@ extension[A](al : Sequ[A])
   }
 
   /** Converts this collection of data elements to [[LinePathBase]] class of type BB. */
-  def toLinePath[AA <: LinePathBase[A]](implicit build: LinePathBuilder[A, AA]): AA =
+  def toLinePath[AA <: LinePathBase[A]](implicit build: BuilderLinePathMap[A, AA]): AA =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, a))
     res

@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation.*
 
@@ -181,7 +181,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any, LinePathBase[VT], SeqSpecIntN[V
   }
 }
 
-/** Linepath with [[Int2Elem]] vertices. */
+/** Line path with [[Int2Elem]] vertices. */
 trait LinePathInt2[VT <: Int2Elem] extends Any, LinePathIntN[VT], SeqSpecInt2[VT]
 { type ThisT <: LinePathInt2[VT]
   type PolygonT <: PolygonInt2[VT]
@@ -191,33 +191,33 @@ trait LinePathInt2[VT <: Int2Elem] extends Any, LinePathIntN[VT], SeqSpecInt2[VT
  * companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into the BB
  * companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a function from A => B or
  * A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be used directly by end users. */
-trait LinePathBuilder[B, BB <: LinePathBase[B]] extends BuilderSeqLikeMap[B, BB]
+trait BuilderLinePathMap[B, BB <: LinePathBase[B]] extends BuilderSeqLikeMap[B, BB]
 
-/** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the companion
+/** Trait for creating the line path builder instances for the [[BuilderLinePathMap]] type class, for classes / traits you control, should go in the companion
  * object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LinePathBuilderValueN[B <: ValueNElem, BB <: LinePathBase[B]] extends LinePathBuilder[B, BB] with BuilderSeqLike[BB]
+trait BuilderLinePathValueN[B <: ValueNElem, BB <: LinePathBase[B]] extends BuilderLinePathMap[B, BB], BuilderSeqLike[BB]
 
-/** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes /
+/** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[BuilderLinePathMap]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
-trait LinePathMapBuilderDblN[B <: DblNElem, BB <: LinePathDblN[B] ] extends LinePathBuilderValueN[B, BB] with BuilderMapSeqLikeDblN[B, BB]
+trait BuilderLinePathDblNMap[B <: DblNElem, BB <: LinePathDblN[B] ] extends BuilderLinePathValueN[B, BB], BuilderMapSeqLikeDblN[B, BB]
 
-/** Trait for creating the line path type class instances for [[LinePathDbl2]] final classes. Instances for the [[LinePathDbl2Builder]] type class, for classes
+/** Trait for creating the line path type class instances for [[LinePathDbl2]] final classes. Instances for the [[BuilderLinePathDbl2Map]] type class, for classes
  * / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called B, because it
  * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl2Builder[B <: Dbl2Elem, BB <: LinePathDbl2[B]] extends LinePathMapBuilderDblN[B, BB] with BuilderMapSeqLikeDbl2[B, BB]
+trait BuilderLinePathDbl2Map[B <: Dbl2Elem, BB <: LinePathDbl2[B]] extends BuilderLinePathDblNMap[B, BB], BuilderMapSeqLikeDbl2[B, BB]
 
-/** Trait for creating the line path type class instances for [[LinePathDbl3]] final classes. Instances for the [[LinePathDbl3MapBuilder]] type class, for
+/** Trait for creating the line path type class instances for [[LinePathDbl3]] final classes. Instances for the [[BuilderLinePathDbl3Map]] type class, for
  * classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called  B, because it
  * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl3MapBuilder[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends LinePathMapBuilderDblN[B, BB] with BuilderMapSeqLikeDbl3[B, BB]
+trait BuilderLinePathDbl3Map[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends BuilderLinePathDblNMap[B, BB], BuilderMapSeqLikeDbl3[B, BB]
 
-/** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes /
+/** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[BuilderLinePathMap]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
-trait LinePathIntNMapBuilder[B <: IntNElem, BB <: LinePathIntN[B] ] extends LinePathBuilderValueN[B, BB] with BuilderSeqLikeIntNMap[B, BB]
+trait BuilderLinePathIntNMap[B <: IntNElem, BB <: LinePathIntN[B] ] extends BuilderLinePathValueN[B, BB], BuilderSeqLikeIntNMap[B, BB]
 
-/** Trait for creating the line path type class instances for [[LinePathInt2]] final classes. Instances for the [[LinePathInt2MapBuilder]] type class, for
+/** Trait for creating the line path type class instances for [[LinePathInt2]] final classes. Instances for the [[BuilderLinePathInt2Map]] type class, for
  * classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called B, because it
  * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathInt2MapBuilder[B <: Int2Elem, BB <: LinePathInt2[B]] extends LinePathIntNMapBuilder[B, BB] with BuilderMapSeqLikeInt2[B, BB]
+trait BuilderLinePathInt2Map[B <: Int2Elem, BB <: LinePathInt2[B]] extends BuilderLinePathIntNMap[B, BB], BuilderSeqLikeInt2Map[B, BB]

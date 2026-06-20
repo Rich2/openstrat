@@ -105,7 +105,7 @@ package object geom
   implicit class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   {
     /** Converts to a [[LinePathBase]] with points of type A. */
-    def toLinePath[AA <: LinePathBase[A]](implicit builder: LinePathBuilder[A, AA]): AA =
+    def toLinePath[AA <: LinePathBase[A]](implicit builder: BuilderLinePathMap[A, AA]): AA =
     {
       val len = thisIter.size
       val res = builder.uninitialised(len)

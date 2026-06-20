@@ -1,8 +1,8 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._
+import math.*
 
-/** A 3 dimensional point. Right-handed coordinate system is the default. */
+/** A 3-dimensional point. Right-handed coordinate system is the default. */
 final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 with Vec3Like
 { override type ThisT = Pt3
   override type LineSegT = LSeg3
@@ -61,6 +61,14 @@ object Pt3
 
   /** unapply extractor method for [[Pt3]]s. */
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
+
+  /** [[Rotate3]] type class instance /evidence for [[Pt3]]. */
+  given rotate3Ev: Rotate3[Pt3] = new Rotate3[Pt3]
+  { override def rotateXT(obj: Pt3, angle: AngleVec): Pt3 = obj.rotateX(angle)
+    override def rotateYT(obj: Pt3, angle: AngleVec): Pt3 = obj.rotateY(angle)
+    override def rotateZT(obj: Pt3, angle: AngleVec): Pt3 = obj.rotateZ(angle)
+    override def rotateZ180T(obj: Pt3): Pt3 = obj.rotateZ180
+  }
 
   /** Implicit [[Show]] and [[Unshow]] instances / evidence for [[Pt3]]s. */
   implicit lazy val persistEv: PersistDbl3Both[Pt3] = PersistDbl3Both[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)

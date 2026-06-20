@@ -82,7 +82,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLen
 object PolygonM3 extends CompanionSlDbl3[PtM3, PolygonM3]
 { override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
-  given arrBuildImplicit: BuilderArrMap[PolygonM3, PolygonM3Arr] = new BuilderArrMap[PolygonM3, PolygonM3Arr]
+  given buildArrEv: BuilderArrMap[PolygonM3, PolygonM3Arr] = new BuilderArrMap[PolygonM3, PolygonM3Arr]
   { override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
@@ -91,8 +91,8 @@ object PolygonM3 extends CompanionSlDbl3[PtM3, PolygonM3]
     override def buffToSeqLike(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.bufferUnsafe.toArray)
   }
 
-
-  given rotateM3TImplicit: RotateM3T[PolygonM3] = new RotateM3T[PolygonM3]
+  /** [[Rotate3]] type class instance /evidence for [[PolygonM3]] and [[PolygonM3Arr]]. */
+  given rotate3Ev: Rotate3[PolygonM3] = new Rotate3[PolygonM3]
   { override def rotateXT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateX(angle))
     override def rotateYT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateY(angle))
     override def rotateZT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateZ(angle))
@@ -100,7 +100,7 @@ object PolygonM3 extends CompanionSlDbl3[PtM3, PolygonM3]
   }
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[PolygonM3]]. */
-  implicit lazy val persistEv: PersistSeqSpecBoth[PtM3, PolygonM3] = PersistSeqSpecBoth[PtM3, PolygonM3]("PolygonM3")
+  given persistEv: PersistSeqSpecBoth[PtM3, PolygonM3] = PersistSeqSpecBoth[PtM3, PolygonM3]("PolygonM3")
 }
 
 /** Specialised [[Arr]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
@@ -160,7 +160,7 @@ final class PolygonM3PairBuilder[A2](using val b2ClassTag: ClassTag[A2], @unused
   override def buffToSeqLike(buff: PolygonM3PairBuff[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
   override def b1Builder: PolygonLikeBuilderMap[PtM3, PolygonM3] = PtM3.polygonBuildEv
-  override def b1ArrBuilder: BuilderArrMap[PolygonM3, PolygonM3Arr] = PolygonM3.arrBuildImplicit
+  override def b1ArrBuilder: BuilderArrMap[PolygonM3, PolygonM3Arr] = PolygonM3.buildArrEv
   override def arrFromArrAndArray(b1Arr: PolygonM3Arr, b2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonM3Buff = PolygonM3Buff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](arrayArrayDbl, a2Array)

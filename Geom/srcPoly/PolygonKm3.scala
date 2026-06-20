@@ -2,9 +2,8 @@
 package ostrat; package geom
 import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
- *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[pglobe.LatLong]]s to [[PolygonM2Gen]]s on world
- *  maps. */
+/** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not sure how useful
+ * this class will prove. It has been created for the intermediary step of converting from [[pglobe.LatLong]]s to [[PolygonM2Gen]]s on world  maps. */
 final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtKm3]
 { override type ThisT = PolygonKm3
   override type SideT = LineSegKm3
@@ -78,8 +77,9 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
 object PolygonKm3 extends CompanionSlDbl3[PtKm3, PolygonKm3]
 { override def fromArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
 
-  implicit val arrBuildImplicit: BuilderArrMap[PolygonKm3, PolygonKm3Arr] = new BuilderArrMap[PolygonKm3, PolygonKm3Arr] {
-    override type BuffT = PolygonKm3Buff
+  /** [[BuilderArrMap]] type class instance /evidence for [[PolygonKm3]] and [[PolygonKm3Arr]]. */
+  given buildArrMapEv: BuilderArrMap[PolygonKm3, PolygonKm3Arr] = new BuilderArrMap[PolygonKm3, PolygonKm3Arr]
+  { override type BuffT = PolygonKm3Buff
     override def newBuff(length: Int): PolygonKm3Buff = PolygonKm3Buff(length)
     override def uninitialised(length: Int): PolygonKm3Arr = new PolygonKm3Arr(new Array[Array[Double]](length))
     override def indexSet(seqLike: PolygonKm3Arr, index: Int, newElem: PolygonKm3): Unit = seqLike.arrayOfArraysUnsafe(index) = newElem.arrayUnsafe
@@ -87,15 +87,16 @@ object PolygonKm3 extends CompanionSlDbl3[PtKm3, PolygonKm3]
     override def buffToSeqLike(buff: PolygonKm3Buff): PolygonKm3Arr = new PolygonKm3Arr(buff.bufferUnsafe.toArray)
   }
 
-  /*implicit val rotateKm3TImplicit: RotateKm3T[PolygonKm3] = new RotateKm3T[PolygonKm3] {
-    override def rotateXT(obj: PolygonKm3, angle: AngleVec): PolygonKm3 = obj.map(pt => pt.rotateX(angle))
+  /** [[Rotate3]] type class instance /evidence for [[PolygonKm3]] and [[PolygonKm3Arr]]. */
+  given rotate3Ev: Rotate3[PolygonKm3] = new Rotate3[PolygonKm3]
+  { override def rotateXT(obj: PolygonKm3, angle: AngleVec): PolygonKm3 = obj.map(pt => pt.rotateX(angle))
     override def rotateYT(obj: PolygonKm3, angle: AngleVec): PolygonKm3 = obj.map(pt => pt.rotateY(angle))
     override def rotateZT(obj: PolygonKm3, angle: AngleVec): PolygonKm3 = obj.map(pt => pt.rotateZ(angle))
     override def rotateZ180T(obj: PolygonKm3): PolygonKm3 = obj.map(pt => pt.rotateZ180)
-  }*/
+  }
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[PolygonKm3]]. */
-  implicit lazy val persistEv: PersistSeqSpecBoth[PtKm3, PolygonKm3] = ???// PersistSeqSpecBoth[PtKm3, PolygonKm3]("PolygonKm3")
+  given persistEv: PersistSeqSpecBoth[PtKm3, PolygonKm3] = PersistSeqSpecBoth[PtKm3, PolygonKm3]("PolygonKm3")
 }
 
 /** Specialised [[Arr]] class for [[PolygonKm3]]s. Polygon in a 3D space measured in metres. */
@@ -119,7 +120,7 @@ object PolygonKm3Buff
 { def apply(initLen: Int = 4): PolygonKm3Buff = new PolygonKm3Buff(new ArrayBuffer[Array[Double]](initLen))
 }
 
-/** Specialised efficient class for pairs where the first component of the pair is a [[PolygonKm3]], a polygon in 3d space specified in [[Kilometre]] scales. */
+/** Specialised efficient class for pairs where the first component of the pair is a [[PolygonKm3]], a polygon in 3d space specified in [[Kilometres]] scales. */
 class PolygonKm3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtKm3, PolygonKm3, A2], SpecialT
 { override def a1: PolygonKm3 = new PolygonKm3(a1ArrayDbl)
 }
@@ -154,7 +155,7 @@ final class PolygonKm3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @un
   override def buffToSeqLike(buff: PolygonKm3PairBuff[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
   override def b1Builder: PolygonLikeBuilderMap[PtKm3, PolygonKm3] = PtKm3.polygonBuildMapEv
-  override def b1ArrBuilder: BuilderArrMap[PolygonKm3, PolygonKm3Arr] = PolygonKm3.arrBuildImplicit
+  override def b1ArrBuilder: BuilderArrMap[PolygonKm3, PolygonKm3Arr] = PolygonKm3.buildArrMapEv
   override def arrFromArrAndArray(b1Arr: PolygonKm3Arr, b2s: Array[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](b1Arr.arrayOfArraysUnsafe, b2s)
   override def newB1Buff(): PolygonKm3Buff = PolygonKm3Buff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonKm3PairArr[A2] = new PolygonKm3PairArr[A2](arrayArrayDbl, a2Array)

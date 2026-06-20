@@ -129,7 +129,7 @@ object PtKm3
    * [[PtKm3]] is the type B parameter. */
   given polygonPairBuilderEv[A2](using ctA: ClassTag[A2]): PolygonKm3PairBuilder[A2] = new PolygonKm3PairBuilder[A2]
 
-  given linePathBuildEv: LinePathDbl3MapBuilder[PtKm3, LinePathKm3] = new LinePathDbl3MapBuilder[PtKm3, LinePathKm3]
+  given linePathBuildEv: BuilderLinePathDbl3Map[PtKm3, LinePathKm3] = new BuilderLinePathDbl3Map[PtKm3, LinePathKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): LinePathKm3 = new LinePathKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)

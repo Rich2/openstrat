@@ -136,7 +136,7 @@ class LSeg2Arr(val arrayUnsafe: Array[Double]) extends AnyVal, ArrLSegDbl4[Pt2, 
   def fromArray(array: Array[Double]): LSeg2Arr = new LSeg2Arr(array)
   override def typeStr: String = "LineSegArr"
 
-  /** Appends an operand [[LSegArr]]. */
+  /** Appends an operand [[LSeg2Arr]]. */
   @targetName("append") final def ++(operand: LSeg2Arr): LSeg2Arr = new LSeg2Arr(arrayAppend(operand))
 
   override def fElemStr: LSeg2 => String = _.str

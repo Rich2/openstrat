@@ -27,7 +27,7 @@ extension(thisInt: Int)
   /** Returns this [[Int]] value in [[Angstroms]]. */
   @inline def angstroms: Angstroms = Angstroms(thisInt)
 
-  /** Returns this [[Int]] value in [[Nanoometres]]. */
+  /** Returns this [[Int]] value in [[Nanometres]]. */
   @inline def nanometres: Nanometres = Nanometres(thisInt)
 
   /** Returns this [[Int]] value in [[Micrometres]]. */
@@ -48,7 +48,7 @@ extension(thisInt: Int)
   /** Returns this [[Int]] value in [[Gigametres]]. */
   @inline def gigametres: Gigametres = Gigametres(thisInt)
 
-  /** Returns this [[Int]] value in [[Pictares]], [[Pictometres]]². */
+  /** Returns this [[Int]] value in [[Picares]], Pictometres². */
   @inline def picares: Picares = Picares(thisInt)
 
   /** Returns this [[Int]] value in [[Millares]], millimetre². [[Millares]] follows the same naming convention as [[Hectares]]s. */
@@ -63,10 +63,13 @@ extension(thisInt: Int)
   /** Returns this [[Int]] value in [[Kilares]], Kilometre². [[kilares]] follows the same naming convention as [[Hectares]]. */
   @inline def kilares: Kilares = Kilares(thisInt)
 
-  /** Returns this [[Int]] value in [[Miles]]. */
+  /** Returns this [[Int]] value in [[impunits.Yards]]. */
+  @inline def yards: Yards = new Yards(thisInt)
+
+  /** Returns this [[Int]] value in [[impunits.Miles]]. */
   @inline def miles: Miles = Miles(thisInt)
 
-  /** Returns this [[Int]] value in [[MegaMiles]] millions of miles. */
+  /** Returns this [[Int]] value in [[impunits.MegaMiles]] millions of miles. */
   @inline def megaMiles: MegaMiles = MegaMiles(thisInt)
 
   /** Extension method for angle of elevation. */
