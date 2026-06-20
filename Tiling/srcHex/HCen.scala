@@ -176,7 +176,7 @@ object HCenArr extends CompanionSlInt2[HCen, HCenArr]
 { def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
-  implicit val flatBuilderEv: BuilderFlatArrInt2[HCenArr] = new BuilderFlatArrInt2[HCenArr]
+  implicit val flatBuilderEv: BuilderArrInt2Flat[HCenArr] = new BuilderArrInt2Flat[HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)

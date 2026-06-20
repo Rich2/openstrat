@@ -4,7 +4,7 @@ package ostrat; package geom
 /** Extension methods for [[SeqSpec]]s sequence specified classes. */
 extension[A](thisSeqSpec : SeqSpec[A])
 { /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
-  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: BuilderLinePathMap[B, BB]): BB =
+  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: BuilderLinePathLikeMap[B, BB]): BB =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -17,7 +17,7 @@ extension[A](thisSeqSpec : SeqSpec[A])
     res
   }
 
-  def toLinePath[AA <: LinePathBase[A]](implicit build: BuilderLinePathMap[A, AA]): AA =
+  def toLinePath[AA <: LinePathBase[A]](implicit build: BuilderLinePathLikeMap[A, AA]): AA =
   { val res = build.uninitialised(thisSeqSpec.numElems)
     thisSeqSpec.iForeach((i, a) => build.indexSet(res, i, a))
     res
@@ -32,28 +32,28 @@ extension[A](thisSeqSpec : SeqSpec[A])
 
 extension[A](al : Sequ[A])
 { /** Map this collection of data elements to [[LinePathBase]] class of type BB. */
-  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: BuilderLinePathMap[B, BB]): BB =
+  def mapLinePath[B <: ValueNElem, BB <: LinePathBase[B]](f: A => B)(implicit build: BuilderLinePathLikeMap[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   /** Maps the elements of tbis sequence to [[PolygonBase]] vertices, returning a [[PolygonBase]] class of type BB. */
-  def mapPolygon[B <: ValueNElem, BB <: PolygonBase[B]](f: A => B)(implicit build: BuilderPolygonLikeMap[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonBase[B]](f: A => B)(using build: BuilderPolygonLikeMap[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
-  /** FlatMaps the elements of tbis sequence to [[PolygonBase]] vertices, returning a [[PolygonBase]] class of type BB. */
-  def flatMapPolygon[B, BB <: PolygonBase[B]](f: A => SeqLike[B])(implicit build: BuilderPolygonLikeFlat[B, BB]): BB =
+  /** FlatMaps the elements of tbis sequence to [[LinePathBase]] vertices, returning a [[PolygonBase]] class of type BB. */
+  def flatMapPolygon[B, BB <: PolygonBase[B]](f: A => SeqLike[B])(using build: BuilderPolygonLikeFlat[B, BB]): BB =
   { val buff = build.newBuff()
     al.foreach(a => build.buffGrowSeqLike(buff, f(a)))
     build.buffToSeqLike(buff)
   }
 
   /** FlatMaps with index the elements of tbis sequence to [[PolygonBase]] vertices, returning a [[PolygonBase]] class of type BB. */
-  def iFlatMapPolygon[B, BB <: PolygonBase[B]](f: (Int, A) => SeqLike[B])(implicit build: BuilderPolygonLikeFlat[B, BB]): BB = {
+  def iFlatMapPolygon[B, BB <: PolygonBase[B]](f: (Int, A) => SeqLike[B])(using build: BuilderPolygonLikeFlat[B, BB]): BB = {
     val buff = build.newBuff()
     var i = 0
     al.foreach{ a => build.buffGrowSeqLike(buff, f(i, a)); i += 1 }
@@ -61,7 +61,7 @@ extension[A](al : Sequ[A])
   }
 
   /** Converts this collection of data elements to [[LinePathBase]] class of type BB. */
-  def toLinePath[AA <: LinePathBase[A]](implicit build: BuilderLinePathMap[A, AA]): AA =
+  def toLinePath[AA <: LinePathBase[A]](implicit build: BuilderLinePathLikeMap[A, AA]): AA =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, a))
     res

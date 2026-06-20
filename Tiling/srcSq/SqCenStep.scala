@@ -30,7 +30,7 @@ object SqCenStep
 { def apply(hCen: SqCen, step: SqStep): SqCenStep = new SqCenStep(hCen.r, hCen.c, step.int1)
   def apply(r: Int, c: Int, step: SqStep): SqCenStep = new SqCenStep(r, c, step.int1)
 
-  implicit val arrMapBuilderEv: BuilderMapArrInt3[SqCenStep, SqCenStepArr] = new BuilderMapArrInt3[SqCenStep, SqCenStepArr]{
+  implicit val arrMapBuilderEv: BuilderArrInt3Map[SqCenStep, SqCenStepArr] = new BuilderArrInt3Map[SqCenStep, SqCenStepArr]{
     override type BuffT = SqCenStepBuff
     override def fromIntArray(array: Array[Int]): SqCenStepArr = new SqCenStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenStepBuff = SqCenStepBuff()

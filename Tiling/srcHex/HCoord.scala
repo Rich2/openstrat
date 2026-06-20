@@ -83,7 +83,7 @@ object HCoord
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
   }
 
-  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[BuilderLinePathMap]]. */
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[BuilderLinePathLikeMap]]. */
   implicit val linePathMapBuildEv: BuilderLinePathInt2Map[HCoord, LinePathHC] = new BuilderLinePathInt2Map[HCoord, LinePathHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): LinePathHC = new LinePathHC(array)

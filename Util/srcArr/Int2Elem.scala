@@ -65,7 +65,7 @@ trait BuilderArrInt2Map[B <: Int2Elem, ArrB <: ArrInt2[B]] extends BuilderSeqLik
 
 /** [[BuilderFlat]] Trait for constructing [[Arr]]s with [[Int2Elem]]s via the flatMap method. Implicit type class instances for classes you control, should go
  * in the companion object of the [[Arr]] class. */
-trait BuilderFlatArrInt2[ArrB <: ArrInt2[?]] extends BuilderSeqLikeInt2[ArrB], BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt2Flat[ArrB <: ArrInt2[?]] extends BuilderSeqLikeInt2[ArrB], BuilderArrIntNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
 trait BuffInt2[A <: Int2Elem] extends Any, BuffIntN[A], SeqLikeInt2[A]

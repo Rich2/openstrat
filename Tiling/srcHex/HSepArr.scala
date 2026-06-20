@@ -20,7 +20,7 @@ object HSepArr extends CompanionSlInt2[HSep, HSepArr]
 { override def fromArray(array: Array[Int]): HSepArr = new HSepArr(array)
 
   /** Implicit flatMap builder instance / evidence for [[HSepArr]]. */
-  implicit val flatBuilderEv: BuilderArrFlat[HSepArr] = new BuilderFlatArrInt2[HSepArr]
+  implicit val flatBuilderEv: BuilderArrFlat[HSepArr] = new BuilderArrInt2Flat[HSepArr]
   { type BuffT = HSepBuff
     override def fromIntArray(array: Array[Int]): HSepArr = new HSepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSepBuff = new HSepBuff(buffer)

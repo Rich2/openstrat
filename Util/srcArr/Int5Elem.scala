@@ -93,7 +93,7 @@ trait BuilderMapSeqLikeInt5[B <: Int5Elem, BB <: SlimutInt5[B]] extends BuilderS
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int5Elem]]s. Implicit type class instances for classes you control, should go in the companion object
  * of the type B class. */
-trait BuilderMapArrInt5[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderMapSeqLikeInt5[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait BuilderArrInt5Map[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderMapSeqLikeInt5[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** [[BuilderFlat]] for constructing [[Arr]]s with [[Int5Elem]]s via the flatMap method. Implicit type class instances for classes you control should go in the
  * [[Arr]] class's companion object. */

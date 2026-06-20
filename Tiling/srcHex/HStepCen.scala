@@ -23,7 +23,7 @@ object HStepCen
 { def apply(step: HStep, hCen: HCen): HStepCen = new HStepCen(step.int1, hCen.r, hCen.c)
   def apply(step: HStep, r: Int, c: Int): HStepCen = new HStepCen(step.int1, r, c)
 
-  implicit val buildEv: BuilderMapArrInt3[HStepCen, HStepCenArr] = new BuilderMapArrInt3[HStepCen, HStepCenArr]{
+  implicit val buildEv: BuilderArrInt3Map[HStepCen, HStepCenArr] = new BuilderArrInt3Map[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff
     override def fromIntArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepCenBuff = new HStepCenBuff(buffer)

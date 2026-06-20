@@ -66,7 +66,7 @@ trait BuilderSeqLikeInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSeqLikeIntN[BB
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]]s with [[Int3Elem]]s via the map method. Implicit type class instances should go in the companion
  * object of the type B class. */
-trait BuilderMapSeqLikeInt3[B <: Int3Elem, BB <: SeqLikeImutInt3[B]] extends BuilderSeqLikeInt3[BB], BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SeqLikeImutInt3[B]] extends BuilderSeqLikeInt3[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.bufferUnsafe.append3(newElem.int1, newElem.int2, newElem.int3)
@@ -78,7 +78,7 @@ trait BuilderFlatSeqLikeInt3[BB <: SeqLikeImutInt3[?]] extends BuilderSeqLikeInt
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s with [[Int3Elem]]s by the map method. Implicit Type class instances, for classes you control, should go in
  * the companion object of the type B class. */
-trait BuilderMapArrInt3[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderMapSeqLikeInt3[B, ArrB], BuilderArrIntNMap[B, ArrB]
+trait BuilderArrInt3Map[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderSeqLikeInt3Map[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** [[BuilderFlat]] trait for constructing  [[Arr]]s with [[Int3Elem]]s via the flatMap method. Implicit type class instances for classes you control, should go
  * in the companion object of the [[Arr]] class. */

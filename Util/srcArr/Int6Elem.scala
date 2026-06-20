@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer
 
@@ -86,8 +86,8 @@ trait BuilderSeqLikeInt6[BB <: SeqLikeImutInt6[?]] extends BuilderSeqLikeIntN[BB
 }
 
 /** [[BuilderMap]] trait for constructing [[SeqLikeImut]] objects, with [[Int6Elem]]s, via the map method. Implicit type class instances, for types you control
- * should go in the companion object of the B claas */
-trait BuilderMapSeqLikeInt6[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSeqLikeInt6[BB], BuilderSeqLikeIntNMap[B, BB]
+ * should go in the companion object of the B class */
+trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends BuilderSeqLikeInt6[BB], BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
@@ -99,7 +99,7 @@ trait BuilderMapSeqLikeInt6[B <: Int6Elem, BB <: SeqLikeImutInt6[B]] extends Bui
 
 /** [[BuilderMap]] trait for constructing [[Arr]]s, with [[Int6Elem]]s via the map method. Implicit type class instances for classes you control, should go in
  * the companion object of the type B class. */
-trait BuilderMapArrInt6[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderMapSeqLikeInt6[B, ArrB], BuilderArrIntNMap[B, ArrB]
+trait BuilderMapArrInt6[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB], BuilderArrIntNMap[B, ArrB]
 
 /** Builder of [[ArrInt6]] objects via the flatMap f: A => ArrB method. */
 trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]

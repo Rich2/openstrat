@@ -83,7 +83,7 @@ object PtM2
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM2Buff = new PtM2Buff(buffer)
   }
 
-  /** Implicit [[BuilderLinePathMap]] instance / evidence for [[PtM2]] and [[LinePathM2]]. */
+  /** Implicit [[BuilderLinePathLikeMap]] instance / evidence for [[PtM2]] and [[LinePathM2]]. */
   given buildLinePathMapEv: BuilderLinePathDbl2Map[PtM2, LinePathM2] = new BuilderLinePathDbl2Map[PtM2, LinePathM2]
   { override type BuffT = PtM2Buff
     override def fromDblArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)

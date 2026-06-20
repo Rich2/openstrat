@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation.*
 
 /** Line path with [[IntNElem]]s.  */
-trait LinePathIntN[VT <: IntNElem] extends  Any, LinePathBase[VT], SeqSpecIntN[VT]
+trait LinePathIntN[VT <: IntNElem] extends  Any, LinePathValueN[VT], SeqSpecIntN[VT]
 { type ThisT <: LinePathIntN[VT]
   type PolygonT <: PolygonIntN[VT]
 
@@ -187,17 +187,13 @@ trait LinePathInt2[VT <: Int2Elem] extends Any, LinePathIntN[VT], SeqSpecInt2[VT
   type PolygonT <: PolygonInt2[VT]
 }
 
-/** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in the
- * companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into the BB
- * companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a function from A => B or
- * A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be used directly by end users. */
-trait BuilderLinePathMap[B, BB <: LinePathBase[B]] extends BuilderSeqLikeMap[B, BB]
+/** Line path with [[Int3Elem]] vertices. */
+trait LinePathInt3[VT <: Int3Elem] extends Any, LinePathIntN[VT], SeqSpecInt3[VT]
+{ type ThisT <: LinePathInt3[VT]
+  type PolygonT <: PolygonInt3[VT]
+}
 
-/** Trait for creating the line path builder instances for the [[BuilderLinePathMap]] type class, for classes / traits you control, should go in the companion
- * object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderLinePathValueN[B <: ValueNElem, BB <: LinePathBase[B]] extends BuilderLinePathMap[B, BB], BuilderSeqLike[BB]
-
-/** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[BuilderLinePathMap]] type class, for classes /
+/** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[BuilderLinePathLikeMap]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
 trait BuilderLinePathDblNMap[B <: DblNElem, BB <: LinePathDblN[B] ] extends BuilderLinePathValueN[B, BB], BuilderMapSeqLikeDblN[B, BB]
@@ -212,7 +208,7 @@ trait BuilderLinePathDbl2Map[B <: Dbl2Elem, BB <: LinePathDbl2[B]] extends Build
  * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait BuilderLinePathDbl3Map[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends BuilderLinePathDblNMap[B, BB], BuilderMapSeqLikeDbl3[B, BB]
 
-/** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[BuilderLinePathMap]] type class, for classes /
+/** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[BuilderLinePathLikeMap]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  * ```map(f: A => B): ArrB``` function. */
 trait BuilderLinePathIntNMap[B <: IntNElem, BB <: LinePathIntN[B] ] extends BuilderLinePathValueN[B, BB], BuilderSeqLikeIntNMap[B, BB]
@@ -221,3 +217,8 @@ trait BuilderLinePathIntNMap[B <: IntNElem, BB <: LinePathIntN[B] ] extends Buil
  * classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called B, because it
  * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait BuilderLinePathInt2Map[B <: Int2Elem, BB <: LinePathInt2[B]] extends BuilderLinePathIntNMap[B, BB], BuilderSeqLikeInt2Map[B, BB]
+
+/** Trait for creating the line path type class instances for [[LinePathInt3]] final classes. Instances for the [[BuilderLinePathInt3Map]] type class, for
+ * classes / traits you control, should go in the companion object of type B, which will extend [[Int3Elem]]. The first type parameter is called B, because it
+ * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait BuilderLinePathInt3Map[B <: Int3Elem, BB <: LinePathInt3[B]] extends BuilderLinePathIntNMap[B, BB], BuilderSeqLikeInt3Map[B, BB]

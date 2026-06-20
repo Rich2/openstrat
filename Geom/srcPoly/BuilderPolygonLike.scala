@@ -45,9 +45,9 @@ trait BuilderPolygonInt2Map[B <: Int2Elem, BB <: PolygonInt2[B]] extends Builder
 /** Trait for creating the line path type class instances for [[PolygonInt3]] final classes. Instances for the [[BuilderPolygonInt3Map]] type class, for classes
  * / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called  B, because it
  * corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait BuilderPolygonInt3Map[B <: Int3Elem, BB <: PolygonInt3[B]] extends BuilderPolygonIntNMap[B, BB], BuilderMapSeqLikeInt3[B, BB]
+trait BuilderPolygonInt3Map[B <: Int3Elem, BB <: PolygonInt3[B]] extends BuilderPolygonIntNMap[B, BB], BuilderSeqLikeInt3Map[B, BB]
 
-trait BuilderPolygonLikeFlat[VT, +BB <: PolygonBase[VT]] extends BuilderFlatSeqLike[BB @uncheckedVariance]
+trait BuilderPolygonLikeFlat[VT, +BB <: PolygonBase[VT]] extends BuilderSeqLikeFlat[BB @uncheckedVariance]
 { override type BuffT <: Buff[VT]
   def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit
 }

@@ -31,17 +31,17 @@ trait SqGridSys extends TGridSys
   }
 
   /** Gives a flat projection of [[SqCoord]]s to [[geom.Pt2]]s. For a simple singular [[SqGrid]] system this is all that is required to translate between
-   * grid coordinates and standard 2 dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
+   * grid coordinates and standard 2-dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
    * more complex projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile
    * games will require their own specialist projections. */
   def flatSqCoordToPt2(sqCoord: SqCoord): Pt2
 
   def foreach(f: SqCen => Unit): Unit
 
-  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from SqCen => B,
-   * corresponding to the standard Scala map function of A => B. */
-  final def map[B, ArrB <: Arr[B]](f: SqCen => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB = {
-    val res = build.uninitialised(numTiles)
+  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from SqCen => B, corresponding to
+   * the standard Scala map function of A => B. */
+  final def map[B, ArrB <: Arr[B]](f: SqCen => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  { val res = build.uninitialised(numTiles)
     var i = 0
     foreach { sqCen => res.setElemUnsafe(i, f(sqCen)); i += 1 }
     res

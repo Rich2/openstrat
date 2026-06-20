@@ -101,7 +101,7 @@ trait BuilderSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLike[BB
 trait BuilderMapSeqLikeValueN[B <: ValueNElem, BB <: SeqLikeImutValueN[B]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeMap[B, BB]
 
 /** Constructs [[SeqLikeImutValueN]] objects via flatMap method. Element type not known at call site. */
-trait BuilderFlatSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLikeValueN[BB], BuilderFlatSeqLike[BB]
+trait BuilderFlatSeqLikeValueN[BB <: SeqLikeImutValueN[?]] extends BuilderSeqLikeValueN[BB], BuilderSeqLikeFlat[BB]
 
 /** [[BuilderMap]] trait for creating [[Arr]] classes with [[ValueNElem]]s via the map method. Instances for the [[BuilderArrMap]] type class, for classes /
  * traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

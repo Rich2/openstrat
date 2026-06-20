@@ -31,7 +31,7 @@ object HCenStep
 { def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.int1)
   def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.int1)
 
-  implicit val arrMapBuilderEv: BuilderMapArrInt3[HCenStep, HCenStepArr] = new BuilderMapArrInt3[HCenStep, HCenStepArr]{
+  implicit val arrMapBuilderEv: BuilderArrInt3Map[HCenStep, HCenStepArr] = new BuilderArrInt3Map[HCenStep, HCenStepArr]{
     override type BuffT = HCenStepBuff
     override def fromIntArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenStepBuff = HCenStepBuff()

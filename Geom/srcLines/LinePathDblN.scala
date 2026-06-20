@@ -1,8 +1,8 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation.*
 
-trait LinePathDblN[VT <: DblNElem] extends Any, LinePathBase[VT], SeqSpecDblN[VT]
+trait LinePathDblN[VT <: DblNElem] extends Any, LinePathValueN[VT], SeqSpecDblN[VT]
 { type ThisT <: LinePathDblN[VT]
 
   /** Constructs a [[PolygonBase]] for this vertex type from an [[Array]][Double]. */

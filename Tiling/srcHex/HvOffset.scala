@@ -120,7 +120,7 @@ object HvOffset
   def none(r: Int, c: Int) = new HvOffset(r, c, 0)
   def none(hVert: HVert) = new HvOffset(hVert.r, hVert.c, 0)
 
-  implicit val sarrMapBuilderImplicit: BuilderMapArrInt3[HvOffset, HvOffsetArr]  = new BuilderMapArrInt3[HvOffset, HvOffsetArr]
+  implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HvOffset, HvOffsetArr]  = new BuilderArrInt3Map[HvOffset, HvOffsetArr]
   { type BuffT = HvOffsetBuff
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HvOffsetBuff = new HvOffsetBuff(buffer)
     override def fromIntArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)

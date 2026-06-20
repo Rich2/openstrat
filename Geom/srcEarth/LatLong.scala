@@ -176,7 +176,7 @@ object LatLong
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
-  /** Implicit [[BuilderLinePathMap]] evidence / instance for [[LatLong]]. Builds [[LinePathLL]]s. */
+  /** Implicit [[BuilderLinePathLikeMap]] evidence / instance for [[LatLong]]. Builds [[LinePathLL]]s. */
   given linePathBuildEv: BuilderLinePathDbl2Map[LatLong, LinePathLL] = new BuilderLinePathDbl2Map[LatLong, LinePathLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
