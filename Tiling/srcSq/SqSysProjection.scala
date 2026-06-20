@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, pgui._
+import geom.*, pgui.*
 
 trait SqSysProjection extends TSysProjection
 { type SysT <: SqGridSys

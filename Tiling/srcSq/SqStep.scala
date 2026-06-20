@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** Common trait for [[SqStep]] and [[SqStepStay]]. */
 trait SqStepLike extends TStepLike
@@ -21,7 +21,7 @@ object SqStepLike
   }
 }
 
-/** The no step value of [[HStepLike]]. */
+/** The no step value of [[SqStepLike]]. */
 case object SqStepStay extends SqStepLike
 { override val int1: Int = 0
   override def tr: Int = 0

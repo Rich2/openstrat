@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, pgui._, reflect.ClassTag, Colour.Black
+import geom.*, pgui.*, reflect.ClassTag, Colour.Black
 
 /** A system of Square tile grids. Could be a single or multiple grids. */
 trait SqGridSys extends TGridSys
@@ -30,7 +30,7 @@ trait SqGridSys extends TGridSys
     case hs: SqStep => stepEndFind(startHC, hs)
   }
 
-  /** Gives a flat projection of [[SqCoord]]s to [[Pt2]]s. For a simple singular [[SqGrid]] system this is all that is required to translate between
+  /** Gives a flat projection of [[SqCoord]]s to [[geom.Pt2]]s. For a simple singular [[SqGrid]] system this is all that is required to translate between
    * grid coordinates and standard 2 dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
    * more complex projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile
    * games will require their own specialist projections. */

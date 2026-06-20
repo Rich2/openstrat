@@ -382,8 +382,8 @@ object EllipseCompound
   def apply(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()): EllipseCompound =
     new EllipseCompoundGen(shape, facets, children)
 
-  /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
-   * created non anonymously because the type might be useful for certain specialised performance usecases. */
+  /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It has been created
+   * non anonymously because the type might be useful for certain specialised performance use cases. */
   final case class EllipseCompoundGen(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[Graphic2Elem] = RArr()) extends EllipseCompound, AxisFree
   { override type ThisT = EllipseCompoundGen
     override def mainSvgElem: SvgEllipse = SvgEllipse(attribs)

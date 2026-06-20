@@ -91,7 +91,7 @@ object PtKm2
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm2Buff = new PtKm2Buff(inp)
   }
 
-  /** Implicit [[PolygonMap]] type class instance / evidence for [[PtKm2]] and [[PolygonKm2]]. */
+  /** Implicit [[BuilderPolygonLikeMap]] type class instance / evidence for [[PtKm2]] and [[PolygonKm2]]. */
   given polygonBuildEv: BuilderPolygonDbl2Map[PtKm2, PolygonKm2] = new BuilderPolygonDbl2Map[PtKm2, PolygonKm2]
   { override type BuffT = PtKm2Buff
     override def fromDblArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)

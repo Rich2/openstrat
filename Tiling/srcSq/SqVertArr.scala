@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
-/** Common trait for [[Hverts]] and [[PolygonHC]] */
+/** Common trait for [[SqVertArr]] and [[SqVertBuff]] */
 trait SqVertSeqLike extends Any with SeqLikeImutInt2[SqVert]
 { override def elemFromInts(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
@@ -33,7 +33,7 @@ object SqVertArr extends CompanionSlInt2[SqVert, SqVertArr]
   }
 }
 
-/** [[Buff]] class for storing [[SqVert]]s in an [[ArrayBuffer]][Int]. */
+/** [[Buff]] class for storing [[SqVert]]s in an [[collection.mutable.ArrayBuffer]][Int]. */
 class SqVertBuff(val bufferUnsafe: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqVert]
 { type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"
