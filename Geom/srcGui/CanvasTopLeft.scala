@@ -1,6 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import geom._
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
 
 /** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used directly by graphical applications. */
 trait CanvasTopLeft extends CanvasPlatform

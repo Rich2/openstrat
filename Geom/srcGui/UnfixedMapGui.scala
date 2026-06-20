@@ -1,9 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import geom._
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
 
-/** So currently this is a turn based class allowing the selection of objects within the map. That is not the case for the Planet App where the
- *  planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
+/** So currently this is a turn based class allowing the selection of objects within the map. That is not the case for the Planet App where the planets move too
+ * quickly for selection. The focus centre is un fixed unlike the planet App. */
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
   var selected: RArr[Any] = RArrAny()

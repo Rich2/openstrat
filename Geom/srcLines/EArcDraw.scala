@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pweb.*, pgui.*
 
@@ -61,7 +61,7 @@ object EArcDraw
 
   case class EArcDrawImp(curveSeg: EArc, colour: Colour, lineWidth: Double) extends EArcDraw
   {
-    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pgui.CanvasPlatform]] interface. */
     override def rendToCanvas(cp: CanvasPlatform): Unit =  cp.eArcDraw(this)
 
     override def svgElems: RArr[SvgOwnLine] = ???

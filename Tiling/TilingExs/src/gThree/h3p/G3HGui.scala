@@ -1,6 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import pgui.*, prid.phex.*, geom.*
+import prid.phex.*, geom.*, pgui.*
 
 case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings) extends HGridSysGui("Game Three Hex Gui")
 { def controlStr: String = settings.counterSet.map(_.charStr).mkStr(", ")

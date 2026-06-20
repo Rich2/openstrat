@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import geom._, collection.mutable.ArrayBuffer
+package ostrat; package geom; package pgui
+import collection.mutable.ArrayBuffer
 
 /** So the descendant classes need to set the canv.mouseup field to use the mouse and its equivalents. */
 trait CanvasUser

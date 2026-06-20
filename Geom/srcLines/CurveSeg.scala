@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A segment of a curve that could be used in a closed shape or curve path. The names start and end are used in CurveSeg and its subclasses to provide
@@ -69,11 +69,11 @@ object CurveSeg
   /** Implicit [[ScaleXY]] type class instance for [[CurveSeg]]. */
   given scaleXYEv: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Refelect]] type class instance for [[CurveSeg]]. */
-  given ReflectEv: Mirror[CurveSeg] = (obj, lineLike) => obj.mirror(lineLike)
+  /** Implicit [[Mirror]] type class instance for [[CurveSeg]]. */
+  given mirrorEv: Mirror[CurveSeg] = (obj, lineLike) => obj.mirror(lineLike)
   
   /** Implicit [[MirrorAxes]] type class instance for [[CurveSeg]]. */
-  given transAxesEv: MirrorAxes[CurveSeg] = new MirrorAxes[CurveSeg]
+  given mirrorAxesEv: MirrorAxes[CurveSeg] = new MirrorAxes[CurveSeg]
   { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
     override def negXT(obj: CurveSeg): CurveSeg = obj.negX
     override def rotate90(obj: CurveSeg): CurveSeg = obj.rotate90

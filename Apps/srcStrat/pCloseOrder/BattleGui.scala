@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCloseOrder
-import pgui.*, geom.*
+import geom.*, pgui.*
 
 /** Beginnings of a game to explore close formation battles. */
 case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("BattleGui")

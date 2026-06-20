@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import geom._, Colour._
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
+import Colour.*
 
-/** A MapGui uses a CanvMulti. It has a main map panel and a top control panel. In addition translates between 2d game coordinates and 2d coordinates
+/** A MapGui uses a CanvMulti. It has a main map panel and a top control panel. In addition, translates between 2d game coordinates and 2d coordinates
  *  on the canvas. Allowing the canvas to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the
  *  y coordinate increases from bottom to top. */
 abstract class MapGui(val title: String) extends CanvasPanelled

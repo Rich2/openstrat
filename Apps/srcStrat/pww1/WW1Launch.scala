@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
-import pgui._, prid._, phex._, pParse._
+import geom.pgui.*, prid.phex.*, pParse.*
 
 /** Scenario selector and launcher for Ww1. */
 object WW1Launch extends GuiLaunchMore

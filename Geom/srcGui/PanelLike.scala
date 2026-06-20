@@ -1,6 +1,5 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import geom._
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
 
 /** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/
 trait PanelLike extends RectCenlign

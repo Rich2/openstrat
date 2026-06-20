@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDung
-import pgui._, pParse._, prid._, psq._
+import geom.pgui.*, pParse.*, prid.psq.*
 
 object DungLaunch extends GuiLaunchMore
 {  override def settingStr: String = "gTwo"

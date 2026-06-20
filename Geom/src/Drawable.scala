@@ -51,7 +51,7 @@ object Drawable
   /** [[Rotate]] type class instance / evidence for [[Drawable]]. */
   given rotateEv: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
 
-  /** [[SlateXY]] type class instance / evidence for [[Drawable]]. */
+  /** [[Slate2]] type class instance / evidence for [[Drawable]]. */
   given prolignEv: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[ScaleXY]] type class instance / evidence for [[Drawable]]. */
@@ -117,7 +117,7 @@ trait DrawableLen2 extends Any, GeomLen2Elem
 
 object DrawableLen2
 { /** [[SlateLen2]] type class instance / evidence for [[DrawableLen2]]. */
-  implicit val slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
+  given slateLen2Ev: SlateLen2[DrawableLen2] = new SlateLen2[DrawableLen2]
   { override def slateT(obj: DrawableLen2, delta: VecPtLen2): DrawableLen2 = obj.slate(delta)
     override def slateXY(obj: DrawableLen2, xDelta: Length, yDelta: Length): DrawableLen2 = obj.slate(xDelta, yDelta)
     override def slateX(obj: DrawableLen2, xDelta: Length): DrawableLen2 = obj.slateX(xDelta)
@@ -125,8 +125,8 @@ object DrawableLen2
   }
 
   /** [[Scale]] type class instance / evidence for [[DrawableLen2]]. */
-  implicit val scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
+  given scaleEv: Scale[DrawableLen2] = (obj, operand) => obj.scale(operand)
 
   /** [[Drawing]] type class instance / evidence for [[DrawableLen2]] and [[GraphicLen2Elem]]. */
-  implicit val drawTEv: Drawing[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
+  given drawTEv: Drawing[DrawableLen2, GraphicLen2Elem] = (obj, lineWidth, colour) => obj.draw(lineWidth, colour)
 }

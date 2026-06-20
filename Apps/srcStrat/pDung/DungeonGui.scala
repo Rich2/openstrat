@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDung
-import pgui.*, prid.*, psq.*, geom.*
+import prid.*, psq.*, geom.*, pgui.*
 
 /** This uses the new Gui. */
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui

@@ -1,9 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat; package pgui
-import geom._
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package ostrat; package geom; package pgui
 
-/** This trait provides stub methods to allow development on a Canvas with incomplete functionality. Override the methods as desired but remove this
- *  trait form the inheritance hierarchy once full functionality has been implemented */
+/** This trait provides stub methods to allow development on a Canvas with incomplete functionality. Override the methods as desired but remove this trait form
+ * the inheritance hierarchy once full functionality has been implemented */
 trait CanvasTopLeftStubs extends CanvasTopLeft
 { override def getTime: Long = 0
   override protected def tlPolyFill(pf: PolygonFill): Unit = {}

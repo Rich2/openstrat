@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
@@ -22,7 +22,7 @@ final class HexYlign(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override implicit def show2: Show[Pt2] = Pt2.persistEv
   override def tellDepth: Int = 3
 
-  /** maps the vertices of this [[HexYlign]] to a new [[HexparrY]] instance. */
+  /** maps the vertices of this [[HexYlign]] to a new [[HexYlign]] instance. */
   def vertsTrans(f: Pt2 => Pt2): HexYlign = HexYlign.fromArray(arrayElemMap(f))
 
   override def slate(delta: VecPt2): HexYlign = vertsTrans(_.slate(delta))

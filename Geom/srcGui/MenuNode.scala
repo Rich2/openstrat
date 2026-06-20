@@ -1,5 +1,5 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
 
 object MenuSeq
 {  def apply(nodes: MenuNode*): MenuSeq = Seq(nodes*)

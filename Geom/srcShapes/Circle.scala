@@ -44,7 +44,7 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
   
   override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
-  /** Returns a [[CircleCompound]] with a [[FillFacet]] and a [[DrawFact]]. */
+  /** Returns a [[CircleCompound]] with a [[FillFacet]] and a [[DrawFacet]]. */
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): EllipseCompound =
     EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
 
@@ -210,7 +210,7 @@ case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive, Ci
 { override type ThisT = CircleActive
   override def ptsTrans(f: Pt2 => Pt2): CircleActive = CircleActive(shape.fTrans(f), pointerId)
 
-  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pgui.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.") }
 
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)

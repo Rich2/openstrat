@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
-import pgui._, geom._, prid._, phex._
+import geom.*, pgui.*, prid.phex.*
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings) extends HGridSysGui("Game Two Hex Gui")

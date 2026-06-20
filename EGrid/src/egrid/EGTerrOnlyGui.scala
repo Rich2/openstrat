@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
+import geom.*, pgui.*, prid.phex.*, pEarth.*, pglobe.*, Colour.*
 
 /** Displays grids on world as well as land mass outlines. */
 class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean, var sepDrawOn: Boolean)

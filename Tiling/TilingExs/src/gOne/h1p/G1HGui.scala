@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package h1p
-import pgui._, geom._, prid._, phex._, gPlay._
+import geom.*, pgui.*, prid.phex.*, gPlay.*
 
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */

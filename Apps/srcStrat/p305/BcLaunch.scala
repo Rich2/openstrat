@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
-import pgui._, prid._, phex._, pParse._
+import geom.pgui.*, prid.phex.*, pParse.*
 
 /** Scenario selector and launcher for Bc305. */
 object BcLaunch extends GuiLaunchMore

@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import prid.*, phex.*, pgui.*, pParse.*
+import prid.phex.*, geom.pgui.*, pParse.*
 
 /** Settings for the sole GUI player. */
 case class G3HGuiSettings(view: HGView, counterSet: RArr[Team])

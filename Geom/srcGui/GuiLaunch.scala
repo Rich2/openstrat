@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import pParse._
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
+import pParse.*
 
 /** A convenience trait for launching Apps. */
 trait GuiLaunch

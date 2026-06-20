@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package s2p
-import pgui._, geom._, prid._, psq._, gPlay._
+import geom.*, pgui.*, prid.psq.*, gPlay.*
 
 /** Class may not be needed. A class identifying a [[Counter]] and an [[SqCen]] hex coordinate position. */
 case class SqCounter(sqCen: SqCen, value: Counter) extends SqMemShow[Counter]

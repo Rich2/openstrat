@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gFour; package h4p
-import pgui.*, prid.*, phex.*, geom.*, gPlay.*
+import prid.*, phex.*, geom.*, pgui.*, gPlay.*
 
 case class G4HGui(canv: CanvasPlatform, game: G4HGame, settings: G4HGuiSettings) extends HGridSysGui("Game Four Hex Gui")
 { statusText = "Welcome to Game Four."

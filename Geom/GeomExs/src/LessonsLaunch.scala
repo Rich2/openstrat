@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat.*, pParse.*, pgui.*
+import ostrat.*, pParse.*, geom.pgui.*
 
 object LessonsLaunch extends GuiLaunchMore
 { override def settingStr: String = "lessons"

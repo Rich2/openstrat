@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package s1p
-import pgui._, prid._, psq._, geom._, gPlay._, Colour.Black
+import prid.psq.*, geom.*, pgui.*, gPlay.*, Colour.Black
 
-/** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal
- *  tile steps. */
+/** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal tile
+ * steps. */
 case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings) extends SqSysGui("Game one Square")
 { def controlStr: String = settings.counterSet.map(_.charStr).mkStr(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Player to select. Right click on adjacent square to set move."

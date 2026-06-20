@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pgui
-import geom.*, Colour.*
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom; package pgui
+import Colour.*
 
 /** An abstract Canvas interface implemented and to be implemented on various platforms. A concrete implementation will utilise canvas like an HTML canvas or a
  * Scalafx canvas. This concrete implementation class must (can?) be mixed in with a particular use trait like CanvSimple or CanvMulti. The default methods take
@@ -11,8 +11,7 @@ import geom.*, Colour.*
  * imperative methods of this application. Use one of the provided classes like CanvasNoPanels or Canvas Panelled or create your own if* the provided classes
  * don't fulfill your needs. */
 trait CanvasPlatform extends RectCenlign
-{
-  /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command. */
+{ /** The canvas implementation will call this function when a mouse button is released. Named after JavaScript command. */
   var mouseUp: (Pt2, MouseButton) => Unit = (v, b) => {}
 
   /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command. */

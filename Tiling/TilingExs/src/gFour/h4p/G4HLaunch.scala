@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gFour; package h4p
-import prid.*, phex.*, pgui.*, pParse.*
+import prid.phex.*, geom.pgui.*, pParse.*
 
 /** Settings for the sole GUI player. */
 case class G4HGuiSettings(view: HGView, counterSet: RArr[Team])

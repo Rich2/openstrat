@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pzug
-import pgui._, prid._, phex._, geom._, Colour._, pStrat._
+import prid.phex.*, geom.*, pgui.*, Colour.*, pStrat.*
 
 /** Graphical User Interface for ZugFuhrer game. */
 case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("ZugFuhrer Gui") {
