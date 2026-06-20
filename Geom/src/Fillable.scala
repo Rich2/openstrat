@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
@@ -50,7 +50,7 @@ object Fillable
   /** [[Rotate]] type class instance / evidence for [[Fillable]]. */
   given rotateEv: Rotate[Fillable] = (obj: Fillable, angle: AngleVec) => obj.rotate(angle)
 
-  /** [[SlateXY]] type class instance / evidence for [[Fillable]]. */
+  /** [[Prolign]] type class instance / evidence for [[Fillable]]. */
   given prolignEv: Prolign[Fillable] = (obj, matrix) => obj.prolign(matrix)
 
   /** [[ScaleXY]] type class instance / evidence for [[Fillable]]. */
@@ -60,7 +60,7 @@ object Fillable
   given ReflectEv: Mirror[Fillable] = (obj, lineLike) => obj.mirror(lineLike)
 
   /** [[MirrorAxes]] type class instance / evidence for [[Fillable]]. */
-  given transAxesEv: MirrorAxes[Fillable] = new MirrorAxes[Fillable]
+  given mirrorAxesEv: MirrorAxes[Fillable] = new MirrorAxes[Fillable]
   { override def negYT(obj: Fillable): Fillable = obj.negY
     override def negXT(obj: Fillable): Fillable = obj.negX
     override def rotate90(obj: Fillable): Fillable = obj.rotate90

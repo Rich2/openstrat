@@ -37,7 +37,7 @@ trait LSegLen2[+VT <: PtLen2] extends LSegBase[VT], DrawableLen2
 }
 
 object LSegLen2
-{ /** [[SlateXY]] type class instances / evidence for [[PtLen2]]. */
+{ /** [[Slate2]] type class instances / evidence for [[PtLen2]]. */
   given slateEv: SlateLen2[LSegLen2[PtLen2]] = new SlateLen2[LSegLen2[PtLen2]]
   { override def slateT(obj: LSegLen2[PtLen2], delta: VecPtLen2): LSegLen2[PtLen2] = obj.slate(delta)
     override def slateXY(obj: LSegLen2[PtLen2], xDelta: Length, yDelta: Length): LSegLen2[PtLen2] = obj.slate(xDelta, yDelta)

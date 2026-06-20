@@ -1,14 +1,14 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pweb.*
 
 /** The new ShapeSegs trait will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed sequence
  *  of curve segments. Use [[ShapeGen]] for a general implementation of this class, */
 trait ShapeSegs extends Shape
-{ /** The backing array of [[ShapeSeg]]s. End users should rarely need to access this field. */
+{ /** The backing array of [[CurveSeg]]s. End users should rarely need to access this field. */
   def unsafeArray: Array[CurveSeg]
 
-  /** The [[ShapeSeg]]s that make up this Shape. */
+  /** The [[CurveSeg]]s that make up this Shape. */
   def segs: RArr[CurveSeg] = new RArr(unsafeArray)
 
   override def boundingRect: Rect = segs.foldLeft(segs(0).boundingRect)((acc, el) => acc || el.boundingRect)

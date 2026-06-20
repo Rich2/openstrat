@@ -44,7 +44,7 @@ final class LSeg2(val startX: Double, val startY: Double, val endX: Double, val 
   /** The mid or halfway point of this lineSeg. */
   def midPt: Pt2 = Pt2((startX + endX) / 2, (startY + endY) / 2)
 
-  /** Returns a point part way along this [[LinsSeg]] expects a [[Double]] of range 0 => 1. */
+  /** Returns a point part way along this [[LSeg2]] expects a [[Double]] of range 0 => 1. */
   def fractionalPoint(fraction: Double): Pt2 = fraction match
   { case f if f <= 0 => startPt
     case f if f >= 1 => endPt

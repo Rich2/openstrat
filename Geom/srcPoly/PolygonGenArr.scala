@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -13,7 +13,7 @@ final class PolygonGenArr(val arrayOfArraysUnsafe: Array[Array[Double]]) extends
 
 /** Companion object for the [[PolygonGenArr]] class. */
 object PolygonGenArr
-{ /** Factory apply method for creating [[PolyenArr]]. */
+{ /** Factory apply method for creating [[PolygonGenArr]]. */
   def apply(input: PolygonGen*): PolygonGenArr =
   { val array: Array[Array[Double]] = new Array[Array[Double]](input.length)
     var count = 0
@@ -28,7 +28,7 @@ object PolygonGenArr
   /** Implicit [[EqT]] type class instance / evidence for [[PolygonGenArr]]. */
   given eqEv: EqT[PolygonGenArr] = ArrArrayDblEq[PolygonGen, PolygonGenArr]
 
-  /** Implicit [[Slate]] type class instance / evidence for [[PolygonGenArr]]. */
+  /** Implicit [[Slate2]] type class instance / evidence for [[PolygonGenArr]]. */
   given slateEv: Slate2[PolygonGenArr] = new Slate2[PolygonGenArr]
   { override def slateT(obj: PolygonGenArr, operand: VecPt2): PolygonGenArr = obj.slate(operand)
     override def slateXY(obj: PolygonGenArr, xOperand: Double, yOperand: Double): PolygonGenArr = obj.slate(xOperand, yOperand)

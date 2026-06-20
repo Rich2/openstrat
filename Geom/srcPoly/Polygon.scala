@@ -345,7 +345,7 @@ object Polygon
     new PolygonGen(array)
   }
 
-  /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is incorrect. */
+  /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Double]]s is incorrect. */
   def dbls(inp: Double*): Polygon =
   { val arrLen: Int = inp.length
     if (arrLen %% 2 != 0) excep(

@@ -21,7 +21,7 @@ final class HexXlign(val arrayUnsafe: Array[Double]) extends Hexlign, Tell2[Doub
   override implicit def show2: Show[Pt2] = Pt2.persistEv
   override def tellDepth: Int = 3
 
-  /** maps the vertices of this [[HexXlign]] to a new [[HexparrX]] instance. */
+  /** maps the vertices of this [[HexXlign]] to a new [[HexXlign]] instance. */
   def vertsTrans(f: Pt2 => Pt2): HexXlign = HexXlign.fromArray(arrayElemMap(f))
 
   override def slate(delta: VecPt2): HexXlign = vertsTrans(_.slate(delta))

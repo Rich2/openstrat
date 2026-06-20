@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui.*, Colour.Black, pweb.SvgOwnLine
 
@@ -8,10 +8,10 @@ trait PolyCurveElem extends GraphicAffineElem, GraphicBoundedAffine
   def segsLen: Int = shape.numElems
   override def boundingRect: Rect = shape.boundingRect
 
-  /** The width of the [[BoundingRect]] of this object. */
+  /** The width of the bounding [[Rect]] of this object. */
   override def boundingWidth: Double = boundingRect.width
 
-  /** The height of the [[BoundingRect]] of this object. */
+  /** The height of the bounding [[Rect]] of this object. */
   override def boundingHeight: Double = boundingRect.height
 }
 

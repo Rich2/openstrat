@@ -1,6 +1,5 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pweb.*
 
 /** A canvas element that can be rendered by the [[pgui.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the library. */
 trait CanvElem extends Graphic2Elem
@@ -45,7 +44,7 @@ object CanvElem
   /** Implicit [[ScaleXY]] type class instance / evidence for [[CanvElem]]. */
   given scaleXYEv: ScaleXY[CanvElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
-  /** Implicit [[Prologn]] type class instance / evidence for [[CanvElem]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[CanvElem]]. */
   given prolignEv: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Mirror]] type class instance / evidence for [[CanvElem]]. */
@@ -64,6 +63,6 @@ object CanvElem
 /** A graphic element [[Graphic2Elem]] that is not one of the standard canvas elements [[CanvElem]], it must provide a conversion into those standard
  * elements. */
 trait NoCanvElem extends Graphic2Elem
-{ /** This method converts this non-standard graphic element into [[CanvElem]]s that can be processed by the [[pCanv.CanvasPlatform]]. */
+{ /** This method converts this non-standard graphic element into [[CanvElem]]s that can be processed by the [[pgui.CanvasPlatform]]. */
   def canvElems: RArr[CanvElem]
 }

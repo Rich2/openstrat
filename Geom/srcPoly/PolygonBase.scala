@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A Polygon like object, where the points dimensions could be specified in 2D or 3D [[Metres]], latitude and longitude etc as well as the regular scalar
@@ -158,7 +158,7 @@ trait PolygonIntN[VT <: IntNElem] extends Any, PolygonValueN[VT], SeqSpecIntN[VT
   protected def arrayForSides: Array[Int]
 }
 
-/** A polygon whose elements are defined by 2 [[int]]s. */
+/** A polygon whose elements are defined by 2 [[Int]]s. */
 trait PolygonInt2[VT <: Int2Elem] extends Any, PolygonIntN[VT], SeqSpecInt2[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   override protected def arrayForSides: Array[Int] =
@@ -184,7 +184,7 @@ trait PolygonInt2[VT <: Int2Elem] extends Any, PolygonIntN[VT], SeqSpecInt2[VT]
   }
 }
 
-/** A polygon whose elements are defined by 3 [[int]]s. */
+/** A polygon whose elements are defined by 3 [[Int]]s. */
 trait PolygonInt3[VT <: Int3Elem] extends Any, PolygonIntN[VT], SeqSpecInt3[VT]
 { /** Creates the [[Array]][Int] need to implement the sides method. */
   override protected def arrayForSides: Array[Int] =

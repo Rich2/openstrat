@@ -81,23 +81,23 @@ object PtFm2
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PtFm2]] and [[PtFm2Arr]]. */
   given arrMapbuilderEv: BuilderMapArrDbl2[PtFm2, PtFm2Arr] = new BuilderMapArrDbl2[PtFm2, PtFm2Arr]
-  { type BuffT = BuffPtFm2
+  { type BuffT = PtFm2Buff
     override def fromDblArray(array: Array[Double]): PtFm2Arr = new PtFm2Arr(array)
-    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(buffer)
+    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtFm2Buff = new PtFm2Buff(buffer)
   }
 
   /** Implicit [[LinePathBuilder]] type class instance / evidence for [[PtFm2]] and [[LinePathFm2]]. */
   given linePathBuildEv: LinePathDbl2Builder[PtFm2, LinePathFm2] = new LinePathDbl2Builder[PtFm2, LinePathFm2]
-  { override type BuffT = BuffPtFm2
+  { override type BuffT = PtFm2Buff
     override def fromDblArray(array: Array[Double]): LinePathFm2 = new LinePathFm2(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtFm2Buff = new PtFm2Buff(inp)
   }
 
   /** Implicit [[PolygonLikeBuilderMap]] type class instance / evidence for [[PtFm2]] and [[PolygonFm2]]. */
-  given polygonBuildEv: PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2Gen]
-  { override type BuffT = BuffPtFm2
-    override def fromDblArray(array: Array[Double]): PolygonFm2Gen = new PolygonFm2Gen(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtFm2 = new BuffPtFm2(inp)
+  given polygonBuildEv: PolygonDbl2BuilderMap[PtFm2, PolygonFm2] = new PolygonDbl2BuilderMap[PtFm2, PolygonFm2]
+  { override type BuffT = PtFm2Buff
+    override def fromDblArray(array: Array[Double]): PolygonFm2 = new PolygonFm2(array)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtFm2Buff = new PtFm2Buff(inp)
   }
 
   /** Implicit instance for the [[PolygonFm2Pair]] builder. This has to go in the [[PtFm2]] companion object so it can be found by an A => B function where
@@ -129,14 +129,14 @@ object PtFm2Arr extends CompanionSlDbl2[PtFm2, PtFm2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtFm2]]s collections. */
-final class BuffPtFm2(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtFm2]
+final class PtFm2Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal, BuffDbl2[PtFm2]
 { override def typeStr: String = "BuffPtMetre2"
   def elemFromDbls(d1: Double, d2: Double): PtFm2 = PtFm2(d1, d2)
 }
 
-object BuffPtFm2
+object PtFm2Buff
 { /** Factory apply method for empty efficent buffer class for [[PtFm2]]s. */
-  def apply(initSize: Int = 4): BuffPtFm2 = new BuffPtFm2(new ArrayBuffer[Double](initSize * 2))
+  def apply(initSize: Int = 4): PtFm2Buff = new PtFm2Buff(new ArrayBuffer[Double](initSize * 2))
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */

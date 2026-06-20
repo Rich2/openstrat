@@ -178,7 +178,7 @@ object PolygonDraw
   /** Implicit [[Scale]] type class instance / evidence for [[PolygonDraw]]. */
   given scaleEv: Scale[PolygonDraw] = (obj: PolygonDraw, operand: Double) => obj.scale(operand)
 
-  /** Implicit [[Prolgn]] type class instance / evidence for [[PolygonDraw]]. */
+  /** Implicit [[Prolign]] type class instance / evidence for [[PolygonDraw]]. */
   given prolignEv: Prolign[PolygonDraw] = (obj, matrix) => obj.prolign(matrix)
 
   /** Implicit [[Rotate]] type class instance / evidence for [[PolygonDraw]]. */
@@ -300,7 +300,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
 { override type ThisT = PolygonActive
   override def ptsTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.map(f), pointerId)
 
-  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pgui.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   //override def slateTo(newCen: Pt2): PolygonActive = ???
@@ -384,7 +384,7 @@ object PolygonCompound
   /** Implicit [[Mirror]] type class instance evidence for [[PolygonCompound]]. */
   given reflectEv: Mirror[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.mirror(lineLike)
 
-  /** Implicit [[RefelctAxes]] type class instance evidence for [[PolygonCompound]]. */
+  /** Implicit [[MirrorAxes]] type class instance evidence for [[PolygonCompound]]. */
   given reflectAxesEv: MirrorAxes[PolygonCompound] = new MirrorAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX
