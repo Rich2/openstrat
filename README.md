@@ -14,14 +14,14 @@
 
 <b>To use</b>
 <br>resolvers += "RichStrat" at "https://richstrat.com/repository"
-<br>libraryDependencies += "com.richstrat" % "rutil" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "geom" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "tiling" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "egrid" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "rutiljs" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "geomjs" % "0.3.12"
-<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.12"
+<br>libraryDependencies += "com.richstrat" % "rutil" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "geom" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "tiling" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "egrid" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "rutiljs" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "geomjs" % "0.3.13"
+<br>libraryDependencies += "com.richstrat" % "geomfx" % "0.3.13"
 
 <h3>Full documentation at <a href="https://richstrat.com/">https://richstrat.com/</a></h3>
 <h3>Scala Docs for Jvm at <a href="https://richstrat.com/api/index.html">https://richstrat.com/ostrat/index.html</a></h3>
@@ -39,7 +39,7 @@
 <br>Jdk 23+, 25 preferred.
 <br>Scala.Js: 1.22.0.
 <br>Scala Native set to 0.5.12.
-<br>Sbt: 1.12.12.
+<br>Sbt: 2.0.0.
 <br>Mill set to 1.1.6, with Mill's JDK set to 25.</p>
 <br>JavaFx 25.0.3
 </body>
