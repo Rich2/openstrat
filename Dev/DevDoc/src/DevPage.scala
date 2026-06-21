@@ -34,7 +34,7 @@ object DevPage extends DevPageBase
   def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.12, current 0.3.13snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
-    "Scala.Js: 1.21.0",
+    "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
     "JavaFx: 25.0.3",
     "Sbt: 1.12.12",
