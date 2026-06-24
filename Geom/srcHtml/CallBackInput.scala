@@ -29,13 +29,20 @@ case class CallbackStrDbl1(listenerId: String, numInpIdStr: String, f: (String, 
 /** Call back from an [[UpdaterDblInput]] for a (String, Double) => String function for JavaScript to update a textContent property. */
 case class CallbackStrDbl2(listenerId: String, textInpIdStr: String, f: (String, Double) => String) extends CallbackDbl
 
+/** Call back from an [[UpdaterStr]] for a (String, String, String) => String function for JavaScript to update a textContent property. */
 sealed trait Callback3Str extends CallbackStr
+
+/** Call back from an [[UpdaterStr]] for the 1st parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
 case class Callback3Str1(listenerId: String, input2IdStr: String, input3IdStr: String, f: (String, String, String) => String) extends Callback3Str
+
+/** Call back from an [[UpdaterStr]] for the 2nd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
 case class Callback3Str2(listenerId: String, input1IdStr: String, input3IdStr: String, f: (String, String, String) => String) extends Callback3Str
+
+/** Call back from an [[UpdaterStr]] for the 3rd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
 case class Callback3Str3(listenerId: String, input1IdStr: String, input2IdStr: String, f: (String, String, String) => String) extends Callback3Str
 
 /** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function. */
-case class Callback1Num(listenerId: String, f: Double => String) extends CallbackDbl
+case class Callback1Dbl(listenerId: String, f: Double => String) extends CallbackDbl
 
 trait CallbackOption extends CallbackUpdater
 

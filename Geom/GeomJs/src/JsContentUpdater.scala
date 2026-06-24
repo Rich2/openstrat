@@ -26,7 +26,7 @@ class JsContentUpdaterNum(val inputer: UpdaterDblInput) extends JsContentUpdater
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
-      case Callback1Num(listenerId, f) =>
+      case Callback1Dbl(listenerId, f) =>
       { val listener: Element = document.getElementById(listenerId)
         if (listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newNum)

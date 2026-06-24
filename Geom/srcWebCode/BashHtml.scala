@@ -34,52 +34,58 @@ object BashLine
 { /** Factory apply method to write Bash code in HTML on its own line. */
   def apply(contents: XConInedit*): BashLine = new BashLine(contents.toArr, RArr())
 
-  /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat paremeters, but with no
+  /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat parameters, but with no
    * attributes. */
   def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
 
   /** Factory method to write Bash code in HTML on its own line with a class attribute. */
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
-  /** Creates a Bash line and registers the textContent with an HTML Text Input. */
-  def listenText(input: UpdaterStr)(f: String => String): BashLine =
+  /** Creates a Bash line and registers the textContent with a String => String callback to the textContent. */
+  def listenStr(input: UpdaterStr)(f: String => String): BashLine =
   { val newId: IdAtt = input.next1Id(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates a Bash line and registers the textContent with 2 HTML text inputs. */
-  def listen2Text(input1: UpdaterStr, input2: UpdaterStr)(f: (String, String) => String): BashLine =
+  /** Creates a Bash line and registers the textContent with a (String, String) => String callback to this [[BashLine]]'s textContent. */
+  def listen2Str(input1: UpdaterStr, input2: UpdaterStr)(f: (String, String) => String): BashLine =
   { val newId: IdAtt = input1.next2Id1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.valueStr)), RArr(newId))
   }
 
-  /** Creates a Bash line and registers the textContent with 3 HTML text inputs. */
-  def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr)(f: (String, String, String) => String): BashLine =
+  /** Creates a Bash line and registers the textContent with a (String, String, String) => String callback to this [[BashLine]]'s textContent. */
+  def listen3Str(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr)(f: (String, String, String) => String): BashLine =
   { val newId: IdAtt = input1.next3Id1(input2, input3, f)
     new BashLine(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Text Input and an HTML number input. */
-  def listenTextNum(input1: UpdaterStr, input2: UpdaterDblInput)(f: (String, Double) => String): BashLine =
+  def listenStrDbl(input1: UpdaterStr, input2: UpdaterDblInput)(f: (String, Double) => String): BashLine =
   { val newId: IdAtt = input1.nextStrDblId1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.value)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML number Input. */
-  def listenNum(input: UpdaterDblInput)(f: Double => String): BashLine =
+  def listenDbl(input: UpdaterDblInput)(f: Double => String): BashLine =
   { val newId: IdAtt = input.next1(f)
     new BashLine(RArr(f(input.value)), RArr(newId))
   }
 
-  /** Creates a Bash line and registers the textContent with an HTML Select Input. */
+  /** Creates a Bash line and registers the htmlContent with an HTML Select Input. */
   def listenOptHtml(input1: UpdaterOption)(f: OptionHtml => RArr[XConInedit]): BashLine =
-  { val newId: IdAtt = input1.next1Id(f)
+  { val newId: IdAtt = input1.next1Html(f)
     new BashLine(f(input1.initOption), RArr(newId))
+  }
+
+  /** Creates a Bash line and registers the textContent with an HTML Select Input. */
+  def listenOptStr(input1: UpdaterOption)(f: OptionHtml => String): BashLine =
+  { val newId: IdAtt = input1.next1Text(f)
+    new BashLine(RArr(f(input1.initOption)), RArr(newId))
   }
   
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptionNum(input1: UpdaterOption, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XConInedit]): BashLine =
-  { val newId: IdAtt = input1.nextOptionNumId1(input2, f)
+  def listenOptDbl(input1: UpdaterOption, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XConInedit]): BashLine =
+  { val newId: IdAtt = input1.nextOptDbl1(input2, f)
     new BashLine(f(input1.initOption, input2.value), RArr(newId))
   }
 }

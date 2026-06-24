@@ -13,7 +13,7 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   /** Registers a call back to a listener with a Double => String function. */
   def next1(f: Double => String): IdAtt =
   { val newlistenerId: String = idStr + clientCount.str
-    listeners +%= Callback1Num(newlistenerId, f)
+    listeners +%= Callback1Dbl(newlistenerId, f)
     IdAtt(newlistenerId)
   }
 
