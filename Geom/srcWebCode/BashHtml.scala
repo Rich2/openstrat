@@ -71,6 +71,11 @@ object BashLine
     new BashLine(RArr(f(input.value)), RArr(newId))
   }
 
+  /** Creates a Bash line and registers the textContent with an HTML Select Input. */
+  def listenOption(input1: UpdaterOption)(f: OptionHtml => RArr[XConInedit]): BashLine =
+  { val newId: IdAtt = input1.next1Id(f)
+    new BashLine(f(input1.initOption), RArr(newId))
+  }
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
   def listenOptionNum(input1: UpdaterOption, input2: UpdaterNumInput)(f: (OptionHtml, Double) => RArr[XConInedit]): BashLine =
   { val newId: IdAtt = input1.nextOptionNumId1(input2, f)

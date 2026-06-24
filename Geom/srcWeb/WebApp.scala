@@ -23,8 +23,8 @@ object ServletElem
 
   /** Constructs the [[ServletElem]] and the [[ServletMapping]] XML elements for a Servlet. */
   def withMapping(name: String, urlStr: String, otherElems: XConCompound*)(url: String, otherElems2: XConCompound*): RArr[XmlElem] =
-  { val serv = new ServletElem(RArr(ServletName(name), ServletClass(urlStr)) ++ otherElems.toArr)
-    val mapping = new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems2.toArr)
+  { val serv: ServletElem = new ServletElem(RArr(ServletName(name), ServletClass(urlStr)) ++ otherElems.toArr)
+    val mapping: ServletMapping = new ServletMapping(RArr(ServletName(name), UrlPattern(url)) ++ otherElems2.toArr)
     RArr(serv, mapping)
   }
 }
