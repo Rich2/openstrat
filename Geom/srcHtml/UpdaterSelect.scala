@@ -18,16 +18,16 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
   def initOption: OptionHtml = contents(0)
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
-   * input to update the target content. */
+   * input to update the target HTML content. */
   def next1Id(f: OptionHtml => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= Callback1Option(newListenerId, f)
+    callBacks +%= Callback1OptHtml(newListenerId, f)
     IdAtt(newListenerId)
   }
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
-  def nextOptionNumId1(input2: UpdaterNumInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
+  def nextOptionNumId1(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= CallbackOptionNum1(newListenerId, input2.idStr, f)
     input2.nextOptionNum2(newListenerId, this, f)

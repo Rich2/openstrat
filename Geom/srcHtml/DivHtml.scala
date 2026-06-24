@@ -27,21 +27,21 @@ object DivHtml
   /** Factory apply method for creating HTML span element with a display attribute. */
   def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
 
-  /** Creates a Div and listens to an [[UpdaterText]] change events modifying the textContent. */
-  def listenStrText(input: UpdaterText)(f: String => String): DivHtml =
+  /** Creates a Div and listens to an [[UpdaterStr]] change events modifying the textContent. */
+  def listenStrText(input: UpdaterStr)(f: String => String): DivHtml =
   { def newId = input.next1Id(f)
     new DivHtmlGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates a Div and registers with a [[UpdaterText]]. Changes inner HTML on change event. */
-  def listenStrHtml(input: UpdaterText)(f: String => RArr[XCon]): DivHtml =
+  /** Creates a Div and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
+  def listenStrHtml(input: UpdaterStr)(f: String => RArr[XCon]): DivHtml =
   { def newId = input.nextHtmlId(f)
     new DivHtmlGen((f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates an HTML div element and Listens to [[UpdaterNumInput]] change events and modifies the HTML textContent. */
-  def listenNum(input: UpdaterNumInput)(f: Double => String): DivHtml =
-  { val newId: IdAtt = input.next1Id(f)
+  /** Creates an HTML div element and Listens to [[UpdaterDblInput]] change events and modifies the HTML textContent. */
+  def listenNum(input: UpdaterDblInput)(f: Double => String): DivHtml =
+  { val newId: IdAtt = input.next1(f)
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
   }
 
@@ -52,7 +52,7 @@ object DivHtml
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptionNum(input1: UpdaterOption, input2: UpdaterNumInput)(f: (OptionHtml, Double) => RArr[XCon]): DivHtml =
+  def listenOptionNum(input1: UpdaterOption, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XCon]): DivHtml =
   { val newId: IdAtt = input1.nextOptionNumId1(input2, f)
     new DivHtmlGen(f(input1.initOption, input2.value), RArr(newId))
   }

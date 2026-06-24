@@ -24,29 +24,29 @@ object TomcatPage extends DevPageBase
   val cset: String = "cset"
   val userAtCom: String = uName1 + "@" + cName1
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "22"
+  val tcMinorVer: String = "23"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "localhost"
   
   val uName1: String = "tommy"
   val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val uNameIUT: UpdaterTextInput = uNameLTI.child2
+  val uNameIUT: UpdaterStrInput = uNameLTI.child2
   
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val cNameIUT: UpdaterTextInput = cNameLTI.child2
+  val cNameIUT: UpdaterStrInput = cNameLTI.child2
   val nRam1: Int = 2
   val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
-  val ramIUN: UpdaterNumInput = ramLNI.child2
+  val ramIUN: UpdaterDblInput = ramLNI.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(uNameIUT, cNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
-  val tomVarIUT: UpdaterTextInput = tomVerLTI.child2
+  val tomVarIUT: UpdaterStrInput = tomVerLTI.child2
   
   val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
-  val domainIUT: UpdaterTextInput = domainLTI.child2
+  val domainIUT: UpdaterStrInput = domainLTI.child2
   val dir1: String = "/opt/tomcat"
   val dirLTI: LabelTextInput = LabelTextInput("dirName", "Tomcat directory", dir1)
-  val dirIUT: UpdaterTextInput = dirLTI.child2
+  val dirIUT: UpdaterStrInput = dirLTI.child2
 
   def pUpdaters: PHtml = PHtml(updaterExplain,
   LabelInputsLine(uNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
@@ -155,8 +155,9 @@ object TomcatPage extends DevPageBase
     DivHtml("") +%
     DivHtml.listenOption(opNameIUT){ ops =>
       val javaStr: String = ops match {
+        case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
         case ArchDeriv => "java-25-openjdk"
-        case _ => "java-1.25.0-openjdk-amd64"
+        case _ => "No code available"
       }
       RArr(s"""Environment="JAVA_HOME=/usr/lib/jvm/$javaStr"""")
     } +%

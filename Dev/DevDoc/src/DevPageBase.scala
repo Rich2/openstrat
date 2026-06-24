@@ -4,9 +4,8 @@ import pweb.*, WebExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
 trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
-{
-  //def miscContents: RArr[XCon] = RArr()
-
+{  
+  /** Creates an HTML List element to document installing Java. */
   def javaInstall = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
     DivHtml.listenOptionNum(opNameIUT, javaVerIUN){ (ops, vNum) =>
       ops match {
@@ -23,7 +22,7 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     "Open the all users environment configuration file",
     BashLine("sudo nano /etc/environment"),
     "Add line",
-    BashLine.listenOption(opNameIUT){
+    BashLine.listenOptHtml(opNameIUT){
       case UbuntuDeriv => RArr("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64")
       case ArchDeriv => RArr("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64")
       case _ => RArr("No code available.")  

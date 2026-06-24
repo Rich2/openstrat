@@ -3,19 +3,19 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
-trait UpdaterJs
+trait JsContentUpdater
 
-object UpdaterJs
-{ /** Factory apply method, constructs the appropriate [[UpdaterJs]] for the given [[UpdaterInputLike]]. */
-  def apply(inputer: UpdaterInputLike): UpdaterJs = inputer match
-  { case iun: UpdaterNumInput => JsContentUpdaterNum(iun)
-    case iut: UpdaterText => UpdaterTextJs(iut)
+object JsContentUpdater
+{ /** Factory apply method, constructs the appropriate [[JsContentUpdater]] for the given [[UpdaterInputLike]]. */
+  def apply(inputer: UpdaterInputLike): JsContentUpdater = inputer match
+  { case iun: UpdaterDblInput => JsContentUpdaterNum(iun)
+    case iut: UpdaterStr => JsUpdaterStr(iut)
     case iua: UpdaterOption => UpdaterOptionJs(iua)
   }
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class JsContentUpdaterNum(val inputer: UpdaterNumInput) extends UpdaterJs
+class JsContentUpdaterNum(val inputer: UpdaterDblInput) extends JsContentUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", eventListener)
@@ -31,7 +31,7 @@ class JsContentUpdaterNum(val inputer: UpdaterNumInput) extends UpdaterJs
         if (listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newNum)
       }
-      case CallbackTextNum2(listenerId, input1IdStr, f) =>
+      case CallbackStrDbl2(listenerId, input1IdStr, f) =>
       { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
         f(inp1Val, newNum)
       }
@@ -47,11 +47,11 @@ class JsContentUpdaterNum(val inputer: UpdaterNumInput) extends UpdaterJs
 
 object JsContentUpdaterNum
 { /** Factory apply method for JavaScript to update HTML element listener list from updated number input. */
-  def apply(inputer: UpdaterNumInput): JsContentUpdaterNum = new JsContentUpdaterNum(inputer)
+  def apply(inputer: UpdaterDblInput): JsContentUpdaterNum = new JsContentUpdaterNum(inputer)
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class UpdaterOptionJs(val inputer: UpdaterOption) extends UpdaterJs
+class UpdaterOptionJs(val inputer: UpdaterOption) extends JsContentUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Select = document.getElementById(idStem).asInstanceOf[html.Select]
   inpElem.addEventListener("change", eventListener)
@@ -62,7 +62,7 @@ class UpdaterOptionJs(val inputer: UpdaterOption) extends UpdaterJs
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.callBacks.foreach{
-      case Callback1Option(listenerId, f) =>
+      case Callback1OptHtml(listenerId, f) =>
       { val target = document.getElementById (listenerId)
         if (target == null) deb (s" target is null from inputer $inputer for id: $listenerId.")
         else target.innerHTML = f(newOption).out
@@ -78,10 +78,10 @@ class UpdaterOptionJs(val inputer: UpdaterOption) extends UpdaterJs
 }
 
 extension (page: PageHtmlUpdater)
-{ /** Constructs a JavaScript [[UpdaterJs]] for each [[PageHtmlUpdater]]. */
+{ /** Constructs a JavaScript [[JsContentUpdater]] for each [[PageHtmlUpdater]]. */
   def jsAgg: Unit =
   { val num = page.inpAcc.length
     deb(s"Found $num in ${page.fileName.str}")
-    page.inpAcc.foreach(inputUpdater => UpdaterJs(inputUpdater))
+    page.inpAcc.foreach(inputUpdater => JsContentUpdater(inputUpdater))
 }
 }

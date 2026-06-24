@@ -31,7 +31,7 @@ object DevPage extends DevPageBase
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.12, current 0.3.13snap",
+  def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.13, current 0.4.0snap",
     s"Scala: $scVer",
     "Jdk: 23+ required for JavaFx modules. 25 preferred.",
     "Scala.Js: 1.22.0",

@@ -25,18 +25,18 @@ object SubmitInput
   def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt] = RArr()): SubmitInput = new SubmitInput(idStr, valueStr, otherAttribs)
 }
 
-/** An HTML label followed by an [[UpdaterTextInput]]. */
+/** An HTML label followed by an [[UpdaterStrInput]]. */
 class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
-{ override def child2: UpdaterTextInput = UpdaterTextInput(idStr, valueStr)
+{ override def child2: UpdaterStrInput = UpdaterStrInput(idStr, valueStr)
 }
 
 object LabelTextInput
-{ /** Factory apply met hod to create an HTML label followed by an [[UpdaterTextInput]]. */
+{ /** Factory apply met hod to create an HTML label followed by an [[UpdaterStrInput]]. */
   def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 
 class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelAndInput
-{ override def child2: UpdaterNumInput = UpdaterNumInput(idStr, valueNum)
+{ override def child2: UpdaterDblInput = UpdaterDblInput(idStr, valueNum)
 }
 
 object LabelNumInput

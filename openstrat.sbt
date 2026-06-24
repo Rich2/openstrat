@@ -76,7 +76,7 @@ def jsProj(name: String, locationStr: String): Project = proj(name, locationStr)
 
 def jsMainProj(nameStem: String): Project = jsProj(nameStem + "Js", nameStem + "/" + nameStem + "Js").settings(
   moduleDir := bbDir.value / nameStem,
-  Compile/unmanagedSourceDirectories := List("src", "JsSrc", nameStem + "Js/src").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", nameStem + "Js/src").map(moduleDir.value / _),
 )
 
 def jsExsProj(nameStem: String): Project = jsProj(nameStem + "ExsJs", nameStem + "/" + nameStem + "Exs/" + nameStem + "ExsJs").settings(
@@ -86,14 +86,14 @@ def jsExsProj(nameStem: String): Project = jsProj(nameStem + "ExsJs", nameStem +
 
 def jsDocProj(nameStem: String): Project = jsProj(nameStem + "DocJs", nameStem + "/" + nameStem + "Doc/" + nameStem + "DocJs").settings(
   moduleDir := bbDir.value / (nameStem + "Doc"),
-  Compile/unmanagedSourceDirectories := List("src", "srcJs", nameStem + "DocJs/src").map(bbDir.value / nameStem / (nameStem + "Doc") / _),
+  Compile/unmanagedSourceDirectories := List("src", nameStem + "DocJs/src").map(bbDir.value / nameStem / (nameStem + "Doc") / _),
 )
 
-def natProj(name: String): Project = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(
-  moduleDir := bbDir.value / name,
-  scalaVersion := "3.7.4",
+def natProj(nameStem: String): Project = proj(nameStem + "Nat", nameStem + "/" + nameStem + "Nat").enablePlugins(ScalaNativePlugin).settings(
+  moduleDir := bbDir.value / nameStem,
+  scalaVersion := "3.8.3",
   Compile/unmanagedSourceDirectories := List("src").map(moduleDir.value / _),
-  Compile/resourceDirectories := List("res", "NatRes").map(moduleDir.value / _),
+  Compile/resourceDirectories := List("res", nameStem + "Nat/res").map(moduleDir.value / _),
 )
 
 def utilSett = List(
