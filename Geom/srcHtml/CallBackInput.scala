@@ -52,8 +52,14 @@ case class Callback1OptHtml(listenerId: String, f: OptionHtml => RArr[XCon]) ext
 /** A call back for an [[UpdaterOption]] that takes an OptionHtml => String function, to use JavaScript to update the textContent property. */
 case class Callback1OptText(listenerId: String, f: OptionHtml => String) extends CallbackOption
 
-/** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
+/** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
 case class CallbackOptionDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
 
-/** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
-case class CallbackOptionNum2(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackDbl
+/** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double => RArr[XCon] function. */
+case class CallbackOptDbl2Html(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackDbl
+
+/** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => String function. */
+case class CallbackOptDbl1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => String) extends CallbackOption
+
+/** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double) => String function. */
+case class CallbackOptDbl2Text(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Double) => String) extends CallbackDbl

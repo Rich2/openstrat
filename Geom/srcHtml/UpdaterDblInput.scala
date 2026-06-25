@@ -23,8 +23,13 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   }
 
   /** Registers a call back to a listener with a (String, Double) => String function. */
-  def nextOptionNum2(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]): Unit =
-  { listeners +%= CallbackOptionNum2(listenerID, input1, f)
+  def nextOptDbl2Html(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]): Unit =
+  { listeners +%= CallbackOptDbl2Html(listenerID, input1, f)
+  }
+
+  /** Registers a call back to a listener with a (String, Double) => String function. */
+  def nextOptDbl2Text(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => String): Unit =
+  { listeners +%= CallbackOptDbl2Text(listenerID, input1, f)
   }
 }
 

@@ -35,7 +35,7 @@ class JsContentUpdaterNum(val inputer: UpdaterDblInput) extends JsContentUpdater
       { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
         f(inp1Val, newNum)
       }
-      case CallbackOptionNum2(targetId, input1, f) =>
+      case CallbackOptDbl2Html(targetId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
         val inp1Option = input1.strToOption(inp1Val)
         val target: Element = document.getElementById(targetId)
