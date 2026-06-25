@@ -8,12 +8,20 @@ trait UpdaterNumInput extends UpdaterInputLike, InputHtml
 }
 
 /** Creates an HTML Input element that takes [[Int]]s can update textContent fields on the page. */
-class UpdaterIntInput(val idStr: String, val value: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
-  UpdaterNumInput
+class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
+  UpdaterInputLike(page), UpdaterNumInput
 { var listeners: RArr[CallbackInt] = RArr()
 
   def clientCount: Int = listeners.length
-  override def valueStr: String = value.str  
+  override def valueStr: String = value.str
+
+  override def attribs: RArr[XAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)  
+}
+
+object UpdaterIntInput
+{ /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
+  def apply(idStr: String, value: Int, minVal: Int, maxVal: Int, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterIntInput =
+    new UpdaterIntInput(idStr, value, minVal, maxVal, otherAttribs.toRArr)
 }
 
 /** Creates an HTML Input element that takes [[Double]]s can update textContent fields on the page. */
