@@ -40,13 +40,13 @@ object DivHtml
   }
 
   /** Creates an HTML div element and Listens to [[UpdaterDblInput]] change events and modifies the HTML textContent. */
-  def listenNum(input: UpdaterDblInput)(f: Double => String): DivHtml =
+  def listenDbl(input: UpdaterDblInput)(f: Double => String): DivHtml =
   { val newId: IdAtt = input.next1(f)
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
   }
 
   /** Creates a Div and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
-  def listenOption(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): DivHtml =
+  def listenOptHtml(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): DivHtml =
   { val newId: IdAtt = input.nextOptHtml(f)
     new DivHtmlGen(input.listenerInit(f), RArr(newId))
   }

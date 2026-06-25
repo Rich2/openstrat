@@ -153,7 +153,7 @@ object TomcatPage extends DevPageBase
     DivColour(LightGreen, "[Service]") +%
     DivHtml("Type=forking") +%
     DivHtml("") +%
-    DivHtml.listenOption(opNameIUT){ ops =>
+    DivHtml.listenOptHtml(opNameIUT){ ops =>
       val javaStr: String = ops match {
         case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
         case ArchDeriv => "java-25-openjdk"
@@ -164,7 +164,7 @@ object TomcatPage extends DevPageBase
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%
-    DivHtml.listenNum(ramIUN) { n =>
+    DivHtml.listenDbl(ramIUN) { n =>
       val nn = n * 256
       val xmsStr = nn.min(512).str0
       val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)

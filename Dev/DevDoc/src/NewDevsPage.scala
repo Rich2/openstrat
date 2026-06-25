@@ -16,7 +16,7 @@ object NewDevsPage extends DevPageBase
 
   def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI, javaVerLNI))
   
-  val sysUpdate = DivHtml.listenOption(opNameIUT){ opt =>    
+  val sysUpdate = DivHtml.listenOptHtml(opNameIUT){ opt =>    
       val code: RArr[XCon] = opt match{
       case UbuntuDeriv => RArr(BashLine("apt sudo update", "sudo apt upgrade"))
       case ArchDeriv => RArr(BashLine("sudo pacman -Syu"))
@@ -27,7 +27,7 @@ object NewDevsPage extends DevPageBase
 
   val jvms: LiHtml = javaInstall
 
-  val sbtDiv: DivHtml = DivHtml.listenOption(opNameIUT){
+  val sbtDiv: DivHtml = DivHtml.listenOptHtml(opNameIUT){
     case UbuntuDeriv => RArr(
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),

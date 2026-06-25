@@ -2,14 +2,6 @@
 package ostrat; package pweb
 import reflect.ClassTag
 
-/** An HTML page updater from an HTML inout or select element. */
-abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
-{ page.inpAcc +%= this
-
-  /** The number of page elements that have registered to receive updates from this inout. */
-  def clientCount: Int
-}
-
 /** HTML Input or Select Updater for [[String]]s. */
 trait UpdaterStr extends UpdaterInputLike
 { /** List of call backs to other parts of the web page that needed to be updated in response to new input. */

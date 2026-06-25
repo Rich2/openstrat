@@ -28,3 +28,11 @@ trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
   override def child1: LabelHtml = LabelHtml(idStr, label)
   override def contents: RArr[XCon] = RArr(child1, child2)
 }
+
+/** An HTML page updater from an HTML inout or select element. */
+abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
+{ page.inpAcc +%= this
+
+  /** The number of page elements that have registered to receive updates from this inout. */
+  def clientCount: Int
+}

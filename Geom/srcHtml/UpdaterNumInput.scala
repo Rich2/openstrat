@@ -2,18 +2,32 @@
 package ostrat; package pweb
 import reflect.ClassTag
 
-/** Creates an HTML Input element that can update textContent fields on the page. */
-class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page), InputHtml
+/** Creates an HTML Input element that takes numbers can update textContent fields on the page. */
+trait UpdaterNumInput extends UpdaterInputLike, InputHtml
+{ override def typeAtt: TypeAtt = TypeNumberAtt
+}
+
+/** Creates an HTML Input element that takes [[Int]]s can update textContent fields on the page. */
+class UpdaterIntInput(val idStr: String, val value: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
+  UpdaterNumInput
+{ var listeners: RArr[CallbackInt] = RArr()
+
+  def clientCount: Int = listeners.length
+  override def valueStr: String = value.str  
+}
+
+/** Creates an HTML Input element that takes [[Double]]s can update textContent fields on the page. */
+class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
+  UpdaterNumInput
 { var listeners: RArr[CallbackDbl] = RArr()
   def clientCount: Int = listeners.length
-
-  override def typeAtt: TypeAtt = TypeNumberAtt
+  
   override def valueStr: String = value.str
 
   /** Registers a call back to a listener with a Double => String function. */
   def next1(f: Double => String): IdAtt =
   { val newlistenerId: String = idStr + clientCount.str
-    listeners +%= Callback1Dbl(newlistenerId, f)
+    listeners +%= Callback1DblText(newlistenerId, f)
     IdAtt(newlistenerId)
   }
 
@@ -31,6 +45,8 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   def nextOptDbl2Text(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => String): Unit =
   { listeners +%= CallbackOptDbl2Text(listenerID, input1, f)
   }
+
+  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
 object UpdaterDblInput
