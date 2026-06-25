@@ -47,9 +47,13 @@ case class Callback1IntText(listenerId: String, f: Double => String) extends Cal
 /** Call back from an [[UpdaterDblInput]]. */
 sealed trait CallbackDbl extends CallbackUpdater
 
+/** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function for JavaScript to update an htmlContent property. */
+case class Callback1DblHtml(listenerId: String, f: Double => RArr[XCon]) extends CallbackDbl
+
 /** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function for JavaScript to update a textContent property. */
 case class Callback1DblText(listenerId: String, f: Double => String) extends CallbackDbl
 
+/** A callback for an [[UpdaterOption]]. */
 trait CallbackOption extends CallbackUpdater
 
 /** A call back for an [[UpdaterOption]] that takes an Option => RArr[XCon] function,  to use JavaScript to pdate the textContent property. */
@@ -58,8 +62,11 @@ case class Callback1OptHtml(listenerId: String, f: OptionHtml => RArr[XCon]) ext
 /** A call back for an [[UpdaterOption]] that takes an OptionHtml => String function, to use JavaScript to update the textContent property. */
 case class Callback1OptText(listenerId: String, f: OptionHtml => String) extends CallbackOption
 
+/** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Int) => String function. */
+case class CallbackOptInt1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => String) extends CallbackOption
+
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
-case class CallbackOptionDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
+case class CallbackOptDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double => RArr[XCon] function. */
 case class CallbackOptDbl2Html(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackDbl

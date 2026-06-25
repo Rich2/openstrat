@@ -37,7 +37,7 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
    * the first from this text input and the second from another text updater, to update the target content. */
   def nextOptDblHtml1(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= CallbackOptionDbl1Html(newListenerId, input2.idStr, f)
+    callBacks +%= CallbackOptDbl1Html(newListenerId, input2.idStr, f)
     input2.nextOptDbl2Html(newListenerId, this, f)
     IdAtt(newListenerId)
   }
