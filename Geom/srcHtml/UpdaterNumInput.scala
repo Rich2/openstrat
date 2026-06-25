@@ -8,20 +8,25 @@ trait UpdaterNumInput extends UpdaterInputLike, InputHtml
 }
 
 /** Creates an HTML Input element that takes [[Int]]s can update textContent fields on the page. */
-class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
+class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val step: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
   UpdaterInputLike(page), UpdaterNumInput
 { var listeners: RArr[CallbackInt] = RArr()
 
   def clientCount: Int = listeners.length
   override def valueStr: String = value.str
 
-  override def attribs: RArr[XAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)  
+  override def attribs: RArr[XAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)
+
+  /** Registers a call back to a listener with a (String, Int) => String function. */
+  def nextOptInt2Html(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Int) => RArr[XCon]): Unit =
+  { listeners +%= CallbackOptInt2Html(listenerID, input1, f)
+  }
 }
 
 object UpdaterIntInput
 { /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
-  def apply(idStr: String, value: Int, minVal: Int, maxVal: Int, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterIntInput =
-    new UpdaterIntInput(idStr, value, minVal, maxVal, otherAttribs.toRArr)
+  def apply(idStr: String, value: Int, minVal: Int, maxVal: Int, step: Int, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterIntInput =
+    new UpdaterIntInput(idStr, value, minVal, maxVal, step, otherAttribs.toRArr)
 }
 
 /** Creates an HTML Input element that takes [[Double]]s can update textContent fields on the page. */
@@ -43,7 +48,7 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   def nextStrDbl2(listenerID: String, input1IDStr: String, f: (String, Double) => String): Unit =
   { listeners +%= CallbackStrDbl2(listenerID, input1IDStr, f)   
   }
-
+  
   /** Registers a call back to a listener with a (String, Double) => String function. */
   def nextOptDbl2Html(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]): Unit =
   { listeners +%= CallbackOptDbl2Html(listenerID, input1, f)

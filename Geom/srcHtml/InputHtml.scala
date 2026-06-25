@@ -35,13 +35,23 @@ object LabelTextInput
   def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
 }
 
-class LabelNumInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelAndInput
+class LabelIntInput(val idStr: String, val label: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater) extends LabelAndInput
+{ override def child2: UpdaterIntInput = UpdaterIntInput(idStr, valueNum, minVal, maxVal, step)
+}
+
+object LabelIntInput
+{ /** Factory apply method for label and number input HTML elements. */
+  def apply(idStr: String, label: String, valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater): LabelIntInput =
+    new LabelIntInput(idStr, label, valueNum, minVal, maxVal, step)
+}
+
+class LabelDblInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: UpdaterDblInput = UpdaterDblInput(idStr, valueNum)
 }
 
-object LabelNumInput
+object LabelDblInput
 { /** Factory apply method for label and number input HTML elements. */
-  def apply(idStr: String, label: String, valueNum: Double)(using page: PageHtmlUpdater): LabelNumInput = new LabelNumInput(idStr, label, valueNum)
+  def apply(idStr: String, label: String, valueNum: Double)(using page: PageHtmlUpdater): LabelDblInput = new LabelDblInput(idStr, label, valueNum)
 }
 
 case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine

@@ -36,7 +36,7 @@ object TomcatPage extends DevPageBase
   val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
   val cNameIUT: UpdaterStrInput = cNameLTI.child2
   val nRam1: Int = 2
-  val ramLNI: LabelNumInput = LabelNumInput("nRam", "System Ram", nRam1)
+  val ramLNI: LabelDblInput = LabelDblInput("nRam", "System Ram", nRam1)
   val ramIUN: UpdaterDblInput = ramLNI.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(uNameIUT, cNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)

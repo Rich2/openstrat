@@ -35,7 +35,16 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
-  def nextOptDblHtml1(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
+  def nextOptInt1Html(input2: UpdaterIntInput, f: (OptionHtml, Int) => RArr[XCon]): IdAtt =
+  { val newListenerId: String = idStr + clientCount.str
+    callBacks +%= CallbackOptInt1Html(newListenerId, input2.idStr, f)
+    input2.nextOptInt2Html(newListenerId, this, f)
+    IdAtt(newListenerId)
+  }
+
+  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
+   * the first from this text input and the second from another text updater, to update the target content. */
+  def nextOptDbl1Html(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= CallbackOptDbl1Html(newListenerId, input2.idStr, f)
     input2.nextOptDbl2Html(newListenerId, this, f)
@@ -53,16 +62,16 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
 }
 
 /** An HTML label followed by an [[SelectHtml]]. */
-class LabelSelectUpdaterAny(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using
+class LabelSelectUpdaterOpt(val idStr: String, val label: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using
   page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: UpdaterOption = UpdaterOption(idStr, options, visNum, otherAttribs)
 }
 
-object LabelSelectUpdaterAny
+object LabelSelectUpdaterOpt
 {
-  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelectUpdaterAny =
-    new LabelSelectUpdaterAny(idStr, label, options, visNum, otherAttribs)
+  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelectUpdaterOpt =
+    new LabelSelectUpdaterOpt(idStr, label, options, visNum, otherAttribs)
 
-  def apply(idStr: String, label: String, options: OptionHtml*)(using page: PageHtmlUpdater): LabelSelectUpdaterAny =
-    new LabelSelectUpdaterAny(idStr, label, options.toRArr, 1, RArr())
+  def apply(idStr: String, label: String, options: OptionHtml*)(using page: PageHtmlUpdater): LabelSelectUpdaterOpt =
+    new LabelSelectUpdaterOpt(idStr, label, options.toRArr, 1, RArr())
 }

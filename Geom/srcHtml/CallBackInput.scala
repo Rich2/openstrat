@@ -44,6 +44,9 @@ sealed trait CallbackInt extends CallbackUpdater
 /** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function for JavaScript to update a textContent property. */
 case class Callback1IntText(listenerId: String, f: Double => String) extends CallbackInt
 
+/** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double => RArr[XCon] function. */
+case class CallbackOptInt2Html(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackInt
+
 /** Call back from an [[UpdaterDblInput]]. */
 sealed trait CallbackDbl extends CallbackUpdater
 
@@ -64,6 +67,9 @@ case class Callback1OptText(listenerId: String, f: OptionHtml => String) extends
 
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Int) => String function. */
 case class CallbackOptInt1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => String) extends CallbackOption
+
+/** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
+case class CallbackOptInt1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
 case class CallbackOptDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
