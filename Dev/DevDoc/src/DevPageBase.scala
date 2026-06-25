@@ -22,10 +22,10 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     "Open the all users environment configuration file",
     BashLine("sudo nano /etc/environment"),
     "Add line",
-    BashLine.listenOptHtml(opNameIUT){
-      case UbuntuDeriv => RArr("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64")
-      case ArchDeriv => RArr("JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64")
-      case _ => RArr("No code available.")  
+    BashLine.listenOptText(opNameIUT){
+      case UbuntuDeriv => "JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"
+      case ArchDeriv => "JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"
+      case _ => "No code available."
     },
     "Save and exit (Ctrl-X and then Y)",
     BashLine("sudo reboot"),

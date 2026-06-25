@@ -53,7 +53,7 @@ case class Callback1OptHtml(listenerId: String, f: OptionHtml => RArr[XCon]) ext
 case class Callback1OptText(listenerId: String, f: OptionHtml => String) extends CallbackOption
 
 /** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
-case class CallbackOptionNum1(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
+case class CallbackOptionDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterOption]] that takes an option => String function, whee the option is typed as an Any. */
 case class CallbackOptionNum2(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackDbl

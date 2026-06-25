@@ -17,17 +17,17 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
 
   def initOption: OptionHtml = contents(0)
 
-  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
-   * input to update the target HTML content. */
-  def next1Html(f: OptionHtml => RArr[XCon]): IdAtt =
+  /** Registers a page HTML element with this [[UpdaterOption]]. Returns new unique id attribute to the listener. Takes String => RArr[XCon] function to update
+   * the listener's htmlContent JavaScript method.. */
+  def nextOptHtml(f: OptionHtml => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= Callback1OptHtml(newListenerId, f)
     IdAtt(newListenerId)
   }
 
-  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
-   * input to update the target HTML content. */
-  def next1Text(f: OptionHtml => String): IdAtt =
+  /** Registers a page HTML element with this [[UpdaterOption]]. Returns new unique id attribute to the listener. Takes String => String function to update the
+   * listener's textContent JavaScript method. */
+  def nextOptText(f: OptionHtml => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= Callback1OptText(newListenerId, f)
     IdAtt(newListenerId)
@@ -35,9 +35,9 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
-  def nextOptDbl1(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
+  def nextOptDblHtml1(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= CallbackOptionNum1(newListenerId, input2.idStr, f)
+    callBacks +%= CallbackOptionDbl1Html(newListenerId, input2.idStr, f)
     input2.nextOptionNum2(newListenerId, this, f)
     IdAtt(newListenerId)
   }

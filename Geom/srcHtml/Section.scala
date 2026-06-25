@@ -17,7 +17,7 @@ object Section
 
   /** Creates a Section and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
   def listenOption(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): Section =
-  { val newId: IdAtt = input.next1Html(f)
+  { val newId: IdAtt = input.nextOptHtml(f)
     new SectionGen(input.listenerInit(f), RArr(newId))
   }
 

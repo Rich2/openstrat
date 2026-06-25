@@ -47,13 +47,13 @@ object DivHtml
 
   /** Creates a Div and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
   def listenOption(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): DivHtml =
-  { val newId: IdAtt = input.next1Html(f)
+  { val newId: IdAtt = input.nextOptHtml(f)
     new DivHtmlGen(input.listenerInit(f), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
   def listenOptDblHtml(input1: UpdaterOption, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XCon]): DivHtml =
-  { val newId: IdAtt = input1.nextOptDbl1(input2, f)
+  { val newId: IdAtt = input1.nextOptDblHtml1(input2, f)
     new DivHtmlGen(f(input1.initOption, input2.value), RArr(newId))
   }
 
