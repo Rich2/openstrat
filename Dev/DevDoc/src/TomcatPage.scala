@@ -80,7 +80,7 @@ object TomcatPage extends DevPageBase
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
 
-  val s3: LiHtml = LiHtml(javaInstallContents)
+  val s3: LiHtml = javaInstall(LiHtml)
 
   val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I
   |find it better to have a different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and

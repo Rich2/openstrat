@@ -7,7 +7,7 @@ trait Section extends HtmlTagLines
   override def attribs: RArr[XAtt] = RArr()
 }
 
-object Section
+object Section extends HtmlElemCompanion[Section]
 { /** Factory apply method for [[Section]] passing contents and attributes. There is an apply overload convenience method for passing just contents using
    * repeat parameters. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): Section = new SectionGen(contents, attribs)

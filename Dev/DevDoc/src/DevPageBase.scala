@@ -6,30 +6,25 @@ import pweb.*, WebExts.*, wcode.*
 trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
 {  
   /** Creates an HTML List element to document installing Java. */
-  def javaInstallContents: RArr[XCon] = RArr("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-    DivHtml.listenOptIntHtml(opNameIUT, javaVerIUN){ (ops, vNum) =>
-      ops match {
-        case UbuntuDeriv => RArr(BashLine(s"sudo apt install openjdk-${vNum.str0}-jdk -y"))
-        case ArchDeriv => RArr(BashLine(s"sudo pacman -Syu ${vNum.str0}-jdk"))
-        case _ => RArr("No code available.")
-      }
-    },
-    "Check the version",
-    BashLine("java -version"),
+  def javaInstall: HtmlElemBuilder = HtmlElemBuilder.listenOptIntHtml(opNameIUT, javaVerIUN){ (opSys, jVer) =>
+    RArr[XCon]("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.") +%
+      (opSys match
+      { case UbuntuDeriv => BashLine(s"sudo apt install openjdk-${jVer.str0}-jdk -y")
+        case ArchDeriv => BashLine(s"sudo pacman -Syu ${jVer.str0}-jdk")
+        case _ => "No code available."
+      }) +% "Check the version" +%
+    BashLine("java -version") +%
     CodeOutputLines("""openjdk version "25.0.3" 2026-04-21""",
       "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
-      "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)"),
-    "Open the all users environment configuration file",
-    BashLine("sudo nano /etc/environment"),
-    "Add line",
-    BashLine.listenOptIntText(opNameIUT, javaVerIUN){ (opSys, javaVer) =>
-      opSys match
-      { case UbuntuDeriv => s"JAVA_HOME=/usr/lib/jvm/java-$javaVer-openjdk-amd64"
-        case ArchDeriv => "JAVA_HOME=/usr/lib/jvm/java-$javaVer-openjdk"
-        case _ => "No code available."
-      }
-    },
-    "Save and exit (Ctrl-X and then Y)",
+      "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)",
+      "Open the all users environment configuration file") +%
+    BashLine("sudo nano /etc/environment") +%
+    "Add line" +% (opSys match
+    { case UbuntuDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk-amd64")
+      case ArchDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk")
+      case _ => "No code available."
+    })
+    /*"Save and exit (Ctrl-X and then Y)",
     BashLine("sudo reboot"),
     "After reboot or logging in again for remote server",
     BashLine("echo $JAVA_HOME"),
@@ -39,8 +34,8 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
         case ArchDeriv => s"/usr/lib/jvm/java-$javaVer-openjdk"
         case _ => "No code available."
       }
-    }
-  )
+    }*/
+  }
 
   def jvmsAlt: Section = Section("JVMs".h2,
     CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-25-openjdk"),
@@ -64,6 +59,4 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
       BashLine("sudo update-alternatives --config java")
     )
   )
-
-  
 }
