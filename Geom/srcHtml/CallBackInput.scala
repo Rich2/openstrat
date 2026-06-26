@@ -42,7 +42,7 @@ case class Callback3Str3(listenerId: String, input1IdStr: String, input2IdStr: S
 sealed trait CallbackInt extends CallbackUpdater
 
 /** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function for JavaScript to update a textContent property. */
-case class Callback1IntText(listenerId: String, f: Double => String) extends CallbackInt
+case class Callback1IntText(listenerId: String, f: Int => String) extends CallbackInt
 
 /** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double => RArr[XCon] function. */
 case class CallbackOptInt2Html(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackInt

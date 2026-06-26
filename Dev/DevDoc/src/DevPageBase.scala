@@ -33,7 +33,7 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     BashLine("sudo reboot"),
     "After reboot or logging in again for remote server",
     BashLine("echo $JAVA_HOME"),
-    CodeOutputLine("/usr/lib/jvm/java-25-openjdk-amd64")
+    CodeOutputLine.listenIntText(javaVerIUN){ ver => s"/usr/lib/jvm/java-$ver-openjdk-amd64" }
   )
 
   def jvmsOld: Section = Section("JVMs".h2,

@@ -29,13 +29,13 @@ object DivHtml
 
   /** Creates a Div and listens to an [[UpdaterStr]] change events modifying the textContent. */
   def listenStrText(input: UpdaterStr)(f: String => String): DivHtml =
-  { def newId = input.next1Id(f)
+  { def newId = input.next1Text(f)
     new DivHtmlGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
   /** Creates a Div and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
   def listenStrHtml(input: UpdaterStr)(f: String => RArr[XCon]): DivHtml =
-  { def newId = input.nextHtmlId(f)
+  { def newId = input.next1Html(f)
     new DivHtmlGen((f(input.valueStr)), RArr(newId))
   }
 

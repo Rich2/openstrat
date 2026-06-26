@@ -120,7 +120,7 @@ object TomcatPage extends DevPageBase
   BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
-  CodeOutputLine.inputText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
+  CodeOutputLine.listenStrText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
   )
 
   val s8 = LiHtml("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to the base

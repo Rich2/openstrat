@@ -43,13 +43,13 @@ object BashLine
 
   /** Creates a Bash line and registers the textContent with a String => String callback to the textContent. */
   def listenStr(input: UpdaterStr)(f: String => String): BashLine =
-  { val newId: IdAtt = input.next1Id(f)
+  { val newId: IdAtt = input.next1Text(f)
     new BashLine(RArr(f(input.valueStr)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with a (String, String) => String callback to this [[BashLine]]'s textContent. */
   def listen2Str(input1: UpdaterStr, input2: UpdaterStr)(f: (String, String) => String): BashLine =
-  { val newId: IdAtt = input1.next2Id1(input2, f)
+  { val newId: IdAtt = input1.next2Text1(input2, f)
     new BashLine(RArr(f(input1.valueStr, input2.valueStr)), RArr(newId))
   }
 
@@ -136,14 +136,14 @@ object BashPromptSpan
   /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. registers the textContent with an HTML
    * Text Input. */
   def listenText(input: UpdaterStr, otherAttribs: XAtt*)(f: String => String): BashPromptSpan =
-  { val newId: IdAtt = input.next1Id(f)
+  { val newId: IdAtt = input.next1Text(f)
     new BashPromptSpan(f(input.valueStr), newId %: otherAttribs.toArr)
   }
 
   /** Creates span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with 2 HTML
    * Text Inputs. */
   def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f: (String, String) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.next2Id1(input2, f)
+  { val newId: IdAtt = input1.next2Text1(input2, f)
     new BashPromptSpan(f(input1.valueStr, input2.valueStr), newId %: otherAttribs.toRArr)
   }
 

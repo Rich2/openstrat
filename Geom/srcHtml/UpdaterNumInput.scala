@@ -17,6 +17,13 @@ class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val ma
 
   override def attribs: RArr[XAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)
 
+  /** Registers a call back to a listener with an Int => String function. */
+  def next1(f: Int => String): IdAtt =
+  { val newlistenerId: String = idStr + clientCount.str
+    listeners +%= Callback1IntText(newlistenerId, f)
+    IdAtt(newlistenerId)
+  }
+  
   /** Registers a call back to a listener with a (String, Int) => String function. */
   def nextOptInt2Html(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Int) => RArr[XCon]): Unit =
   { listeners +%= CallbackOptInt2Html(listenerID, input1, f)
