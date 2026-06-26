@@ -7,7 +7,7 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
 {  
   /** Creates an HTML List element to document installing Java. */
   def javaInstall = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-    DivHtml.listenOptDblHtml(opNameIUT, javaVerIUN){ (ops, vNum) =>
+    DivHtml.listenOptIntHtml(opNameIUT, javaVerIUNNew){ (ops, vNum) =>
       ops match {
         case UbuntuDeriv => RArr(BashLine(s"sudo apt install openjdk-${vNum.str0}-jdk -y"))
         case ArchDeriv => RArr(BashLine(s"sudo pacman -Syu ${vNum.str0}-jdk"))

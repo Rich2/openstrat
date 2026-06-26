@@ -19,6 +19,12 @@ class JsContentUpdaterInt(val inputer: UpdaterIntInput) extends JsContentUpdater
         if(listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newNum)
       }
+      case CallbackOptInt2Html(targetId, input1, f) =>
+      { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+        val inp1Option = input1.strToOption(inp1Val)
+        val listener: Element = document.getElementById(targetId)
+        listener.innerHTML = f(inp1Option, newNum).out
+      }
     }   
   }
 }
