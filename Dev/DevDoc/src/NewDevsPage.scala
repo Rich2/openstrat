@@ -14,7 +14,7 @@ object NewDevsPage extends DevPageBase
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI, javaVerLNI))
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI, javaVerLNI, javaVerLNINew))
   
   val sysUpdate = DivHtml.listenOptHtml(opNameIUT){ opt =>    
       val code: RArr[XCon] = opt match{

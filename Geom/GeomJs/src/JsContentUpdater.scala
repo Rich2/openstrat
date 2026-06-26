@@ -8,7 +8,8 @@ trait JsContentUpdater
 object JsContentUpdater
 { /** Factory apply method, constructs the appropriate [[JsContentUpdater]] for the given [[UpdaterInputLike]]. */
   def apply(inputer: UpdaterInputLike): JsContentUpdater = inputer match
-  { case iun: UpdaterDblInput => JsContentUpdaterDbl(iun)
+  { case uii: UpdaterIntInput => JsContentUpdaterInt(uii)
+    case udi: UpdaterDblInput => JsContentUpdaterDbl(udi)
     case iut: UpdaterStr => JsUpdaterStr(iut)
     case iua: UpdaterOption => UpdaterOptionJs(iua)
   }
