@@ -17,9 +17,6 @@ trait PageUpdaterOS extends PageHtmlUpdater
   val opNameIUT: UpdaterOption = opNameLTI.child2
 
   val jVer1: Int = 25
-  val javaVerLNI: LabelDblInput = LabelDblInput("javaVer", "Java Version", jVer1)
-  val javaVerIUN: UpdaterDblInput = javaVerLNI.child2
-
-  val javaVerLNINew: LabelIntInput = LabelIntInput("javaVer", "Java Version", jVer1, 17, 30)
-  val javaVerIUNNew: UpdaterIntInput = javaVerLNINew.child2
+  val javaVerLNI: LabelIntInput = LabelIntInput("javaVer", "Java Version", jVer1, 17, 30)
+  val javaVerIUN: UpdaterIntInput = javaVerLNI.child2
 }

@@ -21,6 +21,11 @@ class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val ma
   def nextOptInt2Html(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Int) => RArr[XCon]): Unit =
   { listeners +%= CallbackOptInt2Html(listenerID, input1, f)
   }
+
+  /** Registers a call back to a listener with a (String, Double) => String function. */
+  def nextOptInt2Text(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Int) => String): Unit ={
+    listeners +%= CallbackOptInt2Text(listenerID, input1, f)
+  }
 }
 
 object UpdaterIntInput

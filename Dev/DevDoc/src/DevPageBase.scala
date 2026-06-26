@@ -7,7 +7,7 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
 {  
   /** Creates an HTML List element to document installing Java. */
   def javaInstall = LiHtml("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.",
-    DivHtml.listenOptIntHtml(opNameIUT, javaVerIUNNew){ (ops, vNum) =>
+    DivHtml.listenOptIntHtml(opNameIUT, javaVerIUN){ (ops, vNum) =>
       ops match {
         case UbuntuDeriv => RArr(BashLine(s"sudo apt install openjdk-${vNum.str0}-jdk -y"))
         case ArchDeriv => RArr(BashLine(s"sudo pacman -Syu ${vNum.str0}-jdk"))
@@ -22,10 +22,12 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     "Open the all users environment configuration file",
     BashLine("sudo nano /etc/environment"),
     "Add line",
-    BashLine.listenOptText(opNameIUT){
-      case UbuntuDeriv => "JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"
-      case ArchDeriv => "JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64"
-      case _ => "No code available."
+    BashLine.listenOptIntText(opNameIUT, javaVerIUN){ (opSys, vNum) =>
+      opSys match
+      { case UbuntuDeriv => s"JAVA_HOME=/usr/lib/jvm/java-$vNum-openjdk-amd64"
+        case ArchDeriv => "JAVA_HOME=/usr/lib/jvm/java-$vNum-openjdk-amd64"
+        case _ => "No code available."
+      }
     },
     "Save and exit (Ctrl-X and then Y)",
     BashLine("sudo reboot"),

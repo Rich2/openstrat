@@ -19,11 +19,17 @@ class JsContentUpdaterInt(val inputer: UpdaterIntInput) extends JsContentUpdater
         if(listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newNum)
       }
-      case CallbackOptInt2Html(targetId, input1, f) =>
+      case CallbackOptInt2Html(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
         val inp1Option = input1.strToOption(inp1Val)
-        val listener: Element = document.getElementById(targetId)
+        val listener: Element = document.getElementById(listenerId)
         listener.innerHTML = f(inp1Option, newNum).out
+      }
+      case CallbackOptInt2Text(listenerId, input1, f) =>
+      { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+        val inp1Option = input1.strToOption(inp1Val)
+        val target: Element = document.getElementById(listenerId)
+        target.textContent = f(inp1Option, newNum)
       }
     }   
   }
@@ -60,16 +66,16 @@ class JsContentUpdaterDbl(val inputer: UpdaterDblInput) extends JsContentUpdater
       { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
         f(inp1Val, newNum)
       }
-      case CallbackOptDbl2Html(targetId, input1, f) =>
+      case CallbackOptDbl2Html(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
         val inp1Option = input1.strToOption(inp1Val)
-        val target: Element = document.getElementById(targetId)
+        val target: Element = document.getElementById(listenerId)
         target.innerHTML = f(inp1Option, newNum).out
       }
-      case CallbackOptDbl2Text(targetId, input1, f) =>
+      case CallbackOptDbl2Text(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
         val inp1Option = input1.strToOption(inp1Val)
-        val target: Element = document.getElementById(targetId)
+        val target: Element = document.getElementById(listenerId)
         target.textContent = f(inp1Option, newNum)
       }
     }

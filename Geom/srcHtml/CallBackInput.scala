@@ -71,6 +71,9 @@ case class CallbackOptInt1Text(listenerId: String, input2IdStr: String, f: (Opti
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
 case class CallbackOptInt1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackOption
 
+/** A call back for an [[UpdaterIntInput]] that takes an (OptionHtml, Double) => String function. */
+case class CallbackOptInt2Text(listenerId: String, input1: UpdaterOption, f: (OptionHtml, Int) => String) extends CallbackInt
+
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
 case class CallbackOptDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
 
