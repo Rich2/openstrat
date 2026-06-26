@@ -3,7 +3,7 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
-class JsUpdaterStr(val inputer: UpdaterStr) extends JsContentUpdater
+class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", eventListener(_))
@@ -12,13 +12,13 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsContentUpdater
   { val newInpStr = e.target.asInstanceOf[html.Input].value
     val len = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
-    inputer.callBacks.foreach { (dep: CallbackUpdater) =>
-      val targetId: String = dep.listenerId
-      val target: Element = document.getElementById(targetId)
-      if (target == null) deb(s" target is null from inputer $inputer for id: $targetId.")
+    inputer.callBacks.foreach { callback =>
+      val listenerId: String = callback.listenerId
+      val listener: Element = document.getElementById(listenerId)
+      if (listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
       else
       { 
-        target.innerHTML = dep match
+        listener.innerHTML = callback match
         { case Callback1StrText(idStr, f) => f(newInpStr)
           case CallBack1StrHtml(idStr, f) => f(newInpStr).out
           case Callback2Str1(targetId, input2IdStr, f) =>

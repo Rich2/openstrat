@@ -100,13 +100,13 @@ object CodeOutputLine
     CodeOutputLineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
-  /** Creates a code output line and registers the textContent with an HTML Select Input and an HTML number input. */
+  /** Creates a code output line and listens to an [[UpdaterOption]] and an [[UpdaterIntInput]] updating the textContent. */
   def listenOptIntText(input1: UpdaterOption, input2: UpdaterIntInput)(f: (OptionHtml, Int) => String): CodeOutputLine =
   { val newId: IdAtt = input1.nextOptIntText1(input2, f)
     CodeOutputLineGen(RArr(f(input1.initOption, input2.value)), RArr(newId))
   }
 
-  /** Creates a code output line and registers the textContent with an HTML Text Input. */
+  /** Creates a code output line and registers the textContent with an [[UpdaterIntInput]]. */
   def listenIntText(input: UpdaterIntInput)(f: Int => String): CodeOutputLine =
   { val newId = input.next1(f)
     CodeOutputLineGen(RArr(f(input.value)), RArr(newId))

@@ -3,20 +3,20 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
-trait JsContentUpdater
+trait JsUpdater
 
-object JsContentUpdater
-{ /** Factory apply method, constructs the appropriate [[JsContentUpdater]] for the given [[UpdaterInputLike]]. */
-  def apply(inputer: UpdaterInputLike): JsContentUpdater = inputer match
-  { case uii: UpdaterIntInput => JsContentUpdaterInt(uii)
-    case udi: UpdaterDblInput => JsContentUpdaterDbl(udi)
+object JsUpdater
+{ /** Factory apply method, constructs the appropriate [[JsUpdater]] for the given [[UpdaterInputLike]]. */
+  def apply(inputer: UpdaterInputLike): JsUpdater = inputer match
+  { case uii: UpdaterIntInput => JsUpdaterInt(uii)
+    case udi: UpdaterDblInput => JsUpdaterDbl(udi)
     case iut: UpdaterStr => JsUpdaterStr(iut)
     case iua: UpdaterOption => UpdaterOptionJs(iua)
   }
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class UpdaterOptionJs(val inputer: UpdaterOption) extends JsContentUpdater
+class UpdaterOptionJs(val inputer: UpdaterOption) extends JsUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Select = document.getElementById(idStem).asInstanceOf[html.Select]
   inpElem.addEventListener("change", eventListener)
@@ -55,10 +55,10 @@ class UpdaterOptionJs(val inputer: UpdaterOption) extends JsContentUpdater
 }
 
 extension (page: PageHtmlUpdater)
-{ /** Constructs a JavaScript [[JsContentUpdater]] for each [[PageHtmlUpdater]]. */
+{ /** Constructs a JavaScript [[JsUpdater]] for each [[PageHtmlUpdater]]. */
   def jsAgg: Unit =
   { val num = page.inpAcc.length
     deb(s"Found $num in ${page.fileName.str}")
-    page.inpAcc.foreach(inputUpdater => JsContentUpdater(inputUpdater))
+    page.inpAcc.foreach(inputUpdater => JsUpdater(inputUpdater))
 }
 }

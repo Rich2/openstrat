@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** A text callback from an [[UpdaterInputLike]] with a function for JavaScript to update textContent or an htmlContent property. */
-trait CallbackUpdater
+sealed trait CallbackUpdater
 { /** The id attribute on the target HTML element whose textContent is to be updated. */
   def listenerId: String
 }
@@ -16,15 +16,14 @@ case class CallBack1StrHtml(listenerId: String, f: String => RArr[XCon]) extends
 /** Call back for an [[UpdaterStr]] with a String => String function for JavaScript to update a textContent property. */
 case class Callback1StrText(listenerId: String, f: String => String) extends CallbackStr
 
-sealed trait Callback2Str extends CallbackStr
-case class Callback2Str1(listenerId: String, input2IdStr: String, f: (String, String) => String) extends Callback2Str
-case class Callback2Str2(listenerId: String, input1IdStr: String, f: (String, String) => String) extends Callback2Str
+/** Call back for an [[UpdaterStr]] for 1st parameter of (String, String) => String function for JavaScript to update the listener's textContent property. */
+case class Callback2Str1(listenerId: String, input2IdStr: String, f: (String, String) => String) extends CallbackStr
 
-/** Call back from an [[UpdaterDblInput]] for a Double => String function for JavaScript to update a textContent property. */
+/** Call back for an [[UpdaterStr]] for 2nd parameter of (String, String) => String function for JavaScript to update the listener's textContent property. */
+case class Callback2Str2(listenerId: String, input1IdStr: String, f: (String, String) => String) extends CallbackStr
+
+/** Call back for an [[UpdaterStr]] for 1st parameter of (String, Double => String function for JavaScript to update a textContent property. */
 case class CallbackStrDbl1(listenerId: String, numInpIdStr: String, f: (String, Double) => String) extends CallbackStr
-
-/** Call back from an [[UpdaterDblInput]] for a (String, Double) => String function for JavaScript to update a textContent property. */
-case class CallbackStrDbl2(listenerId: String, textInpIdStr: String, f: (String, Double) => String) extends CallbackDbl
 
 /** Call back from an [[UpdaterStr]] for a (String, String, String) => String function for JavaScript to update a textContent property. */
 sealed trait Callback3Str extends CallbackStr
@@ -41,7 +40,7 @@ case class Callback3Str3(listenerId: String, input1IdStr: String, input2IdStr: S
 /** Call back from an [[UpdaterIntInput]]. */
 sealed trait CallbackInt extends CallbackUpdater
 
-/** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function for JavaScript to update a textContent property. */
+/** A call back for an [[UpdaterIntInput]] that takes a simple Double => String function for JavaScript to update a textContent property. */
 case class Callback1IntText(listenerId: String, f: Int => String) extends CallbackInt
 
 /** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double => RArr[XCon] function. */
@@ -55,6 +54,9 @@ case class Callback1DblHtml(listenerId: String, f: Double => RArr[XCon]) extends
 
 /** A call back for an [[UpdaterDblInput]] that takes a simple Double => String function for JavaScript to update a textContent property. */
 case class Callback1DblText(listenerId: String, f: Double => String) extends CallbackDbl
+
+/** Call back from an [[UpdaterDblInput]] for a (String, Double) => String function for JavaScript to update a textContent property. */
+case class CallbackStrDbl2(listenerId: String, textInpIdStr: String, f: (String, Double) => String) extends CallbackDbl
 
 /** A callback for an [[UpdaterOption]]. */
 trait CallbackOption extends CallbackUpdater

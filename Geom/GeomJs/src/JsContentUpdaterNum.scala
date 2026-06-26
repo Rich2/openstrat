@@ -3,7 +3,7 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Updates HTML content due to number changes from HTML input [[Int]] elements. */
-class JsContentUpdaterInt(val inputer: UpdaterIntInput) extends JsContentUpdater
+class JsUpdaterInt(val inputer: UpdaterIntInput) extends JsUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", eventListener)
@@ -35,13 +35,13 @@ class JsContentUpdaterInt(val inputer: UpdaterIntInput) extends JsContentUpdater
   }
 }
 
-object JsContentUpdaterInt
+object JsUpdaterInt
 { /** Factory apply method for JavaScript to update HTML element listener list from updated number input. */
-  def apply(inputer: UpdaterIntInput): JsContentUpdaterInt = new JsContentUpdaterInt(inputer)
+  def apply(inputer: UpdaterIntInput): JsUpdaterInt = new JsUpdaterInt(inputer)
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class JsContentUpdaterDbl(val inputer: UpdaterDblInput) extends JsContentUpdater
+class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", eventListener)
@@ -82,7 +82,7 @@ class JsContentUpdaterDbl(val inputer: UpdaterDblInput) extends JsContentUpdater
   }
 }
 
-object JsContentUpdaterDbl
+object JsUpdaterDbl
 { /** Factory apply method for JavaScript to update HTML element listener list from updated number input. */
-  def apply(inputer: UpdaterDblInput): JsContentUpdaterDbl = new JsContentUpdaterDbl(inputer)
+  def apply(inputer: UpdaterDblInput): JsUpdaterDbl = new JsUpdaterDbl(inputer)
 }
