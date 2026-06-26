@@ -79,20 +79,19 @@ object TomcatPage extends DevPageBase
   |and update this later. I'm currently using an Ubuntu Operating System, just out of familiarity. Now obviously if you are using your own desktop, laptop or
   |home server, you won't need this step and you will probably want to try that first before spending money on a VPS. But you will almost certainly need one to
   |get your site / app out to the world.""".stripMargin)
-  
-  val s3 = javaInstall
 
-  val s4 = LiHtml(
-  s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I find it better to have a
-  |different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and you can use your own
-  |username.""". stripMargin,
-  BashLine.listenStr(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName"},
-  BashLine.listenStr(uNameIUT)(uName => s"sudo passwd $uName"),
+  val s3: LiHtml = LiHtml(javaInstallContents)
+
+  val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I
+  |find it better to have a different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and
+  |you can use your own username.""".stripMargin,
+    BashLine.listenStr(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
+    BashLine.listenStr(uNameIUT)(uName => s"sudo passwd $uName"),
   )
 
-  val s5 = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
+  val s5: LiHtml = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
-  BashLine.listenStr(dirIUT){dir => "sudo mkdir" -- dir},
+  BashLine.listenStr(dirIUT){ dir => "sudo mkdir" -- dir },
   BashLine.listen2Str(uNameIUT, dirIUT)((uName, dir) => s"sudo chown $uName:$uName $dir"),
   SpanLine.listenText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
@@ -103,29 +102,29 @@ object TomcatPage extends DevPageBase
   BashLine(tomcatDirPrompt, "mkdir Base")
   )
 
-  val s6 = LiHtml("Go to the Tomcat Download page: ", AHtml("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11. Generally
-  |you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have some
-  |specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version, because
-  |Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next command to
-  |check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white.""".stripMargin,
+  val s6:LiHtml = LiHtml("Go to the Tomcat Download page: ", AHtml("https://tomcat.apache.org/download-11.cgi"), s""". Currently we're on major version 11.
+  |Generally you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have
+  |some specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version,
+  |because Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next
+  |command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt,
     SpanInlineInedit.inputText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,
     SpanInlineInedit.inputText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
   )
 
-  val s7 = LiHtml("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
+  val s7: LiHtml = LiHtml("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
   |released frequently.""".stripMargin,
-  BashLine(tomcatDirPrompt, SpanInlineInedit.input2Text(tomVarIUT, dirIUT){ (version, dir) => s"tar xf apache-tomcat-$version.tar.gz -C $dir"}),
-  BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11"}),
+  BashLine(tomcatDirPrompt, SpanInlineInedit.input2Text(tomVarIUT, dirIUT){ (version, dir) => s"tar xf apache-tomcat-$version.tar.gz -C $dir" }),
+  BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11" }),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
-  CodeOutputLine.listenStrText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11"}
+  CodeOutputLine.listenStrText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11" }
   )
 
-  val s8 = LiHtml("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to the base
-  |directory structure. If the catalina base and catalina home directories are the same, which is often the case in beginners installation instructions, then
-  |this is redundant.""".stripMargin,
+  val s8: LiHtml = LiHtml("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to
+  |the base directory structure. If the catalina base and catalina home directories are the same, which is often the case in beginners installation
+  |instructions, then this is redundant.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base/logs"),
   BashLine(tomcatDirPrompt, "mkdir Base/conf"),
   BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml Base/conf"),
@@ -138,10 +137,10 @@ object TomcatPage extends DevPageBase
     HtmlPage.titleOnly("Holding Page", s"This is coming from $cName at $domain, a tomcat $version server").out }
   )
 
-  val s9 = LiHtml("Create a systemd unit file.",
-  BashLine("sudo nano /etc/systemd/system/tom11.service"),
-  "Add the following code. Then control o, return, control x.",
-  CodeLinesHtml(sysdLines)
+  val s9: LiHtml = LiHtml("Create a systemd unit file.",
+    BashLine("sudo nano /etc/systemd/system/tom11.service"),
+    "Add the following code. Then control o, return, control x.",
+    CodeLinesHtml(sysdLines)
   )
 
   def sysdLines: RArr[DivHtml] =
@@ -218,9 +217,9 @@ object TomcatPage extends DevPageBase
   "The page should now be available without the port :8080 suffix."
   )
 
-  val s12 = LiHtml("Install snap",
+  val s12: LiHtml = LiHtml("Install snap",
   BashLine("sudo apt install snapd"),
-  "Install certbot",  
+  "Install certbot",
   BashLine("sudo snap install --classic certbot"),
   CodeOutputLine("certbot 5.1.0 from Certbot Project (certbot-eff✓) installed"),
   "Ensure that the cerbot command can be run",

@@ -26,7 +26,7 @@ object NewDevsPage extends DevPageBase
     DivHtml("System update") %: code 
   }
 
-  val jvms: LiHtml = javaInstall
+  val jvms = DivHtml(javaInstallContents)
 
   val sbtDiv: DivHtml = DivHtml.listenOptHtml(opNameIUT){
     case UbuntuDeriv => RArr(
