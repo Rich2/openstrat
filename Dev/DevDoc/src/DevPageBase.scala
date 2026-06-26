@@ -42,11 +42,7 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     }
   )
 
-  def jvmsOld: Section = Section("JVMs".h2,
-    BashLine("sudo apt install openjdk-25-jdk"),
-    "For Kubuntu/ Ubuntu add the following line to", HtmlDirPath("/etc/environment"), "file.",
-    CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-amd64"),
-    "For Arch, CachyOs",
+  def jvmsAlt: Section = Section("JVMs".h2,
     CodeLineHtml("JAVA_HOME=/usr/lib/jvm/java-25-openjdk"),
     "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
     dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),

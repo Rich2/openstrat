@@ -8,7 +8,8 @@ object NewDevsPage extends DevPageBase
   override def fileStemStr: String = "newdevs"
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
 
-  def central: DivHtml = DivHtml.classAtt("central", contrib, sysUpdate, pUpdaters, jvms, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome, sublime)
+  def central: DivHtml = DivHtml.classAtt("central", contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
+    sublime)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
