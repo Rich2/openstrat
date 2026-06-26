@@ -22,10 +22,10 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     "Open the all users environment configuration file",
     BashLine("sudo nano /etc/environment"),
     "Add line",
-    BashLine.listenOptIntText(opNameIUT, javaVerIUN){ (opSys, vNum) =>
+    BashLine.listenOptIntText(opNameIUT, javaVerIUN){ (opSys, javaVer) =>
       opSys match
-      { case UbuntuDeriv => s"JAVA_HOME=/usr/lib/jvm/java-$vNum-openjdk-amd64"
-        case ArchDeriv => "JAVA_HOME=/usr/lib/jvm/java-$vNum-openjdk-amd64"
+      { case UbuntuDeriv => s"JAVA_HOME=/usr/lib/jvm/java-$javaVer-openjdk-amd64"
+        case ArchDeriv => "JAVA_HOME=/usr/lib/jvm/java-$javaVer-openjdk"
         case _ => "No code available."
       }
     },
@@ -33,7 +33,13 @@ trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
     BashLine("sudo reboot"),
     "After reboot or logging in again for remote server",
     BashLine("echo $JAVA_HOME"),
-    CodeOutputLine.listenIntText(javaVerIUN){ ver => s"/usr/lib/jvm/java-$ver-openjdk-amd64" }
+    CodeOutputLine.listenOptIntText(opNameIUT, javaVerIUN){ (opSys, javaVer) =>
+      opSys match
+      { case UbuntuDeriv => s"/usr/lib/jvm/java-1.${javaVer}.0-openjdk-amd64"
+        case ArchDeriv => s"/usr/lib/jvm/java-$javaVer-openjdk"
+        case _ => "No code available."
+      }
+    }
   )
 
   def jvmsOld: Section = Section("JVMs".h2,
