@@ -17,12 +17,6 @@ object Section extends HtmlElemFullCompanion[Section]
 
   override def fromStr(str: String, attribs: RArr[XAtt]): Section = new SectionGen(RArr(str), attribs)
 
-  /** Creates a Section and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
-  def listenOption(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): Section =
-  { val newId: IdAtt = input.nextOptHtml(f)
-    new SectionGen(input.listenerInit(f), RArr(newId))
-  }
-
   /** General implementation class for HTML section element. */
   class SectionGen(val contents: RArr[XCon], override val attribs: RArr[XAtt]) extends Section
 }

@@ -84,18 +84,18 @@ object TomcatPage extends DevPageBase
   val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I
   |find it better to have a different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and
   |you can use your own username.""".stripMargin,
-    BashLine.listenStr(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
-    BashLine.listenStr(uNameIUT)(uName => s"sudo passwd $uName"),
+    BashLine.listenStrText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
+    BashLine.listenStrText(uNameIUT)(uName => s"sudo passwd $uName"),
   )
 
   val s5: LiHtml = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
-  BashLine.listenStr(dirIUT){ dir => "sudo mkdir" -- dir },
-  BashLine.listen2Str(uNameIUT, dirIUT)((uName, dir) => s"sudo chown $uName:$uName $dir"),
+  BashLine.listenStrText(dirIUT){ dir => "sudo mkdir" -- dir },
+  BashLine.listen2StrText(uNameIUT, dirIUT)((uName, dir) => s"sudo chown $uName:$uName $dir"),
   SpanLine.listenText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
-  BashLine.listenStr(uNameIUT)(uName => s"sudo su $uName"),
-  BashLine.listenStr(dirIUT){ dir => s"cd $dir" },
+  BashLine.listenStrText(uNameIUT)(uName => s"sudo su $uName"),
+  BashLine.listenStrText(dirIUT){ dir => s"cd $dir" },
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base")
@@ -197,17 +197,17 @@ object TomcatPage extends DevPageBase
   val s11: LiHtml = LiHtml("To switch to port 80 the http defaults",
   BashLine("sudo apt install authbind"),
   BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.listenStr(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.listenStr(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
+  BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   CodeChangeLine.listenText(dirIUT){ dir => s"ExecStart=$dir/tom11/bin/startup.sh" }{ dir => s"ExecStart=authbind --deep $dir/tom11/bin/startup.sh" },
   "Open the Tomcat configuration file.",
-  BashLine.listenStr(dirIUT){ dir => s"nano $dir/Base/conf/server.xml" },
+  BashLine.listenStrText(dirIUT){ dir => s"nano $dir/Base/conf/server.xml" },
   CodeChangeLine("""<Connector port="8080" protocol""".escapeHtml, """<Connector port="80" protocol""".escapeHtml),
   CodeChangeLine("""redirectPort=\"8443\"""", """redirectPort=\"443\"""".escapeHtml),  
   "reset",
@@ -228,19 +228,19 @@ object TomcatPage extends DevPageBase
   "Install certificate. When asked to enter domain name, you can enter multiple web domains, but you only use the first in the ensuing commands.",
   BashLine("sudo certbot certonly --standalone"),
   "Configure permissions to certificates",
-  BashLine.listenStr(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/live/" },
-  BashLine.listenStr(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/archive/" },
+  BashLine.listenStrText(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/live/" },
+  BashLine.listenStrText(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/archive/" },
   BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
-  BashLine.listenStr(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
-  BashLine.listenStr(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
-  BashLine.listenStr(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
+  BashLine.listenStrText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
+  BashLine.listenStrText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
+  BashLine.listenStrText(domainIUT){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
   "Check permissions - if you dont have access then something wrong...",
-  BashLine.listenStr(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
+  BashLine.listenStrText(domainIUT){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
   )
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
-  BashLine.listenStr(dirIUT){ dir => "nano $dir/Base/conf/server.xml" },
+  BashLine.listenStrText(dirIUT){ dir => "nano $dir/Base/conf/server.xml" },
   "Uncomment the section and modify as below",
   PreCode.listenText(domainIUT){ dName =>
   s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"

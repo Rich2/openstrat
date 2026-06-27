@@ -7,31 +7,23 @@ trait DivHtml extends HtmlUnvoid
 }
 
 /** Companion object for the [[DivHtml]] DIV element class, contains various factory methods. */
-object DivHtml
+object DivHtml extends HtmlElemFullCompanion[DivHtml]
 { /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XConInedit]] and an [[RArr]] of [[XAtt]], with a default of no
  * [[XAtt]]s. */
   def apply(input: XCon*): DivHtml = new DivHtmlGen(input.toRArr, RArr())
 
   /** Factory apply method for div HTML element. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): DivHtml = new DivHtmlGen(contents, attribs)
+  override def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): DivHtml = new DivHtmlGen(contents, attribs)
+
+  override def fromStr(str: String, attribs: RArr[XAtt]): DivHtml = new DivHtmlGen(RArr(str), attribs)
 
   /** Factory method to create Div element with an ID attribute. */
   def id(id: String, contents: XCon*): DivHtml = new DivHtmlGen(contents.toArr, RArr(IdAtt(id)))
 
-  /** Factory method to create Div element with a class attribute. */
-  def classAtt(id: String, contents: XCon*): DivHtml = new DivHtmlGen(contents.toArr, RArr(ClassAtt(id)))
-
-  /** Factory method to create Div element with a class attribute. */
-  def classAtt(id: String, contents: RArr[XCon], otherAtts: RArr[XAtt] = RArr()): DivHtml = new DivHtmlGen(contents, ClassAtt(id) %: otherAtts)
+  
 
   /** Factory apply method for creating HTML span element with a display attribute. */
   def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
-
-  /** Creates a Div and listens to an [[UpdaterStr]] change events modifying the textContent. */
-  def listenStrText(input: UpdaterStr)(f: String => String): DivHtml =
-  { def newId = input.next1Text(f)
-    new DivHtmlGen(RArr(f(input.valueStr)), RArr(newId))
-  }
 
   /** Creates a Div and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
   def listenStrHtml(input: UpdaterStr)(f: String => RArr[XCon]): DivHtml =
@@ -43,12 +35,6 @@ object DivHtml
   def listenDbl(input: UpdaterDblInput)(f: Double => String): DivHtml =
   { val newId: IdAtt = input.next1(f)
     new DivHtmlGen(RArr(f(input.value)), RArr(newId))
-  }
-
-  /** Creates a Div and listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
-  def listenOptHtml(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): DivHtml =
-  { val newId: IdAtt = input.nextOptHtml(f)
-    new DivHtmlGen(input.listenerInit(f), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */

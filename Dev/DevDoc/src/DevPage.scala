@@ -10,7 +10,7 @@ object DevPage extends DevPageBase
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
   val scVer: String = "3.8.4"
 
-  def central: DivHtml = DivHtml.classAtt("central", cenContents)
+  def central: DivHtml = DivHtml(cenContents, RArr(ClassAtt("central")))
   def cenContents = RArr(list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, credits)
   def list: OlSection = OlSection("The Dev module contains".h2,
     LiHtml("JavaFx application selection and developer settings for the different apps.", AHtml("osapp.jar", "Runnable jar")),

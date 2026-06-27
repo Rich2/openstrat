@@ -6,9 +6,15 @@ trait HtmlElemCompanion[T]
   def fromStr(str: String, attribs: RArr[XAtt]): T
   
   /** Creates an HTML element of the given type and registers the textContent with a String => String callback to the textContent. */
-  def listenStr(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T =
+  def listenStrText(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T =
   { val newId: IdAtt = input.next1Text(f)
     fromStr(f(input.valueStr), newId %: otherAttribs)
+  }
+
+  /** Creates an HTML element of the given type and registers the textContent with a (String, String) => String function callback. */
+  def listen2StrText(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: (String, String) => String): T =
+  { val newId: IdAtt = input1.next2Text1(input2, f)
+    fromStr(f(input1.valueStr, input2.valueStr), newId %: otherAttribs)
   }
 }
 
@@ -21,6 +27,9 @@ trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
   { val newId: IdAtt = input.nextOptHtml(f)
     apply(input.listenerInit(f), newId %: otherAttribs)
   }
+
+  /** Creates an HTML element of the given type with a class attribute. */
+  def classAtt(id: String, contents: XCon*): T = apply(contents.toArr, RArr(ClassAtt(id)))
 }
 
 case class HtmlElemBuilder(contents: RArr[XCon], attribs: RArr[XAtt])

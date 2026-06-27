@@ -90,9 +90,11 @@ trait CodeOutputLine extends CodeHtml, HtmlOwnLineBlocked
 { override def attribs: RArr[XAtt] = super.attribs +% CodeOutputAtt
 }
 
-object CodeOutputLine
+object CodeOutputLine extends HtmlElemCompanion[CodeOutputLine]
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), RArr())
+
+  override def fromStr(str: String, attribs: RArr[XAtt]): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
 
   /** Creates a code output line and registers the textContent with an HTML Text Input. */
   def listenStrText(input: UpdaterStr)(f: String => String): CodeOutputLine =

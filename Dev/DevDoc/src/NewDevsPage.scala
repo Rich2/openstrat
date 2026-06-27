@@ -97,7 +97,7 @@ object NewDevsPage extends DevPageBase
     LiHtml("Util/clean".htmlSbt, "To clean an individual module")
   ))
 
-  def chrome: Section = Section.listenOption(opNameIUT){ ops =>
+  def chrome: Section = Section.listenOptHtml(opNameIUT){ ops =>
     val last = ops match
     { case UbuntuDeriv => RArr(
         BashLine ("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
