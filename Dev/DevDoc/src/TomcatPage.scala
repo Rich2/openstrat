@@ -52,24 +52,23 @@ object TomcatPage extends DevPageBase
   LabelInputsLine(uNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
-
-  val fS1: OptionHtml => RArr[XCon] = opt =>
-  { val res1 = DivHtml("Upgrade packages.")
-    val res2: RArr[XCon] = opt match
-    { case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
+  
+  val s1: LiHtml = LiHtml.listenOptHtml(opNameIUT){ opt =>
+    val res1: XCon = DivHtml("Upgrade packages.")
+    val res2: RArr[XCon] = opt match {
+      case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
       case ArchDeriv => RArr(BashLine("Sudo pacman -Syu"))
       case _ => RArr("No code available.")
     }
     val res3 = DivHtml("Install Fail2Ban to protect against brute force login attacks")
-    val res4 =  opt match
-    { case UbuntuDeriv => BashLine("sudo apt install fail2ban")
+    val res4 = opt match {
+      case UbuntuDeriv => BashLine("sudo apt install fail2ban")
       case ArchDeriv => BashLine("pacman -S fail2ban")
       case _ => "No code available."
     }
     val res5 = BashLine("sudo systemctl enable --now fail2ban")
     res1 %: res2 +% res3 +% res4 +% res5
   }
-  val s1: LiHtml = LiHtml.listenOption(opNameIUT)(fS1)
 
   val s2 = LiHtml("""Lease a VPS. A virtual private server. The price of these have dropped considerably over the years and will almost certainly continue to
   |drop. You can purchase a VPS with a couple of cores and 4 Gig of RAM for a few dollars / pounds / Euros a month these days. If you are really tight with

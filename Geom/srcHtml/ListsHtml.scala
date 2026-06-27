@@ -66,10 +66,4 @@ object LiHtml extends HtmlElemFullCompanion[LiHtml]
 
   /** An HTML list item element that has a link as its sole content. */
   def a(link: FileSystemPath, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
-
-  /** Creates an HTML li listens to an [[UpdaterOption]] change events modifying the  inner HTML. */
-  def listenOption(input: UpdaterOption)(f: OptionHtml => RArr[XCon]): LiHtml =
-  { val newId: IdAtt = input.nextOptHtml(f)
-    new LiHtml(input.listenerInit(f), RArr(newId))
-  }
 }
