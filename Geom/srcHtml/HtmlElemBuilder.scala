@@ -3,12 +3,23 @@ package ostrat; package pweb;
 
 trait HtmlElemCompanion[T]
 {
+  def fromStr(str: String, attribs: RArr[XAtt]): T
+
+  /** Creates an HTML element of the given type and registers the textContent with a String => String callback to the textContent. */
+  def listenStr(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T ={
+    val newId: IdAtt = input.next1Text(f)
+    fromStr(f(input.valueStr), newId %: otherAttribs)
+  }
+}
+
+trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
+{
   def apply(contents: RArr[XCon], attribs: RArr[XAtt]): T
 }
 
 case class HtmlElemBuilder(contents: RArr[XCon], attribs: RArr[XAtt])
 {
-  def apply[A](builder: HtmlElemCompanion[A]): A = builder.apply(contents, attribs)
+  def apply[A](builder: HtmlElemFullCompanion[A]): A = builder.apply(contents, attribs)
 }
 
 object HtmlElemBuilder
