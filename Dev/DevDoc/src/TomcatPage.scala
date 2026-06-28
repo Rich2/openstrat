@@ -162,7 +162,7 @@ object TomcatPage extends DevPageBase
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_PID=$dir/Base/temp/tomcat.pid""""} +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_HOME=$dir/tom11/""""} +%
     DivHtml.listenStrText(dirIUT) { dir => s"""Environment="CATALINA_BASE=$dir/Base/""""} +%
-    DivHtml.listenDbl(ramIUN) { n =>
+    DivHtml.listenDblText(ramIUN) { n =>
       val nn = n * 256
       val xmsStr = nn.min(512).str0
       val xmxStr = (nn.min(512) * 2 + (nn - 512).min(0)).min(8192)
