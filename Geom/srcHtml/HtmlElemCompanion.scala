@@ -5,6 +5,12 @@ trait HtmlElemCompanion[T]
 { /** Utility method to allow many other factory methods to implemented in this super trait. */
   def fromStr(str: String, attribs: RArr[XAtt]): T
 
+  /** Creates an HTML element of the given type and registers the textContent with an [[UpdaterOption]]. */
+  def listenOptText(input1: UpdaterOption, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => String): T =
+  { val newId: IdAtt = input1.nextOptText(f)
+    fromStr(f(input1.initOption), newId %: otherAttribs)
+  }
+  
   /** Creates an HTML element of the given type and listens to an [[UpdaterOption]] and an [[UpdaterIntInput]] updating the textContent. */
   def listenOptIntText(input1: UpdaterOption, input2: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Int) => String): T =
   { val newId: IdAtt = input1.nextOptIntText1(input2, f)
@@ -29,9 +35,21 @@ trait HtmlElemCompanion[T]
     fromStr(f(input1.valueStr, input2.valueStr, input3.valueStr), newId %: otherAttribs)
   }
 
-  /** Creates  an HTML element of the given type and registers the textContent with an [[UpdaterIntInput]]. */
+  /** Creates an HTML element of the given type and registers the textContent with an [[UpdaterStr]] and an [[UpdaterDblInput]]. */
+  def listenStrDblText(input1: UpdaterStr, input2: UpdaterDblInput, otherAttribs: RArr[XAtt] = RArr())(f: (String, Double) => String): T =
+  { val newId: IdAtt = input1.nextStrDblId1(input2, f)
+    fromStr(f(input1.valueStr, input2.value), newId %: otherAttribs)
+  }
+  
+  /** Creates an HTML element of the given type and registers the textContent with an [[UpdaterIntInput]]. */
   def listenIntText(input: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: Int => String): T ={
     val newId = input.next1(f)
+    fromStr(f(input.value), newId %: otherAttribs)
+  }
+
+  /** Creates an HTML element of the given type and registers the textContent with an [[UpdaterDblInput]]. */
+  def listenDblText(input: UpdaterDblInput, otherAttribs: RArr[XAtt] = RArr())(f: Double => String): T =
+  { val newId: IdAtt = input.next1(f)
     fromStr(f(input.value), newId %: otherAttribs)
   }
 }

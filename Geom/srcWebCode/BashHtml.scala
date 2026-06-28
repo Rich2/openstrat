@@ -39,29 +39,11 @@ object BashLine extends HtmlElemCompanion[BashLine]
   def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
 
   override def fromStr(str: String, attribs: RArr[XAtt]): BashLine = new BashLine(RArr(str), attribs)
-  
-  /** Creates a Bash line and registers the textContent with an HTML Text Input and an HTML number input. */
-  def listenStrDbl(input1: UpdaterStr, input2: UpdaterDblInput)(f: (String, Double) => String): BashLine =
-  { val newId: IdAtt = input1.nextStrDblId1(input2, f)
-    new BashLine(RArr(f(input1.valueStr, input2.value)), RArr(newId))
-  }
-
-  /** Creates a Bash line and registers the textContent with an HTML number Input. */
-  def listenDbl(input: UpdaterDblInput)(f: Double => String): BashLine =
-  { val newId: IdAtt = input.next1(f)
-    new BashLine(RArr(f(input.value)), RArr(newId))
-  }
 
   /** Creates a Bash line and registers the htmlContent with an HTML Select Input. */
   def listenOptHtml(input1: UpdaterOption)(f: OptionHtml => RArr[XConInedit]): BashLine =
   { val newId: IdAtt = input1.nextOptHtml(f)
     new BashLine(f(input1.initOption), RArr(newId))
-  }
-
-  /** Creates a Bash line and registers the textContent with an HTML Select Input. */
-  def listenOptText(input1: UpdaterOption)(f: OptionHtml => String): BashLine =
-  { val newId: IdAtt = input1.nextOptText(f)
-    new BashLine(RArr(f(input1.initOption)), RArr(newId))
   }
 
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
