@@ -4,7 +4,7 @@ package ostrat; package pweb;
 trait HtmlElemCompanion[T]
 { /** Utility method to allow many other factory methods to implemented in this super trait. */
   def fromStr(str: String, attribs: RArr[XAtt]): T
-  
+
   /** Creates an HTML element of the given type and registers the textContent with a String => String callback to the textContent. */
   def listenStrText(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T =
   { val newId: IdAtt = input.next1Text(f)
@@ -16,20 +16,26 @@ trait HtmlElemCompanion[T]
   { val newId: IdAtt = input1.next2Text1(input2, f)
     fromStr(f(input1.valueStr, input2.valueStr), newId %: otherAttribs)
   }
+
+  /** Creates a code output line and registers the textContent with an [[UpdaterIntInput]]. */
+  def listenIntText(input: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: Int => String): T ={
+    val newId = input.next1(f)
+    fromStr(f(input.value), newId %: otherAttribs)
+  }
 }
 
 trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
 {
   def apply(contents: RArr[XCon], attribs: RArr[XAtt]): T
 
+  /** Creates an HTML element of the given type with a class attribute. */
+  def classAtt(id: String, contents: XCon*): T = apply(contents.toArr, RArr(ClassAtt(id)))
+
   /** Creates an HTML element of the given type and listens to an [[UpdaterOption]] change events modifying the inner HTML. */
   def listenOptHtml(input: UpdaterOption, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => RArr[XCon]): T =
   { val newId: IdAtt = input.nextOptHtml(f)
     apply(input.listenerInit(f), newId %: otherAttribs)
   }
-
-  /** Creates an HTML element of the given type with a class attribute. */
-  def classAtt(id: String, contents: XCon*): T = apply(contents.toArr, RArr(ClassAtt(id)))
 }
 
 case class HtmlElemBuilder(contents: RArr[XCon], attribs: RArr[XAtt])

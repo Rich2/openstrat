@@ -37,18 +37,14 @@ trait CodeInline extends CodeHtml, HtmlInedit
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
 }
 
-object CodeInline
+object CodeInline extends HtmlElemCompanion[CodeInline]
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(contents: XCon*): CodeInline = new CodeInlineGen(contents.toRArr, RArr())
 
   /** Factory apply method to create an inline HTML cose element. */
   def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(contents, attribs)
 
-  /** Creates an inline code text and registers the textContent with an HTML Text Input. */
-  def listenText(input: UpdaterStr)(f: String => String): CodeInline =
-  { def newId = input.next1Text(f)
-    CodeInline(RArr(f(input.valueStr)), RArr(newId))
-  }
+  override def fromStr(str: String, attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(RArr(str), attribs)
 
   /** Implementation class for the general casee of [[CodeInline]].  */
   case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends CodeInline
@@ -67,8 +63,7 @@ object CodeChangeLine
 
   /** Creates a code change line and registers the textContents with an HTML Text Input. */
   def listenText(input: UpdaterStr)(f1: String => String)(f2: String => String): CodeChangeLine =
-  {
-    val newId1 = input.next1Text(f1)
+  { val newId1 = input.next1Text(f1)
     val oldCode: CodeInline = CodeInline(RArr(f1(input.valueStr)), RArr(newId1))
     val newId2 = input.next1Text(f2)
     val newCode: CodeInline = CodeInline(RArr(f2(input.valueStr)), RArr(newId2))
@@ -96,22 +91,10 @@ object CodeOutputLine extends HtmlElemCompanion[CodeOutputLine]
 
   override def fromStr(str: String, attribs: RArr[XAtt]): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
 
-  /** Creates a code output line and registers the textContent with an HTML Text Input. */
-  def listenStrText(input: UpdaterStr)(f: String => String): CodeOutputLine =
-  { val newId = input.next1Text(f)
-    CodeOutputLineGen(RArr(f(input.valueStr)), RArr(newId))
-  }
-
   /** Creates a code output line and listens to an [[UpdaterOption]] and an [[UpdaterIntInput]] updating the textContent. */
   def listenOptIntText(input1: UpdaterOption, input2: UpdaterIntInput)(f: (OptionHtml, Int) => String): CodeOutputLine =
   { val newId: IdAtt = input1.nextOptIntText1(input2, f)
     CodeOutputLineGen(RArr(f(input1.initOption, input2.value)), RArr(newId))
-  }
-
-  /** Creates a code output line and registers the textContent with an [[UpdaterIntInput]]. */
-  def listenIntText(input: UpdaterIntInput)(f: Int => String): CodeOutputLine =
-  { val newId = input.next1(f)
-    CodeOutputLineGen(RArr(f(input.value)), RArr(newId))
   }
 
   /** Implementation class for the general case of [[CodeOutputLine]]. */
