@@ -91,12 +91,6 @@ object CodeOutputLine extends HtmlElemCompanion[CodeOutputLine]
 
   override def fromStr(str: String, attribs: RArr[XAtt]): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
 
-  /** Creates a code output line and listens to an [[UpdaterOption]] and an [[UpdaterIntInput]] updating the textContent. */
-  def listenOptIntText(input1: UpdaterOption, input2: UpdaterIntInput)(f: (OptionHtml, Int) => String): CodeOutputLine =
-  { val newId: IdAtt = input1.nextOptIntText1(input2, f)
-    CodeOutputLineGen(RArr(f(input1.initOption, input2.value)), RArr(newId))
-  }
-
   /** Implementation class for the general case of [[CodeOutputLine]]. */
   case class CodeOutputLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends CodeOutputLine
   { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs

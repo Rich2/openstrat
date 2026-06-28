@@ -5,6 +5,12 @@ trait HtmlElemCompanion[T]
 { /** Utility method to allow many other factory methods to implemented in this super trait. */
   def fromStr(str: String, attribs: RArr[XAtt]): T
 
+  /** Creates an HTML element of the given type and listens to an [[UpdaterOption]] and an [[UpdaterIntInput]] updating the textContent. */
+  def listenOptIntText(input1: UpdaterOption, input2: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Int) => String): T =
+  { val newId: IdAtt = input1.nextOptIntText1(input2, f)
+    fromStr(f(input1.initOption, input2.value), newId %: otherAttribs)
+  }
+
   /** Creates an HTML element of the given type and registers the textContent with a String => String callback to the textContent. */
   def listenStrText(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T =
   { val newId: IdAtt = input.next1Text(f)
@@ -17,7 +23,13 @@ trait HtmlElemCompanion[T]
     fromStr(f(input1.valueStr, input2.valueStr), newId %: otherAttribs)
   }
 
-  /** Creates a code output line and registers the textContent with an [[UpdaterIntInput]]. */
+  /** Creates  an HTML element of the given type and registers the textContent with a (String, String, String) => String callback. */
+  def listen3StrText(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: (String, String, String) => String): T =
+  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
+    fromStr(f(input1.valueStr, input2.valueStr, input3.valueStr), newId %: otherAttribs)
+  }
+
+  /** Creates  an HTML element of the given type and registers the textContent with an [[UpdaterIntInput]]. */
   def listenIntText(input: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: Int => String): T ={
     val newId = input.next1(f)
     fromStr(f(input.value), newId %: otherAttribs)
@@ -35,19 +47,5 @@ trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
   def listenOptHtml(input: UpdaterOption, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => RArr[XCon]): T =
   { val newId: IdAtt = input.nextOptHtml(f)
     apply(input.listenerInit(f), newId %: otherAttribs)
-  }
-}
-
-case class HtmlElemBuilder(contents: RArr[XCon], attribs: RArr[XAtt])
-{
-  def apply[A](builder: HtmlElemFullCompanion[A]): A = builder.apply(contents, attribs)
-}
-
-object HtmlElemBuilder
-{
-  /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptIntHtml(input1: UpdaterOption, input2: UpdaterIntInput)(f: (OptionHtml, Int) => RArr[XCon]): HtmlElemBuilder =
-  { val newId: IdAtt = input1.nextOptInt1Html(input2, f)
-    HtmlElemBuilder(f(input1.initOption, input2.value), RArr(newId))
   }
 }

@@ -39,16 +39,7 @@ object BashLine extends HtmlElemCompanion[BashLine]
   def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
 
   override def fromStr(str: String, attribs: RArr[XAtt]): BashLine = new BashLine(RArr(str), attribs)
-
-  /** Factory method to write Bash code in HTML on its own line with a class attribute. */
-  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashLine = new BashLine(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
-
-  /** Creates a Bash line and registers the textContent with a (String, String, String) => String callback to this [[BashLine]]'s textContent. */
-  def listen3Str(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr)(f: (String, String, String) => String): BashLine =
-  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
-    new BashLine(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), RArr(newId))
-  }
-
+  
   /** Creates a Bash line and registers the textContent with an HTML Text Input and an HTML number input. */
   def listenStrDbl(input1: UpdaterStr, input2: UpdaterDblInput)(f: (String, Double) => String): BashLine =
   { val newId: IdAtt = input1.nextStrDblId1(input2, f)
