@@ -24,7 +24,7 @@ object DivHtml extends HtmlElemFullCompanion[DivHtml]
   class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends DivHtml, HtmlOwnLine
 }
 
-/** HTML Div that requires its own liine in the editor. */
+/** HTML Div that requires its own line in the editor. */
 trait DivLine extends DivHtml, HtmlOwnLine
 
 /** Class for creating HTML Div element with a Style attribute with a colour declaration. */
