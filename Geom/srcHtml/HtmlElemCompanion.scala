@@ -17,6 +17,11 @@ trait HtmlElemCompanion[T]
     fromStr(f(input1.initOption, input2.value), newId %: otherAttribs)
   }
 
+  /** Creates an HTML element of the given type and registers the textContent with an HTML Select Input and an HTML number input. */
+  def listenOptDblText(input1: UpdaterOption, input2: UpdaterDblInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Double) => String): T =
+  { val newId: IdAtt = input1.nextOptDblText1(input2, f)
+    fromStr(f(input1.initOption, input2.value), newId %: otherAttribs)
+  }
   /** Creates an HTML element of the given type and registers the textContent with a String => String callback to the textContent. */
   def listenStrText(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T =
   { val newId: IdAtt = input.next1Text(f)
@@ -65,5 +70,11 @@ trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
   def listenOptHtml(input: UpdaterOption, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => RArr[XCon]): T =
   { val newId: IdAtt = input.nextOptHtml(f)
     apply(input.listenerInit(f), newId %: otherAttribs)
+  }
+
+  /** Creates an HTML element of the given type and registers the textContent with an HTML Select Input and an HTML number input. */
+  def listenOptDblHtml(input1: UpdaterOption, input2: UpdaterDblInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Double) => RArr[XCon]): T =
+  { val newId: IdAtt = input1.nextOptDbl1Html(input2, f)
+    apply(f(input1.initOption, input2.value), newId %: otherAttribs)
   }
 }
