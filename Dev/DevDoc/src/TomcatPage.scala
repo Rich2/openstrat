@@ -126,6 +126,7 @@ object TomcatPage extends DevPageBase
   |instructions, then this is redundant.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base/logs"),
   BashLine(tomcatDirPrompt, "mkdir Base/conf"),
+  BashLine(tomcatDirPrompt, "mkdir Base/temp"),
   BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml Base/conf"),
   """Create a home page for your server. Again not necessary if base and home are set to the same directory, as Tomcat comes with web pages and example
   |apps.""".stripMargin,

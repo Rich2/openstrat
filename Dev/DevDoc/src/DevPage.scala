@@ -37,7 +37,7 @@ object DevPage extends DevPageBase
     "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
     "JavaFx: 25.0.3",
-    "Sbt: 2.0.0",
+    "Sbt: 2.0.1",
     "Mill: 1.1.6 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
