@@ -109,11 +109,6 @@ case class ValueAtt(valueStr: String) extends XAttShort
 { override def name: String = "value"
 }
 
-/** The XML value attribute. */
-case class VersionAtt(valueStr: String) extends XAttShort
-{ override def name: String = "version"
-}
-
 /** The XML xmlns namespace attribute. */
 case class XmlnsAtt(valueStr: String) extends XAttShort
 { override def name: String = "xmlns"

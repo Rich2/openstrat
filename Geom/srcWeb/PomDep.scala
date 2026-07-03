@@ -1,5 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
+import wcode.*
 
 /** XML element for POM file dependency */
 trait PomDep() extends XmlTagLines
@@ -33,48 +34,48 @@ object PomDependenciesElem
 }
 
 /** XML element for a POM dependency for a version of the Scala3 library. */
-class ScalaLibDep(val version: SwVersion) extends PomDep
+class ScalaLibDep(val version: VersionPatch) extends PomDep
 { override def groupId: GroupId = ScalaGroup
   override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
 }
 
 object ScalaLibDep
 { /** Factory apply method to create an XML dependency element for the Scala standard Library to use in a POM file. */
-  def apply(version: SwVersion): ScalaLibDep = new ScalaLibDep(version)
+  def apply(version: VersionPatch): ScalaLibDep = new ScalaLibDep(version)
 }
 
 /** XML element for a POM dependency for a version of the Scala3.js library. */
-class ScalaJsLibDep(val version: SwVersion) extends PomDep
+class ScalaJsLibDep(val version: VersionPatch) extends PomDep
 { override def groupId: GroupId = ScalaGroup
   override def artifactId: ArtifactId = ArtifactId("scala3-library_sjs1_3")
 }
 
 object ScalaJsLibDep
 { /** Factory apply method to create an XML dependency element for the Scala.js standard Library to use in a POM file. */
-  def apply(version: SwVersion): ScalaJsLibDep = new ScalaJsLibDep(version)
+  def apply(version: VersionPatch): ScalaJsLibDep = new ScalaJsLibDep(version)
 }
 
 /** Scala.js DOM libray dependency. */
-class ScalaDomDep(val version: SwVersion) extends PomDep
+class ScalaDomDep(val version: VersionPatch) extends PomDep
 { override def groupId: GroupId = ScalaJsGroup
   override def artifactId: ArtifactId = ArtifactId("Scalajs-dom")
 }
 
 object ScalaDomDep
 { /** Factory apply method to create an XML POM dependency for Scal.js DOM library. */
-  def apply(version: SwVersion = SwVersion(2, 8, 1)): ScalaDomDep = new ScalaDomDep(version)
+  def apply(version: VersionPatch = VersionPatch(2, 8, 1)): ScalaDomDep = new ScalaDomDep(version)
 }
 
 /** XML element for a POM dependency for a version of the javafx-controls library. */
-class JavaFxControlsDep(val version: SwVersion) extends PomDep
+class JavaFxControlsDep(val version: VersionPatch) extends PomDep
 { override def groupId: GroupId = OpenJfxId
   override def artifactId: ArtifactId = ArtifactId("javafx-controls")
 }
 
 object JavaFxControlsDep
 { /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes the point numbers as parameters */
-  def apply(version: SwVersion): JavaFxControlsDep = new JavaFxControlsDep(version)
+  def apply(version: VersionPatch): JavaFxControlsDep = new JavaFxControlsDep(version)
 
-  /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[SwVersion]] as its parameter. */
-  def apply(n1: Int = 25, n2: Int = 0, n3: Int = 2): JavaFxControlsDep = new JavaFxControlsDep(SwVersion(n1, n2, n3))
+  /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[VersionPatch]] as its parameter. */
+  def apply(n1: Int = 25, n2: Int = 0, n3: Int = 2): JavaFxControlsDep = new JavaFxControlsDep(VersionPatch(n1, n2, n3))
 }

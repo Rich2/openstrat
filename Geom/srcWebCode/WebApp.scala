@@ -1,5 +1,5 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pweb
+package ostrat; package pweb; package wcode
 
 /** web.xml file for a Servlet. */
 trait WebApp extends XmlTagLines
@@ -7,7 +7,7 @@ trait WebApp extends XmlTagLines
 }
 
 /** web.xml file for a Servlet 6.0. */
-trait WebApp6 extends WebApp
+trait Web6App extends WebApp
 { override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, JakartaLoc6, VersionAtt("6.0"), MetadataCompleted)
 }
 

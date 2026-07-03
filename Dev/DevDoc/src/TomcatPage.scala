@@ -153,8 +153,8 @@ object TomcatPage extends DevPageBase
     DivHtml("Type=forking") +%
     DivHtml("") +%
     DivHtml.listenOptHtml(opNameIUT){ ops =>
-      val javaStr: String = ops match {
-        case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
+      val javaStr: String = ops match
+      { case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
         case ArchDeriv => "java-25-openjdk"
         case _ => "No code available"
       }
@@ -258,4 +258,6 @@ object TomcatPage extends DevPageBase
   BashLine("sudo systemctl status tom11"),
   SpanLine.listenText(domainIUT){ dName => s"Go to https://$dName" }  
   )
+  
+  val s14: LiHtml = LiHtml("Creating a servlet")
 }

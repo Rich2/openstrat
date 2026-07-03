@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.*, webjvm.*, pDoc.*
+import pweb.*, wcode.*, webjvm.*, pDoc.*
 
 /** A module for the purposes of creating POM files. */
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
@@ -13,8 +13,8 @@ object Module
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val version: SwVersion = SwVersion(0, 3, 13)
-  val scalaVersion = SwVersion(3, 8, 2)
+  val version: VersionPatch = VersionPatch(0, 3, 13)
+  val scalaVersion = VersionPatch(3, 8, 2)
 
   val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer, GeomJsPommer, GeomFxPommer)
 
