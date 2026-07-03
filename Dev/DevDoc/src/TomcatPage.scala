@@ -51,7 +51,7 @@ object TomcatPage extends DevPageBase
   def pUpdaters: PHtml = PHtml(updaterExplain,
   LabelInputsLine(uNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
-  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13)
+  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14)
   
   val s1: LiHtml = LiHtml.listenOptHtml(opNameIUT){ opt =>
     val res1: XCon = DivHtml("Upgrade packages.")
@@ -258,6 +258,8 @@ object TomcatPage extends DevPageBase
   BashLine("sudo systemctl status tom11"),
   SpanLine.listenText(domainIUT){ dName => s"Go to https://$dName" }  
   )
-  
-  val s14: LiHtml = LiHtml("Creating a servlet")
+
+  val xmlFile = Web6App1("Hello", "ostrat.pDev.HelloServlet")
+  val s14: LiHtml = LiHtml("Creating a servlet",
+    PreCode(xmlFile.out(0, 0, 80)))
 }

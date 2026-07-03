@@ -8,7 +8,22 @@ trait WebApp extends XmlTagLines
 
 /** web.xml file for a Servlet 6.0. */
 trait Web6App extends WebApp
-{ override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, JakartaLoc6, VersionMinorAtt(6), MetadataCompleted)
+{ override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, Jakarta6Loc, VersionMinorAtt(6, 0), MetadataCompleted)
+}
+
+/** web.xml file for a Servlet 6.1. */
+trait Web6App1 extends WebApp
+{ override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, Jakarta6Loc1, VersionMinorAtt(6, 1), MetadataCompleted)
+}
+
+object Web6App1
+{
+  def apply(name: String, javaClassPath: String, domain: String = "/"): Web6App1 = Web6App1Gen(name, javaClassPath, domain)
+  
+  case class Web6App1Gen(name: String, javaClassPath: String, domain: String) extends Web6App1
+  {
+    override def contents: RArr[XConCompound] = ServletElem.withMapping(name, javaClassPath)(domain)
+  }
 }
 
 /** Servlet XML element for Jakarta. */
@@ -42,7 +57,10 @@ object JakartaNs extends XmlnsAtt("https://jakarta.ee/xml/ns/jakartaee")
 object JakartaXsi extends XmlNsXsi("http://www.w3.org/2001/XMLSchema-instance")
 
 /** The Jakarta XML schema location. */
-object JakartaLoc6 extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd""")
+object Jakarta6Loc extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd""")
+
+/** The Jakarta XML schema location. */
+object Jakarta6Loc1 extends XsiSchemaLoc("""https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd""")
 
 /** metadata-complete="true" */
 object MetadataCompleted extends XmlAttGen("metadata-complete", "true")

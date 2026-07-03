@@ -61,4 +61,4 @@ trait VersionAtt extends XAttShort, SwVersion
   override def valueStr: String = str
 }
 
-case class VersionMinorAtt(major: Int, minor: Int = 0, oPreStr: Option[String] = None, oPreNum: Option[Int] = None) extends VersionAtt, VersionMinor
+case class VersionMinorAtt(major: Int, minor: Int, oPreStr: Option[String] = None, oPreNum: Option[Int] = None) extends VersionAtt, VersionMinor
