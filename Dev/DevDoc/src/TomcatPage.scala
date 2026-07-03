@@ -260,6 +260,11 @@ object TomcatPage extends DevPageBase
   )
 
   val xmlFile = Web6App1("Hello", "ostrat.pDev.HelloServlet")
-  val s14: LiHtml = LiHtml("Creating a servlet",
-    PreCode(xmlFile.out(0, 0, 80)))
+  val s14: LiHtml = LiHtml(
+    "Creating a servlet",
+    BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Hello/WEB-INF/classes"),
+    "Place the following in Base/webapps/Hello/WEB-INF/web.xml",
+    PreCode(xmlFile.out(0, 0, 80)),
+    BashLine(tomcatDirPrompt, "mkdir Base/webapps/Hello/WEB-INF/lib"),
+  )
 }
