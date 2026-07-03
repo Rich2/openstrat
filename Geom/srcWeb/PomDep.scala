@@ -7,18 +7,18 @@ trait PomDep() extends XmlTagLines
 { override def tagName: String = "dependency"
   def groupId: GroupId
   def artifactId: ArtifactId
-  def version: VersionElem
+  def version: SwVersionElem
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XConCompound] = RArr(groupId, artifactId, version)
 }
 
 object PomDep
 { /** Factory apply method to construct [[PomDep]] from [[String]]s. */
-  def apply(groupStr: String, artifactStr: String, versionStr: String): PomDep =
-    new PomDepGen(GroupId(groupStr), ArtifactId(artifactStr), VersionElem(versionStr))
+  def apply(groupStr: String, artifactStr: String, major: Int, minor: Int, patch: Int, oPreStr: Option[String] = None, oPreNum: Option[Int] = None): PomDep =
+    new PomDepGen(GroupId(groupStr), ArtifactId(artifactStr), VersionPatchElem(major, minor, patch, oPreStr, oPreNum))
 
   /** General implementation class for [[PomDep]] anXML element for POM file dependency */
-  case class PomDepGen(groupId: GroupId, artifactId: ArtifactId, version: VersionElem) extends PomDep
+  case class PomDepGen(groupId: GroupId, artifactId: ArtifactId, version: SwVersionElem) extends PomDep
 }
 
 /** XML element for POM file dependencies. Note the plural. Takes individual [[PomDep]]s as its child elements. */
@@ -34,48 +34,48 @@ object PomDependenciesElem
 }
 
 /** XML element for a POM dependency for a version of the Scala3 library. */
-class ScalaLibDep(val version: VersionPatch) extends PomDep
+class ScalaLibDep(val version: VersionPatchElem) extends PomDep
 { override def groupId: GroupId = ScalaGroup
   override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
 }
 
 object ScalaLibDep
 { /** Factory apply method to create an XML dependency element for the Scala standard Library to use in a POM file. */
-  def apply(version: VersionPatch): ScalaLibDep = new ScalaLibDep(version)
+  def apply(version: VersionPatchElem): ScalaLibDep = new ScalaLibDep(version)
 }
 
 /** XML element for a POM dependency for a version of the Scala3.js library. */
-class ScalaJsLibDep(val version: VersionPatch) extends PomDep
+class ScalaJsLibDep(val version: VersionPatchElem) extends PomDep
 { override def groupId: GroupId = ScalaGroup
   override def artifactId: ArtifactId = ArtifactId("scala3-library_sjs1_3")
 }
 
 object ScalaJsLibDep
 { /** Factory apply method to create an XML dependency element for the Scala.js standard Library to use in a POM file. */
-  def apply(version: VersionPatch): ScalaJsLibDep = new ScalaJsLibDep(version)
+  def apply(version: VersionPatchElem): ScalaJsLibDep = new ScalaJsLibDep(version)
 }
 
 /** Scala.js DOM libray dependency. */
-class ScalaDomDep(val version: VersionPatch) extends PomDep
+class ScalaDomDep(val version: VersionPatchElem) extends PomDep
 { override def groupId: GroupId = ScalaJsGroup
   override def artifactId: ArtifactId = ArtifactId("Scalajs-dom")
 }
 
 object ScalaDomDep
 { /** Factory apply method to create an XML POM dependency for Scal.js DOM library. */
-  def apply(version: VersionPatch = VersionPatch(2, 8, 1)): ScalaDomDep = new ScalaDomDep(version)
+  def apply(version: VersionPatchElem = VersionPatchElem(2, 8, 1)): ScalaDomDep = new ScalaDomDep(version)
 }
 
 /** XML element for a POM dependency for a version of the javafx-controls library. */
-class JavaFxControlsDep(val version: VersionPatch) extends PomDep
+class JavaFxControlsDep(val version: VersionPatchElem) extends PomDep
 { override def groupId: GroupId = OpenJfxId
   override def artifactId: ArtifactId = ArtifactId("javafx-controls")
 }
 
 object JavaFxControlsDep
 { /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes the point numbers as parameters */
-  def apply(version: VersionPatch): JavaFxControlsDep = new JavaFxControlsDep(version)
+  def apply(version: VersionPatchElem): JavaFxControlsDep = new JavaFxControlsDep(version)
 
-  /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[VersionPatch]] as its parameter. */
-  def apply(n1: Int = 25, n2: Int = 0, n3: Int = 2): JavaFxControlsDep = new JavaFxControlsDep(VersionPatch(n1, n2, n3))
+  /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[VersionPatchElem]] as its parameter. */
+  def apply(n1: Int = 25, n2: Int = 0, n3: Int = 2): JavaFxControlsDep = new JavaFxControlsDep(VersionPatchElem(n1, n2, n3))
 }

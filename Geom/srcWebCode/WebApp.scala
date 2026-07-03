@@ -8,7 +8,7 @@ trait WebApp extends XmlTagLines
 
 /** web.xml file for a Servlet 6.0. */
 trait Web6App extends WebApp
-{ override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, JakartaLoc6, VersionAtt("6.0"), MetadataCompleted)
+{ override def attribs: RArr[XAtt] = RArr(JakartaNs, JakartaXsi, JakartaLoc6, VersionMinorAtt(6), MetadataCompleted)
 }
 
 /** Servlet XML element for Jakarta. */

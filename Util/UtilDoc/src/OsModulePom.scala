@@ -8,18 +8,18 @@ object RichstratID extends GroupId("com.richstrat")
 /** An openstrat module POM dependency minus its version. */
 case class OsPomDepVerless(idStr: String)
 { /** Adds the missing version to the openstrat dependency. */
-  def version(version: VersionPatch): OsPomDep = OsPomDep(idStr, version)
+  def version(version: VersionPatchElem): OsPomDep = OsPomDep(idStr, version)
 }
 
 /** An Openstrat module POM dependency. */
-case class OsPomDep(idStr: String, override val version: VersionPatch) extends PomDep
+case class OsPomDep(idStr: String, override val version: VersionPatchElem) extends PomDep
 { override val groupId: GroupId = RichstratID
   override def artifactId: ArtifactId = ArtifactId(idStr)
 }
 
 /** An Openstrat module class for Poms and Jar staging. */
 trait OsModulePom extends PomModule
-{ def scalaVersion: VersionPatch
+{ def scalaVersion: VersionPatchElem
   def artifactStr: String
   override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override val groudId: GroupId = RichstratID
@@ -27,24 +27,24 @@ trait OsModulePom extends PomModule
 }
 
 /** An Openstrat class for JVM modules / subprojects for Pom module. */
-class OsModuleJvm(val artifactStr: String, val version: VersionPatch, val scalaVersion: VersionPatch, val otherDependencies: RArr[PomDep]) extends OsModulePom
+class OsModuleJvm(val artifactStr: String, val version: VersionPatchElem, val scalaVersion: VersionPatchElem, val otherDependencies: RArr[PomDep]) extends OsModulePom
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDep(scalaVersion)
 }
 
 object OsModuleJvm
 {
-  def apply(artifactStr: String, version: VersionPatch, scalaVersion: VersionPatch, dependencies: RArr[PomDep]): OsModuleJvm =
+  def apply(artifactStr: String, version: VersionPatchElem, scalaVersion: VersionPatchElem, dependencies: RArr[PomDep]): OsModuleJvm =
     new OsModuleJvm(artifactStr, version, scalaVersion, dependencies)
 
-  def apply(artifactStr: String, version: VersionPatch, scalaVersion: VersionPatch, moduleStrs: StrArr): OsModuleJvm =
+  def apply(artifactStr: String, version: VersionPatchElem, scalaVersion: VersionPatchElem, moduleStrs: StrArr): OsModuleJvm =
   { val dependencies: RArr[PomDep] = moduleStrs.map(s => OsPomDep(s, version))
     new OsModuleJvm(artifactStr, version, scalaVersion, dependencies)
   }
 }
 
 /** An Openstrat class for JavaScript modules / subprojects for Pom module. */
-class OsModuleJs(val artifactStr: String, val version: VersionPatch, val scalaVersion: VersionPatch, val otherDependencies: RArr[PomDep]) extends OsModulePom
+class OsModuleJs(val artifactStr: String, val version: VersionPatchElem, val scalaVersion: VersionPatchElem, val otherDependencies: RArr[PomDep]) extends OsModulePom
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override def dependencies: RArr[PomDep] = otherDependencies +% ScalaJsLibDep(scalaVersion)
 }
@@ -59,14 +59,14 @@ trait OsModulePomVerless
 
   def otherDeps: RArr[PomDep]
 
-  def version(version: VersionPatch, scalaVersion: VersionPatch): OsModulePom
+  def version(version: VersionPatchElem, scalaVersion: VersionPatchElem): OsModulePom
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
 class OsModuleJvmVerless(val moduleDir: DirsRel, val artifactStr: String, val osPomDeps: RArr[OsModuleJvmVerless], val otherDeps: RArr[PomDep]) extends
   OsModulePomVerless
 {
-  def version(version: VersionPatch, scalaVersion: VersionPatch): OsModulePom =
+  def version(version: VersionPatchElem, scalaVersion: VersionPatchElem): OsModulePom =
     OsModuleJvm(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 
@@ -83,7 +83,7 @@ object UtilPommer extends OsModuleJvmVerless(DirsRel("Util"), "rutil", RArr(), R
 class OsModuleJsVerless(val moduleDir: DirsRel, val artifactStr: String, val osPomDeps: RArr[OsModuleJsVerless], val otherDeps: RArr[PomDep]) extends
   OsModulePomVerless
 {
-  def version(version: VersionPatch, scalaVersion: VersionPatch): OsModuleJs =
+  def version(version: VersionPatchElem, scalaVersion: VersionPatchElem): OsModuleJs =
     OsModuleJs(artifactStr, version, scalaVersion, osPomDeps.map{ proj => OsPomDep(proj.artifactStr, version) } ++ otherDeps)
 }
 

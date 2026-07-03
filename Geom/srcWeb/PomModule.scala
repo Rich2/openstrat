@@ -6,7 +6,7 @@ import wcode.*
 trait PomModule extends XmlTagLines
 { def artifactId: ArtifactId
   def groudId: GroupId
-  def version: VersionElem
+  def version: SwVersionElem
   def modelVersion: XmlElem = XmlElemSimple("modelVersion", "4.0.0")
   override def tagName: String = "project"
   override def attribs: RArr[XAtt] = RArr()
