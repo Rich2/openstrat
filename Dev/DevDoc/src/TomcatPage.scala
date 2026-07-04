@@ -51,7 +51,7 @@ object TomcatPage extends DevPageBase
   def pUpdaters: PHtml = PHtml(updaterExplain,
   LabelInputsLine(uNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
-  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14)
+  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
   
   val s1: LiHtml = LiHtml.listenOptHtml(opNameIUT){ opt =>
     val res1: XCon = DivHtml("Upgrade packages.")
@@ -261,14 +261,19 @@ object TomcatPage extends DevPageBase
   SpanLine.listenText(domainIUT){ dName => s"Go to https://$dName" }  
   )
 
-  val xmlFile = Web6App1("Hello", "ostrat.pDev.HelloServlet")
   val s14: LiHtml = LiHtml(
     "Creating a servlet",
     BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Hello/WEB-INF/classes"),
     "Place the following in Base/webapps/Hello/WEB-INF/web.xml",
-    PreCode(xmlFile.out(0, 0, 80)),
-    BashLine(tomcatDirPrompt, "mkdir Base/webapps/Hello/WEB-INF/lib"),
+    PreCode(Web6App1("Hello", "ostrat.pDev.HelloServlet").out(0, 0, 80)),
     "Download", AHtml("https://repo1.maven.org/maven2/org/scala-lang/scala-library/3.8.4/scala-library-3.8.4.jar"), """into Base/lib directory. We're putting it
     |into Base/lib rather than Hello/WEB-INF/lib, so it can be used by all web apps.""".stripMargin
+  )
+
+  val s15 =LiHtml(
+    BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Cookies1/WEB-INF/classes"),
+    "Place the following in Base/webapps/Cookies1/WEB-INF/web.xml",
+    PreCode(Web6App1("Cookies1", "ostrat.pDev.Cookies1").out(0, 0, 80)),
+    "Add rutil and geom jars to Base/lib directory."
   )
 }

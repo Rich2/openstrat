@@ -332,11 +332,6 @@ object Servlet extends CommonJvm
   def moduleDeps = Seq(Dev)
 }
 
-object ServletExtras extends CommonJvm
-{ def sources = Task.Sources(workspaceRoot / "Dev" / "ServletExtras" / "src")
-  def moduleDeps = Seq(Dev)
-}
-
 def packAllMain = Task{
   Util.jar()
   Geom.jar()
