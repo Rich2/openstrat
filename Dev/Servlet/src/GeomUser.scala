@@ -3,7 +3,7 @@ package ostrat; package pDev
 import jakarta.*, servlet.annotation.WebServlet, servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pweb.*
 
 /** First openstrat Servlet for Tomcat and Jetty. */
-@WebServlet(urlPatterns = Array("/")) class Cookies1 extends HttpServlet
+@WebServlet(urlPatterns = Array("/")) class GeomUser extends HttpServlet
 { var users: Int = 0
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
@@ -11,7 +11,7 @@ import jakarta.*, servlet.annotation.WebServlet, servlet.http.{ Cookie, HttpServ
     val head = HeadHtml.title("First cookies")
     val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
-    val body = BodyHtml(s"Hello from Servlet: ${ints.str}", PHtml(cookies2.toString))
+    val body = BodyHtml(s"Hello from Servlet: ${ints.str}", PHtml(cookies2.mkStr(" ")))
     val page = HtmlPage(head, body)
     if (cookies2.empty)
     { users += 1
