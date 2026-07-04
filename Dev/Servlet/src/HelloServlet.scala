@@ -2,9 +2,9 @@
 package ostrat; package pDev
 import jakarta.servlet.http.{Cookie, HttpServlet, HttpServletRequest => HSReq, HttpServletResponse => HSResp}
 
+/** BasicServlet that only requires the scala-library-3.8.4.jar in Base/lib directory. See richstrat.com/tomcat.html for setup. */
 class HelloServlet extends HttpServlet
-{
-  var numReqs: Int = 0
+{ var numReqs: Int = 0
   def html(str: String): String =
     s"""<body>
        |<h1>This is the start!</h1>
@@ -14,10 +14,10 @@ class HelloServlet extends HttpServlet
        |""".stripMargin
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
-  { val str = req.getMethod
+  { val str1 = "Method = " + req.getMethod
     numReqs += 1
     val cookies = req.getCookies
-    val str2 = if (cookies == null) "null" else "Yeah " + cookies(0).toString + "<br>\n"//cookies.toString
+    val str2 = if (cookies == null) "null" else s"\nName = ${cookies(0).getName}\nValue = ${cookies(0).getValue}<br>\n"
     val cont = req.getContextPath
     val str3: String = "Context = " + (if(cont == null) "null" else cont) + "<br>\n"
     val pathInfo = req.getPathInfo()
@@ -31,7 +31,7 @@ class HelloServlet extends HttpServlet
     val servPath = req.getServletPath()
     val str8: String = "Serv Path = " + (if (servPath == null) "null" else servPath) + "<br>\n"
 
-    resp.getWriter().println(html(str + str2 + str3 + str4 + str5 + str6 + str7 + str8))
+    resp.getWriter().println(html(str1 + str2 + str3 + str4 + str5 + str6 + str7 + str8))
 
     val c = new Cookie("Visit", "1")
     resp.addCookie(c)

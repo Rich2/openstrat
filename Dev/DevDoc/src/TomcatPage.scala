@@ -125,9 +125,11 @@ object TomcatPage extends DevPageBase
   |the base directory structure. If the catalina base and catalina home directories are the same, which is often the case in beginners installation
   |instructions, then this is redundant.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base/logs"),
-  BashLine(tomcatDirPrompt, "mkdir Base/conf"),
+  BashLine(tomcatDirPrompt, "mkdir Base/lib"),
   BashLine(tomcatDirPrompt, "mkdir Base/temp"),
-  BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml Base/conf"),
+  BashLine(tomcatDirPrompt, "mkdir Base/conf"),
+
+  BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml catalina.properties Base/conf"),
   """Create a home page for your server. Again not necessary if base and home are set to the same directory, as Tomcat comes with web pages and example
   |apps.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
@@ -266,5 +268,7 @@ object TomcatPage extends DevPageBase
     "Place the following in Base/webapps/Hello/WEB-INF/web.xml",
     PreCode(xmlFile.out(0, 0, 80)),
     BashLine(tomcatDirPrompt, "mkdir Base/webapps/Hello/WEB-INF/lib"),
+    "Download", AHtml("https://repo1.maven.org/maven2/org/scala-lang/scala-library/3.8.4/scala-library-3.8.4.jar"), """into Base/lib directory. We're putting it
+    |into Base/lib rather than Hello/WEB-INF/lib, so it can be used by all web apps.""".stripMargin
   )
 }
