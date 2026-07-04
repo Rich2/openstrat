@@ -1,9 +1,9 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import jakarta.servlet.http.{Cookie, HttpServlet, HttpServletRequest => HSReq, HttpServletResponse => HSResp}
+import jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
 
 /** BasicServlet that only requires the scala-library-3.8.4.jar in Base/lib directory. See richstrat.com/tomcat.html for setup. */
-class HelloServlet extends HttpServlet
+@WebServlet(urlPatterns = Array("/")) class HelloServlet extends HttpServlet
 { var numReqs: Int = 0
   def html(str: String): String =
     s"""<body>

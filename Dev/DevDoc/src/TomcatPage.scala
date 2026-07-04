@@ -262,18 +262,19 @@ object TomcatPage extends DevPageBase
   )
 
   val s14: LiHtml = LiHtml(
-    "Creating a servlet",
-    BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Hello/WEB-INF/classes"),
-    "Place the following in Base/webapps/Hello/WEB-INF/web.xml",
+    "Creating a very basic servlet in Scala",
+    BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Hello/WEB-INF/classes/ostrat/pDev"),
+    "In Sbt run Servlet/compile",
+    "Copy the HelloServlet.class file into above folder.",
+    "We could use the following in Base/webapps/Hello/WEB-INF/web.xml, but there's no need as these servlets have the WebServlet annotation.",
     PreCode(Web6App1("Hello", "ostrat.pDev.HelloServlet").out(0, 0, 80)),
     "Download", AHtml("https://repo1.maven.org/maven2/org/scala-lang/scala-library/3.8.4/scala-library-3.8.4.jar"), """into Base/lib directory. We're putting it
     |into Base/lib rather than Hello/WEB-INF/lib, so it can be used by all web apps.""".stripMargin
   )
 
-  val s15 =LiHtml(
-    BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Cookies1/WEB-INF/classes"),
-    "Place the following in Base/webapps/Cookies1/WEB-INF/web.xml",
-    PreCode(Web6App1("Cookies1", "ostrat.pDev.Cookies1").out(0, 0, 80)),
-    "Add rutil and geom jars to Base/lib directory."
+  val s15: LiHtml = LiHtml("Creating a servlet that uses the Util and Geom modules.",
+    BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/Cookies1/WEB-INF/classes/ostrat/pDev"),
+    "Copy the Cookies1.class file into above folder.",
+    "Add the Util and Geom jars to Base/lib."
   )
 }

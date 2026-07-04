@@ -1,9 +1,9 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import jakarta.servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pweb.*
+import jakarta.*, servlet.annotation.WebServlet, servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pweb.*
 
 /** First openstrat Servlet for Tomcat and Jetty. */
-class Cookies1 extends HttpServlet
+@WebServlet(urlPatterns = Array("/")) class Cookies1 extends HttpServlet
 { var users: Int = 0
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
