@@ -1,6 +1,7 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import jakarta.*, servlet.annotation.WebServlet, servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pweb.*
+import jakarta.*, servlet.annotation.WebServlet, servlet.http.{ Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }
+import geom.*, pweb.*
 
 /** First openstrat Servlet for Tomcat and Jetty. */
 @WebServlet(urlPatterns = Array("/")) class GeomUser extends HttpServlet
@@ -11,7 +12,11 @@ import jakarta.*, servlet.annotation.WebServlet, servlet.http.{ Cookie, HttpServ
     val head = HeadHtml.title("First cookies")
     val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
-    val body = BodyHtml(s"Hello from Servlet: ${ints.str}", PHtml(cookies2.mkStr(" ")))
+    val body = BodyHtml(
+      s"This is the GeomOser Servlet: ${ints.str}",
+      PHtml(cookies2.mkStr(" ")),
+      SvgSvgRel.auto(20, RArr(Circle(100).fill(Colour.Red)))
+    )
     val page = HtmlPage(head, body)
     if (cookies2.empty)
     { users += 1
