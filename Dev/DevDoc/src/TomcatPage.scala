@@ -20,36 +20,47 @@ object TomcatPage extends DevPageBase
   |up Tomcat on your own Desktop, laptop, home server or VPS.""".stripMargin)
   
   val nset: String = "nset"
-  val cName1: String = "computer"
+  
+  /** Initial value for computer name. */
+  val computerName1: String = "computer"
   val cset: String = "cset"
-  val userAtCom: String = uName1 + "@" + cName1
+  //val userAtCom: String = userName1 + "@" + computerName1
   val tcMajorVer: String = "11.0"
   val tcMinorVer: String = "23"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "localhost"
   
-  val uName1: String = "tommy"
-  val uNameLTI: LabelTextInput = LabelTextInput("uName", "User Name", uName1)
-  val uNameIUT: UpdaterStrInput = uNameLTI.child2
+  /** Initial value for user name. */
+  val userName1: String = "tommy"
   
-  val cNameLTI: LabelTextInput = LabelTextInput("cName", "Computer Name", cName1)
-  val cNameIUT: UpdaterStrInput = cNameLTI.child2
+  /** [[UpdaterStrInput]] and it's label for user name. */
+  val userNameLTI: LabelStrInput = LabelStrInput("uName", "User Name", userName1)
+
+  /** Updater for user name. */
+  val userNameIUT: UpdaterStrInput = userNameLTI.child2
+  
+  /** [[UpdaterStrInput]] and it's label for computer name. */
+  val computerNameLTI: LabelStrInput = LabelStrInput("cName", "Computer Name", computerName1)
+
+  /** Updater for user name. */
+  val computerNameIUT: UpdaterStrInput = computerNameLTI.child2
+  
   val nRam1: Int = 2
   val ramLNI: LabelDblInput = LabelDblInput("nRam", "System Ram", nRam1)
   val ramIUN: UpdaterDblInput = ramLNI.child2
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(uNameIUT, cNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
-  val tomVerLTI: LabelTextInput = LabelTextInput("version", "Tomcat Version", tcVer1)
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(userNameIUT, computerNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
+  val tomVerLTI: LabelStrInput = LabelStrInput("version", "Tomcat Version", tcVer1)
   val tomVarIUT: UpdaterStrInput = tomVerLTI.child2
   
-  val domainLTI: LabelTextInput = LabelTextInput("dName", "Domain Name", domain1)
+  val domainLTI: LabelStrInput = LabelStrInput("dName", "Domain Name", domain1)
   val domainIUT: UpdaterStrInput = domainLTI.child2
   val dir1: String = "/opt/tomcat"
-  val dirLTI: LabelTextInput = LabelTextInput("dirName", "Tomcat directory", dir1)
+  val dirLTI: LabelStrInput = LabelStrInput("dirName", "Tomcat directory", dir1)
   val dirIUT: UpdaterStrInput = dirLTI.child2
 
   def pUpdaters: PHtml = PHtml(updaterExplain,
-  LabelInputsLine(uNameLTI, opSysLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
+  LabelInputsLine(userNameLTI, opSysLTI, computerNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
   
@@ -81,20 +92,20 @@ object TomcatPage extends DevPageBase
 
   val s3: LiHtml = javaInstall(LiHtml)
 
-  val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$uName1'. I
+  val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$userName1'. I
   |find it better to have a different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and
   |you can use your own username.""".stripMargin,
-    BashLine.listenStrText(uNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
-    BashLine.listenStrText(uNameIUT)(uName => s"sudo passwd $uName"),
+    BashLine.listenStrText(userNameIUT){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
+    BashLine.listenStrText(userNameIUT)(uName => s"sudo passwd $uName"),
   )
 
   val s5: LiHtml = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine.listenStrText(dirIUT){ dir => "sudo mkdir" -- dir },
-  BashLine.listen2StrText(uNameIUT, dirIUT)((uName, dir) => s"sudo chown $uName:$uName $dir"),
-  SpanLine.listenText(uNameIUT)(uName => s"Switch user to $uName. Then change directory."),
+  BashLine.listen2StrText(userNameIUT, dirIUT)((uName, dir) => s"sudo chown $uName:$uName $dir"),
+  SpanLine.listenText(userNameIUT)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
-  BashLine.listenStrText(uNameIUT)(uName => s"sudo su $uName"),
+  BashLine.listenStrText(userNameIUT)(uName => s"sudo su $uName"),
   BashLine.listenStrText(dirIUT){ dir => s"cd $dir" },
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
@@ -129,13 +140,13 @@ object TomcatPage extends DevPageBase
   BashLine(tomcatDirPrompt, "mkdir Base/temp"),
   BashLine(tomcatDirPrompt, "mkdir Base/conf"),
 
-  BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml catalina.properties Base/conf"),
+  BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml tom11/conf/catalina.properties Base/conf"),
   """Create a home page for your server. Again not necessary if base and home are set to the same directory, as Tomcat comes with web pages and example
   |apps.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/ROOT"),
   BashLine(tomcatDirPrompt, "nano Base/webapps/ROOT/index.html"),
   "Copy the code below into the editor.",
-  PreCode.listen3Text(cNameIUT, domainIUT, tomVarIUT){ (cName, domain, version) =>
+  PreCode.listen3Text(computerNameIUT, domainIUT, tomVarIUT){ (cName, domain, version) =>
     HtmlPage.titleOnly("Holding Page", s"This is coming from $cName at $domain, a tomcat $version server").out }
   )
 
@@ -174,8 +185,8 @@ object TomcatPage extends DevPageBase
     DivHtml("""Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""") +%
     DivHtml.listenStrText(dirIUT) { dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
     DivHtml.listenStrText(dirIUT) { dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
-    DivHtml.listenStrText(uNameIUT) { uName => s"User=$uName" } +%
-    DivHtml.listenStrText(uNameIUT) { uName => s"Group=$uName" } +%
+    DivHtml.listenStrText(userNameIUT) { uName => s"User=$uName" } +%
+    DivHtml.listenStrText(userNameIUT) { uName => s"Group=$uName" } +%
     DivHtml("UMask=0007") +%
     DivHtml("RestartSec=10") +%
     DivHtml("Restart=always") +%
@@ -204,11 +215,11 @@ object TomcatPage extends DevPageBase
     case _ => "No code available"  
   },
   BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine.listenStrText(userNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName:$uName /etc/authbind/byport/443"),
+  BashLine.listenStrText(userNameIUT)(uName => s"sudo chown $uName:$uName /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
@@ -235,8 +246,8 @@ object TomcatPage extends DevPageBase
   "Install certificate. When asked to enter domain name, you can enter multiple web domains, but you only use the first in the ensuing commands.",
   BashLine("sudo certbot certonly --standalone"),
   "Configure permissions to certificates",
-  BashLine.listenStrText(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/live/" },
-  BashLine.listenStrText(uNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/archive/" },
+  BashLine.listenStrText(userNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/live/" },
+  BashLine.listenStrText(userNameIUT){ user => s"sudo chgrp -R $user /etc/letsencrypt/archive/" },
   BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
   BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
   BashLine.listenStrText(domainIUT){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },

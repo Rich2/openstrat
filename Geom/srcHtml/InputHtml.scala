@@ -26,13 +26,13 @@ object SubmitInput
 }
 
 /** An HTML label followed by an [[UpdaterStrInput]]. */
-class LabelTextInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
+class LabelStrInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
 { override def child2: UpdaterStrInput = UpdaterStrInput(idStr, valueStr)
 }
 
-object LabelTextInput
+object LabelStrInput
 { /** Factory apply met hod to create an HTML label followed by an [[UpdaterStrInput]]. */
-  def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelTextInput = new LabelTextInput(idStr, label, valueStr)
+  def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelStrInput = new LabelStrInput(idStr, label, valueStr)
 }
 
 class LabelIntInput(val idStr: String, val label: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater) extends LabelAndInput
