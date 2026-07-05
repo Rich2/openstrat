@@ -39,8 +39,13 @@ case class MarginTBDec(value: CssVal) extends CssDecMulti
 { override def decs: RArr[CssDec] = RArr(MarginTopDec(value), MarginBottomDec(value))
 }
 
+/** CSS margin-top and margin-bottome declarations set to same value. */
+case class MarginTBDecs(value: CssVal) extends CssDecMulti
+{ override def decs: RArr[CssDec] = RArr(MarginTopDec(value), MarginBottomDec(value))
+}
+
 /** CSS margin-left and margin-right declarations set to same value. */
-case class MarginLRDec(value: CssVal) extends CssDecMulti
+case class MarginLRDecs(value: CssVal) extends CssDecMulti
 { override def decs: RArr[CssDec] = RArr(MarginLeftDec(value), MarginRightDec(value))
 }
 

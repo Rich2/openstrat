@@ -9,7 +9,7 @@ object NewDevsPage extends DevPageBase
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
-    sublime)
+    sublime, sshServer)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
@@ -113,9 +113,8 @@ object NewDevsPage extends DevPageBase
 
   def sublime: Section = Section("Sublime Text 4".h2,
     BashLine("wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null"),
-    BashLine(
-      """echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' |""" --
-        "sudo tee /etc/apt/sources.list.d/sublime-text.sources"),
+    BashLine("""echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' |""" --
+    "sudo tee /etc/apt/sources.list.d/sublime-text.sources"),
     BashLine("sudo apt update"),
     BashLine("sudo apt install sublime-text"),
     BashLine("subl --version"),
@@ -127,5 +126,21 @@ object NewDevsPage extends DevPageBase
     CodeLineHtml(""""translate_tabs_to_spaces": true,"""),
     CodeLineHtml(""""rulers": [100, 160]"""),
     CodeLineHtml("}")
+  )
+
+  def sshServer = Section("SSH Server".h2,
+    "This is normally installed on Linux VPSs, but for home machines",
+    DivHtml.listenOptHtml(opNameIUT){
+      case UbuntuDeriv => RArr(
+        BashLine("Sudo apt install openssh-server"),
+        BashLine("sudo systemctl enable --now ssh")
+      )
+      case ArchDeriv => RArr(
+        BashLine("sudo pacman -S openssh"),
+        BashLine("sudo systemctl enable --now ssh"),
+        BashLine("sudo ufw allow 22/tcp")
+      )
+      case _ => RArr("No code available")  
+    }
   )
 }
