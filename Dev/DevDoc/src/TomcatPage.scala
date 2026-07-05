@@ -49,11 +49,11 @@ object TomcatPage extends DevPageBase
   val dirIUT: UpdaterStrInput = dirLTI.child2
 
   def pUpdaters: PHtml = PHtml(updaterExplain,
-  LabelInputsLine(uNameLTI, opNameLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
+  LabelInputsLine(uNameLTI, opSysLTI, cNameLTI, ramLNI, tomVerLTI, javaVerLNI, domainLTI, dirLTI))
 
   def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
   
-  val s1: LiHtml = LiHtml.listenOptHtml(opNameIUT){ opt =>
+  val s1: LiHtml = LiHtml.listenOptHtml(opSysIUT){ opt =>
     val res1: XCon = DivHtml("Upgrade packages.")
     val res2: RArr[XCon] = opt match {
       case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
@@ -154,7 +154,7 @@ object TomcatPage extends DevPageBase
     DivColour(LightGreen, "[Service]") +%
     DivHtml("Type=forking") +%
     DivHtml("") +%
-    DivHtml.listenOptHtml(opNameIUT){ ops =>
+    DivHtml.listenOptHtml(opSysIUT){ ops =>
       val javaStr: String = ops match
       { case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
         case ArchDeriv => "java-25-openjdk"
@@ -198,13 +198,17 @@ object TomcatPage extends DevPageBase
   )
 
   val s11: LiHtml = LiHtml("To switch to port 80 the http defaults",
-  BashLine("sudo apt install authbind"),
+  BashLine.listenOptText(opSysIUT){
+    case UbuntuDeriv => "sudo apt install authbind"
+    case ArchDeriv => "sudo yay authbind"
+    case _ => "No code available"  
+  },
   BashLine("sudo touch /etc/authbind/byport/80"),
   BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName: /etc/authbind/byport/443"),
+  BashLine.listenStrText(uNameIUT)(uName => s"sudo chown $uName:$uName /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),

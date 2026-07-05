@@ -13,8 +13,8 @@ trait PageHtmlUpdater extends HtmlPageFile
 
 /** An HTML page with an accumulator of [[PageHtmlUpdater]]s, including an [[UpdaterOption]] for operating System. */
 trait PageUpdaterOS extends PageHtmlUpdater
-{ val opNameLTI: LabelSelectUpdaterOpt = LabelSelectUpdaterOpt("opName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
-  val opNameIUT: UpdaterOption = opNameLTI.child2
+{ val opSysLTI: LabelSelectUpdaterOpt = LabelSelectUpdaterOpt("opName", "Operating System", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
+  val opSysIUT: UpdaterOption = opSysLTI.child2
 
   val jVer1: Int = 25
   val javaVerLNI: LabelIntInput = LabelIntInput("javaVer", "Java Version", jVer1, 17, 30)

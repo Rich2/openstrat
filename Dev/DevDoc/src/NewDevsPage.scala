@@ -15,9 +15,9 @@ object NewDevsPage extends DevPageBase
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opNameLTI, javaVerLNI))
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opSysLTI, javaVerLNI))
   
-  val sysUpdate = DivHtml.listenOptHtml(opNameIUT){ opt =>    
+  val sysUpdate = DivHtml.listenOptHtml(opSysIUT){ opt =>    
       val code: RArr[XCon] = opt match{
       case UbuntuDeriv => RArr(BashLine("apt sudo update", "sudo apt upgrade"))
       case ArchDeriv => RArr(BashLine("sudo pacman -Syu"))
@@ -28,7 +28,7 @@ object NewDevsPage extends DevPageBase
 
   val jvms = javaInstall(Section)
 
-  val sbtDiv: DivHtml = DivHtml.listenOptHtml(opNameIUT){
+  val sbtDiv: DivHtml = DivHtml.listenOptHtml(opSysIUT){
     case UbuntuDeriv => RArr(
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
@@ -97,7 +97,7 @@ object NewDevsPage extends DevPageBase
     LiHtml("Util/clean".htmlSbt, "To clean an individual module")
   ))
 
-  def chrome: Section = Section.listenOptHtml(opNameIUT){ ops =>
+  def chrome: Section = Section.listenOptHtml(opSysIUT){ ops =>
     val last = ops match
     { case UbuntuDeriv => RArr(
         BashLine ("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
@@ -130,7 +130,7 @@ object NewDevsPage extends DevPageBase
 
   def sshServer = Section("SSH Server".h2,
     "This is normally installed on Linux VPSs, but for home machines",
-    DivHtml.listenOptHtml(opNameIUT){
+    DivHtml.listenOptHtml(opSysIUT){
       case UbuntuDeriv => RArr(
         BashLine("Sudo apt install openssh-server"),
         BashLine("sudo systemctl enable --now ssh")

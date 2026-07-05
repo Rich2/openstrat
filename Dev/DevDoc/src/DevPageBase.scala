@@ -6,7 +6,7 @@ import pweb.*, WebExts.*, wcode.*
 trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
 {  
   /** Creates an HTML List element to document installing Java. */
-  def javaInstall: HtmlElemBuilder = HtmlElemBuilder.listenOptIntHtml(opNameIUT, javaVerIUN){ (opSys, jVer) =>
+  def javaInstall: HtmlElemBuilder = HtmlElemBuilder.listenOptIntHtml(opSysIUT, javaVerIUN){ (opSys, jVer) =>
     RArr[XCon]("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.") +%
       (opSys match
       { case UbuntuDeriv => BashLine(s"sudo apt install openjdk-${jVer.str0}-jdk -y")
