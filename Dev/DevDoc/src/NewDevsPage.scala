@@ -18,15 +18,15 @@ object NewDevsPage extends DevPageBase
   def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opSysLTI, javaVerLNI))
   
   val sysUpdate = DivHtml.listenOptHtml(opSysIUT){ opt =>    
-      val code: RArr[XCon] = opt match{
-      case UbuntuDeriv => RArr(BashLine("apt sudo update", "sudo apt upgrade"))
+    val code: RArr[XCon] = opt match
+    { case UbuntuDeriv => RArr(BashLine("apt sudo update", "sudo apt upgrade"))
       case ArchDeriv => RArr(BashLine("sudo pacman -Syu"))
       case _ => RArr("No code available")
     }
     DivHtml("System update") %: code 
   }
 
-  val jvms = javaInstall(Section)
+  val jvms: Section = javaInstall(Section)
 
   val sbtDiv: DivHtml = DivHtml.listenOptHtml(opSysIUT){
     case UbuntuDeriv => RArr(
@@ -128,7 +128,7 @@ object NewDevsPage extends DevPageBase
     CodeLineHtml("}")
   )
 
-  def sshServer = Section("SSH Server".h2,
+  def sshServer: Section = Section("SSH Server".h2,
     "This is normally installed on Linux VPSs, but for home machines",
     DivHtml.listenOptHtml(opSysIUT){
       case UbuntuDeriv => RArr(
@@ -140,7 +140,7 @@ object NewDevsPage extends DevPageBase
         BashLine("sudo systemctl enable --now ssh"),
         BashLine("sudo ufw allow 22/tcp")
       )
-      case _ => RArr("No code available")  
+      case _ => RArr("No code available")
     }
   )
 }

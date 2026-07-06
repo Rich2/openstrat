@@ -17,11 +17,11 @@ case class Callback1OptHtml(listenerId: String, f: OptionHtml => RArr[XCon]) ext
 /** A call back for an [[UpdaterOption]] that takes an OptionHtml => String function, to use JavaScript to update the textContent property. */
 case class Callback1OptText(listenerId: String, f: OptionHtml => String) extends CallbackOption
 
-/** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Int) => String function. */
-case class CallbackOptInt1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => String) extends CallbackOption
-
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
 case class CallbackOptInt1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackOption
+
+/** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Int) => String function. */
+case class CallbackOptInt1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => String) extends CallbackOption
 
 /** A call back for an [[UpdaterOption]] that takes an (OptionHtml, Double) => RArr[XCon] function. */
 case class CallbackOptDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption

@@ -25,12 +25,23 @@ class UpdaterOptionJs(val inputer: UpdaterOption) extends JsUpdater
   { val newInpStr: String = e.target.asInstanceOf[html.Select].value
     val newOption: OptionHtml = inputer.contents.find(_.valueStr == newInpStr).getOrElse(OptionNotFound)
     val len = inputer.clientCount
-    deb(s"Updating $len textContents with value $newInpStr")
+    deb(s"OpdaterOptionJs updating $len textContent / innerHTML with value $newInpStr")
     inputer.callBacks.foreach{
       case Callback1OptHtml(listenerId, f) =>
-      { val target = document.getElementById (listenerId)
-        if (target == null) deb (s" target is null from inputer $inputer for id: $listenerId.")
-        else target.innerHTML = f(newOption).out
+      { val listener: Element = document.getElementById(listenerId)
+        if (listener == null) deb (s" listener is null from inputer $inputer for id: $listenerId.")
+        else listener.innerHTML = f(newOption).out
+      }
+      case Callback1OptText(listenerId, f) =>
+      { val listener: Element = document.getElementById(listenerId)
+        if (listener == null) deb (s" listener is null from inputer $inputer for id: $listenerId.")
+        else listener.textContent = f(newOption)
+      }
+      case CallbackOptInt1Html(listenerId, input2IdStr, f) =>
+      { val listener: Element = document.getElementById(listenerId)
+        val inp2Val: Int = document.getElementById(input2IdStr).asInstanceOf[html.Input].value.toInt
+        if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
+        else listener.innerHTML = f(newOption, inp2Val).out
       }
       case CallbackOptInt1Text(listenerId, input2IdStr, f) =>
       { val listener: Element = document.getElementById(listenerId)
