@@ -81,3 +81,13 @@ object UpdaterStrInput
   def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterStrInput =
     new UpdaterStrInput(idStr, valueStr, otherAttribs.toRArr)
 }
+
+/** An HTML label followed by an [[UpdaterStrInput]]. */
+class LabelUpdaterStrInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
+{ override def child2: UpdaterStrInput = UpdaterStrInput(idStr, valueStr)
+}
+
+object LabelUpdaterStrInput
+{ /** Factory apply met hod to create an HTML label followed by an [[UpdaterStrInput]]. */
+  def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelUpdaterStrInput = new LabelUpdaterStrInput(idStr, label, valueStr)
+}

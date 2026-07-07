@@ -35,13 +35,13 @@ object TomcatPage extends DevPageBase
   val userName1: String = "tommy"
   
   /** [[UpdaterStrInput]] and it's label for user name. */
-  val userNameLTI: LabelStrInput = LabelStrInput("uName", "User Name", userName1)
+  val userNameLTI: LabelUpdaterStrInput = LabelUpdaterStrInput("uName", "User Name", userName1)
 
   /** Updater for user name. */
   val userNameIUT: UpdaterStrInput = userNameLTI.child2
   
   /** [[UpdaterStrInput]] and it's label for computer name. */
-  val computerNameLTI: LabelStrInput = LabelStrInput("cName", "Computer Name", computerName1)
+  val computerNameLTI: LabelUpdaterStrInput = LabelUpdaterStrInput("cName", "Computer Name", computerName1)
 
   /** Updater for user name. */
   val computerNameIUT: UpdaterStrInput = computerNameLTI.child2
@@ -50,13 +50,13 @@ object TomcatPage extends DevPageBase
   val ramLNI: LabelDblInput = LabelDblInput("nRam", "System Ram", nRam1)
   val ramIUN: UpdaterDblInput = ramLNI.child2
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(userNameIUT, computerNameIUT, dirIUT) { (uName, cName, dir) => s"$uName@$cName:$dir" }
-  val tomVerLTI: LabelStrInput = LabelStrInput("version", "Tomcat Version", tcVer1)
+  val tomVerLTI: LabelUpdaterStrInput = LabelUpdaterStrInput("version", "Tomcat Version", tcVer1)
   val tomVarIUT: UpdaterStrInput = tomVerLTI.child2
   
-  val domainLTI: LabelStrInput = LabelStrInput("dName", "Domain Name", domain1)
+  val domainLTI: LabelUpdaterStrInput = LabelUpdaterStrInput("dName", "Domain Name", domain1)
   val domainIUT: UpdaterStrInput = domainLTI.child2
   val dir1: String = "/opt/tomcat"
-  val dirLTI: LabelStrInput = LabelStrInput("dirName", "Tomcat directory", dir1)
+  val dirLTI: LabelUpdaterStrInput = LabelUpdaterStrInput("dirName", "Tomcat directory", dir1)
   val dirIUT: UpdaterStrInput = dirLTI.child2
 
   def pUpdaters: PHtml = PHtml(updaterExplain,
