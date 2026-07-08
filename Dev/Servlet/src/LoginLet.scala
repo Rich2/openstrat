@@ -5,17 +5,28 @@ import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, H
 case class UserDetails(name: String, password: String)
 
 /** First openstrat Servlet for Tomcat and Jetty. */
-@WebServlet(urlPatterns = Array("/")) class Login extends HttpServlet
+@WebServlet(urlPatterns = Array("/")) class LoginLet extends HttpServlet
 {
   val users: RBuff[UserDetails] = RBuff()
+  var numSesh: Int = 0
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
   { val head: HeadHtml = HeadHtml.title("Login")
+    val currCookies: Array[Cookie] = req.getCookies
+    val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
+    val regForm = FormHtml(LabelInputStr("regName", "User Name", ""), LabelInputStr("pWord", "Password", ""))
+    
     val body: BodyHtml = BodyHtml(
       "Testbed for registration and login. At this stage do not use important passwords or give private details.",
       regForm
     )
-    
-    def regForm = FormHtml(LabelInputStr("regName", "User Name", ""))
+
+    if(cookies2.empty)
+    { numSesh += 1
+      resp.addCookie(Cookie("sesh", numSesh.toString))
+    }
+
+    val page: HtmlPage = HtmlPage(head, body)
+    resp.getWriter().println(page.out)
   }
 }

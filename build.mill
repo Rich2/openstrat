@@ -322,8 +322,14 @@ def SiteStage = Task{
 
 def StageJars = Task{
   packAllMain()
-  packAllDocSrc()
+
   Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())
+}
+
+def StageAllJars = Task{
+  packAllMain()
+  packAllDocSrc()
+  Dev.runner().run(mainClass = "ostrat.pDev.MillAllJars", args = Array[String]())
 }
 
 object Servlet extends CommonJvm

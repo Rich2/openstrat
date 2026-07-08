@@ -18,7 +18,7 @@ import geom.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,
       PHtml(cookies2.mkStr(" ")),
       SvgSvgRel.auto(20, RArr(Circle(100).fill(Colour.Red)))
     )
-    val page = HtmlPage(head, body)
+    val page: HtmlPage = HtmlPage(head, body)
     if (cookies2.empty)
     { users += 1
       resp.addCookie(Cookie("user", users.toString))

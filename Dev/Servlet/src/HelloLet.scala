@@ -3,21 +3,22 @@ package ostrat; package pDev
 import jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
 
 /** BasicServlet that only requires the scala-library-3.8.4.jar in Base/lib directory. See richstrat.com/tomcat.html for setup. */
-@WebServlet(urlPatterns = Array("/")) class HelloServlet extends HttpServlet
+@WebServlet(urlPatterns = Array("/")) class HelloLet extends HttpServlet
 { var numReqs: Int = 0
-  def html(str: String): String =
-    s"""<body>
-       |<h1>This is the start!</h1>
-       |<p>This is some info. $str</p>
-       |<p>This is request number $numReqs.</p>
-       |</body>
-       |""".stripMargin
+  
+  def html(str: String): String = s"""<body>
+  |<h1>Hello World Servlet for Scala</h1>
+  |<p>Very basic servlet that only requires the Scala library from version 3.8. Here's some info.</p>
+  |$str
+  |<p>This is request number $numReqs.</p>
+  |</body>
+  |""".stripMargin
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
-  { val str1 = "Method = " + req.getMethod
+  { val str1 = "Method = " + req.getMethod + "<br>"
     numReqs += 1
     val cookies = req.getCookies
-    val str2 = if (cookies == null) "null" else s"\nName = ${cookies(0).getName}\nValue = ${cookies(0).getValue}<br>\n"
+    val str2 = if (cookies == null) "null<br>\n" else s"\nName = ${cookies(0).getName}\nValue = ${cookies(0).getValue}<br>\n"
     val cont = req.getContextPath
     val str3: String = "Context = " + (if(cont == null) "null" else cont) + "<br>\n"
     val pathInfo = req.getPathInfo()
