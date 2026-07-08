@@ -11,9 +11,9 @@ object HttpReq
     debvar(lh0)
     val rt = lh0.takeWhile(_.isLetter)
     val tail = lh0.drop(rt.length).dropWhile(_.isWhitespace)
-    if (rt.toLowerCase == "get") Succ(new HttpReq(HttpGet, tail.takeWhile(c => !c.isWhitespace)))
+    if (rt.toLowerCase == "get") Succ(new HttpReq(GetHttp, tail.takeWhile(c => !c.isWhitespace)))
     else
-      if (rt.toLowerCase == "post") Succ(new HttpReq(HttpPost, tail.takeWhile(c => !c.isWhitespace)))
+      if (rt.toLowerCase == "post") Succ(new HttpReq(PostHttp, tail.takeWhile(c => !c.isWhitespace)))
       else
       { debvar(rt)
         FailExc("Not get")
@@ -21,21 +21,35 @@ object HttpReq
   }
 }
 
-/** HTTP Get Request extractor object. */
-object HttpReqGet
-{ //override def unapply: HttpMethod = HttpGet
+/** HTTP method type. */
+sealed trait HttpMethod extends CssVal
+
+/** HTTP Get method type. */
+object GetHttp extends HttpMethod
+{ override def str: String = "get"
 }
 
-/** HTTP Post Request extractor object. */
-object HttpReqPost
-{ //override def method: HttpMethod = HttpPost
+/** HTTP Post method type. */
+object PostHttp extends HttpMethod
+{ override def str: String = "post"
 }
 
-/** HttP method type. */
-sealed trait HttpMethod
+/** HTTP Head method type. */
+object HeadHttp extends HttpMethod
+{ override def str: String = "post"
+}
 
-/** Http Get method type. */
-object HttpGet extends HttpMethod
+/** HTTP method type attribute. */
+sealed class MethodAtt(val method: HttpMethod) extends XAttShort
+{ override def name: String = "method"
+  override def valueStr: String = method.str  
+}
 
-/** Http Post method type. */
-object HttpPost extends HttpMethod
+/** HTTP Get method type attribute. */
+case object GetAtt extends MethodAtt(GetHttp)
+
+/** HTTP Post method type attribute. */
+case object PostAtt extends MethodAtt(PostHttp)
+
+/** HTTP Head method type attribute. */
+case object HeadHttpAtt extends MethodAtt(HeadHttp)

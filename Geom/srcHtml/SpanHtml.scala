@@ -103,7 +103,7 @@ object SpanLine
   def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
 
   /** Creates a Span line and registers the textContent with an HTML Text Input. */
-  def listenText(input: UpdaterStrInput, otherAttribs: XAtt*)(f: String => String): SpanLine =
+  def listenText(input: UpdaterInputStr, otherAttribs: XAtt*)(f: String => String): SpanLine =
   { def newId = input.next1Text(f)
     SpanLineGen(RArr(f(input.valueStr)), newId %: otherAttribs.toRArr)
   }

@@ -8,8 +8,8 @@ trait UpdaterNumInput extends UpdaterInputLike, InputHtml
 }
 
 /** Creates an HTML Input element that takes [[Int]]s can update textContent fields on the page. */
-class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val step: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
-  UpdaterInputLike(page), UpdaterNumInput
+class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val step: Int, val otherAttribs: RArr[XAtt])(
+  using page: PageHtmlUpdater) extends UpdaterInputLike(page), UpdaterNumInput
 { var listeners: RArr[CallbackInt] = RArr()
 
   def clientCount: Int = listeners.length
@@ -78,4 +78,25 @@ object UpdaterDblInput
 { /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
   def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterDblInput =
     new UpdaterDblInput(idStr, value, otherAttribs.toRArr)
+}
+
+class LabelUpdaterIntInput(val idStr: String, val label: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater) extends
+  LabelInputLike
+{ override def child2: UpdaterIntInput = UpdaterIntInput(idStr, valueNum, minVal, maxVal, step)
+}
+
+object LabelUpdaterIntInput
+{ /** Factory apply method for label and number input HTML elements. */
+  def apply(idStr: String, label: String, valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater): LabelUpdaterIntInput =
+    new LabelUpdaterIntInput(idStr, label, valueNum, minVal, maxVal, step)
+}
+
+class LabelUpdaterDblInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelInputLike
+{ override def child2: UpdaterDblInput = UpdaterDblInput(idStr, valueNum)
+}
+
+object LabelUpdaterDblInput
+{ /** Factory apply method for label and number input HTML elements. */
+  def apply(idStr: String, label: String, valueNum: Double)(using page: PageHtmlUpdater): LabelUpdaterDblInput =
+    new LabelUpdaterDblInput(idStr, label, valueNum)
 }

@@ -18,7 +18,7 @@ trait InputLike extends HtmlElem
 }
 
 /** An HTML span containing a label and an input / select element. */
-trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
+trait LabelInputLike extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 { /** [[String]] for the id attribute. */
   def idStr: String
 
@@ -29,10 +29,45 @@ trait LabelAndInput extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
   override def contents: RArr[XCon] = RArr(child1, child2)
 }
 
-/** An HTML page updater from an HTML inout or select element. */
-abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
-{ page.inpAcc +%= this
+/** An HTML input element. */
+trait InputHtml extends InputLike, HtmlVoid
+{ /** The type of input attribute. */
+  def typeAtt: TypeAtt
+  override def tagName: String = "input"
 
-  /** The number of page elements that have registered to receive updates from this inout. */
-  def clientCount: Int
+  /** The value attribute. */
+  final def valueAtt: ValueAtt = ValueAtt(valueStr)
+
+  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
+}
+
+trait InputStr extends InputHtml
+{ override def typeAtt: TypeTextAtt.type = TypeTextAtt
+}
+
+object InputStr
+{
+  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*): InputStr = new InputStrGen(idStr, valueStr, otherAttribs.toRArr)
+
+  class InputStrGen(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputStr
+}
+
+trait LabelInputStr extends LabelInputLike
+{ override def child2: InputStr
+}
+
+object LabelInputStr
+{
+  def apply(idStr: String, label: String, valueStr: String): LabelInputStr = LabelInputStrGen(idStr, label, valueStr)
+  
+  case class LabelInputStrGen(idStr: String, label: String, valueStr: String) extends LabelInputStr
+  { override def child2: InputStr = InputStr(idStr, valueStr)
+  }
+}
+
+case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine
+
+object LabelInputsLine
+{
+  def apply(mems: LabelInputLike*)(using ct: ClassTag[HtmlInedit]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
 }

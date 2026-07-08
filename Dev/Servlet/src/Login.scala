@@ -12,7 +12,10 @@ case class UserDetails(name: String, password: String)
   override def doGet(req: HSReq, resp: HSResp): Unit =
   { val head: HeadHtml = HeadHtml.title("Login")
     val body: BodyHtml = BodyHtml(
-      
+      "Testbed for registration and login. At this stage do not use important passwords or give private details.",
+      regForm
     )
+    
+    def regForm = FormHtml(LabelInputStr("regName", "User Name", ""))
   }
 }

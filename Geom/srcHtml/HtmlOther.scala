@@ -98,5 +98,5 @@ class ButtonHtml(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr
 
 object ButtonHtml
 { /** Factory apply method to create HTML button element. */
-  def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(TypeSubmitAtt))
+  def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(SubmitTypeAtt))
 }

@@ -2,6 +2,14 @@
 package ostrat; package pweb
 import reflect.ClassTag
 
+/** An HTML page updater from an HTML inout or select element. */
+abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
+{ page.inpAcc +%= this
+
+  /** The number of page elements that have registered to receive updates from this inout. */
+  def clientCount: Int
+}
+
 /** HTML Input or Select Updater for [[String]]s. */
 trait UpdaterStr extends UpdaterInputLike
 { /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
@@ -71,23 +79,21 @@ trait UpdaterStr extends UpdaterInputLike
 }
 
 /** Class to update a page from a text input from an HTML input element. */
-class UpdaterStrInput(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
-  UpdaterStr, InputHtml
-{ override def typeAtt: TypeTextAtt.type = TypeTextAtt
-}
+class UpdaterInputStr(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
+  UpdaterStr, InputStr
 
-object UpdaterStrInput
+object UpdaterInputStr
 { /** Factory apply method for object to update a page from a text input. */
-  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterStrInput =
-    new UpdaterStrInput(idStr, valueStr, otherAttribs.toRArr)
+  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterInputStr =
+    new UpdaterInputStr(idStr, valueStr, otherAttribs.toRArr)
 }
 
-/** An HTML label followed by an [[UpdaterStrInput]]. */
-class LabelUpdaterStrInput(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelAndInput
-{ override def child2: UpdaterStrInput = UpdaterStrInput(idStr, valueStr)
+/** An HTML label followed by an [[UpdaterInputStr]]. */
+class LabelUpdaterInputStr(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelInputStr
+{ override def child2: UpdaterInputStr = UpdaterInputStr(idStr, valueStr)
 }
 
-object LabelUpdaterStrInput
-{ /** Factory apply met hod to create an HTML label followed by an [[UpdaterStrInput]]. */
-  def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelUpdaterStrInput = new LabelUpdaterStrInput(idStr, label, valueStr)
+object LabelUpdaterInputStr
+{ /** Factory apply met hod to create an HTML label followed by an [[UpdaterInputStr]]. */
+  def apply(idStr: String, label: String, valueStr: String)(using page: PageHtmlUpdater): LabelUpdaterInputStr = new LabelUpdaterInputStr(idStr, label, valueStr)
 }

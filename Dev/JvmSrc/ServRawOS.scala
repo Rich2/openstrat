@@ -10,7 +10,7 @@ object ServRawOS extends ServRaw
 
   override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
   {
-    case Succ(hrg: HttpReq) if hrg.method == HttpGet =>
+    case Succ(hrg: HttpReq) if hrg.method == GetHttp =>
     { val resp: HttpResp = hrg.uri match
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(gmtNowStr, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(gmtNowStr, "localhost")
@@ -26,8 +26,7 @@ object ServRawOS extends ServRaw
             case _ => { deb("Js not found"); HtmlPageNotFoundstd(pathName).httpResp(gmtNowStr, "localhost")}
           }
         }
-
-        case "/test" => TestPage.httpResp(gmtNowStr, "localhost")
+        
         case "/Documentation/ut il.html" => UtilPage.httpResp(gmtNowStr, "localhost")
         case "/Documentation/geom.html" => GeomPage.httpResp(gmtNowStr, "localhost")
         case "/Documentation/tiling.html" => TilingPage.httpResp(gmtNowStr, "localhost")

@@ -79,7 +79,7 @@ object TypeNumberAtt extends TypeAtt("number")
 object TypeJsAtt extends TypeAtt("text/javascript")
 
 /** Type attribute set to submit. */
-object TypeSubmitAtt extends TypeAtt("submit")
+object SubmitTypeAtt extends TypeAtt("submit")
 
 case class SrcAtt(valueStr: String) extends XAttShort
 { override def name: String = "src"

@@ -139,7 +139,7 @@ object PreCode
 
   /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
    * escape the HTML code characters. */
-  def listenText(input: UpdaterStrInput, otherAttribs: XAtt*)(f1: String => String): PreCode =
+  def listenText(input: UpdaterInputStr, otherAttribs: XAtt*)(f1: String => String): PreCode =
   { val f2: String => String = s1 => f1(s1).escapeHtml
     def newId: IdAtt = input.next1Text(f2)
 
