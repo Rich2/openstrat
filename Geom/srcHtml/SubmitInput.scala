@@ -10,5 +10,5 @@ class SubmitButton(val idStr: String, val valueStr: String, val otherAttribs: RA
 
 object SubmitButton
 { /** Factory apply method for submit input HTML element. */
-  def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt] = RArr()): SubmitButton = new SubmitButton(idStr, valueStr, otherAttribs)
+  def apply(idStr: String, valueStr: String = "Submit", otherAttribs: RArr[XAtt] = RArr()): SubmitButton = new SubmitButton(idStr, valueStr, otherAttribs)
 }

@@ -14,7 +14,7 @@ case class UserDetails(name: String, password: String)
   { val head: HeadHtml = HeadHtml.title("Login")
     val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
-    val regForm = FormHtml(LabelInputStr("regName", "User Name", ""), LabelInputStr("pWord", "Password", ""))
+    val regForm = FormHtml(LabelInputStr("regName", "User Name", ""), LabelInputStr("pWord", "Password", ""), SubmitButton("regSubmit"))
     
     val body: BodyHtml = BodyHtml(
       "Testbed for registration and login. At this stage do not use important passwords or give private details.",
