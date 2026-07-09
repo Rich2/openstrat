@@ -16,7 +16,7 @@ import geom.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,
       DivHtml(s"This is the GeomUser Servlet. Its purpose is just to test out use of the Util and Geom Openstrat libraries."),
       DivHtml(s"Here is an Int Array from the Util modules: ${ints.str}"),
       PHtml(cookies2.mkStr(" ")),
-      SvgSvgRel.auto(20, RArr(Circle(100).fill(Colour.Red)))
+      SvgSvgScaled(400, 400, 0, 0, RArr(Circle(100).fill(Colour.Red)))
     )
     val page: HtmlPage = HtmlPage(head, body)
     if (cookies2.empty)

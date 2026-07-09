@@ -66,6 +66,9 @@ case class TypeAtt(valueStr: String) extends XAttShort
 /** Type attribute set to text. */
 object TypeTextAtt extends TypeAtt("text")
 
+/** Type attribute set to Password. */
+object TypePasswordAtt extends TypeAtt("password")
+
 /** The CSS type attribute */
 object TypeCssAtt extends TypeAtt("text/css")
 

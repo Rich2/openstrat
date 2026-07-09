@@ -18,7 +18,7 @@ import jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServl
   { val str1 = "Method = " + req.getMethod + "<br>"
     numReqs += 1
     val cookies = req.getCookies
-    val str2 = if (cookies == null) "null<br>\n" else s"\nName = ${cookies(0).getName}\nValue = ${cookies(0).getValue}<br>\n"
+    val str2 = if (cookies == null) "coookies = null<br>\n" else s"First cookie: \nName = ${cookies(0).getName}\nValue = ${cookies(0).getValue}<br>\n"
     val cont = req.getContextPath
     val str3: String = "Context = " + (if(cont == null) "null" else cont) + "<br>\n"
     val pathInfo = req.getPathInfo()

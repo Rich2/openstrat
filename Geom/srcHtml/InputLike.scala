@@ -46,7 +46,10 @@ trait InputStr extends InputHtml
 }
 
 object InputStr
-{
+{ /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as repeat parameters. */
+  def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputStr = new InputStrGen(idStr, valueStr, otherAttribs)
+
+  /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
   def apply(idStr: String, valueStr: String, otherAttribs: XAtt*): InputStr = new InputStrGen(idStr, valueStr, otherAttribs.toRArr)
 
   class InputStrGen(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputStr
@@ -63,6 +66,22 @@ object LabelInputStr
   case class LabelInputStrGen(idStr: String, label: String, valueStr: String) extends LabelInputStr
   { override def child2: InputStr = InputStr(idStr, valueStr)
   }
+}
+
+class InputPassword(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputHtml
+{ override def typeAtt: TypePasswordAtt.type = TypePasswordAtt
+}
+
+object InputPassword
+{ /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as repeat parameters. */
+  def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputPassword = new InputPassword(idStr, valueStr, otherAttribs)
+
+  /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
+  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*): InputPassword = new InputPassword(idStr, valueStr, otherAttribs.toRArr)
+}
+
+case class LabelInputPassword(idStr: String, label: String, valueStr: String) extends LabelInputLike
+{ override def child2: InputPassword = InputPassword(idStr, valueStr)
 }
 
 case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine
