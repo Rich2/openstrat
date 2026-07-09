@@ -2,8 +2,7 @@
 package ostrat; package pweb
 import reflect.ClassTag
 
-/** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
- * with that updater. */
+/** classes are used on the JVM to create user input and select elements in HTML pages. */
 trait InputLike extends HtmlElem
 {/** The [[String]] of the id attribute fot this input element. */
   def idStr: String
@@ -36,52 +35,12 @@ trait InputHtml extends InputLike, HtmlVoid
   override def tagName: String = "input"
 
   /** The value attribute. */
-  final def valueAtt: ValueAtt = ValueAtt(valueStr)
-
-  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), NameAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
+  final def valueAtt: ValueAtt = ValueAtt(valueStr)  
 }
 
+/** HTML Input of type text.. */
 trait InputStr extends InputHtml
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
-}
-
-object InputStr
-{ /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputStr = new InputStrGen(idStr, valueStr, otherAttribs)
-
-  /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*): InputStr = new InputStrGen(idStr, valueStr, otherAttribs.toRArr)
-
-  class InputStrGen(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputStr
-}
-
-trait LabelInputStr extends LabelInputLike
-{ override def child2: InputStr
-}
-
-object LabelInputStr
-{
-  def apply(idStr: String, label: String, valueStr: String): LabelInputStr = LabelInputStrGen(idStr, label, valueStr)
-  
-  case class LabelInputStrGen(idStr: String, label: String, valueStr: String) extends LabelInputStr
-  { override def child2: InputStr = InputStr(idStr, valueStr)
-  }
-}
-
-class InputPassword(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputHtml
-{ override def typeAtt: TypePasswordAtt.type = TypePasswordAtt
-}
-
-object InputPassword
-{ /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(idStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputPassword = new InputPassword(idStr, valueStr, otherAttribs)
-
-  /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(idStr: String, valueStr: String, otherAttribs: XAtt*): InputPassword = new InputPassword(idStr, valueStr, otherAttribs.toRArr)
-}
-
-case class LabelInputPassword(idStr: String, label: String, valueStr: String) extends LabelInputLike
-{ override def child2: InputPassword = InputPassword(idStr, valueStr)
 }
 
 case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) extends SpanLine

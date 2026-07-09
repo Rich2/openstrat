@@ -10,6 +10,10 @@ abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
   def clientCount: Int
 }
 
+trait UpdaterInput extends UpdaterInputLike, InputHtml
+{ override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
+}
+
 /** HTML Input or Select Updater for [[String]]s. */
 trait UpdaterStr extends UpdaterInputLike
 { /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
@@ -80,7 +84,7 @@ trait UpdaterStr extends UpdaterInputLike
 
 /** Class to update a page from a text input from an HTML input element. */
 class UpdaterInputStr(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
-  UpdaterStr, InputStr
+  UpdaterStr, UpdaterInput, InputStr
 
 object UpdaterInputStr
 { /** Factory apply method for object to update a page from a text input. */
@@ -89,7 +93,7 @@ object UpdaterInputStr
 }
 
 /** An HTML label followed by an [[UpdaterInputStr]]. */
-class LabelUpdaterInputStr(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelInputStr
+class LabelUpdaterInputStr(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelInputLike
 { override def child2: UpdaterInputStr = UpdaterInputStr(idStr, valueStr)
 }
 

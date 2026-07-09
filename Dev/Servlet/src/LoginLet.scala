@@ -14,7 +14,10 @@ case class UserDetails(name: String, password: String)
   override def doGet(req: HSReq, resp: HSResp): Unit =
   { val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
-    val regForm = FormHtml(LabelInputStr("regName", "User Name", ""), LabelInputPassword("pWord", "Password", ""), SubmitButton("regSubmit"))
+    val regForm = FormHtml(
+      LabelInputStrPost("User Name", "regName",  "regName", ""),
+      LabelInputPassword("Password", "regPass", "regPass", ""), SubmitButton("regSubmit")
+    )
     
     val body: BodyHtml = BodyHtml(
       "Testbed for registration and login. At this stage do not use important passwords or give private details.",

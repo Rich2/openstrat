@@ -9,7 +9,7 @@ trait UpdaterNumInput extends UpdaterInputLike, InputHtml
 
 /** Creates an HTML Input element that takes [[Int]]s can update textContent fields on the page. */
 class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val step: Int, val otherAttribs: RArr[XAtt])(
-  using page: PageHtmlUpdater) extends UpdaterInputLike(page), UpdaterNumInput
+  using page: PageHtmlUpdater) extends UpdaterInputLike(page), UpdaterNumInput, UpdaterInput
 { var listeners: RArr[CallbackInt] = RArr()
 
   def clientCount: Int = listeners.length
@@ -43,7 +43,7 @@ object UpdaterIntInput
 
 /** Creates an HTML Input element that takes [[Double]]s can update textContent fields on the page. */
 class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
-  UpdaterNumInput
+  UpdaterNumInput, UpdaterInput
 { var listeners: RArr[CallbackDbl] = RArr()
   def clientCount: Int = listeners.length
   
@@ -70,8 +70,6 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   def nextOptDbl2Text(listenerID: String, input1: UpdaterOption, f: (OptionHtml, Double) => String): Unit =
   { listeners +%= CallbackOptDbl2Text(listenerID, input1, f)
   }
-
-  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
 }
 
 object UpdaterDblInput

@@ -3,12 +3,14 @@ package ostrat; package pweb
 import reflect.ClassTag
 
 /** HTML Input element with submit type */
-class SubmitButton(val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends  InputHtml
+class SubmitButton(val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputPost
 { override def typeAtt: TypeAtt = SubmitTypeAtt
-  override def attribs: RArr[XAtt] = RArr(typeAtt, ValueAtt(valueStr)) ++ otherAttribs
+  override def idStr: String = nameAttStr
+  override def attribs: RArr[XAtt] = RArr(typeAtt, nameAtt, ValueAtt(valueStr)) ++ otherAttribs
 }
 
 object SubmitButton
 { /** Factory apply method for submit input HTML element. */
-  def apply(idStr: String, valueStr: String = "Submit", otherAttribs: RArr[XAtt] = RArr()): SubmitButton = new SubmitButton(idStr, valueStr, otherAttribs)
+  def apply(nameAttStr: String, valueStr: String = "Submit", otherAttribs: RArr[XAtt] = RArr()): SubmitButton =
+    new SubmitButton(nameAttStr, valueStr, otherAttribs)
 }
