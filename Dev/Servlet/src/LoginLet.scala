@@ -9,10 +9,10 @@ case class UserDetails(name: String, password: String)
 {
   val users: RBuff[UserDetails] = RBuff()
   var numSesh: Int = 0
+  val headLog = HeadHtml.title("Login")
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
-  { val head: HeadHtml = HeadHtml.title("Login")
-    val currCookies: Array[Cookie] = req.getCookies
+  { val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
     val regForm = FormHtml(LabelInputStr("regName", "User Name", ""), LabelInputPassword("pWord", "Password", ""), SubmitButton("regSubmit"))
     
@@ -26,12 +26,25 @@ case class UserDetails(name: String, password: String)
       resp.addCookie(Cookie("sesh", numSesh.toString))
     }
 
-    val page: HtmlPage = HtmlPage(head, body)
+    val page: HtmlPage = HtmlPage(headLog, body)
     resp.getWriter().println(page.out)
   }
 
   override def doPost(req: HSReq, resp: HSResp): Unit =
-  {
-    resp.setStatus(204)
+  { val names1 = req.getParameterNames//("regName")
+    val nBuff = StringBuff()
+    while(names1.hasMoreElements){
+      nBuff.grow(names1.nextElement)
+    }
+
+    val nameLen = nBuff.length
+    val names2 = nBuff.map{str => DivHtml(str)}
+
+    val body = BodyHtml(
+      DivHtml("Result from post") %: DivHtml(s"num parameters = $nameLen") %: names2
+      //DivHtml(s"parameter names = $name2")
+    )
+    val page = HtmlPage(headLog, body)
+    resp.getWriter().println(page.out)
   }
 }

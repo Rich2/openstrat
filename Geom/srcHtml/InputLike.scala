@@ -38,7 +38,7 @@ trait InputHtml extends InputLike, HtmlVoid
   /** The value attribute. */
   final def valueAtt: ValueAtt = ValueAtt(valueStr)
 
-  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
+  override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), NameAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
 }
 
 trait InputStr extends InputHtml
