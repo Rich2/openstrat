@@ -30,7 +30,8 @@ case class UserDetails(name: String, password: String)
     resp.getWriter().println(page.out)
   }
 
-  override def doPost(req: HSReq, resp: HSResp): Unit ={
-    
+  override def doPost(req: HSReq, resp: HSResp): Unit =
+  {
+    resp.setStatus(204)
   }
 }
