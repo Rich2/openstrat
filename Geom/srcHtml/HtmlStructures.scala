@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** An HTML Canvas element. */
-case class CanvasHtml(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class CanvasHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends HtmlOwnLine
 { override def tagName: String = "canvas"
 }
 
@@ -37,5 +37,5 @@ object PHtml
   def id(idStr: String, contents: RArr[XCon]): PHtml = PHtmlGen(contents, RArr(IdAtt(idStr)))
 
   /** implementation  class for the general case of HTML P paragraph element. */
-  case class PHtmlGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends PHtml
+  case class PHtmlGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends PHtml
 }

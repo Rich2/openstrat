@@ -11,7 +11,7 @@ abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
 }
 
 trait UpdaterInput extends UpdaterInputLike, InputHtml
-{ override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
+{ override def attribs: RArr[HAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
 }
 
 /** HTML Input or Select Updater for [[String]]s. */

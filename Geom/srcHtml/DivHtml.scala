@@ -21,7 +21,7 @@ object DivHtml extends HtmlElemFullCompanion[DivHtml]
   def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
 
   /** An implementation class for the general case of an HTML Div.  */
-  class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends DivHtml, HtmlOwnLine
+  class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends DivHtml, HtmlOwnLine
 }
 
 /** HTML Div that requires its own line in the editor. */
@@ -29,7 +29,7 @@ trait DivLine extends DivHtml, HtmlOwnLine
 
 /** Class for creating HTML Div element with a Style attribute with a colour declaration. */
 class DivColour(colour: Colour, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends DivLine
-{ override def attribs: RArr[XAtt] = StyleAtt(ColourDec(colour)) %: otherAttribs
+{ override def attribs: RArr[HAtt] = StyleAtt(ColourDec(colour)) %: otherAttribs
 }
 
 object DivColour

@@ -5,7 +5,7 @@ package ostrat; package pweb
 trait TimeHtml extends HtmlInedit
 { override def tagName: String = "time"
   def dtAtt: DateTimeAtt
-  override def attribs: RArr[XAtt] = RArr(dtAtt)
+  override def attribs: RArr[HAtt] = RArr(dtAtt)
 }
 
 /** DateTime attribute. */

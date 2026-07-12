@@ -2,9 +2,10 @@
 package ostrat; package pweb
 
 /** HTML A anchor element. */
-class AHtml(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()) extends HtmlInedit
+class AHtml(val link: String, val contents: RArr[XCon], otherAttribs: RArr[HAtt] = RArr()) extends HtmlInedit
 { override def tagName: String = "a"
-  override val attribs: RArr[XAtt] = RArr(HrefAtt(link)) ++ otherAttribs
+
+  override val attribs: RArr[HAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
 
 object AHtml
@@ -26,7 +27,7 @@ object AHtml
 }
 
 /** HTML noscript element. */
-case class NoScriptHtml(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class NoScriptHtml(contents: RArr[XCon], attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
 { override def tagName: String = "noscript"
 }
 
@@ -36,7 +37,7 @@ object NoScriptHtml
 }
 
 /** HTML script element. */
-case class ScriptHtml(contents: RArr[XCon], attribs: RArr[XAtt]) extends HtmlOwnLine
+case class ScriptHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends HtmlOwnLine
 { override def tagName: String = "script"
 }
 
@@ -52,7 +53,7 @@ object ScriptHtml
 }
 
 /** HTML style element. note there is also a CSS [[StyleAtt]] attribute. */
-case class StyleHtml(contents: RArr[CssRuleLike], attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class StyleHtml(contents: RArr[CssRuleLike], attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
 { override def tagName: String = "style"
 }
 
@@ -62,37 +63,37 @@ object StyleHtml
 }
 
 /** HTML h1 header element. */
-case class H1Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H1Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
 { override def tagName = "h1"
 }
 
 /** HTML h2 header element. */
-case class H2Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H2Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h2"
 }
 
 /** Html H3 header element. */
-case class H3Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H3Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h3"
 }
 
 /** Html H4 header element. */
-case class H4Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H4Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h4"
 }
 
 /** Html H4 header element. */
-case class H5Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H5Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h5"
 }
 
 /** Html H4 header element. */
-case class H6Html(str : String, attribs: RArr[XAtt] = RArr()) extends HtmlStrOwnLine
+case class H6Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
 { def tagName = "h6"
 }
 
 /** HTML button element. */
-class ButtonHtml(val contents: RArr[XCon], val attribs: ostrat.RArr[XAtt] = RArr()) extends HtmlOwnLine
+class ButtonHtml(val contents: RArr[XCon], val attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
 { override def tagName = "button"
 }
 

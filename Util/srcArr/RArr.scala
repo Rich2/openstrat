@@ -2,9 +2,26 @@
 package ostrat
 import annotation.*, unchecked.uncheckedVariance, reflect.{ClassTag, TypeTest}, collection.mutable.ArrayBuffer
 
+trait RSeqLike[+A] extends Any, SeqLikeBacked[A]
+{ /** Partitions this immutable [[RArr]] into an [[RArrPair]] of [[RArr]]s according to some discriminator function. */
+  def groupBy[K](f: A => K)(using ctA: ClassTag[A] @uncheckedVariance, ctK: ClassTag[K]): RArrPair[K, RArr[A] @uncheckedVariance] =
+  { val buffs: RPairBuff[K, ArrayBuffer[A]] = RPairBuff[K, ArrayBuffer[A]]()
+    foreach{a =>
+      val key = f(a)
+      val index = buffs.indexWhere(_.a1 == key)
+      if (index == -1) buffs.grow(RPairElem(key, ArrayBuffer[A](a)))
+      else buffs(index).a2.append(a)
+    }
+    val b2s: ArrayBuffer[ArrayBuffer[A]] = buffs.b2Buffer
+    val b2s2: Array[ArrayBuffer[A]] = b2s.toArray
+    val b2s3: Array[RArr[A]] = b2s2.map(buffer => new RArr[A](buffer.toArray))
+    new RArrPair[K, RArr[A]](buffs.b1Buffer.toArray, b2s3)
+  }
+}
+
 /** This is a common trait for [[RArr]] and tiling data layer classes in the Tiling module. */
-trait RefsSeqLike[+A] extends Any, SeqLikeBacked[A]
-{ type ThisT <: RefsSeqLike[A]
+trait RSeqLikeImut[+A] extends Any, RSeqLike[A]
+{ type ThisT <: RSeqLikeImut[A]
   def arrayUnsafe: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
   override final def fElemStr: A @uncheckedVariance => String = _.toString
@@ -13,7 +30,7 @@ trait RefsSeqLike[+A] extends Any, SeqLikeBacked[A]
 
 /** The immutable Array based class for types without their own specialised [[Arr]] collection classes. It inherits the standard foreach, map, flatMap and fold
  * and their variations' methods from ArrayLike. As it stands in Scala 3.3.0 the Graphics module will not build for Scala3 for the Javascript target. */
-final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A], RefsSeqLike[A]
+final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A], RSeqLikeImut[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "RArr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
@@ -83,21 +100,6 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends Arr[A
       case op => op.iForeach  { (i, el) => newArray(length + 1) = el }
     }
     new RArr(newArray)
-  }
-
-  /** Partitions this immutable [[RArr]] into an [[RArrPair]] of [[RArr]]s according to some discriminator function. */
-  def groupBy[K](f: A => K)(using ctA: ClassTag[A] @uncheckedVariance, ctK: ClassTag[K]): RArrPair[K, RArr[A] @uncheckedVariance] =
-  { val buffs: RPairBuff[K, ArrayBuffer[A]] = RPairBuff[K, ArrayBuffer[A]]()
-    foreach{a =>
-      val key = f(a)
-      val index = buffs.indexWhere(_.a1 == key)
-      if (index == -1) buffs.grow(RPairElem(key, ArrayBuffer[A](a)))
-      else buffs(index).a2.append(a)
-    }
-    val b2s: ArrayBuffer[ArrayBuffer[A]] = buffs.b2Buffer
-    val b2s2: Array[ArrayBuffer[A]] = b2s.toArray
-    val b2s3: Array[RArr[A]] = b2s2.map(buffer => new RArr[A](buffer.toArray))
-    new RArrPair[K, RArr[A]](buffs.b1Buffer.toArray, b2s3)
   }
 
   /** Functionally appends [[Iterable]] to this [[RArr]] collection, allows type widening. */
@@ -324,7 +326,7 @@ class RArrAllBuilder[B](using ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] 
 }
 
 /** R for stored by reference. The default [[Buff]] class for types without their own specialist sequence classes. */
-final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal, Buff[A]
+final class RBuff[A](val bufferUnsafe: ArrayBuffer[A]) extends AnyVal, Buff[A], RSeqLike[A]
 { override type ThisT = RBuff[A]
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = bufferUnsafe(index)

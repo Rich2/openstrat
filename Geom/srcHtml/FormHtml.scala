@@ -4,7 +4,7 @@ package ostrat; package pweb
 /** HTML Form element. */
 class FormHtml(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends HtmlTagLines
 { override def tagName: String = "form"  
-  override def attribs: RArr[XAtt] = PostAtt %: otherAttribs
+  override def attribs: RArr[HAtt] = PostAtt %: otherAttribs
 }
 
 object FormHtml

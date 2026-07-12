@@ -5,7 +5,7 @@ package ostrat; package pweb
 trait HtmlElem extends XHmlElem
 
 /** The "html" HTML element */
-case class HtmlHtml(head: HeadHtml, body: BodyHtml, attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
+case class HtmlHtml(head: HeadHtml, body: BodyHtml, attribs: RArr[HAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
 { def tagName: String = "html"
   override def contents: RArr[HtmlUnvoid] = RArr(head, body)
 

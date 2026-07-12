@@ -8,14 +8,14 @@ trait UpdaterNumInput extends UpdaterInputLike, InputHtml
 }
 
 /** Creates an HTML Input element that takes [[Int]]s can update textContent fields on the page. */
-class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val step: Int, val otherAttribs: RArr[XAtt])(
+class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val maxVal: Int, val step: Int, val otherAttribs: RArr[HAtt])(
   using page: PageHtmlUpdater) extends UpdaterInputLike(page), UpdaterNumInput, UpdaterInput
 { var listeners: RArr[CallbackInt] = RArr()
 
   def clientCount: Int = listeners.length
   override def valueStr: String = value.str
 
-  override def attribs: RArr[XAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)
+  override def attribs: RArr[HAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)
 
   /** Registers a call back to a listener with an Int => String function. */
   def next1(f: Int => String): IdAtt =

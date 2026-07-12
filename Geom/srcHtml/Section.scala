@@ -4,7 +4,7 @@ package ostrat; package pweb
 /** An HTML section element. */
 trait Section extends HtmlTagLines
 { override def tagName: String = "section"
-  override def attribs: RArr[XAtt] = RArr()
+  override def attribs: RArr[HAtt] = RArr()
 }
 
 object Section extends HtmlElemFullCompanion[Section]
@@ -18,13 +18,13 @@ object Section extends HtmlElemFullCompanion[Section]
   override def fromStr(str: String, attribs: RArr[XAtt]): Section = new SectionGen(RArr(str), attribs)
 
   /** General implementation class for HTML section element. */
-  class SectionGen(val contents: RArr[XCon], override val attribs: RArr[XAtt]) extends Section
+  class SectionGen(val contents: RArr[XCon], override val attribs: RArr[HAtt]) extends Section
 }
 
 /** HTML OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
 class OlSection(val header: RArr[XCon], items: RArr[LiHtml]) extends Section
 { override def contents: RArr[XCon] = header +% orderedList
-  override def attribs: RArr[XAtt] = RArr()
+  override def attribs: RArr[HAtt] = RArr()
 
   def orderedList: OlHtml = OlHtml(items)
 }
@@ -49,7 +49,7 @@ object OlSection
 /** HTML UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
 class UlSection(val header: RArr[XCon], items: RArr[LiHtml]) extends Section
 { override def contents: RArr[XCon] = header +% unorderedList
-  override def attribs: RArr[XAtt] = RArr()
+  override def attribs: RArr[HAtt] = RArr()
 
   /** the HTML unordered list element. */
   def unorderedList: UlHtml = UlHtml(items)

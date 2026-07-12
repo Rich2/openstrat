@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** HTML table element. */
-case class TableHtml(val contents: RArr[RowHtml], val attribs: RArr[XAtt] = RArr()) extends HtmlTagLines
+case class TableHtml(val contents: RArr[RowHtml], val attribs: RArr[HAtt] = RArr()) extends HtmlTagLines
 { override def tagName: String = "table"
 }
 
@@ -29,7 +29,7 @@ object RowHtml
 }
 
 /** HTML TR table row element class. */
-case class RowHeadHtml(val contents: RArr[ThHtml], val attribs: RArr[XAtt] = RArr()) extends RowHtml
+case class RowHeadHtml(val contents: RArr[ThHtml], val attribs: RArr[HAtt] = RArr()) extends RowHtml
 
 object RowHeadHtml
 { /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
@@ -43,7 +43,7 @@ object RowHeadHtml
     RowHeadHtml(RArr(ThHtml(str1), ThHtml(str2), ThHtml(str3), ThHtml(str4)))
 }
 /** HTML TR table row element class. */
-case class RowDataHtml(val contents: RArr[TdHtml], val attribs: RArr[XAtt] = RArr()) extends RowHtml
+case class RowDataHtml(val contents: RArr[TdHtml], val attribs: RArr[HAtt] = RArr()) extends RowHtml
 
 object RowDataHtml
 { /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
@@ -60,7 +60,7 @@ object RowDataHtml
 trait CellHtml extends HtmlOwnLine
 
 /** HTML TH table header cell element. */
-case class ThHtml(contents: RArr[XCon], attribs: RArr[XAtt]) extends CellHtml
+case class ThHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends CellHtml
 { override def tagName: String = "th"
 }
 
@@ -70,7 +70,7 @@ object ThHtml
 }
 
 /** HTML TD table data cell element. */
-case class TdHtml(contents: RArr[XCon], attribs: RArr[XAtt]) extends CellHtml
+case class TdHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends CellHtml
 { override def tagName: String = "td"
 }
 

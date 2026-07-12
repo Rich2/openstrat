@@ -21,7 +21,7 @@ object UlHtml
   def noStyle(contents: XCon*): UlHtml = UlHtmlGen(contents.toArr, RArr(ListStyleNoneAtt))
   
   /** Implementation class for the general case of og [[UlHtml]]. */
-  case class UlHtmlGen(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends UlHtml
+  case class UlHtmlGen(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends UlHtml
 }
 
 /** Html OL ordered list element. */
@@ -46,11 +46,11 @@ object OlHtml
     new OlHtmlGen(items.mapArr(LiHtml(_)), RArr(style))
   }
 
-  case class OlHtmlGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends OlHtml
+  case class OlHtmlGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends OlHtml
 }
 
 /** Html LI, list item element. */
-class LiHtml(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlOwnLine
+class LiHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlOwnLine
 { override def tagName: String = "li"
 }
 

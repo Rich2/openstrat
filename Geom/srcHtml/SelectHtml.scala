@@ -11,7 +11,7 @@ trait SelectHtml extends HtmlTagLines, InputLike
   /** Size attribute specifies how many options to be displayed at one time. */
   def sizeAtt = XAttInt("size", visNum)
 
-  override def attribs: RArr[XAtt] = idAtt %: sizeAtt %: otherAttribs
+  override def attribs: RArr[HAtt] = idAtt %: sizeAtt %: otherAttribs
 
   override def contents: RArr[OptionHtml]
   

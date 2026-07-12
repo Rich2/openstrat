@@ -10,7 +10,7 @@ case class CiteAtt(valueStr: String) extends XAttShort
 trait BlockQuote extends HtmlTagLines
 { def citeStr: String
   override def tagName: String = "blockquote"
-  override def attribs: RArr[XAtt] = RArr(CiteAtt(citeStr))
+  override def attribs: RArr[HAtt] = RArr(CiteAtt(citeStr))
 
 }
 
@@ -22,21 +22,21 @@ object BlockQuote
   def apply(citeStr: String, contents: XCon*): BlockQuote = BlockQuoteGen(citeStr, contents.toRArr, RArr())
 
   /** Implementation class for the general case of [[BlockQuote]] element. */
-  class BlockQuoteGen(val citeStr: String, val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends BlockQuote
-  { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  class BlockQuoteGen(val citeStr: String, val contents: RArr[XCon], val otherAttribs: RArr[HAtt]) extends BlockQuote
+  { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   }
 }
 
 /** HTML short quote element. */
 case class QHtml(valueStr: String, citeStr: String = "") extends HtmlInedit
 { override def tagName: String = "q"
-  override def attribs: RArr[XAtt] = ife(citeStr == "", RArr(), RArr(CiteAtt(citeStr)))
+  override def attribs: RArr[HAtt] = ife(citeStr == "", RArr(), RArr(CiteAtt(citeStr)))
   override def contents: RArr[XCon] = RArr(valueStr)
 }
 
 /** HTML paragraph with a note ID attribute. */
 case class NoteHtml(num: Int, contextStr: String) extends PHtml
-{ override def attribs: RArr[XAtt] = RArr(IdAtt(s"note$num"))
+{ override def attribs: RArr[HAtt] = RArr(IdAtt(s"note$num"))
   override def contents: RArr[XCon] = RArr(contextStr)
 }
 

@@ -13,9 +13,9 @@ object LargeListAtt extends ClassAtt(largeListStr)
 /** Common trait for large ordered and unordered HTML Lists. */
 trait ListLarge extends HtmlTagLines
 { /** Any other attributes in addition to LargeListAtt */
-  def otherAttribs: RArr[XAtt]
+  def otherAttribs: RArr[HAtt]
 
-  override def attribs: RArr[XAtt] = LargeListAtt %: otherAttribs
+  override def attribs: RArr[HAtt] = LargeListAtt %: otherAttribs
 }
 
 /** An HTML OL ordered list with the LargeList CSS class */
@@ -33,14 +33,14 @@ object OlLarge
 }
 
 /** An HTML UL unordered list with the LargeList CSS class */
-class UlLarge(val contents: RArr[XCon], val otherAttribs: RArr[XAtt]) extends OlHtml, ListLarge
+class UlLarge(val contents: RArr[XCon], val otherAttribs: RArr[HAtt]) extends OlHtml, ListLarge
 
 object UlLarge
 {/** Factory apply method for a large HTML UL unordered list. */
   def apply(contents: XCon*): UlLarge = new UlLarge(contents.toArr, RArr())
 
   /** Factory apply method for a large HTML UL unordered list. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): UlLarge = new UlLarge(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[HAtt] = RArr()): UlLarge = new UlLarge(contents, attribs)
 
   /** Factory method for a large HTML UL unordered list from [[String]]s. */
   def strs(items: String*): UlLarge = new UlLarge(items.mapArr(LiHtml(_)), RArr())

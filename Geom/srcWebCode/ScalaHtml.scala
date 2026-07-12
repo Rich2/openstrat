@@ -12,7 +12,7 @@ object ScalaHtml
 /** Html Element for multiple lines of Scala code. */
 class ScalaLinesHtml(val lines: StrArr) extends ScalaHtml, CodeLinesHtml
 { def classAtt: ClassAtt = ClassAtt("scalalines")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
+  override def attribs: RArr[HAtt] = RArr(classAtt)
   override def contents: RArr[XCon] = lines.toDivLines
 }
 
@@ -25,7 +25,7 @@ object ScalaLinesHtml
 class ScalaInline(val str: String) extends ScalaHtml, CodeInline
 { override def contents: RArr[XCon] = RArr(str)
   def classAtt: ClassAtt = ClassAtt("scala")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
+  override def attribs: RArr[HAtt] = RArr(classAtt)
 }
 
 object ScalaInline
@@ -36,7 +36,7 @@ object ScalaInline
 /** Html Sbt code element. */
 trait SbtHtml extends CodeHtml
 { def classAtt: ClassAtt = ClassAtt("sbt")
-  override def attribs: RArr[XAtt] = RArr(classAtt)
+  override def attribs: RArr[HAtt] = RArr(classAtt)
 }
 
 /** Html Sbt code element, that can be inlined. */

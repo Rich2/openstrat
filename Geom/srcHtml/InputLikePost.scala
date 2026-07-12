@@ -1,7 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 
-
 /** classes are used on the JVM to create user input and select elements in HTML pages. But are used in JavaScript to update the parts of the DOM registered
  * with that updater. */
 trait InputLikePost extends InputLike
@@ -13,7 +12,7 @@ trait InputLikePost extends InputLike
 }
 
 trait InputPost extends InputHtml, InputLikePost
-{ override def attribs: RArr[XAtt] = RArr(IdAtt(idStr), NameAtt(nameAttStr), typeAtt, valueAtt) ++ otherAttribs
+{ override def attribs: RArr[HAtt] = RArr(IdAtt(idStr), NameAtt(nameAttStr), typeAtt, valueAtt) ++ otherAttribs
 }
 
 /** HTML Input of type text for post requests. */

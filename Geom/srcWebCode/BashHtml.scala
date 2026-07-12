@@ -6,12 +6,12 @@ object BashAtt extends ClassAtt("bash")
 
 /** Html Bash code element. */
 trait BashHtml extends CodeHtml
-{ override def attribs: RArr[XAtt] = RArr(BashAtt)
+{ override def attribs: RArr[HAtt] = RArr(BashAtt)
 }
 
 /** A multi line, Html, Bash code element. */
-class BashHtmlMulti(val lines: StrArr, otherAttribs: RArr[XAtt]) extends BashHtml, CodeLinesHtml
-{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+class BashHtmlMulti(val lines: StrArr, otherAttribs: RArr[HAtt]) extends BashHtml, CodeLinesHtml
+{ override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   override def contents: RArr[XCon] = lines.toDivLines
 }
 
@@ -22,12 +22,12 @@ object BashHtmlMulti
 
 /** Html Bash code element, that is on its own line. For the general case use the [[BashLine]] class. */
 trait BashOwnLine extends BashHtml, CodeLineHtml
-{ override def attribs: RArr[XAtt] = super.attribs +% BashAtt
+{ override def attribs: RArr[HAtt] = super.attribs +% BashAtt
 }
 
 /** An HTML Bash code element that will display on its own line. */
-class BashLine(val contents: RArr[XConInedit], val otherAttribs: RArr[XAtt]) extends BashOwnLine
-{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+class BashLine(val contents: RArr[XConInedit], val otherAttribs: RArr[HAtt]) extends BashOwnLine
+{ override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
 }
 
 object BashLine extends HtmlElemCompanion[BashLine]
@@ -62,9 +62,9 @@ object BashInline
 object BashPromptClass extends ClassAtt("bashprompt")
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
-class BashPromptSpan(val str: String, otherAttribs: RArr[XAtt]) extends SpanInlineInedit
+class BashPromptSpan(val str: String, otherAttribs: RArr[HAtt]) extends SpanInlineInedit
 { override def contents = RArr(str)
-  override def attribs: RArr[XAtt] = BashPromptClass %: otherAttribs
+  override def attribs: RArr[HAtt] = BashPromptClass %: otherAttribs
 }
 
 object BashPromptSpan
@@ -120,9 +120,9 @@ class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 
-class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[XAtt]) extends BashHtml, HtmlTagLines
+class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[HAtt]) extends BashHtml, HtmlTagLines
 { override def contents: RArr[XCon] = iUntilMap(texts.length / 2){i => SpanLine(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
-  override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
 }
 
 object BashWithPromptMulti

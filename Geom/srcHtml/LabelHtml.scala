@@ -5,7 +5,7 @@ import scala.reflect.ClassTag
 /** HTML label element. */
 class LabelHtml(val fieldName: String, val label: String) extends HtmlInedit
 { override def tagName: String = "label"
-  override def attribs: RArr[XAtt] = RArr(ForAtt(fieldName))
+  override def attribs: RArr[HAtt] = RArr(ForAtt(fieldName))
   override def contents: RArr[XCon] = RArr(label)
 }
 

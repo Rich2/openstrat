@@ -2,8 +2,8 @@
 package ostrat; package pweb; package wcode
 
 /** Creates a systemd Unit file. */
-class SystemdHtml(val lines: StrArr, otherAttribs: RArr[XAtt]) extends CodeLinesHtml
-{ override def attribs: RArr[XAtt] = otherAttribs
+class SystemdHtml(val lines: StrArr, otherAttribs: RArr[HAtt]) extends CodeLinesHtml
+{ override def attribs: RArr[HAtt] = otherAttribs
   override def contents: RArr[DivHtml] = SystemdHtml.toDivs(lines)
 }
 

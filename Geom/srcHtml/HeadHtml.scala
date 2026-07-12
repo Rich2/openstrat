@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** HTML head element. */
-case class HeadHtml(contents : RArr[XConCompound], attribs: RArr[XAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
+case class HeadHtml(contents : RArr[XConCompound], attribs: RArr[HAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "head"
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
@@ -31,7 +31,7 @@ object HeadHtml
 }
 
 /** HTML title element. */
-case class TitleHtml(str: String, attribs: RArr[XAtt] = RArr()) extends HtmlOwnLine
+case class TitleHtml(str: String, attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
 { override def tagName = "title"
   override def contents: RArr[XCon] = RArr(str)  
 }
@@ -43,7 +43,7 @@ trait LinkHtml extends HtmlVoid
 
 /** HTML CSS link. */
 class CssLink(val fullFileName: String) extends LinkHtml
-{ override def attribs: RArr[XAtt] = RArr(RelStylesheet, TypeCssAtt, HrefAtt(fullFileName))
+{ override def attribs: RArr[HAtt] = RArr(RelStylesheet, TypeCssAtt, HrefAtt(fullFileName))
 }
 
 /** Companion object for [[CssLink]] class, contains factory apply method. */
@@ -54,5 +54,5 @@ object CssLink
 
 /** SVG favicon link and icon attributes. */
 object FaviconSvgLink extends LinkHtml
-{ override def attribs: RArr[XAtt] = RArr(RelAtt("icon"), TypeSvgAtt, FaviconSvgHref)
+{ override def attribs: RArr[HAtt] = RArr(RelAtt("icon"), TypeSvgAtt, FaviconSvgHref)
 }

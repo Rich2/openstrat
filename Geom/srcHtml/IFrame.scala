@@ -15,9 +15,9 @@ trait IFrame extends HtmlElem
   def widthAtt: WidthCss
 
   /** Additional attributes to the src, width and height of this Iframe. */
-  def otherAttribs: RArr[XAtt]
+  def otherAttribs: RArr[HAtt]
 
-  override def attribs: RArr[XAtt] = RArr(widthAtt, heightAtt, srcAtt) ++ otherAttribs
+  override def attribs: RArr[HAtt] = RArr(widthAtt, heightAtt, srcAtt) ++ otherAttribs
   override def contents: RArr[XCon] = RArr()
 }
 
@@ -77,7 +77,7 @@ case object ReferNo extends ReferrerPolicy
 
 trait YouFrame extends IFrame
 { def referrerPolicy: ReferrerPolicy
-  override def attribs: RArr[XAtt] = RArr(widthAtt, heightAtt, srcAtt, referrerPolicy) ++ otherAttribs
+  override def attribs: RArr[HAtt] = RArr(widthAtt, heightAtt, srcAtt, referrerPolicy) ++ otherAttribs
 }
 
 object YouFrame

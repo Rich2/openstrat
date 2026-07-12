@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** The HTML body element. */
-class BodyHtml(val contents: RArr[XCon], val attribs: RArr[XAtt]) extends HtmlTagLines, HtmlUnvoid
+class BodyHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "body"
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag

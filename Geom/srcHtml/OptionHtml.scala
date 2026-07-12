@@ -7,7 +7,7 @@ trait OptionHtml extends HtmlOwnLine
 { override def tagName: String = "option"
   def valueStr: String
   def contentStr: String
-  override def attribs: RArr[XAtt] = RArr(ValueAtt(valueStr))
+  override def attribs: RArr[HAtt] = RArr(ValueAtt(valueStr))
   override def contents: RArr[XCon] = RArr(valueStr)
 }
 

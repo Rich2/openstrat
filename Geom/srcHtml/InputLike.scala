@@ -10,7 +10,7 @@ trait InputLike extends HtmlElem
   def valueStr: String
   
   /** Other attributes in addition to the [[IdAtt]]. */
-  def otherAttribs: RArr[XAtt]
+  def otherAttribs: RArr[HAtt]
 
   /** The ID attribute of this element. */
   def idAtt: IdAtt = IdAtt(idStr)

@@ -15,7 +15,7 @@ trait XHmlElem extends XConCompound
   def openTagMinLen: Int = tagName.length + 2
 
   /** The attributes of this XML / HTML element. */
-  def attribs: RArr[XAtt]
+  def attribs: RArr[HAtt]
 
   def attribsLen: Int = attribs.length
 
@@ -25,15 +25,23 @@ trait XHmlElem extends XConCompound
   /** Outputs the attributes into XML / HTML code. If there are multiple instances of the same attribute, the same attribute name, the values are combined into
    * a single attribute. */
   def attribsOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
-  {
-    val atts2: RArrPair[String, RArr[XAtt]] = attribs.groupBy(_.name)
-    val atts3 = atts2.pairMap {(name, attrs) => if (attrs.length == 1) attrs(0) else XAtt(name, attrs.mkStr(_.valueOut(0, 0), " ")) }
+  { val xAtts: RBuff[XAtt] = RBuff()
+    val noVals: RBuff[HAttNoValue] = RBuff()
+    attribs.foreach{
+      case xa: XAtt => xAtts.grow(xa)
+      case nv: HAttNoValue => noVals.grow(nv)  
+    }
+    val noVals2: RArrPair[String, RArr[HAttNoValue]] = noVals.groupBy(_.name)
+    val noVals3: RArr[HAttNoValue] = noVals2.pairMap{(name, nvs) => nvs(0) }
+    val xAtts2: RArrPair[String, RArr[XAtt]] = xAtts.groupBy(_.name)
+    val xAtts3: RArr[XAtt] = xAtts2.pairMap {(name, attrs) => if (attrs.length == 1) attrs(0) else XAtt(name, attrs.mkStr(_.valueOut(0, 0), " ")) }
+    val atts4: RArr[HAtt] = noVals3 ++ xAtts3
 
-    atts3.length match
+    atts4.length match
     { case 0 => TextLines()
 
       case n if n == 1 =>
-      { val str = atts3(0).out(indent + 2, line1InputLen, maxLineLen)
+      { val str = atts4(0).out(indent + 2, line1InputLen, maxLineLen)
         val len = str.length
         TextLines(str)
       }
@@ -42,7 +50,7 @@ trait XHmlElem extends XConCompound
       { val lines = StringBuff()
         var currLine = ""
         def currLen = currLine.length
-        atts3.iForeach{ (i, att) =>
+        atts4.iForeach{ (i, att) =>
           val newStr = att.out(indent + 2, indent, MaxLineLen)
           if (currLen == 0 || (currLen + newStr.length + indent) <= maxLineLen) currLine --= newStr
           else

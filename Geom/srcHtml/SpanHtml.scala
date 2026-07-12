@@ -72,7 +72,7 @@ object SpanInlineInedit
 
   def pink(str: String): SpanInlineInedit = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
 
-  case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[XAtt]) extends SpanInlineInedit
+  case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInlineInedit
 }
 
 /** HTML span element on its own line, with display set to block. */
@@ -90,13 +90,13 @@ object SpanLine
   def apply(contents: RArr[XConInedit], otherAttribs: RArr[XAtt]): SpanHtml = new SpanLineGen(contents, otherAttribs)
 
   /** Factory method for creating HTML span element with a display attribute. */
-  def display(contents: XConInedit*)(otherDisplay: CssDec*): SpanHtml = new SpanLineGen(contents.toArr, RArr()){
-    override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
+  def display(contents: XConInedit*)(otherDisplay: CssDec*): SpanHtml = new SpanLineGen(contents.toArr, RArr())
+  { override def attribs: RArr[HAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
   }
 
   /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
   def colour(colour: Colour, contents: XConInedit*): SpanHtml = new SpanLineGen(contents.toArr, RArr())
-  { override def attribs: RArr[XAtt] = super.attribs +% StyleAtt(ColourDec(colour))
+  { override def attribs: RArr[HAtt] = super.attribs +% StyleAtt(ColourDec(colour))
   }
 
   /** Factory method to create a span line with a class attribute. */
@@ -133,7 +133,7 @@ object SpanLine
   }
 
   /** HTML span element on its own line, with display set to block. */
-  case class SpanLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends SpanLine
-  { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  case class SpanLineGen(contents: RArr[XCon], otherAttribs: RArr[HAtt]) extends SpanLine
+  { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   }
 }

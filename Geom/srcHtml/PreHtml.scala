@@ -29,7 +29,7 @@ object PreHtml
   }
 
   /** Implementation of the general case of HTML Pre element. Unlike most other [[HtmlElem]]s this only takes a [[String]] as its content. */
-  case class PreHtmlGen(str: String, attribs: RArr[XAtt]) extends PreHtml
+  case class PreHtmlGen(str: String, attribs: RArr[HAtt]) extends PreHtml
   { override def contents: RArr[XCon] = RArr(str)
     override def out: String = openTag(0, 0, MaxLineLen) + str + closeTag
 

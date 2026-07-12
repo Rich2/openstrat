@@ -2,8 +2,8 @@
 package ostrat; package pweb
 import collection.mutable.ArrayBuffer
 
-/** An HTML / XML attribute, inlcuding HTML attributes without a value. */
-trait HAtt
+/** An HTML / XML attribute, including HTML attributes without a value. */
+sealed trait HAtt
 { /** Name of this attribute. Not to be confused with the name of its parent element. */
   def name: String
 

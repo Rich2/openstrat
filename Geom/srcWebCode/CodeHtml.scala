@@ -17,8 +17,8 @@ object CodeLinesHtml
   def apply(contents: RArr[XCon], otherAttribs: RArr[XAtt] = RArr()): CodeLinesHtml = new HtmlCodeLinesGen(contents, otherAttribs)
 
   /** Implementation class for the general case of [[CodeLinesHtml]]. */
-  class HtmlCodeLinesGen(val contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends CodeLinesHtml
-  { override def attribs: RArr[XAtt] = otherAttribs
+  class HtmlCodeLinesGen(val contents: RArr[XCon], otherAttribs: RArr[HAtt]) extends CodeLinesHtml
+  { override def attribs: RArr[HAtt] = otherAttribs
   }
 }
 
@@ -47,7 +47,7 @@ object CodeInline extends HtmlElemCompanion[CodeInline]
   override def fromStr(str: String, attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(RArr(str), attribs)
 
   /** Implementation class for the general casee of [[CodeInline]].  */
-  case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[XAtt]) extends CodeInline
+  case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends CodeInline
 }
 
 /** Html code to display a change of code. */
@@ -69,7 +69,7 @@ object CodeChangeLine
     val newCode: CodeInline = CodeInline(RArr(f2(input.valueStr)), RArr(newId2))
     CodeChangeLineGen(oldCode, newCode, RArr())
   }
-  case class CodeChangeLineGen(oldCode: CodeInline, newCode: CodeInline, attribs: RArr[XAtt]) extends CodeChangeLine
+  case class CodeChangeLineGen(oldCode: CodeInline, newCode: CodeInline, attribs: RArr[HAtt]) extends CodeChangeLine
 }
 
 /** A code output attribute. Useful in documentation foe distinguishing output from code and commands entered by the user. */
@@ -77,12 +77,12 @@ object CodeOutputAtt extends ClassAtt("output")
 
 /** Html code output element. */
 trait CodeOutput extends CodeHtml
-{ override def attribs: RArr[XAtt] = RArr(CodeOutputAtt)
+{ override def attribs: RArr[HAtt] = RArr(CodeOutputAtt)
 }
 
 /** An HTML element for code output, that is on its own line. Adds the [[CodeOutputAtt]] attribute. */
 trait CodeOutputLine extends CodeHtml, HtmlOwnLineBlocked
-{ override def attribs: RArr[XAtt] = super.attribs +% CodeOutputAtt
+{ override def attribs: RArr[HAtt] = super.attribs +% CodeOutputAtt
 }
 
 object CodeOutputLine extends HtmlElemCompanion[CodeOutputLine]
@@ -92,14 +92,14 @@ object CodeOutputLine extends HtmlElemCompanion[CodeOutputLine]
   override def fromStr(str: String, attribs: RArr[XAtt]): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
 
   /** Implementation class for the general case of [[CodeOutputLine]]. */
-  case class CodeOutputLineGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends CodeOutputLine
-  { override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+  case class CodeOutputLineGen(contents: RArr[XCon], otherAttribs: RArr[HAtt]) extends CodeOutputLine
+  { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   }
 }
 
 /** Sequence of HYML code lines formed from an [[StrArr]]. */
-case class CodeOutputLines(strs: Arr[String], otherAttribs: RArr[XAtt]) extends CodeOutput, HtmlTagLines
-{ override def attribs: RArr[XAtt] = super.attribs ++ otherAttribs
+case class CodeOutputLines(strs: Arr[String], otherAttribs: RArr[HAtt]) extends CodeOutput, HtmlTagLines
+{ override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   override def contents: RArr[XCon] = strs.map(s => DivHtml(s))
 }
 
@@ -112,14 +112,14 @@ object CodeOutputLines
 class HtmlDirPath(val str: String) extends CodeInline
 { def classAtt: ClassAtt = ClassAtt("path")
   override def contents: RArr[XCon] = RArr(str)
-  override def attribs: RArr[XAtt] = RArr(classAtt)
+  override def attribs: RArr[HAtt] = RArr(classAtt)
 }
 
 /** An HTML code element with an [[PreHtml]] element as its contents. */
 trait PreCode extends PreHtml
 { def codeElem: CodeSpecial
   override def contents: RArr[XCon] = RArr(codeElem)
-  override def attribs: RArr[XAtt] = RArr(BlockStyle)// %: otherAttribs
+  override def attribs: RArr[HAtt] = RArr(BlockStyle)// %: otherAttribs
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = openTag(0, 0) + codeElem.out + closeTag
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(openTag(0, 0) + codeElem.out + closeTag)
 
@@ -139,46 +139,46 @@ object PreCode
 
   /** Creates an HTML Escape element and registers the textContent of the inner pre element with an HTML Text Input. The function passed to the updater will not
    * escape the HTML code characters. */
-  def listenText(input: UpdaterInputStr, otherAttribs: XAtt*)(f1: String => String): PreCode =
+  def listenText(input: UpdaterInputStr, otherAttribs: HAtt*)(f1: String => String): PreCode =
   { val f2: String => String = s1 => f1(s1).escapeHtml
     def newId: IdAtt = input.next1Text(f2)
 
     new PreCode
     {  override def codeElem: CodeSpecial = new CodeSpecial
       { override def codeStr: String = f2(input.valueStr)
-        override def attribs: RArr[XAtt] = RArr(newId, BlockStyle)
+        override def attribs: RArr[HAtt] = RArr(newId, BlockStyle)
       }
     }
   }
 
   /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Updaters. */
-  def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f1: (String, String) => String): PreCode =
+  def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: HAtt*)(f1: (String, String) => String): PreCode =
   { val f2: (String, String) => String = (s1, s2) => f1(s1, s2).escapeHtml
     val idAtt: IdAtt = input1.next2Text1(input2, f2)
     new PreCode
     { override def codeElem: CodeSpecial = new CodeSpecial
-      { override def attribs: RArr[XAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
+      { override def attribs: RArr[HAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
         override def codeStr: String = f2(input1.valueStr, input2.valueStr)
       }
     }
   }
 
   /** Creates an HTML Code Pre element and registers the textContent with 3 HTML Text Updaters. */
-  def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: XAtt*)(f1: (String, String, String) => String): PreCode =
+  def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: HAtt*)(f1: (String, String, String) => String): PreCode =
   { val f2: (String, String, String) => String = (s1, s2, s3) => f1(s1, s2, s3).escapeHtml
     val idAtt: IdAtt = input1.next3Id1(input2, input3, f2)
     new PreCode
     { override def codeElem: CodeSpecial = new CodeSpecial
-      { override def attribs: RArr[XAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
+      { override def attribs: RArr[HAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
         override def codeStr: String = f2(input1.valueStr, input2.valueStr, input3.valueStr)
       }
     }
   }
 
   /** An HTML code element with an [[PreHtml]] element as its contents. */
-  case class PreCodeGen(codeStrIn: String, otherAttribs: RArr[XAtt]) extends PreCode
+  case class PreCodeGen(codeStrIn: String, otherAttribs: RArr[HAtt]) extends PreCode
   { val codeElem: CodeSpecial = new CodeSpecial
-    { override def attribs: RArr[XAtt] = RArr(BlockStyle)
+    { override def attribs: RArr[HAtt] = RArr(BlockStyle)
       override def codeStr: String = codeStrIn.escapeHtml
     }
   }
