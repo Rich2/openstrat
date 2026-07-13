@@ -17,8 +17,8 @@ case class UserDetails(name: String, password: String)
   { val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
     val regForm = FormHtml(
-      LabelInputStrPost("User Name", regName,  regName, "", RequiredAtt),
-      LabelInputPassword("Password", regPass, regPass, "", RequiredAtt), SubmitButton("regSubmit")
+      LabelInputStrPost.required("User Name", regName,  regName, ""),
+      LabelInputPassword.required("Password", regPass, regPass, ""), SubmitButton("regSubmit")
     )
     
     val body: BodyHtml = BodyHtml(
