@@ -41,8 +41,8 @@ object LabelInputStrPost
 { /** Factory apply methos to construct a Label and an HTML Input of type text for post requests. */
   def apply(label: String, nameStr: String, idStr: String, valueStr: String): LabelInputStrPost = LabelInputStrPostGen(idStr, nameStr: String, label, valueStr)
 
-  case class LabelInputStrPostGen(label: String, nameStr: String, idStr: String,  valueStr: String) extends LabelInputStrPost
-  { override def child2: InputStrPost = InputStrPost(nameStr, idStr, valueStr)
+  case class LabelInputStrPostGen(labelStr: String, nameStr: String, forIdStr: String,  valueStr: String) extends LabelInputStrPost
+  { override def child2: InputStrPost = InputStrPost(nameStr, forIdStr, valueStr)
   }
 }
 
@@ -53,13 +53,15 @@ class InputPassword(val nameAttStr: String, val idStr: String, val valueStr: Str
 
 object InputPassword
 { /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(nameAttStr: String, idStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputPassword = new InputPassword(nameAttStr, idStr, valueStr, otherAttribs)
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputPassword =
+    new InputPassword(idStr, nameAttStr, valueStr, otherAttribs)
 
   /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(nameAttStr: String, idStr: String, valueStr: String, otherAttribs: XAtt*): InputPassword = new InputPassword(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: XAtt*): InputPassword =
+    new InputPassword(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
 }
 
 /** HTML Labek and Input of type password for post requests. */
-case class LabelInputPassword(label: String, nameAttStr: String, idStr: String, valueStr: String) extends LabelInputLike
-{ override def child2: InputPassword = InputPassword(nameAttStr, idStr, valueStr)
+case class LabelInputPassword(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String) extends LabelInputLike
+{ override def child2: InputPassword = InputPassword(forIdStr, nameAttStr, valueStr)
 }

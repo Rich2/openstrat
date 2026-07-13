@@ -4,8 +4,8 @@ import annotation.unchecked.uncheckedVariance, pParse.*
 
 /** Common trait for immutable [[Sequ]]s, mutable [[Buff]]s and [[SeqSpec]] classes that are not sequences but can be specified by a sequence, for example a
  *  sequence of points can specify a polygon. Designed as a compromise between type safety and efficiency. Using backing [[Array]]s for use facing types, but
- *  using backing [[collection.mutable.ArrayBuffer]]s behind the scenes keeping mutation encapsulated. Many methods and properties are common to all three [[Sequ]]s, [[Buff]]s and
- *  [[SeqSpec]]s. */
+ *  using backing [[collection.mutable.ArrayBuffer]]s behind the scenes keeping mutation encapsulated. Many methods and properties are common to all three
+ *  [[Sequ]]s, [[Buff]]s and [[SeqSpec]]s. */
 trait SeqLike[+A] extends Any
 { /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]

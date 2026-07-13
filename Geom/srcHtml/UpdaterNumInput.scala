@@ -78,9 +78,9 @@ object UpdaterDblInput
     new UpdaterDblInput(idStr, value, otherAttribs.toRArr)
 }
 
-class LabelUpdaterIntInput(val idStr: String, val label: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater) extends
-  LabelInputLike
-{ override def child2: UpdaterIntInput = UpdaterIntInput(idStr, valueNum, minVal, maxVal, step)
+class LabelUpdaterIntInput(val forIdStr: String, val labelStr: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using
+  page: PageHtmlUpdater) extends LabelInputLike
+{ override def child2: UpdaterIntInput = UpdaterIntInput(forIdStr, valueNum, minVal, maxVal, step)
 }
 
 object LabelUpdaterIntInput
@@ -89,8 +89,8 @@ object LabelUpdaterIntInput
     new LabelUpdaterIntInput(idStr, label, valueNum, minVal, maxVal, step)
 }
 
-class LabelUpdaterDblInput(val idStr: String, val label: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelInputLike
-{ override def child2: UpdaterDblInput = UpdaterDblInput(idStr, valueNum)
+class LabelUpdaterDblInput(val forIdStr: String, val labelStr: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelInputLike
+{ override def child2: UpdaterDblInput = UpdaterDblInput(forIdStr, valueNum)
 }
 
 object LabelUpdaterDblInput

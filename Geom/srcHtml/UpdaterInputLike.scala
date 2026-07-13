@@ -93,8 +93,8 @@ object UpdaterInputStr
 }
 
 /** An HTML label followed by an [[UpdaterInputStr]]. */
-class LabelUpdaterInputStr(val idStr: String, val label: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelInputLike
-{ override def child2: UpdaterInputStr = UpdaterInputStr(idStr, valueStr)
+class LabelUpdaterInputStr(val forIdStr: String, val labelStr: String, val valueStr: String)(using page: PageHtmlUpdater) extends LabelInputLike
+{ override def child2: UpdaterInputStr = UpdaterInputStr(forIdStr, valueStr)
 }
 
 object LabelUpdaterInputStr

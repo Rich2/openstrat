@@ -19,12 +19,12 @@ trait InputLike extends HtmlElem
 /** An HTML span containing a label and an input / select element. */
 trait LabelInputLike extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 { /** [[String]] for the id attribute. */
-  def idStr: String
+  def forIdStr: String
 
   /** The label [[String]]. */
-  def label: String
+  def labelStr: String
 
-  override def child1: LabelHtml = LabelHtml(idStr, label)
+  override def child1: LabelHtml = LabelHtml(labelStr, forIdStr)
   override def contents: RArr[XCon] = RArr(child1, child2)
 }
 
