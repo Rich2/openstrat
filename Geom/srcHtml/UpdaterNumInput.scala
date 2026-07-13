@@ -78,6 +78,7 @@ object UpdaterDblInput
     new UpdaterDblInput(idStr, value, otherAttribs.toRArr)
 }
 
+/** HTML Label and HTML Input element that takes [[Int]]s, that can update textContent fields on the page. */
 class LabelUpdaterIntInput(val forIdStr: String, val labelStr: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using
   page: PageHtmlUpdater) extends LabelInputLike
 { override def child2: UpdaterIntInput = UpdaterIntInput(forIdStr, valueNum, minVal, maxVal, step)
@@ -89,6 +90,7 @@ object LabelUpdaterIntInput
     new LabelUpdaterIntInput(idStr, label, valueNum, minVal, maxVal, step)
 }
 
+/** HTML Label and HTML Input element that takes [[Double]]s, that can update textContent fields on the page. */
 class LabelUpdaterDblInput(val forIdStr: String, val labelStr: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelInputLike
 { override def child2: UpdaterDblInput = UpdaterDblInput(forIdStr, valueNum)
 }

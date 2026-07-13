@@ -22,14 +22,14 @@ trait InputStrPost extends InputPost
 
 object InputStrPost
 { /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(nameAttStr: String, idStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputStrPost =
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputStrPost =
     new InputStrPostGen(nameAttStr, idStr, valueStr, otherAttribs)
 
   /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(nameAttStr: String, idStr: String, valueStr: String, otherAttribs: XAtt*): InputStrPost =
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: XAtt*): InputStrPost =
     new InputStrPostGen(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
 
-  class InputStrPostGen(val nameAttStr: String, val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputStrPost
+  class InputStrPostGen(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputStrPost
 }
 
 /** A Label and an HTML Input of type text for post requests. */
@@ -39,15 +39,15 @@ trait LabelInputStrPost extends LabelInputLike
 
 object LabelInputStrPost
 { /** Factory apply methos to construct a Label and an HTML Input of type text for post requests. */
-  def apply(label: String, nameStr: String, idStr: String, valueStr: String): LabelInputStrPost = LabelInputStrPostGen(idStr, nameStr: String, label, valueStr)
+  def apply(label: String, idStr: String, nameStr: String, valueStr: String): LabelInputStrPost = LabelInputStrPostGen(idStr, nameStr: String, label, valueStr)
 
-  case class LabelInputStrPostGen(labelStr: String, nameStr: String, forIdStr: String,  valueStr: String) extends LabelInputStrPost
-  { override def child2: InputStrPost = InputStrPost(nameStr, forIdStr, valueStr)
+  case class LabelInputStrPostGen(labelStr: String, forIdStr: String, nameStr: String, valueStr: String) extends LabelInputStrPost
+  { override def child2: InputStrPost = InputStrPost(forIdStr, nameStr, valueStr)
   }
 }
 
 /** HTML Input of type password for post requests. */
-class InputPassword(val nameAttStr: String, val idStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputPost
+class InputPassword(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputPost
 { override def typeAtt: TypePasswordAtt.type = TypePasswordAtt
 }
 

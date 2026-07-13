@@ -31,7 +31,7 @@ trait VersionMinor extends VersionMinorPlus
 { override def str: String = s"$major.$minor" + endStr
 }
 
-trait SwVersionElem extends XmlInline, SwVersion
+trait SwVersionElem extends XmlInEdit, SwVersion
 { override def tagName: String = "version"
   override def attribs: RArr[XAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str)
