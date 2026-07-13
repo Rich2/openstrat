@@ -22,14 +22,14 @@ trait InputStrPost extends InputPost
 
 object InputStrPost
 { /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputStrPost =
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[HAtt]): InputStrPost =
     new InputStrPostGen(nameAttStr, idStr, valueStr, otherAttribs)
 
   /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: XAtt*): InputStrPost =
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputStrPost =
     new InputStrPostGen(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
 
-  class InputStrPostGen(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputStrPost
+  class InputStrPostGen(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[HAtt]) extends InputStrPost
 }
 
 /** A Label and an HTML Input of type text for post requests. */
@@ -38,30 +38,37 @@ trait LabelInputStrPost extends LabelInputLike
 }
 
 object LabelInputStrPost
-{ /** Factory apply methos to construct a Label and an HTML Input of type text for post requests. */
-  def apply(label: String, idStr: String, nameStr: String, valueStr: String): LabelInputStrPost = LabelInputStrPostGen(idStr, nameStr: String, label, valueStr)
+{ /** Factory apply methods to construct a Label and an HTML Input of type text for post requests. */
+  def apply(label: String, idStr: String, nameStr: String, valueStr: String, otherInputAtts: HAtt*): LabelInputStrPost =
+    LabelInputStrPostGen(idStr, nameStr: String, label, valueStr, otherInputAtts.toRArr)
 
-  case class LabelInputStrPostGen(labelStr: String, forIdStr: String, nameStr: String, valueStr: String) extends LabelInputStrPost
-  { override def child2: InputStrPost = InputStrPost(forIdStr, nameStr, valueStr)
+  case class LabelInputStrPostGen(labelStr: String, forIdStr: String, nameStr: String, valueStr: String, otherInputAtts: RArr[HAtt]) extends LabelInputStrPost
+  { override def child2: InputStrPost = InputStrPost(forIdStr, nameStr, valueStr, otherInputAtts)
   }
 }
 
 /** HTML Input of type password for post requests. */
-class InputPassword(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[XAtt]) extends InputPost
+class InputPassword(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[HAtt]) extends InputPost
 { override def typeAtt: TypePasswordAtt.type = TypePasswordAtt
 }
 
 object InputPassword
 { /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[XAtt]): InputPassword =
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[HAtt]): InputPassword =
     new InputPassword(idStr, nameAttStr, valueStr, otherAttribs)
 
   /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: XAtt*): InputPassword =
+  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputPassword =
     new InputPassword(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
 }
 
 /** HTML Labek and Input of type password for post requests. */
-case class LabelInputPassword(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String) extends LabelInputLike
+case class LabelInputPassword(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String, otherInputAtts: RArr[HAtt]) extends LabelInputLike
 { override def child2: InputPassword = InputPassword(forIdStr, nameAttStr, valueStr)
+}
+
+object LabelInputPassword
+{
+  def apply(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String, otherInputAtts: HAtt*): LabelInputPassword =
+    new LabelInputPassword(labelStr, forIdStr, nameAttStr, valueStr, otherInputAtts.toRArr)
 }

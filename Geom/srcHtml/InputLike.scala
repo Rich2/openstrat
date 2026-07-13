@@ -16,6 +16,9 @@ trait InputLike extends HtmlElem
   def idAtt: IdAtt = IdAtt(idStr)
 }
 
+/** Required attribute for HTML Form Inputs. */
+case object RequiredAtt extends HAttNoValue("required")
+
 /** An HTML span containing a label and an input / select element. */
 trait LabelInputLike extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 { /** [[String]] for the id attribute. */
