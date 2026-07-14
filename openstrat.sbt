@@ -12,14 +12,14 @@ lazy val root = rootProject.aggregate(Util, UtilDoc, Geom, GeomExs, Tiling, Tili
   name := "OpenStrat",
   scalaVersion := scalaVersionStr,
   publish/skip := true,
-  apiURL := Some(url("https://richstrat.com/api/")),
+  apiURL := Some(uri("https://richstrat.com/api/")),
   //ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util, Geom, GeomExs, GeomFx, Tiling, TilingExs, EGrid, Apps, Dev, DevFx, Servlet),
 )
 
 lazy val JsAgg = (project in file("Dev/JsAgg")).aggregate(UtilJs, GeomJs, TilingJs, EGridJs)/*.enablePlugins(ScalaUnidocPlugin)*/.settings(
   scalaVersion := scalaVersionStr,
   publish/skip := true,
-  apiURL := Some(url("https://richstrat.com/api/")),
+  apiURL := Some(uri("https://richstrat.com/api/")),
   //ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(UtilJs, GeomJs, TilingJs, EGridJs),
 )
 
