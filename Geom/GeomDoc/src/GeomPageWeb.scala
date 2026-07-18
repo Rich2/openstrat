@@ -8,22 +8,22 @@ object GeomPageWeb extends Section
   override def contents: RArr[XCon] = RArr(H2Html("XML, HTML and CSS"), s1)
 
   def s1 = OlSection("The package consists of a number of types of objects",
-    LiHtml("XHml elements".htmlB, "Xml and Html elements with their opening and closing tags and HTML void elements with just an opening tag."),
-    LiHtml("XAtt attributes".htmlB,"""XML and HTML attributes. They are not called XHAtts, because in this regard HTML is consistent with XML and there is no
+    LiHtml("XHml elements".bHtml, "Xml and Html elements with their opening and closing tags and HTML void elements with just an opening tag."),
+    LiHtml("XAtt attributes".bHtml,"""XML and HTML attributes. They are not called XHAtts, because in this regard HTML is consistent with XML and there is no
     |need to distinguish between XML and HTML attributes, as with elements, where XML and HTML has different rules.""".stripMargin),
-    LiHtml("CSS".htmlB, """CSS rules and declarations. Css declarations end in the suffix "Dec". Css selectors end in the suffix "Sel". Css values end in the
+    LiHtml("CSS".bHtml, """CSS rules and declarations. Css declarations end in the suffix "Dec". Css selectors end in the suffix "Sel". Css values end in the
     |suffix "Css".""".stripMargin),
-    LiHtml("SVG".htmlB, "Scalable Vector Graphics. This is just a form of XML."),
-    LiHtml("XCon XML and HTML content".htmlB, """This consists of XConElems and plain Strings. XConElems includes XML and HTML elements but also includes CSS
+    LiHtml("SVG".bHtml, "Scalable Vector Graphics. This is just a form of XML."),
+    LiHtml("XCon XML and HTML content".bHtml, """This consists of XConElems and plain Strings. XConElems includes XML and HTML elements but also includes CSS
     |rules as they can be used as content in an HTML style element. XCon can be divided into 3 types, depending on how it is formatted as HTML code. Note this
     |is different to how it is formatted in the browser.""".stripMargin,
     UlHtml(
-      LiHtml("Inline elements".htmlB, """Includes plain Strings and spans. The elements continue on the same line following another inline element. White
+      LiHtml("Inline elements".bHtml, """Includes plain Strings and spans. The elements continue on the same line following another inline element. White
       |space distinctions between new lines, tabs and spaces in the element are ignored and the white space is reformatted into single space and new lines to
       |fit the indentations and line lengths of the XML / HTML / CSS output.""".stripMargin),
-      LiHtml("OwnLine elements".htmlB, """Includes list items. These element may be encapsulated on a single line, but may not share a line with sibling
+      LiHtml("OwnLine elements".bHtml, """Includes list items. These element may be encapsulated on a single line, but may not share a line with sibling
       |content. They may however be enclosed within parent tags on a single line, if it is the only child content of its parent element.""".stripMargin),
-      LiHtml("MultiLine elements".htmlB, """Includes Lists, Body, Section. These elements opening  and closing tags must appear on their own lines, separate
+      LiHtml("MultiLine elements".bHtml, """Includes Lists, Body, Section. These elements opening  and closing tags must appear on their own lines, separate
       |from both the parent element tags and their own content.""".stripMargin))
     )
   )

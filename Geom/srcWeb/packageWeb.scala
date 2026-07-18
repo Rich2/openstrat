@@ -13,8 +13,9 @@ package object pweb
    * not wanted. */
   def linkRawOut(path: String, tailStr: String): String = AHtml(path).out + tailStr
 
-  extension (thisString: String) {/** Implicit method to return an HTML bold element. */
-    def htmlB: BHtml = BHtml(thisString)
+  extension (thisString: String)
+  { /** Implicit method to return an HTML bold element. */
+    def bHtml: BHtml = BHtml(thisString)
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
 

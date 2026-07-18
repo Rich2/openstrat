@@ -21,7 +21,7 @@ object IndexPage extends IndexPage
 
   def menu: OlLarge = OlLarge(util, geom, tile, egrid, apps, dev)
 
-  def intro: PHtml = PHtml("The Code is currently organised into 6 modules.".htmlB,
+  def intro: PHtml = PHtml("The Code is currently organised into 6 modules.".bHtml,
     "Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web.")
 
   def util: LiHtml = LiHtml(AHtml("Documentation/util.html", "Util"), """Contains a number of utilities. This includes RSON, Rich Succinct object system
