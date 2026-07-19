@@ -1,6 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
+import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}, plet.*
 
 case class UserDetails(name: String, password: String)
 
@@ -45,8 +45,9 @@ case class UserDetails(name: String, password: String)
   }
 
   override def doPost(req: HSReq, resp: HSResp): Unit =
-  { val name = Option(req.getParameter(regName))
-    val pass = Option(req.getParameter(regPass))
+  {
+    val name: Option[String] = req.findParam(regName)
+    val pass: Option[String] = req.findParam(regPass))
 
     val body = BodyHtml(
       DivHtml("Result from post"),

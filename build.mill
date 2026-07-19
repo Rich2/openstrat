@@ -49,8 +49,8 @@ object UtilDocJs extends CommonJs
 object Geom extends CommonJvm
 {
   def sources1 = Task.Sources(
-    Seq("src", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcXml", "srcHtml", "srcWeb",
-      "srcWebOpen", "srcCss", "srcWebCode", "srcEarth").map(name => moduleDir / name)*)
+    Seq("srcGeom", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcXml", "srcHtml", "srcWeb",
+      "srcWebOpen", "srcCss", "srcWebCode", "srcEarth").map(name => moduleDir / "src" / name)*)
 
   def sources2 = Task.Sources(moduleDir / "JvmSrc")
   def sources = Task { sources1() ++ sources2() }

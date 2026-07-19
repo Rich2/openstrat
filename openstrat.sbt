@@ -116,9 +116,9 @@ lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(uti
 )
 
 def geomSett = List(
-  Compile/unmanagedSourceDirectories ++= List("srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcTrans", "srcGraphic", "srcXml",
-    "srcHtml", "srcWeb", "srcWebOpen", "srcCss", "srcWebCode", "srcGui", "srcEarth").
-   map(s => bbDir.value / "Geom" / s),
+  Compile/unmanagedSourceDirectories ++= List("srcGeom", "srcLines", "srcShapes", "srcPoly", "srcQuad", "srcUnits", "srcImperial", "srcTrans", "srcGraphic",
+    "srcXml", "srcHtml", "srcWeb", "srcWebOpen", "srcCss", "srcWebCode", "srcGui", "srcEarth").
+   map(str => bbDir.value / "Geom" / "src" / str),
 )
 
 lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett).settings(
@@ -127,6 +127,10 @@ lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett).settings(
 
 lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += ("org.openjfx" % "javafx-controls" % "25.0.3").withSources().withJavadoc(),
+)
+
+lazy val GeomLet = projSubName("Geom", "Let").dependsOn(Geom).settings(
+  libraryDependencies += ("jakarta.servlet" % "jakarta.servlet-api" % "6.1.0" % "provided").withSources().withJavadoc(),  
 )
 
 def geomExsSett = List(Compile/unmanagedSourceDirectories += bbDir.value / "Geom" / "GeomExs" / "srcLessons")
@@ -212,7 +216,7 @@ lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
   assemblyMergeStrategy := {case _ => MergeStrategy.first }
 )
 
-lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev).settings(
+lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev, GeomLet).settings(
   libraryDependencies += ("jakarta.servlet" % "jakarta.servlet-api" % "6.1.0" % "provided").withSources().withJavadoc(),
   Compile/mainClass := Some("ostrat.pDev.StagingServlet"),
 )
