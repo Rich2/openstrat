@@ -47,7 +47,7 @@ case class UserDetails(name: String, password: String)
   override def doPost(req: HSReq, resp: HSResp): Unit =
   {
     val name: Option[String] = req.findParam(regName)
-    val pass: Option[String] = req.findParam(regPass))
+    val pass: Option[String] = req.findParam(regPass)
 
     val body = BodyHtml(
       DivHtml("Result from post"),

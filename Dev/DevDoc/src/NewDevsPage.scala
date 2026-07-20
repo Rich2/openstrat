@@ -45,7 +45,7 @@ object NewDevsPage extends DevPageBase
   val sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
   
   def intellij: Section = Section("Intellij IDEA".h2,
-    BashLine("sudo tar -xzf idea-2026.1.4.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf idea-2026.2.tar.gz -C /opt"),
     UlSection("For IntelliJ useful options:",
       LiHtml("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
       LiHtml("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
