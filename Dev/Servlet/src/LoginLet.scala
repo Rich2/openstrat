@@ -45,16 +45,22 @@ case class UserDetails(name: String, password: String)
   }
 
   override def doPost(req: HSReq, resp: HSResp): Unit =
-  {
-    val name: Option[String] = req.findParam(regName)
-    val pass: Option[String] = req.findParam(regPass)
-
-    val body = BodyHtml(
-      DivHtml("Result from post"),
-      DivHtml(s"name = $name"),
-      DivHtml(s"password = $pass")
-    )
-    val page = HtmlPage(headLog, body)
+  { val contents: RArr[XCon] = req.findParam("logSubmit") match
+    {  case Some(_) => RArr(
+        DivHtml ("Result from Login"),
+        DivHtml ("name =" -- req.findParam (logName).toString),
+        DivHtml ("password =" -- req.findParam (logPass).toString)
+      )  
+      case _ => req.findParam("regSubmit") match
+      { case Some(_) => RArr(
+          DivHtml ("Result from resistration"),
+          DivHtml ("name =" -- req.findParam(regName).toString),
+          DivHtml ("password =" -- req.findParam (regPass).toString)
+        )
+        case _ => RArr("Unrecogonised submission.")
+      }    
+    }
+    val page = HtmlPage(headLog, BodyHtml(contents))
     resp.getWriter().println(page.out)
   }
 }
