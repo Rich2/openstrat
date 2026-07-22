@@ -72,6 +72,12 @@ object GeomFx extends CommonJvm
   )
 }
 
+object GeomLet extends CommonJvm
+{ def sources = Task.Sources(workspaceRoot / "Geom" / "GeomLet" / "src")
+  def moduleDeps = Seq(Geom)
+  def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.1.0")
+}
+
 object GeomJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
   def source2 = Task.Source(workspaceRoot / "Geom" / "GeomJs" / "src")
@@ -277,13 +283,13 @@ object DevFx extends CommonJvm
 
 //def run() = DevFx.runBackground()
 
-def DocsStage(args: String*) = Task.Command{
+def StageSite(args: String*) = Task.Command{
   DevDocJsApps.TomcatPageJs.fullLinkJS()
   DevDocJsApps.NewDevsPageJs.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.MillDocsStage", args = Array[String]())
 }
 
-def SiteStage = Task{
+def StageSite = Task{
   import AppJs.*, EGridJs.*, DevDocJsApps.*
   DicelessApp.fullLinkJS()
   WW2App.fullLinkJS()
@@ -335,13 +341,13 @@ def StageAllJars = Task{
 object Servlet extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Dev" / "Servlet" / "src")
   def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.1.0")
-  def moduleDeps = Seq(Dev)
+  def moduleDeps = Seq(GeomLet, Dev)
 }
 
 def packAllMain = Task{
   Util.jar()
   Geom.jar()
-  GeomLet()
+  GeomLet.jar()
   Tiling.jar()
   EGrid.jar()
   Apps.jar()
@@ -374,7 +380,7 @@ def packAllDocSrc = Task{
   Apps.sourceJar()
 }
 
-def ServletStage = Task{
+def StageServlet = Task{
   packAllMain()
   Servlet.runner().run(mainClass = "ostrat.pDev.MillStagingServlet", args = Array[String]())
 }

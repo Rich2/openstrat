@@ -26,7 +26,7 @@ object TomcatPage extends DevPageBase
   val cset: String = "cset"
   //val userAtCom: String = userName1 + "@" + computerName1
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "23"
+  val tcMinorVer: String = "24"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "localhost"
@@ -118,15 +118,16 @@ object TomcatPage extends DevPageBase
   |because Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next
   |command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white.""".stripMargin,
   BashLine(tomcatDirPrompt,
-    SpanInlineInedit.inputText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
+    SpanInlineInedit.listenStrText(tomVarIUT){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,
-    SpanInlineInedit.inputText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
+    SpanInlineInedit.listenStrText(tomVarIUT){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
   )
 
-  val s7: LiHtml = LiHtml("""Then unpack the tar file and create a link. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are
-  |released frequently.""".stripMargin,
-  BashLine(tomcatDirPrompt, SpanInlineInedit.input2Text(tomVarIUT, dirIUT){ (version, dir) => s"tar xf apache-tomcat-$version.tar.gz -C $dir" }),
-  BashLine(tomcatDirPrompt, SpanInlineInedit.inputText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11" }),
+  val s7: LiHtml = LiHtml("""Then unpack the tar file. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released
+  |frequently. Run this command from the folder where the tar is downloaded.""".stripMargin,
+  BashLine.listen2StrText(tomVarIUT, dirIUT){ (version, dir) => s"tar xf apache-tomcat-$version.tar.gz -C $dir" },
+  "Create a link in the tomcat directory.",  
+  BashLine(tomcatDirPrompt, SpanInlineInedit.listenStrText(tomVarIUT){ version => s"ln -s apache-tomcat-$version tom11" }),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
   CodeOutputLine.listenStrText(tomVarIUT){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11" }
