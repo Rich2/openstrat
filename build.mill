@@ -341,6 +341,7 @@ object Servlet extends CommonJvm
 def packAllMain = Task{
   Util.jar()
   Geom.jar()
+  GeomLet()
   Tiling.jar()
   EGrid.jar()
   Apps.jar()
@@ -354,6 +355,8 @@ def packAllDocSrc = Task{
   UtilJs.sourceJar()
   Geom.docJar()
   Geom.sourceJar()
+  GeomLet.docJar()
+  GeomLet.sourceJar()
   GeomFx.jar()
   GeomFx.docJar()
   GeomFx.sourceJar()

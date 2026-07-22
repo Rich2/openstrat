@@ -24,6 +24,9 @@ object ScalaJsGroup extends GroupId("org.scala-js")
 /** XML element for a POM GroupID for "org.openjfx". */
 object OpenJfxId extends GroupId("org.openjfx")
 
+/** XML element for a POM GroupID for "jakarta.servlet". */
+object JakartaId extends GroupId("jakarta.servlet")
+
 /** An XML element for a  */
 class ArtifactId(artifactStr: String) extends XmlElemSimple("artifactId", artifactStr)
 object ArtifactId { def apply(artifactStr: String): ArtifactId = new ArtifactId(artifactStr) }

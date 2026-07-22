@@ -16,7 +16,7 @@ trait MillStageJars
   val version: VersionPatchElem = VersionPatchElem(0, 4, 0, Some("snap"))
   val scalaVersion = VersionPatchElem(3, 8, 4)
 
-  val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer, GeomJsPommer, GeomFxPommer)
+  val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer, GeomJsPommer, GeomLetPommer, GeomFxPommer)
 
   val pomMods2: RArr[OsModulePomVerless] = pomMods1 +% AppsPommer
 

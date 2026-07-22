@@ -76,6 +76,22 @@ object JavaFxControlsDep
 { /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes the point numbers as parameters */
   def apply(version: VersionPatchElem): JavaFxControlsDep = new JavaFxControlsDep(version)
 
-  /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[VersionPatchElem]] as its parameter. */
+  /** Factory apply method for creating JavaFx Controls dependency for a POM. There is an apply name overload that takes an [[VersionPatchElem]] as its
+   * parameter. */
   def apply(n1: Int = 25, n2: Int = 0, n3: Int = 2): JavaFxControlsDep = new JavaFxControlsDep(VersionPatchElem(n1, n2, n3))
+}
+
+/** XML element for a POM dependency for a version of the jakarta servlet. */
+class ServletDep(val version: VersionMinorElem) extends PomDep
+{ override def groupId: GroupId = JakartaId
+  override def artifactId: ArtifactId = ArtifactId("jakarta.servlet-api")
+}
+
+object ServletDep
+{ /** Factory apply method for creating Jakarta servlet dependency for a POM. There is an apply name overload that takes the point numbers as parameters */
+  def apply(version: VersionMinorElem): ServletDep = new ServletDep(version)
+
+  /** Factory apply method for creating Jakarta servlet dependency for a POM. There is an apply name overload that takes an [[VersionPatchElem]] as its
+   * parameter. */
+  def apply(n1: Int = 6, n2: Int = 1): ServletDep = new ServletDep(VersionMinorElem(n1, n2))
 }

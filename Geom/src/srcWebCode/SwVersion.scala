@@ -22,6 +22,7 @@ trait SwVersion
   }
 }
 
+/** Software version with at least a minor version number. */
 trait VersionMinorPlus extends SwVersion
 { /** Minor version number */
   def minor: Int
@@ -39,12 +40,21 @@ trait SwVersionElem extends XmlInEdit, SwVersion
 
 trait VersionMinorPlusElem extends SwVersionElem, VersionMinorPlus
 
-trait VersionMinorElem extends VersionMinorPlusElem
+class VersionMinorElem(val major: Int, val minor: Int, val oPreStr: Option[String], val oPreNum: Option[Int]) extends VersionMinorPlusElem
+{ override def str: String = s"$major.$minor" + endStr
+}
+
+object VersionMinorElem
+{ /** Factory apply method to create a Software Version object. */
+  def apply(n1: Int, n2: Int, optSpecStr: Option[String] = None, optN4: Option[Int] = None): VersionMinorElem = new VersionMinorElem(n1, n2, optSpecStr, optN4)
+
+  /** Factory method to create a snap Software Version object. */
+  def snap(n1: Int, n2: Int): VersionMinorElem = new VersionMinorElem(n1, n2, Some("snap"), None)
+}
 
 /** Software version. */
 class VersionPatchElem(val major: Int, val minor: Int, val n3: Int, val oPreStr: Option[String], val oPreNum: Option[Int]) extends VersionMinorPlusElem
 { override def str: String = s"$major.$minor.$n3" + endStr
-
 }
 
 object VersionPatchElem
