@@ -199,7 +199,7 @@ object AppsJs extends CommonJs
 { def moduleDeps = Seq(EGridJs)  
   def source2 = Task.Source(workspaceRoot / "Apps" / "AppsJs" / "src")
   def sources = Apps.sources1() :+ source2()
-  def mvnDeps = Seq(mvn"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
+  def mvnDeps = Seq(mvn"io.github.cquiroz::scala-java-time_sjs1:2.7.0")
 }
 
 trait AppsJs extends CommonJs
@@ -338,8 +338,8 @@ def StageAllJars = Task{
   Dev.runner().run(mainClass = "ostrat.pDev.MillAllJars", args = Array[String]())
 }
 
-object Servlet extends CommonJvm
-{ def sources = Task.Sources(workspaceRoot / "Dev" / "Servlet" / "src")
+object DevLet extends CommonJvm
+{ def sources = Task.Sources(workspaceRoot / "Dev" / "DevLet" / "src")
   def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.1.0")
   def moduleDeps = Seq(GeomLet, Dev)
 }
@@ -382,5 +382,5 @@ def packAllDocSrc = Task{
 
 def StageServlet = Task{
   packAllMain()
-  Servlet.runner().run(mainClass = "ostrat.pDev.MillStagingServlet", args = Array[String]())
+  DevLet.runner().run(mainClass = "ostrat.pDev.MillStagingServlet", args = Array[String]())
 }

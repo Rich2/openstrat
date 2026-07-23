@@ -24,7 +24,7 @@ case class UserDetails(name: String, password: String)
       LabelInputPassword.required("Password", logPass, logPass, ""), SubmitButton("logSubmit")
     )
     
-    val regForm: FormHtml = FormHtml("Register".bHtml,
+    val regForm: FormHtml = FormHtml(DivHtml("Register".bHtml),
       LabelInputStrPost.required("User Name", regName, regName, ""),
       LabelInputPassword.required("Password", regPass, regPass, ""), SubmitButton("regSubmit")
     )
@@ -47,15 +47,15 @@ case class UserDetails(name: String, password: String)
   override def doPost(req: HSReq, resp: HSResp): Unit =
   { val contents: RArr[XCon] = req.findParam("logSubmit") match
     {  case Some(_) => RArr(
-        DivHtml ("Result from Login"),
-        DivHtml ("name =" -- req.findParam (logName).toString),
-        DivHtml ("password =" -- req.findParam (logPass).toString)
+        DivHtml("Result from Login"),
+        DivHtml("name =" -- req.findParam (logName).toString),
+        DivHtml("password =" -- req.findParam (logPass).toString)
       )  
       case _ => req.findParam("regSubmit") match
       { case Some(_) => RArr(
-          DivHtml ("Result from resistration"),
-          DivHtml ("name =" -- req.findParam(regName).toString),
-          DivHtml ("password =" -- req.findParam (regPass).toString)
+          DivHtml("Result from registration"),
+          DivHtml("name =" -- req.findParam(regName).toString),
+          DivHtml("password =" -- req.findParam (regPass).toString)
         )
         case _ => RArr("Unrecogonised submission.")
       }    

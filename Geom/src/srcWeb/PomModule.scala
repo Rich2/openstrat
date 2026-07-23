@@ -35,5 +35,6 @@ object ArtifactId { def apply(artifactStr: String): ArtifactId = new ArtifactId(
 class GroupId(groupStr: String) extends XmlElemSimple("groupId", groupStr)
 
 object GroupId
-{ def apply(groupStr: String): GroupId = new GroupId(groupStr)
+{ /** Factory apply method to construct Groupid XML element. */
+  def apply(groupStr: String): GroupId = new GroupId(groupStr)
 }

@@ -8,19 +8,19 @@ val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 organization := "com.richstrat"
 autoAPIMappings := true
 
-lazy val root = rootProject.aggregate(Util, UtilDoc, Geom, GeomExs, Tiling, TilingExs, EGrid, Apps, Dev)/*.enablePlugins(ScalaUnidocPlugin)*/.settings(
+lazy val root = rootProject.aggregate(Util, UtilDoc, Geom, GeomExs, Tiling, TilingExs, EGrid, Apps, Dev).enablePlugins(ScalaUnidocPlugin).settings(
   name := "OpenStrat",
   scalaVersion := scalaVersionStr,
   publish/skip := true,
   apiURL := Some(uri("https://richstrat.com/api/")),
-  //ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util, Geom, GeomExs, GeomFx, Tiling, TilingExs, EGrid, Apps, Dev, DevFx, Servlet),
+  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util, Geom, GeomExs, GeomFx, Tiling, TilingExs, EGrid, Apps, Dev, DevFx, DevLet),
 )
 
-lazy val JsAgg = (project in file("Dev/JsAgg")).aggregate(UtilJs, GeomJs, TilingJs, EGridJs)/*.enablePlugins(ScalaUnidocPlugin)*/.settings(
+lazy val JsAgg = (project in file("Dev/JsAgg")).aggregate(UtilJs, GeomJs, TilingJs, EGridJs).enablePlugins(ScalaUnidocPlugin).settings(
   scalaVersion := scalaVersionStr,
   publish/skip := true,
   apiURL := Some(uri("https://richstrat.com/api/")),
-  //ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(UtilJs, GeomJs, TilingJs, EGridJs),
+  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(UtilJs, GeomJs, TilingJs, EGridJs),
 )
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
@@ -180,7 +180,7 @@ lazy val Apps = jvmMainProj("Apps").dependsOn(EGrid).settings(appsSett)
 
 lazy val AppsJs = jsMainProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat", bbDir.value / "Apps/AppsJs/src"),
-  libraryDependencies += "io.github.cquiroz" %% "scala-java-time" % "2.6.0",
+  libraryDependencies += "io.github.cquiroz" %% "scala-java-time" % "2.7.0",
   Compile/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
   Compile/scalaJSUseMainModuleInitializer := true,
 )
@@ -216,7 +216,7 @@ lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
   assemblyMergeStrategy := {case _ => MergeStrategy.first }
 )
 
-lazy val Servlet = projSub("Dev", "Servlet").dependsOn(Dev, GeomLet).settings(
+lazy val DevLet = projSub("Dev", "DevLet").dependsOn(Dev, GeomLet).settings(
   libraryDependencies += ("jakarta.servlet" % "jakarta.servlet-api" % "6.1.0" % "provided").withSources().withJavadoc(),
   Compile/mainClass := Some("ostrat.pDev.StagingServlet"),
 )
@@ -226,13 +226,13 @@ lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
 )
 
 lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
-  libraryDependencies += ("dev.zio" %% "zio" % "2.1.24").withSources().withJavadoc(),
-  libraryDependencies += ("dev.zio" %% "zio-http" % "3.8.1").withSources().withJavadoc(),
+  libraryDependencies += ("dev.zio" %% "zio" % "2.1.26").withSources().withJavadoc(),
+  libraryDependencies += ("dev.zio" %% "zio-http" % "3.11.3").withSources().withJavadoc(),
 )
 
 /*lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
-{ val t1 = (Compile/unidoc).value
+{ val t1 = (root/Compile/unidoc).value
   val t2 = (JsAgg/Compile/unidoc).value
   println("Main docs and Js docs built")
 }*/
