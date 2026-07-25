@@ -15,7 +15,16 @@ object NewDevsPage extends DevPageBase
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(opSysLTI, javaVerLNI))
+  /** Initial value for user name. */
+  val userName1: String = "userName"
+
+  /** [[UpdaterInputStr]] and it's label for user name. */
+  val userNameLTI: LabelUpdaterInputStr = LabelUpdaterInputStr("uName", "User Name", userName1)
+
+  /** Updater for user name. */
+  val userNameIUT: UpdaterInputStr = userNameLTI.child2
+
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLTI, javaVerLNI))
   
   val sysUpdate = DivHtml.listenOptHtml(opSysIUT){ opt =>    
     val code: RArr[XCon] = opt match
@@ -44,12 +53,17 @@ object NewDevsPage extends DevPageBase
   }
   val sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
   
-  def intellij: Section = Section("Intellij IDEA".h2,
-    BashLine("sudo tar -xzf idea-2026.2.tar.gz -C /opt"),
+  def intellij: Section = Section("IntelliJ IDEA".h2,
+    "Modify this line if there isa newer version of IntelliJ IDEA.",
+    BashLine("sudo tar -xzf idea-2026.2.0.1.tar.gz -C /opt"),
     UlSection("For IntelliJ useful options:",
-      LiHtml("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
-      LiHtml("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
-      LiHtml("Project-Pane => Options -> 'Flatten packages'"))
+      LiHtml("File => Settings => 'Apperance and Behaviour' -> Always show full path in window header"),
+      LiHtml("File => Settings => 'Apperance and Behaviour' -> Show indent guides"),
+      LiHtml("File => Settings => 'Apperance and Behaviour' -> Widescreen tool window layout"),
+      LiHtml("File => Settings => Editor => 'Code Syle' -> Hard wrap at 250"),
+      LiHtml("File => Settings => Editor => 'Code Syle' -> Visual guides 100, 160"),
+      LiHtml("File => Settings => 'Build, Execution, Deployment' => Compiler -> Build project automatically")
+    )
   )
   
   def git: Section = Section("Git and Github".h2,
@@ -142,5 +156,11 @@ object NewDevsPage extends DevPageBase
       )
       case _ => RArr("No code available")
     }
+  )
+  
+  def postgres: Section = Section("Postgresql".h2,
+    "Depending on your use case you may wish to manipulae Postgresql with a different user.",
+    BashLine("su postgres"),
+    BashLine("psql")
   )
 }
