@@ -22,6 +22,7 @@ trait HtmlElemCompanion[T]
   { val newId: IdAtt = input1.nextOptDblText1(input2, f)
     fromStr(f(input1.initOption, input2.value), newId %: otherAttribs)
   }
+
   /** Creates an HTML element of the given type and registers the textContent with a String => String callback to the textContent. */
   def listenStrText(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => String): T =
   { val newId: IdAtt = input.next1Text(f)
@@ -89,6 +90,17 @@ trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
 
   /** Creates an HTML element of the given type and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
   def listenStrHtml(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => RArr[XCon]): T =
+  { val newId = input.next1Html(f)
+    apply(f(input.valueStr), newId %: otherAttribs)
+  }
+}
+
+trait HtmlElemIneditCompanion[T] extends HtmlElemCompanion[T]
+{
+  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): T
+
+  /** Creates an HTML element of the given type and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
+  def listenStrHtml(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => RArr[XConInedit]): T =
   { val newId = input.next1Html(f)
     apply(f(input.valueStr), newId %: otherAttribs)
   }

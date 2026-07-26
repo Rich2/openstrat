@@ -9,16 +9,16 @@ object NewDevsPage extends DevPageBase
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
-    sublime, sshServer)
+    sublime, sshServer, postgres)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
 
-  /** Initial value for user name. */
+  /** Initial value for username. */
   val userName1: String = "userName"
 
-  /** [[UpdaterInputStr]] and it's label for user name. */
+  /** [[UpdaterInputStr]] and it's label for username. */
   val userNameLTI: LabelUpdaterInputStr = LabelUpdaterInputStr("uName", "User Name", userName1)
 
   /** Updater for user name. */
@@ -158,9 +158,18 @@ object NewDevsPage extends DevPageBase
     }
   )
   
-  def postgres: Section = Section("Postgresql".h2,
-    "Depending on your use case you may wish to manipulae Postgresql with a different user.",
+  val postgresPromt = BashPromptSpan("postgres=#")
+  
+  val postgres: Section = Section("Postgresql".h2,
+    "Depending on your use case you may wish to manipulate Postgresql with a different user.",
     BashLine("su postgres"),
-    BashLine("psql")
+    BashLine("psql"),
+    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE USER $uName WITH SUPERUSER;") },
+        
+    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE USER $uName WITH SUPERUSER;") },
+    "You may want to create a database with this user's name",
+    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE DATABASE $uName OWNER $uName;") },
+    "To quit psql",
+    BashLine(postgresPromt, """\q""")
   )
 }

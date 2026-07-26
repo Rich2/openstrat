@@ -30,7 +30,7 @@ class BashLine(val contents: RArr[XConInedit], val otherAttribs: RArr[HAtt]) ext
 { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
 }
 
-object BashLine extends HtmlElemCompanion[BashLine]
+object BashLine extends HtmlElemIneditCompanion[BashLine]
 { /** Factory apply method to write Bash code in HTML on its own line. */
   def apply(contents: XConInedit*): BashLine = new BashLine(contents.toArr, RArr())
 

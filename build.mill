@@ -283,7 +283,7 @@ object DevFx extends CommonJvm
 
 //def run() = DevFx.runBackground()
 
-def StageSite(args: String*) = Task.Command{
+def StageDocs(args: String*) = Task.Command{
   DevDocJsApps.TomcatPageJs.fullLinkJS()
   DevDocJsApps.NewDevsPageJs.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.MillDocsStage", args = Array[String]())
@@ -328,7 +328,6 @@ def StageSite = Task{
 
 def StageJars = Task{
   packAllMain()
-
   Dev.runner().run(mainClass = "ostrat.pDev.MillJars", args = Array[String]())
 }
 
