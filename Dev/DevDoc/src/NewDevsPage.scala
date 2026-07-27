@@ -12,8 +12,8 @@ object NewDevsPage extends DevPageBase
     sublime, sshServer, postgres)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
-  |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
-  |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.""".stripMargin)
+  |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK17+ and sbt. more complete documentation. For
+  |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk25 preferred.""".stripMargin)
 
   /** Initial value for username. */
   val userName1: String = "userName"
@@ -164,8 +164,6 @@ object NewDevsPage extends DevPageBase
     "Depending on your use case you may wish to manipulate Postgresql with a different user.",
     BashLine("su postgres"),
     BashLine("psql"),
-    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE USER $uName WITH SUPERUSER;") },
-        
     BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE USER $uName WITH SUPERUSER;") },
     "You may want to create a database with this user's name",
     BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE DATABASE $uName OWNER $uName;") },

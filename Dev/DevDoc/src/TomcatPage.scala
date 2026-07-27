@@ -235,6 +235,21 @@ object TomcatPage extends DevPageBase
   "The page should now be available without the port :8080 suffix."
   )
 
+  val mkCert = RArr(BashLine("sudo apt install libnss3-tools"),
+    BashLine("sudo apt install mkcert"),
+    BashLine("mkcert -install"),
+    "mkcert localhost 127.0.0.1 ::1",
+    """Created a new certificate valid for the following names 📜
+      | - "localhost"
+      | - "127.0.0.1"
+      | - "::1"
+      |
+      |The certificate is at "./localhost+2.pem" and the key at "./test.example.com+3-key.pem" ✅
+      |
+      |It will expire on 23 January 2024 🗓""".stripMargin,
+    BashLine("sudo cp ./localhost+2* /etc/ssl")
+  )
+
   val s12: LiHtml = LiHtml("Install snap",
   BashLine("sudo apt install snapd"),
   "Install certbot",
