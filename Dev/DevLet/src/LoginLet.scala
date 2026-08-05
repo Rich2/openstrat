@@ -21,12 +21,15 @@ case class UserDetails(name: String, password: String)
 
     val logForm: FormHtml = FormHtml(DivHtml("Login".bHtml),
       LabelInputStrPost.required("User Name", logName, logName, ""),
-      LabelInputPassword.required("Password", logPass, logPass, ""), SubmitButton("logSubmit")
+      LabelInputPassword.required("Password", logPass, logPass, ""),
+      SubmitButton("logSubmit")
     )
     
-    val regForm: FormHtml = FormHtml(DivHtml("Register".bHtml),
+    val regForm: FormHtml = FormHtml(
+      DivHtml("Register".bHtml),
       LabelInputStrPost.required("User Name", regName, regName, ""),
-      LabelInputPassword.required("Password", regPass, regPass, ""), SubmitButton("regSubmit")
+      LabelInputPassword.required("Password", regPass, regPass, ""),
+      SubmitButton("regSubmit")
     )
     
     val body: BodyHtml = BodyHtml(
