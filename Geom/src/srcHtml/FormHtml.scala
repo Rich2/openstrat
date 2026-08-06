@@ -20,7 +20,7 @@ object FormHtml
   case class FormHtmlGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends FormHtml
 }
 
-/** Base trait for [[RegisterForm]] and [[LoginForm]]. */
+/** Base trait for HTML [[RegisterForm]] and [[LoginForm]] elements. */
 trait RegLogForm extends FormHtml
 { /** the name attribute for the Username input. */
   def usernameNameAtt: String = "username"
@@ -31,23 +31,56 @@ trait RegLogForm extends FormHtml
   /** The prefix for the id attributes for the input fields. */
   def idPrefix: String
 
+  /** Username HTML label and input. */
   def username: LabelInputStrPost = LabelInputStrPost.required("User Name", idPrefix + usernameNameAtt, usernameNameAtt, "")
+
+  /** Password HTML label and input. */
   def password: LabelInputPassword = LabelInputPassword.required("Password", idPrefix + passwordNameAtt, passwordNameAtt, "")
+
+  /** Submit HTML input. */
   def submit = SubmitButton(idPrefix + "Submit")
 }
 
+/** HTML Register Form element. */
 trait RegisterForm extends RegLogForm
-{ def header = DivHtml("Register".bHtml)
+{ /** The header for this form. */
+  def header = DivHtml("Register".bHtml)
+  
   override def idPrefix: String = "reg"
 }
 
 object RegisterForm
-{
-  def apply(otherAttribs: RArr[XAtt]): RegisterForm = RegisterFormGen(otherAttribs)
+{ /** Factory apply method to construct HTML register Form element. There is an apply name overload that takes no other contents and other attributes as repeat
+   * parameters. */
+  def apply(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]): RegisterForm = RegisterFormGen(otherContents, otherAttribs)
 
-  def apply(otherAttribs: XAtt*): RegisterForm = RegisterFormGen(otherAttribs.toRArr)
+  /** Factory apply method to construct HTML register Form element. There is an apply name overload that takes [[RArr]]s of other content and attributes. */
+  def apply(otherAttribs: XAtt*): RegisterForm = RegisterFormGen(RArr(), otherAttribs.toRArr)
   
-  case class RegisterFormGen(otherAttribs: RArr[XAtt]) extends RegisterForm
+  /** Implementation class for the gneral case of an HTML register Form element. */
+  case class RegisterFormGen(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]) extends RegisterForm
+  { override def contents: RArr[XCon] = RArr(header, username, password, submit)
+  }
+}
+
+/** HTML Login Form element. */
+trait LoginForm extends RegLogForm
+{ /** The header for this form. */
+  def header = DivHtml("Login".bHtml)
+
+  override def idPrefix: String = "log"
+}
+
+object LoginForm
+{ /** Factory apply method to construct HTML Login Form element. There is an apply name overload that takes no other contents and other attributes as repeat
+   * parameters. */
+  def apply(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]): LoginForm = LoginFormGen(otherContents, otherAttribs)
+
+  /** Factory apply method to construct HTML Login Form element. There is an apply name overload that takes [[RArr]]s of other content and attributes. */
+  def apply(otherAttribs: XAtt*): LoginForm = LoginFormGen(RArr(), otherAttribs.toRArr)
+
+  /** Implementation class for the gneral case of an HTML Login Form element. */
+  case class LoginFormGen(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]) extends LoginForm
   { override def contents: RArr[XCon] = RArr(header, username, password, submit)
   }
 }

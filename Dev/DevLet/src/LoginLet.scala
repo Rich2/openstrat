@@ -13,16 +13,11 @@ case class UserDetails(name: String, password: String)
   val logName = "regName"
   val logPass = "regPass"
   val regForm: RegisterForm = RegisterForm()
+  val logForm: LoginForm = LoginForm()
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
   { val currCookies: Array[Cookie] = req.getCookies
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
-
-    val logForm: FormHtml = FormHtml(DivHtml("Login".bHtml),
-      LabelInputStrPost.required("User Name", logName, logName, ""),
-      LabelInputPassword.required("Password", logPass, logPass, ""),
-      SubmitButton("logSubmit")
-    )
     
     val body: BodyHtml = BodyHtml(
       "Testbed for registration and login. At this stage do not use important passwords or give private details.",
@@ -43,8 +38,8 @@ case class UserDetails(name: String, password: String)
   { val contents: RArr[XCon] = req.findParam("logSubmit") match
     {  case Some(_) => RArr(
         DivHtml("Result from Login"),
-        DivHtml("name =" -- req.findParam (logName).toString),
-        DivHtml("password =" -- req.findParam (logPass).toString)
+        DivHtml("name =" -- req.findParam (logForm.usernameNameAtt).toString),
+        DivHtml("password =" -- req.findParam (logForm.passwordNameAtt).toString)
       )  
       case _ => req.findParam("regSubmit") match
       { case Some(_) => RArr(
