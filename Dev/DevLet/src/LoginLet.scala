@@ -12,8 +12,7 @@ case class UserDetails(name: String, password: String)
   val headLog = HeadHtml.title("Login")
   val logName = "regName"
   val logPass = "regPass"
-  val regName = "regName"
-  val regPass = "regPass"
+  val regForm: RegisterForm = RegisterForm()
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
   { val currCookies: Array[Cookie] = req.getCookies
@@ -23,13 +22,6 @@ case class UserDetails(name: String, password: String)
       LabelInputStrPost.required("User Name", logName, logName, ""),
       LabelInputPassword.required("Password", logPass, logPass, ""),
       SubmitButton("logSubmit")
-    )
-    
-    val regForm: FormHtml = FormHtml(
-      DivHtml("Register".bHtml),
-      LabelInputStrPost.required("User Name", regName, regName, ""),
-      LabelInputPassword.required("Password", regPass, regPass, ""),
-      SubmitButton("regSubmit")
     )
     
     val body: BodyHtml = BodyHtml(
@@ -57,8 +49,8 @@ case class UserDetails(name: String, password: String)
       case _ => req.findParam("regSubmit") match
       { case Some(_) => RArr(
           DivHtml("Result from registration"),
-          DivHtml("name =" -- req.findParam(regName).toString),
-          DivHtml("password =" -- req.findParam (regPass).toString)
+          DivHtml("name =" -- req.findParam(regForm.usernameNameAtt).toString),
+          DivHtml("password =" -- req.findParam(regForm.passwordNameAtt).toString)
         )
         case _ => RArr("Unrecogonised submission.")
       }    

@@ -20,14 +20,25 @@ object FormHtml
   case class FormHtmlGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends FormHtml
 }
 
-trait RegisterForm extends FormHtml
-{
-  def userNameStr: String = "userName"
-  def passwordStr: String = "password"
-  def header = DivHtml("Register".bHtml)
-  def userName = LabelInputStrPost.required("User Name", userNameStr, userNameStr, "")
-  def password = LabelInputPassword.required("Password", passwordStr, passwordStr, "")
-  def submit = SubmitButton("regSubmit")
+/** Base trait for [[RegisterForm]] and [[LoginForm]]. */
+trait RegLogForm extends FormHtml
+{ /** the name attribute for the Username input. */
+  def usernameNameAtt: String = "username"
+
+  /** the name attribute for the Password input. */
+  def passwordNameAtt: String = "password"
+
+  /** The prefix for the id attributes for the input fields. */
+  def idPrefix: String
+
+  def username: LabelInputStrPost = LabelInputStrPost.required("User Name", idPrefix + usernameNameAtt, usernameNameAtt, "")
+  def password: LabelInputPassword = LabelInputPassword.required("Password", idPrefix + passwordNameAtt, passwordNameAtt, "")
+  def submit = SubmitButton(idPrefix + "Submit")
+}
+
+trait RegisterForm extends RegLogForm
+{ def header = DivHtml("Register".bHtml)
+  override def idPrefix: String = "reg"
 }
 
 object RegisterForm
@@ -37,6 +48,6 @@ object RegisterForm
   def apply(otherAttribs: XAtt*): RegisterForm = RegisterFormGen(otherAttribs.toRArr)
   
   case class RegisterFormGen(otherAttribs: RArr[XAtt]) extends RegisterForm
-  { override def contents: RArr[XCon] = RArr(header, userName, password, submit)
+  { override def contents: RArr[XCon] = RArr(header, username, password, submit)
   }
 }
