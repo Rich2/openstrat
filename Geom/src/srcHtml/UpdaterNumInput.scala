@@ -39,6 +39,10 @@ object UpdaterIntInput
 { /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
   def apply(idStr: String, value: Int, minVal: Int, maxVal: Int, step: Int, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterIntInput =
     new UpdaterIntInput(idStr, value, minVal, maxVal, step, otherAttribs.toRArr)
+
+  /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
+  def apply(idStr: String, value: Int, minVal: Int, maxVal: Int)(using page: PageHtmlUpdater): UpdaterIntInput =
+    new UpdaterIntInput(idStr, value, minVal, maxVal, 1, RArr()) 
 }
 
 /** Creates an HTML Input element that takes [[Double]]s can update textContent fields on the page. */
@@ -76,27 +80,4 @@ object UpdaterDblInput
 { /** Factory apply method to create an HTML Input element that can update textContent fields on the page. */
   def apply(idStr: String, value: Double, otherAttribs: XAtt*)(using page: PageHtmlUpdater): UpdaterDblInput =
     new UpdaterDblInput(idStr, value, otherAttribs.toRArr)
-}
-
-/** HTML Label and HTML Input element that takes [[Int]]s, that can update textContent fields on the page. */
-class LabelUpdaterIntInput(val forIdStr: String, val labelStr: String, val valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using
-  page: PageHtmlUpdater) extends LabelInputLike
-{ override def child2: UpdaterIntInput = UpdaterIntInput(forIdStr, valueNum, minVal, maxVal, step)
-}
-
-object LabelUpdaterIntInput
-{ /** Factory apply method for label and number input HTML elements. */
-  def apply(idStr: String, label: String, valueNum: Int, minVal: Int, maxVal: Int, step: Int = 1)(using page: PageHtmlUpdater): LabelUpdaterIntInput =
-    new LabelUpdaterIntInput(idStr, label, valueNum, minVal, maxVal, step)
-}
-
-/** HTML Label and HTML Input element that takes [[Double]]s, that can update textContent fields on the page. */
-class LabelUpdaterDblInput(val forIdStr: String, val labelStr: String, val valueNum: Double)(using page: PageHtmlUpdater) extends LabelInputLike
-{ override def child2: UpdaterDblInput = UpdaterDblInput(forIdStr, valueNum)
-}
-
-object LabelUpdaterDblInput
-{ /** Factory apply method for label and number input HTML elements. */
-  def apply(idStr: String, label: String, valueNum: Double)(using page: PageHtmlUpdater): LabelUpdaterDblInput =
-    new LabelUpdaterDblInput(idStr, label, valueNum)
 }

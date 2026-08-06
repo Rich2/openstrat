@@ -18,15 +18,15 @@ object NewDevsPage extends DevPageBase
   /** Initial value for username. */
   val userName1: String = "userName"
 
-  /** [[UpdaterInputStr]] and it's label for username. */
-  val userNameLTI: LabelUpdaterInputStr = LabelUpdaterInputStr("uName", "User Name", userName1)
-
   /** Updater for user name. */
-  val userNameIUT: UpdaterInputStr = userNameLTI.child2
+  val userNameIUT: UpdaterInputStr = UpdaterInputStr("uName", userName1)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLTI, javaVerLNI))
+  /** [[UpdaterInputStr]] and it's label for username. */
+  val userNameLTI: LabelInput = LabelInput("User Name", userNameIUT)
+
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLI, javaVerLI))
   
-  val sysUpdate = DivHtml.listenOptHtml(opSysIUT){ opt =>    
+  val sysUpdate = DivHtml.listenOptHtml(opSysInput){ opt =>    
     val code: RArr[XCon] = opt match
     { case UbuntuDeriv => RArr(BashLine("apt sudo update", "sudo apt upgrade"))
       case ArchDeriv => RArr(BashLine("sudo pacman -Syu"))
@@ -37,7 +37,7 @@ object NewDevsPage extends DevPageBase
 
   val jvms: Section = javaInstall(Section)
 
-  val sbtDiv: DivHtml = DivHtml.listenOptHtml(opSysIUT){
+  val sbtDiv: DivHtml = DivHtml.listenOptHtml(opSysInput){
     case UbuntuDeriv => RArr(
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list"""),
       BashLine("""echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list"""),
@@ -111,7 +111,7 @@ object NewDevsPage extends DevPageBase
     LiHtml("Util/clean".htmlSbt, "To clean an individual module")
   ))
 
-  def chrome: Section = Section.listenOptHtml(opSysIUT){ ops =>
+  def chrome: Section = Section.listenOptHtml(opSysInput){ ops =>
     val last = ops match
     { case UbuntuDeriv => RArr(
         BashLine ("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"),
@@ -144,7 +144,7 @@ object NewDevsPage extends DevPageBase
 
   def sshServer: Section = Section("SSH Server".h2,
     "This is normally installed on Linux VPSs, but for home machines",
-    DivHtml.listenOptHtml(opSysIUT){
+    DivHtml.listenOptHtml(opSysInput){
       case UbuntuDeriv => RArr(
         BashLine("Sudo apt install openssh-server"),
         BashLine("sudo systemctl enable --now ssh")

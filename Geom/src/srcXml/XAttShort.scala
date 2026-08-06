@@ -12,22 +12,6 @@ trait XAttShort extends XAtt
 /** Will probably change name to XAttSimple. */
 case class XmlAttGen(name: String, valueStr: String) extends XAttShort
 
-/** Trait for XML /HTML attributes that take an integer value. */
-trait XAttInt extends XAttShort
-{ /** The integer value of this attribute. */
-  def num: Int
-
-  override def valueStr: String = num.str
-}
-
-object XAttInt
-{ /** Factory apply method for XML / HTML  attribute that takes an integer value. */
-  def apply(name: String, num: Int): XAttInt = new XAttIntGen(name, num)
-  
-  /** General implementation class for attribute that takes an integer value. */
-  case class XAttIntGen(name: String, num: Int) extends XAttInt
-}
-
 /** Creates for an "id" XML / HTML attribute." */
 case class IdAtt(valueStr: String) extends XAttShort
 { override def name: String = "id"
@@ -95,6 +79,12 @@ case class TextAnchorAtt(valueStr: String) extends XAttShort
 /** Creates for an HTML / XML content attribute." */
 case class ContentAtt(valueStr: String) extends XAttShort
 { override def name: String = "content"
+}
+
+/** Creates for an HTML / XML content attribute." */
+case class PatternAtt(value: util.matching.Regex) extends XAttShort
+{ override def name: String = "pattern"
+  override def valueStr: String = value.toString()
 }
 
 /** Creates for an HTML http-equiv attribute." */

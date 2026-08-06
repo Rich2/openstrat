@@ -27,28 +27,13 @@ object InputStrPost
 
   /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
   def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputStrPost =
-    new InputStrPostGen(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
+    new InputStrPostGen(idStr, nameAttStr, valueStr, otherAttribs.toRArr)
+
+  /** Factory methods to construct a required HTML Input of type text for post requests. */
+  def required(idStr: String, nameAttStr: String, valueStr: String, otherInputAtts: HAtt*): InputStrPost =
+      InputStrPostGen(idStr, nameAttStr: String, valueStr, RequiredAtt %: otherInputAtts.toRArr)  
 
   class InputStrPostGen(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[HAtt]) extends InputStrPost
-}
-
-/** A Label and an HTML Input of type text for post requests. */
-trait LabelInputStrPost extends LabelInputLike
-{ override def child2: InputStrPost
-}
-
-object LabelInputStrPost
-{ /** Factory apply methods to construct a Label and an HTML Input of type text for post requests. */
-  def apply(label: String, idStr: String, nameStr: String, valueStr: String, otherInputAtts: HAtt*): LabelInputStrPost =
-    LabelInputStrPostGen(idStr, nameStr: String, label, valueStr, otherInputAtts.toRArr)
-
-  /** Factory methods to construct a Label and a required HTML Input of type text for post requests. */
-  def required(label: String, idStr: String, nameStr: String, valueStr: String, otherInputAtts: HAtt*): LabelInputStrPost =
-    LabelInputStrPostGen(idStr, nameStr: String, label, valueStr, RequiredAtt %: otherInputAtts.toRArr)  
-
-  case class LabelInputStrPostGen(labelStr: String, forIdStr: String, nameStr: String, valueStr: String, otherInputAtts: RArr[HAtt]) extends LabelInputStrPost
-  { override def child2: InputStrPost = InputStrPost(forIdStr, nameStr, valueStr, otherInputAtts)
-  }
 }
 
 /** HTML Input of type password for post requests. */
@@ -68,20 +53,4 @@ object InputPassword
   /** Factory method to create a required HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
   def required(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputPassword =
       new InputPassword(nameAttStr, idStr, valueStr, RequiredAtt %: otherAttribs.toRArr)  
-}
-
-/** HTML Label and Input of type password for post requests. */
-case class LabelInputPassword(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String, otherInputAtts: RArr[HAtt]) extends LabelInputLike
-{ override def child2: InputPassword = InputPassword(forIdStr, nameAttStr, valueStr, otherInputAtts)
-}
-
-object LabelInputPassword
-{
-  /** HTML Label and Input of type password for post requests. */
-  def apply(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String, otherInputAtts: HAtt*): LabelInputPassword =
-    new LabelInputPassword(labelStr, forIdStr, nameAttStr, valueStr, otherInputAtts.toRArr)
-
-  /** HTML Label and Input of type password for post requests. */
-  def required(labelStr: String, forIdStr: String, nameAttStr: String, valueStr: String, otherInputAtts: HAtt*): LabelInputPassword =
-    new LabelInputPassword(labelStr, forIdStr, nameAttStr, valueStr, RequiredAtt %: otherInputAtts.toRArr)
 }

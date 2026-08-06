@@ -30,16 +30,3 @@ object SelectHtml
 
   class SelectHtmlGen(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends SelectHtml
 }
-
-/** An HTML label followed by an [[SelectHtml]]. */
-class LabelSelect(val forIdStr: String, val labelStr: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends LabelInputLike
-{ override def child2: SelectHtml = SelectHtml(forIdStr, options, visNum, otherAttribs)
-}
-
-object LabelSelect
-{
-  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt]): LabelSelect =
-    new LabelSelect(idStr, label, options, visNum, otherAttribs)
-
-  def apply(idStr: String, label: String, options: OptionHtml*): LabelSelect = new LabelSelect(idStr, label, options.toRArr, 1, RArr())
-}

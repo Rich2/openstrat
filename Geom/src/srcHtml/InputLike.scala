@@ -20,15 +20,17 @@ trait InputLike extends HtmlElem
 case object RequiredAtt extends HAttNoValue("required")
 
 /** An HTML span containing a label and an input / select element. */
-trait LabelInputLike extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
-{ /** [[String]] for the id attribute. */
-  def forIdStr: String
-
-  /** The label [[String]]. */
-  def labelStr: String
-
-  override def child1: LabelHtml = LabelHtml(labelStr, forIdStr)
+class LabelInput(val labelStr: String, val child2: InputLike, val otherAttribs: RArr[HAtt]) extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
+{ override def child1: LabelHtml = LabelHtml(labelStr, child2.idStr)
+  override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   override def contents: RArr[XCon] = RArr(child1, child2)
+}
+
+object LabelInput
+{
+  def apply(labelStr: String, child2: InputLike, otherAttribs: RArr[HAtt]): LabelInput = new LabelInput(labelStr, child2, otherAttribs)
+
+  def apply(labelStr: String, child2: InputLike, otherAttribs: HAtt*): LabelInput = new LabelInput(labelStr, child2, otherAttribs.toRArr)
 }
 
 /** An HTML input element. */
@@ -50,5 +52,5 @@ case class LabelInputsLine(contents: RArr[XCon], otherAttribs: RArr[XCon]) exten
 
 object LabelInputsLine
 {
-  def apply(mems: LabelInputLike*)(using ct: ClassTag[HtmlInedit]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
+  def apply(mems: LabelInput*)(using ct: ClassTag[HtmlInedit]): LabelInputsLine = new LabelInputsLine(mems.toRArr, RArr())
 }

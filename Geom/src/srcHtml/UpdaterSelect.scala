@@ -70,17 +70,11 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
   }
 }
 
-/** An HTML label followed by an [[SelectHtml]]. */
-class LabelSelectUpdaterOpt(val forIdStr: String, val labelStr: String, val options: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using
-  page: PageHtmlUpdater) extends LabelInputLike
-{ override def child2: UpdaterOption = UpdaterOption(forIdStr, options, visNum, otherAttribs)
-}
-
-object LabelSelectUpdaterOpt
+object UpdaterOption
 {
-  def apply(idStr: String, label: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): LabelSelectUpdaterOpt =
-    new LabelSelectUpdaterOpt(idStr, label, options, visNum, otherAttribs)
+  def apply(idStr: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): UpdaterOption =
+    new UpdaterOption(idStr, options, visNum, otherAttribs)
 
-  def apply(idStr: String, label: String, options: OptionHtml*)(using page: PageHtmlUpdater): LabelSelectUpdaterOpt =
-    new LabelSelectUpdaterOpt(idStr, label, options.toRArr, 1, RArr())
+  def apply(idStr: String, options: OptionHtml*)(using page: PageHtmlUpdater): UpdaterOption =
+    new UpdaterOption(idStr, options.toRArr, 1, RArr())
 }
