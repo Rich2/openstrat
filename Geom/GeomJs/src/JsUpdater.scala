@@ -11,12 +11,12 @@ object JsUpdater
   { case uii: UpdaterIntInput => JsUpdaterInt(uii)
     case udi: UpdaterDblInput => JsUpdaterDbl(udi)
     case iut: UpdaterStr => JsUpdaterStr(iut)
-    case iua: UpdaterOption => UpdaterOptionJs(iua)
+    case iua: UpdaterSelect => UpdaterOptionJs(iua)
   }
 }
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class UpdaterOptionJs(val inputer: UpdaterOption) extends JsUpdater
+class UpdaterOptionJs(val inputer: UpdaterSelect) extends JsUpdater
 { val idStem: String = inputer.idStr
   val inpElem: html.Select = document.getElementById(idStem).asInstanceOf[html.Select]
   inpElem.addEventListener("change", eventListener)

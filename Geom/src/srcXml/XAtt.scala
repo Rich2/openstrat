@@ -7,10 +7,13 @@ sealed trait HAtt
 { /** Name of this attribute. Not to be confused with the name of its parent element. */
   def name: String
 
+  /** The [[String]] output for the XML / HTML code. */
   def out: String
 
+  /** The [[String]] output for the XML / HTML code with a given indent level, a first line position and maximum line length. */
   def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String
 
+  /** The [[String]] output for the XML / HTML code returned as a wraped [[Array]] of lines. */
   def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
 }
 
@@ -29,12 +32,12 @@ trait XAtt extends HAtt
   /** Returns the text lines for the value of this attribute. */
   protected def valueOutLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines
 
-  def out: String = out(0, 0, MaxLineLen)
+  override def out: String = out(0, 0, MaxLineLen)
   
-  def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
+  override def out(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String =
     name + "=" + valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen).text.enquote1
 
-  def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
+  override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =
   { val value = valueOutLines(indent + 2, line1InputLen + 2 + name.length, MaxLineLen)
     value.numLines match
     { case 0 => TextLines.empty

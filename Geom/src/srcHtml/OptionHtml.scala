@@ -12,7 +12,7 @@ trait OptionHtml extends HtmlOwnLine
 }
 
 object OptionHtml
-{
+{ /** Factory apply method to construct HTML Option element. */
   def apply(valueStr: String, contentStr: String): OptionHtml = OptionHtmlGen(valueStr, contentStr)
 
   /** Implementation class for the general case of  HTML option element. */ 

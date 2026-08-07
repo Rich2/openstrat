@@ -22,7 +22,7 @@ trait SpanInlineBlockOwnline extends SpanInlineBlock, HtmlOwnLine
 /** HTML inline span element, used in its normal default inline manner. */
 trait SpanInlineInedit extends SpanHtml, HtmlInedit
 {
-  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
+  def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
@@ -72,6 +72,7 @@ object SpanInlineInedit
 
   def pink(str: String): SpanInlineInedit = new SpanInlineGen(RArr(str), RArr(StyleAtt(ColourDec(Colour.Pink))))
 
+  /** Implementation class for the general vcase of the [[SpanInlineInedit]] trait. */
   case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInlineInedit
 }
 

@@ -10,6 +10,7 @@ abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
   def clientCount: Int
 }
 
+/** An HTML Input element that updates its page, via JavaScript, rather than though HTTP requests to the server. */
 trait UpdaterInput extends UpdaterInputLike, InputHtml
 { override def attribs: RArr[HAtt] = RArr(IdAtt(idStr), typeAtt, valueAtt) ++ otherAttribs
 }
@@ -53,9 +54,9 @@ trait UpdaterStr extends UpdaterInputLike
   { callBacks +%= Callback2Str2(listenerID, inp1IdStr, f)
   }
 
-  /** This method creates a new unique id attribute for the listener. Registers a page HTML element listener with this input-updater. registers with the 2nd and
-   * 3rd first input-updater. This takes a function of 3 [[String]] parameters, the 1st from this text input and the 2nd and 3rd frpm the other 2 text updaters,
-   * to update the listener content */
+  /** This method creates a new unique id attribute for the listener. Registers a page HTML element listener with this [[UpdaterStr]]. Registers with the 2nd
+   * and 3rd [[UpdaterStr]]s. This takes a function of 3 [[String]] parameters, the 1st from this text input and the 2nd and 3rd from the other 2
+   * [[UpdaterStr]]s, to update the listener content */
   def next3Id1(input2: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
     callBacks +%= Callback3Str1(newListenerId, input2.idStr, input3.idStr, f)
@@ -64,10 +65,12 @@ trait UpdaterStr extends UpdaterInputLike
     IdAtt(newListenerId)
   }
 
+  /** This method registers the [[Callback3Str2]] with this [[UpdaterStr]]. */
   def next3Id2(targetID: String, input1IdStr: String, input3IdStr: String, f: (String, String, String) => String): Unit =
   { callBacks +%= Callback3Str2(targetID, input1IdStr, input3IdStr, f)
   }
 
+  /** This method registers the [[Callback3Str3]] with this [[UpdaterStr]]. */
   def next3Id3(targetID: String, input1IdStr: String, input2IdStr: String, f: (String, String, String) => String): Unit =
   { callBacks +%= Callback3Str3(targetID, input1IdStr, input2IdStr, f)
   }

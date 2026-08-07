@@ -68,10 +68,12 @@ object TypeJsAtt extends TypeAtt("text/javascript")
 /** Type attribute set to submit. */
 object SubmitTypeAtt extends TypeAtt("submit")
 
+/** src XML / HTML attribute. */
 case class SrcAtt(valueStr: String) extends XAttShort
 { override def name: String = "src"
 }
 
+/** SVG text-anchor attribute. */
 case class TextAnchorAtt(valueStr: String) extends XAttShort
 { override def name: String = "text-anchor"
 }

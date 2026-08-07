@@ -18,7 +18,7 @@ object NewDevsPage extends DevPageBase
   /** Initial value for username. */
   val userName1: String = "userName"
 
-  /** Updater for user name. */
+  /** Updater for username. */
   val userNameIUT: UpdaterInputStr = UpdaterInputStr("uName", userName1)
 
   /** [[UpdaterInputStr]] and it's label for username. */
@@ -158,16 +158,16 @@ object NewDevsPage extends DevPageBase
     }
   )
   
-  val postgresPromt = BashPromptSpan("postgres=#")
+  val postgresPrompt = BashPromptSpan("postgres=#")
   
   val postgres: Section = Section("Postgresql".h2,
     "Depending on your use case you may wish to manipulate Postgresql with a different user.",
     BashLine("su postgres"),
     BashLine("psql"),
-    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE USER $uName WITH SUPERUSER;") },
+    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPrompt, s"CREATE USER $uName WITH SUPERUSER;") },
     "You may want to create a database with this user's name",
-    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPromt, s"CREATE DATABASE $uName OWNER $uName;") },
+    BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPrompt, s"CREATE DATABASE $uName OWNER $uName;") },
     "To quit psql",
-    BashLine(postgresPromt, """\q""")
+    BashLine(postgresPrompt, """\q""")
   )
 }

@@ -28,5 +28,6 @@ object SelectHtml
   /** Factory apply method for HTML select element, with 1 visible element. */
   def apply(idStr: String, contents: OptionHtml*): SelectHtml = new SelectHtmlGen(idStr, contents.toRArr, 1, RArr())
 
+  /** Implementation class for the general caase of [[SelectHtml]]. */
   class SelectHtmlGen(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt]) extends SelectHtml
 }

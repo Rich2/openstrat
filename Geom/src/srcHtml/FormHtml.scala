@@ -1,5 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
+import util.matching.Regex
 
 /** HTML Form element. */
 trait FormHtml extends HtmlTagLines
@@ -54,9 +55,11 @@ trait RegLogForm extends FormHtml
 trait RegisterForm extends RegLogForm
 { /** The header for this form. */
   def header = DivHtml("Register".bHtml)
+  def regex: Regex = "[a-Z]{4,15}[0-9]{0,11}".r
   
   override def idPrefix: String = "reg"
   override def contents: RArr[XCon] = RArr(header, uNameLI, passwordLI, submit)
+  override def attribs: RArr[HAtt] = super.attribs +% PatternAtt(regex)
 }
 
 object RegisterForm
@@ -67,7 +70,7 @@ object RegisterForm
   /** Factory apply method to construct HTML register Form element. There is an apply name overload that takes [[RArr]]s of other content and attributes. */
   def apply(otherAttribs: XAtt*): RegisterForm = RegisterFormGen(otherAttribs.toRArr)
 
-  /** Implementation class for the gneral case of an HTML register Form element. */
+  /** Implementation class for the general case of an HTML register Form element. */
   case class RegisterFormGen(otherAttribs: RArr[XAtt]) extends RegisterForm
 }
 
@@ -83,7 +86,7 @@ trait LoginForm extends RegLogForm
 object LoginForm
 { /** Factory apply method to construct HTML Login Form element. There is an apply name overload that takes no other contents and other attributes as repeat
    * parameters. */
-    def apply(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]): LoginForm = LoginFormGen(otherContents, otherAttribs)
+  def apply(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]): LoginForm = LoginFormGen(otherContents, otherAttribs)
 
   /** Factory apply method to construct HTML Login Form element. There is an apply name overload that takes [[RArr]]s of other content and attributes. */
   def apply(otherAttribs: XAtt*): LoginForm = LoginFormGen(RArr(), otherAttribs.toRArr)

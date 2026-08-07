@@ -3,21 +3,22 @@ package ostrat; package pweb
 import reflect.ClassTag
 
 /** HTML Select element that updates other parts of the page on changed input. */
-class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
+class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNum: Int, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends
   UpdaterInputLike(page), SelectHtml
 {
   /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
   var callBacks: RArr[CallbackOption] = RArr()
-
-  override def clientCount: Int = callBacks.length
   
+  /** This method sets the original HTML in the listener element from the first value in the Select list. */
   def listenerInit(f: OptionHtml => RArr[XCon]): RArr[XCon] = f(contents(0))
   
+  /** This is a method for the JavaScript to recover the [[OptionHtml]] class from the [[String]]. */
   def strToOption(valStr: String): OptionHtml = contents.find(_.valueStr == valStr).getOrElse(OptionNotFound)
 
-  def initOption: OptionHtml = contents(0)
+  /** The default value for this HTML Select element. */
+  def initOption: OptionHtml = contents.headElse(OptionNotFound)
 
-  /** Registers a page HTML element with this [[UpdaterOption]]. Returns new unique id attribute to the listener. Takes String => RArr[XCon] function to update
+  /** Registers a page HTML element with this [[UpdaterSelect]]. Returns new unique id attribute to the listener. Takes String => RArr[XCon] function to update
    * the listener's htmlContent JavaScript method.. */
   def nextOptHtml(f: OptionHtml => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
@@ -25,7 +26,7 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
     IdAtt(newListenerId)
   }
 
-  /** Registers an HTML element with this [[UpdaterOption]]. Returns new unique id attribute to the listener. Takes String => String function to update the
+  /** Registers an HTML element with this [[UpdaterSelect]]. Returns new unique id attribute to the listener. Takes String => String function to update the
    * listener's textContent JavaScript method. */
   def nextOptText(f: OptionHtml => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
@@ -42,7 +43,7 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
     IdAtt(newListenerId)
   }
 
-  /** Registers an HTML element with this [[UpdaterOption]] and an [[UpdaterIntInput]]. Returns an id for the listener element. This takes an (OptionHtml, Int)
+  /** Registers an HTML element with this [[UpdaterSelect]] and an [[UpdaterIntInput]]. Returns an id for the listener element. This takes an (OptionHtml, Int)
    * => RArr[XCon] function to update the textContent of the listener element. */
   def nextOptIntText1(input2: UpdaterIntInput, f: (OptionHtml, Int) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
@@ -68,13 +69,16 @@ class UpdaterOption(val idStr: String, val contents: RArr[OptionHtml], val visNu
     input2.nextOptDbl2Text(newListenerId, this, f)
     IdAtt(newListenerId)
   }
+
+  override def clientCount: Int = callBacks.length
 }
 
-object UpdaterOption
-{
-  def apply(idStr: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): UpdaterOption =
-    new UpdaterOption(idStr, options, visNum, otherAttribs)
+object UpdaterSelect
+{ /** Factory apply method to construct HTML Select element that updates page through JavaScript. */
+  def apply(idStr: String, options: RArr[OptionHtml], visNum: Int, otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater): UpdaterSelect =
+    new UpdaterSelect(idStr, options, visNum, otherAttribs)
 
-  def apply(idStr: String, options: OptionHtml*)(using page: PageHtmlUpdater): UpdaterOption =
-    new UpdaterOption(idStr, options.toRArr, 1, RArr())
+  /** Factory apply method to construct HTML Select element that updates page through JavaScript. */
+  def apply(idStr: String, options: OptionHtml*)(using page: PageHtmlUpdater): UpdaterSelect =
+    new UpdaterSelect(idStr, options.toRArr, 1, RArr())
 }

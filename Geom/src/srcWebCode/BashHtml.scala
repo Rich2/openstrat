@@ -41,7 +41,7 @@ object BashLine extends HtmlElemIneditCompanion[BashLine]
   override def fromStr(str: String, attribs: RArr[XAtt]): BashLine = new BashLine(RArr(str), attribs)
   
   /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptDblHtml(input1: UpdaterOption, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XConInedit]): BashLine =
+  def listenOptDblHtml(input1: UpdaterSelect, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XConInedit]): BashLine =
   { val newId: IdAtt = input1.nextOptDbl1Html(input2, f)
     new BashLine(f(input1.initOption, input2.value), RArr(newId))
   }
