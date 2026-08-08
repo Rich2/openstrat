@@ -2,8 +2,6 @@
 package ostrat; package pDev
 import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}, plet.*
 
-case class UserDetails(name: String, password: String)
-
 /** First openstrat Servlet for Tomcat and Jetty. */
 @WebServlet(urlPatterns = Array("/")) class LoginLet extends HttpServlet
 {
@@ -42,11 +40,14 @@ case class UserDetails(name: String, password: String)
         DivHtml("password =" -- req.findParam (logForm.passwordNameAtt).toString)
       )  
       case _ => req.findParam("regSubmit") match
-      { case Some(_) => RArr(
-          DivHtml("Result from registration"),
-          DivHtml("name =" -- req.findParam(regForm.usernameNameAtt).toString),
-          DivHtml("password =" -- req.findParam(regForm.passwordNameAtt).toString)
-        )
+      { case Some(_) =>
+        { val reg = regForm.post(req)
+          RArr(
+            DivHtml("Result from registration"),
+            DivHtml("name =" -- reg.uName),
+            DivHtml("password =" -- reg.password)
+          )
+        }
         case _ => RArr("Unrecogonised submission.")
       }    
     }

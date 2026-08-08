@@ -21,6 +21,8 @@ object FormHtml
   case class FormHtmlGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends FormHtml
 }
 
+case class UserDetails(name: String, password: String)
+
 /** Base trait for HTML [[RegisterForm]] and [[LoginForm]] elements. */
 trait RegLogForm extends FormHtml
 { /** the name attribute for the Username input. */
