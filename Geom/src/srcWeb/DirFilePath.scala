@@ -12,7 +12,10 @@ trait DirsFilePath extends FileSystemPath
 
 /** Absolute directory (or folder) path and file name. */
 class DirsFileAbs(val arrayUnsafe: Array[String]) extends DirsFilePath
-{ override def asStr: String = arrayUnsafe.length match
+{ 
+  def fileNameStr: String = arrayUnsafe.last
+  
+  override def asStr: String = arrayUnsafe.length match
   { case 0 => excep("A DirsFileAbs should have at least a file name.")
     case _ => arrayUnsafe.foldLeft("/")(_ + "/" + _)
   }

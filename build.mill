@@ -379,7 +379,8 @@ def packAllDocSrc = Task{
   Apps.sourceJar()
 }
 
-def StageServlet = Task{
+def StageServlets = Task{
   packAllMain()
-  DevLet.runner().run(mainClass = "ostrat.pDev.MillStagingServlet", args = Array[String]())
+  DevLet.compile()
+  DevLet.runner().run(mainClass = "ostrat.pDev.MillStageServlets", args = Array[String]())
 }
