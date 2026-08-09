@@ -23,7 +23,7 @@ trait InputStrPost extends InputPost
 object InputStrPost
 { /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as repeat parameters. */
   def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[HAtt]): InputStrPost =
-    new InputStrPostGen(nameAttStr, idStr, valueStr, otherAttribs)
+    new InputStrPostGen(idStr, nameAttStr, valueStr, otherAttribs)
 
   /** Factory apply method to create HTML text input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
   def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputStrPost =
@@ -48,9 +48,9 @@ object InputPassword
 
   /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
   def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputPassword =
-    new InputPassword(nameAttStr, idStr, valueStr, otherAttribs.toRArr)
+    new InputPassword(idStr, nameAttStr, valueStr, otherAttribs.toRArr)
 
   /** Factory method to create a required HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
   def required(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputPassword =
-      new InputPassword(nameAttStr, idStr, valueStr, RequiredAtt %: otherAttribs.toRArr)  
+      new InputPassword(idStr, nameAttStr, valueStr, RequiredAtt %: otherAttribs.toRArr)  
 }
