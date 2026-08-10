@@ -62,8 +62,8 @@ class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
         if (listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.innerHTML = f(newNum).out
       }
-      case CallbackStrDbl2(listenerId, input1IdStr, f) =>
-      { val inp1Val: String = document.getElementById(input1IdStr).asInstanceOf[html.Input].value
+      case CallbackStrDbl2(listenerId, input1, f) =>
+      { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
         f(inp1Val, newNum)
       }
       case CallbackOptDbl2Html(listenerId, input1, f) =>

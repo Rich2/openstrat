@@ -61,8 +61,8 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   }
 
   /** Registers a call back as the second inout to a listener function with a (String, Double) => String function.  */
-  def nextStrDbl2(listenerID: String, input1IDStr: String, f: (String, Double) => String): Unit =
-  { listeners +%= CallbackStrDbl2(listenerID, input1IDStr, f)   
+  def nextStrDbl2(listenerID: String, input1: UpdaterStr, f: (String, Double) => String): Unit =
+  { listeners +%= CallbackStrDbl2(listenerID, input1, f)   
   }
   
   /** Registers a call back to a listener with a (String, Double) => String function. */

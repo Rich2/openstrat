@@ -39,8 +39,8 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
   def nextOpt2StrHtml(input2: UpdaterStr, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]): IdAtt ={
     val newListenerId: String = idStr + clientCount.str
     callBacks +%= CallbackOpt2Str1Html(newListenerId, input2, input3, f)
-    input2.nextOpt2Str2Html(newListenerId, this, input3.idStr, f)
-    input3.nextOpt2Str3Html(newListenerId, this, input2.idStr, f)
+    input2.nextOpt2Str2Html(newListenerId, this, input3, f)
+    input3.nextOpt2Str3Html(newListenerId, this, input2, f)
     IdAtt(newListenerId)
   }
   
@@ -57,7 +57,7 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
    * => RArr[XCon] function to update the textContent of the listener element. */
   def nextOptIntText1(input2: UpdaterIntInput, f: (OptionHtml, Int) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= CallbackOptInt1Text(newListenerId, input2.idStr, f)
+    callBacks +%= CallbackOptInt1Text(newListenerId, input2, f)
     input2.nextOptInt2Text(newListenerId, this, f)
     IdAtt(newListenerId)
   }
@@ -66,7 +66,7 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
    * the first from this text input and the second from another text updater, to update the target content. */
   def nextOptDbl1Html(input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= CallbackOptDbl1Html(newListenerId, input2.idStr, f)
+    callBacks +%= CallbackOptDbl1Html(newListenerId, input2, f)
     input2.nextOptDbl2Html(newListenerId, this, f)
     IdAtt(newListenerId)
   }
@@ -75,7 +75,7 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
    * the first from this text input and the second from another text updater, to update the target content. */
   def nextOptDblText1(input2: UpdaterDblInput, f: (OptionHtml, Double) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= CallbackOptDbl1Text(newListenerId, input2.idStr, f)
+    callBacks +%= CallbackOptDbl1Text(newListenerId, input2, f)
     input2.nextOptDbl2Text(newListenerId, this, f)
     IdAtt(newListenerId)
   }

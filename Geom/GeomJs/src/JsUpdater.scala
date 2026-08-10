@@ -50,21 +50,21 @@ class UpdaterOptionJs(val inputer: UpdaterSelect) extends JsUpdater
         if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
         else listener.innerHTML = f(newOption, inp2Val).out
       }
-      case CallbackOptInt1Text(listenerId, input2IdStr, f) =>
+      case CallbackOptInt1Text(listenerId, input2, f) =>
       { val listener: Element = document.getElementById(listenerId)
-        val inp2Val: Int = document.getElementById(input2IdStr).asInstanceOf[html.Input].value.toInt
+        val inp2Val: Int = document.getElementById(input2.idStr).asInstanceOf[html.Input].value.toInt
         if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newOption, inp2Val)
       }
-      case CallbackOptDbl1Html(listenerId, input2IdStr, f) => {
+      case CallbackOptDbl1Html(listenerId, input2, f) => {
         val listener: Element = document.getElementById(listenerId)
-        val inp2Val: Double = document.getElementById(input2IdStr).asInstanceOf[html.Input].value.toDouble
+        val inp2Val: Double = document.getElementById(input2.idStr).asInstanceOf[html.Input].value.toDouble
         if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
         else listener.innerHTML = f(newOption, inp2Val).out
       }
-      case CallbackOptDbl1Text(listenerId, input2IdStr, f) => {
+      case CallbackOptDbl1Text(listenerId, input2, f) => {
         val listener: Element = document.getElementById(listenerId)
-        val inp2Val: Double = document.getElementById(input2IdStr).asInstanceOf[html.Input].value.toDouble
+        val inp2Val: Double = document.getElementById(input2.idStr).asInstanceOf[html.Input].value.toDouble
         if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newOption, inp2Val)
       } 

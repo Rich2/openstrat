@@ -23,24 +23,24 @@ case class CallbackOpt2Str1Html(listenerId: String, input2: UpdaterStr, input3: 
 /** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Double) => RArr[XCon] function, to use innerHTML property. */
 case class CallbackOptInt1Html(listenerId: String, input2: UpdaterIntInput, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackOption
 
-/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Int) => String function. */
-case class CallbackOptInt1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Int) => String) extends CallbackOption
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Int) => String function to use JavaScript to update the textContent property. */
+case class CallbackOptInt1Text(listenerId: String, input2: UpdaterIntInput, f: (OptionHtml, Int) => String) extends CallbackOption
 
 /** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Double) => RArr[XCon] function, to use innerHTML property. */
-case class CallbackOptDbl1Html(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
+case class CallbackOptDbl1Html(listenerId: String, input2: UpdaterDblInput, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Double) => String function. */
-case class CallbackOptDbl1Text(listenerId: String, input2IdStr: String, f: (OptionHtml, Double) => String) extends CallbackOption
+case class CallbackOptDbl1Text(listenerId: String, input2: UpdaterDblInput, f: (OptionHtml, Double) => String) extends CallbackOption
 
 
 /** Call back for an [[UpdaterStr]] with a function for JavaScript to update textContent or an htmlContent property. */
 sealed trait CallbackStr extends CallbackUpdater
 
-/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => String function, to use JavaScript to update the innerHTML property. */
-case class CallbackOpt2Str2Html(listenerId: String, input1: UpdaterSelect, input3IdStr: String, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the innerHTML property. */
+case class CallbackOpt2Str2Html(listenerId: String, input1: UpdaterSelect, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
 
-/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => String function, to use JavaScript to update the innerHTML property. */
-case class CallbackOpt2Str3Html(listenerId: String, input1: UpdaterSelect, input2IdStr: String, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the innerHTML property. */
+case class CallbackOpt2Str3Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] with a String => RArr[XCon] function for JavaScript to update an htmlContent property. */
 case class CallBack1StrHtml(listenerId: String, f: String => RArr[XCon]) extends CallbackStr
@@ -49,25 +49,25 @@ case class CallBack1StrHtml(listenerId: String, f: String => RArr[XCon]) extends
 case class Callback1StrText(listenerId: String, f: String => String) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] for 1st parameter of (String, String) => String function for JavaScript to update the listener's textContent property. */
-case class Callback2Str1(listenerId: String, input2IdStr: String, f: (String, String) => String) extends CallbackStr
+case class Callback2Str1(listenerId: String, input2: UpdaterStr, f: (String, String) => String) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] for 2nd parameter of (String, String) => String function for JavaScript to update the listener's textContent property. */
-case class Callback2Str2(listenerId: String, input1IdStr: String, f: (String, String) => String) extends CallbackStr
+case class Callback2Str2(listenerId: String, input1: UpdaterStr, f: (String, String) => String) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] for 1st parameter of (String, Double => String function for JavaScript to update a textContent property. */
-case class CallbackStrDbl1(listenerId: String, numInpIdStr: String, f: (String, Double) => String) extends CallbackStr
+case class CallbackStrDbl1(listenerId: String, input2: UpdaterDblInput, f: (String, Double) => String) extends CallbackStr
 
 /** Call back from an [[UpdaterStr]] for a (String, String, String) => String function for JavaScript to update a textContent property. */
 sealed trait Callback3Str extends CallbackStr
 
 /** Call back from an [[UpdaterStr]] for the 1st parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
-case class Callback3Str1(listenerId: String, input2IdStr: String, input3IdStr: String, f: (String, String, String) => String) extends Callback3Str
+case class Callback3Str1(listenerId: String, input2: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String) extends Callback3Str
 
 /** Call back from an [[UpdaterStr]] for the 2nd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
-case class Callback3Str2(listenerId: String, input1IdStr: String, input3IdStr: String, f: (String, String, String) => String) extends Callback3Str
+case class Callback3Str2(listenerId: String, input1: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String) extends Callback3Str
 
 /** Call back from an [[UpdaterStr]] for the 3rd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
-case class Callback3Str3(listenerId: String, input1IdStr: String, input2IdStr: String, f: (String, String, String) => String) extends Callback3Str
+case class Callback3Str3(listenerId: String, input1: UpdaterStr, input2: UpdaterStr, f: (String, String, String) => String) extends Callback3Str
 
 
 /** Call back from an [[UpdaterIntInput]]. */
@@ -93,7 +93,7 @@ case class Callback1DblHtml(listenerId: String, f: Double => RArr[XCon]) extends
 case class Callback1DblText(listenerId: String, f: Double => String) extends CallbackDbl
 
 /** Call back from an [[UpdaterDblInput]] for a (String, Double) => String function for JavaScript to update a textContent property. */
-case class CallbackStrDbl2(listenerId: String, textInpIdStr: String, f: (String, Double) => String) extends CallbackDbl
+case class CallbackStrDbl2(listenerId: String, input1: UpdaterStr, f: (String, Double) => String) extends CallbackDbl
 
 /** A call back for an [[UpdaterDblInput]] that takes an (OptionHtml, Double => RArr[XCon] function. */
 case class CallbackOptDbl2Html(listenerId: String, input1: UpdaterSelect, f: (OptionHtml, Double) => RArr[XCon]) extends CallbackDbl
