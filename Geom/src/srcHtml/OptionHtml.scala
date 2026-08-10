@@ -50,3 +50,19 @@ case object ArchDeriv extends LinuxSystem
 { override def valueStr: String = "ArchDeriv"
   override def contentStr: String = "Arch/CachyOS"
 }
+
+trait NetBoundary extends OptionHtml
+
+object LocalHost extends NetBoundary
+{ override def valueStr: String = "LocalHost"
+  override def contentStr: String = "localhost"
+}
+
+object LocalNetwork extends NetBoundary
+{ override def valueStr: String = "LocalNetwork"
+  override def contentStr: String = "Local Network"
+}
+object PublicInternet extends NetBoundary
+{ override def valueStr: String = "PublicInternet"
+  override def contentStr: String = "Public Internet"
+}

@@ -6,7 +6,7 @@ import pweb.*
 object AppsPommer extends OsModuleJvmVerless(DirsRel("Apps"), "apps", RArr(EGridPommer, TilingPommer, GeomPommer, UtilPommer), RArr())
 
 /** The top level HTML documentation page for the apps. */
-object AppsPage extends OSDocumentationPage
+object AppsPage extends OpenstratDocPage
 { override def titleStr: String = "Applications Module"
   override val fileStemStr: String = "apps"
   override def body: BodyHtml = BodyHtml(H1Html("Apps Module"), main)

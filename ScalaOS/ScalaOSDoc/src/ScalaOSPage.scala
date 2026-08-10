@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pweb.*, wcode.*
 
 /** Documentation page for ScalaOS Module." */
-object ScalaOSPage extends OSDocumentationPage
+object ScalaOSPage extends OpenstratDocPage
 { override def titleStr: String = "Scala Operating System"
   override val fileStemStr: String = "scalaos"
   override def body: BodyHtml = BodyHtml(H1Html("Geom Module"), central)

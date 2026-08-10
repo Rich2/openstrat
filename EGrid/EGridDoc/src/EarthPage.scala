@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*
 
 /** HTML documentation page for Earth module. */
-object EarthPage extends OSDocumentationPage
+object EarthPage extends OpenstratDocPage
 { override val titleStr: String = "Earth Module"
   override def fileStemStr: String = "earth"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)

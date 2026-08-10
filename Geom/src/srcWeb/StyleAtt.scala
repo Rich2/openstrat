@@ -1,5 +1,6 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
+import Colour.*
 
 /** The Style attribute for inline CSS. CSS only recognises a single style attribute. In this API an object can inherit multiple style attributes and will
  * combine them into a single style attribute for the HTML code output. */
@@ -20,6 +21,12 @@ object StyleAtt
   /** Factory apply method to create a CSS style attribute. There is an apply name overload that takes an [[RArr]] of [[CssDec]] declarations. */
   def apply(decs: CssDecBase | CssRule *): StyleAtt = new StyleAtt(decs.toArr)
 }
+
+/** Style attribute for HTML with a single colour attribute. */
+case class ColourStyleAtt(colour: Colour) extends StyleAtt(RArr(ColourDec(colour)))
+
+/** Style attribute for HTML with a single Pink colour attribute. */
+object PinkStyleAtt extends ColourStyleAtt(Pink)
 
 /** CSS inline-block value. */
 object InlineBlockVal extends CssVal

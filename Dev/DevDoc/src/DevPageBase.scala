@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*, wcode.*
 
 /** HTML documentation page for the Dev Module. */
-trait DevPageBase extends OSDocumentationPage, PageUpdaterOS
+trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
 { /** Creates an HTML List element to document installing Java. */
   def javaInstall: HtmlElemBuilder = HtmlElemBuilder.listenOptIntHtml(opSysInput, javaVerInput){ (opSys, jVer) =>
     RArr[XCon]("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.") +%

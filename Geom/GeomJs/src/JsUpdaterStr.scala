@@ -44,6 +44,18 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
             val inp2Val: String = document.getElementById(input2IdStr).asInstanceOf[html.Input].value
             f(inp1Val, inp2Val, newInpStr)
           }
+          case CallbackOpt2Str2Html(targetId, input1, input3IdStr, f) =>
+          { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+            val inp1Option = input1.strToOption(inp1Val)
+            val inp3Val: String = document.getElementById(input3IdStr).asInstanceOf[html.Input].value
+            f(inp1Option, newInpStr, inp3Val).out
+          }
+          case CallbackOpt2Str3Html(targetId, input1, input2IdStr, f) =>
+          { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+            val inp1Option = input1.strToOption(inp1Val)
+            val inp2Val: String = document.getElementById(input2IdStr).asInstanceOf[html.Input].value
+            f(inp1Option, inp2Val, newInpStr).out
+          }
           case CallbackStrDbl1(targetId, input2IdStr, f) =>
           { val inp2Val: Double = document.getElementById(input2IdStr).asInstanceOf[html.Input].value.toDouble
             f(newInpStr, inp2Val)

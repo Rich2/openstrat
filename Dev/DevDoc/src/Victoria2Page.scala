@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pweb.*, wcode.*
 
-object Victoria2Page extends OSDocumentationPage
+object Victoria2Page extends OpenstratDocPage
 { override def titleStr: String = "Victoria 2"
   override def fileStemStr: String = "victoria2"
   override def body: BodyHtml = BodyHtml(franceMobilise)

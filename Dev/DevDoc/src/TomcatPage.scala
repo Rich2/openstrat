@@ -52,6 +52,9 @@ object TomcatPage extends DevPageBase
   def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(userNameInput, computerNameInput, dirInput) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerInput: UpdaterInputStr = UpdaterInputStr("version", tcVer1)
   val tomVerLI: LabelInput = LabelInput("Tomcat Version", tomVerInput)
+  
+  val boundInput: UpdaterSelect = UpdaterSelect("boundary", LocalHost, LocalNetwork, PublicInternet)
+  val boundaryLI = LabelInput("Network boundary", boundInput)
 
   val domainInput: UpdaterInputStr = UpdaterInputStr("dName", domain1)
   val domainLI: LabelInput = LabelInput("Domain Name", domainInput)
@@ -63,7 +66,7 @@ object TomcatPage extends DevPageBase
   def pUpdaters: PHtml = PHtml(updaterExplain,
   LabelInputsLine(userNameLI, opSysLI, computerNameLI, ramLI, tomVerLI, javaVerLI, domainLI, dirLI))
 
-  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
+  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, sCert, s13, s14, s15)
   
   val s1: LiHtml = LiHtml.listenOptHtml(opSysInput){ opt =>
     val res1: XCon = DivHtml("Upgrade packages.")
@@ -236,7 +239,7 @@ object TomcatPage extends DevPageBase
   "The page should now be available without the port :8080 suffix."
   )
 
-  val s12: LiHtml = LiHtml(
+  val sCert: LiHtml = LiHtml(
   DivHtml("SSL Certification".bHtml),
   "Install snap",
   BashLine("sudo apt install snapd"),
@@ -264,14 +267,14 @@ object TomcatPage extends DevPageBase
   BashLine("sudo apt install mkcert"),
   BashLine("mkcert -install"),
   BashLine("mkcert localhost 127.0.0.1 ::1"),
-  BashLine("Created a new certificate valid for the following names:"),
-  BashLine("""- "localhost""""),
-  BashLine("""- "127.0.0.1""""),
-  BashLine("""- "::1""""),
-  BashLine(""),
-  BashLine("""The certificate is at "./localhost+2.pem" and the key at "./test.example.com+3-key.pem" ✅"""),
-  BashLine(""),
-  BashLine("It will expire on 23 January 2024 🗓"),
+  PreCode("""Created a new certificate valid for the following names:
+  |- "localhost"
+  |- "127.0.0.1"
+  |- "::1"
+  |
+  |The certificate is at "./localhost+2.pem" and the key at "./test.example.com+3-key.pem" ✅
+  |
+  |It will expire on 23 January 2024 🗓""".stripMargin, PinkStyleAtt),
   BashLine("sudo cp ./localhost+2* /etc/ssl")  
   )
 

@@ -15,7 +15,7 @@ object GeomFxPommer extends OsModuleJvmVerless(DirsRel("GeomFx"), "geomfx", RArr
 object GeomLetPommer extends OsModuleJvmVerless(DirsRel("GeomLet"), "geomlet", RArr(GeomPommer), RArr(ServletDep()))
 
 /** Produces an HTML file documentation for the Geom module. */
-object GeomPage extends OSDocumentationPage
+object GeomPage extends OpenstratDocPage
 { override val titleStr: String = "Geom Module"
   override val fileStemStr: String = "geom"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)

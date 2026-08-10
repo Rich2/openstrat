@@ -119,7 +119,7 @@ class HtmlDirPath(val str: String) extends CodeInline
 trait PreCode extends PreHtml
 { def codeElem: CodeSpecial
   override def contents: RArr[XCon] = RArr(codeElem)
-  override def attribs: RArr[HAtt] = RArr(BlockStyle)// %: otherAttribs
+  override def attribs: RArr[HAtt] = RArr(BlockStyle)
   override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = openTag(0, 0) + codeElem.out + closeTag
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines = TextLines(openTag(0, 0) + codeElem.out + closeTag)
 
@@ -178,7 +178,7 @@ object PreCode
   /** An HTML code element with an [[PreHtml]] element as its contents. */
   case class PreCodeGen(codeStrIn: String, otherAttribs: RArr[HAtt]) extends PreCode
   { val codeElem: CodeSpecial = new CodeSpecial
-    { override def attribs: RArr[HAtt] = RArr(BlockStyle)
+    { override def attribs: RArr[HAtt] = BlockStyle %: otherAttribs
       override def codeStr: String = codeStrIn.escapeHtml
     }
   }

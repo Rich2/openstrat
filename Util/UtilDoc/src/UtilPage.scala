@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pweb.*, WebExts.*
 
-trait OSDocumentationPage extends HtmlPageFile
+trait OpenstratDocPage extends HtmlPageFile
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HeadHtml]]. */
   def titleStr: String
 
@@ -12,7 +12,7 @@ trait OSDocumentationPage extends HtmlPageFile
 }
 
 /** Produces an HTML file documentation for the Util module. */
-object UtilPage extends OSDocumentationPage
+object UtilPage extends OpenstratDocPage
 { override val titleStr: String = "Util Module"
   override val fileStemStr: String = "util"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)

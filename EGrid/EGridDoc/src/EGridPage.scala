@@ -6,7 +6,7 @@ import pweb.*, WebExts.*
 object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
 
 /** Documentation page for EGrid Module." */
-object EGridPage extends OSDocumentationPage
+object EGridPage extends OpenstratDocPage
 { override def titleStr: String = "EGrid Module"
   override val fileStemStr: String = "egrid"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)

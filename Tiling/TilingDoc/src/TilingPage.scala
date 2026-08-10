@@ -6,7 +6,7 @@ import geom.*, prid.phex.*, pweb.*, WebExts.*, Colour.*
 object TilingPommer extends OsModuleJvmVerless(DirsRel("Tiling"), "tiling", RArr(GeomPommer, UtilPommer), RArr())
 
 /** Html documentation page for Tiling Module. */
-object TilingPage extends OSDocumentationPage
+object TilingPage extends OpenstratDocPage
 { override def titleStr: String = "Tiling Module"
   override val fileStemStr: String = "tiling"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
