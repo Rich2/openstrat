@@ -28,18 +28,18 @@ object TomcatPage extends DevPageBase
   val tcMinorVer: String = "24"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
-  val domain1: String = "localhost"
+  val domain1: String = "mysite.com"
   
-  /** Initial value for user name. */
+  /** Initial value for username. */
   val userName1: String = "tommy"
 
-  /** Updater for user name. */
+  /** Updater for username. */
   val userNameInput: UpdaterInputStr = UpdaterInputStr("uName", userName1)
   
   /** [[UpdaterInputStr]] and it's label for user name. */
   val userNameLI: LabelInput = LabelInput("User Name", userNameInput)
 
-  /** Updater for user name. */
+  /** Updater for username. */
   val computerNameInput: UpdaterInputStr = UpdaterInputStr("cName", computerName1)
   
   /** [[UpdaterInputStr]] and it's label for computer name. */
@@ -53,7 +53,7 @@ object TomcatPage extends DevPageBase
   val tomVerInput: UpdaterInputStr = UpdaterInputStr("version", tcVer1)
   val tomVerLI: LabelInput = LabelInput("Tomcat Version", tomVerInput)
   
-  val boundInput: UpdaterSelect = UpdaterSelect("boundary", LocalHost, LocalNetwork, PublicInternet)
+  val boundInput: UpdaterSelect = UpdaterSelect("boundary", PublicInternet, LocalHost, LocalNetwork)
   val boundaryLI = LabelInput("Network boundary", boundInput)
 
   val domainInput: UpdaterInputStr = UpdaterInputStr("dName", domain1)
@@ -239,44 +239,7 @@ object TomcatPage extends DevPageBase
   "The page should now be available without the port :8080 suffix."
   )
 
-  val sCert: LiHtml = LiHtml(
-  DivHtml("SSL Certification".bHtml),
-  "Install snap",
-  BashLine("sudo apt install snapd"),
-  "Install certbot",
-  BashLine("sudo snap install --classic certbot"),
-  CodeOutputLine("certbot 5.1.0 from Certbot Project (certbot-eff✓) installed"),
-  "Ensure that the cerbot command can be run",
-  BashLine("sudo ln -s /snap/bin/certbot /usr/bin/certbot"),
-  "Stop tomcat.",
-  BashLine("sudo systemctl stop tom11"),
-  "Install certificate. When asked to enter domain name, you can enter multiple web domains, but you only use the first in the ensuing commands.",
-  BashLine("sudo certbot certonly --standalone"),
-  "Configure permissions to certificates",
-  BashLine.listenStrText(userNameInput){ user => s"sudo chgrp -R $user /etc/letsencrypt/live/" },
-  BashLine.listenStrText(userNameInput){ user => s"sudo chgrp -R $user /etc/letsencrypt/archive/" },
-  BashLine("sudo chmod -R 750 /etc/letsencrypt/live/"),
-  BashLine("sudo chmod -R 750 /etc/letsencrypt/archive/"),
-  BashLine.listenStrText(domainInput){ dName => s"sudo chmod 640 /etc/letsencrypt/live/$dName/privkey.pem" },
-  BashLine.listenStrText(domainInput){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName/cert.pem" },
-  BashLine.listenStrText(domainInput){ dName => s"sudo chmod 644 /etc/letsencrypt/live/$dName.com/chain.pem" },
-  "Check permissions - if you dont have access then something wrong...",
-  BashLine.listenStrText(domainInput){ dName => s"ls -la /etc/letsencrypt/live/richstrat.com/" },
-  "For localhost",
-  BashLine("sudo apt install libnss3-tools"),
-  BashLine("sudo apt install mkcert"),
-  BashLine("mkcert -install"),
-  BashLine("mkcert localhost 127.0.0.1 ::1"),
-  PreCode("""Created a new certificate valid for the following names:
-  |- "localhost"
-  |- "127.0.0.1"
-  |- "::1"
-  |
-  |The certificate is at "./localhost+2.pem" and the key at "./test.example.com+3-key.pem" ✅
-  |
-  |It will expire on 23 January 2024 🗓""".stripMargin, PinkStyleAtt),
-  BashLine("sudo cp ./localhost+2* /etc/ssl")  
-  )
+  val sCert: LiHtml = LiHtml.listen2Opt2StrHtml(boundInput, opSysInput, userNameInput, domainInput)(CertItemFunc) 
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine.listenStrText(dirInput){ dir => "nano $dir/Base/conf/server.xml" },

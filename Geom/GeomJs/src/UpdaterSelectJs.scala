@@ -31,6 +31,15 @@ class UpdaterSelectJs(val inputer: UpdaterSelect) extends JsUpdater
         if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
         else listener.innerHTML = f(newOption, inp2Val, inp3Val).out
       }
+      case Callback2Opt2Str1Html(listenerId, input2, input3, input4, f) =>
+      { val listener: Element = document.getElementById(listenerId)
+        val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
+        val inp2Option: OptionHtml = input2.strToOption(inp2Val)
+        val inp3Val: String = document.getElementById(input3.idStr).asInstanceOf[html.Input].value
+        val inp4Val: String = document.getElementById(input4.idStr).asInstanceOf[html.Input].value
+        if(listener == null) deb(s" target is null from inputer $inputer for id: $listenerId.")
+        else listener.innerHTML = f(newOption, inp2Option, inp3Val, inp4Val).out
+      }
       case Callback2Opt2Str2Html(listenerId, input1, input3, input4, f) =>
       { val listener: Element = document.getElementById(listenerId)
         val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
