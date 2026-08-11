@@ -11,7 +11,7 @@ class JsUpdaterInt(val inputer: UpdaterIntInput) extends JsUpdater
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Input].value
     val newNum: Int = newInpStr.toInt
-    val len = inputer.clientCount
+    val len: Int = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
       case Callback1IntText(listenerId, f) =>
@@ -21,13 +21,13 @@ class JsUpdaterInt(val inputer: UpdaterIntInput) extends JsUpdater
       }
       case CallbackOptInt2Html(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
-        val inp1Option = input1.strToOption(inp1Val)
+        val inp1Option: OptionHtml = input1.strToOption(inp1Val)
         val listener: Element = document.getElementById(listenerId)
         listener.innerHTML = f(inp1Option, newNum).out
       }
       case CallbackOptInt2Text(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
-        val inp1Option = input1.strToOption(inp1Val)
+        val inp1Option: OptionHtml = input1.strToOption(inp1Val)
         val target: Element = document.getElementById(listenerId)
         target.textContent = f(inp1Option, newNum)
       }
@@ -49,7 +49,7 @@ class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Input].value
     val newNum: Double = newInpStr.toDouble
-    val len = inputer.clientCount
+    val len: Int = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
       case Callback1DblText(listenerId, f) =>
@@ -68,13 +68,13 @@ class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
       }
       case CallbackOptDbl2Html(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
-        val inp1Option = input1.strToOption(inp1Val)
+        val inp1Option: OptionHtml = input1.strToOption(inp1Val)
         val target: Element = document.getElementById(listenerId)
         target.innerHTML = f(inp1Option, newNum).out
       }
       case CallbackOptDbl2Text(listenerId, input1, f) =>
       { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
-        val inp1Option = input1.strToOption(inp1Val)
+        val inp1Option: OptionHtml = input1.strToOption(inp1Val)
         val target: Element = document.getElementById(listenerId)
         target.textContent = f(inp1Option, newNum)
       }

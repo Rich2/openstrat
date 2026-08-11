@@ -76,6 +76,13 @@ trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
     apply(input.listenerInit(f), newId %: otherAttribs)
   }
 
+  /** Creates an HTML element of the given type and registers the innerHTML with 2 [[UpdaterSelect]]s and 2 [[UpdaterStr]]s. */
+  def listen2Opt2StrHtml(input1: UpdaterSelect, input2: UpdaterSelect, input3: UpdaterStr, input4: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(
+    f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]): T =
+  { val newId: IdAtt = input1.next2Opt2StrHtml(input2, input3, input4, f)
+    apply(f(input1.initOption, input2.initOption, input3.valueStr, input4.valueStr), newId %: otherAttribs)
+  }
+  
   /** Creates an HTML element of the given type and registers the innerHTML an [[UpdaterSelect]] and an [[UpdaterIntInput]]. */
   def listenOptIntHtml(input1: UpdaterSelect, input2: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Int) => RArr[XCon]): T =
   { val newId: IdAtt = input1.nextOptInt1Html(input2, f)

@@ -38,6 +38,16 @@ trait UpdaterStr extends UpdaterInputLike
   { callBacks +%= CallbackOpt2Str3Html(listenerId, input1, input2, f)
   }
 
+  def next2Opt2Str3Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterSelect, input4: UpdaterStr, f: (OptionHtml,
+    OptionHtml, String, String) => RArr[XCon]): Unit =
+  { callBacks +%= Callback2Opt2Str3Html(listenerId, input1, input2, input4, f)
+  }
+
+  def next2Opt2Str4Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterSelect, input3: UpdaterStr,
+    f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]): Unit =
+  { callBacks +%= Callback2Opt2Str4Html(listenerId, input1, input2, input3, f)
+  }
+
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
   def next1Html(f: String => RArr[XCon]): IdAtt =

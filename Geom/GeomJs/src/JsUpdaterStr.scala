@@ -46,15 +46,31 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
           }
           case CallbackOpt2Str2Html(targetId, input1, input3, f) =>
           { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
-            val inp1Option = input1.strToOption(inp1Val)
+            val inp1Option: OptionHtml = input1.strToOption(inp1Val)
             val inp3Val: String = document.getElementById(input3.idStr).asInstanceOf[html.Input].value
             f(inp1Option, newInpStr, inp3Val).out
           }
           case CallbackOpt2Str3Html(targetId, input1, input2, f) =>
           { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
-            val inp1Option = input1.strToOption(inp1Val)
+            val inp1Option: OptionHtml = input1.strToOption(inp1Val)
             val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
             f(inp1Option, inp2Val, newInpStr).out
+          }
+          case Callback2Opt2Str3Html(targetId, input1, input2, input4, f) =>
+          { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+            val inp1Option: OptionHtml = input1.strToOption(inp1Val)
+            val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
+            val inp2Option: OptionHtml = input2.strToOption(inp2Val)
+            val inp4Val: String = document.getElementById(input4.idStr).asInstanceOf[html.Input].value
+            f(inp1Option, inp2Option, newInpStr, inp4Val).out
+          }
+          case Callback2Opt2Str4Html(targetId, input1, input2, input3, f) =>
+          { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
+            val inp1Option: OptionHtml = input1.strToOption(inp1Val)
+            val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
+            val inp2Option: OptionHtml = input2.strToOption(inp2Val)
+            val inp3Val: String = document.getElementById(input3.idStr).asInstanceOf[html.Input].value
+            f(inp1Option, inp2Option, inp3Val, newInpStr).out
           }
           case CallbackStrDbl1(targetId, input2, f) =>
           { val inp2Val: Double = document.getElementById(input2.idStr).asInstanceOf[html.Input].value.toDouble

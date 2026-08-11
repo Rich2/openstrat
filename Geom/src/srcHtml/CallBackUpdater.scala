@@ -12,13 +12,24 @@ sealed trait CallbackUpdater
 trait CallbackOption extends CallbackUpdater
 
 /** A call back for an [[UpdaterSelect]] that takes an OptionHtml => RArr[XCon] function,  to use JavaScript to pdate the innerHTML property. */
-case class Callback1OptHtml(listenerId: String, f: OptionHtml => RArr[XCon]) extends CallbackOption
+case class CallbackOptHtml(listenerId: String, f: OptionHtml => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterSelect]] that takes an OptionHtml => String function, to use JavaScript to update the textContent property. */
-case class Callback1OptText(listenerId: String, f: OptionHtml => String) extends CallbackOption
+case class CallbackOptText(listenerId: String, f: OptionHtml => String) extends CallbackOption
 
 /** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => String function, to use JavaScript to update the innerHTML property. */
-case class CallbackOpt2Str1Html(listenerId: String, input2: UpdaterStr, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackOption
+case class CallbackOpt2Str1Html(listenerId: String, input2: UpdaterStr, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends
+  CallbackOption
+
+/** A call back for the 1st [[UpdaterSelect]] that takes an (OptionHtml, OptionHtml, String, String) => String function, to use JavaScript to update the
+ * innerHTML property. */
+case class Callback2Opt2Str1Html(listenerId: String, input2: UpdaterSelect, input3: UpdaterStr, input4: UpdaterStr,
+  f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]) extends CallbackOption
+
+/** A call back for the 2nd [[UpdaterSelect]] that takes an (OptionHtml, OptionHtml, String, String) => String function, to use JavaScript to update the
+ * innerHTML property. */
+case class Callback2Opt2Str2Html(listenerId: String, input1: UpdaterSelect, input3: UpdaterStr, input4: UpdaterStr,
+  f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]) extends CallbackOption
 
 /** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Double) => RArr[XCon] function, to use innerHTML property. */
 case class CallbackOptInt1Html(listenerId: String, input2: UpdaterIntInput, f: (OptionHtml, Int) => RArr[XCon]) extends CallbackOption
@@ -36,11 +47,25 @@ case class CallbackOptDbl1Text(listenerId: String, input2: UpdaterDblInput, f: (
 /** Call back for an [[UpdaterStr]] with a function for JavaScript to update textContent or an htmlContent property. */
 sealed trait CallbackStr extends CallbackUpdater
 
-/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the innerHTML property. */
-case class CallbackOpt2Str2Html(listenerId: String, input1: UpdaterSelect, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the innerHTML
+ * property. */
+case class CallbackOpt2Str2Html(listenerId: String, input1: UpdaterSelect, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends
+  CallbackStr
 
-/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the innerHTML property. */
-case class CallbackOpt2Str3Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the innerHTML
+ * property. */
+case class CallbackOpt2Str3Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]) extends
+  CallbackStr
+
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the
+ * innerHTML property. */
+case class Callback2Opt2Str3Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterSelect, input4: UpdaterStr,
+  f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
+
+/** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, OptionHtml, String, String) => RArr[XCon] function, to use JavaScript to update the
+ * innerHTML property. */
+case class Callback2Opt2Str4Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterSelect, input3: UpdaterStr,
+  f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] with a String => RArr[XCon] function for JavaScript to update an htmlContent property. */
 case class CallBack1StrHtml(listenerId: String, f: String => RArr[XCon]) extends CallbackStr
