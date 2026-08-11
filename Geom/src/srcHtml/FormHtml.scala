@@ -57,7 +57,7 @@ trait RegLogForm extends FormHtml
 trait RegisterForm extends RegLogForm
 { /** The header for this form. */
   def header = DivHtml("Register".bHtml)
-  def regex: Regex = "[A-Za-z]{4,15}[0-9]{0,11}".r
+  def regex: Regex = "[A-Za-z]{4,15}[0-9]{0,11}$".r
   
   override def idPrefix: String = "reg"
   override def contents: RArr[XCon] = RArr(header, uNameLI, passwordLI, submit)

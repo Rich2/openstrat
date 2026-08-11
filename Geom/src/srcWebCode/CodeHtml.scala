@@ -63,9 +63,9 @@ object CodeChangeLine
 
   /** Creates a code change line and registers the textContents with an HTML Text Input. */
   def listenText(input: UpdaterStr)(f1: String => String)(f2: String => String): CodeChangeLine =
-  { val newId1 = input.next1Text(f1)
+  { val newId1 = input.nextStrText(f1)
     val oldCode: CodeInline = CodeInline(RArr(f1(input.valueStr)), RArr(newId1))
-    val newId2 = input.next1Text(f2)
+    val newId2 = input.nextStrText(f2)
     val newCode: CodeInline = CodeInline(RArr(f2(input.valueStr)), RArr(newId2))
     CodeChangeLineGen(oldCode, newCode, RArr())
   }
@@ -143,7 +143,7 @@ object PreCode
    * escape the HTML code characters. */
   def listenText(input: UpdaterInputStr, otherAttribs: HAtt*)(f1: String => String): PreCode =
   { val f2: String => String = s1 => f1(s1).escapeHtml
-    def newId: IdAtt = input.next1Text(f2)
+    def newId: IdAtt = input.nextStrText(f2)
 
     new PreCode
     {  override def codeElem: CodeSpecial = new CodeSpecial
@@ -156,7 +156,7 @@ object PreCode
   /** Creates an HTML Code Pre element and registers the textContent with 2 HTML Text Updaters. */
   def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: HAtt*)(f1: (String, String) => String): PreCode =
   { val f2: (String, String) => String = (s1, s2) => f1(s1, s2).escapeHtml
-    val idAtt: IdAtt = input1.next2Text1(input2, f2)
+    val idAtt: IdAtt = input1.next2Str1Text(input2, f2)
     new PreCode
     { override def codeElem: CodeSpecial = new CodeSpecial
       { override def attribs: RArr[HAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr
@@ -168,7 +168,7 @@ object PreCode
   /** Creates an HTML Code Pre element and registers the textContent with 3 HTML Text Updaters. */
   def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: HAtt*)(f1: (String, String, String) => String): PreCode =
   { val f2: (String, String, String) => String = (s1, s2, s3) => f1(s1, s2, s3).escapeHtml
-    val idAtt: IdAtt = input1.next3Id1(input2, input3, f2)
+    val idAtt: IdAtt = input1.next3Str1Text(input2, input3, f2)
     new PreCode
     { override def codeElem: CodeSpecial = new CodeSpecial
       { override def attribs: RArr[HAtt] = RArr(idAtt, BlockStyle) ++ otherAttribs.toRArr

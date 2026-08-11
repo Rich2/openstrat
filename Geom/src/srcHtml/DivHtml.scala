@@ -17,9 +17,6 @@ object DivHtml extends HtmlXConCompanion[DivHtml]
 
   override def fromStr(str: String, attribs: RArr[XAtt]): DivHtml = new DivHtmlGen(RArr(str), attribs)
 
-  /** Factory apply method for creating HTML span element with a display attribute. */
-  def display(contents: XConInedit*)(otherDisplay: CssDec*) = new DivHtmlGen(contents.toArr, RArr(StyleAtt(otherDisplay.toArr)))
-
   /** An implementation class for the general case of an HTML Div.  */
   class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends DivHtml, HtmlOwnLine
 }

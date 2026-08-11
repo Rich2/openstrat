@@ -20,7 +20,7 @@ class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val ma
   /** Registers a call back to a listener with an Int => String function. */
   def next1(f: Int => String): IdAtt =
   { val newlistenerId: String = idStr + clientCount.str
-    listeners +%= Callback1IntText(newlistenerId, f)
+    listeners +%= CallbackIntText(newlistenerId, f)
     IdAtt(newlistenerId)
   }
   
@@ -56,7 +56,7 @@ class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RA
   /** Registers a call back to a listener with a Double => String function. */
   def next1(f: Double => String): IdAtt =
   { val newlistenerId: String = idStr + clientCount.str
-    listeners +%= Callback1DblText(newlistenerId, f)
+    listeners +%= CallbackDblText(newlistenerId, f)
     IdAtt(newlistenerId)
   }
 

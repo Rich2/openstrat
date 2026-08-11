@@ -19,8 +19,8 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
       else
       { 
         listener.innerHTML = callback match
-        { case Callback1StrText(idStr, f) => f(newInpStr)
-          case CallBack1StrHtml(idStr, f) => f(newInpStr).out
+        { case CallbackStrText(idStr, f) => f(newInpStr)
+          case CallBackStrHtml(idStr, f) => f(newInpStr).out
           case Callback2Str1(targetId, input2, f) =>
           { val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
             f(newInpStr, inp2Val)

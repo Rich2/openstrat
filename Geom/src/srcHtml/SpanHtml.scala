@@ -42,25 +42,25 @@ object SpanInlineInedit
 
   /** Creates an inline span and registers the textContent with an HTML [[String]] Input. */
   def listenStrText(input: UpdaterStr)(f: String => String): SpanInlineInedit =
-  { def newId = input.next1Text(f)
+  { def newId = input.nextStrText(f)
     new SpanInlineGen(RArr(f(input.valueStr)), RArr(newId))
   }
 
   /** Creates an inline span and registers the textContent with 2 HTML [[String]] Inputs. */
   def listen2StrText(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f: (String, String) => String): SpanInlineInedit =
-  { val idAtt: IdAtt = input1.next2Text1(input2, f)    
+  { val idAtt: IdAtt = input1.next2Str1Text(input2, f)    
     SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr)), RArr(idAtt))
   }
 
   /** Creates an inline span and registers the textContent with 3 HTML [[String]] Inputs. */
   def listen3StrText(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: XAtt*)(f: (String, String, String) => String): SpanInlineInedit =
-  { val idAtt: IdAtt = input1.next3Id1(input2, input3, f)
+  { val idAtt: IdAtt = input1.next3Str1Text(input2, input3, f)
     SpanInlineGen(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), RArr(idAtt))
   }
 
   /** Creates an inline span and registers the textContent with 1 HTML [[String]] and 1 HTML number inputs. */
   def listenStrtNumText(input1: UpdaterStr, input2: UpdaterDblInput, otherAttribs: XAtt*)(f: (String, Double) => String): SpanInlineInedit =
-  { val idAtt: IdAtt = input1.nextStrDblId1(input2, f)
+  { val idAtt: IdAtt = input1.nextStrDbl1Text(input2, f)
     SpanInlineGen(RArr(f(input1.valueStr, input2.value)), RArr(idAtt))
   }
 
@@ -105,25 +105,25 @@ object SpanLine
 
   /** Creates a Span line and registers the textContent with an HTML Text Input. */
   def listenText(input: UpdaterInputStr, otherAttribs: XAtt*)(f: String => String): SpanLine =
-  { def newId = input.next1Text(f)
+  { def newId = input.nextStrText(f)
     SpanLineGen(RArr(f(input.valueStr)), newId %: otherAttribs.toRArr)
   }
 
   /** Creates a span line and registers the textContent with 2 HTML Text Inputs. */
   def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f: (String, String) => String): SpanLine =
-  { val newId: IdAtt = input1.next2Text1(input2, f)
+  { val newId: IdAtt = input1.next2Str1Text(input2, f)
     SpanLineGen(RArr(f(input1.valueStr, input2.valueStr)), newId %: otherAttribs.toRArr)
   }
 
   /** Creates a span line and registers the textContent with 3 HTML Text Inputs. */
   def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: XAtt*)(f: (String, String, String) => String): SpanLine =
-  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
+  { val newId: IdAtt = input1.next3Str1Text(input2, input3, f)
     SpanLineGen(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), newId %: otherAttribs.toRArr)
   }
 
   /** Creates a span line and registers the textContent with an HTML Text and a number of Inputs. */
   def listenTextNum(input1: UpdaterStr, input2: UpdaterDblInput, otherAttribs: XAtt*)(f: (String, Double) => String): SpanLine =
-  { val newId: IdAtt = input1.nextStrDblId1(input2, f)
+  { val newId: IdAtt = input1.nextStrDbl1Text(input2, f)
     SpanLineGen(RArr(f(input1.valueStr, input2.value)), newId %: otherAttribs.toRArr)
   }
 

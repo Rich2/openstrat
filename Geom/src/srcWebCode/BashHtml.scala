@@ -16,7 +16,7 @@ class BashHtmlMulti(val lines: StrArr, otherAttribs: RArr[HAtt]) extends BashHtm
 }
 
 object BashHtmlMulti
-{
+{ /** Multi line Bash element. */
   def apply(lines: String*): BashHtmlMulti = new BashHtmlMulti(lines.toArr, RArr())
 }
 
@@ -81,28 +81,28 @@ object BashPromptSpan
   /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. registers the textContent with an HTML
    * Text Input. */
   def listenText(input: UpdaterStr, otherAttribs: XAtt*)(f: String => String): BashPromptSpan =
-  { val newId: IdAtt = input.next1Text(f)
+  { val newId: IdAtt = input.nextStrText(f)
     new BashPromptSpan(f(input.valueStr), newId %: otherAttribs.toArr)
   }
 
   /** Creates span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with 2 HTML
    * Text Inputs. */
   def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f: (String, String) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.next2Text1(input2, f)
+  { val newId: IdAtt = input1.next2Str1Text(input2, f)
     new BashPromptSpan(f(input1.valueStr, input2.valueStr), newId %: otherAttribs.toRArr)
   }
 
   /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with 3 HTML
    * Text Inputs. */
   def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: XAtt*)(f: (String, String, String) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.next3Id1(input2, input3, f)
+  { val newId: IdAtt = input1.next3Str1Text(input2, input3, f)
     new BashPromptSpan(f(input1.valueStr, input2.valueStr, input3.valueStr), newId %: otherAttribs.toRArr)
   }
 
-  /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Rregisters the textContent with an
-   * HTML Text and a number of Inputs. */
+  /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with an HTML
+   * Text and a number of Inputs. */
   def listenTextNum(input1: UpdaterStr, input2: UpdaterDblInput, otherAttribs: XAtt*)(f: (String, Double) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.nextStrDblId1(input2, f)
+  { val newId: IdAtt = input1.nextStrDbl1Text(input2, f)
       new BashPromptSpan(f(input1.valueStr, input2.value), newId %: otherAttribs.toRArr)
     }
 

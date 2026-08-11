@@ -23,17 +23,6 @@ trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
       case ArchDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk")
       case _ => "No code available."
     })
-    /*"Save and exit (Ctrl-X and then Y)",
-    BashLine("sudo reboot"),
-    "After reboot or logging in again for remote server",
-    BashLine("echo $JAVA_HOME"),
-    CodeOutputLine.listenOptIntText(opNameIUT, javaVerIUN){ (opSys, javaVer) =>
-      opSys match
-      { case UbuntuDeriv => s"/usr/lib/jvm/java-1.${javaVer}.0-openjdk-amd64"
-        case ArchDeriv => s"/usr/lib/jvm/java-$javaVer-openjdk"
-        case _ => "No code available."
-      }
-    }*/
   }
 
   def jvmsAlt: Section = Section("JVMs".h2,

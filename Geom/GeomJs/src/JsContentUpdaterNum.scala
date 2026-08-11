@@ -14,7 +14,7 @@ class JsUpdaterInt(val inputer: UpdaterIntInput) extends JsUpdater
     val len: Int = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
-      case Callback1IntText(listenerId, f) =>
+      case CallbackIntText(listenerId, f) =>
       { val listener: Element = document.getElementById(listenerId)
         if(listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newNum)
@@ -52,12 +52,12 @@ class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
     val len: Int = inputer.clientCount
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
-      case Callback1DblText(listenerId, f) =>
+      case CallbackDblText(listenerId, f) =>
       { val listener: Element = document.getElementById(listenerId)
         if (listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.textContent = f(newNum)
       }
-      case Callback1DblHtml(listenerId, f) =>
+      case CallbackDblHtml(listenerId, f) =>
       { val listener: Element = document.getElementById(listenerId)
         if (listener == null) deb(s" listener is null from inputer $inputer for id: $listenerId.")
         else listener.innerHTML = f(newNum).out
