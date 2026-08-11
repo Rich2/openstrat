@@ -7,7 +7,7 @@ trait DivHtml extends HtmlUnvoid
 }
 
 /** Companion object for the [[DivHtml]] DIV element class, contains various factory methods. */
-object DivHtml extends HtmlElemFullCompanion[DivHtml]
+object DivHtml extends HtmlXConCompanion[DivHtml]
 { /** Factory apply method for div HTML element. There is an apply overload that takes an [[RArr]] of [[XConInedit]] and an [[RArr]] of [[XAtt]], with a default
    * of no [[XAtt]]s. */
   def apply(input: XCon*): DivHtml = new DivHtmlGen(input.toRArr, RArr())

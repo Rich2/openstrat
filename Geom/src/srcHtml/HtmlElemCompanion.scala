@@ -1,7 +1,7 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb;
 
-trait HtmlElemCompanion[T]
+trait HtmlElemCompanion[T, CT <: XCon]
 { /** Utility method to allow many other factory methods to implemented in this super trait. */
   def fromStr(str: String, attribs: RArr[XAtt]): T
 
@@ -58,57 +58,53 @@ trait HtmlElemCompanion[T]
   { val newId: IdAtt = input.next1(f)
     fromStr(f(input.value), newId %: otherAttribs)
   }
-}
 
-trait HtmlElemFullCompanion[T] extends HtmlElemCompanion[T]
-{
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): T
+  def apply(contents: RArr[CT], attribs: RArr[XAtt]): T
+
+  def fRepeat: Seq[CT] => RArr[CT]
 
   /** Factory method to create an HTML element of the given type with an ID attribute. */
-  def id(id: String, contents: XCon*): T = apply(contents.toArr, RArr(IdAtt(id)))
+  def id(id: String, contents: CT*): T = apply(fRepeat(contents), RArr(IdAtt(id)))
 
   /** Creates an HTML element of the given type with a class attribute. */
-  def classAtt(id: String, contents: XCon*): T = apply(contents.toArr, RArr(ClassAtt(id)))
+  def classAtt(id: String, contents: CT*): T = apply(fRepeat(contents), RArr(ClassAtt(id)))
 
   /** Creates an HTML element of the given type and listens to an [[UpdaterSelect]] change events modifying the inner HTML. */
-  def listenOptHtml(input: UpdaterSelect, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => RArr[XCon]): T =
+  def listenOptHtml(input: UpdaterSelect, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => RArr[CT]): T =
   { val newId: IdAtt = input.nextOptHtml(f)
     apply(input.listenerInit(f), newId %: otherAttribs)
   }
 
   /** Creates an HTML element of the given type and registers the innerHTML with 2 [[UpdaterSelect]]s and 2 [[UpdaterStr]]s. */
   def listen2Opt2StrHtml(input1: UpdaterSelect, input2: UpdaterSelect, input3: UpdaterStr, input4: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(
-    f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]): T =
+    f: (OptionHtml, OptionHtml, String, String) => RArr[CT]): T =
   { val newId: IdAtt = input1.next2Opt2StrHtml(input2, input3, input4, f)
     apply(f(input1.initOption, input2.initOption, input3.valueStr, input4.valueStr), newId %: otherAttribs)
   }
   
   /** Creates an HTML element of the given type and registers the innerHTML an [[UpdaterSelect]] and an [[UpdaterIntInput]]. */
-  def listenOptIntHtml(input1: UpdaterSelect, input2: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Int) => RArr[XCon]): T =
+  def listenOptIntHtml(input1: UpdaterSelect, input2: UpdaterIntInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Int) => RArr[CT]): T =
   { val newId: IdAtt = input1.nextOptInt1Html(input2, f)
     apply(f(input1.initOption, input2.value), newId %: otherAttribs)
   }
 
   /** Creates an HTML element of the given type and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptDblHtml(input1: UpdaterSelect, input2: UpdaterDblInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Double) => RArr[XCon]): T =
+  def listenOptDblHtml(input1: UpdaterSelect, input2: UpdaterDblInput, otherAttribs: RArr[XAtt] = RArr())(f: (OptionHtml, Double) => RArr[CT]): T =
   { val newId: IdAtt = input1.nextOptDbl1Html(input2, f)
     apply(f(input1.initOption, input2.value), newId %: otherAttribs)
   }
 
   /** Creates an HTML element of the given type and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
-  def listenStrHtml(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => RArr[XCon]): T =
+  def listenStrHtml(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => RArr[CT]): T =
   { val newId = input.next1Html(f)
     apply(f(input.valueStr), newId %: otherAttribs)
   }
 }
 
-trait HtmlElemIneditCompanion[T] extends HtmlElemCompanion[T]
-{
-  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): T
+trait HtmlXConCompanion[T] extends HtmlElemCompanion[T, XCon]
+{  override def fRepeat: Seq[XCon] => RArr[XCon] = _.toRArr
+}
 
-  /** Creates an HTML element of the given type and registers with a [[UpdaterStr]]. Changes inner HTML on change event. */
-  def listenStrHtml(input: UpdaterStr, otherAttribs: RArr[XAtt] = RArr())(f: String => RArr[XConInedit]): T =
-  { val newId = input.next1Html(f)
-    apply(f(input.valueStr), newId %: otherAttribs)
-  }
+trait HtmlIneditCompanion[T] extends HtmlElemCompanion[T, XConInedit]
+{  override def fRepeat: Seq[XConInedit] => RArr[XConInedit] = _.toRArr
 }

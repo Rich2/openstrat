@@ -55,7 +55,7 @@ class LiHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlOwnL
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
-object LiHtml extends HtmlElemFullCompanion[LiHtml]
+object LiHtml extends HtmlXConCompanion[LiHtml]
 { /** Factory apply method for HTML LI list element [[LiHtml]] class. */
   override def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): LiHtml = new LiHtml(contents, attribs)
 

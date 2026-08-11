@@ -10,7 +10,7 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
   var callBacks: RArr[CallbackOption] = RArr()
   
   /** This method sets the original HTML in the listener element from the first value in the Select list. */
-  def listenerInit(f: OptionHtml => RArr[XCon]): RArr[XCon] = f(contents(0))
+  def listenerInit[CT <: XCon](f: OptionHtml => RArr[CT]): RArr[CT] = f(contents(0))
   
   /** This is a method for the JavaScript to recover the [[OptionHtml]] class from the [[String]]. */
   def strToOption(valStr: String): OptionHtml = contents.find(_.valueStr == valStr).getOrElse(OptionNotFound)

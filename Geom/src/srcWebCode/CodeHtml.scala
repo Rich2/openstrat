@@ -37,7 +37,7 @@ trait CodeInline extends CodeHtml, HtmlInedit
 { override def out(indent: Int, line1InputLen: Int, maxLineLen: Int): String = outLines(indent, line1InputLen, maxLineLen).text
 }
 
-object CodeInline extends HtmlElemCompanion[CodeInline]
+object CodeInline extends HtmlXConCompanion[CodeInline]
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(contents: XCon*): CodeInline = new CodeInlineGen(contents.toRArr, RArr())
 
@@ -85,9 +85,11 @@ trait CodeOutputLine extends CodeHtml, HtmlOwnLineBlocked
 { override def attribs: RArr[HAtt] = super.attribs +% CodeOutputAtt
 }
 
-object CodeOutputLine extends HtmlElemCompanion[CodeOutputLine]
+object CodeOutputLine extends HtmlXConCompanion[CodeOutputLine]
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), RArr())
+
+  override def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeOutputLine = ???
 
   override def fromStr(str: String, attribs: RArr[XAtt]): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
 

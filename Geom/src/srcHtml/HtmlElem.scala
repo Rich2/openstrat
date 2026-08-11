@@ -27,7 +27,7 @@ trait HtmlInedit extends HtmlElem, XHmlInedit
 
 case class HtmlElemBuilder(contents: RArr[XCon], attribs: RArr[XAtt])
 {
-  def apply[A](builder: HtmlElemFullCompanion[A]): A = builder.apply(contents, attribs)
+  def apply[A](builder: HtmlXConCompanion[A]): A = builder.apply(contents, attribs)
 }
 
 object HtmlElemBuilder
