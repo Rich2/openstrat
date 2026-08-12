@@ -49,7 +49,7 @@ object TomcatPage extends DevPageBase
   val ramInput: UpdaterDblInput = UpdaterDblInput("nRam", nRam1)
   val ramLI: LabelInput = LabelInput("System Ram", ramInput)
   
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3Text(userNameInput, computerNameInput, dirInput) { (uName, cName, dir) => s"$uName@$cName:$dir" }
+  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3StrText(userNameInput, computerNameInput, dirInput) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerInput: UpdaterInputStr = UpdaterInputStr("version", tcVer1)
   val tomVerLI: LabelInput = LabelInput("Tomcat Version", tomVerInput)
   

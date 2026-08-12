@@ -3,7 +3,7 @@ package ostrat; package pweb;
 
 /** Trait for companion objects of HTML elements, that adds listening methods. */
 trait HtmlElemCompanion[T, CT >: String <: XCon]
-{ /** Factory apply method for creating HTML method of given type. */
+{ /** Factory apply method for creating HTML element of given type. */
   def apply(contents: RArr[CT], attribs: RArr[XAtt]): T
 
   /** Factory apply method for creating HTML method of given type from repeat contents parameters, but with no additional attributes to those supplied by the

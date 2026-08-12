@@ -51,70 +51,28 @@ object BashInline
 object BashPromptClass extends ClassAtt("bashprompt")
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
-class BashPromptSpan(val str: String, otherAttribs: RArr[HAtt]) extends SpanInlineInedit
-{ override def contents = RArr(str)
-  override def attribs: RArr[HAtt] = BashPromptClass %: otherAttribs
+class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
+{ override def attribs: RArr[HAtt] = BashPromptClass %: otherAttribs
 }
 
-object BashPromptSpan
-{ /** Factory apply method to create a [[BashPromptSpan]]. */
-  def apply(str: String, attribs: XAtt*): BashPromptSpan = new BashPromptSpan(str, attribs.toArr)
-
-  /** Factory method to create a [[BashPromptSpan]] with a class attribute. */
-  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): BashPromptSpan = new BashPromptSpan(conStr, ClassAtt(classStr) %: otherAttribs.toArr)
-
-  /** Factory method to create a [[BashPromptSpan]] with a class attribute. */
-  def classAtts(classStrs: String*)(conStr: String, otherAttribs: XAtt*): BashPromptSpan =
-    new BashPromptSpan(conStr, ClassAtt(classStrs*) %: otherAttribs.toArr)
-
-  /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. registers the textContent with an HTML
-   * Text Input. */
-  def listenText(input: UpdaterStr, otherAttribs: XAtt*)(f: String => String): BashPromptSpan =
-  { val newId: IdAtt = input.nextStrText(f)
-    new BashPromptSpan(f(input.valueStr), newId %: otherAttribs.toArr)
-  }
-
-  /** Creates span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with 2 HTML
-   * Text Inputs. */
-  def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f: (String, String) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.next2Str1Text(input2, f)
-    new BashPromptSpan(f(input1.valueStr, input2.valueStr), newId %: otherAttribs.toRArr)
-  }
-
-  /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with 3 HTML
-   * Text Inputs. */
-  def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: XAtt*)(f: (String, String, String) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.next3Str1Text(input2, input3, f)
-    new BashPromptSpan(f(input1.valueStr, input2.valueStr, input3.valueStr), newId %: otherAttribs.toRArr)
-  }
-
-  /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with an HTML
-   * Text and a number of Inputs. */
-  def listenTextNum(input1: UpdaterStr, input2: UpdaterDblInput, otherAttribs: XAtt*)(f: (String, Double) => String): BashPromptSpan =
-  { val newId: IdAtt = input1.nextStrDbl1Text(input2, f)
-      new BashPromptSpan(f(input1.valueStr, input2.value), newId %: otherAttribs.toRArr)
-    }
-
-    /** Creates a span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. Registers the textContent with an
-     * HTML number Input. */
-    def listenNum(input: UpdaterDblInput, otherAttribs: XAtt*)(f: Double => String): BashPromptSpan =
-    { def newId: IdAtt = input.next1(f)
-      new BashPromptSpan(f(input.value), newId %: otherAttribs.toRArr)
-    }
+object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
+{ /** Factory apply method for creating a Bash Prompt as an HTML Span element. */
+  override def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashPromptSpan = new BashPromptSpan(contents, attribs)
 }
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{ def promptSpan: SpanInlineInedit = SpanInlineInedit(prompt, BashPromptClass)
+{ def promptSpan: SpanInlineInedit = SpanInlineInedit(RArr(prompt), RArr(BashPromptClass))
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 
+/** Not sure about this class. */
 class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[HAtt]) extends BashHtml, HtmlTagLines
 { override def contents: RArr[XCon] = iUntilMap(texts.length / 2){i => SpanLine(BashPromptSpan(texts(i * 2)), texts(i * 2 + 1)) }
   override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
 }
 
 object BashWithPromptMulti
-{
+{ /** Not sure about this factory apply method. */
   def apply(strs: String*): BashWithPromptMulti = new BashWithPromptMulti(strs.toArr, RArr())
 }
