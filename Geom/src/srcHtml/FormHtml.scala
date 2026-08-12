@@ -37,8 +37,10 @@ trait RegLogForm extends FormHtml
   /** The maximum number of characters for the username. */
   def uNameMaxLen: Int = 15
 
+  def uNameRegex: Regex = "[A-Za-z]{4,15}[0-9]{0,11}$".r
+
   /** Username HTML input. */
-  def uNameInput: InputStrPost = InputStrPost.required(idPrefix + usernameNameAtt, usernameNameAtt, "", MaxLengthAtt(uNameMaxLen))
+  def uNameInput: InputStrPost = InputStrPost.required(idPrefix + usernameNameAtt, usernameNameAtt, "", MaxLengthAtt(uNameMaxLen), PatternAtt(uNameRegex))
   
   /** Username HTML label and input. */
   def uNameLI: LabelInput = LabelInput("User Name", uNameInput)
@@ -57,17 +59,15 @@ trait RegLogForm extends FormHtml
 trait RegisterForm extends RegLogForm
 { /** The header for this form. */
   def header = DivHtml("Register".bHtml)
-  def regex: Regex = "[A-Za-z]{4,15}[0-9]{0,11}$".r
-  
+
   override def idPrefix: String = "reg"
   override def contents: RArr[XCon] = RArr(header, uNameLI, passwordLI, submit)
-  override def attribs: RArr[HAtt] = super.attribs +% PatternAtt(regex)
 }
 
 object RegisterForm
 { /** Factory apply method to construct HTML register Form element. There is an apply name overload that takes no other contents and other attributes as repeat
    * parameters. */
-    def apply(otherAttribs: RArr[XAtt]): RegisterForm = RegisterFormGen(otherAttribs)
+  def apply(otherAttribs: RArr[XAtt]): RegisterForm = RegisterFormGen(otherAttribs)
 
   /** Factory apply method to construct HTML register Form element. There is an apply name overload that takes [[RArr]]s of other content and attributes. */
   def apply(otherAttribs: XAtt*): RegisterForm = RegisterFormGen(otherAttribs.toRArr)
