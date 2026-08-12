@@ -21,25 +21,25 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
         listener.innerHTML = callback match
         { case CallbackStrText(idStr, f) => f(newInpStr)
           case CallBackStrHtml(idStr, f) => f(newInpStr).out
-          case Callback2Str1(targetId, input2, f) =>
+          case Callback2Str1Text(targetId, input2, f) =>
           { val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
             f(newInpStr, inp2Val)
           }
-          case Callback2Str2(targetId, input1, f) =>
+          case Callback2Str2Text(targetId, input1, f) =>
           { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
             f(inp1Val, newInpStr)
           }
-          case Callback3Str1(targetId, input2, input3, f) =>
+          case Callback3Str1Text(targetId, input2, input3, f) =>
           { val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
             val inp3Val: String = document.getElementById(input3.idStr).asInstanceOf[html.Input].value
             f(newInpStr, inp2Val, inp3Val)
           }
-          case Callback3Str2(targetId, input1, input3, f) =>
+          case Callback3Str2Text(targetId, input1, input3, f) =>
           { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
             val inp3Val: String = document.getElementById(input3.idStr).asInstanceOf[html.Input].value
             f(inp1Val, newInpStr, inp3Val)
           }
-          case Callback3Str3(targetId, input1, input2, f) =>
+          case Callback3Str3Text(targetId, input1, input2, f) =>
           { val inp1Val: String = document.getElementById(input1.idStr).asInstanceOf[html.Input].value
             val inp2Val: String = document.getElementById(input2.idStr).asInstanceOf[html.Input].value
             f(inp1Val, inp2Val, newInpStr)
@@ -72,7 +72,7 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
             val inp3Val: String = document.getElementById(input3.idStr).asInstanceOf[html.Input].value
             f(inp1Option, inp2Option, inp3Val, newInpStr).out
           }
-          case CallbackStrDbl1(targetId, input2, f) =>
+          case CallbackStrDbl1Text(targetId, input2, f) =>
           { val inp2Val: Double = document.getElementById(input2.idStr).asInstanceOf[html.Input].value.toDouble
             f(newInpStr, inp2Val)
           }

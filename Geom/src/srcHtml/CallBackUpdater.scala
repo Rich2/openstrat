@@ -74,25 +74,22 @@ case class CallBackStrHtml(listenerId: String, f: String => RArr[XCon]) extends 
 case class CallbackStrText(listenerId: String, f: String => String) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] for 1st parameter of (String, String) => String function for JavaScript to update the listener's textContent property. */
-case class Callback2Str1(listenerId: String, input2: UpdaterStr, f: (String, String) => String) extends CallbackStr
+case class Callback2Str1Text(listenerId: String, input2: UpdaterStr, f: (String, String) => String) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] for 2nd parameter of (String, String) => String function for JavaScript to update the listener's textContent property. */
-case class Callback2Str2(listenerId: String, input1: UpdaterStr, f: (String, String) => String) extends CallbackStr
+case class Callback2Str2Text(listenerId: String, input1: UpdaterStr, f: (String, String) => String) extends CallbackStr
 
 /** Call back for an [[UpdaterStr]] for 1st parameter of (String, Double => String function for JavaScript to update a textContent property. */
-case class CallbackStrDbl1(listenerId: String, input2: UpdaterDblInput, f: (String, Double) => String) extends CallbackStr
-
-/** Call back from an [[UpdaterStr]] for a (String, String, String) => String function for JavaScript to update a textContent property. */
-sealed trait Callback3Str extends CallbackStr
+case class CallbackStrDbl1Text(listenerId: String, input2: UpdaterDblInput, f: (String, Double) => String) extends CallbackStr
 
 /** Call back from an [[UpdaterStr]] for the 1st parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
-case class Callback3Str1(listenerId: String, input2: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String) extends Callback3Str
+case class Callback3Str1Text(listenerId: String, input2: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String) extends CallbackStr
 
 /** Call back from an [[UpdaterStr]] for the 2nd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
-case class Callback3Str2(listenerId: String, input1: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String) extends Callback3Str
+case class Callback3Str2Text(listenerId: String, input1: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String) extends CallbackStr
 
 /** Call back from an [[UpdaterStr]] for the 3rd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
-case class Callback3Str3(listenerId: String, input1: UpdaterStr, input2: UpdaterStr, f: (String, String, String) => String) extends Callback3Str
+case class Callback3Str3Text(listenerId: String, input1: UpdaterStr, input2: UpdaterStr, f: (String, String, String) => String) extends CallbackStr
 
 
 /** Call back from an [[UpdaterIntInput]]. */

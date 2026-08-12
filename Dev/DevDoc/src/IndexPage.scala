@@ -9,16 +9,14 @@ object IndexPage extends IndexPage
   def topMenu: UlHtml = AppPage.topMenu(AppPage.defaultTopPairs)
   def body: BodyHtml = BodyHtml(topMenu, central)
 
-  def central: DivHtml = DivHtml.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, intro, menu, vic2)
+  def central: DivHtml = DivHtml.classAtt("main", iconsHtml, focus, intro, menu)
 
-  def focus: OlSection = OlSection.h2("This project has 3 main focuses", strat, hist, geom1)
+  def focus: OlSection = OlSection.h2("This project has 3 main focuses", strat, hist, geom1, web1)
   def strat: LiHtml = LiHtml("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
   def hist: LiHtml = LiHtml("Graphics for the display of historical information.")
   def geom1: LiHtml = LiHtml("A functional Geometry and Vector Graphics library with various supporting utilities.")
-
-  def devInfo = AHtml("Documentation/dev.html", "Info for developers here.")
-  def begInfo = AHtml("Documentation/newdevs.html", "Info for new developers here.")
-
+  def web1: LiHtml = LiHtml("A library / framework for HTML, SVG and other XML, CSS, Javascript for page updating and HTTP.")
+  
   def menu: OlLarge = OlLarge(util, geom, tile, egrid, apps, dev)
 
   def intro: PHtml = PHtml("The Code is currently organised into 6 modules.".bHtml,
@@ -42,9 +40,11 @@ object IndexPage extends IndexPage
 
   def dev: LiHtml = LiHtml(AHtml(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
-  SpanLine(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")))
-
-  def vic2: PHtml = PHtml(AHtml(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
+  DivHtml(AHtml("Documentation/dev.html", "Info for developers here.")),
+  DivHtml(AHtml("Documentation/newdevs.html", "Info for new developers here.")), 
+  SpanLine(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")),
+  DivHtml(AHtml(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
+  )
 
   def iconsHtml: XmlAsString ="""<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
   |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>

@@ -61,7 +61,7 @@ trait UpdaterStr extends UpdaterInputLike
    * the second from the 2nd text updater, to update the listener content. */
   def next2Str1Text(input2: UpdaterStr, f: (String, String) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= Callback2Str1(newListenerId, input2, f)
+    callBacks +%= Callback2Str1Text(newListenerId, input2, f)
     input2.next2Str2Text(newListenerId, input2, f)
     IdAtt(newListenerId)
   }
@@ -69,7 +69,7 @@ trait UpdaterStr extends UpdaterInputLike
   /** This method registers a page HTML element listener with this input-updater. that has already been registered with the first input-updater. This takes a
    * function of two [[String]] parameters, the first from the first text input and the second from this text updater, to update the listener content */
   def next2Str2Text(listenerID: String, input1: UpdaterStr, f: (String, String) => String): Unit =
-  { callBacks +%= Callback2Str2(listenerID, input1, f)
+  { callBacks +%= Callback2Str2Text(listenerID, input1, f)
   }
 
   /** This method creates a new unique id attribute for the listener. Registers a page HTML element listener with this [[UpdaterStr]]. Registers with the 2nd
@@ -77,27 +77,27 @@ trait UpdaterStr extends UpdaterInputLike
    * [[UpdaterStr]]s, to update the listener content */
   def next3Str1Text(input2: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= Callback3Str1(newListenerId, input2, input3, f)
+    callBacks +%= Callback3Str1Text(newListenerId, input2, input3, f)
     input2.next3Str2Text(newListenerId, this, input3, f)
     input3.next3Str3Text(newListenerId, this, input2, f)
     IdAtt(newListenerId)
   }
 
-  /** This method registers the [[Callback3Str2]] with this [[UpdaterStr]]. */
+  /** This method registers the [[Callback3Str2Text]] with this [[UpdaterStr]]. */
   def next3Str2Text(targetID: String, input1: UpdaterStr, input3: UpdaterStr, f: (String, String, String) => String): Unit =
-  { callBacks +%= Callback3Str2(targetID, input1, input3, f)
+  { callBacks +%= Callback3Str2Text(targetID, input1, input3, f)
   }
 
-  /** This method registers the [[Callback3Str3]] with this [[UpdaterStr]]. */
+  /** This method registers the [[Callback3Str3Text]] with this [[UpdaterStr]]. */
   def next3Str3Text(targetID: String, input1: UpdaterStr, input2: UpdaterStr, f: (String, String, String) => String): Unit =
-  { callBacks +%= Callback3Str3(targetID, input1, input2, f)
+  { callBacks +%= Callback3Str3Text(targetID, input1, input2, f)
   }
 
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a function of two [[String]] parameters,
    * the first from this text input and the second from another text updater, to update the target content. */
   def nextStrDbl1Text(input2: UpdaterDblInput, f: (String, Double) => String): IdAtt =
   { val newListenerId: String = idStr + clientCount.str
-    callBacks +%= CallbackStrDbl1(newListenerId, input2, f)
+    callBacks +%= CallbackStrDbl1Text(newListenerId, input2, f)
     input2.nextStrDbl2(newListenerId, this, f)
     IdAtt(newListenerId)
   }

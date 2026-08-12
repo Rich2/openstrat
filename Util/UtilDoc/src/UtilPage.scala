@@ -26,8 +26,11 @@ object UtilPage extends OpenstratDocPage
     coll,
     errs,
     parse,
-    LiHtml("RSON: Rich Succint Object Notation. A persistence system to write objects to text and to read text back into memory as objects, using" --
-      "consistent properly structured grammar heirachry, default values, Multiple values and repeat values."))
+    LiHtml("RSON: Rich Succinct Object Notation. A persistence system to write objects to text and to read text back into memory as objects, using" --
+      "consistent properly structured grammar hierarchy, default values, Multiple values and repeat values."),
+    LiHtml("Multiple class, useful for succint data entry.")
+  
+  )
 
   def coll: LiHtml = LiHtml("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
     " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")

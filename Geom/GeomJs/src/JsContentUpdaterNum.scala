@@ -46,6 +46,7 @@ class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
   val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
   inpElem.addEventListener("change", eventListener)
 
+  /** Not sure how this actually works. */
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Input].value
     val newNum: Double = newInpStr.toDouble
