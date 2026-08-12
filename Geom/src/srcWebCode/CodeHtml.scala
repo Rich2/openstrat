@@ -38,13 +38,7 @@ trait CodeInline extends CodeHtml, HtmlInedit
 }
 
 object CodeInline extends HtmlXConCompanion[CodeInline]
-{ /** Factory apply method to create an inline HTML cose element. */
-  def apply(contents: XCon*): CodeInline = new CodeInlineGen(contents.toRArr, RArr())
-
-  /** Factory apply method to create an inline HTML cose element. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(contents, attribs)
-
-  override def fromStr(str: String, attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(RArr(str), attribs)
+{ override def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(contents, attribs)  
 
   /** Implementation class for the general casee of [[CodeInline]].  */
   case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends CodeInline

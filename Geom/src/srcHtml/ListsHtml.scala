@@ -59,11 +59,6 @@ object LiHtml extends HtmlXConCompanion[LiHtml]
 { /** Factory apply method for HTML LI list element [[LiHtml]] class. */
   override def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): LiHtml = new LiHtml(contents, attribs)
 
-  /** Factory apply method for HTML LI list element [[LiHtml]] class. */
-  def apply(contents: XCon*): LiHtml = new LiHtml(contents.toArr, RArr())
-
-  override def fromStr(str: String, attribs: RArr[XAtt]): LiHtml = new LiHtml(RArr(str), attribs)
-
   /** An HTML list item element that has a link as its sole content. */
   def a(link: FileSystemPath, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
 }

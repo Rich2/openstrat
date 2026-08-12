@@ -31,20 +31,9 @@ class BashLine(val contents: RArr[XConInedit], val otherAttribs: RArr[HAtt]) ext
 }
 
 object BashLine extends HtmlIneditCompanion[BashLine]
-{ /** Factory apply method to write Bash code in HTML on its own line. */
-  def apply(contents: XConInedit*): BashLine = new BashLine(contents.toArr, RArr())
-
-  /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat parameters, but with no
+{ /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat parameters, but with no
    * attributes. */
   def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
-
-  override def fromStr(str: String, attribs: RArr[XAtt]): BashLine = new BashLine(RArr(str), attribs)
-
-  /** Creates a Bash line and registers the textContent with an HTML Select Input and an HTML number input. */
-  def listenOptDblHtml(input1: UpdaterSelect, input2: UpdaterDblInput)(f: (OptionHtml, Double) => RArr[XConInedit]): BashLine =
-  { val newId: IdAtt = input1.nextOptDbl1Html(input2, f)
-    new BashLine(f(input1.initOption, input2.value), RArr(newId))
-  }
 }
 
 /** Html BASH code element, that can be inlined. */

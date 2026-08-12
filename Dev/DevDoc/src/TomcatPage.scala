@@ -107,7 +107,7 @@ object TomcatPage extends DevPageBase
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine.listenStrText(dirInput){ dir => "sudo mkdir" -- dir },
   BashLine.listen2StrText(userNameInput, dirInput)((uName, dir) => s"sudo chown $uName:$uName $dir"),
-  SpanLine.listenText(userNameInput)(uName => s"Switch user to $uName. Then change directory."),
+  SpanLine.listenStrText(userNameInput)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
   BashLine.listenStrText(userNameInput)(uName => s"sudo su $uName"),
   BashLine.listenStrText(dirInput){ dir => s"cd $dir" },
@@ -257,7 +257,7 @@ object TomcatPage extends DevPageBase
   "Restart Tomcat",
   BashLine("sudo systemctl start tom11"),
   BashLine("sudo systemctl status tom11"),
-  SpanLine.listenText(domainInput){ dName => s"Go to https://$dName" }  
+  SpanLine.listenStrText(domainInput){ dName => s"Go to https://$dName" }  
   )
 
   val s14: LiHtml = LiHtml(

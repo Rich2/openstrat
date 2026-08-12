@@ -83,58 +83,17 @@ trait SpanLine extends SpanHtml, HtmlOwnLineBlocked
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
-object SpanLine
+object SpanLine extends HtmlIneditCompanion[SpanLine]
 { /** Factory apply method for creating HTML span element. */
-  def apply(contents: XCon*): SpanHtml = new SpanLineGen(contents.toArr, RArr())
-
-  /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInedit], otherAttribs: RArr[XAtt]): SpanHtml = new SpanLineGen(contents, otherAttribs)
+  override def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanLine = SpanLineGen(contents, attribs)
 
   /** Factory method for creating HTML span element with a display attribute. */
   def display(contents: XConInedit*)(otherDisplay: CssDec*): SpanHtml = new SpanLineGen(contents.toArr, RArr())
   { override def attribs: RArr[HAtt] = super.attribs +% StyleAtt(otherDisplay.toArr)
   }
-
-  /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
-  def colour(colour: Colour, contents: XConInedit*): SpanHtml = new SpanLineGen(contents.toArr, RArr())
-  { override def attribs: RArr[HAtt] = super.attribs +% StyleAtt(ColourDec(colour))
-  }
-
-  /** Factory method to create a span line with a class attribute. */
-  def classAtt(classStr: String, conStr: String, otherAttribs: XAtt*): SpanLine = new SpanLineGen(RArr(conStr), ClassAtt(classStr) %: otherAttribs.toArr)
-
-  /** Creates a Span line and registers the textContent with an HTML Text Input. */
-  def listenText(input: UpdaterInputStr, otherAttribs: XAtt*)(f: String => String): SpanLine =
-  { def newId = input.nextStrText(f)
-    SpanLineGen(RArr(f(input.valueStr)), newId %: otherAttribs.toRArr)
-  }
-
-  /** Creates a span line and registers the textContent with 2 HTML Text Inputs. */
-  def listen2Text(input1: UpdaterStr, input2: UpdaterStr, otherAttribs: XAtt*)(f: (String, String) => String): SpanLine =
-  { val newId: IdAtt = input1.next2Str1Text(input2, f)
-    SpanLineGen(RArr(f(input1.valueStr, input2.valueStr)), newId %: otherAttribs.toRArr)
-  }
-
-  /** Creates a span line and registers the textContent with 3 HTML Text Inputs. */
-  def listen3Text(input1: UpdaterStr, input2: UpdaterStr, input3: UpdaterStr, otherAttribs: XAtt*)(f: (String, String, String) => String): SpanLine =
-  { val newId: IdAtt = input1.next3Str1Text(input2, input3, f)
-    SpanLineGen(RArr(f(input1.valueStr, input2.valueStr, input3.valueStr)), newId %: otherAttribs.toRArr)
-  }
-
-  /** Creates a span line and registers the textContent with an HTML Text and a number of Inputs. */
-  def listenTextNum(input1: UpdaterStr, input2: UpdaterDblInput, otherAttribs: XAtt*)(f: (String, Double) => String): SpanLine =
-  { val newId: IdAtt = input1.nextStrDbl1Text(input2, f)
-    SpanLineGen(RArr(f(input1.valueStr, input2.value)), newId %: otherAttribs.toRArr)
-  }
-
-  /** Creates a Bash line and registers the textContent with an HTML number Input. */
-  def listenNum(input: UpdaterDblInput, otherAttribs: XAtt*)(f: Double => String): SpanLine =
-  { def newId = input.next1(f)
-    new SpanLineGen(RArr(f(input.value)), newId %: otherAttribs.toRArr)
-  }
-
+  
   /** HTML span element on its own line, with display set to block. */
-  case class SpanLineGen(contents: RArr[XCon], otherAttribs: RArr[HAtt]) extends SpanLine
+  case class SpanLineGen(contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanLine
   { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   }
 }

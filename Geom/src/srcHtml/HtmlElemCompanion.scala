@@ -2,9 +2,28 @@
 package ostrat; package pweb;
 
 /** Trait for companion objects of HTML elements, that adds listening methods. */
-trait HtmlElemCompanion[T, CT <: XCon]
-{ /** Utility method to allow many other factory methods to implemented in this super trait. */
-  def fromStr(str: String, attribs: RArr[XAtt]): T
+trait HtmlElemCompanion[T, CT >: String <: XCon]
+{ /** Factory apply method for creating HTML method of given type. */
+  def apply(contents: RArr[CT], attribs: RArr[XAtt]): T
+
+  /** Factory apply method for creating HTML method of given type from repeat contents parameters, but with no additional attributes to those supplied by the
+   * class. */
+  def apply(contents: CT*):T = apply(fRepeat(contents), RArr[XAtt]())
+  
+  /** Utility method to allow HTML element og given type from a single [[String]] with repeat parameter attributes. */
+  def fromStr(str: String, attribs: RArr[XAtt]): T = apply(RArr(str), attribs)
+
+  /** Utility method to this base trait to convert repeat content parameters to an [[RArr]]. */
+  def fRepeat: Seq[CT] => RArr[CT]
+
+  /** Factory method to create an HTML element of the given type with an ID attribute. */
+  def id(id: String, contents: CT*): T = apply(fRepeat(contents), RArr(IdAtt(id)))
+
+  /** Creates an HTML element of the given type with a class attribute. */
+  def classAtt(id: String, contents: CT*): T = apply(fRepeat(contents), RArr(ClassAtt(id)))
+
+  /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
+  def colour(colour: Colour, contents: CT*): T = apply(fRepeat(contents), RArr(StyleAtt(ColourDec(colour))))
 
   /** Creates an HTML element of the given type and registers the textContent with an [[UpdaterSelect]]. */
   def listenOptText(input1: UpdaterSelect, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => String): T =
@@ -59,16 +78,6 @@ trait HtmlElemCompanion[T, CT <: XCon]
   { val newId: IdAtt = input.next1(f)
     fromStr(f(input.value), newId %: otherAttribs)
   }
-
-  def apply(contents: RArr[CT], attribs: RArr[XAtt]): T
-
-  def fRepeat: Seq[CT] => RArr[CT]
-
-  /** Factory method to create an HTML element of the given type with an ID attribute. */
-  def id(id: String, contents: CT*): T = apply(fRepeat(contents), RArr(IdAtt(id)))
-
-  /** Creates an HTML element of the given type with a class attribute. */
-  def classAtt(id: String, contents: CT*): T = apply(fRepeat(contents), RArr(ClassAtt(id)))
 
   /** Creates an HTML element of the given type and listens to an [[UpdaterSelect]] change events modifying the inner HTML. */
   def listenOptHtml(input: UpdaterSelect, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => RArr[CT]): T =
