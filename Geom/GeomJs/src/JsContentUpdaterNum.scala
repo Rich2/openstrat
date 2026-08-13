@@ -11,7 +11,7 @@ class JsUpdaterInt(val inputer: UpdaterIntInput) extends JsUpdater
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Input].value
     val newNum: Int = newInpStr.toInt
-    val len: Int = inputer.clientCount
+    val len: Int = inputer.numListeners
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
       case CallbackIntText(listenerId, f) =>
@@ -50,7 +50,7 @@ class JsUpdaterDbl(val inputer: UpdaterDblInput) extends JsUpdater
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Input].value
     val newNum: Double = newInpStr.toDouble
-    val len: Int = inputer.clientCount
+    val len: Int = inputer.numListeners
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.listeners.foreach{
       case CallbackDblText(listenerId, f) =>

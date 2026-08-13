@@ -242,7 +242,7 @@ object TomcatPage extends DevPageBase
   val sCert: LiHtml = LiHtml.listen2Opt2StrHtml(boundInput, opSysInput, userNameInput, domainInput)(CertItemFunc) 
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
-  BashLine.listenStrText(dirInput){ dir => "nano $dir/Base/conf/server.xml" },
+  BashLine.listenStrText(dirInput){ dir => s"nano $dir/Base/conf/server.xml" },
   "Uncomment the section and modify as below",
   PreCode.listenText(domainInput){ dName =>
   s"""<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"

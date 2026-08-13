@@ -10,7 +10,7 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
 
   def eventListener: Event => Unit = e =>
   { val newInpStr = e.target.asInstanceOf[html.Input].value
-    val len = inputer.clientCount
+    val len = inputer.numListeners
     deb(s"Updating $len textContents with value $newInpStr")
     inputer.callBacks.foreach { callback =>
       val listenerId: String = callback.listenerId

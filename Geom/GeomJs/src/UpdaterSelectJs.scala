@@ -11,7 +11,7 @@ class UpdaterSelectJs(val inputer: UpdaterSelect) extends JsUpdater
   def eventListener: Event => Unit = e =>
   { val newInpStr: String = e.target.asInstanceOf[html.Select].value
     val newOption: OptionHtml = inputer.contents.find(_.valueStr == newInpStr).getOrElse(OptionNotFound)
-    val len = inputer.clientCount
+    val len = inputer.numListeners
     deb(s"OpdaterOptionJs updating $len textContent / innerHTML with value $newInpStr")
     inputer.callBacks.foreach{
       case CallbackOptHtml(listenerId, f) =>

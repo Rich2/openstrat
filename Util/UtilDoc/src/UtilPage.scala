@@ -6,9 +6,10 @@ trait OpenstratDocPage extends HtmlPageFile
 { /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HeadHtml]]. */
   def titleStr: String
 
-  override def head: HeadHtml = headFavCss("documentation")
-  
+  /** The default location for this HTML page relative to the web site root. */
   def dirsRel: DirsRel = DirsRel("Documentation")
+
+  override def head: HeadHtml = headFavCss("documentation")  
 }
 
 /** Produces an HTML file documentation for the Util module. */

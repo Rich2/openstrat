@@ -7,7 +7,6 @@ sealed trait CallbackUpdater
   def listenerId: String
 }
 
-
 /** A callback for an [[UpdaterSelect]]. */
 trait CallbackOption extends CallbackUpdater
 
@@ -42,7 +41,6 @@ case class CallbackOptDbl1Html(listenerId: String, input2: UpdaterDblInput, f: (
 
 /** A call back for an [[UpdaterSelect]] that takes an (OptionHtml, Double) => String function. */
 case class CallbackOptDbl1Text(listenerId: String, input2: UpdaterDblInput, f: (OptionHtml, Double) => String) extends CallbackOption
-
 
 /** Call back for an [[UpdaterStr]] with a function for JavaScript to update textContent or an htmlContent property. */
 sealed trait CallbackStr extends CallbackUpdater
@@ -91,7 +89,6 @@ case class Callback3Str2Text(listenerId: String, input1: UpdaterStr, input3: Upd
 /** Call back from an [[UpdaterStr]] for the 3rd parameter of a (String, String, String) => String function for JavaScript to update a textContent property. */
 case class Callback3Str3Text(listenerId: String, input1: UpdaterStr, input2: UpdaterStr, f: (String, String, String) => String) extends CallbackStr
 
-
 /** Call back from an [[UpdaterIntInput]]. */
 sealed trait CallbackInt extends CallbackUpdater
 
@@ -103,7 +100,6 @@ case class CallbackOptInt2Html(listenerId: String, input1: UpdaterSelect, f: (Op
 
 /** A call back for an [[UpdaterIntInput]] that takes an (OptionHtml, Double) => String function. */
 case class CallbackOptInt2Text(listenerId: String, input1: UpdaterSelect, f: (OptionHtml, Int) => String) extends CallbackInt
-
 
 /** Call back from an [[UpdaterDblInput]]. */
 sealed trait CallbackDbl extends CallbackUpdater

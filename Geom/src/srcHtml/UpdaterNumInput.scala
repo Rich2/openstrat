@@ -12,14 +12,14 @@ class UpdaterIntInput(val idStr: String, val value: Int, val minVal: Int, val ma
   using page: PageHtmlUpdater) extends UpdaterInputLike(page), UpdaterNumInput, UpdaterInput
 { var listeners: RArr[CallbackInt] = RArr()
 
-  def clientCount: Int = listeners.length
+  def numListeners: Int = listeners.length
   override def valueStr: String = value.str
 
   override def attribs: RArr[HAtt] = super.attribs +% XAttInt("min", minVal) +% XAttInt("max", maxVal)
 
   /** Registers a call back to a listener with an Int => String function. */
   def next1(f: Int => String): IdAtt =
-  { val newlistenerId: String = idStr + clientCount.str
+  { val newlistenerId: String = idStr + numListeners.str
     listeners +%= CallbackIntText(newlistenerId, f)
     IdAtt(newlistenerId)
   }
@@ -49,13 +49,13 @@ object UpdaterIntInput
 class UpdaterDblInput(val idStr: String, val value: Double, val otherAttribs: RArr[XAtt])(using page: PageHtmlUpdater) extends UpdaterInputLike(page),
   UpdaterNumInput, UpdaterInput
 { var listeners: RArr[CallbackDbl] = RArr()
-  def clientCount: Int = listeners.length
+  def numListeners: Int = listeners.length
   
   override def valueStr: String = value.str
 
   /** Registers a call back to a listener with a Double => String function. */
   def next1(f: Double => String): IdAtt =
-  { val newlistenerId: String = idStr + clientCount.str
+  { val newlistenerId: String = idStr + numListeners.str
     listeners +%= CallbackDblText(newlistenerId, f)
     IdAtt(newlistenerId)
   }

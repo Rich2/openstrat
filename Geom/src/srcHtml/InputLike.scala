@@ -19,7 +19,7 @@ trait InputLike extends HtmlElem
 /** Required attribute for HTML Form Inputs. */
 case object RequiredAtt extends HAttNoValue("required")
 
-/** An HTML span containing a label and an input / select element. */
+/** An HTML span containing a label and an input / select element. Assigns the Input / Select element's id to the Label's For attribute. */
 class LabelInput(val labelStr: String, val child2: InputLike, val otherAttribs: RArr[HAtt]) extends SpanInlineBlockOwnline, Parent2T[HtmlElem]
 { override def child1: LabelHtml = LabelHtml(labelStr, child2.idStr)
   override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
@@ -27,9 +27,10 @@ class LabelInput(val labelStr: String, val child2: InputLike, val otherAttribs: 
 }
 
 object LabelInput
-{
+{ /** Factory apply method to create an HTML Label and Input / Select Span. */
   def apply(labelStr: String, child2: InputLike, otherAttribs: RArr[HAtt]): LabelInput = new LabelInput(labelStr, child2, otherAttribs)
 
+  /** Factory apply method to create an HTML Label and Input / Select Span. */
   def apply(labelStr: String, child2: InputLike, otherAttribs: HAtt*): LabelInput = new LabelInput(labelStr, child2, otherAttribs.toRArr)
 }
 
