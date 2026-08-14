@@ -26,10 +26,10 @@ case class UserDetails(name: String, password: String)
 /** Base trait for HTML [[RegisterForm]] and [[LoginForm]] elements. */
 trait RegLogForm extends FormHtml
 { /** the name attribute for the Username input. */
-  def usernameNameAtt: String = "username"
+  def usernameNameStr: String = "username"
 
   /** the name attribute for the Password input. */
-  def passwordNameAtt: String = "password"
+  def passwordNameStr: String = "password"
 
   /** The prefix for the id attributes for the input fields. */
   def idPrefix: String
@@ -45,13 +45,13 @@ trait RegLogForm extends FormHtml
   def passRegex: Regex = ("""\S{4,""" + passMaxLen.str + "}$").r
 
   /** Username HTML input. */
-  def uNameInput: InputStrPost = InputStrPost.required(idPrefix + usernameNameAtt, usernameNameAtt, "", MaxLengthAtt(uNameMaxLen), PatternAtt(uNameRegex))
+  def uNameInput: InputStrPost = InputStrPost.required(idPrefix + usernameNameStr, usernameNameStr, "", MaxLengthAtt(uNameMaxLen), PatternAtt(uNameRegex))
   
   /** Username HTML label and input. */
   def uNameLI: LabelInput = LabelInput("User Name", uNameInput)
 
   /** Password HTML input. */
-  def passwordInput: InputPassword = InputPassword.required(idPrefix + passwordNameAtt, passwordNameAtt, "",  MaxLengthAtt(passMaxLen), PatternAtt(passRegex))
+  def passwordInput: InputPassword = InputPassword.required(idPrefix + passwordNameStr, passwordNameStr, "",  MaxLengthAtt(passMaxLen), PatternAtt(passRegex))
   
   /** Password HTML label and input. */
   def passwordLI: LabelInput = LabelInput("Password", passwordInput)

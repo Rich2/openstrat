@@ -54,7 +54,7 @@ object NewDevsPage extends DevPageBase
   val sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
   
   def intellij: Section = Section("IntelliJ IDEA".h2,
-    "Modify this line if there isa newer version of IntelliJ IDEA.",
+    "Download the latest version. Modify this line if there is a newer version of IntelliJ IDEA.",
     BashLine("sudo tar -xzf idea-2026.2.1.tar.gz -C /opt"),
     UlSection("For IntelliJ useful options:",
       LiHtml("File => Settings => 'Apperance and Behaviour' -> Always show full path in window header"),
