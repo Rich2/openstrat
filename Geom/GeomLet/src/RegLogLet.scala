@@ -2,12 +2,8 @@
 package ostrat; package plet
 import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
 
-extension(form: RegisterForm)
-{
-  def post(req: HSReq): RegisterLet = RegisterLet(form, req)
-}  
 
-class RegisterLet(form: RegisterForm, req: HSReq)
-{ def uName: String = req.optParam(form.usernameNameStr).toString
-  def password: String = req.optParam(form.passwordNameStr).toString  
+extension (form: RegLogForm)
+{ def uNameGet(using req: HSReq): String = req.optParam(form.uNameInput.nameAttStr).toString
+  def passwordGet(using req: HSReq): String = req.optParam(form.passwordInput.nameAttStr).toString  
 }

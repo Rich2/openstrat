@@ -35,22 +35,3 @@ object InputStrPost
 
   class InputStrPostGen(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[HAtt]) extends InputStrPost
 }
-
-/** HTML Input of type password for post requests. */
-class InputPassword(val idStr: String, val nameAttStr: String, val valueStr: String, val otherAttribs: RArr[HAtt]) extends InputPost
-{ override def typeAtt: TypePasswordAtt.type = TypePasswordAtt
-}
-
-object InputPassword
-{ /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as repeat parameters. */
-  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: RArr[HAtt]): InputPassword =
-    new InputPassword(idStr, nameAttStr, valueStr, otherAttribs)
-
-  /** Factory apply method to create HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def apply(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputPassword =
-    new InputPassword(idStr, nameAttStr, valueStr, otherAttribs.toRArr)
-
-  /** Factory method to create a required HTML password input. There is an apply name overload that takes the other attributes as an [[RArr]]. */
-  def required(idStr: String, nameAttStr: String, valueStr: String, otherAttribs: HAtt*): InputPassword =
-      new InputPassword(idStr, nameAttStr, valueStr, RequiredAtt %: otherAttribs.toRArr)  
-}

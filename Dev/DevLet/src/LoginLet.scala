@@ -33,21 +33,20 @@ import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, H
   }
 
   override def doPost(req: HSReq, resp: HSResp): Unit =
-  { val contents: RArr[XCon] = req.optParam("logSubmit") match
+  { given reqEv: HSReq = req
+    val contents: RArr[XCon] = req.optParam("logSubmit") match
     {  case Some(_) => RArr(
         DivHtml("Result from Login"),
         DivHtml("name =" -- req.optParam(logForm.usernameNameStr).toString),
-        DivHtml("password =" -- req.optParam(logForm.passwordNameStr).toString)
+        DivHtml("password =" -- req.optParam(logForm.passwordInput.nameAttStr).toString)
       )  
       case _ => req.optParam("regSubmit") match
-      { case Some(_) =>
-        { val reg = regForm.post(req)
-          RArr(
-            DivHtml("Result from registration"),
-            DivHtml("name =" -- reg.uName),
-            DivHtml("password =" -- reg.password)
-          )
-        }
+      { case Some(_) => RArr(
+          DivHtml("Result from registration"),
+          DivHtml("name =" -- regForm.uNameGet),
+          DivHtml("password =" -- regForm.passwordGet)
+        )
+
         case _ => RArr("Unrecogonised submission.")
       }    
     }
