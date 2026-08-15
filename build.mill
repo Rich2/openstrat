@@ -265,6 +265,7 @@ object DevDocJsApps
 
   object TomcatPageJs extends Base { def name = "TomcatPage" }
   object NewDevsPageJs extends Base { def name = "NewDevsPage" }
+  object PostgresPageJs extends Base { def name = "PostgresPage" }
 
   def mainClass = Some("ostrat.docjs.TomcatPageJs")
 }
@@ -286,6 +287,7 @@ object DevFx extends CommonJvm
 def StageDocs(args: String*) = Task.Command{
   DevDocJsApps.TomcatPageJs.fullLinkJS()
   DevDocJsApps.NewDevsPageJs.fullLinkJS()
+  DevDocJsApps.PostgresPageJs.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.MillDocsStage", args = Array[String]())
 }
 
@@ -321,6 +323,7 @@ def StageSite = Task{
 
   TomcatPageJs.fullLinkJS()
   NewDevsPageJs.fullLinkJS()
+  PostgresPageJs.fullLinkJS()
   DevFx.assembly()
 
   Dev.runner().run(mainClass = "ostrat.pDev.MillStageSite", args = Array[String]())

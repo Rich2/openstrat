@@ -7,7 +7,7 @@ trait PageHtmlUpdater extends HtmlPageFile
   var inpAcc: RArr[UpdaterInputLike] = RArr()
 
   def updaterExplain: String = """There are default values here that you can change as you work down the page. Although once you've used a value, stick with it
-  |or you will create an inconsistent system. Insert your own values below. the data is used for page generation locally and is not sent back to our
+  |or you will create an inconsistent system. Insert your own values below. The data is used for page generation locally and is not sent back to our
   |servers.""".stripMargin
 }
 

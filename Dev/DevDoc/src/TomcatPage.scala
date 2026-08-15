@@ -66,7 +66,7 @@ object TomcatPage extends DevPageBase
   def pUpdaters: PHtml = PHtml(updaterExplain,
   LabelInputsLine(userNameLI, opSysLI, computerNameLI, ramLI, tomVerLI, javaVerLI, boundaryLI, domainLI, dirLI))
 
-  def steps = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, sCert, s13, s14, s15)
+  def steps: OlLarge = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, sCert, s13, s14, s15)
   
   val s1: LiHtml = LiHtml.listenOptHtml(opSysInput){ opt =>
     val res1: XCon = DivHtml("Upgrade packages.")
@@ -110,6 +110,10 @@ object TomcatPage extends DevPageBase
   SpanLine.listenStrText(userNameInput)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
   BashLine.listenStrText(userNameInput)(uName => s"sudo su $uName"),
+  "If you have a specialist tomcat user then change the bash starting directory.",
+  BashLine("nano ~/.bashrc"),
+  "Add this line at the end of the script.", 
+  BashLine.listenStrText(dirInput){ dir => s"cd $dir"},  
   BashLine.listenStrText(dirInput){ dir => s"cd $dir" },
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,

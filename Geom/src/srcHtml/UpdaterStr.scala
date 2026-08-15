@@ -11,9 +11,9 @@ trait UpdaterStr extends UpdaterInputLike
   /** this method registers a page HTML element with the updater. Sends back an id for the listener element. This takes a String => String function to update
    * the listeners textContent property. */
   def nextStrText(f: String => String): IdAtt =
-  { val newtargetId: String = idStr + numListeners.str
-    callBacks +%= CallbackStrText(newtargetId, f)
-    IdAtt(newtargetId)
+  { val newListnerId: String = idStr + numListeners.str
+    callBacks +%= CallbackStrText(newListnerId, f)
+    IdAtt(newListnerId)
   }
 
   def nextOpt2Str2Html(listenerId: String, input1: UpdaterSelect, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]): Unit =
@@ -37,9 +37,9 @@ trait UpdaterStr extends UpdaterInputLike
   /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
    * input to update the target content. */
   def nextStrHtml(f: String => RArr[XCon]): IdAtt =
-  { val newtargetId: String = idStr + numListeners.str
-    callBacks +%= CallBackStrHtml(newtargetId, f)
-    IdAtt(newtargetId)
+  { val newListenerId: String = idStr + numListeners.str
+    callBacks +%= CallBackStrHtml(newListenerId, f)
+    IdAtt(newListenerId)
   }
 
   /** this method creates a new unique id [[String]]. Registers a page HTML element listener with this input-updater. Registers the listener with the second

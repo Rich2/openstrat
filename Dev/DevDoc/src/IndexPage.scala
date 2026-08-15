@@ -42,7 +42,9 @@ object IndexPage extends IndexPage
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
   DivHtml(AHtml("Documentation/dev.html", "Info for developers here.")),
   DivHtml(AHtml("Documentation/newdevs.html", "Info for new developers here.")), 
-  SpanLine(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")),
+  DivHtml(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")),
+  DivHtml(AHtml("Documentation/postgres.html", "Postgreql Documentation")),  
+    
   DivHtml(AHtml(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
   )
 

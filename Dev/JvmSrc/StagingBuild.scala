@@ -31,7 +31,7 @@ trait StagingBuild
   {
     val docPath: DirsAbs = path / "Documentation"
     docPath.mkExist.flatMapAcc { res => RArr(AppsPage, UtilPage, GeomPage, LessonsPage, TilingPage, EarthPage, EGridPage, DevPage, NewDevsPage, TomcatPage,
-      ScalaOSPage, Victoria2Page).mapErrBiAcc(file => docPath.writeHtml(file)) +% docPath.writeCss(CssDocumentation)
+      PostgresPage, ScalaOSPage, Victoria2Page).mapErrBiAcc(file => docPath.writeHtml(file)) +% docPath.writeCss(CssDocumentation)
     }
   }
 }

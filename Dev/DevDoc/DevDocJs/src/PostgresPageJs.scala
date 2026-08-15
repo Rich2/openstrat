@@ -1,0 +1,10 @@
+/* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package docjs
+import pSJs.*
+
+/** JavaScript file for the Newdevs HTML page. */
+object PostgresPageJs
+{ def main(args: Array[String]): Unit =
+  { pDoc.PostgresPage.jsAgg
+  }
+}

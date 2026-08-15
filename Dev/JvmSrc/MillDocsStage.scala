@@ -14,6 +14,7 @@ object MillDocsStage extends StagingBuild
     val res = ErrBi.flatMap2(projPathFind, docBi) { (projPath, docDir) =>
       jsWithMapFileCopy(projPath.outFullLink("TomcatPageJs"), docDir :-/ "tomcat")
       jsWithMapFileCopy(projPath.outFullLink("NewDevsPageJs"), docDir :-/ "newdevs")
+      jsWithMapFileCopy(projPath.outFullLink("PostgresPageJs"), docDir :-/ "postgres")
     }
     deb(res.reportStr)
   }

@@ -31,7 +31,7 @@ package object webjvm
   /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
   def openstratPath: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
-  /** Possible path to the staging directory for openstrat artifacts, if it can be found in Dev/User/DevSettings.rson file. */
+  /** Possible path to the staging directory for Openstrat artefacts, if it can be found in Dev/User/DevSettings.rson file. */
   def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
@@ -49,7 +49,7 @@ package object webjvm
     copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsFileWritten(fw.detailStr))
   
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = //utiljvm.jsWithMapFileCopy(fromPath.asStr, toPath.asStr)
+  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = 
   { val res1: ErrBi[Exception, JsFileWritten] = utiljvm.copyFile(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
     res1 match {
       case Succ(jsfw) => utiljvm.copyFile(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match {
