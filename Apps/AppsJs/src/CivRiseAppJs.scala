@@ -1,8 +1,7 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import scalajs.js.annotation._, pCiv._
+import pCiv.*
 
-@JSExportTopLevel("CivRiseAppJs")
 object CivRiseAppJs
-{ @JSExport def main(args: Array[String]): Unit = CivGui(CanvasJs, Civ2)
+{ def main(args: Array[String]): Unit = CivGui(CanvasJs, Civ2)
 }

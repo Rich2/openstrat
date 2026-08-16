@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package peri
-import geom.*, prid.*, phex.*, pgui.*, egrid.*, org.scalajs.dom._
+import geom.*, prid.*, phex.*, pgui.*, egrid.*, org.scalajs.dom.*
 
 class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui")
 { val xhr = new XMLHttpRequest()

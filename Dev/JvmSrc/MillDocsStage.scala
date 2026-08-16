@@ -12,9 +12,9 @@ object MillDocsStage extends StagingBuild
     ossDirBi.forSucc{dir => stageDocDir(dir) }
     val docBi = ossDirBi.flatMap(_.mkSubExist("Documentation"))
     val res = ErrBi.flatMap2(projPathFind, docBi) { (projPath, docDir) =>
-      jsWithMapFileCopy(projPath.outFullLink("TomcatPageJs"), docDir :-/ "tomcat")
-      jsWithMapFileCopy(projPath.outFullLink("NewDevsPageJs"), docDir :-/ "newdevs")
-      jsWithMapFileCopy(projPath.outFullLink("PostgresPageJs"), docDir :-/ "postgres")
+      jsWithMapFileCopy(projPath.millFullLinkStem("TomcatPageJs"), docDir :-/ "tomcat")
+      jsWithMapFileRenameCopy(projPath.millFullLinkDir("NewDevsPageJs"), docDir, "newdevs")
+      jsWithMapFileCopy(projPath.millFullLinkStem("PostgresPageJs"), docDir :-/ "postgres")
     }
     deb(res.reportStr)
   }

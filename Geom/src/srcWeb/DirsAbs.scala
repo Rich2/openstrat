@@ -63,11 +63,15 @@ object DirsAbs
 
 /** An absolute Directory path for a Scala project. There are extra methods in the [[webjvm]] that require the JVM, Java Virtual Machine. */
 class ScalaProjPath(val arrayUnsafe: Array[String]) extends DirsAbs
-{ /** The Mill build system out directory. */
-  def out: DirsAbs = this / "out"
+{ /** The Mill build system out directory, /PathToProjectDir/out. */
+  def outDir: DirsAbs = this / "out"
 
-  /** Module directory in the Mill build system out directory. */
-  def outModule(moduleStr: String): DirsAbs = out / moduleStr
+  /** Module directory in the Mill build system out directory. So the module "Hello" returns /PathToProjectDir/out/Hello. */
+  def millModuleDir(moduleStr: String): DirsAbs = outDir / moduleStr
 
-  def outFullLink(moduleStr: String): DirsAbsStem = new DirsAbsStem(outModule(moduleStr).arrayUnsafe ++ Array("fullLinkJS.dest", "main"))
+  /** The FullLinkJS.dest directory. So the module Hello will have the path /PathToProjectDir/out/Hello/fullLinkJS.dest */
+  def millFullLinkDir(moduleStr: String): DirsAbs = millModuleDir(moduleStr) / "fullLinkJS.dest"
+
+  /** The FullLinkJS.dest directory and the file name stem. So the module Hello will have the path /PathToProjectDir/out/Hello/fullLinkJS.dest/main */
+  def millFullLinkStem(moduleStr: String): DirsAbsStem = new DirsAbsStem(millModuleDir(moduleStr).arrayUnsafe ++ Array("fullLinkJS.dest", "main"))
 }

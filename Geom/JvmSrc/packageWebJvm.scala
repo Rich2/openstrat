@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb;
-import pParse.*, java.io.File
+import pParse.*, java.io.File, scala.sys.process._
 
 /** This package is for Java byte code targets. */
 package object webjvm
@@ -50,9 +50,31 @@ package object webjvm
   
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
   def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ErrBi[Exception, JsFileWritten] = 
-  { val res1: ErrBi[Exception, JsFileWritten] = utiljvm.copyFile(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+  {
+    
+    val res1: ErrBi[Exception, JsFileWritten] = utiljvm.copyFile(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
     res1 match {
       case Succ(jsfw) => utiljvm.copyFile(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match {
+        case fail: Fail[_] => res1
+        case succ2: Succ[_] => Succ(jsfw.withMap)
+      }
+      case fail => fail
+    }
+  }
+
+  /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
+  def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ErrBi[Exception, JsFileWritten] =
+  {
+    val jsSrc: String = fromPath.asStr / "main.js"
+    s"""sed 's/main.js.map/${fileNameStem}.js.map/' $jsSrc""".!
+    val jsMapSrc: String = fromPath.asStr / "main.js.map"
+    s"""sed 's/main.js/${fileNameStem}.js/' $jsMapSrc""".!
+    val destDir: DirsAbs = htmlDirPath / fileNameStem
+    destDir.mkExist
+    val destStem: DirsAbsStem = destDir :-/ fileNameStem
+    val res1: ErrBi[Exception, JsFileWritten] = utiljvm.copyFile(jsSrc, destStem.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+    res1 match {
+      case Succ(jsfw) => utiljvm.copyFile(jsMapSrc, destStem.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match {
         case fail: Fail[_] => res1
         case succ2: Succ[_] => Succ(jsfw.withMap)
       }
