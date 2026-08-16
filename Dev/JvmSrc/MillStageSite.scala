@@ -26,8 +26,9 @@ object MillStageSite extends StagingBuild
 
     val docPath: DirsAbs = stagePath / "Documentation"
     val jarApp: ErrBi[Exception, JarFileWritten] = docPath.mkExist.flatMap { res =>
-      jsWithMapFileCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest" :-/ "main", docPath  :-/ "tomcat")
-      jsWithMapFileCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest" :-/ "main", docPath  :-/ "newdevs")
+      jsWithMapFileRenameCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest", docPath, "tomcat")
+      jsWithMapFileRenameCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest", docPath, "newdevs")
+      jsWithMapFileRenameCopy(projPath / "out/PostgresPageJs" / "fullLinkJS.dest", docPath, "postgres")
       jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", (docPath / "osapp").asStr)//needs improving
     }
     deb(jarApp.reportStr)

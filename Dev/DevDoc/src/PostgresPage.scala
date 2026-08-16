@@ -6,7 +6,7 @@ object PostgresPage extends DevPageBase
 { override def titleStr: String = "Postgresql for absolute beginners"
   override def fileStemStr: String = "postgres"
 
-  override def body: BodyHtml = BodyHtml("Postgresql for beginners".h1, central, ScriptHtml.jsSrc("postgres.js"), ScriptHtml.main("PostgresPageJs"))
+  override def body: BodyHtml = BodyHtml("Postgresql for beginners".h1, central, jsScriptStd)
 
   def central: DivHtml = DivHtml.classAtt("central", pUpdaters, steps)
 

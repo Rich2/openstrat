@@ -66,17 +66,15 @@ package object webjvm
   def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ErrBi[Exception, JsFileWritten] =
   {
     val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
-    val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")
-    //s"""sed 's/main.js.map/${fileNameStem}.js.map/' $jsSrc""".!
+    val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")    
     val jsMapFile1: String = io.Source.fromFile(fromPath.asStr / "main.js.map").mkString
-    val jsMapFile2 = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")
-    //s"""sed 's/main.js/${fileNameStem}.js/' $jsMapSrc""".!
-    //val destDir: DirsAbs = htmlDirPath / fileNameStem
-    //destDir.mkExist
+    val jsMapFile2 = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")    
+    val destDir: DirsAbs = htmlDirPath / fileNameStem
+    destDir.mkExist
     //val destStem: DirsAbsStem = destDir :-/ fileNameStem
-    val res1: ErrBi[Exception, JsFileWritten] = utiljvm.writeFile(htmlDirPath.asStr / fileNameStem + ".js", jsFile2).map(fw => JsFileWritten(fw.detailStr))
+    val res1: ErrBi[Exception, JsFileWritten] = utiljvm.writeFile(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsFileWritten(fw.detailStr))
     res1 match {
-      case Succ(jsfw) => utiljvm.writeFile(htmlDirPath.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsFileWritten(fw.detailStr)) match {
+      case Succ(jsfw) => utiljvm.writeFile(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsFileWritten(fw.detailStr)) match {
         case fail: Fail[_] => res1
         case succ2: Succ[_] => Succ(jsfw.withMap)
       }

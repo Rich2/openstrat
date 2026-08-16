@@ -6,7 +6,7 @@ import pweb.*, WebExts.*, wcode.*
 object NewDevsPage extends DevPageBase
 { override def titleStr: String = "New Developers Info"
   override def fileStemStr: String = "newdevs"
-  override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, ScriptHtml.jsSrc("newdevs.js"))
+  override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, jsScriptStd)
 
   def central: DivHtml = DivHtml.classAtt("central", contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
     sublime, sshServer)

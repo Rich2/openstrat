@@ -27,6 +27,9 @@ trait OutElemFileExt extends OutElemFile
   /** The stem of the default file name without the extension. */
   final def fileNameStem: FileNameStem = FileNameStem(fileStemStr)
 
+  /** Standard HTML js file script link where js file uses fileNameStem.js in a directory with the fileNameStem name. */
+  def jsScriptStd = ScriptHtml.jsSrc(fileStemStr / fileStemStr + ".js")
+
   override def fileName: FileNameExtended
   final override def fileNameStr: String = fileStemStr + "." + fileExtStr
 }
