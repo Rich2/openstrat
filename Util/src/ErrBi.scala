@@ -16,9 +16,8 @@ sealed trait ErrBi[+E <: Throwable, +A]
     case fail: Fail[?] => fail
   }
 
-  /** If this [[ErrBi]] is a [[Succ]] produce and [[ErrBi]] accumulator with the parameter function. */
-  def flatMapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
-    ErrBiAcc[EE, B]
+  /** If this [[ErrBi]] is a [[Succ]] produce [[ErrBiAcc]] with the parameter function. If this is [[Fail]] produce [[ErrBiAcc]] with this single [[Fail]]. */
+  def mapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[EE, B]
 
   /** True if this is a successful [[Succ]] value. */
   def isSucc: Boolean
@@ -69,7 +68,8 @@ sealed trait ErrBi[+E <: Throwable, +A]
 }
 
 object ErrBi
-{
+{ /** If both [[Errbi]] inputs are [[Succ]]s return [[Succ]] of function. If both [[Fail]]s combine the errors. Error type may widen to contain all the
+   * possibilities */
   def map2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[Throwable, B] = eb1 match
   { case Succ(a1) => eb2.map(a2 => f(a1, a2))
     case f1: Fail[E] => eb2 match
@@ -80,11 +80,30 @@ object ErrBi
     case _ => excep("Unforeseen match case")
   }
 
+  /** If both [[Errbi]] inputs are [[Succ]]s return the result of the function. If both [[Fail]]s combine the errors. Error type may widen to contain all the
+   * possibilities */
   def flatMap2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => ErrBi[Throwable, B]): ErrBi[Throwable, B] = eb1 match
   { case Succ(a1) => eb2.flatMap(a2 => f(a1, a2))
     case f1: Fail[E] => eb2 match
     {  case Succ(_) => f1
       case Fail(err2) => Fail(ThrowMulti(f1.error, err2))
+      case _ => excep("Unforeseen match case")
+    }
+    case _ => excep("Unforeseen match case")
+  }
+
+  /** If this [[ErrBi]] is a [[Succ]] produce [[ErrBiAcc]] with the parameter function. If this is [[Fail]] produce [[ErrBiAcc]] with this single [[Fail]]. */
+  def map2Acc[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => ErrBiAcc[E, B])(using ctE: ClassTag[E] @uncheckedVariance,
+    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = eb1 match
+  { 
+    case Succ(a1) =>  eb2 match
+    { case Succ(a2) => f(a1, a2)
+      case Fail(e2) => ErrBiAcc.err1(e2)
+      case _ => excep("Unforeseen match case")
+    }
+    case Fail(e1) => eb2 match
+    { case Succ(_) => ErrBiAcc.err1(e1)
+      case Fail(e2) => ErrBiAcc.errs2(e1, e2)
       case _ => excep("Unforeseen match case")
     }
     case _ => excep("Unforeseen match case")
@@ -141,7 +160,7 @@ case class Succ[+A](value: A) extends ErrBi[Nothing, A]
     case fail: Fail[EE] => fail
   }
 
-  override def flatMapAcc[EE <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
+  override def mapAcc[EE <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
     ErrBiAcc[EE, B] = f(value)
   
   override def isSucc: Boolean = true
@@ -180,7 +199,7 @@ class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
 { override def map[B](f: Nothing => B): ErrBi[E, B] = this
   override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this
   
-  override def flatMapAcc[EE >: E <: Throwable, B](f: Nothing => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance,
+  override def mapAcc[EE >: E <: Throwable, B](f: Nothing => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance,
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[EE, B] = new ErrBiAcc[EE, B](Array[EE](error), Array[B]())
   
   override def isSucc: Boolean = false

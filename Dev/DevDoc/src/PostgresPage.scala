@@ -29,7 +29,7 @@ object PostgresPage extends DevPageBase
     DivHtml.listenOptHtml(opSysInput){
       case UbuntuDeriv => RArr(BashLine("sudo apt install postgresql postgresql-contrib"))
       case ArchDeriv => RArr(BashLine("sudo pacman -S postgresql"))
-      case _ => RArr("No code available for installation on this operating syatem")
+      case _ => RArr("No code available for installation on this operating system")
     },
     "Change the postgres user password.",
     BashLine("sudo password postgres"),

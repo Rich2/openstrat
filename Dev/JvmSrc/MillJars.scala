@@ -21,7 +21,7 @@ trait MillStageJars
   val pomMods2: RArr[OsModulePomVerless] = pomMods1 +% AppsPommer
 
   def apply(stagingPath: DirsAbs): Unit =
-  { val res: ErrBiAcc[Throwable, FileWritten] = projPathFind.flatMapAcc { projPath =>  action(projPath, stagingPath) }
+  { val res: ErrBiAcc[Throwable, FileWritten] = projPathFind.mapAcc { projPath =>  action(projPath, stagingPath) }
     deb(res.errsSummary)
   }
 
@@ -61,7 +61,7 @@ object MillJars extends MillStageJars
   { /** Destination for single folder for JARs. */
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
 
-    val res1: ErrBiAcc[Exception, FileWritten] = sharedPath.mkExist.flatMapAcc{ res1 =>
+    val res1: ErrBiAcc[Exception, FileWritten] = sharedPath.mkExist.mapAcc{ res1 =>
       pomMods2.mapErrBiAcc{ pm => millMainCopy(projPath, sharedPath, pm.moduleDir, pm.artifactStr)  }
     }    
     res1
@@ -79,12 +79,12 @@ object MillAllJars extends MillStageJars
 
     val pomWriter = OsPomsWriter(version, scalaVersion)
     val res1: ErrBiAcc[Exception, FileWritten] =
-      sharedPath.mkExist.flatMapAcc { res1 =>  pomMods2.flatMapErrBiAcc { pm => jars3Copy(projPath, sharedPath, pm.moduleDir, pm.artifactStr) +%
+      sharedPath.mkExist.mapAcc { res1 =>  pomMods2.flatMapErrBiAcc { pm => jars3Copy(projPath, sharedPath, pm.moduleDir, pm.artifactStr) +%
         pomWriter.stagePom(sharedPath, pm.version(version, scalaVersion)) }
       }
 
     val repositaryPath: DirsAbs = stagingRootDir / "richstrat"
-    val res2: ErrBiAcc[Exception, FileWritten] = repositaryPath.mkExist.flatMapAcc{ r1 =>
+    val res2: ErrBiAcc[Exception, FileWritten] = repositaryPath.mkExist.mapAcc{ r1 =>
       pomMods1.flatMapErrBiAcc { pm =>
         val modulePath: DirsAbs = repositaryPath / pm.artifactStr
         modulePath.mkExist

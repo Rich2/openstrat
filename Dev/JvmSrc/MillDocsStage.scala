@@ -11,11 +11,7 @@ object MillDocsStage extends StagingBuild
     val ossDirBi: ErrBi[Throwable, DirsAbs] = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
     ossDirBi.forSucc{dir => stageDocDir(dir) }
     val docBi: ErrBi[Throwable, DirsAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
-    val res = ErrBi.flatMap2(projPathFind, docBi) { (projPath, docDir) =>
-      jsWithMapFileRenameCopy(projPath.millFullLinkDir("TomcatPageJs"), docDir, "tomcat")
-      jsWithMapFileRenameCopy(projPath.millFullLinkDir("NewDevsPageJs"), docDir, "newdevs")
-      jsWithMapFileRenameCopy(projPath.millFullLinkDir("PostgresPageJs"), docDir, "postgres")
-    }
-    deb(res.reportStr)
+    val res = ErrBi.map2Acc(projPathFind, docBi) { (projPath, docDir) => stageDocumentationJs(projPath, docDir) }
+    deb(res.errsSummary)
   }
 }
