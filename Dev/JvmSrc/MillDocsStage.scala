@@ -10,7 +10,7 @@ object MillDocsStage extends StagingBuild
     val stagePathBi: ErrBi[Throwable, DirsAbs] = stagingPathFind.flatMap(_.mkExist)
     val ossDirBi: ErrBi[Throwable, DirsAbs] = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
     ossDirBi.forSucc{dir => stageDocDir(dir) }
-    val docBi = ossDirBi.flatMap(_.mkSubExist("Documentation"))
+    val docBi: ErrBi[Throwable, DirsAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
     val res = ErrBi.flatMap2(projPathFind, docBi) { (projPath, docDir) =>
       jsWithMapFileRenameCopy(projPath.millFullLinkDir("TomcatPageJs"), docDir, "tomcat")
       jsWithMapFileRenameCopy(projPath.millFullLinkDir("NewDevsPageJs"), docDir, "newdevs")

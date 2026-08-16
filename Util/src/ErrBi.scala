@@ -82,8 +82,8 @@ object ErrBi
 
   def flatMap2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => ErrBi[Throwable, B]): ErrBi[Throwable, B] = eb1 match
   { case Succ(a1) => eb2.flatMap(a2 => f(a1, a2))
-    case f1: Fail[E] => eb2 match {
-      case Succ(_) => f1
+    case f1: Fail[E] => eb2 match
+    {  case Succ(_) => f1
       case Fail(err2) => Fail(ThrowMulti(f1.error, err2))
       case _ => excep("Unforeseen match case")
     }

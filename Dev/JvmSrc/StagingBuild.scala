@@ -34,4 +34,13 @@ trait StagingBuild
       PostgresPage, ScalaOSPage, Victoria2Page).mapErrBiAcc(file => docPath.writeHtml(file)) +% docPath.writeCss(CssDocumentation)
     }
   }
+
+  def stageDocumentationJs(projPath: DirsAbs, docPath: DirsAbs) = docPath.mkExist.flatMapAcc { res =>
+    ErrBiAcc[Exception, FileWritten](
+      jsWithMapFileRenameCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest", docPath, "tomcat"),
+      jsWithMapFileRenameCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest", docPath, "newdevs"),
+      jsWithMapFileRenameCopy(projPath / "out/PostgresPageJs" / "fullLinkJS.dest", docPath, "postgres"),
+      jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", (docPath / "osapp").asStr) //needs improving
+    )
+  }
 }

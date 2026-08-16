@@ -25,13 +25,8 @@ object MillStageSite extends StagingBuild
     deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
 
     val docPath: DirsAbs = stagePath / "Documentation"
-    val jarApp: ErrBi[Exception, JarFileWritten] = docPath.mkExist.flatMap { res =>
-      jsWithMapFileRenameCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest", docPath, "tomcat")
-      jsWithMapFileRenameCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest", docPath, "newdevs")
-      jsWithMapFileRenameCopy(projPath / "out/PostgresPageJs" / "fullLinkJS.dest", docPath, "postgres")
-      jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", (docPath / "osapp").asStr)//needs improving
-    }
-    deb(jarApp.reportStr)
+    val jarApp: ErrBiAcc[Exception, FileWritten] = stageDocumentationJs(projPath, docPath)
+    deb(jarApp.errsSummary)
     val otherPath: DirsAbs = stagePath / "otherapps"
     val otherBi: ExcIOMon[DirExists] = otherPath.mkExist
     val otherJsFiles = otherBi.flatMapAcc { res =>
