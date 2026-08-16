@@ -65,16 +65,18 @@ package object webjvm
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
   def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ErrBi[Exception, JsFileWritten] =
   {
-    val jsSrc: String = fromPath.asStr / "main.js"
-    s"""sed 's/main.js.map/${fileNameStem}.js.map/' $jsSrc""".!
-    val jsMapSrc: String = fromPath.asStr / "main.js.map"
-    s"""sed 's/main.js/${fileNameStem}.js/' $jsMapSrc""".!
-    val destDir: DirsAbs = htmlDirPath / fileNameStem
-    destDir.mkExist
-    val destStem: DirsAbsStem = destDir :-/ fileNameStem
-    val res1: ErrBi[Exception, JsFileWritten] = utiljvm.copyFile(jsSrc, destStem.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+    val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
+    val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")
+    //s"""sed 's/main.js.map/${fileNameStem}.js.map/' $jsSrc""".!
+    val jsMapFile1: String = io.Source.fromFile(fromPath.asStr / "main.js.map").mkString
+    val jsMapFile2 = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")
+    //s"""sed 's/main.js/${fileNameStem}.js/' $jsMapSrc""".!
+    //val destDir: DirsAbs = htmlDirPath / fileNameStem
+    //destDir.mkExist
+    //val destStem: DirsAbsStem = destDir :-/ fileNameStem
+    val res1: ErrBi[Exception, JsFileWritten] = utiljvm.writeFile(htmlDirPath.asStr / fileNameStem + ".js", jsFile2).map(fw => JsFileWritten(fw.detailStr))
     res1 match {
-      case Succ(jsfw) => utiljvm.copyFile(jsMapSrc, destStem.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match {
+      case Succ(jsfw) => utiljvm.writeFile(htmlDirPath.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsFileWritten(fw.detailStr)) match {
         case fail: Fail[_] => res1
         case succ2: Succ[_] => Succ(jsfw.withMap)
       }
@@ -84,19 +86,15 @@ package object webjvm
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
    * file. */
-  def mkDirExist(path: String): ExcIOMon[DirExists] = {
-    val jp = new File(path)
-    jp.exists match {
-      case true if (jp.isDirectory) => Succ(DirExisted.str(path))
+  def mkDirExist(path: String): ExcIOMon[DirExists] =
+  { val jp = new File(path)
+    jp.exists match
+    { case true if (jp.isDirectory) => Succ(DirExisted.str(path))
       case true => Fail(new java.nio.file.NotDirectoryException("path"))
-      case _ => {
-        var oExc: Option[IOExc] = None
-        try {
-          jp.mkdir
-        }
-        catch {
-          case e: IOExc => oExc = Some(e)
-        }
+      case _ =>
+      { var oExc: Option[IOExc] = None
+        try { jp.mkdir }
+        catch { case e: IOExc => oExc = Some(e) }
         oExc.fld(Succ(DirCreated.str(path)), Fail(_))
       }
     }

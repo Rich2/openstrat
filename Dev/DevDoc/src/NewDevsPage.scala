@@ -142,7 +142,7 @@ object NewDevsPage extends DevPageBase
     CodeLineHtml("}")
   )
 
-  def sshServer: Section = Section("SSH Server".h2,
+  val sshServer: Section = Section("SSH Server".h2,
     "This is normally installed on Linux VPSs, but for home machines",
     DivHtml.listenOptHtml(opSysInput){
       case UbuntuDeriv => RArr(
