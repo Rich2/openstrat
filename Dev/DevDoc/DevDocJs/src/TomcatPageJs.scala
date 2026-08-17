@@ -5,6 +5,6 @@ import pSJs.*
 /** JavaScript file for the Tomcat HTML page. */
 object TomcatPageJs
 { def main(args: Array[String]): Unit =
-  { pDoc.TomcatPage.jsAgg
+  { aggPage(pDoc.TomcatPage)
   }
 }

@@ -10,7 +10,9 @@ abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
   /** The number of page elements that have registered to receive updates from this inout. */
   final def numListeners: Int = listeners.length
   
-  def listenersListStr: String = listeners.mkStr(_.listenerId, ", ")  
+  def listenersListStr: String = listeners.mkStr(_.listenerId, ", ")
+
+  def listenersSummary: String = s"Found $toString with listener IDs: ${listenersListStr}."
 }
 
 /** An HTML Input element that updates its page, via JavaScript, rather than though HTTP requests to the server. */

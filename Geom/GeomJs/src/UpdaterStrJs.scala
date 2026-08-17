@@ -4,7 +4,7 @@ import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
 class UpdaterStrJs(val inputer: UpdaterStr, val domElem: html.Element) extends JsUpdater
-{ deb(s"Found $inputer with listeners: ${inputer.listenersListStr}.")
+{ deb(inputer.listenersSummary)
   domElem.addEventListener("change", eventListener)
 
   def eventListener: Event => Unit = e =>

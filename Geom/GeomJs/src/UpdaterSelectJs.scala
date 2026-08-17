@@ -4,7 +4,7 @@ import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Updates HTML content due to number changes from HTML input elements. */
 class UpdaterSelectJs(val inputer: UpdaterSelect, val inpElem: html.Element) extends JsUpdater
-{ deb(s"Found $inputer with listener IDs: ${inputer.listenersListStr}.")
+{ deb(inputer.listenersSummary)
   inpElem.addEventListener("change", eventListener)
 
   def eventListener: Event => Unit = e =>

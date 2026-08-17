@@ -5,6 +5,6 @@ import pSJs.*
 /** JavaScript file for the Newdevs HTML page. */
 object PostgresPageJs
 { def main(args: Array[String]): Unit =
-  { pDoc.PostgresPage.jsAgg
+  { aggPage(pDoc.PostgresPage)
   }
 }

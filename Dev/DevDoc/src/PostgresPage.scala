@@ -21,7 +21,7 @@ object PostgresPage extends DevPageBase//OpenstratDocPage, PageUpdaterOperatingS
   
   def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLI))
 
-  def steps: OlLarge = OlLarge(s1)
+  def steps: OlLarge = OlLarge(s1, s2)
 
   val postgresPrompt: BashPromptSpan = BashPromptSpan("postgres=#")
 
@@ -43,5 +43,9 @@ object PostgresPage extends DevPageBase//OpenstratDocPage, PageUpdaterOperatingS
     BashLine(postgresPrompt, """\q"""),
     "Switch back to your main user.",
     BashLine.listenStrText(userNameIUT)(uName => s"su $uName"),
+  )
+
+  val s2: LiHtml = LiHtml(
+    BashLine("CREATE TABLE users ( did uuid DEFAULT gen_random_uuid(), PRIMARY KEY (did));")
   )
 }

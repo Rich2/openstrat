@@ -5,6 +5,6 @@ import pSJs.*
 /** JavaScript file for the Newdevs HTML page. */
 object NewDevsPageJs
 { def main(args: Array[String]): Unit =
-  { pDoc.NewDevsPage.jsAgg
+  { aggPage(pDoc.NewDevsPage)
   }
 }
