@@ -5,8 +5,12 @@ package ostrat; package pweb
 abstract class UpdaterInputLike(val page: PageHtmlUpdater) extends InputLike
 { page.inpAcc +%= this
 
+  def listeners: RArr[CallbackUpdater]
+  
   /** The number of page elements that have registered to receive updates from this inout. */
-  def numListeners: Int
+  final def numListeners: Int = listeners.length
+  
+  def listenersListStr: String = listeners.mkStr(_.listenerId, ", ")  
 }
 
 /** An HTML Input element that updates its page, via JavaScript, rather than though HTTP requests to the server. */

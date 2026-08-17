@@ -5,12 +5,18 @@ import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 /** Base trait for JavaScript to updates HTML content due to changes from HTML input or Select elements. */
 trait JsUpdater
 
-object JsUpdater
-{ /** Factory apply method, constructs the appropriate [[JsUpdater]] for the given [[UpdaterInputLike]]. */
-  def apply(inputer: UpdaterInputLike): JsUpdater = inputer match
-  { case uii: UpdaterIntInput => JsUpdaterInt(uii)
-    case udi: UpdaterDblInput => JsUpdaterDbl(udi)
-    case iut: UpdaterStr => JsUpdaterStr(iut)
-    case iua: UpdaterSelect => UpdaterSelectJs(iua)
+extension (page: PageHtmlUpdater)
+{ /** Constructs a JavaScript [[JsUpdater]] for each [[PageHtmlUpdater]]. */
+  def jsAgg: Unit =
+  { page.inpAcc.foreach{ uil =>
+      val elem: html.Element = document.getElementById(uil.idStr).asInstanceOf[html.Element]
+      if (elem != null){ uil match
+        { case upInt: UpdaterIntInput => UpdaterIntJs(upInt, elem)
+          case upDbl: UpdaterDblInput => JsUpdaterDbl(upDbl, elem)
+          case upStr: UpdaterStr => UpdaterStrJs(upStr, elem)
+          case upSel: UpdaterSelect => UpdaterSelectJs(upSel, elem)
+        }
+      }
+    }
   }
 }

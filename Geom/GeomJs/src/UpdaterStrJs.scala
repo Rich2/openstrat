@@ -3,10 +3,9 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** JavaScript updates HTML content due to [[String]] changes from HTML input elements. */
-class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
-{ val idStem: String = inputer.idStr
-  val inpElem: html.Input = document.getElementById(idStem).asInstanceOf[html.Input]
-  inpElem.addEventListener("change", eventListener(_))
+class UpdaterStrJs(val inputer: UpdaterStr, val domElem: html.Element) extends JsUpdater
+{ deb(s"Found $inputer with listeners: ${inputer.listenersListStr}.")
+  domElem.addEventListener("change", eventListener)
 
   def eventListener: Event => Unit = e =>
   { val newInpStr = e.target.asInstanceOf[html.Input].value
@@ -82,7 +81,7 @@ class JsUpdaterStr(val inputer: UpdaterStr) extends JsUpdater
   }
 }
 
-object JsUpdaterStr
+object UpdaterStrJs
 { /** Factory apply method for JavaScript to update HTML element listener list from updated text input. */
-  def apply(inputer: UpdaterStr): JsUpdaterStr = new JsUpdaterStr(inputer)
+  def apply(inputer: UpdaterStr, domElem: html.Element): UpdaterStrJs = new UpdaterStrJs(inputer, domElem)
 }

@@ -2,7 +2,7 @@
 package ostrat; package pDoc
 import pweb.*, WebExts.*, osweb.*, wcode.*
 
-object PostgresPage extends DevPageBase
+object PostgresPage extends DevPageBase//OpenstratDocPage, PageUpdaterOperatingSystem
 { override def titleStr: String = "Postgresql for absolute beginners"
   override def fileStemStr: String = "postgres"
 
@@ -18,12 +18,12 @@ object PostgresPage extends DevPageBase
 
   /** [[UpdaterInputStr]] and it's label for username. */
   val userNameLTI: LabelInput = LabelInput("User Name", userNameIUT)
+  
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLI))
 
   def steps: OlLarge = OlLarge(s1)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLI))
-
-  val postgresPrompt = BashPromptSpan("postgres=#")
+  val postgresPrompt: BashPromptSpan = BashPromptSpan("postgres=#")
 
   val s1: LiHtml = LiHtml("Install and main user.".h2,
     DivHtml.listenOptHtml(opSysInput){
@@ -32,7 +32,7 @@ object PostgresPage extends DevPageBase
       case _ => RArr("No code available for installation on this operating system")
     },
     "Change the postgres user password.",
-    BashLine("sudo password postgres"),
+    BashLine("sudo passwd postgres"),
     "Depending on your use case you may wish to manipulate Postgresql with a different user.",
     BashLine("su postgres"),
     BashLine("psql"),
@@ -40,6 +40,8 @@ object PostgresPage extends DevPageBase
     "You may want to create a database with this user's name",
     BashLine.listenStrHtml(userNameIUT){ uName => RArr(postgresPrompt, s"CREATE DATABASE $uName OWNER $uName;") },
     "To quit psql",
-    BashLine(postgresPrompt, """\q""")
+    BashLine(postgresPrompt, """\q"""),
+    "Switch back to your main user.",
+    BashLine.listenStrText(userNameIUT)(uName => s"su $uName"),
   )
 }

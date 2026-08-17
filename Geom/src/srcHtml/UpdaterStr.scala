@@ -6,14 +6,23 @@ trait UpdaterStr extends UpdaterInputLike
 { /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
   var callBacks: RArr[CallbackStr] = RArr()
 
-  override def numListeners: Int = callBacks.length
-
+  override def listeners: RArr[CallbackStr] = callBacks
+  override def toString: String = s"UpdaterStr($idStr)"
+  
   /** this method registers a page HTML element with the updater. Sends back an id for the listener element. This takes a String => String function to update
    * the listeners textContent property. */
   def nextStrText(f: String => String): IdAtt =
   { val newListnerId: String = idStr + numListeners.str
     callBacks +%= CallbackStrText(newListnerId, f)
     IdAtt(newListnerId)
+  }
+
+  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
+   * input to update the target content. */
+  def nextStrHtml(f: String => RArr[XCon]): IdAtt =
+  { val newListenerId: String = idStr + numListeners.str
+    callBacks +%= CallBackStrHtml(newListenerId, f)
+    IdAtt(newListenerId)
   }
 
   def nextOpt2Str2Html(listenerId: String, input1: UpdaterSelect, input3: UpdaterStr, f: (OptionHtml, String, String) => RArr[XCon]): Unit =
@@ -32,14 +41,6 @@ trait UpdaterStr extends UpdaterInputLike
   def next2Opt2Str4Html(listenerId: String, input1: UpdaterSelect, input2: UpdaterSelect, input3: UpdaterStr,
     f: (OptionHtml, OptionHtml, String, String) => RArr[XCon]): Unit =
   { callBacks +%= Callback2Opt2Str4Html(listenerId, input1, input2, input3, f)
-  }
-
-  /** this method registers a page HTML element with the updater. Sends back an id for the target element. This takes a simple function of this one [[String]]
-   * input to update the target content. */
-  def nextStrHtml(f: String => RArr[XCon]): IdAtt =
-  { val newListenerId: String = idStr + numListeners.str
-    callBacks +%= CallBackStrHtml(newListenerId, f)
-    IdAtt(newListenerId)
   }
 
   /** this method creates a new unique id [[String]]. Registers a page HTML element listener with this input-updater. Registers the listener with the second

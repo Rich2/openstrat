@@ -3,9 +3,8 @@ package ostrat; package pSJs
 import org.scalajs.dom.*, org.scalajs.dom.html, pweb.*
 
 /** Updates HTML content due to number changes from HTML input elements. */
-class UpdaterSelectJs(val inputer: UpdaterSelect) extends JsUpdater
-{ val idStem: String = inputer.idStr
-  val inpElem: html.Select = document.getElementById(idStem).asInstanceOf[html.Select]
+class UpdaterSelectJs(val inputer: UpdaterSelect, val inpElem: html.Element) extends JsUpdater
+{ deb(s"Found $inputer with listener IDs: ${inputer.listenersListStr}.")
   inpElem.addEventListener("change", eventListener)
 
   def eventListener: Event => Unit = e =>
@@ -74,14 +73,5 @@ class UpdaterSelectJs(val inputer: UpdaterSelect) extends JsUpdater
         else listener.textContent = f(newOption, inp2Val)
       }
     }
-  }
-}
-
-extension (page: PageHtmlUpdater)
-{ /** Constructs a JavaScript [[JsUpdater]] for each [[PageHtmlUpdater]]. */
-  def jsAgg: Unit =
-  { val num = page.inpAcc.length
-    deb(s"Found $num in ${page.fileName.str}")
-    page.inpAcc.foreach(inputUpdater => JsUpdater(inputUpdater))
   }
 }

@@ -36,7 +36,7 @@ object TomcatPage extends DevPageBase
   /** Updater for username. */
   val userNameInput: UpdaterInputStr = UpdaterInputStr("uName", userName1)
   
-  /** [[UpdaterInputStr]] and it's label for user name. */
+  /** [[UpdaterInputStr]] and it's label for username. */
   val userNameLI: LabelInput = LabelInput("User Name", userNameInput)
 
   /** Updater for username. */
@@ -70,14 +70,14 @@ object TomcatPage extends DevPageBase
   
   val s1: LiHtml = LiHtml.listenOptHtml(opSysInput){ opt =>
     val res1: XCon = DivHtml("Upgrade packages.")
-    val res2: RArr[XCon] = opt match {
-      case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
+    val res2: RArr[XCon] = opt match
+    { case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
       case ArchDeriv => RArr(BashLine("Sudo pacman -Syu"))
       case _ => RArr("No code available.")
     }
     val res3 = DivHtml("Install Fail2Ban to protect against brute force login attacks")
-    val res4 = opt match {
-      case UbuntuDeriv => BashLine("sudo apt install fail2ban")
+    val res4 = opt match
+    { case UbuntuDeriv => BashLine("sudo apt install fail2ban")
       case ArchDeriv => BashLine("pacman -S fail2ban")
       case _ => "No code available."
     }

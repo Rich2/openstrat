@@ -8,6 +8,9 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
 {
   /** List of call backs to other parts of the web page that needed to be updated in response to new input. */
   var callBacks: RArr[CallbackOption] = RArr()
+
+  override def listeners: RArr[CallbackOption] = callBacks
+  override def toString: String = s"UpdaterSelect($idStr)"
   
   /** This method sets the original HTML in the listener element from the first value in the Select list. */
   def listenerInit[CT <: XCon](f: OptionHtml => RArr[CT]): RArr[CT] = f(contents(0))
@@ -95,8 +98,6 @@ class UpdaterSelect(val idStr: String, val contents: RArr[OptionHtml], val visNu
     input2.nextOptDbl2Text(newListenerId, this, f)
     IdAtt(newListenerId)
   }
-
-  override def numListeners: Int = callBacks.length
 }
 
 object UpdaterSelect
