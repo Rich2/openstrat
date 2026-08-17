@@ -93,8 +93,22 @@ object CssMultiRule
   def apply(sel0: SelOrStr, others: SelOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
 }
 
-case class CssClassRule(classStr: String, decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "." + classStr
+trait CssClassRule extends CssRule
+{ /** The CSS name for the class. */
+  def classStr: String
+  
+  override def selec: String = "." + classStr
   def child(childSel: SelSimpleOrStr, decsArr: RArr[CssDecBase]): CssChildRule = CssChildRule(selec, childSel, decsArr)
   def child(childSel: SelSimpleOrStr, decs: CssDecBase*): CssChildRule = CssChildRule(selec, childSel, decs.toRArr)
+}
+
+object CssClassRule
+{ /** Factory apply method to construct a CSS class rule. There is an apply name overload that takes CSS declarations as repeat parameters. */
+  def apply(classStr: String, decsArr: RArr[CssDecBase]): CssClassRule = CssClassRuleGen(classStr, decsArr)
+
+  /** Factory apply method to construct a CSS class rule. There is an apply name overload that takes the CSS declarations as sn [[RArr]]. */
+  def apply(classStr: String, decs: CssDecBase*): CssClassRule = CssClassRuleGen(classStr, decs.toRArr)
+  
+  /** implementation class for the general case of a CSS class rule. */
+  case class CssClassRuleGen(classStr: String, decsArr: RArr[CssDecBase]) extends CssClassRule
 }

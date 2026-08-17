@@ -46,13 +46,16 @@ object BashInline
   def apply(str: String): BashInline = new BashInline(str)
 }
 
+/** The name for the Bash Prompt CSS class in the HTML attribute and for CSS rules. */
+val BashPromptClassStr: String = "BashPrompt"
+
 /** Attribute for the bash prompt class. Allows the prompt to be in a different colour to the BASH commands. It may be important to show what directory the
  * command is being launched from. */
-object BashPromptClass extends ClassAtt("bashprompt")
+object BashPromptAtt extends ClassAtt(BashPromptClassStr)
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
 class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
-{ override def attribs: RArr[HAtt] = BashPromptClass %: otherAttribs
+{ override def attribs: RArr[HAtt] = BashPromptAtt %: otherAttribs
 }
 
 object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
@@ -60,9 +63,22 @@ object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
   override def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashPromptSpan = new BashPromptSpan(contents, attribs)
 }
 
+/** CSS rule for Bash prompt. */
+class BashPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
+{ override def classStr: String = BashPromptClassStr
+}
+
+object BashPromptCssRule
+{ /** Factory apply method to construct a CSS class rule for Bash prompts. There is an apply name overload that takes the declarations as repeat parameters. */
+  def apply(decsArr: RArr[CssDecBase]): BashPromptCssRule = new BashPromptCssRule(decsArr)
+
+  /** Factory apply method to construct a CSS class rule for Bash prompts. There is an apply name overload that takes the declarations as an [[RArr]]. */
+  def apply(decs: CssDecBase*): BashPromptCssRule = new BashPromptCssRule(decs.toRArr)
+}
+
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{ def promptSpan: SpanInlineInedit = SpanInlineInedit(RArr(prompt), RArr(BashPromptClass))
+{ def promptSpan: SpanInlineInedit = SpanInlineInedit(RArr(prompt), RArr(BashPromptAtt))
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 
@@ -75,4 +91,8 @@ class BashWithPromptMulti(val texts: StrArr, otherAttribs: RArr[HAtt]) extends B
 object BashWithPromptMulti
 { /** Not sure about this factory apply method. */
   def apply(strs: String*): BashWithPromptMulti = new BashWithPromptMulti(strs.toArr, RArr())
+}
+
+case class BashCssClassRule(decsArr: RArr[CssDecBase]) extends CssClassRule
+{ override def classStr: String = "bash"
 }

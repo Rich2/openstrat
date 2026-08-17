@@ -1,14 +1,15 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package osweb
 
-val largeListStr = "LargeList"
+/** Name for Large List class in HTML attribute and CSS rule declarations */
+val largeListCssStr = "LargeList"
 
-val listLargeRule: CssClassRule = CssClassRule(largeListStr, RArr(PadLeftDec(1.em)))
+val listLargeRule: CssClassRule = CssClassRule(largeListCssStr, PadLeftDec(1.em))
 
 val liLargeRule: CssChildRule = listLargeRule.child("li", MarginTBDec(1.em))
 
 /** LargeList class attribute. */
-object LargeListAtt extends ClassAtt(largeListStr)
+object LargeListAtt extends ClassAtt(largeListCssStr)
 
 /** Common trait for large ordered and unordered HTML Lists. */
 trait ListLarge extends HtmlTagLines

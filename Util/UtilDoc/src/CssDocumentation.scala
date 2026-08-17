@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pweb.*, Colour.*
+import pweb.*, Colour.*, wcode.*
 
 /** CSS for openstrat documentation. */
 object CssDocumentation extends CssOpenstrat
@@ -17,7 +17,8 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("folder", BGColourDec(Black), ColourDec(LightBlue)),
     CssClassesRule("path", BGColourDec(White), ColourDec(DarkBlue), NoWrapDec),
     CssCode(MarginTBDecs(0.25.rem)),
-    CssClassesRule("bashprompt", BGColourDec(Black), ColourDec(Pink)),
+    BashPromptCssRule(BGColourDec(Black), ColourDec(Pink)),
+    PsqlPromptCssRule(BGColourDec(Black), ColourDec(LightGreen)),
     CssClassesRule("scalalines", BGColourDec(Black), ColourDec(White), NoWrapDec),
     CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
     CssClassesRule("centreBlock", BlockDec, MarginLRAutoDec),
