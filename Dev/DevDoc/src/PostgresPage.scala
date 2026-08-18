@@ -82,7 +82,13 @@ object PostgresPage extends DevPageBase
     "To add password",
     userLine(s"""ALTER TABLE users ADD password VARCHAR(128) NOT NULL;"""),
     userLine(s"""ALTER TABLE users ADD CONSTRAINT passwordCheck CHECK(password ~ $passwordRegexStr);"""),
+    "To add status",
+    userLine("CREATE type Status AS ENUM ('User', 'Admin');"),
+    userLine(s"""ALTER TABLE users ADD status Status DEFAULT 'User' NOT NULL;"""),
+    "To add user",
     PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
-      ");")
+      """, 'Admin');"""),
+    PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
+      ");"),
   )
 }
