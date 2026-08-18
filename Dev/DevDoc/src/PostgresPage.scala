@@ -21,7 +21,7 @@ object PostgresPage extends DevPageBase
   
   def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, opSysLI))
 
-  def steps: OlLarge = OlLarge(s1, s2)
+  def steps: OlLarge = OlLarge(s1, s2, s3)
 
   val postgresPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan("postgres=#")
   def userPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan.listenStrText(uNameInp){ uName => uName + "=#"}
@@ -56,18 +56,33 @@ object PostgresPage extends DevPageBase
     PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(uNameInp){ uName => s"ALTER DATABASE $uName REFRESH COLLATION VERSION;" }),
   )
 
-  val uNameRegexStr: String = RegLogForm.uNameRegexStr().enquote1
+  val s2: LiHtml = LiHtml("Before continuing, here are some commands to undo things if necessary.",
+    DivHtml("To delete table"),
+    PsqlLine(userPsqlPrompt, "DROP TABLE", SpanInlineInedit.pink("tableName"), ";"),
+    "To delete all rows",
+    PsqlLine(userPsqlPrompt, "TRUNCATE", SpanInlineInedit.pink("tableName"), ";"),
+    "To drop constraint",
+    PsqlLine(userPsqlPrompt, "ALTER TABLE users DROP CONSTRAINT", SpanInlineInedit.pink("yourConstraint"), ";"),
+    "To delete row",
+    PsqlLine(userPsqlPrompt, "ALTER TABLE users DROP COLUMN", SpanInlineInedit.pink("columnName"), ";")
+  )
+
+  val uNameRegexStr: String = UsernameInput.regexStrStd.enquote1
+  val passwordRegexStr: String = PasswordInput.regexStrStd.enquote1
   
-  val s2: LiHtml = LiHtml("Create users table".h3,    
-    DivHtml("To creat table with a good secure key."),
-    userLine("CREATE TABLE users ( did uuid DEFAULT gen_random_uuid(), PRIMARY KEY (did));"),
+  val s3: LiHtml = LiHtml("Create users table".h3,    
+    DivHtml("To create table with a good secure key."),
+    userLine("CREATE TABLE users ( id uuid DEFAULT uuidv7(), PRIMARY KEY (id));"),
     "To display table.",
     userLine("SELECT * FROM users;"),
     "To add username",
     userLine(s"""ALTER TABLE users ADD username VARCHAR(15) UNIQUE NOT NULL;"""),
     userLine(s"""ALTER TABLE users ADD CONSTRAINT uNameCheck CHECK(username ~ $uNameRegexStr);"""),
     userLine("CREATE UNIQUE INDEX usernameLower ON users(lower(username));"),
-    "To drop constraint",
-    PsqlLine(userPsqlPrompt, "ALTER TABLE users DROP CONSTRAINT", SpanInlineInedit.pink("yourConstraint"), ";")
+    "To add password",
+    userLine(s"""ALTER TABLE users ADD password VARCHAR(128) NOT NULL;"""),
+    userLine(s"""ALTER TABLE users ADD CONSTRAINT passwordCheck CHECK(password ~ $passwordRegexStr);"""),
+    PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
+      ");")
   )
 }

@@ -32,23 +32,21 @@ trait RegLogForm extends FormHtml
   def idPrefix: String
 
   /** The maximum number of characters for the username. */
-  def uNameMaxLen: Int = 15
-
-  /** The maximum number of characters for the username. */
-  def passMaxLen: Int = 64
-
-  def uNameRegex: Regex = RegLogForm.uNameRegex (uNameMaxLen)
+  def uNameMaxLen: Int = UsernameInput.maxLenStd
   
-  def passRegex: Regex = ("""\S{4,""" + passMaxLen.str + "}$").r
+
+  def uNameRegex: Regex = UsernameInput.regexStd(uNameMaxLen)
+  
+  def passRegex: Regex = PasswordInput.regexStd
 
   /** Username HTML input. */
-  def uNameInput: InputUsername = InputUsername(idPrefix, "", uNameRegex, MaxLengthAtt(uNameMaxLen))
+  def uNameInput: UsernameInput = UsernameInput(idPrefix, "", uNameRegex)
   
   /** Username HTML label and input. */
   def uNameLI: LabelInput = LabelInput("User Name", uNameInput)
 
   /** Password HTML input. */
-  def passwordInput: InputPassword = InputPassword(idPrefix, "", passRegex,  MaxLengthAtt(passMaxLen))
+  def passwordInput: PasswordInput = PasswordInput(idPrefix, "", passRegex)
   
   /** Password HTML label and input. */
   def passwordLI: LabelInput = LabelInput("Password", passwordInput)
@@ -58,13 +56,7 @@ trait RegLogForm extends FormHtml
 }
 
 object RegLogForm
-{
-  /** The maximum number of characters for the username. */
-  def uNameMaxLen: Int = 15
-  
-  def uNameRegex(maxLen: Int = uNameMaxLen): Regex = ("[A-Za-z]{4," + maxLen.str + "}[0-9]{0,7}$").r
-  
-  def uNameRegexStr(maxLen: Int = uNameMaxLen): String = uNameRegex(maxLen).toString
+{ 
 }
 
 /** HTML Register Form element. */
