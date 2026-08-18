@@ -37,7 +37,7 @@ trait RegLogForm extends FormHtml
   /** The maximum number of characters for the username. */
   def passMaxLen: Int = 64
 
-  def uNameRegex: Regex = ("[A-Za-z]{4," + uNameMaxLen.str + "}[0-9]{0,11}$").r
+  def uNameRegex: Regex = RegLogForm.uNameRegex (uNameMaxLen)
   
   def passRegex: Regex = ("""\S{4,""" + passMaxLen.str + "}$").r
 
@@ -55,6 +55,16 @@ trait RegLogForm extends FormHtml
 
   /** Submit HTML input. */
   def submit = SubmitButton(idPrefix + "Submit")
+}
+
+object RegLogForm
+{
+  /** The maximum number of characters for the username. */
+  def uNameMaxLen: Int = 15
+  
+  def uNameRegex(maxLen: Int = uNameMaxLen): Regex = ("[A-Za-z]{4," + maxLen.str + "}[0-9]{0,11}$").r
+  
+  def uNameRegexStr(maxLen: Int = uNameMaxLen): String = uNameRegex(maxLen).toString
 }
 
 /** HTML Register Form element. */
