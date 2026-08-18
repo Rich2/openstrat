@@ -62,7 +62,7 @@ object RegLogForm
   /** The maximum number of characters for the username. */
   def uNameMaxLen: Int = 15
   
-  def uNameRegex(maxLen: Int = uNameMaxLen): Regex = ("[A-Za-z]{4," + maxLen.str + "}[0-9]{0,11}$").r
+  def uNameRegex(maxLen: Int = uNameMaxLen): Regex = ("[A-Za-z]{4," + maxLen.str + "}[0-9]{0,7}$").r
   
   def uNameRegexStr(maxLen: Int = uNameMaxLen): String = uNameRegex(maxLen).toString
 }

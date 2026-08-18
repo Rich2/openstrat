@@ -23,6 +23,7 @@ object CssDocumentation extends CssOpenstrat
     CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
     CssClassesRule("centreBlock", BlockDec, MarginLRAutoDec),
     CssRule("td th", PadRightDec(2.em), DecAlignLeft),
+    CssRule("h1, h2. h3, h4, h5, h6", MarginTBDec(0.67.em)),
     minMed
   )
 

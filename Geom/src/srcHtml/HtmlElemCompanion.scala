@@ -25,6 +25,12 @@ trait HtmlElemCompanion[T, CT >: String <: XCon]
   /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
   def colour(colour: Colour, contents: CT*): T = apply(fRepeat(contents), RArr(StyleAtt(ColourDec(colour))))
 
+  /** Factory method for creating HTML span element with a Style attribute with a Red colour declaration. */
+  def red(contents: CT*): T = apply(fRepeat(contents), RArr(StyleAtt(ColourDec(Colour.Red))))
+
+  /** Factory method for creating HTML span element with a Style attribute with a Pink colour declaration. */
+  def pink(contents: CT*): T = apply(fRepeat(contents), RArr(StyleAtt(ColourDec(Colour.Pink))))
+
   /** Creates an HTML element of the given type and registers the textContent with an [[UpdaterSelect]]. */
   def listenOptText(input1: UpdaterSelect, otherAttribs: RArr[XAtt] = RArr())(f: OptionHtml => String): T =
   { val newId: IdAtt = input1.nextOptText(f)
