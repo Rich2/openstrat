@@ -166,6 +166,9 @@ object Statement
      * Expr[Array[Int]]. */
     def findIntArray: ExcMon[Array[Int]] = ??? // Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
+    /** Find Setting of the given name and type [[String]] from this Arr[Statement] Extension method. */
+    def findSettingStr(settingStr: String): ExcMon[String] = Unshow.stringEv.settingFromStatements(statements, settingStr)
+    
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
     def findSettingInt(settingStr: String): ExcMon[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
 

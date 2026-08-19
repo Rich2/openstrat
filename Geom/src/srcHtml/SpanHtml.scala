@@ -35,6 +35,11 @@ object SpanInlineInedit extends HtmlIneditCompanion[SpanInlineInedit]
   case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInlineInedit
 }
 
+case class PinkSpan(str: String) extends SpanInlineInedit
+{ override def attribs: RArr[HAtt] = RArr(StyleAtt(ColourDec(Colour.Pink)))
+  override def contents: RArr[XCon] = RArr(str)
+}
+
 /** HTML span element on its own line, with display set to block. */
 trait SpanLine extends SpanHtml, HtmlOwnLineBlocked
 { def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen) = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))

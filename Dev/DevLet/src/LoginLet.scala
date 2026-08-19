@@ -1,6 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}, plet.*
+import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}, plet.*
 
 /** First openstrat Servlet for Tomcat and Jetty. */
 @WebServlet(urlPatterns = Array("/")) class LoginLet extends HttpServlet
@@ -34,6 +34,12 @@ import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, H
 
   override def doPost(req: HSReq, resp: HSResp): Unit =
   { given reqEv: HSReq = req
+    val catb = System.getProperty("catalina.base")
+    val eSetts = loadTextFile(catb / "Notes" / "ostrat.rson") 
+    val uName: ErrBi[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
+    val pWord: ErrBi[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgPassword"))
+    utiljvm.writeFile(catb / "Notes/tom.txt", uName.toString -- pWord.toString) 
+    
     val contents: RArr[XCon] = req.optParam("logSubmit") match
     {  case Some(_) => RArr(
         DivHtml("Result from Login"),

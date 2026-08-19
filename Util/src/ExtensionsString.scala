@@ -101,8 +101,11 @@ implicit class STringExtsOstrat(thisString: String)
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
 
-  /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findIntSetting(settingStr: String) = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))
+  /** Find setting of type [[String]] from this [[String]] extension method, parsing this String as RSON Statements. */
+  def findStrSetting(settingStr: String): ErrBi[Exception, String] = thisString.parseStatements.flatMap(_.findSettingStr(settingStr))
+
+  /** Find setting of type [[Int]] from this [[String]] extension method, parsing this String as RSON Statements. */
+  def findIntSetting(settingStr: String): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))  
 
   /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as RSON
    * Statements. */

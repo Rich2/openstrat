@@ -30,33 +30,39 @@ object PostgresPage extends DevPageBase
   val s1: LiHtml = LiHtml("Install and main user.".h3,
     DivHtml.listenOptHtml(opSysInput){
       case UbuntuDeriv => RArr(BashLine("sudo apt install postgresql postgresql-contrib"))
-      case ArchDeriv => RArr(BashLine("sudo pacman -S postgresql"))
+      case ArchDeriv => RArr(
+        BashLine("sudo pacman -S postgresql"),
+        BashLine("sudo initdb --locale en_GB.UTF-8 -D /var/lib/postgres/data"),
+        BashLine("sudo systemctl start postgresql"),
+        BashLine("sudo systemctl enable postgresql")
+      )
       case _ => RArr("No code available for installation on this operating system")
     },
-    "Change the postgres user password.",
+    "Change the postgres system user password. Note this is different to the Postgresql application internal user password.",
     BashLine("sudo passwd postgres"),
+    "If you want to use the postgres user from applications set the postgres user's internal password",
+    PsqlLine(postgresPsqlPrompt, "ALTER USER postgres WITH PASSWORD", PinkSpan("""'password'"""), ";"),
     "Depending on your use case you may wish to manipulate Postgresql with a different user.",
     BashLine("su postgres"),
     BashLine("psql"),
     PsqlLine.listenStrHtml(uNameInp){ uName => RArr(postgresPsqlPrompt, s"CREATE USER $uName WITH SUPERUSER;") },
     "You may want to create a database with this user's name",
-    PsqlLine.listenStrHtml(uNameInp){ uName => RArr(postgresPsqlPrompt, s"CREATE DATABASE $uName OWNER $uName;") },
+    PsqlLine.listenStrHtml(uNameInp){ uName => RArr(postgresPsqlPrompt, s"CREATE DATABASE $uName OWNER $uName;") },    
     "To quit psql",
     PsqlLine(postgresPsqlPrompt, """\q"""),
     "Switch back to your main user.",
     BashLine.listenStrText(uNameInp)(uName => s"su $uName"),
-    DivHtml("If Postgresql is not enabled then you may need to start it on startup."),
-    BashLine("sudo systemctl status postgresql"),
-    BashLine("sudo systemctl start postgresql"),
     DivHtml.listenStrText(uNameInp){ uName => s"Enter psql again as user $uName" },
     BashLine("psql"),
-    DivHtml("At some point you may get;"),
+    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(uNameInp){ uName => s"ALTER USER $uName WITH PASSWORD" }, PinkSpan("""'password'"""), ";"),
+    
+  )
+
+  val s2: LiHtml = LiHtml(    
+    DivHtml("Before continuing, here are some commands to correct and undo things if necessary. At some point you may get:"),
     PsqlLine.listenStrText(uNameInp){ uName => """database "$uName" has a collation version mismatch""" },
     DivHtml("then enter"),
     PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(uNameInp){ uName => s"ALTER DATABASE $uName REFRESH COLLATION VERSION;" }),
-  )
-
-  val s2: LiHtml = LiHtml("Before continuing, here are some commands to undo things if necessary.",
     DivHtml("To delete table"),
     PsqlLine(userPsqlPrompt, "DROP TABLE", SpanInlineInedit.pink("tableName"), ";"),
     "To delete all rows",
