@@ -275,9 +275,10 @@ object TomcatPage extends DevPageBase
     |into Base/lib rather than Hello/WEB-INF/lib, so it can be used by all web apps.""".stripMargin
   )
 
-  val s15: LiHtml = LiHtml("Creating a servlet that uses the Util and Geom modules.",
+  val s15: LiHtml = LiHtml("Creating a servlet that uses other modules.",
     BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/GeomUser/WEB-INF/classes/ostrat/pDev"),
-    "Copy the GeomUser.class file into above folder.",
-    "Add the Util and Geom jars to Base/lib."
+    "For the GeomUser servlet, copy the GeomUser.class file into above folder.",
+    DivHtml("Add the Util and Geom jars to Base/lib."),
+    DivHtml("For Postgresql add the jar at", AHtml("https://mvnrepository.com/artifact/org.postgresql/postgresql/42.7.13"), "to Base/Lib.")
   )
 }
