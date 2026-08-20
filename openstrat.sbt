@@ -218,6 +218,7 @@ lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
 
 lazy val DevLet = projSub("Dev", "DevLet").dependsOn(Dev, GeomLet).settings(
   libraryDependencies += ("jakarta.servlet" % "jakarta.servlet-api" % "6.1.0" % "provided").withSources().withJavadoc(),
+  libraryDependencies += ("org.postgresql" % "postgresql" % "42.7.13").withSources().withJavadoc(),
   Compile/mainClass := Some("ostrat.pDev.StagingServlet"),
 )
 
