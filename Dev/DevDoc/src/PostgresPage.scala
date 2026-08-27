@@ -96,5 +96,7 @@ object PostgresPage extends DevPageBase
       """, 'Admin');"""),
     PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
       ");"),
+    "To update status",
+    PsqlLine(userPsqlPrompt, """UPDATE users SET status = 'Admin'""", "WHERE username =", """'username';""".pinkSpan)
   )
 }

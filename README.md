@@ -40,7 +40,7 @@
 <br>Scala.Js: 1.22.0.
 <br>Scala Native set to 0.5.12.
 <br>Sbt: 2.0.6.
-<br>Mill set to 1.1.7, with Mill's JDK set to 25.
+<br>Mill set to 1.1.8, with Mill's JDK set to 25.
 <br>JavaFx 25.0.3</p>
 </body>
 </html>

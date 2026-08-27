@@ -71,6 +71,11 @@ package object pweb
     /** Extension method for [[Double]] for CSS vh units. Relative to 1% of the width or height of the viewport, whichever is higher. */
     def vmax: VmaxCss = VmaxCss(thisDouble)
   }
+  
+  implicit class StringWebExtensions(thisStr: String)
+  { /** Extension method to creat HTML Span element with pink font colour." */
+    def pinkSpan: SpanInlineInedit = SpanInlineInedit.pink(thisStr)
+  }
 
   extension (thisArr: Arr[String])
   { def toDivLines: RArr[DivHtml] = thisArr.map{

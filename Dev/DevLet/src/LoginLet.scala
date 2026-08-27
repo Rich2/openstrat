@@ -57,7 +57,6 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
 
   override def doPost(req: HSReq, resp: HSResp): Unit =
   { given reqEv: HSReq = req
-
     
     val contents: RArr[XCon] = req.optParam("logSubmit") match
     {  case Some(_) => RArr(
