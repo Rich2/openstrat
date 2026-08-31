@@ -35,7 +35,7 @@
 
 <h3>Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.8.4.
+<p>Scala currently set to 3.9.0.
 <br>Jdk 23+, 25 preferred.
 <br>Scala.Js: 1.22.0.
 <br>Scala Native set to 0.5.12.

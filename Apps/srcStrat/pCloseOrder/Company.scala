@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCloseOrder
-import geom._, Colour._
+package ostrat; package pCloseOrder
+import geom.*, Colour.*
 
 trait Company
 { var posn: Pt2
@@ -28,5 +27,5 @@ trait BScen
 }
 
 object Nap1 extends BScen
-{ val lunits = RArr(French(Pt2(0, - 200)), British(Pt2(0, 200)))
+{ val lunits = RArr(French(Pt2(0, -200)), British(Pt2(0, 200)))
 }

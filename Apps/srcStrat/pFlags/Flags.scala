@@ -68,7 +68,7 @@ object Chad extends Flag
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  def apply(): GraphicElems = RArr(Rect(1.5).fill(Red), Rect.tl(0.75, 0.5, - 0.75, 0.5).fill(DarkBlue))
+  def apply(): GraphicElems = RArr(Rect(1.5).fill(Red), Rect.tl(0.75, 0.5, -0.75, 0.5).fill(DarkBlue))
 }
 
 object Japan extends Flag

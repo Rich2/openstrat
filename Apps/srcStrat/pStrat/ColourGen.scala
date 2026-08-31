@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pStrat
 import geom.*, pgui.*
 
@@ -22,7 +22,7 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
   }
    
   val cols2 = cols.iFlatMap{ (i, pair) =>
-    val offset = - 35 * i
+    val offset = -35 * i
     RArr(pair._1.slateY(offset), pair._2.slateY(offset))
   }
   repaint(cols2)

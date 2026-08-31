@@ -8,7 +8,7 @@ object DevPage extends DevPageBase
   override val fileStemStr: String = "dev"
 
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
-  val scVer: String = "3.8.4"
+  val scVer: String = "3.9.0"
 
   def central: DivHtml = DivHtml(cenContents, RArr(ClassAtt("central")))
   def cenContents = RArr(list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, credits)

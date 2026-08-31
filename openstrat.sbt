@@ -2,8 +2,8 @@
 
 val versionStr = "0.4.0snap"
 version := versionStr
-val scalaMajor: String = "3.8"
-val scalaMinor: String = "4"
+val scalaMajor: String = "3.9"
+val scalaMinor: String = "0"
 val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 organization := "com.richstrat"
 autoAPIMappings := true

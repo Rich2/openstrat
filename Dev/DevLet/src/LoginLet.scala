@@ -23,14 +23,12 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
     res
   }
 
-  val connStr = "jdbc:postgresql://localhost:5432/"
-
   var oConn: ErrBi[Throwable, Connection] = FailExc("Untried.")
 
   def tryConn: ErrBi[Throwable, Connection] = oConn match{
     case Succ(_) => oConn
     case fail => {
-      val res = ErrBi.map2(eName, ePass){ (uName, pWord) => DriverManager.getConnection(connStr, uName, pWord) }
+      val res = ErrBi.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
       oConn = res
       res
     }
