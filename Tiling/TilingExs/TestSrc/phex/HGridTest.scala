@@ -22,9 +22,9 @@ object HGridTest extends TestSuite
     test("test HGrid Irr")
     { ig1.str ==> ig1Str
       assert(eg1.isSucc)
-      eg1.map(_.bottomCenR) ==> Succ(2)
-      eg1.map(_.rowRightCenC(6)) ==> Succ(10)
-      eg1 ==> Succ(ig1)
+      eg1.map(_.bottomCenR) ==> Right(2)
+      eg1.map(_.rowRightCenC(6)) ==> Right(10)
+      eg1 ==> Right(ig1)
     }
   }
 }

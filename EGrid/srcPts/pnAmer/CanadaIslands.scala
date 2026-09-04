@@ -141,7 +141,7 @@ object BaffinIsland extends EarthPoly("Baffin Island", 69.55 ll -72.64, tundra)
   val bylotNE: LatLong = 73.67 ll -78.13
   val p14: LatLong = 72.071 ll -74.249
   val p20: LatLong = 70.54 ll -68.31
-  val p22: LatLong = 69.253 ll - 66.677
+  val p22: LatLong = 69.253 ll -66.677
   val p24: LatLong = 68.714 ll -67.689
   val p26 = 68.042 ll -64.938
 

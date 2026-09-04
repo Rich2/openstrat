@@ -22,6 +22,6 @@ object PeriLaunch extends GuiLaunchMore
       case _ => PeriScen.init(PeriScen2)
     }
 
-    (PeriGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " Periculo Fundatusa " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (PeriGui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " Periculo Fundatusa " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

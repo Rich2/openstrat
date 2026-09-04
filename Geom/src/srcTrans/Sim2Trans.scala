@@ -27,7 +27,7 @@ object Sim2Trans
   }
 
   /** Implicit Similar 2-dimensional transformations type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]],
-   * [[Either]], [[ErrBi]], */
+   * [[Either]], [[Either]], */
   given functorEv[A, F[_]](using evF: Functor[F], evA: Sim2Trans[A]): Sim2Trans[F[A]] = new Sim2Trans[F[A]]
   { override def slate(obj: F[A], operand: VecPt2): F[A] = evF.mapT(obj, ts => evA.slate(ts, operand))
     override def rotateT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, ts => evA.rotateT(ts, angle))

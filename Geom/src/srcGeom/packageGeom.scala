@@ -90,13 +90,13 @@ package object geom
     def findPt2 = stss(thisString).flatMap(_.findType[Pt2])
 
     /** Find unique [[Pt2]] expression from this String, or return default [[Pt2]] value, parsing it as a Sequence of RSON statements. */
-    def findPt2Else(elseValue: => Pt2) = findPt2.getElse(elseValue)
+    def findPt2Else(elseValue: => Pt2) = findPt2.getOrElse(elseValue)
 
     /** Find unique [[Pt2]] setting of the given name from this String, parsing it as an Sequence of RSON statements. */
     def findSettingPt2(setting: String) = stss(thisString).flatMap(_.findSetting[Pt2](setting))
 
     /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
-    def findSettingPt2Else(setting: String, elseValue: Pt2): Pt2 = findSettingPt2(setting).getElse(elseValue)
+    def findSettingPt2Else(setting: String, elseValue: Pt2): Pt2 = findSettingPt2(setting).getOrElse(elseValue)
 
     def graphic(fontSize: Int = 24, posn: Pt2 = Origin2, colour: Colour = Black, align: TextAlign = CenAlign,
                 baseLine: BaseLine = BaseLine.Alphabetic): TextFixed = TextFixed(thisString, fontSize, posn, colour, align, baseLine)

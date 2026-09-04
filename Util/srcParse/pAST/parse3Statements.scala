@@ -4,14 +4,14 @@ import collection.mutable.ArrayBuffer
 
 /** Function object for parsing [[BlockMem]]s to an [[Expr]]. */
 object parse3Statements
-{ /** Tries to parse a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Succ]] natural integer expression. but "4;" will
-   * return a [[Fail]] [[Statement]] sequence of one [[Statement]]. */
-  def apply(implicit inp: RArr[BlockMem]): ErrBi[ExcAst, Expr] =
+{ /** Tries to parse a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Right]] natural integer expression. but "4;" will
+   * return a [[Left]] [[Statement]] sequence of one [[Statement]]. */
+  def apply(implicit inp: RArr[BlockMem]): Either[ExcAst, Expr] =
   { val acc: ArrayBuffer[Statement] = Buffer()
     var subAcc: ArrayBuffer[StatementMem] = Buffer()
 
-    def loop(rem: ArrOff[BlockMem]): ErrBi[ExcAst, Expr] = rem match
-    { case ArrOff0() if subAcc.isEmpty => Succ(StringStatements(acc.toArr))
+    def loop(rem: ArrOff[BlockMem]): Either[ExcAst, Expr] = rem match
+    { case ArrOff0() if subAcc.isEmpty => Right(StringStatements(acc.toArr))
       case ArrOff0() if acc.isEmpty => parse5AssignExpr(using subAcc.toArr)
       case ArrOff0() => parse4Statement(subAcc.toArr, None).map(acc :+ _).map(g => StringStatements(g.toArr))
       case ArrOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(StatementEmpty(st)); loop(tail) }

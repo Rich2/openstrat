@@ -33,6 +33,14 @@ trait VersionMinor extends VersionMinorPlus
 { override def str: String = s"$major.$minor" + endStr
 }
 
+/** Software version code with a major, minor and patch number. Final class Can be XML element or attribute. */
+trait VersionPatch extends VersionMinorPlus
+{ /** patch version number */
+  def n3: Int
+  
+  override def str: String = s"$major.$minor.$n3" + endStr
+}
+
 /** Software version code XML element. */
 trait SwVersionElem extends XmlInEdit, SwVersion
 { override def tagName: String = "version"
@@ -54,7 +62,8 @@ object VersionMinorElem
 }
 
 /** Software version XML element with a patchc number.. */
-class VersionPatchElem(val major: Int, val minor: Int, val n3: Int, val oPreStr: Option[String], val oPreNum: Option[Int]) extends VersionMinorPlusElem
+class VersionPatchElem(val major: Int, val minor: Int, val n3: Int, val oPreStr: Option[String], val oPreNum: Option[Int]) extends VersionMinorPlusElem,
+  VersionPatch
 { override def str: String = s"$major.$minor.$n3" + endStr
 }
 
@@ -74,3 +83,6 @@ trait VersionAtt extends XAttShort, SwVersion
 
 /** Software version code attribute, with a minor point number but no patch number. */
 case class VersionMinorAtt(major: Int, minor: Int, oPreStr: Option[String] = None, oPreNum: Option[Int] = None) extends VersionAtt, VersionMinor
+
+/** Software version code attribute, with a major, minor and patch number. */
+case class VersionPatchAtt(major: Int, minor: Int, val n3: Int, oPreStr: Option[String] = None, oPreNum: Option[Int] = None) extends VersionAtt, VersionPatch

@@ -28,7 +28,7 @@ object Rotate3
     override def rotateZ180T(obj: AA): AA = obj.map(ev.rotateZ180T(_))
   }
 
-  /** Implicit [[Rotate3]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
+  /** Implicit [[Rotate3]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[Either]], */
   given functorEv[A, F[_]](using evF: Functor[F], evA: Rotate3[A]): Rotate3[F[A]] = new Rotate3[F[A]]
   { override def rotateXT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateXT(_, angle))
     override def rotateYT(obj: F[A], angle: AngleVec): F[A] = evF.mapT(obj, evA.rotateYT(_, angle))

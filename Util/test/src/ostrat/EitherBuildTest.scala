@@ -2,20 +2,20 @@
 package ostrat
 import utest._
 
-object ErrBiBuildTest  extends TestSuite
+object EitherBuildTest  extends TestSuite
 {
   val tests = Tests {
-    val a1: ExcMon[Int] = Succ(5)
+    val a1: ExcMon[Int] = Right(5)
     val a2 = a1.map(_ * 11)
     val a3 = a2.map("Succ " + _.toString)
     val b = NoInt
-    val s1: ExcMon[String] = Succ("Hello")
+    val s1: ExcMon[String] = Right("Hello")
 
     test("Test1")
-    { a2 ==> Succ(55)
-      a3 ==> Succ("Succ 55")
+    { a2 ==> Right(55)
+      a3 ==> Right("Succ 55")
       b.map(_ * 2) ==> NoInt
-      s1.map(_.length) ==> Succ(5)
+      s1.map(_.length) ==> Right(5)
     }
   }
 

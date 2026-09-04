@@ -10,9 +10,9 @@ object EPersistTest  extends TestSuite
 
     test("Test E1")
     {  r1.str ==> rs1
-      "Land(Plain; Oceanic; MixedUse)".asType[Land] ==> Succ(Land(Plain, Oceanic))
-      "Land(Plain; Oceanic)".asType[Land] ==> Succ(Land(Plain, Oceanic))
-      "Land(Plain; Oceanic)".asType[Land] ==> Succ(Land(Plain, Oceanic))
+      "Land(Plain; Oceanic; MixedUse)".asType[Land] ==> Right(Land(Plain, Oceanic))
+      "Land(Plain; Oceanic)".asType[Land] ==> Right(Land(Plain, Oceanic))
+      "Land(Plain; Oceanic)".asType[Land] ==> Right(Land(Plain, Oceanic))
     }
   }
 }

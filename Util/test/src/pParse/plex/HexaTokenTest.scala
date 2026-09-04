@@ -32,7 +32,7 @@ object HexaTokenTest extends TestSuite
       Ht1.asHexaInt ==> rr1
       assertMatch(r2){ case SuccArr1(Ht2) => }
       Ht2.getIntStd ==> rr2
-      assertMatch(r3) { case Fail(_) => }
+      assertMatch(r3) { case Left(_) => }
     }
 
     val ht1 = Nat0xToken(Sp1, "A")
@@ -48,14 +48,14 @@ object HexaTokenTest extends TestSuite
     }
 
     test("Raw Test")
-    { "10".asHexaInt ==> Succ(16)
-      "1A".asHexaNat ==> Succ(26)
-      "-5A".asHexaInt ==> Succ(-90)
-      "-5A".asHexaNat.isFail ==> true
-      "C0".asHexaInt ==> Succ(192)
-      "C0".asHexaNat ==> Succ(192)
-      "-C0".asHexaInt ==> Succ(-192)
-      "-C0".asHexaNat.isFail ==> true
+    { "10".asHexaInt ==> Right(16)
+      "1A".asHexaNat ==> Right(26)
+      "-5A".asHexaInt ==> Right(-90)
+      "-5A".asHexaNat.isLeft ==> true
+      "C0".asHexaInt ==> Right(192)
+      "C0".asHexaNat ==> Right(192)
+      "-C0".asHexaInt ==> Right(-192)
+      "-C0".asHexaNat.isLeft ==> true
     }
   }
 }

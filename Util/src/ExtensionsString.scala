@@ -14,37 +14,37 @@ implicit class STringExtsOstrat(thisString: String)
   def parseStatements: ExcMonRArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
-  def parseExpr: ErrBi[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
+  def parseExpr: Either[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A](implicit ev: Unshow[A]): ErrBi[Exception, A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }
+  def findType[A](implicit ev: Unshow[A]): Either[Exception, A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
-  def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
+  def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getOrElse(elseValue)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
   def typeAtStsIndex[A: Unshow](index: Int) = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def dblAtStsIndex(index: Int): ErrBi[Exception, Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
+  def dblAtStsIndex(index: Int): Either[Exception, Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsIndex(index: Int): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
+  def intAtStsIndex(index: Int): Either[Exception, Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
+  def natAtStsIndex(index: Int): Either[Exception, Int] = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a positive, non-negative [[Double]] value from the Statement given by the index. */
-  def posDblAtStsIndex(index: Int): ErrBi[Exception, Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
+  def posDblAtStsIndex(index: Int): Either[Exception, Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
-  def boolAtStsIndex(index: Int): ErrBi[Exception, Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
+  def boolAtStsIndex(index: Int): Either[Exception, Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
-  def longAtStsIndex(index: Int): ErrBi[Exception, Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
+  def longAtStsIndex(index: Int): Either[Exception, Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
 
   /** Find type from this [[String]] parsed as a sequence of RSON statements and if succssful run the sdie effecting proceedure on the value.  */
-  def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forSucc(f)
+  def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].foreach(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
   def asType[A](using evA: Unshow[A]) = parseExpr.flatMap(evA.fromExpr(_))
@@ -53,37 +53,37 @@ implicit class STringExtsOstrat(thisString: String)
   def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asDbl: ErrBi[Exception, Double] = asType[Double]
+  def asDbl: Either[Exception, Double] = asType[Double]
 
   /** Tries to parse this String as a [[Double]] expression. */
   def asPosDbl = asType[Double](using Unshow.posDoubleEv)
 
   /** Tries to parse this String as an [[Int]] expression. */
-  def asInt: ErrBi[Exception, Int] = asType[Int]
+  def asInt: Either[Exception, Int] = asType[Int]
 
   /** Tries to parse this String as an [[Int]] expression, if fails returns the elseValue with a default of 0. */
-  def asIntElse(elseValue: Int = 0): Int = asType[Int].getElse(elseValue)
+  def asIntElse(elseValue: Int = 0): Int = asType[Int].getOrElse(elseValue)
 
   /** Tries to parse this String as a natural non-negative [[Int]] expression. */
-  def asNat: ErrBi[Exception, Int] = asType[Int](using Unshow.natEv)
+  def asNat: Either[Exception, Int] = asType[Int](using Unshow.natEv)
 
   /** Tries to parse this String as an [[Int]] in hexadecimal format expression. */
-  def asHexaInt: ErrBi[Exception, Int] = asType(using Unshow.hexaIntEv)
+  def asHexaInt: Either[Exception, Int] = asType(using Unshow.hexaIntEv)
 
   /** Tries to parse this String as a natural non-negative [[Int]] in hexadecimal format expression. */
-  def asHexaNat: ErrBi[Exception, Int] = asType(using Unshow.hexaNatEv)
+  def asHexaNat: Either[Exception, Int] = asType(using Unshow.hexaNatEv)
 
   /** Tries to parse this String as an [[Int]] in base32 format expression. */
-  def asBase32Int: ErrBi[Exception, Int] = asType(using Unshow.base32IntEv)
+  def asBase32Int: Either[Exception, Int] = asType(using Unshow.base32IntEv)
 
   /** Tries to parse this String as a natural non-negative [[Int]] in base32 format expression. */
-  def asBase32Nat: ErrBi[Exception, Int] = asType(using Unshow.base32NatEv)
+  def asBase32Nat: Either[Exception, Int] = asType(using Unshow.base32NatEv)
 
   /** Tries to parse this String as a [[Boolean]] expression. */
-  def asBool: ErrBi[Exception, Boolean] = asType[Boolean]
+  def asBool: Either[Exception, Boolean] = asType[Boolean]
 
   /** Tries to parse this String as a [[Long]] expression. */
-  def asLong: ErrBi[Exception, Long] = asType[Long]
+  def asLong: Either[Exception, Long] = asType[Long]
 
   def dropRightWhile(f: Char => Boolean): String =
   { val arr = thisString.toCharArray
@@ -93,23 +93,23 @@ implicit class STringExtsOstrat(thisString: String)
     thisString.dropRight(count)
   }
 
-  def findIntArray: ErrBi[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
+  def findIntArray: Either[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
   def findSetting[T: Unshow](settingStr: String): ExcMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
-  def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
+  def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getOrElse(elseValue)
 
   /** Find setting of type [[String]] from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findStrSetting(settingStr: String): ErrBi[Exception, String] = thisString.parseStatements.flatMap(_.findSettingStr(settingStr))
+  def findStrSetting(settingStr: String): Either[Exception, String] = thisString.parseStatements.flatMap(_.findSettingStr(settingStr))
 
   /** Find setting of type [[Int]] from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findIntSetting(settingStr: String): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))  
+  def findIntSetting(settingStr: String): Either[Exception, Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))  
 
   /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as RSON
    * Statements. */
-  def findIntSettingElse(settingStr: String, elseValue: Int): Int = findIntSetting(settingStr).getElse(elseValue)
+  def findIntSettingElse(settingStr: String, elseValue: Int): Int = findIntSetting(settingStr).getOrElse(elseValue)
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as RSON
    * Statements. */
@@ -117,7 +117,7 @@ implicit class STringExtsOstrat(thisString: String)
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
-  def findDblSettingElse(settingStr: String, elseValue: Double): Double = findDblSetting(settingStr).getElse(elseValue)
+  def findDblSettingElse(settingStr: String, elseValue: Double): Double = findDblSetting(settingStr).getOrElse(elseValue)
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as RSON
    * Statements. */
@@ -125,7 +125,7 @@ implicit class STringExtsOstrat(thisString: String)
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
-  def findBoolSettingElse(settingStr: String, elseValue: Boolean): Boolean = findBoolSetting(settingStr).getElse(elseValue)
+  def findBoolSettingElse(settingStr: String, elseValue: Boolean): Boolean = findBoolSetting(settingStr).getOrElse(elseValue)
 
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other
@@ -265,7 +265,7 @@ implicit class STringExtsOstrat(thisString: String)
   def findAlphaInt: Option[(String, Int)] =
   { val (p1, p2) = thisString.span(_.isLetter)
     p2.asInt match
-    { case Succ(i) if p1.length > 0 => Some(p1, i)
+    { case Right(i) if p1.length > 0 => Some(p1, i)
       case _ => None
     }
   }

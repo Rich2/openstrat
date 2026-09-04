@@ -19,6 +19,6 @@ object SorsLaunch extends GuiLaunchMore
       case _ => SorsScen1
     }
 
-    (SorsGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " Sors Imperiorum " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (SorsGui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " Sors Imperiorum " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

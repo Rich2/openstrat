@@ -19,9 +19,9 @@ package object pParse
 { /** type alias for Arr[Token] .*/
   type Tokens = RArr[Token]
 
-  /** Returns an [[ErrBi]] of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
+  /** Returns an [[Either]] of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
    * returned as errors. */
-  def srcToEStatements(input: Array[Char], inputSourceName: String): ErrBi[ExcParse, RArr[Statement]] =
+  def srcToEStatements(input: Array[Char], inputSourceName: String): Either[ExcParse, RArr[Statement]] =
     plex.lexSrc(input, inputSourceName).flatMap(tokensToStatements(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
@@ -46,5 +46,5 @@ package object pParse
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExpr(tokens: RArr[Token]): ErrBi[ExcParse, Expr] = pAST.parse1BlockStructure(using tokens).flatMap { g => pAST.parse3Statements(using g) }
+  def tokensToExpr(tokens: RArr[Token]): Either[ExcParse, Expr] = pAST.parse1BlockStructure(using tokens).flatMap { g => pAST.parse3Statements(using g) }
 }

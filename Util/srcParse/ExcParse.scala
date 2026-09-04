@@ -15,7 +15,7 @@ case class ExcAst(tp: TextPosn, detail: String) extends Exception(tp.fileName --
 
 object FailAst
 {
-  def apply(tp: TextPosn, detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(tp, detail))
+  def apply(tp: TextPosn, detail: String): Fail[ExcAst] = Fail[ExcAst](ExcAst(tp, detail))
 }
 
 /** A lexar exception. */
@@ -23,6 +23,6 @@ case class ExcLexar(tp: TextPosn, detail: String) extends Exception(tp.fileName 
 
 object FailLexar
 { /** Factory apply method to construct a lexar exception. */
-  def apply(tp: TextPosn, detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(tp, detail))
+  def apply(tp: TextPosn, detail: String): Fail[ExcLexar] = Fail[ExcLexar](ExcLexar(tp, detail))
 }
 

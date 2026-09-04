@@ -116,8 +116,8 @@ package object ostrat
   /** Not sure what this method does. */
   def readT[T](using ev: Unshow[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
-    def loop(inp: ErrBi[?, T]): T = inp match
-    { case Succ(t) => t
+    def loop(inp: Either[?, T]): T = inp match
+    { case Right(t) => t
       case a =>
       { println(a)
         loop(scala.io.StdIn.readLine ("That was not a single "+ ev.typeStr + ". Please enter " + artStr).asType[T])
@@ -150,8 +150,8 @@ package object ostrat
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
 
-  /** Catches non-fatal [[Exception]]s and returns them as a [[Fail]]. */
-  def eTry[A](res: => A): ThrowMon[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Fail(e) }
+  /** Catches non-fatal [[Exception]]s and returns them as a [[Left]]. */
+  def eTry[A](res: => A): ThrowMon[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Left(e) }
 
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).mkComma
 
@@ -447,15 +447,13 @@ package object ostrat
     res
   }
   
-  extension(thisObj: Option.type)
-  { def map2[A1, A2, B](op1: Option[A1], op2: Option[A2])(f: (A1, A2) => B): Option[B] = op1.flatMap(s1 => op2.map(s2 => f(s1, s2)))
-    
-    def map3[A1, A2, A3, B](op1: Option[A1], op2: Option[A2], op3: Option[A3])(f: (A1, A2, A3) => B): Option[B] =
-      for{ s1 <- op1; s2 <- op2; s3 <- op3 } yield f(s1, s2, s3)
+  def OptionMap2[A1, A2, B](op1: Option[A1], op2: Option[A2])(f: (A1, A2) => B): Option[B] = op1.flatMap(s1 => op2.map(s2 => f(s1, s2)))
 
-    def map4[A1, A2, A3, A4, B](op1: Option[A1], op2: Option[A2], op3: Option[A3], op4: Option[A4])(f: (A1, A2, A3, A4) => B): Option[B] =
-      for{ s1 <- op1; s2 <- op2; s3 <- op3; s4 <- op4 } yield f(s1, s2, s3, s4)  
-  }
+  def OptionMap3[A1, A2, A3, B](op1: Option[A1], op2: Option[A2], op3: Option[A3])(f: (A1, A2, A3) => B): Option[B] =
+    for {s1 <- op1; s2 <- op2; s3 <- op3} yield f(s1, s2, s3)
+
+  def OptionMap4[A1, A2, A3, A4, B](op1: Option[A1], op2: Option[A2], op3: Option[A3], op4: Option[A4])(f: (A1, A2, A3, A4) => B): Option[B] =
+      for {s1 <- op1; s2 <- op2; s3 <- op3; s4 <- op4} yield f(s1, s2, s3, s4)
 
   /** Extension class for String interpolation. */
   extension(sc: StringContext)

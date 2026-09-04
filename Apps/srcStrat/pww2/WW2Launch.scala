@@ -20,6 +20,6 @@ object WW2Launch extends GuiLaunchMore
       case _ => WW2Scen1
     }
     debvar(scen)
-    (WW2Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " WW2 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (WW2Gui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " WW2 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

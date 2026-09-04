@@ -18,7 +18,7 @@ object Mirror
   /** Implicit [[Mirror]] type class instances / evidence for [[Arr]]. */
   given arrEv[A, AA <: Arr[A]](using build: BuilderArrMap[A, AA], ev: Mirror[A]): Mirror[AA] = (obj, offset) => obj.map(ev.mirrorT(_, offset))
 
-  /** Implicit [[Mirror]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[ErrBi]], */
+  /** Implicit [[Mirror]] type class instances / evidence provided via [[Functor]] for [[List]], [[Vector]], [[Option]], [[Some]], [[Either]], [[Either]], */
   given functorEv[A, F[_]](using evF: Functor[F], evA: Mirror[A]): Mirror[F[A]] = (obj, lineLike) => evF.mapT(obj, evA.mirrorT(_, lineLike))
 
   /** Implicit [[Mirror]] type class instances / evidence for [[Array]]. */

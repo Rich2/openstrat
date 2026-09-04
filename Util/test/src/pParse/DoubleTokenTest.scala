@@ -12,32 +12,32 @@ object DoubleTokenTest extends TestSuite
 
   val xeqStr = "x = 0.4"
   val xSts = xeqStr.parseStatements
-  val xDbl: ErrBi[Exception, Double] = xeqStr.findDblSetting("x")
+  val xDbl: Either[Exception, Double] = xeqStr.findDblSetting("x")
   val s51 = "51.1"
 
   val tests = Tests {
     test("Test1")
-    { assertMatch("4.5".parseTokens){ case Succ(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
-      assertMatch("0.5".parseTokens){ case Succ(Arr1(DeciFracPosToken(Sp1, "0", "5", ""))) => }
-      "0.4".asDbl ==> Succ(0.4)
-      "543.012".asDbl ==> Succ(543.012)
-      "543.012".asPosDbl ==> Succ(543.012)
-      "-543.012".asDbl ==> Succ(-543.012)
-      "-543.012".asPosDbl.isFail ==> true
-        "-0.4".asDbl ==> Succ(-0.4)
-      "-4".asDbl ==> Succ(-4)
-      assertMatch(s51.parseTokens){ case Succ(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
+    { assertMatch("4.5".parseTokens){ case Right(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
+      assertMatch("0.5".parseTokens){ case Right(Arr1(DeciFracPosToken(Sp1, "0", "5", ""))) => }
+      "0.4".asDbl ==> Right(0.4)
+      "543.012".asDbl ==> Right(543.012)
+      "543.012".asPosDbl ==> Right(543.012)
+      "-543.012".asDbl ==> Right(-543.012)
+      "-543.012".asPosDbl.isLeft ==> true
+        "-0.4".asDbl ==> Right(-0.4)
+      "-4".asDbl ==> Right(-4)
+      assertMatch(s51.parseTokens){ case Right(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
       "51".unsafeDigitsToLong ==> 51l
-      s51.findType[Double] ==> Succ(51.1)
-      assertMatch(xeqStr.parseTokens){ case Succ(Arr3(IdentLowerOnlyToken(_, "x"), AsignToken(_), DeciFracPosToken(_, _, _, _))) => }
-      assertMatch("271.562".parseTokens){ case Succ(Arr1(DeciFracPosToken(sp1, "271", "562", ""))) => }
+      s51.findType[Double] ==> Right(51.1)
+      assertMatch(xeqStr.parseTokens){ case Right(Arr3(IdentLowerOnlyToken(_, "x"), AsignToken(_), DeciFracPosToken(_, _, _, _))) => }
+      assertMatch("271.562".parseTokens){ case Right(Arr1(DeciFracPosToken(sp1, "271", "562", ""))) => }
       //Note this not a legal AST but it doesn't matter for the purpose of lexical tests
-      assertMatch("4.5 4.5".parseTokens){ case Succ(Arr2(DeciFracPosToken(Sp1, "4", "5", ""), DeciFracPosToken(sp5, "4", "5", ""))) => }
+      assertMatch("4.5 4.5".parseTokens){ case Right(Arr2(DeciFracPosToken(Sp1, "4", "5", ""), DeciFracPosToken(sp5, "4", "5", ""))) => }
     }
 
     test("Test 2")
-    { assertMatch(xSts) { case Succ(Arr1(_)) => }
-      assertMatch(xDbl) { case Succ(0.4) => }
+    { assertMatch(xSts) { case Right(Arr1(_)) => }
+      assertMatch(xDbl) { case Right(0.4) => }
     }
   }
 }

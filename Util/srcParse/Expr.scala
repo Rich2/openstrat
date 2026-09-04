@@ -149,7 +149,7 @@ case class SpacedExpr(exprs: RArr[ColonMemExpr]) extends CompoundClauseMemExpr
 object IntExpr
 {
   def unapply(inp: Expr): Option[Int] = Unshow.intEv.fromExpr(inp) match
-  { case Succ(i) => Some(i)
+  { case Right(i) => Some(i)
     case _ => None
   }
 }

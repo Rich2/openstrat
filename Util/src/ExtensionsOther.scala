@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 class CharExtensions(thisChar: Char)
@@ -72,12 +72,12 @@ class OptionExtensions[A](thisOption: Option[A])
     res
   }
 
-  def toErrBi: ErrBi[Exception, A] = thisOption match
-  { case Some(a) => Succ(a)
-    case None => Fail(NoneExc)
+  def toErrBi: Either[Exception, A] = thisOption match
+  { case Some(a) => Right(a)
+    case None => Left(NoneExc)
   }
   
-  def flatMapErrBi[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[E | ExcNFT, B] = thisOption match
+  def flatMapErrBi[E <: Throwable, B](f: A => Either[E, B]): Either[E | ExcNFT, B] = thisOption match
   { case Some(a) => f(a)
     case None => FailNotFound
   }

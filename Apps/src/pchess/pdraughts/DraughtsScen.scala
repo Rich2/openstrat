@@ -7,9 +7,9 @@ trait DraughtsScen extends ChessLikeScen
   def turn: Int = segNum / 2
   def draughts: SqCenOptLayer[Draught]
   def resolve(move: SqCenArr): ExcMon[DraughtsScen] = move match
-  { case _ if move.empty => FailExc("Empty Command")
-    case _ if move.length == 1 => FailExc("No move given.")
-    case _ => FailExc("Default error.")
+  { case _ if move.empty => LeftExc("Empty Command")
+    case _ if move.length == 1 => LeftExc("No move given.")
+    case _ => LeftExc("Default error.")
   }
 }
 

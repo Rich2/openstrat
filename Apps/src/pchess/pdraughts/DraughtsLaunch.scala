@@ -10,7 +10,7 @@ object DraughtsLaunch extends GuiLaunchMore
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: ExcMon[Int] = sts.findSetting[Int]("scen")
-    val num: Int = oScen.getElse(1)
+    val num: Int = oScen.getOrElse(1)
     num match
     { //case 1 => (ChessGui(_, ChessStart), "JavaFx Chess")
       case 1 => (DraughtsGui(_, DraughtsStart), "JavaFx Draughts")

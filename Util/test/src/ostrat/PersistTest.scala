@@ -48,9 +48,9 @@ object PersistTest extends TestSuite
 
     val abArr = RArr(TestObjA, TestObjB)
     test("Persist Other")
-    { aaStr.findType[TestClass] ==> Succ(TestObjA)
-      abArr.str.findType[List[TestClass]] ==> Succ(List(TestObjA, TestObjB))
-      assert(abSeq.str.findType[RArr[TestClass]] === Succ(RArr(TestObjA, TestObjB)))
+    { aaStr.findType[TestClass] ==> Right(TestObjA)
+      abArr.str.findType[List[TestClass]] ==> Right(List(TestObjA, TestObjB))
+      assert(abSeq.str.findType[RArr[TestClass]] === Right(RArr(TestObjA, TestObjB)))
     }
   }
 }

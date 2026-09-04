@@ -53,9 +53,9 @@ object PersistBoth
     }
 
     override def fromExpr(expr: Expr): ExcMon[Double] = expr match
-    { case ValidFracToken(d) => Succ(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Succ(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Succ(-d)
+    { case ValidFracToken(d) => Right(d)
+      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Right(d)
+      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Right(-d)
       case _ => expr.exprParseErr[Double]
     }
   }

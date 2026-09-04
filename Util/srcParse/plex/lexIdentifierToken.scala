@@ -49,7 +49,7 @@ object lexIdentifierToken
       case CharsOffHead2('_', LetterOrDigitChar(_)) => underLoop(acc + '_', remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => underLoop(acc + c, tail, tp.right1)
-      case CharsOffHead(_) => Succ(remOff, tp, IdentUnderToken(tpStart, acc))
+      case CharsOffHead(_) => Right(remOff, tp, IdentUnderToken(tpStart, acc))
     }
 
     def lowerLoop(acc: String, remOff: CharsOff, tp: TextPosn): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] = remOff match
@@ -72,7 +72,7 @@ object lexIdentifierToken
     { case CharsOff0() => tpStart.failLexar("Can not return Token from empty Char Array.")
       case CharsOffHead2('_', '_') => tpStart.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOffHead2('_', LetterOrDigitChar(_)) => underLoop("_", remOff.drop1, tpStart.right1)
-      case CharsOff1Tail('_', tail)  => Succ(tail, tpStart.right1, UnderscoreToken(tpStart))
+      case CharsOff1Tail('_', tail)  => Right(tail, tpStart.right1, UnderscoreToken(tpStart))
 
       case CharsOff1Tail(HexaUpperChar(c1), tail) => upperHexaLoop(c1.toString, tail, tpStart.right1)
       case CharsOff1Tail(Base32UpperChar(c1), tail) => upperBase32Loop(c1.toString(), tail, tpStart.right1)

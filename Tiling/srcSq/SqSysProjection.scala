@@ -52,7 +52,7 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
   /** The visible outer hex sides. */
   override def outerSideLines: LSeg2Arr = LSeg2Arr()
 
-  override def transOptLineSeg(seg: LSegSC): Option[LSeg2] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)) { (p1, p2) => LSeg2(p1, p2) }
+  override def transOptLineSeg(seg: LSegSC): Option[LSeg2] = OptionMap2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)) { (p1, p2) => LSeg2(p1, p2) }
 
   override def setView(view: Any): Unit = view match {
     case hv: SGView => {

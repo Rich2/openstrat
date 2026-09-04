@@ -51,8 +51,8 @@ object DirsAbs
   { override def typeStr: String = "DirnPathAbs"
 
     override def fromExpr(expr: Expr): ExcMon[DirsAbs] =  expr match
-    { case SlashToken(_) => Succ(DirsAbs.fromArray(Array[String]()))
-      case PathToken(_, array) => Succ(DirsAbs.fromArray(array))
+    { case SlashToken(_) => Right(DirsAbs.fromArray(Array[String]()))
+      case PathToken(_, array) => Right(DirsAbs.fromArray(array))
       case expr => expr.failExc("Not an absolute path")
     }
   }

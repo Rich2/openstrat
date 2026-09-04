@@ -4,11 +4,11 @@ import pweb.*, wcode.*, webjvm.*, pDoc.*
 
 case class OsPomsWriter(version: VersionPatchElem, scalaVersion: VersionPatchElem = VersionPatchElem(3, 8, 2))
 {
-  def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): ErrBi[Exception, PomFileWritten] =
+  def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): Either[Exception, PomFileWritten] =
     writePom(dirPath.str / name + "-" + version.str, OsModuleJvm(name, version, scalaVersion, depStrs.toArr).out)
 
   def osModJvm(name: String, depStrs: String*) = OsModuleJvm(name, version, scalaVersion, depStrs.toArr)
 
-  def stagePom(dirPath: DirsAbs, pom: OsModulePom): ErrBi[Exception, PomFileWritten] =
+  def stagePom(dirPath: DirsAbs, pom: OsModulePom): Either[Exception, PomFileWritten] =
     writePom(dirPath.str / pom.artifactStr + "-" + version.str, pom.out) 
 }

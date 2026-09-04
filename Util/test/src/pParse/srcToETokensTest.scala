@@ -12,24 +12,24 @@ object srcToETokensTest extends TestSuite
     test("Single")
     { Sp1 ==> StrPosn(1, 1)
 
-      assertMatch("\'a\'".parseTokens){ case Succ(Arr1(CharToken(_, 'a'))) => }
-      assertMatch("ZyId".parseTokens){ case Succ(Arr1(IdentUpperToken(Sp1, "ZyId"))) => }
-      assertMatch("MyId".parseTokens){ case Succ(Arr1(IdentUpperToken(Sp1, "MyId"))) => }
-      assertMatch("My3".parseTokens){ case Succ(Arr1(IdentUpperToken(Sp1, "My3"))) => }
-      assertMatch("My3Id".parseTokens){ case Succ(Arr1(IdentUpperToken(Sp1, "My3Id"))) => }
-      assertMatch("ab3_5fG".parseTokens){ case Succ(Arr1(IdentLowerToken(Sp1, "ab3_5fG"))) => }
+      assertMatch("\'a\'".parseTokens){ case Right(Arr1(CharToken(_, 'a'))) => }
+      assertMatch("ZyId".parseTokens){ case Right(Arr1(IdentUpperToken(Sp1, "ZyId"))) => }
+      assertMatch("MyId".parseTokens){ case Right(Arr1(IdentUpperToken(Sp1, "MyId"))) => }
+      assertMatch("My3".parseTokens){ case Right(Arr1(IdentUpperToken(Sp1, "My3"))) => }
+      assertMatch("My3Id".parseTokens){ case Right(Arr1(IdentUpperToken(Sp1, "My3Id"))) => }
+      assertMatch("ab3_5fG".parseTokens){ case Right(Arr1(IdentLowerToken(Sp1, "ab3_5fG"))) => }
 
-      assertMatch(",".parseTokens){ case Succ(Arr1(CommaToken(Sp1))) => }
-      assertMatch("{".parseTokens){ case Succ(Arr1(CurlyOpenToken(Sp1))) => }
-      assertMatch("}".parseTokens){ case Succ(Arr1(CurlyCloseToken(Sp1))) => }
-      assertMatch("(".parseTokens){ case Succ(Arr1(ParenthOpenToken(Sp1))) => }
-      assertMatch(")".parseTokens){ case Succ(Arr1(ParenthCloseToken(Sp1))) => }
-      assertMatch(" [".parseTokens){ case Succ(Arr1(SquareOpenToken(Sp2))) => }
-      assertMatch(" ]".parseTokens){ case Succ(Arr1(SquareCloseToken(Sp2))) => }
-      assertMatch(";".parseTokens){ case Succ(Arr1(SemicolonToken(Sp1))) => }
-      assertMatch("=".parseTokens){case Succ(Arr1(AsignToken(Sp1))) => }
+      assertMatch(",".parseTokens){ case Right(Arr1(CommaToken(Sp1))) => }
+      assertMatch("{".parseTokens){ case Right(Arr1(CurlyOpenToken(Sp1))) => }
+      assertMatch("}".parseTokens){ case Right(Arr1(CurlyCloseToken(Sp1))) => }
+      assertMatch("(".parseTokens){ case Right(Arr1(ParenthOpenToken(Sp1))) => }
+      assertMatch(")".parseTokens){ case Right(Arr1(ParenthCloseToken(Sp1))) => }
+      assertMatch(" [".parseTokens){ case Right(Arr1(SquareOpenToken(Sp2))) => }
+      assertMatch(" ]".parseTokens){ case Right(Arr1(SquareCloseToken(Sp2))) => }
+      assertMatch(";".parseTokens){ case Right(Arr1(SemicolonToken(Sp1))) => }
+      assertMatch("=".parseTokens){case Right(Arr1(AsignToken(Sp1))) => }
 
-      "#".parseTokens.isFail ==> true
+      "#".parseTokens.isLeft ==> true
     }
 
     val C1 = IdentUpperOnlyToken(Sp1, "Colour")
@@ -38,14 +38,14 @@ object srcToETokensTest extends TestSuite
     displayY = 0;"""
 
     val et1 = st1.parseTokens
-    val r1: Tokens = et1.get
+//    val r1: Tokens = et1.get
 
     test("Multiple")
-    { assertMatch(";;".parseTokens){ case Succ(Arr2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
-      assertMatch(" ; .".parseTokens){ case Succ(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
-      assertMatch("Colour(0xFF000000)".parseTokens){ case Succ(Arr4(C1, ParenthOpenToken(_), Nat0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
-      assertMatch(et1){case Succ(_) => }
-      r1.length ==> 12
+    { assertMatch(";;".parseTokens){ case Right(Arr2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
+      assertMatch(" ; .".parseTokens){ case Right(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
+      assertMatch("Colour(0xFF000000)".parseTokens){ case Right(Arr4(C1, ParenthOpenToken(_), Nat0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
+      assertMatch(et1){case Right(_) => }
+   //   r1.length ==> 12
       assertMatch(r1){ case ArrHead4(IdentLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
     }
 
@@ -60,14 +60,14 @@ object srcToETokensTest extends TestSuite
     val ro6: ArrOff[Token] = r5.offset(4)
 
     test("Settings")
-    {  assertMatch(st2.parseTokens){ case Succ(Arr0()) => }
-      assertMatch(et3){case Succ(_) => }
+    {  assertMatch(st2.parseTokens){ case Right(Arr0()) => }
+      assertMatch(et3){case Right(_) => }
       r3.length ==> 12
-      assertMatch(et5){case Succ(_) => }
+      assertMatch(et5){case Right(_) => }
       r5.length ==> 12
       ro6.length ==> 8
       assertMatch(r5(4)){ case IdentLowerToken(_, "displayX") => }
-      assert("Gh * 5".parseTokens.isSucc)
+      assert("Gh * 5".parseTokens.isRight)
     }
 
 

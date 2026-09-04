@@ -18,12 +18,12 @@ object CommentTest extends TestSuite
     //val t = 11
 
     test("Test1")
-    { assertMatch(s1){ case Succ(Arr0()) => }
-      assertMatch(s2){ case Succ(Arr3(_, _, _)) => }
-      assertMatch(s3){ case Succ(Arr3(_, _, _)) => }
-      assertMatch(s4){ case Succ(Arr3(IdentLowerToken(_, "x"), AsignToken(_), NatBase10Token(_, _))) => }
-      assertMatch(a4){ case Succ(Arr1(_)) => }
-      assertMatch(a5){ case Succ(Arr4(_, _, _, _)) => }
+    { assertMatch(s1){ case Right(Arr0()) => }
+      assertMatch(s2){ case Right(Arr3(_, _, _)) => }
+      assertMatch(s3){ case Right(Arr3(_, _, _)) => }
+      assertMatch(s4){ case Right(Arr3(IdentLowerToken(_, "x"), AsignToken(_), NatBase10Token(_, _))) => }
+      assertMatch(a4){ case Right(Arr1(_)) => }
+      assertMatch(a5){ case Right(Arr4(_, _, _, _)) => }
     }
   }
 }

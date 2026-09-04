@@ -21,12 +21,12 @@ object G4HLaunch extends GuiLaunchMore
       case _ => G4HScen1
     }
 
-    val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
+    val oSetts: Either[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
     val sts2 = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("counters")
     val plAll = scen.teamSet
     val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
-    val pls3 = pls2.getElse(plAll)
+    val pls3 = pls2.getOrElse(plAll)
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
     val settings = G4HGuiSettings(view, pls3)
     val game = G4HGame(scen, pls3)

@@ -10,7 +10,7 @@ object ServRawOS extends ServRaw
 
   override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
   {
-    case Succ(hrg: HttpReq) if hrg.method == GetHttp =>
+    case Right(hrg: HttpReq) if hrg.method == GetHttp =>
     { val resp: HttpResp = hrg.uri match
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(gmtNowStr, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(gmtNowStr, "localhost")
@@ -19,7 +19,7 @@ object ServRawOS extends ServRaw
           val resPath = resDirStr / pathName
           deb(resPath)
           loadTextFile(resPath) match
-          { case Succ(str) =>
+          { case Right(str) =>
             { deb("Js found Length = " + str.length.toString)
               HttpFound(gmtNowStr, "localhost", HttpConTypeJs, str)
             }

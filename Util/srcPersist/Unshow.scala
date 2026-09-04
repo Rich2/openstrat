@@ -33,7 +33,7 @@ trait Unshow[+T] extends Persist
   ExcMon[T] = valuesFromStatements(sts) match
   {
     case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
-    case s if s.length == 1 => Succ(s.head)
+    case s if s.length == 1 => Right(s.head)
     case s3 => sts.startPosn.failParse(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
 
@@ -45,7 +45,7 @@ trait Unshow[+T] extends Persist
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
   def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): ExcMon[T] = st match
-  { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Succ(settingCode) => fromExpr(rightExpr)
+  { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Right(settingCode) => fromExpr(rightExpr)
     case _ => st.failExc(typeStr -- "not found.")
   }
 
@@ -53,7 +53,7 @@ trait Unshow[+T] extends Persist
   def settingFromStatements(sts: RArr[Statement], settingStr: String): ExcMon[T] = sts match
   { case Arr0() => TextPosn.failEmpty// emptyError("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
-    case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Succ(_) => g } match
+    case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match
     {
       case Arr1(t) => t
       case Arr0() => sts.failExc(settingStr -- typeStr -- "Setting not found.")
@@ -65,7 +65,7 @@ trait Unshow[+T] extends Persist
   def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(using evST: Unshow[KT]): ExcMon[T] = sts match
   { case Arr0() => TextPosn.failEmpty
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
-    case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Succ(_) => g } match
+    case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Right(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.failExc(settingCode.toString -- typeStr -- "Setting not found.")
       case s3 => sts.failExc(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
@@ -89,9 +89,9 @@ object Unshow extends UnshowPriority2
     override val useMultiple: Boolean = false
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
-    { case IntStdToken(i) => Succ(i)
-      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Succ(i)
-      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Succ(-i)
+    { case IntStdToken(i) => Right(i)
+      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Right(i)
+      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Right(-i)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -102,7 +102,7 @@ object Unshow extends UnshowPriority2
     override val useMultiple: Boolean = false
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
-    { case NatStdToken(i) => Succ(i)
+    { case NatStdToken(i) => Right(i)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -113,9 +113,9 @@ object Unshow extends UnshowPriority2
     override val useMultiple: Boolean = false
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
-    { case ValidRawHexaIntToken(i) => Succ(i)
-      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Succ(i)
-      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Succ(-i)
+    { case ValidRawHexaIntToken(i) => Right(i)
+      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Right(i)
+      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Right(-i)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -125,7 +125,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "HexaNat"
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
-    { case ValidRawHexaNatToken(i) => Succ(i)
+    { case ValidRawHexaNatToken(i) => Right(i)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -136,9 +136,9 @@ object Unshow extends UnshowPriority2
     override def typeStr: String = "Base32Int"
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
-    { case ValidRawBase32IntToken(i) => Succ(i)
-      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Succ(i)
-      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Succ(-i)
+    { case ValidRawBase32IntToken(i) => Right(i)
+      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Right(i)
+      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Right(-i)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -148,7 +148,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Base32Nat"    
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
-    { case ValidRawBase32NatToken(n) => Succ(n)
+    { case ValidRawBase32NatToken(n) => Right(n)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -157,7 +157,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Int"
 
     override def fromExpr(expr: Expr): ExcMon[Int] =
-      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Succ(i), expr.startPosn.fail(s"$i does not fullfll predicate.")))
+      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Right(i), expr.startPosn.fail(s"$i does not fullfll predicate.")))
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
@@ -168,9 +168,9 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "PosDFloat"
 
     override def fromExpr(expr: Expr): ExcMon[Double] = expr match
-    { case ValidPosFracToken(d) => Succ(d)
-      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Succ(d)
-      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Succ(-d)
+    { case ValidPosFracToken(d) => Right(d)
+      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Right(d)
+      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Right(-d)
       case _ => expr.exprParseErr[Double]
     }
   }
@@ -180,10 +180,10 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "SFloat"
 
     override def fromExpr(expr: Expr): ExcMon[Float] = expr match
-    { case NatBase10Token(_, i) => Succ(i.toFloat)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Succ(i.toFloat)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Succ(-(i.toFloat))
-      case intok: NegBase10Token => Succ(intok.getIntStd.toFloat)
+    { case NatBase10Token(_, i) => Right(i.toFloat)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Right(i.toFloat)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Right(-(i.toFloat))
+      case intok: NegBase10Token => Right(intok.getIntStd.toFloat)
       case _ => expr.exprParseErr[Float]
     }
   }
@@ -194,9 +194,9 @@ object Unshow extends UnshowPriority2
 
     override def fromExpr(expr: Expr): ExcMon[Long] = expr match
     {
-      case NatBase10Token(_, i) => Succ(i.toLong)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Succ(i.toLong)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Succ(-i.toLong)
+      case NatBase10Token(_, i) => Right(i.toLong)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Right(i.toLong)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Right(-i.toLong)
       case _ => expr.exprParseErr[Long]
     }
   }
@@ -206,8 +206,8 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Bool"
 
     override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
-    { case IdentLowerToken(_, str) if str == "true" => Succ(true)
-      case IdentLowerToken(_, str) if str == "false" => Succ(false)
+    { case IdentLowerToken(_, str) if str == "true" => Right(true)
+      case IdentLowerToken(_, str) if str == "false" => Right(false)
       case _ => expr.exprParseErr[Boolean]
     }
   }
@@ -217,7 +217,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Str"
 
     override def fromExpr(expr: Expr): ExcMon[String] = expr match
-    { case StringToken(_, stringStr) => Succ(stringStr)
+    { case StringToken(_, stringStr) => Right(stringStr)
       case _ => expr.exprParseErr[String]
     }
   }
@@ -227,7 +227,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Char"
 
     override def fromExpr(expr: Expr): ExcMon[Char] = expr match
-    { case CharToken(_, char) => Succ(char)
+    { case CharToken(_, char) => Right(char)
       case _ => expr.exprParseErr[Char]
     }
   }
@@ -251,7 +251,7 @@ trait UnshowPriority2 extends UnshowPriority3
   { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[Vector[A]] = expr match
-    { case _: EmptyExprToken => Succ(Vector[A]())
+    { case _: EmptyExprToken => Right(Vector[A]())
       case AlphaSquareParenth("Seq", ts, sts) => sts.mapErrBi(s => evA.fromExpr(s.expr)).map(_.toVector)
       case AlphaParenth("Seq", sts) => sts.mapErrBi(s => evA.fromExpr(s.expr)).map(_.toVector)
       case e => expr.failExc("Unknown Expression for Vector")
@@ -276,9 +276,9 @@ trait UnshowPriority3
   { override def typeStr: String = "None"
 
     override def fromExpr(expr: Expr): ExcMon[None.type] = expr match
-    { case IdentUpperToken(_, "None") => Succ(None)
-      case eet: EmptyExprToken => Succ(None)
-      case st: StringStatements if st.statements.length == 0 => Succ(None)
+    { case IdentUpperToken(_, "None") => Right(None)
+      case eet: EmptyExprToken => Right(None)
+      case st: StringStatements if st.statements.length == 0 => Right(None)
       case e => expr.exprParseErr
     }
   }

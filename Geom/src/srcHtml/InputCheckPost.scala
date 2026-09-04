@@ -9,7 +9,7 @@ trait InputCheckPost extends InputPost
   def regexStr = regex.toString()
 
   def patternAtt: PatternAtt = PatternAtt(regex)
-  def check(inp: String): ErrBi[Exception, String] = ife(regex.matches(inp), Succ(inp), FailExc(inp -- "does not match requirements."))
+  def check(inp: String): Either[Exception, String] = ife(regex.matches(inp), Right(inp), LeftExc(inp -- "does not match requirements."))
 
   override def attribs: RArr[HAtt] = RArr(IdAtt(idStr), NameAtt(nameAttStr), typeAtt, valueAtt, patternAtt) ++ otherAttribs
 }
@@ -24,7 +24,7 @@ class UsernameInput(val idPrefix: String, val valueStr: String, val regex: Regex
   override def nameAttStr: String = "username"
   override def idStr: String = idPrefix + nameAttStr
   override def attribs: RArr[HAtt] = RArr(IdAtt(idStr), NameAtt(nameAttStr), typeAtt, valueAtt, maxLenAtt, patternAtt, RequiredAtt) ++ otherAttribs
-  override def check(inp: String): ErrBi[Exception, String] = ife(regex.matches(inp), Succ(inp), FailExc(inp -- "does not match Username requirements."))
+  override def check(inp: String): Either[Exception, String] = ife(regex.matches(inp), Right(inp), LeftExc(inp -- "does not match Username requirements."))
 }
 
 object UsernameInput
@@ -60,7 +60,7 @@ class PasswordInput(val idPrefix: String, val valueStr: String, val regex: Regex
   override def nameAttStr: String = "password"
   override def idStr: String = idPrefix + nameAttStr
   override def attribs: RArr[HAtt] = RArr(IdAtt(idStr), NameAtt(nameAttStr), typeAtt, valueAtt, patternAtt, MaxLengthAtt(maxLen), RequiredAtt) ++ otherAttribs
-  override def check(inp: String): ErrBi[Exception, String] = ife(regex.matches(inp), Succ(inp), FailExc(inp -- "does not match password requirements."))
+  override def check(inp: String): Either[Exception, String] = ife(regex.matches(inp), Right(inp), LeftExc(inp -- "does not match password requirements."))
 }
 
 object PasswordInput

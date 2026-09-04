@@ -78,7 +78,7 @@ trait UnshowN[R] extends Unshow[R], PersistNFixed
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
   final def fromExprSeq(exprs: RArr[Expr]): ExcMon[R] =
-     if (exprs.length > numParams) FailExc(exprs.length.toString + s" parameters for $numParams parameter constructor.")
+     if (exprs.length > numParams) LeftExc(exprs.length.toString + s" parameters for $numParams parameter constructor.")
      else
      {
        def exprsLoop(i: Int, usedNames: StrArr): ExcMon[R] =

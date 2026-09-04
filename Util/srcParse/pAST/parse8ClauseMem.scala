@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Function object for parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
 object parse8ClauseMem
 { /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
-  def apply(implicit inp: RArr[ClauseMem]): ErrBi[ExcAst, ClauseMemExpr] =
+  def apply(implicit inp: RArr[ClauseMem]): Either[ExcAst, ClauseMemExpr] =
   {
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
@@ -29,8 +29,8 @@ object parse8ClauseMem
     }
 
     loop(inp.offset0).flatMap{
-      case Arr1(e: ClauseMemExpr) => Succ(e)
-      case arr if arr.forAll(_.isInstanceOf[ColonMemExpr]) => Succ(SpacedExpr(arr.map(_.asInstanceOf[ColonMemExpr])))
+      case Arr1(e: ClauseMemExpr) => Right(e)
+      case arr if arr.forAll(_.isInstanceOf[ColonMemExpr]) => Right(SpacedExpr(arr.map(_.asInstanceOf[ColonMemExpr])))
       case s => s.head.startPosn.failAst("Unknown Expression sequence in getBlocks:" -- s.toString)
     }
   }

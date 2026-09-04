@@ -33,9 +33,9 @@ object Functor
   { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
   }
 
-  /** [[Functor]] type class evidence / instances for [[ErrBi]]. */
-  given errBiEv[E <: Throwable]: Functor[({type λ[α] = ErrBi[E, α]})#λ] = new Functor[({type λ[α] = ErrBi[E, α]})#λ]
-  { override def mapT[A, B](fa: ErrBi[E, A], f: A => B): ErrBi[E, B] = fa.map(f)    
+  /** [[Functor]] type class evidence / instances for [[Either]]. */
+  given errBiEv[E <: Throwable]: Functor[({type λ[α] = Either[E, α]})#λ] = new Functor[({type λ[α] = Either[E, α]})#λ]
+  { override def mapT[A, B](fa: Either[E, A], f: A => B): Either[E, B] = fa.map(f)    
   }
 }
 

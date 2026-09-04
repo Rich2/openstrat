@@ -7,11 +7,11 @@ object MillDocsStage extends StagingBuild
   def main(args: Array[String]): Unit =
   { deb("Starting MillTomDocstage")
     
-    val stagePathBi: ErrBi[Throwable, DirsAbs] = stagingPathFind.flatMap(_.mkExist)
-    val ossDirBi: ErrBi[Throwable, DirsAbs] = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
-    ossDirBi.forSucc{dir => stageDocDir(dir) }
-    val docBi: ErrBi[Throwable, DirsAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
-    val res = ErrBi.map2Acc(projPathFind, docBi) { (projPath, docDir) => stageDocumentationJs(projPath, docDir) }
+    val stagePathBi: Either[Throwable, DirsAbs] = stagingPathFind.flatMap(_.mkExist)
+    val ossDirBi: Either[Throwable, DirsAbs] = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
+    ossDirBi.foreach{dir => stageDocDir(dir) }
+    val docBi: Either[Throwable, DirsAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
+    val res = Either.map2Acc(projPathFind, docBi) { (projPath, docDir) => stageDocumentationJs(projPath, docDir) }
     deb(res.errsSummary)
   }
 }

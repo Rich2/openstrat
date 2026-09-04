@@ -109,7 +109,7 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
     expr match
     {
       case Match1(exprs) if exprs.length == 0 => opt1 match
-      { case Some(a1) => Succ(f(a1, Nil))
+      { case Some(a1) => Right(f(a1, Nil))
         case None => expr.failExc("No values")
       }
 
@@ -144,7 +144,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
     expr match
     { case Match1(exprs) if exprs.length == 0 => opt1 match
       {
-        case Some(a1) => Succ(f(a1, new Array[Ar](0)))
+        case Some(a1) => Right(f(a1, new Array[Ar](0)))
         case None => expr.failExc("No values")
       }
 

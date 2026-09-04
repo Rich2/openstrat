@@ -8,7 +8,7 @@ object MillStageSite extends StagingBuild
   def main(args: Array[String]): Unit =
   { val stagePathBi = stagingPathFind.flatMap(_.mkExist)
     val ossDirBi = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
-    ossDirBi.forSucc{ ossDir =>
+    ossDirBi.foreach{ ossDir =>
       stageBase(ossDir)
       useStaging(ossDir)
     }

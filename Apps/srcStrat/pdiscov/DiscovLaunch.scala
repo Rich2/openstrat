@@ -19,6 +19,6 @@ object DiscovLaunch extends GuiLaunchMore
       case _ => DiscovScen1
     }
 
-    (DiscovGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " AD1492 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (DiscovGui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " AD1492 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

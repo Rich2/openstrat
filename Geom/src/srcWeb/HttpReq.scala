@@ -11,12 +11,12 @@ object HttpReq
     debvar(lh0)
     val rt = lh0.takeWhile(_.isLetter)
     val tail = lh0.drop(rt.length).dropWhile(_.isWhitespace)
-    if (rt.toLowerCase == "get") Succ(new HttpReq(GetHttp, tail.takeWhile(c => !c.isWhitespace)))
+    if (rt.toLowerCase == "get") Right(new HttpReq(GetHttp, tail.takeWhile(c => !c.isWhitespace)))
     else
-      if (rt.toLowerCase == "post") Succ(new HttpReq(PostHttp, tail.takeWhile(c => !c.isWhitespace)))
+      if (rt.toLowerCase == "post") Right(new HttpReq(PostHttp, tail.takeWhile(c => !c.isWhitespace)))
       else
       { debvar(rt)
-        FailExc("Not get")
+        LeftExc("Not get")
       }
   }
 }

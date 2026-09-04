@@ -31,23 +31,23 @@ object TextPosn
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
   def excEmpty: ExcParse = ExcParse("Empty object")
-  def failEmpty: Fail[ExcParse] = Fail(excEmpty)
+  def failEmpty: Fail[ExcParse] = Left(excEmpty)
 
   implicit class TextPosnImplicit(thisTextPosn: TextPosn)
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
 
     /** Produce a failure with an [[pParse.ExcLexar]] type. */
-    def failParse(detail: String): Fail[ExcParse] = new Fail[ExcParse](ExcParse(thisTextPosn, detail))
+    def failParse(detail: String): Fail[ExcParse] = Fail[ExcParse](ExcParse(thisTextPosn, detail))
     
     /** Produce a failure with a plain [[Exception]] type. */
     def fail(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
     
     /** Produce a failure with an [[pParse.ExcLexar]] type. */
-    def failLexar(detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(thisTextPosn, detail))
+    def failLexar(detail: String): Fail[ExcLexar] = Fail[ExcLexar](ExcLexar(thisTextPosn, detail))
 
     /** Produce a failure with an [[pParse.ExcLexar]] type. */
-    def failAst(detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(thisTextPosn, detail))
+    def failAst(detail: String): Fail[ExcAst] = Fail[ExcAst](ExcAst(thisTextPosn, detail))
   }
   
   given persistEV: Persist3Both[String, Int, Int, TextPosn] =
@@ -57,7 +57,7 @@ object TextPosn
 trait TextSpan
 { def startPosn: TextPosn
   def endPosn: TextPosn
-  def failExc(detail: String): FailExc = FailExc(startPosn.shortStr -- detail)
+  def failExc(detail: String): LeftExc = LeftExc(startPosn.shortStr -- detail)
 }
 
 object TextSpan

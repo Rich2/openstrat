@@ -120,7 +120,7 @@ object Kilometres
   { override def typeStr: String = "Kilometres"
 
     override def fromExpr(expr: Expr) = expr match
-    { case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Succ(Kilometres(dh.num))
+    { case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Right(Kilometres(dh.num))
       case _ => expr.failExc("Kilometre not found")
     }
   }
@@ -237,7 +237,7 @@ object Millimetres
   { override def typeStr: String = "Millimetres"
 
     override def fromExpr(expr: Expr) = expr match
-    { case dh: DigitHeadAlphaToken if dh.alphaStr == "mm" => Succ(Millimetres(dh.num))
+    { case dh: DigitHeadAlphaToken if dh.alphaStr == "mm" => Right(Millimetres(dh.num))
       case _ => expr.failExc("Millimetre not found")
     }
   }

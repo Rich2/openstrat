@@ -13,7 +13,7 @@ object parse1BlockStructure
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
     def loop(rem: ArrOff[Token]): ErrBiArr[ExcAst, BlockMem] = rem match
-    { case ArrOff0() => Succ(acc.toArr)
+    { case ArrOff0() => Right(acc.toArr)
 
       case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).flatMap { (bracketBlock, remTokens) =>
         acc.append(bracketBlock)

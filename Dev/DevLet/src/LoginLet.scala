@@ -15,20 +15,20 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
   val logForm: LoginForm = LoginForm()
   val catb = System.getProperty("catalina.base")
   lazy val eSetts = loadTextFile(catb / "Notes" / "ostrat.rson")
-  lazy val eName: ErrBi[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
-  lazy val ePass: ErrBi[Throwable, String] ={
+  lazy val eName: Either[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
+  lazy val ePass: Either[Throwable, String] ={
     val res = eSetts.flatMap(_.findStrSetting("pgPassword"))
     val currentDateTime: LocalDateTime = LocalDateTime.now()
     utiljvm.writeFile(catb / "Notes/tom.txt", currentDateTime.toString -- eName.toString -- res.toString)
     res
   }
 
-  var oConn: ErrBi[Throwable, Connection] = FailExc("Untried.")
+  var oConn: Either[Throwable, Connection] = LeftExc("Untried.")
 
-  def tryConn: ErrBi[Throwable, Connection] = oConn match{
-    case Succ(_) => oConn
+  def tryConn: Either[Throwable, Connection] = oConn match{
+    case Right(_) => oConn
     case fail => {
-      val res = ErrBi.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
+      val res = Either.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
       oConn = res
       res
     }

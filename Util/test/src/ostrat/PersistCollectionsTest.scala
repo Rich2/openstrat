@@ -28,15 +28,15 @@ object PersistCollectionsTest  extends TestSuite
     val s2 = "Seq(1; 2; 3)"
     
     test("List2")
-    { "Seq(1; 2; 3)".asType[List[Int]] ==> Succ(List(1, 2, 3))
-      "Seq[1; 2; 3]".asType[List[Int]].isFail ==> true
-      "What(1; 2; 3)".asType[List[Int]].isFail ==> true
-      "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Succ(List(1, 2, 3))
+    { "Seq(1; 2; 3)".asType[List[Int]] ==> Right(List(1, 2, 3))
+      "Seq[1; 2; 3]".asType[List[Int]].isLeft ==> true
+      "What(1; 2; 3)".asType[List[Int]].isLeft ==> true
+      "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Right(List(1, 2, 3))
 
-      s2.findType[List[Double]] ==> Succ(List(1.0, 2, 3))
-      s2.findType[List[Int]] ==> Succ(List(1, 2, 3))
-      s2.findType[Seq[Int]] ==> Succ(Seq(1, 2, 3))
-      s2.findType[Vector[Int]] ==> Succ(Vector(1, 2, 3))
+      s2.findType[List[Double]] ==> Right(List(1.0, 2, 3))
+      s2.findType[List[Int]] ==> Right(List(1, 2, 3))
+      s2.findType[Seq[Int]] ==> Right(Seq(1, 2, 3))
+      s2.findType[Vector[Int]] ==> Right(Vector(1, 2, 3))
       //"Seq()".findType[Nil.type] ==> Succ(Nil)
     }
 

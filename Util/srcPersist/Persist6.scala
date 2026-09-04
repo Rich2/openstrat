@@ -102,6 +102,6 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, A] extends Unshow6Plus[A1, A2, A3, A4, A5,
     def e4: ExcMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toErrBi)
     def e5: ExcMon[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toErrBi)
     def e6: ExcMon[A6] = ife(len > pSeq(5), unshow6.fromSettingOrExpr(name6, sortedExprs(pSeq(5))), opt6.toErrBi)
-    ErrBi.map6(e1, e2, e3, e4, e5, e6)(newT)
+    Either.map6(e1, e2, e3, e4, e5, e6)(newT)
   }
 }

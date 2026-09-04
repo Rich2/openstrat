@@ -2,7 +2,7 @@
 package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** Trait for the accumulation of successes and errors for operations with [[ErrBi]] return types. */
+/** Trait for the accumulation of successes and errors for operations with [[Either]] return types. */
 trait ErrBiAccBase[+E <: Throwable, +B]
 { /** The number of accumulated errors. */
   def errNum: Int
@@ -23,7 +23,7 @@ trait ErrBiAccBase[+E <: Throwable, +B]
   def errsPrint: Unit = errsforeach(println(_))
 }
 
-/** immtuable class for the accumulation of successes and errors for operations with [[ErrBi]] return types where the error type inherits from [[Throwable]]. */
+/** immtuable class for the accumulation of successes and errors for operations with [[Either]] return types where the error type inherits from [[Throwable]]. */
 class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
   def errs: RArr[E] = new RArr(errsArray)
@@ -56,21 +56,21 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def errHead: E = errsArray(0)
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 
-  /** Appends [[ErrBi]] element to this accumulator widening the type of the error and the successful value if necessary. Order of successes and fails is
+  /** Appends [[Either]] element to this accumulator widening the type of the error and the successful value if necessary. Order of successes and fails is
    * preserved but not the overall order. */
   @targetName("append") @inline def ++[EE >: E <: Throwable, BB >: B](operand: ErrBiAcc[EE, BB] @uncheckedVariance)(using ctE: ClassTag[EE] @uncheckedVariance,
     ctB: ClassTag[BB] @uncheckedVariance): ErrBiAcc[EE, BB] = new ErrBiAcc[EE, BB](errsArray ++ operand.errsArray, succsArray ++ operand.succsArray)
 
   /** Appends [[ErrBiAcc]] to this accumulator widening the type of the error and the successful value if necessary. Order of successes and fails is preserved
    * but not the overall order. */
-  @targetName("appendElem") @inline def +%[EE >: E <: Throwable, BB >: B](newElem: ErrBi[EE, BB] @uncheckedVariance)(using ctE: ClassTag[EE] @uncheckedVariance,
+  @targetName("appendElem") @inline def +%[EE >: E <: Throwable, BB >: B](newElem: Either[EE, BB] @uncheckedVariance)(using ctE: ClassTag[EE] @uncheckedVariance,
     ctB: ClassTag[BB] @uncheckedVariance): ErrBiAcc[EE, BB] =
-    newElem.fold{ err => new ErrBiAcc[EE, BB](errsArray :+ err, succsArray.asInstanceOf[Array[BB]])}{b => new ErrBiAcc(errsArray, succsArray :+ b) }
+    newElem.fold(err => new ErrBiAcc[EE, BB](errsArray :+ err, succsArray.asInstanceOf[Array[BB]]), b => new ErrBiAcc(errsArray, succsArray :+ b))
 }
 
 object ErrBiAcc
 { /** Factory apply method to construct an [[ErrBiAcc]]. */
-  def apply[E <: Throwable, B](input: ErrBi[E, B]*)(using ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
+  def apply[E <: Throwable, B](input: Either[E, B]*)(using ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
     ErrBiAccBuff.fromSeq(input).unbuff
 
   /** Constructs an [[ErrBiAcc]] from a single error. */
@@ -82,13 +82,16 @@ object ErrBiAcc
     new ErrBiAcc[E, B](Array[E](err1, err2), Array[B]())   
 }
 
-/** immutable class for accumulating [[ErrBi]]s, biased bifunctors for errors. */
+/** immutable class for accumulating [[Either]]s, biased bifunctors for errors. */
 class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** Appends an element to this buffer. */
-  def grow(newElem: ErrBi[E, B] @uncheckedVariance): Unit = newElem.forFld(errs.append(_), succs.append(_))
+  def grow(newElem: Either[E, B] @uncheckedVariance): Unit = newElem.fold(errs.append(_), succs.append(_))
 
   /** Appends elements to this buffer. */
-  def growAcc(newElems: ErrBiAcc[E, B] @uncheckedVariance): Unit = {newElems.errs.foreach(errs.append(_)); newElems.succs.foreach(succs.append(_)) }
+  def growAcc(newElems: ErrBiAcc[E, B] @uncheckedVariance): Unit =
+  { newElems.errs.foreach(errs.append(_))
+    newElems.succs.foreach(succs.append(_))
+  }
 
   /** Converts from a buffer to an immutable [[ErrBiAcc]]. */
   def unbuff(using ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc(errs.toArray, succs.toArray)
@@ -101,10 +104,10 @@ class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVaria
 
 object ErrBiAccBuff
 { /** Factory apply method to construct an [[ErrBiAccBuff]]. */
-  def apply[E <: Throwable, B](input: ErrBi[E, B]*): ErrBiAccBuff[E, B] = fromSeq(input)
+  def apply[E <: Throwable, B](input: Either[E, B]*): ErrBiAccBuff[E, B] = fromSeq(input)
 
   /** Utility method used by the [[ErrBiAcc]] companion object factory apply method. */
-  def fromSeq[E <: Throwable, B](input: Seq[ErrBi[E, B]]): ErrBiAccBuff[E, B] =
+  def fromSeq[E <: Throwable, B](input: Seq[Either[E, B]]): ErrBiAccBuff[E, B] =
   { val res = new ErrBiAccBuff[E, B](new ArrayBuffer[E]() , new ArrayBuffer[B]())
     input.foreach(res.grow(_))
     res
@@ -113,7 +116,7 @@ object ErrBiAccBuff
 
 /** type class to proived summary [[String]]s for [[ErrBiAccBase]] objects. */
 trait ErrBiSummary[+E <: Throwable, +B]
-{ /** Provides the nummerical part pf the summary [[String]]. */
+{ /** Provides the numerical part pf the summary [[String]]. */
   def endStr(eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String
 
   /** A single line summary [[String]] for [[ErrBiAccBase]] objects. */

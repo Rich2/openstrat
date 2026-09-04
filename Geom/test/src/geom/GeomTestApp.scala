@@ -4,7 +4,7 @@ import utiljvm.*, pweb.*, webjvm.*
 
 @main def TestHtmlApp: Unit =
 {
-  projPathFind.forFold(err => deb(err.toString)){(path: DirsAbs) =>
+  projPathFind.fold(err => deb(err.toString)){(path: DirsAbs) =>
     debvar(path)
     val targ = path / "target/GeomTest"
     path.mkExist

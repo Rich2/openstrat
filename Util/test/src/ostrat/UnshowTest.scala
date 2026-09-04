@@ -46,30 +46,30 @@ object ExUB
 object UnshowTest extends TestSuite
 { val tests = Tests {
     test("Named 2 Parameters test")
-    { """ExUA(42; "Hello")""".asType[ExUA] ==> Succ(ExUA(42, "Hello"))
-      "ExUA(42)".asType[ExUA] ==> Succ(ExUA(42, "blah"))
-      "ExUA()".asType[ExUA] ==> Succ(ExUA(0, "blah"))
-      """ExUA(a = 42; "Hello")""".asType[ExUA] ==> Succ(ExUA(42, "Hello"))
-      """ExUA(a = 42; b = "Hello")""".asType[ExUA] ==> Succ(ExUA(42, "Hello"))
-      """ExUA(a = 42; c = "Hello")""".asType[ExUA].isFail ==> true
-      """ExUA(b = "Hello"; a = 42)""".asType[ExUA] ==> Succ(ExUA(42, "Hello"))
-      """ExUA(b = "Hello"; 42)""".asType[ExUA] ==> Succ(ExUA(42, "Hello"))
-      """ExUA(b = "Hello")""".asType[ExUA] ==> Succ(ExUA(0, "Hello"))
+    { """ExUA(42; "Hello")""".asType[ExUA] ==> Right(ExUA(42, "Hello"))
+      "ExUA(42)".asType[ExUA] ==> Right(ExUA(42, "blah"))
+      "ExUA()".asType[ExUA] ==> Right(ExUA(0, "blah"))
+      """ExUA(a = 42; "Hello")""".asType[ExUA] ==> Right(ExUA(42, "Hello"))
+      """ExUA(a = 42; b = "Hello")""".asType[ExUA] ==> Right(ExUA(42, "Hello"))
+      """ExUA(a = 42; c = "Hello")""".asType[ExUA].isLeft ==> true
+      """ExUA(b = "Hello"; a = 42)""".asType[ExUA] ==> Right(ExUA(42, "Hello"))
+      """ExUA(b = "Hello"; 42)""".asType[ExUA] ==> Right(ExUA(42, "Hello"))
+      """ExUA(b = "Hello")""".asType[ExUA] ==> Right(ExUA(0, "Hello"))
     }
 
     test("Named 3 parameters test")
     { ExUB() ==> ExUB()
-      """ExUB()""".asType[ExUB] ==> Succ(ExUB())
-      """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Succ(ExUB(ExUA(), "999", -100))
-      """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Succ(ExUB(ExUA(), "999", -100))
-      """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Succ(ExUB(ExUA(), "999", -100))
-      """ExUB(b: String = "AAA")""".asType[ExUB] ==> Succ(ExUB(b = "AAA"))
-      """ExUB(c = 5;)""".asType[ExUB] ==> Succ(ExUB(c = 5))
-      """ExUB(c = 5; a = ExUA(b = "Hi"))""".asType[ExUB] ==> Succ(ExUB(ExUA(b = "Hi"), c = 5))
-      """ExUB(c = 5; a = 7, "Hi")""".asType[ExUB] ==> Succ(ExUB(ExUA(7, "Hi"), c = 5))
-      """ExUB(c = 5; a = 7, "Hi",)""".asType[ExUB] ==> Succ(ExUB(ExUA(7, "Hi"), c = 5))
-      """ExUB(c = 5; a = 7, "Hi";)""".asType[ExUB] ==> Succ(ExUB(ExUA(7, "Hi"), c = 5))
-      """ExUB(c = 5; a = 7, "Hi", ;)""".asType[ExUB] ==> Succ(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB()""".asType[ExUB] ==> Right(ExUB())
+      """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Right(ExUB(ExUA(), "999", -100))
+      """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Right(ExUB(ExUA(), "999", -100))
+      """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Right(ExUB(ExUA(), "999", -100))
+      """ExUB(b: String = "AAA")""".asType[ExUB] ==> Right(ExUB(b = "AAA"))
+      """ExUB(c = 5;)""".asType[ExUB] ==> Right(ExUB(c = 5))
+      """ExUB(c = 5; a = ExUA(b = "Hi"))""".asType[ExUB] ==> Right(ExUB(ExUA(b = "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi")""".asType[ExUB] ==> Right(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi",)""".asType[ExUB] ==> Right(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi";)""".asType[ExUB] ==> Right(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi", ;)""".asType[ExUB] ==> Right(ExUB(ExUA(7, "Hi"), c = 5))
     }
   }
 }

@@ -20,14 +20,13 @@ class AppStart extends application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     val params: java.util.List[String] = getParameters.getRaw
-    val oApp: Option[String] = ife(params.isEmpty, None, Some(params.get(0)))
-    val eApp1: ErrBi[Throwable, String] = oApp.toErrBi.orElse(findDevSettingIdStr("appSet"))
+    val eApp1: Either[Throwable, String] = ife(params.isEmpty, findDevSettingIdStr("appSet"), Right(params.get(0)))
     val eApp2 = AppSelector.eFindEither(eApp1)
     
     val pair: (CanvasPlatform => Any, String) = eApp2.fold(p => p, launch =>
       { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
         val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
-        eSett.fld(e => launch.default, launch(_))
+        eSett.fold(e => launch.default)(launch(_))
       })
 
     val newAlt = CanvasFx(canvasCanvas, jScene)

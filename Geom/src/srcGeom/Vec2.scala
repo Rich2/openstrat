@@ -82,8 +82,8 @@ class Vec2(val x: Double, val y: Double) extends VecPt2, ApproxDbl
   { val at = atan(y / x)
 
     x match
-    { case x if x < - 0.000000010 && y < 0 => at + Pi
-    case x if x < - 0.00000001 => Pi + at
+    { case x if x < -0.000000010 && y < 0 => at + Pi
+    case x if x < -0.00000001 => Pi + at
     case x if x > 0.00000001 => at
     case _ if y < 0 => at + Pi/2
     case _ => at + Pi/2

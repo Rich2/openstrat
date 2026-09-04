@@ -268,6 +268,6 @@ object CanvasJs extends CanvasTopLeft
   override def saveFile(fileName: String, output: String): Unit = window.localStorage.setItem(fileName, output)
   override def loadFile(fileName: String) =
   { val nStr = window.localStorage.getItem(fileName)
-    if (nStr == null)  FailExc("Js Error, File not found") else Succ(nStr)
+    if (nStr == null)  LeftExc("Js Error, File not found") else Right(nStr)
   }
 }

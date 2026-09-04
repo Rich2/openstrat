@@ -48,20 +48,20 @@ object Base32Test extends TestSuite
      }
 
     test("AsBase32")
-    { "9".asBase32Int ==> Succ(9)
-      "1A".asBase32Int ==> Succ(42)
-      "1A".asBase32Nat ==> Succ(42)
-      "2M".asBase32Int ==> Succ(86)
-      "2N".asBase32Int ==> Succ(87)
-      "2P".asBase32Int ==> Succ(88)
-      "G".asBase32Int ==> Succ(16)
-      "G".asBase32Nat ==> Succ(16)
-      "N2".asBase32Int ==> Succ(738)
+    { "9".asBase32Int ==> Right(9)
+      "1A".asBase32Int ==> Right(42)
+      "1A".asBase32Nat ==> Right(42)
+      "2M".asBase32Int ==> Right(86)
+      "2N".asBase32Int ==> Right(87)
+      "2P".asBase32Int ==> Right(88)
+      "G".asBase32Int ==> Right(16)
+      "G".asBase32Nat ==> Right(16)
+      "N2".asBase32Int ==> Right(738)
     }
 
     test("Neg AsBase32")
-    { "-N2".asBase32Int ==> Succ(-738)
-      "-N2".asBase32Nat.isFail ==> true
+    { "-N2".asBase32Int ==> Right(-738)
+      "-N2".asBase32Nat.isLeft ==> true
     }
   }
 }

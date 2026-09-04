@@ -130,7 +130,7 @@ object Colour
   { override def typeStr: String = "Colour"
 
     override def fromExpr(expr: Expr): ExcMon[Colour] =  expr match {
-      case IdentLowerToken(_, typeName) if Colour.strValueKeys.contains(typeName) => Succ(Colour.strValueKeys(typeName))
+      case IdentLowerToken(_, typeName) if Colour.strValueKeys.contains(typeName) => Right(Colour.strValueKeys(typeName))
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
       case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStructure(Arr1(st), Parentheses, _, _))) => st.expr match {
         case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))

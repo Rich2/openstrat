@@ -59,7 +59,7 @@ object DblArr
   { override def typeStr: String = "Seq" + "Dbl"
 
     override def fromExpr(expr: Expr): ExcMon[DblArr] = expr match
-    { case _: EmptyExprToken => Succ(DblArr())
+    { case _: EmptyExprToken => Right(DblArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _), BracketedStructure(sts, brs2, _, _)))
         if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>  sts.mapErrBi(s => Unshow.doubleEv.fromExpr(s.expr))(using DblArrBuilder)

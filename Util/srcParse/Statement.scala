@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The top level compositional unit of Syntax in CRON: Compact Readable Object Notation. A statement can be claused consisting of comma separated clauses
@@ -17,14 +17,14 @@ sealed trait Statement extends TextSpan
   def noSemi: Boolean = optSemi.isEmpty
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExpr(settingName: String): ErrBi[ExcParse, AssignMemExpr] = this match
-  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Succ(rightExpr)
+  def settingExpr(settingName: String): Either[ExcParse, AssignMemExpr] = this match
+  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Right(rightExpr)
     case _ => startPosn.failParse(settingName -- "not found.")
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
-  def intSettingExpr(settingNum: Int): ErrBi[Exception, AssignMemExpr] = this match
-  { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Succ(rightExpr)
+  def intSettingExpr(settingNum: Int): Either[Exception, AssignMemExpr] = this match
+  { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Right(rightExpr)
     case _ => startPosn.fail(settingNum.str -- "not found.")
   }
 }
@@ -56,7 +56,7 @@ object Statement
     def findSettingExpr(settingStr: String): ExcMon[AssignMemExpr] = statements match
     { case Arr0() => TextPosn.failEmpty//("No Statements")
       case Arr1(st1) => st1.settingExpr(settingStr)
-      case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Succ(_) => g } match
+      case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Right(_) => g } match
       { case Arr1(t) => t
         case Arr0() => sts.startPosn.fail(settingStr -- "Setting not found.")
         case s3 => sts.startPosn.fail(s3.length.toString -- "settings of" -- settingStr -- "not found.")
@@ -64,10 +64,10 @@ object Statement
     }
 
     /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
-    def findIntSettingExpr(settingNum: Int): ErrBi[Exception, AssignMemExpr] = statements match
-    { case Arr0() => FailExc("No Statements")
+    def findIntSettingExpr(settingNum: Int): Either[Exception, AssignMemExpr] = statements match
+    { case Arr0() => LeftExc("No Statements")
       case Arr1(st1) => st1.intSettingExpr(settingNum)
-      case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g @Succ(_) => g } match
+      case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g @Right(_) => g } match
       { case Arr1(t) => t
         case Arr0() => sts.startPosn.fail(settingNum.str -- "Setting not found.")
         case s3 => sts.startPosn.fail(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
@@ -78,17 +78,17 @@ object Statement
     def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingId(settingStr: String): ErrBi[Exception, String] = findSettingExpr(settingStr).flatMap{
-      case IdentifierToken(str) => Succ(str)
-      case expr => FailExc("Not an identifier.")
+    def findSettingId(settingStr: String): Either[Exception, String] = findSettingExpr(settingStr).flatMap{
+      case IdentifierToken(str) => Right(str)
+      case expr => LeftExc("Not an identifier.")
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
-    def findSettingIdElse(settingStr: String, elseStr: String): String = findSettingId(settingStr).getElse(elseStr)
+    def findSettingIdElse(settingStr: String, elseStr: String): String = findSettingId(settingStr).getOrElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String) = findSettingExpr(settingStr).flatMap {
-      case IdentifierToken(str) => Succ(StrArr(str))
+      case IdentifierToken(str) => Right(StrArr(str))
       case exprSeq: ExprSeqExpr =>
       {
         val opt = exprSeq.exprs.optAllMap {
@@ -105,20 +105,20 @@ object Statement
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      ev.keySettingFromStatements(statements, key).getElse(elseValue)
+      ev.keySettingFromStatements(statements, key).getOrElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): ErrBi[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): Either[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)
+    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getOrElse(elseValue)
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    def findType[A](implicit ev: Unshow[A]): ErrBi[ExcFind, A] = statements.mapUniqueSucc(ev.fromStatement(_))
+    def findType[A](implicit ev: Unshow[A]): Either[ExcFind, A] = statements.mapUniqueSucc(ev.fromStatement(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getOrElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]) =
@@ -184,27 +184,27 @@ object Statement
   }
 
   /** Extension class for ErrBi[Arr[Statement]]. */
-  implicit class ErrBiArrImplicit[E <: Throwable](thisBi: ErrBi[E, RArr[Statement]])
+  implicit class ErrBiArrImplicit[E <: Throwable](thisBi: Either[E, RArr[Statement]])
   {
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      thisBi.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getElse(elseValue) }
+      thisBi.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getOrElse(elseValue) }
 
-    def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisBi.flatMap(_.findType[A])
+    def findType[A](implicit ev: Unshow[A]): Either[Throwable, A] = thisBi.flatMap(_.findType[A])
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = thisBi.fold(_ => elseValue)(_.findType[A].getElse(elseValue))
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = thisBi.fold(_ => elseValue)(_.findType[A].getOrElse(elseValue))
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): ErrBi[Throwable, String] = thisBi.flatMap {
+    def findSettingIdentifier(settingStr: String): Either[Throwable, String] = thisBi.flatMap {
       _.findSettingExpr(settingStr).flatMap {
-        case IdentifierToken(str) => Succ(str)
+        case IdentifierToken(str) => Right(str)
         case expr => expr.failExc("Not an identifier.")
       }
     }
 
-    def findSettingIdentifierArr(settingStr: String): ErrBi[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
+    def findSettingIdentifierArr(settingStr: String): Either[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
   }
 }
 
@@ -220,7 +220,7 @@ case class StatementEmpty(st: SemicolonToken) extends Statement, TextSpanMems
   override def optSemi: Option[SemicolonToken] = Some(st)
   override def startMem: SemicolonToken = st
   override def endMem: SemicolonToken = st
-  def asError[A]: FailExc = st.failExc("Empty Statement")
+  def asError[A]: LeftExc = st.failExc("Empty Statement")
 }
 
 object StatementEmpty

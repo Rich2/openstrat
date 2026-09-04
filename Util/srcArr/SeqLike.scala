@@ -38,7 +38,7 @@ object SeqLike
   { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): ExcMon[AA] = expr match
-    { case _: EmptyExprToken => Succ(build.uninitialised(0))
+    { case _: EmptyExprToken => Right(build.uninitialised(0))
       
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapErrBi(build)(s => evA.fromExpr(s.expr))

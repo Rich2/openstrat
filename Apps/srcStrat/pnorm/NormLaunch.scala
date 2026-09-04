@@ -21,6 +21,6 @@ object NormLaunch extends GuiLaunchMore
       case _ => NormScen1
     }
 
-    (NormGui(_, scen, oview.getElse(scen.grid.coordCen.view())), scen.title +  " Diceless " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (NormGui(_, scen, oview.getOrElse(scen.grid.coordCen.view())), scen.title +  " Diceless " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

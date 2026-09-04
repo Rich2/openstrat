@@ -10,7 +10,7 @@ object parse9PrefixPlus
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
     def loop(rem: ArrOff[ClauseMem]): ErrBiArr[ExcAst, ClauseMem] = rem match
-    { case ArrOff0() => Succ(acc).map(_.toArr)
+    { case ArrOff0() => Right(acc).map(_.toArr)
       case ArrOff2Tail(pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       case ArrOff3Tail(left: ClauseMemExpr, pp: OperatorToken,  right: ClauseMemExpr, tail) =>
       { acc.append(InfixOpExpr(left, pp, right));

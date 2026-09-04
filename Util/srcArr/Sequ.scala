@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
@@ -296,36 +296,36 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Fail]] of the
+  /** Map from A => [[Either]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Left]] of the
    * first error encountered usingly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
    * parameter list. */
-  def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(using ev: BuilderArrMap[B, ArrB]): ErrBi[E, ArrB] =
+  def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => Either[E, B])(using ev: BuilderArrMap[B, ArrB]): Either[E, ArrB] =
   { val acc = ev.newBuff()
     var count = 0
     var optErr: Option[E] = None
     while (count < length & optErr == None)
       f(apply(count)).fold{ newErr => optErr = Some(newErr) }{ g => ev.buffGrow(acc, g); count += 1 }
     optErr match
-    { case Some(err) => Fail (err)
-      case None => Succ (ev.buffToSeqLike(acc))
+    { case Some(err) => Left (err)
+      case None => Right (ev.buffToSeqLike(acc))
     }
   }
   
-  /** Map from A => [[ErrBi]][E, B]. There is a name overload that usingly takes a narrower [[BuilderArrMap]] as the second parameter list. */
-  def mapErrBi[E <: Throwable, B, BB](ev: BuilderMap[B, BB])(f: A => ErrBi[E, B]): ErrBi[E, BB] =
+  /** Map from A => [[Either]][E, B]. There is a name overload that usingly takes a narrower [[BuilderArrMap]] as the second parameter list. */
+  def mapErrBi[E <: Throwable, B, BB](ev: BuilderMap[B, BB])(f: A => Either[E, B]): Either[E, BB] =
   { val acc = ev.newBuff()
     var count = 0
     var optErr: Option[E] = None
     while (count < length & optErr == None)
       f(apply(count)).fold{ newErr => optErr = Some(newErr) }{ g => ev.buffGrow(acc, g); count += 1 }
     optErr match
-    { case Some(err) => Fail(err)
-      case None => Succ(ev.buffToSeqLike(acc))
+    { case Some(err) => Left(err)
+      case None => Right(ev.buffToSeqLike(acc))
     }
   }
   
-  /** maps each element to an [[ErrBi]] accumulating successes and errors. */
-  def mapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBi[E, B])(using ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
+  /** maps each element to an [[Either]] accumulating successes and errors. */
+  def mapErrBiAcc[E <: Throwable, B, BB](f: A => Either[E, B])(using ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
   { val acc = ErrBiAccBuff[E, B]()
     foreach{a => acc.grow(f(a)) }
     acc.unbuff
@@ -346,11 +346,16 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => B, returning an [[ErrBi]] of [[List]]. */
-  def mapErrBiList[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[E, List[B]] =
+  /** Map from A => B, returning an [[Either]] of [[List]]. */
+  def mapErrBiList[E <: Throwable, B](f: A => Either[E, B]): Either[E, List[B]] =
   { var count = 0
-    var res: ErrBi[E, List[B]] = Succ[List[B]](Nil)
-    while (count < length & res.isSucc) f(apply(count)).forFold{ e => res = Fail(e) }{ succ => res = Succ(succ :: res.get); count += 1 }
+    var list: List[B] = Nil
+    var res: Either[E, List[B]] = Succ(list)
+    while (count < length & res.isRight)
+      f(apply(count)).fold{ e => res = Left(e) }{ a =>
+        list = a :: list
+        count += 1
+      }
     res.map(_.reverse)
   }
 
@@ -546,8 +551,8 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     ev.buffToSeqLike(acc)
   }
 
-  /** Takes a function from A to [[ErrBi]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Fail]]. */
-  def mapUniqueSucc[B](f: A => ErrBi[?, B]): ErrBi[ExcFind, B] =
+  /** Takes a function from A to [[Either]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Left]]. */
+  def mapUniqueSucc[B](f: A => Either[?, B]): Either[ExcFind, B] =
   { var count = 0
     var acc: ExcNFTMon[B] = FailNotFound
     foreach { a => f(a) match
@@ -559,9 +564,9 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** maps from A to ErrBi[B], collects the successful values. */
-  def mapCollectSuccs[B, BB <: Arr[B]](f: A => ErrBi[?, B])(using ev: BuilderArrMap[B, BB]): BB =
+  def mapCollectSuccs[B, BB <: Arr[B]](f: A => Either[?, B])(using ev: BuilderArrMap[B, BB]): BB =
   { val acc = ev.newBuff()
-    foreach(f(_).forSucc(ev.buffGrow(acc, _)))
+    foreach(f(_).foreach(ev.buffGrow(acc, _)))
     ev.buffToSeqLike(acc)
   }
 
@@ -653,14 +658,14 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = map(fElemStr).mkStr("; ").enParenth
 
-  /** Takes a function that returns an [[ErrBi]] and returns the first [[Succ]]. */
-  def findSucc[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[ExcNotFound.type, B] =
-  { var res: ErrBi[ExcNotFound.type, B] = NotFound()
+  /** Takes a function that returns an [[Either]] and returns the first [[Right]]. */
+  def findSucc[E <: Throwable, B](f: A => Either[E, B]): Either[ExcNotFound.type, B] =
+  { var res: Either[ExcNotFound.type, B] = NotFound
     var i = 0
-    while (i < length && res.isFail)
+    while (i < length && res.isLeft)
     { val bi = f(apply(i))
        bi match
-       { case Succ(b) => res = Succ[B](b)
+       { case Right(b) => res = Succ[B](b)
          case _ =>
        }
       i += 1

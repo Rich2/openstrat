@@ -1,14 +1,14 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Test App for [[ErrBi]]s. */
+/** Test App for [[Either]]s. */
 @main def HelloEmon =
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
-  val mi1: ErrBi[Exception, Int] = "4".asInt
-  mi1.forSucc(i => println(i.str))//Something happens
-  val mi2: ErrBi[Exception, Int] = "2.2".asInt
-  mi2.forSucc(i => println(i.str))//Nothing happens.
-  val i1: Int = mi2.getElse(0)
+  val mi1: Either[Exception, Int] = "4".asInt
+  mi1.foreach(i => println(i.str))//Something happens
+  val mi2: Either[Exception, Int] = "2.2".asInt
+  mi2.foreach(i => println(i.str))//Nothing happens.
+  val i1: Int = mi2.getOrElse(0)
   println("You asked for " + i1.str)
   val s1: String = mi2.fold("This really is an Int: " + _)(_ => "This is not an Int")
   println(s1)

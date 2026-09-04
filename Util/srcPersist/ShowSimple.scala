@@ -82,8 +82,8 @@ class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) ex
 { override def strT(obj: Boolean): String = ife(obj, typeStr, falseStr)
 
   override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
-  { case IdentifierToken(str) if str == "true" || str == trueStr => Succ(true)
-    case IdentifierToken(str) if str == "false" || str == falseStr => Succ(false)
+  { case IdentifierToken(str) if str == "true" || str == trueStr => Right(true)
+    case IdentifierToken(str) if str == "false" || str == falseStr => Right(false)
     case _ => expr.exprParseErr[Boolean]
   }
 }

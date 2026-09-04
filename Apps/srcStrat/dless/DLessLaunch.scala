@@ -23,12 +23,12 @@ object DLessLaunch extends GuiLaunchMore
       case 2 => DLessScen2
       case _ => DLessScen1
     }
-    val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
-    val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1: ErrBi[Throwable, StrArr] = sts2.findSettingIdentifierArr("nations")
+    val oSetts: Either[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: Either[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1: Either[Throwable, StrArr] = sts2.findSettingIdentifierArr("nations")
     val plAll: RArr[Nation] = scen.nationSet
-    val pls2: ErrBi[Throwable, RArr[Nation]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.name.toLowerCase() == st.toLowerCase())) }
-    val pls3: RArr[Nation] = pls2.getElse(scen.nationSet)
+    val pls2: Either[Throwable, RArr[Nation]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.name.toLowerCase() == st.toLowerCase())) }
+    val pls3: RArr[Nation] = pls2.getOrElse(scen.nationSet)
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
     val settings: DLessSettings = DLessSettings(view, pls3)
     val game: DLessGame = DLessGame(scen, pls3)

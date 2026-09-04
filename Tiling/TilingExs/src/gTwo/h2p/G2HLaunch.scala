@@ -14,7 +14,7 @@ object G2HLaunch extends GuiLaunchMore
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen = sts.findSetting[Int]("scen")
-    val num: Int = oScen.getElse(1)
+    val num: Int = oScen.getOrElse(1)
     val scen: G2HScen = num match
     { case 1 => G2HScen1
       case 2 => G2HScen2
@@ -26,12 +26,12 @@ object G2HLaunch extends GuiLaunchMore
       case _ => G2HScen1
     }
 
-    val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
-    val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
+    val oSetts: Either[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: Either[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("counters")
     val plAll = scen.counterSet
     val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
-    val pls3 = pls2.getElse(plAll)
+    val pls3 = pls2.getOrElse(plAll)
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
     val settings = G2HGuiSettings(view, pls3)
     val game = G2HGame(scen, pls3)

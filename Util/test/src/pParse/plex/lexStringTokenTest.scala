@@ -31,7 +31,7 @@ object lexStringTokenTest extends TestSuite
     val r4 = s4.parseTokens
 
     test("Test2")
-    { assertMatch(r4){case Fail(ExcLexar(StrPosn(1, 1), "Unclosed String")) => }
+    { assertMatch(r4){case Left(ExcLexar(StrPosn(1, 1), "Unclosed String")) => }
     }
   }
 }

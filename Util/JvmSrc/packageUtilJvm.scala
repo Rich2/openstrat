@@ -25,20 +25,20 @@ package object utiljvm
   def fromRsonFileFind[A: Unshow](fileName: String): ThrowMon[A] = loadTextFile(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
-  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
+  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getOrElse(elseValue)
 
   /** Attempts to find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls procedure (Unit returning
    * function) with that object of type A */
-  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forSucc(f)
+  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
-  def settFromFile[A: Unshow](settingStr: String, fileName: String): ErrBi[Throwable, A] = loadTextFile(fileName).findSetting[A](settingStr)
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): Either[Throwable, A] = loadTextFile(fileName).findSetting[A](settingStr)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
-  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
+  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getOrElse(elseValue)
 
   /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def writeFile(pathName: String, content: String): ErrBi[IOExc, FileWritten] =
+  def writeFile(pathName: String, content: String): Either[IOExc, FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
@@ -48,22 +48,22 @@ package object utiljvm
 
     catch { case e: IOExc => oErr = Some(e) }
     finally { opw.foreach(_.close()) }
-    oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
+    oErr.fld(Right(FileWritten(pathName)), FailIO(_))
   }
   
-  def RsonWriteFile(pathName: String, content: String): ErrBi[IOExc, RsonFileWritten] = writeFile(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
+  def RsonWriteFile(pathName: String, content: String): Either[IOExc, RsonFileWritten] = writeFile(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-  def copyFile(fromStr:  String, toStr: String): ErrBi[Exception, FileWritten] =
+  def copyFile(fromStr:  String, toStr: String): Either[Exception, FileWritten] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
     catch { case e: IOExc => oErr = Some(e) }
-    oErr.fld(Succ(FileWritten(toStr)), FailIO(_))
+    oErr.fld(Right(FileWritten(toStr)), FailIO(_))
   }  
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
-  def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =
+  def homeWrite(dir: String, fileName: String, str: String): Either[IOExc, FileWritten] =
   { val h: String = System.getProperty("user.home")
     writeFile(h / dir / fileName, str)
   }

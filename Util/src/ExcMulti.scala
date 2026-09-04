@@ -7,7 +7,8 @@ trait ErrMulti[+E]
 { /** Member errors. */
   def mems: RArr[E]
 
-  @targetName("append") def ++[EE >: E] (operand: ErrMulti[EE])(using build: ErrBuilder[EE], ctE: ClassTag[EE]): ErrMulti[EE] = build.multi(mems ++ operand.mems)
+  @targetName("append")def ++[EE >: E] (operand: ErrMulti[EE])(using build: ErrBuilder[EE], ctE: ClassTag[EE]): ErrMulti[EE] =
+    build.multi(mems ++ operand.mems)
 }
 
 case class ThrowMulti(mems: RArr[Throwable]) extends Throwable, ErrMulti[Throwable]
@@ -56,12 +57,12 @@ extension (thisExcep: Exception)
 
 object ExcBi
 {
-  def map2[E <: Exception, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[Exception, B] = eb1 match
-  { case Succ(a1) => eb2.map(a2 => f(a1, a2))
-    case f1: Fail[E] => eb2 match
-    { case Fail(err2) => Fail(ExcMulti(f1.error, err2))
-      case _ => f1
+  def map2[E <: Exception, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B): Either[Exception, B] = eb1 match
+  { case Right(a1) => eb2.map(a2 => f(a1, a2))
+    case Left(err1) => eb2 match
+    { case Left(err2) => Left(ExcMulti(err1, err2))
+      case _ => Left(err1)
     }
-    case _ => excep("Unforseen match case.")
+    case _ => excep("Unforeseen match case.")
   }
 }

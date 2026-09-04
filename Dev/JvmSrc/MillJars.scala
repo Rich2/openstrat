@@ -28,20 +28,20 @@ trait MillStageJars
   def action(projPath: DirsAbs, stageDirStr: DirsAbs): ErrBiAcc[Exception, FileWritten]
 
   /** Copies a Mill built main jar from an "out" directory subdirectory to the given staging folder. */
-  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ErrBi[Exception, FileWritten] =
+  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): Either[Exception, FileWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "jar.dest", "")
 
   /** Copies a Mill built Javadoc jar from an "out" directory subdirectory to the given staging folder. */
-  def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ErrBi[Exception, FileWritten] =
+  def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): Either[Exception, FileWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "docJar.dest", "-javadoc")
 
   /** Copies a Mill built sources jar from an "out" directory subdirectory to the given staging folder. */
-  def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ErrBi[Exception, FileWritten] =
+  def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): Either[Exception, FileWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "sourceJar.dest", "-sources")
 
   /** Copies a Mill built jar from an "out" directory subdirectory to the given staging directory. */
   def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String, millEndDirStr: String, jarTypeStr: String):
-    ErrBi[Exception, FileWritten] =
+    Either[Exception, FileWritten] =
     copyFile(projPath / "out" / moduleDir / millEndDirStr :/ "out.jar", stageDir :/ fileStemStr + "-" + version.str + jarTypeStr + ".jar")
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */

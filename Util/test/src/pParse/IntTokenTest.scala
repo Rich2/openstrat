@@ -19,36 +19,36 @@ object IntTokenTest extends TestSuite
     }
 
     test("General")
-    { assertMatch("4".parseTokens){ case Succ(Arr1(NatBase10Token(Sp1, "4"))) => }
-      assertMatch("45".parseTokens){ case Succ(Arr1(NatBase10Token(Sp1, "45"))) => }
-      assertMatch("4A".parseTokens){ case Succ(Arr1(ValidRawHexaIntToken(74))) => }
-      assertMatch("4F5".parseTokens){ case Succ(Arr1(ValidRawHexaIntToken(1269))) => }
-      assertMatch("\"45\"".parseTokens){ case Succ(Arr1(StringToken(Sp1, "45"))) => }
-      assertMatch("0x11".parseTokens){ case Succ(Arr1(Nat0xToken(Sp1, "11"))) => }
-      assertMatch("0y11".parseTokens){ case Succ(Arr1(Nat0yToken(Sp1, "11"))) => }
+    { assertMatch("4".parseTokens){ case Right(Arr1(NatBase10Token(Sp1, "4"))) => }
+      assertMatch("45".parseTokens){ case Right(Arr1(NatBase10Token(Sp1, "45"))) => }
+      assertMatch("4A".parseTokens){ case Right(Arr1(ValidRawHexaIntToken(74))) => }
+      assertMatch("4F5".parseTokens){ case Right(Arr1(ValidRawHexaIntToken(1269))) => }
+      assertMatch("\"45\"".parseTokens){ case Right(Arr1(StringToken(Sp1, "45"))) => }
+      assertMatch("0x11".parseTokens){ case Right(Arr1(Nat0xToken(Sp1, "11"))) => }
+      assertMatch("0y11".parseTokens){ case Right(Arr1(Nat0yToken(Sp1, "11"))) => }
     }
 
     val st1 = "true; 17; false"
 
     test("Find / as Int")
-    { "17".findType[Int] ==> Succ(17)
-      "17".asNat ==> Succ(17)
-      st1.intAtStsIndex(1) ==> Succ(17)
-      st1.intAtStsIndex(1) ==> Succ(17)
-      "true".asBool ==> Succ(true)
-      st1.findType[Boolean].isSucc ==> false
-      "17; -17".findType[Int].isFail ==> true
-      "17; -17".asNat.isFail ==> true
-      "25".asInt ==> Succ(25)
-      "25;".asInt.isFail==> true
+    { "17".findType[Int] ==> Right(17)
+      "17".asNat ==> Right(17)
+      st1.intAtStsIndex(1) ==> Right(17)
+      st1.intAtStsIndex(1) ==> Right(17)
+      "true".asBool ==> Right(true)
+      st1.findType[Boolean].isRight ==> false
+      "17; -17".findType[Int].isLeft ==> true
+      "17; -17".asNat.isLeft ==> true
+      "25".asInt ==> Right(25)
+      "25;".asInt.isLeft==> true
     }
 
     test("Negative")
-    { assertMatch("-4".parseTokens){ case Succ(Arr1(NegBase10Token(Sp1, "4"))) => }
-      "-4".asInt ==> Succ(-4)
-      "-4".asNat.isFail ==> true
-      "-257".asInt ==> Succ(-257)
-      "-257".asNat.isFail ==> true
+    { assertMatch("-4".parseTokens){ case Right(Arr1(NegBase10Token(Sp1, "4"))) => }
+      "-4".asInt ==> Right(-4)
+      "-4".asNat.isLeft ==> true
+      "-257".asInt ==> Right(-257)
+      "-257".asNat.isLeft ==> true
     }
   }
 }

@@ -2,7 +2,7 @@
 package ostrat; package pParse; package plex
 import collection.mutable.ArrayBuffer
 
-/** More imperative version of Function object for creating an [[ErrBi]] of [[Token]]s. This internally uses a mutable ArrayBuffer, but the mutability is fully
+/** More imperative version of Function object for creating an [[Either]] of [[Token]]s. This internally uses a mutable ArrayBuffer, but the mutability is fully
  * encapsulated. */
 object lexSrc
 { /** lexes [[String]]. */
@@ -12,7 +12,7 @@ object lexSrc
   def apply(charsIn: Array[Char], fileName: String): ErrBiArr[ExcLexar, Token] =
   { implicit val charArr: CharArr = new CharArr(charsIn)
     val acc: ArrayBuffer[Token] = Buffer[Token]()
-    var acc2: ErrBi[ExcLexar, ArrayBuffer[Token]] = Succ(acc)
+    var acc2: Either[ExcLexar, ArrayBuffer[Token]] = Right(acc)
     var rem: CharsOff = charArr.offsetter0
     var posn: TextPosn = new TextPosn(fileName, 1, 1)
 
@@ -25,7 +25,7 @@ object lexSrc
           rem = co
           posn = tp
         }
-        case Fail(err) => acc2 = Fail(err)
+        case Left(err) => acc2 = Left(err)
         case eb => excep(s"$eb This case was unexpected")
       }
     }
@@ -37,7 +37,7 @@ object lexSrc
       posn = tpNew
     }
 
-    while(rem.length > 0 && acc2.isSucc)  rem match
+    while(rem.length > 0 && acc2.isRight)  rem match
     { case CharsOff0() => acc.succRArr
       case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(posn), tail, posn.right1)
       case CharsOff1Tail(',', tail) => appendLoop(CommaToken(posn), tail, posn.right1)

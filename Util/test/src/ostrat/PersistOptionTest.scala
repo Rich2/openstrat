@@ -19,34 +19,34 @@ object PersistOptionTest extends TestSuite
     val noi: Option[Int] = None
     test("None")
     { None.str ==> "None"
-      "None".findType[None.type] ==> Succ(None)
+      "None".findType[None.type] ==> Right(None)
       None.str.enCurly ==> "None".enCurly
       None.show(ShowSemis).enCurly ==> " ".enCurly
       None.show(ShowCommas).enCurly ==> " ".enCurly
       None.show(ShowStd).enCurly ==> " ".enCurly
       noi.show(ShowCommas).enCurly ==> " ".enCurly
       List[Option[Int]](Some(4), None, Some(8), None).str ==> "Seq(4; ; 8; ;)"
-      "".asType[None.type] ==> Succ(None)
+      "".asType[None.type] ==> Right(None)
     }    
 
     val sm5: Option[Int] = Some(-5)
 
     test("Some")
     { sm5.str ==> "-5"
-      "-78.2".findType[Some[Double]] ==> Succ(Some(-78.2))
-      "-78.2".findType[Option[Double]] ==> Succ(Some(-78.2))
-      "Some(-78.2)".findType[Some[Double]] ==> Succ(Some(-78.2))
-      "Some(-78.2)".findType[Option[Double]] ==> Succ(Some(-78.2))
+      "-78.2".findType[Some[Double]] ==> Right(Some(-78.2))
+      "-78.2".findType[Option[Double]] ==> Right(Some(-78.2))
+      "Some(-78.2)".findType[Some[Double]] ==> Right(Some(-78.2))
+      "Some(-78.2)".findType[Option[Double]] ==> Right(Some(-78.2))
     }
     
     test("Option")
     { val oa: Option[Int] = Some(5)
       oa.str ==> "5"
       t1.str ==> t1Str
-      "27".findType[Some[Int]] ==> Succ(Some(27))
-      t1Str.findType[Test1] ==> Succ(Test1(Some(5), 4, Some(2.0)))
+      "27".findType[Some[Int]] ==> Right(Some(27))
+      t1Str.findType[Test1] ==> Right(Test1(Some(5), 4, Some(2.0)))
       t2.str ==> "Test1( ; 7; ;)"
-      "Test1(; 7; ;)".findType[Test1] ==> Succ(Test1(None, 7, None))
+      "Test1(; 7; ;)".findType[Test1] ==> Right(Test1(None, 7, None))
     }
   }
 }

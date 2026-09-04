@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
-import utest._
+import utest.*
 
 object LatLongTest extends TestSuite
 {
@@ -44,9 +44,9 @@ object LatLongTest extends TestSuite
     val ll4 = -5 ll -40
     test("Latlong Persist")
     { ll1.str ==> "44.00N, 46.00E"
-      "LatLong(44; 46)".asType[LatLong] ==> Succ(ll1)
-      "44; 46".asType[LatLong] ==> Succ(ll1)
-      "-5, -40".asType[LatLong] ==> Succ(ll4)
+      "LatLong(44; 46)".asType[LatLong] ==> Right(ll1)
+      "44; 46".asType[LatLong] ==> Right(ll1)
+      "-5, -40".asType[LatLong] ==> Right(ll4)
     }
   }
 }

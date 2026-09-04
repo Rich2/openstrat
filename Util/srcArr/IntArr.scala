@@ -120,7 +120,7 @@ object IntArr
   { override def typeStr: String = "Seq"
 
     override def fromExpr(expr: Expr): ExcMon[IntArr] = expr match
-    { case _: EmptyExprToken => Succ(IntArr())
+    { case _: EmptyExprToken => Right(IntArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _),
       BracketedStructure(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>

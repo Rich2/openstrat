@@ -21,6 +21,6 @@ object BcLaunch extends GuiLaunchMore
       case _ => BCScen1
     }
 
-    (BC305Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " BC305 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (BC305Gui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " BC305 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

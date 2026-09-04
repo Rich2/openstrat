@@ -21,7 +21,7 @@ object EnglandNorth extends EarthPoly("England north",  53.632 ll -1.581, hillyO
   override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, p20, scarborough, flamborough, p30,humberMouth, merseyMouth,formby, fleetwood, kentMouth,
     humphreyHead, sBarrow, stBeesHead, ScotlandLow.solwayMouth)
 
-   val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
+   val london: LocationLL = LocationLL("London", 51.51, -0.13, 1)
    override val places: LocationLLArr = LocationLLArr(london)
 }
 

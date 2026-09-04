@@ -123,7 +123,7 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
     def e2: ExcMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
     def e3: ExcMon[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toErrBi)
     def e4: ExcMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toErrBi)
-    ErrBi.map4(e1, e2, e3, e4)(newT)
+    EitherMap4(e1, e2, e3, e4)(newT)
   }
 }
 

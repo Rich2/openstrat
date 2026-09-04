@@ -12,7 +12,7 @@ object G1SLaunch extends GuiLaunchMore
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen = sts.findSetting[Int]("scen")
-    val num: Int = oScen.getElse(1)
+    val num: Int = oScen.getOrElse(1)
 
     val scen: G1SScen = num match
     { case 1 => G1SScen1
@@ -20,13 +20,13 @@ object G1SLaunch extends GuiLaunchMore
       case 3 => G1SScen3
       case _ => G1SScen1
     }
-    val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
-    val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1: ErrBi[Throwable, StrArr] = sts2.findSettingIdentifierArr("counters")
+    val oSetts: Either[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: Either[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1: Either[Throwable, StrArr] = sts2.findSettingIdentifierArr("counters")
     val plAll: RArr[Counter] = scen.counterSet
-    val pls2: ErrBi[Throwable, RArr[Counter]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
-    val pls3: RArr[Counter] = pls2.getElse(plAll)
-    val ov: ErrBi[Throwable, SGView] = sts2.findType[SGView]
+    val pls2: Either[Throwable, RArr[Counter]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
+    val pls3: RArr[Counter] = pls2.getOrElse(plAll)
+    val ov: Either[Throwable, SGView] = sts2.findType[SGView]
     debvar(ov)
     val view: SGView = sts2.findTypeElse(scen.gridSys.defaultView())
     debvar(pls3)

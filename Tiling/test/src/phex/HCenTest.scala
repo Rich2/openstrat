@@ -13,9 +13,9 @@ object HCenTest extends TestSuite
   val tests = Tests {
     test("test1")
     { hc1.str ==> hcs1
-      hcs1.asType[HCen] ==> Succ(hc1)
+      hcs1.asType[HCen] ==> Right(hc1)
       arr1.str ==> arrStr1
-      assert(arrStr1.asType[HCenArr] === Succ(arr1))
+      assert(arrStr1.asType[HCenArr] == Right(arr1))
     }
   }
 }

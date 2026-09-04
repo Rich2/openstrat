@@ -20,6 +20,6 @@ object IndRevLaunch extends GuiLaunchMore
       case _ => IndRevScen1
     }
 
-    (IndRevGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (IndRevGui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

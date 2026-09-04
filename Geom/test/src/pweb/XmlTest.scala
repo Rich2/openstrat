@@ -1,6 +1,6 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import utest.*, utiljvm.*, webjvm.*
+import utest.*, utiljvm.*, webjvm.*, wcode.*
 
 /** Also tests the srcToETokens function object. */
 object XmlTest extends TestSuite
@@ -9,7 +9,7 @@ object XmlTest extends TestSuite
 
   class Country(val nameStr: String, val otherElems: RArr[XmlElem]) extends XmlTagLines
   { override def tagName: String = "Country"
-    override def attribs(): RArr[HAtt] = RArr()
+    override def attribs: RArr[XAtt] = RArr()
     def nameEl = XmlElemSimple("name", nameStr)
 
     override def contents: RArr[XConCompound] = nameEl %: otherElems
@@ -36,17 +36,17 @@ object XmlTest extends TestSuite
     test("Test1")
     { wash.out ==> "<City>Washington</City>"
       cities0.out ==> cities0Out
-      Succ(cities1.out) ==>  strFromResource("cities1.xml")
-      Succ(cities2.out) ==> strFromResource("cities2.xml")
-      Succ(usa1.out) ==>  strFromResource("usa1.xml")
+      Right(cities1.out) ==>  strFromResource("cities1.xml")
+      Right(cities2.out) ==> strFromResource("cities2.xml")
+      Right(usa1.out) ==>  strFromResource("usa1.xml")
     }
     val paris = City("Paris")
     val tours = City("Tours")
     val lyon = City("Lyon")
     val frCities = Cities(RArr(paris, tours, lyon))
+    
     val france1 = new Country("France", RArr(frCities))
-    {
-      override val attribs(): RArr[HAtt] = RArr(VersionAtt("1.0.0"), NameAtt("France"), XAtt("VeryLongAttribute", "Very long value!"),
+    { override val attribs: RArr[XAtt] = RArr(VersionPatchAtt(1, 0, 0), NameAtt("France"), XAtt("VeryLongAttribute", "Very long value!"),
         XAtt("Colour", "violet"))
     }
 

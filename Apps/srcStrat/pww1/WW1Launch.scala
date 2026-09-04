@@ -21,6 +21,6 @@ object WW1Launch extends GuiLaunchMore
       case _ => WW1Scen1
     }
 
-    (WW1Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " WW1 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (WW1Gui(_, scen, oview.getOrElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " WW1 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

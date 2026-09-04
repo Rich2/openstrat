@@ -6,16 +6,16 @@ import collection.mutable.ArrayBuffer
 object parse7Clauses
 {
   /** Function apply method parses [[Clause]]s. Assumes input [[RArr]] is not empty. */
-  def apply (implicit seg: RArr[ColonOpMem]): ErrBi[ExcAst, ColonMemExpr] = fromOffset(seg.offset0)
+  def apply (implicit seg: RArr[ColonOpMem]): Either[ExcAst, ColonMemExpr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: RArr[ColonOpMem]): ErrBi[ExcAst, ColonMemExpr] =
+  def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: RArr[ColonOpMem]): Either[ExcAst, ColonMemExpr] =
   {
     var subAcc: ArrayBuffer[ClauseMem] = Buffer()
     val acc: ArrayBuffer[Clause] = Buffer()
 
-    def loop(rem: ArrOff[ColonOpMem]): ErrBi[ExcAst, ColonMemExpr] = rem match
+    def loop(rem: ArrOff[ColonOpMem]): Either[ExcAst, ColonMemExpr] = rem match
     { case ArrOff0() if acc.isEmpty => parse8ClauseMem(using subAcc.toArr)
-      case ArrOff0() if subAcc.isEmpty => Succ(ClausesExpr(acc.toArr))
+      case ArrOff0() if subAcc.isEmpty => Right(ClausesExpr(acc.toArr))
       case ArrOff0() => parse8ClauseMem(using subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, None)).toArr) }
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 

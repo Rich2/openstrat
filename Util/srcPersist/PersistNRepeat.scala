@@ -91,7 +91,7 @@ trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
   final override def fromExpr(expr: Expr): ExcMon[A] = expr match
   {
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => FailExc(typeName -- "does not equal" -- typeStr)
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => LeftExc(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[A](using this)
   }
