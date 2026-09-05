@@ -5,7 +5,7 @@ import utest._, pParse._
 object LengthTest  extends TestSuite
 {
   val tests = Tests {
-    val ts1: ErrBiArr[ExcLexar, Token] = "4.3km".toTokens
+    val ts1: ErrBiArr[LexarException, Token] = "4.3km".toTokens
     test("Length 1")
     { "4km".asType[Kilometres] ==> Right(Kilometres(4))
       ts1.isRight ==> true

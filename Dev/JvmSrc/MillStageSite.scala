@@ -28,7 +28,7 @@ object MillStageSite extends StagingBuild
     val jarApp: ErrBiAcc[Exception, FileWritten] = stageDocumentationJs(projPath, docPath)
     deb(jarApp.errsSummary)
     val otherPath: DirsAbs = stagePath / "otherapps"
-    val otherBi: ExcIOMon[DirExists] = otherPath.mkExist
+    val otherBi: IOExcEither[DirExists] = otherPath.mkExist
     val otherJsFiles = otherBi.mapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
         val fromDir: DirsAbs = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest"
@@ -38,7 +38,7 @@ object MillStageSite extends StagingBuild
     deb(otherJsFiles.msgErrsSummary("to otherapps directory"))
 
     val egridPath: DirsAbs = stagePath / "egrids"
-    val eGridBi: ExcIOMon[DirExists] = egridPath.mkExist
+    val eGridBi: IOExcEither[DirExists] = egridPath.mkExist
     val egridJsFiles = eGridBi.mapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
         val fromDir: DirsAbs = projPath / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest"

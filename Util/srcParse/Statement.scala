@@ -17,7 +17,7 @@ sealed trait Statement extends TextSpan
   def noSemi: Boolean = optSemi.isEmpty
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExpr(settingName: String): Either[ExcParse, AssignMemExpr] = this match
+  def settingExpr(settingName: String): Either[ParseException, AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Right(rightExpr)
     case _ => startPosn.failParse(settingName -- "not found.")
   }

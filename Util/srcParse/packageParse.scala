@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** This is the RSON package. Readable Succinct Object Notation. It could be just as accurately be described as Readable Succinct Data Notation, but that
@@ -21,14 +21,14 @@ package object pParse
 
   /** Returns an [[Either]] of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
    * returned as errors. */
-  def srcToEStatements(input: Array[Char], inputSourceName: String): Either[ExcParse, RArr[Statement]] =
+  def srcToEStatements(input: Array[Char], inputSourceName: String): Either[ParseException, RArr[Statement]] =
     plex.lexSrc(input, inputSourceName).flatMap(tokensToStatements(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
-  def stringToStatements(input: String): ExcMonRArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
+  def stringToStatements(input: String): ExcEitherRArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
 
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def stringToTokens(srcStr: String): ErrBiArr[ExcLexar, Token] = plex.lexSrc(srcStr.toCharArray, "String")
+  def stringToTokens(srcStr: String): Either[LexarException, RArr[Token]] = plex.lexSrc(srcStr.toCharArray, "String")
 
   /** Returns true Char is operator char. */
   def isOperator(char: Char): Boolean = char match
@@ -37,14 +37,14 @@ package object pParse
   }
 
   /** Tries to parse a sequence of [[Token]]s to [[Statement]]s. */
-  def tokensToStatements(tokens: RArr[Token]): ErrBiArr[ExcParse, Statement] = pAST.parse1BlockStructure(using tokens).flatMap { g => blockMemsToStatements(g) }
+  def tokensToStatements(tokens: RArr[Token]): Either[ParseException, RArr[Statement]] = pAST.parse1BlockStructure(using tokens).flatMap { g => blockMemsToStatements(g) }
 
   /** Tries to parse a sequence of block members [[BlockMem]]s to a sequence of [[Statement]]s. */
-  def blockMemsToStatements(inp: RArr[BlockMem]): ErrBiArr[ExcAst, Statement] = pAST.parse3Statements(using inp).map{
+  def blockMemsToStatements(inp: RArr[BlockMem]): Either[AstException, RArr[Statement]] = pAST.parse3Statements(using inp).map{
     case StringStatements(sts) => sts
     case e => RArr(StatementNoneEmpty(e, None))
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExpr(tokens: RArr[Token]): Either[ExcParse, Expr] = pAST.parse1BlockStructure(using tokens).flatMap { g => pAST.parse3Statements(using g) }
+  def tokensToExpr(tokens: RArr[Token]): Either[ParseException, Expr] = pAST.parse1BlockStructure(using tokens).flatMap { g => pAST.parse3Statements(using g) }
 }

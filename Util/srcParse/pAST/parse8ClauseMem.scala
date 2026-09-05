@@ -5,11 +5,11 @@ import collection.mutable.ArrayBuffer
 /** Function object for parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
 object parse8ClauseMem
 { /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
-  def apply(implicit inp: RArr[ClauseMem]): Either[ExcAst, ClauseMemExpr] =
+  def apply(implicit inp: RArr[ClauseMem]): Either[AstException, ClauseMemExpr] =
   {
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
-    def loop(rem: ArrOff[ClauseMem]): ErrBiArr[ExcAst, ClauseMem] = rem match
+    def loop(rem: ArrOff[ClauseMem]): AstExcEither[RArr[ClauseMem]] = rem match
     { case ArrOff0() => parse9PrefixPlus(using acc.toArr)
 
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStructure, t2) =>

@@ -8,13 +8,13 @@ implicit class STringExtsOstrat(thisString: String)
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 
   /** Parses this [[String]] into RSON tokens. */
-  def parseTokens: ErrBiArr[ExcParse, Token] = plex.lexSrc(thisString.toCharArray, "String")
+  def parseTokens: Either[ParseException, RArr[Token]] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */
-  def parseStatements: ExcMonRArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  def parseStatements: ExcEitherRArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
-  def parseExpr: Either[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
+  def parseExpr: Either[ParseException, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findType[A](implicit ev: Unshow[A]): Either[Exception, A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }
@@ -195,7 +195,7 @@ implicit class STringExtsOstrat(thisString: String)
   }
 
   /** Extension method. Try to parse this [[String]] into RSON [[pParse.Token]]s. */
-  def toTokens: ErrBiArr[ExcLexar, Token] = pParse.stringToTokens(thisString)
+  def toTokens: Either[LexarException, RArr[Token]] = pParse.stringToTokens(thisString)
 
   /** Appends strings with a comma and space separator */
   def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)

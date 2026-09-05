@@ -30,24 +30,24 @@ object TextPosn
 { def apply(fileName: String, lineNum: Int, linePosn: Int): TextPosn = new TextPosn(fileName, lineNum, linePosn)
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
-  def excEmpty: ExcParse = ExcParse("Empty object")
-  def failEmpty: Fail[ExcParse] = Left(excEmpty)
+  def excEmpty: ParseException = ParseException("Empty object")
+  def failEmpty: Fail[ParseException] = Left(excEmpty)
 
   implicit class TextPosnImplicit(thisTextPosn: TextPosn)
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
 
-    /** Produce a failure with an [[pParse.ExcLexar]] type. */
-    def failParse(detail: String): Fail[ExcParse] = Fail[ExcParse](ExcParse(thisTextPosn, detail))
+    /** Produce a failure with an [[pParse.LexarException]] type. */
+    def failParse(detail: String): Fail[ParseException] = Fail[ParseException](ParseException(thisTextPosn, detail))
     
     /** Produce a failure with a plain [[Exception]] type. */
     def fail(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
     
-    /** Produce a failure with an [[pParse.ExcLexar]] type. */
-    def failLexar(detail: String): Fail[ExcLexar] = Fail[ExcLexar](ExcLexar(thisTextPosn, detail))
+    /** Produce a failure with an [[pParse.LexarException]] type. */
+    def failLexar(detail: String): Fail[LexarException] = Fail[LexarException](LexarException(thisTextPosn, detail))
 
-    /** Produce a failure with an [[pParse.ExcLexar]] type. */
-    def failAst(detail: String): Fail[ExcAst] = Fail[ExcAst](ExcAst(thisTextPosn, detail))
+    /** Produce a failure with an [[pParse.LexarException]] type. */
+    def failAst(detail: String): Fail[AstException] = Fail[AstException](AstException(thisTextPosn, detail))
   }
   
   given persistEV: Persist3Both[String, Int, Int, TextPosn] =

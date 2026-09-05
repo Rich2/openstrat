@@ -6,7 +6,7 @@ trait ServRaw
 { /** The port number. */
   def port: Int = 8080
   
-  def responses(req: ThrowMon[HttpReq]): Option[HttpResp]
+  def responses(req: ThrowEither[HttpReq]): Option[HttpResp]
 
   def run(): Unit =
   {
@@ -25,7 +25,7 @@ trait ServRaw
   }  
 }
 
-class ConnSesh(val cNum: Int, val sock: Socket, fResp: ThrowMon[HttpReq] => Option[HttpResp] ) extends Runnable
+class ConnSesh(val cNum: Int, val sock: Socket, fResp: ThrowEither[HttpReq] => Option[HttpResp] ) extends Runnable
 {
   override def run(): Unit =
   {

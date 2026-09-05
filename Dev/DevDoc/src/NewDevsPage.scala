@@ -55,7 +55,7 @@ object NewDevsPage extends DevPageBase
   
   def intellij: Section = Section("IntelliJ IDEA".h2,
     "Download the latest version. Modify this line if there is a newer version of IntelliJ IDEA.",
-    BashLine("sudo tar -xzf idea-2026.2.1.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf idea-2026.2.2.tar.gz -C /opt"),
     UlSection("For IntelliJ useful options:",
       LiHtml("File => Settings => 'Apperance and Behaviour' -> Always show full path in window header"),
       LiHtml("File => Settings => 'Apperance and Behaviour' -> Show indent guides"),

@@ -24,7 +24,7 @@ class AppStart extends application.Application
     val eApp2 = AppSelector.eFindEither(eApp1)
     
     val pair: (CanvasPlatform => Any, String) = eApp2.fold(p => p, launch =>
-      { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+      { val fSett: ThrowEither[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
         val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
         eSett.fold(e => launch.default)(launch(_))
       })

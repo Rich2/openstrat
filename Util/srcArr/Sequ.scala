@@ -552,11 +552,11 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Takes a function from A to [[Either]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Left]]. */
-  def mapUniqueSucc[B](f: A => Either[?, B]): Either[ExcFind, B] =
+  def mapUniqueSucc[B](f: A => Either[Throwable, B]): Either[ExcFind, B] =
   { var count = 0
     var acc: ExcNFTMon[B] = FailNotFound
     foreach { a => f(a) match
-      { case su: Succ[B] =>  { count += 1; acc = su }
+      { case Right(value) =>  { count += 1; acc = Right(value) }
         case _ =>
       }
     }

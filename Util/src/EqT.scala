@@ -38,6 +38,7 @@ object EqT
     case _ => false
   }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[List]]. */
   given listEv[A](using ev: EqT[A]): EqT[List[A]] = (l1, l2) =>
   { def loop(rem1: List[A], rem2: List[A]): Boolean = (rem1, rem2) match
     { case (Nil, Nil) => true
@@ -47,6 +48,7 @@ object EqT
     loop(l1, l2)
   }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[Array]]. */
   given arrayEv[A](using ev: EqT[A]): EqT[Array[A]] = (a1, a2) =>
     if(a1.length != a2.length) false
     else
@@ -61,11 +63,37 @@ object EqT
       acc
     }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[Seq]]. */
   given seqEv[A](using ev: EqT[A]): EqT[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[Vector]]. */
   given vectorEv[A](using ev: EqT[A]): EqT[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
 
+  /** Implicit [[EqT]] type class instance / evidence for [[Tuple2]]. */
   given tuple2Ev[A1, A2](using eq1: EqT[A1], eq2: EqT[A2]): EqT[(A1, A2)] = (p1, p2) => eq1.eqT(p1._1, p2._1) & eq2.eqT(p1._2, p2._2)
+
+  /** Implicit [[EqT]] type class instance / evidence for [[Either]]. */
+  given eitherEv[E, A](using evE: EqT[E], evA: EqT[A]): EqT[Either[E, A]] = (ei1, ei2) => ei1 match
+  { case Right(r1) => ei2 match
+    { case Right(r2) => evA.eqT(r1, r2)
+      case _ => false
+    }
+    case Left(err1) => ei2 match
+    { case Left(err2) => evE.eqT(err1, err2)
+      case _ => false
+    }
+  }
+  /** Implicit [[EqT]] type class instance / evidence for [[Exception]]. */
+  given exceptionEv: EqT[Exception] = (exc1, exc2) => exc1.getMessage == exc2.getMessage
+  
+  /** Implicit [[EqT]] type class instance / evidence for [[Right]]. */
+  given rightEv[E, A](using evA: EqT[A]): EqT[Right[E, A]] = (r1, r2) => evA.eqT(r1.value, r2.value)
+
+  /** Implicit [[EqT]] type class instance / evidence for [[Left]]. */
+  given leftEv[E, A](using evE: EqT[E]): EqT[Left[E, A]] = (l1, l2) => evE.eqT(l1.value, l2.value)
+  
+  /** Implicit [[EqT]] type class instance / evidence for [[Nothing]]. Not sure if this actually useful, but I've created it just in case. */
+  given nothingEv: EqT[Nothing] = (no1, no2) => false
 }
 
 class Eq1T[A1, A](val fArg1: A => A1)(using eq1: EqT[A1]) extends EqT[A]

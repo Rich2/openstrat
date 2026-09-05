@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import utest.{Show => _, _}, WTiles._
 
@@ -19,17 +19,17 @@ object WTileTest extends TestSuite
 
     test("Unshow")
     {  
-//      assert("Seq(Lake; Sea)".asType[RArr[Water]] === Right(RArr(Lake, Sea)))
-//      "Land(Plain; Oceanic; Forest)".asType[Land] ==> Right(oceForest)
-//      "Land(Hilly; Oceanic; MixedUse)".asType[Land] ==> Right(Land(Hilly, Oceanic))
-//      "Land(Hilly; Oceanic)".asType[Land] ==> Right(Land(Hilly, Oceanic))
-//      "Land(Hilly; Oceanic)".asType[Land] ==> Right(Land(Hilly, Oceanic))
-//      "Land(Plain; Oceanic)".asType[Land] ==> Right(Land(Plain, Oceanic))
-//      "Land(use = Forest; Plain; Oceanic)".asType[Land] ==> Right(Land(Plain, Oceanic, Forest))
-//      "Land(use = Forest; elev = Hilly; Oceanic)".asType[Land] ==> Right(Land(Hilly, Oceanic, Forest))
-//      "Land(use = Forest; climate = Savannah; elev = Hilly)".asType[Land] ==> Right(Land(Hilly, Savannah, Forest))
-//      "Land(use = Forest; climate = Savannah; Hilly)".asType[Land] ==> Right(Land(Hilly, Savannah, Forest))
-//      assert("Seq(Lake; Land(Hilly; Oceanic))".asType[RArr[WTile]] === Right(RArr(Lake, hillyOce)))
+      assert("Seq(Lake; Sea)".asType[RArr[Water]] === Right(RArr(Lake, Sea)))
+      "Land(Plain; Oceanic; Forest)".asType[Land] ==> Right(oceForest)
+      "Land(Hilly; Oceanic; MixedUse)".asType[Land] ==> Right(Land(Hilly, Oceanic))
+      "Land(Hilly; Oceanic)".asType[Land] ==> Right(Land(Hilly, Oceanic))
+      "Land(Hilly; Oceanic)".asType[Land] ==> Right(Land(Hilly, Oceanic))
+      "Land(Plain; Oceanic)".asType[Land] ==> Right(Land(Plain, Oceanic))
+      "Land(use = Forest; Plain; Oceanic)".asType[Land] ==> Right(Land(Plain, Oceanic, Forest))
+      "Land(use = Forest; elev = Hilly; Oceanic)".asType[Land] ==> Right(Land(Hilly, Oceanic, Forest))
+      "Land(use = Forest; climate = Savannah; elev = Hilly)".asType[Land] ==> Right(Land(Hilly, Savannah, Forest))
+      "Land(use = Forest; climate = Savannah; Hilly)".asType[Land] ==> Right(Land(Hilly, Savannah, Forest))
+      assert("Seq(Lake; Land(Hilly; Oceanic))".asType[RArr[WTile]] === Right(RArr(Lake, hillyOce)))
     }
 
     test("Multiple")
@@ -49,13 +49,13 @@ object WTileTest extends TestSuite
 
     test("W Seqs")
     { 
-//      assert("Seq(sea; oceForest)".asType[RArr[WTile]] === Right(RArr(sea, oceForest)))
-//      assert(RArr(oceanic, lake, Land(Hilly, Savannah)) === RArr(oceanic, lake , Land(Hilly, Savannah)))
-//      assert(Right(RArr(oceanic, lake, Land(Hilly, Savannah))) === Right(RArr(oceanic, lake , Land(Hilly, Savannah))))
-//      assert(er1 === Right(RArr(oceanic, lake , hillySavannah)))
-//      assert("Seq(sea * 2; lake)".asType[RArr[Water]] === Right(RArr(sea, sea, lake)))
-//      assert("Seq(hillyOce * 2; oceanic * 3)".asType[RArr[Land]] === Right(RArr(hillyOce, hillyOce, oceanic, oceanic, oceanic)))
-//      assert("Seq(hillyOce * 2; lake * 2; oceForest)".asType[RArr[WTile]] === Right(RArr(hillyOce, hillyOce, lake, lake, oceForest)))
+      assert("Seq(sea; oceForest)".asType[RArr[WTile]] === Right(RArr(sea, oceForest)))
+      assert(RArr(oceanic, lake, Land(Hilly, Savannah)) === RArr(oceanic, lake , Land(Hilly, Savannah)))
+      assert(Right(RArr(oceanic, lake, Land(Hilly, Savannah))) === Right(RArr(oceanic, lake , Land(Hilly, Savannah))))
+      assert(er1 === Right(RArr(oceanic, lake , hillySavannah)))
+      assert("Seq(sea * 2; lake)".asType[RArr[Water]] === Right(RArr(sea, sea, lake)))
+      assert("Seq(hillyOce * 2; oceanic * 3)".asType[RArr[Land]] === Right(RArr(hillyOce, hillyOce, oceanic, oceanic, oceanic)))
+      assert("Seq(hillyOce * 2; lake * 2; oceForest)".asType[RArr[WTile]] === Right(RArr(hillyOce, hillyOce, lake, lake, oceForest)))
     }
   }
 }

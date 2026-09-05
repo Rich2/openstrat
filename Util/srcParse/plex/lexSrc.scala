@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 import collection.mutable.ArrayBuffer
 
@@ -6,17 +6,17 @@ import collection.mutable.ArrayBuffer
  * encapsulated. */
 object lexSrc
 { /** lexes [[String]]. */
-  def str(inp: String): ErrBiArr[ExcLexar, Token] = apply(inp.toArray, "String")
+  def str(inp: String): Either[LexarException, RArr[Token]] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
-  def apply(charsIn: Array[Char], fileName: String): ErrBiArr[ExcLexar, Token] =
+  def apply(charsIn: Array[Char], fileName: String): Either[LexarException, RArr[Token]] =
   { implicit val charArr: CharArr = new CharArr(charsIn)
     val acc: ArrayBuffer[Token] = Buffer[Token]()
-    var acc2: Either[ExcLexar, ArrayBuffer[Token]] = Right(acc)
+    var acc2: Either[LexarException, ArrayBuffer[Token]] = Right(acc)
     var rem: CharsOff = charArr.offsetter0
     var posn: TextPosn = new TextPosn(fileName, 1, 1)
 
-    implicit class E3LexarImplicit(e3: ErrBi3[ExcLexar, CharsOff, TextPosn, Token])
+    implicit class E3LexarImplicit(e3: ErrBi3[LexarException, CharsOff, TextPosn, Token])
     {
       def append3Loop: Unit = e3 match
       {

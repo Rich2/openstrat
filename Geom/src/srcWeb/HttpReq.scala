@@ -6,7 +6,7 @@ class HttpReq(val method: HttpMethod, val uri: String)
 
 object HttpReq
 { /** Apply method, finds [[HttpReq]] from [[String]]s. */
-  def apply(lines: Sequ[String]): ThrowMon[HttpReq] =
+  def apply(lines: Sequ[String]): ThrowEither[HttpReq] =
   { val lh0 = lines(0)
     debvar(lh0)
     val rt = lh0.takeWhile(_.isLetter)

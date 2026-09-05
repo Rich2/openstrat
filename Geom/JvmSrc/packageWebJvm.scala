@@ -8,19 +8,19 @@ package object webjvm
   lazy val devSettingsStatements: ThrowMonRArr[Statement] = utiljvm.statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExpr(settingStr: String): ThrowMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
+  def findDevSettingExpr(settingStr: String): ThrowEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSetting[A: Unshow](settingStr: String): ThrowMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
+  def findDevSetting[A: Unshow](settingStr: String): ThrowEither[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getOrElse(elseValue)
 
   /** Find the [[String]] for the identifier value of o setting of the given name in the file DevSettings.rson. */
-  def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
+  def findDevSettingIdStr(settingStr: String): ThrowEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
   /** Find the project path. */
-  def projPathFind: ThrowMon[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
+  def projPathFind: ThrowEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
   def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.fold { err => deb(err.toString) } { path => f(path) }
@@ -29,10 +29,10 @@ package object webjvm
   def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").fold { err => deb(err.toString) } { path => f(path) }
 
   /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
-  def openstratPath: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("projPath")
+  def openstratPath: ThrowEither[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
   /** Possible path to the staging directory for Openstrat artefacts, if it can be found in Dev/User/DevSettings.rson file. */
-  def stagingPathFind: ThrowMon[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
+  def stagingPathFind: ThrowEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
   def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): Either[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)
@@ -84,7 +84,7 @@ package object webjvm
 
   /** Confirm the location already exists as a directory or create the directory if the location does not exist. Fail isf the location already exists as a
    * file. */
-  def mkDirExist(path: String): ExcIOMon[DirExists] =
+  def mkDirExist(path: String): IOExcEither[DirExists] =
   { val jp = new File(path)
     jp.exists match
     { case true if (jp.isDirectory) => Right(DirExisted.str(path))

@@ -72,50 +72,26 @@ implicit class EitherStringExts[E <: Throwable](thisEither: Either[E, String])
 
   def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
 }
-/** Biased bifunctor for errors. */
-/*sealed trait Either[+E <: Throwable, +A]
-{
-  /** Fold this [[Either]] into a type B. Takes two function parameters, one converts from A to B as in a normal map method. The second parameter in its own
-   * parameter list converts from the Error type to type B. */
-  @inline def fold[B](fFail: E => B)(fSucc: A => B): B
-
-  /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
-   * of primitive values. */
-  final def getOrElse(elseValue: A @uncheckedVariance): A = this match
-  { case Right(a) => a
-    case _ => elseValue
-  }
-
-  def get: A = this match
-  { case right: Right[A] => right.value
-    case left: Left[E] => throw(Exception("Attempting to get value from a Fail with " + left.error.toString))
-  }
-  
-}*/
 
 extension (obj: Either.type)
 { /** If both [[Errbi]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
   def map2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B): Either[Throwable, B] = eb1 match
   { case Right(a1) => eb2.map(a2 => f(a1, a2))
-    case f1: Fail[E] => eb2 match
-    { case Right(_) => f1
-      case Left(err2) => Left(ThrowMulti(f1.value, err2))
-      case _ => excep("Unforeseen match case")
+    case Left(err1) => eb2 match
+    { case Right(_) => Left(err1)
+      case Left(err2) => Left(ThrowMulti(err1, err2))
     }
-    case _ => excep("Unforeseen match case")
   }
 
   /** If both [[Errbi]] inputs are [[Right]]s return the result of the function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
   def flatMap2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => Either[Throwable, B]): Either[Throwable, B] = eb1 match
   { case Right(a1) => eb2.flatMap(a2 => f(a1, a2))
-    case f1: Fail[E] => eb2 match
-    {  case Right(_) => f1
-      case Left(err2) => Left(ThrowMulti(f1.value, err2))
-      case _ => excep("Unforeseen match case")
+    case Left(err1) => eb2 match
+    { case Right(_) => Left(err1)
+      case Left(err2) => Left(ThrowMulti(err1, err2))
     }
-    case _ => excep("Unforeseen match case")
   }
 
   /** If this [[Either]] is a [[Right]] produce [[ErrBiAcc]] with the parameter function. If this is [[Left]] produce [[ErrBiAcc]] with this single [[Left]]. */
@@ -125,14 +101,11 @@ extension (obj: Either.type)
     case Right(a1) =>  eb2 match
     { case Right(a2) => f(a1, a2)
       case Left(e2) => ErrBiAcc.err1(e2)
-      case _ => excep("Unforeseen match case")
     }
     case Left(e1) => eb2 match
     { case Right(_) => ErrBiAcc.err1(e1)
       case Left(e2) => ErrBiAcc.errs2(e1, e2)
-      case _ => excep("Unforeseen match case")
     }
-    case _ => excep("Unforeseen match case")
   }
   
   def map5[E <: Throwable, A1, A2, A3, A4, A5, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4], eb5: Either[E, A5])(
@@ -154,32 +127,16 @@ def EitherMap3[E <: Throwable, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E,
 
 
 def EitherMap4[E <: Throwable, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(f: (A1, A2, A3, A4) => B):
-Either[E, B] = for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4} yield f(s1, s2, s3, s4)  
-  
-/** Success, boxes a good value of the desired type. */
-/*case class Right[+A](value: A) extends Either[Nothing, A]
-{
-  
-}*/
-
-/*object Right
-{ /** Implicit evidence for [[EqT]] for type [[Right]]. */
-  given eqTEv[A](using evA: EqT[A]): EqT[Right[A]] = (su1, su2) => evA.eqT(su1.value, su2.value)
-}*/
-
-/** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
-/*class Left[+E <: Throwable](val error: E) extends Either[E, Nothing]
-{   
-}*/
+Either[E, B] = for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4} yield f(s1, s2, s3, s4)
 
 /** A Throwable error monad. */
-type ThrowMon[+A] = Either[Throwable, A]
+type ThrowEither[+A] = Either[Throwable, A]
 
 /** A Throwable error monad with an [[Arr]] for success. */
-type ThrowMonArr[+A] = Either[Throwable, Arr[A]]
+//type ThrowMonArr[+A] = Either[Throwable, Arr[A]]
 
 /** A Throwable error monad with an [[RArr]] for success. */
-type ThrowMonRArr[+A] = Either[Throwable, RArr[A]]
+type ThrowEitherRArr[+A] = Either[Throwable, RArr[A]]
 
 /** An [[Exception]] error monad. */
 type ExcMon[+A] = Either[Exception, A]
@@ -193,7 +150,7 @@ object LeftExc
 type IOExc = java.io.IOException
 
 /** A [[java.io.IOException]] error monad. */
-type ExcIOMon[+B] = Either[IOExc, B]
+type IOExcEither[+B] = Either[IOExc, B]
 
 /** A [[Left]] with [[Exception]] type. */
 type LeftExc = Left[Exception, Nothing]
@@ -212,27 +169,27 @@ object FailIO
 object NoneExc extends Exception("None")
 
 /** Error bifunctor for [[RArr]] values. */
-type ErrBiArr[E <: Throwable, AE <: AnyRef] = Either[E, RArr[AE]]
+//type ErrBiArr[E <: Throwable, AE <: AnyRef] = Either[E, RArr[AE]]
 
 /** Extractor function object for a successful Arr Sequence of length 1. */
 object SuccArr1
 { /** Extractor method for a successful [[Arr]] Sequence of length 1. */
-  def unapply[A <: AnyRef](eArr: ErrBiArr[?, A]): Option[A] = eArr match
+  def unapply[E, A <: AnyRef](eArr: Either[E, Arr[A]]): Option[A] = eArr match
   { case Right(Arr1(head)) => Some(head)
     case _ => None
   }
 }
 
-type ExcMonArr[Ae] = Either[Exception, Arr[Ae]]
-type ExcMonRArr[Ae] = Either[Exception, RArr[Ae]]
+
+type ExcEitherRArr[Ae] = Either[Exception, RArr[Ae]]
 
 /** Error bifunctor for [[Tuple2]]. */
-type ErrBi2[E <: Throwable, A1, A2] = Either[E, (A1, A2)]
+type throwEitherT2[E <: Throwable, A1, A2] = Either[E, (A1, A2)]
 
 /** Extension class for [[Exception]] bifunctor for [[Tuple2]]s. */
-extension [E <: Throwable, A1, A2](thisEE2: ErrBi2[E, A1, A2])
+extension [E <: Throwable, A1, A2](thisEE2: throwEitherT2[E, A1, A2])
 {
-  def t2FlatMap[B1, B2](f: (A1, A2) => ErrBi2[E, B1, B2]): ErrBi2[E, B1, B2] = thisEE2 match
+  def t2FlatMap[B1, B2](f: (A1, A2) => throwEitherT2[E, B1, B2]): throwEitherT2[E, B1, B2] = thisEE2 match
   { case Succ2(a1, a2) => f(a1, a2)
     case Left(err) => Left(err)
     case eb => excep(s"$eb This case was unexpected")
@@ -247,8 +204,8 @@ object Succ2
   def apply[B1, B2](b1: B1, b2: B2): Succ2[B1, B2] = new Right[Nothing, (B1, B2)]((b1, b2))
 
   /** unapply extractor for success on an [[Either]] with a [[Tuple2]] value type. */
-  def unapply[B1, B2](inp: ErrBi2[?, B1, B2]): Option[(B1, B2)] = inp match
-  { case succ: Succ2[B1, B2] => Some(succ.value._1, succ.value._2)
+  def unapply[B1, B2](inp: throwEitherT2[?, B1, B2]): Option[(B1, B2)] = inp match
+  { case Right(pair) => Some(pair._1, pair._2)
     case _ => None
   }
 }
@@ -275,7 +232,7 @@ object Succ3
 
   /** unapply extractor for success on an [[Either]] with a [[Tuple3]] value type. */
   def unapply[B1, B2, B3](inp: ErrBi3[?, B1, B2, B3]): Option[(B1, B2, B3)] = inp match
-  { case succ: Succ3[B1, B2, B3] => Some(succ.value._1, succ.value._2, succ.value._3)
+  { case Right(tuple) => Some(tuple._1, tuple._2, tuple._3)
     case _ => None
   }
 }

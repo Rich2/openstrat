@@ -1,15 +1,15 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
 /** Function object, seems to parse prefix operators. */
 object parse9PrefixPlus
 { /** Seems to parse prefix operators. Function object apply method. */
-  def apply(implicit refs: RArr[ClauseMem]): ErrBiArr[ExcAst, ClauseMem] =
+  def apply(implicit refs: RArr[ClauseMem]): AstExcEither[RArr[ClauseMem]] =
   {
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
-    def loop(rem: ArrOff[ClauseMem]): ErrBiArr[ExcAst, ClauseMem] = rem match
+    def loop(rem: ArrOff[ClauseMem]): AstExcEither[RArr[ClauseMem]] = rem match
     { case ArrOff0() => Right(acc).map(_.toArr)
       case ArrOff2Tail(pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       case ArrOff3Tail(left: ClauseMemExpr, pp: OperatorToken,  right: ClauseMemExpr, tail) =>

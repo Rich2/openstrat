@@ -63,6 +63,5 @@ object ExcBi
     { case Left(err2) => Left(ExcMulti(err1, err2))
       case _ => Left(err1)
     }
-    case _ => excep("Unforeseen match case.")
   }
 }

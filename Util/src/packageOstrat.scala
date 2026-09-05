@@ -151,7 +151,7 @@ package object ostrat
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
 
   /** Catches non-fatal [[Exception]]s and returns them as a [[Left]]. */
-  def eTry[A](res: => A): ThrowMon[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Left(e) }
+  def eTry[A](res: => A): ThrowEither[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Left(e) }
 
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).mkComma
 

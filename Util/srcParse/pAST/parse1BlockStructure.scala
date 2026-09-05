@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
@@ -6,13 +6,13 @@ import collection.mutable.ArrayBuffer
 object parse1BlockStructure
 {
   /** Function apply method to parse the brace delineated block syntax structure from the input [[Token]] sequence. */
-  def apply(implicit tokens: RArr[Token]): ErrBiArr[ExcAst, BlockMem] =
+  def apply(implicit tokens: RArr[Token]): Either[AstException, RArr[BlockMem]] =
   {
     val acc: ArrayBuffer[BlockMem] = Buffer()
 
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
-    def loop(rem: ArrOff[Token]): ErrBiArr[ExcAst, BlockMem] = rem match
+    def loop(rem: ArrOff[Token]): Either[AstException, RArr[BlockMem]] = rem match
     { case ArrOff0() => Right(acc.toArr)
 
       case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).flatMap { (bracketBlock, remTokens) =>

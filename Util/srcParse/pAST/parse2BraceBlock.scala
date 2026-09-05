@@ -5,10 +5,10 @@ import collection.mutable.ArrayBuffer
 /** Function object to parse a brace delineated block. */
 object parse2BraceBlock
 { /** Function apply method parses input [[Token]]s into a brace syntax block. */
-  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: RArr[Token]): ErrBi2[ExcAst, BracketedStructure, ArrOff[Token]] =
+  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: RArr[Token]): throwEitherT2[AstException, BracketedStructure, ArrOff[Token]] =
   {
     val acc: ArrayBuffer[BlockMem] = Buffer()
-    def loop(rem: ArrOff[Token]): ErrBi2[ExcAst, BracketedStructure, ArrOff[Token]] = rem match
+    def loop(rem: ArrOff[Token]): throwEitherT2[AstException, BracketedStructure, ArrOff[Token]] = rem match
     {
       case ArrOff0() => open.startPosn.failAst("Unclosed Brace")
 

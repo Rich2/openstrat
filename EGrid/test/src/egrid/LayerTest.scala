@@ -7,13 +7,12 @@ object LayerTest extends TestSuite
   val tests = Tests {
     val r1 =
     test("layer")
-    {
-//      assert("HRow(4;)".asType[LayerHcRefRow[Land]] === Right(LayerHcRefRow[Land](4)))
-//      assert("HRow(4; hillyOce)".asType[LayerHcRefRow[Land]] === Right(LayerHcRefRow[Land](4, hillyOce)))
-//      assert("HRow(4; hillyOce; hillyOce)".asType[LayerHcRefRow[Land]] === Right(LayerHcRefRow[Land](4, hillyOce, hillyOce)))
-//      assert("HRow(8; sea; Land(Hilly; Tropical); lake * 2)".asType[LayerHcRefRow[WTile]] === Right(LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake)))
-//      assert("8; sea; Land(Hilly; Tropical); lake * 2".asType[LayerHcRefRow[WTile]] === Right(LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake)))
-//      assert("8, sea, Land(Hilly; Tropical), lake * 2".asType[LayerHcRefRow[WTile]] === Right(LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake)))
+    { assert("HRow(4;)".asType[LayerHcRefRow[Land]] === Right(LayerHcRefRow[Land](4)))
+      assert("HRow(4; hillyOce)".asType[LayerHcRefRow[Land]] === Right(LayerHcRefRow[Land](4, hillyOce)))
+      assert("HRow(4; hillyOce; hillyOce)".asType[LayerHcRefRow[Land]] === Right(LayerHcRefRow[Land](4, hillyOce, hillyOce)))
+      assert("HRow(8; sea; Land(Hilly; Tropical); lake * 2)".asType[LayerHcRefRow[WTile]] === Right(LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake)))
+      assert("8; sea; Land(Hilly; Tropical); lake * 2".asType[LayerHcRefRow[WTile]] === Right(LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake)))
+      assert("8, sea, Land(Hilly; Tropical), lake * 2".asType[LayerHcRefRow[WTile]] === Right(LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake)))
       assert("HRow(3; sea; lake)".asType[LayerHcRefRow[Water]].isLeft)
       LayerHcRefRow(8, sea, Land(Hilly, Tropical), lake, lake).str ==> "HRow(8; Sea; Hilly, Tropical; Lake; Lake)"
     }

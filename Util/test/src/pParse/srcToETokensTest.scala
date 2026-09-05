@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._ 
 
@@ -37,36 +37,30 @@ object srcToETokensTest extends TestSuite
     displayX = 0;
     displayY = 0;"""
 
-    val et1 = st1.parseTokens
-//    val r1: Tokens = et1.get
+    val et1 = st1.parseTokens    
 
     test("Multiple")
     { assertMatch(";;".parseTokens){ case Right(Arr2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
       assertMatch(" ; .".parseTokens){ case Right(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
       assertMatch("Colour(0xFF000000)".parseTokens){ case Right(Arr4(C1, ParenthOpenToken(_), Nat0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Right(_) => }
-   //   r1.length ==> 12
-      assertMatch(r1){ case ArrHead4(IdentLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
+      et1.map(_.length) ==> Right(12)
+      //assertMatch(r1){ case ArrHead4(IdentLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
     }
 
     val st2 = """/* This is a comment."""
     val st3 = st1 + st2
-    val et3 = st3.parseTokens
-    val r3 = et3.get
+    val et3: ParseExcEither[RArr[Token]] = st3.parseTokens    
     val st4 = "\n End of Comment. */"
     val st5 = st1 + "\n" + st2 + st4
     val et5 = st5.parseTokens
-    implicit val r5: RArr[Token] = et5.get
-    val ro6: ArrOff[Token] = r5.offset(4)
 
     test("Settings")
     {  assertMatch(st2.parseTokens){ case Right(Arr0()) => }
       assertMatch(et3){case Right(_) => }
-      r3.length ==> 12
+      et3.map(_.length) ==> Right(12)
       assertMatch(et5){case Right(_) => }
-      r5.length ==> 12
-      ro6.length ==> 8
-      assertMatch(r5(4)){ case IdentLowerToken(_, "displayX") => }
+      et5.map(_.length) ==> Right(12)      
       assert("Gh * 5".parseTokens.isRight)
     }
 

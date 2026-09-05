@@ -8,7 +8,7 @@ object ServRawOS extends ServRaw
   
   override val port = 8081
 
-  override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
+  override def responses(req: ThrowEither[HttpReq]): Option[HttpResp] = req match
   {
     case Right(hrg: HttpReq) if hrg.method == GetHttp =>
     { val resp: HttpResp = hrg.uri match
