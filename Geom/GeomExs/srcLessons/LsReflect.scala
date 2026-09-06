@@ -24,7 +24,7 @@ object LsReflect extends LessonStatic
   val ccl1r = cl1.mirror(line1).fill(Orange)
 
   val r2 = Rect(180, 100, 150, -200)
-  val cl2 = Circle(40, 110, - 300)
+  val cl2 = Circle(40, 110, -300)
   val sq = Sqlign(100, 110, -400)
 
   val cn = Circle(40, 110, -290)

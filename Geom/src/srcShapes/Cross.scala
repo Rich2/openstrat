@@ -37,7 +37,9 @@ object Cross
   def diagDraw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LSeg2ArrDraw =
     diag(cenX, cenY, scale).draw(lineWidth, colour)
 
-  def diagRectangles(diagLength: Double, rectangleWidth: Double, cen: Pt2 = Origin2) = RArr(Rectangle(diagLength, rectangleWidth, 45.degsVec, cen), Rectangle(diagLength, rectangleWidth, -45.degsVec, cen))
+  def diagRectangles(diagLength: Double, rectangleWidth: Double, cen: Pt2 = Origin2) =
+    RArr(Rectangle(diagLength, rectangleWidth, 45.degsVec, cen), Rectangle(diagLength, rectangleWidth, AngleVec(-45), cen))
 
-  def diagRectangles(diagLength: Double, rectangleWidth: Double, cenX: Double, cenY: Double) = RArr(Rectangle(diagLength, rectangleWidth, 45.degsVec, cenX, cenY), Rectangle(diagLength, rectangleWidth, -45.degsVec, cenX, cenY))
+  def diagRectangles(diagLength: Double, rectangleWidth: Double, cenX: Double, cenY: Double) =
+    RArr(Rectangle(diagLength, rectangleWidth, 45.degsVec, cenX, cenY), Rectangle(diagLength, rectangleWidth, AngleVec(-45), cenX, cenY))
 }

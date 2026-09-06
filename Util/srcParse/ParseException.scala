@@ -7,6 +7,8 @@ trait ParseException extends ExcPersist
 object ParseException
 { def apply(message: String): ParseException = new Exception(message) with ParseException
   def apply(tp: TextPosn, detail: String): ParseException = new Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with ParseException
+  
+  given eqTEv: EqT[ParseException] = (pexc1, pexc2) => pexc1.getMessage == pexc2.getMessage
 }
 
 /** [[Either]] with a [[ParseException]] [[Left]] type. */

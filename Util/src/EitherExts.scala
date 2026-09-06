@@ -157,13 +157,9 @@ object FailIO
   @inline def apply(message: String): LeftIO = new Left[IOExc, Nothing](new IOExc(message))
 }
 
+/** A [[None]] value converted to an [[Extension]]. */
 object NoneExc extends Exception("None")
 
-/** Error bifunctor for [[RArr]] values. */
-//type ErrBiArr[E <: Throwable, AE <: AnyRef] = Either[E, RArr[AE]]
-
-
-//type ExcEitherRArr[Ae] = Either[Exception, RArr[Ae]]
 
 /** Error bifunctor for [[Tuple2]]. */
 type throwEitherT2[E <: Throwable, A1, A2] = Either[E, (A1, A2)]

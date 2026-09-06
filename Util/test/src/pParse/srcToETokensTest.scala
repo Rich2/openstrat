@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
-import utest._ 
+import utest.* 
 
 object srcToETokensTest extends TestSuite
 { 
@@ -37,15 +37,14 @@ object srcToETokensTest extends TestSuite
     displayX = 0;
     displayY = 0;"""
 
-    val et1 = st1.parseTokens    
+    val et1: ParseExcEither[RArr[Token]] = st1.parseTokens    
 
     test("Multiple")
     { assertMatch(";;".parseTokens){ case Right(Arr2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
       assertMatch(" ; .".parseTokens){ case Right(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
       assertMatch("Colour(0xFF000000)".parseTokens){ case Right(Arr4(C1, ParenthOpenToken(_), Nat0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Right(_) => }
-      et1.map(_.length) ==> Right(12)
-      //assertMatch(r1){ case ArrHead4(IdentLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
+      et1.map(_.length) ==> Right(12)      
     }
 
     val st2 = """/* This is a comment."""

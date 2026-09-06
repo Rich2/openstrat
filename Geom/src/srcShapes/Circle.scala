@@ -96,18 +96,28 @@ final class Circle protected[geom](val radius: Double, override val cenX: Double
   }
 
   /** point on this circle at the given angle. */
-  def ptOn(angle: Angle): Pt2 = Pt2(cenX + radius * angle.cos, cenY + radius * angle.sin)
+  def ptAt(angle: Angle): Pt2 = Pt2(cenX + radius * angle.cos, cenY + radius * angle.sin)
 
-  def degsTextArrow(degs: Double) = ptOn(degs.degs).textArrowToward(cen, degs.str + "°")
+  /** point on this circle at the given angle of alignment in degrees. */
+  def ptAtDegs(degsNum: Double): Pt2 ={
+    val angle = Angle(degsNum)
+    Pt2(cenX + radius * angle.cos, cenY + radius * angle.sin)
+  }
+
+  /** Arrow pointing towards the point on this circle at the given angle of alignment in degrees. */
+  def degsTextArrow(degsNum: Double) = {
+    val angle: Angle = degsNum.degs
+    ptAt(angle).textArrowToward(cen, angle.str + "°")
+  }
 
   /** Equilateral triangle on this [[Circle]] with vertex pointing up. */
-  def triEquiUp: TriEquiXlign = TriEquiXlign.verts(ptOn(90.degs), ptOn(-30.degs), ptOn(-150.degs))
+  def triEquiUp: TriEquiXlign = TriEquiXlign.verts(ptAtDegs(90), ptAtDegs(-30), ptAtDegs(-150))
 
   /** Equilateral triangle on this [[Circle]] with vertex pointing down. */
-  def triEquiDown: TriEquiXlign = TriEquiXlign.verts(ptOn(30.degs), ptOn(-90.degs), ptOn(150.degs))
+  def triEquiDown: TriEquiXlign = TriEquiXlign.verts(ptAtDegs(30), ptAtDegs(-90), ptAtDegs(150))
 
   /** Returns a line segment across a diameter of this [[Circle]]. */
-  def diameterLSeg(angle: Angle): LSeg2 = LSeg2(ptOn(angle), ptOn(angle + 180.degsVec))
+  def diameterLSeg(angle: Angle): LSeg2 = LSeg2(ptAt(angle), ptAt(angle + 180.degsVec))
 
   /** Produces a cross of 2 line segments. */
   def cross(angle: Angle = 0.degs): LSeg2Arr = LSeg2Arr(diameterLSeg(angle), diameterLSeg(angle + 90.degsVec))

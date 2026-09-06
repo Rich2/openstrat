@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import reflect.ClassTag
 
@@ -53,9 +53,16 @@ extension[T, T1 >: T](value: T)(using ev: Sim2Trans[T1])
     ev.slate(r2, focus)
   }
 
+  /** Extension method rotates this object, the number of degrees, about the given point. A positive rotation is anticlockwise. */
+  def rotateDegsAbout(focus: Pt2, rotationNum: Double): T1 =
+  { val r1 = ev.slateFrom(value, focus)
+    val r2 = ev.rotateT(r1, AngleVec(rotationNum))
+    ev.slate(r2, focus)
+  }
+
   /** Extension method rotates this object 45 degrees positively or anticlockwise about the given point. */
-  def rotate45About(focus: Pt2): T1 = rotateAbout(focus, 45.degsVec)
+  def rotate45About(focus: Pt2): T1 = rotateDegsAbout(focus, 45)
 
   /** Extension method rotates this object 45 degrees negatively or clockwise about the given point. */
-  def clk45About(focus: Pt2): T1 = rotateAbout(focus, -45.degsVec)
+  def clk45About(focus: Pt2): T1 = rotateDegsAbout(focus, -45)
 }
