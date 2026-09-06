@@ -119,7 +119,7 @@ object IntArr
   implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
   { override def typeStr: String = "Seq"
 
-    override def fromExpr(expr: Expr): ExcMon[IntArr] = expr match
+    override def fromExpr(expr: Expr): ExcEither[IntArr] = expr match
     { case _: EmptyExprToken => Right(IntArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _),

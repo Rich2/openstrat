@@ -11,7 +11,7 @@ implicit class STringExtsOstrat(thisString: String)
   def parseTokens: Either[ParseException, RArr[Token]] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */
-  def parseStatements: ExcEitherRArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  def parseStatements: ExcEither[RArr[Statement]] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
   def parseExpr: Either[ParseException, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
@@ -96,7 +96,7 @@ implicit class STringExtsOstrat(thisString: String)
   def findIntArray: Either[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSetting[T: Unshow](settingStr: String): ExcMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+  def findSetting[T: Unshow](settingStr: String): ExcEither[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getOrElse(elseValue)
@@ -121,7 +121,7 @@ implicit class STringExtsOstrat(thisString: String)
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as RSON
    * Statements. */
-  def findBoolSetting(settingStr: String): ExcMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
+  def findBoolSetting(settingStr: String): ExcEither[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */

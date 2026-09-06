@@ -5,11 +5,11 @@ import utest._
 object EitherBuildTest  extends TestSuite
 {
   val tests = Tests {
-    val a1: ExcMon[Int] = Right(5)
+    val a1: ExcEither[Int] = Right(5)
     val a2 = a1.map(_ * 11)
     val a3 = a2.map("Succ " + _.toString)
     val b = NoInt
-    val s1: ExcMon[String] = Right("Hello")
+    val s1: ExcEither[String] = Right("Hello")
 
     test("Test1")
     { a2 ==> Right(55)

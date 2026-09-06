@@ -106,7 +106,7 @@ object Angle
   val right: Angle = 0.degs
 
   /** 270 degrees angle of inclination. */
-  val down: Angle = -90.degs
+  val down: Angle = (-90).degs
 
   /** 180 degrees angle of inclination. */
   val left: Angle = 180.degs

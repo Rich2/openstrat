@@ -115,12 +115,6 @@ extension (obj: Either.type)
   def map6[E <: Throwable, A1, A2, A3, A4, A5, A6, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4], eb5: Either[E, A5],
     eb6: Either[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): Either[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
-
-  /*given eqTEv[E <: Throwable, A](using evA: EqT[A]): EqT[Either[E, A]] = (em1, em2) => (em1, em2) match
-  { case (Right(a1), Right(a2)) => evA.eqT(a1, a2)
-    case (Left(err1), Left(err2)) => err1 == err2
-    case _ => false
-  }*/
 }
 def EitherMap3[E <: Throwable, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B): Either[E, B] =
   for { s1 <- eb1; s2 <- eb2; s3 <- eb3 } yield f(s1, s2, s3)
@@ -129,17 +123,14 @@ def EitherMap3[E <: Throwable, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E,
 def EitherMap4[E <: Throwable, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(f: (A1, A2, A3, A4) => B):
 Either[E, B] = for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4} yield f(s1, s2, s3, s4)
 
-/** A Throwable error monad. */
+/** An [[Either]] with a [[Throwable]] [[Left]] type. */
 type ThrowEither[+A] = Either[Throwable, A]
-
-/** A Throwable error monad with an [[Arr]] for success. */
-//type ThrowMonArr[+A] = Either[Throwable, Arr[A]]
 
 /** A Throwable error monad with an [[RArr]] for success. */
 type ThrowEitherRArr[+A] = Either[Throwable, RArr[A]]
 
 /** An [[Exception]] error monad. */
-type ExcMon[+A] = Either[Exception, A]
+type ExcEither[+A] = Either[Exception, A]
 
 object LeftExc
 { /** Factory apply method to construct a [[Left]] with an [[Exception]] type. */
@@ -171,17 +162,8 @@ object NoneExc extends Exception("None")
 /** Error bifunctor for [[RArr]] values. */
 //type ErrBiArr[E <: Throwable, AE <: AnyRef] = Either[E, RArr[AE]]
 
-/** Extractor function object for a successful Arr Sequence of length 1. */
-object SuccArr1
-{ /** Extractor method for a successful [[Arr]] Sequence of length 1. */
-  def unapply[E, A <: AnyRef](eArr: Either[E, Arr[A]]): Option[A] = eArr match
-  { case Right(Arr1(head)) => Some(head)
-    case _ => None
-  }
-}
 
-
-type ExcEitherRArr[Ae] = Either[Exception, RArr[Ae]]
+//type ExcEitherRArr[Ae] = Either[Exception, RArr[Ae]]
 
 /** Error bifunctor for [[Tuple2]]. */
 type throwEitherT2[E <: Throwable, A1, A2] = Either[E, (A1, A2)]

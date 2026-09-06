@@ -104,7 +104,7 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[Ar]) => A = f
 
-  override def fromExpr(expr: Expr): ExcMon[A] =
+  override def fromExpr(expr: Expr): ExcEither[A] =
   { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
     expr match
     {
@@ -139,7 +139,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Array[Ar]) => A = f
 
-  override def fromExpr(expr: Expr): ExcMon[A] =
+  override def fromExpr(expr: Expr): ExcEither[A] =
   { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
     expr match
     { case Match1(exprs) if exprs.length == 0 => opt1 match

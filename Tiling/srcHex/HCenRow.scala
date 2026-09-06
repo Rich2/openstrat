@@ -46,7 +46,7 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruc
       res.setIndex2(i * 2 - 3, r + 1, cStart + i * 4 - 4)
       res.setIndex2(i * 2 - 2, r + 1, cStart + i * 4 - 2)
     }
-    iToForeach(numTiles, 2, - 1) { i =>
+    iToForeach(numTiles, 2, -1) { i =>
       res.setIndex2(numTiles * 4 - i * 2 - 1, r - 1, cStart + i * 4 - 2)
       res.setIndex2(numTiles * 4 - i * 2,     r - 1, cStart + i * 4 - 4)
     }

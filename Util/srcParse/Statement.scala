@@ -53,7 +53,7 @@ object Statement
     def endPosn = statements.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
-    def findSettingExpr(settingStr: String): ExcMon[AssignMemExpr] = statements match
+    def findSettingExpr(settingStr: String): ExcEither[AssignMemExpr] = statements match
     { case Arr0() => TextPosn.failEmpty//("No Statements")
       case Arr1(st1) => st1.settingExpr(settingStr)
       case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Right(_) => g } match
@@ -75,7 +75,7 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
+    def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcEither[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingId(settingStr: String): Either[Exception, String] = findSettingExpr(settingStr).flatMap{
@@ -101,7 +101,7 @@ object Statement
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): ExcMon[VT] = ev.keySettingFromStatements(statements, key)
+    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): ExcEither[VT] = ev.keySettingFromStatements(statements, key)
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
@@ -127,13 +127,13 @@ object Statement
     }
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def intAtIndex(index: Int): ExcMon[Int] =
+    def intAtIndex(index: Int): ExcEither[Int] =
     { val st = statements(index)
       ife(statements.length > index, Unshow.intEv.fromStatement(st), FailNoExprAtN(index, Unshow.intEv))
     }
 
     /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def natIntAtIndex(index: Int): ExcMon[Int] =
+    def natIntAtIndex(index: Int): ExcEither[Int] =
     { val st = statements(index)
       ife(statements.length > index, Unshow.natEv.fromStatement(st), FailNoExprAtN(index, Unshow.natEv))
     }
@@ -157,30 +157,30 @@ object Statement
     }
 
     /** Extension methods tries to get an[[Long]] value from the statement at the specified index of this[[RArr]][Statement].*/
-    def longAtIndex(index: Int): ExcMon[Long] =
+    def longAtIndex(index: Int): ExcEither[Long] =
     { val st = statements(index)
       ife(statements.length > index, Unshow.longEv.fromStatement(st), FailNoExprAtN(index, Unshow.longEv))
     }
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: ExcMon[Array[Int]] = ??? // Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
+    def findIntArray: ExcEither[Array[Int]] = ??? // Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type [[String]] from this Arr[Statement] Extension method. */
-    def findSettingStr(settingStr: String): ExcMon[String] = Unshow.stringEv.settingFromStatements(statements, settingStr)
+    def findSettingStr(settingStr: String): ExcEither[String] = Unshow.stringEv.settingFromStatements(statements, settingStr)
     
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): ExcMon[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
+    def findSettingInt(settingStr: String): ExcEither[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingDbl(settingStr: String): ExcMon[Double] = Unshow.doubleEv.settingFromStatements(statements, settingStr)
+    def findSettingDbl(settingStr: String): ExcEither[Double] = Unshow.doubleEv.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingPosDbl(settingStr: String): ExcMon[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
+    def findSettingPosDbl(settingStr: String): ExcEither[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      * resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): ExcMon[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
+    def findSettingBool(settingStr: String): ExcEither[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
   }
 
   /** Extension class for ErrBi[Arr[Statement]]. */

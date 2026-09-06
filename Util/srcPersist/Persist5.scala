@@ -96,13 +96,13 @@ trait Unshow5[A1, A2, A3, A4, A5, A] extends Unshow5Plus[A1, A2, A3, A4, A5, A],
 { /** Allows this [[Unshow]] instance to create object from it's 5 components. */
   def newT: (A1, A2, A3, A4, A5) => A
 
-  protected override def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[A] =
+  protected override def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcEither[A] =
   { val len: Int = sortedExprs.length
-    val e1: ExcMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
-    def e2: ExcMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
-    def e3: ExcMon[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toErrBi)
-    def e4: ExcMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toErrBi)
-    def e5: ExcMon[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toErrBi)
+    val e1: ExcEither[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
+    def e2: ExcEither[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
+    def e3: ExcEither[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toErrBi)
+    def e4: ExcEither[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toErrBi)
+    def e5: ExcEither[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toErrBi)
     Either.map5(e1, e2, e3, e4, e5)(newT)
   }
 }

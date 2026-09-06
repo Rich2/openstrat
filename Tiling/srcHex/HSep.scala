@@ -145,7 +145,7 @@ class HSepA(val r: Int, val c: Int) extends HSep
     else LSegHvOffset(tileRt.v3Exact, tileRt.v4Exact)
 
   override def anglePerpRt: Angle = 60.degs
-  override def anglePerpLt: Angle = -120.degs
+  override def anglePerpLt: Angle = (-120).degs
 }
 
 object HSepA
@@ -224,7 +224,7 @@ class HSepC(val r: Int, val c: Int) extends HSep
     if (gSys.hCenExists(tileRt)) LSegHvOffset(corners.cornerVLast(tileRt, 5), corners.cornerV1(tileRt, 0))
     else LSegHvOffset(tileRt.v5Exact, tileRt.v0Exact)
 
-  override def anglePerpRt: Angle = -60.degs
+  override def anglePerpRt: Angle = (-60).degs
   override def anglePerpLt: Angle = 120.degs
 }
 

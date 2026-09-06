@@ -13,7 +13,7 @@ object WW1Launch extends GuiLaunchMore
   { val num: Int = sts.findSettingElse("scen", 1)
     val isFlat: Boolean = sts.findSettingElse("flat", false)
 
-    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](num)
+    val oview: ExcEither[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: WW1Scen = num match
     { case 1 => WW1Scen1

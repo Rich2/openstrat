@@ -14,7 +14,7 @@ object EGridLaunch extends GuiLaunchMore
   { val scenNum: Int = sts.findSettingElse("scen", 1)
     val isFlat: Boolean = sts.findSettingElse("flat", false)
     val isSepDraw: Boolean = sts.findSettingElse("sepDraw", false)
-    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](scenNum)
+    val oview: ExcEither[HGView] = sts.findKeySetting[Int, HGView](scenNum)
     
     val scen: EScenBasic = scenNum match
     { case 0 => EGrid13.scen0

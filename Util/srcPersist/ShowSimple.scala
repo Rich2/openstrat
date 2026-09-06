@@ -45,7 +45,7 @@ trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
 
   def shortKeys: ArrPairStr[A @uncheckedVariance]
 
-  override def fromExpr(expr: Expr): ExcMon[A] = expr match
+  override def fromExpr(expr: Expr): ExcEither[A] = expr match
   { case IdentifierToken(str) => singletons.find(el => el.str == str).orElse(shortKeys.a1FindA2(str)).toErrBi
     case expr => expr.failExc(typeStr -- "not parsed from this Expression")
   }
@@ -81,7 +81,7 @@ object UnshowSingletons
 class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) extends PersistBothSimple[Boolean](typeStr)
 { override def strT(obj: Boolean): String = ife(obj, typeStr, falseStr)
 
-  override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
+  override def fromExpr(expr: Expr): ExcEither[Boolean] = expr match
   { case IdentifierToken(str) if str == "true" || str == trueStr => Right(true)
     case IdentifierToken(str) if str == "false" || str == falseStr => Right(false)
     case _ => expr.exprParseErr[Boolean]

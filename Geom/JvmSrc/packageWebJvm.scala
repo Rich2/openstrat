@@ -5,7 +5,7 @@ import pParse.*, java.io.File, scala.sys.process._
 /** This package is for Java byte code targets. */
 package object webjvm
 { /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: ThrowMonRArr[Statement] = utiljvm.statementsFromResource("DevSettings.rson")
+  lazy val devSettingsStatements: ThrowEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
   def findDevSettingExpr(settingStr: String): ThrowEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
@@ -35,27 +35,25 @@ package object webjvm
   def stagingPathFind: ThrowEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-  def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): Either[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)
+  def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ExcEither[FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr)
 
   /** Copies file from the full path-name of the first parameter to the dir of the second parameter. */
-  def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): Either[Exception, FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
+  def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): ExcEither[FileWritten] = utiljvm.copyFile(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
 
   /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-  def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): Either[Exception, JsFileWritten] =
+  def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsFileWritten] =
     copyFile(fromStem ++ ".js", toStem ++ ".js").map(fw => JsFileWritten(fw.detailStr))
 
   /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
-  def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): Either[Exception, JsFileWritten] =
+  def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsFileWritten] =
     copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsFileWritten(fw.detailStr))
   
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): Either[Exception, JsFileWritten] = 
-  {
-    
-    val res1: Either[Exception, JsFileWritten] = utiljvm.copyFile(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
-    res1 match {
-      case Right(jsfw) => utiljvm.copyFile(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match {
-        case Left(_) => res1
+  def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ExcEither[JsFileWritten] = 
+  { val res1: ExcEither[JsFileWritten] = utiljvm.copyFile(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+    res1 match
+    { case Right(jsfw) => utiljvm.copyFile(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
+      { case Left(_) => res1
         case Right(_) => Right(jsfw.withMap)
       }
       case fail => fail
@@ -63,7 +61,7 @@ package object webjvm
   }
 
   /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-  def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): Either[Exception, JsFileWritten] =
+  def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ExcEither[JsFileWritten] =
   {
     val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
     val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")    
@@ -72,7 +70,7 @@ package object webjvm
     val destDir: DirsAbs = htmlDirPath / fileNameStem
     destDir.mkExist
     //val destStem: DirsAbsStem = destDir :-/ fileNameStem
-    val res1: Either[Exception, JsFileWritten] = utiljvm.writeFile(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsFileWritten(fw.detailStr))
+    val res1: ExcEither[JsFileWritten] = utiljvm.writeFile(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsFileWritten(fw.detailStr))
     res1 match {
       case Right(jsfw) => utiljvm.writeFile(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsFileWritten(fw.detailStr)) match {
         case Left(_) => res1
@@ -99,7 +97,7 @@ package object webjvm
   }
 
   /** Copies a jar file */
-  def jarFileCopy(fromStr: String, toStr: String): Either[Exception, JarFileWritten] =
+  def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarFileWritten] =
     utiljvm.copyFile(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
 
 

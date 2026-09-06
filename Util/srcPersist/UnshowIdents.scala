@@ -5,7 +5,7 @@ import pParse._, reflect.ClassTag
 /** [[Unshow]] type class instances from one of sequence of identity tokens."  */
 class UnshowIdents[A](val typeStr: String, val pairs: ArrPairStr[A]) extends Unshow[A]
 {
-  override def fromExpr(expr: Expr): ExcMon[A] = expr match
+  override def fromExpr(expr: Expr): ExcEither[A] = expr match
   { case IdentifierToken(str) => pairs.a1FindA2(str).toErrBi
     case _ => expr.failExc(typeStr -- "not found.")
   }

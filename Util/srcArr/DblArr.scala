@@ -58,7 +58,7 @@ object DblArr
   given unshowEv: Unshow[DblArr] = new Unshow[DblArr]
   { override def typeStr: String = "Seq" + "Dbl"
 
-    override def fromExpr(expr: Expr): ExcMon[DblArr] = expr match
+    override def fromExpr(expr: Expr): ExcEither[DblArr] = expr match
     { case _: EmptyExprToken => Right(DblArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _), BracketedStructure(sts, brs2, _, _)))

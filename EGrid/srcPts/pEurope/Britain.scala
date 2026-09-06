@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*
 
 /** [[polygonLL]] graphical representation of England north. Depends on [[ScotlandLow]]. */
 object EnglandNorth extends EarthPoly("England north",  53.632 ll -1.581, hillyOce)

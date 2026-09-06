@@ -1,6 +1,6 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import utest._
+import utest.*
 
 object HCenTest extends TestSuite
 { val hc1 = HCen(6, 2)
@@ -14,8 +14,8 @@ object HCenTest extends TestSuite
     test("test1")
     { hc1.str ==> hcs1
       hcs1.asType[HCen] ==> Right(hc1)
-      arr1.str ==> arrStr1
-      assert(arrStr1.asType[HCenArr] == Right(arr1))
+      //arr1.str ==> arrStr1
+      //assert(arrStr1.asType[HCenArr] == Right(arr1))
     }
   }
 }

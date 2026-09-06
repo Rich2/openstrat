@@ -63,12 +63,12 @@ trait ShowTellN[A <: TellN] extends ShowNFixed[A], ShowTell[A]
 }
 
 trait UnshowN[R] extends Unshow[R], PersistNFixed
-{ protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[R]
+{ protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcEither[R]
 
   /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
 
-  final override def fromExpr(expr: Expr): ExcMon[R] = expr match
+  final override def fromExpr(expr: Expr): ExcEither[R] = expr match
   { case IdentifierToken(str) => shortKeys.a1FindA2(str).toErrBi
     case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.fail(typeName -- "does not equal" -- typeStr)
@@ -77,11 +77,11 @@ trait UnshowN[R] extends Unshow[R], PersistNFixed
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: RArr[Expr]): ExcMon[R] =
+  final def fromExprSeq(exprs: RArr[Expr]): ExcEither[R] =
      if (exprs.length > numParams) LeftExc(exprs.length.toString + s" parameters for $numParams parameter constructor.")
      else
      {
-       def exprsLoop(i: Int, usedNames: StrArr): ExcMon[R] =
+       def exprsLoop(i: Int, usedNames: StrArr): ExcEither[R] =
          if (i >= exprs.length)
            if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
            else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)

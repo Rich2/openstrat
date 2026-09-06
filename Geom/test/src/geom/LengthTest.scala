@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import utest._, pParse._
+import utest.*, pParse.*
 
 object LengthTest  extends TestSuite
 {
   val tests = Tests {
-    val ts1: ErrBiArr[LexarException, Token] = "4.3km".toTokens
+    val ts1: LexarExcEither[RArr[Token]] = "4.3km".toTokens
     test("Length 1")
     { "4km".asType[Kilometres] ==> Right(Kilometres(4))
       ts1.isRight ==> true

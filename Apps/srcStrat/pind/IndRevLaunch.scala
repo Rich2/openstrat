@@ -12,7 +12,7 @@ object IndRevLaunch extends GuiLaunchMore
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
     val isFlat: Boolean = sts.findSettingElse("flat", false)
-    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](num)
+    val oview: ExcEither[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: IndRevScen = num match
     { case 1 => IndRevScen1

@@ -9,11 +9,13 @@ object ParseException
   def apply(tp: TextPosn, detail: String): ParseException = new Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with ParseException
 }
 
+/** [[Either]] with a [[ParseException]] [[Left]] type. */
 type ParseExcEither[A] = Either[ParseException, A]
 
-/** AST [[Exception]]. */
+/** AST abstract syntax tree [[Exception]]. */
 case class AstException(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail), ParseException
 
+/** Either with an [[AstException]] [[Left]] type. */
 type AstExcEither[+A] = Either[AstException, A]
 
 object AstExcFail
@@ -33,4 +35,6 @@ object LexarExcFail
 { /** Factory apply method to construct a lexar exception. */
   def apply(tp: TextPosn, detail: String): Fail[LexarException] = Fail[LexarException](LexarException(tp, detail))
 }
+
+type LexarExcEither[+A] = Either[LexarException, A] 
 

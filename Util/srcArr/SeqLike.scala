@@ -37,7 +37,7 @@ object SeqLike
   given unshowEv[A, AA <: SeqLike[A]](using evA: Unshow[A], build: BuilderSeqLikeMap[A, AA]): Unshow[AA] = new Unshow[AA]
   { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): ExcMon[AA] = expr match
+    override def fromExpr(expr: Expr): ExcEither[AA] = expr match
     { case _: EmptyExprToken => Right(build.uninitialised(0))
       
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
