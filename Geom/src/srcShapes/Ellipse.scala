@@ -155,13 +155,25 @@ object Ellipse
   def apply(radius1: Double, radius0: Double, cen: Pt2 = Origin2): Ellipselign =
     new EllipselignGen(cen.x, cen.y + radius0, cen.x + radius1, cen.y, cen.x - radius0, cen.y)
 
+  /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec): EllipseGen = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation)
 
+  /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cen: Pt2): EllipseGen =
     new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0).rotate(rotation).slate(cen)
 
+  /** Factory apply method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(xRadius: Double, yRadius: Double, rotation: AngleVec, cenX: Double, cenY: Double): EllipseGen =
   { val e1 = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0)
+    val e2 = e1.rotate(rotation)
+    e2.slate(cenX, cenY)
+  }
+
+  /** Factory method for an Ellipse, with the rotation of the axis specified in number of degrees. The apply factory methods in this Ellipse companion object
+   * default to an [[EllipseGen]] class. */
+  def degs(xRadius: Double, yRadius: Double, degsRotation: Double, cenX: Double, cenY: Double): EllipseGen =
+  { val rotation = degsRotation.degsVec
+    val e1 = new EllipseGen(0, yRadius, xRadius, 0, -xRadius, 0)
     val e2 = e1.rotate(rotation)
     e2.slate(cenX, cenY)
   }

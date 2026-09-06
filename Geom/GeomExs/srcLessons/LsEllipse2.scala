@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat.*, geom.*, pgui.*, Colour.*
 
@@ -10,7 +10,7 @@ object LsEllipses2 extends LessonGraphics
 
 /** Ellipses 2 Lesson. Unfinished. */
 case class LsEllipses2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson Ellipses 2")
-{ val el0 = Ellipse(200, 125, -20.degsVec, -300, 200)
+{ val el0 = Ellipse.degs(200, 125, -20, -300, 200)
   val el1: Ellipse = Ellipse(500, 250, 45.degsVec, 200, 0)
 
   val stuff = RArr(el0.fill(Red), el1.draw()) ++ el0.textArrows() ++ el1.textArrows()

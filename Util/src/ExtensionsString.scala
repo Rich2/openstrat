@@ -8,58 +8,58 @@ implicit class STringExtsOstrat(thisString: String)
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 
   /** Parses this [[String]] into RSON tokens. */
-  def parseTokens: Either[ParseException, RArr[Token]] = plex.lexSrc(thisString.toCharArray, "String")
+  def parseTokens: ParseExcEither[RArr[Token]] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */
   def parseStatements: ExcEither[RArr[Statement]] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
-  def parseExpr: Either[ParseException, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
+  def parseExpr: ParseExcEither[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A](implicit ev: Unshow[A]): Either[Exception, A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }
+  def findType[A](using ev: Unshow[A]): ExcEither[A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getOrElse(elseValue)
 
-  /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
-  def typeAtStsIndex[A: Unshow](index: Int) = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get the value from the Statement given by the index. */
+  def typeAtStsIndex[A: Unshow](index: Int): ExcEither[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def dblAtStsIndex(index: Int): Either[Exception, Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get a [[Double]] value from the Statement given by the index. */
+  def dblAtStsIndex(index: Int): ExcEither[Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsIndex(index: Int): Either[Exception, Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get a [[Int]] value from the Statement given by the index. */
+  def intAtStsIndex(index: Int): ExcEither[Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int): Either[Exception, Int] = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get a [[Int]] value from the Statement given by the index. */
+  def natAtStsIndex(index: Int): ExcEither[Int] = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a positive, non-negative [[Double]] value from the Statement given by the index. */
-  def posDblAtStsIndex(index: Int): Either[Exception, Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get a positive, non-negative [[Double]] value from the Statement given by the index. */
+  def posDblAtStsIndex(index: Int): ExcEither[Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
-  def boolAtStsIndex(index: Int): Either[Exception, Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get a [[Boolean]] value from the Statement given by the index. */
+  def boolAtStsIndex(index: Int): ExcEither[Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
-  def longAtStsIndex(index: Int): Either[Exception, Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
+  /** Parses this [[String]] into [[Either]] of [[Statement]]s and tries to get a [[Long]] value from the Statement given by the index. */
+  def longAtStsIndex(index: Int): ExcEither[Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
 
   /** Find type from this [[String]] parsed as a sequence of RSON statements and if succssful run the sdie effecting proceedure on the value.  */
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].foreach(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
-  def asType[A](using evA: Unshow[A]) = parseExpr.flatMap(evA.fromExpr(_))
+  def asType[A](using evA: Unshow[A]): ExcEither[A] = parseExpr.flatMap(evA.fromExpr(_))
 
   /** Replaces newline characters into space characters. */
   def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asDbl: Either[Exception, Double] = asType[Double]
+  def asDbl: ExcEither[Double] = asType[Double]
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asPosDbl = asType[Double](using Unshow.posDoubleEv)
+  def asPosDbl: ExcEither[Double] = asType[Double](using Unshow.posDoubleEv)
 
   /** Tries to parse this String as an [[Int]] expression. */
-  def asInt: Either[Exception, Int] = asType[Int]
+  def asInt: ExcEither[Int] = asType[Int]
 
   /** Tries to parse this String as an [[Int]] expression, if fails returns the elseValue with a default of 0. */
   def asIntElse(elseValue: Int = 0): Int = asType[Int].getOrElse(elseValue)

@@ -1,11 +1,11 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
 /** Function object for parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
 object parse8ClauseMem
 { /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
-  def apply(implicit inp: RArr[ClauseMem]): Either[AstException, ClauseMemExpr] =
+  def apply(implicit inp: RArr[ClauseMem]): AstExcEither[ClauseMemExpr] =
   {
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
