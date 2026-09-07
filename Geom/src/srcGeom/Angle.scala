@@ -1,10 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360 degrees,
  * while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add and subtract, + and -
  * methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would make no sense. */
-final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
+final class Angle private(val milliSecs: Double) extends AnyVal, AngleLike, Ordered[Angle], Dbl1Elem
 { override def typeStr: String = "Angle"
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
@@ -76,8 +76,11 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
 
 /** Angle Companion object. */
 object Angle
-{ /** Factory method for Angle from number of degrees */
+{ /** Factory apply method for Angle from number of degrees */
   @inline def apply(degrees: Double): Angle = new Angle((degrees %% 360) * MilliSecsInDeg)
+
+  /** Factory method for Angle from number of degrees */
+  @inline def degs(degrees: Double): Angle = new Angle((degrees %% 360) * MilliSecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */
   @inline def radians(radians: Double): Angle = new Angle(radians.radiansToMilliSecs %% MilliSecsIn360Degs)// (radians %+- Pi1) * 180 * MilliSecsInDeg / Pi1)
@@ -110,4 +113,9 @@ object Angle
 
   /** 180 degrees angle of inclination. */
   val left: Angle = 180.degs
+}
+
+object Degs
+{ /** Factory apply method to created [[Angle]] of alignment of the given number of degrees. */
+  def apply(numDegrees: Double): Angle = Angle.degs(numDegrees)
 }

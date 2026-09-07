@@ -1,10 +1,9 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 import utest.*
 
 object lexStringTokenTest extends TestSuite
-{
-  val s0 = "\"\""
+{ val s0 = "\"\""
   val chs0 = s0.toChars
   val r0 = lexStringToken(chs0.offsetter0, StrPosn())(using chs0)
 
@@ -21,10 +20,10 @@ object lexStringTokenTest extends TestSuite
 
   val tests = Tests {
     test("Test1")
-    { assertMatch(r0){case Succ3(CharsOff(2), StrPosn(1, 3), StringToken(p1, s0)) => }
-      assertMatch(r1){case Succ3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
-      assertMatch(r2){case Succ3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
-      assertMatch(r3){case Succ3(CharsOff(13), StrPosn(1, 14), StringToken(StrPosn(1, 5), s3)) => }
+    { assertMatch(r0){case Right((CharsOff(2), StrPosn(1, 3), StringToken(p1, s0))) => }
+      assertMatch(r1){case Right((CharsOff(7), StrPosn(1, 8), StringToken(p1, s1))) => }
+      assertMatch(r2){case Right((CharsOff(7), StrPosn(1, 8), StringToken(p1, s1))) => }
+      assertMatch(r3){case Right((CharsOff(13), StrPosn(1, 14), StringToken(StrPosn(1, 5), s3))) => }
     }
 
     val s4 = "\"Hello"    

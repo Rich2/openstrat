@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math.*, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, annotation.targetName
 
@@ -154,6 +154,9 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2, PointDbl2, CurveTa
     case DegVec270 => rotate270
     case a => Pt2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
   }
+
+  /** Rotates this vector through the given number of degrees around the origin. */
+  def rotateDegs(numDegrees: Double): Pt2 = rotate(numDegrees.degsVec)
 
   def rotateRadians(r: Double): Pt2 = Pt2(x * cos(r) - y * sin(r),
     { val ya = x * sin(r)

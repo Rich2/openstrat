@@ -52,6 +52,9 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   /** Rotate around the X axis, viewed from positive X. A positive angle is anti-clockwise. */
   def rotateX(a: AngleVec): PtM3 = PtM3(x, z * a.sin + y * a.cos, z * a.cos - y * a.sin)
 
+  /** Rotate around the X axis the specified number of degrees, viewed from positive X. A positive angle is anti-clockwise. */
+  def rotateXDegs(numDegrees: Double): PtM3 = rotateX(numDegrees.degsVec)
+
   /** rotates the vector around the Y axis, 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotateY90: PtM3 = PtM3(z, y, -x)
 

@@ -15,9 +15,9 @@ object IdentifierTokenTest extends TestSuite
 
   val tests = Tests {
     test("Parse")
-    { assertMatch(r1){ case Succ3(CharsOff(3), StrPosn(1, 4), IdentUpperToken(_, _)) => }
-      assertMatch(r2){ case Succ3(CharsOff(3), StrPosn(1, 4), IdentLowerToken(_, _)) => }
-      assertMatch(r3){ case Succ3(CharsOff(3), StrPosn(1, 4), IdentLowerToken( _, _)) => }
+    { assertMatch(r1){ case Right((CharsOff(3), StrPosn(1, 4), IdentUpperToken(_, _))) => }
+      assertMatch(r2){ case Right((CharsOff(3), StrPosn(1, 4), IdentLowerToken(_, _))) => }
+      assertMatch(r3){ case Right((CharsOff(3), StrPosn(1, 4), IdentLowerToken( _, _))) => }
     }
   }
 }

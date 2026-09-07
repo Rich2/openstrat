@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat.*, geom.*, Colour.*
 
@@ -30,9 +30,9 @@ object LsReflect extends LessonStatic
   val cn = Circle(40, 110, -290)
   val v1 = Pt2(0, -cl1.diameter)
   val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
-  val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degsVec)), 2, Gold)
+  val cd2 = CircleDraw(cl1.slate(v1.rotateDegs(45)), 2, Gold)
 
-  val cd3 = CircleDraw(cl1.slate(v1.rotate(-45.degsVec)), 2, Aquamarine)
+  val cd3 = CircleDraw(cl1.slate(v1.rotateDegs(-45)), 2, Aquamarine)
   
   val cnf = CircleFill(cn, Violet)
   val cn1 = cn.slate(20, 50)

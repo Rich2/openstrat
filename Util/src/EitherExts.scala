@@ -189,15 +189,15 @@ object Succ2
 }
 
 /** Error bifunctor for [[Tuple3]]. */
-type ErrBi3[E <: Throwable, A1, A2, A3] = Either[E, (A1, A2, A3)]
+type ErrBi3[+E <: Throwable, +A1, +A2, +A3] = Either[E, (A1, A2, A3)]
 
 /** Extension class for [[Exception]] bifunctor for [[Tuple3]]s. */
 extension[E <: Throwable, A1, A2, A3](thisEE3: ErrBi3[E, A1, A2, A3])
 {
-  def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ErrBi3[E, B1, B2, B3]): ErrBi3[E, B1, B2, B3] = thisEE3 match
-  { case Succ3(a1, a2, a3) => f(a1, a2, a3)
+  def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ErrBi3[E, B1, B2, B3])(using ct1: ClassTag[A1], ct2: ClassTag[A2], ct3: ClassTag[A3]): ErrBi3[E, B1, B2, B3] =
+    thisEE3 match
+  { case Right(tuple) => f(tuple._1, tuple._2, tuple._3)
     case Left(err) => Left(err)
-    case eb => excep(s"$eb This case was unexpected")
   }
 }
 
@@ -206,11 +206,18 @@ type Succ3[B1, B2, B3] = Right[Nothing, (B1, B2, B3)]
 
 object Succ3
 { /** Factory apply method for creating [[Right]] with a [[Tuple3]] value. */
-  def apply[B1, B2, B3](b1: B1, b2: B2, b3: B3): Succ3[B1, B2, B3] = new Right[Nothing, (B1, B2, B3)]((b1, b2, b3))
+  def apply[B1, B2, B3](b1: B1, b2: B2, b3: B3): Succ3[B1, B2, B3] = new Right[Nothing, (B1, B2, B3)]((b1, b2, b3))  
+}
 
-  /** unapply extractor for success on an [[Either]] with a [[Tuple3]] value type. */
-  def unapply[B1, B2, B3](inp: ErrBi3[?, B1, B2, B3]): Option[(B1, B2, B3)] = inp match
-  { case Right(tuple) => Some(tuple._1, tuple._2, tuple._3)
+object Right3
+{ /** unapply extractor for an [[Either]] with a [[Tuple3]] value type. */
+  def unapply[B1, B2, B3](inp: Either[Any, (Any, Any, Any)])(using ct1: ClassTag[B1], ct2: ClassTag[B2], ct3: ClassTag[B3]): Option[(B1, B2, B3)] = inp match {
+    case Right(tuple) => {
+      val op1 = ct1.unapply(tuple._1)
+      val op2 = ct2.unapply(tuple._2)
+      val op3 = ct3.unapply(tuple._3)
+      OptionMap3(op1, op2, op3) { (b1, b2, b3) => (b1, b2, b3) }
+    }
     case _ => None
   }
 }

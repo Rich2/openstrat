@@ -18,15 +18,14 @@ object lexSrc
 
     implicit class E3LexarImplicit(e3: ErrBi3[LexarException, CharsOff, TextPosn, Token])
     {
-      def append3Loop: Unit = e3 match
-      {
-        case Succ3 (co, tp, token) =>
-        { acc.append (token)
+      def append3Loop: Unit = e3 match {
+        case Right(tuple) =>
+        { val (co, tp, token) = tuple
+          acc.append(token)
           rem = co
           posn = tp
         }
         case Left(err) => acc2 = Left(err)
-        case eb => excep(s"$eb This case was unexpected")
       }
     }
 

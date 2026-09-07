@@ -16,6 +16,6 @@ import geom.*, pglobe.*
   debvar(mm4.kmStr)
   val mm5 = ll2.fromFocusMetres(LatLong.degs(50, 0))
   debvar(mm5.kmStr)
-  val mm6 = ll2.toMetres3.rotateX(-44.degsVec)
+  val mm6 = ll2.toMetres3.rotateXDegs(-44)
   debvar(mm6.kmStr)
 }

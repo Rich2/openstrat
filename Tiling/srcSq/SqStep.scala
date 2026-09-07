@@ -98,7 +98,7 @@ case object SqDn extends SqStepPerp
 { def sr: Int = -1
   def sc: Int = 0
   override def reverse: SqStep = SqUp
-  override def angle: Angle = -90.degs
+  override def angle: Angle = Degs(-90)
   override def int1: Int = 4
 }
 
@@ -131,7 +131,7 @@ case object SqDR extends SqStepDiag
 { def tr: Int = -2
   def tc: Int = 2
   override def reverse: SqStep = SqUL
-  override def angle: Angle = -45.degs
+  override def angle: Angle = Degs(-45)
   override def int1: Int = 3
 }
 
@@ -140,7 +140,7 @@ case object SqDL extends SqStepDiag
 { def tr: Int = -2
   def tc: Int = -2
   override def reverse: SqStep = SqUR
-  override def angle: Angle = -135.degs
+  override def angle: Angle = Degs(-135)
   override def int1: Int = 5
 }
 

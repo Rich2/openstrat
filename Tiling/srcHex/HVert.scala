@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom.*, collection.mutable.ArrayBuffer
 
 /** A hex tile vertex coordinate. */
 sealed trait HVert extends Any with HCoord with TCoord
@@ -129,7 +129,7 @@ final class HVertLow(val bLong: Long) extends AnyVal with  HVert
     case HVLt => HVertLow(r, c - 4)
   }
 
-  override def angleOppLeft: Angle = -150.degs
+  override def angleOppLeft: Angle = Degs(-150)
 }
 
 object HVertLow
