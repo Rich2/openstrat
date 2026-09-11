@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.4.0"
+val versionStr = "0.4.1snap"
 version := versionStr
 val scalaMajor: String = "3.9"
 val scalaMinor: String = "0"

@@ -271,7 +271,7 @@ object TomcatPage extends DevPageBase
     "Copy the HelloServlet.class file into above folder.",
     "We could use the following in Base/webapps/Hello/WEB-INF/web.xml, but there's no need as these servlets have the WebServlet annotation.",
     PreCode(Web6App1("Hello", "ostrat.pDev.HelloServlet").out(0, 0, 80)),
-    "Download", AHtml("https://repo1.maven.org/maven2/org/scala-lang/scala-library/3.8.4/scala-library-3.8.4.jar"), """into Base/lib directory. We're putting it
+    "Download", AHtml("https://repo1.maven.org/maven2/org/scala-lang/scala-library/3.9.0/scala-library-3.9.0.jar"), """into Base/lib directory. We're putting it
     |into Base/lib rather than Hello/WEB-INF/lib, so it can be used by all web apps.""".stripMargin
   )
 

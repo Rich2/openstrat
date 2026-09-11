@@ -25,10 +25,10 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
 
   var oConn: Either[Throwable, Connection] = LeftExc("Untried.")
 
-  def tryConn: Either[Throwable, Connection] = oConn match{
-    case Right(_) => oConn
-    case fail => {
-      val res = Either.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
+  def tryConn: Either[Throwable, Connection] = oConn match
+  { case Right(_) => oConn
+    case fail =>
+    { val res = Either.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
       oConn = res
       res
     }

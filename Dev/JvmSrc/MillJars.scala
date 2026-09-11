@@ -13,7 +13,9 @@ object Module
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val version: VersionPatchElem = VersionPatchElem(0, 4, 0)
+  val version: VersionPatchElem = VersionPatchElem.snap(0, 4, 1)
+
+  /** Version of the Scala dependency. */
   val scalaVersion = VersionPatchElem(3, 9, 0)
 
   val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer, GeomJsPommer, TilingJsPommer, GeomLetPommer, GeomFxPommer)
@@ -28,7 +30,7 @@ trait MillStageJars
   def action(projPath: DirsAbs, stageDirStr: DirsAbs): ErrBiAcc[Exception, FileWritten]
 
   /** Copies a Mill built main jar from an "out" directory subdirectory to the given staging folder. */
-  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): Either[Exception, FileWritten] =
+  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ExcEither[FileWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "jar.dest", "")
 
   /** Copies a Mill built Javadoc jar from an "out" directory subdirectory to the given staging folder. */
