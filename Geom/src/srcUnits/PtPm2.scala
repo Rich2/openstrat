@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
 /** Common trait for [[VecPm2]] and [[PtPm2]] */
-trait VecPtPm2 extends VecPtLen2, TellElemDbl2
+trait VecPtPm2 extends VecPtMetric2, TellElemDbl2
 { /** The X component of this 2-dimensional [[Picometres]] vector. */
   def x: Picometres = Picometres(xPicometresNum)
 
@@ -25,7 +25,7 @@ trait VecPtPm2 extends VecPtLen2, TellElemDbl2
 }
 
 /** A 2-dimensional point specified in [[Picometres]] as units rather than pure scalar numbers. */
-final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends PtLen2, VecPtPm2
+final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends PtMetric2, VecPtPm2
 { override type ThisT = PtPm2
   override type LineSegT = LineSegPm2
   override def typeStr: String = "PtPm2"
@@ -38,15 +38,17 @@ final class PtPm2 private(val xPicometresNum: Double, val yPicometresNum: Double
   override def mapGeom2(operator: Length): Pt2 = Pt2(xPicometresNum / operator.picometresNum, yPicometresNum / operator.picometresNum)  
   override def -(operand: VecLen2): PtPm2 = new PtPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
   override def -(operand: PtLen2): VecPm2 = VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)
-  override def revY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
-  override def revYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
+  override def negY: PtPm2 = new PtPm2(xPicometresNum, -yPicometresNum)
+  override def negYIf(cond: Boolean): PtPm2 = ife(cond, new PtPm2(xPicometresNum, -yPicometresNum), this)
   override def rotate180: PtPm2 = new PtPm2(-xPicometresNum, -yPicometresNum)
   override def rotate180If(cond: Boolean): PtPm2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtPm2 = ife(cond, this, rotate180)
   override def rotate(a: AngleVec): PtPm2 =  new PtPm2(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
-  def angleTo(angle: Angle, delta: Length): PtPm2 =
+  override def ptAtAngle(angle: Angle, delta: Length): PtPm2 =
     PtPm2(xPicometresNum + delta.picometresNum * angle.cos, yPicometresNum + delta.picometresNum * angle.sin)
+
+  override def ptAtDegs(numDegs: Double, delta: Length): PtPm2 = ptAtAngle(numDegs.degs, delta) 
 
   override def rotateRadians(r: Double): PtPm2 =
   { val newX = xPicometresNum * cos(r) - yPicometresNum * sin(r)
@@ -193,7 +195,7 @@ class PtPm2PairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPa
 }
 
 /** A 2-dimensional vector specified in picometres as units rather than pure scalar numbers. */
-final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends VecPtPm2, VecLen2
+final class VecPm2 private(val xPicometresNum: Double, val yPicometresNum: Double) extends VecPtPm2, VecMetric2
 { override def typeStr: String = "VecPm2"
   override def + (operand: VecLen2): VecPm2 = new VecPm2(xPicometresNum + operand.xPicometresNum, yPicometresNum + operand.yPicometresNum)
   override def - (operand: VecLen2): VecPm2 = new VecPm2(xPicometresNum - operand.xPicometresNum, yPicometresNum - operand.yPicometresNum)

@@ -54,7 +54,7 @@ final class PolygonM2Gen(val arrayUnsafe: Array[Double]) extends AnyVal, Polygon
     while (i < numVerts) { f(side(i)); i += 1 }
   }
 
-  override def revY: PolygonM2Gen = map(_.revY)
+  override def revY: PolygonM2Gen = map(_.negY)
   override def revYIf(cond: Boolean): PolygonM2Gen = ife(cond, revY, this)
   override def rotate180: PolygonM2Gen = map(_.rotate180)
   override def rotate180If(cond: Boolean): PolygonM2Gen = ife(cond, map(_.rotate180), this)

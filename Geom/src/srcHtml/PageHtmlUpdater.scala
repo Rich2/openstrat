@@ -13,7 +13,7 @@ trait PageHtmlUpdater extends HtmlPageFile
 
 /** An HTML page with an accumulator of [[PageHtmlUpdater]]s, including an [[UpdaterSelect]] for operating System. */
 trait PageUpdaterOperatingSystem extends PageHtmlUpdater
-{ val jVer1: Int = 25
+{ val jVer1: Int = 26
   val javaVerInput: UpdaterIntInput = UpdaterIntInput("javaVer", jVer1, 17, 30)
   val javaVerLI: LabelInput = LabelInput("Java Version", javaVerInput)
   

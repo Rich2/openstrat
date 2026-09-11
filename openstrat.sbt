@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.4.0snap"
+val versionStr = "0.4.0"
 version := versionStr
 val scalaMajor: String = "3.9"
 val scalaMinor: String = "0"
@@ -205,8 +205,8 @@ lazy val Dev = jvmMainProj("Dev").dependsOn(Apps, TilingExs, DevDoc).settings(
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
   libraryDependencies ++= Seq(
-    ("io.github.cquiroz" %% "scala-java-time" % "2.6.0").withSources().withJavadoc(),
-    ("io.github.cquiroz" %% "scala-java-time-tzdb" % "2.6.0").withSources().withJavadoc(),
+    ("io.github.cquiroz" %% "scala-java-time" % "2.7.0").withSources().withJavadoc(),
+    ("io.github.cquiroz" %% "scala-java-time-tzdb" % "2.7.0").withSources().withJavadoc(),
     ),
   )
 
@@ -228,7 +228,7 @@ lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
 
 lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
   libraryDependencies += ("dev.zio" %% "zio" % "2.1.26").withSources().withJavadoc(),
-  libraryDependencies += ("dev.zio" %% "zio-http" % "3.11.3").withSources().withJavadoc(),
+  libraryDependencies += ("dev.zio" %% "zio-http" % "3.11.4").withSources().withJavadoc(),
 )
 
 /*lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")

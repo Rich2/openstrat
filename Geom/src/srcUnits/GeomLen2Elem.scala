@@ -39,9 +39,7 @@ trait ProlignLen2Preserve extends Any, GeomLen2Elem
   def ptsTrans(f: PtLen2 => PtLen2): ThisT
 
   override def slate(operand: VecPtLen2): ThisT = ptsTrans(_.slate(operand))
-
   override def slate(xOperand: Length, yOperand: Length): ThisT = ptsTrans(_.slate(xOperand, yOperand))
-
   override def scale(operand: Double): ThisT = ptsTrans(_.scale(operand))
 
   //override def negX: ThisT = ptsTrans(_.negX)

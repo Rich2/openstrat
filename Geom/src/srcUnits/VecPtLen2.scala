@@ -1,10 +1,12 @@
 /* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Common base trait for [[VecLen2]] and [[PtLen2]]. */
+/** Common base trait for [[VecLen2]] and [[PtLen2]] specified in [[Length]] units. */
 trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
-{
+{ /** The X axis component of this 2-dimensional point / vector */
   def x: Length
+
+  /** The Y axis component of this 2-dimensional point / vector */
   def y: Length
 
   override def name1: String = "x"
@@ -41,13 +43,8 @@ trait VecPtLen2 extends GeomLen2Elem, TellElemDbl2
 
 /** A 2-dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLen2 extends VecPtLen2, PointDbl2
-{ override def slate(operand: VecPtLen2): PtLen2
-  override def slate(deltaX: Length, deltaY: Length): PtLen2
-  override def slateX(xOperand: Length): PtLen2
-  override def slateY(yOperand: Length): PtLen2
+{ /** Translate this point to use the new given origin */
   def slateFrom(operand: PtLen2): PtLen2
-  override def scale(operand: Double): PtLen2
-  override def mapGeom2(operator: Length): Pt2
 
   /** Subtracting a vector from a point returns a point. Subtracting a vector from a vector returns a vector. Subtracting a point from a point returns a
    * vector. */
@@ -55,10 +52,23 @@ trait PtLen2 extends VecPtLen2, PointDbl2
 
   /** Subtracting a point from a point returns a vector. Subtracting a vector from a point returns a point. */
   def -(operand: PtLen2): VecLen2
+
+  /** Returns the point st the given distance along the given angle. */
+  def ptAtAngle(angle: Angle, delta: Length): PtLen2
+
+  /** Returns the point st the given distance along the given angle in degrees. */
+  def ptAtDegs(numDegs: Double, delta: Length): PtLen2
+
+  /** Negates the Y component of this point. */
+  def negY: PtLen2
+
+  /** Negates the Y component of this point if the condition is true. */
+  def negYIf(cond: Boolean): PtLen2  
   
-  def revY: PtLen2
-  def revYIf(cond: Boolean): PtLen2
+  /** The line segment from this point to the parameter point. */
   def lineSegTo(endPt: PtLen2): LSegLen2[? <: PtLen2]
+
+  /** The line segment from the parameter point to this point. */
   def lineSegFrom(startPt: PtLen2): LSegLen2[? <: PtLen2]
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
@@ -70,9 +80,18 @@ trait PtLen2 extends VecPtLen2, PointDbl2
   /** Rotates th point 180 degrees around the origin if the condition is false. */
   def rotate180IfNot(cond: Boolean): PtLen2
 
+  /** rotates this point around the origin. */
   def rotate(a: AngleVec): PtLen2
 
+  /** rotates this point around the origin by the given number of radians. */
   def rotateRadians(r: Double): PtLen2
+
+  override def slate(operand: VecPtLen2): PtLen2
+  override def slate(deltaX: Length, deltaY: Length): PtLen2
+  override def slateX(xOperand: Length): PtLen2
+  override def slateY(yOperand: Length): PtLen2
+  override def scale(operand: Double): PtLen2
+  override def mapGeom2(operator: Length): Pt2
 }
 
 object PtLen2

@@ -6,17 +6,25 @@ import pweb.*, WebExts.*, wcode.*
 trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
 { /** Creates an HTML List element to document installing Java. */
   def javaInstall: HtmlElemBuilder = HtmlElemBuilder.listenOptIntHtml(opSysInput, javaVerInput){ (opSys, jVer) =>
-    RArr[XCon]("Install Java. Currently suggesting Java 25 LTS. Note the jdk at the end of the version.") +%
+    RArr[XCon]("Install Java. Currently suggesting Java 26. Note the jdk at the end of the version.") +%
       (opSys match
       { case UbuntuDeriv => BashLine(s"sudo apt install openjdk-${jVer.str0}-jdk -y")
-        case ArchDeriv => BashLine(s"sudo pacman -Syu ${jVer.str0}-jdk")
+        case ArchDeriv => BashLine(s"sudo pacman -Syu jdk${jVer.str0}-openjdk")
         case _ => "No code available."
       }) +% "Check the version" +%
     BashLine("java -version") +%
-    CodeOutputLines("""openjdk version "25.0.3" 2026-04-21""",
-      "OpenJDK Runtime Environment (build 25+36-Ubuntu-1)",
-      "OpenJDK 64-Bit Server VM (build 25+36-Ubuntu-1, mixed mode, sharing)",
-      "Open the all users environment configuration file") +%
+    (opSys match {
+      case UbuntuDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-04-21""",
+        "OpenJDK Runtime Environment (build 26.0.2+10-2-26.04.2-Ubuntu)",
+        "OpenJDK 64-Bit Server VM (build 26.0.2+10-2-26.04.2-Ubuntu, mixed mode, sharing)",
+        "Open the all users environment configuration file"
+      )
+      case ArchDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-07-21""",
+        "OpenJDK Runtime Environment (build 26.0.2)",
+        "OpenJDK 64-Bit Server VM (build 26.0.2, mixed mode, sharing)\n"
+      )
+      case _ => "No code available."
+    }) +%
     BashLine("sudo nano /etc/environment") +%
     "Add line" +% (opSys match
     { case UbuntuDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk-amd64")
@@ -25,25 +33,43 @@ trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
     })
   }
 
-  def jvmsAlt: Section = Section("JVMs".h2,
-    "So at least recent versions of Kubuntu the java command on the path, is at", dirOut("/usr/bin/java", "."), "It is a link to",
-    dirOut("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut("usr/lib/jvm", "."),
+  val jvmsAlt: Section = Section.listenOptHtml(opSysInput){ opSys =>
+    val opLnes: RArr[XCon] = opSys match
+    { case UbuntuDeriv => jvmsAltUbuntu
+      case ArchDeriv => jvmsAltArch
+      case _ => RArr("No code available.")
+    }
+    "To switch JVMs".h2 %: opLnes
+  }
+
+  def jvmsAltUbuntu: RArr[XCon] = RArr(
+    "So at least recent versions of Kubuntu the java command on the path, is at", dirOut ("/usr/bin/java", "."), "It is a link to",
+    dirOut ("/etc/alternatives/java", "."), "This is also a link. To install a different java, install the JDK root folder in", dirOut ("usr/lib/jvm", "."),
     """It doesn't have to be here, but it makes it easier to go with convention. Run""".stripMargin,
-    BashLine("sudo update-alternatives --config java"),
+    BashLine ("sudo update-alternatives --config java"),
     "In my example this gives",
 
-    TableHtml(
-      RowHeadHtml.strs4("Selection", "Path", "Priority", "Status"),
-      RowHtml.strs4("  0", "/usr/lib/jvm/java-26-openjdk-amd64/bin/java", "2611", "auto mode"),
-      RowHtml.strs4("  1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
-      RowHtml.strs4("* 2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode"),
-      RowHtml.strs4("  3", "/usr/lib/jvm/java-26-openjdk-amd64/bin/java", "2611", "manual mode")
+    TableHtml (
+      RowHeadHtml.strs4 ("Selection", "Path", "Priority", "Status"),
+      RowHtml.strs4 ("  0", "/usr/lib/jvm/java-26-openjdk-amd64/bin/java", "2611", "auto mode"),
+      RowHtml.strs4 ("  1", "/usr/lib/jvm/java-21-openjdk-amd64/bin/java", "2111", "manual mode"),
+      RowHtml.strs4 ("* 2", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java", "2511", "manual mode"),
+      RowHtml.strs4 ("  3", "/usr/lib/jvm/java-26-openjdk-amd64/bin/java", "2611", "manual mode")
     ),
 
-    PHtml("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
-      BashLine("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
+    PHtml ("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are already taken.",
+      BashLine ("sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 3"),
       "then repeat",
-      BashLine("sudo update-alternatives --config java")
+      BashLine ("sudo update-alternatives --config java")
     )
+  )
+
+  def jvmsAltArch: RArr[XCon] = RArr(
+    BashLine("archlinux-java status"),
+    CodeOutputLines("archlinux-java status",
+      "Available Java environments:",
+      "  java-25-openjdk",
+      "  java-26-openjdk (default)"),
+      BashLine("sudo archlinux-java set java-26-openjdk")
   )
 }

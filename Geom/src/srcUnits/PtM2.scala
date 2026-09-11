@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math.*, reflect.ClassTag
 
 /** Common trait for [[VecM2]] and [[PtM2]]. */
-trait VecPtM2 extends VecPtLen2
+trait VecPtM2 extends VecPtMetric2
 { /** The X component of this 2-dimensional [[Metres]] vector. */
   def x: Metres = Metres(xMetresNum)
 
@@ -25,7 +25,7 @@ trait VecPtM2 extends VecPtLen2
 }
 
 /** A 2-dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
-final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLen2, VecPtM2, TellElemDbl2
+final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtMetric2, VecPtM2
 { override type ThisT = PtM2
   override type LineSegT = LSegM2
   override def typeStr: String = "PtM2"
@@ -38,12 +38,17 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def mapGeom2(operator: Length): Pt2 = Pt2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
   override def - (operand: VecLen2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def - (operand: PtLen2): VecM2 = VecM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
-  override def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
-  override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
+  override def negY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
+  override def negYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
   override def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
   override def rotate180If(cond: Boolean): PtM2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtM2 = ife(cond, this, rotate180)
   override def rotate(a: AngleVec): PtM2 =  PtM2.apply(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
+
+  override def ptAtAngle(angle: Angle, delta: Length): PtM2 =
+    PtM2(xMetresNum + delta.metresNum * angle.cos, yMetresNum + delta.metresNum * angle.sin)
+
+  override def ptAtDegs(numDegs: Double, delta: Length): PtM2 = ptAtAngle(numDegs.degs, delta) 
 
   override def rotateRadians(r: Double): PtM2 =
   { val newX = xMetresNum * cos(r) - yMetresNum * sin(r)
@@ -134,7 +139,7 @@ object PtM2Buff
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecLen2, VecPtM2
+final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecMetric2, VecPtM2
 { override def typeStr: String = "VecM2"
   override def + (operand: VecLen2): VecM2 = new VecM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLen2): VecM2 = new VecM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)

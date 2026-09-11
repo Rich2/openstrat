@@ -56,7 +56,7 @@ final class PolygonPm2(val arrayUnsafe: Array[Double]) extends AnyVal, PolygonLe
     while (i < numVerts) { f(side(i)); i += 1 }
   }
 
-  override def revY: PolygonPm2 = map(_.revY)
+  override def revY: PolygonPm2 = map(_.negY)
   override def revYIf(cond: Boolean): PolygonPm2 = ife(cond, revY, this)
   override def rotate180: PolygonPm2 = map(_.rotate180)
   override def rotate180If(cond: Boolean): PolygonPm2 = ife(cond, map(_.rotate180), this)

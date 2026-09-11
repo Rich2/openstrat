@@ -25,7 +25,7 @@ trait VecPtKm2 extends VecPtLen2, TellElemDbl2
 }
 
 /** A 2-dimensional point specified in [[Kilometres]] as units rather than pure scalar numbers. */
-final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLen2, VecPtKm2
+final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtMetric2, VecPtKm2
 { override type ThisT = PtKm2
   override type LineSegT = LSegKm2
   override def typeStr: String = "PtKm2"
@@ -35,16 +35,20 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
   override def slateX(xOperand: Length): PtKm2 = new PtKm2(xKilometresNum + xOperand.metresNum, y.metresNum)
   override def slateY(yOperand: Length): PtKm2 = new PtKm2(xKilometresNum, yKilometresNum + yOperand.metresNum)
   override def scale (operand: Double): PtKm2 = new PtKm2(xKilometresNum * operand, yKilometresNum * operand)
-  override def mapGeom2(operator: Length): Pt2 = Pt2(xKilometresNum / operator.metresNum, yKilometresNum / operator.metresNum)
-  
+  override def mapGeom2(operator: Length): Pt2 = Pt2(xKilometresNum / operator.metresNum, yKilometresNum / operator.metresNum)  
   override def - (operand: VecLen2): PtKm2 = new PtKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def - (operand: PtLen2): VecKm2 = VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
-  override def revY: PtKm2 = new PtKm2(xKilometresNum, -yKilometresNum)
-  override def revYIf(cond: Boolean): PtKm2 = ife(cond, new PtKm2(xKilometresNum, -yKilometresNum), this)
+  override def negY: PtKm2 = new PtKm2(xKilometresNum, -yKilometresNum)
+  override def negYIf(cond: Boolean): PtKm2 = ife(cond, new PtKm2(xKilometresNum, -yKilometresNum), this)
   override def rotate180: PtKm2 = new PtKm2(-xKilometresNum, -yKilometresNum)
   override def rotate180If(cond: Boolean): PtKm2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtKm2 = ife(cond, this, rotate180)
   override def rotate(a: AngleVec): PtKm2 =  new PtKm2(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
+
+  override def ptAtAngle(angle: Angle, delta: Length): PtKm2 =
+    PtKm2(xKilometresNum + delta.kilometresNum * angle.cos, yKilometresNum + delta.kilometresNum * angle.sin)
+
+  override def ptAtDegs(numDegs: Double, delta: Length): PtKm2 = ptAtAngle(numDegs.degs, delta)  
 
   override def rotateRadians(r: Double): PtKm2 =
   { val newX = xKilometresNum * cos(r) - yKilometresNum * sin(r)
@@ -134,7 +138,7 @@ object PtKm2Buff
 }
 
 /** A 2-dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2, VecLen2
+final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2, VecMetric2
 { override def typeStr: String = "VecKm2"
 
   override def + (operand: VecLen2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
