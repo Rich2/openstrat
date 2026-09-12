@@ -16,8 +16,9 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
   val catb = System.getProperty("catalina.base")
   lazy val eSetts = loadTextFile(catb / "Notes" / "ostrat.rson")
   lazy val eName: Either[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
-  lazy val ePass: Either[Throwable, String] ={
-    val res = eSetts.flatMap(_.findStrSetting("pgPassword"))
+  
+  lazy val ePass: Either[Throwable, String] =
+  { val res = eSetts.flatMap(_.findStrSetting("pgPassword"))
     val currentDateTime: LocalDateTime = LocalDateTime.now()
     utiljvm.writeFile(catb / "Notes/tom.txt", currentDateTime.toString -- eName.toString -- res.toString)
     res

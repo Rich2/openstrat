@@ -36,7 +36,8 @@ def sett3 = List(
 def proj(nameStr: String, locationStr: String) = Project(nameStr, file(locationStr)).settings(sett3)
 
 def projSub(rootName: String, subName: String) = proj(subName, rootName + "/" + subName).settings(
-  Compile/unmanagedSourceDirectories := List(baseDirectory.value / "src")
+  Compile/unmanagedSourceDirectories := List(baseDirectory.value / "src"),
+  Test/unmanagedSourceDirectories := List(baseDirectory.value / "test" / "src"),
 )
 
 def projSubName(rootNameStr: String, extStr: String) = projSub(rootNameStr, rootNameStr + extStr)

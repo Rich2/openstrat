@@ -17,6 +17,14 @@ package object utiljvm
     pw.write(output)
     pw.close
   }
+  
+  def resourceStr(resourceName: String): IOExcEither[String] =
+  {
+    try Right(io.Source.fromResource(resourceName).mkString)    
+    catch {
+      case ioe: IOException => Left(ioe)
+    }
+  }
 
   /** Attempts to load text file into a [[String]]. */
   def loadTextFile(pathFileName: String): ThrowEither[String] = eTry(scala.io.Source.fromFile(pathFileName).mkString)
