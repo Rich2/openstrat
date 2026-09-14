@@ -25,30 +25,38 @@ trait ErrBuilder[E]
   def multi(mems: RArr[E]): ErrMulti[E] & E
 }
 
-trait ExcMulti extends Exception, ErrMulti[Exception]
+trait ExcMulti[E <: Exception] extends Exception, ErrMulti[Exception]
 {
-  override def mems: RArr[Exception]
+  override def mems: RArr[E]
 
-  @targetName("append") def ++ (operand: ExcMulti): ExcMulti = ExcMulti(mems ++ operand.mems)
+  @targetName("append") def ++[EE >: E <: Exception](operand: ExcMulti[EE])(using ct: ClassTag[EE]): ExcMulti[EE] ={
+    val rArr: RArr[EE] = mems ++ operand.mems
+    ExcMulti[EE](rArr)
+  }
 }
 
 object ExcMulti
 {
-  def apply(exceps: RArr[Exception]): ExcMulti = ExcMultiGen(exceps)
+  def apply[E <: Exception](exceps: RArr[E]): ExcMulti[E] = ExcMultiGen(exceps)
 
-  def apply(throws: Exception*): ExcMulti = ExcMultiGen(throws.toRArr)
-  case class ExcMultiGen(mems: RArr[Exception]) extends ExcMulti
+  def apply[E <: Exception](errors: E*)(using ct: ClassTag[E]): ExcMulti[E] = ExcMultiGen(errors.toRArr)
+  case class ExcMultiGen[E <: Exception](mems: RArr[E]) extends ExcMulti[E]
+  
+  def unapply[E <: Exception](inp: Any): Option[RArr[E]] = inp match
+  { case inp: ExcMulti[E] => Some(inp.mems)
+    case _ => None
+  }
 }
 
-extension (thisExcep: Exception)
+extension[E <: Exception](thisExcep: E)
 {
-  def combine(operand: Exception): ExcMulti = thisExcep match
-  {  case multi1: ExcMulti => operand match
-    { case multi2: ExcMulti => ExcMulti(multi1.mems ++ multi2.mems)
-      case excep2 => ExcMulti(multi1.mems +% excep2)
+  def combine(operand: Exception) = thisExcep match
+  {  case ExcMulti(mems1) => operand match
+    { case ExcMulti(mems2) => ExcMulti[Exception](mems1 ++ mems2.asInstanceOf[RArr[Exception]])
+      case excep2 => ExcMulti[Exception](mems1 +% excep2)
     }
     case excep1 => operand match
-    { case multi2: ExcMulti => ExcMulti(excep1 %: multi2.mems)
+    { case ExcMulti(mems2) => ExcMulti(excep1 %: mems2.asInstanceOf[RArr[Exception]])
       case excep2 => ExcMulti(RArr(excep1, excep2))
     }
   }
@@ -57,7 +65,7 @@ extension (thisExcep: Exception)
 
 object ExcBi
 {
-  def map2[E <: Exception, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B): Either[Exception, B] = eb1 match
+  def map2[E <: Exception, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(using ctE: ClassTag[E]): Either[Exception, B] = eb1 match
   { case Right(a1) => eb2.map(a2 => f(a1, a2))
     case Left(err1) => eb2 match
     { case Left(err2) => Left(ExcMulti(err1, err2))
