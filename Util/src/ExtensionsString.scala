@@ -3,7 +3,7 @@ package ostrat
 import pParse.*
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
-implicit class STringExtsOstrat(thisString: String)
+implicit class StringExtsOstrat(thisString: String)
 { /** Substitutes the given value for empty [[String]]s or nulls. */
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 
@@ -85,6 +85,7 @@ implicit class STringExtsOstrat(thisString: String)
   /** Tries to parse this String as a [[Long]] expression. */
   def asLong: Either[Exception, Long] = asType[Long]
 
+  /** Keep dropping the characters from the end of thia [[String]] while the condition remains true. */
   def dropRightWhile(f: Char => Boolean): String =
   { val arr = thisString.toCharArray
     var count = 0
@@ -93,6 +94,7 @@ implicit class STringExtsOstrat(thisString: String)
     thisString.dropRight(count)
   }
 
+  /** Parse this [[String]] as RSON and find [[Array]] of Int. */
   def findIntArray: Either[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */

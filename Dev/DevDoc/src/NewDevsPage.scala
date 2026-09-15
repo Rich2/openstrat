@@ -164,6 +164,6 @@ object NewDevsPage extends DevPageBase
       case UbuntuDeriv => BashLine("sudo apt install vlc")
       case _ => "No code for this Operating System."
     }
-    RArr("VLV Media Player".h2, l2)
+    RArr("VLC Media Player".h2, l2)
   }
 }

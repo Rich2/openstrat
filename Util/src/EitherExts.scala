@@ -117,9 +117,11 @@ extension (obj: Either.type)
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
 }
 
-def Either2Fold[E <: Exception, A1, A2,  B](eth1: => Either[E, A1], eth2: => Either[E, A2])(fe: ExcMulti[E] => B)(fa: (A1, A2) => B)(using ctE: ClassTag[E]): B = eth1 match
-{ 
-  case Right(a1) => eth2 match
+/** Folds over 2 [[Either]]s. Takes 2 functions the first is used either or both Eithers are [[Left]]s. The second function is only used if both are
+ * [[Right]]s. */
+def Either2Fold[E <: Exception, A1, A2,  B](eth1: => Either[E, A1], eth2: => Either[E, A2])(fe: ExcMulti[E] => B)(fa: (A1, A2) => B)(using ctE: ClassTag[E]):
+  B = eth1 match
+{ case Right(a1) => eth2 match
   { case Right(a2) => fa(a1, a2)
     case Left(err2) => fe(ExcMulti(err2))
   }
@@ -129,7 +131,19 @@ def Either2Fold[E <: Exception, A1, A2,  B](eth1: => Either[E, A1], eth2: => Eit
   }
 }
 
-def Either2Forboth[E <: Throwable, A1, A2, U1, U2](eth1: Either[E, A1], eth2: Either[E, A2])(fe: Throwable => U1)(fa: (A1, A2) => U2): Unit = ???
+/** Folds over 2 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used either or both Eithers are [[Left]]s. The second function is
+ * only used if both are [[Right]]s. */
+def Either2Forboth[E <: Exception, A1, A2, U1, U2](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => U1)(fa: (A1, A2) => U2)(using ctE: ClassTag[E]):
+  Unit = eth1 match
+{ case Right(a1) => eth2 match
+  { case Right(a2) => fa(a1, a2)
+    case Left(err2) => fe(ExcMulti(err2))
+  }
+  case Left(err1) => eth2 match
+  { case Right(_) => fe(ExcMulti(err1))
+    case Left(err2) => fe(ExcMulti(err1, err2))
+  }
+}  
 
 def EitherMap3[E <: Throwable, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B): Either[E, B] =
   for { s1 <- eb1; s2 <- eb2; s3 <- eb3 } yield f(s1, s2, s3)
