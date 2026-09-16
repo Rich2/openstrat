@@ -5,8 +5,7 @@ import utiljvm.*, geom.*, pweb.*, webjvm.*, java.sql.{ DriverManager, Connection
 object PostApp
 {
   def main(args: Array[String]): Unit =
-  {
-    deb("Welcome to PostApp!")
+  { deb("Welcome to PostApp!")
     val eStr: IOExcEither[String] = resourceStr("Postgres.rson")
     val eName: Either[Exception, String] = eStr.flatMap(_.findStrSetting("username"))
     val ePass: Either[Exception, String] = eStr.flatMap(_.findStrSetting("pWord"))
@@ -17,6 +16,9 @@ object PostApp
       val conn: Connection = DriverManager.getConnection(connStr, name, pWord)
       try {
         debvar(conn)
+        val stmt = conn.createStatement()        
+        val result = stmt.executeUpdate("INSERT INTO users (id, username, password) VALUES (DEFAULT, 'Jane', 'passJane')");
+        debvar(result)
       } catch {
         case e: Exception => deb(e.getMessage)
       } finally {

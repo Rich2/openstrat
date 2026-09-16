@@ -1,11 +1,10 @@
-/* Copyright 2018-28 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.{Pi, sin}
 
 /** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
-{
-  /** Returns 0 if this Int less than 0 else returns this [[Int]]. */
+{ /** Returns 0 if this Int less than 0 else returns this [[Int]]. */
   def max0: Int = ife(thisInt > 0, thisInt, 0)
 
   /** Returns 0 if this Int more than 0 else returns this [[Int]]. */
@@ -242,4 +241,19 @@ class IntExtensions(val thisInt: Int) extends AnyVal
 
   /** Takes this Int as a value in arc seconds and converts it to a value of arc degrees. */
   @inline def secsToDegs = thisInt / 3600.0
+
+  /** Extension method converts this [[Int]] into a superscript [[String]]. */
+  def superscript: String = thisInt.toString.map {
+    case '0' => '⁰'
+    case '1' => '¹'
+    case '2' => '²'
+    case '3' => '³'
+    case '4' => '⁴'
+    case '5' => '⁵'
+    case '6' => '⁶'
+    case '7' => '⁷'
+    case '8' => '⁸'
+    case '9' => '⁹'
+    case c => c
+  }  
 }

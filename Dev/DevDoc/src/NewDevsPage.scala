@@ -55,13 +55,21 @@ object NewDevsPage extends DevPageBase
   
   def intellij: Section = Section("IntelliJ IDEA".h2,
     "Download the latest version. Modify this line if there is a newer version of IntelliJ IDEA.",
-    BashLine("sudo tar -xzf idea-2026.2.2.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf idea-2026.2.3.tar.gz -C /opt"),
+    "I suggest adding a link and then using the link for your GUI links.",
+    BashLine("sudo /opt"),
+    BashLine("ln -s idea-IU-262.10968.63 idea-IU"),
+    "When there's a new version delete the old version, delete the link, install the new version and recreate a new link",
+    BashLine("rm -r idea-IU-262.10968.63"),
+    BashLine("rm idea-IU"),
     UlSection("For IntelliJ useful options:",
-      LiHtml("File => Settings => 'Apperance and Behaviour' -> Always show full path in window header"),
+      LiHtml("File => Settings => 'Apperance and Behaviour' => 'Appearance' -> Use contrast scrollbars"),
+      LiHtml("File => Settings => 'Apperance and Behaviour' => 'Appearance' -> Always show full path in window header"),
+      LiHtml("File => Settings => 'Apperance and Behaviour' => 'Appearance' -> 'Main menu' -> Ahow above Main Toolbar"),
       LiHtml("File => Settings => 'Apperance and Behaviour' -> Show indent guides"),
       LiHtml("File => Settings => 'Apperance and Behaviour' -> Widescreen tool window layout"),
-      LiHtml("File => Settings => Editor => 'Code Syle' -> Hard wrap at 250"),
-      LiHtml("File => Settings => Editor => 'Code Syle' -> Visual guides 100, 160"),
+      LiHtml("File => Settings => Editor => 'Code Syle' -> 'Hard wrap at' -> 250"),
+      LiHtml("File => Settings => Editor => 'Code Syle' -> 'Visual guides' -> 100, 160"),
       LiHtml("File => Settings => 'Build, Execution, Deployment' => Compiler -> Build project automatically")
     )
   )
