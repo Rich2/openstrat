@@ -57,11 +57,20 @@ class NoteTaker
   }
 
   /** Creates an HTML block quote with a footnote. */
-  def blockQuote(quotecontents: XCon*)(citeStr: String, linkLabel: String, noteContents: XCon*): BlockQuote =
-    blockQuote(quotecontents.toRArr, citeStr, linkLabel, noteContents.toRArr)
+  def blockQuote(quotecontents: XCon*)(citeStr: String, noteContents: XCon*): BlockQuote = blockQuote(quotecontents.toRArr, citeStr, noteContents.toRArr)
 
   /** Creates an HTML block quote with a footnote. */
-  def blockQuote(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): BlockQuote =
+  def blockQuote(quotecontents: RArr[XCon], citeStr: String, noteContents: RArr[XCon]): BlockQuote =
+  { val sup = newNote(citeStr %: noteContents)
+    BlockQuote(citeStr, quotecontents +% sup)
+  }
+
+  /** Creates an HTML block quote with a footnote, including a link. */
+  def blockQuoteLinked(quotecontents: XCon*)(citeStr: String, linkLabel: String, noteContents: XCon*): BlockQuote =
+    blockQuoteLinked(quotecontents.toRArr, citeStr, linkLabel, noteContents.toRArr)
+
+  /** Creates an HTML block quote with a footnote including a link. */
+  def blockQuoteLinked(quotecontents: RArr[XCon], citeStr: String, linkLabel: String, noteContents: RArr[XCon]): BlockQuote =
   { val sup = newNote(AHtml(citeStr, linkLabel) %: noteContents)
     BlockQuote(citeStr, quotecontents +% sup)
   }

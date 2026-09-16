@@ -57,7 +57,7 @@ object TestPage1 extends HtmlPageFile
   |no doubt run quite a few posts and more importantly really ought to be written by specialists in the bronze age. This is also a very archaeologically driven
   |topic, which makes it more sensitive than most to new evidence – archaeological site work, but also epigraphic evidence (mostly on clay tablets) – that can
   |change our understanding of events. As we’ll see, our understanding has changed a fair bit.""".stripMargin
-  val q1 = taker.blockQuote(q1q)("https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction", "From A Collection of Unmitigated Pedantry")
+  val q1 = taker.blockQuoteLinked(q1q)("https://acoup.blog/2026/01/30/collections-the-late-bronze-age-collapse-a-very-brief-introduction", "From A Collection of Unmitigated Pedantry")
 
   val p3: PHtml = PHtml.id("para3", "This is paragraph 3.I'm going to link this footnote marker", taker.newNote("More on paragraph 3."),
   "to the footnote at the bottom of the intro text.",
