@@ -1,5 +1,7 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
+import ostrat.pweb.UserStatus.User
+
 import util.matching.Regex
 
 /** HTML Form element. */
@@ -17,8 +19,15 @@ object FormHtml
    * attributes.*/
   def apply(contents: RArr[XCon], otherAttribs: RArr[XAtt]): FormHtml = FormHtmlGen(contents, otherAttribs)
 
-  /** Implementation class for gneeral case of HTML Form element. */
+  /** Implementation class for general case of HTML Form element. */
   case class FormHtmlGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends FormHtml
+}
+
+trait DBRow
+{
+  def values: StrArr
+  
+  def Default: String = "DEFAULT"
 }
 
 case class UserDetails(name: String, password: String)
@@ -34,7 +43,7 @@ trait RegLogForm extends FormHtml
   /** The maximum number of characters for the username. */
   def uNameMaxLen: Int = UsernameInput.maxLenStd
   
-
+  /** Regular expression for the username. */
   def uNameRegex: Regex = UsernameInput.regexStd(uNameMaxLen)
   
   def passRegex: Regex = PasswordInput.regexStd
@@ -55,8 +64,9 @@ trait RegLogForm extends FormHtml
   def submit = SubmitButton(idPrefix + "Submit")
 }
 
-object RegLogForm
-{ 
+case class RegLogRow(name: String, password: String, status: UserStatus = User) extends DBRow
+{
+  override def values: StrArr = StrArr(Default, name.enquote1, password.enquote1)
 }
 
 /** HTML Register Form element. */

@@ -12,16 +12,12 @@ object PostApp
     Either2Forboth(eName, ePass){errs =>
       debvar(errs)
     }{ (name, pWord) =>      
-      given conn: Connection = postgresConn(name, pWord)
-      try {
+      postgresConn(name, pWord).foreach{conn0 =>
+        given conn: Connection = conn0 
         debvar(conn)
-        val users = Gable("users")
-        val stmt = conn.createStatement()        
-        val result = users.insert("(id, username, password) VALUES (DEFAULT, 'Jane', 'passJane')")
+        val users = Gable("users")                
+        val result = users.insert(RegLogRow("Jane2", "passJane2"))
         debvar(result)
-      } catch {
-        case e: Exception => deb(e.getMessage)
-      } finally {
         deb("About to close connection.")
         conn.close()
         deb("Connection closed.")

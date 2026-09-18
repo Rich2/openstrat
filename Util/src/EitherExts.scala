@@ -187,8 +187,10 @@ object FailIO
 }
 
 /** A [[None]] value converted to an [[Extension]]. */
-object NoneExc extends Exception("None")
+case object NoneExc extends Exception("None")
 
+/** [[Left]] with a [[NoneExc]] value. */
+val LNone: Left[NoneExc.type, Nothing] = Left(NoneExc)
 
 /** Error bifunctor for [[Tuple2]]. */
 type throwEitherT2[E <: Throwable, A1, A2] = Either[E, (A1, A2)]

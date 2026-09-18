@@ -13,7 +13,7 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
   val logPass = "regPass"
   val regForm: RegisterForm = RegisterForm()
   val logForm: LoginForm = LoginForm()
-  val catb = System.getProperty("catalina.base")
+  val catb: String = System.getProperty("catalina.base")
   lazy val eSetts = loadTextFile(catb / "Notes" / "ostrat.rson")
   lazy val eName: Either[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
   
@@ -24,15 +24,15 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
     res
   }
 
-  var oConn: Either[Throwable, Connection] = LeftExc("Untried.")
+  var eConn: Either[Throwable, Connection] = LNone
 
-  def tryConn: Either[Throwable, Connection] = oConn match
-  { case Right(_) => oConn
-    case fail =>
+  def eConnTry: Either[Throwable, Connection] = eConn match
+  { case Left(NoneExc) => 
     { val res = Either.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
-      oConn = res
+      eConn = res
       res
     }
+    case ec => ec
   }
 
   override def doGet(req: HSReq, resp: HSResp): Unit =
@@ -58,16 +58,19 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
   { given reqEv: HSReq = req
     
     val contents: RArr[XCon] = req.optParam("logSubmit") match
-    {  case Some(_) => RArr(
-        DivHtml("Result from Login"),
-        DivHtml(tryConn.toString),
-        DivHtml("name =" -- req.optParam(logForm.usernameNameStr).toString),
-        DivHtml("password =" -- req.optParam(logForm.passwordInput.nameAttStr).toString)
-      )  
+    {  case Some(_) =>
+      { 
+        RArr(
+          DivHtml("Result from Login"),
+          DivHtml(eConnTry.toString),
+          DivHtml("name =" -- req.optParam(logForm.usernameNameStr).toString),
+          DivHtml("password =" -- req.optParam(logForm.passwordInput.nameAttStr).toString)
+        )
+      }
       case _ => req.optParam("regSubmit") match
       { case Some(_) => RArr(
           DivHtml("Result from registration"),
-          DivHtml(tryConn.toString),
+          DivHtml(eConnTry.toString),
           DivHtml("name =" -- regForm.uNameGet),
           DivHtml("password =" -- regForm.passwordGet)
         )
