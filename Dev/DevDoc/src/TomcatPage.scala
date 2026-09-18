@@ -25,7 +25,7 @@ object TomcatPage extends DevPageBase
   val computerName1: String = "computer"
   val cset: String = "cset"  
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "25"
+  val tcMinorVer: String = "26"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "mysite.com"
@@ -113,8 +113,7 @@ object TomcatPage extends DevPageBase
   "If you have a specialist tomcat user then change the bash starting directory.",
   BashLine("nano ~/.bashrc"),
   "Add this line at the end of the script.", 
-  BashLine.listenStrText(dirInput){ dir => s"cd $dir"},  
-  BashLine.listenStrText(dirInput){ dir => s"cd $dir" },
+  BashLine.listenStrText(dirInput){ dir => s"cd $dir"},
   """Create a directory called Base inside the tomcat directory. This will be used for CatalinaBase and will allow you to keep configuration files to use with
   |multiple installs and major version changes of Apache.""".stripMargin,
   BashLine(tomcatDirPrompt, "mkdir Base")
@@ -124,7 +123,8 @@ object TomcatPage extends DevPageBase
   |Generally you should use the latest version. I haven't tested these instructions before 10.0, but they should work at least back to version 9, if you have
   |some specific reason to use an earlier version. At the time of updating the latest sub version is $tcVer1. Make sure you download the latest sub version,
   |because Apache cut the links to the older sub versions. Copy the tar.gz file link into the browser. Once its downloaded copy the sha256 code into the next
-  |command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white.""".stripMargin,
+  |command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white. Note Apache tend to remove
+  |older patch versions, so if a later patch version has been deployed. this link will probably nolonger work.""".stripMargin,
   BashLine(tomcatDirPrompt,
     SpanInlineInedit.listenStrText(tomVerInput){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,
