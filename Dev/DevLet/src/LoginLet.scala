@@ -68,14 +68,19 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
         )
       }
       case _ => req.optParam("regSubmit") match
-      { case Some(_) => RArr(
-          DivHtml("Result from registration"),
-          DivHtml(eConnTry.toString),
-          DivHtml("name =" -- regForm.uNameGet),
-          DivHtml("password =" -- regForm.passwordGet)
-        )
+      { case Some(_) =>
+        {
+          val eName: ExcEither[String] = regForm.eUsername
+          val ePassword: ExcEither[String] = regForm.ePassword
+          RArr(
+            DivHtml("Result from registration"),
+            DivHtml(eConnTry.toString),
+            DivHtml("name =" -- regForm.uNameGet),
+            DivHtml("password =" -- regForm.passwordGet)
+          )
+        }
 
-        case _ => RArr("Unrecogonised submission.")
+        case _ => RArr("Unrecognised submission.")
       }    
     }
     val page = HtmlPage(headLog, BodyHtml(contents))
