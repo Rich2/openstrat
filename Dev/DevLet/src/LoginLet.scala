@@ -1,8 +1,7 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{DriverManager, Connection}, java.time.LocalDateTime,
-  servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}, plet.*
-
+import utiljvm.*, pweb.*, gres.*, plet.*, java.time.LocalDateTime, jakarta.*, servlet.annotation.WebServlet,java.sql.{DriverManager, Connection},
+  servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
 /** First openstrat Servlet for Tomcat and Jetty. */
 @WebServlet(urlPatterns = Array("/")) class LoginLet extends HttpServlet
 {
@@ -72,6 +71,13 @@ import utiljvm.*, pweb.*, jakarta.*, servlet.annotation.WebServlet,java.sql.{Dri
         {
           val eName: ExcEither[String] = regForm.eUsername
           val ePassword: ExcEither[String] = regForm.ePassword
+          val res = Either.map2(eName, ePassword) { (name, password) =>
+            eConnTry.foreach { conn0 =>
+              given conn: Connection = conn0
+              val users = Gable("users")
+              val res2 = users.insert(RegLogRow(name, password))
+            }
+          }
           RArr(
             DivHtml("Result from registration"),
             DivHtml(eConnTry.toString),

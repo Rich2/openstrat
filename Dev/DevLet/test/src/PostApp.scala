@@ -1,6 +1,6 @@
 /* © 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, geom.*, pweb.*, webjvm.*, gres.*, java.sql.{ DriverManager, Connection }
+import utiljvm.*, geom.*, pweb.*, webjvm.*, gres.*, java.sql.Connection
 
 object PostApp
 {
