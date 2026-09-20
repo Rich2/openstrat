@@ -2,22 +2,31 @@
 package ostrat
 import annotation.targetName, reflect.ClassTag
 
-/** An error that is concatenation of multiple errors. */
-trait ErrMulti[+E]
+/** An [[Exception]] that is concatenation of multiple errors. */
+trait ErrMulti[+E] extends Exception
 { /** Member errors. */
   def mems: RArr[E]
+  
+  /** The number of Errors in this multiple erroor */
+  def numErrs: Int = mems.length
 
   @targetName("append")def ++[EE >: E] (operand: ErrMulti[EE])(using build: ErrBuilder[EE], ctE: ClassTag[EE]): ErrMulti[EE] =
     build.multi(mems ++ operand.mems)
+
+  override def getMessage: String = s"$numErrs errors" 
 }
 
-case class ThrowMulti(mems: RArr[Throwable]) extends Throwable, ErrMulti[Throwable]
-
+/** An error that is concatenation of multiple [[Throwable]]s. */
+trait ThrowMulti[E <: Throwable] extends ErrMulti[Throwable]
+{  override def mems: RArr[Throwable]
+}
 object ThrowMulti
 {
-  def apply(throws: RArr[Throwable]): ThrowMulti = new ThrowMulti(throws)
+  def apply[E <: Throwable](throws: RArr[E]): ThrowMulti[E] = ThrowMultiGen(throws)
 
-  def apply(throws: Throwable*): ThrowMulti = new ThrowMulti(throws.toRArr)
+  def apply[E <: Throwable](throws: E*)(using ClassTag[E]): ThrowMulti[E] = ThrowMultiGen(throws.toRArr)
+  
+  case class ThrowMultiGen[E <: Throwable](mems: RArr[E]) extends Exception, ThrowMulti[E]
 }
 
 trait ErrBuilder[E]
@@ -25,12 +34,13 @@ trait ErrBuilder[E]
   def multi(mems: RArr[E]): ErrMulti[E] & E
 }
 
-trait ExcMulti[E <: Exception] extends Exception, ErrMulti[Exception]
+/** An error that is concatenation of multiple [[Exception]]s. */
+trait ExcMulti[E <: Exception] extends Exception, ErrMulti[E]
 {
   override def mems: RArr[E]
 
-  @targetName("append") def ++[EE >: E <: Exception](operand: ExcMulti[EE])(using ct: ClassTag[EE]): ExcMulti[EE] ={
-    val rArr: RArr[EE] = mems ++ operand.mems
+  @targetName("append") def ++[EE >: E <: Exception](operand: ExcMulti[EE])(using ClassTag[EE]): ExcMulti[EE] =
+  { val rArr: RArr[EE] = mems ++ operand.mems
     ExcMulti[EE](rArr)
   }
 }
@@ -39,13 +49,15 @@ object ExcMulti
 {
   def apply[E <: Exception](exceps: RArr[E]): ExcMulti[E] = ExcMultiGen(exceps)
 
-  def apply[E <: Exception](errors: E*)(using ct: ClassTag[E]): ExcMulti[E] = ExcMultiGen(errors.toRArr)
-  case class ExcMultiGen[E <: Exception](mems: RArr[E]) extends ExcMulti[E]
-  
+  def apply[E <: Exception](errors: E*)(using ClassTag[E]): ExcMulti[E] = ExcMultiGen(errors.toRArr)
+
   def unapply[E <: Exception](inp: Any): Option[RArr[E]] = inp match
   { case inp: ExcMulti[E] => Some(inp.mems)
     case _ => None
   }
+  
+  /** Implementation class for the general case of [[ExcMulti]]. */
+  case class ExcMultiGen[E <: Exception](mems: RArr[E]) extends ExcMulti[E]  
 }
 
 extension[E <: Exception](thisExcep: E)

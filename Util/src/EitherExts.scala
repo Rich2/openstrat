@@ -76,17 +76,21 @@ implicit class EitherStringExts[E <: Throwable](thisEither: Either[E, String])
 extension (obj: Either.type)
 { /** If both [[Errbi]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
-  def map2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B): Either[Throwable, B] = eb1 match
-  { case Right(a1) => eb2.map(a2 => f(a1, a2))
+  def map2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(using ClassTag[E]): Either[ThrowMulti[E], B] = eb1 match
+  { case Right(a1) => eb2.match
+    { case Right(a2) => Right(f(a1, a2))
+      case Left(err) => Left(ThrowMulti(err))
+    }
     case Left(err1) => eb2 match
-    { case Right(_) => Left(err1)
+    { case Right(_) => Left(ThrowMulti(err1))
       case Left(err2) => Left(ThrowMulti(err1, err2))
     }
   }
 
   /** If both [[Errbi]] inputs are [[Right]]s return the result of the function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
-  def flatMap2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => Either[Throwable, B]): Either[Throwable, B] = eb1 match
+  def flatMap2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => Either[Throwable, B])(using ClassTag[E]):
+    Either[Throwable, B] = eb1 match
   { case Right(a1) => eb2.flatMap(a2 => f(a1, a2))
     case Left(err1) => eb2 match
     { case Right(_) => Left(err1)
@@ -96,17 +100,31 @@ extension (obj: Either.type)
 
   /** If this [[Either]] is a [[Right]] produce [[ErrBiAcc]] with the parameter function. If this is [[Left]] produce [[ErrBiAcc]] with this single [[Left]]. */
   def map2Acc[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => ErrBiAcc[E, B])(using ctE: ClassTag[E] @uncheckedVariance,
-    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = eb1 match
-  { 
-    case Right(a1) =>  eb2 match
-    { case Right(a2) => f(a1, a2)
+    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = eb1 match {
+    case Right(a1) => eb2 match {
+      case Right(a2) => f(a1, a2)
       case Left(e2) => ErrBiAcc.err1(e2)
     }
-    case Left(e1) => eb2 match
-    { case Right(_) => ErrBiAcc.err1(e1)
+    case Left(e1) => eb2 match {
+      case Right(_) => ErrBiAcc.err1(e1)
       case Left(e2) => ErrBiAcc.errs2(e1, e2)
     }
   }
+
+  /** If all 3 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
+   * possibilities */
+  def map3[E <: Throwable, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B): Either[E, B] =
+  { for
+    { s1 <- eb1
+      s2 <- eb2
+      s3 <- eb3
+    }
+    yield f(s1, s2, s3)
+  }
+
+  def map4[E <: Throwable, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(f: (A1, A2, A3, A4) => B):
+    Either[E, B] =
+    for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4} yield f(s1, s2, s3, s4)
   
   def map5[E <: Throwable, A1, A2, A3, A4, A5, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4], eb5: Either[E, A5])(
     f: (A1, A2, A3, A4, A5) => B): Either[E, B] =
@@ -115,42 +133,36 @@ extension (obj: Either.type)
   def map6[E <: Throwable, A1, A2, A3, A4, A5, A6, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4], eb5: Either[E, A5],
     eb6: Either[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): Either[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
-}
 
-/** Folds over 2 [[Either]]s. Takes 2 functions the first is used either or both Eithers are [[Left]]s. The second function is only used if both are
- * [[Right]]s. */
-def Either2Fold[E <: Exception, A1, A2,  B](eth1: => Either[E, A1], eth2: => Either[E, A2])(fe: ExcMulti[E] => B)(fa: (A1, A2) => B)(using ctE: ClassTag[E]):
-  B = eth1 match
-{ case Right(a1) => eth2 match
-  { case Right(a2) => fa(a1, a2)
-    case Left(err2) => fe(ExcMulti(err2))
-  }
-  case Left(err1) => eth2 match
-  { case Right(_) => fe(ExcMulti(err1))
-    case Left(err2) => fe(ExcMulti(err1, err2))
-  }
-}
 
-/** Folds over 2 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used either or both Eithers are [[Left]]s. The second function is
- * only used if both are [[Right]]s. */
-def Either2Forboth[E <: Exception, A1, A2, U1, U2](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => U1)(fa: (A1, A2) => U2)(using ctE: ClassTag[E]):
+  /** Folds over 2 [[Either]]s. Takes 2 functions the first is used one or both [[Either]]s are [[Left]]s. The second function is only used if both are
+   * [[Right]]s. */
+  def fold2[E <: Exception, A1, A2, B](eth1: => Either[E, A1], eth2: => Either[E, A2])(fe: ExcMulti[E] => B)(fa: (A1, A2) => B)(using ctE: ClassTag[E]):
+  B = eth1 match {
+    case Right(a1) => eth2 match {
+      case Right(a2) => fa(a1, a2)
+      case Left(err2) => fe(ExcMulti(err2))
+    }
+    case Left(err1) => eth2 match {
+      case Right(_) => fe(ExcMulti(err1))
+      case Left(err2) => fe(ExcMulti(err1, err2))
+    }
+  }
+
+  /** Folds over 2 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if one or both [[Either]]s are [[Left]]s. The second
+   * function is only used if both are [[Right]]s. */
+  def forboth2[E <: Exception, A1, A2, U1, U2](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => U1)(fa: (A1, A2) => U2)(using ctE: ClassTag[E]):
   Unit = eth1 match
-{ case Right(a1) => eth2 match
-  { case Right(a2) => fa(a1, a2)
-    case Left(err2) => fe(ExcMulti(err2))
-  }
-  case Left(err1) => eth2 match
-  { case Right(_) => fe(ExcMulti(err1))
-    case Left(err2) => fe(ExcMulti(err1, err2))
-  }
-}  
-
-def EitherMap3[E <: Throwable, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B): Either[E, B] =
-  for { s1 <- eb1; s2 <- eb2; s3 <- eb3 } yield f(s1, s2, s3)
-
-
-def EitherMap4[E <: Throwable, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(f: (A1, A2, A3, A4) => B):
-Either[E, B] = for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4} yield f(s1, s2, s3, s4)
+  { case Right(a1) => eth2 match
+    { case Right(a2) => fa(a1, a2)
+      case Left(err2) => fe(ExcMulti(err2))
+    }
+    case Left(err1) => eth2 match
+    { case Right(_) => fe(ExcMulti(err1))
+      case Left(err2) => fe(ExcMulti(err1, err2))
+    }
+  }  
+}
 
 /** An [[Either]] with a [[Throwable]] [[Left]] type. */
 type ThrowEither[+A] = Either[Throwable, A]

@@ -9,7 +9,7 @@ object PostApp
     val eStr: IOExcEither[String] = resourceStr("Postgres.rson")
     val eName: Either[Exception, String] = eStr.flatMap(_.findStrSetting("username"))
     val ePass: Either[Exception, String] = eStr.flatMap(_.findStrSetting("pWord"))
-    Either2Forboth(eName, ePass){errs =>
+    Either.forboth2(eName, ePass){errs =>
       debvar(errs)
     }{ (name, pWord) =>      
       postgresConn(name, pWord).foreach{conn0 =>
