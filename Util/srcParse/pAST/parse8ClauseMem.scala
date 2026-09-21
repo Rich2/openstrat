@@ -31,7 +31,7 @@ object parse8ClauseMem
     loop(inp.offset0).flatMap{
       case Arr1(e: ClauseMemExpr) => Right(e)
       case arr if arr.forAll(_.isInstanceOf[ColonMemExpr]) => Right(SpacedExpr(arr.map(_.asInstanceOf[ColonMemExpr])))
-      case s => s.head.startPosn.failAst("Unknown Expression sequence in getBlocks:" -- s.toString)
+      case s => s.head.startPosn.leftAst("Unknown Expression sequence in getBlocks:" -- s.toString)
     }
   }
 }

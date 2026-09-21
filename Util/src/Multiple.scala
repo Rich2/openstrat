@@ -72,7 +72,7 @@ object Multiple
       case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
     }
 
-    def fromArrExpr(inp: Arr[Expr]): ExcEither[RArr[Multiple[A]]] = inp.mapErrBi(fromExpr(_))
+    def fromArrExpr(inp: Arr[Expr]): ExcEither[RArr[Multiple[A]]] = inp.mapEither(fromExpr(_))
 
     /** Collection from [[Arr]] of [[pParse.Expr]]. */
     def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderMap[A, R]): ExcEither[R] = fromArrExpr(inp).map(_.toColl(builderColl))

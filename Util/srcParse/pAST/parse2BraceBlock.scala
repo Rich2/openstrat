@@ -10,7 +10,7 @@ object parse2BraceBlock
     val acc: ArrayBuffer[BlockMem] = Buffer()
     def loop(rem: ArrOff[Token]): throwEitherT2[AstException, BracketedStructure, ArrOff[Token]] = rem match
     {
-      case ArrOff0() => open.startPosn.failAst("Unclosed Brace")
+      case ArrOff0() => open.startPosn.leftAst("Unclosed Brace")
 
       //This case is where an inner BracketBlock starts within the current BracketBlock
       case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).t2FlatMap{ (bracketBlock, remTokens) =>
@@ -23,7 +23,7 @@ object parse2BraceBlock
           val res = BracketedStructure(g, bc.braces, open.startPosn, bc.startPosn)
           (res, tail)
         }
-        else bc.startPosn.failAst("Unexpected Closing Parenthesis")
+        else bc.startPosn.leftAst("Unexpected Closing Parenthesis")
 
       case ArrOff1Tail(nbt: BlockMem, tail) => { acc.append(nbt); loop(tail) }
       case _ => excep("Case not implemented")

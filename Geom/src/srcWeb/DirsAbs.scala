@@ -53,7 +53,7 @@ object DirsAbs
     override def fromExpr(expr: Expr): ExcEither[DirsAbs] =  expr match
     { case SlashToken(_) => Right(DirsAbs.fromArray(Array[String]()))
       case PathToken(_, array) => Right(DirsAbs.fromArray(array))
-      case expr => expr.failExc("Not an absolute path")
+      case expr => expr.excLeft("Not an absolute path")
     }
   }
 

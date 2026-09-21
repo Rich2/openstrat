@@ -71,7 +71,7 @@ trait UnshowN[R] extends Unshow[R], PersistNFixed
   final override def fromExpr(expr: Expr): ExcEither[R] = expr match
   { case IdentifierToken(str) => shortKeys.a1FindA2(str).toErrBi
     case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.fail(typeName -- "does not equal" -- typeStr)
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.leftExc(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](using this)
   }
@@ -87,8 +87,8 @@ trait UnshowN[R] extends Unshow[R], PersistNFixed
            else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
          else exprs(i) match
          {
-           case AsignExprName(name) if !paramNames.contains(name) => exprs(i).failExc("Unrecognised setting identifer name.")
-           case AsignExprName(name) if usedNames.contains(name) => exprs(i).failExc(name + " Multiple parameters of the same name.")
+           case AsignExprName(name) if !paramNames.contains(name) => exprs(i).excLeft("Unrecognised setting identifer name.")
+           case AsignExprName(name) if usedNames.contains(name) => exprs(i).excLeft(name + " Multiple parameters of the same name.")
            case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
            case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
          }

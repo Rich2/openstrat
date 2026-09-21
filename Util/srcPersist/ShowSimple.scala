@@ -47,7 +47,7 @@ trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
 
   override def fromExpr(expr: Expr): ExcEither[A] = expr match
   { case IdentifierToken(str) => singletons.find(el => el.str == str).orElse(shortKeys.a1FindA2(str)).toErrBi
-    case expr => expr.failExc(typeStr -- "not parsed from this Expression")
+    case expr => expr.excLeft(typeStr -- "not parsed from this Expression")
   }
 
   def ++[AA >: A <: TellSimple](operand: UnshowSingletons[AA])(implicit ct: ClassTag[AA]): UnshowSingletons[AA] =

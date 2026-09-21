@@ -11,7 +11,7 @@ object parse6ColonExpr
 
     def rightLoop(rem: ArrOff[AssignMem], leftExpr: ColonMemExpr, ct: ColonToken): Either[AstException, ColonExpr] = rem match
     { case ArrOff0() => parse7Clauses(using rightAcc.toArr).map{ r => ColonExpr(leftExpr, ct, r) }
-      case ArrOff1Tail(ct2: ColonToken, tail) => ct2.startPosn.failAst("More than 1 Colon in expression.")
+      case ArrOff1Tail(ct2: ColonToken, tail) => ct2.startPosn.leftAst("More than 1 Colon in expression.")
       case ArrOff1Tail(cm: ColonOpMem, tail) => { rightAcc.append(cm); rightLoop(tail, leftExpr, ct) }
     }
 

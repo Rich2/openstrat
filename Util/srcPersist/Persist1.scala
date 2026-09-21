@@ -110,7 +110,7 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
     {
       case Match1(exprs) if exprs.length == 0 => opt1 match
       { case Some(a1) => Right(f(a1, Nil))
-        case None => expr.failExc("No values")
+        case None => expr.excLeft("No values")
       }
 
       case Match1(exprs) =>
@@ -121,7 +121,7 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
         a1.flatMap(a1 => reps.map(l => newT(a1, l)))
       }
 
-      case AlphaMaybeSquareParenth(name, _) => expr.failExc(s"Wrong name: $name not $typeStr.")
+      case AlphaMaybeSquareParenth(name, _) => expr.excLeft(s"Wrong name: $name not $typeStr.")
       case _ => expr.exprParseErr[A](using this)
     }
   }
@@ -145,7 +145,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
     { case Match1(exprs) if exprs.length == 0 => opt1 match
       {
         case Some(a1) => Right(f(a1, new Array[Ar](0)))
-        case None => expr.failExc("No values")
+        case None => expr.excLeft("No values")
       }
 
       case Match1(exprs) =>
@@ -156,7 +156,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
         a1.flatMap { a1 => reps.map(list => newT(a1, list.toArray)) }
       }
 
-      case AlphaMaybeSquareParenth(name, _) => expr.failExc(s"Wrong name: $name not $typeStr.")
+      case AlphaMaybeSquareParenth(name, _) => expr.excLeft(s"Wrong name: $name not $typeStr.")
       case _ => expr.exprParseErr[A](using this)
     }
   }  

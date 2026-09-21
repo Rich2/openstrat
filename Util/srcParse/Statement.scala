@@ -19,13 +19,13 @@ sealed trait Statement extends TextSpan
   /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): ParseExcEither[AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Right(rightExpr)
-    case _ => startPosn.failParse(settingName -- "not found.")
+    case _ => startPosn.leftParse(settingName -- "not found.")
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
   def intSettingExpr(settingNum: Int): Either[Exception, AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Right(rightExpr)
-    case _ => startPosn.fail(settingNum.str -- "not found.")
+    case _ => startPosn.leftExc(settingNum.str -- "not found.")
   }
 }
 
@@ -53,13 +53,13 @@ object Statement
     def endPosn = statements.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
-    def findSettingExpr(settingStr: String): ExcEither[AssignMemExpr] = statements match
+    def findSettingExpr(settingStr: String): ParseExcEither[AssignMemExpr] = statements match
     { case Arr0() => TextPosn.failEmpty//("No Statements")
       case Arr1(st1) => st1.settingExpr(settingStr)
       case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Right(_) => g } match
       { case Arr1(t) => t
-        case Arr0() => sts.startPosn.fail(settingStr -- "Setting not found.")
-        case s3 => sts.startPosn.fail(s3.length.toString -- "settings of" -- settingStr -- "not found.")
+        case Arr0() => sts.startPosn.leftParse(settingStr -- "Setting not found.")
+        case s3 => sts.startPosn.leftParse(s3.length.toString -- "settings of" -- settingStr -- "not found.")
       }
     }
 
@@ -69,8 +69,8 @@ object Statement
       case Arr1(st1) => st1.intSettingExpr(settingNum)
       case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g @Right(_) => g } match
       { case Arr1(t) => t
-        case Arr0() => sts.startPosn.fail(settingNum.str -- "Setting not found.")
-        case s3 => sts.startPosn.fail(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
+        case Arr0() => sts.startPosn.leftExc(settingNum.str -- "Setting not found.")
+        case s3 => sts.startPosn.leftExc(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
       }
     }
 
@@ -96,7 +96,7 @@ object Statement
         }
         opt.toErrBi
       }
-      case expr => failExc("Not an identifier.")
+      case expr => excLeft("Not an identifier.")
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
@@ -182,28 +182,28 @@ object Statement
     def findSettingBool(settingStr: String): ExcEither[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
   }
 
-  /** Extension class for ErrBi[Arr[Statement]]. */
-  implicit class ErrBiArrImplicit[E <: Throwable](thisEither: Either[E, RArr[Statement]])
+  /** Extension class for Either[Arr[Statement]]. */
+  implicit class EitherStatmentsExtensions[E <: Exception](thisEither: Either[E, RArr[Statement]])
   {
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(using evST: Unshow[KT], ev: Unshow[VT]): VT =
       thisEither.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getOrElse(elseValue) }
 
-    def findType[A](using Unshow[A]): Either[Throwable, A] = thisEither.flatMap(_.findType[A])
+    def findType[A](using Unshow[A]): Either[E | ExcFind, A] = thisEither.flatMap(_.findType[A])
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
     def findTypeElse[A](elseValue: A)(using Unshow[A]): A = thisEither.fold(_ => elseValue)(_.findType[A].getOrElse(elseValue))
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): Either[Throwable, String] = thisEither.flatMap {
+    def findSettingIdentifier(settingStr: String): Either[E | ParseException, String] = thisEither.flatMap {
       _.findSettingExpr(settingStr).flatMap {
         case IdentifierToken(str) => Right(str)
-        case expr => expr.failExc("Not an identifier.")
+        case expr => expr.parseExcLeft("Not an identifier.")
       }
     }
 
-    def findSettingIdentifierArr(settingStr: String): Either[Throwable, StrArr] = thisEither.flatMap(_.findSettingIdentifierArr(settingStr))
+    def findSettingIdentifierArr(settingStr: String): ExcEither[StrArr] = thisEither.flatMap(_.findSettingIdentifierArr(settingStr))
   }
 }
 
@@ -219,7 +219,7 @@ case class StatementEmpty(st: SemicolonToken) extends Statement, TextSpanMems
   override def optSemi: Option[SemicolonToken] = Some(st)
   override def startMem: SemicolonToken = st
   override def endMem: SemicolonToken = st
-  def asError[A]: LeftExc = st.failExc("Empty Statement")
+  def asError[A]: LeftExc = st.excLeft("Empty Statement")
 }
 
 object StatementEmpty

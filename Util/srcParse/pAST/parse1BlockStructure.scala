@@ -20,7 +20,7 @@ object parse1BlockStructure
         loop(remTokens)
       }
 
-      case ArrOffHead(bc: BracketCloseToken) => bc.startPosn.failAst("Unexpected Closing Brace at top syntax level")
+      case ArrOffHead(bc: BracketCloseToken) => bc.startPosn.leftAst("Unexpected Closing Brace at top syntax level")
       case ArrOff1Tail(bm: BlockMem, tail) => { acc.append(bm); loop(tail) }
       case _ => excep("Case not implemented")
     }

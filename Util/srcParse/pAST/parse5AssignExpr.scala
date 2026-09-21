@@ -18,7 +18,7 @@ object parse5AssignExpr
 
     def rightLoop(rem: ArrOff[StatementMem])(using seg: RArr[StatementMem]): Either[AstException, AssignMemExpr] = rem match
     { case ArrOff0() => parse6ColonExpr(using rightAcc.toArr)
-      case ArrOffHead(at: AsignToken) => at.startPosn.failAst("Prefix operator not followed by expression")
+      case ArrOffHead(at: AsignToken) => at.startPosn.leftAst("Prefix operator not followed by expression")
       case ArrOff1Tail(am: AssignMem, tail) => { rightAcc.append(am); rightLoop(tail) }
     }
 

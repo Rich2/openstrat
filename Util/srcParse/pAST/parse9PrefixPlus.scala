@@ -16,7 +16,7 @@ object parse9PrefixPlus
       { acc.append(InfixOpExpr(left, pp, right));
         loop(tail)
       }
-      case ArrOffHead(pp: OperatorToken) => pp.startPosn.failAst("Prefix operator not followed by expression")
+      case ArrOffHead(pp: OperatorToken) => pp.startPosn.leftAst("Prefix operator not followed by expression")
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }
     loop(refs.offset0)

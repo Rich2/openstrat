@@ -21,7 +21,7 @@ object parseHexaToken
   def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): ErrBi3[LexarException, CharsOff, TextPosn, Token] = rem match
   { case CharsOff1Tail(d, tail) if d.isDigit | (d <= 'F' && d >= 'A') => parseHexaToken(tail, tp, str + d.toString, isNeg)
     case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString, isNeg)
-    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.failLexar("Badly formed raw hexadecimal token.")
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.leftLexar("Badly formed raw hexadecimal token.")
     case _ if isNeg => Succ3(rem, tp.addStr(str), RawHexaNegToken(tp, str))
     case _ => Succ3(rem, tp.addStr(str), RawHexaNatToken(tp, str))
   }
@@ -31,7 +31,7 @@ object parseBase32
 {
   def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): ErrBi3[LexarException, CharsOff, TextPosn, ValidRawBase32IntToken] = rem match
   { case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString, isNeg)
-    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.failLexar("Badly formed raw Base 32 token.")
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.leftLexar("Badly formed raw Base 32 token.")
     case _ if isNeg => Succ3(rem, tp.addStr(str), RawBase32NegToken(tp, str))
     case _ => Succ3(rem, tp.addStr(str), RawBase32NatToken(tp, str))
   }

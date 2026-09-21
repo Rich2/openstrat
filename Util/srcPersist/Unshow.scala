@@ -34,19 +34,19 @@ trait Unshow[+T] extends Persist
   {
     case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
     case s if s.length == 1 => Right(s.head)
-    case s3 => sts.startPosn.failParse(s3.length.toString -- "values of" -- typeStr -- "found.")
+    case s3 => sts.startPosn.leftParse(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
   def settingTFromStatement(settingStr: String, st: Statement): ExcEither[T] = st match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
-    case _ => st.failExc(typeStr -- "not found.")
+    case _ => st.excLeft(typeStr -- "not found.")
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
   def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): ExcEither[T] = st match
   { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Right(settingCode) => fromExpr(rightExpr)
-    case _ => st.failExc(typeStr -- "not found.")
+    case _ => st.excLeft(typeStr -- "not found.")
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
@@ -56,8 +56,8 @@ trait Unshow[+T] extends Persist
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match
     {
       case Arr1(t) => t
-      case Arr0() => sts.failExc(settingStr -- typeStr -- "Setting not found.")
-      case s3 => sts.failExc(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+      case Arr0() => sts.excLeft(settingStr -- typeStr -- "Setting not found.")
+      case s3 => sts.excLeft(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
 
@@ -67,8 +67,8 @@ trait Unshow[+T] extends Persist
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Right(_) => g } match
     { case Arr1(t) => t
-      case Arr0() => sts.failExc(settingCode.toString -- typeStr -- "Setting not found.")
-      case s3 => sts.failExc(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
+      case Arr0() => sts.excLeft(settingCode.toString -- typeStr -- "Setting not found.")
+      case s3 => sts.excLeft(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
 
@@ -157,7 +157,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Int"
 
     override def fromExpr(expr: Expr): ExcEither[Int] =
-      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Right(i), expr.startPosn.fail(s"$i does not fullfll predicate.")))
+      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Right(i), expr.startPosn.leftExc(s"$i does not fullfll predicate.")))
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
@@ -252,9 +252,9 @@ trait UnshowPriority2 extends UnshowPriority3
 
     override def fromExpr(expr: Expr): ExcEither[Vector[A]] = expr match
     { case _: EmptyExprToken => Right(Vector[A]())
-      case AlphaSquareParenth("Seq", ts, sts) => sts.mapErrBi(s => evA.fromExpr(s.expr)).map(_.toVector)
-      case AlphaParenth("Seq", sts) => sts.mapErrBi(s => evA.fromExpr(s.expr)).map(_.toVector)
-      case e => expr.failExc("Unknown Expression for Vector")
+      case AlphaSquareParenth("Seq", ts, sts) => sts.mapEither(s => evA.fromExpr(s.expr)).map(_.toVector)
+      case AlphaParenth("Seq", sts) => sts.mapEither(s => evA.fromExpr(s.expr)).map(_.toVector)
+      case e => expr.excLeft("Unknown Expression for Vector")
     }
   }
 

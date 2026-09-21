@@ -18,6 +18,9 @@ object ParseException
 /** [[Either]] with a [[ParseException]] [[Left]] type. */
 type ParseExcEither[A] = Either[ParseException, A]
 
+/** [[Left]] with a [[ParseException]] type. */
+type ParseExcLeft = Left[ParseException, Nothing]
+
 /** AST abstract syntax tree [[Exception]]. */
 case class AstException(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail), ParseException
 

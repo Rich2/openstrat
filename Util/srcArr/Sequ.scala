@@ -299,7 +299,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   /** Map from A => [[Either]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Left]] of the
    * first error encountered usingly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
    * parameter list. */
-  def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => Either[E, B])(using ev: BuilderArrMap[B, ArrB]): Either[E, ArrB] =
+  def mapEither[E <: Throwable, B, ArrB <: Arr[B]](f: A => Either[E, B])(using ev: BuilderArrMap[B, ArrB]): Either[E, ArrB] =
   { val acc = ev.newBuff()
     var count = 0
     var optErr: Option[E] = None
@@ -312,7 +312,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
   
   /** Map from A => [[Either]][E, B]. There is a name overload that usingly takes a narrower [[BuilderArrMap]] as the second parameter list. */
-  def mapErrBi[E <: Throwable, B, BB](ev: BuilderMap[B, BB])(f: A => Either[E, B]): Either[E, BB] =
+  def mapEither[E <: Throwable, B, BB](ev: BuilderMap[B, BB])(f: A => Either[E, B]): Either[E, BB] =
   { val acc = ev.newBuff()
     var count = 0
     var optErr: Option[E] = None

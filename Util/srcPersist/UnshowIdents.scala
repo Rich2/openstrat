@@ -7,7 +7,7 @@ class UnshowIdents[A](val typeStr: String, val pairs: ArrPairStr[A]) extends Uns
 {
   override def fromExpr(expr: Expr): ExcEither[A] = expr match
   { case IdentifierToken(str) => pairs.a1FindA2(str).toErrBi
-    case _ => expr.failExc(typeStr -- "not found.")
+    case _ => expr.excLeft(typeStr -- "not found.")
   }
 }
 

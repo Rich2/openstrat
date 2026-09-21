@@ -38,16 +38,16 @@ object TextPosn
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
 
     /** Produce a failure with an [[pParse.LexarException]] type. */
-    def failParse(detail: String): Fail[ParseException] = Fail[ParseException](ParseException(thisTextPosn, detail))
+    def leftParse(detail: String): Fail[ParseException] = Fail[ParseException](ParseException(thisTextPosn, detail))
     
-    /** Produce a failure with a plain [[Exception]] type. */
-    def fail(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
+    /** Produce a failure with a [[Left]] [[Exception]] type. */
+    def leftExc(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
     
-    /** Produce a failure with an [[pParse.LexarException]] type. */
-    def failLexar(detail: String): Fail[LexarException] = Fail[LexarException](LexarException(thisTextPosn, detail))
+    /** Produce a failure with a [[Left]] [[pParse.LexarException]] type. */
+    def leftLexar(detail: String): Fail[LexarException] = Fail[LexarException](LexarException(thisTextPosn, detail))
 
-    /** Produce a failure with an [[pParse.LexarException]] type. */
-    def failAst(detail: String): Fail[AstException] = Fail[AstException](AstException(thisTextPosn, detail))
+    /** Produce a failure with a [[Left]] [[pParse.LexarException]] type. */
+    def leftAst(detail: String): Fail[AstException] = Fail[AstException](AstException(thisTextPosn, detail))
   }
   
   given persistEV: Persist3Both[String, Int, Int, TextPosn] =
@@ -55,13 +55,21 @@ object TextPosn
 }
 
 trait TextSpan
-{ def startPosn: TextPosn
+{ /** The start position of this span of text. */
+  def startPosn: TextPosn
+  
+  /** The position of the last character of a span of text. */  
   def endPosn: TextPosn
-  def failExc(detail: String): LeftExc = LeftExc(startPosn.shortStr -- detail)
+  
+  /** Constructs a Left Exception with this TextSpan and the detail. */
+  def excLeft(detail: String): LeftExc = LeftExc(startPosn.shortStr -- detail)
+
+  /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
+  def parseExcLeft(detail: String): ParseExcLeft = Left(ParseException(startPosn.shortStr -- detail))
 }
 
 object TextSpan
-{ def empty = new TextSpan{def startPosn = TextPosn.empty; def endPosn = TextPosn.empty }
+{ def empty: TextSpan = new TextSpan{def startPosn = TextPosn.empty; def endPosn = TextPosn.empty }
 
   /** needs adjusting for empty Seq */
   implicit class FilePosnSeqImplicit(thisSeq: Seq[TextSpan]) extends TextSpan

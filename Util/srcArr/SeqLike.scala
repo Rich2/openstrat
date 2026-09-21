@@ -41,11 +41,11 @@ object SeqLike
     { case _: EmptyExprToken => Right(build.uninitialised(0))
       
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
-        sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
+        sts.mapEither(build)(s => evA.fromExpr(s.expr))
         
-      case AlphaSquareParenth("Seq", _, sts) => sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
-      case AlphaParenth("Seq", sts) => sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
-      case e => expr.failExc(expr.toString + " unknown Expression for Seq")
+      case AlphaSquareParenth("Seq", _, sts) => sts.mapEither(build)(s => evA.fromExpr(s.expr))
+      case AlphaParenth("Seq", sts) => sts.mapEither(build)(s => evA.fromExpr(s.expr))
+      case e => expr.excLeft(expr.toString + " unknown Expression for Seq")
     }
   }
 }
