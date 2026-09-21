@@ -17,7 +17,7 @@ sealed trait Statement extends TextSpan
   def noSemi: Boolean = optSemi.isEmpty
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExpr(settingName: String): Either[ParseException, AssignMemExpr] = this match
+  def settingExpr(settingName: String): ParseExcEither[AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Right(rightExpr)
     case _ => startPosn.failParse(settingName -- "not found.")
   }
@@ -64,7 +64,7 @@ object Statement
     }
 
     /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
-    def findIntSettingExpr(settingNum: Int): Either[Exception, AssignMemExpr] = statements match
+    def findIntSettingExpr(settingNum: Int): ExcEither[AssignMemExpr] = statements match
     { case Arr0() => LeftExc("No Statements")
       case Arr1(st1) => st1.intSettingExpr(settingNum)
       case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g @Right(_) => g } match
@@ -75,7 +75,7 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcEither[T] = ev.settingFromStatements(statements, settingStr)
+    def findSetting[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingId(settingStr: String): Either[Exception, String] = findSettingExpr(settingStr).flatMap{
@@ -87,10 +87,9 @@ object Statement
     def findSettingIdElse(settingStr: String, elseStr: String): String = findSettingId(settingStr).getOrElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifierArr(settingStr: String) = findSettingExpr(settingStr).flatMap {
+    def findSettingIdentifierArr(settingStr: String): ExcEither[StrArr] = findSettingExpr(settingStr).flatMap {
       case IdentifierToken(str) => Right(StrArr(str))
-      case exprSeq: ExprSeqExpr =>
-      {
+      case exprSeq: ExprSeqExpr => {
         val opt = exprSeq.exprs.optAllMap {
           case IdentifierToken(str) => Some(str)
           case _ => None
@@ -101,29 +100,29 @@ object Statement
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): ExcEither[VT] = ev.keySettingFromStatements(statements, key)
+    def findKeySetting[KT, VT](key: KT)(using evST: Unshow[KT], ev: Unshow[VT]): ExcEither[VT] = ev.keySettingFromStatements(statements, key)
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
-    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
+    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(using evST: Unshow[KT], ev: Unshow[VT]): VT =
       ev.keySettingFromStatements(statements, key).getOrElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): Either[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = findSetting[T](settingStr).succOrOther(findType)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getOrElse(elseValue)
+    def findSettingElse[A](settingStr: String, elseValue: A)(using Unshow[A]): A = findSetting[A](settingStr).getOrElse(elseValue)
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    def findType[A](implicit ev: Unshow[A]): Either[ExcFind, A] = statements.mapUniqueSucc(ev.fromStatement(_))
+    def findType[A](using evA: Unshow[A]): Either[ExcFind, A] = statements.mapUniqueSucc(evA.fromStatement(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getOrElse(elseValue)
+    def findTypeElse[A](elseValue: A)(using Unshow[A]): A = findType[A].getOrElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
-    def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]) =
+    def typeAtIndex[A](index: Int)(using evA: Unshow[A]): ExcEither[A] =
     { val st = statements(index)
-      ife(statements.length > index, ev.fromStatement(st), FailNoExprAtN(index, ev))
+      ife(statements.length > index, evA.fromStatement(st), FailNoExprAtN(index, evA))
     }
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -184,27 +183,27 @@ object Statement
   }
 
   /** Extension class for ErrBi[Arr[Statement]]. */
-  implicit class ErrBiArrImplicit[E <: Throwable](thisBi: Either[E, RArr[Statement]])
+  implicit class ErrBiArrImplicit[E <: Throwable](thisEither: Either[E, RArr[Statement]])
   {
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
-    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      thisBi.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getOrElse(elseValue) }
+    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(using evST: Unshow[KT], ev: Unshow[VT]): VT =
+      thisEither.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getOrElse(elseValue) }
 
-    def findType[A](implicit ev: Unshow[A]): Either[Throwable, A] = thisBi.flatMap(_.findType[A])
+    def findType[A](using Unshow[A]): Either[Throwable, A] = thisEither.flatMap(_.findType[A])
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = thisBi.fold(_ => elseValue)(_.findType[A].getOrElse(elseValue))
+    def findTypeElse[A](elseValue: A)(using Unshow[A]): A = thisEither.fold(_ => elseValue)(_.findType[A].getOrElse(elseValue))
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): Either[Throwable, String] = thisBi.flatMap {
+    def findSettingIdentifier(settingStr: String): Either[Throwable, String] = thisEither.flatMap {
       _.findSettingExpr(settingStr).flatMap {
         case IdentifierToken(str) => Right(str)
         case expr => expr.failExc("Not an identifier.")
       }
     }
 
-    def findSettingIdentifierArr(settingStr: String): Either[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
+    def findSettingIdentifierArr(settingStr: String): Either[Throwable, StrArr] = thisEither.flatMap(_.findSettingIdentifierArr(settingStr))
   }
 }
 

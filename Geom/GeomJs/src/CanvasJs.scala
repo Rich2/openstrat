@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
 import geom.*, pgui.*, math.Pi, org.scalajs.dom.*
 
@@ -266,7 +266,7 @@ object CanvasJs extends CanvasTopLeft
   override def gcSave(): Unit = gc.save()
 
   override def saveFile(fileName: String, output: String): Unit = window.localStorage.setItem(fileName, output)
-  override def loadFile(fileName: String) =
+  override def loadFile(fileName: String): IOExcEither[String] =
   { val nStr = window.localStorage.getItem(fileName)
     if (nStr == null)  Left(IOExc("Js Error, File not found")) else Right(nStr)
   }
