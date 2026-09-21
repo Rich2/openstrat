@@ -54,7 +54,7 @@ class OptionExtensions[A](thisOption: Option[A])
 
   /** safe get. Seeks an implicit value for the [[DefaultValue]] type class for the type of the option. Returns the value if a some else returns the default
    * value. */
-  def getSafe(implicit ev: DefaultValue[A]): A = thisOption match
+  def getSafe(using ev: DefaultValue[A]): A = thisOption match
   { case Some(a) => a
     case None => ev.default
   }
@@ -77,7 +77,7 @@ class OptionExtensions[A](thisOption: Option[A])
     case None => Left(NoneExc)
   }
   
-  def flatMapErrBi[E <: Throwable, B](f: A => Either[E, B]): Either[E | ExcNFT, B] = thisOption match
+  def flatMapErrBi[E <: Throwable, B](f: A => Either[E, B]): Either[E | ExcNotFound.type, B] = thisOption match
   { case Some(a) => f(a)
     case None => FailNotFound
   }

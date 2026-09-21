@@ -25,7 +25,7 @@ package object pParse
     plex.lexSrc(input, inputSourceName).flatMap(tokensToStatements(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
-  def stringToStatements(input: String): ExcEither[RArr[Statement]] = stringToTokens(input).flatMap(tokensToStatements(_))
+  def stringToStatements(input: String): ParseExcEither[RArr[Statement]] = stringToTokens(input).flatMap(tokensToStatements(_))
 
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): LexarExcEither[RArr[Token]] = plex.lexSrc(srcStr.toCharArray, "String")

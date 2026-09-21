@@ -29,7 +29,7 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   }
 
   /** Classic flatMap function taking a function from A => [[Option]][B] rather than the standard [[Either]] of B. */
-  def flatOptMap[B](f: A => Option[B]): Either[E | ExcNFT, B] = thisEither match
+  def flatOptMap[B](f: A => Option[B]): Either[E | ExcNotFound.type, B] = thisEither match
   { case Right(value) => f(value).fld(FailNotFound, b => Right(b))
     case Left(err) => Fail(err)
   }
@@ -52,9 +52,9 @@ implicit class Eitherthrowable[E <: Throwable, A](thisEither: Either[E, A])
   }
 }
 
-implicit class EitherStringExts[E <: Throwable](thisEither: Either[E, String])
-{/** Extension method tWo map this [[Either]] String to find a value of the given type from the String parsed as RSON. */
-  def findType[A](using ev: Unshow[A]): Either[Throwable, A] = thisEither.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
+implicit class EitherStringExts[E <: Exception](thisEither: Either[E, String])
+{/** Extension method two map this [[Either]] String to find a value of the given type from the String parsed as RSON. */
+  def findType[A](using ev: Unshow[A]): Either[Exception, A] = thisEither.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
 
   /** Extension method to map this [[Either]] String to find a value of the given type from the String parsed as RSON or return the elseValue if that fails. */
   def findTypeElse[A](elseValue: => A)(using ev: Unshow[A]): A = findType[A].getOrElse(elseValue)
@@ -63,7 +63,7 @@ implicit class EitherStringExts[E <: Throwable](thisEither: Either[E, String])
    * if successful. */
   def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].foreach(f)
 
-  def findSetting[A](settingStr: String)(using ev: Unshow[A]): Either[Throwable, A] =
+  def findSetting[A](settingStr: String)(using ev: Unshow[A]): ExcEither[A] =
     thisEither.flatMap(str => stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
 
   def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getOrElse(elseValue)
@@ -180,6 +180,11 @@ object LeftExc
 
 /** Java IO [[Exception]] */
 type IOExc = java.io.IOException
+
+object IOExc
+{ /** Factory apply method to construct [[java.io.IOException]]. */
+  def apply(message: String): IOExc = new java.io.IOException(message)
+}
 
 /** A [[java.io.IOException]] error monad. */
 type IOExcEither[+B] = Either[IOExc, B]

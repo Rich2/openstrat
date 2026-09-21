@@ -7,13 +7,13 @@ import utiljvm.*, pweb.*, gres.*, plet.*, java.time.LocalDateTime, jakarta.*, se
 {
   val users: RBuff[UserDetails] = RBuff()
   var numSesh: Int = 0
-  val headLog = HeadHtml.title("Login")
-  val logName = "regName"
-  val logPass = "regPass"
+  val headLog: HeadHtml = HeadHtml.title("Login")
+  val logName: String = "regName"
+  val logPass: String = "regPass"
   val regForm: RegisterForm = RegisterForm()
   val logForm: LoginForm = LoginForm()
   val catb: String = System.getProperty("catalina.base")
-  lazy val eSetts = loadTextFile(catb / "Notes" / "ostrat.rson")
+  lazy val eSetts: ThrowEither[String] = loadTextFile(catb / "Notes" / "ostrat.rson")
   lazy val eName: Either[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
   
   lazy val ePass: Either[Throwable, String] =

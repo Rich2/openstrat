@@ -128,12 +128,13 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
 }
 
 object Unshow4
-{
+{ /** Factory apply method [[Unshow]] class with 4 logical parameter product types. */
   def apply[A1, A2, A3, A4, A](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (A1, A2, A3, A4) => A,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None,  opt1: Option[A1] = None)(using unshow1: Unshow[A1], unshow2: Unshow[A2],
     unshow3: Unshow[A3], unshow4: Unshow[A4], ct: ClassTag[A]): Unshow4[A1, A2, A3, A4, A] =
     new Unshow4Imp(typeStr, name1, name2, name3, name4, newT, ArrPairStr[A](), opt4, opt3, opt2, opt1, unshow1, unshow2, unshow3, unshow4)
 
+  /** Implementation class for the general case  of [[Unshow4]]. */
   class Unshow4Imp[A1, A2, A3, A4, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
     val newT: (A1, A2, A3, A4) => A, val shortKeys: ArrPairStr[A], override val opt4: Option[A4] = None, val opt3In: Option[A3] = None,
     opt2In: Option[A2] = None, opt1In: Option[A1] = None, val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3],
@@ -151,6 +152,7 @@ object Unshow4
   }
 }
 
+/** type class Instances of [[Unshow]] wit 4 logical [[Int]] parameters. */
 trait UnshowInt4[A] extends Unshow4[Int, Int, Int, Int, A]
 { override def unshow1Ev: Unshow[Int] = Unshow.intEv
   override def unshow2Ev: Unshow[Int] = Unshow.intEv

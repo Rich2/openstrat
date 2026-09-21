@@ -120,15 +120,15 @@ trait CanvasPlatform extends RectCenlign
   def gcSave(): Unit
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
-  def loadFile(fileName: String): Either[Throwable, String]
-  def fromFileFind[A](fileName: String)(using evA: Unshow[A]): Either[Throwable, A] = loadFile(fileName).findType
+  def loadFile(fileName: String): IOExcEither[String]
+  def fromFileFind[A](fileName: String)(using evA: Unshow[A]): Either[Exception, A] = loadFile(fileName).findType
   def fromFileFindElse[A](fileName: String, elseValue: => A)(using evA: Unshow[A]): A = fromFileFind(fileName).getOrElse(elseValue)
   
   /** Attempts to find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls procedure (Unit returning
    * function) with that object of type A */
   def fromFileFindForeach[A](fileName: String, f: A => Unit)(using evA: Unshow[A]): Unit = fromFileFind(fileName).foreach(f)
 
-  def fromFileFindSetting[A](settingStr: String, fileName: String)(using evA: Unshow[A]): Either[Throwable, A] = loadFile(fileName).findSetting(settingStr)
+  def fromFileFindSetting[A](settingStr: String, fileName: String)(using evA: Unshow[A]): ExcEither[A] = loadFile(fileName).findSetting(settingStr)
     
   def fromFileFindSettingElseOld[A](settingStr: String, fileName: String, elseValue: => A)(implicit evA: Unshow[A]): A =
     fromFileFindSetting(settingStr, fileName).getOrElse(elseValue)

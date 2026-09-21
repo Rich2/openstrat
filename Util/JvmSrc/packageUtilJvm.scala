@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse.*, java.io.*
+import pParse.*, java.io.*, java.nio.file.{ Files, Paths }
 
 /** This package is for Java byte code targets. */
 package object utiljvm
@@ -27,7 +27,14 @@ package object utiljvm
   }
 
   /** Attempts to load text file into a [[String]]. */
-  def loadTextFile(pathFileName: String): ThrowEither[String] = eTry(scala.io.Source.fromFile(pathFileName).mkString)
+  def loadTextFile(pathFileName: String): IOExcEither[String] =
+  { try
+    { val path = Paths.get(pathFileName)
+      val bytes = Files.readAllBytes(path)
+      Right(bytes.mkString)
+    }
+    catch{ case err: java.io.IOException => Left(err) }
+  } 
 
   /** Attempts to load a value of the specified type from an RSON format file. */
   def fromRsonFileFind[A: Unshow](fileName: String): ThrowEither[A] = loadTextFile(fileName).findType[A]

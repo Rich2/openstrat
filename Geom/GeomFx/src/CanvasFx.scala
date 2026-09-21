@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
 import geom.*, pgui.*, utiljvm.*, javafx.*, scene.*
 
@@ -253,5 +253,5 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def gcSave(): Unit = gc.save()
   override def gcRestore(): Unit = gc.restore()
   def saveFile(fileName: String, output: String): Unit = saveTextFile(yourDir, fileName, output: String)
-  def loadFile(fileName: String): ThrowEither[String] = loadTextFile(yourDir / fileName)
+  def loadFile(fileName: String): IOExcEither[String] = loadTextFile(yourDir / fileName)
 }

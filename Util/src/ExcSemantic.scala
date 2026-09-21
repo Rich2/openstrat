@@ -10,9 +10,6 @@ trait ExcSemantic extends ExcPersist
 /** RSON expression has wrong type [[Exception]]. */
 object ExcWrongType extends Exception("Expression has wrong type") with ExcSemantic
 
-/** RSON expression has wrong type [[Exception]] [[Left]]. */
-//object FailWrongType extends Left[ExcWrongType.type](ExcWrongType)
-
 /** No [[pParse.Expr]] at index N [[Exception]]. */
 case class ExcNoExprAtN(index: Int, unshow: Unshow[?]) extends Exception(s"No expression at index $index to find type ${unshow.typeStr}") with ExcSemantic
 
@@ -26,11 +23,9 @@ object ExcNotFound extends Exception("Not found") with ExcFind
 
 val NotFound: Fail[ExcNotFound.type] = Fail(ExcNotFound)
 
-/** [[ExcNotFound]] singleton type. */
-type ExcNFT = ExcNotFound.type
 
 /** [[ExcNotFound]] error monad. */
-type ExcNFTMon[+A] = Either[ExcNFT, A]
+type NotFoundEither[+A] = Either[ExcNotFound.type , A]
 
 /** A [[Left]] with a not found Exception. */
 val FailNotFound: Fail[ExcNotFound.type] = Fail(ExcNotFound)
