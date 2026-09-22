@@ -56,7 +56,7 @@ trait Unshow[+T] extends Persist
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match
     {
       case Arr1(t) => t
-      case Arr0() => sts.excLeft(settingStr -- typeStr -- "Setting not found.")
+      case Arr0() => sts.left(SettingNotFoundException(settingStr -- typeStr))
       case s3 => sts.excLeft(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }

@@ -79,6 +79,6 @@ class OptionExtensions[A](thisOption: Option[A])
   
   def flatMapErrBi[E <: Throwable, B](f: A => Either[E, B]): Either[E | ExcNotFound.type, B] = thisOption match
   { case Some(a) => f(a)
-    case None => FailNotFound
+    case None => NotFoundLeft
   }
 }

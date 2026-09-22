@@ -297,7 +297,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   }
 
   /** Map from A => [[Either]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Left]] of the
-   * first error encountered usingly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
+   * first error encountered usualy takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderMap]] as the first
    * parameter list. */
   def mapEither[E <: Throwable, B, ArrB <: Arr[B]](f: A => Either[E, B])(using ev: BuilderArrMap[B, ArrB]): Either[E, ArrB] =
   { val acc = ev.newBuff()
@@ -554,7 +554,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   /** Takes a function from A to [[Either]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Left]]. */
   def mapUniqueSucc[B](f: A => Either[Exception, B]): Either[ExcFind, B] =
   { var count = 0
-    var acc: NotFoundEither[B] = FailNotFound
+    var acc: NotFoundEither[B] = NotFoundLeft
     foreach { a => f(a) match
       { case Right(value) =>  { count += 1; acc = Right(value) }
         case _ =>
@@ -660,7 +660,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
 
   /** Takes a function that returns an [[Either]] and returns the first [[Right]]. */
   def findSucc[E <: Throwable, B](f: A => Either[E, B]): Either[ExcNotFound.type, B] =
-  { var res: Either[ExcNotFound.type, B] = NotFound
+  { var res: Either[ExcNotFound.type, B] = NotFoundLeft
     var i = 0
     while (i < length && res.isLeft)
     { val bi = f(apply(i))

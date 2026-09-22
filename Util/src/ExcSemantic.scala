@@ -14,24 +14,4 @@ object ExcWrongType extends Exception("Expression has wrong type") with ExcSeman
 case class ExcNoExprAtN(index: Int, unshow: Unshow[?]) extends Exception(s"No expression at index $index to find type ${unshow.typeStr}") with ExcSemantic
 
 /** No [[pParse.Expr]] at index N [[Left]]. */
-def FailNoExprAtN(index: Int, unshow: Unshow[?]): Fail[ExcNoExprAtN] = Fail[ExcNoExprAtN](ExcNoExprAtN(index, unshow))
-
-/** Exception from a find search for a type. */
-sealed trait ExcFind extends Exception
-
-object ExcNotFound extends Exception("Not found") with ExcFind
-
-val NotFound: Fail[ExcNotFound.type] = Fail(ExcNotFound)
-
-
-/** [[ExcNotFound]] error monad. */
-type NotFoundEither[+A] = Either[ExcNotFound.type , A]
-
-/** A [[Left]] with a not found Exception. */
-val FailNotFound: Fail[ExcNotFound.type] = Fail(ExcNotFound)
-
-/** A found multiple values of type [[Exception]]. */
-case class ExcFoundMulti(val num: Int) extends Exception(s"$num values of type found.") with ExcFind
-
-/** A found multiple values of type [[Left]], */
-def FailFoundMulti(num: Int): Fail[ExcFoundMulti] = Left(ExcFoundMulti(num))
+def FailNoExprAtN(index: Int, unshow: Unshow[?]): Left[ExcNoExprAtN, Nothing] = Left(ExcNoExprAtN(index, unshow))

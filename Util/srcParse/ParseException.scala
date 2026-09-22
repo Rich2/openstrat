@@ -29,7 +29,7 @@ type AstExcEither[+A] = Either[AstException, A]
 
 object AstExcFail
 { /** Factory apply method to create a [[Left]] with an [[AstException]], Abstract Syntax Tree exception. */
-  def apply(tp: TextPosn, detail: String): Fail[AstException] = Fail[AstException](AstException(tp, detail))
+  def apply(tp: TextPosn, detail: String): Left[AstException, Nothing] = Left(AstException(tp, detail))
 }
 
 /** A lexar exception. */
@@ -42,7 +42,15 @@ object LexarException
 
 object LexarExcFail
 { /** Factory apply method to construct a lexar exception. */
-  def apply(tp: TextPosn, detail: String): Fail[LexarException] = Fail[LexarException](LexarException(tp, detail))
+  def apply(tp: TextPosn, detail: String): Left[LexarException, Nothing] = Left(LexarException(tp, detail))
 }
 
 type LexarExcEither[+A] = Either[LexarException, A]
+
+/**  */
+class SettingNotFoundException(detail: String) extends Exception(detail -- "setting not found"), ParseException
+
+object SettingNotFoundException
+{
+  def apply(detail: String): SettingNotFoundException = new SettingNotFoundException(detail)
+}

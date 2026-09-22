@@ -31,23 +31,23 @@ object TextPosn
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
   def excEmpty: ParseException = ParseException("Empty object")
-  def failEmpty: Fail[ParseException] = Left(excEmpty)
+  def failEmpty: Left[ParseException, Nothing] = Left(excEmpty)
 
   implicit class TextPosnImplicit(thisTextPosn: TextPosn)
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
 
     /** Produce a failure with an [[pParse.LexarException]] type. */
-    def leftParse(detail: String): Fail[ParseException] = Fail[ParseException](ParseException(thisTextPosn, detail))
+    def leftParse(detail: String): Left[ParseException, Nothing] = Left(ParseException(thisTextPosn, detail))
     
     /** Produce a failure with a [[Left]] [[Exception]] type. */
-    def leftExc(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
+    def leftExc(message: String): Left[Exception, Nothing] = Left(new Exception(message))
     
     /** Produce a failure with a [[Left]] [[pParse.LexarException]] type. */
-    def leftLexar(detail: String): Fail[LexarException] = Fail[LexarException](LexarException(thisTextPosn, detail))
+    def leftLexar(detail: String): Left[LexarException, Nothing] = Left(LexarException(thisTextPosn, detail))
 
     /** Produce a failure with a [[Left]] [[pParse.LexarException]] type. */
-    def leftAst(detail: String): Fail[AstException] = Fail[AstException](AstException(thisTextPosn, detail))
+    def leftAst(detail: String): Left[AstException, Nothing] = Left(AstException(thisTextPosn, detail))
   }
   
   given persistEV: Persist3Both[String, Int, Int, TextPosn] =
@@ -63,6 +63,8 @@ trait TextSpan
   
   /** Constructs a Left Exception with this TextSpan and the detail. */
   def excLeft(detail: String): LeftExc = LeftExc(startPosn.shortStr -- detail)
+  
+  def left[E](error: E): Left[E, Nothing] = Left(error) 
 
   /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
   def parseExcLeft(detail: String): ParseExcLeft = Left(ParseException(startPosn.shortStr -- detail))
