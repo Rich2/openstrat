@@ -58,8 +58,8 @@ object Statement
       case Arr1(st1) => st1.settingExpr(settingStr)
       case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Right(_) => g } match
       { case Arr1(t) => t
-        case Arr0() => sts.startPosn.leftParse(settingStr -- "Setting not found.")
-        case s3 => sts.startPosn.leftParse(s3.length.toString -- "settings of" -- settingStr -- "not found.")
+        case Arr0() => sts.startPosn.left(SettingNotFoundException(settingStr))
+        case s3 => sts.startPosn.left(SettingMultiFoundException(s3.length, settingStr))
       }
     }
 

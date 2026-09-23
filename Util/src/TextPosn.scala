@@ -39,6 +39,8 @@ object TextPosn
 
     /** Produce a failure with an [[pParse.LexarException]] type. */
     def leftParse(detail: String): Left[ParseException, Nothing] = Left(ParseException(thisTextPosn, detail))
+
+    def left[E](error: E): Left[E, Nothing] = Left(error)
     
     /** Produce a failure with a [[Left]] [[Exception]] type. */
     def leftExc(message: String): Left[Exception, Nothing] = Left(new Exception(message))

@@ -54,8 +54,7 @@ trait Unshow[+T] extends Persist
   { case Arr0() => TextPosn.failEmpty// emptyError("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match
-    {
-      case Arr1(t) => t
+    { case Arr1(t) => t
       case Arr0() => sts.left(SettingNotFoundException(settingStr -- typeStr))
       case s3 => sts.excLeft(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }

@@ -40,15 +40,23 @@ object LexarException
   given eqTEv: EqT[LexarException] = (exc1, exc2) => exc1.getMessage == exc2.getMessage
 }
 
-object LexarExcFail
+object LexarExcLeft
 { /** Factory apply method to construct a lexar exception. */
   def apply(tp: TextPosn, detail: String): Left[LexarException, Nothing] = Left(LexarException(tp, detail))
 }
 
+/** Lexar [[Exception]] [[Either]]. */
 type LexarExcEither[+A] = Either[LexarException, A]
 
-/**  */
-class SettingNotFoundException(detail: String) extends Exception(detail -- "setting not found"), ParseException
+/** Failure to retrieve a unique Setting of the correct type. */
+sealed trait SettingFailException extends ParseException
+
+/** Setting nor found [[Exception]]. */
+class SettingNotFoundException(detail: String) extends Exception(detail -- "setting not found"), SettingFailException
+
+/** Setting multiple values found [[Exception]]. */
+class SettingMultiFoundException(n: Int, settingStr: String) extends Exception(s"$n settings of" -- settingStr -- "found."),
+  SettingFailException
 
 object SettingNotFoundException
 {
