@@ -1,13 +1,13 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag
+import pParse.*, reflect.ClassTag
 
-/** [[Unshow]] type class instances from one of sequence of identity tokens."  */
+/** [[Unshow]] type class instances from one of sequence of identity tokens. Not sure what's going on here. */
 class UnshowIdents[A](val typeStr: String, val pairs: ArrPairStr[A]) extends Unshow[A]
 {
-  override def fromExpr(expr: Expr): ExcEither[A] = expr match
-  { case IdentifierToken(str) => pairs.a1FindA2(str).toErrBi
-    case _ => expr.excLeft(typeStr -- "not found.")
+  override def fromExpr(expr: Expr): ParseExcEither[A] = expr match
+  { case IdentifierToken(str) => pairs.a1FindA2(str).toEither
+    case _ => expr.leftParse(typeStr -- "not found.")
   }
 }
 

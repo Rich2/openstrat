@@ -9,7 +9,7 @@ object Succ
 }
 
 /** Exception from a find search for a type. */
-sealed trait ExcFind extends Exception
+sealed trait ExcFind extends Exception, ParseException
 
 object ExcNotFound extends Exception("Not found") with ExcFind
 
@@ -65,7 +65,7 @@ object FailIO
 }
 
 /** A [[None]] value converted to an [[Extension]]. */
-case object NoneExc extends Exception("None")
+case object NoneExc extends Exception("None"), ParseException
 
 /** [[Left]] with a [[NoneExc]] value. */
 val LNone: Left[NoneExc.type, Nothing] = Left(NoneExc)

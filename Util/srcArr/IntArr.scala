@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*, collection.mutable.ArrayBuffer, pParse.*
 
@@ -119,7 +119,7 @@ object IntArr
   implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
   { override def typeStr: String = "Seq"
 
-    override def fromExpr(expr: Expr): ExcEither[IntArr] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[IntArr] = expr match
     { case _: EmptyExprToken => Right(IntArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _),
@@ -129,7 +129,7 @@ object IntArr
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapEither(s => Unshow.intEv.fromExpr(s.expr))(using IntArrBuilder)
 
-      case e => expr.excLeft(expr.toString + " unknown Expression for Seq")
+      case e => expr.leftParse(expr.toString + " unknown Expression for Seq")
     }
   }
 }

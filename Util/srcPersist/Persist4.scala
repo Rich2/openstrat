@@ -117,12 +117,12 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
 { /** Allows this [[Unshow]] instance to create object from it's 4 components. */
   def newT: (A1, A2, A3, A4) => A
 
-  protected override def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcEither[A] =
+  protected override def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): Either[ParseExcMulti[ParseException], A] =
   { val len: Int = sortedExprs.length
-    val e1: ExcEither[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
-    def e2: ExcEither[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
-    def e3: ExcEither[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toErrBi)
-    def e4: ExcEither[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toErrBi)
+    val e1: ParseExcEither[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEither)
+    def e2: ParseExcEither[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEither)
+    def e3: ParseExcEither[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEither)
+    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
     Either.map4(e1, e2, e3, e4)(newT)
   }
 }

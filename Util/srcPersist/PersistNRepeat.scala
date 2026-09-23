@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*, collection.mutable.ArrayBuffer
 
@@ -86,20 +86,19 @@ trait ShowNOptRepeat[Ar, A] extends ShowNRepeat[Ar, A]
 /** The base trait for the persistence of algebraic product types, where the last component is a repeat parameter. */
 trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
 {
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcEither[A]  
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ParseExcEither[A]  
 
-  final override def fromExpr(expr: Expr): ExcEither[A] = expr match
-  {
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => LeftExc(typeName -- "does not equal" -- typeStr)
+  final override def fromExpr(expr: Expr): ParseExcEither[A] = expr match
+  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => LeftParseExc(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[A](using this)
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: RArr[Expr]): ExcEither[A] =
+  final def fromExprSeq(exprs: RArr[Expr]): ParseExcEither[A] =
   {
-    def exprsLoop(i: Int, usedNames: StrArr): ExcEither[A] =
+    def exprsLoop(i: Int, usedNames: StrArr): ParseExcEither[A] =
       if (i >= exprs.length)
         if (i >= numFixedParams) fromSortedExprs(exprs, paramFixedNames.map(pn => usedNames.findIndex(_ == pn)))
         else exprsLoop(i + 1, usedNames +% paramFixedNames.find(u => !usedNames.exists(_ == u)).get)

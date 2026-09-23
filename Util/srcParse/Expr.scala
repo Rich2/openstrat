@@ -5,7 +5,7 @@ package ostrat; package pParse
  * contain each contain an expression. */
 trait Expr extends BlockMem, StatementMem
 { def exprName: String
-  def exprParseErr[A](implicit ev: Unshow[A]): ExcEither[A] = startPosn.leftExc(ev.typeStr -- "is not available from" -- exprName)
+  def exprParseErr[A](implicit ev: Unshow[A]): ParseExcEither[A] = startPosn.leftParse(ev.typeStr -- "is not available from" -- exprName)
 }
 
 case object EmptyStringExpr extends Expr

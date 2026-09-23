@@ -63,32 +63,32 @@ trait ShowTellN[A <: TellN] extends ShowNFixed[A], ShowTell[A]
 }
 
 trait UnshowN[R] extends Unshow[R], PersistNFixed
-{ protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcEither[R]
+{ protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ParseExcEither[R]
 
   /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
 
-  final override def fromExpr(expr: Expr): ExcEither[R] = expr match
-  { case IdentifierToken(str) => shortKeys.a1FindA2(str).toErrBi
+  final override def fromExpr(expr: Expr): ParseExcEither[R] = expr match
+  { case IdentifierToken(str) => shortKeys.a1FindA2(str).toEither
     case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.leftExc(typeName -- "does not equal" -- typeStr)
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.leftParse(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](using this)
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: RArr[Expr]): ExcEither[R] =
-     if (exprs.length > numParams) LeftExc(exprs.length.toString + s" parameters for $numParams parameter constructor.")
+  final def fromExprSeq(exprs: RArr[Expr]): ParseExcEither[R] =
+     if (exprs.length > numParams) LeftParseExc(exprs.length.toString + s" parameters for $numParams parameter constructor.")
      else
      {
-       def exprsLoop(i: Int, usedNames: StrArr): ExcEither[R] =
+       def exprsLoop(i: Int, usedNames: StrArr): ParseExcEither[R] =
          if (i >= exprs.length)
            if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
            else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
          else exprs(i) match
          {
-           case AsignExprName(name) if !paramNames.contains(name) => exprs(i).excLeft("Unrecognised setting identifer name.")
-           case AsignExprName(name) if usedNames.contains(name) => exprs(i).excLeft(name + " Multiple parameters of the same name.")
+           case AsignExprName(name) if !paramNames.contains(name) => exprs(i).leftParse("Unrecognised setting identifer name.")
+           case AsignExprName(name) if usedNames.contains(name) => exprs(i).leftParse(name + " Multiple parameters of the same name.")
            case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
            case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
          }

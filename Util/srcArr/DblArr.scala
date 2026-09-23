@@ -58,7 +58,7 @@ object DblArr
   given unshowEv: Unshow[DblArr] = new Unshow[DblArr]
   { override def typeStr: String = "Seq" + "Dbl"
 
-    override def fromExpr(expr: Expr): ExcEither[DblArr] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[DblArr] = expr match
     { case _: EmptyExprToken => Right(DblArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _), BracketedStructure(sts, brs2, _, _)))
@@ -67,7 +67,7 @@ object DblArr
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapEither(s => Unshow.doubleEv.fromExpr(s.expr))(using DblArrBuilder)
 
-      case e => expr.excLeft(expr.toString + " unknown Expression for Seq")
+      case e => expr.leftParse(expr.toString + " unknown Expression for Seq")
     }
   }
 }

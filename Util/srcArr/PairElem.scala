@@ -140,7 +140,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[ArrPairFinalA1]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that this pair
+  /** Treats this [[ArrPairFinalA1]] as a [[Map]] with the A1 values as a key. Returns None if the key value is absent. If you are certain that this pair
    * sequence contains the A1 key, use the a1GetA2 method. */
   def a1FindA2(key: A1): Option[A2] =
   { var i = 0

@@ -119,9 +119,9 @@ object Kilometres
   given unshow: Unshow[Kilometres] = new Unshow[Kilometres]
   { override def typeStr: String = "Kilometres"
 
-    override def fromExpr(expr: Expr) = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Kilometres] = expr match
     { case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Right(Kilometres(dh.num))
-      case _ => expr.excLeft("Kilometre not found")
+      case _ => expr.leftParse("Kilometre not found")
     }
   }
 }
@@ -236,9 +236,9 @@ object Millimetres
   implicit val unshow: Unshow[Millimetres] = new Unshow[Millimetres]
   { override def typeStr: String = "Millimetres"
 
-    override def fromExpr(expr: Expr) = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Millimetres] = expr match
     { case dh: DigitHeadAlphaToken if dh.alphaStr == "mm" => Right(Millimetres(dh.num))
-      case _ => expr.excLeft("Millimetre not found")
+      case _ => expr.leftParse("Millimetre not found")
     }
   }
 }

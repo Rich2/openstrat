@@ -1,4 +1,4 @@
-/* Copyright 2018-2% Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse.*, reflect.ClassTag
 
@@ -104,24 +104,24 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[Ar]) => A = f
 
-  override def fromExpr(expr: Expr): ExcEither[A] =
+  override def fromExpr(expr: Expr): ParseExcEither[A] =
   { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
     expr match
     {
       case Match1(exprs) if exprs.length == 0 => opt1 match
       { case Some(a1) => Right(f(a1, Nil))
-        case None => expr.excLeft("No values")
+        case None => expr.leftParse("No values")
       }
 
       case Match1(exprs) =>
-      { val a1 = unshowA1.fromExpr(exprs(0))
+      { val a1: ParseExcEither[A1] = unshowA1.fromExpr(exprs(0))
         def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.tail)(using unshowAr, BuilderMap.listEv)
         else exprs.tail.mapErrBiList(unshowAr.fromExpr)
 
         a1.flatMap(a1 => reps.map(l => newT(a1, l)))
       }
 
-      case AlphaMaybeSquareParenth(name, _) => expr.excLeft(s"Wrong name: $name not $typeStr.")
+      case AlphaMaybeSquareParenth(name, _) => expr.leftParse(s"Wrong name: $name not $typeStr.")
       case _ => expr.exprParseErr[A](using this)
     }
   }
@@ -139,13 +139,13 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Array[Ar]) => A = f
 
-  override def fromExpr(expr: Expr): ExcEither[A] =
+  override def fromExpr(expr: Expr): ParseExcEither[A] =
   { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
     expr match
     { case Match1(exprs) if exprs.length == 0 => opt1 match
       {
         case Some(a1) => Right(f(a1, new Array[Ar](0)))
-        case None => expr.excLeft("No values")
+        case None => expr.leftParse("No values")
       }
 
       case Match1(exprs) =>
@@ -156,7 +156,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
         a1.flatMap { a1 => reps.map(list => newT(a1, list.toArray)) }
       }
 
-      case AlphaMaybeSquareParenth(name, _) => expr.excLeft(s"Wrong name: $name not $typeStr.")
+      case AlphaMaybeSquareParenth(name, _) => expr.leftParse(s"Wrong name: $name not $typeStr.")
       case _ => expr.exprParseErr[A](using this)
     }
   }  

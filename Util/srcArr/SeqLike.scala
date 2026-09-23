@@ -1,4 +1,4 @@
-/* Copyright 2018-25 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, pParse.*
 
@@ -37,7 +37,7 @@ object SeqLike
   given unshowEv[A, AA <: SeqLike[A]](using evA: Unshow[A], build: BuilderSeqLikeMap[A, AA]): Unshow[AA] = new Unshow[AA]
   { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): ExcEither[AA] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[AA] = expr match
     { case _: EmptyExprToken => Right(build.uninitialised(0))
       
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
@@ -45,7 +45,7 @@ object SeqLike
         
       case AlphaSquareParenth("Seq", _, sts) => sts.mapEither(build)(s => evA.fromExpr(s.expr))
       case AlphaParenth("Seq", sts) => sts.mapEither(build)(s => evA.fromExpr(s.expr))
-      case e => expr.excLeft(expr.toString + " unknown Expression for Seq")
+      case e => expr.leftParse(expr.toString + " unknown Expression for Seq")
     }
   }
 }

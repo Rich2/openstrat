@@ -50,10 +50,10 @@ object DirsAbs
   given unshowEv:Unshow[DirsAbs] = new Unshow[DirsAbs]
   { override def typeStr: String = "DirnPathAbs"
 
-    override def fromExpr(expr: Expr): ExcEither[DirsAbs] =  expr match
+    override def fromExpr(expr: Expr): ParseExcEither[DirsAbs] =  expr match
     { case SlashToken(_) => Right(DirsAbs.fromArray(Array[String]()))
       case PathToken(_, array) => Right(DirsAbs.fromArray(array))
-      case expr => expr.excLeft("Not an absolute path")
+      case expr => expr.leftParse("Not an absolute path")
     }
   }
 

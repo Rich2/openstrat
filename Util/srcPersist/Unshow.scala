@@ -6,13 +6,13 @@ import pParse.*, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 trait Unshow[+T] extends Persist
 { /** Tries to return a value of the type from an RSON expression that has been parsed from a String or text file. This method must be implemented by all
    * instances. */
-  def fromExpr(expr: Expr): ExcEither[T]
+  def fromExpr(expr: Expr): ParseExcEither[T]
 
   /** Tries to build an object of type T from the statement. */
   final def fromStatement(st: Statement): ExcEither[T] = fromExpr(st.expr)
 
   /** Tries to get type from [[pParse.Expr]], or from the value [[pParse.Expr]] of a setting. */
-  def fromSettingOrExpr(SettingStr: String, expr: Expr): ExcEither[T] = expr match
+  def fromSettingOrExpr(SettingStr: String, expr: Expr): ParseExcEither[T] = expr match
   { case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
     case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExpr(rExpr)
     case e => fromExpr(e)
@@ -38,25 +38,25 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
-  def settingTFromStatement(settingStr: String, st: Statement): ExcEither[T] = st match
+  def settingTFromStatement(settingStr: String, st: Statement): ParseExcEither[T] = st match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
-    case _ => st.excLeft(typeStr -- "not found.")
+    case _ => st.leftParse(typeStr -- "not found.")
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
   def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): ExcEither[T] = st match
   { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Right(settingCode) => fromExpr(rightExpr)
-    case _ => st.excLeft(typeStr -- "not found.")
+    case _ => st.leftException(typeStr -- "not found.")
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
   def settingFromStatements(sts: RArr[Statement], settingStr: String): ExcEither[T] = sts match
-  { case Arr0() => TextPosn.failEmpty// emptyError("No Statements")
+  { case Arr0() => TextPosn.failEmpty
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.left(SettingNotFoundException(settingStr -- typeStr))
-      case s3 => sts.excLeft(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+      case s3 => sts.left(SettingMultiFoundException(s3.length, settingStr -- "of" -- typeStr))
     }
   }
 
@@ -66,8 +66,8 @@ trait Unshow[+T] extends Persist
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Right(_) => g } match
     { case Arr1(t) => t
-      case Arr0() => sts.excLeft(settingCode.toString -- typeStr -- "Setting not found.")
-      case s3 => sts.excLeft(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
+      case Arr0() => sts.leftException(settingCode.toString -- typeStr -- "Setting not found.")
+      case s3 => sts.leftException(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
 
@@ -87,7 +87,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Int"
     override val useMultiple: Boolean = false
 
-    override def fromExpr(expr: Expr): ExcEither[Int] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Int] = expr match
     { case IntStdToken(i) => Right(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Right(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Right(-i)
@@ -100,7 +100,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "Nat"
     override val useMultiple: Boolean = false
 
-    override def fromExpr(expr: Expr): ExcEither[Int] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Int] = expr match
     { case NatStdToken(i) => Right(i)
       case _ => expr.exprParseErr[Int]
     }
@@ -111,7 +111,7 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "HexaInt"
     override val useMultiple: Boolean = false
 
-    override def fromExpr(expr: Expr): ExcEither[Int] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Int] = expr match
     { case ValidRawHexaIntToken(i) => Right(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Right(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Right(-i)
@@ -123,7 +123,7 @@ object Unshow extends UnshowPriority2
   val hexaNatEv: Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "HexaNat"
 
-    override def fromExpr(expr: Expr): ExcEither[Int] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Int] = expr match
     { case ValidRawHexaNatToken(i) => Right(i)
       case _ => expr.exprParseErr[Int]
     }
@@ -134,7 +134,7 @@ object Unshow extends UnshowPriority2
   {
     override def typeStr: String = "Base32Int"
 
-    override def fromExpr(expr: Expr): ExcEither[Int] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Int] = expr match
     { case ValidRawBase32IntToken(i) => Right(i)
       case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Right(i)
       case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Right(-i)
@@ -146,7 +146,7 @@ object Unshow extends UnshowPriority2
   val base32NatEv: Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "Base32Nat"    
 
-    override def fromExpr(expr: Expr): ExcEither[Int] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Int] = expr match
     { case ValidRawBase32NatToken(n) => Right(n)
       case _ => expr.exprParseErr[Int]
     }
@@ -155,8 +155,8 @@ object Unshow extends UnshowPriority2
   def intSubset(pred: Int => Boolean): Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "Int"
 
-    override def fromExpr(expr: Expr): ExcEither[Int] =
-      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Right(i), expr.startPosn.leftExc(s"$i does not fullfll predicate.")))
+    override def fromExpr(expr: Expr): ParseExcEither[Int] =
+      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Right(i), expr.startPosn.leftParse(s"$i does not fullfll predicate.")))
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
@@ -166,7 +166,7 @@ object Unshow extends UnshowPriority2
   val posDoubleEv: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "PosDFloat"
 
-    override def fromExpr(expr: Expr): ExcEither[Double] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Double] = expr match
     { case ValidPosFracToken(d) => Right(d)
       case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Right(d)
       case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Right(-d)
@@ -178,7 +178,7 @@ object Unshow extends UnshowPriority2
   given floatEv: Unshow[Float] = new Unshow[Float]
   { override def typeStr: String = "SFloat"
 
-    override def fromExpr(expr: Expr): ExcEither[Float] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Float] = expr match
     { case NatBase10Token(_, i) => Right(i.toFloat)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Right(i.toFloat)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Right(-(i.toFloat))
@@ -191,7 +191,7 @@ object Unshow extends UnshowPriority2
   given longEv: Unshow[Long] = new Unshow[Long]
   { override def typeStr = "Long"
 
-    override def fromExpr(expr: Expr): ExcEither[Long] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Long] = expr match
     {
       case NatBase10Token(_, i) => Right(i.toLong)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Right(i.toLong)
@@ -204,7 +204,7 @@ object Unshow extends UnshowPriority2
   given booleanEv: Unshow[Boolean] = new Unshow[Boolean]
   { override def typeStr: String = "Bool"
 
-    override def fromExpr(expr: Expr): ExcEither[Boolean] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Right(true)
       case IdentLowerToken(_, str) if str == "false" => Right(false)
       case _ => expr.exprParseErr[Boolean]
@@ -215,7 +215,7 @@ object Unshow extends UnshowPriority2
   given stringEv: Unshow[String] = new Unshow[String]
   { override def typeStr: String = "Str"
 
-    override def fromExpr(expr: Expr): ExcEither[String] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[String] = expr match
     { case StringToken(_, stringStr) => Right(stringStr)
       case _ => expr.exprParseErr[String]
     }
@@ -225,7 +225,7 @@ object Unshow extends UnshowPriority2
   given charEv: Unshow[Char] = new Unshow[Char]
   { override def typeStr: String = "Char"
 
-    override def fromExpr(expr: Expr): ExcEither[Char] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Char] = expr match
     { case CharToken(_, char) => Right(char)
       case _ => expr.exprParseErr[Char]
     }
@@ -249,11 +249,11 @@ trait UnshowPriority2 extends UnshowPriority3
   given vectorEv[A, ArrA <: Arr[A]](using evA: Unshow[A], build: BuilderArrMap[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
   { override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): ExcEither[Vector[A]] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Vector[A]] = expr match
     { case _: EmptyExprToken => Right(Vector[A]())
       case AlphaSquareParenth("Seq", ts, sts) => sts.mapEither(s => evA.fromExpr(s.expr)).map(_.toVector)
       case AlphaParenth("Seq", sts) => sts.mapEither(s => evA.fromExpr(s.expr)).map(_.toVector)
-      case e => expr.excLeft("Unknown Expression for Vector")
+      case e => expr.leftExprNotType("Vector")
     }
   }
 
@@ -261,7 +261,7 @@ trait UnshowPriority2 extends UnshowPriority3
   given someUnShowImplicit[A](using ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
   { override def typeStr: String = "Some" + ev.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): ExcEither[Some[A]] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[Some[A]] = expr match
     { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
@@ -274,7 +274,7 @@ trait UnshowPriority3
   given noneUnEv: Unshow[None.type] = new Unshow[None.type]
   { override def typeStr: String = "None"
 
-    override def fromExpr(expr: Expr): ExcEither[None.type] = expr match
+    override def fromExpr(expr: Expr): ParseExcEither[None.type] = expr match
     { case IdentUpperToken(_, "None") => Right(None)
       case eet: EmptyExprToken => Right(None)
       case st: StringStatements if st.statements.length == 0 => Right(None)

@@ -72,12 +72,14 @@ class OptionExtensions[A](thisOption: Option[A])
     res
   }
 
-  def toErrBi: Either[Exception, A] = thisOption match
+  /** Extension method to convert to [[Either]] */
+  def toEither: Either[NoneExc.type , A] = thisOption match
   { case Some(a) => Right(a)
     case None => Left(NoneExc)
   }
   
-  def flatMapErrBi[E <: Throwable, B](f: A => Either[E, B]): Either[E | ExcNotFound.type, B] = thisOption match
+  /** Extension method to flatmap to [[Either]] */
+  def flatMapEither[E <: Throwable, B](f: A => Either[E, B]): Either[E | ExcNotFound.type, B] = thisOption match
   { case Some(a) => f(a)
     case None => NotFoundLeft
   }

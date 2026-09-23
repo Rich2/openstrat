@@ -25,7 +25,7 @@ sealed trait Statement extends TextSpan
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
   def intSettingExpr(settingNum: Int): Either[Exception, AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Right(rightExpr)
-    case _ => startPosn.leftExc(settingNum.str -- "not found.")
+    case _ => startPosn.leftException(settingNum.str -- "not found.")
   }
 }
 
@@ -69,8 +69,8 @@ object Statement
       case Arr1(st1) => st1.intSettingExpr(settingNum)
       case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g @Right(_) => g } match
       { case Arr1(t) => t
-        case Arr0() => sts.startPosn.leftExc(settingNum.str -- "Setting not found.")
-        case s3 => sts.startPosn.leftExc(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
+        case Arr0() => sts.startPosn.leftException(settingNum.str -- "Setting not found.")
+        case s3 => sts.startPosn.leftException(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
       }
     }
 
@@ -94,9 +94,9 @@ object Statement
           case IdentifierToken(str) => Some(str)
           case _ => None
         }
-        opt.toErrBi
+        opt.toEither
       }
-      case expr => excLeft("Not an identifier.")
+      case expr => leftException("Not an identifier.")
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
@@ -199,7 +199,7 @@ object Statement
     def findSettingIdentifier(settingStr: String): Either[E | ParseException, String] = thisEither.flatMap {
       _.findSettingExpr(settingStr).flatMap {
         case IdentifierToken(str) => Right(str)
-        case expr => expr.parseExcLeft("Not an identifier.")
+        case expr => expr.leftParse("Not an identifier.")
       }
     }
 
@@ -219,7 +219,7 @@ case class StatementEmpty(st: SemicolonToken) extends Statement, TextSpanMems
   override def optSemi: Option[SemicolonToken] = Some(st)
   override def startMem: SemicolonToken = st
   override def endMem: SemicolonToken = st
-  def asError[A]: LeftExc = st.excLeft("Empty Statement")
+  def asError[A]: LeftExc = st.leftException("Empty Statement")
 }
 
 object StatementEmpty

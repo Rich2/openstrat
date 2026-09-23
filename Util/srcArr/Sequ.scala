@@ -659,7 +659,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   override def elemsStr: String = map(fElemStr).mkStr("; ").enParenth
 
   /** Takes a function that returns an [[Either]] and returns the first [[Right]]. */
-  def findSucc[E <: Throwable, B](f: A => Either[E, B]): Either[ExcNotFound.type, B] =
+  def findRight[E <: Throwable, B](f: A => Either[E, B]): Either[ExcNotFound.type, B] =
   { var res: Either[ExcNotFound.type, B] = NotFoundLeft
     var i = 0
     while (i < length && res.isLeft)

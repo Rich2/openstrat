@@ -43,7 +43,7 @@ object TextPosn
     def left[E](error: E): Left[E, Nothing] = Left(error)
     
     /** Produce a failure with a [[Left]] [[Exception]] type. */
-    def leftExc(message: String): Left[Exception, Nothing] = Left(new Exception(message))
+    def leftException(message: String): Left[Exception, Nothing] = Left(new Exception(message))
     
     /** Produce a failure with a [[Left]] [[pParse.LexarException]] type. */
     def leftLexar(detail: String): Left[LexarException, Nothing] = Left(LexarException(thisTextPosn, detail))
@@ -64,12 +64,15 @@ trait TextSpan
   def endPosn: TextPosn
   
   /** Constructs a Left Exception with this TextSpan and the detail. */
-  def excLeft(detail: String): LeftExc = LeftExc(startPosn.shortStr -- detail)
+  def leftException(detail: String): LeftExc = LeftExc(startPosn.shortStr -- detail)
   
   def left[E](error: E): Left[E, Nothing] = Left(error) 
 
   /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
-  def parseExcLeft(detail: String): ParseExcLeft = Left(ParseException(startPosn.shortStr -- detail))
+  def leftParse(detail: String): LeftParseExc = Left(ParseException(startPosn.shortStr -- detail))
+
+  /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
+  def leftExprNotType(typeStr: String): LeftExprNotType = Left(ExprNotTypeExc(typeStr))
 }
 
 object TextSpan

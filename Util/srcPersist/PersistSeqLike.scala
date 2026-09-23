@@ -83,7 +83,7 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
   def unshowAeEv: Unshow[Ae]
   def build: BuilderMap[Ae, A]
 
-  override def fromExpr(expr: Expr): ExcEither[A] = expr match
+  override def fromExpr(expr: Expr): ParseExcEither[A] = expr match
   { case _: EmptyExprToken => Right(build.empty)
 
     case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if (unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(using unshowAeEv, build)
@@ -92,7 +92,7 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
     case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(using unshowAeEv, build)
     else mems.mapEither(build)(e => unshowAeEv.fromExpr(e))
 
-    case e => expr.excLeft(expr.toString + " unknown Expression for this sequence based class.")
+    case e => expr.leftParse(expr.toString + " unknown Expression for this sequence based class.")
   }
 }
 
@@ -122,7 +122,7 @@ class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
   val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)
   
-  override def fromExpr(expr: Expr): ExcEither[A] = stage.fromExpr(expr).map(f)
+  override def fromExpr(expr: Expr): ParseExcEither[A] = stage.fromExpr(expr).map(f)
 }
 
 object UnshowFromArr

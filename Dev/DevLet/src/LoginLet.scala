@@ -13,19 +13,19 @@ import utiljvm.*, pweb.*, gres.*, plet.*, java.time.LocalDateTime, jakarta.*, se
   val regForm: RegisterForm = RegisterForm()
   val logForm: LoginForm = LoginForm()
   val catb: String = System.getProperty("catalina.base")
-  lazy val eSetts: ThrowEither[String] = loadTextFile(catb / "Notes" / "ostrat.rson")
-  lazy val eName: Either[Throwable, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
+  lazy val eSetts: IOExcEither[String] = loadTextFile(catb / "Notes" / "ostrat.rson")
+  lazy val eName: Either[Exception, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
   
-  lazy val ePass: Either[Throwable, String] =
+  lazy val ePass: Either[Exception, String] =
   { val res = eSetts.flatMap(_.findStrSetting("pgPassword"))
     val currentDateTime: LocalDateTime = LocalDateTime.now()
     utiljvm.writeFile(catb / "Notes/tom.txt", currentDateTime.toString -- eName.toString -- res.toString)
     res
   }
 
-  var eConn: Either[Throwable, Connection] = LNone
+  var eConn: Either[Exception, Connection] = LNone
 
-  def eConnTry: Either[Throwable, Connection] = eConn match
+  def eConnTry: Either[Exception, Connection] = eConn match
   { case Left(NoneExc) => 
     { val res = Either.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
       eConn = res
