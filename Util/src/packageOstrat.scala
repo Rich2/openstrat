@@ -114,7 +114,7 @@ package object ostrat
   }
 
   /** Not sure what this method does. */
-  def readT[T](using ev: Unshow[T]): T =
+  /*def readT[T](using ev: Unshow[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
     def loop(inp: Either[?, T]): T = inp match
     { case Right(t) => t
@@ -124,10 +124,10 @@ package object ostrat
       }
     }
     loop(scala.io.StdIn.readLine ("Please enter " + artStr).asType[T])
-  }
+  }*/
 
-  def readInt: Int = readT[Int]
-  def readDouble: Double = readT[Double]
+//  def readInt: Int = readT[Int]
+//  def readDouble: Double = readT[Double]
 
   /** Shortcut method to create [[collection.mutable.ArrayBuffer]] with initial values. Buffer or buffer references the standard library's
    * [[collection.mutable.ArrayBuffer]] whereas buff or Buff is used to reference openstrat variable length mutable collection classes. */
@@ -151,7 +151,7 @@ package object ostrat
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
 
   /** Catches non-fatal [[Exception]]s and returns them as a [[Left]]. */
-  def eTry[A](res: => A): ThrowEither[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Left(e) }
+  //def eTry[A](res: => A): ThrowEither[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Left(e) }
 
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).mkComma
 

@@ -18,12 +18,9 @@ package object utiljvm
     pw.close
   }
   
-  def resourceStr(resourceName: String): IOExcEither[String] =
-  {
-    try Right(io.Source.fromResource(resourceName).mkString)    
-    catch {
-      case ioe: IOException => Left(ioe)
-    }
+  def loadResourceStr(resourceName: String): IOExcEither[String] =
+  { try Right(io.Source.fromResource(resourceName).mkString)    
+    catch { case ioe: IOException => Left(ioe)}
   }
 
   /** Attempts to load text file into a [[String]]. */
@@ -34,7 +31,7 @@ package object utiljvm
       Right(bytes.mkString)
     }
     catch{ case err: java.io.IOException => Left(err) }
-  } 
+  }
 
   /** Attempts to load a value of the specified type from an RSON format file. */
   def fromRsonFileFind[A: Unshow](fileName: String): ThrowEither[A] = loadTextFile(fileName).findType[A]
@@ -84,9 +81,8 @@ package object utiljvm
   }
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): ThrowEitherRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
-
-  def strFromResource(fileName: String): ThrowEither[String] = eTry(io.Source.fromResource(fileName).toArray.mkString)
+  def statementsFromResource(fileName: String): ExcEither[RArr[Statement]] =
+    loadResourceStr(fileName).map(_.toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowEither[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))

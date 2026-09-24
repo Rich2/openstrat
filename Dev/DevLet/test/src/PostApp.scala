@@ -6,7 +6,7 @@ object PostApp
 {
   def main(args: Array[String]): Unit =
   { deb("Welcome to PostApp!")
-    val eStr: IOExcEither[String] = resourceStr("Postgres.rson")
+    val eStr: IOExcEither[String] = loadResourceStr("Postgres.rson")
     val eName: Either[Exception, String] = eStr.flatMap(_.findStrSetting("username"))
     val ePass: Either[Exception, String] = eStr.flatMap(_.findStrSetting("pWord"))
     Either.forboth2(eName, ePass){errs =>
