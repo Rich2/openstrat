@@ -136,8 +136,8 @@ trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
 
 object Unshow2
 { /** Factory apply method for producing [[Unshow]] type class instances for objects with 2 components. Implicitly finds the evidence for the 2 type parameters
-   * and the [[reflect.classTag]] for the whole object. If you want to explicitly apply the unshow1 and unshow2 type class instances, then use the explicit method
-   * instead. */
+   * and the [[reflect.classTag]] for the whole object. If you want to explicitly apply the unshow1 and unshow2 type class instances, then use the explicit
+   * method instead. */
   def apply[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, opt2: Option[A2] = None, opt1: Option[A1] = None)(using
     ev1: Unshow[A1], ev2: Unshow[A2], ctA: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1, ev1, ev2)

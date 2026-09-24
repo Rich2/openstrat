@@ -99,7 +99,7 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, A] extends Unshow6Plus[A1, A2, A3, A4, A5,
     val e1: ParseExcEither[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEither)
     def e2: ParseExcEither[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEither)
     def e3: ParseExcEither[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEither)
-    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
+    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4Ev.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
     def e5: ParseExcEither[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toEither)
     def e6: ParseExcEither[A6] = ife(len > pSeq(5), unshow6.fromSettingOrExpr(name6, sortedExprs(pSeq(5))), opt6.toEither)
     Either.map6(e1, e2, e3, e4, e5, e6)(newT)

@@ -108,12 +108,12 @@ abstract class ShowDbl4[A] extends Show4[Double, Double, Double, Double, A]
 
 /** common trait for [[Unshow]] type class instances for sum types with 4 or more components. */
 trait Unshow4Plus[A1, A2, A3, A4, A] extends Unshow3Plus[A1, A2, A3, A] with Persist4Plus[A1, A2, A3, A4]
-{ /** The [[Unshow]] type class instance for type A4. */
-  def unshow4: Unshow[A4]
+{ /** The [[Unshow]] type class instance / evidence for type A4. */
+  def unshow4Ev: Unshow[A4]
 }
 
 /** UnShow class for 4 logical parameter product types. */
-trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Persist4[A1, A2, A3, A4]
+trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A], Persist4[A1, A2, A3, A4]
 { /** Allows this [[Unshow]] instance to create object from it's 4 components. */
   def newT: (A1, A2, A3, A4) => A
 
@@ -122,7 +122,7 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
     val e1: ParseExcEither[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEither)
     def e2: ParseExcEither[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEither)
     def e3: ParseExcEither[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEither)
-    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
+    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4Ev.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
     Either.map4(e1, e2, e3, e4)(newT)
   }
 }
@@ -138,7 +138,7 @@ object Unshow4
   class Unshow4Imp[A1, A2, A3, A4, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
     val newT: (A1, A2, A3, A4) => A, val shortKeys: ArrPairStr[A], override val opt4: Option[A4] = None, val opt3In: Option[A3] = None,
     opt2In: Option[A2] = None, opt1In: Option[A1] = None, val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3],
-    val unshow4: Unshow[A4]) extends Unshow4[A1, A2, A3, A4, A]
+    val unshow4Ev: Unshow[A4]) extends Unshow4[A1, A2, A3, A4, A]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -157,7 +157,7 @@ trait UnshowInt4[A] extends Unshow4[Int, Int, Int, Int, A]
 { override def unshow1Ev: Unshow[Int] = Unshow.intEv
   override def unshow2Ev: Unshow[Int] = Unshow.intEv
   override def unshow3Ev: Unshow[Int] = Unshow.intEv
-  override def unshow4: Unshow[Int] = Unshow.intEv
+  override def unshow4Ev: Unshow[Int] = Unshow.intEv
 }
 
 object UnshowInt4
@@ -188,7 +188,7 @@ trait UnshowDbl4[A] extends Unshow4[Double, Double, Double, Double, A]
 { override def unshow1Ev: Unshow[Double] = Unshow.doubleEv
   override def unshow2Ev: Unshow[Double] = Unshow.doubleEv
   override def unshow3Ev: Unshow[Double] = Unshow.doubleEv
-  override def unshow4: Unshow[Double] = Unshow.doubleEv
+  override def unshow4Ev: Unshow[Double] = Unshow.doubleEv
 }
 
 object UnshowDbl4

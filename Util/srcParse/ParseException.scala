@@ -15,6 +15,7 @@ object ParseException
   /** [[EqT]] type class instance / evidence for [[ParseException]]. */
   given eqTEv: EqT[ParseException] = (pexc1, pexc2) => pexc1.getMessage == pexc2.getMessage
 
+  /** [[ErrMultiBuilder]] type class instance / evidence for [[ParseException]]. */
   given multiBuild[E <: ParseException]: ErrMultiBuilder[ParseException, E, ParseExcMulti[E]] = new ErrMultiBuilder[ParseException, E, ParseExcMulti[E]]
   { override def multi(arr: RArr[E]): ParseExcMulti[E] = ParseExcMulti(arr)
     override def multi(errs: E*)(using ct: ClassTag[E]): ParseExcMulti[E] = ParseExcMulti(errs.toRArr)
@@ -33,6 +34,8 @@ object LeftParseExc
 }
 
 trait ParseExcMulti[E <: ParseException] extends ExcMulti[E], ParseException
+{ override def getMessage: String = s"$numErrs errors of type Exception"
+}
 
 object ParseExcMulti
 {

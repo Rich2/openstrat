@@ -75,12 +75,12 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSetting[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = ev.settingFromStatements(statements, settingStr)
+    def findSetting[T](settingStr: String)(using ev: Unshow[T]): ParseExcEither[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingId(settingStr: String): Either[Exception, String] = findSettingExpr(settingStr).flatMap{
+    def findSettingId(settingStr: String): ParseExcEither[String] = findSettingExpr(settingStr).flatMap{
       case IdentifierToken(str) => Right(str)
-      case expr => LeftExc("Not an identifier.")
+      case expr => LeftParseExc("Not an identifier.")
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */

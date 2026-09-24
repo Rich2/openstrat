@@ -3,22 +3,24 @@ package ostrat
 import annotation.targetName, reflect.ClassTag
 
 /** An [[Exception]] that is concatenation of multiple errors. */
-trait ErrMulti[+E]// extends Exception
+trait ErrMulti[+E] extends Exception
 { /** Member errors. */
   def mems: RArr[E]
   
-  /** The number of Errors in this multiple error */
+  /** The number of Errors in this multiple error. */
   def numErrs: Int = mems.length
 
-  @targetName("append")def ++[EE >: E] (operand: ErrMulti[EE])(using build: ErrBuilderOld[EE], ctE: ClassTag[EE]): ErrMulti[EE] =
+  /** Appends errors to this [[ErrMulti]] class widening the type of the class if necessary. */
+  @targetName("append")def ++[EE >: E, ME <: ErrMulti[EE] & EE] (operand: ErrMulti[EE])(using build: ErrMultiBuilder[EE, EE, ME], ctE: ClassTag[EE]): ErrMulti[EE] & EE =
     build.multi(mems ++ operand.mems)
 
-  
+  override def getMessage: String = s"$numErrs errors"  
 }
 
 /** An error that is concatenation of multiple [[Throwable]]s. */
-trait ThrowMulti[E <: Throwable] extends Throwable, ErrMulti[E]
-{  override def mems: RArr[E]
+trait ThrowMulti[E <: Throwable] extends ErrMulti[E]
+{ override def mems: RArr[E]
+  override def getMessage: String = s"$numErrs errors of type Throwable"
 }
 
 object ThrowMulti
@@ -27,6 +29,7 @@ object ThrowMulti
 
   def apply[E <: Throwable](throws: E*)(using ClassTag[E]): ThrowMulti[E] = ThrowMultiGen(throws.toRArr)
 
+  /** [[ErrMultiBuilder]] type class instance / evidence for [[Throwable]]. */
   given multiBuilder[E <: Throwable]: ErrMultiBuilder[Throwable, E, ThrowMulti[E]] = new ErrMultiBuilder[Throwable, E, ThrowMulti[E]]
   { override def multi(arr: RArr[E]): ThrowMulti[E] = ThrowMultiGen(arr)
     override def multi(errs: E*)(using ct: ClassTag[E]): ThrowMulti[E] = ThrowMultiGen(errs.toRArr)
@@ -35,6 +38,7 @@ object ThrowMulti
   case class ThrowMultiGen[E <: Throwable](mems: RArr[E]) extends Exception, ThrowMulti[E]
 }
 
+/** Builder type class for constructing [[ErrMulti]] classes. */
 trait ErrMultiBuilder[EE, E <: EE, ME <: ErrMulti[E] & EE]
 { def multi(arr: RArr[E]): ME
   def multi(errs: E*)(using ct: ClassTag[E]): ME
@@ -48,12 +52,6 @@ object ErrMultiBuilder
   }
 }
 
-/** Not sure if this is needed. */
-trait ErrBuilderOld[E]
-{
-  def multi(mems: RArr[E]): ErrMulti[E] & E
-}
-
 /** An error that is concatenation of multiple [[Exception]]s. */
 trait ExcMulti[E <: Exception] extends Exception, ThrowMulti[E]
 {
@@ -64,7 +62,7 @@ trait ExcMulti[E <: Exception] extends Exception, ThrowMulti[E]
     ExcMulti[EE](rArr)
   }
 
-  override def getMessage: String = s"$numErrs errors"
+  override def getMessage: String = s"$numErrs errors of type Exception"
 }
 
 object ExcMulti

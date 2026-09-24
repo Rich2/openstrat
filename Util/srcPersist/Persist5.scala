@@ -101,7 +101,7 @@ trait Unshow5[A1, A2, A3, A4, A5, A] extends Unshow5Plus[A1, A2, A3, A4, A5, A],
     val e1: ParseExcEither[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEither)
     def e2: ParseExcEither[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEither)
     def e3: ParseExcEither[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEither)
-    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
+    def e4: ParseExcEither[A4] = ife(len > pSeq(3), unshow4Ev.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEither)
     def e5: ParseExcEither[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toEither)
     Either.map5(e1, e2, e3, e4, e5)(newT)
   }
@@ -119,7 +119,7 @@ class UnshowInt5[A](val typeStr: String, val name1: String, val name2: String, v
   override def unshow1Ev: Unshow[Int] = Unshow.intEv
   override def unshow2Ev: Unshow[Int] = Unshow.intEv
   override def unshow3Ev: Unshow[Int] = Unshow.intEv
-  override def unshow4: Unshow[Int] = Unshow.intEv
+  override def unshow4Ev: Unshow[Int] = Unshow.intEv
   override def unshow5: Unshow[Int] = Unshow.intEv
 }
 

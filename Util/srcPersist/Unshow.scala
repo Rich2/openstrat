@@ -50,7 +50,7 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatements(sts: RArr[Statement], settingStr: String): ExcEither[T] = sts match
+  def settingFromStatements(sts: RArr[Statement], settingStr: String): ParseExcEither[T] = sts match
   { case Arr0() => TextPosn.failEmpty
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match

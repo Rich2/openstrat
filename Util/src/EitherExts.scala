@@ -42,7 +42,7 @@ implicit class Eitherthrowable[E <: Throwable, A](thisEither: Either[E, A])
 
 implicit class EitherStringExts[E <: Exception](thisEither: Either[E, String])
 {/** Extension method two map this [[Either]] String to find a value of the given type from the String parsed as RSON. */
-  def findType[A](using ev: Unshow[A]): ExcEither[A] = thisEither.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
+  def findType[A](using ev: Unshow[A]): Either[ParseException | E, A] = thisEither.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
 
   /** Extension method to map this [[Either]] String to find a value of the given type from the String parsed as RSON or return the elseValue if that fails. */
   def findTypeElse[A](elseValue: => A)(using ev: Unshow[A]): A = findType[A].getOrElse(elseValue)
@@ -51,16 +51,12 @@ implicit class EitherStringExts[E <: Exception](thisEither: Either[E, String])
    * if successful. */
   def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].foreach(f)
 
-  def findSetting[A](settingStr: String)(using ev: Unshow[A]): ExcEither[A] ={
-    val res1: Either[ParseException | E, RArr[Statement]] = thisEither.flatMap(str => stringToStatements(str))
+  def findSetting[A](settingStr: String)(using ev: Unshow[A]): Either[ParseException | E, A] =
+  { val res1: Either[ParseException | E, RArr[Statement]] = thisEither.flatMap(str => stringToStatements(str))
     res1.flatMap(_.findSetting[A](settingStr))
   }
 
   def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getOrElse(elseValue)
-
-  def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(using ev: Persist[A]): EMon[A]
-
-  def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
 }
 
 extension (obj: Either.type)
@@ -74,10 +70,9 @@ extension (obj: Either.type)
     buff.toRArr
   }
 
-  /** If both [[Errbi]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
-   * possibilities */
-  def map2[EE <: Throwable, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(
-    using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] = eb1 match
+  /** If both [[Either]] inputs are [[Right]]s return [[Right]] of function. Else return a [[Left]] [[ErrMulti]]. */
+  def map2[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(using builder: ErrMultiBuilder[EE, E, ME],
+    ct: ClassTag[E]): Either[ME, B] = eb1 match
   { case Right(a1) => eb2.match
     { case Right(a2) => Right(f(a1, a2))
       case Left(err) => Left(builder.multi(err))
@@ -88,34 +83,18 @@ extension (obj: Either.type)
     }
   }
 
-  /** If both [[Errbi]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
-   * possibilities */
-  /*def parseMap2[E <: ParseException, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(using ClassTag[E]): Either[ParseExcMulti[E], B] = eb1 match {
-    case Right(a1) => eb2.match {
-      case Right(a2) => Right(f(a1, a2))
-      case Left(err) => Left(ParseExcMulti(err))
-    }
-    case Left(err1) => eb2 match {
-      case Right(_) => Left(ParseExcMulti(err1))
-      case Left(err2) => Left(ParseExcMulti(err1, err2))
-    }
-  }*/
-
-  /** If both [[Errbi]] inputs are [[Right]]s return the result of the function. If both [[Left]]s combine the errors. Error type may widen to contain all the
-   * possibilities */
-  def flatMap2[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => Either[Throwable, B])(using ClassTag[E]):
-    Either[Throwable, B] = eb1 match
-  { case Right(a1) => eb2.flatMap(a2 => f(a1, a2))
-    case Left(err1) => eb2 match
-    { case Right(_) => Left(err1)
-      case Left(err2) => Left(ThrowMulti(err1, err2))
-    }
+  /** If both [[Either]] inputs are [[Right]]s, returns the result of the function. If one or both are [[Left]]s combines the errors. */
+  def flatMap2[EE, E <: EE, ME <: ErrMulti[E] & EE, E2, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => Either[E2, B])(using
+    builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME | E2 , B] = (eb1, eb2) match
+  { case (Right(a1), Right(a2)) => f(a1, a2)
+    case (Right(_), Left(err2)) => Left(builder.multi(err2))
+    case (Left(err1), Right(_)) => Left(builder.multi(err1))
+    case (Left(err1), Left(err2)) => Left(builder.multi(err1, err2))
   }
 
   /** If this [[Either]] is a [[Right]] produce [[ErrBiAcc]] with the parameter function. If this is [[Left]] produce [[ErrBiAcc]] with this single [[Left]]. */
   def map2Acc[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => ErrBiAcc[E, B])(using ctE: ClassTag[E] @uncheckedVariance,
-    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
-    eb1 match
+    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = eb1 match
   { case Right(a1) => eb2 match
     { case Right(a2) => f(a1, a2)
       case Left(e2) => ErrBiAcc.err1(e2)
@@ -128,26 +107,36 @@ extension (obj: Either.type)
 
   /** If all 3 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
-  def map3[EE <: Throwable, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B)(
+  def map3[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B)(
     using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] = (eb1, eb2, eb3) match
-  {  case (Right(a1), Right(a2), Right(a3)) => Right(f(a1, a2, a3))
-     case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3)))
+  { case (Right(a1), Right(a2), Right(a3)) => Right(f(a1, a2, a3))
+    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3)))
   }
-
-  def map4[EE <: Throwable, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(
+  
+  /** If all 4 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
+   * possibilities */
+  def map4[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(
     f: (A1, A2, A3, A4) => B)(using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] = (eb1, eb2, eb3, eb4) match
   { case (Right(a1), Right(a2), Right(a3), Right(a4)) => Right(f(a1, a2, a3, a4))
     case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3, eb4)))
-  }  
+  }
+  /** If all 5 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
+   * possibilities */
+  def map5[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, A5, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4],
+    eb5: Either[E, A5])(f: (A1, A2, A3, A4, A5) => B)(using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] =
+   (eb1, eb2, eb3, eb4, eb5) match 
+  { case (Right(a1), Right(a2), Right(a3), Right(a4), Right(a5)) => Right(f(a1, a2, a3, a4, a5))
+    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3, eb4, eb5)))
+  }
   
-  def map5[E <: Throwable, A1, A2, A3, A4, A5, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4], eb5: Either[E, A5])(
-    f: (A1, A2, A3, A4, A5) => B): Either[E, B] =
-    for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5 } yield f(s1, s2, s3, s4, s5)
-
-  def map6[E <: Throwable, A1, A2, A3, A4, A5, A6, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4], eb5: Either[E, A5],
-    eb6: Either[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): Either[E, B] =
-    for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
-
+  /** If all 6 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
+   * possibilities */
+  def map6[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, A5, A6, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4],
+    eb5: Either[E, A5], eb6: Either[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B)(using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] =
+    (eb1, eb2, eb3, eb4, eb5, eb6) match
+  { case (Right(a1), Right(a2), Right(a3), Right(a4), Right(a5), Right(a6)) => Right(f(a1, a2, a3, a4, a5, a6))
+    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3, eb4, eb5)))
+  }
 
   /** Folds over 2 [[Either]]s. Takes 2 functions the first is used one or both [[Either]]s are [[Left]]s. The second function is only used if both are
    * [[Right]]s. */
