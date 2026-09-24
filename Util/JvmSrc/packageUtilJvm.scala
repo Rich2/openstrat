@@ -25,12 +25,14 @@ package object utiljvm
 
   /** Attempts to load text file into a [[String]]. */
   def loadTextFile(pathFileName: String): IOExcEither[String] =
-  { try
-    { val path = Paths.get(pathFileName)
-      val bytes = Files.readAllBytes(path)
-      Right(bytes.mkString)
+  { var file1: io.BufferedSource = null
+    try
+    { file1 = io.Source.fromFile(pathFileName)
+      val file2 = file1.getLines().mkString      
+      Right(file2)
     }
     catch{ case err: java.io.IOException => Left(err) }
+    finally{ file1.close }    
   }
 
   /** Attempts to load a value of the specified type from an RSON format file. */
