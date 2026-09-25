@@ -35,7 +35,7 @@ object OlHtml
   def apply(contents: XCon*): OlHtml = OlHtmlGen(contents.toArr, RArr())
 
   /** Factory apply method for HTML OL ordered list. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): OlHtml = OlHtmlGen(contents, attribs)
+  def apply(contents: RArr[XCon], attribs: RArr[HAtt] = RArr()): OlHtml = OlHtmlGen(contents, attribs)
 
   /** Factory method for HTML OL ordered list from [[String]]s. */
   def strs(items: String*): OlHtml = OlHtmlGen(items.mapArr(LiHtml(_)), RArr())
@@ -57,8 +57,8 @@ class LiHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlOwnL
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object LiHtml extends HtmlXConCompanion[LiHtml]
 { /** Factory apply method for HTML LI list element [[LiHtml]] class. */
-  override def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): LiHtml = new LiHtml(contents, attribs)
+  override def apply(attribs: RArr[HAtt] = RArr(), contents: RArr[XCon]): LiHtml = new LiHtml(contents, attribs)
 
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: FileSystemPath, label: String, attribs: XAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
+  def a(link: FileSystemPath, label: String, attribs: HAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
 }

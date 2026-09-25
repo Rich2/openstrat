@@ -66,7 +66,7 @@ object TilingPage extends OpenstratDocPage
       LiHtml("Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects."),
       LiHtml("Aggregate Intentions."),
       LiHtml("Add subsidary Intentions."),
-      LiHtml(RArr(UlSection.strs("Resolve Segment",
+      LiHtml(contents = RArr(UlSection.strs("Resolve Segment",
         "Accumulate. Aggregate the intentions in their TargetTiles.",
         "Adjudicate. Determine the outcome of the Intentions and processes.",
         "Consolidate. Create a new game state from the outcomes of the Intentions on the TargetTile. No Movement is implemented during this stage.",

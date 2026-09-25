@@ -38,7 +38,7 @@ trait CodeInline extends CodeHtml, HtmlInedit
 }
 
 object CodeInline extends HtmlXConCompanion[CodeInline]
-{ override def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeInline = new CodeInlineGen(contents, attribs)  
+{ override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): CodeInline = new CodeInlineGen(contents, attribs)  
 
   /** Implementation class for the general casee of [[CodeInline]].  */
   case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends CodeInline
@@ -58,9 +58,9 @@ object CodeChangeLine
   /** Creates a code change line and registers the textContents with an HTML Text Input. */
   def listenText(input: UpdaterStr)(f1: String => String)(f2: String => String): CodeChangeLine =
   { val newId1 = input.nextStrText(f1)
-    val oldCode: CodeInline = CodeInline(RArr(f1(input.valueStr)), RArr(newId1))
+    val oldCode: CodeInline = CodeInline(RArr(newId1), RArr(f1(input.valueStr)))
     val newId2 = input.nextStrText(f2)
-    val newCode: CodeInline = CodeInline(RArr(f2(input.valueStr)), RArr(newId2))
+    val newCode: CodeInline = CodeInline(RArr(newId2), RArr(f2(input.valueStr)))
     CodeChangeLineGen(oldCode, newCode, RArr())
   }
   case class CodeChangeLineGen(oldCode: CodeInline, newCode: CodeInline, attribs: RArr[HAtt]) extends CodeChangeLine
@@ -83,9 +83,9 @@ object CodeOutputLine extends HtmlXConCompanion[CodeOutputLine]
 { /** Factory apply method to create an inline HTML cose element. */
   def apply(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), RArr())
 
-  override def apply(contents: RArr[XCon], attribs: RArr[XAtt]): CodeOutputLine = ???
+  override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): CodeOutputLine = ???
 
-  override def fromStr(str: String, attribs: RArr[XAtt]): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
+  override def fromStr(attribs: RArr[XAtt])(str: String): CodeOutputLine = new CodeOutputLineGen(RArr(str), attribs)
 
   /** Implementation class for the general case of [[CodeOutputLine]]. */
   case class CodeOutputLineGen(contents: RArr[XCon], otherAttribs: RArr[HAtt]) extends CodeOutputLine
@@ -94,14 +94,14 @@ object CodeOutputLine extends HtmlXConCompanion[CodeOutputLine]
 }
 
 /** Sequence of HYML code lines formed from an [[StrArr]]. */
-case class CodeOutputLines(strs: Arr[String], otherAttribs: RArr[HAtt]) extends CodeOutput, HtmlTagLines
+case class CodeOutputLines(otherAttribs: RArr[HAtt], strs: Arr[String]) extends CodeOutput, HtmlTagLines
 { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
   override def contents: RArr[XCon] = strs.map(s => DivHtml(s))
 }
 
 object CodeOutputLines
 { /** Factory apply method for sequence of HYML code lines formed from an [[StrArr]]. */
-  def apply(contents: String*): CodeOutputLines = new CodeOutputLines(contents.toArr, RArr())
+  def apply(contents: String*): CodeOutputLines = new CodeOutputLines(RArr(), contents.toArr)
 }
 
 /** Html directory path code element. */

@@ -82,7 +82,7 @@ class NoteTaker
       PHtml.id(s"note${nt.num.str}", content)
     }
 
-    Section(H2Html("Notes") %: notes)
+    Section(contents = H2Html("Notes") %: notes)
   }
 }
 

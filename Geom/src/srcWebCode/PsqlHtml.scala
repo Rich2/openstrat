@@ -20,7 +20,7 @@ class PsqlLine(val contents: RArr[XConInedit], val otherAttribs: RArr[HAtt]) ext
 object PsqlLine extends HtmlIneditCompanion[PsqlLine]
 { /** Factory apply method to write psql code in HTML on its own line. There is an apply name overload that takes the contents as repeat parameters, but with no
  * attributes. */
-  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): PsqlLine = new PsqlLine(contents, attribs)
+  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): PsqlLine = new PsqlLine(contents, attribs)
 }
 
 /** The name for the psql Prompt CSS class in the HTML attribute and for CSS rules. */
@@ -37,7 +37,7 @@ class PsqlPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) e
 
 object PsqlPromptSpan extends HtmlIneditCompanion[PsqlPromptSpan]
 { /** Factory apply method for creating a Psql Prompt as an HTML Span element. */
-  override def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): PsqlPromptSpan = new PsqlPromptSpan(contents, attribs)
+  override def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): PsqlPromptSpan = new PsqlPromptSpan(contents, attribs)
 }
 
 /** CSS rule for psql prompt. */

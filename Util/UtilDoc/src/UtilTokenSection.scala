@@ -28,7 +28,7 @@ object UtilTokenSection extends Section
     LiHtml("Explicit Base32 tokens <span class= lexical>0y433G 0x222C 0yWW000MP</span> Alphabetic characters must all be upper case.</li>"),
     digToks, negToks)
 
-  def digToks = LiHtml(RArr(digToksEl))
+  def digToks = LiHtml(contents = RArr(digToksEl))
 
   def digToksEl = UlSection("DigitCode tokens. These are a sequence of one or more sequences of digits separated by decimal points, as well as" --
     "integer and fractional decimal numbers they can be used for version numbers, IP addresses and other codes. These can themsleves be further" --

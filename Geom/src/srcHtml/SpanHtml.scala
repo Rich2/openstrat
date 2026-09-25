@@ -29,7 +29,7 @@ trait SpanInlineInedit extends SpanHtml, HtmlInedit
 
 object SpanInlineInedit extends HtmlIneditCompanion[SpanInlineInedit]
 { /** Factory apply method for creating HTML span element. */
-  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanInlineInedit = SpanInlineGen(contents, attribs)
+  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): SpanInlineInedit = SpanInlineGen(contents, attribs)
 
   /** Implementation class for the general case of the [[SpanInlineInedit]] trait. */
   case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInlineInedit
@@ -49,7 +49,7 @@ trait SpanLine extends SpanHtml, HtmlOwnLineBlocked
 
 object SpanLine extends HtmlIneditCompanion[SpanLine]
 { /** Factory apply method for creating HTML span element. */
-  override def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): SpanLine = SpanLineGen(contents, attribs)
+  override def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): SpanLine = SpanLineGen(contents, attribs)
 
   /** Factory method for creating HTML span element with a display attribute. */
   def display(contents: XConInedit*)(otherDisplay: CssDec*): SpanHtml = new SpanLineGen(contents.toArr, RArr())

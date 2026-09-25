@@ -33,7 +33,7 @@ class BashLine(val contents: RArr[XConInedit], val otherAttribs: RArr[HAtt]) ext
 object BashLine extends HtmlIneditCompanion[BashLine]
 { /** Factory apply method to write Bash code in HTML on its own line. There is an apply name overload that takes the contents as repeat parameters, but with no
    * attributes. */
-  def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashLine = new BashLine(contents, attribs)
+  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): BashLine = new BashLine(contents, attribs)
 }
 
 /** Html BASH code element, that can be inlined. */
@@ -60,7 +60,7 @@ class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) e
 
 object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
 { /** Factory apply method for creating a Bash Prompt as an HTML Span element. */
-  override def apply(contents: RArr[XConInedit], attribs: RArr[XAtt]): BashPromptSpan = new BashPromptSpan(contents, attribs)
+  override def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): BashPromptSpan = new BashPromptSpan(contents, attribs)
 }
 
 /** CSS rule for Bash prompt. */
@@ -78,7 +78,7 @@ object BashPromptCssRule
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{ def promptSpan: SpanInlineInedit = SpanInlineInedit(RArr(prompt), RArr(BashPromptAtt))
+{ def promptSpan: SpanInlineInedit = SpanInlineInedit(RArr(BashPromptAtt), RArr(prompt))
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 
