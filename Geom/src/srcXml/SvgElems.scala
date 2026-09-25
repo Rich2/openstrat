@@ -37,11 +37,16 @@ object SvgText
   def apply(posn: Pt2, text: String, align: TextAlign, colour: Colour = Black): SvgText = new SvgText(posn.x, posn.y, text, align, colour)
 }
 
-class SvgGroup(val contents: RArr[XConCompound], val attribs: RArr[XAtt])extends SvgOwnLine
+/** SVG Group XML element. */
+class SvgGroup(val attribs: RArr[XAtt], val contents: RArr[XConCompound]) extends SvgOwnLine
 {
   override def tagName: String = "g"
 }
 
-object SvgGroup{
-  def apply(contents: RArr[XConCompound], attribs: XAtt*): SvgGroup = new SvgGroup(contents, attribs.toArr)
+object SvgGroup
+{ /** Factory apply method to construct SVG Group XML element. */
+  def apply(attribs: RArr[XAtt], contents: RArr[XConCompound]): SvgGroup = new SvgGroup(attribs, contents)
+
+  /** Factory method to construct SVG Group XML element. */
+  def l2(attribs: XAtt*)(contents: XConCompound*): SvgGroup = new SvgGroup(attribs.toRArr, contents.toRArr)
 }

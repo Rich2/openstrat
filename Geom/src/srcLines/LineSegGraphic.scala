@@ -38,7 +38,7 @@ class LSeg2ArrDraw private(val arrayUnsafe: Array[Double], val lineWidth: Double
   override def ptsTrans(f: Pt2 => Pt2): LSeg2ArrDraw = LSeg2ArrDraw(lines.ptsTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
 
-  def svgElem: SvgOwnLine = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
+  def svgElem: SvgOwnLine = SvgGroup(RArr(StrokeAttrib(colour), StrokeWidthAttrib(lineWidth)), lines.map(_.svgElem))
   override def svgElems: RArr[SvgOwnLine] = RArr(svgElem)
   override def boundingRect: Rect = lines.boundingRect
 }
