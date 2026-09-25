@@ -41,7 +41,7 @@ object IndexPage extends IndexPage
   def dev: LiHtml = LiHtml(AHtml(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
     
-  DivHtml.i2(StyleAtt(MarginTBDec(0.5.em)))(AHtml("Documentation/dev.html", "Info for developers here.")),
+  DivHtml.reps(StyleAtt(MarginTBDec(0.5.em)))(AHtml("Documentation/dev.html", "Info for developers here.")),
   DivHtml(AHtml("Documentation/newdevs.html", "Info for new developers here.")),
   DivHtml(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")),
   DivHtml(AHtml("Documentation/postgres.html", "Postgreql Documentation")),

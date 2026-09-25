@@ -2,28 +2,28 @@
 package ostrat; package pweb
 
 /** HTML A anchor element. */
-class AHtml(val link: String, val contents: RArr[XCon], otherAttribs: RArr[HAtt] = RArr()) extends HtmlInedit
+class AHtml(val linkStr: String, otherAttribs: RArr[HAtt], val contents: RArr[XCon]) extends HtmlInedit
 { override def tagName: String = "a"
 
-  override val attribs: RArr[HAtt] = RArr(HrefAtt(link)) ++ otherAttribs
+  override val attribs: RArr[HAtt] = HrefAtt(linkStr) %: otherAttribs
 }
 
 object AHtml
 { /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
-  def apply(link: String, label: String = ""): AHtml =
-  { val label2 = ife(label == "", link, label)
-    new AHtml(link, RArr(label2))
+  def apply(linkStr: String, label: String = ""): AHtml =
+  { val label2 = ife(label == "", linkStr, label)
+    new AHtml(linkStr, RArr(), RArr(label2))
   }
 
   /** Factory apply method for creating HTML anchor element. If you don't supply a label the link will be used as the label. */
   def apply(link: FileSystemPath, label: String): AHtml = apply(link.asStr, label)
 
   /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]] with a path to the file name. There is an apply overload without a path. */
-  def apply(page: HtmlPageFile, pathStr: String): AHtml = new AHtml(pathStr / page.fileNameStr, RArr(page.titleStr))
+  def apply(page: HtmlPageFile, pathStr: String): AHtml = new AHtml(pathStr / page.fileNameStr, RArr(), RArr(page.titleStr))
 
   /** Factory apply method for creating HTML anchor element from an [[HtmlPageFile]], with no path to the file name. There is an apply overload with a
    * [[String]] for the path. */
-  def apply(page: HtmlPageFile): AHtml = new AHtml(page.fileNameStr, RArr(page.titleStr))
+  def apply(page: HtmlPageFile): AHtml = new AHtml(page.fileNameStr, RArr(), RArr(page.titleStr))
 }
 
 /** HTML noscript element. */

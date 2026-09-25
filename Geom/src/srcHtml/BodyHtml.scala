@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** The HTML body element. */
-class BodyHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlTagLines, HtmlUnvoid
+class BodyHtml(val attribs: RArr[HAtt], val contents: RArr[XCon]) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "body"
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
     openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(0), "\n") + n1CloseTag
@@ -12,8 +12,11 @@ class BodyHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlTa
 object BodyHtml
 { /** Factory apply method to create an HTML body element, with no attributes. There is an apply name overload that takes [[RArr]]s of the contents and
    * attributes as parameters. */
-  def apply(contents: XCon*): BodyHtml = new BodyHtml(contents.toArr, RArr())
+  def apply(contents: XCon*): BodyHtml = new BodyHtml(RArr(), contents.toArr)
 
   /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as [[RArr]] parameters. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt] = RArr()): BodyHtml = new BodyHtml(contents, attribs)
+  def apply(contents: RArr[XCon]) = new BodyHtml(RArr(), contents)
+
+  /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as [[RArr]] parameters. */
+  def apply(attribs: RArr[XAtt], contents: RArr[XCon]) = new BodyHtml(attribs, contents)
 }

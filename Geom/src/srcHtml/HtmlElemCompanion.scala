@@ -11,7 +11,7 @@ trait HtmlElemCompanion[T, CT >: String <: XCon]
   def apply(contents: CT*):T = apply(RArr[HAtt](), fRepeat(contents))
 
   /** Factory apply method for creating HTML method of given type from repeat contents parameters and repeat attribute parameters in a second parameter list. */
-  def i2(attribs: HAtt*)(contents: CT*): T = apply(attribs.toRArr, fRepeat(contents))
+  def reps(attribs: HAtt*)(contents: CT*): T = apply(attribs.toRArr, fRepeat(contents))
   
   /** Utility method to allow HTML element og given type from a single [[String]] with repeat parameter attributes. */
   def fromStr(attribs: RArr[XAtt])(str: String): T = apply(attribs, RArr(str))

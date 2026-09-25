@@ -2,15 +2,20 @@
 package ostrat; package pweb
 
 /** HTML head element. */
-case class HeadHtml(contents : RArr[XConCompound], attribs: RArr[HAtt] = RArr()) extends HtmlTagLines, HtmlUnvoid
+class HeadHtml(val contents : RArr[XConElem]) extends HtmlTagLines, HtmlUnvoid
 { override def tagName: String = "head"
+  override def attribs: RArr[HAtt] = RArr()
+  
   override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = 150): String =
-    openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
+    openTag1(indent, line1InputLen, maxLineLen) + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag  
 }
 
 /** Companion object for the [[HeadHtml]] case class. */
 object HeadHtml
-{ /** Factory apply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
+{ /** Factory apply method for creating an HTML head element. */
+  def apply(contents: RArr[XConElem]): HeadHtml = new HeadHtml(contents)
+  
+  /** Factory apply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
   def apply(titleStr: String, otherContents: XConCompound*): HeadHtml = new HeadHtml(TitleHtml(titleStr) %: otherContents.toRArr)
 
   /** Factory method for creating an HTML head element with [[TitleHtml]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */

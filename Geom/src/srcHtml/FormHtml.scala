@@ -1,7 +1,5 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import ostrat.pweb.UserStatus.User
-
 import util.matching.Regex
 
 /** HTML Form element. */
@@ -13,14 +11,14 @@ trait FormHtml extends HtmlTagLines
 
 object FormHtml
 { /** Factory apply method to construct HTML Form element. There ia an apply name overload that takes the contents and other attributes as [[RArr]]s. */
-  def apply(contents: XCon*): FormHtml = FormHtmlGen(contents.toRArr, RArr())
+  def apply(contents: XCon*): FormHtml = FormHtmlGen(RArr(), contents.toRArr)
   
   /** Factory apply method to construct HTML Form element. There ia an apply name overload that takes the content as repeat parameters with no other
    * attributes.*/
-  def apply(contents: RArr[XCon], otherAttribs: RArr[XAtt]): FormHtml = FormHtmlGen(contents, otherAttribs)
+  def apply(otherAttribs: RArr[XAtt], contents: RArr[XCon]) = FormHtmlGen(otherAttribs, contents)
 
   /** Implementation class for general case of HTML Form element. */
-  case class FormHtmlGen(contents: RArr[XCon], otherAttribs: RArr[XAtt]) extends FormHtml
+  case class FormHtmlGen(otherAttribs: RArr[XAtt], contents: RArr[XCon]) extends FormHtml
 }
 
 trait DBRow
@@ -64,7 +62,7 @@ trait RegLogForm extends FormHtml
   def submit = SubmitButton(idPrefix + "Submit")
 }
 
-case class RegLogRow(name: String, password: String, status: UserStatus = User) extends DBRow
+case class RegLogRow(name: String, password: String, status: UserStatus = UserStatus.User) extends DBRow
 {
   override def values: StrArr = StrArr(Default, name.enquote1, password.enquote1)
 }
