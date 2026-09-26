@@ -2,14 +2,14 @@
 package ostrat; package pweb
 
 /** HTML table element. */
-case class TableHtml(val contents: RArr[RowHtml], val attribs: RArr[HAtt] = RArr()) extends HtmlTagLines
+case class TableHtml(attribs: RArr[HAtt], contents: RArr[RowHtml]) extends HtmlTagLines
 { override def tagName: String = "table"
 }
 
 object TableHtml
 { /** Factory apply method for creating HTML table elements. */
-  def apply(contents: RowHtml*):  TableHtml = new TableHtml(contents.toArr)
-  def width100(contents: RowHtml*):  TableHtml = new TableHtml(contents.toArr, RArr(WidthCent(100)))
+  def apply(contents: RowHtml*):  TableHtml = new TableHtml(RArr(), contents.toArr)
+  def width100(contents: RowHtml*):  TableHtml = new TableHtml(RArr(WidthCent(100)), contents.toArr)
 }
 
 /** HTML TR table row element class. */

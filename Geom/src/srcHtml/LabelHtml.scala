@@ -3,14 +3,14 @@ package ostrat; package pweb
 import scala.reflect.ClassTag
 
 /** HTML label element. */
-class LabelHtml(val contents: RArr[XCon], val forStr: String, val otherAtts: RArr[HAtt]) extends HtmlInedit
+class LabelHtml(val forStr: String, val otherAtts: RArr[HAtt], val contents: RArr[XCon]) extends HtmlInedit
 { override def tagName: String = "label"
   override def attribs: RArr[HAtt] = ForAtt(forStr) %: otherAtts
 }
 
 object LabelHtml
 {
-  def apply(labelStr: String, forStr: String, otherAtts: HAtt*): LabelHtml = new LabelHtml(RArr(labelStr), forStr, otherAtts.toRArr)
+  def apply(labelStr: String, forStr: String, otherAtts: HAtt*): LabelHtml = new LabelHtml(forStr, otherAtts.toRArr, RArr(labelStr))
 }
 
 /** The for attribute used in HTML labels. */

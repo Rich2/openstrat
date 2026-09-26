@@ -34,7 +34,7 @@ object IFrame
   /** Creates an HTML iframe element with a 16:9 ratio from the width attribute. */
   def w169(srcStr: String, widthAtt: WidthCss, otherAttribs: XAtt*): IFrame = IFrameGen(srcStr, widthAtt, widthAtt.heightAtt(9.0 /16), otherAttribs.toRArr)
 
-  /** Implementation class for the gneral case of an HTML iframe element. */
+  /** Implementation class for the general case of an HTML iframe element. */
   case class IFrameGen(srcStr: String, widthAtt: WidthCss, heightAtt: HeightCss, otherAttribs: RArr[XAtt]) extends IFrame, HtmlOwnLine
   { override def srcAtt: SrcAtt = SrcAtt(srcStr)
   }

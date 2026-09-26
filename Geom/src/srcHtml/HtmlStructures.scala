@@ -2,13 +2,13 @@
 package ostrat; package pweb
 
 /** An HTML Canvas element. */
-case class CanvasHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends HtmlOwnLine
+case class CanvasHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { override def tagName: String = "canvas"
 }
 
 object CanvasHtml
 { /** Constructs an HTML canvas with an id attribute. */
-  def id(idStr: String): CanvasHtml = new CanvasHtml(RArr(), RArr(IdAtt(idStr)))
+  def id(idStr: String): CanvasHtml = new CanvasHtml(RArr(IdAtt(idStr)), RArr())
 
   /** Factory apply method for an HTML Canvas. */
   def apply(): CanvasHtml = new CanvasHtml(RArr(), RArr())
@@ -25,17 +25,17 @@ trait PHtml extends HtmlOwnLine
 
 object PHtml
 { /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: RArr[XCon], attribs: RArr[XAtt]): PHtml = PHtmlGen(contents, attribs)
+  def apply(attribs: RArr[XAtt], contents: RArr[XCon]) = PHtmlGen(attribs, contents)
 
   /** Factory apply method for creating HTML paragraphs. */
-  def apply(contents: XCon*) : PHtml = PHtmlGen(contents.toRArr, RArr())
+  def apply(contents: XCon*) : PHtml = PHtmlGen(RArr(), contents.toRArr)
 
   /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as an [[RArr]]. */
-  def id(idStr: String, contents: XCon*): PHtml = PHtmlGen(contents.toRArr, RArr(IdAtt(idStr)))
+  def id(idStr: String, contents: XCon*): PHtml = PHtmlGen(RArr(IdAtt(idStr)), contents.toRArr)
 
   /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as repeat parameters. */
-  def id(idStr: String, contents: RArr[XCon]): PHtml = PHtmlGen(contents, RArr(IdAtt(idStr)))
+  def id(idStr: String, contents: RArr[XCon]): PHtml = PHtmlGen(RArr(IdAtt(idStr)), contents)
 
   /** implementation  class for the general case of HTML P paragraph element. */
-  case class PHtmlGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends PHtml
+  case class PHtmlGen(attribs: RArr[HAtt], contents: RArr[XCon]) extends PHtml
 }

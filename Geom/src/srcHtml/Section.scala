@@ -10,10 +10,14 @@ trait Section extends HtmlTagLines
 object Section extends HtmlXConCompanion[Section]
 { /** Factory apply method for [[Section]] passing contents and attributes. There is an apply overload convenience method for passing just contents using
    * repeat parameters. */
-  override def apply(attribs: RArr[HAtt] = RArr(), contents: RArr[XCon]): Section = new SectionGen(contents, attribs)
+  override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): Section = new SectionGen(attribs, contents)
+
+  def apply(contents: RArr[XCon]): Section = new SectionGen(RArr(), contents)
+
+  override def apply(contents: XCon*): Section = new SectionGen(RArr(), contents.toRArr)
 
   /** General implementation class for HTML section element. */
-  class SectionGen(val contents: RArr[XCon], override val attribs: RArr[HAtt]) extends Section
+  class SectionGen(override val attribs: RArr[HAtt], val contents: RArr[XCon]) extends Section
 }
 
 /** HTML OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */

@@ -27,77 +27,107 @@ object AHtml
 }
 
 /** HTML noscript element. */
-case class NoScriptHtml(contents: RArr[XCon], attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
+case class NoScriptHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { override def tagName: String = "noscript"
 }
 
 object NoScriptHtml
 { /** Factory apply method for creating an HTML no-script element */
-  def apply(): NoScriptHtml = new NoScriptHtml(RArr("This page will not function properly without Javascript enabled"))
+  def apply(): NoScriptHtml = new NoScriptHtml(RArr(), RArr("This page will not function properly without Javascript enabled"))
 }
 
 /** HTML script element. */
-case class ScriptHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends HtmlOwnLine
+case class ScriptHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { override def tagName: String = "script"
 }
 
 /** Companion object for [[ScriptHtml]] class, HTML script element Contains factory methods for creating the src and function call elements. */
 object ScriptHtml
 { /** Sets the link for a JavaScript script file. */
-  def jsSrc(src: String): ScriptHtml = ScriptHtml(RArr(), RArr(TypeJsAtt, SrcAtt(src)))
+  def jsSrc(src: String): ScriptHtml = ScriptHtml(RArr(TypeJsAtt, SrcAtt(src)), RArr())
 
   /** Sets the function for an external JavaScript call. */
-  def main(stem: String): ScriptHtml = ScriptHtml(RArr(stem + ".main()"), RArr(TypeJsAtt))
+  def main(stem: String): ScriptHtml = ScriptHtml(RArr(TypeJsAtt), RArr(stem + ".main()"))
   
-  def inlineJsStr(codeStr: String): ScriptHtml = ScriptHtml(RArr(codeStr), RArr(TypeJsAtt))
+  def inlineJsStr(codeStr: String): ScriptHtml = ScriptHtml(RArr(TypeJsAtt), RArr(codeStr))
 }
 
 /** HTML style element. note there is also a CSS [[StyleAtt]] attribute. */
-case class StyleHtml(contents: RArr[CssRuleLike], attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
+case class StyleHtml(attribs: RArr[HAtt], contents: RArr[CssRuleLike]) extends HtmlOwnLine
 { override def tagName: String = "style"
 }
 
 object StyleHtml
 { /** Factory apply method for [[StyleHtml]]. */
-  def apply(rules: CssRuleLike*): StyleHtml = new StyleHtml(rules.toArr)
+  def apply(rules: CssRuleLike*): StyleHtml = new StyleHtml(RArr(), rules.toArr)
 }
 
 /** HTML h1 header element. */
-case class H1Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
+case class H1Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { override def tagName = "h1"
 }
 
+object H1Html
+{ /** HTML h1 header element. */
+  def apply(contents: XCon*): H1Html = new H1Html(RArr(), contents.toRArr)
+}
+
 /** HTML h2 header element. */
-case class H2Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
+case class H2Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h2"
 }
 
+object H2Html
+{ /** HTML h2 header element. */
+  def apply(contents: XCon*): H2Html = new H2Html(RArr(), contents.toRArr)
+}
+
 /** Html H3 header element. */
-case class H3Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
+case class H3Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h3"
 }
 
+object H3Html
+{ /** HTML h3 header element. */
+  def apply(contents: XCon*): H3Html = new H3Html(RArr(), contents.toRArr)
+}
+
 /** Html H4 header element. */
-case class H4Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
+case class H4Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h4"
 }
 
+object H4Html
+{ /** HTML h1 header element. */
+  def apply(contents: XCon*): H4Html = new H4Html(RArr(), contents.toRArr)
+}
+
 /** Html H4 header element. */
-case class H5Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
+case class H5Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h5"
 }
 
+object H5Html
+{ /** HTML h1 header element. */
+  def apply(contents: XCon*): H5Html = new H5Html(RArr(), contents.toRArr)
+}
+
 /** Html H4 header element. */
-case class H6Html(str : String, attribs: RArr[HAtt] = RArr()) extends HtmlStrOwnLine
+case class H6Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h6"
 }
 
+object H6Html
+{ /** HTML h6 header element. */
+  def apply(contents: XCon*): H6Html = new H6Html(RArr(), contents.toRArr)
+}
+
 /** HTML button element. */
-class ButtonHtml(val contents: RArr[XCon], val attribs: RArr[HAtt] = RArr()) extends HtmlOwnLine
+case class ButtonHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { override def tagName = "button"
 }
 
 object ButtonHtml
 { /** Factory apply method to create HTML button element. */
-  def apply(inp: String): ButtonHtml = new ButtonHtml(RArr(inp), RArr(SubmitTypeAtt))
+  def apply(contents: XCon*): ButtonHtml = new ButtonHtml(RArr(SubmitTypeAtt), contents.toRArr)
 }

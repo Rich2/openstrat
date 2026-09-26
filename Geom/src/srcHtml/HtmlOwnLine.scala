@@ -11,12 +11,6 @@ trait HtmlOwnLineBlocked extends HtmlOwnLine
 { override def attribs: RArr[HAtt] = RArr(StyleAtt(BlockDec))
 }
 
-/** An HTML whose contents can be represented by a [[String]]. */
-trait HtmlStrOwnLine extends HtmlOwnLine
-{ def str: String
-  override def contents: RArr[XCon] = RArr(str)
-}
-
 /** HTML content code that mey need BRs separate it from preceding and successive inline and other [[HtmlBrLine]] content */
 trait HtmlBrLine extends HtmlOwnLineBlocked
 
