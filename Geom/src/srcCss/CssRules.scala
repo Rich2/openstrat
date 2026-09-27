@@ -2,13 +2,13 @@
 package ostrat; package pweb
 
 /** CSS rule for the body. */
-case class CssBody(decsArr: RArr[CssDecBase]) extends CssRule
+case class BodyRule(decsArr: RArr[CssDecBase]) extends CssRule
 { override def selec: String = "body"
 }
 
-object CssBody
+object BodyRule
 { /** Factory apply method for CSS rule for the HTML body. */
-  def apply(props: CssDec*): CssBody = new CssBody(props.toArr)
+  def apply(props: CssDec*): BodyRule = new BodyRule(props.toArr)
 }
 
 /** CSS rule for HTML p paragraphs. */

@@ -20,7 +20,7 @@ object OnlyCss extends CssOpenstrat
 { override def fileStemStr: String = "only"
   
   /** The CSS rules. */
-  override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlexDec, DecMinHeight(98.vh), DecFlexDirnCol),
+  override def rules: RArr[CssRuleLike] = RArr(BodyRule(DispFlexDec, DecMinHeight(98.vh), DecFlexDirnCol),
     CssButton(FontSizeDec(1.5.em)),
     CssIDRule("footer", DecAlignCen, MarginDec(0.8.em), ColourDec(FireBrick)),
     CssRule("ul, ol, p", MaxWidthDec(68.em), MarginLRAutoDec),

@@ -7,20 +7,20 @@ object CssDocumentation extends CssOpenstrat
 { override def fileStemStr: String = "documentation"
 
   val newRules: RArr[CssRuleLike] = RArr(
-    CssBody(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
+    BodyRule(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
     MainBlockAtt.rule(MaxWidthDec(68.em), MarginLRAutoDec),
     CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
-    CssMultiRule("code", TagChildSel("code", "span"),
-      TagChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White), PadBottomDec(0.1.em)),
+    CssMultiRule("code", TagChildSel("code", "span"), TagChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White),
+      PadBottomDec(0.1.em)),
     CssMultiRule(".output", ClassChildSel(".output", "div"))(BGColourDec(Black), ColourDec(Pink)),
     SbtAtt.rule(BGColourDec(Black), ColourDec(LightGreen)),
-    CssClassesRule("folder", BGColourDec(Black), ColourDec(LightBlue)),
-    CssClassesRule("path", BGColourDec(White), ColourDec(DarkBlue), NoWrapDec),
+    DirPathAtt.rule(BGColourDec(Black), ColourDec(LightBlue)),
+    FilePathAtt.rule(BGColourDec(White), ColourDec(DarkBlue), NoWrapDec),
     CssCode(MarginTBDecs(0.25.rem)),
     BashPromptCssRule(BGColourDec(Black), ColourDec(Pink)),
     PsqlPromptCssRule(BGColourDec(Black), ColourDec(LightGreen)),
-    CssClassesRule("scalalines", BGColourDec(Black), ColourDec(White), NoWrapDec),
-    CssClassesRule("scala", BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
+    ScalaLinesAtt.rule(BGColourDec(Black), ColourDec(White), NoWrapDec),
+    ScalaAtt.rule(BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
     CssRule("td th", PadRightDec(2.em), DecAlignLeft),
     CssRule("h1, h2. h3, h4, h5, h6", MarginTBDec(0.67.em)),
     minMed

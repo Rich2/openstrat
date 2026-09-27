@@ -32,7 +32,7 @@ package object utiljvm
       Right(file2)
     }
     catch{ case err: java.io.IOException => Left(err) }
-    finally{ file1.close }    
+    finally{ if(file1 != null) file1.close }    
   }
 
   /** Attempts to load a value of the specified type from an RSON format file. */
