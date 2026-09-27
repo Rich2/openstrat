@@ -12,9 +12,9 @@ trait CssRuleLike extends XConCompound
 /** CSS Rule consisting of selector plus a set of declarations. */
 trait CssRule extends CssRuleLike
 { /** The selector [[String]] for the CSS rule. */
-  def selec: SelOrStr
+  def selecStr: SelOrStr
 
-  def selecStr: String = selec.outStr
+  def selecStr2: String = selecStr.outStr
 
   /** The CSS declarations of this rule. */
   def decsArr: RArr[CssDecBase]
@@ -31,14 +31,14 @@ trait CssRule extends CssRuleLike
   }
 
   override def isMultiLine: Boolean = decsArr.flatMap(_.decs).length > 2
-  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = selecStr + decsStr(indent)
+  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = selecStr2 + decsStr(indent)
   
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
   { val decs: RArr[CssDec] = decsArr.flatMap(_.decs)
     decs.length match
-    { case 0 => TextLines(selecStr -- "{}")
+    { case 0 => TextLines(selecStr2 -- "{}")
       case 1 =>
-      { val str = selecStr -- s" { ${decs.head.out} }"
+      { val str = selecStr2 -- s" { ${decs.head.out} }"
         TextLines(str)
       }
       case 2 =>
@@ -61,7 +61,20 @@ object CssRule
   def apply(selec: SelOrStr, decs: CssDecBase*): CssRule = CssRuleGen(selec, decs.toArr)
 
   /** General case for CSS Rule consisting of selector plus a set of declarations. */
-  case class CssRuleGen(selec: SelOrStr, decsArr: RArr[CssDecBase]) extends CssRule
+  case class CssRuleGen(selecStr: SelOrStr, decsArr: RArr[CssDecBase]) extends CssRule
+}
+
+
+/** CSS class rule. */
+case class ClassRule(selector: ClassAtt, decsArr: RArr[CssDecBase]) extends CssRule
+{ //override def cssClass: ClassAtt = ThisAtt
+  override def selecStr: String = selector.cssOut //c"." + classStr
+}
+
+/** CSS Id rule. */
+case class IdRule(selector: IdAtt, decsArr: RArr[CssDecBase]) extends CssRule
+{ //override def cssClass: ClassAtt = ThisAtt
+  override def selecStr: String = selector.cssOut //c"." + classStr
 }
 
 trait CssSingleRule extends CssRule
@@ -71,7 +84,7 @@ trait CssAdultRule extends CssSingleRule
 
 class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecBase]) extends CssSingleRule
 { /** The selector [[String]] for the CSS rule. */
-  override def selec: String = parent.outStr -- ">" -- child.outStr
+  override def selecStr: String = parent.outStr -- ">" -- child.outStr
 }
 
 object CssChildRule
@@ -85,7 +98,7 @@ object CssChildRule
 /** CSS rule with multiple selectors. */
 class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecBase]) extends CssRule
 { /** The selector [[String]] for the CSS rule. */
-  override def selec: CssSelector | String = selectors.mkStr(_.outStr, ", ")
+  override def selecStr: CssSelector | String = selectors.mkStr(_.outStr, ", ")
 }
 
 object CssMultiRule

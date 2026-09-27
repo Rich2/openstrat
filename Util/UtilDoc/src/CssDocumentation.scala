@@ -5,11 +5,13 @@ import pweb.*, Colour.*, wcode.*
 /** CSS for openstrat documentation. */
 object CssDocumentation extends CssOpenstrat
 { override def fileStemStr: String = "documentation"
+  
+  object LexicalAtt extends ClassAtt("lexical")
 
   val newRules: RArr[CssRuleLike] = RArr(
     BodyRule(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
     MainBlockAtt.rule(MaxWidthDec(68.em), MarginLRAutoDec),
-    CssClassesRule("lexical", BGColourDec(White), ColourDec(DarkBlue)),
+    LexicalAtt.rule(BGColourDec(White), ColourDec(DarkBlue)),
     CssMultiRule("code", TagChildSel("code", "span"), TagChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White),
       PadBottomDec(0.1.em)),
     CssMultiRule(".output", ClassChildSel(".output", "div"))(BGColourDec(Black), ColourDec(Pink)),

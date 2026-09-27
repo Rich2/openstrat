@@ -2,15 +2,19 @@
 package ostrat; package pDoc
 import pweb.*, Colour.*
 
+
+object TopMenuAtt extends IdAtt("topmenu")
+object BottomMenuAtt extends IdAtt("bottommenu")
+
 /** Common trait for openstrat CSS. */
 trait CssOpenstrat extends CssRulesFile
-{
+{  
   def minMed: CssMedia = new MediaMinWidth(50.em)
   {
     override def rules: RArr[CssRule] = RArr(
       CssIDRule("topmenu li", InlineBlockDec, BGColourDec(Colour(0xFFDDDDDD)), PaddingDec(0.2.em), BorderDec(SolidCss(Yellow))),
-      CssIDRule("topmenu", DecAlignCen, MaxWidthDec(100.em)),
-      CssIDRule("bottommenu", DispNoneDec)
+      TopMenuAtt.rule(DecAlignCen, MaxWidthDec(100.em)),
+      BottomMenuAtt.rule(DispNoneDec)
     )
   }
 }

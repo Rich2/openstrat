@@ -7,10 +7,12 @@ trait DivHtml extends HtmlUnvoid
 }
 
 /** Companion object for the [[DivHtml]] DIV element class, contains various factory methods. */
-object DivHtml extends HtmlXConCompanion[DivHtml]
+object DivHtml extends HtmlXConCompanion[DivHtml], HtmlTag
 { /** Factory apply method for div HTML element. */
   override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): DivHtml = new DivHtmlGen(contents, attribs)
-  
+
+  override def tag: String = "div"
+
   /** An implementation class for the general case of an HTML Div.  */
   class DivHtmlGen(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends DivHtml, HtmlOwnLine
 }

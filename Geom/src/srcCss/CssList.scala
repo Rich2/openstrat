@@ -3,7 +3,7 @@ package ostrat; package pweb
 
 /** CSS rule for HTML li list item. */
 case class CssLi(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "li"
+{ override def selecStr: String = "li"
 }
 
 object CssLi

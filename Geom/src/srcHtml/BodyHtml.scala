@@ -9,7 +9,7 @@ class BodyHtml(val attribs: RArr[HAtt], val contents: RArr[XCon]) extends HtmlTa
 }
 
 /** Companion object for the [[BodyHtml]] element class. Contains factory methods. */
-object BodyHtml
+object BodyHtml extends HtmlTag
 { /** Factory apply method to create an HTML body element, with no attributes. There is an apply name overload that takes [[RArr]]s of the contents and
    * attributes as parameters. */
   def apply(contents: XCon*): BodyHtml = new BodyHtml(RArr(), contents.toArr)
@@ -19,4 +19,6 @@ object BodyHtml
 
   /** Factory apply method to create an HTML body element. There is an apply name overload that takes the contents as [[RArr]] parameters. */
   def apply(attribs: RArr[XAtt], contents: RArr[XCon]) = new BodyHtml(attribs, contents)
+
+  override def tag: String = "body"
 }

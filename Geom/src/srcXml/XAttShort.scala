@@ -13,30 +13,12 @@ trait XAttShort extends XAtt
 case class XmlAttGen(name: String, valueStr: String) extends XAttShort
 
 /** Creates for an "id" XML / HTML attribute." */
-case class IdAtt(valueStr: String) extends XAttShort
+case class IdAtt(valueStr: String) extends XAttShort, CssSelector
 { override def name: String = "id"
-}
+  override def cssOut: String = "#" + valueStr
 
-/** Creates for a "class" XML / HTML attribute." */
-class ClassAtt(val valueStr: String) extends XAttShort
-{ ThisAtt =>
-  override def name: String = "class"
-  
-  /** Constructs an HTML Div with this CSS class attribute. */
-  def div(contents: XCon*): DivHtml = DivHtml(RArr(this), contents.toRArr)
-  
   /** CSS rule for this CSS class. */
-  def rule(decs: CssDecBase*): Rule = Rule(decs.toRArr)
-  
-  /** CSS class rule for this CSS attribute. */
-  case class Rule(decsArr: RArr[CssDecBase]) extends CssClassRule
-  { override def cssClass: ClassAtt = ThisAtt
-  }
-}  
-
-object ClassAtt
-{ /** Factory apply method for HTML class attribute. */
-  def apply(classStr: String): ClassAtt = new ClassAtt(classStr)
+  def rule(decs: CssDecBase*): IdRule = IdRule(this, decs.toRArr)
 }
 
 /** rel XML /HTML attribute */

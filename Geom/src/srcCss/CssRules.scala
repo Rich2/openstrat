@@ -3,7 +3,7 @@ package ostrat; package pweb
 
 /** CSS rule for the body. */
 case class BodyRule(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "body"
+{ override def selecStr: String = "body"
 }
 
 object BodyRule
@@ -13,7 +13,7 @@ object BodyRule
 
 /** CSS rule for HTML p paragraphs. */
 case class CssP(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "p"
+{ override def selecStr: String = "p"
 }
 
 object CssP
@@ -23,7 +23,7 @@ object CssP
 
 /** CSS rule for HTML canvas. */
 case class CssCanvas(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "canvas"
+{ override def selecStr: String = "canvas"
 }
 
 object CssCanvas
@@ -33,7 +33,7 @@ object CssCanvas
 
 /** CSS rule for the H1 header. */
 case class CssH1(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "h1"
+{ override def selecStr: String = "h1"
 }
 
 object CssH1
@@ -43,7 +43,7 @@ object CssH1
 
 /** CSS rule for OL ordered lists. */
 case class CssOl(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "ol"
+{ override def selecStr: String = "ol"
 }
 
 object CssOl
@@ -53,7 +53,7 @@ object CssOl
 
 /** CSS rule for code. */
 case class CssCode(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "code"
+{ override def selecStr: String = "code"
 }
 
 object CssCode
@@ -63,7 +63,7 @@ object CssCode
 
 /** CSS rule for code. */
 case class CssSvg(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "svg"
+{ override def selecStr: String = "svg"
 }
 
 object CssSvg
@@ -74,7 +74,7 @@ object CssSvg
 /** CSS rule for classes. */
 trait CssClassesRule extends CssRule
 { def classStr: String
-  override def selec: String = "." + classStr
+  override def selecStr: String = "." + classStr
 }
 
 object CssClassesRule
@@ -89,7 +89,7 @@ object CssClassesRule
 
 /** CSS rule for IDs. */
 class CssIDRule(val idStr: String, val decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "#" + idStr
+{ override def selecStr: String = "#" + idStr
 }
 
 object CssIDRule
@@ -102,7 +102,7 @@ object CssIDRule
 
 /** CSS rule for button. */
 case class CssButton(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selec: String = "button"
+{ override def selecStr: String = "button"
 }
 
 object CssButton
