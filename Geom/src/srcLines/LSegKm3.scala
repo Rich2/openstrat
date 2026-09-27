@@ -1,10 +1,10 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A line segment in 3 dimensional space specified in kilometres. A straight line between two points in 3D. */
-class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val zStartKilometresNum: Double, val xEndKilometresNum: Double,
-  val yEndKilometresNum: Double, val zEndKilometresNum: Double) extends LineSegLength3[PtKm3]
+/** A line segment in 3-dimensional space specified in kilometres. A straight line between two points in 3D. */
+class LSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val zStartKilometresNum: Double, val xEndKilometresNum: Double,
+              val yEndKilometresNum: Double, val zEndKilometresNum: Double) extends LSegLength3[PtKm3]
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def startPt: PtKm3 = new PtKm3(xStartKilometresNum, yStartKilometresNum, zStartKilometresNum)
@@ -43,17 +43,17 @@ class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def zEndMetresNum: Double = ???
 }
 
-/** Companion object for [[LineSegKm3]] trait contains apply factory method. */
-object LineSegKm3
+/** Companion object for [[LSegKm3]] trait contains apply factory method. */
+object LSegKm3
 {
-   def apply(pStart: PtKm3, pEnd: PtKm3): LineSegKm3 = new LineSegKm3(pStart.xKilometresNum, pStart.yKilometresNum, pStart.zKilometresNum, pEnd.xKilometresNum,
+   def apply(pStart: PtKm3, pEnd: PtKm3): LSegKm3 = new LSegKm3(pStart.xKilometresNum, pStart.yKilometresNum, pStart.zKilometresNum, pEnd.xKilometresNum,
      pEnd.yKilometresNum, pEnd.zKilometresNum)
 
   def kilometresNum(xStartKilometresNum: Double, yStartKilometresNum: Double, zStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double, zEndKilometresNum: Double):
-    LineSegKm3 = new LineSegKm3(xStartKilometresNum, yStartKilometresNum, zStartKilometresNum, xEndKilometresNum, yEndKilometresNum, zEndKilometresNum)
+    LSegKm3 = new LSegKm3(xStartKilometresNum, yStartKilometresNum, zStartKilometresNum, xEndKilometresNum, yEndKilometresNum, zEndKilometresNum)
 
-  /** Implicit instance / evidence for [[BuilderArrMap]] for [[LineSegKm3]], [[LineSegKm3Arr]] type class. */
-  implicit val buildEv: BuilderMapArrDbl6[LineSegKm3, LineSegKm3Arr] = new BuilderMapArrDbl6[LineSegKm3, LineSegKm3Arr]
+  /** Implicit instance / evidence for [[BuilderArrMap]] for [[LSegKm3]], [[LineSegKm3Arr]] type class. */
+  implicit val buildEv: BuilderMapArrDbl6[LSegKm3, LineSegKm3Arr] = new BuilderMapArrDbl6[LSegKm3, LineSegKm3Arr]
   { type BuffT = LineSegKm3Buff
     override def fromDblArray(array: Array[Double]): LineSegKm3Arr = new LineSegKm3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegKm3Buff = new LineSegKm3Buff(buffer)
@@ -76,18 +76,18 @@ object LineSegKm3
 
 /** Compact immutable Array[Double] based collection class for [[LSeg2]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegKm3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegKm3]
+class LineSegKm3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LSegKm3]
 { type ThisT = LineSegKm3Arr
   def fromArray(array: Array[Double]): LineSegKm3Arr = new LineSegKm3Arr(array)
   override def typeStr: String = "LineSegKm3Arr"
-  override def fElemStr: LineSegKm3 => String = _.toString
+  override def fElemStr: LSegKm3 => String = _.toString
 
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegKm3 =
-    new LineSegKm3(d1, d2, d3, d4, d5, d6)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LSegKm3 =
+    new LSegKm3(d1, d2, d3, d4, d5, d6)
 }
 
 /** Companion object for the LineSegKm3s class. */
-object LineSegKm3Arr extends CompanionSlDbl6[LineSegKm3, LineSegKm3Arr]
+object LineSegKm3Arr extends CompanionSlDbl6[LSegKm3, LineSegKm3Arr]
 {
   override def fromArray(array: Array[Double]): LineSegKm3Arr = new LineSegKm3Arr(array)
 
@@ -106,9 +106,9 @@ object LineSegKm3Arr extends CompanionSlDbl6[LineSegKm3, LineSegKm3Arr]
   }
 }
 
-/** Efficient expandable buffer for [[LineSegKm3]]s. */
-class LineSegKm3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl6[LineSegKm3]
+/** Efficient expandable buffer for [[LSegKm3]]s. */
+class LineSegKm3Buff(val bufferUnsafe: ArrayBuffer[Double]) extends AnyVal with BuffDbl6[LSegKm3]
 { override def typeStr: String = "LineSegKm3Buff"
-  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegKm3 =
-    new LineSegKm3(d1, d2, d3, d4, d5, d6)
+  override def elemFromDbls(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LSegKm3 =
+    new LSegKm3(d1, d2, d3, d4, d5, d6)
 }

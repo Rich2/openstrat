@@ -26,7 +26,7 @@ class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLes
       rect.scale(proj.pixelsPerTile * 0.45).slate(pt)
     }
 
-    def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }

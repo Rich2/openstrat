@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** A line segment in 3-dimensional space specified in metres. A straight line between two points in 3D. */
 class LSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double,
-  val zEndMetresNum: Double) extends LineSegLength3[PtM3]
+  val zEndMetresNum: Double) extends LSegLength3[PtM3]
 { def typeStr: String = "LineDist3"  
   def startPt: PtM3 = PtM3.metreNum(xStartMetresNum, yStartMetresNum, zStartMetresNum)
   def endPt: PtM3 = PtM3.metreNum(xEndMetresNum, yEndMetresNum, zEndMetresNum)

@@ -73,7 +73,7 @@ trait HSysProjection extends TSysProjection
   /** Set the perspective, The position of the view. the rotation and the scale. */
   def setView(view: Any): Unit
 
-  def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(using ct2: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
+  def transLineSegPairs[A2](inp: LSegHCPairArr[A2])(using ct2: ClassTag[A2]): LSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
 
   def sidesOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(using build: BuilderArrMap[B, ArrB]): ArrB = gChild.sepsOptMap(f)
 

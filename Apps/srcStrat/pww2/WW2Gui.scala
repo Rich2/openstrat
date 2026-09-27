@@ -27,7 +27,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
       head.counter(proj.pixelsPerTile * 0.45, ref, head.colour).slate(pt2)
     }
 
-    def moveSegPairs: LineSegPairArr[BrArmyDesigNum] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LSegPairArr[BrArmyDesigNum] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }

@@ -6,7 +6,7 @@ import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
  * this class will prove. It has been created for the intermediary step of converting from [[pglobe.LatLong]]s to [[PolygonM2Gen]]s on world  maps. */
 final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtKm3]
 { override type ThisT = PolygonKm3
-  override type SideT = LineSegKm3
+  override type SideT = LSegKm3
   override def elemFromDbls(d1: Double, d2: Double, d3: Double): PtKm3 = new PtKm3(d1, d2, d3)
   override def fromArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
   override def typeStr: String = "PolygonMetre3"
@@ -64,12 +64,12 @@ final class PolygonKm3(val arrayUnsafe: Array[Double]) extends AnyVal with Polyg
 
   def toXY: PolygonM2Gen = map(_.xy)
 
-  override def sidesForeach[U](f: LineSegKm3 => U): Unit =
+  override def sidesForeach[U](f: LSegKm3 => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
   }
 
-  @inline override def side(index: Int): LineSegKm3 = LineSegKm3(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LSegKm3 = LSegKm3(vert(index), vert(index + 1))
   override def sides: LineSegKm3Arr = new LineSegKm3Arr(arrayForSides)
 }
 

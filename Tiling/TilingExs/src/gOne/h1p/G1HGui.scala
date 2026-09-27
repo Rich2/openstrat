@@ -49,7 +49,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
     /** Draws the tiles sides (or edges). */
     def outerSidesDraw: LSeg2ArrDraw = proj.outerSidesDraw(2, Colour.Gold)
 
-    def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }

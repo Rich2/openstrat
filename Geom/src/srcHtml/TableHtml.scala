@@ -19,54 +19,59 @@ trait RowHtml extends HtmlTagLines
 
 object RowHtml
 { /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
-  def strs2(str1: String, str2: String): RowHtml = RowDataHtml(RArr(TdHtml(str1), TdHtml(str2)))
+  def strs2(str1: String, str2: String): RowHtml = RowDataHtml()
 
   /** Convenience method for creating an HTML row element of 3 cells from 3 [[String]]s. */
-  def strs3(str1: String, str2: String, str3: String): RowHtml = RowDataHtml(RArr(TdHtml(str1), TdHtml(str2), TdHtml(str3)))
+  def strs3(str1: String, str2: String, str3: String): RowHtml = RowDataHtml()
 
   /** Convenience method for creating an HTML row element of 4 cells from 4 [[String]]s. */
-  def strs4(str1: String, str2: String, str3: String, str4: String): RowHtml = RowDataHtml(RArr(TdHtml(str1), TdHtml(str2), TdHtml(str3), TdHtml(str4)))
+  def strs4(str1: String, str2: String, str3: String, str4: String): RowHtml = RowDataHtml()
 }
 
 /** HTML TR table row element class. */
-case class RowHeadHtml(val contents: RArr[ThHtml], val attribs: RArr[HAtt] = RArr()) extends RowHtml
+case class RowHeadHtml(attribs: RArr[HAtt], contents: RArr[ThHtml]) extends RowHtml
 
 object RowHeadHtml
-{ /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
-  def strs2(str1: String, str2: String): RowHeadHtml = RowHeadHtml(RArr(ThHtml(str1), ThHtml(str2)))
+{ /** Factory apply method to construct an HTML Table header row */
+  def apply(contents: ThHtml*): RowHeadHtml = new RowHeadHtml(RArr(), contents.toRArr)
+  
+  /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
+  def strs2(str1: String, str2: String): RowHeadHtml = RowHeadHtml(ThHtml(str1), ThHtml(str2))
 
   /** Convenience method for creating an HTML row element of 3 cells from 3 [[String]]s. */
-  def strs3(str1: String, str2: String, str3: String): RowHeadHtml = RowHeadHtml(RArr(ThHtml(str1), ThHtml(str2), ThHtml(str3)))
+  def strs3(str1: String, str2: String, str3: String): RowHeadHtml = RowHeadHtml(ThHtml(str1), ThHtml(str2), ThHtml(str3))
 
   /** Convenience method for creating an HTML row element of 4 cells from 4 [[String]]s. */
-  def strs4(str1: String, str2: String, str3: String, str4: String): RowHeadHtml =
-    RowHeadHtml(RArr(ThHtml(str1), ThHtml(str2), ThHtml(str3), ThHtml(str4)))
+  def strs4(str1: String, str2: String, str3: String, str4: String): RowHeadHtml = RowHeadHtml(ThHtml(str1), ThHtml(str2), ThHtml(str3), ThHtml(str4))
 }
 /** HTML TR table row element class. */
-case class RowDataHtml(val contents: RArr[TdHtml], val attribs: RArr[HAtt] = RArr()) extends RowHtml
+case class RowDataHtml(attribs: RArr[HAtt], contents: RArr[TdHtml]) extends RowHtml
 
 object RowDataHtml
-{ /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
-  def strs2(str1: String, str2: String): RowDataHtml = RowDataHtml(RArr(TdHtml(str1), TdHtml(str2)))
+{ /** Factory apply method to construct an HTML Table data row */
+  def apply(contents: TdHtml*): RowDataHtml = new RowDataHtml(RArr(), contents.toRArr)
+  
+  /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
+  def strs2(str1: String, str2: String): RowDataHtml = RowDataHtml(TdHtml(str1), TdHtml(str2))
 
   /** Convenience method for creating an HTML row element of 3 cells from 3 [[String]]s. */
-  def strs3(str1: String, str2: String, str3: String): RowDataHtml = RowDataHtml(RArr(TdHtml(str1), TdHtml(str2), TdHtml(str3)))
+  def strs3(str1: String, str2: String, str3: String): RowDataHtml = RowDataHtml(TdHtml(str1), TdHtml(str2), TdHtml(str3))
 
   /** Convenience method for creating an HTML row element of 4 cells from 4 [[String]]s. */
-  def strs4(str1: String, str2: String, str3: String, str4: String): RowDataHtml = RowDataHtml(RArr(TdHtml(str1), TdHtml(str2), TdHtml(str3), TdHtml(str4)))
+  def strs4(str1: String, str2: String, str3: String, str4: String): RowDataHtml = RowDataHtml(TdHtml(str1), TdHtml(str2), TdHtml(str3), TdHtml(str4))
 }
 
-
+/** HTML Table cell. Can be a header cell or a data cell. */
 trait CellHtml extends HtmlOwnLine
 
 /** HTML TH table header cell element. */
-case class ThHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends CellHtml
+case class ThHtml(attribs: RArr[HAtt], contents: RArr[XConInedit]) extends CellHtml
 { override def tagName: String = "th"
 }
 
 object ThHtml
 { /** Factory apply method to construct HTML TH table header cell element form a simple [[String]]. */
-  def apply(str: String): ThHtml = new ThHtml(RArr(str), RArr())
+  def apply(contents: XConInedit*): ThHtml = new ThHtml(RArr(), contents.toRArr)
 }
 
 /** HTML TD table data cell element. */

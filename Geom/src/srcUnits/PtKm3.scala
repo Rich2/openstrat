@@ -5,7 +5,7 @@ import math.*, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** 3-dimensional point specified using [[Kilometres]] as units rather than scalars. */
 final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zKilometresNum: Double) extends PtLength3
 { override type ThisT = PtKm3
-  override type LineSegT = LineSegKm3
+  override type LineSegT = LSegKm3
   def typeStr: String = "PtKm3"
   override def toString: String = typeStr.appendParenthSemis(xKilometresNum.str2, yKilometresNum.str2, zKilometresNum.str2)
   def kmStr: String = typeStr.appendParenthSemis((xKilometresNum / 1000).str2, (yKilometresNum / 1000).str2, (zKilometresNum / 1000).str2)
@@ -93,11 +93,11 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
     Kilometres(sq.sqrt)
   }
 
-  override def lineSegTo(endPt: PtLength3): LineSegKm3 =
-    LineSegKm3.kilometresNum(xKilometresNum, yKilometresNum, zKilometresNum, endPt.xKilometresNum, endPt.yKilometresNum, endPt.zKilometresNum)
+  override def lineSegTo(endPt: PtLength3): LSegKm3 =
+    LSegKm3.kilometresNum(xKilometresNum, yKilometresNum, zKilometresNum, endPt.xKilometresNum, endPt.yKilometresNum, endPt.zKilometresNum)
 
-  override def lineSegFrom(startPt: PtLength3): LineSegKm3 =
-    LineSegKm3.kilometresNum(startPt.xKilometresNum, startPt.yKilometresNum, startPt.zKilometresNum, xKilometresNum, yKilometresNum, zKilometresNum)
+  override def lineSegFrom(startPt: PtLength3): LSegKm3 =
+    LSegKm3.kilometresNum(startPt.xKilometresNum, startPt.yKilometresNum, startPt.zKilometresNum, xKilometresNum, yKilometresNum, zKilometresNum)
 }
 
 /** Companion object for the [[PtKm3]] the 3-dimensional space point class. Contains factory methods and implicit type class instances. */
@@ -142,9 +142,9 @@ object PtKm3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
-  /** Implicit [[BuilderMapLSegBase]] type class instance / evidence for [[PtKm3]] points. Note this is used to map to a [[LineSegKm3]] not a
+  /** Implicit [[BuilderMapLSegBase]] type class instance / evidence for [[PtKm3]] points. Note this is used to map to a [[LSegKm3]] not a
    * [[LineSegKm3Arr]]. */
-  given lineSegBuildEv: BuilderMapLSegBase[PtKm3, LineSegKm3] = LineSegKm3(_, _)
+  given lineSegBuildEv: BuilderMapLSegBase[PtKm3, LSegKm3] = LSegKm3(_, _)
 }
 
 trait PtKm3SeqLike extends Any, SeqLikeImutDbl3[PtKm3]

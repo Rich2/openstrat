@@ -27,7 +27,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
       val ref = ife(armies.length == 1, HCenPair(hc, head), HCenPair(hc, armies))
       head.counter(proj.pixelsPerTile * 0.45, ref, head.colour).slate(pt)
     }
-    def moveSegPairs: LineSegPairArr[Lunit] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LSegPairArr[Lunit] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }

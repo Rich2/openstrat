@@ -5,7 +5,7 @@ import annotation.*, reflect.ClassTag, collection.mutable.ArrayBuffer
 /** A [[PolygonBase]] with [[PtLength3]] vertices. */
 trait PolygonLength3[VT <: PtLength3] extends Any, PolygonDbl3[VT]
 { type ThisT <: PolygonLength3[VT]
-  type SideY <: LineSegLength3[VT]
+  type SideY <: LSegLength3[VT]
 }
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not sure how useful
