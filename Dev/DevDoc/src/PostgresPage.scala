@@ -8,7 +8,7 @@ object PostgresPage extends DevPageBase
 
   override def body: BodyHtml = BodyHtml("Postgresql for beginners".h1, central, jsScriptStd)
 
-  def central: DivHtml = DivHtml.classAtt("central", pUpdaters, steps)
+  def central: DivHtml = CentreBlockAtt.div(pUpdaters, steps)
 
   /** Initial value for username. */
   val userName1: String = "tommy"

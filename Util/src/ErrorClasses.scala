@@ -9,9 +9,9 @@ object Succ
 }
 
 /** Exception from a find search for a type. */
-sealed trait ExcFind extends Exception, ParseException
+sealed trait FindException extends Exception, ParseException
 
-object ExcNotFound extends Exception("Not found") with ExcFind
+object ExcNotFound extends Exception("Not found") with FindException
 
 /** [[ExcNotFound]] error monad. */
 type NotFoundEither[+A] = Either[ExcNotFound.type , A]
@@ -20,7 +20,7 @@ type NotFoundEither[+A] = Either[ExcNotFound.type , A]
 val NotFoundLeft: Left[ExcNotFound.type, Nothing] = Left(ExcNotFound)
 
 /** A found multiple values of type [[Exception]]. */
-case class ExcFoundMulti(val num: Int) extends Exception(s"$num values of type found.") with ExcFind
+case class ExcFoundMulti(val num: Int) extends Exception(s"$num values of type found.") with FindException
 
 /** A found multiple values of type [[Left]], */
 def FailFoundMulti(num: Int): Left[ExcFoundMulti, Nothing] = Left(ExcFoundMulti(num))

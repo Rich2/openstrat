@@ -10,7 +10,7 @@ object AppsPage extends OpenstratDocPage
 { override def titleStr: String = "Applications Module"
   override val fileStemStr: String = "apps"
   override def body: BodyHtml = BodyHtml(H1Html("Apps Module"), main)
-  def main: DivHtml = DivHtml.classAtt("main", stratList, otherTiled, otherApps)
+  def main: DivHtml = MainBlockAtt.div(stratList, otherTiled, otherApps)
   def egameDir: String = (dirsRel </ AppPage.egameDir).asStr
   def otDir: String = ".." / AppPage.otDir.asStr
 

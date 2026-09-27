@@ -19,7 +19,7 @@ object GeomPage extends OpenstratDocPage
 { override val titleStr: String = "Geom Module"
   override val fileStemStr: String = "geom"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
-  def central: DivHtml = DivHtml.classAtt("central", PHtml(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
+  def central: DivHtml = CentreBlockAtt.div(PHtml(intro), GeomPage2D, list, GeomPagePolygons, Ellipses, LinePathNames, LessonLists, GeomPageWeb)
 
   def intro = """The Geom module contains 2D geometry and graphics. These can currently be output to JavaFx canvas, Html canvas and Svg. It also contains other
   |geometries including 3D with associated graphics. Development of targets for 3d graphics is still rudimentary. The 2D and 3D can also be defined in length

@@ -14,7 +14,7 @@ object TilingPage extends OpenstratDocPage
   override val fileStemStr: String = "tiling"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
-  def central: DivHtml = DivHtml.classAtt("central", list, "Game Terminology".h2, CoordSystem, terms2, turnRes)
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, list, "Game Terminology".h2, CoordSystem, terms2, turnRes)
 
   def list: OlSection = OlSection("The Tiling module contains".h2, coord, tileGeom, grid, sys, proj, terms, turn, exs)
 

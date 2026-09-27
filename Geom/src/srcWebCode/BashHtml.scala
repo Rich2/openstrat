@@ -1,7 +1,7 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package wcode
 
-/** The bash class attribute. */
+/** The bash CSS class attribute. */
 object BashAtt extends ClassAtt("bash")
 
 /** Html Bash code element. */
@@ -46,18 +46,15 @@ object BashInline
   def apply(str: String): BashInline = new BashInline(str)
 }
 
-/** The name for the Bash Prompt CSS class in the HTML attribute and for CSS rules. */
-val BashPromptClassStr: String = "BashPrompt"
-
 /** Attribute for the bash prompt class. Allows the prompt to be in a different colour to the BASH commands. It may be important to show what directory the
  * command is being launched from. */
-object BashPromptAtt extends ClassAtt(BashPromptClassStr)
+object BashPromptAtt extends ClassAtt("BashPrompt")
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
 class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
 { override def attribs: RArr[HAtt] = BashPromptAtt %: otherAttribs
 }
-
+ 
 object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
 { /** Factory apply method for creating a Bash Prompt as an HTML Span element. */
   override def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): BashPromptSpan = new BashPromptSpan(contents, attribs)
@@ -65,7 +62,7 @@ object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
 
 /** CSS rule for Bash prompt. */
 class BashPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
-{ override def classStr: String = BashPromptClassStr
+{ override def cssClass: ClassAtt = BashPromptAtt
 }
 
 object BashPromptCssRule
@@ -94,5 +91,5 @@ object BashWithPromptMulti
 }
 
 case class BashCssClassRule(decsArr: RArr[CssDecBase]) extends CssClassRule
-{ override def classStr: String = "bash"
+{ override def cssClass: ClassAtt = BashAtt
 }

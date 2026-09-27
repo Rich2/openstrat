@@ -17,7 +17,7 @@ object UtilPage extends OpenstratDocPage
 { override val titleStr: String = "Util Module"
   override val fileStemStr: String = "util"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
-  def central: DivHtml = DivHtml.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, list, UtilTokenSection, AstSection, base32, misc)
 
   def list: OlSection = OlSection(H2Html("The Util module contains"),
     LiHtml("Some simple debug macros"),

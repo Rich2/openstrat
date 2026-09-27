@@ -6,6 +6,6 @@ import pweb.*
 object XHmlDocPage extends HtmlPage
 { override def head: HeadHtml = HeadHtml.titleCss("Geom Module", "documentation")
   override def body: BodyHtml = BodyHtml(H1Html("Geom Module"), central)
-  def central: DivHtml = DivHtml.classAtt("central", PHtml(intro))
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, PHtml(intro))
   def intro = """The pWeb package contains classes to output Xml, Html and CSS.""".stripMargin
 }

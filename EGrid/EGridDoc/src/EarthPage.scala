@@ -8,7 +8,7 @@ object EarthPage extends OpenstratDocPage
   override def fileStemStr: String = "earth"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
-  def central: DivHtml = DivHtml.classAtt("central", list)
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, list)
 
   def list: OlSection = OlSection(H2Html("The Earth module contains"), latLong, lines, trans, terrs)
 

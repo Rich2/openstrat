@@ -12,8 +12,7 @@ object Section extends HtmlXConCompanion[Section]
    * repeat parameters. */
   override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): Section = new SectionGen(attribs, contents)
 
-  def apply(contents: RArr[XCon]): Section = new SectionGen(RArr(), contents)
-
+  /** Factory apply method for constructing HTML [[Section]] with no attributes. */
   override def apply(contents: XCon*): Section = new SectionGen(RArr(), contents.toRArr)
 
   /** General implementation class for HTML section element. */

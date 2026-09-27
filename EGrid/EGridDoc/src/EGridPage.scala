@@ -11,7 +11,7 @@ object EGridPage extends OpenstratDocPage
   override val fileStemStr: String = "egrid"
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
 
-  def central: DivHtml = DivHtml.classAtt("central", egrids, open)
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, egrids, open)
   val egrDir: String = "../egrids"
   def egrids: OlSection = OlSection("World Hex Grids.".h2,
     LiHtml(AHtml(egrDir / "eg1300.html", "EGrid 1300km"), "1300km hex scale world."),

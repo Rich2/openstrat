@@ -10,7 +10,7 @@ object TomcatPage extends DevPageBase
   override def head: HeadHtml = headCss("documentation")
   override def body: BodyHtml = BodyHtml("Using Apache Tomcat Server".h1, central, jsScriptStd)
 
-  def central: DivHtml = DivHtml.classAtt("central", p1, pUpdaters, steps)
+  def central: DivHtml = CentreBlockAtt.div(p1, pUpdaters, steps)
 
   def p1: PHtml = PHtml("""This page is targeted at Scala Developers, who want to get a simple, or multiple web applications going, or create a dynamic web site
   |using Scala. However nearly everything will also apply to people who want to use Java, Kotlin and other JVM language. Its not geared towards advanced

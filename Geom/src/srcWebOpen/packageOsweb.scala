@@ -3,5 +3,5 @@ package ostrat; package pweb
 
 package object osweb
 { /** The CSS rules for this package. */
-  val utilRules: RArr[CssRule] = RArr(listLargeRule, liLargeRule, CentralRule)
+  val utilRules: RArr[CssRule] = RArr(ListLargeRule, liLargeRule, CentreBlockAtt.rule(MaxWidthDec(68.em), MarginLRAutoDec))
 }

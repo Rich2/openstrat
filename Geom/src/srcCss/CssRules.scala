@@ -73,8 +73,7 @@ object CssSvg
 
 /** CSS rule for classes. */
 trait CssClassesRule extends CssRule
-{
-  def classStr: String
+{ def classStr: String
   override def selec: String = "." + classStr
 }
 

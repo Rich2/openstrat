@@ -60,7 +60,7 @@ class SvgSvgScaled(val width: Double, val height: Double, val vbX: Double, val v
 object SvgSvgScaled
 { /** Factory apply method for XML SVG element with a given width and height. */
   def apply(rect: Rect, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt]): SvgSvgScaled =
-    new SvgSvgScaled(rect.width, rect.height, rect.cenX, -rect.cenY, rect.width, rect.height, contents.flatMap(_.svgElems), otherAtts)
+    new SvgSvgScaled(rect.width, rect.height, rect.left, -rect.top, rect.width, rect.height, contents.flatMap(_.svgElems), otherAtts)
 
   /** Factory apply method for XML SVG element with a given width and height. */
   def apply(width: Double, height: Double, left: Double, top: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt]): SvgSvgScaled =
@@ -68,5 +68,9 @@ object SvgSvgScaled
 
   /** Factory apply method for XML SVG element with a given width and height. */
   def apply(width: Double, height: Double, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt] = RArr()): SvgSvgScaled =
-    new SvgSvgScaled(width, height, -width / 2, -height / 2, width, height, contents.flatMap(_.svgElems), otherAtts)    
+    new SvgSvgScaled(width, height, -width / 2, -height / 2, width, height, contents.flatMap(_.svgElems), otherAtts)
+
+  /** Factory apply method for XML SVG element with a given width and height. */
+  def centred(rect: Rect, contents: RArr[Graphic2Elem], otherAtts: RArr[XAtt]): SvgSvgScaled = new SvgSvgScaled(rect.width, rect.height, rect.left, -rect.top,
+    rect.width, rect.height, contents.flatMap(_.svgElems), StyleAtt(BlockDec, MarginLRAutoDec) %: otherAtts)  
 }

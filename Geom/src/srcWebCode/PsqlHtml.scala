@@ -1,7 +1,7 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package wcode
 
-/** The psql class attribute. */
+/** The PSQL CSS class attribute. */
 object PsqlAtt extends ClassAtt("psql")
 
 /** Html psql code element. */
@@ -23,12 +23,9 @@ object PsqlLine extends HtmlIneditCompanion[PsqlLine]
   def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): PsqlLine = new PsqlLine(contents, attribs)
 }
 
-/** The name for the psql Prompt CSS class in the HTML attribute and for CSS rules. */
-val PsqlPromptClassStr: String = "PsqlPrompt"
-
 /** Attribute for the psql prompt class. Allows the prompt to be in a different colour to the psql commands. It may be important to show what user is logged
  * in. */
-object PsqlPromptAtt extends ClassAtt(PsqlPromptClassStr)
+object PsqlPromptAtt extends ClassAtt("PsqlPrompt")
 
 /** A span set to cover a Psql prompt. This allows the prompt to be in a different colour to the Psql commands. */
 class PsqlPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
@@ -42,7 +39,7 @@ object PsqlPromptSpan extends HtmlIneditCompanion[PsqlPromptSpan]
 
 /** CSS rule for psql prompt. */
 class PsqlPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
-{ override def classStr: String = PsqlPromptClassStr
+{ override def cssClass: ClassAtt = PsqlPromptAtt
 }
 
 object PsqlPromptCssRule

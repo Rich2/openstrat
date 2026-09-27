@@ -31,7 +31,11 @@ object YXmlAtt
 { def apply(inp: Double): YXmlAtt = new YXmlAtt((-inp).str2)
 }
 
-object CentreBlockAtt extends ClassAtt("centreBlock")
+/** CSS class attribute for the centre block of an HTML page. */
+object CentreBlockAtt extends ClassAtt("CentreBlock")
+
+/** CSS class attribute for the main block of an HTML page. */
+object MainBlockAtt extends ClassAtt("main")
 
 case class FillAttrib(valueStr: String) extends XAttShort
 { override def name: String = "fill"

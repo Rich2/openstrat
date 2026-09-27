@@ -49,6 +49,7 @@ object ScriptHtml
   /** Sets the function for an external JavaScript call. */
   def main(stem: String): ScriptHtml = ScriptHtml(RArr(TypeJsAtt), RArr(stem + ".main()"))
   
+  /** Constructs inline JavaScript Code. not sure how good an idea that is. */
   def inlineJsStr(codeStr: String): ScriptHtml = ScriptHtml(RArr(TypeJsAtt), RArr(codeStr))
 }
 

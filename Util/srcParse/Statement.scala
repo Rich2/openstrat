@@ -113,7 +113,7 @@ object Statement
     def findSettingElse[A](settingStr: String, elseValue: A)(using Unshow[A]): A = findSetting[A](settingStr).getOrElse(elseValue)
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    def findType[A](using evA: Unshow[A]): Either[ExcFind, A] = statements.mapUniqueSucc(evA.fromStatement(_))
+    def findType[A](using evA: Unshow[A]): Either[FindException, A] = statements.mapUniqueSucc(evA.fromStatement(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
@@ -189,7 +189,7 @@ object Statement
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(using evST: Unshow[KT], ev: Unshow[VT]): VT =
       thisEither.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getOrElse(elseValue) }
 
-    def findType[A](using Unshow[A]): Either[E | ExcFind, A] = thisEither.flatMap(_.findType[A])
+    def findType[A](using Unshow[A]): Either[E | FindException, A] = thisEither.flatMap(_.findType[A])
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */

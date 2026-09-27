@@ -104,9 +104,15 @@ object CodeOutputLines
   def apply(contents: String*): CodeOutputLines = new CodeOutputLines(RArr(), contents.toArr)
 }
 
+/** Directory path attribute. */
+object DirPathAtt extends ClassAtt("DirPath")
+
+/** File path attribute. */
+object FilePathAtt extends ClassAtt("FilePath")
+
 /** Html directory path code element. */
 class HtmlDirPath(val str: String) extends CodeInline
-{ def classAtt: ClassAtt = ClassAtt("path")
+{ def classAtt: ClassAtt = DirPathAtt
   override def contents: RArr[XCon] = RArr(str)
   override def attribs: RArr[HAtt] = RArr(classAtt)
 }

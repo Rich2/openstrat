@@ -19,12 +19,24 @@ case class IdAtt(valueStr: String) extends XAttShort
 
 /** Creates for a "class" XML / HTML attribute." */
 class ClassAtt(val valueStr: String) extends XAttShort
-{ override def name: String = "class"
-}
+{ ThisAtt =>
+  override def name: String = "class"
+  
+  /** Constructs an HTML Div with this CSS class attribute. */
+  def div(contents: XCon*): DivHtml = DivHtml(RArr(this), contents.toRArr)
+  
+  /** CSS rule for this CSS class. */
+  def rule(decs: CssDecBase*): Rule = Rule(decs.toRArr)
+  
+  /** CSS class rule for this CSS attribute. */
+  case class Rule(decsArr: RArr[CssDecBase]) extends CssClassRule
+  { override def cssClass: ClassAtt = ThisAtt
+  }
+}  
 
 object ClassAtt
 { /** Factory apply method for HTML class attribute. */
-  def apply(classStrs: String*): ClassAtt = new ClassAtt(classStrs.mkString(" "))
+  def apply(classStr: String): ClassAtt = new ClassAtt(classStr)
 }
 
 /** rel XML /HTML attribute */

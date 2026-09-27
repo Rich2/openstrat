@@ -7,7 +7,7 @@ object ScalaOSPage extends OpenstratDocPage
 { override def titleStr: String = "Scala Operating System"
   override val fileStemStr: String = "scalaos"
   override def body: BodyHtml = BodyHtml(H1Html("Geom Module"), central)
-  def central: DivHtml = DivHtml.classAtt("central", p1)
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, p1)
 
   val p1 = PHtml("An operating system built from scratch with just a Linux Kernel. Don't know if this project wil ever get anywhere.",
   BashLine("sudo apt install libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm"),

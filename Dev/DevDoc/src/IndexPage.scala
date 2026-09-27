@@ -9,7 +9,7 @@ object IndexPage extends IndexPage
   def topMenu: UlHtml = AppPage.topMenu(AppPage.defaultTopPairs)
   def body: BodyHtml = BodyHtml(topMenu, central)
 
-  def central: DivHtml = DivHtml.classAtt("main", iconsHtml, focus, intro, menu)
+  def central: DivHtml = MainBlockAtt.div(iconsHtml, focus, intro, menu)
 
   def focus: OlSection = OlSection.h2("This project has 3 main focuses", strat, hist, geom1, web1)
   def strat: LiHtml = LiHtml("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
@@ -41,11 +41,11 @@ object IndexPage extends IndexPage
   def dev: LiHtml = LiHtml(AHtml(DevPage, "Documentation"), """Depends on all the other modules. This module is for the use of developer tools and
   |settings and illustrate provide tutorials, and to some extent test the modules core code.""".stripMargin,
     
-  DivHtml.reps(StyleAtt(MarginTBDec(0.5.em)))(AHtml("Documentation/dev.html", "Info for developers here.")),
-  DivHtml(AHtml("Documentation/newdevs.html", "Info for new developers here.")),
-  DivHtml(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")),
-  DivHtml(AHtml("Documentation/postgres.html", "Postgreql Documentation")),
-  DivHtml(AHtml(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
+  DivHtml.style(MarginTBDec(0.25.em))(AHtml("Documentation/dev.html", "Info for developers here.")),
+  DivHtml.style(MarginTBDec(0.25.em))(AHtml("Documentation/newdevs.html", "Info for new developers here.")),
+  DivHtml.style(MarginTBDec(0.25.em))(AHtml("Documentation/tomcat.html", "Apache Tomcat Documentation")),
+  DivHtml.style(MarginTBDec(0.25.em))(AHtml("Documentation/postgres.html", "Postgreql Documentation")),
+  DivHtml.style(MarginTBDec(0.25.em))(AHtml(Victoria2Page, "Documentation"), "Miscellaneous info for Paradox Interactive's Victoria 2.")
   )
 
   def iconsHtml: XmlAsString ="""<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">

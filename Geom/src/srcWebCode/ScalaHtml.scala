@@ -9,9 +9,12 @@ object ScalaHtml
   def apply(str: String): ScalaInline = new ScalaInline(str)
 }
 
+/** Scala Lines CSS class attribute. */
+object ScalaLinesAtt extends ClassAtt("ScalaLines")
+
 /** Html Element for multiple lines of Scala code. */
 class ScalaLinesHtml(val lines: StrArr) extends ScalaHtml, CodeLinesHtml
-{ def classAtt: ClassAtt = ClassAtt("scalalines")
+{ def classAtt: ClassAtt = ScalaLinesAtt
   override def attribs: RArr[HAtt] = RArr(classAtt)
   override def contents: RArr[XCon] = lines.toDivLines
 }
@@ -21,10 +24,13 @@ object ScalaLinesHtml
   def apply(lines: String*): ScalaLinesHtml = new ScalaLinesHtml(lines.toArr)
 }
 
+/** Scala code CSS class attribute. */
+object ScalaAtt extends ClassAtt("scala")
+
 /** Html Scala code element, that can be inlined. */
 class ScalaInline(val str: String) extends ScalaHtml, CodeInline
 { override def contents: RArr[XCon] = RArr(str)
-  def classAtt: ClassAtt = ClassAtt("scala")
+  def classAtt: ClassAtt = ScalaAtt
   override def attribs: RArr[HAtt] = RArr(classAtt)
 }
 
@@ -33,9 +39,12 @@ object ScalaInline
   def apply(str: String): ScalaInline = new ScalaInline(str)
 }
 
+/** Sbt build tool CSS class attribute. */
+object SbtAtt extends ClassAtt("sbt")
+
 /** Html Sbt code element. */
 trait SbtHtml extends CodeHtml
-{ def classAtt: ClassAtt = ClassAtt("sbt")
+{ def classAtt: ClassAtt = SbtAtt
   override def attribs: RArr[HAtt] = RArr(classAtt)
 }
 

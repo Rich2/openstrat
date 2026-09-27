@@ -8,7 +8,7 @@ object NewDevsPage extends DevPageBase
   override def fileStemStr: String = "newdevs"
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, jsScriptStd)
 
-  def central: DivHtml = DivHtml.classAtt("central", contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
+  def central: DivHtml = CentreBlockAtt.div(contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
     sublime, sshServer, vlcSect)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not

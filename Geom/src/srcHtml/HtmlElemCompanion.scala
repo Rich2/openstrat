@@ -10,6 +10,9 @@ trait HtmlElemCompanion[T, CT >: String <: XCon]
    * class. */
   def apply(contents: CT*):T = apply(RArr[HAtt](), fRepeat(contents))
 
+  /** Factory apply method for creating HTML method of given type with no attributes. */
+  def apply(contents: RArr[CT]): T = apply(RArr[HAtt](), contents)
+
   /** Factory apply method for creating HTML method of given type from repeat contents parameters and repeat attribute parameters in a second parameter list. */
   def reps(attribs: HAtt*)(contents: CT*): T = apply(attribs.toRArr, fRepeat(contents))
   
@@ -19,11 +22,14 @@ trait HtmlElemCompanion[T, CT >: String <: XCon]
   /** Utility method to this base trait to convert repeat content parameters to an [[RArr]]. */
   def fRepeat: Seq[CT] => RArr[CT]
 
+  /** Factory method to create an HTML element with a Style attribute. */
+  def style(decs: CssDecBase | CssRule*)(contents: CT*): T = apply(RArr(StyleAtt(decs.toRArr)), fRepeat(contents))
+
   /** Factory method to create an HTML element of the given type with an ID attribute. */
   def id(id: String, contents: CT*): T = apply(RArr(IdAtt(id)), fRepeat(contents))
 
   /** Creates an HTML element of the given type with a class attribute. */
-  def classAtt(id: String, contents: CT*): T = apply(RArr(ClassAtt(id)), fRepeat(contents))
+  def classAtt(cssClass: ClassAtt, contents: CT*): T = apply(RArr(cssClass), fRepeat(contents))
 
   /** Factory method for creating HTML span element with a Style attribute with a colour declaration. */
   def colour(colour: Colour, contents: CT*): T = apply(RArr(StyleAtt(ColourDec(colour))), fRepeat(contents))

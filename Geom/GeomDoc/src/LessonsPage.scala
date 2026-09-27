@@ -8,5 +8,5 @@ object LessonsPage extends HtmlPageFile
   override val fileStemStr: String =  "lessons"
   override def head: HeadHtml = headCss("documentation")
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
-  def central: DivHtml = DivHtml.classAtt("central", "Some text", CanvasHtml(), "Some more text")
+  def central: DivHtml = DivHtml.classAtt(CentreBlockAtt, "Some text", CanvasHtml(), "Some more text")
 }
