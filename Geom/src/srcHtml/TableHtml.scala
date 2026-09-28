@@ -69,9 +69,11 @@ case class ThHtml(attribs: RArr[HAtt], contents: RArr[XConInedit]) extends CellH
 { override def tagName: String = "th"
 }
 
-object ThHtml
+object ThHtml extends HtmlTag
 { /** Factory apply method to construct HTML TH table header cell element form a simple [[String]]. */
   def apply(contents: XConInedit*): ThHtml = new ThHtml(RArr(), contents.toRArr)
+
+  override def tag: String = "th"
 }
 
 /** HTML TD table data cell element. */
@@ -79,7 +81,9 @@ case class TdHtml(contents: RArr[XCon], attribs: RArr[HAtt]) extends CellHtml
 { override def tagName: String = "td"
 }
 
-object TdHtml
+object TdHtml extends HtmlTag
 { /** Factory apply method to construct HTML TD table data cell element form a simple [[String]]. */
   def apply(str: String) = new TdHtml(RArr(str), RArr())
+  
+  override def tag: String = "td"
 }

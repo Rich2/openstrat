@@ -5,6 +5,12 @@ package ostrat; package pweb
 trait CssSelector
 { /** The CSS code output. */
   def cssOut: String
+
+  final def > (child: CssSelector): CssChildSel = CssChildSel(this, child)
+  
+  final def rule(decs: RArr[CssDecBase]): CssRule = CssRule(RArr(this), decs)
+
+  final def rule(decs: CssDecBase*): CssRule = CssRule(RArr(this), decs.toRArr)
 }
 
 object CssSelector
@@ -16,54 +22,20 @@ object CssSelector
 /** CSS rule selector that is not a child or a descendent. */
 trait CssSimpleSel extends CssSelector
 {
-  def > (child: SelSimpleOrStr): CssChildSel
+  
 }
 
 trait HtmlTag extends CssSelector
-{
+{ /** The HTML tag. */
   def tag: String
+  
   override def cssOut: String = tag
 }
 
-/** CSS selector or [[String]] that can be used for selector. */
-type SelOrStr = CssSelector | String
-
-extension (inp: SelOrStr)
-{
-  def outStr: String = inp match {
-    case cs: CssSelector => cs.cssOut
-    case s: String => s
-  }
+case class CssChildSel(parent: CssSelector, child: CssSelector) extends CssSelector
+{ override def cssOut: String = parent.cssOut -- ">" -- child.cssOut
 }
 
-type SelSimpleOrStr = CssSimpleSel | String
-
-/** CSS rule selector for HTML tag type. */
-case class CssTagSel(cssOut: String) extends CssSimpleSel
-{
-  override def >(child: SelSimpleOrStr): TagChildSel = TagChildSel(this, child)
+case class CssDescentSel(ancestor: CssSelector, descendent: CssSelector) extends CssSelector
+{ override def cssOut: String = ancestor.cssOut -- descendent.cssOut
 }
-
-/** CSS rule selector for a CSS class. */
-/*case class CssClassSel(tailStr: String) extends CssSimpleSel
-{ override def cssOut: String = "," + tailStr
-  override def >(child: SelSimpleOrStr): ClassChildSel = ClassChildSel(this, child)
-}*/
-
-/** CSS rule selector for a CSS ID. */
-case class CssIdSel(tailStr: String) extends CssSimpleSel
-{ override def cssOut: String = "#" + tailStr
-  override def >(child: SelSimpleOrStr): IdChildSel = IdChildSel(this, child)
-}
-
-trait CssChildSel extends CssSelector
-{ def parent: SelSimpleOrStr
-  def child: SelSimpleOrStr
-  override def cssOut: String = parent.outStr -- ">" -- child.outStr
-}
-
-case class TagChildSel(parent: CssTagSel | String, child: SelSimpleOrStr) extends CssChildSel
-
-case class ClassChildSel(parent: /*CssClassSel |*/ String, child: SelSimpleOrStr) extends CssChildSel
-
-case class IdChildSel(parent: CssIdSel | String, child: SelSimpleOrStr) extends CssChildSel

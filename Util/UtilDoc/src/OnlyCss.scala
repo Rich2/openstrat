@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pweb.*, Colour.*
+import pweb.*, Colour.*, wcode.*
 
 
 object TopMenuAtt extends IdAtt("topmenu")
@@ -12,7 +12,7 @@ trait CssOpenstrat extends CssRulesFile
   def minMed: CssMedia = new MediaMinWidth(50.em)
   {
     override def rules: RArr[CssRule] = RArr(
-      CssIDRule("topmenu li", InlineBlockDec, BGColourDec(Colour(0xFFDDDDDD)), PaddingDec(0.2.em), BorderDec(SolidCss(Yellow))),
+      CssRuleDescent(TopMenuAtt, LiHtml, InlineBlockDec, BGColourDec(Colour(0xFFDDDDDD)), PaddingDec(0.2.em), BorderDec(SolidCss(Yellow))),
       TopMenuAtt.rule(DecAlignCen, MaxWidthDec(100.em)),
       BottomMenuAtt.rule(DispNoneDec)
     )
@@ -25,18 +25,18 @@ object OnlyCss extends CssOpenstrat
   
   /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(BodyRule(DispFlexDec, DecMinHeight(98.vh), DecFlexDirnCol),
-    CssButton(FontSizeDec(1.5.em)),
-    CssIDRule("footer", DecAlignCen, MarginDec(0.8.em), ColourDec(FireBrick)),
-    CssRule("ul, ol, p", MaxWidthDec(68.em), MarginLRAutoDec),
-    CssP(MarginTBDec(0.5.em)),
-    CssH1(DecAlignCen),
-    CssCanvas(DecWidth(100.vw), DecHeight(100.vh), BlockDec), minMed, maxMed)
+    ButtonRule(FontSizeDec(1.5.em)),
+    BottomMenuAtt.rule(DecAlignCen, MarginDec(0.8.em), ColourDec(FireBrick)),
+    CssRuleMulti(UlHtml, OlHtml, PHtml)(MaxWidthDec(68.em), MarginLRAutoDec),
+    PRule(MarginTBDec(0.5.em)),
+    H1Rule(DecAlignCen),
+    CanvasRule(DecWidth(100.vw), DecHeight(100.vh), BlockDec), minMed, maxMed)
 
   def maxMed: CssMedia = new CssMedia("max-width: 50em")
   {
     override def rules: RArr[CssRule] = RArr(
-      CssIDRule("topmenu", DispNoneDec),
-      CssIDRule("bottommenu li", InlineBlockDec, BGColourDec(Colour(0xFFDDDDDD)), PaddingDec(0.2.em), BorderDec("0.2em solid Green")),
+      CssRule(TopMenuAtt, DispNoneDec),
+      CssRuleDescent(BottomMenuAtt, LiHtml, InlineBlockDec, BGColourDec(Colour(0xFFDDDDDD)), PaddingDec(0.2.em), BorderDec("0.2em solid Green")),
     )
   }
 }

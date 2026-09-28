@@ -6,6 +6,10 @@ trait SpanHtml extends HtmlElem
 { override def tagName = "span"
 }
 
+object SpanHtml extends HtmlTag
+{ override def tag: String = "span"
+}
+
 /** HTML inline-block span element, that is inlined in the editor. */
 trait SpanInlineBlock extends SpanHtml, HtmlInlineBlocked
 
@@ -35,6 +39,7 @@ object SpanInlineInedit extends HtmlIneditCompanion[SpanInlineInedit]
   case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInlineInedit
 }
 
+/** HTML Span element with colour set to Pink. */
 case class PinkSpan(str: String) extends SpanInlineInedit
 { override def attribs: RArr[HAtt] = RArr(StyleAtt(ColourDec(Colour.Pink)))
   override def contents: RArr[XCon] = RArr(str)

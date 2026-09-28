@@ -6,6 +6,19 @@ trait CodeHtml extends HtmlUnvoid
 { override def tagName: String = "code"
 }
 
+object CodeHtml extends HtmlTag
+{ override def tag: String = "code"
+}
+
+case class CodeRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = CodeHtml
+}
+
+object CodeRule
+{
+  def apply(decs: CssDecBase*): CodeRule = new CodeRule(decs.toRArr)
+}
+
 /** A multi line, HTML, code element */
 trait CodeLinesHtml extends CodeHtml, HtmlTagLines
 

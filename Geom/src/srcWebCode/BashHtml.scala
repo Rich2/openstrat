@@ -50,6 +50,15 @@ object BashInline
  * command is being launched from. */
 object BashPromptAtt extends ClassAtt("BashPrompt")
 
+case class BashPromptRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = BashPromptAtt
+}
+
+object BashPromptRule
+{
+  def apply(decs: CssDecBase*): BashPromptRule = new BashPromptRule(decs.toRArr)
+}
+
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
 class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
 { override def attribs: RArr[HAtt] = BashPromptAtt %: otherAttribs
@@ -61,17 +70,17 @@ object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
 }
 
 /** CSS rule for Bash prompt. */
-class BashPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
+/*class BashPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
 { override def cssClass: ClassAtt = BashPromptAtt
-}
+}*/
 
-object BashPromptCssRule
+/*object BashPromptCssRule
 { /** Factory apply method to construct a CSS class rule for Bash prompts. There is an apply name overload that takes the declarations as repeat parameters. */
   def apply(decsArr: RArr[CssDecBase]): BashPromptCssRule = new BashPromptCssRule(decsArr)
 
   /** Factory apply method to construct a CSS class rule for Bash prompts. There is an apply name overload that takes the declarations as an [[RArr]]. */
   def apply(decs: CssDecBase*): BashPromptCssRule = new BashPromptCssRule(decs.toRArr)
-}
+}*/
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
@@ -90,6 +99,6 @@ object BashWithPromptMulti
   def apply(strs: String*): BashWithPromptMulti = new BashWithPromptMulti(strs.toArr, RArr())
 }
 
-case class BashCssClassRule(decsArr: RArr[CssDecBase]) extends CssClassRule
+/*case class BashCssClassRule(decsArr: RArr[CssDecBase]) extends CssClassRule
 { override def cssClass: ClassAtt = BashAtt
-}
+}*/

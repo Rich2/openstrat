@@ -27,6 +27,15 @@ object PsqlLine extends HtmlIneditCompanion[PsqlLine]
  * in. */
 object PsqlPromptAtt extends ClassAtt("PsqlPrompt")
 
+case class PsqlPromptRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = PsqlPromptAtt
+}
+
+object PsqlPromptRule
+{
+  def apply(decs: CssDecBase*): PsqlPromptRule = new PsqlPromptRule(decs.toRArr)
+}
+
 /** A span set to cover a Psql prompt. This allows the prompt to be in a different colour to the Psql commands. */
 class PsqlPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
 { override def attribs: RArr[HAtt] = PsqlPromptAtt %: otherAttribs
@@ -38,14 +47,14 @@ object PsqlPromptSpan extends HtmlIneditCompanion[PsqlPromptSpan]
 }
 
 /** CSS rule for psql prompt. */
-class PsqlPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
+/*class PsqlPromptCssRule(val decsArr: RArr[CssDecBase]) extends CssClassRule
 { override def cssClass: ClassAtt = PsqlPromptAtt
-}
+}*/
 
-object PsqlPromptCssRule
+/*object PsqlPromptCssRule
 { /** Factory apply method to construct a CSS class rule for psql prompts. There is an apply name overload that takes the declarations as repeat parameters. */
   def apply(decsArr: RArr[CssDecBase]): PsqlPromptCssRule = new PsqlPromptCssRule(decsArr)
 
   /** Factory apply method to construct a CSS class rule for psql prompts. There is an apply name overload that takes the declarations as an [[RArr]]. */
   def apply(decs: CssDecBase*): PsqlPromptCssRule = new PsqlPromptCssRule(decs.toRArr)
-}
+}*/

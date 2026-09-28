@@ -9,22 +9,24 @@ object CssDocumentation extends CssOpenstrat
   object LexicalAtt extends ClassAtt("lexical")
 
   val newRules: RArr[CssRuleLike] = RArr(
-    BodyRule(BGColourDec(Ivory), FontSizeDec(18.px)), CssH1(TextCentreDec, FontSizeDec(44.px)), CssP(DecAlignJus),
+    BodyRule(BGColourDec(Ivory), FontSizeDec(18.px)),
+    H1Rule(TextCentreDec, FontSizeDec(44.px)),
+    PRule(DecAlignJus),
     MainBlockAtt.rule(MaxWidthDec(68.em), MarginLRAutoDec),
     LexicalAtt.rule(BGColourDec(White), ColourDec(DarkBlue)),
-    CssMultiRule("code", TagChildSel("code", "span"), TagChildSel("code", "div"))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White),
+    CssRuleMulti(CodeHtml, CssChildSel(CodeHtml, SpanHtml), CssChildSel(CodeHtml, DivHtml))(FontSizeDec(14.px), BGColourDec(Black), ColourDec(White),
       PadBottomDec(0.1.em)),
-    CssMultiRule(".output", ClassChildSel(".output", "div"))(BGColourDec(Black), ColourDec(Pink)),
+    CssRuleMulti(CodeOutputAtt, CssChildSel(CodeOutputAtt, DivHtml))(BGColourDec(Black), ColourDec(Pink)),
     SbtAtt.rule(BGColourDec(Black), ColourDec(LightGreen)),
     DirPathAtt.rule(BGColourDec(Black), ColourDec(LightBlue)),
     FilePathAtt.rule(BGColourDec(White), ColourDec(DarkBlue), NoWrapDec),
-    CssCode(MarginTBDecs(0.25.rem)),
-    BashPromptCssRule(BGColourDec(Black), ColourDec(Pink)),
-    PsqlPromptCssRule(BGColourDec(Black), ColourDec(LightGreen)),
+    CodeRule(MarginTBDecs(0.25.rem)),
+    BashPromptRule(BGColourDec(Black), ColourDec(Pink)),
+    PsqlPromptRule(BGColourDec(Black), ColourDec(LightGreen)),
     ScalaLinesAtt.rule(BGColourDec(Black), ColourDec(White), NoWrapDec),
     ScalaAtt.rule(BGColourDec(White), ColourDec(DarkRed), NoWrapDec, DecBold),
-    CssRule("td th", PadRightDec(2.em), DecAlignLeft),
-    CssRule("h1, h2. h3, h4, h5, h6", MarginTBDec(0.67.em)),
+    CssRuleDescent(TdHtml, ThHtml, PadRightDec(2.em), DecAlignLeft),
+    CssRuleMulti(H1Html, H2Html, H3Html, H4Html, H5Html, H6Html)(MarginTBDec(0.67.em)),
     minMed
   )
 

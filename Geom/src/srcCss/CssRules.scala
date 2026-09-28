@@ -2,8 +2,8 @@
 package ostrat; package pweb
 
 /** CSS rule for the body. */
-case class BodyRule(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "body"
+case class BodyRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = BodyHtml
 }
 
 object BodyRule
@@ -12,100 +12,26 @@ object BodyRule
 }
 
 /** CSS rule for HTML p paragraphs. */
-case class CssP(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "p"
+case class PRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = PHtml
 }
 
-object CssP
-{ /** Factory apply method for CSS rule for p. */
-  def apply(props: CssDecBase*): CssP = new CssP(props.toArr)
+object PRule
+{ /** Factory apply method for CSS rule for p HTML paragraph elements. */
+  def apply(props: CssDecBase*): PRule = new PRule(props.toArr)
 }
 
-/** CSS rule for HTML canvas. */
-case class CssCanvas(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "canvas"
+/** CSS rule for HTML li list item. */
+case class LiRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = LiHtml
 }
 
-object CssCanvas
-{ /** Factory apply method for CSS rule for p. */
-  def apply(props: CssDecBase*): CssCanvas = new CssCanvas(props.toArr)
+/** CSS rule for HTML h1 header elements. */
+case class H1Rule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = H1Html
 }
 
-/** CSS rule for the H1 header. */
-case class CssH1(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "h1"
-}
-
-object CssH1
-{ /** Factory apply method for CSS rule for H1 headers. */
-  def apply(props: CssDecBase*): CssH1 = new CssH1(props.toArr)
-}
-
-/** CSS rule for OL ordered lists. */
-case class CssOl(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "ol"
-}
-
-object CssOl
-{ /** Factory apply method for CSS rule for the OL ordered list. */
-  def apply(props: CssDecBase*): CssOl = new CssOl(props.toArr)
-}
-
-/** CSS rule for code. */
-case class CssCode(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "code"
-}
-
-object CssCode
-{ /** Factory apply method for CSS rule for code. */
-  def apply(props: CssDecBase*): CssCode = new CssCode(props.toArr)
-}
-
-/** CSS rule for code. */
-case class CssSvg(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "svg"
-}
-
-object CssSvg
-{ /** Factory apply method for CSS rule for code. */
-  def apply(props: CssDecBase*): CssSvg = new CssSvg(props.toArr)
-}
-
-/** CSS rule for classes. */
-trait CssClassesRule extends CssRule
-{ def classStr: String
-  override def selecStr: String = "." + classStr
-}
-
-object CssClassesRule
-{ /** Factory apply method to create rule for single CSS class with [[RArr]] of [[CssDecBase]]. There is a name overload which takes repeat parameters of [[CssDecBase]]. */
-  def apply(classStr: String, props: RArr[CssDecBase]): CssClassesRule = CssClassesRuleGen(classStr, props)
-
-  /** Factory apply method to create rule for single CSS class with [[RArr]] of [[CssDecBase]]. There is a name overload which takes an [[RArr]] of [[CssDecBase]]. */
-  def apply(classStr: String, props: CssDecBase*): CssClassesRule = CssClassesRuleGen(classStr, props.toArr)
-
-  case class CssClassesRuleGen(classStr: String, decsArr: RArr[CssDecBase]) extends CssClassesRule
-}
-
-/** CSS rule for IDs. */
-class CssIDRule(val idStr: String, val decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "#" + idStr
-}
-
-object CssIDRule
-{ /** Factory apply method to create rule for single CSS ID with [[RArr]] of [[CssDecBase]]. There is a name overload which takes repeat parameters of [[CssDecBase]]. */
-  def apply(classStr: String, props: RArr[CssDecBase]): CssIDRule = new CssIDRule(classStr, props)
-
-  /** Factory apply method to create rule for single CSS ID with [[RArr]] of [[CssDecBase]]. There is a name overload which takes an [[RArr]] of [[CssDecBase]]. */
-  def apply(classStr: String, props: CssDecBase*): CssIDRule = new CssIDRule(classStr, props.toArr)
-}
-
-/** CSS rule for button. */
-case class CssButton(decsArr: RArr[CssDecBase]) extends CssRule
-{ override def selecStr: String = "button"
-}
-
-object CssButton
-{ /** Factory apply method for CSS rule for the HTML button. */
-  def apply(props: CssDec*): CssButton = new CssButton(props.toArr)
+object H1Rule
+{ /** Factory apply method for CSS rule for h1 HTML header elements. */
+  def apply(props: CssDec*): H1Rule = new H1Rule(props.toArr)
 }

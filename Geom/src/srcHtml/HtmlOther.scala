@@ -68,9 +68,11 @@ case class H1Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { override def tagName = "h1"
 }
 
-object H1Html
+object H1Html extends HtmlTag
 { /** HTML h1 header element. */
   def apply(contents: XCon*): H1Html = new H1Html(RArr(), contents.toRArr)
+  
+  override def tag: String = "h1"
 }
 
 /** HTML h2 header element. */
@@ -78,9 +80,11 @@ case class H2Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h2"
 }
 
-object H2Html
+object H2Html extends HtmlTag
 { /** HTML h2 header element. */
   def apply(contents: XCon*): H2Html = new H2Html(RArr(), contents.toRArr)
+
+  override def tag: String = "h2"
 }
 
 /** Html H3 header element. */
@@ -88,9 +92,11 @@ case class H3Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h3"
 }
 
-object H3Html
+object H3Html extends HtmlTag
 { /** HTML h3 header element. */
   def apply(contents: XCon*): H3Html = new H3Html(RArr(), contents.toRArr)
+
+  override def tag: String = "h3"
 }
 
 /** Html H4 header element. */
@@ -98,9 +104,11 @@ case class H4Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h4"
 }
 
-object H4Html
+object H4Html extends HtmlTag
 { /** HTML h1 header element. */
   def apply(contents: XCon*): H4Html = new H4Html(RArr(), contents.toRArr)
+
+  override def tag: String = "h4"
 }
 
 /** Html H4 header element. */
@@ -108,9 +116,11 @@ case class H5Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h5"
 }
 
-object H5Html
+object H5Html extends HtmlTag
 { /** HTML h1 header element. */
   def apply(contents: XCon*): H5Html = new H5Html(RArr(), contents.toRArr)
+
+  override def tag: String = "h5"
 }
 
 /** Html H4 header element. */
@@ -118,9 +128,11 @@ case class H6Html(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwnLine
 { def tagName = "h6"
 }
 
-object H6Html
+object H6Html extends HtmlTag
 { /** HTML h6 header element. */
   def apply(contents: XCon*): H6Html = new H6Html(RArr(), contents.toRArr)
+
+  override def tag: String = "h2"
 }
 
 /** HTML button element. */
@@ -128,7 +140,18 @@ case class ButtonHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwn
 { override def tagName = "button"
 }
 
-object ButtonHtml
+object ButtonHtml extends HtmlTag
 { /** Factory apply method to create HTML button element. */
   def apply(contents: XCon*): ButtonHtml = new ButtonHtml(RArr(SubmitTypeAtt), contents.toRArr)
+
+  override def tag: String = "button"
+}
+
+case class ButtonRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{  override def selector: CssSelector = ButtonHtml
+}
+
+object ButtonRule
+{
+  def apply(decs: CssDecBase*): ButtonRule = new ButtonRule(decs.toRArr)
 }

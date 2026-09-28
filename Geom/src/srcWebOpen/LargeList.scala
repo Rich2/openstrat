@@ -1,12 +1,12 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package osweb
 
-object ListLargeRule extends CssClassRule{
-  override def cssClass: ClassAtt = LargeListAtt
+object ListLargeRule extends CssRule1
+{ override def selector: CssSelector = LargeListAtt
   override def decsArr: RArr[CssDecBase] = RArr(PadLeftDec (1.em))
 }
 
-val liLargeRule: CssChildRule = ListLargeRule.child("li", MarginTBDec(1.em))
+val liLargeRule: CssRule = CssRule(LargeListAtt > LiHtml, MarginTBDec(1.em))
 
 /** LargeList class attribute. */
 object LargeListAtt extends ClassAtt("LargeList")

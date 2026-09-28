@@ -11,13 +11,11 @@ trait CssRuleLike extends XConCompound
 
 /** CSS Rule consisting of selector plus a set of declarations. */
 trait CssRule extends CssRuleLike
-{ /** The selector [[String]] for the CSS rule. */
-  def selecStr: SelOrStr
-
-  def selecStr2: String = selecStr.outStr
-
-  /** The CSS declarations of this rule. */
+{ /** The declarations for this CSS rule. */
   def decsArr: RArr[CssDecBase]
+
+  /** The selector [[String]] for the CSS rule. */
+  def selecStr: String
 
   /** The inner [[String]] of this rule's declarations. */
   def decsStr(indent: Int = 0): String =
@@ -31,14 +29,14 @@ trait CssRule extends CssRuleLike
   }
 
   override def isMultiLine: Boolean = decsArr.flatMap(_.decs).length > 2
-  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = selecStr2 + decsStr(indent)
+  override def out(indent: Int = 0, line1InputLen: Int = 0, maxLineLen: Int = MaxLineLen): String = selecStr + decsStr(indent)
   
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int): TextLines =
   { val decs: RArr[CssDec] = decsArr.flatMap(_.decs)
     decs.length match
-    { case 0 => TextLines(selecStr2 -- "{}")
+    { case 0 => TextLines(selecStr -- "{}")
       case 1 =>
-      { val str = selecStr2 -- s" { ${decs.head.out} }"
+      { val str = selecStr -- s" { ${decs.head.out} }"
         TextLines(str)
       }
       case 2 =>
@@ -54,54 +52,74 @@ trait CssRule extends CssRuleLike
 }
 
 object CssRule
-{ /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as repeat parameters. */
-  def apply(selec: String, decs: RArr[CssDecBase]): CssRule = CssRuleGen(selec, decs)
+{ /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
+  def apply(selector: CssSelector, decArr: RArr[CssDecBase]): CssRule = CssRule1(selector, decArr)
 
   /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
-  def apply(selec: SelOrStr, decs: CssDecBase*): CssRule = CssRuleGen(selec, decs.toArr)
+  def apply(selector: CssSelector, decs: CssDecBase*): CssRule = CssRule1(selector, decs.toArr)
 
-  /** General case for CSS Rule consisting of selector plus a set of declarations. */
-  case class CssRuleGen(selecStr: SelOrStr, decsArr: RArr[CssDecBase]) extends CssRule
+  /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
+  def apply(selectors: RArr[CssSelector], decArr: RArr[CssDecBase]): CssRule = CssRuleMulti(selectors, decArr)
 }
 
+trait CssRule1 extends CssRule
+{ /** The selector for this CSS rule. */
+  def selector: CssSelector
 
-/** CSS class rule. */
-case class ClassRule(selector: ClassAtt, decsArr: RArr[CssDecBase]) extends CssRule
-{ //override def cssClass: ClassAtt = ThisAtt
-  override def selecStr: String = selector.cssOut //c"." + classStr
+  final override def selecStr: String = selector.cssOut
 }
 
-/** CSS Id rule. */
-case class IdRule(selector: IdAtt, decsArr: RArr[CssDecBase]) extends CssRule
-{ //override def cssClass: ClassAtt = ThisAtt
-  override def selecStr: String = selector.cssOut //c"." + classStr
+object CssRule1
+{
+  def apply(selector: CssSelector, decsArr: RArr[CssDecBase]): CssRule1 = new CssRule1Gen(selector, decsArr)
+
+  def apply(selector: CssSelector, decs: CssDecBase*): CssRule1 = new CssRule1Gen(selector, decs.toRArr)
+
+  case class CssRule1Gen(selector: CssSelector, decsArr: RArr[CssDecBase]) extends CssRule1
 }
 
-trait CssSingleRule extends CssRule
+case class CssRuleMulti(selectors: RArr[CssSelector], decsArr: RArr[CssDecBase]) extends CssRule
+{ final override def selecStr: String = selectors.mkStr(_.cssOut, ", ")
+}
+
+object CssRuleMulti
+{ /** Factory apply method for CSS rule with . There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
+  def apply(selectors: CssSelector*)(decs: CssDecBase*): CssRuleMulti = new CssRuleMulti(selectors.toRArr, decs.toArr)
+}
+
+case class CssRuleDescent(ancestor: CssSelector, descendent: CssSelector, decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssDescentSel = CssDescentSel(ancestor, descendent)
+}
+
+object CssRuleDescent
+{
+  def apply(ancestor: CssSelector, descendent: CssSelector, decs: CssDecBase*): CssRuleDescent = new CssRuleDescent(ancestor, descendent, decs.toRArr)
+}
+
 
 /** A CSS rule with a single selector that is not a child or a descendent selector */
-trait CssAdultRule extends CssSingleRule
+//trait SelectorAdult extends CssSelector
 
-class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecBase]) extends CssSingleRule
+/*class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecBase]) extends CssSingleRule
 { /** The selector [[String]] for the CSS rule. */
   override def selecStr: String = parent.outStr -- ">" -- child.outStr
-}
+}*/
 
-object CssChildRule
+/*object CssChildRule
 { /** Factory apply method to construct a CSS rule with a Child selector. */
   def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: RArr[CssDecBase]): CssChildRule = new CssChildRule(parent, child, decs)
 
   /** Factory apply method to construct a CSS rule with a Child selector. */
   def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: CssDecBase*): CssChildRule = new CssChildRule(parent, child, decs.toArr)
-}
+}*/
 
 /** CSS rule with multiple selectors. */
-class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecBase]) extends CssRule
+/*class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecBase]) extends CssRule
 { /** The selector [[String]] for the CSS rule. */
   override def selecStr: CssSelector | String = selectors.mkStr(_.outStr, ", ")
-}
+}*/
 
-object CssMultiRule
+/*object CssMultiRule
 { /** Factory apply method for CSS rule with multiple selectors. */
   def apply(sel0: SelOrStr, others: SelOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
-}
+}*/

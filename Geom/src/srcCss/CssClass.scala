@@ -12,7 +12,7 @@ class ClassAtt(val valueStr: String) extends XAttShort, CssSelector
   def div(contents: XCon*): DivHtml = DivHtml(RArr(this), contents.toRArr)
 
   /** CSS rule for this CSS class. */
-  def rule(decs: CssDecBase*): ClassRule = ClassRule(this, decs.toRArr)
+  //def rule(decs: CssDecBase*): ClassRule = ClassRule(this, decs.toRArr)
 }
 
 object ClassAtt
@@ -21,7 +21,7 @@ object ClassAtt
 }
 
 /** CSS class rule. */
-trait CssClassRule extends CssRule
+/*trait CssClassRule extends CssRule
 {
   def cssClass: ClassAtt
 
@@ -31,9 +31,9 @@ trait CssClassRule extends CssRule
   override def selecStr: String = "." + classStr
   def child(childSel: SelSimpleOrStr, decsArr: RArr[CssDecBase]): CssChildRule = CssChildRule(selecStr, childSel, decsArr)
   def child(childSel: SelSimpleOrStr, decs: CssDecBase*): CssChildRule = CssChildRule(selecStr, childSel, decs.toRArr)
-}
+}*/
 
-object CssClassRule
+/*object CssClassRule
 { /** Factory apply method to construct a CSS class rule. There is an apply name overload that takes CSS declarations as repeat parameters. */
   def apply(cssClass: ClassAtt, decsArr: RArr[CssDecBase]): CssClassRule = CssClassRuleGen(cssClass, decsArr)
 
@@ -42,4 +42,4 @@ object CssClassRule
 
   /** implementation class for the general case of a CSS class rule. */
   case class CssClassRuleGen(cssClass: ClassAtt, decsArr: RArr[CssDecBase]) extends CssClassRule
-}
+}*/

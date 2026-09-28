@@ -16,9 +16,6 @@ case class XmlAttGen(name: String, valueStr: String) extends XAttShort
 case class IdAtt(valueStr: String) extends XAttShort, CssSelector
 { override def name: String = "id"
   override def cssOut: String = "#" + valueStr
-
-  /** CSS rule for this CSS class. */
-  def rule(decs: CssDecBase*): IdRule = IdRule(this, decs.toRArr)
 }
 
 /** rel XML /HTML attribute */

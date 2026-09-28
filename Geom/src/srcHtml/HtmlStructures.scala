@@ -6,12 +6,23 @@ case class CanvasHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwn
 { override def tagName: String = "canvas"
 }
 
-object CanvasHtml
+object CanvasHtml extends HtmlTag
 { /** Constructs an HTML canvas with an id attribute. */
   def id(idStr: String): CanvasHtml = new CanvasHtml(RArr(IdAtt(idStr)), RArr())
 
   /** Factory apply method for an HTML Canvas. */
   def apply(): CanvasHtml = new CanvasHtml(RArr(), RArr())
+  
+  override def tag: String = "canvas"
+}
+
+case class CanvasRule(decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssSelector = CanvasHtml
+}
+
+object CanvasRule
+{
+  def apply(decs: CssDecBase*): CanvasRule = new CanvasRule(decs.toRArr)
 }
 
 /** HTML P paragraph element. */
@@ -23,7 +34,7 @@ trait PHtml extends HtmlOwnLine
   override def toString: String = s"HtmlP $textLen characters, $attribsLen attributes"
 }
 
-object PHtml
+object PHtml extends HtmlTag
 { /** Factory apply method for creating HTML paragraphs. */
   def apply(attribs: RArr[XAtt], contents: RArr[XCon]) = PHtmlGen(attribs, contents)
 
@@ -35,6 +46,8 @@ object PHtml
 
   /** Factory method for creating HTML paragraphs with an id attribute. There is a name overload that takes the content as repeat parameters. */
   def id(idStr: String, contents: RArr[XCon]): PHtml = PHtmlGen(RArr(IdAtt(idStr)), contents)
+
+  override def tag: String = "p"
 
   /** implementation  class for the general case of HTML P paragraph element. */
   case class PHtmlGen(attribs: RArr[HAtt], contents: RArr[XCon]) extends PHtml

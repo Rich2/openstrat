@@ -7,7 +7,7 @@ trait UlHtml extends HtmlTagLines
 }
 
 /** Companion object for [[UlHtml]] unordered list HTML element class, contains factory apply method with repeat parameters. */
-object UlHtml
+object UlHtml extends HtmlTag
 { /** Factory apply method for HTML UL unordered list. There is an apply name overload for an Unordered list without attributes that takes repeat parameter
    * contents elements. */
   def apply(attribs: RArr[XAtt], contents: RArr[XCon]) = UlHtmlGen(attribs, contents)
@@ -22,6 +22,8 @@ object UlHtml
 
   def noStyle(contents: XCon*): UlHtml = UlHtmlGen(RArr(ListStyleNoneAtt), contents.toArr)
   
+  override def tag: String = "ul"
+
   /** Implementation class for the general case of og [[UlHtml]]. */
   case class UlHtmlGen(attribs: RArr[HAtt], contents: RArr[XCon]) extends UlHtml
 }
@@ -32,7 +34,7 @@ trait OlHtml extends HtmlTagLines
 }
 
 /** Companion object for [[OlHtml]] ordered list HTML element class, contains factory apply method with repeat parameters. */
-object OlHtml
+object OlHtml extends HtmlTag
 { /** Factory apply method for HTML OL ordered list. */
   def apply(contents: XCon*): OlHtml = OlHtmlGen(RArr(), contents.toArr)
 
@@ -47,9 +49,11 @@ object OlHtml
 
   /** Factory method for HTML OL ordered list from [[String]]s. */
   def noSpaceStrs(items: String*): OlHtml =
-  { val style = StyleAtt(CssLi(Margin0Dec, Padding0Dec, BorderNoneDec))
+  { val style = StyleAtt(LiHtml.rule(Margin0Dec, Padding0Dec, BorderNoneDec))
     new OlHtmlGen(RArr(style), items.mapArr(LiHtml(_)))
   }
+
+  override def tag: String = "ol"
 
   case class OlHtmlGen(attribs: RArr[HAtt], contents: RArr[XCon]) extends OlHtml
 }
@@ -60,10 +64,13 @@ class LiHtml(val contents: RArr[XCon], val attribs: RArr[HAtt]) extends HtmlOwnL
 }
 
 /** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
-object LiHtml extends HtmlXConCompanion[LiHtml]
+object LiHtml extends HtmlXConCompanion[LiHtml], HtmlTag
 { /** Factory apply method for HTML LI list element [[LiHtml]] class. */
   override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): LiHtml = new LiHtml(contents, attribs)
 
   /** An HTML list item element that has a link as its sole content. */
   def a(link: FileSystemPath, label: String, attribs: HAtt*): LiHtml = new LiHtml(RArr(AHtml(link.asStr, label)), attribs.toArr)
+
+  /** The HTML tag. */
+  override def tag: String = "li"
 }
