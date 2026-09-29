@@ -51,7 +51,7 @@ object BashInline
 object BashPromptAtt extends ClassAtt("BashPrompt")
 
 case class BashPromptRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = BashPromptAtt
+{ override def selector: CssPartialSelector = BashPromptAtt
 }
 
 object BashPromptRule

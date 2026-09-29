@@ -13,7 +13,7 @@ trait XAttShort extends XAtt
 case class XmlAttGen(name: String, valueStr: String) extends XAttShort
 
 /** Creates for an "id" XML / HTML attribute." */
-case class IdAtt(valueStr: String) extends XAttShort, CssSelector
+case class IdAtt(valueStr: String) extends XAttShort, CssPartialSelector
 { override def name: String = "id"
   override def cssOut: String = "#" + valueStr
 }

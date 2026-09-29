@@ -3,7 +3,7 @@ package ostrat; package pweb
 
 /** CSS rule for the body. */
 case class BodyRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = BodyHtml
+{ override def selector: CssPartialSelector = BodyHtml
 }
 
 object BodyRule
@@ -13,7 +13,7 @@ object BodyRule
 
 /** CSS rule for HTML p paragraphs. */
 case class PRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = PHtml
+{ override def selector: CssPartialSelector = PHtml
 }
 
 object PRule
@@ -23,12 +23,12 @@ object PRule
 
 /** CSS rule for HTML li list item. */
 case class LiRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = LiHtml
+{ override def selector: CssPartialSelector = LiHtml
 }
 
 /** CSS rule for HTML h1 header elements. */
 case class H1Rule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = H1Html
+{ override def selector: CssPartialSelector = H1Html
 }
 
 object H1Rule

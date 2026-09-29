@@ -53,13 +53,13 @@ trait CssRule extends CssRuleLike
 
 object CssRule
 { /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
-  def apply(selector: CssSelector, decArr: RArr[CssDecBase]): CssRule = CssRule1(selector, decArr)
+  def apply(selector: CssPartialSelector, decArr: RArr[CssDecBase]): CssRule = CssRule1(selector, decArr)
 
   /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
-  def apply(selector: CssSelector, decs: CssDecBase*): CssRule = CssRule1(selector, decs.toArr)
+  def apply(selector: CssPartialSelector, decs: CssDecBase*): CssRule = CssRule1(selector, decs.toArr)
 
   /** Factory apply method for CSS rule. There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
-  def apply(selectors: RArr[CssSelector], decArr: RArr[CssDecBase]): CssRule = CssRuleMulti(selectors, decArr)
+  def apply(selectors: RArr[CssPartialSelector], decArr: RArr[CssDecBase]): CssRule = CssRuleMulti(selectors, decArr)
 }
 
 trait CssRule1 extends CssRule
@@ -78,22 +78,22 @@ object CssRule1
   case class CssRule1Gen(selector: CssSelector, decsArr: RArr[CssDecBase]) extends CssRule1
 }
 
-case class CssRuleMulti(selectors: RArr[CssSelector], decsArr: RArr[CssDecBase]) extends CssRule
+case class CssRuleMulti(selectors: RArr[CssPartialSelector], decsArr: RArr[CssDecBase]) extends CssRule
 { final override def selecStr: String = selectors.mkStr(_.cssOut, ", ")
 }
 
 object CssRuleMulti
 { /** Factory apply method for CSS rule with . There is an apply overload where the [[CssDec]]s are passed as an [[RArr]]. */
-  def apply(selectors: CssSelector*)(decs: CssDecBase*): CssRuleMulti = new CssRuleMulti(selectors.toRArr, decs.toArr)
+  def apply(selectors: CssPartialSelector*)(decs: CssDecBase*): CssRuleMulti = new CssRuleMulti(selectors.toRArr, decs.toArr)
 }
 
-case class CssRuleDescent(ancestor: CssSelector, descendent: CssSelector, decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssDescentSel = CssDescentSel(ancestor, descendent)
+case class CssRuleDescent(ancestor: CssPartialSelector, descendent: CssPartialSelector, decsArr: RArr[CssDecBase]) extends CssRule1
+{ override def selector: CssDescendant = CssDescendant(ancestor, descendent)
 }
 
 object CssRuleDescent
 {
-  def apply(ancestor: CssSelector, descendent: CssSelector, decs: CssDecBase*): CssRuleDescent = new CssRuleDescent(ancestor, descendent, decs.toRArr)
+  def apply(ancestor: CssPartialSelector, descendent: CssPartialSelector, decs: CssDecBase*): CssRuleDescent = new CssRuleDescent(ancestor, descendent, decs.toRArr)
 }
 
 

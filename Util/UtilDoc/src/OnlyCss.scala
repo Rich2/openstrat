@@ -2,8 +2,10 @@
 package ostrat; package pDoc
 import pweb.*, Colour.*, wcode.*
 
-
+/** CSS Id attributr for a top of the page menu. */
 object TopMenuAtt extends IdAtt("topmenu")
+
+/** CSS Id attributr for a bottom of the page menu. */
 object BottomMenuAtt extends IdAtt("bottommenu")
 
 /** Common trait for openstrat CSS. */

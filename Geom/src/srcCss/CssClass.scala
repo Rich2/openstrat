@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** Creates for a "class" XML / HTML attribute." */
-class ClassAtt(val valueStr: String) extends XAttShort, CssSelector
+class ClassAtt(val valueStr: String) extends XAttShort, CssPartialSelector
 { ThisAtt =>
   override def name: String = "class"
   

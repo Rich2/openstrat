@@ -148,7 +148,7 @@ object ButtonHtml extends HtmlTag
 }
 
 case class ButtonRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{  override def selector: CssSelector = ButtonHtml
+{  override def selector: CssPartialSelector = ButtonHtml
 }
 
 object ButtonRule

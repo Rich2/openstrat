@@ -17,11 +17,11 @@ object CanvasHtml extends HtmlTag
 }
 
 case class CanvasRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = CanvasHtml
+{ override def selector: CssPartialSelector = CanvasHtml
 }
 
 object CanvasRule
-{
+{ /** Factory apply mrthod to construct a CSS rule for Canvas element. */
   def apply(decs: CssDecBase*): CanvasRule = new CanvasRule(decs.toRArr)
 }
 

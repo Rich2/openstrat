@@ -11,7 +11,7 @@ object CodeHtml extends HtmlTag
 }
 
 case class CodeRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = CodeHtml
+{ override def selector: CssPartialSelector = CodeHtml
 }
 
 object CodeRule

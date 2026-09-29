@@ -28,7 +28,7 @@ object PsqlLine extends HtmlIneditCompanion[PsqlLine]
 object PsqlPromptAtt extends ClassAtt("PsqlPrompt")
 
 case class PsqlPromptRule(decsArr: RArr[CssDecBase]) extends CssRule1
-{ override def selector: CssSelector = PsqlPromptAtt
+{ override def selector: CssPartialSelector = PsqlPromptAtt
 }
 
 object PsqlPromptRule
