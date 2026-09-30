@@ -62,6 +62,7 @@ object CssRule
   def apply(selectors: RArr[CssPartialSelector], decArr: RArr[CssDecBase]): CssRule = CssRuleMulti(selectors, decArr)
 }
 
+/** [[CssRule]] with a single selector. */
 trait CssRule1 extends CssRule
 { /** The selector for this CSS rule. */
   def selector: CssSelector
@@ -70,14 +71,17 @@ trait CssRule1 extends CssRule
 }
 
 object CssRule1
-{
+{ /** Factory apply method to construct a [[CssRule]] with a single selector. */
   def apply(selector: CssSelector, decsArr: RArr[CssDecBase]): CssRule1 = new CssRule1Gen(selector, decsArr)
 
+  /** Factory apply method to construct a [[CssRule]] with a single selector. */
   def apply(selector: CssSelector, decs: CssDecBase*): CssRule1 = new CssRule1Gen(selector, decs.toRArr)
 
+  /** Implementation class for the general case of a [[CssRule1]] a [[CssRule]] with a single selector. */
   case class CssRule1Gen(selector: CssSelector, decsArr: RArr[CssDecBase]) extends CssRule1
 }
 
+/** [[CssRule]] with multiple selectors. */
 case class CssRuleMulti(selectors: RArr[CssPartialSelector], decsArr: RArr[CssDecBase]) extends CssRule
 { final override def selecStr: String = selectors.mkStr(_.cssOut, ", ")
 }
@@ -87,39 +91,12 @@ object CssRuleMulti
   def apply(selectors: CssPartialSelector*)(decs: CssDecBase*): CssRuleMulti = new CssRuleMulti(selectors.toRArr, decs.toArr)
 }
 
+/** [[CssRule]] with a Descendant combinator selector. */
 case class CssRuleDescent(ancestor: CssPartialSelector, descendent: CssPartialSelector, decsArr: RArr[CssDecBase]) extends CssRule1
 { override def selector: CssDescendant = CssDescendant(ancestor, descendent)
 }
 
 object CssRuleDescent
-{
+{ /** Factory apply method to construct [[CssRule]] with a Descendant combinator selector. */
   def apply(ancestor: CssPartialSelector, descendent: CssPartialSelector, decs: CssDecBase*): CssRuleDescent = new CssRuleDescent(ancestor, descendent, decs.toRArr)
 }
-
-
-/** A CSS rule with a single selector that is not a child or a descendent selector */
-//trait SelectorAdult extends CssSelector
-
-/*class CssChildRule(val parent: SelSimpleOrStr, val child: SelSimpleOrStr, val  decsArr: RArr[CssDecBase]) extends CssSingleRule
-{ /** The selector [[String]] for the CSS rule. */
-  override def selecStr: String = parent.outStr -- ">" -- child.outStr
-}*/
-
-/*object CssChildRule
-{ /** Factory apply method to construct a CSS rule with a Child selector. */
-  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: RArr[CssDecBase]): CssChildRule = new CssChildRule(parent, child, decs)
-
-  /** Factory apply method to construct a CSS rule with a Child selector. */
-  def apply(parent: SelSimpleOrStr, child: SelSimpleOrStr, decs: CssDecBase*): CssChildRule = new CssChildRule(parent, child, decs.toArr)
-}*/
-
-/** CSS rule with multiple selectors. */
-/*class CssMultiRule(selectors: RArr[SelOrStr], val decsArr: RArr[CssDecBase]) extends CssRule
-{ /** The selector [[String]] for the CSS rule. */
-  override def selecStr: CssSelector | String = selectors.mkStr(_.outStr, ", ")
-}*/
-
-/*object CssMultiRule
-{ /** Factory apply method for CSS rule with multiple selectors. */
-  def apply(sel0: SelOrStr, others: SelOrStr*)(decs: CssDec*): CssMultiRule = new CssMultiRule(sel0 %: others.toArr, decs.toArr)
-}*/
