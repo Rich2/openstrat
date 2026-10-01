@@ -1,12 +1,13 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb; package osweb
 
+/** A rule for HTML list items of the Large List CSS class. */
 object ListLargeRule extends CssRule1
 { override def selector: CssPartialSelector = LargeListAtt
   override def decsArr: RArr[CssDecBase] = RArr(PadLeftDec (1.em))
 }
 
-val liLargeRule: CssRule = CssRule(LargeListAtt child LiHtml, MarginTBDec(1.em))
+val liLargeRule: CssRule = CssRule(LargeListAtt.child(LiHtml), MarginTBDec(1.em))
 
 /** LargeList class attribute. */
 object LargeListAtt extends ClassAtt("LargeList")

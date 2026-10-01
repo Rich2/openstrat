@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** [[SqCood]] defined [[LSegBase]] [[PairFinalA1Elem]]. */
-class LSegHCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends LSegLikeInt4Pair[HCoord, LSegHC, A2]
+class LSegHCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends LSegInt4Pair[HCoord, LSegHC, A2]
 { /** The first component of this pair. */
   override def a1: LSegHC = new LSegHC(a1Int1, a1Int2, a1Int3, a1Int4)
 }
@@ -13,7 +13,7 @@ object LSegHCPair
 }
 
 class LSegHCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends
-  LSegLikeInt4PairArr[HCoord, LSegHC, LineSegHCArr, A2, LSegHCPair[A2]]
+  ArrLSegInt4Pair[HCoord, LSegHC, LineSegHCArr, A2, LSegHCPair[A2]]
 { override type ThisT = LSegHCPairArr[A2]
   override def typeStr: String = "LineSegHCPair"
   override def a1Arr: LineSegHCArr = new LineSegHCArr(a1ArrayInt)

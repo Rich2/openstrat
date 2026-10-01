@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-class LSegPair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, val a1Dbl4: Double, val a2: A2) extends LSegLikeDbl4Pair[Pt2, LSeg2, A2]
+class LSegPair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, val a1Dbl4: Double, val a2: A2) extends LSegDbl4Pair[Pt2, LSeg2, A2]
 { inline def startX: Double = a1Dbl1
   inline def startY: Double = a1Dbl2
   inline def endX: Double = a1Dbl3
@@ -14,7 +14,7 @@ object LSegPair
 { def apply[A2](ls: LSeg2, a2: A2): LSegPair[A2] = new LSegPair[A2](ls.dbl1, ls.dbl2, ls.dbl3, ls.dbl4, a2)
 }
 
-final class LSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends LSegLikeDbl4PairArr[Pt2, LSeg2, LSeg2Arr, A2, LSegPair[A2]]
+final class LSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends ArrLSegDbl4Pair[Pt2, LSeg2, LSeg2Arr, A2, LSegPair[A2]]
 { override type ThisT = LSegPairArr[A2]
   override def typeStr: String = "LineSeqArrPair"
   override def a1Arr: LSeg2Arr = new LSeg2Arr(a1ArrayDbl)
