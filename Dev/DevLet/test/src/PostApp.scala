@@ -12,12 +12,17 @@ object PostApp
     Either.forboth2(eName, ePass){errs =>
       debvar(errs)
     }{ (name, pWord) =>      
-      postgresConn(name, pWord).foreach{conn0 =>
+      postgresConn(name, pWord).forboth{err =>
+        debvar(err)
+      }{conn0 =>
         given conn: Connection = conn0 
         debvar(conn)
-        val users = Gable("users")                
-        val result = users.insert(RegLogRow("Jane2", "passJane2"))
-        debvar(result)
+        val users = Gable("users")
+        val newRes = users.insert(RegLogRow("Jane2", "passJane2"))
+        newRes.forboth{err =>
+          deb(err.toString)
+          if(err.uniqueFail) println("Unique violation found!")
+        }{g => deb("Success" -- g.str) }
         deb("About to close connection.")
         conn.close()
         deb("Connection closed.")

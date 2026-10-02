@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pStrat
-import Colour._
+import Colour.*
 
-trait Polity extends TellSimple with Coloured
+trait Polity extends TellSimple, Coloured
 { override def typeStr: String = "Polity"
   //  def army(num: Int): BrArmy = BrArmy(this, num)
   // def armyNext()(implicit counters: ArrCounters[Polity]): BrArmy = army(counters(this))

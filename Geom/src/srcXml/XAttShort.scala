@@ -12,12 +12,6 @@ trait XAttShort extends XAtt
 /** Will probably change name to XAttSimple. */
 case class XmlAttGen(name: String, valueStr: String) extends XAttShort
 
-/** Creates for an "id" XML / HTML attribute." */
-case class IdAtt(valueStr: String) extends XAttShort, CssPartialSelector
-{ override def name: String = "id"
-  override def cssOut: String = "#" + valueStr
-}
-
 /** rel XML /HTML attribute */
 case class RelAtt(valueStr: String) extends XAttShort
 { override def name: String = "rel"

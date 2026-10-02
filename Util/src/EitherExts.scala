@@ -4,7 +4,7 @@ import scala.annotation.unchecked.uncheckedVariance, pParse.*, reflect.ClassTag,
 
 /** Extension methods for [[Either]]. */
 implicit class EitherExts[E, A](val thisEither: Either[E, A])
-{
+{ /** Extension method to give a 2 parameter list name overload for fold. */
   def fold[B](fe: E => B)(fa: A => B): B = thisEither match
   { case Left[E, A](err) => fe(err)
     case Right(value) => fa(value)
@@ -20,6 +20,12 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   def flatOptMap[B](f: A => Option[B]): Either[E | ExcNotFound.type, B] = thisEither match
   { case Right(value) => f(value).fld(NotFoundLeft, b => Right(b))
     case Left(err) => Left(err)
+  }
+
+  /** Extension method to give a 2 parameter list name overload for fold. */
+  def forboth[U1, U2](fe: E => U1)(fa: A => U2): Unit = thisEither match
+  { case Left[E, A] (err) => fe(err)
+    case Right(value) => fa(value)
   }
 }
 

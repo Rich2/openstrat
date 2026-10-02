@@ -16,3 +16,9 @@ object ClassAtt
 { /** Factory apply method for HTML class attribute. */
   def apply(classStr: String): ClassAtt = new ClassAtt(classStr)
 }
+
+/** Creates for an "id" XML / HTML attribute." */
+case class IdAtt(valueStr: String) extends XAttShort, CssPartialSelector
+{ override def name: String = "id"
+  override def cssOut: String = "#" + valueStr
+}
