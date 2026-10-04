@@ -127,7 +127,7 @@ lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett).settings(
 )
 
 lazy val GeomFx = projSubName("Geom", "Fx").dependsOn(Geom).settings(
-  libraryDependencies += ("org.openjfx" % "javafx-controls" % "25.0.3").withSources().withJavadoc(),
+  libraryDependencies += ("org.openjfx" % "javafx-controls" % "27").withSources().withJavadoc(),
 )
 
 lazy val GeomLet = projSubName("Geom", "Let").dependsOn(Geom).settings(

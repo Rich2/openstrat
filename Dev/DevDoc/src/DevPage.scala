@@ -33,12 +33,12 @@ object DevPage extends DevPageBase
   
   def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.13, current 0.4.0snap",
     s"Scala: $scVer",
-    "Jdk: 23+ required for JavaFx modules. 25 preferred.",
+    "Jdk: 17+, 25+ required for JavaFx modules.",
     "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
-    "JavaFx: 25.0.3",
-    "Sbt: 2.0.9",
-    "Mill: 1.1.9 with Mill's JDK set to 25."))
+    "JavaFx: 27",
+    "Sbt: 2.0.10",
+    "Mill: 1.1.10 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     LiHtml("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
