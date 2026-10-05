@@ -63,6 +63,7 @@ object PostgresPage extends DevPageBase
     PsqlLine.listenStrText(uNameInp){ uName => """database "$uName" has a collation version mismatch""" },
     DivHtml("then enter"),
     PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(uNameInp){ uName => s"ALTER DATABASE $uName REFRESH COLLATION VERSION;" }),
+    DivHtml(PsqlSpan(userPsqlPrompt, """\l"""), "List databases"),
     DivHtml("To delete table"),
     PsqlLine(userPsqlPrompt, "DROP TABLE", SpanInlineInedit.pink("tableName"), ";"),
     "To delete all rows",

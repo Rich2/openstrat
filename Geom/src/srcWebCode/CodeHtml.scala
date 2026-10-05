@@ -53,7 +53,7 @@ trait CodeInline extends CodeHtml, HtmlInedit
 object CodeInline extends HtmlXConCompanion[CodeInline]
 { override def apply(attribs: RArr[HAtt], contents: RArr[XCon]): CodeInline = new CodeInlineGen(contents, attribs)  
 
-  /** Implementation class for the general casee of [[CodeInline]].  */
+  /** Implementation class for the general case of [[CodeInline]].  */
   case class CodeInlineGen(contents: RArr[XCon], attribs: RArr[HAtt]) extends CodeInline
 }
 

@@ -25,7 +25,7 @@ trait HtmlUnvoid extends HtmlElem
 /** An HTML element that can be inlined. */
 trait HtmlInedit extends HtmlElem, XHmlInedit
 
-case class HtmlElemBuilder(contents: RArr[XCon], attribs: RArr[XAtt])
+case class HtmlElemBuilder(attribs: RArr[XAtt], contents: RArr[XCon])
 {
   def apply[A](builder: HtmlXConCompanion[A]): A = builder.apply(attribs, contents)
 }
@@ -34,6 +34,6 @@ object HtmlElemBuilder
 { /** Creates an HTML element builder and registers the textContent with an HTML Select Input and an HTML number input. */
   def listenOptIntHtml(input1: UpdaterSelect, input2: UpdaterIntInput)(f: (OptionHtml, Int) => RArr[XCon]): HtmlElemBuilder =
   { val newId: IdAtt = input1.nextOptInt1Html(input2, f)
-    HtmlElemBuilder(f(input1.initOption, input2.value), RArr(newId))
+    HtmlElemBuilder(RArr(newId), f(input1.initOption, input2.value))
   }
 }

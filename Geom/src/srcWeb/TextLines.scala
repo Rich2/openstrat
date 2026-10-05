@@ -54,8 +54,8 @@ class TextLines(val lines: Array[String])
     currWord match
     { case "" =>
       case w if currLine == "" => {currLine = w}
-      case w if (trueLength + 1 + currWord.length) > maxLineLen => {
-        newLines = newLines :+ currLine
+      case w if (trueLength + 1 + currWord.length) > maxLineLen =>
+      { newLines = newLines :+ currLine
         currLine = indent.spaces + currWord
       }
       case w => {currLine = currLine + " " + w}

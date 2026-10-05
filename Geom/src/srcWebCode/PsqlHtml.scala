@@ -13,14 +13,28 @@ trait PsqlOwnLine extends PsqlHtml, CodeLineHtml
 }
 
 /** An HTML psql code element that will display on its own line. */
-class PsqlLine(val contents: RArr[XConInedit], val otherAttribs: RArr[HAtt]) extends PsqlOwnLine
+class PsqlLine(val otherAttribs: RArr[HAtt], val contents: RArr[XConInedit]) extends PsqlOwnLine
 { override def attribs: RArr[HAtt] = super.attribs ++ otherAttribs
 }
 
 object PsqlLine extends HtmlIneditCompanion[PsqlLine]
 { /** Factory apply method to write psql code in HTML on its own line. There is an apply name overload that takes the contents as repeat parameters, but with no
  * attributes. */
-  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): PsqlLine = new PsqlLine(contents, attribs)
+  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): PsqlLine = new PsqlLine(attribs, contents)
+}
+
+/** A PSQL console code span that does not take up the whole line. */
+trait PsqlSpan extends PsqlHtml, CodeInline
+{ def otherAttribs: RArr[HAtt]
+  override def attribs: RArr[HAtt] = PsqlAtt %: otherAttribs
+}
+
+object PsqlSpan
+{ /** Factory apply method to construct a PSQL console code span that does not take up the whole line. */
+  def apply(contents: XConInedit*): PsqlSpan = new PsqlSpanGen(RArr(), contents.toRArr)
+
+  /** Implementation class for the general case of [[PsqlSpan]]. A PSQL console code span that does not take up the whole line. */
+  class PsqlSpanGen(val otherAttribs: RArr[HAtt], val contents: RArr[XConInedit]) extends PsqlSpan
 }
 
 /** Attribute for the psql prompt class. Allows the prompt to be in a different colour to the psql commands. It may be important to show what user is logged

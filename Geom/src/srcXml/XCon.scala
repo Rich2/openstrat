@@ -1,6 +1,6 @@
 /* Copyright 2025 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-/** XML /HTML element content. Can be an XCon element with out and outLines methods or a [[String]]. */
+/** XML /HTML element content. Can be an XCon element with 'out' and 'outLines' methods or a [[String]]. */
 type XCon = XConElem | String
 
 extension (thisArr: RArr[XCon])
