@@ -63,7 +63,7 @@ object TomcatPage extends DevPageBase
   val dirInput: UpdaterInputStr = UpdaterInputStr("dirName", dir1)
   val dirLI: LabelInput = LabelInput("Tomcat directory", dirInput)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain,
+  def pUpdaters: PHtml = PHtml(updaterExplainFixed,
   LabelInputsLine(userNameLI, opSysLI, computerNameLI, ramLI, tomVerLI, javaVerLI, boundaryLI, domainLI, dirLI))
 
   def steps: OlLarge = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, sCert, s13, s14, s15)

@@ -6,9 +6,12 @@ trait PageHtmlUpdater extends HtmlPageFile
 { given thisPage: PageHtmlUpdater = this
   var inpAcc: RArr[UpdaterInputLike] = RArr()
 
-  def updaterExplain: String = """There are default values here that you can change as you work down the page. Although once you've used a value, stick with it
-  |or you will create an inconsistent system. Insert your own values below. The data is used for page generation locally and is not sent back to our
-  |servers.""".stripMargin
+  val uExp1: String = "There are default values here that you can change as you work down the page."
+  val uExp2: String = "Insert your own values below. The data is used for page generation locally and is not sent back to our servers."
+  
+  def updaterExplain: String = uExp1 -- uExp2
+  
+  def updaterExplainFixed: String = uExp1 -- "Although once you've used a value, stick with it or you will create an inconsistent system." -- uExp2
 }
 
 /** An HTML page with an accumulator of [[PageHtmlUpdater]]s, including an [[UpdaterSelect]] for operating System. */

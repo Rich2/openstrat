@@ -19,12 +19,16 @@ object PostgresPage extends DevPageBase
   /** [[UpdaterInputStr]] and it's label for username. */
   val uNameLI: LabelInput = LabelInput("User Name", uNameInp)
   
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, opSysLI))
+  val dbName1 = "postgres"
+  val dbNameInp = UpdaterInputStr("dbName", dbName1)
+  val dbNameLI = LabelInput("Database name", dbNameInp)
+  
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, dbNameLI, opSysLI))
 
   def steps: OlLarge = OlLarge(s1, s2, s3)
 
   val postgresPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan("postgres=#")
-  def userPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan.listenStrText(uNameInp){ uName => uName + "=#"}
+  def userPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan.listenStrText(dbNameInp){ dbName => dbName + "=#"}
   def userLine(cmdStr: String): PsqlLine = PsqlLine(userPsqlPrompt, cmdStr)
 
   val s1: LiHtml = LiHtml("Install and main user.".h3,
@@ -38,8 +42,6 @@ object PostgresPage extends DevPageBase
       )
       case _ => RArr("No code available for installation on this operating system")
     },
-    "Change the postgres system user password. Note this is different to the Postgresql application internal user password.",
-    BashLine("sudo passwd postgres"),
     "If you want to use the postgres user from applications set the postgres user's internal password",
     PsqlLine(postgresPsqlPrompt, "ALTER USER postgres WITH PASSWORD", PinkSpan("""'password'"""), ";"),
     "Depending on your use case you may wish to manipulate Postgresql with a different user.",
@@ -62,16 +64,16 @@ object PostgresPage extends DevPageBase
     DivHtml("Before continuing, here are some commands to correct and undo things if necessary. At some point you may get:"),
     PsqlLine.listenStrText(uNameInp){ uName => """database "$uName" has a collation version mismatch""" },
     DivHtml("then enter"),
-    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(uNameInp){ uName => s"ALTER DATABASE $uName REFRESH COLLATION VERSION;" }),
+    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => s"ALTER DATABASE $dbName REFRESH COLLATION VERSION;" }),
     DivHtml(PsqlSpan(userPsqlPrompt, """\l"""), "List databases"),
-    DivHtml("To delete table"),
-    PsqlLine(userPsqlPrompt, "DROP TABLE", SpanInlineInedit.pink("tableName"), ";"),
-    "To delete all rows",
-    PsqlLine(userPsqlPrompt, "TRUNCATE", SpanInlineInedit.pink("tableName"), ";"),
-    "To drop constraint",
-    PsqlLine(userPsqlPrompt, "ALTER TABLE users DROP CONSTRAINT", SpanInlineInedit.pink("yourConstraint"), ";"),
-    "To delete row",
-    PsqlLine(userPsqlPrompt, "ALTER TABLE users DROP COLUMN", SpanInlineInedit.pink("columnName"), ";")
+    DivHtml(PsqlSpan(userPsqlPrompt, """\connect otherdbname"""), "Switch databases"),
+    DivHtml(PsqlSpan(userPsqlPrompt, """DROP DATABASE dbname;"""), "Remove database"),
+    DivHtml(PsqlSpan(userPsqlPrompt, """ALTER DATABASE oldname RENAME TO newname;"""),
+      "Change database name. Note you can't be logged into the database whose name you are changing."),
+    DivHtml(PsqlSpan(userPsqlPrompt, "DROP TABLE", SpanInlineInedit.pink("tablename"), ";"), "Delete table"),
+    DivHtml(PsqlSpan(userPsqlPrompt, "TRUNCATE", SpanInlineInedit.pink("tablename"), ";"), "Delete all rows"),
+    DivHtml(PsqlSpan(userPsqlPrompt, "ALTER TABLE users DROP CONSTRAINT", SpanInlineInedit.pink("yourconstraint"), ";"), "Drop constraint"),    
+    DivHtml(PsqlSpan(userPsqlPrompt, "ALTER TABLE users DROP COLUMN", SpanInlineInedit.pink("columnname"), ";"), "To delete row"),
   )
 
   val uNameRegexStr: String = UsernameInput.regexStrStd.enquote1
@@ -84,20 +86,20 @@ object PostgresPage extends DevPageBase
     userLine("SELECT * FROM users;"),
     "To add username",
     userLine(s"""ALTER TABLE users ADD username VARCHAR(15) UNIQUE NOT NULL;"""),
-    userLine(s"""ALTER TABLE users ADD CONSTRAINT uNameCheck CHECK(username ~ $uNameRegexStr);"""),
-    userLine("CREATE UNIQUE INDEX usernameLower ON users(lower(username));"),
+    userLine(s"""ALTER TABLE users ADD CONSTRAINT unamecheck CHECK(username ~ $uNameRegexStr);"""),
+    userLine("CREATE UNIQUE INDEX usernamelower ON users(lower(username));"),
     "To add password",
     userLine(s"""ALTER TABLE users ADD password VARCHAR(128) NOT NULL;"""),
-    userLine(s"""ALTER TABLE users ADD CONSTRAINT passwordCheck CHECK(password ~ $passwordRegexStr);"""),
+    userLine(s"""ALTER TABLE users ADD CONSTRAINT passwordcheck CHECK(password ~ $passwordRegexStr);"""),
     "To add status",
-    userLine("CREATE type Status AS ENUM ('User', 'Admin');"),
-    userLine(s"""ALTER TABLE users ADD status Status DEFAULT 'User' NOT NULL;"""),
+    userLine("CREATE type status AS ENUM ('User', 'Admin');"),
+    userLine(s"""ALTER TABLE users ADD rank status DEFAULT 'User' NOT NULL;"""),
     "To add user",
     PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
       """, 'Admin');"""),
     PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
       ");"),
     "To update status",
-    PsqlLine(userPsqlPrompt, """UPDATE users SET status = 'Admin'""", "WHERE username =", """'username';""".pinkSpan)
+    PsqlLine(userPsqlPrompt, """UPDATE users SET rank = 'Admin'""", "WHERE username =", """'username';""".pinkSpan)
   )
 }

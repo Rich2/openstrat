@@ -24,7 +24,7 @@ object NewDevsPage extends DevPageBase
   /** [[UpdaterInputStr]] and it's label for username. */
   val userNameLTI: LabelInput = LabelInput("User Name", userNameIUT)
 
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(userNameLTI, opSysLI, javaVerLI))
+  def pUpdaters: PHtml = PHtml(updaterExplainFixed, LabelInputsLine(userNameLTI, opSysLI, javaVerLI))
   
   val sysUpdate = DivHtml.listenOptHtml(opSysInput){ opt =>    
     val code: RArr[XCon] = opt match
