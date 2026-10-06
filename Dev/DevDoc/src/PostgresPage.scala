@@ -11,7 +11,7 @@ object PostgresPage extends DevPageBase
   def central: DivHtml = CentreBlockAtt.div(pUpdaters, steps)
 
   /** Initial value for username. */
-  val userName1: String = "tommy"
+  val userName1: String = "john"
 
   /** Updater for username. */
   val uNameInp: UpdaterInputStr = UpdaterInputStr("uName", userName1)
@@ -19,7 +19,7 @@ object PostgresPage extends DevPageBase
   /** [[UpdaterInputStr]] and it's label for username. */
   val uNameLI: LabelInput = LabelInput("User Name", uNameInp)
   
-  val dbName1 = "postgres"
+  val dbName1 = "myfirstdb"
   val dbNameInp = UpdaterInputStr("dbName", dbName1)
   val dbNameLI = LabelInput("Database name", dbNameInp)
   
@@ -42,22 +42,22 @@ object PostgresPage extends DevPageBase
       )
       case _ => RArr("No code available for installation on this operating system")
     },
-    "If you want to use the postgres user from applications set the postgres user's internal password",
-    PsqlLine(postgresPsqlPrompt, "ALTER USER postgres WITH PASSWORD", PinkSpan("""'password'"""), ";"),
-    "Depending on your use case you may wish to manipulate Postgresql with a different user.",
-    BashLine("su postgres"),
-    BashLine("psql"),
+    """Login as the postgres operating system user. Note we do this using sudo, leaving the postgres Linux user with no password. As the postgres user by
+    |default you are automatically connected to the postgres database.""".stripMargin,
+    BashLine("sudo su postgres"),
+    BashLine(BashPromptSpan("postgres@cName:/"), "psql"),
     PsqlLine.listenStrHtml(uNameInp){ uName => RArr(postgresPsqlPrompt, s"CREATE USER $uName WITH SUPERUSER;") },
-    "You may want to create a database with this user's name",
-    PsqlLine.listenStrHtml(uNameInp){ uName => RArr(postgresPsqlPrompt, s"CREATE DATABASE $uName OWNER $uName;") },    
-    "To quit psql",
+    "Quit psql",
     PsqlLine(postgresPsqlPrompt, """\q"""),
-    "Switch back to your main user.",
-    BashLine.listenStrText(uNameInp)(uName => s"su $uName"),
-    DivHtml.listenStrText(uNameInp){ uName => s"Enter psql again as user $uName" },
-    BashLine("psql"),
-    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(uNameInp){ uName => s"ALTER USER $uName WITH PASSWORD" }, PinkSpan("""'password'"""), ";"),
-    
+    "Switch back to your normal operating system user login.",
+    BashLine("exit"),
+    """Login to psql again under your usual username. This time you must specify the postgres database as there is no database with the same name as your
+    |operating system username.""".stripMargin,
+    BashLine(BashPromptSpan.listenStrText(uNameInp){uName => uName + "@ComputerName:/"}, "psql postgres"),
+    "Create a new database",
+    PsqlLine(userPsqlPrompt, SpanInlineInedit.listen2StrText(dbNameInp, uNameInp){ (dbName, uName) => s"CREATE DATABASE $uName OWNER $uName;" }),
+    "Connect to new database.",
+    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => s""" $dbName;""" })    
   )
 
   val s2: LiHtml = LiHtml(    

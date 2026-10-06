@@ -57,6 +57,7 @@ object NewDevsPage extends DevPageBase
     BashLine("rm -r idea-IU-262.10968.63"),
     BashLine("rm idea-IU"),
     UlSection("For IntelliJ useful options:",
+      LiHtml("Help => 'Change memory settings"),
       LiHtml("File => Settings => 'Appearance and Behaviour' => 'Appearance' -> Use contrast scrollbars"),
       LiHtml("File => Settings => 'Appearance and Behaviour' => 'Appearance' -> Always show full path in window header"),
       LiHtml("File => Settings => 'Appearance and Behaviour' => 'Appearance' -> 'Main menu' -> Show above Main Toolbar"),
