@@ -350,7 +350,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
   def mapErrBiList[E <: Throwable, B](f: A => Either[E, B]): Either[E, List[B]] =
   { var count = 0
     var list: List[B] = Nil
-    var res: Either[E, List[B]] = Succ(list)
+    var res: Either[E, List[B]] = Right(list)
     while (count < length & res.isRight)
       f(apply(count)).fold{ e => res = Left(e) }{ a =>
         list = a :: list
@@ -665,7 +665,7 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     while (i < length && res.isLeft)
     { val bi = f(apply(i))
        bi match
-       { case Right(b) => res = Succ[B](b)
+       { case Right(b) => res = Right(b)
          case _ =>
        }
       i += 1

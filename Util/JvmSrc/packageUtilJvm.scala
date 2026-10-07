@@ -36,7 +36,7 @@ package object utiljvm
   }
 
   /** Attempts to load a value of the specified type from an RSON format file. */
-  def fromRsonFileFind[A: Unshow](fileName: String): ThrowEither[A] = loadTextFile(fileName).findType[A]
+  def fromRsonFileFind[A: Unshow](fileName: String): IOParseExcEither[A] = loadTextFile(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
   def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getOrElse(elseValue)
@@ -46,13 +46,13 @@ package object utiljvm
   def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
-  def settFromFile[A: Unshow](settingStr: String, fileName: String): Either[Throwable, A] = loadTextFile(fileName).findSetting[A](settingStr)
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): IOParseExcEither[A] = loadTextFile(fileName).findSetting[A](settingStr)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getOrElse(elseValue)
 
   /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def writeFile(pathName: String, content: String): Either[IOExc, FileWritten] =
+  def writeFile(pathName: String, content: String): IOExcEither[FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
@@ -65,10 +65,10 @@ package object utiljvm
     oErr.fld(Right(FileWritten(pathName)), FailIO(_))
   }
   
-  def RsonWriteFile(pathName: String, content: String): Either[IOExc, RsonFileWritten] = writeFile(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
+  def RsonWriteFile(pathName: String, content: String): IOExcEither[RsonFileWritten] = writeFile(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-  def copyFile(fromStr:  String, toStr: String): Either[Exception, FileWritten] =
+  def copyFile(fromStr:  String, toStr: String): IOExcEither[FileWritten] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
@@ -77,17 +77,17 @@ package object utiljvm
   }  
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
-  def homeWrite(dir: String, fileName: String, str: String): Either[IOExc, FileWritten] =
+  def homeWrite(dir: String, fileName: String, str: String): IOExcEither[FileWritten] =
   { val h: String = System.getProperty("user.home")
     writeFile(h / dir / fileName, str)
   }
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): ExcEither[RArr[Statement]] =
+  def statementsFromResource(fileName: String): IOParseExcEither[RArr[Statement]] =
     loadResourceStr(fileName).map(_.toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  def fileStatementsFromResource(fileName: String): ThrowEither[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
+  def fileStatementsFromResource(fileName: String): IOParseExcEither[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 
   /** The current GMT time as a [[String]] in RFC_1123_DATE_TIME. */
   def gmtNowStr: String =

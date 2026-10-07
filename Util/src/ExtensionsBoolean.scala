@@ -21,7 +21,7 @@ class ExtensionsBoolean(val thisBool : Boolean) extends AnyVal
    def ifNotStr(optionalString: String): String = if (thisBool) "" else optionalString
 
    /** Converts this [[Boolean]] into an [[ExcEither]] returning a [[Right]] if true or a [[Left]] is false. */
-   def errMap[A](fp: TextPosn, errStr: String, ifTrue: => A): ExcEither[A] = if(thisBool)Succ[A](ifTrue) else LeftExc(errStr)
+   def errMap[A](fp: TextPosn, errStr: String, ifTrue: => A): ExcEither[A] = if(thisBool)Right(ifTrue) else LeftExc(errStr)
 
    def toOption[A](obj: A): Option[A] = if (thisBool) Some(obj) else None
    def |!& (operand: Boolean): Boolean = (thisBool || operand) && (!(thisBool && operand))

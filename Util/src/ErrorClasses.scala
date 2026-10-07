@@ -2,11 +2,8 @@
 package ostrat
 import scala.annotation.unchecked.uncheckedVariance, pParse.*, reflect.ClassTag
 
+/** Corrects the [[Right]] type that should only have one type parameter in the way that [[None]] has zero type parameters. */
 type Succ[B] = Right[Nothing, B]
-
-object Succ
-{ def apply[B](value: B): Succ[B] = Right[Nothing, B](value)
-}
 
 /** Exception from a find search for a type. */
 sealed trait FindException extends Exception, ParseException

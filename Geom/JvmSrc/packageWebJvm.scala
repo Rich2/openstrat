@@ -1,11 +1,11 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb;
-import pParse.*, java.io.File, scala.sys.process._
+import pParse.*, java.io.File, scala.sys.process.*
 
 /** This package is for Java byte code targets. */
 package object webjvm
 { /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: ThrowEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
+  lazy val devSettingsStatements: ExcEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
   def findDevSettingExpr(settingStr: String): ThrowEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))

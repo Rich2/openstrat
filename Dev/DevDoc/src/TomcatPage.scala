@@ -21,8 +21,6 @@ object TomcatPage extends DevPageBase
   
   val nset: String = "nset"
   
-  /** Initial value for computer name. */
-  val computerName1: String = "computer"
   val cset: String = "cset"  
   val tcMajorVer: String = "11.0"
   val tcMinorVer: String = "26"
@@ -31,25 +29,20 @@ object TomcatPage extends DevPageBase
   val domain1: String = "mysite.com"
   
   /** Initial value for username. */
-  val userName1: String = "tommy"
+  val username1: String = "tommy"
 
   /** Updater for username. */
-  val userNameInput: UpdaterInputStr = UpdaterInputStr("uName", userName1)
+  val usernameInput: UpdaterInputStr = UpdaterInputStr("uName", username1)
   
   /** [[UpdaterInputStr]] and it's label for username. */
-  val userNameLI: LabelInput = LabelInput("User Name", userNameInput)
-
-  /** Updater for username. */
-  val computerNameInput: UpdaterInputStr = UpdaterInputStr("cName", computerName1)
-  
-  /** [[UpdaterInputStr]] and it's label for computer name. */
-  val computerNameLI: LabelInput = LabelInput("Computer Name", computerNameInput)  
+  val usernameLI: LabelInput = LabelInput("User Name", usernameInput)
   
   val nRam1: Int = 2
   val ramInput: UpdaterDblInput = UpdaterDblInput("nRam", nRam1)
   val ramLI: LabelInput = LabelInput("System Ram", ramInput)
   
-  def tomcatDirPrompt: BashPromptSpan = BashPromptSpan.listen3StrText(userNameInput, computerNameInput, dirInput) { (uName, cName, dir) => s"$uName@$cName:$dir" }
+  def tomcatDirPrompt: BashPromptSpan =
+    BashPromptSpan.listen3StrText(usernameInput, computerNameInput, dirInput) { (uName, cName, dir) => s"$uName@$cName:$dir" }
   val tomVerInput: UpdaterInputStr = UpdaterInputStr("version", tcVer1)
   val tomVerLI: LabelInput = LabelInput("Tomcat Version", tomVerInput)
   
@@ -64,7 +57,7 @@ object TomcatPage extends DevPageBase
   val dirLI: LabelInput = LabelInput("Tomcat directory", dirInput)
 
   def pUpdaters: PHtml = PHtml(updaterExplainFixed,
-  LabelInputsLine(userNameLI, opSysLI, computerNameLI, ramLI, tomVerLI, javaVerLI, boundaryLI, domainLI, dirLI))
+  LabelInputsLine(usernameLI, opSysLI, computerNameLI, ramLI, tomVerLI, javaVerLI, boundaryLI, domainLI, dirLI))
 
   def steps: OlLarge = OlLarge(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, sCert, s13, s14, s15)
   
@@ -96,20 +89,20 @@ object TomcatPage extends DevPageBase
 
   val s3: LiHtml = javaInstall(LiHtml)
 
-  val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$userName1'. I
+  val s4: LiHtml = LiHtml(s"""Create a new user and a new group of the same name and add it to the sudo group. For these examples we'll call it '$username1'. I
   |find it better to have a different name for the user than the folder we will create next. Again for desktop, laptop and home server this is not necessary and
   |you can use your own username.""".stripMargin,
-    BashLine.listenStrText(userNameInput){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
-    BashLine.listenStrText(userNameInput)(uName => s"sudo passwd $uName"),
+    BashLine.listenStrText(usernameInput){ uName => s"sudo useradd -ms /bin/bash -G sudo $uName" },
+    BashLine.listenStrText(usernameInput)(uName => s"sudo passwd $uName"),
   )
 
   val s5: LiHtml = LiHtml("""Create a directory for tomcat and change the owner and group. The directory doesn't have to be called tomcat and placed in the Opt
   |directory, but this is a pretty standard schema. You can use your own username on a home machine.""".stripMargin,
   BashLine.listenStrText(dirInput){ dir => "sudo mkdir" -- dir },
-  BashLine.listen2StrText(userNameInput, dirInput)((uName, dir) => s"sudo chown $uName:$uName $dir"),
-  SpanLine.listenStrText(userNameInput)(uName => s"Switch user to $uName. Then change directory."),
+  BashLine.listen2StrText(usernameInput, dirInput)((uName, dir) => s"sudo chown $uName:$uName $dir"),
+  SpanLine.listenStrText(usernameInput)(uName => s"Switch user to $uName. Then change directory."),
   "Change user unless, you already login in as the tomcat owner.",
-  BashLine.listenStrText(userNameInput)(uName => s"sudo su $uName"),
+  BashLine.listenStrText(usernameInput)(uName => s"sudo su $uName"),
   "If you have a specialist tomcat user then change the bash starting directory.",
   BashLine("nano ~/.bashrc"),
   "Add this line at the end of the script.", 
@@ -194,8 +187,8 @@ object TomcatPage extends DevPageBase
     DivHtml("""Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"""") +%
     DivHtml.listenStrText(dirInput) { dir => s"ExecStart=$dir/tom11/bin/startup.sh" } +%
     DivHtml.listenStrText(dirInput) { dir => s"ExecStop=$dir/tom11/bin/shutdown.sh" } +%
-    DivHtml.listenStrText(userNameInput) { uName => s"User=$uName" } +%
-    DivHtml.listenStrText(userNameInput) { uName => s"Group=$uName" } +%
+    DivHtml.listenStrText(usernameInput) { uName => s"User=$uName" } +%
+    DivHtml.listenStrText(usernameInput) { uName => s"Group=$uName" } +%
     DivHtml("UMask=0007") +%
     DivHtml("RestartSec=10") +%
     DivHtml("Restart=always") +%
@@ -224,11 +217,11 @@ object TomcatPage extends DevPageBase
     case _ => "No code available"  
   },
   BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.listenStrText(userNameInput)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
+  BashLine.listenStrText(usernameInput)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
   BashLine("sudo chmod 500 /etc/authbind/byport/80"),
   "And for HTTPS to use 443",
   BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.listenStrText(userNameInput)(uName => s"sudo chown $uName:$uName /etc/authbind/byport/443"),
+  BashLine.listenStrText(usernameInput)(uName => s"sudo chown $uName:$uName /etc/authbind/byport/443"),
   BashLine("sudo chmod 500 /etc/authbind/byport/443"),
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
@@ -243,7 +236,7 @@ object TomcatPage extends DevPageBase
   "The page should now be available without the port :8080 suffix."
   )
 
-  val sCert: LiHtml = LiHtml.listen2Opt2StrHtml(boundInput, opSysInput, userNameInput, domainInput)(CertItemFunc) 
+  val sCert: LiHtml = LiHtml.listen2Opt2StrHtml(boundInput, opSysInput, usernameInput, domainInput)(CertItemFunc)
 
   val s13 = LiHtml("Configure Tomcat to use 443 & link to ssl cert above",
   BashLine.listenStrText(dirInput){ dir => s"nano $dir/Base/conf/server.xml" },

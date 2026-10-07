@@ -23,13 +23,15 @@ object PostgresPage extends DevPageBase
   val dbNameInp = UpdaterInputStr("dbName", dbName1)
   val dbNameLI = LabelInput("Database name", dbNameInp)
   
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, dbNameLI, opSysLI))
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, computerNameLI, dbNameLI, opSysLI))
 
   def steps: OlLarge = OlLarge(s1, s2, s3)
 
   val postgresPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan("postgres=#")
   def userPsqlPrompt: PsqlPromptSpan = PsqlPromptSpan.listenStrText(dbNameInp){ dbName => dbName + "=#"}
   def userLine(cmdStr: String): PsqlLine = PsqlLine(userPsqlPrompt, cmdStr)
+  
+  def yourBashPrompt: BashPromptSpan = BashPromptSpan.listen2StrText(uNameInp, computerNameInput) { (uName, cName) => s"$uName@$cName:/" }
 
   val s1: LiHtml = LiHtml("Install and main user.".h3,
     DivHtml.listenOptHtml(opSysInput){
@@ -44,8 +46,8 @@ object PostgresPage extends DevPageBase
     },
     """Login as the postgres operating system user. Note we do this using sudo, leaving the postgres Linux user with no password. As the postgres user by
     |default you are automatically connected to the postgres database.""".stripMargin,
-    BashLine("sudo su postgres"),
-    BashLine(BashPromptSpan("postgres@cName:/"), "psql"),
+    BashLine(yourBashPrompt ,"sudo su postgres"),
+    BashLine(BashPromptSpan.listenStrText(computerNameInput){ cName => s"postgres@$cName:/" }, "psql"),
     PsqlLine.listenStrHtml(uNameInp){ uName => RArr(postgresPsqlPrompt, s"CREATE USER $uName WITH SUPERUSER;") },
     "Quit psql",
     PsqlLine(postgresPsqlPrompt, """\q"""),
@@ -53,11 +55,13 @@ object PostgresPage extends DevPageBase
     BashLine("exit"),
     """Login to psql again under your usual username. This time you must specify the postgres database as there is no database with the same name as your
     |operating system username.""".stripMargin,
-    BashLine(BashPromptSpan.listenStrText(uNameInp){uName => uName + "@ComputerName:/"}, "psql postgres"),
+    BashLine(yourBashPrompt, "psql postgres"),
     "Create a new database",
-    PsqlLine(userPsqlPrompt, SpanInlineInedit.listen2StrText(dbNameInp, uNameInp){ (dbName, uName) => s"CREATE DATABASE $uName OWNER $uName;" }),
-    "Connect to new database.",
-    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => s""" $dbName;""" })    
+    PsqlLine(postgresPsqlPrompt, SpanInlineInedit.listen2StrText(dbNameInp, uNameInp){ (dbName, uName) => s"CREATE DATABASE $uName OWNER $uName;" }),
+    "Switch to new database.",
+    PsqlLine(postgresPsqlPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => raw"""\connect $dbName;""" }),
+    "If you logout of psql at any point, then when you log back in you now use",
+    BashLine(yourBashPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => s"psql $dbName" }),
   )
 
   val s2: LiHtml = LiHtml(    
