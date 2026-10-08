@@ -9,7 +9,7 @@ object NewDevsPage extends DevPageBase
   override def body: BodyHtml = BodyHtml("New Developers Info".h1, central, jsScriptStd)
 
   def central: DivHtml = CentreBlockAtt.div(contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
-    sublime, sshServer, vlcSect)
+    sublime, sshServer, vlcSect, osSpecific)
 
   def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
   |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK17+ and sbt. more complete documentation. For
@@ -29,7 +29,7 @@ object NewDevsPage extends DevPageBase
   val sysUpdate = DivHtml.listenOptHtml(opSysInput){ opt =>    
     val code: RArr[XCon] = opt match
     { case UbuntuDeriv => RArr(BashLine("apt sudo update", "sudo apt upgrade"))
-      case ArchDeriv => RArr(BashLine("sudo pacman -Syu"))
+      case _: ArchDeriv => RArr(BashLine("sudo pacman -Syu"))
       case _ => RArr("No code available")
     }
     DivHtml("System update") %: code 
@@ -42,7 +42,7 @@ object NewDevsPage extends DevPageBase
       BashLine("sudo apt install curl"),
       BashLine("sdk install sbt"),      
     )
-    case ArchDeriv => RArr(BashLine("sudo pacman -S sbt"))
+    case _: ArchDeriv => RArr(BashLine("sudo pacman -S sbt"))
     case _ => RArr(DivHtml("No code available."))
   }
   val sbtInstall: Section = Section("Sbt install".h2, sbtDiv)
@@ -122,7 +122,7 @@ object NewDevsPage extends DevPageBase
         "If any errors appear about missing dependencies you may need to ‘force install.",
         BashLine ("sudo apt -f install")
       )
-      case ArchDeriv => RArr(BashLine("sudo pacman -S chromium"))
+      case _: ArchDeriv => RArr(BashLine("sudo pacman -S chromium"))
       case _ => RArr("No code available")
     }
     "Chrome / Chromium".h2 %: last
@@ -152,7 +152,7 @@ object NewDevsPage extends DevPageBase
         BashLine("Sudo apt install openssh-server"),
         BashLine("sudo systemctl enable --now ssh")
       )
-      case ArchDeriv => RArr(
+      case _: ArchDeriv => RArr(
         BashLine("sudo pacman -S openssh"),
         BashLine("sudo systemctl enable --now ssh"),
         BashLine("sudo ufw allow 22/tcp")
@@ -161,12 +161,21 @@ object NewDevsPage extends DevPageBase
     }
   )
 
-  val vlcSect = Section.listenOptHtml(opSysInput){ ops =>
+  val vlcSect: Section = Section.listenOptHtml(opSysInput) { ops =>
     val l2: XCon = ops match
-    { case ArchDeriv => BashLine("sudo pacman -Syu vlc vlc-plugins-all ffmpeg")
+    { case _: ArchDeriv => BashLine("sudo pacman -Syu vlc vlc-plugins-all ffmpeg")
       case UbuntuDeriv => BashLine("sudo apt install vlc")
       case _ => "No code for this Operating System."
     }
     RArr("VLC Media Player".h2, l2)
+  }
+  
+  val osSpecific = Section.listenOptHtml(opSysInput){ ops =>
+    val l2 = ops match {
+      case CachyOS => RArr("In the fish konsole run",
+        BashLine("Fish_config"))
+      case _ => RArr("No specific help for this system.")
+    }
+    "Other Operating System specific tips.".h2 %: l2
   }
 }

@@ -39,16 +39,28 @@ trait LinuxKernelSystem extends OperatingSystem
 /** Operating system HTML Option element. */
 trait LinuxSystem extends LinuxKernelSystem
 
+/** Ubuntu based Linux operating system. */
+trait UbuntuDeriv extends LinuxSystem
+
 /** Ubuntu derivative operating system HTML option element. */
-case object UbuntuDeriv extends LinuxSystem
+case object UbuntuDeriv extends UbuntuDeriv
 { override def valueStr: String = "UbuntuDeriv"
   override def contentStr: String = "Kubuntu/Ubuntu"
 }
 
+/** Arch based Linux operating system HTML option element. */
+trait ArchDeriv extends LinuxSystem
+
 /** Arch Linux derivative operating system HTML option element. */
-case object ArchDeriv extends LinuxSystem
-{ override def valueStr: String = "ArchDeriv"
-  override def contentStr: String = "Arch/CachyOS"
+case object ArchOther extends ArchDeriv
+{ override def valueStr: String = "ArchOther"
+  override def contentStr: String = "Arch other"
+}
+
+/** CachyOS, the Arch based  Linux operating system HTML option element. */
+case object CachyOS extends ArchDeriv
+{ override def valueStr: String = "CachyOS"
+  override def contentStr: String = "Arch Derivative"
 }
 
 trait NetBoundary extends OptionHtml

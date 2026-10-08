@@ -34,7 +34,7 @@ def CertItemFunc: (OptionHtml, OptionHtml, String, String) => RArr[XCon] = (boun
           BashLine("sudo apt install mkcert"),
           BashLine("mkcert -install"),
         )
-        case ArchDeriv => RArr(
+        case _: ArchDeriv => RArr(
           BashLine("sudo pacman -S nss"),
           BashLine("sudo pacman -S mkcert")
         )

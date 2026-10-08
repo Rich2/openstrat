@@ -65,13 +65,13 @@ object TomcatPage extends DevPageBase
     val res1: XCon = DivHtml("Upgrade packages.")
     val res2: RArr[XCon] = opt match
     { case UbuntuDeriv => RArr(BashLine("sudo apt update"), BashLine("sudo apt upgrade"))
-      case ArchDeriv => RArr(BashLine("Sudo pacman -Syu"))
+      case _: ArchDeriv => RArr(BashLine("Sudo pacman -Syu"))
       case _ => RArr("No code available.")
     }
     val res3 = DivHtml("Install Fail2Ban to protect against brute force login attacks")
     val res4 = opt match
     { case UbuntuDeriv => BashLine("sudo apt install fail2ban")
-      case ArchDeriv => BashLine("pacman -S fail2ban")
+      case _: ArchDeriv => BashLine("pacman -S fail2ban")
       case _ => "No code available."
     }
     val res5 = BashLine("sudo systemctl enable --now fail2ban")
@@ -170,7 +170,7 @@ object TomcatPage extends DevPageBase
     DivHtml.listenOptHtml(opSysInput){ ops =>
       val javaStr: String = ops match
       { case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
-        case ArchDeriv => "java-25-openjdk"
+        case _: ArchDeriv => "java-25-openjdk"
         case _ => "No code available"
       }
       RArr(s"""Environment="JAVA_HOME=/usr/lib/jvm/$javaStr"""")
@@ -213,7 +213,7 @@ object TomcatPage extends DevPageBase
   val s11: LiHtml = LiHtml("To switch to port 80 the http defaults",
   BashLine.listenOptText(opSysInput){
     case UbuntuDeriv => "sudo apt install authbind"
-    case ArchDeriv => "sudo yay authbind"
+    case _: ArchDeriv => "sudo yay authbind"
     case _ => "No code available"  
   },
   BashLine("sudo touch /etc/authbind/byport/80"),

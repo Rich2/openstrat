@@ -31,6 +31,6 @@ trait PageUpdaterOperatingSystem extends PageHtmlUpdater
   /** [[UpdaterInputStr]] and it's label for computer name. */
   val computerNameLI: LabelInput = LabelInput("Computer Name", computerNameInput)
 
-  val opSysInput: UpdaterSelect = UpdaterSelect("opName", UbuntuDeriv, ArchDeriv, OtherOperatingSystem)
+  val opSysInput: UpdaterSelect = UpdaterSelect("opName", UbuntuDeriv, CachyOS, ArchOther, OtherOperatingSystem)
   val opSysLI: LabelInput = LabelInput("Operating System", opSysInput)
 }

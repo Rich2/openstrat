@@ -36,7 +36,7 @@ package object utiljvm
   }
 
   /** Attempts to load a value of the specified type from an RSON format file. */
-  def fromRsonFileFind[A: Unshow](fileName: String): IOParseExcEither[A] = loadTextFile(fileName).findType[A]
+  def fromRsonFileFind[A: Unshow](fileName: String): Either[IOException | ParseException, A] = loadTextFile(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
   def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getOrElse(elseValue)

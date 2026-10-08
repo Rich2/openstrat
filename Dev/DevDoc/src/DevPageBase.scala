@@ -9,26 +9,26 @@ trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
     RArr[XCon]("Install Java. Currently suggesting Java 26. Note the jdk at the end of the version.") +%
       (opSys match
       { case UbuntuDeriv => BashLine(s"sudo apt install openjdk-${jVer.str0}-jdk -y")
-        case ArchDeriv => BashLine(s"sudo pacman -Syu jdk${jVer.str0}-openjdk")
+        case _: ArchDeriv => BashLine(s"sudo pacman -Syu jdk${jVer.str0}-openjdk")
         case _ => "No code available."
       }) +% "Check the version" +%
     BashLine("java -version") +%
-    (opSys match {
-      case UbuntuDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-04-21""",
-        "OpenJDK Runtime Environment (build 26.0.2+10-2-26.04.2-Ubuntu)",
-        "OpenJDK 64-Bit Server VM (build 26.0.2+10-2-26.04.2-Ubuntu, mixed mode, sharing)",
-        "Open the all users environment configuration file"
-      )
-      case ArchDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-07-21""",
-        "OpenJDK Runtime Environment (build 26.0.2)",
-        "OpenJDK 64-Bit Server VM (build 26.0.2, mixed mode, sharing)\n"
-      )
-      case _ => "No code available."
+    ( opSys match
+     { case UbuntuDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-04-21""",
+         "OpenJDK Runtime Environment (build 26.0.2+10-2-26.04.2-Ubuntu)",
+         "OpenJDK 64-Bit Server VM (build 26.0.2+10-2-26.04.2-Ubuntu, mixed mode, sharing)",
+         "Open the all users environment configuration file"
+       )
+       case _: ArchDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-07-21""",
+         "OpenJDK Runtime Environment (build 26.0.2)",
+         "OpenJDK 64-Bit Server VM (build 26.0.2, mixed mode, sharing)\n"
+       )
+       case _ => "No code available."
     }) +%
     BashLine("sudo nano /etc/environment") +%
     "Add line" +% (opSys match
     { case UbuntuDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk-amd64")
-      case ArchDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk")
+      case _: ArchDeriv => BashLine(s"JAVA_HOME=/usr/lib/jvm/java-$jVer-openjdk")
       case _ => "No code available."
     })
   }
@@ -36,7 +36,7 @@ trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
   val jvmsAlt: Section = Section.listenOptHtml(opSysInput){ opSys =>
     val opLnes: RArr[XCon] = opSys match
     { case UbuntuDeriv => jvmsAltUbuntu
-      case ArchDeriv => jvmsAltArch
+      case _: ArchDeriv => jvmsAltArch
       case _ => RArr("No code available.")
     }
     "To switch JVMs".h2 %: opLnes

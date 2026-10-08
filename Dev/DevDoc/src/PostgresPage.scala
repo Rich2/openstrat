@@ -36,7 +36,7 @@ object PostgresPage extends DevPageBase
   val s1: LiHtml = LiHtml("Install and main user.".h3,
     DivHtml.listenOptHtml(opSysInput){
       case UbuntuDeriv => RArr(BashLine("sudo apt install postgresql postgresql-contrib"))
-      case ArchDeriv => RArr(
+      case _: ArchDeriv => RArr(
         BashLine("sudo pacman -S postgresql"),
         BashLine("sudo initdb --locale en_GB.UTF-8 -D /var/lib/postgres/data"),
         BashLine("sudo systemctl start postgresql"),
