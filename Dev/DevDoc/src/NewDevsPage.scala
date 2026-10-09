@@ -11,8 +11,8 @@ object NewDevsPage extends DevPageBase
   def central: DivHtml = CentreBlockAtt.div(contrib, sysUpdate, pUpdaters, jvms, jvmsAlt, sbtInstall, intellij, git, gitCommands, sbtCommands, chrome,
     sublime, sshServer, vlcSect, osSpecific)
 
-  def contrib = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not
-  |experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK17+ and sbt. more complete documentation. For
+  def contrib: PHtml = PHtml("""The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are
+  |not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK17+ and sbt. more complete documentation. For
   |getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk25 preferred.""".stripMargin)
 
   /** Initial value for username. */
@@ -51,9 +51,11 @@ object NewDevsPage extends DevPageBase
     "Download the latest version. Modify this line if there is a newer version of IntelliJ IDEA.",
     BashLine("sudo tar -xzf idea-2026.2.3.tar.gz -C /opt"),
     "I suggest adding a link and then using the link for your GUI links.",
-    BashLine("sudo /opt"),
-    BashLine("ln -s idea-IU-262.10968.63 idea-IU"),
-    "When there's a new version delete the old version, delete the link, install the new version and recreate a new link",
+    BashLine("cd /opt"),
+    BashLine("sudo ln -s", "idea-IU-262.10968.63".pinkSpan, "idea-IU"),
+    """Use the Link to access the programme from your desktop. Open IntelliJ. go into plugins and add the Scala plugin. Restart and then open the directory of
+    |the project ypu want to work on. When there's a new version delete the old version, delete the link, install the new version and recreate a new
+    |link.""".stripMargin,
     BashLine("rm -r idea-IU-262.10968.63"),
     BashLine("rm idea-IU"),
     UlSection("For IntelliJ useful options:",

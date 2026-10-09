@@ -98,6 +98,20 @@ extension (obj: Either.type)
     case (Left(err1), Left(err2)) => Left(builder.multi(err1, err2))
   }
 
+  /** Folds over 2 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if one or both [[Either]]s are [[Left]]s. The second
+   * function is only used if both are [[Right]]s. */
+  def forboth2[E <: Exception, A1, A2, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => Ue)(fa: (A1, A2) => Ua)(using ctE: ClassTag[E]):
+  Unit = eth1 match {
+    case Right(a1) => eth2 match {
+      case Right(a2) => fa(a1, a2)
+      case Left(err2) => fe(ExcMulti(err2))
+    }
+    case Left(err1) => eth2 match {
+      case Right(_) => fe(ExcMulti(err1))
+      case Left(err2) => fe(ExcMulti(err1, err2))
+    }
+  }
+
   /** If this [[Either]] is a [[Right]] produce [[ErrBiAcc]] with the parameter function. If this is [[Left]] produce [[ErrBiAcc]] with this single [[Left]]. */
   def map2Acc[E <: Throwable, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => ErrBiAcc[E, B])(using ctE: ClassTag[E] @uncheckedVariance,
     ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = eb1 match
@@ -118,7 +132,14 @@ extension (obj: Either.type)
   { case (Right(a1), Right(a2), Right(a3)) => Right(f(a1, a2, a3))
     case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3)))
   }
-  
+
+  /** Folds over 3 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if any of the [[Either]]s are [[Left]]s. The second
+   * function is only used if all 3 are [[Right]]s. */
+  def forboth3[E <: Exception, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ExcMulti[E] => Ue)(fa: (A1, A2, A3) => Ua)
+    (using ct: ClassTag[E]): Unit = (eth1, eth2, eth3) match
+  { case (Right(a1), Right(a2), Right(a3)) => fa(a1, a2, a3)
+    case _ => fe(ExcMulti(collectLefts(eth1, eth2, eth3)))
+  }
   /** If all 4 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
   def map4[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(
@@ -157,20 +178,6 @@ extension (obj: Either.type)
       case Left(err2) => fe(ExcMulti(err1, err2))
     }
   }
-
-  /** Folds over 2 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if one or both [[Either]]s are [[Left]]s. The second
-   * function is only used if both are [[Right]]s. */
-  def forboth2[E <: Exception, A1, A2, U1, U2](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => U1)(fa: (A1, A2) => U2)(using ctE: ClassTag[E]):
-  Unit = eth1 match
-  { case Right(a1) => eth2 match
-    { case Right(a2) => fa(a1, a2)
-      case Left(err2) => fe(ExcMulti(err2))
-    }
-    case Left(err1) => eth2 match
-    { case Right(_) => fe(ExcMulti(err1))
-      case Left(err2) => fe(ExcMulti(err1, err2))
-    }
-  }  
 }
 
 /** Extension class for [[Exception]] bifunctor for [[Tuple2]]s. */

@@ -8,8 +8,8 @@ type PsqlExcEither[+A] = Either[PSQLException, A]
 
 val connStr = "jdbc:postgresql://localhost:5432/"
 
-def postgresConn(name: String, password: String): PsqlExcEither[Connection] =
-  try{ Right(DriverManager.getConnection(connStr, name, password)) }
+def postgresConn(dbName: String, uName: String, password: String): PsqlExcEither[Connection] =
+  try{ Right(DriverManager.getConnection(connStr + dbName, uName, password)) }
   catch{ case sqlExc: PSQLException => Left(sqlExc) }
 
 /** Postgres table. */
