@@ -8,10 +8,10 @@ implicit class StringExtsOstrat(thisString: String)
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 
   /** Parses this [[String]] into RSON tokens. */
-  def parseTokens: ParseExcEither[RArr[Token]] = plex.lexSrc(thisString.toCharArray, "String")
+  def parseTokens: Either[LexarException, RArr[Token]] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */
-  def parseStatements: ExcEither[RArr[Statement]] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  def parseStatements: ParseExcEither[RArr[Statement]] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
   def parseExpr: ParseExcEither[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))

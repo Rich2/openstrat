@@ -47,6 +47,9 @@ package object utiljvm
 
   /** Attempts to load the value of a setting of the specified name from a file. */
   def settFromFile[A: Unshow](settingStr: String, fileName: String): IOParseExcEither[A] = loadTextFile(fileName).findSetting[A](settingStr)
+  
+  /** Attempts tp load file and then parse the file asa String into RSON [[Statement]]s. */
+  def StatementsFromFile(fileName: String): IOParseExcEither[RArr[Statement]] = loadTextFile(fileName).flatMap(_.parseStatements)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getOrElse(elseValue)

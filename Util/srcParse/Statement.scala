@@ -77,6 +77,22 @@ object Statement
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
     def findSetting[T](settingStr: String)(using ev: Unshow[T]): ParseExcEither[T] = ev.settingFromStatements(statements, settingStr)
 
+    /** Find 2 settings from this RArr[Statement]. Extension method. */
+    def find2Settings[A1, A2](settingStr1: String, settingStr2: String)(using ev1: Unshow[A1], ev2: Unshow[A2]): ParseExcEither[(A1, A2)] =
+    { val res1: ParseExcEither[A1] = ev1.settingFromStatements(statements, settingStr1)
+      val res2: ParseExcEither[A2] = ev2.settingFromStatements(statements, settingStr2)
+      res1 match
+      { case Right(a1) => res2 match
+        { case Right(a2) => Right((a1, a2))
+          case Left(a2) => Left(a2)
+        }
+        case Left(err1) => res2 match
+        { case Right(_) => Left(err1)
+          case Left(err2) => Left(ParseExcMulti(err1, err2))
+        }
+      }
+    }
+
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingId(settingStr: String): ParseExcEither[String] = findSettingExpr(settingStr).flatMap{
       case IdentifierToken(str) => Right(str)
