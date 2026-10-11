@@ -1,12 +1,57 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
+/** An identifier. */
+trait Identifier extends TokenBase
+
+object Identifier
+{
+  given unshowEv: Unshow[Identifier] = new Unshow[Identifier]
+  { override def typeStr: String = "Identifier"
+    
+    override def fromExpr(expr: Expr): ParseExcEither[Identifier] = expr match
+    { case idToken: IdentifierToken => Right(idToken)
+      case expr => LeftParseExc("Not an identifier.")
+    }    
+  }
+}
+
+/** An identifier beginning with an uppercase letter. */
+trait IdentUpper extends Identifier
+
+object IdentUpper
+{
+  given unshowEv: Unshow[IdentUpper] = new Unshow[IdentUpper]
+  { override def typeStr: String = "Identifier"
+
+    override def fromExpr(expr: Expr): ParseExcEither[IdentUpper] = expr match
+    { case idToken: IdentUpperToken => Right(idToken)
+      case expr => LeftParseExc("Not an identifier.")
+    }
+  }
+}
+
+/** An identifier beginning with a lowercase letter. */
+trait IdentLower extends Identifier
+
+object IdentLower
+{
+  given unshowEv: Unshow[IdentLower] = new Unshow[IdentLower]
+  { override def typeStr: String = "IdentLower"
+
+    override def fromExpr(expr: Expr): ParseExcEither[IdentLower] = expr match
+    { case idToken: IdentLowerToken => Right(idToken)
+      case expr => LeftParseExc("Not an identifier.")
+    }
+  }
+}
+
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
-trait IdentifierToken extends OpExprMemToken
+trait IdentifierToken extends Identifier, OpExprMemToken
 
 /** Extractor object for [[IdentifierToken]]. */
 object IdentifierToken
-{ /** Unaply extractor method for [[IdentifierToken]]. */
+{ /** Unapply extractor method for [[IdentifierToken]]. */
   def unapply(inp: Any): Option[String] = inp match
   { case idt: IdentifierToken => Some(idt.srcStr)
     case _ => None
@@ -19,7 +64,7 @@ case class IdentUnderToken(startPosn: TextPosn, srcStr: String) extends Identifi
 }
 
 /** An alphanumeric identifier token beginning with an upper case alphabetic character. */
-trait IdentUpperToken extends IdentifierToken
+trait IdentUpperToken extends IdentUpper, IdentifierToken
 
 /** Extractor function object for [[IdentUpperToken]] type. */
 object IdentUpperToken
@@ -46,7 +91,7 @@ case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends Iden
 }
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
-trait IdentLowerToken extends IdentifierToken
+trait IdentLowerToken extends IdentLower, IdentifierToken
 
 /** Extractor function object for [[IdentLowerToken]] type. */
 object IdentLowerToken

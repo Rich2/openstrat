@@ -1,9 +1,14 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
+trait TokenBase
+{ /** The source [[String]] of this [[Token]] or [[Identifier]]. */
+  def srcStr: String
+}
+
 /** An RSON token. */
-trait Token extends TextSpan
-{ def srcStr: String
+trait Token extends TokenBase, TextSpan
+{ 
   override def endPosn: TextPosn = startPosn.right(srcStr.length - 1)
   final def str: String = tokenTypeStr
   def tokenTypeStr: String

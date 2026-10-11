@@ -17,7 +17,7 @@ package object webjvm
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getOrElse(elseValue)
 
   /** Find the [[String]] for the identifier value of o setting of the given name in the file DevSettings.rson. */
-  def findDevSettingIdStr(settingStr: String): ThrowEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
+  def findDevSettingIdStr(settingStr: String): ExcEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
   /** Find the project path. */
   def projPathFind: ThrowEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)

@@ -93,6 +93,18 @@ object Statement
       }
     }
 
+    /** Find 3 settings from this RArr[Statement]. Extension method. */
+    def find3Settings[A1, A2, A3](settingStr1: String, settingStr2: String, settingStr3: String)(using ev1: Unshow[A1], ev2: Unshow[A2], ev3: Unshow[A3]):
+      ParseExcEither[(A1, A2, A3)] =
+    { val res1: ParseExcEither[A1] = ev1.settingFromStatements(statements, settingStr1)
+      val res2: ParseExcEither[A2] = ev2.settingFromStatements(statements, settingStr2)
+      val res3: ParseExcEither[A3] = ev3.settingFromStatements(statements, settingStr3)
+      (res1, res2, res3) match{
+        case (Right(a1), Right(a2), Right(a3)) => Right((a1, a2, a3))
+        case _ => Left(ParseExcMulti(Either.collectLefts(res1, res2, res3)))
+      }
+    }
+
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingId(settingStr: String): ParseExcEither[String] = findSettingExpr(settingStr).flatMap{
       case IdentifierToken(str) => Right(str)
