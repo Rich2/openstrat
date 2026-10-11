@@ -3,7 +3,8 @@ package ostrat; package pweb
 
 /** XML / HTML content that can possibly be inlined in the editor. The HTML output may not be inline or inline-block. */
 trait XConElemInedit extends XConElem
-{ /** The out [[String]], prior to being formatted into text lines. */
+{ /** The out [[String]], prior to being formatted into text lines. This output can be placed on a single line in the HTML code, but maybe required to be broken
+   * up into multiple lines due to indents, preceding code and line length. */
   def outUnlined: String
 
   override def outLines(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): TextLines =

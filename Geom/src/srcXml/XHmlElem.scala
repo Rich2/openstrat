@@ -52,10 +52,13 @@ trait XHmlElem extends XConCompound
         def currLen = currLine.length
         atts4.iForeach{ (i, att) =>
           val newStr = att.out(indent + 2, indent, MaxLineLen)
-          if (currLen == 0 || (currLen + newStr.length + indent) <= maxLineLen) currLine --= newStr
-          else
-          { lines.grow(currLine)
-            currLine = "\n" + (indent + 2).spaces + newStr
+          currLen match
+          { case 0 => currLine = newStr
+            case _ if (currLen + newStr.length + indent) <= maxLineLen => currLine --= newStr
+            case _ =>
+            { lines.grow (currLine)
+              currLine = "\n" + (indent + 2).spaces + newStr
+            }
           }
         }
         lines.grow(currLine)

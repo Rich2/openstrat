@@ -44,6 +44,8 @@ object ThrowMulti
 trait ErrMultiBuilder[EE, E <: EE, ME <: ErrMulti[E] & EE]
 { def multi(arr: RArr[E]): ME
   def multi(errs: E*)(using ct: ClassTag[E]): ME
+  
+  //def eithers(inp: Either[E])
 }
 
 object ErrMultiBuilder
