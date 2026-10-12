@@ -1,6 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.targetName, reflect.ClassTag
+import annotation.targetName, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** An [[Exception]] that is concatenation of multiple errors. */
 trait ErrMulti[+E] extends Exception
@@ -44,8 +44,26 @@ object ThrowMulti
 trait ErrMultiBuilder[EE, E <: EE, ME <: ErrMulti[E] & EE]
 { def multi(arr: RArr[E]): ME
   def multi(errs: E*)(using ct: ClassTag[E]): ME
+
+  def eithers(inp: RArr[Either[E, ?]])(using ClassTag[E]): ME =
+  { val buff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    inp.foreach {
+      case Left(err) => buff.append(err)
+      case _ =>
+    }
+    multi(buff.toRArr)
+  }
   
-  //def eithers(inp: Either[E])
+  def eithers(inp: Either[E, ?]*)(using ClassTag[E]): ME =
+  { val buff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    inp.foreach{
+      case Left(err) => buff.append(err)
+      case _ =>  
+    }
+    multi(buff.toRArr)
+  }
+  
+  def left(inp: Either[E, ?]*)(using ClassTag[E]): Left[ME, Nothing] = Left(eithers(inp.toRArr))
 }
 
 object ErrMultiBuilder

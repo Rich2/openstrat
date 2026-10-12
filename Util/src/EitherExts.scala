@@ -100,14 +100,14 @@ extension (obj: Either.type)
 
   /** Folds over 2 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if one or both [[Either]]s are [[Left]]s. The second
    * function is only used if both are [[Right]]s. */
-  def forboth2[E <: Exception, A1, A2, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => Ue)(fa: (A1, A2) => Ua)(using ctE: ClassTag[E]):
+  def forFold2[E <: Exception, A1, A2, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2])(fe: ExcMulti[E] => Ue)(fa: (A1, A2) => Ua)(using ctE: ClassTag[E]):
   Unit = eth1 match {
-    case Right(a1) => eth2 match {
-      case Right(a2) => fa(a1, a2)
+    case Right(a1) => eth2 match
+    { case Right(a2) => fa(a1, a2)
       case Left(err2) => fe(ExcMulti(err2))
     }
-    case Left(err1) => eth2 match {
-      case Right(_) => fe(ExcMulti(err1))
+    case Left(err1) => eth2 match
+    { case Right(_) => fe(ExcMulti(err1))
       case Left(err2) => fe(ExcMulti(err1, err2))
     }
   }
@@ -130,12 +130,12 @@ extension (obj: Either.type)
   def map3[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3])(f: (A1, A2, A3) => B)(
     using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] = (eb1, eb2, eb3) match
   { case (Right(a1), Right(a2), Right(a3)) => Right(f(a1, a2, a3))
-    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3)))
+    case _ => builder.left(eb1, eb2, eb3)
   }
 
   /** Folds over 3 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if any of the [[Either]]s are [[Left]]s. The second
    * function is only used if all 3 are [[Right]]s. */
-  def forboth3[E <: Exception, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ExcMulti[E] => Ue)(fa: (A1, A2, A3) => Ua)
+  def forFold3[E <: Exception, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ExcMulti[E] => Ue)(fa: (A1, A2, A3) => Ua)
     (using ct: ClassTag[E]): Unit = (eth1, eth2, eth3) match
   { case (Right(a1), Right(a2), Right(a3)) => fa(a1, a2, a3)
     case _ => fe(ExcMulti(collectLefts(eth1, eth2, eth3)))
@@ -145,7 +145,7 @@ extension (obj: Either.type)
   def map4[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(
     f: (A1, A2, A3, A4) => B)(using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] = (eb1, eb2, eb3, eb4) match
   { case (Right(a1), Right(a2), Right(a3), Right(a4)) => Right(f(a1, a2, a3, a4))
-    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3, eb4)))
+    case _ => builder.left(eb1, eb2, eb3, eb4)
   }
   /** If all 5 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
@@ -153,7 +153,7 @@ extension (obj: Either.type)
     eb5: Either[E, A5])(f: (A1, A2, A3, A4, A5) => B)(using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] =
    (eb1, eb2, eb3, eb4, eb5) match 
   { case (Right(a1), Right(a2), Right(a3), Right(a4), Right(a5)) => Right(f(a1, a2, a3, a4, a5))
-    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3, eb4, eb5)))
+    case _ => builder.left(eb1, eb2, eb3, eb4, eb5)
   }
   
   /** If all 6 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
@@ -162,7 +162,7 @@ extension (obj: Either.type)
     eb5: Either[E, A5], eb6: Either[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B)(using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME, B] =
     (eb1, eb2, eb3, eb4, eb5, eb6) match
   { case (Right(a1), Right(a2), Right(a3), Right(a4), Right(a5), Right(a6)) => Right(f(a1, a2, a3, a4, a5, a6))
-    case _ => Left(builder.multi(collectLefts(eb1, eb2, eb3, eb4, eb5)))
+    case _ => builder.left(eb1, eb2, eb3, eb4, eb5)
   }
 
   /** Folds over 2 [[Either]]s. Takes 2 functions the first is used one or both [[Either]]s are [[Left]]s. The second function is only used if both are

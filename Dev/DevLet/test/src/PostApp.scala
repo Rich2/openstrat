@@ -10,7 +10,7 @@ object PostApp
     val eName: Either[Exception, String] = eStr.flatMap(_.findStrSetting("username"))
     val ePass: Either[Exception, String] = eStr.flatMap(_.findStrSetting("pWord"))
     val eDB: Either[Exception, String] = eStr.flatMap(_.findStrSetting("dBase"))
-    Either.forboth3(eDB, eName, ePass){errs =>
+    Either.forFold3(eDB, eName, ePass){errs =>
       debvar(errs)
     }{ (dbName, uName, pWord) =>      
       postgresConn(dbName, uName, pWord).forboth{err =>
