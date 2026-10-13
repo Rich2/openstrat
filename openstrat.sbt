@@ -2,7 +2,7 @@
 
 val versionStr = "0.4.1snap"
 version := versionStr
-val scalaMajor: String = "3.9"
+val scalaMajor: String = "3.10"
 val scalaMinor: String = "0"
 val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 organization := "com.richstrat"

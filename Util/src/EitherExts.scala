@@ -66,17 +66,7 @@ implicit class EitherStringExts[E <: Exception](thisEither: Either[E, String])
 }
 
 extension (obj: Either.type)
-{ /** Extension method to collect errors. */
-  def collectLefts[E, A](eithers: Either[E, A]*)(using ClassTag[E]): RArr[E] =
-  { val buff = ArrayBuffer[E]()
-    eithers.foreach{
-      case Left(err) => buff.append(err)
-      case _ =>
-    }
-    buff.toRArr
-  }
-
-  /** If both [[Either]] inputs are [[Right]]s return [[Right]] of function. Else return a [[Left]] [[ErrMulti]]. */
+{ /** If both [[Either]] inputs are [[Right]]s return [[Right]] of function. Else return a [[Left]] [[ErrMulti]]. */
   def map2[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(using builder: ErrMultiBuilder[EE, E, ME],
     ct: ClassTag[E]): Either[ME, B] = eb1 match
   { case Right(a1) => eb2.match
@@ -135,11 +125,12 @@ extension (obj: Either.type)
 
   /** Folds over 3 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if any of the [[Either]]s are [[Left]]s. The second
    * function is only used if all 3 are [[Right]]s. */
-  def forFold3[E <: Exception, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ExcMulti[E] => Ue)(fa: (A1, A2, A3) => Ua)
-    (using ct: ClassTag[E]): Unit = (eth1, eth2, eth3) match
+  def forFold3[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ME => Ue)(fa: (A1, A2, A3) => Ua)
+    (using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Unit = (eth1, eth2, eth3) match
   { case (Right(a1), Right(a2), Right(a3)) => fa(a1, a2, a3)
-    case _ => fe(ExcMulti(collectLefts(eth1, eth2, eth3)))
+    case _ =>  fe(builder.eithers(eth1, eth2, eth3))
   }
+  
   /** If all 4 [[Either]] inputs are [[Right]]s return [[Right]] of function. If both [[Left]]s combine the errors. Error type may widen to contain all the
    * possibilities */
   def map4[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, A4, B](eb1: Either[E, A1], eb2: Either[E, A2], eb3: Either[E, A3], eb4: Either[E, A4])(

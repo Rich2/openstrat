@@ -41,7 +41,7 @@ object ThrowMulti
 }
 
 /** Builder type class for constructing [[ErrMulti]] classes. */
-trait ErrMultiBuilder[EE, E <: EE, ME <: ErrMulti[E] & EE]
+trait ErrMultiBuilder[EE, E <: EE, +ME <: ErrMulti[E] & EE]
 { def multi(arr: RArr[E]): ME
   def multi(errs: E*)(using ct: ClassTag[E]): ME
 

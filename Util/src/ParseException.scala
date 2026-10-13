@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import reflect.ClassTag
+import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** Parser [[Exception]]. */
 trait ParseException extends Exception
@@ -33,15 +33,27 @@ object LeftParseExc
   def apply(detail: String): Left[ParseException, Nothing] = Left(ParseException(detail))
 }
 
+/** Compound error trait for errors extending [[ParseException]]. */
 trait ParseExcMulti[E <: ParseException] extends ExcMulti[E], ParseException
 { override def getMessage: String = s"$numErrs errors of type Exception"
 }
 
 object ParseExcMulti
-{
+{ /** Factory apply method to construct [[ParseExcMulti]] from [[RArr]] of errors subclassing [[ParseException]]. */
   def apply[E <: ParseException](exceps: RArr[E]): ParseExcMulti[E] = ParseExcMultiGen(exceps)
 
+  /** Factory apply method to construct [[ParseExcMulti]] from repeat parameter errors subclassing [[ParseException]]. */
   def apply[E <: ParseException](errors: E*)(using ClassTag[E]): ParseExcMulti[E] = ParseExcMultiGen(errors.toRArr)
+
+  /** Factory method to construct [[Left]] of [[ParseExcMulti]] of errors subclassing [[ParseException]]. */
+  def left[E <: ParseException](input: Either[E, ?]*)(using ClassTag[E]): Left[ParseExcMulti[E], Nothing] =
+  { val buff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    input.foreach{
+      case Left(err) => buff.append(err)
+      case _ => 
+    }
+    Left(ParseExcMultiGen(buff.toRArr))
+  }
 
   /** Implementation class for the general case of [[ExcMulti]]. */
   case class ParseExcMultiGen[E <: ParseException](mems: RArr[E]) extends ParseExcMulti[E]

@@ -101,7 +101,7 @@ object Statement
       val res3: ParseExcEither[A3] = ev3.settingFromStatements(statements, settingStr3)
       (res1, res2, res3) match{
         case (Right(a1), Right(a2), Right(a3)) => Right((a1, a2, a3))
-        case _ => Left(ParseExcMulti(Either.collectLefts(res1, res2, res3)))
+        case _ => ParseExcMulti.left(res1, res2, res3)
       }
     }
 
