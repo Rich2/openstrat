@@ -1,19 +1,19 @@
 /* © 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, geom.*, pweb.*, webjvm.*, gres.*, java.sql.Connection
+import utiljvm.*, geom.*, pweb.*, webjvm.*, pParse.*, gres.*, java.sql.Connection
 
 object PostApp
 {
   def main(args: Array[String]): Unit =
   { deb("Welcome to PostApp!")
     val eStr: IOExcEither[String] = loadResourceStr("Postgres.rson")
-    val eName: Either[Exception, String] = eStr.flatMap(_.findStrSetting("username"))
-    val ePass: Either[Exception, String] = eStr.flatMap(_.findStrSetting("pWord"))
-    val eDB: Either[Exception, String] = eStr.flatMap(_.findStrSetting("dBase"))
+    val eName: IOParseExcEither[Identifier] = eStr.flatMap(_.findSetting[Identifier]("username"))
+    val ePass: IOParseExcEither[String] = eStr.flatMap(_.findStrSetting("pWord"))
+    val eDB: IOParseExcEither[Identifier] = eStr.flatMap(_.findSetting[Identifier]("dBase"))
     Either.forFold3(eDB, eName, ePass){errs =>
       debvar(errs)
     }{ (dbName, uName, pWord) =>      
-      postgresConn(dbName, uName, pWord).forboth{err =>
+      postgresConn(dbName.srcStr, uName.srcStr, pWord).forboth{err =>
         debvar(err)
       }{conn0 =>
         given conn: Connection = conn0 

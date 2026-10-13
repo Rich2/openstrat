@@ -11,7 +11,7 @@ trait ExcSemantic extends ExcPersist
 object ExcWrongType extends Exception("Expression has wrong type") with ExcSemantic
 
 /** No [[pParse.Expr]] at index N [[Exception]]. */
-case class ExcNoExprAtN(index: Int, unshow: Unshow[?]) extends Exception(s"No expression at index $index to find type ${unshow.typeStr}") with ExcSemantic
+case class ExcNoExprAtN(index: Int, unshow: Unshow[?]) extends Exception(s"No expression at index $index to find type ${unshow.typeStr}"), ExcSemantic
 
 /** No [[pParse.Expr]] at index N [[Left]]. */
 def FailNoExprAtN(index: Int, unshow: Unshow[?]): Left[ExcNoExprAtN, Nothing] = Left(ExcNoExprAtN(index, unshow))

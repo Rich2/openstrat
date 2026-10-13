@@ -191,19 +191,19 @@ object Statement
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: ExcEither[Array[Int]] = ??? // Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
+    def findIntArray: ParseExcEither[Array[Int]] = Unshow.arrayIntEv.findUniqueTFromStatements(statements)
 
     /** Find Setting of the given name and type [[String]] from this Arr[Statement] Extension method. */
-    def findSettingStr(settingStr: String): ExcEither[String] = Unshow.stringEv.settingFromStatements(statements, settingStr)
+    def findSettingStr(settingStr: String): ParseExcEither[String] = Unshow.stringEv.settingFromStatements(statements, settingStr)
     
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): ExcEither[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
+    def findSettingInt(settingStr: String): ParseExcEither[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingDbl(settingStr: String): ExcEither[Double] = Unshow.doubleEv.settingFromStatements(statements, settingStr)
+    def findSettingDbl(settingStr: String): ParseExcEither[Double] = Unshow.doubleEv.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingPosDbl(settingStr: String): ExcEither[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
+    def findSettingPosDbl(settingStr: String): ParseExcEither[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      * resolve to Expr[Boolean]. */

@@ -98,13 +98,13 @@ implicit class StringExtsOstrat(thisString: String)
   def findIntArray: Either[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSetting[T: Unshow](settingStr: String): ExcEither[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+  def findSetting[T: Unshow](settingStr: String): ParseExcEither[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getOrElse(elseValue)
 
   /** Find setting of type [[String]] from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findStrSetting(settingStr: String): Either[Exception, String] = thisString.parseStatements.flatMap(_.findSettingStr(settingStr))
+  def findStrSetting(settingStr: String): ParseExcEither[String] = thisString.parseStatements.flatMap(_.findSettingStr(settingStr))
 
   /** Find setting of type [[Int]] from this [[String]] extension method, parsing this String as RSON Statements. */
   def findIntSetting(settingStr: String): Either[Exception, Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))  
@@ -115,7 +115,7 @@ implicit class StringExtsOstrat(thisString: String)
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as RSON
    * Statements. */
-  def findDblSetting(settingStr: String) = thisString.parseStatements.flatMap(_.findSettingDbl(settingStr))
+  def findDblSetting(settingStr: String): ParseExcEither[Double] = thisString.parseStatements.flatMap(_.findSettingDbl(settingStr))
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
@@ -128,6 +128,13 @@ implicit class StringExtsOstrat(thisString: String)
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
   def findBoolSettingElse(settingStr: String, elseValue: Boolean): Boolean = findBoolSetting(settingStr).getOrElse(elseValue)
+
+  /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
+  def find2Settinga[A1, A2](settStr1: String, settStr2: String)(using unshow1: Unshow[A1], unshow2: Unshow[A2]): ParseExcEither[(A1, A2)] = {
+    
+    ???
+  } // thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+
 
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other

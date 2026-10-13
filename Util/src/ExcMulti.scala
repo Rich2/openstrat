@@ -45,6 +45,7 @@ trait ErrMultiBuilder[EE, E <: EE, +ME <: ErrMulti[E] & EE]
 { def multi(arr: RArr[E]): ME
   def multi(errs: E*)(using ct: ClassTag[E]): ME
 
+  /** Takes the errors from a sequence of [[Either]]s. */
   def eithers(inp: RArr[Either[E, ?]])(using ClassTag[E]): ME =
   { val buff: ArrayBuffer[E] = new ArrayBuffer[E]()
     inp.foreach {
@@ -54,6 +55,7 @@ trait ErrMultiBuilder[EE, E <: EE, +ME <: ErrMulti[E] & EE]
     multi(buff.toRArr)
   }
   
+  /** Takes the errors from a sequence of [[Either]]s. */
   def eithers(inp: Either[E, ?]*)(using ClassTag[E]): ME =
   { val buff: ArrayBuffer[E] = new ArrayBuffer[E]()
     inp.foreach{

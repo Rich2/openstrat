@@ -30,7 +30,7 @@ trait Unshow[+T] extends Persist
 
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
-  ExcEither[T] = valuesFromStatements(sts) match
+  ParseExcEither[T] = valuesFromStatements(sts) match
   {
     case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
     case s if s.length == 1 => Right(s.head)
