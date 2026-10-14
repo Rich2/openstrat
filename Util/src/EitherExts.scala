@@ -11,8 +11,8 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   }
 
   /** Returns this if success, else returns the other [[Either]]. */
-  def succOrOther[EE >: E <: Throwable, AA >: A](otherEither: => Either[EE, AA] @uncheckedVariance): Either[EE, AA] = thisEither match {
-    case Right(_) => thisEither
+  def succOrOther[EE >: E <: Throwable, AA >: A](otherEither: => Either[EE, AA] @uncheckedVariance): Either[EE, AA] = thisEither match
+  { case Right(_) => thisEither
     case Left(_) => otherEither
   }
 
@@ -26,6 +26,20 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   def forboth[U1, U2](fe: E => U1)(fa: A => U2): Unit = thisEither match
   { case Left[E, A] (err) => fe(err)
     case Right(value) => fa(value)
+  }
+  
+  def flatMap2[EEB, EB <: EEB, ME <: ErrMulti[EB] & EEB, B1, B2](f1: A => Either[EB, B1])(f2: A => Either[EB, B2])(using builder: ErrMultiBuilder[EEB, EB, ME],
+    ctEB: ClassTag[EB]):
+  Either[E | ME, (B1, B2)] = thisEither match
+  { case Left(err) => Left(err)
+    case Right(a) =>{
+      val eth1 = f1(a)
+      val eth2 = f2(a) 
+      (eth1, eth2) match
+      { case (Right(b1), Right(b2)) => Right(b1, b2)
+        case _ => builder.left(eth1, eth2)
+      }
+    }
   }
 }
 

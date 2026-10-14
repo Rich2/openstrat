@@ -55,6 +55,7 @@ object Geom extends CommonJvm
   def sources2 = Task.Sources(moduleDir / "JvmSrc")
   def sources = Task { sources1() ++ sources2() }
   def moduleDeps = Seq(Util)
+  def mvnDeps = Seq(mvn"org.postgresql:postgresql:42.7.13")
   object test extends InnerTests
 }
 
@@ -109,12 +110,6 @@ object GeomDoc extends CommonJvm
 object GeomDocJs extends CommonJs
 { def moduleDeps = Seq(UtilDocJs, GeomExsJs)
   def sources = Task.Sources(workspaceRoot / "Geom" / "GeomDoc" / "src")
-}
-
-object Postgres extends CommonJvm
-{ def moduleDeps = Seq(Geom)
-  def sources = Task.Sources(workspaceRoot / "Postgres" / "src")
-  def mvnDeps = Seq(mvn"org.postgresql:postgresql:42.7.13")
 }
 
 object Tiling extends CommonJvm
@@ -349,7 +344,7 @@ def StageAllJars = Task{
 object DevLet extends CommonJvm
 { def sources = Task.Sources(workspaceRoot / "Dev" / "DevLet" / "src")
   def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.1.0")
-  def moduleDeps = Seq(GeomLet, Postgres, Dev)
+  def moduleDeps = Seq(GeomLet, Dev)
   object test extends InnerTests
   { def sources = Task.Sources(workspaceRoot / "Dev" / "DevLet" / "test" / "src")
     //def mainClass = Some("ostrat.pDev.PostApp")

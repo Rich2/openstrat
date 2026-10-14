@@ -123,6 +123,7 @@ def geomSett = List(
 )
 
 lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett).settings(
+  libraryDependencies += ("org.postgresql" % "postgresql" % "42.7.13").withSources().withJavadoc(),
   Test/unmanagedResourceDirectories += bbDir.value / "User",
 )
 
@@ -145,10 +146,6 @@ lazy val GeomExsJs = jsExsProj("Geom").dependsOn(GeomJs).settings(geomExsSett)
 lazy val GeomDoc = jvmDocProj("Geom").dependsOn(UtilDoc, GeomExs)
 lazy val GeomDocJs = jsDocProj("Geom").dependsOn(UtilDocJs, GeomExsJs)
 lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett)
-
-lazy val Postgres = jvmMainProj("Postgres").dependsOn(Geom).settings(
-  libraryDependencies += ("org.postgresql" % "postgresql" % "42.7.13").withSources().withJavadoc(),
-)
 
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
@@ -221,7 +218,7 @@ lazy val DevFx =  projSubName("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
   assemblyMergeStrategy := {case _ => MergeStrategy.first }
 )
 
-lazy val DevLet = projSub("Dev", "DevLet").dependsOn(Dev, GeomLet, Postgres).settings(
+lazy val DevLet = projSub("Dev", "DevLet").dependsOn(Dev, GeomLet).settings(
   libraryDependencies += ("jakarta.servlet" % "jakarta.servlet-api" % "6.1.0" % "provided").withSources().withJavadoc(),
   libraryDependencies += ("org.postgresql" % "postgresql" % "42.7.13").withSources().withJavadoc(),
   Compile/mainClass := Some("ostrat.pDev.StagingServlet"),

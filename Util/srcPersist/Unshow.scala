@@ -29,10 +29,9 @@ trait Unshow[+T] extends Persist
     sts.mapCollectSuccs(fromStatement)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(using arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
   ParseExcEither[T] = valuesFromStatements(sts) match
-  {
-    case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
+  { case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
     case s if s.length == 1 => Right(s.head)
     case s3 => sts.startPosn.leftParse(s3.length.toString -- "values of" -- typeStr -- "found.")
   }

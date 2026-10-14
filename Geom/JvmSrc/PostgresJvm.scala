@@ -1,16 +1,17 @@
-/* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gres
-import utiljvm.*, geom.*, pweb.*, webjvm.*, java.sql.*, org.postgresql.util.PSQLException
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pweb; package webjvm
+import utiljvm.*, pweb.*, java.sql.*, org.postgresql.util.PSQLException
+
 
 type SqlExcEither[+A] = Either[SQLException, A]
 
 type PsqlExcEither[+A] = Either[PSQLException, A]
 
-val connStr = "jdbc:postgresql://localhost:5432/"
-
 def postgresConn(dbName: String, uName: String, password: String): PsqlExcEither[Connection] =
   try{ Right(DriverManager.getConnection(connStr + dbName, uName, password)) }
   catch{ case sqlExc: PSQLException => Left(sqlExc) }
+
+val connStr = "jdbc:postgresql://localhost:5432/"
 
 /** Postgres table. */
 case class Gable(name: String)

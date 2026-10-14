@@ -8,7 +8,7 @@ trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
   def javaInstall: HtmlElemBuilder = HtmlElemBuilder.listenOptIntHtml(opSysInput, javaVerInput){ (opSys, jVer) =>
     RArr[XCon]("Install Java. Currently suggesting Java 26. Note the jdk at the end of the version.") +%
       (opSys match
-      { case UbuntuDeriv => BashLine(s"sudo apt install openjdk-${jVer.str0}-jdk -y")
+      { case UbuntuDeriv => BashLine(s"sudo apt install openjdk-${jVer.str0}-jdk")
         case _: ArchDeriv => BashLine(s"sudo pacman -Syu jdk${jVer.str0}-openjdk")
         case _ => "No code available."
       }) +% "Check the version" +%
