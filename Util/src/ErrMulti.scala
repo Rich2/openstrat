@@ -14,7 +14,7 @@ trait ErrMulti[+E] extends Exception
   @targetName("append")def ++[EE >: E, ME <: ErrMulti[EE] & EE] (operand: ErrMulti[EE])(using build: ErrMultiBuilder[EE, EE, ME], ctE: ClassTag[EE]): ErrMulti[EE] & EE =
     build.multi(mems ++ operand.mems)
 
-  override def getMessage: String = s"$numErrs errors"  
+  override def getMessage: String = s"$numErrs errors"
 }
 
 /** An error that is concatenation of multiple [[Throwable]]s. */

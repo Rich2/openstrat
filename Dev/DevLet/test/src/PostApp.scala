@@ -14,7 +14,7 @@ object PostApp
     
     val eSetts: IOParseExcEither[(Identifier, Identifier, String)] =
       eStr.flatMap(_.find3Settings[Identifier, Identifier, String]("dbase", "username", "pWord"))
-    //Either.fold3Do(eDB, eName, ePass)*/  
+     
     eSetts.foldDo{ errs =>
       debvar(errs)
     }{ (dbName, uName, pWord) =>      

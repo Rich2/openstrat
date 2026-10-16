@@ -1,6 +1,14 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+/** An error from Rich Script Object Notation. */
+trait RsonExc extends Exception
+
+case class SettingNotFound(settName: String) extends Exception, RsonExc
+{
+  override def getMessage: String = s"$settName setting not found."
+}
+
 /** Helper class for constructing [[String]]s from ShowT implicit instances on objects. */
 class Rval(val str: String) extends AnyVal
 { /** Adds any object' with an implicit instance in scope's String representation to this Rval's String. */
@@ -26,4 +34,3 @@ object Setting
 {
   def apply[A](setting: String, value: A)(implicit ev: Show[A]): Setting = new Setting(setting + " = " + ev.strT(value) + ";")
 }
-
