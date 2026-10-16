@@ -135,7 +135,7 @@ object Statement
       ev.keySettingFromStatements(statements, key).getOrElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = findSetting[T](settingStr).succOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = findSetting[T](settingStr).rightOrOther(findType)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
     def findSettingElse[A](settingStr: String, elseValue: A)(using Unshow[A]): A = findSetting[A](settingStr).getOrElse(elseValue)

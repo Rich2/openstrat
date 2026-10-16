@@ -6,20 +6,20 @@ import collection.mutable.ArrayBuffer
  * encapsulated. */
 object lexSrc
 { /** lexes [[String]]. */
-  def str(inp: String): Either[LexarException, RArr[Token]] = apply(inp.toArray, "String")
+  def str(inp: String): LexarExcEither[RArr[Token]] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
-  def apply(charsIn: Array[Char], fileName: String): Either[LexarException, RArr[Token]] =
+  def apply(charsIn: Array[Char], fileName: String): LexarExcEither[RArr[Token]] =
   { implicit val charArr: CharArr = new CharArr(charsIn)
     val acc: ArrayBuffer[Token] = Buffer[Token]()
     var acc2: Either[LexarException, ArrayBuffer[Token]] = Right(acc)
     var rem: CharsOff = charArr.offsetter0
     var posn: TextPosn = new TextPosn(fileName, 1, 1)
 
-    implicit class E3LexarImplicit(e3: ErrBi3[LexarException, CharsOff, TextPosn, Token])
+    implicit class E3LexarImplicit(e3: LexarExcEither[(CharsOff, TextPosn, Token)])
     {
-      def append3Loop: Unit = e3 match {
-        case Right(tuple) =>
+      def append3Loop: Unit = e3 match
+      { case Right(tuple) =>
         { val (co, tp, token) = tuple
           acc.append(token)
           rem = co

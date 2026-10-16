@@ -1,19 +1,19 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
 /** Function object to parse a brace delineated block. */
 object parse2BraceBlock
 { /** Function apply method parses input [[Token]]s into a brace syntax block. */
-  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: RArr[Token]): throwEitherT2[AstException, BracketedStructure, ArrOff[Token]] =
+  def apply(rem: ArrOff[Token], open: BracketOpen)(using arr: RArr[Token]): AstExcEither[(BracketedStructure, ArrOff[Token])] =
   {
     val acc: ArrayBuffer[BlockMem] = Buffer()
-    def loop(rem: ArrOff[Token]): throwEitherT2[AstException, BracketedStructure, ArrOff[Token]] = rem match
+    def loop(rem: ArrOff[Token]): AstExcEither[(BracketedStructure, ArrOff[Token])] = rem match
     {
       case ArrOff0() => open.startPosn.leftAst("Unclosed Brace")
 
       //This case is where an inner BracketBlock starts within the current BracketBlock
-      case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).t2FlatMap{ (bracketBlock, remTokens) =>
+      case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).flatMap{ (bracketBlock, remTokens) =>
         acc.append(bracketBlock)
         loop(remTokens)
       }

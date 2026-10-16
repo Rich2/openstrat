@@ -11,7 +11,7 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   }
 
   /** Returns this if success, else returns the other [[Either]]. */
-  def succOrOther[EE >: E <: Throwable, AA >: A](otherEither: => Either[EE, AA] @uncheckedVariance): Either[EE, AA] = thisEither match
+  def rightOrOther[EE >: E <: Throwable, AA >: A](otherEither: => Either[EE, AA] @uncheckedVariance): Either[EE, AA] = thisEither match
   { case Right(_) => thisEither
     case Left(_) => otherEither
   }
@@ -22,12 +22,13 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
     case Left(err) => Left(err)
   }
 
-  /** Extension method to give an explixt imperative on [[Either]]. */
+  /** Extension method to give an explicit imperative fold on [[Either]]. */
   def foldDo[U1, U2](fe: E => U1)(fa: A => U2): Unit = thisEither match
   { case Left[E, A] (err) => fe(err)
     case Right(value) => fa(value)
   }
   
+  /** FlatMaps from 2 eithers, combining the input errors of both not [[Right]]s. */
   def flatMap2[EEB, EB <: EEB, ME <: ErrMulti[EB] & EEB, B1, B2](f1: A => Either[EB, B1])(f2: A => Either[EB, B2])(using builder: ErrMultiBuilder[EEB, EB, ME],
     ctEB: ClassTag[EB]):
   Either[E | ME, (B1, B2)] = thisEither match
@@ -182,15 +183,5 @@ extension (obj: Either.type)
       case Right(_) => fe(ExcMulti(err1))
       case Left(err2) => fe(ExcMulti(err1, err2))
     }
-  }
-}
-
-/** Extension class for [[Exception]] bifunctor for [[Tuple2]]s. */
-extension [E <: Throwable, A1, A2](thisEE2: throwEitherT2[E, A1, A2])
-{
-  def t2FlatMap[B1, B2](f: (A1, A2) => throwEitherT2[E, B1, B2]): throwEitherT2[E, B1, B2] = thisEE2 match
-  { case Succ2(a1, a2) => f(a1, a2)
-    case Left(err) => Left(err)
-    case eb => excep(s"$eb This case was unexpected")
   }
 }

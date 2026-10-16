@@ -1,16 +1,16 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 
 /** Function object that parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
 object lexStringToken
 { /** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
-  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[LexarException, CharsOff, TextPosn, StringToken] =
+  def apply(rem: CharsOff, tp: TextPosn)(using charArr: CharArr): LexarExcEither[(CharsOff, TextPosn, StringToken)] =
   {
     val strAcc: StringBuilder = new StringBuilder()
 
-    def loop(rem: CharsOff): ErrBi3[LexarException, CharsOff, TextPosn, StringToken] = rem match
+    def loop(rem: CharsOff): LexarExcEither[(CharsOff, TextPosn, StringToken)] = rem match
     { case CharsOff0() => tp.leftLexar("Unclosed String")
-      case CharsOff1Tail('\"', tail2) => Succ3(tail2, tp.right(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
+      case CharsOff1Tail('\"', tail2) => Right(tail2, tp.right(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
       case CharsOff1('\\') =>  tp.leftLexar("Unclosed String ending with unclosed escape Sequence")
       case CharsOff2Tail('\\', c2, tail) if Array('\"', '\n', '\b', '\t', '\f', '\r', '\'', '\\').contains(c2) => { strAcc.append(c2); loop(tail) }
       case CharsOffHead2('\\', c2) => tp.leftLexar("Unrecognised escape Sequence \\" + c2.toString)

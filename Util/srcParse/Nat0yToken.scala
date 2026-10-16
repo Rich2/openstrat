@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** A hexadecimal token with a leading "0y", that can be used for standard 32 bit Ints, 64 bit Longs, as well as less used integer
@@ -10,37 +10,37 @@ case class Nat0yToken(startPosn: TextPosn, digitsStr: String) extends IntStdToke
   override def getIntStd: Int = asBase32Int
 }
 
-/** Function for parsing explicit Hexadecimal Token, one that begins with the charchters '0y'. */
+/** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0y'. */
 object Nat0yToken
 {
-  /** Function for parsing explicit Hexadecimal Token, one that begins with the charchters '0y'. */
-  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[LexarException, CharsOff, TextPosn, Token] =
+  /** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0y'. */
+  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): LexarExcEither[(CharsOff, TextPosn, Token)] =
   {
-    def loop(rem: CharsOff, strAcc: String): ErrBi3[LexarException, CharsOff, TextPosn, Nat0yToken] = rem match
-    { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
+    def loop(rem: CharsOff, strAcc: String): LexarExcEither[(CharsOff, TextPosn, Nat0yToken)] = rem match
+    { case CharsOff0() => Right(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => loop(tail, strAcc + c)
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
       case CharsOffHead(LetterChar(_)) => tp.leftLexar("Badly formed hexadecimal")
-      case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
+      case _ => Right(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
-    def upperLoop(rem: CharsOff, strAcc: String): ErrBi3[LexarException, CharsOff, TextPosn, Nat0yToken] = rem match
-    { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
+    def upperLoop(rem: CharsOff, strAcc: String): LexarExcEither[(CharsOff, TextPosn, Nat0yToken)] = rem match
+    { case CharsOff0() => Right(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => upperLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
       case CharsOffHead(Base32LowerChar(c)) => tp.leftLexar("Can't mix upper and lower case letters in 0y Base32 token.")
       case CharsOffHead(LetterChar(_)) => tp.leftLexar("Badly formed hexadecimal")
-      case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
+      case _ => Right(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
-    def lowerLoop(rem: CharsOff, strAcc: String): ErrBi3[LexarException, CharsOff, TextPosn, Nat0yToken] = rem match
-    { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
+    def lowerLoop(rem: CharsOff, strAcc: String): LexarExcEither[(CharsOff, TextPosn, Nat0yToken)] = rem match
+    { case CharsOff0() => Right(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => lowerLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
       case CharsOffHead(Base32UpperChar(c)) => tp.leftLexar("Can't mix upper and lower case letters in 0y Base32 token.")
       case CharsOffHead(LetterChar(_)) => tp.leftLexar("Badly formed hexadecimal")
-      case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
+      case _ => Right(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
     rem match
