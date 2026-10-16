@@ -269,7 +269,7 @@ class BufferRefExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
   @inline def toArr(using ClassTag[A]): RArr[A] = new RArr[A](thisBuff.toArray[A])
   
   /** Utility method to implicitly find the [[reflect.ClassTag]] and produced convert to [[RArr]] wrapped in [[Right]]. */
-  def succRArr(using ClassTag[A]): Succ[RArr[A]] = Right(new RArr(thisBuff.toArray))
+  def succRArr(using ClassTag[A]): Right[Nothing, RArr[A]] = Right(new RArr(thisBuff.toArray))
 
   def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] =
   {  val len = thisBuff.length

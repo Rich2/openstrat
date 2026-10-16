@@ -78,7 +78,8 @@ object AstExcFail
 }
 
 /** A lexar exception. */
-case class LexarException(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail), ParseException
+case class LexarException(tp: TextPosn, detail: String) extends Exception(tp.fileName --
+  tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail), ParseException
 
 object LexarException
 { /** [[EqT]] type class instance / evidence for [[LexarException]]. */

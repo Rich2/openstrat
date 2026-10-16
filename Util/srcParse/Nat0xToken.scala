@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** A hexadecimal token with a leading "0x", that can be used for standard 32 bit Ints, 64 bit Longs, as well as less used integer
@@ -13,19 +13,18 @@ case class Nat0xToken(startPosn: TextPosn, digitsStr: String) extends NatStdToke
 
 /** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0x'. */
 object Nat0xToken
-{
-  /** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0x'. */
-  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[LexarException, CharsOff, TextPosn, Token] =
+{ /** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0x'. */
+  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): LexarExcEither[(CharsOff, TextPosn, Token)] =
   {
-    def loop(rem: CharsOff, strAcc: String, intAcc: Long): ErrBi3[LexarException, CharsOff, TextPosn, Nat0xToken] = rem match
-    { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0xToken(tp, strAcc))
+    def loop(rem: CharsOff, strAcc: String, intAcc: Long): LexarExcEither[(CharsOff, TextPosn, Nat0xToken)] = rem match
+    { case CharsOff0() => Right(rem, tp.right(strAcc.length + 2), Nat0xToken(tp, strAcc))
       case CharsOff1Tail(HexaDigitChar(c, i), tail) => loop(tail, strAcc + c, intAcc * 16 + i)
       case CharsOffHead(LetterChar(_)) => tp.leftLexar("Badly formed hexadecimal")
-      case _ => Succ3(rem, tp.addStr(strAcc), Nat0xToken(tp, strAcc))
+      case _ => Right(rem, tp.addStr(strAcc), Nat0xToken(tp, strAcc))
     }
 
     rem match
-    { case CharsOff3Tail('0', 'x', HexaDigitChar(c, i), tail) => loop (tail, c.toString, i)
+    { case CharsOff3Tail('0', 'x', HexaDigitChar(c, i), tail) => loop(tail, c.toString, i)
       case CharsOffHead3('0', 'x', WhitespaceChar(_)) => tp.leftLexar("Empty hexademicmal token.")
       case CharsOffHead3('0', 'x', c) => tp.leftLexar("Badly formed hexademicmal token.")
       case CharsOff2('0', 'x') => tp.leftLexar("Unclosed hexadecimal token")

@@ -1,19 +1,19 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 
 /** Function object to parse operator token. */
 object lexOperatorToken
 {
-  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[LexarException, CharsOff, TextPosn, Token] =
+  def apply(remOff: CharsOff, tp: TextPosn)(using charArr: CharArr): LexarExcEither[(CharsOff, TextPosn, Token)] =
   { var acc: String = ""
 
-    def loop(remOff: CharsOff, tp: TextPosn): ErrBi3[LexarException, CharsOff, TextPosn, Token] = remOff match {
-      case CharsOffHead2('/', '/' | '*') => Succ3(remOff, tp, sort)
+    def loop(remOff: CharsOff, tp: TextPosn): LexarExcEither[(CharsOff, TextPosn, Token)] = remOff match
+    { case CharsOffHead2('/', '/' | '*') => Right(remOff, tp, sort)
       case CharsOff1Tail(OperatorChar(c), tail) =>
       { acc :+= c;
         loop(tail, tp.right1)
       }
-      case _ => Succ3(remOff, tp, sort)
+      case _ => Right(remOff, tp, sort)
     }
 
     def sort: Token = acc.last match
