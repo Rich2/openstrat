@@ -67,6 +67,7 @@ object NewDevsPage extends DevPageBase
       LiHtml("File => Settings => 'Appearance and Behaviour' -> Widescreen tool window layout"),
       LiHtml("File => Settings => Editor => 'Code Syle' -> 'Hard wrap at' -> 250"),
       LiHtml("File => Settings => Editor => 'Code Syle' -> 'Visual guides' -> 100, 160"),
+      LiHtml("File => Settings => Editor => 'Code Syle' => Scala -> 'Wrapping and Braces' -> 'Method declaration parameters', Untick 'Align when mult line'"),
       LiHtml("File => Settings => 'Build, Execution, Deployment' => Compiler -> Build project automatically")
     )
   )

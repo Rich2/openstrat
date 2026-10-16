@@ -35,7 +35,8 @@ object LeftParseExc
 
 /** Compound error trait for errors extending [[ParseException]]. */
 trait ParseExcMulti[E <: ParseException] extends ExcMulti[E], ParseException
-{ override def getMessage: String = s"$numErrs errors of type Exception"
+{ override def getMessage: String = s"$numErrs errors of type ParseException"
+  override def toString: String = "ParseExcMulti" + s"$numErrs errors".enParenth
 }
 
 object ParseExcMulti

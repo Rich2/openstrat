@@ -22,8 +22,8 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
     case Left(err) => Left(err)
   }
 
-  /** Extension method to give a 2 parameter list name overload for fold. */
-  def forboth[U1, U2](fe: E => U1)(fa: A => U2): Unit = thisEither match
+  /** Extension method to give an explixt imperative on [[Either]]. */
+  def foldDo[U1, U2](fe: E => U1)(fa: A => U2): Unit = thisEither match
   { case Left[E, A] (err) => fe(err)
     case Right(value) => fa(value)
   }
@@ -139,8 +139,8 @@ extension (obj: Either.type)
 
   /** Folds over 3 [[Either]]s but the functions return [[Unit]]. Takes 2 functions the first is used if any of the [[Either]]s are [[Left]]s. The second
    * function is only used if all 3 are [[Right]]s. */
-  def forFold3[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ME => Ue)(fa: (A1, A2, A3) => Ua)
-    (using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Unit = (eth1, eth2, eth3) match
+  def fold3Do[EE, E <: EE, ME <: ErrMulti[E] & EE, A1, A2, A3, Ue, Ua](eth1: Either[E, A1], eth2: Either[E, A2], eth3: Either[E, A3])(fe: ME => Ue)(fa: (A1, A2, A3) => Ua)
+                                                                      (using builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Unit = (eth1, eth2, eth3) match
   { case (Right(a1), Right(a2), Right(a3)) => fa(a1, a2, a3)
     case _ =>  fe(builder.eithers(eth1, eth2, eth3))
   }
