@@ -9,6 +9,8 @@ trait XHmlInedit extends XHmlElem, XConElemInedit
   override def outUnlined: String = contents match
   { case RArr0() => openTagInit(0, 0) + "/>"
     case RArr1(_) => openTag(0, 0, MaxLineLen) + contents(0).out(0, 0) + closeTag
-    case _ => openTag(0, 0, MaxLineLen).nli(2) + contents.mkStr(_.out(2, MaxLineLen), "\n" + (2).spaces).nli(0) + closeTag
+    // case _ => openTag(0, 0, MaxLineLen).nli(2) + contents.mkStr(_.out(2, MaxLineLen), "\n" + (2).spaces).nli(0) + closeTag
+    case _ => contents.tailfold(openTag(0, 0, MaxLineLen) -- contents.head.out(2, MaxLineLen)){ (acc, con) =>
+      ife(con.attachesToPrev, acc + con.out(2, MaxLineLen), acc -- con.out(2, MaxLineLen)) } + closeTag
   }
 }

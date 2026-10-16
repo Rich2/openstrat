@@ -26,6 +26,10 @@ class TextLines(val lines: Array[String])
     var currLine: String = lines.lastElse("")
     var currWord: String = ""
 
+    /** True while the operand's first word is still to be attached to the preceding content without a separating space, because the operand begins with
+    * closing punctuation such as a comma or semicolon. Set to false once that word has been appended. */
+    var attach: Boolean = currLine != "" && operand.attachesToPrev
+
     /** This takes account of if it is the first line, unknown characters will precede this method's first line. */
     def trueLength: Int = ife(newLines.length == 0, currLine.length + line1InputLen, currLine.length)
 
@@ -37,13 +41,16 @@ class TextLines(val lines: Array[String])
         { currLine = ife(lines.length == 0, currWord, indent.spaces + currWord)
           currWord = ""
         }
-        case c if c.isWhitespace && (trueLength + 1 + currWord.length) > maxLineLen =>
+        case c if c.isWhitespace && !attach && (trueLength + 1 + currWord.length) > maxLineLen =>
         { newLines = newLines :+ currLine
           currLine = indent.spaces + currWord
           currWord = ""
         }
         case c if c.isWhitespace =>
-        { currLine = currLine + " " + currWord
+        { { currLine = currLine + ife(attach, "", " ") + currWord
+            currWord = ""
+            attach = false
+          }
           currWord = ""
         }
         case c => {currWord = currWord + c}
@@ -54,11 +61,11 @@ class TextLines(val lines: Array[String])
     currWord match
     { case "" =>
       case w if currLine == "" => {currLine = w}
-      case w if (trueLength + 1 + currWord.length) > maxLineLen =>
+      case w if !attach && (trueLength + 1 + currWord.length) > maxLineLen =>
       { newLines = newLines :+ currLine
         currLine = indent.spaces + currWord
       }
-      case w => {currLine = currLine + " " + w}
+       case w => {currLine = currLine + ife(attach, "", " ") + w}
     }
     if (currLine != "") newLines = newLines :+ currLine
     new TextLines(newLines)
