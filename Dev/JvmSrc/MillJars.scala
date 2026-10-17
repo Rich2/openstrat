@@ -13,10 +13,10 @@ object Module
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val version: VersionPatchElem = VersionPatchElem.snap(0, 4, 1)
+  val version: VersionPatchElem = VersionPatchElem(0, 4, 1)
 
   /** Version of the Scala dependency. */
-  val scalaVersion = VersionPatchElem(3, 9, 0)
+  val scalaVersion = VersionPatchElem(3, 10, 0)
 
   val pomMods1: RArr[OsModulePomVerless] = RArr(UtilPommer, GeomPommer, TilingPommer, EGridPommer, UtilJsPommer, GeomJsPommer, TilingJsPommer, GeomLetPommer, GeomFxPommer)
 

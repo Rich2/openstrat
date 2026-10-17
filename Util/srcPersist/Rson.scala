@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** An error from Rich Script Object Notation. */
@@ -12,7 +12,7 @@ case class SettingNotFound(settName: String) extends Exception, RsonExc
 /** Helper class for constructing [[String]]s from ShowT implicit instances on objects. */
 class Rval(val str: String) extends AnyVal
 { /** Adds any object' with an implicit instance in scope's String representation to this Rval's String. */
-  def - [A](value: A)(implicit ev: Show[A]): Rval = new Rval(str + "\n" + ev.strT(value) + ";")
+  def -[A](value: A)(using ev: Show[A]): Rval = new Rval(str + "\n" + ev.strT(value) + ";")
 }
 
 object Rval

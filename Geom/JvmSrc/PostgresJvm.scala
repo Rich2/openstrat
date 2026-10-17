@@ -2,7 +2,7 @@
 package ostrat; package pweb; package webjvm
 import utiljvm.*, pweb.*, java.sql.*, org.postgresql.util.PSQLException
 
-
+/** [[Either]] with a [[SQLException]] error type. */
 type SqlExcEither[+A] = Either[SQLException, A]
 
 type PsqlExcEither[+A] = Either[PSQLException, A]
