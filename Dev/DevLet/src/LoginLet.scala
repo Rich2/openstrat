@@ -7,19 +7,15 @@ import utiljvm.*, pweb.*, webjvm.*, plet.*, java.time.LocalDateTime, jakarta.*, 
 {
   val users: RBuff[UserDetails] = RBuff()
   var numSesh: Int = 0
-  val headLog: HeadHtml = HeadHtml.title("Login")
-  val logName: String = "regName"
-  val logPass: String = "regPass"
+  val headLog: HeadHtml = HeadHtml.title("Login")  
   val regForm: RegisterForm = RegisterForm()
   val logForm: LoginForm = LoginForm()
   val catb: String = System.getProperty("catalina.base")
   lazy val eSetts: IOExcEither[String] = loadTextFile(catb / "Notes" / "ostrat.rson")
-  lazy val eName: Either[Exception, String] = eSetts.flatMap(_.findStrSetting("pgUser"))
   
-  lazy val ePass: Either[Exception, String] =
   { val res = eSetts.flatMap(_.findStrSetting("pgPassword"))
     val currentDateTime: LocalDateTime = LocalDateTime.now()
-    utiljvm.writeFile(catb / "Notes/tom.txt", currentDateTime.toString -- eName.toString -- res.toString)
+//    utiljvm.writeFile(catb / "Notes/tom.txt", currentDateTime.toString -- eName.toString -- res.toString)
     res
   }
 
@@ -27,7 +23,7 @@ import utiljvm.*, pweb.*, webjvm.*, plet.*, java.time.LocalDateTime, jakarta.*, 
 
   def eConnTry: Either[Exception, Connection] = eConn match
   { case Left(NoneExc) => 
-    { val res = Either.map2(eName, ePass){ (uName, pWord) => postgresConnection(uName, pWord) }
+    { val res = eSetts.flatMap{settStr => PgDatabase.settConn(settStr) }
       eConn = res
       res
     }

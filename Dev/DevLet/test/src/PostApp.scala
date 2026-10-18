@@ -7,12 +7,9 @@ object PostApp
 {
   def main(args: Array[String]): Unit =
   { deb("Welcome to PostApp!")
-    val users = Gable("users")
-    
-    val eStr: IOExcEither[String] = loadResourceStr("Postgres.rson")        
-    
-    val eConn = eStr.flatMap{ settsStr => PgDatabase.settConn(settsStr) }
-      
+    val users = Gable("users")    
+    val eStr: IOExcEither[String] = loadResourceStr("Postgres.rson")    
+    val eConn = eStr.flatMap{ settsStr => PgDatabase.settConn(settsStr) } 
      
     eConn.foldDo{ errs =>
       debvar(errs)

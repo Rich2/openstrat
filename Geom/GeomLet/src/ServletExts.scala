@@ -4,7 +4,7 @@ import pweb.*, jakarta.*, servlet.annotation.WebServlet, servlet.http.{Cookie, H
 import java.sql.*
 
 /** Returns a connection to  a PostgreSQL database. */
-def postgresConnection(username: String, password: String) = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", username, password)
+//def postgresConnection(username: String, password: String) = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", username, password)
 
 extension(resp: HSReq)
 { /** Gets parameter of the given name converting nulls to [[None]]. */

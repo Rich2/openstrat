@@ -7,12 +7,6 @@ type SqlExcEither[+A] = Either[SQLException, A]
 
 type PsqlExcEither[+A] = Either[PSQLException, A]
 
-def postgresConn(dbName: String, uName: String, password: String): PsqlExcEither[Connection] =
-  try{ Right(DriverManager.getConnection(connStr + dbName, uName, password)) }
-  catch{ case sqlExc: PSQLException => Left(sqlExc) }
-
-val connStr = "jdbc:postgresql://localhost:5432/"
-
 /** Postgres table. */
 case class Gable(name: String)
 {
@@ -24,9 +18,7 @@ case class Gable(name: String)
       val result = stmt.executeUpdate(statementStr)
       Right(result)
     }
-    catch {
-      case e: PSQLException => Left(e)
-    }
+    catch { case e: PSQLException => Left(e) }
   }
 }
 

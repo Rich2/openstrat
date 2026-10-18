@@ -123,7 +123,7 @@ def geomSett = List(
 )
 
 lazy val Geom = jvmMainProj("Geom").dependsOn(Util).settings(geomSett).settings(
-  libraryDependencies += ("org.postgresql" % "postgresql" % "42.7.13").withSources().withJavadoc(),
+  libraryDependencies += ("org.postgresql" % "postgresql" % "42.7.14").withSources().withJavadoc(),
   Test/unmanagedResourceDirectories += bbDir.value / "User",
 )
 

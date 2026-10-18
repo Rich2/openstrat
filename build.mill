@@ -55,7 +55,7 @@ object Geom extends CommonJvm
   def sources2 = Task.Sources(moduleDir / "JvmSrc")
   def sources = Task { sources1() ++ sources2() }
   def moduleDeps = Seq(Util)
-  def mvnDeps = Seq(mvn"org.postgresql:postgresql:42.7.13")
+  def mvnDeps = Seq(mvn"org.postgresql:postgresql:42.7.14")
   object test extends InnerTests
 }
 
