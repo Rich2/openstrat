@@ -54,12 +54,12 @@ object Statement
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
     def findSettingExpr(settingStr: String): ParseExcEither[AssignMemExpr] = statements match
-    { case Arr0() => TextPosn.failEmpty//("No Statements")
+    { case Arr0() => TextPosn.leftEmpty//("No Statements")
       case Arr1(st1) => st1.settingExpr(settingStr)
       case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Right(_) => g } match
       { case Arr1(t) => t
         case Arr0() => sts.startPosn.left(SettingNotFoundException(settingStr))
-        case s3 => sts.startPosn.left(SettingMultiFoundException(s3.length, settingStr))
+        case s3 => sts.startPosn.left(SettingDuplicatesExc(s3.length, settingStr, "Any"))
       }
     }
 

@@ -42,6 +42,11 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
       }
     }
   }
+  
+  def leftMap[EE](f: E => EE): Either[EE, A] = thisEither match{
+    case Right(a) => Right(a)
+    case Left(err) => Left(f(err))
+  }
 }
 
 implicit class Eitherthrowable[E <: Throwable, A](thisEither: Either[E, A])

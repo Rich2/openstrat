@@ -31,15 +31,16 @@ trait Unshow[+T] extends Persist
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(using arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
   ParseExcEither[T] = valuesFromStatements(sts) match
-  { case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
+  { case s if s.length == 0 => TextPosn.leftEmpty
     case s if s.length == 1 => Right(s.head)
     case s3 => sts.startPosn.leftParse(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
-  def settingTFromStatement(settingStr: String, st: Statement): ParseExcEither[T] = st match
-  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
-    case _ => st.leftParse(typeStr -- "not found.")
+  def settingTFromStatement(settingStr: String, st: Statement): Either[SettingFailException, T] = st match
+  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr =>
+      fromExpr(rightExpr).leftMap(err => SettingWrongTypeExc(settingStr, typeStr))
+    case _ => st.leftSettingWrongType(settingStr, typeStr)
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
@@ -49,19 +50,19 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatements(sts: RArr[Statement], settingStr: String): ParseExcEither[T] = sts match
-  { case Arr0() => TextPosn.failEmpty
+  def settingFromStatements(sts: RArr[Statement], settingStr: String): Either[SettingFailException, T] = sts match
+  { case Arr0() => TextPosn.leftNoSettings
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.left(SettingNotFoundException(settingStr -- typeStr))
-      case s3 => sts.left(SettingMultiFoundException(s3.length, settingStr -- "of" -- typeStr))
+      case s3 => sts.left(SettingDuplicatesExc(s3.length, settingStr, typeStr))
     }
   }
 
   /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
   def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(using evST: Unshow[KT]): ExcEither[T] = sts match
-  { case Arr0() => TextPosn.failEmpty
+  { case Arr0() => TextPosn.leftEmpty
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Right(_) => g } match
     { case Arr1(t) => t

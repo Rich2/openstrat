@@ -4,8 +4,7 @@ import utiljvm.*, pweb.*, webjvm.*, plet.*, java.time.LocalDateTime, jakarta.*, 
   servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
 /** First openstrat Servlet for Tomcat and Jetty. */
 @WebServlet(urlPatterns = Array("/")) class LoginLet extends HttpServlet
-{
-  val users: RBuff[UserDetails] = RBuff()
+{ val users: RBuff[UserDetails] = RBuff()
   var numSesh: Int = 0
   val headLog: HeadHtml = HeadHtml.title("Login")  
   val regForm: RegisterForm = RegisterForm()

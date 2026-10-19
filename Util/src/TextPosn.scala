@@ -31,7 +31,8 @@ object TextPosn
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
   def excEmpty: ParseException = ParseException("Empty object")
-  def failEmpty: Left[ParseException, Nothing] = Left(excEmpty)
+  def leftNoSettings: Left[NoSettingsException, Nothing] = Left(NoSettingsException(""))
+  def leftEmpty: Left[ParseException, Nothing] = Left(excEmpty)
 
   implicit class TextPosnImplicit(thisTextPosn: TextPosn)
   {
@@ -71,8 +72,11 @@ trait TextSpan
   /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
   def leftParse(detail: String): LeftParseExc = Left(ParseException(startPosn.shortStr -- detail))
 
-  /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
+  /** Constructs a Left [[ExprNotTypeExc]] with this TextSpan and the detail. */
   def leftExprNotType(typeStr: String): LeftExprNotType = Left(ExprNotTypeExc(typeStr))
+
+  /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
+  def leftSettingWrongType(settingStr: String, typeStr: String): Left[SettingWrongTypeExc, Nothing] = Left(SettingWrongTypeExc(settingStr, typeStr))
 }
 
 object TextSpan

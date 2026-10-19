@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** Parser [[Exception]]. */
-trait ParseException extends Exception
+trait ParseException extends RsonException
 
 object ParseException
 { /** Factory apply method to create a Parse [[Exception]]. */
@@ -34,7 +34,7 @@ object LeftParseExc
 }
 
 /** Compound error trait for errors extending [[ParseException]]. */
-trait ParseExcMulti[E <: ParseException] extends ExcMulti[E], ParseException
+trait ParseExcMulti[E <: ParseException] extends RsonExcMulti[E], ParseException
 { override def getMessage: String = s"$numErrs errors of type ParseException"
   override def toString: String = "ParseExcMulti" + s"$numErrs errors".enParenth
 }
@@ -94,22 +94,7 @@ object LexarExcLeft
 /** Lexar [[Exception]] [[Either]]. */
 type LexarExcEither[+A] = Either[LexarException, A]
 
-/** Failure to retrieve a unique Setting of the correct type. */
-sealed trait SettingFailException extends ParseException
-
-/** Setting nor found [[Exception]]. */
-class SettingNotFoundException(detail: String) extends Exception(detail -- "setting not found"), SettingFailException
-
-/** Setting multiple values found [[Exception]]. */
-class SettingMultiFoundException(n: Int, settingStr: String) extends Exception(s"$n settings of" -- settingStr -- "found."),
-  SettingFailException
-
-object SettingNotFoundException
-{
-  def apply(detail: String): SettingNotFoundException = new SettingNotFoundException(detail)
-}
-
-/** The expression can not construct / [[Unshow]] the given type. */
+/** The RSON expression can not construct / [[Unshow]] the given type. */
 class ExprNotTypeExc(typeStr: String) extends Exception(s"Expression can not construct $typeStr type"), ParseException
 
 object ExprNotTypeExc
