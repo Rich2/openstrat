@@ -25,6 +25,9 @@ object SettingFailException
   }
 }
 
+/** [[Either]] with a [[ParseException]] [[Left]] type. */
+type SettingExcEither[+A] = Either[SettingFailException, A]
+
 /** Multiple [[SettingFailException]]s. */
 class SettingFailMultiExc[E <: SettingFailException](val mems: RArr[E]) extends Exception("${mems.length} settings:" -- mems.mkStr(", ") -- "failed."),
   ParseExcMulti[E], SettingFailException

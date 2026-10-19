@@ -140,8 +140,8 @@ implicit class StringExtsOstrat(thisString: String)
   def find3Settings[A1, A2, A3](settStr1: String, settStr2: String, settStr3: String)(using unshow1: Unshow[A1], unshow2: Unshow[A2], unshow3: Unshow[A3]):
     ParseExcEither[(A1, A2, A3)] = thisString.parseStatements match
   { case Left(ioe) => Left(ioe)
-    case Right(str2) => Either.map3(str2.findSetting[A1](settStr1), str2.findSetting[A2](settStr2), str2.findSetting[A3](settStr3)) { (val1, val2, val3) =>
-      (val1, val2, val3) }
+    case Right(str2) => Either.map3(str2.findSetting[A1](settStr1), str2.findSetting[A2](settStr2), str2.findSetting[A3](settStr3)){
+      (val1, val2, val3) => (val1, val2, val3) }
   }  
 
   /** Concatenates a space and then the other String. */

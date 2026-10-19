@@ -53,6 +53,7 @@ object TextPosn
     def leftAst(detail: String): Left[AstException, Nothing] = Left(AstException(thisTextPosn, detail))
   }
   
+  /** [[Show]] and [[Unshow]] type class instance / evidence for [[TextPosn]]. */
   given persistEV: Persist3Both[String, Int, Int, TextPosn] =
     Persist3Both[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum, "linePosn", _.linePosn, apply)
 }
@@ -75,7 +76,7 @@ trait TextSpan
   /** Constructs a Left [[ExprNotTypeExc]] with this TextSpan and the detail. */
   def leftExprNotType(typeStr: String): LeftExprNotType = Left(ExprNotTypeExc(typeStr))
 
-  /** Constructs a Left [[ParseException]] with this TextSpan and the detail. */
+  /** Constructs a Left [[SettingWrongTypeExc]] with this TextSpan and the detail. */
   def leftSettingWrongType(settingStr: String, typeStr: String): Left[SettingWrongTypeExc, Nothing] = Left(SettingWrongTypeExc(settingStr, typeStr))
 }
 

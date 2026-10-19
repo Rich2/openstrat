@@ -14,7 +14,7 @@ object PgDatabase
   val connStr: String = "jdbc:postgresql://"
 
   /** Attempts to find the database name, username and password settings for o Postgres database. */
-  def eSetts(connSettings: String): IOParseExcEither[(Identifier, Identifier, String)] =
+  def eSetts(connSettings: String): ParseExcEither[(Identifier, Identifier, String)] =
     connSettings.find3Settings[Identifier, Identifier, String]("database", "appUsername", "appPassword")
 
   /** Attempts to make a connection to the Postgres database. */

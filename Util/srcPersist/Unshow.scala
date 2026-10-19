@@ -18,7 +18,7 @@ trait Unshow[+T] extends Persist
     case e => fromExpr(e)
   }
 
-  def fromAnySettingOrExpr(expr: Expr): ExcEither[T] = expr match
+  def fromAnySettingOrExpr(expr: Expr): ParseExcEither[T] = expr match
   { case AsignExpr(ColonExpr(IdentifierToken(_), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
     case AsignExpr(IdentifierToken(_), _, rExpr) => fromExpr(rExpr)
     case e => fromExpr(e)
@@ -37,20 +37,20 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
-  def settingTFromStatement(settingStr: String, st: Statement): Either[SettingFailException, T] = st match
+  def settingTFromStatement(settingStr: String, st: Statement): SettingExcEither[T] = st match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr =>
       fromExpr(rightExpr).leftMap(err => SettingWrongTypeExc(settingStr, typeStr))
     case _ => st.leftSettingWrongType(settingStr, typeStr)
   }
 
-  /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
-  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): ExcEither[T] = st match
+  /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [[Statement]]. */
+  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(using evST: Unshow[KT]): ExcEither[T] = st match
   { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Right(settingCode) => fromExpr(rightExpr)
     case _ => st.leftException(typeStr -- "not found.")
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatements(sts: RArr[Statement], settingStr: String): Either[SettingFailException, T] = sts match
+  def settingFromStatements(sts: RArr[Statement], settingStr: String): SettingExcEither[T] = sts match
   { case Arr0() => TextPosn.leftNoSettings
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Right(_) => g } match

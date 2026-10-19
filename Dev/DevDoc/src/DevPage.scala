@@ -37,8 +37,8 @@ object DevPage extends DevPageBase
     "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
     "JavaFx: 27",
-    "Sbt: 2.0.10",
-    "Mill: 1.1.10 with Mill's JDK set to 25."))
+    "Sbt: 2.0.11",
+    "Mill: 1.3.0 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     LiHtml("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),

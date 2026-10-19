@@ -10,10 +10,10 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
     case Right(value) => fa(value)
   }
 
-  /** Returns this if success, else returns the other [[Either]]. */
-  def rightOrOther[EE >: E <: Throwable, AA >: A](otherEither: => Either[EE, AA] @uncheckedVariance): Either[EE, AA] = thisEither match
-  { case Right(_) => thisEither
-    case Left(_) => otherEither
+  /** Returns this if [[Right]] else returns the altenative [[Either]]. */
+  def leftAlternative[EE, AA >: A](alternative: => Either[EE, AA] @uncheckedVariance): Either[EE, AA] = thisEither match
+  { case Right(a) => Right(a)
+    case Left(_) => alternative
   }
 
   /** Classic flatMap function taking a function from A => [[Option]][B] rather than the standard [[Either]] of B. */
@@ -42,9 +42,10 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
       }
     }
   }
-  
-  def leftMap[EE](f: E => EE): Either[EE, A] = thisEither match{
-    case Right(a) => Right(a)
+
+  /** Maps the [[Left]] side of this [[Either]]. */
+  def leftMap[EE](f: E => EE): Either[EE, A] = thisEither match
+  { case Right(a) => Right(a)
     case Left(err) => Left(f(err))
   }
 }

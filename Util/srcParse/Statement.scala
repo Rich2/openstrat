@@ -75,7 +75,7 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSetting[T](settingStr: String)(using ev: Unshow[T]): ParseExcEither[T] = ev.settingFromStatements(statements, settingStr)
+    def findSetting[T](settingStr: String)(using ev: Unshow[T]): SettingExcEither[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find 2 settings from this RArr[Statement]. Extension method. */
     def find2Settings[A1, A2](settingStr1: String, settingStr2: String)(using ev1: Unshow[A1], ev2: Unshow[A2]): ParseExcEither[(A1, A2)] =
@@ -135,7 +135,7 @@ object Statement
       ev.keySettingFromStatements(statements, key).getOrElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = findSetting[T](settingStr).rightOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(using ev: Unshow[T]): ExcEither[T] = findSetting[T](settingStr).leftAlternative(findType)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
     def findSettingElse[A](settingStr: String, elseValue: A)(using Unshow[A]): A = findSetting[A](settingStr).getOrElse(elseValue)
