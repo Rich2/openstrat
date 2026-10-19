@@ -60,7 +60,7 @@ object BashPromptRule
 }
 
 /** A span set to cover a Bash prompt. This allows the prompt to be in a different colour to the BASH commands. */
-class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
+class BashPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInedit
 { override def attribs: RArr[HAtt] = BashPromptAtt %: otherAttribs
 }
  
@@ -84,7 +84,7 @@ object BashPromptSpan extends HtmlIneditCompanion[BashPromptSpan]
 
 /** An HTML element to display a BASH prompt and command on its own line.  */
 class BashWithPrompt(val prompt: String, command: String) extends BashOwnLine
-{ def promptSpan: SpanInlineInedit = SpanInlineInedit(RArr(BashPromptAtt), RArr(prompt))
+{ def promptSpan: SpanInedit = SpanInedit(RArr(BashPromptAtt), RArr(prompt))
   override def contents: RArr[XConInedit] = RArr(promptSpan, command)
 }
 

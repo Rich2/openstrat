@@ -74,7 +74,7 @@ package object pweb
   
   implicit class StringWebExtensions(thisStr: String)
   { /** Extension method to creat HTML Span element with pink font colour." */
-    def pinkSpan: SpanInlineInedit = SpanInlineInedit.pink(thisStr)
+    def pinkSpan: SpanInedit = SpanInedit.pink(thisStr)
   }
 
   extension (thisArr: Arr[String])

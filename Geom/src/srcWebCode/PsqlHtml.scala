@@ -51,7 +51,7 @@ object PsqlPromptRule
 }
 
 /** A span set to cover a Psql prompt. This allows the prompt to be in a different colour to the Psql commands. */
-class PsqlPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInlineInedit
+class PsqlPromptSpan(val contents: RArr[XConInedit], otherAttribs: RArr[HAtt]) extends SpanInedit
 { override def attribs: RArr[HAtt] = PsqlPromptAtt %: otherAttribs
 }
 

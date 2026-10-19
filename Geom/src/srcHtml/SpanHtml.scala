@@ -24,23 +24,23 @@ trait SpanInlineBlockInedit extends SpanInlineBlock, HtmlInlineBlockedInedit
 trait SpanInlineBlockOwnline extends SpanInlineBlock, HtmlOwnLine
 
 /** HTML inline span element, used in its normal default inline manner. */
-trait SpanInlineInedit extends SpanHtml, HtmlInedit
+trait SpanInedit extends SpanHtml, HtmlInedit
 {
   def text(indent: Int, line1InputLen: Int, maxLineLen: Int = MaxLineLen): String = contents.foldLeft("")(_ + _.out(indent, line1InputLen, maxLineLen))
   def textLen: String = text(0, 0)
   override def toString: String = s"HtmlSpan $textLen characters, $attribsLen attributes"
 }
 
-object SpanInlineInedit extends HtmlIneditCompanion[SpanInlineInedit]
+object SpanInedit extends HtmlIneditCompanion[SpanInedit]
 { /** Factory apply method for creating HTML span element. */
-  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): SpanInlineInedit = SpanInlineGen(contents, attribs)
+  def apply(attribs: RArr[HAtt], contents: RArr[XConInedit]): SpanInedit = SpanIneditGen(contents, attribs)
 
-  /** Implementation class for the general case of the [[SpanInlineInedit]] trait. */
-  case class SpanInlineGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInlineInedit
+  /** Implementation class for the general case of the [[SpanInedit]] trait. */
+  case class SpanIneditGen(contents: RArr[XConInedit], attribs: RArr[HAtt]) extends SpanInedit
 }
 
 /** HTML Span element with colour set to Pink. */
-case class PinkSpan(str: String) extends SpanInlineInedit
+case class PinkSpan(str: String) extends SpanInedit
 { override def attribs: RArr[HAtt] = RArr(StyleAtt(ColourDec(Colour.Pink)))
   override def contents: RArr[XCon] = RArr(str)
 }

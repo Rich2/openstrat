@@ -4,7 +4,7 @@
 import mill.*, scalalib.*, scalajslib.*, scalanativelib.*, publish.*, mill.api.BuildCtx.workspaceRoot
 
 trait Common extends ScalaModule
-{ def version = "0.4.1"
+{ def version = "0.4.2snap"
   def scalaVersion = "3.10.0"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
@@ -347,7 +347,7 @@ object DevLet extends CommonJvm
   def moduleDeps = Seq(GeomLet, Dev)
   object test extends InnerTests
   { def sources = Task.Sources(workspaceRoot / "Dev" / "DevLet" / "test" / "src")
-    //def mainClass = Some("ostrat.pDev.PostApp")
+    def mainClass = Some("ostrat.pDev.PostApp")
   }
 }
 

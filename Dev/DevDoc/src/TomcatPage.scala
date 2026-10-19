@@ -119,16 +119,16 @@ object TomcatPage extends DevPageBase
   |command to check the integrity of the download. If its good the sha code should be echoed back in red and the file name in white. Note Apache tend to remove
   |older patch versions, so if a later patch version has been deployed. this link will probably nolonger work.""".stripMargin,
   BashLine(tomcatDirPrompt,
-    SpanInlineInedit.listenStrText(tomVerInput){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
+    SpanInedit.listenStrText(tomVerInput){ version => s"wget https://dlcdn.apache.org/tomcat/tomcat-11/v$version/bin/apache-tomcat-$version.tar.gz"}),
   BashLine(tomcatDirPrompt,
-    SpanInlineInedit.listenStrText(tomVerInput){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
+    SpanInedit.listenStrText(tomVerInput){ version => s"sha512sum apache-tomcat-$version.tar.gz | grep alongsequenceoflettersanddigits"})
   )
 
   val s7: LiHtml = LiHtml("""Then unpack the tar file. This will allow us to easily swap in an updated minor version of Tomcat 11.0. These are released
   |frequently. Run this command from the folder where the tar is downloaded.""".stripMargin,
   BashLine.listen2StrText(tomVerInput, dirInput){ (version, dir) => s"tar xf apache-tomcat-$version.tar.gz -C $dir" },
   "Create a link in the tomcat directory.",  
-  BashLine(tomcatDirPrompt, SpanInlineInedit.listenStrText(tomVerInput){ version => s"ln -s apache-tomcat-$version tom11" }),
+  BashLine(tomcatDirPrompt, SpanInedit.listenStrText(tomVerInput){ version => s"ln -s apache-tomcat-$version tom11" }),
   "Then checking what we've got.",
   BashLine(tomcatDirPrompt, "ls"),
   CodeOutputLine.listenStrText(tomVerInput){ version => s"apache-tomcat-$version  apache-tomcat-$version.tar.gz  Base  tom11" },

@@ -1,6 +1,10 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDoc
-import pweb.*, WebExts.*, osweb.*, wcode.*
+import pweb.*
+import WebExts.*
+import ostrat.pweb
+import osweb.*
+import wcode.*
 
 object PostgresPage extends DevPageBase
 { override def titleStr: String = "Postgresql for absolute beginners"
@@ -22,8 +26,12 @@ object PostgresPage extends DevPageBase
   val dbName1 = "myfirstdb"
   val dbNameInp = UpdaterInputStr("dbName", dbName1)
   val dbNameLI = LabelInput("Database name", dbNameInp)
+
+  val appUName1 = "appUsername"
+  val appUNameInp = UpdaterInputStr("appUName", appUName1)
+  val appUNameLI = LabelInput("App / Server Postgres username", appUNameInp)
   
-  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, computerNameLI, dbNameLI, opSysLI))
+  def pUpdaters: PHtml = PHtml(updaterExplain, LabelInputsLine(uNameLI, computerNameLI, dbNameLI, opSysLI, appUNameLI))
 
   def steps: OlLarge = OlLarge(s1, s2, s3)
 
@@ -56,29 +64,31 @@ object PostgresPage extends DevPageBase
     """Login to psql again under your usual username. This time you must specify the postgres database as there is no database with the same name as your
     |operating system username.""".stripMargin,
     BashLine(yourBashPrompt, "psql postgres"),
-    "Create a new database. The owner is you. The main client of the database maybe a webserver. Give this its own user with maybe more limited capabilities.",
-    PsqlLine(postgresPsqlPrompt, SpanInlineInedit.listen2StrText(dbNameInp, uNameInp){ (dbName, uName) => s"CREATE DATABASE $dbName OWNER $uName;" }),
+    """Create a new database. The owner is you. The main client of the database maybe a webserver. We will give this its own Postgres username with maybe more
+    |limited capabilities later. While this is not necessary for a home machine or a small local network, its probably good practice to get into the framework
+    |of multiple layers of security.""".stripMargin,
+    PsqlLine(postgresPsqlPrompt, SpanInedit.listen2StrText(dbNameInp, uNameInp){ (dbName, uName) => s"CREATE DATABASE $dbName OWNER $uName;" }),
     "Switch to new database.",
-    PsqlLine(postgresPsqlPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => raw"""\connect $dbName;""" }),
+    PsqlLine(postgresPsqlPrompt, SpanInedit.listenStrText(dbNameInp){ dbName => raw"""\connect $dbName;""" }),
     "If you logout of psql at any point, then when you log back in you now use",
-    BashLine(yourBashPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => s"psql $dbName" }),
+    BashLine(yourBashPrompt, SpanInedit.listenStrText(dbNameInp){ dbName => s"psql $dbName" }),
   )
 
   val s2: LiHtml = LiHtml(    
     DivHtml("Before continuing, here are some commands to correct and undo things if necessary. At some point you may get:"),
     PsqlLine.listenStrText(uNameInp){ uName => """database "$uName" has a collation version mismatch""" },
     DivHtml("then enter"),
-    PsqlLine(userPsqlPrompt, SpanInlineInedit.listenStrText(dbNameInp){ dbName => s"ALTER DATABASE $dbName REFRESH COLLATION VERSION;" }),
+    PsqlLine(userPsqlPrompt, SpanInedit.listenStrText(dbNameInp){ dbName => s"ALTER DATABASE $dbName REFRESH COLLATION VERSION;" }),
     DivHtml(PsqlSpan(userPsqlPrompt, """\du+"""), "List users and other roles"),
     DivHtml(PsqlSpan(userPsqlPrompt, """\l"""), "List databases"),
     DivHtml(PsqlSpan(userPsqlPrompt, """\connect otherdbname"""), "Switch databases"),
     DivHtml(PsqlSpan(userPsqlPrompt, """DROP DATABASE dbname;"""), "Remove database"),
     DivHtml(PsqlSpan(userPsqlPrompt, """ALTER DATABASE oldname RENAME TO newname;"""),
       "Change database name. Note you can't be logged into the database whose name you are changing."),
-    DivHtml(PsqlSpan(userPsqlPrompt, "DROP TABLE", SpanInlineInedit.pink("tablename"), ";"), "Delete table"),
-    DivHtml(PsqlSpan(userPsqlPrompt, "TRUNCATE", SpanInlineInedit.pink("tablename"), ";"), "Delete all rows"),
-    DivHtml(PsqlSpan(userPsqlPrompt, "ALTER TABLE users DROP CONSTRAINT", SpanInlineInedit.pink("yourconstraint"), ";"), "Drop constraint"),    
-    DivHtml(PsqlSpan(userPsqlPrompt, "ALTER TABLE users DROP COLUMN", SpanInlineInedit.pink("columnname"), ";"), "To delete row"),
+    DivHtml(PsqlSpan(userPsqlPrompt, "DROP TABLE", SpanInedit.pink("tablename"), ";"), "Delete table"),
+    DivHtml(PsqlSpan(userPsqlPrompt, "TRUNCATE", SpanInedit.pink("tablename"), ";"), "Delete all rows"),
+    DivHtml(PsqlSpan(userPsqlPrompt, "ALTER TABLE users DROP CONSTRAINT", SpanInedit.pink("yourconstraint"), ";"), "Drop constraint"),
+    DivHtml(PsqlSpan(userPsqlPrompt, "ALTER TABLE users DROP COLUMN", SpanInedit.pink("columnname"), ";"), "To delete row"),
   )
 
   val uNameRegexStr: String = UsernameInput.regexStrStd.enquote1
@@ -100,15 +110,15 @@ object PostgresPage extends DevPageBase
     userLine("CREATE type status AS ENUM ('User', 'Admin');"),
     userLine(s"""ALTER TABLE users ADD rank status DEFAULT 'User' NOT NULL;"""),
     "To add user",
-    PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
+    PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInedit.listenStrText(uNameInp)(_.enquote1), ",", SpanInedit.pink("password".enquote1),
       """, 'Admin');"""),
-    PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInlineInedit.pink("username".enquote1), ",", SpanInlineInedit.pink("password".enquote1),
+    PsqlLine(userPsqlPrompt, "INSERT INTO users VALUES(DEFAULT,", SpanInedit.pink("username".enquote1), ",", SpanInedit.pink("password".enquote1),
       ");"),
     "To update status",
     PsqlLine(userPsqlPrompt, """UPDATE users SET rank = 'Admin'""", "WHERE username =", """'username';""".pinkSpan),
-    """Create our first application database user. Note there is no need to use same name as the operingsystem owner of the application, as this user doesn't
+    """Create our first application database user. Note there is no need to use same name as the operating system owner of the application, as this user doesn't
     |need to access the psql terminal.""".stripMargin,
-    PsqlLine(userPsqlPrompt, "CREATE USER app1 WITH PASSWORD 'password1';"),
-    PsqlLine(userPsqlPrompt, "GRANT USAGE ON SCHEMA public TO app1;"),
+    PsqlLine(userPsqlPrompt, SpanInedit.listenStrText(appUNameInp){ appName => s"CREATE USER $appName WITH PASSWORD"}, SpanInedit.pink("'password1';")),
+    PsqlLine(userPsqlPrompt, SpanInedit.listenStrText(appUNameInp){ appName => s"GRANT USAGE ON SCHEMA public TO $appName;" }),
   )
 }

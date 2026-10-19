@@ -78,8 +78,7 @@ object ErrMultiBuilder
 
 /** An error that is concatenation of multiple [[Exception]]s. */
 trait ExcMulti[E <: Exception] extends Exception, ThrowMulti[E]
-{
-  override def mems: RArr[E]
+{ override def mems: RArr[E]
 
   @targetName("append") def ++[EE >: E <: Exception](operand: ExcMulti[EE])(using ClassTag[EE]): ExcMulti[EE] =
   { val rArr: RArr[EE] = mems ++ operand.mems
@@ -115,18 +114,6 @@ extension[E <: Exception](thisExcep: E)
     case excep1 => operand match
     { case ExcMulti(mems2) => ExcMulti(excep1 %: mems2.asInstanceOf[RArr[Exception]])
       case excep2 => ExcMulti(RArr(excep1, excep2))
-    }
-  }
-}
-
-
-object ExcBi
-{
-  def map2[E <: Exception, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => B)(using ctE: ClassTag[E]): Either[Exception, B] = eb1 match
-  { case Right(a1) => eb2.map(a2 => f(a1, a2))
-    case Left(err1) => eb2 match
-    { case Left(err2) => Left(ExcMulti(err1, err2))
-      case _ => Left(err1)
     }
   }
 }

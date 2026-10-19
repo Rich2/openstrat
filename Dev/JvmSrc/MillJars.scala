@@ -13,7 +13,7 @@ object Module
 /** Stages jars built under Mill. */
 trait MillStageJars
 { /** The openstrat version of the jars you wish to stage. */
-  val version: VersionPatchElem = VersionPatchElem(0, 4, 1)
+  val version: VersionPatchElem = VersionPatchElem.snap(0, 4, 2)
 
   /** Version of the Scala dependency. */
   val scalaVersion = VersionPatchElem(3, 10, 0)

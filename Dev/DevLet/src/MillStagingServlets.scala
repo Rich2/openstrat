@@ -9,8 +9,7 @@ object MillStageServlets
   def main(args: Array[String]): Unit =
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
-        deb("Staging Folder exists.")
-        //       MillStageMainJars(stagingPath)
+        deb("Staging Folder exists.")        
         val classesStage: DirsAbs = stagingPath / "ServletClasses"
         classesStage.mkExist
         projPathDo{ projPath =>
