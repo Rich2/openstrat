@@ -139,11 +139,7 @@ object TomcatPage extends DevPageBase
   val s8: LiHtml = LiHtml("""Create the logs and conf directories and copy across the server.xml and web.xml files from the installation directory structure to
   |the base directory structure. If the catalina base and catalina home directories are the same, which is often the case in beginners installation
   |instructions, then this is redundant.""".stripMargin,
-  BashLine(tomcatDirPrompt, "mkdir Base/logs"),
-  BashLine(tomcatDirPrompt, "mkdir Base/lib"),
-  BashLine(tomcatDirPrompt, "mkdir Base/temp"),
-  BashLine(tomcatDirPrompt, "mkdir Base/conf"),
-
+  BashLine(tomcatDirPrompt, "mkdir Base/logs; mkdir Base/lib; mkdir Base/temp; mkdir Base/conf"),
   BashLine(tomcatDirPrompt, "cp tom11/conf/server.xml tom11/conf/web.xml tom11/conf/catalina.properties Base/conf"),
   """Create a home page for your server. Again not necessary if base and home are set to the same directory, as Tomcat comes with web pages and example
   |apps.""".stripMargin,
@@ -169,10 +165,10 @@ object TomcatPage extends DevPageBase
     DivColour(LightGreen, "[Service]") +%
     DivHtml("Type=forking") +%
     DivHtml("") +%
-    DivHtml.listenOptHtml(opSysInput){ ops =>
+    DivHtml.listenOptIntHtml(opSysInput, javaVerInput){ (ops, jVer) =>
       val javaStr: String = ops match
-      { case UbuntuDeriv => "java-1.25.0-openjdk-amd64"
-        case _: ArchDeriv => "java-25-openjdk"
+      { case UbuntuDeriv => s"java-1.$jVer.0-openjdk-amd64"
+        case _: ArchDeriv => s"java-$jVer-openjdk"
         case _ => "No code available"
       }
       RArr(s"""Environment="JAVA_HOME=/usr/lib/jvm/$javaStr"""")
@@ -218,13 +214,14 @@ object TomcatPage extends DevPageBase
     case _: ArchDeriv => "sudo yay authbind"
     case _ => "No code available"  
   },
-  BashLine("sudo touch /etc/authbind/byport/80"),
-  BashLine.listenStrText(usernameInput)(uName => s"sudo chown $uName: /etc/authbind/byport/80"),
-  BashLine("sudo chmod 500 /etc/authbind/byport/80"),
+  BashLine.listenStrText(usernameInput){ uName =>
+    s"sudo touch /etc/authbind/byport/80; sudo chown $uName: /etc/authbind/byport/80; sudo chmod 500 /etc/authbind/byport/80" },
+    
   "And for HTTPS to use 443",
-  BashLine("sudo touch /etc/authbind/byport/443"),
-  BashLine.listenStrText(usernameInput)(uName => s"sudo chown $uName:$uName /etc/authbind/byport/443"),
-  BashLine("sudo chmod 500 /etc/authbind/byport/443"),
+    
+  BashLine.listenStrText(usernameInput){ uName =>
+    s"sudo touch /etc/authbind/byport/443; sudo chown $uName:$uName /etc/authbind/byport/443; sudo chmod 500 /etc/authbind/byport/443" },
+    
   "Reopen the Systemd Unit file.",
   BashLine("sudo nano /etc/systemd/system/tom11.service"),
   CodeChangeLine.listenText(dirInput){ dir => s"ExecStart=$dir/tom11/bin/startup.sh" }{ dir => s"ExecStart=authbind --deep $dir/tom11/bin/startup.sh" },
@@ -254,7 +251,7 @@ object TomcatPage extends DevPageBase
   |  </SSLHostConfig>
   |</Connector>""".stripMargin },
   "Restart Tomcat",
-  BashLine("sudo systemctl start tom11"),
+  BashLine("sudo systemctl restart tom11"),
   BashLine("sudo systemctl status tom11"),
   SpanLine.listenStrText(domainInput){ dName => s"Go to https://$dName" }  
   )
@@ -274,6 +271,6 @@ object TomcatPage extends DevPageBase
     BashLine(tomcatDirPrompt, "mkdir -p Base/webapps/GeomUser/WEB-INF/classes/ostrat/pDev"),
     "For the GeomUser servlet, copy the GeomUser.class file into above folder.",
     DivHtml("Add the Util and Geom jars to Base/lib."),
-    DivHtml("For Postgresql add the jar at", AHtml("https://mvnrepository.com/artifact/org.postgresql/postgresql/42.7.13"), "to Base/Lib.")
+    DivHtml("For Postgresql add the jar at", AHtml("https://mvnrepository.com/artifact/org.postgresql/postgresql/42.7.14"), "to Base/Lib.")
   )
 }
