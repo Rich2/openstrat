@@ -17,6 +17,8 @@ object FormHtml
    * attributes.*/
   def apply(otherAttribs: RArr[XAtt], contents: RArr[XCon]) = FormHtmlGen(otherAttribs, contents)
 
+  def link(link: String, text: String) = FormHtmlGen(RArr(ActionAtt(link)), RArr(SubmitButton(text)))
+
   /** Implementation class for general case of HTML Form element. */
   case class FormHtmlGen(otherAttribs: RArr[XAtt], contents: RArr[XCon]) extends FormHtml
 }
@@ -107,4 +109,8 @@ object LoginForm
 
   /** Implementation class for the gneral case of an HTML Login Form element. */
   case class LoginFormGen(otherContents: RArr[XCon], otherAttribs: RArr[XAtt]) extends LoginForm
+}
+
+case class ActionAtt(valueStr: String) extends XAttShort
+{ override def name: String = "action"
 }

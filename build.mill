@@ -342,7 +342,7 @@ def StageAllJars = Task{
 }
 
 object DevLet extends CommonJvm
-{ def sources = Task.Sources(workspaceRoot / "Dev" / "DevLet" / "src")
+{ def sources = Task.Sources(workspaceRoot / "Dev" / "DevLet" / "src", workspaceRoot / "Dev" / "DevLet" / "srcMain")
   def mvnDeps = Seq(mvn"jakarta.servlet:jakarta.servlet-api:6.1.0")
   def moduleDeps = Seq(GeomLet, Dev)
   object test extends InnerTests

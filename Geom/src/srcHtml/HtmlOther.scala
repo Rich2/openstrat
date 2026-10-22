@@ -140,6 +140,7 @@ case class ButtonHtml(attribs: RArr[HAtt], contents: RArr[XCon]) extends HtmlOwn
 { override def tagName = "button"
 }
 
+/** Companion object for [[ButtonHtml]] and CSS button element selector. */
 object ButtonHtml extends HtmlTag
 { /** Factory apply method to create HTML button element. */
   def apply(contents: XCon*): ButtonHtml = new ButtonHtml(RArr(SubmitTypeAtt), contents.toRArr)

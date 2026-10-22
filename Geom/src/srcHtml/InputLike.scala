@@ -44,7 +44,7 @@ trait InputHtml extends InputLike, HtmlVoid
   final def valueAtt: ValueAtt = ValueAtt(valueStr)  
 }
 
-/** HTML Input of type text.. */
+/** HTML Input of type text. */
 trait InputStr extends InputHtml
 { override def typeAtt: TypeTextAtt.type = TypeTextAtt
 }
