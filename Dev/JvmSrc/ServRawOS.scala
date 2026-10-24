@@ -32,7 +32,7 @@ object ServRawOS extends ServRaw
         case "/Documentation/tiling.html" => TilingPage.httpResp(gmtNowStr, "localhost")
         case "/Documentation/egrid.html" => EGridPage.httpResp(gmtNowStr, "localhost")
         case "/Documentation/apps.html" => AppsPage.httpResp(gmtNowStr, "localhost")
-        case "/Documentation/documentation.css" => CssDocumentation.httpResp(gmtNowStr, "localhost")
+        case "/Documentation/documentation.css" => CssMain.httpResp(gmtNowStr, "localhost")
         case "/only.css" => OnlyCss.httpResp(gmtNowStr, "localhost")
         case "/favicon.ico" => HttpFound(gmtNowStr, "localhost", HttpConTypeSvg, Favicon1())
         case id =>{

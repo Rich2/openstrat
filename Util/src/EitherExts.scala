@@ -50,7 +50,7 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   }
 }
 
-implicit class Eitherthrowable[E <: Throwable, A](thisEither: Either[E, A])
+implicit class Eitherthrowable[+E <: Throwable, A](thisEither: Either[E, A])
 { /** If this [[Either]] is a [[Right]] produce [[ErrBiAcc]] with the parameter function. If this is [[Left]] produce [[ErrBiAcc]] with this single [[Left]]. */
   def mapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
     ErrBiAcc[EE, B] = thisEither match

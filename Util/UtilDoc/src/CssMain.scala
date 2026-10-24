@@ -3,8 +3,8 @@ package ostrat; package pDoc
 import pweb.*, Colour.*, wcode.*
 
 /** CSS for openstrat documentation. */
-object CssDocumentation extends CssOpenstrat
-{ override def fileStemStr: String = "documentation"
+object CssMain extends CssOpenstrat
+{ override def fileStemStr: String = "main"
   
   object LexicalAtt extends ClassAtt("lexical")
 

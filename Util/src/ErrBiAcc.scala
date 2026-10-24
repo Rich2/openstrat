@@ -79,7 +79,7 @@ object ErrBiAcc
 
     /** Constructs an [[ErrBiAcc]] from two errors. */
   def errs2[E <: Throwable, B](err1: E, err2: E)(using ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
-    new ErrBiAcc[E, B](Array[E](err1, err2), Array[B]())   
+    new ErrBiAcc[E, B](Array[E](err1, err2), Array[B]())
 }
 
 /** immutable class for accumulating [[Either]]s, biased bifunctors for errors. */

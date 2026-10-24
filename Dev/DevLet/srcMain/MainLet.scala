@@ -14,7 +14,7 @@ import java.time.*, java.util.Calendar
     case "/membership.html" =>
     { visitors += 1
       val cookieStr: String = stStr + visitors.str
-      val head: HeadHtml = HeadHtml.title("Membership Page")
+      val head: HeadHtml = HeadHtml.titleCss("Membership Page", "main")
       val body: BodyHtml = BodyHtml(
         "Just to test things out for the moment.",
         DivHtml(s"cookie value = $cookieStr"),
@@ -26,7 +26,7 @@ import java.time.*, java.util.Calendar
       val c = new Cookie("Visitor", cookieStr)
       resp.addCookie(c)
     }
-    case context => resp.getWriter().println(s"Context: $context")
+    case context => resp.getWriter.println(s"Context: $context")
     
   }
 

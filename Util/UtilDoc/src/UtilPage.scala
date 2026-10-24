@@ -9,7 +9,7 @@ trait OpenstratDocPage extends HtmlPageFile
   /** The default location for this HTML page relative to the web site root. */
   def dirsRel: DirsRel = DirsRel("Documentation")
 
-  override def head: HeadHtml = headFavCss("documentation")  
+  override def head: HeadHtml = headFavCss("../main")  
 }
 
 /** Produces an HTML file documentation for the Util module. */
