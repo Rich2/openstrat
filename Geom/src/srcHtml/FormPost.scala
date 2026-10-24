@@ -4,23 +4,45 @@ import util.matching.Regex
 
 /** HTML Form element. */
 trait FormHtml extends HtmlTagLines
+{ override def tagName: String = "form"
+}
+
+/** HTML Form element using HTTP Post method. */
+trait FormPost extends FormHtml
 { def otherAttribs: RArr[XAtt]
-  override def tagName: String = "form"  
   override def attribs: RArr[HAtt] = PostAtt %: otherAttribs
 }
 
-object FormHtml
+object FormPost
 { /** Factory apply method to construct HTML Form element. There ia an apply name overload that takes the contents and other attributes as [[RArr]]s. */
-  def apply(contents: XCon*): FormHtml = FormHtmlGen(RArr(), contents.toRArr)
+  def apply(contents: XCon*): FormPost = FormPostGen(RArr(), contents.toRArr)
   
   /** Factory apply method to construct HTML Form element. There ia an apply name overload that takes the content as repeat parameters with no other
    * attributes.*/
-  def apply(otherAttribs: RArr[XAtt], contents: RArr[XCon]) = FormHtmlGen(otherAttribs, contents)
+  def apply(otherAttribs: RArr[XAtt], contents: RArr[XCon]): FormPost = FormPostGen(otherAttribs, contents)
 
-  def link(link: String, text: String) = FormHtmlGen(RArr(ActionAtt(link)), RArr(SubmitButton(text)))
+  def link(link: String, text: String): FormPost = FormPostGen(RArr(ActionAtt(link)), RArr(SubmitButton(text)))
 
   /** Implementation class for general case of HTML Form element. */
-  case class FormHtmlGen(otherAttribs: RArr[XAtt], contents: RArr[XCon]) extends FormHtml
+  case class FormPostGen(otherAttribs: RArr[XAtt], contents: RArr[XCon]) extends FormPost
+}
+
+/** HTML Form element using HTTP Post method. */
+trait FormGet extends FormHtml
+
+
+object FormGet
+{ /** Factory apply method to construct HTML Form element. There ia an apply name overload that takes the contents and other attributes as [[RArr]]s. */
+  def apply(contents: XCon*): FormGet = FormGetGen(RArr(), contents.toRArr)
+
+  /** Factory apply method to construct HTML Form element. There ia an apply name overload that takes the content as repeat parameters with no other
+   * attributes.*/
+  def apply(attribs: RArr[XAtt], contents: RArr[XCon]): FormGet = FormGetGen(attribs, contents)
+
+  def link(link: String, text: String): FormGet = FormGetGen(RArr(ActionAtt(link)), RArr(SubmitButton(text)))
+
+  /** Implementation class for general case of HTML Form element. */
+  case class FormGetGen(attribs: RArr[XAtt], contents: RArr[XCon]) extends FormGet
 }
 
 trait DBRow
@@ -33,7 +55,7 @@ trait DBRow
 case class UserDetails(name: String, password: String)
 
 /** Base trait for HTML [[RegisterForm]] and [[LoginForm]] elements. */
-trait RegLogForm extends FormHtml
+trait RegLogForm extends FormPost
 { /** the name attribute for the Username input. */
   def usernameNameStr: String = "username"
 
