@@ -23,7 +23,7 @@ trait ErrBiAccBase[+E <: Throwable, +B]
   def errsPrint: Unit = errsforeach(println(_))
 }
 
-/** immtuable class for the accumulation of successes and errors for operations with [[Either]] return types where the error type inherits from [[Throwable]]. */
+/** immutable class for the accumulation of successes and errors for operations with [[Either]] return types where the error type inherits from [[Throwable]]. */
 class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
   def errs: RArr[E] = new RArr(errsArray)
