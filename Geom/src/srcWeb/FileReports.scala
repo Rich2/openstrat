@@ -1,5 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
+import java.io.IOException
 
 /** Report of successful HTML file write. */
 class HtmlFileWritten(detailStr: String) extends FileWritten(detailStr)
@@ -19,20 +20,30 @@ object HtmlFileWritten
 }
 
 /** Report of successful CSS file write. */
-class CssFileWritten(detailStr: String) extends FileWritten(detailStr) {
-  override def reportTypeStr: String = "CSS File written"
+class CssFileWritten(detailStr: String) extends FileWritten(detailStr)
+{ override def reportTypeStr: String = "CSS File written"
   override def toString: String = "CssFileWritten" + detailStr.enParenth
 }
 
 object CssFileWritten
 { /** Factory apply method to construct [[CssFileWritten]] report. */
   def apply(detailStr: String): CssFileWritten = new CssFileWritten(detailStr)
+  
+  given reportBuilder: ResultsBuilder[IOException, CssFileWritten, CssFileWrittenResults] =
+    new ResultsBuilder[IOException, CssFileWritten, CssFileWrittenResults]
+  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssFileWritten]): CssFileWrittenResults = new CssFileWrittenResults(arrayE, arrayA)
+  }
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
   given namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
   { override val filePrefix: String = "CSS"
     override def typeStr: String = "CssFileWritten"
   }
+}
+
+case class CssFileWrittenResults(failsArr: Array[IOException], succsArr: Array[CssFileWritten]) extends Results[IOException, CssFileWritten]
+{
+  override def reportStr: String = s"$numSuccs CSS file successfully written, $numFails IOExceptions."
 }
 
 /** Report of successful Jar file write. */

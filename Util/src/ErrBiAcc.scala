@@ -2,8 +2,57 @@
 package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** This should replace [[ErrbiAcc]] */
+trait Results[E, A]
+{
+  def failsArr: Array[E]
+
+  def succsArr: Array[A]
+  final def fails: RArr[E] = new RArr(failsArr)
+  final def succs: RArr[A] = new RArr(succsArr)
+  def numFails: Int = failsArr.length
+  def numSuccs: Int = succsArr.length
+  def reportStr: String = s"$numFails fails, $numSuccs successes"
+}
+
+object Results
+{
+  def apply[E, A, R <: Results[E, A]](input: Either[E, A]*)(using build: ResultsBuilder[E, A, R]): R = build.fromSeq(input)
+
+  case class ResultsGen[E, A](failsArr: Array[E], succsArr: Array[A]) extends Results[E, A]
+}
+
+class ResultsBuff[E, A](val fails: ArrayBuffer[E], succs: ArrayBuffer[A])
+{
+  def grow(newElem: Either[E, A]): Unit = newElem.fold(fails.append(_), succs.append(_))
+}
+
+object ResultsBuff
+{
+  def apply[E, A](): ResultsBuff[E, A] = new ResultsBuff[E, A](new ArrayBuffer[E](), new ArrayBuffer[A]())
+}
+
+abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTag[E], classTagA: ClassTag[A])
+{ def fromArrays(arrayE: Array[E], arrayA: Array[A]): R
+  
+  def fromSeq(seq: Seq[Either[E, A]]): R =
+  { val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
+    seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
+    fromArrays(eBuff.toArray, aBuff.toArray)
+  }
+}
+
+object ResultsBuilder
+{
+  given builderGen[E, A](using ctE: ClassTag[E], ctA: ClassTag[A]): ResultsBuilder[E, A, Results[E, A]] = new ResultsBuilder[E, A, Results[E, A]]
+  { 
+    override def fromArrays(arrayE: Array[E], arrayA: Array[A]): Results[E, A] = new Results.ResultsGen[E, A](arrayE, arrayA)
+  }
+}
+
 /** Trait for the accumulation of successes and errors for operations with [[Either]] return types. */
-trait ErrBiAccBase[+E <: Throwable, +B]
+trait ErrBiAccBase[+E, +B]
 { /** The number of accumulated errors. */
   def errNum: Int
 
@@ -24,7 +73,7 @@ trait ErrBiAccBase[+E <: Throwable, +B]
 }
 
 /** immutable class for the accumulation of successes and errors for operations with [[Either]] return types where the error type inherits from [[Throwable]]. */
-class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
+class ErrBiAcc[+E, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
   def errs: RArr[E] = new RArr(errsArray)
 
@@ -83,7 +132,7 @@ object ErrBiAcc
 }
 
 /** immutable class for accumulating [[Either]]s, biased bifunctors for errors. */
-class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
+class ErrBiAccBuff[+E, +B](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** Appends an element to this buffer. */
   def grow(newElem: Either[E, B] @uncheckedVariance): Unit = newElem.fold(errs.append(_), succs.append(_))
 
@@ -114,7 +163,7 @@ object ErrBiAccBuff
   }
 }
 
-/** type class to proived summary [[String]]s for [[ErrBiAccBase]] objects. */
+/** type class to provide summary [[String]]s for [[ErrBiAccBase]] objects. */
 trait ErrBiSummary[+E <: Throwable, +B]
 { /** Provides the numerical part pf the summary [[String]]. */
   def endStr(eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String
