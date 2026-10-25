@@ -31,7 +31,8 @@ object CssFileWritten
   
   given reportBuilder: ResultsBuilder[IOException, CssFileWritten, CssFileWrittenResults] =
     new ResultsBuilder[IOException, CssFileWritten, CssFileWrittenResults]
-  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssFileWritten]): CssFileWrittenResults = new CssFileWrittenResults(arrayE, arrayA)
+  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssFileWritten], arrayR: Array[CssFileWrittenResults]): CssFileWrittenResults =
+      CssFileWrittenResults(arrayE, arrayA, arrayR)
   }
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
@@ -41,9 +42,26 @@ object CssFileWritten
   }
 }
 
-case class CssFileWrittenResults(failsArr: Array[IOException], succsArr: Array[CssFileWritten]) extends Results[IOException, CssFileWritten]
+class CssFileWrittenResults(val failsArray: Array[IOException], val succsArray: Array[CssFileWritten], val subsArr: Array[CssFileWrittenResults],
+  val dirStr: String) extends FileWrittenResults[IOException, CssFileWritten]
+{ override def subs: RArr[FileWrittenResults[IOExc, CssFileWritten]] = new RArr(subsArr)  
+  override def reportStr: String = s"$numSuccs CSS file successfully written$dirStr2, $numFails IOExceptions."
+}
+
+object CssFileWrittenResults
 {
-  override def reportStr: String = s"$numSuccs CSS file successfully written, $numFails IOExceptions."
+  def apply(failsArray: Array[IOException], succsArray: Array[CssFileWritten], subsArr: Array[CssFileWrittenResults], dirStr: String = ""):
+    CssFileWrittenResults = new CssFileWrittenResults(failsArray, succsArray, subsArr, dirStr)
+  
+  def apply(dirStr: String, attempts: IOExcEither[CssFileWritten]*): CssFileWrittenResults ={
+    val (arrayE, arrayA) = attempts.toArrays
+    new CssFileWrittenResults(arrayE, arrayA, Array(), dirStr)
+  }
+
+  def apply(dirStr: String, attempts: Iterable[IOExcEither[CssFileWritten]]): CssFileWrittenResults ={
+    val (arrayE, arrayA) = attempts.toArrays
+    new CssFileWrittenResults(arrayE, arrayA, Array(), dirStr)
+  }
 }
 
 /** Report of successful Jar file write. */

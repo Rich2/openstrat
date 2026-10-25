@@ -47,6 +47,11 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def writeCss(cssFile: CssRulesFile): Either[IOExc, CssFileWritten] =
     wFile(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssFileWritten(fw.detailStr))
 
+ def writesCss(files: CssRulesFile*): CssFileWrittenResults ={
+   val res1: Seq[Either[IOExc, CssFileWritten]] = files.map(writeCss(_))
+   CssFileWrittenResults(thisPath.asStr, res1)
+ }
+
   def toJava: File = File(thisPath.asStr)
 
   /** Perform the side effecting procedure if the location exists and is a directory as opposed to a file. */

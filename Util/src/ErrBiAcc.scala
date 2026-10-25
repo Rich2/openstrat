@@ -3,43 +3,54 @@ package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** This should replace [[ErrbiAcc]] */
-trait Results[E, A]
-{
-  def failsArr: Array[E]
+trait Results[+E, +A]
+{ /** Backing [[Array]] for fails. */  
+  def failsArray: Array[E] @uncheckedVariance
 
-  def succsArr: Array[A]
-  final def fails: RArr[E] = new RArr(failsArr)
-  final def succs: RArr[A] = new RArr(succsArr)
-  def numFails: Int = failsArr.length
-  def numSuccs: Int = succsArr.length
-  def reportStr: String = s"$numFails fails, $numSuccs successes"
+  /** Backing [[Array]] for successes. */
+  def succsArray: Array[A] @uncheckedVariance
+  
+  /** The fails of these results. */
+  final def fails: RArr[E] = new RArr(failsArray)
+
+  /** The successes of these results. */
+  final def succs: RArr[A] = new RArr(succsArray)
+  
+  /** Child result members of this [[Results]] class. */
+  def subs: RArr[Results[E, A]]
+  
+  /** the number of total fails including in child objects in these results. */
+  def numFails: Int = subs.foldLeft(failsArray.length)(_ + _.numFails)
+
+  /** the number of total successes including in child objects in these results. */
+  def numSuccs: Int = subs.foldLeft(succsArray.length)(_ + _.numSuccs)
+  
+  /** Shortest summary of these results. */
+  def reportStr: String = s"$numSuccs successes, $numFails fails"
 }
 
 object Results
-{
-  def apply[E, A, R <: Results[E, A]](input: Either[E, A]*)(using build: ResultsBuilder[E, A, R]): R = build.fromSeq(input)
+{ /** Factory apply method to create a [[Results]] class of the most precise type. */
+  def apply[E, A, R <: Results[E, A]](input: Either[E, A]*)(using build: ResultsBuilder[E, A, R]): R = build.fromIterable(input)
 
-  case class ResultsGen[E, A](failsArr: Array[E], succsArr: Array[A]) extends Results[E, A]
+  /** Implementation class for the General case of the [[Results]] class. */
+  case class ResultsGen[+E, +A](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
+    subsArr: Array[Results[E, A]] @uncheckedVariance) extends Results[E, A]
+  { override def subs: RArr[Results[E, A]] = new RArr(subsArr)
+  }
 }
 
-class ResultsBuff[E, A](val fails: ArrayBuffer[E], succs: ArrayBuffer[A])
-{
-  def grow(newElem: Either[E, A]): Unit = newElem.fold(fails.append(_), succs.append(_))
-}
+/** Type class builder for constructing [[Results]] classes. */
+abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTag[E], classTagA: ClassTag[A], classTagR: ClassTag[R])
+{ /** Constructs the given [[Results]] class from an [[Array]] of errors and an [[Array]] of successes. */
+  def fromArrays(arrayE: Array[E], arrayA: Array[A], arrayR: Array[R]): R
 
-object ResultsBuff
-{
-  def apply[E, A](): ResultsBuff[E, A] = new ResultsBuff[E, A](new ArrayBuffer[E](), new ArrayBuffer[A]())
-}
-
-abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTag[E], classTagA: ClassTag[A])
-{ def fromArrays(arrayE: Array[E], arrayA: Array[A]): R
-  
-  def fromSeq(seq: Seq[Either[E, A]]): R =
+  /** Constructs the given [[Results]] class from an [[Iterable]] of [[Either]]s. */
+  def fromIterable(seq: Iterable[Either[E, A]]): R =
   { val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
     val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
     seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
-    fromArrays(eBuff.toArray, aBuff.toArray)
+    fromArrays(eBuff.toArray, aBuff.toArray, Array[R]())
   }
 }
 
@@ -47,7 +58,8 @@ object ResultsBuilder
 {
   given builderGen[E, A](using ctE: ClassTag[E], ctA: ClassTag[A]): ResultsBuilder[E, A, Results[E, A]] = new ResultsBuilder[E, A, Results[E, A]]
   { 
-    override def fromArrays(arrayE: Array[E], arrayA: Array[A]): Results[E, A] = new Results.ResultsGen[E, A](arrayE, arrayA)
+    override def fromArrays(arrayE: Array[E], arrayA: Array[A], arrayR: Array[Results[E, A]]): Results[E, A] =
+      new Results.ResultsGen[E, A](arrayE, arrayA, arrayR)
   }
 }
 

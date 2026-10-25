@@ -1,5 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import java.io.IOException, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** Report of a successfully completed effect. Used for pure side effects that return [[Unit]]. */
 trait EffectReport
@@ -26,7 +27,7 @@ trait DoneIO extends EffectReport
 /** [[Show]] type class instances for file writing reports. Their main purpose is not to [[Persist]] [[ShowFileWritten]]s but to be able to accumulate and
  * summarise them. */
 trait ShowFileWritten[A <: FileWritten] extends ShowEffectReport[A]
-{ /** Prefix such as Html, Js or Css. */
+{ /** The file prefix such as HTML, Js or CSS. */
   def filePrefix: String
 
   override def typeStr: String = "FileWritten"
@@ -50,8 +51,34 @@ object FileWritten
 { /** Factory apply method to construct [[FileWritten]] report. */
   def apply(detailStr: String): FileWritten = new FileWritten(detailStr)
 
-  implicit val namedTypeEv: ShowType[FileWritten] = new ShowFileWritten[FileWritten]
+  given namedTypeEv: ShowType[FileWritten] = new ShowFileWritten[FileWritten]
   { override def filePrefix: String = ""
+  }
+  
+  given resultsBuilderEv[E <: IOException, A <: FileWritten](using ctE: ClassTag[E], ctA: ClassTag[A]): ResultsBuilder[E, A, FileWrittenResults[E, A]] =
+    new ResultsBuilder[E, A, FileWrittenResults[E, A]]
+    { override def fromArrays(arrayE: Array[E], arrayA: Array[A], arrayR: Array[FileWrittenResults[E, A]]): FileWrittenResults[E, A] =
+      FileWrittenResults.fromArrays(arrayE, arrayA, arrayR)
+    }
+}
+
+/** Trait for grouping the results of file writing attmpts. */
+trait FileWrittenResults[+E <: IOException, +A <: FileWritten] extends Results[E, A]
+{ def dirStr: String
+  override def subs: RArr[FileWrittenResults[E, A]] @uncheckedVariance
+  def dirStr2: String = ife(dirStr == "", "", s" to $dirStr")
+  override def reportStr: String = s"$numSuccs files successfully written$dirStr2, $numFails IOExceptions"
+}
+
+object FileWrittenResults
+{ /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
+  def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]]):
+    FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, "")
+  
+  /** Implementation class for the general case of [[FileWrittenResults]]. */
+  case class FileWrittenResultsGen[+E <: IOException, +A <: FileWritten](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
+    subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], dirStr: String) extends FileWrittenResults[E, A]
+  { override def subs: RArr[FileWrittenResults[E, A]] = new RArr(subsArr)
   }
 }
 

@@ -50,6 +50,7 @@ implicit class EitherExts[E, A](val thisEither: Either[E, A])
   }
 }
 
+/** This whole extension class may be removable. */
 implicit class Eitherthrowable[+E <: Throwable, A](thisEither: Either[E, A])
 { /** If this [[Either]] is a [[Right]] produce [[ErrBiAcc]] with the parameter function. If this is [[Left]] produce [[ErrBiAcc]] with this single [[Left]]. */
   def mapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(using ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
@@ -64,6 +65,16 @@ implicit class Eitherthrowable[+E <: Throwable, A](thisEither: Either[E, A])
       case a => a.toString
     }
     case Left(err) => err.toString
+  }
+}
+
+implicit class IterableEitherExts[E, A](thisIter: Iterable[Either[E, A]])
+{ /** Separates [[Left]]s and [[Right]]s into [[Array]]s. */
+  def toArrays(using ClassTag[E], ClassTag[A]): (Array[E], Array[A]) =
+  { val buffE: ArrayBuffer[E] = new ArrayBuffer[E]()
+    val buffA: ArrayBuffer[A] = new ArrayBuffer[A]()
+    thisIter.foreach(_.fold(buffE.append(_), buffA.append(_)))
+    (buffE.toArray, buffA.toArray)
   }
 }
 

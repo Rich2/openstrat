@@ -7,8 +7,8 @@ trait StagingBuild
 { /** This method stages the HTML and CSS files for the Openstrat, but not the JavaScript files. */
   def stageBase(path: DirsAbs): Unit =
   { deb(path.writeHtml(IndexPage).reportStr)
-    val cssFiles = Results(path.writeCss(CssMain), path.writeCss(OnlyCss))
-    deb(cssFiles.toString)    
+    val cssFiles = path.writesCss(CssMain, OnlyCss)
+    deb(cssFiles.reportStr)    
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msgErrsSummary("to Documents directory"))
 
