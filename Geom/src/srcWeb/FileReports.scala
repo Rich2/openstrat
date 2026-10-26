@@ -1,66 +1,80 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
 import java.io.IOException
+import scala.annotation.unchecked.uncheckedVariance
 
 /** Report of successful HTML file write. */
-class HtmlFileWritten(detailStr: String) extends FileWritten(detailStr)
+class HtmlWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "HTML File written"
   override def toString: String = "HtmlFileWritten" + detailStr.enParenth
 }
 
-object HtmlFileWritten
-{ /** Factory apply method to construct [[HtmlFileWritten]] report. */
-  def apply(detailStr: String): HtmlFileWritten = new HtmlFileWritten(detailStr)
+object HtmlWritten
+{ /** Factory apply method to construct [[HtmlWritten]] report. */
+  def apply(detailStr: String): HtmlWritten = new HtmlWritten(detailStr)
 
-  /** Implicit evidence / instance of [[ShowType]] for [[HtmlFileWritten]] */
-  given namedTypeEv: ShowType[HtmlFileWritten] = new ShowFileWritten[HtmlFileWritten]
+  /** Implicit evidence / instance of [[ShowType]] for [[HtmlWritten]] */
+  given namedTypeEv: ShowType[HtmlWritten] = new ShowFileWritten[HtmlWritten]
   { override val filePrefix: String = "HTML"
     override def typeStr: String = "HtmlFileWritten"
-  }
+  }  
+}
+
+/** class for grouping the results of HTML file writing attempts. */
+class HtmlWrittenResults(val failsArray: Array[IOException], val succsArray: Array[HtmlWritten], val subsArray: Array[HtmlWrittenResults],
+  val dirStr: String) extends FileWrittenResults[IOException, HtmlWritten]
+{ override def subs: RArr[HtmlWrittenResults] = new RArr(subsArray)
+  override def reportStr: String = s"$numSuccs HTML file successfully written$dirStr2, $numFails IOExceptions."
+}
+
+object HtmlWrittenResults
+{
+  
 }
 
 /** Report of successful CSS file write. */
-class CssFileWritten(detailStr: String) extends FileWritten(detailStr)
+class CssWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "CSS File written"
   override def toString: String = "CssFileWritten" + detailStr.enParenth
 }
 
-object CssFileWritten
-{ /** Factory apply method to construct [[CssFileWritten]] report. */
-  def apply(detailStr: String): CssFileWritten = new CssFileWritten(detailStr)
+object CssWritten
+{ /** Factory apply method to construct [[CssWritten]] report. */
+  def apply(detailStr: String): CssWritten = new CssWritten(detailStr)
   
-  given reportBuilder: ResultsBuilder[IOException, CssFileWritten, CssFileWrittenResults] =
-    new ResultsBuilder[IOException, CssFileWritten, CssFileWrittenResults]
-  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssFileWritten], arrayR: Array[CssFileWrittenResults]): CssFileWrittenResults =
-      CssFileWrittenResults(arrayE, arrayA, arrayR)
+  given reportBuilder: ResultsBuilder[IOException, CssWritten, CssWrittenResults] =
+    new ResultsBuilder[IOException, CssWritten, CssWrittenResults]
+  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssWritten], arrayR: Array[CssWrittenResults]): CssWrittenResults =
+      CssWrittenResults(arrayE, arrayA, arrayR)
   }
 
-  /** Implicit evidence / instance of [[ShowType]] for [[CssFileWritten]] */
-  given namedTypeEv: ShowType[CssFileWritten] = new ShowFileWritten[CssFileWritten]
+  /** Implicit evidence / instance of [[ShowType]] for [[CssWritten]] */
+  given namedTypeEv: ShowType[CssWritten] = new ShowFileWritten[CssWritten]
   { override val filePrefix: String = "CSS"
     override def typeStr: String = "CssFileWritten"
   }
 }
 
-class CssFileWrittenResults(val failsArray: Array[IOException], val succsArray: Array[CssFileWritten], val subsArr: Array[CssFileWrittenResults],
-  val dirStr: String) extends FileWrittenResults[IOException, CssFileWritten]
-{ override def subs: RArr[FileWrittenResults[IOExc, CssFileWritten]] = new RArr(subsArr)  
+/** class for grouping the results of CSS file writing attempts. */
+class CssWrittenResults(val failsArray: Array[IOException], val succsArray: Array[CssWritten], val subsArray: Array[CssWrittenResults], val dirStr: String)
+  extends FileWrittenResults[IOException, CssWritten]
+{ override def subs: RArr[FileWrittenResults[IOExc, CssWritten]] = new RArr(subsArray)  
   override def reportStr: String = s"$numSuccs CSS file successfully written$dirStr2, $numFails IOExceptions."
 }
 
-object CssFileWrittenResults
-{
-  def apply(failsArray: Array[IOException], succsArray: Array[CssFileWritten], subsArr: Array[CssFileWrittenResults], dirStr: String = ""):
-    CssFileWrittenResults = new CssFileWrittenResults(failsArray, succsArray, subsArr, dirStr)
+object CssWrittenResults
+{ /** Factory apply method to construct [[CssWrittenResults]]. */
+  def apply(failsArray: Array[IOException], succsArray: Array[CssWritten], subsArr: Array[CssWrittenResults], dirStr: String = ""):
+    CssWrittenResults = new CssWrittenResults(failsArray, succsArray, subsArr, dirStr)
   
-  def apply(dirStr: String, attempts: IOExcEither[CssFileWritten]*): CssFileWrittenResults ={
-    val (arrayE, arrayA) = attempts.toArrays
-    new CssFileWrittenResults(arrayE, arrayA, Array(), dirStr)
+  def apply(dirStr: String, attempts: IOExcEither[CssWritten]*): CssWrittenResults =
+  { val (arrayE, arrayA) = attempts.toArrays
+    new CssWrittenResults(arrayE, arrayA, Array(), dirStr)
   }
 
-  def apply(dirStr: String, attempts: Iterable[IOExcEither[CssFileWritten]]): CssFileWrittenResults ={
+  def apply(dirStr: String, attempts: Iterable[IOExcEither[CssWritten]]): CssWrittenResults ={
     val (arrayE, arrayA) = attempts.toArrays
-    new CssFileWrittenResults(arrayE, arrayA, Array(), dirStr)
+    new CssWrittenResults(arrayE, arrayA, Array(), dirStr)
   }
 }
 

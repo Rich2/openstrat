@@ -62,7 +62,7 @@ object FileWritten
     }
 }
 
-/** Trait for grouping the results of file writing attmpts. */
+/** Trait for grouping the results of file writing attempts. */
 trait FileWrittenResults[+E <: IOException, +A <: FileWritten] extends Results[E, A]
 { def dirStr: String
   override def subs: RArr[FileWrittenResults[E, A]] @uncheckedVariance

@@ -20,36 +20,36 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
 
   /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
-  def writeHtml(fileName: String, page: HtmlPage): Either[IOExc, HtmlFileWritten] =
-    wFile(thisPath.asStr / fileName, page.out).map(fw => HtmlFileWritten(fw.detailStr))
+  def writeHtml(fileName: String, page: HtmlPage): Either[IOExc, HtmlWritten] =
+    wFile(thisPath.asStr / fileName, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
-  def writeHtml(page: HtmlPageFile): Either[IOExc, HtmlFileWritten] = wFile(thisPath.asStr / page.fileNameStr, page.out).map(fw => HtmlFileWritten(fw.detailStr))
+  def writeHtml(page: HtmlPageFile): Either[IOExc, HtmlWritten] = wFile(thisPath.asStr / page.fileNameStr, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, page: HtmlPageFile): Either[IOExc, HtmlFileWritten] =
-    wFile(thisPath.asStr / subDir / page.fileNameStr, page.out).map(fw => HtmlFileWritten(fw.detailStr))
+  def subWriteHtml(subDir: String, page: HtmlPageFile): Either[IOExc, HtmlWritten] =
+    wFile(thisPath.asStr / subDir / page.fileNameStr, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, HtmlFileWritten] =
-    wFile(thisPath.asStr / subDir / fileName, page.out).map(fw => HtmlFileWritten(fw.detailStr))
+  def subWriteHtml(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, HtmlWritten] =
+    wFile(thisPath.asStr / subDir / fileName, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
-  def subWriteHtml(subDir: String, fileName: String, content: String): Either[IOExc, HtmlFileWritten] =
-    wFile(thisPath.asStr / subDir / fileName, content).map(fw => HtmlFileWritten(fw.detailStr))
+  def subWriteHtml(subDir: String, fileName: String, content: String): Either[IOExc, HtmlWritten] =
+    wFile(thisPath.asStr / subDir / fileName, content).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
-  def writeCss(fileName: String, content: String): Either[IOExc, CssFileWritten] =
-    wFile(thisPath.asStr / fileName, content).map(fw => CssFileWritten(fw.detailStr))
+  def writeCss(fileName: String, content: String): Either[IOExc, CssWritten] =
+    wFile(thisPath.asStr / fileName, content).map(fw => CssWritten(fw.detailStr))
 
   /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
-  def writeCss(cssFile: CssRulesFile): Either[IOExc, CssFileWritten] =
-    wFile(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssFileWritten(fw.detailStr))
+  def writeCss(cssFile: CssRulesFile): Either[IOExc, CssWritten] =
+    wFile(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssWritten(fw.detailStr))
 
- def writesCss(files: CssRulesFile*): CssFileWrittenResults ={
-   val res1: Seq[Either[IOExc, CssFileWritten]] = files.map(writeCss(_))
-   CssFileWrittenResults(thisPath.asStr, res1)
+ def writesCss(files: CssRulesFile*): CssWrittenResults ={
+   val res1: Seq[Either[IOExc, CssWritten]] = files.map(writeCss(_))
+   CssWrittenResults(thisPath.asStr, res1)
  }
 
   def toJava: File = File(thisPath.asStr)
