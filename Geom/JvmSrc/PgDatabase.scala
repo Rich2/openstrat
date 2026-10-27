@@ -1,6 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pweb; package webjvm
-import utiljvm.*, pweb.*, pParse.*, java.sql.*, org.postgresql.util.PSQLException
+package ostrat; package utiljvm
+import pweb.*, pParse.*, java.sql.*, org.postgresql.util.PSQLException
 
 trait PgDatabase
 {  

@@ -1,51 +1,51 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pweb; package webjvm
-import utiljvm.writeFile as wFile, java.io.File
+package ostrat; package utiljvm
+import java.io.File, pweb.*
 
 /** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
 implicit class DirAbsJvmExts (thisPath: DirsAbs)
 { /** Writes the contents [[String]] to the HTML File to this absolute directory path. Returns a success message if no error. */
-  def writeFile(fileName: String, contents: String): Either[IOExc, FileWritten] = wFile((thisPath /+ fileName).asStr, contents)
+  def writeFile(fileName: String, contents: String): Either[IOExc, FileWritten] = pathWriteStr((thisPath /+ fileName).asStr, contents)
   
   /** Writes the contents [[String]] to the subdirectory. Returns a successful message on success. */
-  def subWriteFile(subDir: String, fileName: String, contents: String): Either[IOExc, FileWritten] = wFile((thisPath / subDir /+ fileName).asStr, contents)
+  def subWriteFile(subDir: String, fileName: String, contents: String): Either[IOExc, FileWritten] = pathWriteStr((thisPath / subDir /+ fileName).asStr, contents)
 
   /** Writes the HTML File to the subdirectory. Returns a successful message on success. */
-  def subWriteFiles(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, FileWritten] = wFile((thisPath / subDir /+ fileName).asStr, page.out)
+  def subWriteFiles(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, FileWritten] = pathWriteStr((thisPath / subDir /+ fileName).asStr, page.out)
 
   /** Writes the RSON File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
   def writeRson(fileName: String, page: String): Either[IOExc, RsonFileWritten] =
-    wFile(thisPath.asStr / fileName, page).map(fw => RsonFileWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / fileName, page).map(fw => RsonFileWritten(fw.detailStr))
 
   /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
   def writeHtml(fileName: String, page: HtmlPage): Either[IOExc, HtmlWritten] =
-    wFile(thisPath.asStr / fileName, page.out).map(fw => HtmlWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / fileName, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
-  def writeHtml(page: HtmlPageFile): Either[IOExc, HtmlWritten] = wFile(thisPath.asStr / page.fileNameStr, page.out).map(fw => HtmlWritten(fw.detailStr))
+  def writeHtml(page: HtmlPageFile): Either[IOExc, HtmlWritten] = pathWriteStr(thisPath.asStr / page.fileNameStr, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def subWriteHtml(subDir: String, page: HtmlPageFile): Either[IOExc, HtmlWritten] =
-    wFile(thisPath.asStr / subDir / page.fileNameStr, page.out).map(fw => HtmlWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / subDir / page.fileNameStr, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
   def subWriteHtml(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, HtmlWritten] =
-    wFile(thisPath.asStr / subDir / fileName, page.out).map(fw => HtmlWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / subDir / fileName, page.out).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def subWriteHtml(subDir: String, fileName: String, content: String): Either[IOExc, HtmlWritten] =
-    wFile(thisPath.asStr / subDir / fileName, content).map(fw => HtmlWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / subDir / fileName, content).map(fw => HtmlWritten(fw.detailStr))
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. There is a
    * name overload that takes a [[String]] for the path. */
   def writeCss(fileName: String, content: String): Either[IOExc, CssWritten] =
-    wFile(thisPath.asStr / fileName, content).map(fw => CssWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / fileName, content).map(fw => CssWritten(fw.detailStr))
 
   /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
   def writeCss(cssFile: CssRulesFile): Either[IOExc, CssWritten] =
-    wFile(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssWritten(fw.detailStr))
+    pathWriteStr(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssWritten(fw.detailStr))
 
  def writesCss(files: CssRulesFile*): CssWrittenResults ={
    val res1: Seq[Either[IOExc, CssWritten]] = files.map(writeCss(_))

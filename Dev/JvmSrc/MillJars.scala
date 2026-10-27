@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.*, wcode.*, webjvm.*, pDoc.*
+import pweb.*, wcode.*, utiljvm.*, pDoc.*
 
 /** A module for the purposes of creating POM files. */
 class Module(val modName: String, fileStem: String, deps: RArr[Module])

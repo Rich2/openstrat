@@ -1,6 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pweb.*, webjvm.*, plet.*, java.time.LocalDateTime, jakarta.*, servlet.annotation.WebServlet,java.sql.{DriverManager, Connection},
+import utiljvm.*, pweb.*, plet.*, java.time.LocalDateTime, jakarta.*, servlet.annotation.WebServlet,java.sql.{DriverManager, Connection},
   servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp}
 /** First openstrat Servlet for Tomcat and Jetty. */
 @WebServlet(urlPatterns = Array("/")) class LoginLet extends HttpServlet

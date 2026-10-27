@@ -55,7 +55,7 @@ package object utiljvm
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getOrElse(elseValue)
 
   /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def writeFile(pathName: String, content: String): IOExcEither[FileWritten] =
+  def pathWriteStr(pathName: String, content: String): IOExcEither[FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
@@ -68,10 +68,10 @@ package object utiljvm
     oErr.fld(Right(FileWritten(pathName)), FailIO(_))
   }
   
-  def RsonWriteFile(pathName: String, content: String): IOExcEither[RsonFileWritten] = writeFile(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
+  def RsonWriteFile(pathName: String, content: String): IOExcEither[RsonFileWritten] = pathWriteStr(pathName, content).map(fw => RsonFileWritten(fw.detailStr))
 
   /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-  def copyFile(fromStr:  String, toStr: String): IOExcEither[FileWritten] =
+  def copyFilebyStrs(fromStr:  String, toStr: String): IOExcEither[FileWritten] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
@@ -82,7 +82,7 @@ package object utiljvm
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): IOExcEither[FileWritten] =
   { val h: String = System.getProperty("user.home")
-    writeFile(h / dir / fileName, str)
+    pathWriteStr(h / dir / fileName, str)
   }
 
   /** Function object apply method to get statements from a Java build resource. */

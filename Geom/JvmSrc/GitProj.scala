@@ -17,7 +17,7 @@ case class GitProj(path: String, projName: String)
     |SbtDir/
     |.*/""".stripMargin
 
-  def ignoreWrite: Unit = writeFile(fullPathStr / ".gitignore", ignoreStr)
+  def ignoreWrite: Unit = pathWriteStr(fullPathStr / ".gitignore", ignoreStr)
 
   def sbtStr: String =
     s"""
@@ -26,7 +26,7 @@ case class GitProj(path: String, projName: String)
       |Compile/scalaSource := baseDirectory.value / "src"
       |scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8")""".stripMargin
 
-  def sbtWrite: Unit = writeFile(fullPathStr / projName + ".sbt", sbtStr)
+  def sbtWrite: Unit = pathWriteStr(fullPathStr / projName + ".sbt", sbtStr)
 
   def mainStr =
   s"""
@@ -34,7 +34,7 @@ case class GitProj(path: String, projName: String)
       |println("Hello from $projName")
       |}""".stripMargin
 
-  def mainWrite: Unit = writeFile(fullPathStr / "src" / projName + "App.scala", mainStr)
+  def mainWrite: Unit = pathWriteStr(fullPathStr / "src" / projName + "App.scala", mainStr)
 
   def millStr: String =
     s"""// build.sc
@@ -45,7 +45,7 @@ case class GitProj(path: String, projName: String)
       |  def sources = T.sources(millSourcePath / os.up / "src")
       |}""".stripMargin
 
-  def millWrite: Unit = writeFile(fullPathStr / "build.sc", millStr)
+  def millWrite: Unit = pathWriteStr(fullPathStr / "build.sc", millStr)
 
   def apply: Unit =
   { ignoreWrite

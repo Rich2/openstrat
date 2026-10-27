@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.*, webjvm.*, pDoc.*
+import pweb.*, utiljvm.*, pDoc.*
 
 /** application used by mill to stage openstrat files for a passive server. */
 object MillStageSite extends StagingBuild

@@ -1,35 +1,35 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pweb; package webjvm
-import utiljvm.{ writeFile => wFile }
+package ostrat; package utiljvm
+import pweb.*
 
 implicit class OutElemExtensions(thisElem: OutElem)
 { /** Writes out the "out" method on this [[OutElem]] to the given file name in the given directory. */
-  def writeFile(dirPathStr: String, fileName: String): Either[IOExc, FileWritten] = wFile(dirPathStr / fileName, thisElem.out)
+  def writeFile(dirPathStr: String, fileName: String): Either[IOExc, FileWritten] = pathWriteStr(dirPathStr / fileName, thisElem.out)
 }
 
 implicit class OutElemFileExtensions(thisOutFile: OutElemFile)
 { /** Writes out the "out" method on this [[OutElemFile]] to its file name in the given directory. */
-  def writeFile(dirPathStr: String): Either[IOExc, FileWritten] = wFile(dirPathStr / thisOutFile.fileNameStr, thisOutFile.out)
+  def writeFile(dirPathStr: String): Either[IOExc, FileWritten] = pathWriteStr(dirPathStr / thisOutFile.fileNameStr, thisOutFile.out)
 }
 
 implicit class HtmlPageFileExtensions(thisPage: HtmlPageFile)
 { /** Writes out the "out" method on this [[HtmlPageFile]] to its file name in the given directory. */
   def writeFile(dirPathStr: String): Either[IOExc, HtmlWritten] =
-    wFile(dirPathStr / thisPage.fileNameStr, thisPage.out).map(fw => HtmlWritten(fw.detailStr))
+    pathWriteStr(dirPathStr / thisPage.fileNameStr, thisPage.out).map(fw => HtmlWritten(fw.detailStr))
 }
 
 implicit class CssRulesHolderExtensions(thisRules: CssRulesHolder)
 { /** Writes out the "out" method on this [[CssRulesHolder]] to the given file name in the given directory. */
   def writeFileStem(dirPathStr: String, fileNameStem: String): Either[IOExc, CssWritten] =
-    wFile(dirPathStr / fileNameStem + ".css", thisRules.out).map(fw => CssWritten(fw.detailStr))
+    pathWriteStr(dirPathStr / fileNameStem + ".css", thisRules.out).map(fw => CssWritten(fw.detailStr))
 
   /** Writes out the "out" method on this [[CssRulesHolder]] to the given file name in the given directory. */
   def writeFileFull(dirPathStr: String, fileName: String): Either[IOExc, CssWritten] =
-    wFile(dirPathStr / fileName, thisRules.out).map(fw => CssWritten(fw.detailStr))
+    pathWriteStr(dirPathStr / fileName, thisRules.out).map(fw => CssWritten(fw.detailStr))
 }
 
 implicit class CssRulesFileExtensions(thisCssFile: CssRulesFile)
 { /** Writes out the "out" method on this [[CssRulesFile]] to its file name in the given directory. */
   def writeFile(dirPathStr: String): Either[IOExc, CssWritten] =
-    wFile(dirPathStr / thisCssFile.fileNameStr, thisCssFile.out).map(fw => CssWritten(fw.detailStr))
+    pathWriteStr(dirPathStr / thisCssFile.fileNameStr, thisCssFile.out).map(fw => CssWritten(fw.detailStr))
 }

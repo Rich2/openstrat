@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pweb; package webjvm
-import utiljvm.*, pweb.*, java.sql.*, org.postgresql.util.PSQLException
+package ostrat; package utiljvm
+import pweb.*, java.sql.*, org.postgresql.util.PSQLException
 
 /** [[Either]] with a [[SQLException]] error type. */
 type SqlExcEither[+A] = Either[SQLException, A]
