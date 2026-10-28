@@ -1,7 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import java.io.IOException
-import scala.annotation.unchecked.uncheckedVariance
+import java.io.IOException, annotation.unchecked.uncheckedVariance
 
 /** Report of successful HTML file write. */
 class HtmlWritten(detailStr: String) extends FileWritten(detailStr)
