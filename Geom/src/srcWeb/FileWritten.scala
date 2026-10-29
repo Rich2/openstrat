@@ -1,9 +1,6 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import java.io.IOException
-import annotation.unchecked.uncheckedVariance
-import reflect.ClassTag
-import scala.collection.mutable.ArrayBuffer;
+import java.io.IOException, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer 
 
 /** Report of successful file write. */
 class FileWritten(val detailStr: String) extends DoneIO

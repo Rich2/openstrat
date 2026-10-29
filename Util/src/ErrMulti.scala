@@ -30,11 +30,7 @@ object ThrowMulti
   /** Factory apply method to construct an [[ErrMulti]] with [[Throwable]] errors. */
   def apply[E <: Throwable](throws: E*)(using ClassTag[E]): ThrowMulti[E] = ThrowMultiGen(throws.toRArr)
 
-  /** [[ErrMultiBuilder]] type class instance / evidence for [[Throwable]]. */
-  given multiBuilder[E <: Throwable]: ErrMultiBuilder[Throwable, E, ThrowMulti[E]] = new ErrMultiBuilder[Throwable, E, ThrowMulti[E]]
-  { override def multi(arr: RArr[E]): ThrowMulti[E] = ThrowMultiGen(arr)
-    override def multi(errs: E*)(using ct: ClassTag[E]): ThrowMulti[E] = ThrowMultiGen(errs.toRArr)
-  }
+  
   
   /** Implementation class for the general case of [[ThrowMulti]]. */
   case class ThrowMultiGen[E <: Throwable](mems: RArr[E]) extends Exception, ThrowMulti[E]
@@ -68,11 +64,19 @@ trait ErrMultiBuilder[EE, E <: EE, +ME <: ErrMulti[E] & EE]
   def left(inp: Either[E, ?]*)(using ClassTag[E]): Left[ME, Nothing] = Left(eithers(inp.toRArr))
 }
 
-object ErrMultiBuilder
+object ErrMultiBuilder extends ErrMultiBuilderLowPriority
 { /** [[ErrMultiBuilder]] type class instance / evidence for [[ExcMulti]]. */
   given excMultiEv[E <: Exception]: ErrMultiBuilder[Exception, E, ExcMulti[E]] = new ErrMultiBuilder[Exception, E, ExcMulti[E]]
   { override def multi(arr: RArr[E]): ExcMulti[E] = ExcMulti(arr)
     override def multi(errs: E*)(using ct: ClassTag[E]): ExcMulti[E] = ExcMulti(errs.toRArr)
+  }
+}
+
+trait ErrMultiBuilderLowPriority
+{ /** [[ErrMultiBuilder]] type class instance / evidence for [[Throwable]]. */
+  given multiBuilder[E <: Throwable]: ErrMultiBuilder[Throwable, E, ThrowMulti[E]] = new ErrMultiBuilder[Throwable, E, ThrowMulti[E]]
+  { override def multi(arr: RArr[E]): ThrowMulti[E] = ThrowMulti.ThrowMultiGen(arr)
+    override def multi(errs: E*)(using ct: ClassTag[E]): ThrowMulti[E] = ThrowMulti.ThrowMultiGen(errs.toRArr)
   }
 }
 

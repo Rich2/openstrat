@@ -139,6 +139,7 @@ object JarWrittenResults
   def fromArrays(failsArray: Array[IOException], succsArray: Array[JarWritten], subsArr: Array[JarWrittenResults], dirStr: String = ""):
   JarWrittenResults = new JarWrittenResults(failsArray, succsArray, subsArr, dirStr)
 }
+
 /** Report of successful POM file write. */
 class PomFileWritten(detailStr: String) extends FileWritten(detailStr)
 { override def reportTypeStr: String = "POM File written"
@@ -153,57 +154,4 @@ object PomFileWritten
   { override val filePrefix: String = "POM"
     override def typeStr: String = "PomFileWritten"
   }
-}
-
-/** Report of successful JavaScript file write. */
-class JsWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "JavaScript File written"
-  override def toString: String = "JsFileWritten" + detailStr.enParenth
-
-  /** Converts this for a successful js.map file write. */
-  def withMap: JsWithMapFilesWritten = JsWithMapFilesWritten(detailStr)
-}
-
-object JsWritten
-{ /** Factory apply method to construct [[JsWritten]] report. */
-  def apply(detailStr: String): JsWritten = new JsWritten(detailStr)
-
-  /** Implicit evidence / instance of [[ShowType]] for [[JsWritten]] */
-  given namedTypeEv: ShowType[JsWritten] = new ShowFileWritten[JsWritten]
-  { override val filePrefix: String = "JavaScript"
-    override def typeStr: String = "JsFileWritten"
-  }
-}
-
-/** class for grouping the results of JavaScript file writing attempts. */
-class JsWrittenResults(val failsArray: Array[IOException], val succsArray: Array[JsWritten], val subsArray: Array[JsWrittenResults], val dirStr: String)
-  extends FileWrittenResults[IOException, JsWritten]
-{ override def subs: RArr[FileWrittenResults[IOExc, JsWritten]] = new RArr(subsArray)
-  override def reportStr: String = s"$numSuccs JavaScript file successfully written$dirStr2, $numFails IOExceptions."
-}
-
-object JsWrittenResults
-{ /** Factory apply method to construct [[JsWrittenResults]]. */
-  def apply(dirStr: String, attempts: IOExcEither[JsWritten]*): JsWrittenResults =
-  { val (arrayE, arrayA) = attempts.toArrays
-    new JsWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory apply method to construct [[JsWrittenResults]]. */
-  def apply(dirStr: String, attempts: Iterable[IOExcEither[JsWritten]]): JsWrittenResults ={
-    val (arrayE, arrayA) = attempts.toArrays
-    new JsWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-}
-
-/** Report of successful JavaScript file write and its map file write. */
-class JsmapFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "JavaScript map File written"
-  override def toString: String = "JsmapFileWritten" + detailStr.enParenth
-}
-
-/** Report of successful JavaScript file write. */
-class JsWithMapFilesWritten(detailStr: String) extends JsWritten(detailStr)
-{ override def reportTypeStr: String = "JavaScript with map Files written"
-  override def toString: String = "JsmapFileWritten" + detailStr.enParenth
 }

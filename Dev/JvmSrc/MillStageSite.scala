@@ -16,36 +16,39 @@ object MillStageSite extends StagingBuild
 
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
     val egPath: DirsAbs = stagePath / "earthgames"
-    val eGameJsFiles: ErrBiAcc[Exception, JsWritten] = egPath.mkExist.mapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc{ ga =>
+    val eGameJsFiles: IOExcEither[JsWrittenResults] = egPath.mkExist.map{ res =>
+      val res1: RArr[JsWrittenResults] = AppPage.eGameApps.map{ ga =>
         val source: DirsAbs = projPath.outDir / "AppJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(source, egPath, ga.fileStemStr)
       }
+      JsWrittenResults.combine("", res1)
     }
-    deb(eGameJsFiles.msgErrsSummary("to earthgames directory"))
+    deb(eGameJsFiles.reportStr)
 
     val docPath: DirsAbs = stagePath / "Documentation"
-    val jarApp: ErrBiAcc[Exception, FileWritten] = stageDocumentationJs(projPath, docPath)
-    deb(jarApp.errsSummary)
+    val jarApp: Either[IOExc, JsWrittenResults] = stageDocumentationJs(projPath, docPath)
+    deb(jarApp.reportStr)// errsSummary)
     val otherPath: DirsAbs = stagePath / "otherapps"
     val otherBi: IOExcEither[DirExists] = otherPath.mkExist
-    val otherJsFiles = otherBi.mapAcc { res =>
-      AppPage.otherApps.mapErrBiAcc { ga =>
+    val otherJsFiles = otherBi.map{ res =>
+      val res2  = AppPage.otherApps.map { ga =>
         val fromDir: DirsAbs = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(fromDir, otherPath, ga.fileStemStr)
       }
+      JsWrittenResults.combine("", res2)
     }
-    deb(otherJsFiles.msgErrsSummary("to otherapps directory"))
+    deb(otherJsFiles.reportStr)
 
     val egridPath: DirsAbs = stagePath / "egrids"
     val eGridBi: IOExcEither[DirExists] = egridPath.mkExist
-    val egridJsFiles = eGridBi.mapAcc { res =>
-      AppPage.eGrids.mapErrBiAcc { ga =>
+    val egridJsFiles = eGridBi.map { res =>
+      val res2 = AppPage.eGrids.map{ ga =>
         val fromDir: DirsAbs = projPath / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(fromDir, egridPath, ga.fileStemStr)
       }
+      JsWrittenResults.combine("", res2)
     }
-    deb(egridJsFiles.msgErrsSummary("to egrid directory"))
-    egridJsFiles.errsPrint
+    deb(egridJsFiles.reportStr)
+    //egridJsFiles.errsPrint
   }
 }

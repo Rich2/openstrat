@@ -3,22 +3,22 @@ package ostrat; package utiljvm
 import pParse.*, pweb.*, java.io.File, scala.sys.process.*
 
  /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-lazy val devSettingsStatements: ExcEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
+lazy val devSettingsStatements: IOParseExcEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
 
 /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
-def findDevSettingExpr(settingStr: String): ThrowEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
+def findDevSettingExpr(settingStr: String): IOParseExcEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
 /** Find a setting of the given name and type from the file DevSettings.rson. */
-def findDevSetting[A: Unshow](settingStr: String): ThrowEither[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
+def findDevSetting[A: Unshow](settingStr: String): IOParseExcEither[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
 /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
 def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getOrElse(elseValue)
 
 /** Find the [[String]] for the identifier value of o setting of the given name in the file DevSettings.rson. */
-def findDevSettingIdStr(settingStr: String): ExcEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
+def findDevSettingIdStr(settingStr: String): IOParseExcEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
 /** Find the project path. */
-def projPathFind: ThrowEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
+def projPathFind: IOParseExcEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
 
 /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
 def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.fold { err => deb(err.toString) } { path => f(path) }
@@ -27,41 +27,40 @@ def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.fold { err => deb(
 def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").fold { err => deb(err.toString) } { path => f(path) }
 
 /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
-def openstratPath: ThrowEither[DirsAbs] = findDevSetting[DirsAbs]("projPath")
+def openstratPath: IOParseExcEither[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
 /** Possible path to the staging directory for Openstrat artefacts, if it can be found in Dev/User/DevSettings.rson file. */
-def stagingPathFind: ThrowEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
+def stagingPathFind: IOParseExcEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
 /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr)
+def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr)
 
 /** Copies file from the full path-name of the first parameter to the dir of the second parameter. */
-def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): ExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
+def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
 
 /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsWritten] =
+def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JsWritten] =
   copyFile(fromStem ++ ".js", toStem ++ ".js").map(fw => JsWritten(fw.detailStr))
 
 /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
-def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsWritten] =
+def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JsWritten] =
   copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsWritten(fw.detailStr))
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ExcEither[JsWritten] = 
-{ val res1: ExcEither[JsWritten] = utiljvm.copyFilebyStrs(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsWritten(fw.detailStr))
+def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): JsWrittenResults = 
+{ val res1: IOExcEither[JsWritten] = utiljvm.copyFilebyStrs(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsWritten(fw.detailStr))
   res1 match
-  { case Right(jsfw) => utiljvm.copyFilebyStrs(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsWritten(fw.detailStr)) match
-    { case Left(_) => res1
-      case Right(_) => Right(jsfw.withMap)
+  {  case Right(jsfw) =>
+    { val e2 = utiljvm.copyFilebyStrs(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsMapWritten(fw.detailStr))
+      jsfw.withMap(e2)
     }
-    case fail => fail
+    case Left(err) => JsWrittenResults.errors(toPath.asStr, err)
   }
 }
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ExcEither[JsWritten] =
-{
-  val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
+def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): JsWrittenResults =
+{ val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
   val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")    
   val jsMapFile1: String = io.Source.fromFile(fromPath.asStr / "main.js.map").mkString
   val jsMapFile2 = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")    
@@ -70,11 +69,11 @@ def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameSte
   //val destStem: DirsAbsStem = destDir :-/ fileNameStem
   val res1: ExcEither[JsWritten] = utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsWritten(fw.detailStr))
   res1 match {
-    case Right(jsfw) => utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsWritten(fw.detailStr)) match {
-      case Left(_) => res1
-      case Right(_) => Right(jsfw.withMap)
+    case Right(jsfw) =>
+    { val res2 = utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsMapWritten(fw.detailStr))
+      jsfw.withMap(res2)      
     }
-    case fail => fail
+    case Left(_) => ???
   }
 }
 

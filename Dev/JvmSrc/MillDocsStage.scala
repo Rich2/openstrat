@@ -15,7 +15,7 @@ object MillDocsStage extends StagingBuild
     }
     ossDirBi.foreach{dir => stageDocDir(dir) }
     val docBi: Either[Throwable, DirsAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
-    val res = Either.map2Acc(projPathFind, docBi) { (projPath, docDir) => stageDocumentationJs(projPath, docDir) }
-    deb(res.errsSummary)
+    val res = Either.map2(projPathFind, docBi) { (projPath, docDir) => stageDocumentationJs(projPath, docDir) }
+    deb(res.reportStr)
   }
 }

@@ -2,8 +2,10 @@
 package ostrat; package utiljvm
 import java.io.File, pweb.*
 
-implicit class EitherUtilJvmExts[E, A](thisEither: Either[E, A]){
+implicit class EitherUtilJvmExts[E, A](thisEither: Either[E, A])
+{ /** A [[Right]] takes a function  to an [[Iterable]] of [[Either]]s. */
   def mapIterResults[EE, B, R <: Results[EE, B]](f: A => Iterable[Either[EE, B]])(using build: ResultsBuilder[EE, B, R]): Either[E, R] = thisEither.map(a => build.fromIterable(f(a)))
   
+  /** A [[Right]] takes a function  to a [[Sequ]] of [[Either]]s. */
   def mapResults[EE, B, R <: Results[EE, B]](f: A => Sequ[Either[EE, B]])(using build: ResultsBuilder[EE, B, R]): Either[E, R] = thisEither.map(a => build.fromSequ(f(a)))
 }

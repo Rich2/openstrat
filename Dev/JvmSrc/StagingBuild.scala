@@ -9,39 +9,38 @@ trait StagingBuild
   { deb(path.writeHtml(IndexPage).reportStr)
     val cssFiles = path.writesCss(CssMain, OnlyCss)
     deb(cssFiles.reportStr)    
-    val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
-    deb(docFiles.msgErrsSummary("to Documents directory"))
+    val docFiles: Either[IOExc, HtmlWrittenResults] = stageDocDir(path)
+    deb(docFiles.reportStr)
 
     val eGameHtmlFiles: Either[IOExc, HtmlWrittenResults] = path.mkSubExist("earthgames").mapResults{ egDir =>
       AppPage.eGameApps.map(page => egDir.writeHtml(page))
     }
-    deb(eGameHtmlFiles.reportStr)// msgErrsSummary("to earthgames directory"))
+    deb(eGameHtmlFiles.reportStr)
 
-    val otherHtmlFiles: ErrBiAcc[IOExc, HtmlWritten] = path.mkSubExist("otherapps").mapAcc { otherDir =>
-      AppPage.otherApps.mapErrBiAcc(page => otherDir.writeHtml(page))
+    val otherHtmlFiles: Either[IOExc, HtmlWrittenResults] = path.mkSubExist("otherapps").mapResults { otherDir =>
+      AppPage.otherApps.map(page => otherDir.writeHtml(page))
     }
-    deb(otherHtmlFiles.msgErrsSummary("to otherapps directory"))
+    deb(otherHtmlFiles.reportStr)
 
-    val egridHtmlFiles: ErrBiAcc[IOExc, HtmlWritten] = path.mkSubExist("egrids").mapAcc { egridsDir =>
-      AppPage.eGrids.mapErrBiAcc(page => egridsDir.writeHtml(page))
+    val egridHtmlFiles: Either[IOExc, HtmlWrittenResults] = path.mkSubExist("egrids").mapResults { egridsDir =>
+      AppPage.eGrids.map(page => egridsDir.writeHtml(page))
     }
-    deb(egridHtmlFiles.msgErrsSummary("to egrids directory"))
+    deb(egridHtmlFiles.reportStr)
   }
 
-  def stageDocDir(path: DirsAbs): ErrBiAcc[IOExc, FileWritten] =
+  def stageDocDir(path: DirsAbs): Either[IOExc, HtmlWrittenResults] =
   {
     val docPath: DirsAbs = path / "Documentation"
-    docPath.mkExist.mapAcc { res => RArr(AppsPage, UtilPage, GeomPage, LessonsPage, TilingPage, EarthPage, EGridPage, DevPage, NewDevsPage, TomcatPage,
-      PostgresPage, ScalaOSPage, Victoria2Page).mapErrBiAcc(file => docPath.writeHtml(file))
+    docPath.mkExist.mapResults { res => RArr(AppsPage, UtilPage, GeomPage, LessonsPage, TilingPage, EarthPage, EGridPage, DevPage, NewDevsPage, TomcatPage,
+      PostgresPage, ScalaOSPage, Victoria2Page).map(file => docPath.writeHtml(file))
     }
   }
 
-  def stageDocumentationJs(projPath: DirsAbs, docPath: DirsAbs) = docPath.mkExist.mapAcc { res =>
-    ErrBiAcc[Exception, FileWritten](
+  def stageDocumentationJs(projPath: DirsAbs, docPath: DirsAbs): Either[IOExc, JsWrittenResults] = docPath.mkExist.map{ res =>
+    JsWrittenResults.combine("",
       jsWithMapFileRenameCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest", docPath, "tomcat"),
       jsWithMapFileRenameCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest", docPath, "newdevs"),
       jsWithMapFileRenameCopy(projPath / "out/PostgresPageJs" / "fullLinkJS.dest", docPath, "postgres"),
-      //jarFileCopy(projPath.asStr / "out/DevFx/assembly.dest/out", (docPath / "osapp").asStr) //needs improving
     )
   }
 }
