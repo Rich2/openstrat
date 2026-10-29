@@ -62,6 +62,7 @@ implicit class Eitherthrowable[+E <: Throwable, A](thisEither: Either[E, A])
   def reportStr: String = thisEither match
   { case Right(value) => value match
     { case er: EffectReport => er.reportStr
+      case res: Results[?, ?] => res.reportStr
       case a => a.toString
     }
     case Left(err) => err.toString

@@ -4,7 +4,7 @@ import utiljvm.*, pweb.*
 
 trait DevHtmls
 { def jsPathStr(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): String
-  def scalaVersionStr = "3.8.2"
+  def scalaVersionStr = "3.10.0"
   def toolStr: String
   def appOuterModuleName: String
   def appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
@@ -21,11 +21,12 @@ trait DevHtmls
     }
   }
 
-  def writeFastFull(path: DirsAbs, outerModuleName: String, name: String): Unit =
+  def writeFastFull(path: DirsAbs, outerModuleName: String, name: String): HtmlWrittenResults =
   { val fastPage: HtmlPage = makeFile(path, outerModuleName, true, name)
-    path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage)
+    val fl1: Either[IOExc, HtmlWritten] = path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage)
     val fullPage = makeFile(path, outerModuleName, false, name)
-    path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Full,html", fullPage.out)
+    val fl2 = path.subWriteHtml("Dev/target/DevPages", s"$name${toolStr}Full,html", fullPage.out)
+    Results(fl1, fl2)
   }
 
   def makeFile(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =

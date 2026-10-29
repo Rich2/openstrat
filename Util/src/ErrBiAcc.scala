@@ -52,6 +52,14 @@ abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTa
     seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
     fromArrays(eBuff.toArray, aBuff.toArray, Array[R]())
   }
+
+  /** Constructs the given [[Results]] class from a [[Sequ]] of [[Either]]s. */
+  def fromSequ(seq: Sequ[Either[E, A]]): R =
+  { val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
+    seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
+    fromArrays(eBuff.toArray, aBuff.toArray, Array[R]())
+  }
 }
 
 object ResultsBuilder

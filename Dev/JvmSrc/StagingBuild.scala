@@ -12,10 +12,10 @@ trait StagingBuild
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     deb(docFiles.msgErrsSummary("to Documents directory"))
 
-    val eGameHtmlFiles: ErrBiAcc[IOExc, HtmlWritten] = path.mkSubExist("earthgames").mapAcc { egDir =>
-      AppPage.eGameApps.mapErrBiAcc(page => egDir.writeHtml(page))
+    val eGameHtmlFiles: Either[IOExc, HtmlWrittenResults] = path.mkSubExist("earthgames").mapResults{ egDir =>
+      AppPage.eGameApps.map(page => egDir.writeHtml(page))
     }
-    deb(eGameHtmlFiles.msgErrsSummary("to earthgames directory"))
+    deb(eGameHtmlFiles.reportStr)// msgErrsSummary("to earthgames directory"))
 
     val otherHtmlFiles: ErrBiAcc[IOExc, HtmlWritten] = path.mkSubExist("otherapps").mapAcc { otherDir =>
       AppPage.otherApps.mapErrBiAcc(page => otherDir.writeHtml(page))

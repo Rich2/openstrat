@@ -16,7 +16,7 @@ object MillStageSite extends StagingBuild
 
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
     val egPath: DirsAbs = stagePath / "earthgames"
-    val eGameJsFiles: ErrBiAcc[Exception, JsFileWritten] = egPath.mkExist.mapAcc { res =>
+    val eGameJsFiles: ErrBiAcc[Exception, JsWritten] = egPath.mkExist.mapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc{ ga =>
         val source: DirsAbs = projPath.outDir / "AppJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(source, egPath, ga.fileStemStr)

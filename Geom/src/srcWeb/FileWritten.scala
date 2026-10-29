@@ -1,6 +1,9 @@
 /* Copyright 2026 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import java.io.IOException, annotation.unchecked.uncheckedVariance, reflect.ClassTag; 
+import java.io.IOException
+import annotation.unchecked.uncheckedVariance
+import reflect.ClassTag
+import scala.collection.mutable.ArrayBuffer;
 
 /** Report of successful file write. */
 class FileWritten(val detailStr: String) extends DoneIO
@@ -41,6 +44,20 @@ object FileWrittenResults
   case class FileWrittenResultsGen[+E <: IOException, +A <: FileWritten](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
     subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], dirStr: String) extends FileWrittenResults[E, A]
   { override def subs: RArr[FileWrittenResults[E, A]] = new RArr(subsArr)
+  }
+}
+
+abstract class FileWrittenResultsBuilder[E <: IOException, A <: FileWritten, R <: FileWrittenResults[E, A]](using classTagE: ClassTag[E],
+  classTagA: ClassTag[A], classTagR: ClassTag[R]) extends ResultsBuilder[E, A, R]
+{ /** Constructs the given [[Results]] class from an [[Array]] of errors and an [[Array]] of successes. */
+  def fromStrArrays(dirStr: String, arrayE: Array[E], arrayA: Array[A], arrayR: Array[R]): R
+  
+  /** Constructs the given [[Results]] class from a [[Sequ]] of [[Either]]s. */
+  def fromSequ(dirStr: String, seq: Sequ[Either[E, A]]): R ={
+    val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
+    seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
+    fromStrArrays(dirStr, eBuff.toArray, aBuff.toArray, Array[R]())
   }
 }
 

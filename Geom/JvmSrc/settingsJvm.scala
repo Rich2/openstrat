@@ -39,18 +39,18 @@ def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): ExcEither[FileWritten
 def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): ExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
 
 /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsFileWritten] =
-  copyFile(fromStem ++ ".js", toStem ++ ".js").map(fw => JsFileWritten(fw.detailStr))
+def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsWritten] =
+  copyFile(fromStem ++ ".js", toStem ++ ".js").map(fw => JsWritten(fw.detailStr))
 
 /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
-def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsFileWritten] =
-  copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsFileWritten(fw.detailStr))
+def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): ExcEither[JsWritten] =
+  copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsWritten(fw.detailStr))
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ExcEither[JsFileWritten] = 
-{ val res1: ExcEither[JsFileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsFileWritten(fw.detailStr))
+def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ExcEither[JsWritten] = 
+{ val res1: ExcEither[JsWritten] = utiljvm.copyFilebyStrs(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsWritten(fw.detailStr))
   res1 match
-  { case Right(jsfw) => utiljvm.copyFilebyStrs(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsFileWritten(fw.detailStr)) match
+  { case Right(jsfw) => utiljvm.copyFilebyStrs(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsWritten(fw.detailStr)) match
     { case Left(_) => res1
       case Right(_) => Right(jsfw.withMap)
     }
@@ -59,7 +59,7 @@ def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): ExcEither[JsF
 }
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ExcEither[JsFileWritten] =
+def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): ExcEither[JsWritten] =
 {
   val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
   val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")    
@@ -68,9 +68,9 @@ def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameSte
   val destDir: DirsAbs = htmlDirPath / fileNameStem
   destDir.mkExist
   //val destStem: DirsAbsStem = destDir :-/ fileNameStem
-  val res1: ExcEither[JsFileWritten] = utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsFileWritten(fw.detailStr))
+  val res1: ExcEither[JsWritten] = utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsWritten(fw.detailStr))
   res1 match {
-    case Right(jsfw) => utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsFileWritten(fw.detailStr)) match {
+    case Right(jsfw) => utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsWritten(fw.detailStr)) match {
       case Left(_) => res1
       case Right(_) => Right(jsfw.withMap)
     }
@@ -95,8 +95,8 @@ def mkDirExist(path: String): IOExcEither[DirExists] =
 }
 
 /** Copies a jar file */
-def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarFileWritten] =
-  utiljvm.copyFilebyStrs(fromStr + ".jar", toStr + ".jar").map(fw => JarFileWritten(fw.detailStr))
+def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarWritten] =
+  utiljvm.copyFilebyStrs(fromStr + ".jar", toStr + ".jar").map(fw => JarWritten(fw.detailStr))
 
 
 /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
