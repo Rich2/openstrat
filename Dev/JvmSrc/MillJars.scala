@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pweb.*, wcode.*, utiljvm.*, pDoc.*
+import pweb.*, wcode.*, utiljvm.*, pDoc.*, java.io.IOException
 
 /** A module for the purposes of creating POM files. */
 class Module(val modName: String, fileStem: String, deps: RArr[Module])
@@ -27,28 +27,28 @@ trait MillStageJars
     deb(res.errsSummary)
   }
 
-  def action(projPath: DirsAbs, stageDirStr: DirsAbs): ErrBiAcc[Exception, FileWritten]
+  def action(projPath: DirsAbs, stageDirStr: DirsAbs): ErrBiAcc[IOException, FileWritten]
 
   /** Copies a Mill built main jar from an "out" directory subdirectory to the given staging folder. */
-  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): ExcEither[FileWritten] =
+  def millMainCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): IOExcEither[JarWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "jar.dest", "")
 
   /** Copies a Mill built Javadoc jar from an "out" directory subdirectory to the given staging folder. */
-  def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): Either[Exception, FileWritten] =
+  def millJavadocCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): IOExcEither[JarWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "docJar.dest", "-javadoc")
 
   /** Copies a Mill built sources jar from an "out" directory subdirectory to the given staging folder. */
-  def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): Either[Exception, FileWritten] =
+  def millSrcJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String): IOExcEither[JarWritten] =
     millJarCopy(projPath, stageDir, moduleDir, fileStemStr, "sourceJar.dest", "-sources")
 
   /** Copies a Mill built jar from an "out" directory subdirectory to the given staging directory. */
   def millJarCopy(projPath: DirsAbs, stageDir: DirsAbs, moduleDir: DirsRel, fileStemStr: String, millEndDirStr: String, jarTypeStr: String):
-    Either[Exception, FileWritten] =
-    copyFile(projPath / "out" / moduleDir / millEndDirStr :/ "out.jar", stageDir :/ fileStemStr + "-" + version.str + jarTypeStr + ".jar")
+    IOExcEither[JarWritten] =
+    jarFileCopy(projPath / "out" / moduleDir / millEndDirStr :-/ "out", stageDir :-/ (fileStemStr + "-" + version.str + jarTypeStr))
 
   /** Copies prebuilt main, Javadoc and sources jars to the libShared staging folder. */
-  def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, moduleDir: DirsRel, destStr: String): ErrBiAcc[Exception, FileWritten] =
-    ErrBiAcc[Exception, FileWritten](
+  def jars3Copy(projPath: DirsAbs, stageDirPath: DirsAbs, moduleDir: DirsRel, destStr: String): ErrBiAcc[IOException, JarWritten] =
+    ErrBiAcc[IOException, JarWritten](
       millMainCopy(projPath,stageDirPath, moduleDir, destStr),
       millJavadocCopy(projPath, stageDirPath, moduleDir, destStr),
       millSrcJarCopy(projPath, stageDirPath, moduleDir, destStr))
@@ -59,11 +59,11 @@ object MillJars extends MillStageJars
 {
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath) }
 
-  override def action(projPath: DirsAbs, stagingRootDir: DirsAbs): ErrBiAcc[Exception, FileWritten] =
+  override def action(projPath: DirsAbs, stagingRootDir: DirsAbs): ErrBiAcc[IOException, FileWritten] =
   { /** Destination for single folder for JARs. */
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
 
-    val res1: ErrBiAcc[Exception, FileWritten] = sharedPath.mkExist.mapAcc{ res1 =>
+    val res1: ErrBiAcc[IOException, FileWritten] = sharedPath.mkExist.mapAcc{ res1 =>
       pomMods2.mapErrBiAcc{ pm => millMainCopy(projPath, sharedPath, pm.moduleDir, pm.artifactStr)  }
     }    
     res1
@@ -75,18 +75,18 @@ object MillAllJars extends MillStageJars
 {
   def main(args: Array[String]): Unit = stagingPathDo { stagingPath => apply(stagingPath) }
 
-  override def action(projPath: DirsAbs, stagingRootDir: DirsAbs): ErrBiAcc[Exception, FileWritten] =
+  override def action(projPath: DirsAbs, stagingRootDir: DirsAbs): ErrBiAcc[IOException, FileWritten] =
   { /** Destination for single folder for JARs. */
     val sharedPath: DirsAbs = stagingRootDir / "libShared"
 
     val pomWriter = OsPomsWriter(version, scalaVersion)
-    val res1: ErrBiAcc[Exception, FileWritten] =
+    val res1: ErrBiAcc[IOException, FileWritten] =
       sharedPath.mkExist.mapAcc { res1 =>  pomMods2.flatMapErrBiAcc { pm => jars3Copy(projPath, sharedPath, pm.moduleDir, pm.artifactStr) +%
         pomWriter.stagePom(sharedPath, pm.version(version, scalaVersion)) }
       }
 
     val repositaryPath: DirsAbs = stagingRootDir / "richstrat"
-    val res2: ErrBiAcc[Exception, FileWritten] = repositaryPath.mkExist.mapAcc{ r1 =>
+    val res2: ErrBiAcc[IOException, FileWritten] = repositaryPath.mkExist.mapAcc{ r1 =>
       pomMods1.flatMapErrBiAcc { pm =>
         val modulePath: DirsAbs = repositaryPath / pm.artifactStr
         modulePath.mkExist

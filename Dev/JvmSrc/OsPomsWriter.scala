@@ -9,6 +9,6 @@ case class OsPomsWriter(version: VersionPatchElem, scalaVersion: VersionPatchEle
 
   def osModJvm(name: String, depStrs: String*) = OsModuleJvm(name, version, scalaVersion, depStrs.toArr)
 
-  def stagePom(dirPath: DirsAbs, pom: OsModulePom): Either[Exception, PomFileWritten] =
+  def stagePom(dirPath: DirsAbs, pom: OsModulePom): IOExcEither[PomFileWritten] =
     writePom(dirPath.str / pom.artifactStr + "-" + version.str, pom.out) 
 }

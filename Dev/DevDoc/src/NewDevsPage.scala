@@ -49,7 +49,7 @@ object NewDevsPage extends DevPageBase
   
   def intellij: Section = Section("IntelliJ IDEA".h2,
     "Download the latest version. Modify this line if there is a newer version of IntelliJ IDEA.",
-    BashLine("sudo tar -xzf idea-2026.2.3.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf idea-2026.2.4.tar.gz -C /opt"),
     "I suggest adding a link and then using the link for your GUI links.",
     BashLine("cd /opt"),
     BashLine("sudo ln -s", "idea-IU-262.10968.63".pinkSpan, "idea-IU"),

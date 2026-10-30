@@ -93,6 +93,10 @@ def mkDirExist(path: String): IOExcEither[DirExists] =
   }
 }
 
+/** File copy that adds the ".js" [[String]] to the file source and file destination. */
+def jarFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JarWritten] =
+  copyFile(fromStem ++ ".jar", toStem ++ ".jar").map(fw => JarWritten(fw.detailStr))
+
 /** Copies a jar file */
 def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarWritten] =
   utiljvm.copyFilebyStrs(fromStr + ".jar", toStr + ".jar").map(fw => JarWritten(fw.detailStr))

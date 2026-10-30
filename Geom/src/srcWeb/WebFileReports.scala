@@ -109,6 +109,12 @@ object JarWritten
 { /** Factory apply method to construct [[JarWritten]] report. */
   def apply(detailStr: String): JarWritten = new JarWritten(detailStr)
 
+  /** [[ResultsBuilder]] type class instance / evidence for [[JarWritten]]. */
+  given resultsBuilder: ResultsBuilder[IOException, JarWritten, JarWrittenResults] = new ResultsBuilder[IOException, JarWritten, JarWrittenResults]{
+    override def fromArrays(arrayE: Array[IOExc], arrayA: Array[JarWritten], arrayR: Array[JarWrittenResults]): JarWrittenResults =
+      JarWrittenResults.fromArrays(arrayE, arrayA, arrayR)
+  }
+
   /** Implicit evidence / instance of [[ShowType]] for [[JarWritten]] */
   given showTypeEv: ShowType[JarWritten] = new ShowFileWritten[JarWritten]
   { override val filePrefix: String = "Jar"
