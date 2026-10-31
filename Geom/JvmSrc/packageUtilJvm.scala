@@ -46,10 +46,10 @@ package object utiljvm
   def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
-  def settFromFile[A: Unshow](settingStr: String, fileName: String): IOParseExcEither[A] = loadTextFile(fileName).findSetting[A](settingStr)
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): ExcEither[A] = loadTextFile(fileName).findSetting[A](settingStr)
   
   /** Attempts tp load file and then parse the file asa String into RSON [[Statement]]s. */
-  def StatementsFromFile(fileName: String): IOParseExcEither[RArr[Statement]] = loadTextFile(fileName).flatMap(_.parseStatements)
+  def StatementsFromFile(fileName: String): ExcEither[RArr[Statement]] = loadTextFile(fileName).flatMap(_.parseStatements)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getOrElse(elseValue)
@@ -86,11 +86,11 @@ package object utiljvm
   }
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): IOParseExcEither[RArr[Statement]] =
+  def statementsFromResource(fileName: String): ExcEither[RArr[Statement]] =
     loadResourceStr(fileName).map(_.toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  def fileStatementsFromResource(fileName: String): IOParseExcEither[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
+  def fileStatementsFromResource(fileName: String): ExcEither[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 
   /** The current GMT time as a [[String]] in RFC_1123_DATE_TIME. */
   def gmtNowStr: String =

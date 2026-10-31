@@ -60,12 +60,6 @@ object ParseExcMulti
   case class ParseExcMultiGen[E <: ParseException](mems: RArr[E]) extends ParseExcMulti[E]
 }
 
-/** type union of [[java.io.IOException]] and [[ParseException]] */
-type IOParseExc = java.io.IOException | ParseException
-
-/** Either with a left type pf [[java.io.IOException]] or [[ParseException]] */
-type IOParseExcEither[+A] = Either[IOParseExc, A]
-
 /** AST abstract syntax tree [[Exception]]. */
 case class AstException(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail), ParseException
 

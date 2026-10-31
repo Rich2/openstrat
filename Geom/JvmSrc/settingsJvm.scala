@@ -3,22 +3,22 @@ package ostrat; package utiljvm
 import pParse.*, pweb.*, java.io.File, scala.sys.process.*
 
  /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-lazy val devSettingsStatements: IOParseExcEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
+lazy val devSettingsStatements: ExcEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
 
 /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
-def findDevSettingExpr(settingStr: String): IOParseExcEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
+def findDevSettingExpr(settingStr: String): ExcEither[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
 /** Find a setting of the given name and type from the file DevSettings.rson. */
-def findDevSetting[A: Unshow](settingStr: String): IOParseExcEither[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
+def findDevSetting[A: Unshow](settingStr: String): ExcEither[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
 /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
 def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getOrElse(elseValue)
 
 /** Find the [[String]] for the identifier value of o setting of the given name in the file DevSettings.rson. */
-def findDevSettingIdStr(settingStr: String): IOParseExcEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
+def findDevSettingIdStr(settingStr: String): ExcEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
 /** Find the project path. */
-def projPathFind: IOParseExcEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
+def projPathFind: ExcEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
 
 /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
 def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.fold { err => deb(err.toString) } { path => f(path) }
@@ -27,10 +27,10 @@ def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.fold { err => deb(
 def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").fold { err => deb(err.toString) } { path => f(path) }
 
 /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
-def openstratPath: IOParseExcEither[DirsAbs] = findDevSetting[DirsAbs]("projPath")
+def openstratPath: ExcEither[DirsAbs] = findDevSetting[DirsAbs]("projPath")
 
 /** Possible path to the staging directory for Openstrat artefacts, if it can be found in Dev/User/DevSettings.rson file. */
-def stagingPathFind: IOParseExcEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
+def stagingPathFind: ExcEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
 
 /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
 def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr)

@@ -24,7 +24,7 @@ object PgDatabase
 
   /** Attempts tp finds the database name, username and password settings for a Postgres database, from the passed [[String]] and then attempts to make a
    * connection to the database. */
-  def settConn(connSettings: String, hostStr: String = "localhost", port: Int = 5432): Either[IOParseExc | PSQLException, Connection] =
+  def settConn(connSettings: String, hostStr: String = "localhost", port: Int = 5432): ExcEither[Connection] =
     eSetts(connSettings).flatMap{ (dbName, uName, pWord) => conn(dbName.srcStr, uName.srcStr, pWord, hostStr, port) }
   
   case class PgDatabaseGen(tables: RArr[Gable]) extends PgDatabase
