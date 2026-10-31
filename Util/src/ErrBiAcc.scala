@@ -60,6 +60,8 @@ abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTa
     seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
     fromArrays(eBuff.toArray, aBuff.toArray, Array[R]())
   }
+  
+  def compound(arr: RArr[R]): R = fromArrays(Array(), Array(), arr.arrayUnsafe)
 }
 
 object ResultsBuilder

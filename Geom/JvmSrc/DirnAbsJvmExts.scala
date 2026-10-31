@@ -68,5 +68,5 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def mkExist: IOExcEither[DirExists] = mkDirExist(thisPath.asStr)
 
   /** Try to make subdirectory exist. */
-  def mkSubExist(tailStr: String): Either[IOExc, DirsAbs] = mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
+  def mkSubExist(tailStr: String): IOExcEither[DirsAbs] = mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
 }

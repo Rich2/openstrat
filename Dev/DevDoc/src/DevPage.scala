@@ -8,7 +8,7 @@ object DevPage extends DevPageBase
   override val fileStemStr: String = "dev"
 
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
-  val scVer: String = "3.9.0"
+  val scalaVer: String = "3.10.0"
 
   def central: DivHtml = DivHtml(RArr(ClassAtt("central")), cenContents)
   def cenContents = RArr(list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, credits)
@@ -32,13 +32,13 @@ object DevPage extends DevPageBase
   |language to explore these questions.""".stripMargin)
   
   def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.13, current 0.4.0snap",
-    s"Scala: $scVer",
+    s"Scala: $scalaVer",
     "Jdk: 17+, 25+ required for JavaFx modules.",
     "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
     "JavaFx: 27",
     "Sbt: 2.0.11",
-    "Mill: 1.3.0 with Mill's JDK set to 25."))
+    "Mill: 1.3.1 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),
     LiHtml("~DevFx/reStart".htmlSbt, "To launch a ScalaFx window. The most useful command for development."),
@@ -51,10 +51,10 @@ object DevPage extends DevPageBase
     LiHtml("~Util/test; Geom/test: Tiling/test; EGrid/test; Dev/test".htmlSbt, "Rerun tests on the 5 modules."),
 
     LiHtml("unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in",
-    s"target/$scVer/unidoc/".htmlPath),
+    s"target/$scalaVer/unidoc/".htmlPath),
 
     LiHtml("JsAgg/unidoc".htmlSbt, "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in",
-    s"Dev/JsAgg/target/$scVer/unidoc/".htmlPath),
+    s"Dev/JsAgg/target/$scalaVer/unidoc/".htmlPath),
 
     LiHtml("bothDoc".htmlSbt, "Will perform both the above tasks.")
   )

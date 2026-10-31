@@ -27,7 +27,7 @@ object MillStageSite extends StagingBuild
 
     val docPath: DirsAbs = stagePath / "Documentation"
     val jarApp: Either[IOExc, JsWrittenResults] = stageDocumentationJs(projPath, docPath)
-    deb(jarApp.reportStr)// errsSummary)
+    deb(jarApp.reportStr)
     val otherPath: DirsAbs = stagePath / "otherapps"
     val otherBi: IOExcEither[DirExists] = otherPath.mkExist
     val otherJsFiles = otherBi.map{ res =>
@@ -41,7 +41,7 @@ object MillStageSite extends StagingBuild
 
     val egridPath: DirsAbs = stagePath / "egrids"
     val eGridBi: IOExcEither[DirExists] = egridPath.mkExist
-    val egridJsFiles = eGridBi.map { res =>
+    val egridJsFiles: Either[IOExc, JsWrittenResults] = eGridBi.map { res =>
       val res2 = AppPage.eGrids.map{ ga =>
         val fromDir: DirsAbs = projPath / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(fromDir, egridPath, ga.fileStemStr)

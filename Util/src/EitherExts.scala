@@ -114,7 +114,7 @@ extension (obj: Either.type)
 
   /** If both [[Either]] inputs are [[Right]]s, returns the result of the function. If one or both are [[Left]]s combines the errors. */
   def flatMap2[EE, E <: EE, ME <: ErrMulti[E] & EE, E2, A1, A2, B](eb1: Either[E, A1], eb2: Either[E, A2])(f: (A1, A2) => Either[E2, B])(using
-    builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME | E2 , B] = (eb1, eb2) match
+    builder: ErrMultiBuilder[EE, E, ME], ct: ClassTag[E]): Either[ME | E2, B] = (eb1, eb2) match
   { case (Right(a1), Right(a2)) => f(a1, a2)
     case (Right(_), Left(err2)) => Left(builder.multi(err2))
     case (Left(err1), Right(_)) => Left(builder.multi(err1))

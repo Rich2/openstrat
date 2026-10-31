@@ -345,6 +345,16 @@ trait Sequ[+A] extends Any, SeqLikeBacked[A @uncheckedVariance]
     foreach{ a => res(i) = f(a); i += 1 }
     res
   }
+  
+  def mapResults[E, B, R <: Results[E, B]](f: A => Either[E, B])(using build: ResultsBuilder[E, B, R]) : R ={
+    val eithers: RArr[Either[E, B]] = map(f)
+    build.fromSequ(eithers)
+  }
+  
+  def flatMapResults[E, B, R <: Results[E, B]](f: A => R)(using ctR: ClassTag[R], build: ResultsBuilder[E, B, R]): R = {
+    val res1: RArr[R] = map(a => f(a))
+    build.compound(res1)
+  }
 
   /** Map from A => B, returning an [[Either]] of [[List]]. */
   def mapErrBiList[E <: Throwable, B](f: A => Either[E, B]): Either[E, List[B]] =
