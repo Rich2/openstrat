@@ -8,7 +8,7 @@ object DevPage extends DevPageBase
   override val fileStemStr: String = "dev"
 
   override def body: BodyHtml = BodyHtml(titleStr.h1, central)
-  val scalaVer: String = "3.10.0"
+  val scalaVer: String = "3.10.1"
 
   def central: DivHtml = DivHtml(RArr(ClassAtt("central")), cenContents)
   def cenContents = RArr(list, p1, p2, p3, p4, sbtCommands1, sbtCommands2, sbt3D, credits)
@@ -37,7 +37,7 @@ object DevPage extends DevPageBase
     "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
     "JavaFx: 27",
-    "Sbt: 2.0.11",
+    "Sbt: 2.1.0",
     "Mill: 1.3.1 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),

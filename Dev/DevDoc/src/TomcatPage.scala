@@ -23,7 +23,7 @@ object TomcatPage extends DevPageBase
   
   val cset: String = "cset"  
   val tcMajorVer: String = "11.0"
-  val tcMinorVer: String = "27"
+  val tcMinorVer: String = "29"
   def tcVer1: String = tcMajorVer + "." + tcMinorVer
   val javaMajorVer: String = "25"
   val domain1: String = "mysite.com"

@@ -47,9 +47,9 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def writeCss(cssFile: CssRulesFile): Either[IOExc, CssWritten] =
     pathWriteStr(thisPath.asStr / cssFile.fileNameStr, cssFile.out).map(fw => CssWritten(fw.detailStr))
 
- def writesCss(files: CssRulesFile*): CssWrittenResults ={
-   val res1: Seq[Either[IOExc, CssWritten]] = files.map(writeCss(_))
-   CssWrittenResults(thisPath.asStr, res1)
+ def writesCss(files: CssRulesFile*): FileWrittenResults[IOExc, CssWritten] =
+ { val res1: Seq[Either[IOExc, CssWritten]] = files.map(writeCss(_))
+   FileWrittenResults.fromSeq(thisPath.asStr, res1)
  }
 
   def toJava: File = File(thisPath.asStr)

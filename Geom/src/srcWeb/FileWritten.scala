@@ -33,10 +33,18 @@ trait FileWrittenResults[+E <: IOException, +A <: FileWritten] extends Results[E
 }
 
 object FileWrittenResults
-{ /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
+{ 
+  //def apply[+E <: IOException, +A <: FileWritten](dirStr: String)
+  
+  /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
   def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]]):
   FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, "")
-
+  
+  def fromSeq[E <: IOException, A <: FileWritten](dirStr: String, input: Seq[Either[E, A]])(using ClassTag[E], ClassTag[A]): FileWrittenResults[E, A] ={
+    val eBuff = new ArrayBuffer[E]()
+    val aBuff = new ArrayBuffer[A]()
+    new FileWrittenResultsGen[E, A](eBuff.toArray, aBuff.toArray, Array(), dirStr)
+  }
   /** Implementation class for the general case of [[FileWrittenResults]]. */
   case class FileWrittenResultsGen[+E <: IOException, +A <: FileWritten](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
     subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], dirStr: String) extends FileWrittenResults[E, A]
@@ -50,8 +58,8 @@ abstract class FileWrittenResultsBuilder[E <: IOException, A <: FileWritten, R <
   def fromStrArrays(dirStr: String, arrayE: Array[E], arrayA: Array[A], arrayR: Array[R]): R
   
   /** Constructs the given [[Results]] class from a [[Sequ]] of [[Either]]s. */
-  def fromSequ(dirStr: String, seq: Sequ[Either[E, A]]): R ={
-    val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
+  def fromSequ(dirStr: String, seq: Sequ[Either[E, A]]): R =
+  { val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
     val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
     seq.foreach(_.fold(eBuff.append(_), aBuff.append(_)))
     fromStrArrays(dirStr, eBuff.toArray, aBuff.toArray, Array[R]())

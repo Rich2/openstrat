@@ -62,10 +62,10 @@ object CssWritten
   def apply(detailStr: String): CssWritten = new CssWritten(detailStr)
 
   /** [[ResultsBuilder]] type class instance / evidence for [[CssWritten]]. */
-  given resultsBuilder: ResultsBuilder[IOException, CssWritten, CssWrittenResults] = new ResultsBuilder[IOException, CssWritten, CssWrittenResults]
+  /*given resultsBuilder: ResultsBuilder[IOException, CssWritten, CssWrittenResults] = new ResultsBuilder[IOException, CssWritten, CssWrittenResults]
   { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssWritten], arrayR: Array[CssWrittenResults]): CssWrittenResults =
       CssWrittenResults.fromArrays(arrayE, arrayA, arrayR)
-  }
+  }*/
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssWritten]] */
   given showTypeEv: ShowType[CssWritten] = new ShowFileWritten[CssWritten]
@@ -75,7 +75,7 @@ object CssWritten
 }
 
 /** class for grouping the results of CSS file writing attempts. */
-class CssWrittenResults(val failsArray: Array[IOException], val succsArray: Array[CssWritten], val subsArray: Array[CssWrittenResults], val dirStr: String)
+/*class CssWrittenResults(val failsArray: Array[IOException], val succsArray: Array[CssWritten], val subsArray: Array[CssWrittenResults], val dirStr: String)
   extends FileWrittenResults[IOException, CssWritten]
 { override def subs: RArr[FileWrittenResults[IOExc, CssWritten]] = new RArr(subsArray)  
   override def reportStr: String = s"$numSuccs CSS file successfully written$dirStr2, $numFails IOExceptions."
@@ -97,7 +97,7 @@ object CssWrittenResults
   /** Factory method to construct [[CssWrittenResults]]. */
   def fromArrays(failsArray: Array[IOException], succsArray: Array[CssWritten], subsArr: Array[CssWrittenResults], dirStr: String = ""):
   CssWrittenResults = new CssWrittenResults(failsArray, succsArray, subsArr, dirStr)
-}
+}*/
 
 /** Report of successful Jar file write. */
 class JarWritten(detailStr: String) extends FileWritten(detailStr)
@@ -109,41 +109,11 @@ object JarWritten
 { /** Factory apply method to construct [[JarWritten]] report. */
   def apply(detailStr: String): JarWritten = new JarWritten(detailStr)
 
-  /** [[ResultsBuilder]] type class instance / evidence for [[JarWritten]]. */
-  given resultsBuilder: ResultsBuilder[IOException, JarWritten, JarWrittenResults] = new ResultsBuilder[IOException, JarWritten, JarWrittenResults]{
-    override def fromArrays(arrayE: Array[IOExc], arrayA: Array[JarWritten], arrayR: Array[JarWrittenResults]): JarWrittenResults =
-      JarWrittenResults.fromArrays(arrayE, arrayA, arrayR)
-  }
-
   /** Implicit evidence / instance of [[ShowType]] for [[JarWritten]] */
   given showTypeEv: ShowType[JarWritten] = new ShowFileWritten[JarWritten]
   { override val filePrefix: String = "Jar"
     override def typeStr: String = "JarFileWritten"
   }
-}
-/** class for grouping the results of Jar file writing attempts. */
-class JarWrittenResults(val failsArray: Array[IOException], val succsArray: Array[JarWritten], val subsArray: Array[JarWrittenResults], val dirStr: String)
-  extends FileWrittenResults[IOException, JarWritten]
-{ override def subs: RArr[FileWrittenResults[IOExc, JarWritten]] = new RArr(subsArray)
-  override def reportStr: String = s"$numSuccs Jar files successfully written$dirStr2, $numFails IOExceptions."
-}
-
-object JarWrittenResults
-{ /** Factory apply method to construct [[JarWrittenResults]]. */
-  def apply(dirStr: String, attempts: IOExcEither[JarWritten]*): JarWrittenResults =
-  { val (arrayE, arrayA) = attempts.toArrays
-    new JarWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory apply method to construct [[JarWrittenResults]]. */
-  def apply(dirStr: String, attempts: Iterable[IOExcEither[JarWritten]]): JarWrittenResults ={
-    val (arrayE, arrayA) = attempts.toArrays
-    new JarWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory method to construct [[JarWrittenResults]]. */
-  def fromArrays(failsArray: Array[IOException], succsArray: Array[JarWritten], subsArr: Array[JarWrittenResults], dirStr: String = ""):
-  JarWrittenResults = new JarWrittenResults(failsArray, succsArray, subsArr, dirStr)
 }
 
 /** Report of successful POM file write. */

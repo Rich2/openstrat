@@ -35,11 +35,11 @@
 
 <h3>Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.10.0.
+<p>Scala currently set to 3.10.1.
 <br>Jdk 17+, 25+ for the modules using JavaFx.
 <br>Scala.Js: 1.22.0.
 <br>Scala Native set to 0.5.12.
-<br>Sbt: 2.0.12.
+<br>Sbt: 2.1.0.
 <br>Mill set to 1.3.1, with Mill's JDK set to 25.
 <br>JavaFx 27</p>
 </body>
