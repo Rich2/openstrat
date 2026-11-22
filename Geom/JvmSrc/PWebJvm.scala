@@ -6,13 +6,13 @@ import pweb.*
  * and the file name. The second is contents of the HTML body element. */
 def homeHtmlWrite(dir: String, title: String, bodyContent: String): Either[Exception, FileWritten] =
 { val home: String = System.getProperty("user.home")
-  utiljvm.pathWriteStr(home / dir / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
+  utiljvm.pathStrWriteStr(home / dir / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
 }
 
 /** Writes the content to an HTML file to the opensett folder in the users home directory. Not sure if this a desirable facility. */
 def opensettHtmlWrite(title: String, bodyContent: String) =
 { val home: String = System.getProperty("user.home")
-  utiljvm.pathWriteStr(home / "opensett" / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
+  utiljvm.pathStrWriteStr(home / "opensett" / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
 }
 
 /** HTTP now time object. */

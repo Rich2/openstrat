@@ -11,7 +11,7 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirsPath
   @targetName("append") def /(extraPath: DirsRel): DirsRel = new DirsRel(arrayUnsafe ++ extraPath.arrayUnsafe)
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
-  @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ DirsPath.strToStrs(operand))
+  @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ operand.pathArray)
 
   /** From the root of this relative directory path, append the operand directories path. */
   @targetName("fromRootAppendDirs") def </(operand: DirsRel): DirsRel = new DirsRel(topFileAppendArray(operand.arrayUnsafe))
@@ -56,7 +56,7 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirsPath
 object DirsRel
 { /** Factory apply method for [[DirsRel]]. */
   def apply(inp: String*): DirsRel =
-  { val newArray = inp.foldLeft(Array[String]())((acc, st) => acc ++ DirsPath.strToStrs(st))
+  { val newArray = inp.foldLeft(Array[String]())((acc, st) => acc ++ st.pathArray)
     new DirsRel(newArray)
   }
 }

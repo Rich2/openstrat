@@ -15,6 +15,8 @@ class DirsFileAbs(val arrayUnsafe: Array[String]) extends DirsFilePath
 { 
   def fileNameStr: String = arrayUnsafe.last
   
+  def dirPathStr: String = arrayUnsafe.dropRight(1).foldLeft("/")(_ + "/" + _)
+  
   override def asStr: String = arrayUnsafe.length match
   { case 0 => excep("A DirsFileAbs should have at least a file name.")
     case _ => arrayUnsafe.foldLeft("/")(_ + "/" + _)
@@ -32,7 +34,7 @@ class DirsRelFile(val arrayUnsafe: Array[String]) extends DirsFilePath
 object DirsRelFile
 { /** Factory apply method for [[DirsRel]]. */
   def apply(str0: String, inp: String*): DirsRelFile =
-  { val newArray = (str0 +: inp).foldLeft(Array[String]())((acc, st) => acc ++ DirsPath.strToStrs(st))
+  { val newArray = (str0 +: inp).foldLeft(Array[String]())((acc, st) => acc ++ st.pathArray)
     new DirsRelFile(newArray)
   }
 }

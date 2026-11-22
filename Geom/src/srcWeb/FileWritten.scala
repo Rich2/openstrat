@@ -3,25 +3,43 @@ package ostrat; package pweb
 import java.io.IOException, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer 
 
 /** Report of successful file write. */
-class FileWritten(val detailStr: String) extends DoneIO
-{ override def reportTypeStr: String = "File written"
-  override def toString: String = "FileWritten" + detailStr.enParenth
-  override def reportStr: String = reportTypeStr -- "to" -- detailStr
+trait FileWritten extends DoneIO
+{ def arrayUnsafe: Array[String]
+
+  def fileTypeStr: String
+
+  def classStr: String
+  def filePath: DirsFileAbs = new DirsFileAbs(arrayUnsafe)
+
+  final def filePathStr: String = filePath.asStr
+  final def fileNameStr: String = arrayUnsafe.last
+  final def dirPathStr: String = filePath.dirPathStr  
+  final override def reportTypeStr: String = fileTypeStr -- "written"
+  final override def toString: String = classStr + filePathStr.enParenth
+  final override def reportStr: String = s"$fileNameStr written to $dirPathStr"
 }
 
 object FileWritten
-{ /** Factory apply method to construct [[FileWritten]] report. */
-  def apply(detailStr: String): FileWritten = new FileWritten(detailStr)
+{
+  /** Factory apply method to construct [[FileWritten]] report. */
+  def apply(dirPath: DirsAbs): FileWritten = FileWrittenGen(dirPath.arrayUnsafe)
+  
+  /** Factory apply method to construct [[FileWritten]] report. */
+  def pathStr(dirStr: String): FileWritten = new FileWrittenGen(dirStr.pathArray)
 
-  given namedTypeEv: ShowType[FileWritten] = new ShowFileWritten[FileWritten]
-  { override def filePrefix: String = ""
-  }
+//  given namedTypeEv: ShowType[FileWritten] = new ShowFileWrittenGen[FileWritten]
 
   given resultsBuilderEv[E <: IOException, A <: FileWritten](using ctE: ClassTag[E], ctA: ClassTag[A]): ResultsBuilder[E, A, FileWrittenResults[E, A]] =
     new ResultsBuilder[E, A, FileWrittenResults[E, A]]
     { override def fromArrays(arrayE: Array[E], arrayA: Array[A], arrayR: Array[FileWrittenResults[E, A]]): FileWrittenResults[E, A] =
       FileWrittenResults.fromArrays(arrayE, arrayA, arrayR)
     }
+
+  /** Report of successful file write. */
+  case class FileWrittenGen(val arrayUnsafe: Array[String]) extends FileWritten  
+  { override def fileTypeStr: String = "file"
+    override def classStr: String = "FileWrittenGen"
+  }
 }
 
 /** Trait for grouping the results of file writing attempts. */
@@ -36,18 +54,51 @@ object FileWrittenResults
 { 
   //def apply[+E <: IOException, +A <: FileWritten](dirStr: String)
   
-  /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
-  def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]]):
-  FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, "")
+  def errArray[E <: IOException, A <: FileWritten](failsArray: Array[E], dirStr: String)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
+    new FileWrittenResultsGen[E, A](failsArray, Array(), Array(), dirStr)
   
-  def fromSeq[E <: IOException, A <: FileWritten](dirStr: String, input: Seq[Either[E, A]])(using ClassTag[E], ClassTag[A]): FileWrittenResults[E, A] ={
-    val eBuff = new ArrayBuffer[E]()
+  /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
+  def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]], dirStr: String = ""):
+  FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, dirStr)
+  
+  def fromSeq[E <: IOException, A <: FileWritten](dirStr: String, input: Seq[Either[E, A]])(using ClassTag[E], ClassTag[A]): FileWrittenResults[E, A] =
+  { val eBuff = new ArrayBuffer[E]()
     val aBuff = new ArrayBuffer[A]()
+    input.foreach {
+      case Left(err) => eBuff.append(err)
+      case Right(rep) => aBuff.append(rep)      
+    }
     new FileWrittenResultsGen[E, A](eBuff.toArray, aBuff.toArray, Array(), dirStr)
   }
+
+  def combine[E <: IOException, A <: FileWritten](dirStr: String, input: FileWrittenResults[E, A]*)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
+  { val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
+    val rBuff: ArrayBuffer[FileWrittenResults[E, A]] = new ArrayBuffer[FileWrittenResults[E, A]]()
+    input.foreach { res =>
+      res.fails.foreach(eBuff.append(_))
+      res.succs.foreach(aBuff.append(_))
+      res.subs.foreach((sub: FileWrittenResults[E, A]) => rBuff.append(sub))
+    }
+    FileWrittenResults.fromArrays(eBuff.toArray, aBuff.toArray, rBuff.toArray, dirStr)
+  }
+
+  def combine[E <: IOException, A <: FileWritten](dirStr: String, input: RArr[FileWrittenResults[E, A]])(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] ={
+    val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
+    val jBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
+    val rBuff: ArrayBuffer[FileWrittenResults[E, A]] = new ArrayBuffer[FileWrittenResults[E, A]]()
+    input.foreach { res =>
+      res.fails.foreach(eBuff.append(_))
+      res.succs.foreach(jBuff.append(_))
+      res.subs.foreach((sub: FileWrittenResults[E, A]) => rBuff.append(sub))
+    }
+    FileWrittenResults.fromArrays(eBuff.toArray, jBuff.toArray, rBuff.toArray, dirStr)
+  }
+
+
   /** Implementation class for the general case of [[FileWrittenResults]]. */
-  case class FileWrittenResultsGen[+E <: IOException, +A <: FileWritten](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
-    subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], dirStr: String) extends FileWrittenResults[E, A]
+  class FileWrittenResultsGen[+E <: IOException, +A <: FileWritten](val failsArray: Array[E] @uncheckedVariance, val succsArray: Array[A] @uncheckedVariance,
+    val subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], val dirStr: String) extends FileWrittenResults[E, A]
   { override def subs: RArr[FileWrittenResults[E, A]] = new RArr(subsArr)
   }
 }
@@ -67,14 +118,14 @@ abstract class FileWrittenResultsBuilder[E <: IOException, A <: FileWritten, R <
 }
 
 /** Report of successful text file write. */
-class TextFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "Text File written"
-  override def toString: String = "TextFileWritten" + detailStr.enParenth
+class TextFileWritten(val arrayUnsafe: Array[String]) extends FileWritten
+{ override def fileTypeStr: String = "text"
+  override def classStr: String = "TextFileWritten"
 }
 
 object TextFileWritten
 { /** Factory apply method to construct [[TextFileWritten]] report. */
-  def apply(detailStr: String): TextFileWritten = new TextFileWritten(detailStr)
+  def apply(filePath: DirsFileAbs): TextFileWritten = new TextFileWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[TextFileWritten]] */
   given namedTypeEv: ShowType[TextFileWritten] = new ShowFileWritten[TextFileWritten]
@@ -84,14 +135,14 @@ object TextFileWritten
 }
 
 /** Report of successful RSON file write. */
-class RsonFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "RSON File written"
-  override def toString: String = "RSONFileWritten" + detailStr.enParenth
+class RsonFileWritten(val arrayUnsafe: Array[String]) extends FileWritten
+{ override def fileTypeStr: String = "RSON"
+  override def classStr: String = "RsonFileWritten"
 }
 
 object RsonFileWritten
 { /** Factory apply method to construct [[RsonFileWritten]] report. */
-  def apply(detailStr: String): RsonFileWritten = new RsonFileWritten(detailStr)
+  def apply(filePath: DirsFileAbs): RsonFileWritten = new RsonFileWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[RsonFileWritten]] */
   given namedTypeEv: ShowType[RsonFileWritten] = new ShowFileWritten[RsonFileWritten]

@@ -5,10 +5,10 @@ import pweb.*, wcode.*, utiljvm.*, pDoc.*
 case class OsPomsWriter(version: VersionPatchElem, scalaVersion: VersionPatchElem = VersionPatchElem(3, 10, 0))
 {
   def stageBuildPom(dirPath: DirsAbs, name: String, depStrs: String*): Either[Exception, PomFileWritten] =
-    writePom(dirPath.str / name + "-" + version.str, OsModuleJvm(name, version, scalaVersion, depStrs.toArr).out)
+    dirPath.writePom(name + "-" + version.str, OsModuleJvm(name, version, scalaVersion, depStrs.toArr))
 
   def osModJvm(name: String, depStrs: String*) = OsModuleJvm(name, version, scalaVersion, depStrs.toArr)
 
   def stagePom(dirPath: DirsAbs, pom: OsModulePom): IOExcEither[PomFileWritten] =
-    writePom(dirPath.str / pom.artifactStr + "-" + version.str, pom.out) 
+    dirPath.writePom(pom.artifactStr + "-" + version.str, pom)
 }

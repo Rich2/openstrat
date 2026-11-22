@@ -1,5 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import scala.collection.mutable.ArrayBuffer
 
 /** I'm just trying out a new package, not sure whether you will use pWeb. */
 package object pweb
@@ -21,6 +22,24 @@ package object pweb
 
     /** Encloses the [[String]] with XML / HTML opening and closing tags. */
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
+
+    /** Extension method to create [[Array]] od [[String]]s for path classes. */
+    def pathArray: Array[String] =
+    { val res0: String = thisString.dropWhile(_.isWhitespace).dropWhile(!_.isLetter).dropRightWhile(_.isWhitespace).dropRightWhile(_ == '/')
+      val acc: ArrayBuffer[String] = Buffer[String]()
+
+      def loop(rem: String): Unit = onlyIfNot(rem.length == 0) {
+        val newStr = rem.takeWhile(_ != '/')
+        acc.append(newStr)
+        val rem2 = rem.drop(newStr.length)
+        onlyIfNot(rem2.length == 0) {
+          loop(rem2.dropWhile(!_.isLetter))
+        }
+      }
+
+      loop(res0)
+      acc.toArray
+    }
   }
 
   implicit class IntWebExtensions(thisInt: Int)

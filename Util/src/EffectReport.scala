@@ -6,9 +6,6 @@ import java.io.IOException, annotation.unchecked.uncheckedVariance, reflect.Clas
 trait EffectReport
 { /** The type off effect completed. */
   def reportTypeStr: String
-  
-  /** The specific detail of the effect completed. */
-  def detailStr: String
 
   /** Report of the successful action / effect. */
   def reportStr: String

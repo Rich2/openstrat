@@ -33,7 +33,7 @@ trait DirsAbs extends DirsPath
 
 object DirsAbs
 {
-  def apply(str1: String): DirsAbs = new DirsAbsGen(DirsPath.strToStrs(str1))
+  def apply(str1: String): DirsAbs = new DirsAbsGen(str1.pathArray)
 
   def fromArray(arrayUnsafe: Array[String]): DirsAbs = new DirsAbsGen(arrayUnsafe)
 

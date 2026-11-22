@@ -3,21 +3,14 @@ package ostrat; package pweb
 import java.io.IOException, annotation.unchecked.uncheckedVariance
 
 /** Report of successful HTML file write. */
-class HtmlWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "HTML File written"
-  override def toString: String = "HtmlFileWritten" + detailStr.enParenth
+class HtmlWritten(val arrayUnsafe: Array[String]) extends FileWritten
+{ override def fileTypeStr: String = "HTML"
+  override def classStr: String = "HtmlWritten"
 }
 
 object HtmlWritten
 { /** Factory apply method to construct [[HtmlWritten]] report. */
-  def apply(detailStr: String): HtmlWritten = new HtmlWritten(detailStr)
-
-  /** [[ResultsBuilder]] type class instance / evidence for [[HtmlWritten]]. */
-  given resultsBuilder: ResultsBuilder[IOException, HtmlWritten, HtmlWrittenResults] =
-  new ResultsBuilder[IOException, HtmlWritten, HtmlWrittenResults]
-  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[HtmlWritten], arrayR: Array[HtmlWrittenResults]): HtmlWrittenResults =
-      HtmlWrittenResults.fromArrays(arrayE, arrayA, arrayR)
-  }
+  def apply(filePath: DirsFileAbs): HtmlWritten = new HtmlWritten(filePath.arrayUnsafe)
   
   /** Implicit evidence / instance of [[ShowType]] for [[HtmlWritten]] */
   given namedTypeEv: ShowType[HtmlWritten] = new ShowFileWritten[HtmlWritten]
@@ -26,46 +19,15 @@ object HtmlWritten
   }  
 }
 
-/** class for grouping the results of HTML file writing attempts. */
-class HtmlWrittenResults(val failsArray: Array[IOException], val succsArray: Array[HtmlWritten], val subsArray: Array[HtmlWrittenResults], val dirStr: String)
-  extends FileWrittenResults[IOException, HtmlWritten]
-{ override def subs: RArr[HtmlWrittenResults] = new RArr(subsArray)
-  override def reportStr: String = s"$numSuccs HTML file successfully written$dirStr2, $numFails IOExceptions."
-}
-
-object HtmlWrittenResults
-{ /** Factory apply method to construct [[HtmlWrittenResults]]. */
-  def apply(dirStr: String, attempts: IOExcEither[HtmlWritten]*): HtmlWrittenResults ={
-    val (arrayE, arrayA) = attempts.toArrays
-    new HtmlWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory apply method to construct [[HtmlWrittenResults]]. */
-  def apply(dirStr: String, attempts: Iterable[IOExcEither[HtmlWritten]]): HtmlWrittenResults ={
-    val (arrayE, arrayA) = attempts.toArrays
-    new HtmlWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory method to construct [[HtmlWrittenResults]]. */
-  def fromArrays(failsArray: Array[IOException], succsArray: Array[HtmlWritten], subsArr: Array[HtmlWrittenResults], dirStr: String = ""):
-  HtmlWrittenResults = new HtmlWrittenResults(failsArray, succsArray, subsArr, dirStr)
-}
-
 /** Report of successful CSS file write. */
-class CssWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "CSS File written"
-  override def toString: String = "CssFileWritten" + detailStr.enParenth
+class CssWritten(val arrayUnsafe: Array[String]) extends FileWritten
+{ override def fileTypeStr: String = "CSS"
+  override def classStr: String = "CssWritten"
 }
 
 object CssWritten
 { /** Factory apply method to construct [[CssWritten]] report. */
-  def apply(detailStr: String): CssWritten = new CssWritten(detailStr)
-
-  /** [[ResultsBuilder]] type class instance / evidence for [[CssWritten]]. */
-  /*given resultsBuilder: ResultsBuilder[IOException, CssWritten, CssWrittenResults] = new ResultsBuilder[IOException, CssWritten, CssWrittenResults]
-  { override def fromArrays(arrayE: Array[IOExc], arrayA: Array[CssWritten], arrayR: Array[CssWrittenResults]): CssWrittenResults =
-      CssWrittenResults.fromArrays(arrayE, arrayA, arrayR)
-  }*/
+  def apply(filePath: DirsFileAbs): CssWritten = new CssWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssWritten]] */
   given showTypeEv: ShowType[CssWritten] = new ShowFileWritten[CssWritten]
@@ -74,40 +36,15 @@ object CssWritten
   }
 }
 
-/** class for grouping the results of CSS file writing attempts. */
-/*class CssWrittenResults(val failsArray: Array[IOException], val succsArray: Array[CssWritten], val subsArray: Array[CssWrittenResults], val dirStr: String)
-  extends FileWrittenResults[IOException, CssWritten]
-{ override def subs: RArr[FileWrittenResults[IOExc, CssWritten]] = new RArr(subsArray)  
-  override def reportStr: String = s"$numSuccs CSS file successfully written$dirStr2, $numFails IOExceptions."
-}
-
-object CssWrittenResults
-{ /** Factory apply method to construct [[CssWrittenResults]]. */
-  def apply(dirStr: String, attempts: IOExcEither[CssWritten]*): CssWrittenResults =
-  { val (arrayE, arrayA) = attempts.toArrays
-    new CssWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory apply method to construct [[CssWrittenResults]]. */
-  def apply(dirStr: String, attempts: Iterable[IOExcEither[CssWritten]]): CssWrittenResults ={
-    val (arrayE, arrayA) = attempts.toArrays
-    new CssWrittenResults(arrayE, arrayA, Array(), dirStr)
-  }
-
-  /** Factory method to construct [[CssWrittenResults]]. */
-  def fromArrays(failsArray: Array[IOException], succsArray: Array[CssWritten], subsArr: Array[CssWrittenResults], dirStr: String = ""):
-  CssWrittenResults = new CssWrittenResults(failsArray, succsArray, subsArr, dirStr)
-}*/
-
 /** Report of successful Jar file write. */
-class JarWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "Jar File written"
-  override def toString: String = "JarFileWritten" + detailStr.enParenth
+class JarWritten(val arrayUnsafe: Array[String]) extends FileWritten
+{ override def fileTypeStr: String = "JAR"
+  override def classStr: String = "JarWritten"
 }
 
 object JarWritten
 { /** Factory apply method to construct [[JarWritten]] report. */
-  def apply(detailStr: String): JarWritten = new JarWritten(detailStr)
+  def apply(filePath: DirsFileAbs): JarWritten = new JarWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[JarWritten]] */
   given showTypeEv: ShowType[JarWritten] = new ShowFileWritten[JarWritten]
@@ -117,14 +54,14 @@ object JarWritten
 }
 
 /** Report of successful POM file write. */
-class PomFileWritten(detailStr: String) extends FileWritten(detailStr)
-{ override def reportTypeStr: String = "POM File written"
-  override def toString: String = "PomFileWritten" + detailStr.enParenth
+class PomFileWritten(val arrayUnsafe: Array[String]) extends FileWritten
+{ override def fileTypeStr: String = "POM"
+  override def classStr: String = "PomFileWritten"
 }
 
 object PomFileWritten
 { /** Factory apply method to construct [[PomFileWritten]] report. */
-  def apply(detailStr: String): PomFileWritten = new PomFileWritten(detailStr)
+  def apply(filePath: DirsFileAbs): PomFileWritten = new PomFileWritten(filePath.arrayUnsafe)
 
   given namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
   { override val filePrefix: String = "POM"

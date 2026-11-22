@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package utiljvm
-import pParse.*, pweb.*, java.io.File, scala.sys.process.*
+import pParse.*, pweb.*, java.io.File, scala.sys.process.*, java.io.IOException
 
  /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
 lazy val devSettingsStatements: ExcEither[RArr[Statement]] = utiljvm.statementsFromResource("DevSettings.rson")
@@ -40,37 +40,46 @@ def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): IOExcEither[FileWritten
 
 /** File copy that adds the ".js" [[String]] to the file source and file destination. */
 def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JsWritten] =
-  copyFile(fromStem ++ ".js", toStem ++ ".js").map(fw => JsWritten(fw.detailStr))
+{ val toFilePath = toStem ++ ".js"
+  copyFile(fromStem ++ ".js", toFilePath).map(_ => new JsWritten(toFilePath.arrayUnsafe))
+}
 
 /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
 def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JsWritten] =
-  copyFile(fromStem ++ ".js.map", toStem ++ ".js.map").map(fw => JsWritten(fw.detailStr))
+{ val toFilePath: DirsFileAbs = toStem ++ ".js.map"
+  copyFile(fromStem ++ ".js.map", toFilePath).map(_ => new JsWritten(toFilePath.arrayUnsafe))
+}
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileCopy(fromPath: DirsAbsStem, toPath: DirsAbsStem): JsWrittenResults = 
-{ val res1: IOExcEither[JsWritten] = utiljvm.copyFilebyStrs(fromPath.asStr + ".js", toPath.asStr + ".js").map(fw => JsWritten(fw.detailStr))
+def jsWithMapFileCopy(fromStemPath: DirsAbsStem, toStemPath: DirsAbsStem): FileWrittenResults[IOExc, JsOrMapWritten] =
+{ val toFilePath: DirsFileAbs = toStemPath ++ ".js"
+  val res1: IOExcEither[JsWritten] = utiljvm.copyFilebyStrs(fromStemPath.asStr + ".js", toFilePath.asStr).map(_ => new JsWritten(toFilePath.arrayUnsafe))
   res1 match
   {  case Right(jsfw) =>
-    { val e2 = utiljvm.copyFilebyStrs(fromPath.asStr + ".js.map", toPath.asStr + ".js.map").map(fw => JsMapWritten(fw.detailStr))
+    { val e2 = {
+      val toPath: DirsFileAbs = toStemPath ++ "js.map"
+      utiljvm.copyFilebyStrs(fromStemPath.asStr + ".js.map", toPath.asStr).map(_ => new JsMapWritten(toPath.arrayUnsafe))
+    }
       jsfw.withMap(e2)
     }
-    case Left(err) => JsWrittenResults.errors(toPath.asStr, err)
+    case Left(err) => FileWrittenResults.errArray(Array(err), toStemPath.asStr)
   }
 }
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): JsWrittenResults =
+def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): FileWrittenResults[IOException, JsOrMapWritten] =
 { val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
   val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")    
   val jsMapFile1: String = io.Source.fromFile(fromPath.asStr / "main.js.map").mkString
-  val jsMapFile2 = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")    
+  val jsMapFile2: String = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")    
   val destDir: DirsAbs = htmlDirPath / fileNameStem
   destDir.mkExist
-  //val destStem: DirsAbsStem = destDir :-/ fileNameStem
-  val res1: ExcEither[JsWritten] = utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(fw => JsWritten(fw.detailStr))
+  val destPath: DirsFileAbs = destDir :/ (fileNameStem + ".js")
+  val res1: ExcEither[JsWritten] = utiljvm.pathStrWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(_ => new JsWritten(destPath.arrayUnsafe))
   res1 match {
     case Right(jsfw) =>
-    { val res2 = utiljvm.pathWriteStr(destDir.asStr / fileNameStem + ".js.map", jsMapFile2).map(fw => JsMapWritten(fw.detailStr))
+    { val destFilePath = destDir :/ (fileNameStem + ".js.map")
+      val res2 = utiljvm.pathStrWriteStr(destFilePath.asStr, jsMapFile2).map(_ => new JsMapWritten(destFilePath.arrayUnsafe))
       jsfw.withMap(res2)      
     }
     case Left(_) => ???
@@ -95,13 +104,15 @@ def mkDirExist(path: String): IOExcEither[DirExists] =
 
 /** File copy that adds the ".js" [[String]] to the file source and file destination. */
 def jarFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JarWritten] =
-  copyFile(fromStem ++ ".jar", toStem ++ ".jar").map(fw => JarWritten(fw.detailStr))
+{ val filePath: DirsFileAbs = toStem ++ ".jar"
+  copyFile(fromStem ++ ".jar", filePath).map(_ => new JarWritten(filePath.arrayUnsafe))
+}
 
 /** Copies a jar file */
-def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarWritten] =
-  utiljvm.copyFilebyStrs(fromStr + ".jar", toStr + ".jar").map(fw => JarWritten(fw.detailStr))
-
+//def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarWritten] =
+//  utiljvm.copyFilebyStrs(fromStr + ".jar", toStr + ".jar").map(fw => JarWritten(fw.detailStr))
 
 /** Write the content [[String]] to the given path. Method adds ".pom" extension. */
-def writePom(pathName: String, content: String): Either[IOExc, PomFileWritten] =
-  utiljvm.pathWriteStr(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
+/*def writePom(pathName: String, content: String): Either[IOExc, PomFileWritten] =
+{ utiljvm.pathStrWriteStr(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
+}*/

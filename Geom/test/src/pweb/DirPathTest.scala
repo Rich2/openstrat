@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import utest.*, DirsPath.{ strToStrs => sts}
+import utest.*, DirsPath.{ strToPathArray => sts}
 
 object DirPathTest extends TestSuite
 {

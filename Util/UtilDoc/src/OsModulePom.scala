@@ -27,7 +27,8 @@ trait OsModulePom extends PomModule
 }
 
 /** An Openstrat class for JVM modules / subprojects for Pom module. */
-class OsModuleJvm(val artifactStr: String, val version: VersionPatchElem, val scalaVersion: VersionPatchElem, val otherDependencies: RArr[PomDep]) extends OsModulePom
+class OsModuleJvm(val artifactStr: String, val version: VersionPatchElem, val scalaVersion: VersionPatchElem, val otherDependencies: RArr[PomDep]) extends
+  OsModulePom
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override def dependencies: RArr[PomDep] = otherDependencies +% ScalaLibDep(scalaVersion)
 }

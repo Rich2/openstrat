@@ -37,16 +37,5 @@ trait DirsPath extends FileSystemPath
 
 object DirsPath
 {
-  def strToStrs(inp: String): Array[String] =
-  { val res0: String = inp.dropWhile(_.isWhitespace).dropWhile(!_.isLetter).dropRightWhile(_.isWhitespace).dropRightWhile(_ == '/')
-    val acc: ArrayBuffer[String] = Buffer[String]()
-    def loop(rem: String): Unit = onlyIfNot(rem.length == 0){
-      val newStr = rem.takeWhile(_ != '/')
-      acc.append(newStr)
-      val rem2 = rem.drop(newStr.length)
-      onlyIfNot(rem2.length == 0){ loop(rem2.dropWhile(!_.isLetter)) }
-    }
-    loop(res0)
-    acc.toArray
-  }
+  
 }
