@@ -25,7 +25,7 @@ class JsWritten(val arrayUnsafe: Array[String]) extends JsOrMapWritten
 
 object JsWritten
 { /** Factory apply method to construct [[JsWritten]] report. */
-  def apply(filePath: DirsFileAbs): JsWritten = new JsWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): JsWritten = new JsWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[JsWritten]] */
   given namedTypeEv: ShowType[JsWritten] = new ShowFileWritten[JsWritten]
@@ -41,6 +41,6 @@ class JsMapWritten(val arrayUnsafe: Array[String]) extends JsOrMapWritten
 }
 
 object JsMapWritten
-{
-  def apply(filePath: DirsFileAbs): JsMapWritten = new JsMapWritten(filePath.arrayUnsafe)
+{ /** Factory apply method to construct [[JsMapWritten]] report. */
+  def apply(filePath: FilePathAbs): JsMapWritten = new JsMapWritten(filePath.arrayUnsafe)
 }

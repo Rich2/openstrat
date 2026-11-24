@@ -5,7 +5,7 @@ import utiljvm.*, pDoc.*, pweb.*
 /** This base trait stages the HTML and CSS files for the Openstrat website, but not the JavaScript files. */
 trait StagingBuild
 { /** This method stages the HTML and CSS files for the Openstrat, but not the JavaScript files. */
-  def stageBase(path: DirsAbs): Unit =
+  def stageBase(path: DirPathAbs): Unit =
   { deb(path.writeHtml(IndexPage).reportStr)
     val cssFiles = path.writesCss(CssMain, OnlyCss)
     deb(cssFiles.reportStr)
@@ -28,15 +28,15 @@ trait StagingBuild
     deb(egridHtmlFiles.reportStr)
   }
 
-  def stageDocDir(path: DirsAbs): Either[IOExc, FileWrittenResults[IOExc, HtmlWritten]] =
-  { val docPath: DirsAbs = path / "Documentation"
+  def stageDocDir(path: DirPathAbs): Either[IOExc, FileWrittenResults[IOExc, HtmlWritten]] =
+  { val docPath: DirPathAbs = path / "Documentation"
     docPath.mkExist.mapResults { res =>
       RArr(AppsPage, UtilPage, GeomPage, LessonsPage, TilingPage, EarthPage, EGridPage, DevPage, NewDevsPage, TomcatPage,
         PostgresPage, ScalaOSPage, Victoria2Page).map(file => docPath.writeHtml(file))
     }
   }
 
-  def stageDocumentationJs(projPath: DirsAbs, docPath: DirsAbs) = docPath.mkExist.map{ res =>
+  def stageDocumentationJs(projPath: DirPathAbs, docPath: DirPathAbs) = docPath.mkExist.map{ res =>
     FileWrittenResults.combine("",
       jsWithMapFileRenameCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest", docPath, "tomcat"),
       jsWithMapFileRenameCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest", docPath, "newdevs"),

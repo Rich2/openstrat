@@ -3,7 +3,7 @@ package ostrat; package pDoc
 import pweb.*, WebExts.*
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for EGrid JVM module. */
-object EGridPommer extends OsModuleJvmVerless(DirsRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
+object EGridPommer extends OsModuleJvmVerless(DirPathRel("EGrid"), "egrid", RArr(TilingPommer, GeomPommer, UtilPommer), RArr())
 
 /** Documentation page for EGrid Module." */
 object EGridPage extends OpenstratDocPage

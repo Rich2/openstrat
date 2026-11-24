@@ -56,7 +56,7 @@ trait OsModulePomVerless
   def artifactStr: String
 
   /** The Mill builder output subdirectory for the module. */
-  def moduleDir: DirsRel
+  def moduleDir: DirPathRel
 
   def otherDeps: RArr[PomDep]
 
@@ -64,7 +64,7 @@ trait OsModulePomVerless
 }
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
-class OsModuleJvmVerless(val moduleDir: DirsRel, val artifactStr: String, val osPomDeps: RArr[OsModuleJvmVerless], val otherDeps: RArr[PomDep]) extends
+class OsModuleJvmVerless(val moduleDir: DirPathRel, val artifactStr: String, val osPomDeps: RArr[OsModuleJvmVerless], val otherDeps: RArr[PomDep]) extends
   OsModulePomVerless
 {
   def version(version: VersionPatchElem, scalaVersion: VersionPatchElem): OsModulePom =
@@ -73,15 +73,15 @@ class OsModuleJvmVerless(val moduleDir: DirsRel, val artifactStr: String, val os
 
 object OsModuleJvmVerless
 { /** Factory apply method for an Openstrat JVM module lacking the project version and the Scala version. */
-  def apply(moduleDir: DirsRel, artifactStr: String, osPomDeps: RArr[OsModuleJvmVerless], otherDeps: RArr[PomDep]): OsModuleJvmVerless =
+  def apply(moduleDir: DirPathRel, artifactStr: String, osPomDeps: RArr[OsModuleJvmVerless], otherDeps: RArr[PomDep]): OsModuleJvmVerless =
     new OsModuleJvmVerless(moduleDir, artifactStr, osPomDeps, otherDeps)
 }
 
 /** Versionless. Creates POM files and copies Mill, JAR, artifacts for Util JVM module. */
-object UtilPommer extends OsModuleJvmVerless(DirsRel("Util"), "rutil", RArr(), RArr())
+object UtilPommer extends OsModuleJvmVerless(DirPathRel("Util"), "rutil", RArr(), RArr())
 
 /** Class for POMs for openstrat projects, lacking the project version and the Scala version. */
-class OsModuleJsVerless(val moduleDir: DirsRel, val artifactStr: String, val osPomDeps: RArr[OsModuleJsVerless], val otherDeps: RArr[PomDep]) extends
+class OsModuleJsVerless(val moduleDir: DirPathRel, val artifactStr: String, val osPomDeps: RArr[OsModuleJsVerless], val otherDeps: RArr[PomDep]) extends
   OsModulePomVerless
 {
   def version(version: VersionPatchElem, scalaVersion: VersionPatchElem): OsModuleJs =
@@ -90,9 +90,9 @@ class OsModuleJsVerless(val moduleDir: DirsRel, val artifactStr: String, val osP
 
 object OsModuleJsVerless
 { /** Factory apply method for an Openstrat Scala.js module lacking the project version and the Scala version. */
-  def apply(moduleDir: DirsRel, artifactStr: String, osPomDeps: RArr[OsModuleJsVerless], otherDeps: RArr[PomDep]): OsModuleJsVerless =
+  def apply(moduleDir: DirPathRel, artifactStr: String, osPomDeps: RArr[OsModuleJsVerless], otherDeps: RArr[PomDep]): OsModuleJsVerless =
     new OsModuleJsVerless(moduleDir, artifactStr, osPomDeps, otherDeps)
 }
 
 /** Versionless Creates POM files and copies Mill, JAR artifacts for UtilJs project. */
-object UtilJsPommer extends OsModuleJsVerless(DirsRel("UtilJs"), "rutiljs", RArr(), RArr())
+object UtilJsPommer extends OsModuleJsVerless(DirPathRel("UtilJs"), "rutiljs", RArr(), RArr())

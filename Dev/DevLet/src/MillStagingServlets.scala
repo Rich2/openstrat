@@ -10,7 +10,7 @@ object MillStageServlets
   { stagingPathDo { stagingPath =>
       stagingPath.doIfDirExists { _ =>
         deb("Staging Folder exists.")        
-        val classesStage: DirsAbs = stagingPath / "ServletClasses"
+        val classesStage: DirPathAbs = stagingPath / "ServletClasses"
         classesStage.mkExist
         projPathDo{ projPath =>
           val res1: ErrBiAcc[Exception, FileWritten] = MillJars.action(projPath, stagingPath)

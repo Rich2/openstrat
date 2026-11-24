@@ -7,7 +7,7 @@ trait OpenstratDocPage extends HtmlPageFile
   def titleStr: String
 
   /** The default location for this HTML page relative to the web site root. */
-  def dirsRel: DirsRel = DirsRel("Documentation")
+  def dirsRel: DirPathRel = DirPathRel("Documentation")
 
   override def head: HeadHtml = headFavCss("../main")  
 }

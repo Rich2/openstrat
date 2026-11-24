@@ -18,46 +18,46 @@ def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devS
 def findDevSettingIdStr(settingStr: String): ExcEither[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
 /** Find the project path. */
-def projPathFind: ExcEither[ScalaProjPath] = findDevSetting[DirsAbs]("projPath").map(_.projPath)
+def projPathFind: ExcEither[ScalaProjPath] = findDevSetting[DirPathAbs]("projPath").map(_.projPath)
 
 /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
 def projPathDo(f: ScalaProjPath => Unit): Unit = projPathFind.fold { err => deb(err.toString) } { path => f(path) }
 
 /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
-def stagingPathDo(f: DirsAbs => Unit): Unit = findDevSetting[DirsAbs]("stagingPath").fold { err => deb(err.toString) } { path => f(path) }
+def stagingPathDo(f: DirPathAbs => Unit): Unit = findDevSetting[DirPathAbs]("stagingPath").fold { err => deb(err.toString) } { path => f(path) }
 
 /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
-def openstratPath: ExcEither[DirsAbs] = findDevSetting[DirsAbs]("projPath")
+def openstratPath: ExcEither[DirPathAbs] = findDevSetting[DirPathAbs]("projPath")
 
 /** Possible path to the staging directory for Openstrat artefacts, if it can be found in Dev/User/DevSettings.rson file. */
-def stagingPathFind: ExcEither[DirsAbs] = findDevSetting[DirsAbs]("stagingPath")
+def stagingPathFind: ExcEither[DirPathAbs] = findDevSetting[DirPathAbs]("stagingPath")
 
 /** Copies file from the full path-name of the first parameter to the full path-name of the second parameter. */
-def copyFile(fromPath: DirsFileAbs, toPath: DirsFilePath): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr)
+def copyFile(fromPath: FilePathAbs, toPath: FilePathBase): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr)
 
 /** Copies file from the full path-name of the first parameter to the dir of the second parameter. */
-def copyFileTo(fromPath: DirsFileAbs, toPath: DirsPath): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
+def copyFileTo(fromPath: FilePathAbs, toPath: DirPath): IOExcEither[FileWritten] = utiljvm.copyFilebyStrs(fromPath.asStr, toPath.asStr / fromPath.fileNameStr)
 
 /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-def jsFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JsWritten] =
+def jsFileCopy(fromStem: FileStemPathAbs, toStem: FileStemPathAbs): IOExcEither[JsWritten] =
 { val toFilePath = toStem ++ ".js"
   copyFile(fromStem ++ ".js", toFilePath).map(_ => new JsWritten(toFilePath.arrayUnsafe))
 }
 
 /** File copy that adds the ".js.map" [[String]] to the file source and file destinations. */
-def jsMapFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JsWritten] =
-{ val toFilePath: DirsFileAbs = toStem ++ ".js.map"
+def jsMapFileCopy(fromStem: FileStemPathAbs, toStem: FileStemPathAbs): IOExcEither[JsWritten] =
+{ val toFilePath: FilePathAbs = toStem ++ ".js.map"
   copyFile(fromStem ++ ".js.map", toFilePath).map(_ => new JsWritten(toFilePath.arrayUnsafe))
 }
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileCopy(fromStemPath: DirsAbsStem, toStemPath: DirsAbsStem): FileWrittenResults[IOExc, JsOrMapWritten] =
-{ val toFilePath: DirsFileAbs = toStemPath ++ ".js"
+def jsWithMapFileCopy(fromStemPath: FileStemPathAbs, toStemPath: FileStemPathAbs): FileWrittenResults[IOExc, JsOrMapWritten] =
+{ val toFilePath: FilePathAbs = toStemPath ++ ".js"
   val res1: IOExcEither[JsWritten] = utiljvm.copyFilebyStrs(fromStemPath.asStr + ".js", toFilePath.asStr).map(_ => new JsWritten(toFilePath.arrayUnsafe))
   res1 match
   {  case Right(jsfw) =>
     { val e2 = {
-      val toPath: DirsFileAbs = toStemPath ++ "js.map"
+      val toPath: FilePathAbs = toStemPath ++ "js.map"
       utiljvm.copyFilebyStrs(fromStemPath.asStr + ".js.map", toPath.asStr).map(_ => new JsMapWritten(toPath.arrayUnsafe))
     }
       jsfw.withMap(e2)
@@ -67,22 +67,22 @@ def jsWithMapFileCopy(fromStemPath: DirsAbsStem, toStemPath: DirsAbsStem): FileW
 }
 
 /** File copy that adds the ".js" and ".js.map" [[String]]s to the file sources and file destinations. */
-def jsWithMapFileRenameCopy(fromPath: DirsAbs, htmlDirPath: DirsAbs, fileNameStem: String): FileWrittenResults[IOException, JsOrMapWritten] =
+def jsWithMapFileRenameCopy(fromPath: DirPathAbs, htmlDirPath: DirPathAbs, fileNameStem: String): FileWrittenResults[IOException, JsOrMapWritten] =
 { val jsFile1: String = io.Source.fromFile(fromPath.asStr / "main.js").mkString
   val jsFile2 = jsFile1.replace("sourceMappingURL=main.js.map", "sourceMappingURL=" + fileNameStem + "js.map")    
   val jsMapFile1: String = io.Source.fromFile(fromPath.asStr / "main.js.map").mkString
   val jsMapFile2: String = jsMapFile1.replace("""file\":\"main.js""", """file\":\"""" + fileNameStem + "js")    
-  val destDir: DirsAbs = htmlDirPath / fileNameStem
+  val destDir: DirPathAbs = htmlDirPath / fileNameStem
   destDir.mkExist
-  val destPath: DirsFileAbs = destDir :/ (fileNameStem + ".js")
-  val res1: ExcEither[JsWritten] = utiljvm.pathStrWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(_ => new JsWritten(destPath.arrayUnsafe))
+  val destPath: FilePathAbs = destDir :/ (fileNameStem + ".js")
+  val res1: IOExcEither[JsWritten] = utiljvm.pathStrWriteStr(destDir.asStr / fileNameStem + ".js", jsFile2).map(_ => new JsWritten(destPath.arrayUnsafe))
   res1 match {
     case Right(jsfw) =>
     { val destFilePath = destDir :/ (fileNameStem + ".js.map")
       val res2 = utiljvm.pathStrWriteStr(destFilePath.asStr, jsMapFile2).map(_ => new JsMapWritten(destFilePath.arrayUnsafe))
       jsfw.withMap(res2)      
     }
-    case Left(_) => ???
+    case Left(err) => FileWrittenResults.errs(fromPath.asStr, err)
   }
 }
 
@@ -103,16 +103,7 @@ def mkDirExist(path: String): IOExcEither[DirExists] =
 }
 
 /** File copy that adds the ".js" [[String]] to the file source and file destination. */
-def jarFileCopy(fromStem: DirsAbsStem, toStem: DirsAbsStem): IOExcEither[JarWritten] =
-{ val filePath: DirsFileAbs = toStem ++ ".jar"
+def jarFileCopy(fromStem: FileStemPathAbs, toStem: FileStemPathAbs): IOExcEither[JarWritten] =
+{ val filePath: FilePathAbs = toStem ++ ".jar"
   copyFile(fromStem ++ ".jar", filePath).map(_ => new JarWritten(filePath.arrayUnsafe))
 }
-
-/** Copies a jar file */
-//def jarFileCopy(fromStr: String, toStr: String): ExcEither[JarWritten] =
-//  utiljvm.copyFilebyStrs(fromStr + ".jar", toStr + ".jar").map(fw => JarWritten(fw.detailStr))
-
-/** Write the content [[String]] to the given path. Method adds ".pom" extension. */
-/*def writePom(pathName: String, content: String): Either[IOExc, PomFileWritten] =
-{ utiljvm.pathStrWriteStr(pathName + ".pom", content).map(fw => PomFileWritten(fw.detailStr))
-}*/

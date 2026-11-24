@@ -1,6 +1,6 @@
 /* Copyright 2018-26 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pweb
-import utest.*, DirsPath.{ strToPathArray => sts}
+import utest.*, DirPath.{ strToPathArray => sts}
 
 object DirPathTest extends TestSuite
 {
@@ -16,17 +16,17 @@ object DirPathTest extends TestSuite
       aa1(2) ==> "dir3"
     }
 
-    val pa1: DirsAbs = DirsAbs("/Documentation")
+    val pa1: DirPathAbs = DirPathAbs("/Documentation")
     test("Absololute")
     { (pa1 / "hello.html").asStr ==> "/Documentation/hello.html"
     }
 
-    val pr1: DirsRel = DirsRel("Documentation")
-    val pr2 = DirsRel("dir1/dir2/dir3")
-    val pr3 = DirsRel("fld1", "fld2")
-    val pr4 = DirsRel("dir1/dir2/cat")
-    val pr5 = DirsRelFile("index.html")
-    val pr6 = DirsRelFile("dir1/index.html")
+    val pr1: DirPathRel = DirPathRel("Documentation")
+    val pr2 = DirPathRel("dir1/dir2/dir3")
+    val pr3 = DirPathRel("fld1", "fld2")
+    val pr4 = DirPathRel("dir1/dir2/cat")
+    val pr5 = FilePathRel("index.html")
+    val pr6 = FilePathRel("dir1/index.html")
     test("Relative")
     { (pr1 / "hello.html").asStr ==> "Documentation/hello.html"
       pr2.arrayUnsafe.length ==> 3

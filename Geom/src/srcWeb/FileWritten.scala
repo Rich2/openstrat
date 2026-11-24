@@ -9,7 +9,7 @@ trait FileWritten extends DoneIO
   def fileTypeStr: String
 
   def classStr: String
-  def filePath: DirsFileAbs = new DirsFileAbs(arrayUnsafe)
+  def filePath: FilePathAbs = new FilePathAbs(arrayUnsafe)
 
   final def filePathStr: String = filePath.asStr
   final def fileNameStr: String = arrayUnsafe.last
@@ -22,7 +22,7 @@ trait FileWritten extends DoneIO
 object FileWritten
 {
   /** Factory apply method to construct [[FileWritten]] report. */
-  def apply(dirPath: DirsAbs): FileWritten = FileWrittenGen(dirPath.arrayUnsafe)
+  def apply(dirPath: DirPathAbs): FileWritten = FileWrittenGen(dirPath.arrayUnsafe)
   
   /** Factory apply method to construct [[FileWritten]] report. */
   def pathStr(dirStr: String): FileWritten = new FileWrittenGen(dirStr.pathArray)
@@ -44,7 +44,9 @@ object FileWritten
 
 /** Trait for grouping the results of file writing attempts. */
 trait FileWrittenResults[+E <: IOException, +A <: FileWritten] extends Results[E, A]
-{ def dirStr: String
+{ //def dirArray: Array[String]
+  //def dirPath: DirsAbs = new DirsAbs(dirArray)
+  def dirStr: String
   override def subs: RArr[FileWrittenResults[E, A]] @uncheckedVariance
   def dirStr2: String = ife(dirStr == "", "", s" to $dirStr")
   override def reportStr: String = s"$numSuccs files successfully written$dirStr2, $numFails IOExceptions"
@@ -53,6 +55,9 @@ trait FileWrittenResults[+E <: IOException, +A <: FileWritten] extends Results[E
 object FileWrittenResults
 { 
   //def apply[+E <: IOException, +A <: FileWritten](dirStr: String)
+
+  def errs[E <: IOException, A <: FileWritten](dirStr: String, errs: E*)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
+    new FileWrittenResultsGen[E, A](errs.toArray, Array(), Array(), dirStr)
   
   def errArray[E <: IOException, A <: FileWritten](failsArray: Array[E], dirStr: String)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
     new FileWrittenResultsGen[E, A](failsArray, Array(), Array(), dirStr)
@@ -125,7 +130,7 @@ class TextFileWritten(val arrayUnsafe: Array[String]) extends FileWritten
 
 object TextFileWritten
 { /** Factory apply method to construct [[TextFileWritten]] report. */
-  def apply(filePath: DirsFileAbs): TextFileWritten = new TextFileWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): TextFileWritten = new TextFileWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[TextFileWritten]] */
   given namedTypeEv: ShowType[TextFileWritten] = new ShowFileWritten[TextFileWritten]
@@ -142,7 +147,7 @@ class RsonFileWritten(val arrayUnsafe: Array[String]) extends FileWritten
 
 object RsonFileWritten
 { /** Factory apply method to construct [[RsonFileWritten]] report. */
-  def apply(filePath: DirsFileAbs): RsonFileWritten = new RsonFileWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): RsonFileWritten = new RsonFileWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[RsonFileWritten]] */
   given namedTypeEv: ShowType[RsonFileWritten] = new ShowFileWritten[RsonFileWritten]

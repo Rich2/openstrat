@@ -9,11 +9,11 @@ trait ServletUtil
   {
     args.length match
     { case 0 => deb("No args")      
-      case _ => dirs(DirsAbs(args(0)))
+      case _ => dirs(DirPathAbs(args(0)))
     }
   }
 
-  def dirs(dirPath: DirsAbs): Unit =
+  def dirs(dirPath: DirPathAbs): Unit =
   {
     dirPath.doIfDirExists{path =>
       val topPath = dirPath / name

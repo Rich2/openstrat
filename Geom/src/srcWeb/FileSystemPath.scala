@@ -14,28 +14,5 @@ trait FileSystemPath
   def asStr: String
 }
 
-/** Common trait for directory paths. */
-trait DirsPath extends FileSystemPath
-{ /** A notification [[String]] to inform that the path doesn't exist. */
-  def noExistStr: String = asStr -- "Doesn't exist"
-
-  /** A notification [[String]] to inform that the path is not a directory. */
-  def notDirStr: String = asStr -- "is not a directory"
-  
-  /** Appends a file name [[FileName]] to produce a file path. */
-  @targetName("appendFile") def :/(operand: FileName): DirsFilePath
-  
-  /** Appends a file name [[String]] to produce a file path. */
-  @targetName("appendFile") def :/(operand: String): DirsFilePath
-
-  /** Appends a file stem to this directory path. */
-  @targetName("appendStem") def :-/(operand: FileNameStem): DirsFileStem
-
-  /** Appends a file stem to this directory path. */
-  @targetName("appendStem") def :-/(operand: String): DirsFileStem
-}
-
-object DirsPath
-{
-  
-}
+/** Common trait for absolute file system paths or part of a file system path. */
+trait FileSystemPathAbs extends FileSystemPath

@@ -2,8 +2,8 @@
 package ostrat; package utiljvm
 import java.io.File, pweb.*
 
-/** Extension methods for [[DirsAbs]], that require JVM, Java Virtual Machine. */
-implicit class DirAbsJvmExts (thisPath: DirsAbs)
+/** Extension methods for [[DirPathAbs]], that require JVM, Java Virtual Machine. */
+implicit class DirAbsJvmExts (thisPath: DirPathAbs)
 { /** Writes the contents [[String]] to the HTML File to this absolute directory path. Returns a success message if no error. */
   def writeFile(fileName: String, contents: String): Either[IOExc, FileWritten] = pathStrWriteStr((thisPath /+ fileName).asStr, contents)
   
@@ -16,38 +16,38 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   /** Writes the RSON File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
   def writeRson(fileName: String, page: String): Either[IOExc, RsonFileWritten] =
-  { val filePath: DirsFileAbs = thisPath :/ fileName
+  { val filePath: FilePathAbs = thisPath :/ fileName
     pathStrWriteStr(filePath.asStr, page).map(_ => new RsonFileWritten(filePath.arrayUnsafe))
   }
 
   /** Writes the HTML File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
   def writeHtml(fileName: String, page: HtmlPage): Either[IOExc, HtmlWritten] =
-  { val filePath: DirsFileAbs = thisPath :/ fileName
+  { val filePath: FilePathAbs = thisPath :/ fileName
     pathStrWriteStr(filePath.asStr, page.out).map(_ => new HtmlWritten(filePath.arrayUnsafe))
   }
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def writeHtml(page: HtmlPageFile): Either[IOExc, HtmlWritten] =
-  { val filePath: DirsFileAbs = thisPath :/ page.fileName
+  { val filePath: FilePathAbs = thisPath :/ page.fileName
     pathStrWriteStr(filePath.asStr, page.out).map(_ => new HtmlWritten(filePath.arrayUnsafe))
   }
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def subWriteHtml(subDirStr: String, page: HtmlPageFile): Either[IOExc, HtmlWritten] =
-  { val filePath: DirsFileAbs = thisPath / subDirStr :/ page.fileName
+  { val filePath: FilePathAbs = thisPath / subDirStr :/ page.fileName
     pathStrWriteStr(thisPath.asStr / subDirStr / page.fileNameStr, page.out).map(_ => new HtmlWritten(filePath.arrayUnsafe))
   }
 
   /** Writes the [[HtmlPage]] to the subdirectory of this path. Returns a successful message on success. */
   def subWriteHtml(subDirStr: String, fileNameStr: String, page: HtmlPage): Either[IOExc, HtmlWritten] =
-  { val filePath: DirsFileAbs = thisPath / subDirStr :/ fileNameStr
+  { val filePath: FilePathAbs = thisPath / subDirStr :/ fileNameStr
     pathStrWriteStr(filePath.asStr, page.out).map(_ => new HtmlWritten(filePath.arrayUnsafe))
   }
 
   /** Writes the HTML File to this full path and filename given by the [[HtmlPageFile]]. Returns a successful message on success. */
   def subWriteHtml(subDir: String, fileName: String, content: String): Either[IOExc, HtmlWritten] =
-  { val filePath: DirsFileAbs = thisPath / subDir :/ fileName
+  { val filePath: FilePathAbs = thisPath / subDir :/ fileName
     pathStrWriteStr(filePath.asStr, content).map(fw => new HtmlWritten(thisPath.arrayUnsafe))
   }
 
@@ -60,7 +60,7 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
 
   /** Writes the CSS file to the path and filename given in the CSS file. Returns a successful message on success. */
   def writeCss(cssFile: CssRulesFile): Either[IOExc, CssWritten] =
-  { val filePath: DirsFileAbs = thisPath :/ cssFile.fileName
+  { val filePath: FilePathAbs = thisPath :/ cssFile.fileName
     pathStrWriteStr(filePath.asStr, cssFile.out).map(_ => new CssWritten(filePath.arrayUnsafe))
   }
 
@@ -71,14 +71,15 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
 
   /** Writes the POM file given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on success. */
   def writePom(fileName: String, pomModule: PomModule): Either[IOExc, PomFileWritten] =
-  { val filePath: DirsFileAbs = thisPath :/ fileName
+  { val filePath: FilePathAbs = thisPath :/ fileName
     pathStrWriteStr(filePath.asStr, pomModule.out).map(_ => new PomFileWritten(filePath.arrayUnsafe))
   }
 
+  /** Converts this into a [[java.io.File]]. */
   def toJava: File = File(thisPath.asStr)
 
   /** Perform the side effecting procedure if the location exists and is a directory as opposed to a file. */
-  def doIfDirExists(f: DirsAbs => Unit) =
+  def doIfDirExists(f: DirPathAbs => Unit) =
   {
     val jd = thisPath.toJava
     if (jd.exists)
@@ -91,5 +92,5 @@ implicit class DirAbsJvmExts (thisPath: DirsAbs)
   def mkExist: IOExcEither[DirExists] = mkDirExist(thisPath.asStr)
 
   /** Try to make subdirectory exist. */
-  def mkSubExist(tailStr: String): IOExcEither[DirsAbs] = mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
+  def mkSubExist(tailStr: String): IOExcEither[DirPathAbs] = mkDirExist(thisPath.asStr / tailStr).map(_ => thisPath / tailStr)
 }

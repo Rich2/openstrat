@@ -3,16 +3,16 @@ package ostrat; package pDoc
 import geom.*, pweb.*, WebExts.*, wcode.*, Colour.*
 
 /** Creates unversioned POM files and copies Mill, JAR, artifacts for the Geom JVM module. */
-object GeomPommer extends OsModuleJvmVerless(DirsRel("Geom"), "geom", RArr(UtilPommer), RArr())
+object GeomPommer extends OsModuleJvmVerless(DirPathRel("Geom"), "geom", RArr(UtilPommer), RArr())
 
 /** Creates unversioned POM files and copies Mill, JAR artifacts for the GeomJs module. */
-object GeomJsPommer extends OsModuleJsVerless(DirsRel("GeomJs"), "geomjs", RArr(UtilJsPommer), RArr(ScalaDomDep()))
+object GeomJsPommer extends OsModuleJsVerless(DirPathRel("GeomJs"), "geomjs", RArr(UtilJsPommer), RArr(ScalaDomDep()))
 
 /** Creates unversioned POM files and copies Mill, JAR, artifacts for the GeomFx Java Fx module. */
-object GeomFxPommer extends OsModuleJvmVerless(DirsRel("GeomFx"), "geomfx", RArr(GeomPommer), RArr(JavaFxControlsDep()))
+object GeomFxPommer extends OsModuleJvmVerless(DirPathRel("GeomFx"), "geomfx", RArr(GeomPommer), RArr(JavaFxControlsDep()))
 
 /** Creates unversioned POM files and copies Mill, JAR, artifacts for the GeomLet Servlet module. */
-object GeomLetPommer extends OsModuleJvmVerless(DirsRel("GeomLet"), "geomlet", RArr(GeomPommer), RArr(ServletDep()))
+object GeomLetPommer extends OsModuleJvmVerless(DirPathRel("GeomLet"), "geomlet", RArr(GeomPommer), RArr(ServletDep()))
 
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends OpenstratDocPage

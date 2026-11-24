@@ -8,13 +8,13 @@ object MillDocsStage extends StagingBuild
   { deb("Starting MillTomDocstage")
 
     val stagePathBi: ExcEither[DirExists] = stagingPathFind.flatMap(_.mkExist)
-    val ossDirBi: ExcEither[DirsAbs] = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
+    val ossDirBi: ExcEither[DirPathAbs] = stagePathBi.flatMap(_.mkSubExist("OpenstratSite"))
     ossDirBi.foreach{ path =>
       val cssFiles = path.writesCss(CssMain, OnlyCss)
       deb(cssFiles.reportStr)    
     }
     ossDirBi.foreach{dir => stageDocDir(dir) }
-    val docBi: ExcEither[DirsAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
+    val docBi: ExcEither[DirPathAbs] = ossDirBi.flatMap(_.mkSubExist("Documentation"))
     val res = Either.flatMap2(projPathFind, docBi) { (projPath, docDir) => stageDocumentationJs(projPath, docDir) }
     deb(res.reportStr)
   }

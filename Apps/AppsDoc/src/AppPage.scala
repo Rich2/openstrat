@@ -3,12 +3,12 @@ package ostrat; package pDoc
 import pweb.*
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "") extends HtmlPageFile
+class AppPage(val jsMainStem: String, val dirRel: DirPathRel, htmlTitleIn: String = "", htmlFileStemIn: String = "") extends HtmlPageFile
 { override val titleStr: String = htmlTitleIn.emptyMap(jsMainStem)
   override val fileStemStr: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
 
   /** The directory location with the website as a [[String]]. */
-  def htmlPathName: DirsRelFile = dirRel /> fileNameStr
+  def htmlPathName: FilePathRel = dirRel /> fileNameStr
 
   /** JavaScript file name including the ".js" extension. */
   def jsFileName: String = fileStemStr + ".js"
@@ -20,8 +20,8 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
 
   def topMenu: UlHtml =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
-    val pairs1: ArrPairStr[DirsRelFile] = pages.mapPair(_.fileStemStr){ linkPage => linkPage.htmlPathName }
-    val pairs2: ArrPairStr[DirsRelFile] = PairStrElem("Home", DirsRelFile("index.html")) %: pairs1
+    val pairs1: ArrPairStr[FilePathRel] = pages.mapPair(_.fileStemStr){ linkPage => linkPage.htmlPathName }
+    val pairs2: ArrPairStr[FilePathRel] = PairStrElem("Home", FilePathRel("index.html")) %: pairs1
     AppPage.topMenu(pairs2, dirRel)
   }
 
@@ -34,12 +34,12 @@ object AppPage
    * [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the lower
    * case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
    * parameter. */
-  def apply(jsMainStem: String, dirPath: DirsRel, htmlTitleIn: String = "", htmlFileNameStem: String = ""): AppPage =
+  def apply(jsMainStem: String, dirPath: DirPathRel, htmlTitleIn: String = "", htmlFileNameStem: String = ""): AppPage =
     new AppPage(jsMainStem, dirPath, htmlTitleIn, htmlFileNameStem)
 
-  val egameDir: DirsRel = DirsRel("earthgames")
-  val mapDir: DirsRel = DirsRel("egrids")
-  val otDir: DirsRel = DirsRel("otherapps")
+  val egameDir: DirPathRel = DirPathRel("earthgames")
+  val mapDir: DirPathRel = DirPathRel("egrids")
+  val otDir: DirPathRel = DirPathRel("otherapps")
 
   val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
   val ww2App: AppPage = AppPage("WW2App", egameDir)  
@@ -80,8 +80,8 @@ object AppPage
     def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp.drop(1))
   }
 
-  val defaultTopPairs: ArrPairStr[DirsRelFile] = allTops.mapPair(_.fileStemStr)(_.htmlPathName)
+  val defaultTopPairs: ArrPairStr[FilePathRel] = allTops.mapPair(_.fileStemStr)(_.htmlPathName)
 
-  def topMenu(pairs: ArrPairStr[DirsRelFile], origin: DirsRel = DirsRel()): UlHtml =
+  def topMenu(pairs: ArrPairStr[FilePathRel], origin: DirPathRel = DirPathRel()): UlHtml =
     UlHtml(RArr(IdAtt("topmenu")), pairs.pairMap { (s1, s2) => LiHtml.a((origin </> s2), s1) })
 }

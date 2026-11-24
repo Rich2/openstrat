@@ -10,7 +10,7 @@ class HtmlWritten(val arrayUnsafe: Array[String]) extends FileWritten
 
 object HtmlWritten
 { /** Factory apply method to construct [[HtmlWritten]] report. */
-  def apply(filePath: DirsFileAbs): HtmlWritten = new HtmlWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): HtmlWritten = new HtmlWritten(filePath.arrayUnsafe)
   
   /** Implicit evidence / instance of [[ShowType]] for [[HtmlWritten]] */
   given namedTypeEv: ShowType[HtmlWritten] = new ShowFileWritten[HtmlWritten]
@@ -27,7 +27,7 @@ class CssWritten(val arrayUnsafe: Array[String]) extends FileWritten
 
 object CssWritten
 { /** Factory apply method to construct [[CssWritten]] report. */
-  def apply(filePath: DirsFileAbs): CssWritten = new CssWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): CssWritten = new CssWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[CssWritten]] */
   given showTypeEv: ShowType[CssWritten] = new ShowFileWritten[CssWritten]
@@ -44,7 +44,7 @@ class JarWritten(val arrayUnsafe: Array[String]) extends FileWritten
 
 object JarWritten
 { /** Factory apply method to construct [[JarWritten]] report. */
-  def apply(filePath: DirsFileAbs): JarWritten = new JarWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): JarWritten = new JarWritten(filePath.arrayUnsafe)
 
   /** Implicit evidence / instance of [[ShowType]] for [[JarWritten]] */
   given showTypeEv: ShowType[JarWritten] = new ShowFileWritten[JarWritten]
@@ -61,7 +61,7 @@ class PomFileWritten(val arrayUnsafe: Array[String]) extends FileWritten
 
 object PomFileWritten
 { /** Factory apply method to construct [[PomFileWritten]] report. */
-  def apply(filePath: DirsFileAbs): PomFileWritten = new PomFileWritten(filePath.arrayUnsafe)
+  def apply(filePath: FilePathAbs): PomFileWritten = new PomFileWritten(filePath.arrayUnsafe)
 
   given namedTypeEv: ShowType[PomFileWritten] = new ShowFileWritten[PomFileWritten]
   { override val filePrefix: String = "POM"
