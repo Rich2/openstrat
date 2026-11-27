@@ -19,9 +19,9 @@ trait DevPageBase extends OpenstratDocPage, PageUpdaterOperatingSystem
          "OpenJDK 64-Bit Server VM (build 26.0.2+10-2-26.04.2-Ubuntu, mixed mode, sharing)",
          "Open the all users environment configuration file"
        )
-       case _: ArchDeriv => CodeOutputLines("""openjdk version "26.0.2" 2026-07-21""",
-         "OpenJDK Runtime Environment (build 26.0.2)",
-         "OpenJDK 64-Bit Server VM (build 26.0.2, mixed mode, sharing)\n"
+       case _: ArchDeriv => CodeOutputLines("""openjdk version "27.0.1.1" 2026-11-17""",
+         "OpenJDK Runtime Environment (build 27.0.1.1)",
+         "OpenJDK 64-Bit Server VM (build 27.0.1.1, mixed mode, sharing)\n"
        )
        case _ => "No code available."
     }) +%

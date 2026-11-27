@@ -58,6 +58,8 @@ class FileStemPathAbs(val arrayUnsafe: Array[String]) extends FileStemPath
   @targetName("complete") def ++(operand: String): FilePathAbs = new FilePathAbs(arrayLastAppendStr(operand))
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
+  
+  def dirPath: DirPathAbs = DirPathAbs.fromArray(arrayUnsafe.dropRight(1))
 }
 
 /** Relative directory path and file name stem. */

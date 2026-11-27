@@ -3,7 +3,7 @@ package ostrat
 import annotation.*, unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** This should replace [[ErrbiAcc]] */
-trait Results[+E, +A]
+trait Results[+E, +A <: EffectReport]
 { /** Backing [[Array]] for fails. */  
   def failsArray: Array[E] @uncheckedVariance
 
@@ -31,17 +31,17 @@ trait Results[+E, +A]
 
 object Results
 { /** Factory apply method to create a [[Results]] class of the most precise type. */
-  def apply[E, A, R <: Results[E, A]](input: Either[E, A]*)(using build: ResultsBuilder[E, A, R]): R = build.fromIterable(input)
+  def apply[E, A <: EffectReport, R <: Results[E, A]](input: Either[E, A]*)(using build: ResultsBuilder[E, A, R]): R = build.fromIterable(input)
 
   /** Implementation class for the General case of the [[Results]] class. */
-  case class ResultsGen[+E, +A](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
+  case class ResultsGen[+E, +A <: EffectReport](failsArray: Array[E] @uncheckedVariance, succsArray: Array[A] @uncheckedVariance,
     subsArr: Array[Results[E, A]] @uncheckedVariance) extends Results[E, A]
   { override def subs: RArr[Results[E, A]] = new RArr(subsArr)
   }
 }
 
 /** Type class builder for constructing [[Results]] classes. */
-abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTag[E], classTagA: ClassTag[A], classTagR: ClassTag[R])
+abstract class ResultsBuilder[E, A <: EffectReport, R <: Results[E, A]](using classTagE: ClassTag[E], classTagA: ClassTag[A], classTagR: ClassTag[R])
 { /** Constructs the given [[Results]] class from an [[Array]] of errors and an [[Array]] of successes. */
   def fromArrays(arrayE: Array[E], arrayA: Array[A], arrayR: Array[R]): R
 
@@ -66,7 +66,7 @@ abstract class ResultsBuilder[E, A, R <: Results[E, A]](using classTagE: ClassTa
 
 object ResultsBuilder
 {
-  given builderGen[E, A](using ctE: ClassTag[E], ctA: ClassTag[A]): ResultsBuilder[E, A, Results[E, A]] = new ResultsBuilder[E, A, Results[E, A]]
+  given builderGen[E, A <: EffectReport](using ctE: ClassTag[E], ctA: ClassTag[A]): ResultsBuilder[E, A, Results[E, A]] = new ResultsBuilder[E, A, Results[E, A]]
   { 
     override def fromArrays(arrayE: Array[E], arrayA: Array[A], arrayR: Array[Results[E, A]]): Results[E, A] =
       new Results.ResultsGen[E, A](arrayE, arrayA, arrayR)

@@ -18,5 +18,9 @@ trait ShowEffectReport[A <: EffectReport] extends ShowSimple[A]
   def actionStr(numSuccesses: Int): String
 }
 
+trait ReportSucc extends EffectReport
+
+trait ReportFail extends EffectReport
+
 /** Report of successful side effect. */
-trait DoneIO extends EffectReport
+//trait ReportIO extends EffectReport

@@ -22,7 +22,7 @@ object MillStageSite extends StagingBuild
         val source: DirPathAbs = projPath.outDir / "AppJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(source, egPath, ga.fileStemStr)
       }
-      FileWrittenResults.combine("", res1)
+      FileWrittenResults.combine(stagePath, res1)
     }
     deb(eGameJsFiles.reportStr)
 
@@ -36,7 +36,7 @@ object MillStageSite extends StagingBuild
         val fromDir: DirPathAbs = projPath / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(fromDir, otherPath, ga.fileStemStr)
       }
-      FileWrittenResults.combine("", res2)
+      FileWrittenResults.combine(res, res2)
     }
     deb(otherJsFiles.reportStr)
 
@@ -47,7 +47,7 @@ object MillStageSite extends StagingBuild
         val fromDir: DirPathAbs = projPath / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest"
         jsWithMapFileRenameCopy(fromDir, egridPath, ga.fileStemStr)
       }
-      FileWrittenResults.combine("", res2)
+      FileWrittenResults.combine(egridPath, res2)
     }
     deb(egridJsFiles.reportStr)
     //egridJsFiles.errsPrint

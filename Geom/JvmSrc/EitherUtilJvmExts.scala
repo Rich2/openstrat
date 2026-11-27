@@ -4,8 +4,10 @@ import java.io.File, pweb.*
 
 implicit class EitherUtilJvmExts[E, A](thisEither: Either[E, A])
 { /** A [[Right]] takes a function  to an [[Iterable]] of [[Either]]s. */
-  def mapIterResults[EE, B, R <: Results[EE, B]](f: A => Iterable[Either[EE, B]])(using build: ResultsBuilder[EE, B, R]): Either[E, R] = thisEither.map(a => build.fromIterable(f(a)))
+  def mapIterResults[EE, B <: EffectReport, R <: Results[EE, B]](f: A => Iterable[Either[EE, B]])(using build: ResultsBuilder[EE, B, R]): Either[E, R] =
+    thisEither.map(a => build.fromIterable(f(a)))
   
   /** A [[Right]] takes a function  to a [[Sequ]] of [[Either]]s. */
-  def mapResults[EE, B, R <: Results[EE, B]](f: A => Sequ[Either[EE, B]])(using build: ResultsBuilder[EE, B, R]): Either[E, R] = thisEither.map(a => build.fromSequ(f(a)))
+  def mapResults[EE, B <: EffectReport, R <: Results[EE, B]](f: A => Sequ[Either[EE, B]])(using build: ResultsBuilder[EE, B, R]): Either[E, R] =
+    thisEither.map(a => build.fromSequ(f(a)))
 }

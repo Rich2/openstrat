@@ -31,13 +31,13 @@ object DevPage extends DevPageBase
   |run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal
   |language to explore these questions.""".stripMargin)
   
-  def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.3.13, current 0.4.0snap",
+  def p4: PHtml = PHtml("Versions", UlHtml.strs("Latest published Openstrat version 0.4.1, current 0.4.2snap",
     s"Scala: $scalaVer",
     "Jdk: 17+, 25+ required for JavaFx modules.",
     "Scala.Js: 1.22.0",
     "Scala Native: 0.5.12",
     "JavaFx: 27",
-    "Sbt: 2.1.0",
+    "Sbt: 2.1.1",
     "Mill: 1.3.1 with Mill's JDK set to 25."))
 
   def sbtCommands1: UlSection = UlSection(RArr("Run", CodeInline("sbt"), "in bash from project's root folder. From within the sbt console run:"),

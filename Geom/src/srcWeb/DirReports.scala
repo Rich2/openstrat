@@ -2,7 +2,7 @@
 package ostrat; package pweb
 
 /** Directory now exists. It may have already existed or have just been created. */
-trait DirExists extends DoneIO, DirPathAbs
+trait DirExists extends EffectReport, DirPathAbs
 { override def reportStr: String = ??? // detailStr -- reportTypeStr
   //override def detailStr: String = asStr
 }

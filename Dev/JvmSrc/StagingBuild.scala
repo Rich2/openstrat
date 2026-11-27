@@ -37,7 +37,7 @@ trait StagingBuild
   }
 
   def stageDocumentationJs(projPath: DirPathAbs, docPath: DirPathAbs) = docPath.mkExist.map{ res =>
-    FileWrittenResults.combine("",
+    FileWrittenResults.combine(docPath,
       jsWithMapFileRenameCopy(projPath / "out/TomcatPageJs" / "fullLinkJS.dest", docPath, "tomcat"),
       jsWithMapFileRenameCopy(projPath / "out/NewDevsPageJs" / "fullLinkJS.dest", docPath, "newdevs"),
       jsWithMapFileRenameCopy(projPath / "out/PostgresPageJs" / "fullLinkJS.dest", docPath, "postgres"),

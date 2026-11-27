@@ -11,7 +11,7 @@ implicit class DirAbsJvmExts (thisPath: DirPathAbs)
   def subWriteFile(subDir: String, fileName: String, contents: String): Either[IOExc, FileWritten] = pathStrWriteStr((thisPath / subDir /+ fileName).asStr, contents)
 
   /** Writes the HTML File to the subdirectory. Returns a successful message on success. */
-  def subWriteFiles(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, FileWritten] = pathStrWriteStr(thisPath.asStr / subDir / fileName, page.out)
+  def subWriteFile(subDir: String, fileName: String, page: HtmlPage): Either[IOExc, FileWritten] = pathStrWriteStr(thisPath.asStr / subDir / fileName, page.out)
 
   /** Writes the RSON File given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on
    * success. */
@@ -66,7 +66,7 @@ implicit class DirAbsJvmExts (thisPath: DirPathAbs)
 
  def writesCss(files: CssRulesFile*): FileWrittenResults[IOExc, CssWritten] =
  { val res1: Seq[Either[IOExc, CssWritten]] = files.map(writeCss(_))
-   FileWrittenResults.fromSeq(thisPath.asStr, res1)
+   FileWrittenResults.fromSeq(thisPath, res1)
  }
 
   /** Writes the POM file given in the second parameter to this full path and filename given by the first parameter. Returns a successful message on success. */

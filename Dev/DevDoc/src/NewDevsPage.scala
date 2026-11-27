@@ -49,14 +49,14 @@ object NewDevsPage extends DevPageBase
   
   def intellij: Section = Section("IntelliJ IDEA".h2,
     "Download the latest version. Modify this line if there is a newer version of IntelliJ IDEA.",
-    BashLine("sudo tar -xzf idea-2026.2.4.tar.gz -C /opt"),
+    BashLine("sudo tar -xzf idea-2026.3.0.1.tar.gz -C /opt"),
     "I suggest adding a link and then using the link for your GUI links.",
     BashLine("cd /opt"),
-    BashLine("sudo ln -s", "idea-IU-262.10968.63".pinkSpan, "idea-IU"),
+    BashLine("sudo ln -s", "idea-IU-263.7307.200".pinkSpan, "idea-IU"),
     """Use the Link to access the programme from your desktop. Open IntelliJ. go into plugins and add the Scala plugin. Restart and then open the directory of
     |the project ypu want to work on. When there's a new version delete the old version, delete the link, install the new version and recreate a new
     |link.""".stripMargin,
-    BashLine("rm -r idea-IU-262.10968.63"),
+    BashLine("rm -r idea-IU-263.7307.200"),
     BashLine("rm idea-IU"),
     UlSection("For IntelliJ useful options:",
       LiHtml("Help => 'Change memory settings"),

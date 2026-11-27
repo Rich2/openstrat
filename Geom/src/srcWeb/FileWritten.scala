@@ -3,7 +3,7 @@ package ostrat; package pweb
 import java.io.IOException, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer 
 
 /** Report of successful file write. */
-trait FileWritten extends DoneIO
+trait FileWritten extends EffectReport
 { def arrayUnsafe: Array[String]
 
   def fileTypeStr: String
@@ -44,39 +44,46 @@ object FileWritten
 
 /** Trait for grouping the results of file writing attempts. */
 trait FileWrittenResults[+E <: IOException, +A <: FileWritten] extends Results[E, A]
-{ //def dirArray: Array[String]
-  //def dirPath: DirsAbs = new DirsAbs(dirArray)
-  def dirStr: String
+{ def optArray: Option[Array[String]]
+  def optPath: Option[DirPathAbs] = optArray.map(array => DirPathAbs.fromArray(array))
   override def subs: RArr[FileWrittenResults[E, A]] @uncheckedVariance
-  def dirStr2: String = ife(dirStr == "", "", s" to $dirStr")
-  override def reportStr: String = s"$numSuccs files successfully written$dirStr2, $numFails IOExceptions"
+  def destStr = optPath match
+  { case Some(path) => path.asStr
+    case None => "various locations"
+  }
+  override def reportStr: String = s"$numSuccs files, $numFails fails written to $destStr."
 }
 
 object FileWrittenResults
 { 
   //def apply[+E <: IOException, +A <: FileWritten](dirStr: String)
 
-  def errs[E <: IOException, A <: FileWritten](dirStr: String, errs: E*)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
-    new FileWrittenResultsGen[E, A](errs.toArray, Array(), Array(), dirStr)
+  def errs[E <: IOException, A <: FileWritten](dirPath: DirPathAbs, errs: E*)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
+    new FileWrittenResultsGen[E, A](errs.toArray, Array(), Array(), Some(dirPath.arrayUnsafe))
   
-  def errArray[E <: IOException, A <: FileWritten](failsArray: Array[E], dirStr: String)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
-    new FileWrittenResultsGen[E, A](failsArray, Array(), Array(), dirStr)
+  def errArray[E <: IOException, A <: FileWritten](failsArray: Array[E], dirPath: DirPathAbs)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
+    new FileWrittenResultsGen[E, A](failsArray, Array(), Array(), Some(dirPath.arrayUnsafe))
   
   /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
-  def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]], dirStr: String = ""):
-  FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, dirStr)
+  def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]], dirPath: DirPathAbs ):
+  FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, Some(dirPath.arrayUnsafe))
+
+  /** Constructs [[FileWrittenResults]] from 3 [[Array]]s. */
+  def fromArrays[E <: IOException, A <: FileWritten](failsArr: Array[E], succsArr: Array[A], subsArr: Array[FileWrittenResults[E, A]]):
+  FileWrittenResults[E, A] = FileWrittenResultsGen(failsArr, succsArr, subsArr, None)
   
-  def fromSeq[E <: IOException, A <: FileWritten](dirStr: String, input: Seq[Either[E, A]])(using ClassTag[E], ClassTag[A]): FileWrittenResults[E, A] =
+  def fromSeq[E <: IOException, A <: FileWritten](dirPath: DirPathAbs, input: Seq[Either[E, A]])(using ClassTag[E], ClassTag[A]): FileWrittenResults[E, A] =
   { val eBuff = new ArrayBuffer[E]()
     val aBuff = new ArrayBuffer[A]()
     input.foreach {
       case Left(err) => eBuff.append(err)
       case Right(rep) => aBuff.append(rep)      
     }
-    new FileWrittenResultsGen[E, A](eBuff.toArray, aBuff.toArray, Array(), dirStr)
+    new FileWrittenResultsGen[E, A](eBuff.toArray, aBuff.toArray, Array(), Some(dirPath.arrayUnsafe))
   }
 
-  def combine[E <: IOException, A <: FileWritten](dirStr: String, input: FileWrittenResults[E, A]*)(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] =
+  def combine[E <: IOException, A <: FileWritten](dirPath: DirPathAbs, input: FileWrittenResults[E, A]*)(using ctE: ClassTag[E], ctA: ClassTag[A]):
+    FileWrittenResults[E, A] =
   { val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
     val aBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
     val rBuff: ArrayBuffer[FileWrittenResults[E, A]] = new ArrayBuffer[FileWrittenResults[E, A]]()
@@ -85,10 +92,10 @@ object FileWrittenResults
       res.succs.foreach(aBuff.append(_))
       res.subs.foreach((sub: FileWrittenResults[E, A]) => rBuff.append(sub))
     }
-    FileWrittenResults.fromArrays(eBuff.toArray, aBuff.toArray, rBuff.toArray, dirStr)
+    FileWrittenResults.fromArrays(eBuff.toArray, aBuff.toArray, rBuff.toArray, dirPath)
   }
 
-  def combine[E <: IOException, A <: FileWritten](dirStr: String, input: RArr[FileWrittenResults[E, A]])(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] ={
+  def combine[E <: IOException, A <: FileWritten](dirPath: DirPathAbs, input: RArr[FileWrittenResults[E, A]])(using ctE: ClassTag[E], ctA: ClassTag[A]): FileWrittenResults[E, A] ={
     val eBuff: ArrayBuffer[E] = new ArrayBuffer[E]()
     val jBuff: ArrayBuffer[A] = new ArrayBuffer[A]()
     val rBuff: ArrayBuffer[FileWrittenResults[E, A]] = new ArrayBuffer[FileWrittenResults[E, A]]()
@@ -97,13 +104,13 @@ object FileWrittenResults
       res.succs.foreach(jBuff.append(_))
       res.subs.foreach((sub: FileWrittenResults[E, A]) => rBuff.append(sub))
     }
-    FileWrittenResults.fromArrays(eBuff.toArray, jBuff.toArray, rBuff.toArray, dirStr)
+    FileWrittenResults.fromArrays(eBuff.toArray, jBuff.toArray, rBuff.toArray, dirPath)
   }
 
 
   /** Implementation class for the general case of [[FileWrittenResults]]. */
   class FileWrittenResultsGen[+E <: IOException, +A <: FileWritten](val failsArray: Array[E] @uncheckedVariance, val succsArray: Array[A] @uncheckedVariance,
-    val subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], val dirStr: String) extends FileWrittenResults[E, A]
+    val subsArr: Array[FileWrittenResults[E, A] @uncheckedVariance], val optArray: Option[Array[String]]) extends FileWrittenResults[E, A]
   { override def subs: RArr[FileWrittenResults[E, A]] = new RArr(subsArr)
   }
 }

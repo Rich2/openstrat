@@ -62,7 +62,7 @@ def jsWithMapFileCopy(fromStemPath: FileStemPathAbs, toStemPath: FileStemPathAbs
     }
       jsfw.withMap(e2)
     }
-    case Left(err) => FileWrittenResults.errArray(Array(err), toStemPath.asStr)
+    case Left(err) => FileWrittenResults.errArray(Array(err), toStemPath.dirPath)
   }
 }
 
@@ -82,7 +82,7 @@ def jsWithMapFileRenameCopy(fromPath: DirPathAbs, htmlDirPath: DirPathAbs, fileN
       val res2 = utiljvm.pathStrWriteStr(destFilePath.asStr, jsMapFile2).map(_ => new JsMapWritten(destFilePath.arrayUnsafe))
       jsfw.withMap(res2)      
     }
-    case Left(err) => FileWrittenResults.errs(fromPath.asStr, err)
+    case Left(err) => FileWrittenResults.errs(fromPath, err)
   }
 }
 
